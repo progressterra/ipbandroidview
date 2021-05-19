@@ -1,0 +1,65 @@
+package com.progressterra.android.ipbandroidview.zoom_image_view
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import com.progressterra.ipbandroidview.R
+import com.squareup.picasso.Picasso
+
+const val PICTURE_ADDRESS_ARGUMENT = "picture_url"
+const val PICTURE_SCALE_TYPE = "picture_scale_type"
+
+class ZoomImageViewFragment private constructor() : Fragment() {
+
+    private lateinit var closeIv: ImageView
+    private lateinit var zoomImageView: ImageView
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_image_zoom_viewer, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView(view)
+        setupListeners()
+        val pictureUrl = arguments?.getString(PICTURE_ADDRESS_ARGUMENT)
+        val pictureScaleType =
+            arguments?.getSerializable(PICTURE_SCALE_TYPE) as ImageView.ScaleType?
+        pictureScaleType?.let {
+            zoomImageView.scaleType = it
+        }
+        Picasso.get().load(pictureUrl).into(zoomImageView)
+    }
+
+    private fun setupListeners() {
+        closeIv.setOnClickListener {
+            fragmentManager?.beginTransaction()?.remove(this)?.commit()
+        }
+    }
+
+    private fun initView(view: View) {
+        zoomImageView = view.findViewById(R.id.zoom_iv)
+        closeIv = view.findViewById(R.id.close_iv)
+    }
+
+    companion object {
+        fun newInstance(
+            pictureUrl: String,
+            scaleType: ImageView.ScaleType? = null
+        ): ZoomImageViewFragment {
+            val args = Bundle()
+            args.putString(PICTURE_ADDRESS_ARGUMENT, pictureUrl)
+            args.putSerializable(PICTURE_SCALE_TYPE, scaleType)
+            val fragment = ZoomImageViewFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+}
