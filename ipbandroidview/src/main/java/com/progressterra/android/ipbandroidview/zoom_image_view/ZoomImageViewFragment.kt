@@ -57,7 +57,7 @@ class ZoomImageViewFragment private constructor(private var onCloseClickListener
         fun newInstance(
             pictureUrl: String,
             scaleType: ImageView.ScaleType? = null,
-            onCloseClickListener: View.OnClickListener?
+            onCloseClickListener: View.OnClickListener? = null
         ): ZoomImageViewFragment {
             val args = Bundle()
             args.putString(PICTURE_ADDRESS_ARGUMENT, pictureUrl)
