@@ -10,7 +10,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 30
 
         versionCode commitsCount()
@@ -45,5 +45,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.0.8"
+    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.0.12"
+
+    //zoom image view
+    implementation 'com.github.MikeOrtiz:TouchImageView:3.1.0'
+
+    // image downloading
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 }
