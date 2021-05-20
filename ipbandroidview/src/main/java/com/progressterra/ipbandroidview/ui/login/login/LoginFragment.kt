@@ -1,15 +1,16 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
+import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.argument
 
 class LoginFragment : Fragment() {
@@ -18,7 +19,7 @@ class LoginFragment : Fragment() {
 
     private var selectedCountry by argument<String>()
 
-    private val vm: LoginViewModel by viewModels {
+    private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
             selectedCountry = selectedCountry
         )
@@ -38,9 +39,15 @@ class LoginFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.vm = vm
-        binding.lifecycleOwner = viewLifecycleOwner
-        vm.nextFragment.observe(viewLifecycleOwner, this::nextFragment)
+        viewModel.nextFragment.observe(viewLifecycleOwner, this::nextFragment)
+        viewModel.toastString.observe(viewLifecycleOwner, this::showToast)
+
+        binding.apply {
+            vm = this@LoginFragment.viewModel
+            lifecycleOwner = viewLifecycleOwner
+            loginPhone.afterTextChanged { viewModel::checkPhone }
+            loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
+        }
     }
 
     private fun nextFragment(fragment: Fragment) {
@@ -50,8 +57,16 @@ class LoginFragment : Fragment() {
         }
     }
 
+    private fun showToast(stringRes: Int) {
+        Toast.makeText(context, getString(stringRes, viewModel.phoneCode), Toast.LENGTH_SHORT)
+            .show()
+    }
+
     companion object {
 
+        /**
+         *  @param selectedCountry - Country enum name
+         */
         fun newInstance(
             selectedCountry: String? = null
         ): LoginFragment {
