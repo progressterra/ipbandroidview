@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.login.login.LoginViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.progressterra.ipbandroidview.ui.login.login.LoginFragment">
+
+        <ImageView
+            android:id="@+id/imageView_logo"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="7dp"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/textView_hint"
+            style="@style/Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="50dp"
+            android:gravity="center_horizontal"
+            android:text="@string/login_description"
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:id="@+id/textView_countyLabel"
+            style="@style/Footnote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="34dp"
+            android:text="@string/login_country"
+            android:textColor="@color/form_text_color" />
+
+        <FrameLayout
+            android:id="@+id/login_country_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/border_bottom_grey_ripple"
+            android:onClick="@{() -> vm.selectCountry()}">
+
+            <TextView
+                android:id="@+id/login_country"
+                style="@style/Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/border_arrow_right"
+                android:textColor="@color/grey_dark"
+                android:textSize="16sp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView_phoneLabel"
+            style="@style/Footnote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/login_phone"
+            android:textColor="@color/form_text_color" />
+
+        <EditText
+            android:id="@+id/login_phone"
+            style="@style/Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/background_edittext"
+            android:inputType="phone"
+            android:textColor="@color/grey_dark" />
+
+        <Button
+            android:id="@+id/login_next"
+            style="@style/Callout1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="42dp"
+            android:layout_marginBottom="38dp"
+            android:background="@drawable/button_theme"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:background="#9E9E9E" />
+
+        <ImageView
+            android:id="@+id/imageView_loginBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            tools:src="@tools:sample/backgrounds/scenic" />
+    </LinearLayout>
+</layout>

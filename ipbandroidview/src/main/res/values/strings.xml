@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Регистрация   -->
+    <string name="login_description">Введите код страны и подтвердите свой номер телефона</string>
+    <string name="login_country">Страна</string>
+    <string name="login_phone">Телефон</string>
+    <string name="login_empty_phone">Не указан номер телефона</string>
+    <string name="login_error_start_phone">Телефон должен начинаться с %s</string>
+    <string name="login_error_format_phone">Телефон может содержать только цифры</string>
+    <string name="login_agreement">Согласен на обработку персональных данных</string>
+    <string name="login_agreement_more">Нажимая кнопку “Далее“, вы соглашаетесь на</string>
+    <string name="login_agreement_more_link">обработку персональных данных</string>
+
+    <string name="next">Далее</string>
+    <string name="search">Поиск</string>
+</resources>
