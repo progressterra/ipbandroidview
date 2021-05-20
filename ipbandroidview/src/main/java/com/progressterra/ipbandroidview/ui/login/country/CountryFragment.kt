@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.login.country
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,7 +62,7 @@ internal class CountryFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
                 adapter = this@CountryFragment.adapter
             }
-            countryValue.afterTextChanged { vm::changedSearchValue }
+            countryValue.afterTextChanged(vm::changedSearchValue)
         }
     }
 
