@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 
-internal class LoginViewModelFactory(private val selectedCountry: Country) :
+internal class LoginViewModelFactory(private val selectedCountry: String) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")

@@ -62,6 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/border_arrow_right"
+                android:text="@{vm.countryText}"
                 android:textColor="@color/grey_dark"
                 android:textSize="16sp" />
         </FrameLayout>
