@@ -9,8 +9,6 @@ import androidx.fragment.app.Fragment
 import com.progressterra.ipbandroidview.R
 import com.squareup.picasso.Picasso
 
-const val PICTURE_ADDRESS_ARGUMENT = "picture_url"
-const val PICTURE_SCALE_TYPE = "picture_scale_type"
 
 class ZoomImageViewFragment : Fragment() {
     private var onCloseClickListener: View.OnClickListener? = null
@@ -61,6 +59,9 @@ class ZoomImageViewFragment : Fragment() {
      * @param scaleType - стандартный параметр, отвечающий за масшабирование изображения.
      */
     companion object {
+        const val PICTURE_ADDRESS_ARGUMENT = "picture_url"
+        const val PICTURE_SCALE_TYPE = "picture_scale_type"
+
         fun newInstance(
             pictureUrl: String,
             scaleType: ImageView.ScaleType? = null,
