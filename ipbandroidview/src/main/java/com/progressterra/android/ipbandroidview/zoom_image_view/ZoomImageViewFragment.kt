@@ -56,6 +56,10 @@ class ZoomImageViewFragment : Fragment() {
         onCloseClickListener = onClickListener
     }
 
+    /**
+     * @param pictureUrl - адрес, с которого грузится картинка для просмотра
+     * @param scaleType - стандартный параметр, отвечающий за масшабирование изображения.
+     */
     companion object {
         fun newInstance(
             pictureUrl: String,
