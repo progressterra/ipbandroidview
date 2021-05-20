@@ -12,9 +12,8 @@ import com.squareup.picasso.Picasso
 const val PICTURE_ADDRESS_ARGUMENT = "picture_url"
 const val PICTURE_SCALE_TYPE = "picture_scale_type"
 
-class ZoomImageViewFragment private constructor(private var onCloseClickListener: View.OnClickListener? = null) :
-    Fragment() {
-
+class ZoomImageViewFragment : Fragment() {
+    private var onCloseClickListener: View.OnClickListener? = null
     private lateinit var closeIv: ImageView
     private lateinit var zoomImageView: ImageView
 
@@ -53,18 +52,21 @@ class ZoomImageViewFragment private constructor(private var onCloseClickListener
         closeIv = view.findViewById(R.id.close_iv)
     }
 
+    fun setOnCloseClickListener(onClickListener: View.OnClickListener) {
+        onCloseClickListener = onClickListener
+    }
+
     companion object {
         fun newInstance(
             pictureUrl: String,
             scaleType: ImageView.ScaleType? = null,
-            onCloseClickListener: View.OnClickListener? = null
         ): ZoomImageViewFragment {
-            val args = Bundle()
-            args.putString(PICTURE_ADDRESS_ARGUMENT, pictureUrl)
-            args.putSerializable(PICTURE_SCALE_TYPE, scaleType)
-            val fragment = ZoomImageViewFragment(onCloseClickListener)
-            fragment.arguments = args
-            return fragment
+            return ZoomImageViewFragment().apply {
+                val args = Bundle()
+                args.putString(PICTURE_ADDRESS_ARGUMENT, pictureUrl)
+                args.putSerializable(PICTURE_SCALE_TYPE, scaleType)
+                this.arguments = args
+            }
         }
     }
 }
