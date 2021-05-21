@@ -31,7 +31,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="19dp"
-            android:textColor="#979797"
             android:textSize="@dimen/base_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/fire_iv"
@@ -59,14 +58,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="#3C1818" />
+             />
 
         <TextView
             android:id="@+id/bonus_expiration_number_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
-            android:textColor="#979797"
             android:textSize="@dimen/base_text_size"
             app:layout_constraintBottom_toBottomOf="@id/bonus_expiration_date_tv"
             app:layout_constraintEnd_toStartOf="@id/next_btn"
