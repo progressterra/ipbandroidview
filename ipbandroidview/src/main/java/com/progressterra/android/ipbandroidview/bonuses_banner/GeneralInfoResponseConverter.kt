@@ -1,14 +1,9 @@
-package asd.android.networkrepository
+package com.progressterra.android.ipbandroidview.bonuses_banner
 
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
-
-import com.progressterra.android.api.repository.models.bonuses_info.BonusesInfo
-import com.progressterra.android.api.repository.models.bonuses_info.Data
+import com.progressterra.ipbandroidapi.repository.models.bonuses_info.Data
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 
 object GeneralInfoResponseConverter {
@@ -30,13 +25,15 @@ object GeneralInfoResponseConverter {
         return ""
     }
 
-    fun convert(data: Data): BonusesInfo {
-        return BonusesInfo(
-            currentQuantity = data.currentQuantity.toInt(),
-            dateBurning = convertDate(data.dateBurning),
-            forBurningQuantity = data.forBurningQuantity.toInt(),
-            typeBonusName = data.typeBonusName
-        )
+    fun convert(data: Data?): BonusesInfo? {
+        return data?.let {
+            BonusesInfo(
+                currentQuantity = data.currentQuantity.toInt(),
+                dateBurning = convertDate(data.dateBurning),
+                forBurningQuantity = data.forBurningQuantity.toInt(),
+                typeBonusName = data.typeBonusName
+            )
+        }
     }
 
 }

@@ -2,7 +2,6 @@ package com.progressterra.android.ipbandroidview.bonuses_banner
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import asd.android.networkrepository.GeneralInfoResponseConverter
 import com.progressterra.ipbandroidapi.bonuses_repository.BonusesInfoRepositoryImpl
 import com.progressterra.ipbandroidapi.repository.models.base.GlobalResponseStatus
 import kotlinx.coroutines.CoroutineScope
@@ -33,7 +32,7 @@ class BonusesBannerViewModel : ViewModel() {
                 with(bonusesCountIsNonZero) { postValue(generalInfoResponse.responseBody?.data?.forBurningQuantity != 0.0) }
                 bonusesInfo.postValue(
                     GeneralInfoResponseConverter.convert(
-                        generalInfoResponse.responseBody!!.data
+                        generalInfoResponse.responseBody?.data
                     )
                 )
             }
