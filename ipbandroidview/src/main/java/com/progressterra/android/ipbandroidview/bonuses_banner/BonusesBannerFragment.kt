@@ -42,12 +42,14 @@ class BonusesBannerFragment : Fragment() {
     private fun setupViewModel() {
         bonusesBannerViewModel = ViewModelProvider(this).get(BonusesBannerViewModel::class.java)
         bonusesBannerViewModel.bonusesInfo.observe(this) {
-            numberOfBonusesTv.text = getString(R.string.bonuses_count, it.currentQuantity.toString())
-            bonusExpirationDateTv.text = it.dateBurning
-            bonusExpirationNumberTv.text = it.forBurningQuantity.toString()
+            numberOfBonusesTv.text =
+                getString(R.string.bonuses_count, it.currentQuantity.toString())
+            bonusExpirationDateTv.text = getString(R.string.expired, it.dateBurning)
+            bonusExpirationNumberTv.text =
+                getString(R.string.bonuses_count, it.forBurningQuantity.toString())
         }
         bonusesBannerViewModel.bonusesCountIsNonZero.observe(this) {
-            showAllBonusesInfo(!it)
+            showAllBonusesInfo(it)
         }
     }
 
