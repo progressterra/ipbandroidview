@@ -55,6 +55,6 @@ dependencies {
     implementation 'com.github.MikeOrtiz:TouchImageView:3.1.0'
 
     // image downloading
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    api 'com.squareup.picasso:picasso:2.71828'
 
 }
