@@ -23,6 +23,7 @@ class BonusesBannerFragment : Fragment() {
     private lateinit var nextBtn: ImageView
     private lateinit var backgroundIv: ImageView
     private lateinit var numberOfBonusesTv: TextView
+    private var onBntNextClickListener: View.OnClickListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +38,13 @@ class BonusesBannerFragment : Fragment() {
         initView(view)
         applyFragmentArguments()
         setupViewModel()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        onBntNextClickListener?.let {
+            nextBtn.setOnClickListener(it)
+        }
     }
 
     private fun setupViewModel() {
@@ -75,7 +83,7 @@ class BonusesBannerFragment : Fragment() {
     }
 
     fun setOnNextButtonListener(listener: View.OnClickListener) {
-        nextBtn.setOnClickListener(listener)
+        onBntNextClickListener = listener
     }
 
     private fun applyFragmentArguments() {
