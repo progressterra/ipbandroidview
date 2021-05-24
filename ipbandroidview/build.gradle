@@ -8,7 +8,9 @@ apply from: 'publish.gradle'
 
 android {
     compileSdkVersion 30
-
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30

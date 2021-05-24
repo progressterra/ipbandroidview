@@ -8,34 +8,27 @@ import android.util.TypedValue.COMPLEX_UNIT_SP
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.databinding.FragmentBonusesBinding
 
 class BonusesBannerFragment : Fragment() {
 
     private lateinit var bonusesBannerViewModel: BonusesBannerViewModel
-    private lateinit var bonusExpirationDateTv: TextView
-    private lateinit var bonusExpirationNumberTv: TextView
-    private lateinit var fireIv: ImageView
-    private lateinit var nextBtn: ImageView
-    private lateinit var backgroundIv: ImageView
-    private lateinit var numberOfBonusesTv: TextView
     private var onBntNextClickListener: View.OnClickListener? = null
+    private lateinit var fragmentBonusesBinding: FragmentBonusesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.bonuses_view, container, false)
+        fragmentBonusesBinding = FragmentBonusesBinding.inflate(inflater)
+        return fragmentBonusesBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(view)
         applyFragmentArguments()
         setupViewModel()
         initListeners()
@@ -43,43 +36,16 @@ class BonusesBannerFragment : Fragment() {
 
     private fun initListeners() {
         onBntNextClickListener?.let {
-            nextBtn.setOnClickListener(it)
+            fragmentBonusesBinding.nextBtn.setOnClickListener(it)
         }
     }
 
     private fun setupViewModel() {
         bonusesBannerViewModel = ViewModelProvider(this).get(BonusesBannerViewModel::class.java)
+
         bonusesBannerViewModel.bonusesInfo.observe(this) {
-            numberOfBonusesTv.text =
-                getString(R.string.bonuses_count, it.currentQuantity.toString())
-            bonusExpirationDateTv.text = getString(R.string.expired, it.dateBurning)
-            bonusExpirationNumberTv.text =
-                getString(R.string.bonuses_count, it.forBurningQuantity.toString())
+            fragmentBonusesBinding.bonusesInfo = it
         }
-        bonusesBannerViewModel.bonusesCountIsNonZero.observe(this) {
-            showAllBonusesInfo(it)
-        }
-    }
-
-    private fun showAllBonusesInfo(show: Boolean) {
-        if (show) {
-            bonusExpirationDateTv.visibility = View.VISIBLE
-            bonusExpirationNumberTv.visibility = View.VISIBLE
-            fireIv.visibility = View.VISIBLE
-        } else {
-            bonusExpirationDateTv.visibility = View.GONE
-            bonusExpirationNumberTv.visibility = View.GONE
-            fireIv.visibility = View.GONE
-        }
-    }
-
-    private fun initView(view: View) {
-        bonusExpirationDateTv = view.findViewById(R.id.bonus_expiration_date_tv)
-        bonusExpirationNumberTv = view.findViewById(R.id.bonus_expiration_number_tv)
-        fireIv = view.findViewById(R.id.fire_iv)
-        nextBtn = view.findViewById(R.id.next_btn)
-        backgroundIv = view.findViewById(R.id.background_iv)
-        numberOfBonusesTv = view.findViewById(R.id.number_of_bonuses_tv)
     }
 
     fun setOnNextButtonListener(listener: View.OnClickListener) {
@@ -117,7 +83,7 @@ class BonusesBannerFragment : Fragment() {
     }
 
     private fun setNextButtonColor(color: String) {
-        nextBtn.setColorFilter(
+        fragmentBonusesBinding.nextBtn.setColorFilter(
             Color.parseColor(color),
             PorterDuff.Mode.SRC_IN
         )
@@ -132,31 +98,31 @@ class BonusesBannerFragment : Fragment() {
         if (colorList.size == 1) {
             val simpleDrawable = GradientDrawable()
             simpleDrawable.setColor(Color.parseColor(colorList.first()))
-            backgroundIv.setImageDrawable(simpleDrawable)
+            fragmentBonusesBinding.backgroundIv.setImageDrawable(simpleDrawable)
             return
         }
         val parsedColor = colorList.map { Color.parseColor(it) }
         val gradientDrawable =
             GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, parsedColor.toIntArray())
-        backgroundIv.setImageDrawable(gradientDrawable)
+        fragmentBonusesBinding.backgroundIv.setImageDrawable(gradientDrawable)
     }
 
     private fun setBaseTextSize(textSize: Float) {
-        bonusExpirationDateTv.setTextSize(COMPLEX_UNIT_SP, textSize)
-        bonusExpirationNumberTv.setTextSize(COMPLEX_UNIT_SP, textSize)
+        fragmentBonusesBinding.bonusExpirationDateTv.setTextSize(COMPLEX_UNIT_SP, textSize)
+        fragmentBonusesBinding.bonusExpirationNumberTv.setTextSize(COMPLEX_UNIT_SP, textSize)
     }
 
     private fun setHeaderTextSize(textSize: Float) {
-        numberOfBonusesTv.setTextSize(COMPLEX_UNIT_SP, textSize)
+        fragmentBonusesBinding.numberOfBonusesTv.setTextSize(COMPLEX_UNIT_SP, textSize)
     }
 
     private fun setBaseTextColor(color: String) {
-        bonusExpirationDateTv.setTextColor(Color.parseColor(color))
-        bonusExpirationNumberTv.setTextColor(Color.parseColor(color))
+        fragmentBonusesBinding.bonusExpirationDateTv.setTextColor(Color.parseColor(color))
+        fragmentBonusesBinding.bonusExpirationNumberTv.setTextColor(Color.parseColor(color))
     }
 
     private fun setHeaderColor(color: String) {
-        numberOfBonusesTv.setTextColor(Color.parseColor(color))
+        fragmentBonusesBinding.numberOfBonusesTv.setTextColor(Color.parseColor(color))
     }
 
     fun updateBonusesInfo() {

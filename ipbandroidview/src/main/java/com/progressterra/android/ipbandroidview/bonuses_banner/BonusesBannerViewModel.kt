@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 class BonusesBannerViewModel : ViewModel() {
 
     val bonusesInfo = MutableLiveData<BonusesInfo>()
-    val bonusesCountIsNonZero = MutableLiveData(false)
     val repository = BonusesRepository.getInstance()
 
     init {
@@ -29,7 +28,6 @@ class BonusesBannerViewModel : ViewModel() {
     private suspend fun getGeneralBonusesInfo(accessToken: String) {
         repository.getBonusesInfo(accessToken).let { generalInfoResponse ->
             if (generalInfoResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                with(bonusesCountIsNonZero) { postValue(generalInfoResponse.responseBody?.data?.forBurningQuantity != 0.0) }
                 bonusesInfo.postValue(
                     GeneralInfoResponseConverter.convert(
                         generalInfoResponse.responseBody?.data

@@ -4,6 +4,7 @@ import android.util.Log
 import com.progressterra.ipbandroidapi.repository.models.bonuses_info.Data
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.truncate
 
 
 object GeneralInfoResponseConverter {
@@ -31,9 +32,9 @@ object GeneralInfoResponseConverter {
     fun convert(data: Data?): BonusesInfo? {
         return data?.let {
             BonusesInfo(
-                currentQuantity = data.currentQuantity?.toInt() ?: 0,
+                currentQuantity = (data.currentQuantity?.toInt()).toString(),
                 dateBurning = convertDate(data.dateBurning),
-                forBurningQuantity = data.forBurningQuantity?.toInt() ?: 0,
+                forBurningQuantity = (data.forBurningQuantity?.toInt()).toString(),
                 typeBonusName = data.typeBonusName ?: ""
             )
         }
