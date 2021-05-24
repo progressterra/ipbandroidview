@@ -2,7 +2,7 @@ package com.progressterra.android.ipbandroidview.bonuses_banner
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidapi.bonuses_repository.BonusesInfoRepositoryImpl
+import com.progressterra.ipbandroidapi.bonuses_repository.BonusesRepository
 import com.progressterra.ipbandroidapi.repository.models.base.GlobalResponseStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -12,7 +12,7 @@ class BonusesBannerViewModel : ViewModel() {
 
     val bonusesInfo = MutableLiveData<BonusesInfo>()
     val bonusesCountIsNonZero = MutableLiveData(false)
-    val repository = BonusesInfoRepositoryImpl()
+    val repository = BonusesRepository.getInstance()
 
     init {
         updateBonusesInfo()

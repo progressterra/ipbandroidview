@@ -9,7 +9,10 @@ import java.util.*
 object GeneralInfoResponseConverter {
 
     // ковертируем дату в нужный нам формат для отображения
-    private fun convertDate(dateString: String): String {
+    private fun convertDate(dateString: String?): String {
+        if (dateString == null) {
+            return ""
+        }
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
         try {
             val parsedDate = simpleDateFormat.parse(dateString)
@@ -28,10 +31,10 @@ object GeneralInfoResponseConverter {
     fun convert(data: Data?): BonusesInfo? {
         return data?.let {
             BonusesInfo(
-                currentQuantity = data.currentQuantity.toInt(),
+                currentQuantity = data.currentQuantity?.toInt() ?: 0,
                 dateBurning = convertDate(data.dateBurning),
-                forBurningQuantity = data.forBurningQuantity.toInt(),
-                typeBonusName = data.typeBonusName
+                forBurningQuantity = data.forBurningQuantity?.toInt() ?: 0,
+                typeBonusName = data.typeBonusName ?: ""
             )
         }
     }
