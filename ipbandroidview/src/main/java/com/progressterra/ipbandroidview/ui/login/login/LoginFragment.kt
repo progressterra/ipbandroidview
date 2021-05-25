@@ -10,6 +10,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
+import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.argument
 
@@ -39,27 +40,42 @@ class LoginFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.nextFragment.observe(viewLifecycleOwner, this::nextFragment)
-        viewModel.toastString.observe(viewLifecycleOwner, this::showToast)
+        viewModel.apply {
+            nextFragment.observe(viewLifecycleOwner, this@LoginFragment::nextFragment)
+            toastStringInt.observe(viewLifecycleOwner, this@LoginFragment::showToastByRes)
+            toastText.observe(viewLifecycleOwner, this@LoginFragment::showToast)
+        }
 
         binding.apply {
-            vm = this@LoginFragment.viewModel
+            vm = viewModel
             lifecycleOwner = viewLifecycleOwner
-            loginPhone.afterTextChanged { viewModel::checkPhone }
+            loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
         }
     }
 
-    private fun nextFragment(fragment: Fragment) {
+    private fun nextFragment(event: Event<Fragment>) {
+        val fragment = event.contentIfNotHandled
         activity?.supportFragmentManager?.commit {
             addToBackStack(javaClass.simpleName)
-            replace(((view as ViewGroup).parent as View).id, fragment)
+            if (fragment != null) {
+                replace(((view as ViewGroup).parent as View).id, fragment)
+            }
         }
     }
 
-    private fun showToast(stringRes: Int) {
-        Toast.makeText(context, getString(stringRes, viewModel.phoneCode), Toast.LENGTH_SHORT)
-            .show()
+    private fun showToastByRes(event: Event<Int>) {
+        val stringRes = event.contentIfNotHandled
+        if (stringRes != null)
+            Toast.makeText(context, getString(stringRes, viewModel.phoneCode), Toast.LENGTH_SHORT)
+                .show()
+
+    }
+
+    private fun showToast(event: Event<String>) {
+        val text = event.contentIfNotHandled
+        if (text != null)
+            Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 
     companion object {
