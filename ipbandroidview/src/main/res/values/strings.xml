@@ -2,4 +2,13 @@
 <resources>
     <string name="bonuses_count">%s бонусов</string>
     <string name="expired">%s сгорит</string>
+    <string name="type_operation_spending">Использование</string>
+    <string name="type_operation_charging">Начисление</string>
+    <string name="type_operation_burning">Сгорание</string>
+    <string name="positive_sum">+ %s</string>
+    <string name="negative_sum">- %s</string>
+    <string name="shopping_list_purchase_amount">Сумма покупки</string>
+    <string name="shopping_list_spending">Списано</string>
+    <string name="shopping_list_charging">Начислено</string>
+    <string name="price_value">%s ₽</string>
 </resources>
