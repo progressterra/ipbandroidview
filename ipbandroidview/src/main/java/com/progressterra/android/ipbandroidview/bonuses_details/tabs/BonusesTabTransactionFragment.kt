@@ -1,4 +1,4 @@
-package com.progressterra.android.ipbandroidview.bonuses_details
+package com.progressterra.android.ipbandroidview.bonuses_details.tabs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.progressterra.android.ipbandroidview.bonuses_details.TransactionAdapter
+import com.progressterra.android.ipbandroidview.bonuses_details.TransactionResponse
+import com.progressterra.android.ipbandroidview.bonuses_details.TypeOperation
 import com.progressterra.ipbandroidview.R
 
 class BonusesTabTransactionFragment : Fragment() {

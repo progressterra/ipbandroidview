@@ -1,4 +1,4 @@
-package com.progressterra.android.ipbandroidview.bonuses_details
+package com.progressterra.android.ipbandroidview.bonuses_details.tabs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.progressterra.android.ipbandroidview.bonuses_details.OrderAdapter
+import com.progressterra.android.ipbandroidview.bonuses_details.Purchase
 import com.progressterra.ipbandroidview.R
 import java.math.BigDecimal
 

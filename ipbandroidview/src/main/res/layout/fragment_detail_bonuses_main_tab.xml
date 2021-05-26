@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="BonusesInfo"
+            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesInfo" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -18,8 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        android:text="300"
         android:textSize="@dimen/header_text_size"
+        app:textFromInt="@{BonusesInfo.currentQuantity}"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/greet_tv"
         app:layout_constraintStart_toStartOf="@id/greet_tv"
@@ -52,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
-        android:text="29.03.21"
+        android:text="@{BonusesInfo.dateBurning}"
         app:layout_constraintStart_toEndOf="@id/verticalLine"
         app:layout_constraintTop_toBottomOf="@id/next_expired_date_tv_tab" />
 
@@ -69,12 +75,11 @@
 
     <TextView
         android:id="@+id/expired_number_tab"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
-        android:text="300"
+        app:textFromInt="@{BonusesInfo.forBurningQuantity}"
         app:layout_constraintStart_toEndOf="@id/verticalLine"
         app:layout_constraintTop_toBottomOf="@id/expired_number_tab_tv" />
 
@@ -86,3 +91,4 @@
         app:layout_constraintTop_toBottomOf="@id/verticalLine" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
