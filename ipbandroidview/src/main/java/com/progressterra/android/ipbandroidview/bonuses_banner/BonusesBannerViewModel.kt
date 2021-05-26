@@ -2,8 +2,8 @@ package com.progressterra.android.ipbandroidview.bonuses_banner
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidapi.bonuses_repository.BonusesInfo
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesInfo
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

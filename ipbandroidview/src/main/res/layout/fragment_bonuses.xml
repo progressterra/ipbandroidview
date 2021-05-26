@@ -5,7 +5,7 @@
 
         <variable
             name="BonusesInfo"
-            type="com.progressterra.ipbandroidapi.bonuses_repository.BonusesInfo" />
+            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="18dp"
-                    android:text="@{BonusesInfo.currentQuantity}"
+                    app:textFromInt="@{BonusesInfo.currentQuantity}"
                     android:textSize="@dimen/header_text_size"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="40dp"
-                    android:text="@{BonusesInfo.forBurningQuantity}"
+                    app:textFromInt="@{BonusesInfo.forBurningQuantity}"
                     android:textSize="@dimen/base_text_size"
                     app:layout_constraintBottom_toBottomOf="@id/bonus_expiration_date_tv"
                     app:layout_constraintEnd_toStartOf="@id/next_btn"

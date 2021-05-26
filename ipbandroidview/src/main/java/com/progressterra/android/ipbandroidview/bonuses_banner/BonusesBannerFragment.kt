@@ -1,4 +1,4 @@
-package com.progressterra.android.ipbandroidview.bonuses_banner
+    package com.progressterra.android.ipbandroidview.bonuses_banner
 
 import android.graphics.Color
 import android.graphics.PorterDuff
