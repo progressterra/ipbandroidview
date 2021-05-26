@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="logo">ЛОГОТИП</string>
     <string name="bonuses_count">%s бонусов</string>
     <string name="expired">%s сгорит</string>
 </resources>
