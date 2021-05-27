@@ -8,10 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabDetailFragment
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabOrderFragment
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabTransactionFragment
+import com.progressterra.android.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesBinding
 
@@ -36,14 +38,19 @@ class BonusesDetailFragment : Fragment() {
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
-        viewModel.updateBonusesInfo()
-        viewModel.bonusesInfo.observe(this){
+        viewModel.updateDetailBonusesInfo()
+        viewModel.status.observe(this) {
+            binding.screenState = it
+            if (it == ScreenState.ERROR) {
+                Snackbar.make(binding.root, getString(R.string.ErrorString), Snackbar.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        viewModel.bonusesInfo.observe(this) {
             binding.bonusesInfo = it
             setupTabAdapter()
         }
     }
-
-
 
     private fun setupTabAdapter() {
         val demoCollectionAdapter = DemoCollectionAdapter(this)
@@ -51,9 +58,9 @@ class BonusesDetailFragment : Fragment() {
 
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Бонусы"
-                1 -> tab.text = "Движения"
-                2 -> tab.text = "Мои заказы"
+                0 -> tab.text = getString(R.string.bonuses)
+                1 -> tab.text = getString(R.string.transactions)
+                2 -> tab.text = getString(R.string.my_orders)
             }
         }.attach()
     }

@@ -11,23 +11,32 @@ import com.progressterra.android.ipbandroidview.bonuses_details.BonusesDetailsVi
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesMainTabBinding
 
-class BonusesTabDetailFragment : Fragment() {
-    private lateinit var viewmodel: BonusesDetailsViewModel
+internal class BonusesTabDetailFragment : Fragment() {
+    private lateinit var viewModel: BonusesDetailsViewModel
     private lateinit var binding: FragmentDetailBonusesMainTabBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_bonuses_main_tab,container,false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_detail_bonuses_main_tab,
+            container,
+            false
+        )
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewmodel =
+        setupViewModel()
+    }
+
+    private fun setupViewModel() {
+        viewModel =
             ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
-        viewmodel.bonusesInfo.observe(this){
+        viewModel.bonusesInfo.observe(this) {
             binding.bonusesInfo = it
         }
     }

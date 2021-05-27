@@ -1,4 +1,4 @@
-package com.progressterra.android.ipbandroidview.bonuses_details
+package com.progressterra.android.ipbandroidview.bonuses_details.tabs
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.R
 import java.math.BigDecimal
 import java.util.*
 
-class OrderAdapter(var orders: List<Purchase>) : RecyclerView.Adapter<OrderViewHolder>() {
+internal class OrderAdapter(var orders: List<Purchase>) : RecyclerView.Adapter<OrderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         return OrderViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.order_recycler_item, parent, false)
@@ -25,7 +25,7 @@ class OrderAdapter(var orders: List<Purchase>) : RecyclerView.Adapter<OrderViewH
     }
 }
 
-class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+internal class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val moll: TextView = itemView.findViewById(R.id.bonus_shopping_list_moll)
     private val data: TextView = itemView.findViewById(R.id.bonus_shopping_list_data)
     private val sum: TextView = itemView.findViewById(R.id.bonus_shopping_list_sum)

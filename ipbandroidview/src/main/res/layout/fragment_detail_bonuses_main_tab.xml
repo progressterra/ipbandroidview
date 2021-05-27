@@ -42,6 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+
         android:id="@+id/next_expired_date_tv_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,11 +54,11 @@
 
     <TextView
         android:id="@+id/next_expired_date_tab"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
+        android:textColor="#000000"
         android:text="@{BonusesInfo.dateBurning}"
         app:layout_constraintStart_toEndOf="@id/verticalLine"
         app:layout_constraintTop_toBottomOf="@id/next_expired_date_tv_tab" />
@@ -79,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
+        android:textColor="#000000"
         app:textFromInt="@{BonusesInfo.forBurningQuantity}"
         app:layout_constraintStart_toEndOf="@id/verticalLine"
         app:layout_constraintTop_toBottomOf="@id/expired_number_tab_tv" />

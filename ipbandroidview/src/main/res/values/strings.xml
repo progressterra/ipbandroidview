@@ -11,4 +11,9 @@
     <string name="shopping_list_spending">Списано</string>
     <string name="shopping_list_charging">Начислено</string>
     <string name="price_value">%s ₽</string>
+    <string name="my_bonuses">Мои бонусы</string>
+    <string name="ErrorString">Что-то пошло не так</string>
+    <string name="bonuses">Бонусы</string>
+    <string name="transactions">Движения</string>
+    <string name="my_orders">Мои заказы</string>
 </resources>
