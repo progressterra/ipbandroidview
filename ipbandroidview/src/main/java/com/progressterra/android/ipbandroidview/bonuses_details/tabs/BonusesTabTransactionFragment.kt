@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.progressterra.android.ipbandroidview.bonuses_details.TransactionAdapter
-import com.progressterra.android.ipbandroidview.bonuses_details.TransactionResponse
-import com.progressterra.android.ipbandroidview.bonuses_details.TypeOperation
+import com.progressterra.android.ipbandroidview.bonuses_details.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.R
 
 class BonusesTabTransactionFragment : Fragment() {
+    private lateinit var viewmodel: BonusesDetailsViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,14 +22,20 @@ class BonusesTabTransactionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewmodel =
+            ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
+
+
         val recyclerView =view.findViewById<RecyclerView>(R.id.bonus_transaction_rv)
-        recyclerView.adapter = TransactionAdapter(listOf(
-            TransactionResponse().apply {
-                dateEvent
-                quantity = 123
-                typeBonusName = "asdf"
-                typeOperation = TypeOperation.BOURING
-            }
-        ))
+
+        viewmodel.transactionList.observe(this){
+            recyclerView.adapter = TransactionAdapter(it.transactions)
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        view?.requestLayout()
     }
 }

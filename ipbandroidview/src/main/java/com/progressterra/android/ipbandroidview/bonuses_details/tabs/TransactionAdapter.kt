@@ -1,20 +1,20 @@
-package com.progressterra.android.ipbandroidview.bonuses_details
+package com.progressterra.android.ipbandroidview.bonuses_details.tabs
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Transaction
 import com.progressterra.ipbandroidview.R
-import java.util.*
+import com.progressterra.ipbandroidview.databinding.TransactionRecyclerItemBinding
 
-class TransactionAdapter(var transactions: List<TransactionResponse>) :
+class TransactionAdapter(private var transactions: List<Transaction>) :
     RecyclerView.Adapter<TransactionViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
-        return TransactionViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.transaction_recycler_item, parent, false)
-        )
+        val inflater = LayoutInflater.from(parent.context)
+        val binding: TransactionRecyclerItemBinding =
+            DataBindingUtil.inflate(inflater, R.layout.transaction_recycler_item, parent, false);
+        return TransactionViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
@@ -26,74 +26,37 @@ class TransactionAdapter(var transactions: List<TransactionResponse>) :
     }
 }
 
-class TransactionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val name: TextView = itemView.findViewById(R.id.bonus_train_operations_name)
-    private val sum: TextView = itemView.findViewById(R.id.bonus_train_operations_sum)
-    private val action: TextView = itemView.findViewById(R.id.bonus_train_operations_action)
-    private val date: TextView = itemView.findViewById(R.id.bonus_train_operations_date)
+class TransactionViewHolder(var binding: TransactionRecyclerItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
 
-    fun bind(item: TransactionResponse) {
-        //Контекст
-        val context = itemView.context
+    fun bind(item: Transaction) {
+        binding.trasaction = item
 
-        //Установка значений
-        name.text = item.typeBonusName
-        date.text = ""
+        /* //Тип операции
+         action.text = when (item.typeOperation!!) {
+             1-> context.getString(R.string.type_operation_spending)
+             2 -> context.getString(R.string.type_operation_burning)
+             3 -> context.getString(R.string.type_operation_charging)
+             else -> ""
+         }
 
-        //Тип операции
-        action.text = when (item.typeOperation!!) {
-            TypeOperation.SPENDING -> context.getString(R.string.type_operation_spending)
-            TypeOperation.BOURING -> context.getString(R.string.type_operation_burning)
-            TypeOperation.CHARGING -> context.getString(R.string.type_operation_charging)
-        }
-
-        //Сумма операции
-        if (item.quantity!! <= 0) {
-            //Указание цвета текста
-            //sum.setTextColor(ContextCompat.getColor(context, R.color.carnation))
-            sum.text = String.format(
-                context.getString(R.string.negative_sum), kotlin.math.abs(item.quantity!!)
-                    .toString()
-            )
-        } else {
-            //Указание цвета текста
-            //sum.setTextColor(ContextCompat.getColor(context, R.color.apple_green))
-            sum.text = String.format(
-                context.getString(R.string.positive_sum), kotlin.math.abs(item.quantity!!)
-                    .toString()
-            )
-        }
+         //Сумма операции
+         if (item.quantity!! <= 0) {
+             //Указание цвета текста
+             //sum.setTextColor(ContextCompat.getColor(context, R.color.carnation))
+             sum.text = String.format(
+                 context.getString(R.string.negative_sum), kotlin.math.abs(item.quantity!!)
+                     .toString()
+             )
+         } else {
+             //Указание цвета текста
+             //sum.setTextColor(ContextCompat.getColor(context, R.color.apple_green))
+             sum.text = String.format(
+                 context.getString(R.string.positive_sum), kotlin.math.abs(item.quantity!!)
+                     .toString()
+             )
+         }*/
     }
 }
 
-class TransactionResponse {
-
-    /**
-     * Имя типа бонусов
-     */
-    var typeBonusName: String? = null
-
-    /**
-     * Дата
-     */
-    var dateEvent: Date? = null
-
-    /**
-     * Тип операции
-     */
-    var typeOperation: TypeOperation? = null
-
-    /**
-     * Значение
-     */
-    var quantity: Int? = null
-
-}
-
-enum class TypeOperation {
-
-    CHARGING,
-    SPENDING,
-    BOURING
-}

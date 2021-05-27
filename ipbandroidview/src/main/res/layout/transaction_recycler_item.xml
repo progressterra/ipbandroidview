@@ -1,3 +1,11 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="Trasaction"
+        type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.Transaction" />
+</data>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,6 +24,7 @@
         android:paddingBottom="8dp">
 
         <TextView
+            android:text="@{Trasaction.typeBonusName}"
             android:id="@+id/bonus_train_operations_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,6 +32,7 @@
 
         <TextView
             android:id="@+id/bonus_train_operations_date"
+            android:text="@{Trasaction.dateEvent}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -41,12 +51,14 @@
 
         <TextView
             android:id="@+id/bonus_train_operations_action"
+            app:textFromInt="@{Trasaction.typeOperation}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end" />
 
         <TextView
             android:id="@+id/bonus_train_operations_sum"
+            app:textFromInt="@{Trasaction.quantity}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -55,3 +67,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</layout>

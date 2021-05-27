@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -11,6 +12,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabDetailFragment
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabOrderFragment
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabTransactionFragment
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesBinding
 
 
@@ -23,7 +25,7 @@ class BonusesDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailBonusesBinding.inflate(inflater)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_bonuses,container,false)
         return binding.root
     }
 
