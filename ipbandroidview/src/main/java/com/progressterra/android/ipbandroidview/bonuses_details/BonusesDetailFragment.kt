@@ -38,7 +38,9 @@ class BonusesDetailFragment : Fragment() {
 
     private fun setupViewModel() {
         viewModel = ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
+
         viewModel.updateDetailBonusesInfo()
+
         viewModel.status.observe(this) {
             binding.screenState = it
             if (it == ScreenState.ERROR) {
@@ -46,6 +48,7 @@ class BonusesDetailFragment : Fragment() {
                     .show()
             }
         }
+
         viewModel.bonusesInfo.observe(this) {
             binding.bonusesInfo = it
             setupTabAdapter()
@@ -54,6 +57,7 @@ class BonusesDetailFragment : Fragment() {
 
     private fun setupTabAdapter() {
         val demoCollectionAdapter = DemoCollectionAdapter(this)
+
         binding.pager.adapter = demoCollectionAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->

@@ -32,13 +32,7 @@ internal class BonusesTabOrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val recycler = view.findViewById<RecyclerView>(R.id.order_list_rv)
         recycler.adapter = OrderAdapter(listOf(
-            Purchase().apply {
-                addedBonusesSum = 100
-                shopName = "Мем"
-                purchaseId = "1234"
-                spentBonusesSum = 100
-                purchaseSum = BigDecimal(100)
-            }
+
         ))
     }
 }

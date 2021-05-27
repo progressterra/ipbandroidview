@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.databinding.TransactionRecyclerItemBindi
 
 internal class TransactionAdapter(private var transactions: List<Transaction>) :
     RecyclerView.Adapter<TransactionViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: TransactionRecyclerItemBinding =
@@ -28,7 +29,6 @@ internal class TransactionAdapter(private var transactions: List<Transaction>) :
 
 internal class TransactionViewHolder(var binding: TransactionRecyclerItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
-
 
     fun bind(item: Transaction) {
         binding.trasaction = item

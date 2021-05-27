@@ -12,8 +12,10 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesTransactionTabBinding
 
 internal class BonusesTabTransactionFragment : Fragment() {
+
     private lateinit var viewModel: BonusesDetailsViewModel
     private lateinit var binding: FragmentDetailBonusesTransactionTabBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,12 +40,13 @@ internal class BonusesTabTransactionFragment : Fragment() {
             ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
 
         viewModel.transactionList.observe(this) {
-            binding.bonusTransactionRv.adapter = TransactionAdapter(it.transactions)
+            binding.bonusTransactionRv.adapter = TransactionAdapter(it)
         }
     }
 
     override fun onResume() {
         super.onResume()
+        // перерасчет высоты контейнера фрагмента, так как используется viewPager с экрнами разной высоты
         view?.requestLayout()
     }
 }

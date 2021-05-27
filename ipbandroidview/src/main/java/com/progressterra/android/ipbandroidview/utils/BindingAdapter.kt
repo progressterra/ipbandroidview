@@ -1,24 +1,23 @@
-package com.progressterra.android.ipbandroidview.bonuses_banner
+package com.progressterra.android.ipbandroidview.utils
 
 import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.progressterra.android.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.R
 
 @BindingAdapter("app:visibility")
-fun visibility(view: View, isVisible: Boolean) {
+internal fun visibility(view: View, isVisible: Boolean) {
     view.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("app:textFromInt")
-fun textFromInt(view: TextView, text: Int) {
+internal fun textFromInt(view: TextView, text: Int) {
     view.text = text.toString()
 }
 
 @BindingAdapter("app:setColorAndTextFormattingByQuantity")
-fun setColorAndTextFormattingByQuantity(textView: TextView, quantity: Int) {
+internal fun setColorAndTextFormattingByQuantity(textView: TextView, quantity: Int) {
     if (quantity <= 0) {
         textView.setTextColor(Color.RED)
         textView.text = String.format(
@@ -34,7 +33,7 @@ fun setColorAndTextFormattingByQuantity(textView: TextView, quantity: Int) {
 }
 
 @BindingAdapter("app:setVisibilityMainContentByScreenState")
-fun setVisibilityMainContentByScreenState(mainContent: View, screenState: ScreenState) {
+internal fun setVisibilityMainContentByScreenState(mainContent: View, screenState: ScreenState) {
     when (screenState) {
         ScreenState.DEFAULT -> mainContent.visibility = View.VISIBLE
         ScreenState.LOADING -> mainContent.visibility = View.GONE
@@ -43,7 +42,7 @@ fun setVisibilityMainContentByScreenState(mainContent: View, screenState: Screen
 }
 
 @BindingAdapter("app:setVisibilityLoaderByScreenState")
-fun setVisibilityLoaderByScreenState(loader: View, screenState: ScreenState) {
+internal fun setVisibilityLoaderByScreenState(loader: View, screenState: ScreenState) {
     when (screenState) {
         ScreenState.DEFAULT -> loader.visibility = View.GONE
         ScreenState.LOADING -> loader.visibility = View.VISIBLE

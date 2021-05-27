@@ -2,11 +2,11 @@ package com.progressterra.android.ipbandroidview.bonuses_details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.progressterra.android.ipbandroidview.bonuses_details.tabs.Purchase
 import com.progressterra.android.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesInfo
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.TransactionList
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Purchase
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Transaction
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -18,9 +18,10 @@ internal class BonusesDetailsViewModel : ViewModel() {
     private val repository = BonusesApi.getInstance()
 
     val bonusesInfo = MutableLiveData<BonusesInfo>()
-    val transactionList = MutableLiveData<TransactionList>()
+    val transactionList = MutableLiveData<List<Transaction>>()
+    val purchasesList = MutableLiveData<List<Purchase>>()
     val status = MutableLiveData(ScreenState.LOADING)
-    val orderList = MutableLiveData<List<Purchase>>()
+
 
     fun updateDetailBonusesInfo() {
         CoroutineScope(Job()).launch {
@@ -35,7 +36,23 @@ internal class BonusesDetailsViewModel : ViewModel() {
                     getTransactionsList(it)
                 }.await()
 
+                async {
+                    getPurchasesList(it)
+                }.await()
+
                 status.postValue(ScreenState.DEFAULT)
+            }
+        }
+    }
+
+    private suspend fun getPurchasesList(accessToken: String) {
+        repository.getPurchasesList(accessToken).let { purchasesListResponse ->
+            if (purchasesListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+                purchasesListResponse.responseBody?.let {
+                    purchasesList.postValue(it)
+                }
+            } else {
+                status.postValue(ScreenState.ERROR)
             }
         }
     }

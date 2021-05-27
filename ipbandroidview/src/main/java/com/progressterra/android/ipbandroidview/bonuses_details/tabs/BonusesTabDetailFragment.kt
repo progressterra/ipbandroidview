@@ -12,8 +12,10 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesMainTabBinding
 
 internal class BonusesTabDetailFragment : Fragment() {
+
     private lateinit var viewModel: BonusesDetailsViewModel
     private lateinit var binding: FragmentDetailBonusesMainTabBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
