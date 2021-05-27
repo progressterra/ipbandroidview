@@ -6,13 +6,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Purchase
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesOrderTabBinding
-import com.progressterra.ipbandroidview.databinding.TransactionRecyclerItemBinding
+import com.progressterra.ipbandroidview.databinding.OrderRecyclerItemBinding
 
 internal class OrderAdapter(var orders: List<Purchase>) : RecyclerView.Adapter<OrderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: FragmentDetailBonusesOrderTabBinding =
+        val binding: OrderRecyclerItemBinding =
             DataBindingUtil.inflate(inflater, R.layout.order_recycler_item, parent, false);
         return OrderViewHolder(binding)
     }
@@ -26,10 +25,11 @@ internal class OrderAdapter(var orders: List<Purchase>) : RecyclerView.Adapter<O
     }
 }
 
-internal class OrderViewHolder(val binding: FragmentDetailBonusesOrderTabBinding) :
+internal class OrderViewHolder(val binding: OrderRecyclerItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Purchase) {
+        binding.purchase = item
     }
 }
 

@@ -38,8 +38,9 @@ internal class BonusesTabDetailFragment : Fragment() {
     private fun setupViewModel() {
         viewModel =
             ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
-        viewModel.bonusesInfo.observe(this) {
-            binding.bonusesInfo = it
+        viewModel.bonusMessageList.observe(this) {
+            binding.bonusMessagesRv.adapter = BonusMessageListAdapter(it)
         }
+
     }
 }

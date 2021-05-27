@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,56 +9,61 @@
             type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.Purchase" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/bonus_shopping_item"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/margin_layout_small"
-        android:paddingEnd="@dimen/margin_layout_small">
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/bonus_shopping_item"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/margin_small"
-            android:paddingBottom="@dimen/margin_small">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/margin_layout_small"
+            android:paddingEnd="@dimen/margin_layout_small">
 
-            <TextView
-                android:id="@+id/bonus_shopping_list_moll"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="start"
-                android:text="@{Purchase.shopName}" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/margin_small"
+                android:paddingBottom="@dimen/margin_small">
 
-            <TextView
-                android:id="@+id/bonus_shopping_list_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:text="@{Purchase.purchaseDate}" />
+                <TextView
+                    android:id="@+id/bonus_shopping_list_moll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="start"
+                    android:text="@{Purchase.shopName}" />
 
-            <TextView
-                android:id="@+id/bonus_shopping_list_purchase_amount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="start"
-                android:text="@string/shopping_list_purchase_amount" />
+                <TextView
+                    android:id="@+id/bonus_shopping_list_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:text="@{Purchase.purchaseDate}" />
 
-            <TextView
-                android:id="@+id/bonus_shopping_list_sum"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="start"
-                android:text="@{Purchase.purchaseSum}" />
+                <TextView
+                    android:id="@+id/bonus_shopping_list_purchase_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="start"
+                    android:text="@string/shopping_list_purchase_amount" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/bonus_shopping_list_sum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="start"
+                    app:textFromInt="@{Purchase.purchaseSum}" />
+
+            </LinearLayout>
 
         <View
             android:layout_width="1dp"
@@ -86,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="end"
-                android:text="@{Purchase.addedBonusesSum}" />
+                app:textFromInt="@{Purchase.addedBonusesSum}" />
 
             <TextView
                 android:id="@+id/bonus_shopping_action_spending"
@@ -100,13 +106,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="end"
-                android:text="@{Purchase.spentBonusesSum}" />
+                app:textFromInt="@{Purchase.spentBonusesSum}" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/item_train_info_burn_info"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
+            <ImageView
+                android:id="@+id/item_train_info_burn_info"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="#DEDEDE" />
+
 
     </LinearLayout>
 </layout>

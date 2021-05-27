@@ -5,40 +5,45 @@
         type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.Transaction" />
 </data>
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp">
+    android:orientation="vertical">
+
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="3"
-        android:orientation="vertical"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
 
-        <TextView
-            android:text="@{Trasaction.typeBonusName}"
-            android:id="@+id/bonus_train_operations_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
-        <TextView
-            android:id="@+id/bonus_train_operations_date"
-            android:text="@{Trasaction.dateEvent}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="start" />
+            <TextView
+                android:id="@+id/bonus_train_operations_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:text="@{Trasaction.typeBonusName}" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/bonus_train_operations_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="start"
+                android:text="@{Trasaction.dateEvent}" />
+
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -51,7 +56,7 @@
 
         <TextView
             android:id="@+id/bonus_train_operations_action"
-            app:textFromInt="@{Trasaction.typeOperation}"
+            app:setBonusTransactionType="@{Trasaction.typeOperation}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end" />
@@ -67,5 +72,13 @@
 
     </LinearLayout>
 
+    </LinearLayout>
+
+    <View
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DEDEDE" />
 </LinearLayout>
 </layout>

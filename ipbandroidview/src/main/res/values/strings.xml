@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Информация о транзакциях бонусов-->
     <string name="bonuses_count">%s бонусов</string>
     <string name="expired">%s сгорит</string>
     <string name="type_operation_spending">Использование</string>
@@ -16,4 +17,7 @@
     <string name="bonuses">Бонусы</string>
     <string name="transactions">Движения</string>
     <string name="my_orders">Мои заказы</string>
+    <string name="next_burning_date">Дата следущего сгорания</string>
+    <string name="refresh">Обновить</string>
+
 </resources>

@@ -3,10 +3,7 @@ package com.progressterra.android.ipbandroidview.bonuses_details
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.progressterra.android.ipbandroidview.utils.ScreenState
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesInfo
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Purchase
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Transaction
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.*
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -20,6 +17,7 @@ internal class BonusesDetailsViewModel : ViewModel() {
     val bonusesInfo = MutableLiveData<BonusesInfo>()
     val transactionList = MutableLiveData<List<Transaction>>()
     val purchasesList = MutableLiveData<List<Purchase>>()
+    val bonusMessageList = MutableLiveData<List<BonusMessage>>()
     val status = MutableLiveData(ScreenState.LOADING)
 
 
@@ -40,10 +38,27 @@ internal class BonusesDetailsViewModel : ViewModel() {
                     getPurchasesList(it)
                 }.await()
 
+                async {
+                    getBonusMessageList(it)
+                }.await()
+
                 status.postValue(ScreenState.DEFAULT)
             }
         }
     }
+
+    private suspend fun getBonusMessageList(accessToken: String) {
+        repository.getBonusMessageList(accessToken).let { bonusMessageListResponse ->
+            if (bonusMessageListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+                bonusMessageListResponse.responseBody?.let {
+                    bonusMessageList.postValue(it)
+                }
+            } else {
+                status.postValue(ScreenState.ERROR)
+            }
+        }
+    }
+
 
     private suspend fun getPurchasesList(accessToken: String) {
         repository.getPurchasesList(accessToken).let { purchasesListResponse ->

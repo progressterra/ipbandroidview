@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.ViewModelProvider
+import com.progressterra.android.ipbandroidview.bonuses_details.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesOrderTabBinding
-import java.math.BigDecimal
 
 internal class BonusesTabOrderFragment : Fragment() {
     private lateinit var binding: FragmentDetailBonusesOrderTabBinding
+    private lateinit var viewModel: BonusesDetailsViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,9 +32,14 @@ internal class BonusesTabOrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recycler = view.findViewById<RecyclerView>(R.id.order_list_rv)
-        recycler.adapter = OrderAdapter(listOf(
+        setupViewModel()
+    }
 
-        ))
+    private fun setupViewModel() {
+        viewModel =
+            ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
+        viewModel.purchasesList.observe(this) {
+            binding.orderListRv.adapter = OrderAdapter(it)
+        }
     }
 }

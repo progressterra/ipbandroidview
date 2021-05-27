@@ -69,7 +69,11 @@ class BonusesDetailFragment : Fragment() {
         }.attach()
     }
 
-    class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+    fun refreshBonusesData() {
+        viewModel.updateDetailBonusesInfo()
+    }
+
+    private class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
         override fun getItemCount(): Int = 3
 
@@ -81,5 +85,25 @@ class BonusesDetailFragment : Fragment() {
                 else -> throw  IllegalStateException("Incorrect position")
             }
         }
+    }
+
+    fun setSecondaryTextColor() {
+
+    }
+
+    fun setPrimaryTextColor() {
+
+    }
+
+    fun setThemeColor() {
+
+    }
+
+    fun setPositiveColor() {
+
+    }
+
+    fun setNegativeColor() {
+
     }
 }
