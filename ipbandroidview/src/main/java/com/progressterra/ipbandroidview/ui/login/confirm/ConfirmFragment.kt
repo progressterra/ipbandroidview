@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
 import android.os.Bundle
-import android.util.EventLog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
+import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.argument
@@ -17,10 +17,11 @@ internal class ConfirmFragment : Fragment() {
 
     private var selectedCountry by argument<String>()
     private var phoneNumber by argument<String>()
+    private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
 
 
     private val viewModel: ConfirmViewModel by viewModels {
-        ConfirmViewModelFactory(selectedCountry, phoneNumber)
+        ConfirmViewModelFactory(selectedCountry, phoneNumber,onLoginFlowFinishListener)
     }
 
 
@@ -55,11 +56,13 @@ internal class ConfirmFragment : Fragment() {
     companion object {
         fun newInstance(
             selectedCountry: String,
-            phoneNumber: String
+            phoneNumber: String,
+            onLoginFlowFinishListener: OnLoginFlowFinishListener?
         ): ConfirmFragment =
             ConfirmFragment().apply {
                 this.selectedCountry = selectedCountry
                 this.phoneNumber = phoneNumber
+                this.onLoginFlowFinishListener = onLoginFlowFinishListener
             }
     }
 }

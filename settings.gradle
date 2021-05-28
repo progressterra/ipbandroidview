@@ -1,2 +1,3 @@
 rootProject.name = "ipbandroidview"
 include ':ipbandroidview'
+include ':app1'

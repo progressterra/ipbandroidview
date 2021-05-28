@@ -5,13 +5,17 @@ import androidx.lifecycle.*
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment
 import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
 import kotlinx.coroutines.launch
 
-internal class LoginViewModel(var selectedCountry: String) : ViewModel() {
+internal class LoginViewModel(
+    var selectedCountry: String,
+    private val onLoginFlowFinishListener: OnLoginFlowFinishListener?
+) : ViewModel() {
 
     private val country: Country = Country.valueOf(selectedCountry)
 
@@ -57,7 +61,8 @@ internal class LoginViewModel(var selectedCountry: String) : ViewModel() {
                     Event(
                         ConfirmFragment.newInstance(
                             selectedCountry,
-                            phoneWithCountryCode
+                            phoneWithCountryCode,
+                            onLoginFlowFinishListener
                         )
                     )
                 )

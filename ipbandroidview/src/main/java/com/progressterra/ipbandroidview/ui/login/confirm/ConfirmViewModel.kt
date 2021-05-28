@@ -9,11 +9,16 @@ import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.ERROR
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.SUCCESS
+import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment
 import com.progressterra.ipbandroidview.utils.Event
 import kotlinx.coroutines.launch
 
-class ConfirmViewModel(private val selectedCountry: String, private val phoneNumber: String) :
+class ConfirmViewModel(
+    private val selectedCountry: String,
+    private val phoneNumber: String,
+    private val onLoginFlowFinishListener: OnLoginFlowFinishListener?
+) :
     ViewModel() {
 
     private var isCalled: Boolean = false
@@ -37,7 +42,7 @@ class ConfirmViewModel(private val selectedCountry: String, private val phoneNum
                     when (response.status) {
                         SUCCESS -> {
                             when (response.userExist) {
-                                true -> TODO() // пользователь существует, сюда колбек нужно сунуть
+                                true -> onLoginFlowFinishListener?.onLoginFinish()
                                 false -> _fragment.value = Event(PersonalFragment.newInstance())
                             }
                         }

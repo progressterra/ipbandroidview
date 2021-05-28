@@ -7,10 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
+import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 
 internal class PersonalFragment : Fragment() {
 
-    private val viewModel: PersonalViewModel by viewModels { PersonalViewModelFactory() }
+    private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
+
+    private val viewModel: PersonalViewModel by viewModels {
+        PersonalViewModelFactory(
+            onLoginFlowFinishListener
+        )
+    }
 
     private lateinit var binding: FragmentPersonalBinding
 
@@ -24,7 +31,11 @@ internal class PersonalFragment : Fragment() {
 
 
     companion object {
-        fun newInstance() = PersonalFragment()
+        fun newInstance(
+            onLoginFlowFinishListener: OnLoginFlowFinishListener?
+        ) = PersonalFragment().apply {
+            this.onLoginFlowFinishListener = onLoginFlowFinishListener
+        }
     }
 
 }

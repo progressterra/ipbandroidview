@@ -13,6 +13,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
+import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
@@ -22,13 +23,15 @@ class LoginFragment : Fragment() {
 
     private var container: Int? = null
 
+    private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
     private var drawableLogo: Drawable? = null
 
     private var selectedCountry by argument<String>()
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
-            selectedCountry = selectedCountry
+            selectedCountry = selectedCountry,
+            onLoginFlowFinishListener
         )
     }
 
@@ -104,10 +107,12 @@ class LoginFragment : Fragment() {
          *  @param selectedCountry - Country enum name
          */
         fun newInstance(
-            selectedCountry: String? = null
+            selectedCountry: String? = null,
+            loginFinishListener: OnLoginFlowFinishListener
         ): LoginFragment {
             return LoginFragment().apply {
                 this.selectedCountry = selectedCountry ?: Country.RUSSIA.name
+                this.onLoginFlowFinishListener = loginFinishListener
             }
         }
     }
