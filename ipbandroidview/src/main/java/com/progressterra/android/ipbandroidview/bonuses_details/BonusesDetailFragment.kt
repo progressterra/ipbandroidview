@@ -1,5 +1,6 @@
 package com.progressterra.android.ipbandroidview.bonuses_details
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
-import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabDetailFragment
-import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabOrderFragment
-import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabTransactionFragment
-import com.progressterra.android.ipbandroidview.bonuses_details.tabs.OnPurchaseClickListener
+import com.progressterra.android.ipbandroidview.bonuses_details.tabs.*
 import com.progressterra.android.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesBinding
@@ -24,18 +22,54 @@ class BonusesDetailFragment : Fragment() {
     private lateinit var viewModel: BonusesDetailsViewModel
     private var onPurchaseClickListener: OnPurchaseClickListener? = null
 
+
+    private var mainTextColor: String? = null
+    private var secondaryTextColor: String? = null
+    private var mainColor: String? = null
+    private var secondaryColor: String? = null
+    private var positiveTextColor: String? = null
+    private var negativeTextColor: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getValuesFromArguments()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail_bonuses,container,false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_detail_bonuses, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
+    }
+
+    private fun getValuesFromArguments() {
+        arguments?.getString(MAIN_TEXT_COLOR_ARG)?.let {
+            ColorsPalette.mainTextColor = Color.parseColor(it)
+        }
+        arguments?.getString(SECONDARY_TEXT_COLOR_ARG)?.let {
+            ColorsPalette.secondaryTextColor = Color.parseColor(it)
+        }
+        arguments?.getString(MAIN_COLOR_ARG)?.let {
+            ColorsPalette.mainColor = Color.parseColor(it)
+        }
+        arguments?.getString(SECONDARY_COLOR_ARG)?.let {
+            ColorsPalette.secondaryColor = Color.parseColor(it)
+        }
+
+        arguments?.getString(POSITIVE_COLOR_ARG)?.let {
+            ColorsPalette.positiveTextColor = Color.parseColor(it)
+        }
+        arguments?.getString(NEGATIVE_COLOR_ARG)?.let {
+            ColorsPalette.negativeTextColor = Color.parseColor(it)
+        }
     }
 
     private fun setupViewModel() {
@@ -81,10 +115,32 @@ class BonusesDetailFragment : Fragment() {
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> BonusesTabDetailFragment()
-                1 -> BonusesTabTransactionFragment()
+                0 -> BonusesTabDetailFragment().also {
+                    val args = Bundle()
+                    args.putString(MAIN_TEXT_COLOR_ARG, mainTextColor)
+                    args.putString(SECONDARY_TEXT_COLOR_ARG, secondaryTextColor)
+                    args.putString(MAIN_COLOR_ARG, mainColor)
+                    args.putString(SECONDARY_COLOR_ARG, secondaryColor)
+                    it.arguments = args
+                }
+                1 -> BonusesTabTransactionFragment().also {
+                    val args = Bundle()
+                    args.putString(MAIN_TEXT_COLOR_ARG, mainTextColor)
+                    args.putString(SECONDARY_TEXT_COLOR_ARG, secondaryTextColor)
+                    args.putString(MAIN_COLOR_ARG, mainColor)
+                    args.putString(SECONDARY_COLOR_ARG, secondaryColor)
+                    args.putString(NEGATIVE_COLOR_ARG, negativeTextColor)
+                    args.putString(POSITIVE_COLOR_ARG, positiveTextColor)
+                    it.arguments = args
+                }
                 2 -> BonusesTabOrderFragment().also {
                     it.onPurchaseClickListener = onPurchaseClickListener
+                    val args = Bundle()
+                    args.putString(MAIN_TEXT_COLOR_ARG, mainTextColor)
+                    args.putString(SECONDARY_TEXT_COLOR_ARG, secondaryTextColor)
+                    args.putString(MAIN_COLOR_ARG, mainColor)
+                    args.putString(SECONDARY_COLOR_ARG, secondaryColor)
+                    it.arguments = args
                 }
                 else -> throw  IllegalStateException("Incorrect position")
             }
@@ -92,48 +148,34 @@ class BonusesDetailFragment : Fragment() {
     }
 
     companion object {
-        const val THEME_COLOR_ARG = "theme_color_arg"
+        const val MAIN_COLOR_ARG = "theme_color_arg"
         const val SECONDARY_COLOR_ARG = "secondary_color_arg"
-        const val BASE_TEXT_COLOR_ARG = "base_text_color"
+        const val MAIN_TEXT_COLOR_ARG = "base_text_color"
         const val SECONDARY_TEXT_COLOR_ARG = "secondary_text_color"
+        const val POSITIVE_COLOR_ARG = "positive_color"
+        const val NEGATIVE_COLOR_ARG = "negavite_color"
 
         fun newInstance(
             onPurchaseClickListener: OnPurchaseClickListener? = null,
-            themeColor: String? = null,
-            secondColor: String? = null,
-            baseTextColor: String? = null,
+            mainColor: String? = null,
+            secondaryColor: String? = null,
+            mainTextColor: String? = null,
             secondaryTextColor: String? = null,
+            negativeTextColor: String? = null,
+            positiveTetColor: String? = null
         ): BonusesDetailFragment {
             return BonusesDetailFragment().also {
                 val args = Bundle()
                 it.onPurchaseClickListener = onPurchaseClickListener
-                args.putString(BASE_TEXT_COLOR_ARG, baseTextColor)
+                args.putString(MAIN_TEXT_COLOR_ARG, mainTextColor)
                 args.putString(SECONDARY_TEXT_COLOR_ARG, secondaryTextColor)
-                args.putString(THEME_COLOR_ARG, themeColor)
-                args.putString(SECONDARY_COLOR_ARG, secondColor)
+                args.putString(MAIN_COLOR_ARG, mainColor)
+                args.putString(SECONDARY_COLOR_ARG, secondaryColor)
+                args.putString(NEGATIVE_COLOR_ARG, negativeTextColor)
+                args.putString(POSITIVE_COLOR_ARG, positiveTetColor)
                 it.arguments = args
             }
         }
     }
 
-
-    fun setSecondaryTextColor() {
-
-    }
-
-    fun setPrimaryTextColor() {
-
-    }
-
-    fun setThemeColor() {
-
-    }
-
-    fun setPositiveColor() {
-
-    }
-
-    fun setNegativeColor() {
-
-    }
 }

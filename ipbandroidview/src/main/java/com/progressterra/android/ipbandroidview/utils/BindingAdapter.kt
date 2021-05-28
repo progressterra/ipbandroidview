@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.progressterra.android.ipbandroidview.bonuses_details.tabs.ColorsPalette
 import com.progressterra.ipbandroidview.R
 
 @BindingAdapter("app:visibility")
@@ -19,12 +20,12 @@ internal fun textFromInt(view: TextView, text: Int) {
 @BindingAdapter("app:setColorAndTextFormattingByQuantity")
 internal fun setColorAndTextFormattingByQuantity(textView: TextView, quantity: Int) {
     if (quantity <= 0) {
-        textView.setTextColor(Color.RED)
+        textView.setTextColor(ColorsPalette.negativeTextColor ?: Color.RED)
         textView.text = String.format(
             textView.context.getString(R.string.negative_sum), kotlin.math.abs(quantity)
         )
     } else {
-        textView.setTextColor(Color.GREEN)
+        textView.setTextColor(ColorsPalette.positiveTextColor ?: Color.RED)
         textView.text = String.format(
             textView.context.getString(R.string.positive_sum), kotlin.math.abs(quantity)
                 .toString()
@@ -59,7 +60,6 @@ internal fun setVisibilityRefreshContentScreenState(refreshButton: View, screenS
     }
 }
 
-
 @BindingAdapter("app:setBonusTransactionType")
 internal fun setBonusTransactionType(textView: TextView, type: Int) {
     when (type) {
@@ -68,3 +68,40 @@ internal fun setBonusTransactionType(textView: TextView, type: Int) {
         2 -> textView.text = textView.context.getText(R.string.type_operation_charging)
     }
 }
+
+
+@BindingAdapter("app:setMainTextColor")
+internal fun setMainTextColor(textView: TextView, colorsPalette: ColorsPalette?) {
+    val color = ColorsPalette.mainTextColor
+    color?.let {
+        textView.setTextColor(color)
+    }
+}
+
+@BindingAdapter("app:setSecondaryTextColor")
+internal fun setSecondaryTextColor(textView: TextView, colorsPalette: ColorsPalette) {
+    val color = ColorsPalette.secondaryTextColor
+    color?.let {
+        textView.setTextColor(color)
+    }
+}
+
+@BindingAdapter("app:setMainColor")
+internal fun setMainColor(View: View, colorsPalette: ColorsPalette?) {
+    val color = ColorsPalette.mainColor
+    color?.let {
+        View.setBackgroundColor(color)
+    }
+}
+
+@BindingAdapter("app:setSecondaryColor")
+internal fun setSecondaryColor(view: View, colorsPalette: ColorsPalette) {
+    val color = ColorsPalette.secondaryColor
+    color?.let {
+        view.setBackgroundColor(color)
+    }
+}
+
+
+
+

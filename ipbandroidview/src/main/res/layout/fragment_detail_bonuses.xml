@@ -3,6 +3,9 @@
 
     <data>
         <variable
+            name="ColorPalette"
+            type="com.progressterra.android.ipbandroidview.bonuses_details.tabs.ColorsPalette" />
+        <variable
             name="BonusesDetailFragment"
             type="com.progressterra.android.ipbandroidview.bonuses_details.BonusesDetailFragment" />
 
@@ -49,6 +52,7 @@
             app:setVisibilityMainContentByScreenState="@{ScreenState}">
 
             <TextView
+                app:setMainTextColor="@{ColorPalette}"
                 android:id="@+id/my_bonuses_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
