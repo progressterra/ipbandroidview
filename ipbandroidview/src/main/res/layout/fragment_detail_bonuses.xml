@@ -76,6 +76,7 @@
                 app:layout_constraintTop_toBottomOf="@id/my_bonuses_tv" />
 
             <TextView
+                app:setSecondaryTextColor="@{ColorPalette}"
                 android:id="@+id/bonus_expiration_date_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,6 +117,7 @@
                 android:layout_height="wrap_content"
                 style="@style/Footnote"
                 android:textColor="@color/text_in_forms"
+                app:setSecondaryTextColor="@{ColorPalette}"
                 android:text="@{@string/bonuses_count(BonusesInfo.forBurningQuantity)}"
                 app:layout_constraintBottom_toBottomOf="@id/bonus_expiration_date_tv"
                 app:layout_constraintEnd_toEndOf="parent"

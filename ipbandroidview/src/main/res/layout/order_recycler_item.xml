@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <variable
+            name="ColorPalette"
+            type="com.progressterra.android.ipbandroidview.bonuses_details.tabs.ColorsPalette" />
+
+
         <variable
             name="Purchase"
             type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.Purchase" />
@@ -58,6 +64,7 @@
                     android:text="@string/shopping_list_purchase_amount" />
 
                 <TextView
+                    app:setMainTextColor="@{ColorPalette}"
                     style="@style/Callout2"
                     android:id="@+id/bonus_shopping_list_sum"
                     android:layout_width="match_parent"

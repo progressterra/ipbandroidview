@@ -25,7 +25,7 @@ internal fun setColorAndTextFormattingByQuantity(textView: TextView, quantity: I
             textView.context.getString(R.string.negative_sum), kotlin.math.abs(quantity)
         )
     } else {
-        textView.setTextColor(ColorsPalette.positiveTextColor ?: Color.RED)
+        textView.setTextColor(ColorsPalette.positiveTextColor ?: Color.GREEN)
         textView.text = String.format(
             textView.context.getString(R.string.positive_sum), kotlin.math.abs(quantity)
                 .toString()
@@ -79,7 +79,7 @@ internal fun setMainTextColor(textView: TextView, colorsPalette: ColorsPalette?)
 }
 
 @BindingAdapter("app:setSecondaryTextColor")
-internal fun setSecondaryTextColor(textView: TextView, colorsPalette: ColorsPalette) {
+internal fun setSecondaryTextColor(textView: TextView, colorsPalette: ColorsPalette?) {
     val color = ColorsPalette.secondaryTextColor
     color?.let {
         textView.setTextColor(color)
