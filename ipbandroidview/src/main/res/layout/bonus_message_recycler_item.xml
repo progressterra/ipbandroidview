@@ -2,7 +2,6 @@
 <layout>
 
     <data>
-
         <variable
             name="BonusMessage"
             type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusMessage" />
@@ -14,6 +13,8 @@
         android:layout_height="match_parent">
 
         <TextView
+            style="@style/Footnote"
+            android:textColor="@color/text_in_forms"
             android:id="@+id/greet_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,8 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
-            android:textSize="@dimen/header_text_size"
-            android:textStyle="bold"
+            style="@style/Title"
             app:layout_constraintEnd_toEndOf="@id/greet_tv"
             app:layout_constraintStart_toStartOf="@id/greet_tv"
             app:layout_constraintTop_toBottomOf="@id/greet_tv"
@@ -45,6 +45,8 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            style="@style/Footnote"
+            android:textColor="@color/text_in_forms"
             android:id="@+id/next_expired_date_tv_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,6 +57,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            style="@style/Body2"
             android:id="@+id/next_expired_date_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,6 +69,8 @@
             app:layout_constraintTop_toBottomOf="@id/next_expired_date_tv_tab" />
 
         <TextView
+            style="@style/Footnote"
+            android:textColor="@color/text_in_forms"
             android:id="@+id/expired_number_tab_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,6 +81,7 @@
             app:layout_constraintTop_toBottomOf="@id/next_expired_date_tab" />
 
         <TextView
+            style="@style/Body2"
             android:id="@+id/expired_number_tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesOrderTa
 internal class BonusesTabOrderFragment : Fragment() {
     private lateinit var binding: FragmentDetailBonusesOrderTabBinding
     private lateinit var viewModel: BonusesDetailsViewModel
+    internal var onPurchaseClickListener: OnPurchaseClickListener? = null
 
 
     override fun onCreateView(
@@ -39,7 +40,12 @@ internal class BonusesTabOrderFragment : Fragment() {
         viewModel =
             ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
         viewModel.purchasesList.observe(this) {
-            binding.orderListRv.adapter = OrderAdapter(it)
+            binding.orderListRv.adapter = OrderAdapter(it, onPurchaseClickListener)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        view?.requestLayout()
     }
 }

@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="Purchase"
             type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.Purchase" />
@@ -33,6 +32,7 @@
                 android:paddingBottom="@dimen/margin_small">
 
                 <TextView
+                    style="@style/Body2"
                     android:id="@+id/bonus_shopping_list_moll"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -41,6 +41,7 @@
                     android:text="@{Purchase.shopName}" />
 
                 <TextView
+                    style="@style/Body2"
                     android:id="@+id/bonus_shopping_list_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
                     android:text="@{Purchase.purchaseDate}" />
 
                 <TextView
+                    style="@style/Footnote"
                     android:id="@+id/bonus_shopping_list_purchase_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -56,6 +58,7 @@
                     android:text="@string/shopping_list_purchase_amount" />
 
                 <TextView
+                    style="@style/Callout2"
                     android:id="@+id/bonus_shopping_list_sum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,12 +84,14 @@
             android:padding="@dimen/margin_small">
 
             <TextView
+                style="@style/Footnote"
                 android:id="@+id/bonus_shopping_list_charging"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/shopping_list_charging" />
 
             <TextView
+                style="@style/Callout1"
                 android:id="@+id/bonus_shopping_list_charging_sum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,12 +100,14 @@
                 app:textFromInt="@{Purchase.addedBonusesSum}" />
 
             <TextView
+                style="@style/Footnote"
                 android:id="@+id/bonus_shopping_action_spending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/shopping_list_spending" />
 
             <TextView
+                style="@style/Callout1"
                 android:id="@+id/bonus_shopping_list_spending_sum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

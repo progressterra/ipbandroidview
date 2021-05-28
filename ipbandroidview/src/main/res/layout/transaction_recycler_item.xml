@@ -29,6 +29,8 @@
             android:paddingBottom="8dp">
 
             <TextView
+                style="@style/Footnote"
+                android:textColor="@color/text_in_forms"
                 android:id="@+id/bonus_train_operations_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,6 +38,7 @@
                 android:text="@{Trasaction.typeBonusName}" />
 
             <TextView
+                style="@style/Body2"
                 android:id="@+id/bonus_train_operations_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,6 +58,8 @@
         android:paddingBottom="8dp">
 
         <TextView
+            style="@style/Footnote"
+            android:textColor="@color/text_in_forms"
             android:id="@+id/bonus_train_operations_action"
             app:setBonusTransactionType="@{Trasaction.typeOperation}"
             android:layout_width="match_parent"
@@ -62,6 +67,7 @@
             android:gravity="end" />
 
         <TextView
+            style="@style/Callout2"
             android:id="@+id/bonus_train_operations_sum"
             app:textFromInt="@{Trasaction.quantity}"
             app:setColorAndTextFormattingByQuantity="@{Trasaction.quantity}"
@@ -79,6 +85,6 @@
         android:layout_marginEnd="24dp"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#DEDEDE" />
+        android:background="@color/line_color" />
 </LinearLayout>
 </layout>

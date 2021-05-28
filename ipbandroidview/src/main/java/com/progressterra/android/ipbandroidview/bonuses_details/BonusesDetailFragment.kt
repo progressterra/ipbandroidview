@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabDetailFragment
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabOrderFragment
 import com.progressterra.android.ipbandroidview.bonuses_details.tabs.BonusesTabTransactionFragment
+import com.progressterra.android.ipbandroidview.bonuses_details.tabs.OnPurchaseClickListener
 import com.progressterra.android.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesBinding
@@ -21,6 +22,7 @@ import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesBinding
 class BonusesDetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBonusesBinding
     private lateinit var viewModel: BonusesDetailsViewModel
+    private var onPurchaseClickListener: OnPurchaseClickListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,7 +75,7 @@ class BonusesDetailFragment : Fragment() {
         viewModel.updateDetailBonusesInfo()
     }
 
-    private class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+    inner class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
         override fun getItemCount(): Int = 3
 
@@ -81,11 +83,39 @@ class BonusesDetailFragment : Fragment() {
             return when (position) {
                 0 -> BonusesTabDetailFragment()
                 1 -> BonusesTabTransactionFragment()
-                2 -> BonusesTabOrderFragment()
+                2 -> BonusesTabOrderFragment().also {
+                    it.onPurchaseClickListener = onPurchaseClickListener
+                }
                 else -> throw  IllegalStateException("Incorrect position")
             }
         }
     }
+
+    companion object {
+        const val THEME_COLOR_ARG = "theme_color_arg"
+        const val SECONDARY_COLOR_ARG = "secondary_color_arg"
+        const val BASE_TEXT_COLOR_ARG = "base_text_color"
+        const val SECONDARY_TEXT_COLOR_ARG = "secondary_text_color"
+
+        fun newInstance(
+            onPurchaseClickListener: OnPurchaseClickListener? = null,
+            themeColor: String? = null,
+            secondColor: String? = null,
+            baseTextColor: String? = null,
+            secondaryTextColor: String? = null,
+        ): BonusesDetailFragment {
+            return BonusesDetailFragment().also {
+                val args = Bundle()
+                it.onPurchaseClickListener = onPurchaseClickListener
+                args.putString(BASE_TEXT_COLOR_ARG, baseTextColor)
+                args.putString(SECONDARY_TEXT_COLOR_ARG, secondaryTextColor)
+                args.putString(THEME_COLOR_ARG, themeColor)
+                args.putString(SECONDARY_COLOR_ARG, secondColor)
+                it.arguments = args
+            }
+        }
+    }
+
 
     fun setSecondaryTextColor() {
 
