@@ -37,11 +37,11 @@ class ConfirmViewModel(private val selectedCountry: String, private val phoneNum
                     when (response.status) {
                         SUCCESS -> {
                             when (response.userExist) {
-                                true -> TODO()
+                                true -> TODO() // пользователь существует, сюда колбек нужно сунуть
                                 false -> _fragment.value = Event(PersonalFragment.newInstance())
                             }
                         }
-                        ERROR -> TODO()
+                        ERROR -> TODO() // тут просто ошибку вывести тостом
                     }
                 }
             }

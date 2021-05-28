@@ -60,7 +60,7 @@ internal class LoginViewModel(var selectedCountry: String) : ViewModel() {
                             phoneWithCountryCode
                         )
                     )
-                ) // TODO: 25.05.2021 заглушка, дальше будет другой фрагмент вызываться
+                )
             else
                 _toastText.postValue(Event(loginResponse.errorMessage))
         }
