@@ -1,6 +1,9 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
@@ -17,6 +21,8 @@ import com.progressterra.ipbandroidview.utils.extensions.argument
 class LoginFragment : Fragment() {
 
     private var container: Int? = null
+
+    private var drawableLogo: Drawable? = null
 
     private var selectedCountry by argument<String>()
 
@@ -35,6 +41,10 @@ class LoginFragment : Fragment() {
     ): View {
         if (this.container == null)
             this.container = container?.id ?: throw Exception("Container is null")
+//        val contextThemeWrapper: Context =
+//            ContextThemeWrapper(activity, R.style.Body1)
+//        val localInflater: LayoutInflater = inflater.cloneInContext(contextThemeWrapper)
+
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -51,6 +61,11 @@ class LoginFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
+            textViewAgreement.text =
+                Html.fromHtml(getString(R.string.login_agreement_html))
+            textViewAgreement.movementMethod = LinkMovementMethod.getInstance()
+            if (drawableLogo != null)
+                header.imageViewLogo.setImageDrawable(drawableLogo)
         }
     }
 
@@ -78,6 +93,11 @@ class LoginFragment : Fragment() {
             Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 
+
+    fun setLogo(drawable: Drawable) {
+        drawableLogo = drawable
+    }
+
     companion object {
 
         /**
@@ -90,6 +110,5 @@ class LoginFragment : Fragment() {
                 this.selectedCountry = selectedCountry ?: Country.RUSSIA.name
             }
         }
-
     }
 }

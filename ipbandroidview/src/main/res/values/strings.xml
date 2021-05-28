@@ -7,9 +7,25 @@
     <string name="login_empty_phone">Не указан номер телефона</string>
     <string name="login_error_start_phone">Телефон должен начинаться с %s</string>
     <string name="login_error_format_phone">Телефон может содержать только цифры</string>
-    <string name="login_agreement">Согласен на обработку персональных данных</string>
-    <string name="login_agreement_more">Нажимая кнопку “Далее“, вы соглашаетесь на</string>
-    <string name="login_agreement_more_link">обработку персональных данных</string>
+    <string name="login_agreement_html">Нажимая кнопку "Далее", я соглашаюсь с &lt;a href="https://google.com"&gt;Пользовательским соглашением&lt;a/&gt; и даю согласие на обработку персональных данных</string>
+
+    <!--  Фрагмент ввода персональных данных  -->
+    <string name="personal_tell_us_about">Пожалуйста, расскажите немного о себе</string>
+    <string name="personal_name">Имя</string>
+    <string name="personal_name_hint">Ваше имя</string>
+    <string name="personal_second_name">Фамилия</string>
+    <string name="personal_second_name_hint">Ваша фамилия</string>
+    <string name="personal_birthday_hint">Дата вашего рождения?</string>
+    <string name="personal_birthday_description">Получайте бонусы на день рождения</string>
+    <string name="personal_city_hint">Ваш город</string>
+    <string name="personal_city_description">Укажите в поле ввода или выберите из списка</string>
+    <string name="personal_email_hint">Электронная почта</string>
+    <string name="personal_email_description">Подтвердите и получите %s бонусов.</string>
+    <string name="personal_sex_description">Позвольте нам дать Вам более качественные предложения. Кто Вы?</string>
+    <string name="personal_email_news">Я хочу получать информацию о скидках, новинках, подарках и новостях, а также участвовать в закрытых распродажах</string>
+    <string name="personal_email_news_desc">Перейдите в почту и подтвердите введённый адрес электронной почты. Получите за подписку %s рублей</string>
+    <string name="personal_skip">Продолжить без регистрации</string>
+
 
     <string name="next">Далее</string>
     <string name="search">Поиск</string>

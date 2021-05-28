@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment
 import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
@@ -52,7 +53,14 @@ internal class LoginViewModel(var selectedCountry: String) : ViewModel() {
         viewModelScope.launch {
             val loginResponse = api.verificationChannelBegin(phoneWithCountryCode)
             if (loginResponse.status == GlobalResponseStatus.SUCCESS)
-                _nextFragment.postValue(Event(CountryFragment.newInstance(selectedCountry))) // TODO: 25.05.2021 заглушка, дальше будет другой фрагмент вызываться
+                _nextFragment.postValue(
+                    Event(
+                        ConfirmFragment.newInstance(
+                            selectedCountry,
+                            phoneWithCountryCode
+                        )
+                    )
+                ) // TODO: 25.05.2021 заглушка, дальше будет другой фрагмент вызываться
             else
                 _toastText.postValue(Event(loginResponse.errorMessage))
         }
