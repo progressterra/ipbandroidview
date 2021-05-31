@@ -1,13 +1,20 @@
 package com.progressterra.ipbandroidview.ui.login.personal
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
+import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
+import java.util.*
 
 internal class PersonalFragment : Fragment() {
 
@@ -24,11 +31,80 @@ internal class PersonalFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPersonalBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
+
+        setupCitySpinner()
+        setupDatePickerDialog()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.personalData.editTextName.afterTextChanged { viewModel.updateFirstName(it) }
+        binding.personalData.editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
+        binding.personalData.editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+        binding.personalData.radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
+        binding.personalData.radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+    }
+
+    private fun setupDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+
+        val dialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, dayOfMonth ->
+                viewModel.updateBirthdate(dayOfMonth, month, year)
+                binding.personalData.textViewBirthDay.text = "$dayOfMonth.$month.$year"
+            },
+            calendar[Calendar.YEAR],
+            calendar[Calendar.MONTH],
+            calendar[Calendar.DAY_OF_MONTH]
+        )
+
+        binding.personalData.textViewBirthDay.setOnClickListener {
+            dialog.show()
+        }
+    }
+
+    private fun setupCitySpinner() {
+
+        val spinnerAdapter =
+            ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.cities,
+                android.R.layout.simple_spinner_item
+            ).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+
+        val citiesArray = resources.getStringArray(R.array.cities)
+
+        binding.personalData.citySpinner.apply {
+            adapter = spinnerAdapter
+            onItemSelectedListener =
+                (object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        parent: AdapterView<*>?,
+                        view: View?,
+                        position: Int,
+                        id: Long
+                    ) {
+                        viewModel.updateCity(citiesArray[position])
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        viewModel.updateCity(citiesArray[0])
+                    }
+                })
+        }
+    }
 
     companion object {
         fun newInstance(

@@ -34,4 +34,12 @@
     <string name="confirm_info">На указанный номер %s было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.</string>
 
     <string name="can_resend_code_after">через 00:%s</string>
+
+    <string-array name="cities">
+        <item>Город1</item>
+        <item>Город2</item>
+        <item>Город3</item>
+    </string-array>
+
+
 </resources>

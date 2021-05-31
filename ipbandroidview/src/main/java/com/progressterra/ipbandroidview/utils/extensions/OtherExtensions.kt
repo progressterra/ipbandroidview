@@ -3,6 +3,8 @@ package com.progressterra.ipbandroidview.utils.extensions
 import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import com.progressterra.ipbandroidview.models.ui.PersonalInfo
 import com.progressterra.ipbandroidview.utils.delegate.FragmentArgumentDelegate
 import com.progressterra.ipbandroidview.utils.delegate.FragmentNullableArgumentDelegate
 import kotlin.properties.ReadWriteProperty
@@ -31,3 +33,7 @@ fun <T : Any> argument(): ReadWriteProperty<Fragment, T> =
 
 fun <T : Any> argumentNullable(): ReadWriteProperty<Fragment, T?> =
     FragmentNullableArgumentDelegate()
+
+fun <T> MutableLiveData<T>.notifyObserver() {
+    this.value = this.value
+}

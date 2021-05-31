@@ -53,7 +53,7 @@ internal class ConfirmFragment : Fragment() {
 
         val imm =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(binding.editText, InputMethodManager.SHOW_FORCED)
+        imm.showSoftInput(binding.editText, InputMethodManager.SHOW_IMPLICIT)
 
         binding.editText.afterTextChanged {
             setupDigitItemParameters(it.getOrNull(0), binding.digit1)
@@ -85,6 +85,13 @@ internal class ConfirmFragment : Fragment() {
                 replace(((view as ViewGroup).parent as View).id, fragment)
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(binding.editText, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
     companion object {

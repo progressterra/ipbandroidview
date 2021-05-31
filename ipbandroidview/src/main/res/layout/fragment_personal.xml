@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.login.personal.PersonalViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,6 +46,7 @@
             app:layout_constraintTop_toBottomOf="@id/textView_label">
 
             <include
+                app:vm="@{vm}"
                 android:id="@+id/personal_data"
                 layout="@layout/include_personal_data" />
 
