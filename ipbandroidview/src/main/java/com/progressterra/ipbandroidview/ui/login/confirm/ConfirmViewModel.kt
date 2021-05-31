@@ -9,25 +9,66 @@ import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.ERROR
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.SUCCESS
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment
 import com.progressterra.ipbandroidview.utils.Event
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ConfirmViewModel(
     private val selectedCountry: String,
-    private val phoneNumber: String,
+    val phoneNumber: String,
     private val onLoginFlowFinishListener: OnLoginFlowFinishListener?
 ) :
     ViewModel() {
 
     private var isCalled: Boolean = false
 
+    private val _counterScore = MutableLiveData<String>()
+    val counterScore: LiveData<String> = _counterScore
+
+    private val _resendCodeOperationReady = MutableLiveData(false)
+    var resendCodeOperationReady = _resendCodeOperationReady
+
     private val _fragment = MutableLiveData<Event<Fragment>>()
     val fragment: LiveData<Event<Fragment>> = _fragment
 
-    init {
+    var confirmInfo = MutableLiveData<String>()
 
+    init {
+        confirmInfo.postValue("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
+        startResendCounter()
+    }
+
+    private fun startResendCounter() {
+        CoroutineScope(Job()).launch {
+            for (i in 59 downTo 0) {
+                _counterScore.postValue(i.toString())
+                delay(1000)
+            }
+            resendCodeOperationReady.postValue(true)
+        }
+
+    }
+
+    fun resendConfirmationCode() {
+
+        if (resendCodeOperationReady.value == false) {
+            return
+        }
+
+        val api = LoginApi.newInstance()
+        viewModelScope.launch {
+            val loginResponse = api.verificationChannelBegin(phoneNumber)
+            if (loginResponse.status == SUCCESS) {
+                resendCodeOperationReady.postValue(false)
+                startResendCounter()
+            } else {
+            }
+        }
     }
 
     fun checkIt(code: String) {
@@ -43,10 +84,13 @@ class ConfirmViewModel(
                         SUCCESS -> {
                             when (response.userExist) {
                                 true -> onLoginFlowFinishListener?.onLoginFinish()
-                                false -> _fragment.value = Event(PersonalFragment.newInstance())
+                                false -> _fragment.value =
+                                    Event(PersonalFragment.newInstance(onLoginFlowFinishListener))
                             }
                         }
-                        ERROR -> TODO() // тут просто ошибку вывести тостом
+                        ERROR -> {
+                            confirmInfo.postValue("Код введен неправльно. Проверьте еще раз SMS с кодом. Или можете запросить новый код, нажав “Выслать повторно”")
+                        }
                     }
                 }
             }

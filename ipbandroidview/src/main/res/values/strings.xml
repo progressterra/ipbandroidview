@@ -28,5 +28,10 @@
 
 
     <string name="next">Далее</string>
+    <string name="wrong_sms_code">Код введен неправльно. Проверьте еще раз SMS с кодом. Или можете запросить новый код, нажав “Выслать повторно”</string>
     <string name="search">Поиск</string>
+    <string name="resend_code">Выслать повторно</string>
+    <string name="confirm_info">На указанный номер %s было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.</string>
+
+    <string name="can_resend_code_after">через 00:%s</string>
 </resources>

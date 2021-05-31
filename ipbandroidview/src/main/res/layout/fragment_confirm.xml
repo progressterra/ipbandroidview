@@ -1,30 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="login_vm"
+            type="com.progressterra.ipbandroidview.ui.login.login.LoginViewModel" />
 
         <variable
             name="vm"
             type="com.progressterra.ipbandroidview.ui.login.confirm.ConfirmViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.login.confirm.ConfirmFragment">
 
+
         <TextView
+            android:id="@+id/confirm_logo_iv"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Input code in edittext" />
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:minHeight="100dp"
+            android:text="Логотип компании"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:background="@android:color/transparent"
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:cursorVisible="false"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="number"
+            android:paddingTop="50dp"
+            android:textColor="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@id/digit1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/digit1" />
+
+        <TextView
+            android:gravity="center"
+            android:id="@+id/info_confirm_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:text="@{vm.confirmInfo}"
+            app:layout_constraintTop_toBottomOf="@id/confirm_logo_iv" />
+
+        <TextView
+            android:id="@+id/digit1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:width="52dp"
+            android:height="52dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:minWidth="10dp"
+            android:textColor="#FAFAFA"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/digit2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
+
+        <TextView
+            android:id="@+id/digit2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:width="52dp"
+            android:height="52dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:minWidth="10dp"
+            android:textColor="#FAFAFA"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/digit3"
+            app:layout_constraintStart_toEndOf="@id/digit1"
+            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
+
+        <TextView
+            android:id="@+id/digit3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:width="52dp"
+            android:height="52dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:textColor="#FAFAFA"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/digit4"
+            app:layout_constraintStart_toEndOf="@id/digit2"
+            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
+
+        <TextView
+            android:id="@+id/digit4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:width="52dp"
+            android:height="52dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:textColor="#FAFAFA"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/digit3"
+            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
+
+        <TextView
+            android:id="@+id/resend_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="66dp"
+            android:layout_marginTop="24dp"
+            android:onClick="@{_-> vm.resendConfirmationCode()}"
+            android:text="@string/resend_code"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/digit1" />
+
+        <TextView
+            visibility="@{!vm.resendCodeOperationReady}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:text="@{@string/can_resend_code_after(vm.counterScore)}"
+            app:layout_constraintStart_toEndOf="@id/resend_code"
+            app:layout_constraintTop_toTopOf="@id/resend_code" />
+
+        <View
+            android:id="@+id/line_view"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="8dp"
+            android:background="#989090"
+            app:layout_constraintTop_toBottomOf="@id/resend_code" />
+
+        <TextView
+            android:id="@+id/confirm_banner_iv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:minHeight="200dp"
+            android:scaleType="centerCrop"
+            android:text="Тематическая картинка"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/line_view"
+            app:layout_constraintVertical_bias="1" />
 
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

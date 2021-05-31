@@ -16,18 +16,22 @@
         android:orientation="vertical"
         tools:context="com.progressterra.ipbandroidview.ui.login.login.LoginFragment">
 
-        <include
-            android:id="@+id/header"
-            layout="@layout/include_login_header" />
+
+        <TextView
+            android:text="Логотип компании"
+            android:minHeight="60dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/textView_hint"
             style="@style/Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="51dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="51dp"
             android:gravity="center_horizontal"
             android:text="@string/login_description"
             android:textColor="@color/text_color" />
@@ -37,15 +41,15 @@
             style="@style/Footnote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="40dp"
             android:text="@string/login_country" />
 
         <FrameLayout
             android:id="@+id/login_country_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="19dp"
+            android:layout_marginStart="41dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="29dp"
             android:background="@drawable/border_bottom_grey_ripple"
@@ -54,6 +58,7 @@
             <TextView
                 android:id="@+id/login_country"
                 style="@style/Body1"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -69,8 +74,8 @@
             style="@style/Footnote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="20dp"
             android:text="@string/login_phone"
             android:textColor="@color/form_text_color" />
 
@@ -79,7 +84,7 @@
             style="@style/Body1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="19dp"
+            android:layout_marginStart="42dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="29dp"
             android:background="@drawable/background_edittext"
@@ -89,6 +94,7 @@
             tools:text="241" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/textView_agreement"
             style="@style/Footnote"
             android:layout_width="match_parent"
@@ -108,12 +114,26 @@
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="40dp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="38dp"
             android:background="@drawable/button_theme"
             android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="@color/white" />
+
+        <View
+            android:background="#9E9E9E"
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Тематическая картинка "
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
     </LinearLayout>
 </layout>

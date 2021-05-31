@@ -67,8 +67,8 @@ class LoginFragment : Fragment() {
             textViewAgreement.text =
                 Html.fromHtml(getString(R.string.login_agreement_html))
             textViewAgreement.movementMethod = LinkMovementMethod.getInstance()
-            if (drawableLogo != null)
-                header.imageViewLogo.setImageDrawable(drawableLogo)
+            // if (drawableLogo != null)
+              //  header.imageViewLogo.setImageDrawable(drawableLogo)
         }
     }
 
@@ -108,7 +108,7 @@ class LoginFragment : Fragment() {
          */
         fun newInstance(
             selectedCountry: String? = null,
-            loginFinishListener: OnLoginFlowFinishListener
+            loginFinishListener: OnLoginFlowFinishListener? = null
         ): LoginFragment {
             return LoginFragment().apply {
                 this.selectedCountry = selectedCountry ?: Country.RUSSIA.name
