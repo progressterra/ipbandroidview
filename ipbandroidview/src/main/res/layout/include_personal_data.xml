@@ -58,7 +58,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:text="14.05.1999"
+        android:text="Дата вашего рождения"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/editText_secondName" />
@@ -68,7 +68,7 @@
         style="@style/Footnote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="9dp"
         android:text="@string/personal_birthday_description"
         android:textColor="@color/footnote_accent_color"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
@@ -80,45 +80,90 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
-        android:text="Москва"
+        android:text="Ваш город"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
         app:layout_constraintTop_toBottomOf="@id/textView_birthDay_hint" />
 
+    <Spinner
+        android:id="@+id/city_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/textView_city"
+        app:layout_constraintTop_toTopOf="@id/textView_city" />
+
+    <TextView
+        android:id="@+id/set_city_info_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="Укажите поле ввода или выберите из списка"
+
+        app:layout_constraintStart_toStartOf="@id/editText_name"
+        app:layout_constraintTop_toBottomOf="@id/city_spinner" />
+
     <EditText
+
         android:id="@+id/editText_email"
         style="@style/Body1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/background_edittext"
         android:hint="@string/personal_email_hint"
         android:paddingBottom="5dp"
         android:textColor="@color/grey_dark"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/textView_city" />
+        app:layout_constraintTop_toBottomOf="@id/set_city_info_tv" />
+
+    <TextView
+        android:id="@+id/set_email_info_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:text="Подтвердите и получите 300 приветственных бонусов"
+        app:layout_constraintEnd_toEndOf="@id/editText_name"
+        app:layout_constraintStart_toStartOf="@id/editText_name"
+        app:layout_constraintTop_toBottomOf="@id/editText_email" />
+
+    <TextView
+        android:id="@+id/set_sex_info_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:gravity="center"
+        android:text="Позвольте нам дать для вас качественные предложения. Кто вы? "
+        app:layout_constraintEnd_toEndOf="@id/editText_name"
+        app:layout_constraintStart_toStartOf="@id/editText_name"
+        app:layout_constraintTop_toBottomOf="@id/set_email_info_tv" />
 
     <RadioGroup
+        android:layout_marginTop="20dp"
         android:id="@+id/radioGroup_sex"
         android:layout_width="0dp"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@id/guideline_end"
         app:layout_constraintStart_toStartOf="@id/guideline_start"
-        app:layout_constraintTop_toBottomOf="@id/editText_email">
+        app:layout_constraintTop_toBottomOf="@id/set_sex_info_tv">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             android:id="@+id/radioButton_male"
+            android:background="@drawable/ic_man_rb"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="male" />
+            android:button="@null" />
 
         <com.google.android.material.radiobutton.MaterialRadioButton
-            android:id="@+id/radioButton_female"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="female" />
+            android:layout_marginStart="20dp"
+            android:id="@+id/radioButton_female"
+            android:background="@drawable/ic_girl_rb"
+            android:layout_width="wrap_content"
+            android:button="@null" />
     </RadioGroup>
 
     <Button
