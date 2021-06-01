@@ -41,5 +41,24 @@
         <item>Город3</item>
     </string-array>
 
+    <!--Информация о транзакциях бонусов-->
+    <string name="bonuses_count">%s бонусов</string>
+    <string name="expired">%s сгорит</string>
+    <string name="type_operation_spending">Использование</string>
+    <string name="type_operation_charging">Начисление</string>
+    <string name="type_operation_burning">Сгорание</string>
+    <string name="positive_sum">+ %s</string>
+    <string name="negative_sum">- %s</string>
+    <string name="shopping_list_purchase_amount">Сумма покупки</string>
+    <string name="shopping_list_spending">Списано</string>
+    <string name="shopping_list_charging">Начислено</string>
+    <string name="price_value">%s ₽</string>
+    <string name="my_bonuses">Мои бонусы</string>
+    <string name="ErrorString">Что-то пошло не так</string>
+    <string name="bonuses">Бонусы</string>
+    <string name="transactions">Движения</string>
+    <string name="my_orders">Мои заказы</string>
+    <string name="next_burning_date">Дата следущего сгорания</string>
+    <string name="refresh">Обновить</string>
 
 </resources>

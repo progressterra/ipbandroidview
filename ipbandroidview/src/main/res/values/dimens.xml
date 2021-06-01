@@ -8,4 +8,8 @@
     <dimen name="text_xlarge">22sp</dimen>
     <dimen name="text_xxxlarge">36sp</dimen>
 
+    <dimen name="header_text_size">24sp</dimen>
+    <dimen name="base_text_size">16sp</dimen>
+    <dimen name="margin_layout_small">20dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
 </resources>

@@ -27,6 +27,9 @@
     <color name="warm_grey">#9B9B9B</color>
 
     <color name="color_white">#FFFFFF</color>
+    <color name="text_in_forms">#979797</color>
+    <color name="line_color">#DEDEDE</color>
+    <color name="fields_color">#F0F0F3</color>
 
     <color name="footnote_accent_color">#EF8539</color>
 </resources>

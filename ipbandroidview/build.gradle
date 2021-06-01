@@ -36,9 +36,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        dataBinding = true
-    }
 }
 
 dependencies {
@@ -52,13 +49,19 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.0.51"
+    def lifecycle_version = "2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.0.50"
 
     //zoom image view
     implementation 'com.github.MikeOrtiz:TouchImageView:3.1.0'
 
     // image downloading
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    api 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'androidx.core:core-ktx:1.5.0'
+
 
     // AndroidX
     api "androidx.core:core-ktx:1.5.0"
