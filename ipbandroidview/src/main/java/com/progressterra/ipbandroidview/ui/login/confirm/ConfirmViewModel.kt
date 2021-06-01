@@ -10,9 +10,9 @@ import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.ERROR
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.SUCCESS
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
-import com.progressterra.ipbandroidview.ui.login.login.ScreenState
 import com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment
 import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

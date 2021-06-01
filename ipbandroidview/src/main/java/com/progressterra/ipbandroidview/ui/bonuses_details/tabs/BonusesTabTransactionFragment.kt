@@ -1,4 +1,4 @@
-package com.progressterra.android.ipbandroidview.bonuses_details.tabs
+package com.progressterra.ipbandroidview.ui.bonuses_details.tabs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.progressterra.android.ipbandroidview.bonuses_details.BonusesDetailsViewModel
+import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesTransactionTabBinding
 
@@ -39,7 +39,7 @@ internal class BonusesTabTransactionFragment : Fragment() {
         viewModel =
             ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
 
-        viewModel.transactionList.observe(this) {
+        viewModel.transactionList.observe(viewLifecycleOwner) {
             binding.bonusTransactionRv.adapter = TransactionAdapter(it)
         }
     }

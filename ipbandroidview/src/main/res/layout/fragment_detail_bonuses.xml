@@ -4,14 +4,14 @@
     <data>
         <variable
             name="ColorPalette"
-            type="com.progressterra.android.ipbandroidview.bonuses_details.tabs.ColorsPalette" />
+            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesColorsPalette" />
         <variable
             name="BonusesDetailFragment"
-            type="com.progressterra.android.ipbandroidview.bonuses_details.BonusesDetailFragment" />
+            type="com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailFragment" />
 
         <variable
             name="ScreenState"
-            type="com.progressterra.android.ipbandroidview.utils.ScreenState" />
+            type="com.progressterra.ipbandroidview.utils.ScreenState" />
 
         <variable
             name="BonusesInfo"
@@ -89,7 +89,7 @@
                 app:layout_constraintEnd_toStartOf="@id/fire_iv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/number_of_bonuses_tv_detail"
-                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
             <ImageView
                 android:id="@+id/fire_iv"
@@ -102,7 +102,7 @@
                 app:layout_constraintEnd_toStartOf="@id/bonus_expiration_number_tv"
                 app:layout_constraintStart_toEndOf="@id/bonus_expiration_date_tv"
                 app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv"
-                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
             <View
                 android:id="@+id/horizontal_line"
@@ -123,7 +123,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fire_iv"
                 app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv"
-                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
@@ -137,7 +137,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

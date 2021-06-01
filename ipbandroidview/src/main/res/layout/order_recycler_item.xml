@@ -6,7 +6,7 @@
 
         <variable
             name="ColorPalette"
-            type="com.progressterra.android.ipbandroidview.bonuses_details.tabs.ColorsPalette" />
+            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesColorsPalette" />
 
 
         <variable

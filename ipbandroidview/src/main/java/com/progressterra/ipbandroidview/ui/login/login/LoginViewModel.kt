@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment
 import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.launch
 
 internal class LoginViewModel(

@@ -1,4 +1,4 @@
-package com.progressterra.android.ipbandroidview.bonuses_details.tabs
+package com.progressterra.ipbandroidview.ui.bonuses_details.tabs
 
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Purchase
 

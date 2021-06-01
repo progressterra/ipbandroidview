@@ -26,7 +26,7 @@
         <View
             android:layout_width="7dp"
             android:layout_height="7dp"
-            app:visibility="@{item.selected}"
+            visibility="@{item.selected}"
             android:background="@drawable/circle_theme_color" />
 
         <TextView
@@ -42,7 +42,7 @@
         <View
             android:layout_width="15dp"
             android:layout_height="15dp"
-            app:visibility="@{item.selected}"
+            visibility="@{item.selected}"
             android:background="@drawable/ic_check"
             android:backgroundTint="@color/theme_color" />
 

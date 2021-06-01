@@ -1,4 +1,4 @@
-package com.progressterra.android.ipbandroidview.bonuses_details
+package com.progressterra.ipbandroidview.ui.bonuses_details
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,10 +11,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
-import com.progressterra.android.ipbandroidview.bonuses_details.tabs.*
-import com.progressterra.android.ipbandroidview.utils.ScreenState
+import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesBinding
+import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.*
+import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabDetailFragment
+import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabOrderFragment
+import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabTransactionFragment
 
 
 class BonusesDetailFragment : Fragment() {
@@ -52,23 +55,23 @@ class BonusesDetailFragment : Fragment() {
 
     private fun getValuesFromArguments() {
         arguments?.getString(MAIN_TEXT_COLOR_ARG)?.let {
-            ColorsPalette.mainTextColor = Color.parseColor(it)
+            BonusesColorsPalette.mainTextColor = Color.parseColor(it)
         }
         arguments?.getString(SECONDARY_TEXT_COLOR_ARG)?.let {
-            ColorsPalette.secondaryTextColor = Color.parseColor(it)
+            BonusesColorsPalette.secondaryTextColor = Color.parseColor(it)
         }
         arguments?.getString(MAIN_COLOR_ARG)?.let {
-            ColorsPalette.mainColor = Color.parseColor(it)
+            BonusesColorsPalette.mainColor = Color.parseColor(it)
         }
         arguments?.getString(SECONDARY_COLOR_ARG)?.let {
-            ColorsPalette.secondaryColor = Color.parseColor(it)
+            BonusesColorsPalette.secondaryColor = Color.parseColor(it)
         }
 
         arguments?.getString(POSITIVE_COLOR_ARG)?.let {
-            ColorsPalette.positiveTextColor = Color.parseColor(it)
+            BonusesColorsPalette.positiveTextColor = Color.parseColor(it)
         }
         arguments?.getString(NEGATIVE_COLOR_ARG)?.let {
-            ColorsPalette.negativeTextColor = Color.parseColor(it)
+            BonusesColorsPalette.negativeTextColor = Color.parseColor(it)
         }
     }
 
@@ -77,7 +80,7 @@ class BonusesDetailFragment : Fragment() {
 
         viewModel.updateDetailBonusesInfo()
 
-        viewModel.status.observe(this) {
+        viewModel.status.observe(viewLifecycleOwner) {
             binding.screenState = it
             if (it == ScreenState.ERROR) {
                 Snackbar.make(binding.root, getString(R.string.ErrorString), Snackbar.LENGTH_SHORT)
@@ -85,7 +88,7 @@ class BonusesDetailFragment : Fragment() {
             }
         }
 
-        viewModel.bonusesInfo.observe(this) {
+        viewModel.bonusesInfo.observe(viewLifecycleOwner) {
             binding.bonusesInfo = it
             setupTabAdapter()
         }

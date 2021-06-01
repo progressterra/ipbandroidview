@@ -1,6 +1,6 @@
-package com.progressterra.android.ipbandroidview.bonuses_details.tabs
+package com.progressterra.ipbandroidview.ui.bonuses_details.tabs
 
-object ColorsPalette {
+object BonusesColorsPalette {
     var mainColor: Int? = null
     var secondaryColor: Int? = null
     var mainTextColor: Int? = null

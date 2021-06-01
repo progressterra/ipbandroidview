@@ -1,8 +1,8 @@
-package com.progressterra.android.ipbandroidview.bonuses_details
+package com.progressterra.ipbandroidview.ui.bonuses_details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.progressterra.android.ipbandroidview.utils.ScreenState
+import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.*
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import kotlinx.coroutines.CoroutineScope
