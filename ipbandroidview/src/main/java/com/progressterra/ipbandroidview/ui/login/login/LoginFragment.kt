@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.R
@@ -57,10 +58,18 @@ class LoginFragment : Fragment() {
             nextFragment.observe(viewLifecycleOwner, this@LoginFragment::nextFragment)
             toastStringInt.observe(viewLifecycleOwner, this@LoginFragment::showToastByRes)
             toastText.observe(viewLifecycleOwner, this@LoginFragment::showToast)
-        }
 
+            viewModel.screenState.observe(viewLifecycleOwner) {
+                if (it == ScreenState.LOADING) {
+                    binding.loginNext.text = ""
+                } else {
+                    binding.loginNext.text = getString(R.string.next)
+                }
+            }
+        }
         binding.apply {
             vm = viewModel
+            binding.lifecycleOwner = this@LoginFragment
             lifecycleOwner = viewLifecycleOwner
             loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
@@ -75,6 +84,7 @@ class LoginFragment : Fragment() {
     private fun nextFragment(event: Event<Fragment>) {
         val fragment = event.contentIfNotHandled
         activity?.supportFragmentManager?.commit {
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             addToBackStack(javaClass.simpleName)
             if (fragment != null) {
                 replace(((view as ViewGroup).parent as View).id, fragment)

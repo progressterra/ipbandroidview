@@ -180,6 +180,7 @@
             <Button
                 android:id="@+id/button_next"
                 style="@style/Callout1"
+                android:onClick="@{_->vm.addPersonalInfo()}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="38dp"

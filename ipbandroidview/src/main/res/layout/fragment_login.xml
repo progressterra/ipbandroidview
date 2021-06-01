@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="ScreenState"
+            type="com.progressterra.ipbandroidview.ui.login.login.ScreenState" />
         <variable
             name="vm"
             type="com.progressterra.ipbandroidview.ui.login.login.LoginViewModel" />
@@ -107,20 +109,32 @@
             android:textAlignment="textStart"
             android:textColor="@color/grey_dark" />
 
-        <Button
-            android:id="@+id/login_next"
-            style="@style/Callout1"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="38dp"
-            android:background="@drawable/button_theme"
-            android:text="@string/next"
-            android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/login_next"
+                style="@st  yle/Callout1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="38dp"
+                android:background="@drawable/button_theme"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+            <ProgressBar
+                showLoadingScreenComponent="@{vm.screenState}"
+                android:elevation="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
 
         <View
             android:background="#9E9E9E"

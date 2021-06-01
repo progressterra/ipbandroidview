@@ -9,8 +9,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.progressterra.android.api.a.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
@@ -41,7 +41,10 @@ internal class PersonalFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-        setupCitySpinner()
+        viewModel.citiesList.observe(viewLifecycleOwner) {
+            setupCitySpinner(it)
+        }
+
         setupDatePickerDialog()
         initListeners()
     }
@@ -73,18 +76,15 @@ internal class PersonalFragment : Fragment() {
         }
     }
 
-    private fun setupCitySpinner() {
+    private fun setupCitySpinner(citiesList: List<CitiesListResponse.City>) {
 
         val spinnerAdapter =
-            ArrayAdapter.createFromResource(
-                requireContext(),
-                R.array.cities,
-                android.R.layout.simple_spinner_item
+            ArrayAdapter(
+                requireContext(), android.R.layout.simple_spinner_dropdown_item,
+                citiesList
             ).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             }
-
-        val citiesArray = resources.getStringArray(R.array.cities)
 
         binding.personalData.citySpinner.apply {
             adapter = spinnerAdapter
@@ -96,11 +96,11 @@ internal class PersonalFragment : Fragment() {
                         position: Int,
                         id: Long
                     ) {
-                        viewModel.updateCity(citiesArray[position])
+                        viewModel.updateCity(citiesList[position])
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
-                        viewModel.updateCity(citiesArray[0])
+                        viewModel.updateCity(citiesList[0])
                     }
                 })
         }

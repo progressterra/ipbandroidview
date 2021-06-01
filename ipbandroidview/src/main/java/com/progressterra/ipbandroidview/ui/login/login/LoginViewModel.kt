@@ -17,6 +17,8 @@ internal class LoginViewModel(
     private val onLoginFlowFinishListener: OnLoginFlowFinishListener?
 ) : ViewModel() {
 
+    val screenState = MutableLiveData(ScreenState.DEFAULT)
+
     private val country: Country = Country.valueOf(selectedCountry)
 
     private val _nextFragment = MutableLiveData<Event<Fragment>>()
@@ -55,7 +57,9 @@ internal class LoginViewModel(
 
         val api = LoginApi.newInstance()
         viewModelScope.launch {
+            screenState.postValue(ScreenState.LOADING)
             val loginResponse = api.verificationChannelBegin(phoneWithCountryCode)
+            screenState.postValue(ScreenState.DEFAULT)
             if (loginResponse.status == GlobalResponseStatus.SUCCESS)
                 _nextFragment.postValue(
                     Event(
@@ -67,7 +71,8 @@ internal class LoginViewModel(
                     )
                 )
             else
-                _toastText.postValue(Event(loginResponse.errorMessage))
+                screenState.postValue(ScreenState.ERROR)
+            _toastText.postValue(Event(loginResponse.errorMessage))
         }
     }
 

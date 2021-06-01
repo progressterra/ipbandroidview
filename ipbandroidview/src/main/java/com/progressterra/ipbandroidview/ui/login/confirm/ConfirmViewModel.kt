@@ -9,8 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.ERROR
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.SUCCESS
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
+import com.progressterra.ipbandroidview.ui.login.login.ScreenState
 import com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment
 import com.progressterra.ipbandroidview.utils.Event
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +27,12 @@ class ConfirmViewModel(
 
     private var isCalled: Boolean = false
 
+    val _screenState = MutableLiveData(ScreenState.DEFAULT)
+    val screenState: LiveData<ScreenState> = _screenState
+
+    val _clearConfirmCode = MutableLiveData<Event<Any>>()
+    val clearConfirmCode: LiveData<Event<Any>> = _clearConfirmCode
+
     private val _counterScore = MutableLiveData<String>()
     val counterScore: LiveData<String> = _counterScore
 
@@ -36,14 +42,18 @@ class ConfirmViewModel(
     private val _fragment = MutableLiveData<Event<Fragment>>()
     val fragment: LiveData<Event<Fragment>> = _fragment
 
-    var confirmInfo = MutableLiveData<String>()
+    var _confirmInfo = MutableLiveData<String>()
+    val confirmInfo: LiveData<String> = _confirmInfo
+
+    private val _toastText = MutableLiveData<Event<String>>()
+    val toastText: LiveData<Event<String>> = _toastText
 
     init {
-        confirmInfo.postValue("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
-        startResendCounter()
+        _confirmInfo.postValue("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
+        startResendCodeCounter()
     }
 
-    private fun startResendCounter() {
+    private fun startResendCodeCounter() {
         CoroutineScope(Job()).launch {
             for (i in 59 downTo 0) {
                 _counterScore.postValue(i.toString())
@@ -51,7 +61,6 @@ class ConfirmViewModel(
             }
             resendCodeOperationReady.postValue(true)
         }
-
     }
 
     fun resendConfirmationCode() {
@@ -65,8 +74,9 @@ class ConfirmViewModel(
             val loginResponse = api.verificationChannelBegin(phoneNumber)
             if (loginResponse.status == SUCCESS) {
                 resendCodeOperationReady.postValue(false)
-                startResendCounter()
+                startResendCodeCounter()
             } else {
+                _toastText.postValue(Event("Ошибка при повторной отправке кода"))
             }
         }
     }
@@ -76,12 +86,15 @@ class ConfirmViewModel(
             if (!isCalled) {
                 isCalled = true
                 viewModelScope.launch {
+                    _screenState.postValue(ScreenState.LOADING)
                     val api = LoginApi.newInstance()
                     val response = api.verificationChannelEnd(phoneNumber, code)
+                    _screenState.postValue(ScreenState.DEFAULT)
                     Log.d("myTag", response.status.toString())
                     Log.d("myTag", response.userExist.toString())
                     when (response.status) {
                         SUCCESS -> {
+                            isCalled = false
                             when (response.userExist) {
                                 true -> onLoginFlowFinishListener?.onLoginFinish()
                                 false -> _fragment.value =
@@ -89,7 +102,9 @@ class ConfirmViewModel(
                             }
                         }
                         ERROR -> {
-                            confirmInfo.postValue("Код введен неправльно. Проверьте еще раз SMS с кодом. Или можете запросить новый код, нажав “Выслать повторно”")
+                            _clearConfirmCode.postValue(Event(Any()))
+                            isCalled = false
+                            _confirmInfo.postValue("Код введен неправльно. Проверьте еще раз SMS с кодом. Или можете запросить новый код, нажав “Выслать повторно”")
                         }
                     }
                 }

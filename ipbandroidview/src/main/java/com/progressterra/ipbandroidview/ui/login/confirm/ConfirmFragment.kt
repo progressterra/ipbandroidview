@@ -1,13 +1,11 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -17,6 +15,8 @@ import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.argument
+import com.progressterra.ipbandroidview.utils.extensions.hideKeyboard
+import com.progressterra.ipbandroidview.utils.extensions.showKeyboard
 
 
 internal class ConfirmFragment : Fragment() {
@@ -49,26 +49,38 @@ internal class ConfirmFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.editText.afterTextChanged(viewModel::checkIt)
+
         binding.editText.requestFocus()
-
-        val imm =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(binding.editText, InputMethodManager.SHOW_IMPLICIT)
-
-        binding.editText.afterTextChanged {
-            setupDigitItemParameters(it.getOrNull(0), binding.digit1)
-            setupDigitItemParameters(it.getOrNull(1), binding.digit2)
-            setupDigitItemParameters(it.getOrNull(2), binding.digit3)
-            setupDigitItemParameters(it.getOrNull(3), binding.digit4)
-        }
+        showKeyboard(requireContext(), binding.editText)
 
         binding.vm = viewModel
         binding.lifecycleOwner = this
+        setupViewModel()
+        setupCodeBlockParameters()
+    }
+
+    private fun setupViewModel() {
         viewModel.fragment.observe(viewLifecycleOwner, this::onFragment)
+        viewModel.clearConfirmCode.observe(viewLifecycleOwner) {
+            cleanBlockCode()
+        }
+    }
+
+    private fun cleanBlockCode() {
+        binding.editText.text.clear()
     }
 
 
-    private fun setupDigitItemParameters(inputString: Char?, textView: TextView) {
+    private fun setupCodeBlockParameters() {
+        binding.editText.afterTextChanged {
+            setDigitItemParameters(it.getOrNull(0), binding.digit1)
+            setDigitItemParameters(it.getOrNull(1), binding.digit2)
+            setDigitItemParameters(it.getOrNull(2), binding.digit3)
+            setDigitItemParameters(it.getOrNull(3), binding.digit4)
+        }
+    }
+
+    private fun setDigitItemParameters(inputString: Char?, textView: TextView) {
         if (inputString == null) {
             textView.text = ""
             textView.backgroundTintList = ColorStateList.valueOf(Color.RED)
@@ -89,9 +101,7 @@ internal class ConfirmFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        val imm =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.showSoftInput(binding.editText, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        hideKeyboard(requireContext(), binding.editText)
     }
 
     companion object {

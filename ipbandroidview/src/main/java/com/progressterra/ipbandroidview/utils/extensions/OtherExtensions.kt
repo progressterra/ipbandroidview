@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import com.progressterra.ipbandroidview.models.ui.PersonalInfo
 import com.progressterra.ipbandroidview.utils.delegate.FragmentArgumentDelegate
 import com.progressterra.ipbandroidview.utils.delegate.FragmentNullableArgumentDelegate
 import kotlin.properties.ReadWriteProperty
