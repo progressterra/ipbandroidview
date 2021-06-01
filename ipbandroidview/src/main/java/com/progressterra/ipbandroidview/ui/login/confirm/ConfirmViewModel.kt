@@ -27,10 +27,10 @@ class ConfirmViewModel(
 
     private var isCalled: Boolean = false
 
-    val _screenState = MutableLiveData(ScreenState.DEFAULT)
+    private val _screenState = MutableLiveData(ScreenState.DEFAULT)
     val screenState: LiveData<ScreenState> = _screenState
 
-    val _clearConfirmCode = MutableLiveData<Event<Any>>()
+    private val _clearConfirmCode = MutableLiveData<Event<Any>>()
     val clearConfirmCode: LiveData<Event<Any>> = _clearConfirmCode
 
     private val _counterScore = MutableLiveData<String>()
@@ -42,14 +42,13 @@ class ConfirmViewModel(
     private val _fragment = MutableLiveData<Event<Fragment>>()
     val fragment: LiveData<Event<Fragment>> = _fragment
 
-    var _confirmInfo = MutableLiveData<String>()
+    private val _confirmInfo = MutableLiveData<String>("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
     val confirmInfo: LiveData<String> = _confirmInfo
 
     private val _toastText = MutableLiveData<Event<String>>()
     val toastText: LiveData<Event<String>> = _toastText
 
     init {
-        _confirmInfo.postValue("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
         startResendCodeCounter()
     }
 

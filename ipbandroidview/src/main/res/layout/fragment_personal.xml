@@ -16,8 +16,7 @@
         android:background="@android:color/white"
         tools:context=".ui.login.personal.PersonalFragment">
 
-       <!-- <include
-            android:id="@+id/header"
+        <!--<include
             layout="@layout/include_login_header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

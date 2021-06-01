@@ -9,5 +9,5 @@ internal class PersonalViewModelFactory(private val onLoginFlowFinishListener: O
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        PersonalViewModel() as T
+        PersonalViewModel(onLoginFlowFinishListener) as T
 }

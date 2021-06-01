@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.login.personal
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.progressterra.android.api.a.remoteData.scrm.models.responses.CitiesListResponse
@@ -7,15 +8,21 @@ import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.interfaces.client.login.models.PersonalInfo
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
+import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
+import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class PersonalViewModel : ViewModel() {
+class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener?) : ViewModel() {
     val personalInfo = MutableLiveData(PersonalInfo())
     val personalDataIsValid = MutableLiveData(false)
     val citiesList = MutableLiveData<List<CitiesListResponse.City>>()
+
+    private val _toastText = MutableLiveData<Event<String>>()
+    val toastText: LiveData<Event<String>> = _toastText
 
     init {
         val api = LoginApi.newInstance()
@@ -36,13 +43,11 @@ class PersonalViewModel : ViewModel() {
         personalInfo.value?.lastname = newLastName
         personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
         personalInfo.notifyObserver()
-
     }
 
     fun updateSex(sexType: SexType) {
         personalInfo.value?.sexType = sexType
         personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
-
     }
 
     fun updateBirthdate(day: Int, month: Int, year: Int) {
@@ -66,11 +71,35 @@ class PersonalViewModel : ViewModel() {
         val loginApi = LoginApi.newInstance()
         val bonusesApi = BonusesApi.getInstance()
         CoroutineScope(Job()).launch {
-            bonusesApi.getAccessToken()
-            loginApi.addClientInfo(personalInfo.value!!)
-            loginApi.addCity(personalInfo.value!!.city!!)
-            loginApi.addEmail(personalInfo.value!!.email!!)
+            // запрашиваем токен, чтобы он сохранился в префах, так как используется в послед запросах
+            bonusesApi.getAccessToken().let {
+                if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                    _toastText.postValue(Event("Ошибка сети"))
+                    return@launch
+                }
+            }
+
+            loginApi.addClientInfo(personalInfo.value!!).let {
+                /*if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                    _toastText.postValue(Event("Ошибка при указании пользовательских данных"))
+                    return@launch
+                }*/
+            }
+            loginApi.addCity(personalInfo.value!!.city!!).let {
+                if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                    _toastText.postValue(Event("Ошибка при указании пользовательских данных"))
+                    return@launch
+                }
+            }
+            loginApi.addEmail(personalInfo.value!!.email!!).let {
+                if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                    _toastText.postValue(Event("Ошибка при указании пользовательских данных"))
+                    return@launch
+                }
+            }
+
             loginApi.confirmEmail(personalInfo.value!!.email!!)
+            onLoginFlowFinishListener?.onLoginFinish()
         }
     }
 

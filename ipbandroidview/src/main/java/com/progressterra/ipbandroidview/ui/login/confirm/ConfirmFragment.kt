@@ -70,7 +70,6 @@ internal class ConfirmFragment : Fragment() {
         binding.editText.text.clear()
     }
 
-
     private fun setupCodeBlockParameters() {
         binding.editText.afterTextChanged {
             setDigitItemParameters(it.getOrNull(0), binding.digit1)
