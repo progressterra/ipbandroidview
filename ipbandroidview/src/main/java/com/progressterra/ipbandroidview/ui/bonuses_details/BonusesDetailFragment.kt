@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +23,7 @@ import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabTransa
 
 class BonusesDetailFragment : Fragment() {
     private lateinit var binding: FragmentDetailBonusesBinding
-    private lateinit var viewModel: BonusesDetailsViewModel
+    private val viewModel: BonusesDetailsViewModel by activityViewModels()
     private var onPurchaseClickListener: OnPurchaseClickListener? = null
 
 
@@ -76,9 +77,6 @@ class BonusesDetailFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel = ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
-
-        viewModel.updateDetailBonusesInfo()
 
         viewModel.status.observe(viewLifecycleOwner) {
             binding.screenState = it

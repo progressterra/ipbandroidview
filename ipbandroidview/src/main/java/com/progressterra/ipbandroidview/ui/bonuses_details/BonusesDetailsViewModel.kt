@@ -20,6 +20,10 @@ internal class BonusesDetailsViewModel : ViewModel() {
     val bonusMessageList = MutableLiveData<List<BonusMessage>>()
     val status = MutableLiveData(ScreenState.LOADING)
 
+    init {
+        updateDetailBonusesInfo()
+    }
+
 
     fun updateDetailBonusesInfo() {
         CoroutineScope(Job()).launch {
