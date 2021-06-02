@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.progressterra.android.api.a.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
+import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import java.util.*
 
@@ -41,9 +43,14 @@ internal class PersonalFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.vm = viewModel
 
-        viewModel.citiesList.observe(viewLifecycleOwner) {
-            setupCitySpinner(it)
+        viewModel.apply {
+            citiesList.observe(viewLifecycleOwner) {
+                setupCitySpinner(it)
+            }
+            toastText.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
         }
+
+
 
         setupDatePickerDialog()
         initListeners()
@@ -76,8 +83,13 @@ internal class PersonalFragment : Fragment() {
         }
     }
 
-    private fun setupCitySpinner(citiesList: List<CitiesListResponse.City>) {
+    private fun showToast(event: Event<String>) {
+        event.contentIfNotHandled?.let {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        }
+    }
 
+    private fun setupCitySpinner(citiesList: List<CitiesListResponse.City>) {
         val spinnerAdapter =
             ArrayAdapter(
                 requireContext(), android.R.layout.simple_spinner_dropdown_item,

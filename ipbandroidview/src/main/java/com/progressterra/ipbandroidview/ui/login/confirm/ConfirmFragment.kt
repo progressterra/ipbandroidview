@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
+import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
@@ -82,10 +82,15 @@ internal class ConfirmFragment : Fragment() {
     private fun setDigitItemParameters(inputString: Char?, textView: TextView) {
         if (inputString == null) {
             textView.text = ""
-            textView.backgroundTintList = ColorStateList.valueOf(Color.RED)
+            ColorsPalette.secondaryColor?.let {
+                textView.backgroundTintList = ColorStateList.valueOf(it)
+            }
+
         } else {
             textView.text = inputString.toString()
-            textView.backgroundTintList = ColorStateList.valueOf(Color.GREEN)
+            ColorsPalette.mainColor?.let {
+                textView.backgroundTintList = ColorStateList.valueOf(it)
+            }
         }
     }
 

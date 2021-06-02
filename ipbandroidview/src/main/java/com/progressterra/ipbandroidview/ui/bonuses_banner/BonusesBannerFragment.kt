@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.progressterra.ipbandroidview.databinding.FragmentBonusesBinding
 
 class BonusesBannerFragment : Fragment() {
@@ -42,7 +41,6 @@ class BonusesBannerFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-
         bonusesBannerViewModel.bonusesInfo.observe(viewLifecycleOwner) {
             fragmentBonusesBinding.bonusesInfo = it
         }

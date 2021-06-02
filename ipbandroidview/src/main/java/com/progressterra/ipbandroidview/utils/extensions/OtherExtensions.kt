@@ -8,10 +8,10 @@ import com.progressterra.ipbandroidview.utils.delegate.FragmentArgumentDelegate
 import com.progressterra.ipbandroidview.utils.delegate.FragmentNullableArgumentDelegate
 import kotlin.properties.ReadWriteProperty
 
-fun <T> Bundle.put(key: String, value: T) {
+fun <T> Bundle.put(key: String, value: T?) {
     when (value) {
         is Boolean -> putBoolean(key, value)
-        is String -> putString(key, value)
+        is String? -> putString(key, value)
         is Int -> putInt(key, value)
         is Short -> putShort(key, value)
         is Long -> putLong(key, value)

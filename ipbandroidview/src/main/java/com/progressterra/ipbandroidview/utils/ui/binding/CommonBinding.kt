@@ -1,12 +1,11 @@
 package com.progressterra.ipbandroidview.utils.ui.binding
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesColorsPalette
+import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
 import com.progressterra.ipbandroidview.utils.ScreenState
 
 @BindingAdapter("visibility")
@@ -20,21 +19,7 @@ internal fun textFromInt(view: TextView, text: Int) {
     view.text = text.toString()
 }
 
-@BindingAdapter("app:setColorAndTextFormattingByQuantity")
-internal fun setColorAndTextFormattingByQuantity(textView: TextView, quantity: Int) {
-    if (quantity <= 0) {
-        textView.setTextColor(BonusesColorsPalette.negativeTextColor ?: Color.RED)
-        textView.text = String.format(
-            textView.context.getString(R.string.negative_sum), kotlin.math.abs(quantity)
-        )
-    } else {
-        textView.setTextColor(BonusesColorsPalette.positiveTextColor ?: Color.GREEN)
-        textView.text = String.format(
-            textView.context.getString(R.string.positive_sum), kotlin.math.abs(quantity)
-                .toString()
-        )
-    }
-}
+
 
 @BindingAdapter("app:setVisibilityMainContentByScreenState")
 internal fun setVisibilityMainContentByScreenState(mainContent: View, screenState: ScreenState) {
@@ -63,44 +48,49 @@ internal fun setVisibilityRefreshContentScreenState(refreshButton: View, screenS
     }
 }
 
-@BindingAdapter("app:setBonusTransactionType")
-internal fun setBonusTransactionType(textView: TextView, type: Int) {
-    when (type) {
-        0 -> textView.text = textView.context.getText(R.string.type_operation_charging)
-        1 -> textView.text = textView.context.getText(R.string.type_operation_spending)
-        2 -> textView.text = textView.context.getText(R.string.type_operation_charging)
-    }
-}
-
 
 @BindingAdapter("app:setMainTextColor")
-internal fun setMainTextColor(textView: TextView, colorsPalette: BonusesColorsPalette?) {
-    val color = BonusesColorsPalette.mainTextColor
+internal fun setMainTextColor(textView: TextView, colorsPalette: ColorsPalette?) {
+    val color = ColorsPalette.mainTextColor
     color?.let {
         textView.setTextColor(color)
     }
 }
 
 @BindingAdapter("app:setSecondaryTextColor")
-internal fun setSecondaryTextColor(textView: TextView, colorsPalette: BonusesColorsPalette?) {
-    val color = BonusesColorsPalette.secondaryTextColor
+internal fun setSecondaryTextColor(textView: TextView, colorsPalette: ColorsPalette?) {
+    val color = ColorsPalette.secondaryTextColor
     color?.let {
         textView.setTextColor(color)
     }
 }
 
 @BindingAdapter("app:setMainColor")
-internal fun setMainColor(View: View, colorsPalette: BonusesColorsPalette?) {
-    val color = BonusesColorsPalette.mainColor
+internal fun setMainColor(view: View, colorsPalette: ColorsPalette?) {
+    val color = ColorsPalette.mainColor
     color?.let {
-        View.setBackgroundColor(color)
+        view.setBackgroundColor(color)
     }
 }
 
 @BindingAdapter("app:setSecondaryColor")
-internal fun setSecondaryColor(view: View, colorsPalette: BonusesColorsPalette) {
-    val color = BonusesColorsPalette.secondaryColor
+internal fun setSecondaryColor(view: View, colorsPalette: ColorsPalette?) {
+    val color = ColorsPalette.secondaryColor
     color?.let {
         view.setBackgroundColor(color)
+    }
+}
+
+@BindingAdapter("app:setDrawableFromPalette")
+internal fun setDrawableFromPalette(view: ImageView, drawableRes: Int?) {
+    drawableRes?.let {
+        view.setImageResource(it)
+    }
+}
+
+@BindingAdapter("setTintFromPalette")
+internal fun setTintFromPalette(view: View, colorsPalette: ColorsPalette?) {
+    ColorsPalette.secondaryColor?.let {
+        view.backgroundTintList = ColorStateList.valueOf(it)
     }
 }

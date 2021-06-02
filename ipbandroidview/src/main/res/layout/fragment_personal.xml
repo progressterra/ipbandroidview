@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="ColorsPalette"
+            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
         <variable
             name="vm"
             type="com.progressterra.ipbandroidview.ui.login.personal.PersonalViewModel" />
@@ -23,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
+            app:setMainTextColor="@{ColorsPalette}"
             android:id="@+id/textView_label"
             style="@style/Body1"
             android:layout_width="0dp"

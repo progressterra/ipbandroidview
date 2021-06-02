@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Html
@@ -14,12 +15,15 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
+import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.argument
+import com.progressterra.ipbandroidview.utils.extensions.argumentNullable
+
 
 class LoginFragment : Fragment() {
 
@@ -29,6 +33,14 @@ class LoginFragment : Fragment() {
     private var drawableLogo: Drawable? = null
 
     private var selectedCountry by argument<String>()
+
+    private var mainColor: String? by argumentNullable()
+    private var secondaryColor: String? by argumentNullable()
+    private var mainTextColor: String? by argumentNullable()
+    private var secondaryTextColor: String? by argumentNullable()
+    private var companyLogoRes: Int? by argumentNullable()
+    private var loginImageRes: Int? by argumentNullable()
+    private var confirmImageRes: Int? by argumentNullable()
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
@@ -44,6 +56,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        getValuesFromArguments()
         if (this.container == null)
             this.container = container?.id ?: throw Exception("Container is null")
 //        val contextThemeWrapper: Context =
@@ -77,8 +90,8 @@ class LoginFragment : Fragment() {
             textViewAgreement.text =
                 Html.fromHtml(getString(R.string.login_agreement_html))
             textViewAgreement.movementMethod = LinkMovementMethod.getInstance()
-            // if (drawableLogo != null)
-              //  header.imageViewLogo.setImageDrawable(drawableLogo)
+            if (drawableLogo != null)
+                header.imageViewLogo.setImageDrawable(drawableLogo)
         }
     }
 
@@ -108,8 +121,35 @@ class LoginFragment : Fragment() {
     }
 
 
-    fun setLogo(drawable: Drawable) {
-        drawableLogo = drawable
+    private fun getValuesFromArguments() {
+        mainColor?.let {
+            ColorsPalette.mainColor = Color.parseColor(it)
+        }
+
+        secondaryColor?.let {
+            ColorsPalette.secondaryColor = Color.parseColor(it)
+        }
+
+        secondaryTextColor?.let {
+            ColorsPalette.secondaryColor = Color.parseColor(it)
+        }
+
+        mainTextColor?.let {
+            ColorsPalette.mainColor = Color.parseColor(it)
+        }
+
+        companyLogoRes?.let {
+            ColorsPalette.companyLogoImageRes = it
+        }
+
+        loginImageRes?.let {
+            ColorsPalette.loginImageRes = it
+        }
+
+        confirmImageRes?.let {
+            ColorsPalette.confirmImageRes = it
+        }
+
     }
 
     companion object {
@@ -119,11 +159,47 @@ class LoginFragment : Fragment() {
          */
         fun newInstance(
             selectedCountry: String? = null,
-            loginFinishListener: OnLoginFlowFinishListener? = null
+            loginFinishListener: OnLoginFlowFinishListener? = null,
+            mainColor: String? = null,
+            secondaryColor: String? = null,
+            mainTextColor: String? = null,
+            secondaryTextColor: String? = null,
+            companyLogoRes: Int? = null,
+            loginLogoRes: Int? = null,
+            confirmLogoRes: Int? = null
+
         ): LoginFragment {
             return LoginFragment().apply {
                 this.selectedCountry = selectedCountry ?: Country.RUSSIA.name
                 this.onLoginFlowFinishListener = loginFinishListener
+
+                mainColor?.let {
+                    this.mainColor = it
+                }
+
+                mainTextColor?.let {
+                    this.mainTextColor = it
+                }
+
+                secondaryTextColor?.let {
+                    this.secondaryTextColor
+                }
+
+                secondaryColor?.let {
+                    this.secondaryColor = it
+                }
+
+                companyLogoRes?.let {
+                    this.companyLogoRes = it
+                }
+
+                loginLogoRes?.let {
+                    this.loginImageRes = it
+                }
+
+                confirmLogoRes.let {
+                    this.confirmImageRes = it
+                }
             }
         }
     }

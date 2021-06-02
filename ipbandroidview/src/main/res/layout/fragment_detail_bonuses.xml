@@ -4,7 +4,7 @@
     <data>
         <variable
             name="ColorPalette"
-            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesColorsPalette" />
+            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
         <variable
             name="BonusesDetailFragment"
             type="com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailFragment" />

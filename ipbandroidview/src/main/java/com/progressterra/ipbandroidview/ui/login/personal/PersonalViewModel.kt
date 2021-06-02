@@ -71,6 +71,7 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
         val loginApi = LoginApi.newInstance()
         val bonusesApi = BonusesApi.getInstance()
         CoroutineScope(Job()).launch {
+
             // запрашиваем токен, чтобы он сохранился в префах, так как используется в послед запросах
             bonusesApi.getAccessToken().let {
                 if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
@@ -80,10 +81,10 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
             }
 
             loginApi.addClientInfo(personalInfo.value!!).let {
-                /*if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
                     _toastText.postValue(Event("Ошибка при указании пользовательских данных"))
                     return@launch
-                }*/
+                }
             }
             loginApi.addCity(personalInfo.value!!.city!!).let {
                 if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {

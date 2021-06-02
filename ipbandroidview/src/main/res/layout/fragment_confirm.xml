@@ -5,6 +5,12 @@
 
     <data>
 
+        <import type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
+
+        <variable
+            name="ColorPaletteObject"
+            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
+
         <variable
             name="login_vm"
             type="com.progressterra.ipbandroidview.ui.login.login.LoginViewModel" />
@@ -51,29 +57,31 @@
             app:setVisibilityLoaderByScreenState="@{vm.screenState}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/info_confirm_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/info_confirm_tv" />
 
         <TextView
-            app:setVisibilityMainContentByScreenState="@{vm.screenState}"
-            android:minLines="3"
-            android:gravity="center"
             android:id="@+id/info_confirm_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
+            android:gravity="center"
             android:text="@{vm.confirmInfo}"
-            app:layout_constraintTop_toBottomOf="@id/confirm_logo_iv" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirm_logo_iv"
+            app:setVisibilityMainContentByScreenState="@{vm.screenState}" />
 
         <TextView
             android:id="@+id/digit1"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:width="52dp"
             android:height="52dp"
+            setTintFromPalette="@{ColorPaletteObject}"
             android:background="@drawable/circle"
             android:gravity="center"
             android:minWidth="10dp"
@@ -85,6 +93,7 @@
 
         <TextView
             android:id="@+id/digit2"
+            setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -101,6 +110,7 @@
 
         <TextView
             android:id="@+id/digit3"
+            setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -116,6 +126,7 @@
 
         <TextView
             android:id="@+id/digit4"
+            setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -130,6 +141,7 @@
             app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
 
         <TextView
+            app:setMainTextColor="@{ColorPaletteObject}"
             android:textColor="@color/theme_color"
             android:id="@+id/resend_code"
             android:layout_width="wrap_content"
@@ -151,6 +163,7 @@
             app:layout_constraintTop_toTopOf="@id/resend_code" />
 
         <View
+            app:setMainColor="@{ColorPaletteObject}"
             android:id="@+id/line_view"
             android:layout_width="match_parent"
             android:layout_height="16dp"
@@ -160,6 +173,7 @@
             app:layout_constraintTop_toBottomOf="@id/resend_code" />
 
         <ImageView
+            app:setDrawableFromPalette="@{ColorsPalette.INSTANCE.confirmImageRes}"
             android:id="@+id/confirm_banner_iv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
