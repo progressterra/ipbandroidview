@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.ui.login.country
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 
 internal class CountryViewModelFactory(private val selectedCountry: String) :
     ViewModelProvider.NewInstanceFactory() {

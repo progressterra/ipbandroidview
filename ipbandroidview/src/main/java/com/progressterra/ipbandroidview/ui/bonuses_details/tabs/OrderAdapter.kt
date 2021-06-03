@@ -15,7 +15,7 @@ internal class OrderAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: OrderRecyclerItemBinding =
-            DataBindingUtil.inflate(inflater, R.layout.order_recycler_item, parent, false);
+            DataBindingUtil.inflate(inflater, R.layout.item_order, parent, false);
         return OrderViewHolder(binding)
     }
 

@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+
         <variable
             name="ColorPalette"
             type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
@@ -18,9 +19,9 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -48,19 +49,19 @@
             app:setVisibilityMainContentByScreenState="@{ScreenState}">
 
             <TextView
-                app:setMainTextColor="@{ColorPalette}"
                 android:id="@+id/my_bonuses_tv"
+                style="@style/Callout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/my_bonuses"
-                style="@style/Callout1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:setMainTextColor="@{ColorPalette}" />
 
             <TextView
-                style="@style/Title"
                 android:id="@+id/number_of_bonuses_tv_detail"
+                style="@style/Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -72,20 +73,20 @@
                 app:layout_constraintTop_toBottomOf="@id/my_bonuses_tv" />
 
             <TextView
-                app:setSecondaryTextColor="@{ColorPalette}"
                 android:id="@+id/bonus_expiration_date_tv"
+                style="@style/Footnote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="19dp"
                 android:text="@{@string/expired(BonusesInfo.dateBurning)}"
-                style="@style/Footnote"
                 android:textColor="@color/text_in_forms"
                 app:layout_constraintEnd_toStartOf="@id/fire_iv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/number_of_bonuses_tv_detail"
-                visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                app:setSecondaryTextColor="@{ColorPalette}"
+                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
             <ImageView
                 android:id="@+id/fire_iv"
@@ -98,7 +99,7 @@
                 app:layout_constraintEnd_toStartOf="@id/bonus_expiration_number_tv"
                 app:layout_constraintStart_toEndOf="@id/bonus_expiration_date_tv"
                 app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv"
-                visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
             <View
                 android:id="@+id/horizontal_line"
@@ -109,17 +110,17 @@
 
             <TextView
                 android:id="@+id/bonus_expiration_number_tv"
+                style="@style/Footnote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Footnote"
-                android:textColor="@color/text_in_forms"
-                app:setSecondaryTextColor="@{ColorPalette}"
                 android:text="@{@string/bonuses_count(BonusesInfo.forBurningQuantity)}"
+                android:textColor="@color/text_in_forms"
                 app:layout_constraintBottom_toBottomOf="@id/bonus_expiration_date_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fire_iv"
                 app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv"
-                visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                app:setSecondaryTextColor="@{ColorPalette}"
+                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"

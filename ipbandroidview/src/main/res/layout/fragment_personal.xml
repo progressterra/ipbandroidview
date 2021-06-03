@@ -18,12 +18,6 @@
         android:background="@android:color/white"
         tools:context=".ui.login.personal.PersonalFragment">
 
-        <!--<include
-            layout="@layout/include_login_header"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />-->
-
         <TextView
             app:setMainTextColor="@{ColorsPalette}"
             android:id="@+id/textView_label"

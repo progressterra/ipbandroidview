@@ -8,9 +8,6 @@ apply from: 'publish.gradle'
 
 android {
     compileSdkVersion 30
-    dataBinding{
-        enabled = true
-    }
 
     defaultConfig {
         minSdkVersion 21
@@ -35,6 +32,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding = true
     }
 }
 

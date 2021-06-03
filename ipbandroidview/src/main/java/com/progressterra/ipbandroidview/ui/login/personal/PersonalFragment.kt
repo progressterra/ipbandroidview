@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import java.util.*
 
-internal class PersonalFragment : Fragment() {
+class PersonalFragment : Fragment() {
 
     private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
 
@@ -40,8 +40,9 @@ internal class PersonalFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = viewModel
+
 
         viewModel.apply {
             citiesList.observe(viewLifecycleOwner) {

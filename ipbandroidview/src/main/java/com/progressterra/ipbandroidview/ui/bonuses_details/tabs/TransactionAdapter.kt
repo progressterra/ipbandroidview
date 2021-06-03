@@ -14,7 +14,7 @@ internal class TransactionAdapter(private var transactions: List<Transaction>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: TransactionRecyclerItemBinding =
-            DataBindingUtil.inflate(inflater, R.layout.transaction_recycler_item, parent, false);
+            DataBindingUtil.inflate(inflater, R.layout.item_transaction, parent, false);
         return TransactionViewHolder(binding)
     }
 

@@ -1,9 +1,7 @@
 package com.progressterra.ipbandroidview.utils.extensions
 
 import android.text.Editable
-import android.text.Spannable
 import android.text.TextWatcher
-import android.text.style.URLSpan
 import android.widget.EditText
 
 fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {

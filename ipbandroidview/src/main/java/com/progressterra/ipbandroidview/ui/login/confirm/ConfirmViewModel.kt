@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,14 +12,12 @@ import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class ConfirmViewModel(
-    private val selectedCountry: String,
-    val phoneNumber: String,
+internal class ConfirmViewModel(
+    private val phoneNumber: String,
     private val onLoginFlowFinishListener: OnLoginFlowFinishListener?
 ) :
     ViewModel() {
@@ -42,7 +39,8 @@ class ConfirmViewModel(
     private val _fragment = MutableLiveData<Event<Fragment>>()
     val fragment: LiveData<Event<Fragment>> = _fragment
 
-    private val _confirmInfo = MutableLiveData<String>("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
+    private val _confirmInfo =
+        MutableLiveData<String>("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
     val confirmInfo: LiveData<String> = _confirmInfo
 
     private val _toastText = MutableLiveData<Event<String>>()
@@ -53,7 +51,7 @@ class ConfirmViewModel(
     }
 
     private fun startResendCodeCounter() {
-        CoroutineScope(Job()).launch {
+        viewModelScope.launch {
             for (i in 59 downTo 0) {
                 _counterScore.postValue(i.toString())
                 delay(1000)
@@ -89,8 +87,6 @@ class ConfirmViewModel(
                     val api = LoginApi.newInstance()
                     val response = api.verificationChannelEnd(phoneNumber, code)
                     _screenState.postValue(ScreenState.DEFAULT)
-                    Log.d("myTag", response.status.toString())
-                    Log.d("myTag", response.userExist.toString())
                     when (response.status) {
                         SUCCESS -> {
                             isCalled = false

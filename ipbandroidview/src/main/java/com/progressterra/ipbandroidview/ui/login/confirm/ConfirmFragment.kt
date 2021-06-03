@@ -28,7 +28,6 @@ internal class ConfirmFragment : Fragment() {
 
     private val viewModel: ConfirmViewModel by viewModels {
         ConfirmViewModelFactory(
-            selectedCountry,
             phoneNumber,
             onLoginFlowFinishListener
         )
