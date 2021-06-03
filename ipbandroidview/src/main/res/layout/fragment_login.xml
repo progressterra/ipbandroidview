@@ -26,10 +26,6 @@
         android:orientation="vertical"
         tools:context="com.progressterra.ipbandroidview.ui.login.login.LoginFragment">
 
-        <include
-            android:id="@+id/header"
-            layout="@layout/include_login_header" />
-
         <TextView
             app:setMainTextColor="@{ColorsPaletteObject}"
             android:id="@+id/textView_hint"

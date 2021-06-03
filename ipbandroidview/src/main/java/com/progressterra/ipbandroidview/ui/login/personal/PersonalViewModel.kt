@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.ui.login.personal
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.progressterra.android.api.a.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
@@ -12,8 +13,6 @@ import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStat
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener?) : ViewModel() {
@@ -26,7 +25,7 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
 
     init {
         val api = LoginApi.newInstance()
-        CoroutineScope(Job()).launch {
+        viewModelScope.launch {
             api.getCitiesList().let {
                 citiesList.postValue(it.responseBody?.dataList?.filter { city -> !city.name.isNullOrEmpty() })
             }
@@ -70,7 +69,7 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
     fun addPersonalInfo() {
         val loginApi = LoginApi.newInstance()
         val bonusesApi = BonusesApi.getInstance()
-        CoroutineScope(Job()).launch {
+        viewModelScope.launch {
 
             // запрашиваем токен, чтобы он сохранился в префах, так как используется в послед запросах
             bonusesApi.getAccessToken().let {

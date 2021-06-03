@@ -26,7 +26,6 @@ internal fun setColorAndTextFormattingByQuantity(textView: TextView, quantity: I
         textView.setTextColor(ColorsPalette.positiveTextColor ?: Color.GREEN)
         textView.text = String.format(
             textView.context.getString(R.string.positive_sum), kotlin.math.abs(quantity)
-                .toString()
         )
     }
 }

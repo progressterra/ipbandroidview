@@ -22,8 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -53,7 +52,7 @@
 
                 <TextView
                     android:id="@+id/bonus_expiration_date_tv"
-                    visibility="@{BonusesInfo.showAllBonusesInfo}"
+                    app:visibility="@{BonusesInfo.showAllBonusesInfo}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -67,7 +66,7 @@
 
                 <ImageView
                     android:id="@+id/fire_iv"
-                    visibility="@{BonusesInfo.showAllBonusesInfo}"
+                    app:visibility="@{BonusesInfo.showAllBonusesInfo}"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
@@ -91,7 +90,7 @@
 
                 <TextView
                     android:id="@+id/bonus_expiration_number_tv"
-                    visibility="@{BonusesInfo.showAllBonusesInfo}"
+                    app:visibility="@{BonusesInfo.showAllBonusesInfo}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="40dp"

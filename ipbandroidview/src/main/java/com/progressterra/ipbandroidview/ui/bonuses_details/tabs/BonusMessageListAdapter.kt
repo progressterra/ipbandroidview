@@ -14,7 +14,7 @@ class BonusMessageListAdapter(var bonusMessagesList: List<BonusMessage>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BonusMessageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: BonusMessageRecyclerItemBinding =
-            DataBindingUtil.inflate(inflater, R.layout.bonus_message_recycler_item, parent, false);
+            DataBindingUtil.inflate(inflater, R.layout.item_bonus_message, parent, false);
         return BonusMessageViewHolder(binding)
     }
 

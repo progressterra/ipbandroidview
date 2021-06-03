@@ -12,10 +12,6 @@
             type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
 
         <variable
-            name="login_vm"
-            type="com.progressterra.ipbandroidview.ui.login.login.LoginViewModel" />
-
-        <variable
             name="vm"
             type="com.progressterra.ipbandroidview.ui.login.confirm.ConfirmViewModel" />
     </data>
@@ -81,7 +77,7 @@
             android:layout_marginTop="40dp"
             android:width="52dp"
             android:height="52dp"
-            setTintFromPalette="@{ColorPaletteObject}"
+            app:setTintFromPalette="@{ColorPaletteObject}"
             android:background="@drawable/circle"
             android:gravity="center"
             android:minWidth="10dp"
@@ -93,7 +89,7 @@
 
         <TextView
             android:id="@+id/digit2"
-            setTintFromPalette="@{ColorPaletteObject}"
+            app:setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -110,7 +106,7 @@
 
         <TextView
             android:id="@+id/digit3"
-            setTintFromPalette="@{ColorPaletteObject}"
+            app:setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -126,7 +122,7 @@
 
         <TextView
             android:id="@+id/digit4"
-            setTintFromPalette="@{ColorPaletteObject}"
+            app:setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -154,7 +150,7 @@
             app:layout_constraintTop_toBottomOf="@id/digit1" />
 
         <TextView
-            visibility="@{!vm.resendCodeOperationReady}"
+            app:visibility="@{!vm.resendCodeOperationReady}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="33dp"

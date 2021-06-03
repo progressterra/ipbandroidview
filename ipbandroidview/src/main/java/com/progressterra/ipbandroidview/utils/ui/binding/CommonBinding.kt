@@ -14,14 +14,14 @@ fun visibility(view: View, isVisible: Boolean) {
 }
 
 
-@BindingAdapter("app:textFromInt")
+@BindingAdapter("textFromInt")
 internal fun textFromInt(view: TextView, text: Int) {
     view.text = text.toString()
 }
 
 
 
-@BindingAdapter("app:setVisibilityMainContentByScreenState")
+@BindingAdapter("setVisibilityMainContentByScreenState")
 internal fun setVisibilityMainContentByScreenState(mainContent: View, screenState: ScreenState) {
     when (screenState) {
         ScreenState.DEFAULT -> mainContent.visibility = View.VISIBLE
@@ -30,7 +30,7 @@ internal fun setVisibilityMainContentByScreenState(mainContent: View, screenStat
     }
 }
 
-@BindingAdapter("app:setVisibilityLoaderByScreenState")
+@BindingAdapter("setVisibilityLoaderByScreenState")
 internal fun setVisibilityLoaderByScreenState(loader: View, screenState: ScreenState) {
     when (screenState) {
         ScreenState.DEFAULT -> loader.visibility = View.GONE
@@ -39,7 +39,7 @@ internal fun setVisibilityLoaderByScreenState(loader: View, screenState: ScreenS
     }
 }
 
-@BindingAdapter("app:setVisibilityRefreshContentScreenState")
+@BindingAdapter("setVisibilityRefreshContentScreenState")
 internal fun setVisibilityRefreshContentScreenState(refreshButton: View, screenState: ScreenState) {
     when (screenState) {
         ScreenState.DEFAULT -> refreshButton.visibility = View.GONE
@@ -49,7 +49,7 @@ internal fun setVisibilityRefreshContentScreenState(refreshButton: View, screenS
 }
 
 
-@BindingAdapter("app:setMainTextColor")
+@BindingAdapter("setMainTextColor")
 internal fun setMainTextColor(textView: TextView, colorsPalette: ColorsPalette?) {
     val color = ColorsPalette.mainTextColor
     color?.let {
@@ -57,7 +57,7 @@ internal fun setMainTextColor(textView: TextView, colorsPalette: ColorsPalette?)
     }
 }
 
-@BindingAdapter("app:setSecondaryTextColor")
+@BindingAdapter("setSecondaryTextColor")
 internal fun setSecondaryTextColor(textView: TextView, colorsPalette: ColorsPalette?) {
     val color = ColorsPalette.secondaryTextColor
     color?.let {
@@ -65,7 +65,7 @@ internal fun setSecondaryTextColor(textView: TextView, colorsPalette: ColorsPale
     }
 }
 
-@BindingAdapter("app:setMainColor")
+@BindingAdapter("setMainColor")
 internal fun setMainColor(view: View, colorsPalette: ColorsPalette?) {
     val color = ColorsPalette.mainColor
     color?.let {
@@ -73,7 +73,7 @@ internal fun setMainColor(view: View, colorsPalette: ColorsPalette?) {
     }
 }
 
-@BindingAdapter("app:setSecondaryColor")
+@BindingAdapter("setSecondaryColor")
 internal fun setSecondaryColor(view: View, colorsPalette: ColorsPalette?) {
     val color = ColorsPalette.secondaryColor
     color?.let {
@@ -81,7 +81,7 @@ internal fun setSecondaryColor(view: View, colorsPalette: ColorsPalette?) {
     }
 }
 
-@BindingAdapter("app:setDrawableFromPalette")
+@BindingAdapter("setDrawableFromPalette")
 internal fun setDrawableFromPalette(view: ImageView, drawableRes: Int?) {
     drawableRes?.let {
         view.setImageResource(it)
