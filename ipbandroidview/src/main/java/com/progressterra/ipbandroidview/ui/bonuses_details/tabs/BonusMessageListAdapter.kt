@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusMessage
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.BonusMessageRecyclerItemBinding
+import com.progressterra.ipbandroidview.databinding.ItemBonusMessageBinding
 
 class BonusMessageListAdapter(var bonusMessagesList: List<BonusMessage>) :
     Adapter<BonusMessageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BonusMessageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: BonusMessageRecyclerItemBinding =
+        val binding: ItemBonusMessageBinding =
             DataBindingUtil.inflate(inflater, R.layout.item_bonus_message, parent, false);
         return BonusMessageViewHolder(binding)
     }
@@ -27,7 +27,7 @@ class BonusMessageListAdapter(var bonusMessagesList: List<BonusMessage>) :
     }
 }
 
-class BonusMessageViewHolder(val binding: BonusMessageRecyclerItemBinding) :
+class BonusMessageViewHolder(val binding: ItemBonusMessageBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: BonusMessage) {
         binding.bonusMessage = item

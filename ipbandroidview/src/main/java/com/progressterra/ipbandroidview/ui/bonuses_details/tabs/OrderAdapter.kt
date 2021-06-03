@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Purchase
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.OrderRecyclerItemBinding
+import com.progressterra.ipbandroidview.databinding.ItemOrderBinding
 
 internal class OrderAdapter(
     var orders: List<Purchase>,
@@ -14,7 +14,7 @@ internal class OrderAdapter(
 ) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: OrderRecyclerItemBinding =
+        val binding: ItemOrderBinding =
             DataBindingUtil.inflate(inflater, R.layout.item_order, parent, false);
         return OrderViewHolder(binding)
     }
@@ -27,7 +27,7 @@ internal class OrderAdapter(
         return orders.size
     }
 
-    inner class OrderViewHolder(val binding: OrderRecyclerItemBinding) :
+    inner class OrderViewHolder(val binding: ItemOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Purchase) {

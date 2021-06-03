@@ -6,14 +6,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Transaction
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.TransactionRecyclerItemBinding
+import com.progressterra.ipbandroidview.databinding.ItemTransactionBinding
 
 internal class TransactionAdapter(private var transactions: List<Transaction>) :
     RecyclerView.Adapter<TransactionViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding: TransactionRecyclerItemBinding =
+        val binding: ItemTransactionBinding =
             DataBindingUtil.inflate(inflater, R.layout.item_transaction, parent, false);
         return TransactionViewHolder(binding)
     }
@@ -27,7 +27,7 @@ internal class TransactionAdapter(private var transactions: List<Transaction>) :
     }
 }
 
-internal class TransactionViewHolder(var binding: TransactionRecyclerItemBinding) :
+internal class TransactionViewHolder(var binding: ItemTransactionBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Transaction) {
