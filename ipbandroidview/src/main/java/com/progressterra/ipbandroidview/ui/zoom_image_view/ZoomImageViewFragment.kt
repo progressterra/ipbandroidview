@@ -1,4 +1,4 @@
-package com.progressterra.android.ipbandroidview.zoom_image_view
+package com.progressterra.ipbandroidview.ui.zoom_image_view
 
 import android.os.Bundle
 import android.view.LayoutInflater

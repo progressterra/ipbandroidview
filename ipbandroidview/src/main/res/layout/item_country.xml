@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.progressterra.ipbandroidview.models.ui.CountryUi" />
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.login.country.CountryViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/item_country"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_bottom_grey_ripple"
+        android:gravity="center_vertical"
+        android:onClick="@{() -> vm.onItemClick(item.name)}"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <View
+            android:layout_width="7dp"
+            android:layout_height="7dp"
+            android:background="@drawable/circle_theme_color"
+            app:visibility="@{item.selected}" />
+
+        <TextView
+            style="@style/TextNormalMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:text="@{item.title}"
+            tools:text="Россия" />
+
+        <View
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:background="@drawable/ic_check"
+            android:backgroundTint="@color/theme_color"
+            app:visibility="@{item.selected}" />
+
+    </LinearLayout>
+</layout>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="ColorsPalette"
+            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.login.personal.PersonalViewModel" />
+    </data>
+
+    <merge>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView_name_label"
+                style="@style/Footnote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_name"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                app:setMainTextColor="@{ColorsPalette}"
+                android:id="@+id/editText_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:backgroundTint="@{vm.personalInfo.nameIsValid ? @color/black :@color/theme_color }"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/textView_name_label"
+                tools:text="Мария" />
+
+            <TextView
+                android:id="@+id/textView_secondName_label"
+                style="@style/Footnote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/personal_second_name"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/editText_name" />
+
+            <EditText
+                app:setMainTextColor="@{ColorsPalette}"
+                android:id="@+id/editText_secondName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:backgroundTint="@{vm.personalInfo.lastNameIsValid ? @color/black :@color/theme_color }"
+                android:textColor="@color/grey_dark"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/textView_secondName_label"
+                tools:text="Смирнова" />
+
+            <TextView
+                app:setMainTextColor="@{ColorsPalette}"
+                android:id="@+id/textView_birthDay"
+                style="@style/Body1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/border_arrow_right"
+                android:backgroundTint="@{vm.personalInfo.birthDateIsValid ? @color/black :@color/theme_color }"
+                android:text="Дата вашего рождения"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/editText_secondName" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="7dp"
+                android:background="#979797"
+                android:backgroundTint="@{vm.personalInfo.birthDateIsValid ? @color/black :@color/theme_color }"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/textView_birthDay" />
+
+            <TextView
+                android:id="@+id/textView_birthDay_hint"
+                style="@style/Footnote"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="@string/personal_birthday_description"
+                android:textColor="@color/footnote_accent_color"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/textView_birthDay" />
+
+
+            <Spinner
+                android:id="@+id/city_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/editText_name"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/textView_birthDay_hint" />
+
+            <TextView
+                app:setSecondaryTextColor="@{ColorsPalette}"
+                android:id="@+id/set_city_info_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="Выберите ваш город из списка"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/city_spinner" />
+
+            <EditText
+                android:id="@+id/editText_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:backgroundTint="@{vm.personalInfo.emailIsValid ? @color/black :@color/theme_color }"
+                android:hint="@string/personal_email_hint"
+                android:textColor="@color/grey_dark"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/set_city_info_tv" />
+
+            <TextView
+                app:setSecondaryTextColor="@{ColorsPalette}"
+                android:id="@+id/set_email_info_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="Подтвердите и получите 300 приветственных бонусов"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/editText_email" />
+
+            <TextView
+                app:setSecondaryTextColor="@{ColorsPalette}"
+                android:id="@+id/set_sex_info_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="21dp"
+                android:gravity="center"
+                android:text="Позвольте нам дать для вас качественные предложения. Кто вы? "
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/set_email_info_tv" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup_sex"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/set_sex_info_tv">
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioButton_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/ic_man_rb"
+                    android:button="@null" />
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radioButton_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:background="@drawable/ic_girl_rb"
+                    android:button="@null" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/button_next"
+                style="@style/Callout1"
+                android:onClick="@{_->vm.addPersonalInfo()}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="38dp"
+                android:enabled="@{vm.personalDataIsValid}"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/radioGroup_sex" />
+
+            <!--<Button
+                android:id="@+id/button_skip"
+                style="@style/Callout1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/personal_skip"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintTop_toBottomOf="@id/button_next" />-->
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_start"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="40dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_end"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="40dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </merge>
+</layout>

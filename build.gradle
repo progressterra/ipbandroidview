@@ -1,7 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        kotlin_version = "1.5.0"
+        kotlin_version = "1.5.10"
+        lifecycle_version = "2.3.1"
     }
 
     apply from: "functions.gradle"
@@ -40,7 +41,7 @@ allprojects {
                 basic(BasicAuthentication)
             }
 
-            url "https://api.bitbucket.org/2.0/repositories/" + COMPANY + "/" + APILIBREPOSITORY_NAME + "/src/lib"
+            url "https://api.bitbucket.org/2.0/repositories/" + COMPANY + "/" + APILIBREPOSITORY_NAME + "/src/test_lib"
         }
     }
 }

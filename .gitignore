@@ -340,3 +340,7 @@ app
 
 # End of https://www.gitignore.io/api/java,linux,macos,windows,android,intellij,androidstudio
 /app/
+testapp
+/testapp
+/testapp/
+app1/

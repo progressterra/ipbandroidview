@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black">
+
+        <ImageView
+            app:setDrawableFromPalette="@{ColorsPalette.INSTANCE.companyLogoImageRes}"
+            android:id="@+id/imageView_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chat"
+            app:layout_constraintBottom_toBottomOf="@id/button_chat"
+            app:layout_constraintEnd_toEndOf="@id/button_chat"
+            app:layout_constraintStart_toStartOf="@id/button_chat"
+            app:layout_constraintTop_toTopOf="@id/button_chat" />
+
+<!--  TODO: fix me please      -->
+        <Button
+            android:id="@+id/button_chat"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="44dp"
+            android:background="@drawable/round_button_shape"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
