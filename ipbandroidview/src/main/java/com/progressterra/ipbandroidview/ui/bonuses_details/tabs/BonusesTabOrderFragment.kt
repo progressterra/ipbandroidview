@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.R
@@ -13,7 +14,7 @@ import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesOrderTa
 
 internal class BonusesTabOrderFragment : Fragment() {
     private lateinit var binding: FragmentDetailBonusesOrderTabBinding
-    private lateinit var viewModel: BonusesDetailsViewModel
+    private val viewModel: BonusesDetailsViewModel by activityViewModels()
     internal var onPurchaseClickListener: OnPurchaseClickListener? = null
 
 
@@ -37,8 +38,7 @@ internal class BonusesTabOrderFragment : Fragment() {
     }
 
     private fun setupViewModel() {
-        viewModel =
-            ViewModelProvider(requireActivity()).get(BonusesDetailsViewModel::class.java)
+
         viewModel.purchasesList.observe(viewLifecycleOwner) {
             binding.orderListRv.adapter = OrderAdapter(it, onPurchaseClickListener)
         }

@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.ui.bonuses_details
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.utils.ScreenState
+import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.*
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
@@ -14,11 +14,21 @@ internal class BonusesDetailsViewModel : ViewModel() {
 
     private val repository = BonusesApi.getInstance()
 
-    val bonusesInfo = MutableLiveData<BonusesInfo>()
-    val transactionList = MutableLiveData<List<Transaction>>()
-    val purchasesList = MutableLiveData<List<Purchase>>()
-    val bonusMessageList = MutableLiveData<List<BonusMessage>>()
-    val status = MutableLiveData(ScreenState.LOADING)
+    private val _bonusesInfo = MutableLiveData<BonusesInfo>()
+    val bonusesInfo: LiveData<BonusesInfo> = _bonusesInfo
+
+    private val _transactionList = MutableLiveData<List<Transaction>>()
+    val transactionList: LiveData<List<Transaction>> = _transactionList
+
+    private val _purchasesList = MutableLiveData<List<Purchase>>()
+    val purchasesList: LiveData<List<Purchase>> = _purchasesList
+
+    private val _bonusMessageList = MutableLiveData<List<BonusMessage>>()
+    val bonusMessageList: LiveData<List<BonusMessage>> = _bonusMessageList
+
+
+    private val _status = MutableLiveData(ScreenState.LOADING)
+    val status: LiveData<ScreenState> = _status
 
     init {
         updateDetailBonusesInfo()
@@ -26,27 +36,31 @@ internal class BonusesDetailsViewModel : ViewModel() {
 
 
     fun updateDetailBonusesInfo() {
-        CoroutineScope(Job()).launch {
+        viewModelScope.launch {
             getAccessToken()?.let {
-                status.postValue(ScreenState.LOADING)
+                _status.postValue(ScreenState.LOADING)
 
-                async {
+                val generalInfoResponse = async {
                     getGeneralBonusesInfo(it)
-                }.await()
+                }
 
-                async {
+                val transactionListResponse = async {
                     getTransactionsList(it)
-                }.await()
+                }
 
-                async {
+                val purchaseListResponse = async {
                     getPurchasesList(it)
-                }.await()
+                }
 
-                async {
+                val bonusMessageListResponse = async {
                     getBonusMessageList(it)
-                }.await()
+                }
+                generalInfoResponse.await()
+                transactionListResponse.await()
+                purchaseListResponse.await()
+                bonusMessageListResponse.await()
 
-                status.postValue(ScreenState.DEFAULT)
+                _status.postValue(ScreenState.DEFAULT)
             }
         }
     }
@@ -55,10 +69,10 @@ internal class BonusesDetailsViewModel : ViewModel() {
         repository.getBonusMessageList(accessToken).let { bonusMessageListResponse ->
             if (bonusMessageListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                 bonusMessageListResponse.responseBody?.let {
-                    bonusMessageList.postValue(it)
+                    _bonusMessageList.postValue(it)
                 }
             } else {
-                status.postValue(ScreenState.ERROR)
+                _status.postValue(ScreenState.ERROR)
             }
         }
     }
@@ -68,10 +82,10 @@ internal class BonusesDetailsViewModel : ViewModel() {
         repository.getPurchasesList(accessToken).let { purchasesListResponse ->
             if (purchasesListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                 purchasesListResponse.responseBody?.let {
-                    purchasesList.postValue(it)
+                    _purchasesList.postValue(it)
                 }
             } else {
-                status.postValue(ScreenState.ERROR)
+                _status.postValue(ScreenState.ERROR)
             }
         }
     }
@@ -80,10 +94,10 @@ internal class BonusesDetailsViewModel : ViewModel() {
         repository.getTransactionsList(accessToken).let { transactionsListResponse ->
             if (transactionsListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                 transactionsListResponse.responseBody?.let {
-                    transactionList.postValue(it)
+                    _transactionList.postValue(it)
                 }
             } else {
-                status.postValue(ScreenState.ERROR)
+                _status.postValue(ScreenState.ERROR)
             }
         }
     }
@@ -92,10 +106,10 @@ internal class BonusesDetailsViewModel : ViewModel() {
         repository.getBonusesInfo(accessToken).let { bonusesInfoResponse ->
             if (bonusesInfoResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                 bonusesInfoResponse.responseBody?.let {
-                    bonusesInfo.postValue(it)
+                    _bonusesInfo.postValue(it)
                 }
             } else {
-                status.postValue(ScreenState.ERROR)
+                _status.postValue(ScreenState.ERROR)
             }
         }
     }
@@ -105,7 +119,7 @@ internal class BonusesDetailsViewModel : ViewModel() {
             if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                 return it.responseBody?.accessToken
             } else {
-                status.postValue(ScreenState.ERROR)
+                _status.postValue(ScreenState.ERROR)
             }
         }
         return null

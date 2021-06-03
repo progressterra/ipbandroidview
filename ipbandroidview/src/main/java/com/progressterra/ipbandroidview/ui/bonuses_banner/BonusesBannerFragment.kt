@@ -9,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.databinding.FragmentBonusesBinding
 
 class BonusesBannerFragment : Fragment() {
 
-    private val bonusesBannerViewModel by activityViewModels<BonusesBannerViewModel>()
+    private val bonusesBannerViewModel: BonusesBannerViewModel by viewModels()
     private var onBntNextClickListener: View.OnClickListener? = null
     private lateinit var fragmentBonusesBinding: FragmentBonusesBinding
 
@@ -23,12 +23,13 @@ class BonusesBannerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentBonusesBinding = FragmentBonusesBinding.inflate(inflater)
+        fragmentBonusesBinding = FragmentBonusesBinding.inflate(inflater, container, false)
         return fragmentBonusesBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fragmentBonusesBinding.lifecycleOwner = viewLifecycleOwner
         applyFragmentArguments()
         setupViewModel()
         initListeners()
