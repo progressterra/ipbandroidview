@@ -47,7 +47,7 @@ internal class PersonalFragment : Fragment() {
             citiesList.observe(viewLifecycleOwner) {
                 setupCitySpinner(it)
             }
-            toastText.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
+            toastTextRes.observe(viewLifecycleOwner, this@PersonalFragment::showToastFromRes)
         }
 
 
@@ -83,9 +83,9 @@ internal class PersonalFragment : Fragment() {
         }
     }
 
-    private fun showToast(event: Event<String>) {
+    private fun showToastFromRes(event: Event<Int>) {
         event.contentIfNotHandled?.let {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -60,5 +60,7 @@
     <string name="my_orders">Мои заказы</string>
     <string name="next_burning_date">Дата следущего сгорания</string>
     <string name="refresh">Обновить</string>
+    <string name="Network_error">Ошибка сети</string>
+    <string name="user_data_error">Ошибка при указании пользовательских данных</string>
 
 </resources>

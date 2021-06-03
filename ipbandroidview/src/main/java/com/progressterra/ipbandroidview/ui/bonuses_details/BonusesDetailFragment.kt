@@ -11,13 +11,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
-import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesBinding
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.*
-import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabDetailFragment
-import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabOrderFragment
-import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabTransactionFragment
+import com.progressterra.ipbandroidview.utils.ScreenState
 
 
 class BonusesDetailFragment : Fragment() {
@@ -51,6 +48,7 @@ class BonusesDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViewModel()
+        initListeners()
     }
 
     private fun getValuesFromArguments() {
@@ -105,8 +103,10 @@ class BonusesDetailFragment : Fragment() {
         }.attach()
     }
 
-    fun refreshBonusesData() {
-        viewModel.updateDetailBonusesInfo()
+    fun initListeners() {
+        binding.refreshButton.setOnClickListener {
+            viewModel.updateDetailBonusesInfo()
+        }
     }
 
     inner class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {

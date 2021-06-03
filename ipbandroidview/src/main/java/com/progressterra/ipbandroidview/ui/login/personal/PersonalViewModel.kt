@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.interfaces.client.login.models.PersonalInfo
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
@@ -21,8 +22,8 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
     val personalDataIsValid = MutableLiveData(false)
     val citiesList = MutableLiveData<List<CitiesListResponse.City>>()
 
-    private val _toastText = MutableLiveData<Event<String>>()
-    val toastText: LiveData<Event<String>> = _toastText
+    private val _toastTextRes = MutableLiveData<Event<Int>>()
+    val toastTextRes: LiveData<Event<Int>> = _toastTextRes
 
     init {
         val api = LoginApi.newInstance()
@@ -75,31 +76,39 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
             // запрашиваем токен, чтобы он сохранился в префах, так как используется в послед запросах
             bonusesApi.getAccessToken().let {
                 if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                    _toastText.postValue(Event("Ошибка сети"))
+                    _toastTextRes.postValue(Event(R.string.Network_error))
                     return@launch
                 }
             }
 
-            loginApi.addClientInfo(personalInfo.value!!).let {
-                if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                    _toastText.postValue(Event("Ошибка при указании пользовательских данных"))
-                    return@launch
+            personalInfo.value?.let { personalInfo ->
+                loginApi.addClientInfo(personalInfo).let {
+                    if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                        _toastTextRes.postValue(Event(R.string.user_data_error))
+                        return@launch
+                    }
                 }
-            }
-            loginApi.addCity(personalInfo.value!!.city!!).let {
-                if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                    _toastText.postValue(Event("Ошибка при указании пользовательских данных"))
-                    return@launch
-                }
-            }
-            loginApi.addEmail(personalInfo.value!!.email!!).let {
-                if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                    _toastText.postValue(Event("Ошибка при указании пользовательских данных"))
-                    return@launch
-                }
-            }
 
-            loginApi.confirmEmail(personalInfo.value!!.email!!)
+                personalInfo.city?.let { city ->
+                    loginApi.addCity(city).let {
+                        if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                            _toastTextRes.postValue(Event(R.string.user_data_error))
+                            return@launch
+                        }
+                    }
+                }
+
+                personalInfo.email?.let { email ->
+                    loginApi.addEmail(email).let {
+                        if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                            _toastTextRes.postValue(Event(R.string.user_data_error))
+                            return@launch
+                        }
+                    }
+
+                    loginApi.confirmEmail(email)
+                }
+            }
             onLoginFlowFinishListener?.onLoginFinish()
         }
     }
