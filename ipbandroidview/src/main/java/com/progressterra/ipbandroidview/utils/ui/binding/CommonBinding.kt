@@ -20,7 +20,6 @@ internal fun textFromInt(view: TextView, text: Int) {
 }
 
 
-
 @BindingAdapter("setVisibilityMainContentByScreenState")
 internal fun setVisibilityMainContentByScreenState(mainContent: View, screenState: ScreenState) {
     when (screenState) {

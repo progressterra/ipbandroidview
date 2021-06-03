@@ -9,7 +9,7 @@
 
         <variable
             name="BonusMessage"
-            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusMessage" />
+            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusMessage" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,27 +18,27 @@
         android:layout_height="wrap_content">
 
         <TextView
-            style="@style/Footnote"
-            android:textColor="@color/text_in_forms"
             android:id="@+id/greet_tv"
+            style="@style/Footnote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="32dp"
-            app:setSecondaryTextColor="@{ColorPalette}"
             android:text="@{BonusMessage.typeBonusName}"
+            android:textColor="@color/text_in_forms"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setSecondaryTextColor="@{ColorPalette}" />
 
         <TextView
+            style="@style/Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="11dp"
-            style="@style/Title"
-            app:setMainTextColor="@{ColorPalette}"
             app:layout_constraintEnd_toEndOf="@id/greet_tv"
             app:layout_constraintStart_toStartOf="@id/greet_tv"
             app:layout_constraintTop_toBottomOf="@id/greet_tv"
+            app:setMainTextColor="@{ColorPalette}"
             app:textFromInt="@{BonusMessage.currentQuantity}" />
 
         <View
@@ -52,21 +52,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            style="@style/Footnote"
-            app:setSecondaryTextColor="@{ColorPalette}"
-            android:textColor="@color/text_in_forms"
             android:id="@+id/next_expired_date_tv_tab"
+            style="@style/Footnote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="32dp"
             android:text="@string/next_burning_date"
+            android:textColor="@color/text_in_forms"
             app:layout_constraintStart_toEndOf="@id/verticalLine"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setSecondaryTextColor="@{ColorPalette}" />
 
         <TextView
-            style="@style/Body2"
             android:id="@+id/next_expired_date_tab"
+            style="@style/Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -77,21 +77,21 @@
             app:layout_constraintTop_toBottomOf="@id/next_expired_date_tv_tab" />
 
         <TextView
-            app:setSecondaryTextColor="@{ColorPalette}"
-            style="@style/Footnote"
-            android:textColor="@color/text_in_forms"
             android:id="@+id/expired_number_tab_tv"
+            style="@style/Footnote"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:text="@string/next_burning_date"
+            android:textColor="@color/text_in_forms"
             app:layout_constraintStart_toEndOf="@id/verticalLine"
-            app:layout_constraintTop_toBottomOf="@id/next_expired_date_tab" />
+            app:layout_constraintTop_toBottomOf="@id/next_expired_date_tab"
+            app:setSecondaryTextColor="@{ColorPalette}" />
 
         <TextView
-            style="@style/Body2"
             android:id="@+id/expired_number_tab"
+            style="@style/Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"

@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesOrderTabBinding
+import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
 
 internal class BonusesTabOrderFragment : Fragment() {
     private lateinit var binding: FragmentDetailBonusesOrderTabBinding

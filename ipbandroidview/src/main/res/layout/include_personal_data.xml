@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="ColorsPalette"
             type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
@@ -31,7 +32,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                app:setMainTextColor="@{ColorsPalette}"
                 android:id="@+id/editText_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -40,6 +40,7 @@
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
                 app:layout_constraintTop_toBottomOf="@id/textView_name_label"
+                app:setMainTextColor="@{ColorsPalette}"
                 tools:text="Мария" />
 
             <TextView
@@ -54,7 +55,6 @@
                 app:layout_constraintTop_toBottomOf="@id/editText_name" />
 
             <EditText
-                app:setMainTextColor="@{ColorsPalette}"
                 android:id="@+id/editText_secondName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -64,10 +64,10 @@
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
                 app:layout_constraintTop_toBottomOf="@id/textView_secondName_label"
+                app:setMainTextColor="@{ColorsPalette}"
                 tools:text="Смирнова" />
 
             <TextView
-                app:setMainTextColor="@{ColorsPalette}"
                 android:id="@+id/textView_birthDay"
                 style="@style/Body1"
                 android:layout_width="0dp"
@@ -78,7 +78,8 @@
                 android:text="Дата вашего рождения"
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
-                app:layout_constraintTop_toBottomOf="@id/editText_secondName" />
+                app:layout_constraintTop_toBottomOf="@id/editText_secondName"
+                app:setMainTextColor="@{ColorsPalette}" />
 
             <View
                 android:id="@+id/line1"
@@ -114,14 +115,14 @@
                 app:layout_constraintTop_toBottomOf="@id/textView_birthDay_hint" />
 
             <TextView
-                app:setSecondaryTextColor="@{ColorsPalette}"
                 android:id="@+id/set_city_info_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
                 android:text="Выберите ваш город из списка"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
-                app:layout_constraintTop_toBottomOf="@id/city_spinner" />
+                app:layout_constraintTop_toBottomOf="@id/city_spinner"
+                app:setSecondaryTextColor="@{ColorsPalette}" />
 
             <EditText
                 android:id="@+id/editText_email"
@@ -136,7 +137,6 @@
                 app:layout_constraintTop_toBottomOf="@id/set_city_info_tv" />
 
             <TextView
-                app:setSecondaryTextColor="@{ColorsPalette}"
                 android:id="@+id/set_email_info_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -144,10 +144,10 @@
                 android:text="Подтвердите и получите 300 приветственных бонусов"
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
-                app:layout_constraintTop_toBottomOf="@id/editText_email" />
+                app:layout_constraintTop_toBottomOf="@id/editText_email"
+                app:setSecondaryTextColor="@{ColorsPalette}" />
 
             <TextView
-                app:setSecondaryTextColor="@{ColorsPalette}"
                 android:id="@+id/set_sex_info_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -156,7 +156,8 @@
                 android:text="Позвольте нам дать для вас качественные предложения. Кто вы? "
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"
                 app:layout_constraintStart_toStartOf="@id/guideline_start"
-                app:layout_constraintTop_toBottomOf="@id/set_email_info_tv" />
+                app:layout_constraintTop_toBottomOf="@id/set_email_info_tv"
+                app:setSecondaryTextColor="@{ColorsPalette}" />
 
             <RadioGroup
                 android:id="@+id/radioGroup_sex"
@@ -189,11 +190,11 @@
             <Button
                 android:id="@+id/button_next"
                 style="@style/Callout1"
-                android:onClick="@{_->vm.addPersonalInfo()}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="38dp"
                 android:enabled="@{vm.personalDataIsValid}"
+                android:onClick="@{_->vm.addPersonalInfo()}"
                 android:text="@string/next"
                 android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="@id/guideline_end"

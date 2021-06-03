@@ -5,7 +5,7 @@
 
         <variable
             name="BonusesInfo"
-            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesInfo" />
+            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,7 +52,6 @@
 
                 <TextView
                     android:id="@+id/bonus_expiration_date_tv"
-                    app:visibility="@{BonusesInfo.showAllBonusesInfo}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -62,11 +61,11 @@
                     android:textSize="@dimen/base_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/number_of_bonuses_tv" />
+                    app:layout_constraintTop_toBottomOf="@id/number_of_bonuses_tv"
+                    app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
                 <ImageView
                     android:id="@+id/fire_iv"
-                    app:visibility="@{BonusesInfo.showAllBonusesInfo}"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
@@ -75,7 +74,8 @@
                     app:layout_constraintBottom_toBottomOf="@id/bonus_expiration_date_tv"
                     app:layout_constraintEnd_toStartOf="@id/bonus_expiration_number_tv"
                     app:layout_constraintStart_toEndOf="@+id/bonus_expiration_date_tv"
-                    app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv" />
+                    app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv"
+                    app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
                 <ImageView
                     android:id="@+id/next_btn"
@@ -90,15 +90,15 @@
 
                 <TextView
                     android:id="@+id/bonus_expiration_number_tv"
-                    app:visibility="@{BonusesInfo.showAllBonusesInfo}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="40dp"
-                    android:text= "@{@string/bonuses_count(BonusesInfo.forBurningQuantity)}"
+                    android:text="@{@string/bonuses_count(BonusesInfo.forBurningQuantity)}"
                     android:textSize="@dimen/base_text_size"
                     app:layout_constraintBottom_toBottomOf="@id/bonus_expiration_date_tv"
                     app:layout_constraintEnd_toStartOf="@id/next_btn"
-                    app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv" />
+                    app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv"
+                    app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

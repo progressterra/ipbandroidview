@@ -13,7 +13,7 @@
 
         <variable
             name="BonusesInfo"
-            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesInfo" />
+            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

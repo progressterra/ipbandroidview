@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.models.ui
+package com.progressterra.ipbandroidview.ui.login.country.models
 
 internal data class CountryUi(
     val name: String,

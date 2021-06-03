@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.login.country
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import com.progressterra.ipbandroidview.models.ui.CountryUi
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
+import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.ui.login.login.LoginFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

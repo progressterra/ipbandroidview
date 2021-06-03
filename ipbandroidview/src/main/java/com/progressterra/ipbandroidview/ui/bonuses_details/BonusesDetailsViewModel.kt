@@ -4,7 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.*
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusMessage
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Purchase
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Transaction
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.async

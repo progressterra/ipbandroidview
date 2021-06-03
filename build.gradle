@@ -41,7 +41,7 @@ allprojects {
                 basic(BasicAuthentication)
             }
 
-            url "https://api.bitbucket.org/2.0/repositories/" + COMPANY + "/" + APILIBREPOSITORY_NAME + "/src/test_lib"
+            url "https://api.bitbucket.org/2.0/repositories/" + COMPANY + "/" + APILIBREPOSITORY_NAME + "/src/dev"
         }
     }
 }

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.Transaction
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Transaction
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.ItemTransactionBinding
 

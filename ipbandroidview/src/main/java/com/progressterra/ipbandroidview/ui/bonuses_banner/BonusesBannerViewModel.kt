@@ -4,10 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesInfo
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 internal class BonusesBannerViewModel : ViewModel() {

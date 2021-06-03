@@ -19,7 +19,7 @@ internal class LoginViewModel(
 ) : ViewModel() {
 
     private val _screenState = MutableLiveData(ScreenState.DEFAULT)
-    val screenState:LiveData<ScreenState> = _screenState
+    val screenState: LiveData<ScreenState> = _screenState
 
     private val country: Country = Country.valueOf(selectedCountry)
 

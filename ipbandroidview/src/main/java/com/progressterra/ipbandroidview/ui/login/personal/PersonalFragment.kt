@@ -10,8 +10,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.progressterra.android.api.a.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
+import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.Event

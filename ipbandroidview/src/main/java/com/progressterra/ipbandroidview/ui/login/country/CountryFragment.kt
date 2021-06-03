@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentCountryBinding
 import com.progressterra.ipbandroidview.databinding.ItemCountryBinding
-import com.progressterra.ipbandroidview.models.ui.CountryUi
+import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.argument
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter

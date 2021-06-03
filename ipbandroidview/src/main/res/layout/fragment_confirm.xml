@@ -24,8 +24,8 @@
 
         <ImageView
             android:id="@+id/confirm_logo_iv"
-            android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:minHeight="100dp"
@@ -34,10 +34,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:background="@android:color/transparent"
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:cursorVisible="false"
             android:focusable="true"
             android:focusableInTouchMode="true"
@@ -50,13 +50,13 @@
             app:layout_constraintTop_toTopOf="@id/digit1" />
 
         <ProgressBar
-            app:setVisibilityLoaderByScreenState="@{vm.screenState}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/info_confirm_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/info_confirm_tv" />
+            app:layout_constraintTop_toTopOf="@id/info_confirm_tv"
+            app:setVisibilityLoaderByScreenState="@{vm.screenState}" />
 
         <TextView
             android:id="@+id/info_confirm_tv"
@@ -77,7 +77,6 @@
             android:layout_marginTop="40dp"
             android:width="52dp"
             android:height="52dp"
-            app:setTintFromPalette="@{ColorPaletteObject}"
             android:background="@drawable/circle"
             android:gravity="center"
             android:minWidth="10dp"
@@ -85,11 +84,11 @@
             android:textSize="28sp"
             app:layout_constraintEnd_toStartOf="@id/digit2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
+            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv"
+            app:setTintFromPalette="@{ColorPaletteObject}" />
 
         <TextView
             android:id="@+id/digit2"
-            app:setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -102,11 +101,11 @@
             android:textSize="28sp"
             app:layout_constraintEnd_toStartOf="@id/digit3"
             app:layout_constraintStart_toEndOf="@id/digit1"
-            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
+            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv"
+            app:setTintFromPalette="@{ColorPaletteObject}" />
 
         <TextView
             android:id="@+id/digit3"
-            app:setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -118,11 +117,11 @@
             android:textSize="28sp"
             app:layout_constraintEnd_toStartOf="@id/digit4"
             app:layout_constraintStart_toEndOf="@id/digit2"
-            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
+            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv"
+            app:setTintFromPalette="@{ColorPaletteObject}" />
 
         <TextView
             android:id="@+id/digit4"
-            app:setTintFromPalette="@{ColorPaletteObject}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -134,11 +133,10 @@
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/digit3"
-            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv" />
+            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv"
+            app:setTintFromPalette="@{ColorPaletteObject}" />
 
         <TextView
-            app:setMainTextColor="@{ColorPaletteObject}"
-            android:textColor="@color/theme_color"
             android:id="@+id/resend_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -146,30 +144,31 @@
             android:layout_marginTop="24dp"
             android:onClick="@{_-> vm.resendConfirmationCode()}"
             android:text="@string/resend_code"
+            android:textColor="@color/theme_color"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/digit1" />
+            app:layout_constraintTop_toBottomOf="@id/digit1"
+            app:setMainTextColor="@{ColorPaletteObject}" />
 
         <TextView
-            app:visibility="@{!vm.resendCodeOperationReady}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="33dp"
             android:text="@{@string/can_resend_code_after(vm.counterScore)}"
             app:layout_constraintStart_toEndOf="@id/resend_code"
-            app:layout_constraintTop_toTopOf="@id/resend_code" />
+            app:layout_constraintTop_toTopOf="@id/resend_code"
+            app:visibility="@{!vm.resendCodeOperationReady}" />
 
         <View
-            app:setMainColor="@{ColorPaletteObject}"
             android:id="@+id/line_view"
             android:layout_width="match_parent"
             android:layout_height="16dp"
             android:layout_marginTop="60dp"
             android:layout_marginBottom="8dp"
             android:background="#989090"
-            app:layout_constraintTop_toBottomOf="@id/resend_code" />
+            app:layout_constraintTop_toBottomOf="@id/resend_code"
+            app:setMainColor="@{ColorPaletteObject}" />
 
         <ImageView
-            app:setDrawableFromPalette="@{ColorsPalette.INSTANCE.confirmImageRes}"
             android:id="@+id/confirm_banner_iv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -180,7 +179,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line_view"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintVertical_bias="1"
+            app:setDrawableFromPalette="@{ColorsPalette.INSTANCE.confirmImageRes}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

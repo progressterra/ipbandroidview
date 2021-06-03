@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.progressterra.ipbandroidview.models.ui.CountryUi" />
+            type="com.progressterra.ipbandroidview.ui.login.country.models.CountryUi" />
 
         <variable
             name="vm"

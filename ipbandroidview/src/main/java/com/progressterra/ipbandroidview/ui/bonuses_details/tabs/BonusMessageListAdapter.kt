@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusMessage
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusMessage
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.ItemBonusMessageBinding
 
