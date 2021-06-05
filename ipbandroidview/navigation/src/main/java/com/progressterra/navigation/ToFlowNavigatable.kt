@@ -1,5 +1,5 @@
 package com.progressterra.navigation
 
-interface ToFlowNavigatable {
+public interface ToFlowNavigatable {
     fun navigateToFlow(flow: NavigationFlow)
 }
