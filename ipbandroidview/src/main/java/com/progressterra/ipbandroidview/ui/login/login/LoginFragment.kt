@@ -29,13 +29,13 @@ class LoginFragment : BaseFragment() {
 
     private val args: LoginFragmentArgs by navArgs()
 
-    private lateinit var loginSettings: LoginSettings
+//    private lateinit var loginSettings: LoginSettings
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
             selectedCountry = args.selectedCountry,
             onLoginFlowFinishListener = onLoginFlowFinishListener,
-            loginSettings = loginSettings
+            loginSettings = LoginSettings(agreementEnabled = false, footerEnabled = false)
         )
     }
 
@@ -68,21 +68,21 @@ class LoginFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
-            if (loginSettings.agreementEnabled) {
-                textViewAgreement.apply {
-                    text = Html.fromHtml(getString(R.string.login_agreement_html))
-                    movementMethod = LinkMovementMethod.getInstance()
-                    visibility = View.VISIBLE
-                }
-            }
-            if (loginSettings.footerEnabled) {
-                val resId = loginSettings.footerImageId
-                if (resId != null) {
-                    viewFooterDivider.visibility = View.VISIBLE
-                    ivFooter.visibility = View.VISIBLE
-                    ivFooter.setImageResource(resId)
-                }
-            }
+//            if (loginSettings.agreementEnabled) {
+//                textViewAgreement.apply {
+//                    text = Html.fromHtml(getString(R.string.login_agreement_html))
+//                    movementMethod = LinkMovementMethod.getInstance()
+//                    visibility = View.VISIBLE
+//                }
+//            }
+//            if (loginSettings.footerEnabled) {
+//                val resId = loginSettings.footerImageId
+//                if (resId != null) {
+//                    viewFooterDivider.visibility = View.VISIBLE
+//                    ivFooter.visibility = View.VISIBLE
+//                    ivFooter.setImageResource(resId)
+//                }
+//            }
         }
     }
 

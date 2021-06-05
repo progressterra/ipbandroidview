@@ -39,7 +39,7 @@ internal class CountryViewModel(
     val nextFragment: LiveData<Event<Fragment>> = _nextFragment
 
     fun onItemClick(selectedCountry: String) {
-        _nextFragment.value = Event(LoginFragment.newInstance(selectedCountry, loginSettings))
+//        _nextFragment.value = Event(LoginFragment.newInstance(selectedCountry, loginSettings))
     }
 
     fun changedSearchValue(value: String) {
