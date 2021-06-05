@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="app_defaultCornerRadius" format="dimension" />
 
+
+    <!-- Buttons -->
+    <attr name="app_buttonCornerRadius" format="dimension" />
+    <attr name="app_buttonColor" format="color" />
+    <attr name="app_buttonGradientStartColor" format="color" />
+    <attr name="app_buttonGradientEndColor" format="color" />
+    <attr name="app_buttonDisabledColor" format="color" />
+
+    <!-- View background -->
+    <attr name="app_backgroundColor" format="color" />
 </resources>

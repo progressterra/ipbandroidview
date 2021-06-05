@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="IPBAndroidView" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="app_defaultCornerRadius">8dp</item>
+
+        <!--  Button defaults      -->
+        <item name="app_buttonCornerRadius">?attr/app_defaultCornerRadius</item>
+        <item name="app_buttonColor">@color/color_button</item>
+        <item name="app_buttonGradientStartColor">?attr/app_buttonColor</item>
+        <item name="app_buttonGradientEndColor">?attr/app_buttonColor</item>
+        <item name="app_buttonDisabledColor">@color/color_buttonDisabled</item>
+
+        <!--  Background defaults      -->
+        <item name="app_backgroundColor">@color/color_background</item>
+
+    </style>
+
+
     <style name="Body1">
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">16sp</item>

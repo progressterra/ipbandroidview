@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Default theme colors  -->
+    <color name="color_button">#D2333E</color>
+    <color name="color_buttonDisabled">#858585</color>
+    <color name="color_background">#FFFFFF</color>
+
+
     <!--  Основные цвета  -->
     <color name="white">#FFFFFF</color>
     <color name="grey_lite">#e7e7e7</color>
