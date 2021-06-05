@@ -14,14 +14,14 @@ import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
-import com.progressterra.ipbandroidview.utils.extensions.argument
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
 internal class CountryFragment : BaseFragment() {
 
     private var container: Int? = null
 
-    private var selectedCountry by argument<String>()
+    //    private var selectedCountry by argument<String>()
+    private var selectedCountry = "RUSSIA"
 
 //    private lateinit var loginSettings: LoginSettings
 
