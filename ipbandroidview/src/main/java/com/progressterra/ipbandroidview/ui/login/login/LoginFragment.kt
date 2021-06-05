@@ -87,7 +87,6 @@ class LoginFragment : BaseFragment() {
         viewModel.action.observe(viewLifecycleOwner, {
             val action = it.contentIfNotHandled
             if (action != null) {
-
                 findNavController().navigate(action)
             }
         })
