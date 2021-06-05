@@ -2,13 +2,13 @@ package com.progressterra.ipbandroidview.ui.login.login
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import androidx.navigation.NavDirections
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment
-import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
@@ -34,6 +34,8 @@ internal class LoginViewModel(
         "${it.titleRu} (+ ${it.phoneCode})"
     }
 
+    val action = MutableLiveData<Event<NavDirections>>()
+
     private val _phoneText = MutableLiveData("")
     val phoneText: LiveData<String> = _phoneText
 
@@ -43,7 +45,8 @@ internal class LoginViewModel(
     private var phoneCode: String = ""
 
     fun selectCountry() {
-        _nextFragment.value = Event(CountryFragment.newInstance(selectedCountry, loginSettings))
+//        _nextFragment.value = Event(CountryFragment.newInstance(selectedCountry, loginSettings))
+        action.value = Event(LoginFragmentDirections.actionFragmentLoginToFragmentCountry())
     }
 
     fun next(phone: String) {

@@ -1,12 +1,11 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
 import android.os.Bundle
-import android.text.Html
-import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.*
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
@@ -84,6 +83,14 @@ class LoginFragment : BaseFragment() {
 //                }
 //            }
         }
+
+        viewModel.action.observe(viewLifecycleOwner, {
+            val action = it.contentIfNotHandled
+            if (action != null) {
+
+                findNavController().navigate(action)
+            }
+        })
     }
 
     override fun onFragment(event: Event<Fragment>) {
