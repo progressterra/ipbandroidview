@@ -18,5 +18,17 @@
             android:name="selectedCountry"
             android:defaultValue="RUSSIA"
             app:argType="string" />
+        <argument
+            android:name="enableAgreement"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="enableFooter"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="footerImageResId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </action>
 </navigation>

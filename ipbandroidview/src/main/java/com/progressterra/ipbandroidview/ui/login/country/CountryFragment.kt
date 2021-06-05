@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentCountryBinding
@@ -20,15 +21,14 @@ internal class CountryFragment : BaseFragment() {
 
     private var container: Int? = null
 
-    //    private var selectedCountry by argument<String>()
-    private var selectedCountry = "RUSSIA"
+    private val args: CountryFragmentArgs by navArgs()
 
 //    private lateinit var loginSettings: LoginSettings
 
     private lateinit var binding: FragmentCountryBinding
     private val vm: CountryViewModel by viewModels {
         CountryViewModelFactory(
-            selectedCountry = selectedCountry,
+            selectedCountry = args.selectedCountry,
             loginSettings = LoginSettings(agreementEnabled = false, footerEnabled = false)
         )
     }
@@ -57,7 +57,7 @@ internal class CountryFragment : BaseFragment() {
         vm.countryUi.observe(viewLifecycleOwner, {
             adapter.setItems(it)
         })
-        vm.nextFragment.observe(viewLifecycleOwner, this::onFragment)
+        vm.action.observe(viewLifecycleOwner, this::onAction)
 
         binding.apply {
             lifecycleOwner = viewLifecycleOwner

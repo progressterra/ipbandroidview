@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ToastBundle
 
@@ -39,6 +41,13 @@ open class BaseFragment : Fragment() {
             if (fragment != null) {
                 replace(((view as ViewGroup).parent as View).id, fragment)
             }
+        }
+    }
+
+    internal fun onAction(event: Event<NavDirections>) {
+        val action = event.contentIfNotHandled
+        if (action != null) {
+            findNavController().navigate(action)
         }
     }
 }

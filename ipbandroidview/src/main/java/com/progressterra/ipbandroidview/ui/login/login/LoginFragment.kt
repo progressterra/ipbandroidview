@@ -1,18 +1,19 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
 import android.os.Bundle
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.*
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
+import com.progressterra.ipbandroidview.utils.DefaultArgsValues
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
@@ -24,17 +25,12 @@ class LoginFragment : BaseFragment() {
 
     private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
 
-//    private var selectedCountry by argument<String>()
-
     private val args: LoginFragmentArgs by navArgs()
-
-//    private lateinit var loginSettings: LoginSettings
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
             selectedCountry = args.selectedCountry,
-            onLoginFlowFinishListener = onLoginFlowFinishListener,
-            loginSettings = LoginSettings(agreementEnabled = false, footerEnabled = false)
+            onLoginFlowFinishListener = onLoginFlowFinishListener
         )
     }
 
@@ -67,29 +63,24 @@ class LoginFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
-//            if (loginSettings.agreementEnabled) {
-//                textViewAgreement.apply {
-//                    text = Html.fromHtml(getString(R.string.login_agreement_html))
-//                    movementMethod = LinkMovementMethod.getInstance()
-//                    visibility = View.VISIBLE
-//                }
-//            }
-//            if (loginSettings.footerEnabled) {
-//                val resId = loginSettings.footerImageId
-//                if (resId != null) {
-//                    viewFooterDivider.visibility = View.VISIBLE
-//                    ivFooter.visibility = View.VISIBLE
-//                    ivFooter.setImageResource(resId)
-//                }
-//            }
+            if (args.enableAgreement) {
+                textViewAgreement.apply {
+                    text = Html.fromHtml(getString(R.string.login_agreement_html))
+                    movementMethod = LinkMovementMethod.getInstance()
+                    visibility = View.VISIBLE
+                }
+            }
+            if (args.enableFooter) {
+                val resId = args.footerImageResId
+                if (resId != DefaultArgsValues.DEFAULT_RES) {
+                    viewFooterDivider.visibility = View.VISIBLE
+                    ivFooter.visibility = View.VISIBLE
+                    ivFooter.setImageResource(resId)
+                }
+            }
         }
 
-        viewModel.action.observe(viewLifecycleOwner, {
-            val action = it.contentIfNotHandled
-            if (action != null) {
-                findNavController().navigate(action)
-            }
-        })
+        viewModel.action.observe(viewLifecycleOwner, this::onAction)
     }
 
     override fun onFragment(event: Event<Fragment>) {

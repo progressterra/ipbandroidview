@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_flow"
     app:startDestination="@id/fragmentLogin">
+
     <fragment
         android:id="@+id/fragmentLogin"
         android:name="com.progressterra.ipbandroidview.ui.login.login.LoginFragment"
@@ -11,16 +12,39 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_fragmentLogin_to_fragmentCountry"
-            app:destination="@id/fragmentCountry" />
+            app:destination="@id/fragmentCountry"
+            app:popUpTo="@id/fragmentLogin"
+            app:popUpToInclusive="false">
+
+        </action>
         <argument
             android:name="selectedCountry"
             android:defaultValue="RUSSIA"
             app:argType="string" />
+        <argument
+            android:name="enableAgreement"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="enableFooter"
+            android:defaultValue="false"
+            app:argType="boolean" />
+        <argument
+            android:name="footerImageResId"
+            android:defaultValue="-1"
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/fragmentCountry"
         android:name="com.progressterra.ipbandroidview.ui.login.country.CountryFragment"
         android:label="fragment_country"
-        tools:layout="@layout/fragment_country" />
+        tools:layout="@layout/fragment_country" >
+        <argument
+            android:name="selectedCountry"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragmentCountry_to_fragmentLogin"
+            app:destination="@id/fragmentLogin" />
+    </fragment>
 </navigation>
