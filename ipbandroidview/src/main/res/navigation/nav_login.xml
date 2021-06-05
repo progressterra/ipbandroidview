@@ -3,5 +3,4 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_login">
 
-
 </navigation>
