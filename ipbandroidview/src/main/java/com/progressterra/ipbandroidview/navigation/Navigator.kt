@@ -1,8 +1,9 @@
-package com.progressterra.navigation
+package com.progressterra.ipbandroidview.navigation
 
 import androidx.navigation.NavController
+import com.progressterra.ipbandroidview.MainNavGraphDirections
 
-public class Navigator {
+class Navigator {
     lateinit var navController: NavController
 
     fun navigateToFlow(navigationFlow: NavigationFlow) = when (navigationFlow) {
