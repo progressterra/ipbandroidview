@@ -5,17 +5,20 @@ import androidx.lifecycle.*
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment
 import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
+import com.progressterra.ipbandroidview.utils.ToastBundle
 import kotlinx.coroutines.launch
 
 internal class LoginViewModel(
-    var selectedCountry: String,
-    private val onLoginFlowFinishListener: OnLoginFlowFinishListener?
+    private var selectedCountry: String,
+    private val onLoginFlowFinishListener: OnLoginFlowFinishListener?,
+    private val loginSettings: LoginSettings
 ) : ViewModel() {
 
     private val _screenState = MutableLiveData(ScreenState.DEFAULT)
@@ -34,22 +37,19 @@ internal class LoginViewModel(
     private val _phoneText = MutableLiveData("")
     val phoneText: LiveData<String> = _phoneText
 
-    private val _toastStringInt = MutableLiveData<Event<Int>>()
-    val toastStringInt: LiveData<Event<Int>> = _toastStringInt
+    private val _toastBundle = MutableLiveData<Event<ToastBundle>>()
+    val toastBundle: LiveData<Event<ToastBundle>> = _toastBundle
 
-    private val _toastText = MutableLiveData<Event<String>>()
-    val toastText: LiveData<Event<String>> = _toastText
-
-    var phoneCode: String = ""
+    private var phoneCode: String = ""
 
     fun selectCountry() {
-        _nextFragment.value = Event(CountryFragment.newInstance(selectedCountry))
+        _nextFragment.value = Event(CountryFragment.newInstance(selectedCountry, loginSettings))
     }
 
     fun next(phone: String) {
         // Проверка ввода телефона
         if (phone.isEmpty()) {
-            _toastStringInt.value = Event(R.string.login_empty_phone)
+            _toastBundle.value = Event(ToastBundle(R.string.login_empty_phone))
             return
         }
 
@@ -72,9 +72,10 @@ internal class LoginViewModel(
                         )
                     )
                 )
-            else
+            else {
                 _screenState.postValue(ScreenState.ERROR)
-            _toastText.postValue(Event(loginResponse.errorMessage))
+                _toastBundle.postValue(Event(ToastBundle(id = null, loginResponse.errorMessage)))
+            }
         }
     }
 
@@ -88,7 +89,7 @@ internal class LoginViewModel(
             if (!phone.startsWith(country.phoneStart!!)) {
                 _phoneText.value = ""
                 phoneCode = country.phoneStart
-                _toastStringInt.value = Event(R.string.login_error_start_phone)
+                _toastBundle.value = Event(ToastBundle(R.string.login_error_start_phone, phoneCode))
             }
         }
     }

@@ -3,13 +3,47 @@
     <attr name="app_defaultCornerRadius" format="dimension" />
 
 
-    <!-- Buttons -->
+    <!-- Кнопки -->
     <attr name="app_buttonCornerRadius" format="dimension" />
     <attr name="app_buttonColor" format="color" />
     <attr name="app_buttonGradientStartColor" format="color" />
     <attr name="app_buttonGradientEndColor" format="color" />
     <attr name="app_buttonDisabledColor" format="color" />
+    <attr name="app_buttonFilledTextColor" format="color" />
+    <attr name="app_buttonOutlinedTextColor" format="color" />
+    <attr name="app_buttonStrokeWidth" format="dimension" />
 
-    <!-- View background -->
+    <!-- Поля ввода   -->
+    <attr name="app_formsUnderlineColor" format="color" />
+    <attr name="app_formsTextColor" format="color" />
+
+    <!-- Общий фон -->
     <attr name="app_backgroundColor" format="color" />
+
+    <!-- Текст   -->
+    <!-- Размеры   -->
+    <attr name="app_textTitleSize" format="dimension" />
+    <attr name="app_textTitleLineSpacing" format="dimension" />
+    <attr name="app_textCalloutButton1Size" format="dimension" />
+    <attr name="app_textCalloutButton1Spacing" format="dimension" />
+    <attr name="app_textCalloutButton2Size" format="dimension" />
+    <attr name="app_textCalloutButton2Spacing" format="dimension" />
+    <attr name="app_textCalloutClickableSize" format="dimension" />
+    <attr name="app_textCalloutClickableSpacing" format="dimension" />
+    <attr name="app_textBodySize" format="dimension" />
+    <attr name="app_textBodySpacing" format="dimension" />
+    <attr name="app_textFootnote1Size" format="dimension" />
+    <attr name="app_textFootnote1Spacing" format="dimension" />
+    <attr name="app_textFootnote2Size" format="dimension" />
+    <attr name="app_textFootnote2Spacing" format="dimension" />
+    <!-- Цвета   -->
+    <attr name="app_textDefaultColor" format="color" />
+    <attr name="app_textTitleColor" format="color" />
+    <attr name="app_textCallout1Color" format="color" />
+    <attr name="app_textCallout2Color" format="color" />
+    <attr name="app_textCalloutClickableColor" format="color" />
+    <attr name="app_textBodyColor" format="color" />
+    <attr name="app_textFootnote1Color" format="color" />
+    <attr name="app_textFootnote2Color" format="color" />
+    <attr name="app_textFootnoteAttentionColor" format="color" />
 </resources>

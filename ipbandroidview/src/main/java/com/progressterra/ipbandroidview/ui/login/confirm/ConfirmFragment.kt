@@ -6,20 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
+import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
-import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.argument
 import com.progressterra.ipbandroidview.utils.extensions.hideKeyboard
 import com.progressterra.ipbandroidview.utils.extensions.showKeyboard
 
 
-internal class ConfirmFragment : Fragment() {
+internal class ConfirmFragment : BaseFragment() {
 
     private var selectedCountry by argument<String>()
     private var phoneNumber by argument<String>()
@@ -89,15 +87,6 @@ internal class ConfirmFragment : Fragment() {
             textView.text = inputString.toString()
             ColorsPalette.mainColor?.let {
                 textView.backgroundTintList = ColorStateList.valueOf(it)
-            }
-        }
-    }
-
-    private fun onFragment(event: Event<Fragment>) {
-        val fragment = event.contentIfNotHandled
-        activity?.supportFragmentManager?.commit {
-            if (fragment != null) {
-                replace(((view as ViewGroup).parent as View).id, fragment)
             }
         }
     }

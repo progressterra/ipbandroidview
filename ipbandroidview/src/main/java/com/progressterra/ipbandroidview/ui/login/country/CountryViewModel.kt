@@ -5,12 +5,17 @@ import androidx.lifecycle.*
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.ui.login.login.LoginFragment
+import com.progressterra.ipbandroidview.ui.login.LoginSettings
+import com.progressterra.ipbandroidview.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-internal class CountryViewModel(private var selectedCountry: String) : ViewModel() {
+internal class CountryViewModel(
+    private var selectedCountry: String,
+    private val loginSettings: LoginSettings
+) : ViewModel() {
 
     private val allCountry = Country.values().asList()
     private val locale = Locale.getDefault()
@@ -30,11 +35,11 @@ internal class CountryViewModel(private var selectedCountry: String) : ViewModel
         }
     }
 
-    private val _nextFragment = MutableLiveData<Fragment>()
-    val nextFragment: LiveData<Fragment> = _nextFragment
+    private val _nextFragment = MutableLiveData<Event<Fragment>>()
+    val nextFragment: LiveData<Event<Fragment>> = _nextFragment
 
     fun onItemClick(selectedCountry: String) {
-        _nextFragment.value = LoginFragment.newInstance(selectedCountry)
+        _nextFragment.value = Event(LoginFragment.newInstance(selectedCountry, loginSettings))
     }
 
     fun changedSearchValue(value: String) {

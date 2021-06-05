@@ -5,13 +5,12 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
 import com.progressterra.ipbandroidview.utils.ScreenState
 
-@BindingAdapter("visibility")
-fun visibility(view: View, isVisible: Boolean) {
-    view.visibility = if (isVisible) View.VISIBLE else View.GONE
-}
+@BindingConversion
+fun convertBooleanToVisibility(isVisible: Boolean): Int = if (isVisible) View.VISIBLE else View.GONE
 
 
 @BindingAdapter("textFromInt")
