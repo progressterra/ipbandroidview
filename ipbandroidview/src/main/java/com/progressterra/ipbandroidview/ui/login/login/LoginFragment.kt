@@ -7,17 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.*
+import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
-import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
-import com.progressterra.ipbandroidview.utils.extensions.argument
 
 
 class LoginFragment : BaseFragment() {
@@ -26,13 +25,15 @@ class LoginFragment : BaseFragment() {
 
     private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
 
-    private var selectedCountry by argument<String>()
+//    private var selectedCountry by argument<String>()
+
+    private val args: LoginFragmentArgs by navArgs()
 
     private lateinit var loginSettings: LoginSettings
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
-            selectedCountry = selectedCountry,
+            selectedCountry = args.selectedCountry,
             onLoginFlowFinishListener = onLoginFlowFinishListener,
             loginSettings = loginSettings
         )
@@ -101,39 +102,39 @@ class LoginFragment : BaseFragment() {
     }
 
 
-    companion object {
-
-        /**
-         *  @param selectedCountry - Country enum name
-         *  @param enableUserAgreement - Включает текст с пользовтелеским соглашением, по дефолту выключено
-         *  @param enableFooterImage - Включает картинку в футере, по дефолту выключено
-         *  @param footerImageRes - id ресурса с картинкой футера
-         */
-        fun newInstance(
-            selectedCountry: String? = null,
-            loginFinishListener: OnLoginFlowFinishListener? = null,
-            enableUserAgreement: Boolean? = null,
-            enableFooterImage: Boolean? = null,
-            footerImageRes: Int? = null
-        ): LoginFragment {
-            return LoginFragment().apply {
-                this.selectedCountry = selectedCountry ?: Country.RUSSIA.name
-                onLoginFlowFinishListener = loginFinishListener
-                loginSettings = LoginSettings(
-                    agreementEnabled = enableUserAgreement ?: false,
-                    footerEnabled = enableFooterImage ?: false,
-                    footerImageId = footerImageRes,
-                    loginFinishListener = loginFinishListener
-                )
-            }
-        }
-
-        internal fun newInstance(
-            selectedCountry: String,
-            loginSettings: LoginSettings
-        ): LoginFragment = LoginFragment().apply {
-            this.selectedCountry = selectedCountry
-            this.loginSettings = loginSettings
-        }
-    }
+//    companion object {
+//
+//        /**
+//         *  @param selectedCountry - Country enum name
+//         *  @param enableUserAgreement - Включает текст с пользовтелеским соглашением, по дефолту выключено
+//         *  @param enableFooterImage - Включает картинку в футере, по дефолту выключено
+//         *  @param footerImageRes - id ресурса с картинкой футера
+//         */
+//        fun newInstance(
+//            selectedCountry: String? = null,
+//            loginFinishListener: OnLoginFlowFinishListener? = null,
+//            enableUserAgreement: Boolean? = null,
+//            enableFooterImage: Boolean? = null,
+//            footerImageRes: Int? = null
+//        ): LoginFragment {
+//            return LoginFragment().apply {
+//                this.selectedCountry = selectedCountry ?: Country.RUSSIA.name
+//                onLoginFlowFinishListener = loginFinishListener
+//                loginSettings = LoginSettings(
+//                    agreementEnabled = enableUserAgreement ?: false,
+//                    footerEnabled = enableFooterImage ?: false,
+//                    footerImageId = footerImageRes,
+//                    loginFinishListener = loginFinishListener
+//                )
+//            }
+//        }
+//
+//        internal fun newInstance(
+//            selectedCountry: String,
+//            loginSettings: LoginSettings
+//        ): LoginFragment = LoginFragment().apply {
+//            this.selectedCountry = selectedCountry
+//            this.loginSettings = loginSettings
+//        }
+//    }
 }
