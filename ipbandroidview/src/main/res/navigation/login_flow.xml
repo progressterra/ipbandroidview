@@ -24,7 +24,7 @@
 
         <action
             android:id="@+id/action_fragmentLogin_to_confirmFragment"
-            app:destination="@id/confirmFragment" />
+            app:destination="@id/fragmentConfirm" />
     </fragment>
 
     <fragment
@@ -44,7 +44,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/confirmFragment"
+        android:id="@+id/fragmentConfirm"
         android:name="com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment"
         android:label="fragment_confirm"
         tools:layout="@layout/fragment_confirm">
@@ -60,11 +60,11 @@
 
         <action
             android:id="@+id/action_confirmFragment_to_personalFragment"
-            app:destination="@id/personalFragment" />
+            app:destination="@id/fragmentPersonal" />
     </fragment>
 
     <fragment
-        android:id="@+id/personalFragment"
+        android:id="@+id/fragmentPersonal"
         android:name="com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment"
         android:label="fragment_personal"
         tools:layout="@layout/fragment_personal">

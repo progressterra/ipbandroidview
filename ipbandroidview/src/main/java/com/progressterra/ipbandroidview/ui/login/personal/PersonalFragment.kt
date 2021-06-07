@@ -51,8 +51,6 @@ class PersonalFragment : Fragment() {
             toastTextRes.observe(viewLifecycleOwner, this@PersonalFragment::showToastFromRes)
         }
 
-
-
         setupDatePickerDialog()
         initListeners()
     }
@@ -118,13 +116,4 @@ class PersonalFragment : Fragment() {
                 })
         }
     }
-
-    companion object {
-        fun newInstance(
-            onLoginFlowFinishListener: OnLoginFlowFinishListener?
-        ) = PersonalFragment().apply {
-            this.onLoginFlowFinishListener = onLoginFlowFinishListener
-        }
-    }
-
 }

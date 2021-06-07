@@ -12,11 +12,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
-import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
 import com.progressterra.ipbandroidview.utils.DefaultArgsValues
-import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 
@@ -80,22 +78,6 @@ class LoginFragment : BaseFragment() {
                     ivFooter.visibility = View.VISIBLE
                     ivFooter.setImageResource(resId)
                 }
-            }
-        }
-    }
-
-    // Старый метод, если навигация будет подтверждена - будет выпилен
-    override fun onFragment(event: Event<Fragment>) {
-        val fragment = event.contentIfNotHandled
-        activity?.supportFragmentManager?.commit {
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            addToBackStack(javaClass.simpleName)
-            // костыль, пока не придумал как победить backStack
-            if (fragment != null) {
-                if (fragment is CountryFragment)
-                    add(((view as ViewGroup).parent as View).id, fragment)
-                else
-                    replace(((view as ViewGroup).parent as View).id, fragment)
             }
         }
     }

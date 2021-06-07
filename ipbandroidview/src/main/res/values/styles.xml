@@ -12,7 +12,7 @@
         <item name="app_buttonDisabledColor">@color/color_buttonDisabled</item>
         <item name="app_buttonFilledTextColor">@color/white</item>
         <item name="app_buttonOutlinedTextColor">?app_buttonColor</item>
-        <item name="app_buttonStrokeWidth">1dp</item>
+        <item name="app_buttonOutlinedStrokeWidth">1dp</item>
 
         <item name="app_progressBar_color">@color/color_buttonDisabled</item>
 

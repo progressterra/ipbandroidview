@@ -11,7 +11,7 @@
     <attr name="app_buttonDisabledColor" format="color" />
     <attr name="app_buttonFilledTextColor" format="color" />
     <attr name="app_buttonOutlinedTextColor" format="color" />
-    <attr name="app_buttonStrokeWidth" format="dimension" />
+    <attr name="app_buttonOutlinedStrokeWidth" format="dimension" />
 
     <!-- Поля ввода   -->
     <attr name="app_formsUnderlineColor" format="color" />

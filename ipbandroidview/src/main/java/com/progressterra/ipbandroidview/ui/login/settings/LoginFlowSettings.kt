@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LoginFlowSettings(
-    val phoneNumberSettings: PhoneNumberSettings,
-    val confirmCodeSettings: ConfirmCodeSettings
+    val phoneNumberSettings: PhoneNumberSettings = PhoneNumberSettings(),
+    val confirmCodeSettings: ConfirmCodeSettings = ConfirmCodeSettings(),
+    val personalSettings: PersonalSettings = PersonalSettings()
 ) : Parcelable
