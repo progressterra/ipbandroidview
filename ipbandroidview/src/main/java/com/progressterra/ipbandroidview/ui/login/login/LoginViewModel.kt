@@ -1,15 +1,16 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
-import androidx.navigation.NavDirections
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.ui.login.LoginSettings
+import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
-import com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
@@ -18,36 +19,26 @@ import kotlinx.coroutines.launch
 internal class LoginViewModel(
     private var selectedCountry: String,
     private val onLoginFlowFinishListener: OnLoginFlowFinishListener?,
-    private val loginSettings: LoginSettings
-) : ViewModel() {
-
-    private val _screenState = MutableLiveData(ScreenState.DEFAULT)
-    val screenState: LiveData<ScreenState> = _screenState
+    private val loginFlowSettings: LoginFlowSettings
+) : BaseViewModel() {
 
     private val country: Country = Country.valueOf(selectedCountry)
-
-    private val _nextFragment = MutableLiveData<Event<Fragment>>()
-    val nextFragment: LiveData<Event<Fragment>> = _nextFragment
 
     private val _countryText = MutableLiveData(country)
     val countryText: LiveData<String> = _countryText.map {
         "${it.titleRu} (+ ${it.phoneCode})"
     }
 
-    private val _action = MutableLiveData<Event<NavDirections>>()
-    val action: LiveData<Event<NavDirections>> = _action
-
     private val _phoneText = MutableLiveData("")
     val phoneText: LiveData<String> = _phoneText
-
-    private val _toastBundle = MutableLiveData<Event<ToastBundle>>()
-    val toastBundle: LiveData<Event<ToastBundle>> = _toastBundle
 
     private var phoneCode: String = ""
 
     fun selectCountry() {
         _action.value =
-            Event(LoginFragmentDirections.actionFragmentLoginToFragmentCountry(selectedCountry, loginSettings))
+            Event(
+                LoginFragmentDirections.actionFragmentLoginToFragmentCountry(loginFlowSettings)
+            )
     }
 
     fun next(phone: String) {
@@ -67,12 +58,10 @@ internal class LoginViewModel(
             val loginResponse = api.verificationChannelBegin(phoneWithCountryCode)
             _screenState.postValue(ScreenState.DEFAULT)
             if (loginResponse.status == GlobalResponseStatus.SUCCESS)
-                _nextFragment.postValue(
+                _action.postValue(
                     Event(
-                        ConfirmFragment.newInstance(
-                            selectedCountry,
-                            phoneWithCountryCode,
-                            onLoginFlowFinishListener
+                        LoginFragmentDirections.actionFragmentLoginToConfirmFragment(
+                            phoneWithCountryCode
                         )
                     )
                 )

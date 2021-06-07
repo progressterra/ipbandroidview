@@ -15,20 +15,19 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popUpTo="@id/main_nav_graph">
         <argument
-            android:name="selectedCountry"
-            android:defaultValue="RUSSIA"
-            app:argType="string" />
+            android:name="loginFlowSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings" />
+    </action>
+
+    <action
+        android:id="@+id/action_global_base_flow"
+        app:destination="@id/base_flow"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popUpTo="@id/main_nav_graph">
         <argument
-            android:name="enableAgreement"
-            app:argType="boolean"
-            android:defaultValue="false" />
-        <argument
-            android:name="enableFooter"
-            app:argType="boolean"
-            android:defaultValue="false" />
-        <argument
-            android:name="footerImageResId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:name="auth_finished"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </action>
 </navigation>

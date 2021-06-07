@@ -1,30 +1,28 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.ERROR
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.SUCCESS
-import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
-import com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment
+import com.progressterra.ipbandroidview.MainNavGraphDirections
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
+import com.progressterra.ipbandroidview.utils.ToastBundle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 internal class ConfirmViewModel(
     private val phoneNumber: String,
-    private val onLoginFlowFinishListener: OnLoginFlowFinishListener?
-) :
-    ViewModel() {
+    val footerEnabled: Boolean,
+    val logoEnabled: Boolean
+) : BaseViewModel() {
+
 
     private var isCalled: Boolean = false
-
-    private val _screenState = MutableLiveData(ScreenState.DEFAULT)
-    val screenState: LiveData<ScreenState> = _screenState
 
     private val _clearConfirmCode = MutableLiveData<Event<Any>>()
     val clearConfirmCode: LiveData<Event<Any>> = _clearConfirmCode
@@ -35,15 +33,9 @@ internal class ConfirmViewModel(
     private val _resendCodeOperationReady = MutableLiveData(false)
     var resendCodeOperationReady = _resendCodeOperationReady
 
-    private val _fragment = MutableLiveData<Event<Fragment>>()
-    val fragment: LiveData<Event<Fragment>> = _fragment
-
     private val _confirmInfo =
         MutableLiveData<String>("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
     val confirmInfo: LiveData<String> = _confirmInfo
-
-    private val _toastText = MutableLiveData<Event<String>>()
-    val toastText: LiveData<Event<String>> = _toastText
 
     init {
         startResendCodeCounter()
@@ -72,7 +64,7 @@ internal class ConfirmViewModel(
                 resendCodeOperationReady.postValue(false)
                 startResendCodeCounter()
             } else {
-                _toastText.postValue(Event("Ошибка при повторной отправке кода"))
+                _toastBundle.postValue(Event(ToastBundle(R.string.confirm_resend_error)))
             }
         }
     }
@@ -90,9 +82,18 @@ internal class ConfirmViewModel(
                         SUCCESS -> {
                             isCalled = false
                             when (response.userExist) {
-                                true -> onLoginFlowFinishListener?.onLoginFinish()
-                                false -> _fragment.value =
-                                    Event(PersonalFragment.newInstance(onLoginFlowFinishListener))
+                                true -> _action.postValue(
+                                    Event(
+                                        MainNavGraphDirections.actionGlobalBaseFlow(
+                                            true
+                                        )
+                                    )
+                                )
+                                false -> _action.postValue(
+                                    Event(
+                                        ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment()
+                                    )
+                                )
                             }
                         }
                         ERROR -> {

@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.utils.ToastBundle
 
 open class BaseFragment : Fragment() {
 
-    internal open fun showToast(event: Event<ToastBundle>) {
+    internal fun showToast(event: Event<ToastBundle>) {
         val toastBundle = event.contentIfNotHandled
         toastBundle?.let {
             val id = toastBundle.id

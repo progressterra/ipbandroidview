@@ -9,6 +9,9 @@
     <string name="login_error_format_phone">Телефон может содержать только цифры</string>
     <string name="login_agreement_html">Нажимая кнопку "Далее", я соглашаюсь с &lt;a href="https://google.com"&gt;Пользовательским соглашением&lt;a/&gt; и даю согласие на обработку персональных данных</string>
 
+    <!-- Фрагмент ввода кода подтверждения  -->
+    <string name="confirm_resend_error">Ошибка при повторной отправке кода</string>
+
     <!--  Фрагмент ввода персональных данных  -->
     <string name="personal_tell_us_about">Пожалуйста, расскажите немного о себе</string>
     <string name="personal_name">Имя</string>

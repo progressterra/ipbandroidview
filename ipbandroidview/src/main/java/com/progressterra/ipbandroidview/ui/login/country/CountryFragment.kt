@@ -16,20 +16,15 @@ import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
-internal class CountryFragment : BaseFragment() {
-
-    private var container: Int? = null
+class CountryFragment : BaseFragment() {
 
     private val args: CountryFragmentArgs by navArgs()
 
-
-//    private lateinit var loginSettings: LoginSettings
-
     private lateinit var binding: FragmentCountryBinding
+
     private val vm: CountryViewModel by viewModels {
         CountryViewModelFactory(
-            selectedCountry = args.selectedCountry,
-            loginSettings = args.loginSettings
+            loginFlowSettings = args.loginFlowSettings
         )
     }
 
@@ -46,8 +41,6 @@ internal class CountryFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (this.container == null)
-            this.container = container?.id ?: throw Exception("Container is null")
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_country, container, false)
         return binding.root
     }
@@ -68,16 +61,4 @@ internal class CountryFragment : BaseFragment() {
             countryValue.afterTextChanged(vm::changedSearchValue)
         }
     }
-
-//    companion object {
-//        fun newInstance(
-//            selectedCountry: String,
-//            loginSettings: LoginSettings
-//        ): CountryFragment {
-//            return CountryFragment().apply {
-//                this.selectedCountry = selectedCountry
-//                this.loginSettings = loginSettings
-//            }
-//        }
-//    }
 }

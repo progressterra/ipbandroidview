@@ -10,34 +10,21 @@
         android:name="com.progressterra.ipbandroidview.ui.login.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
+
+        <argument
+            android:name="loginFlowSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings"
+            app:nullable="false" />
+
         <action
             android:id="@+id/action_fragmentLogin_to_fragmentCountry"
             app:destination="@id/fragmentCountry"
             app:popUpTo="@id/fragmentLogin"
-            app:popUpToInclusive="false">
+            app:popUpToInclusive="false" />
 
-        </action>
-        <argument
-            android:name="selectedCountry"
-            android:defaultValue="RUSSIA"
-            app:argType="string" />
-        <argument
-            android:name="enableAgreement"
-            android:defaultValue="false"
-            app:argType="boolean" />
-        <argument
-            android:name="enableFooter"
-            android:defaultValue="false"
-            app:argType="boolean" />
-        <argument
-            android:name="footerImageResId"
-            android:defaultValue="-1"
-            app:argType="integer" />
-        <argument
-            android:name="loginSettings"
-            android:defaultValue="@null"
-            app:argType="com.progressterra.ipbandroidview.ui.login.LoginSettings"
-            app:nullable="true" />
+        <action
+            android:id="@+id/action_fragmentLogin_to_confirmFragment"
+            app:destination="@id/confirmFragment" />
     </fragment>
 
     <fragment
@@ -45,15 +32,46 @@
         android:name="com.progressterra.ipbandroidview.ui.login.country.CountryFragment"
         android:label="fragment_country"
         tools:layout="@layout/fragment_country">
+
         <argument
-            android:name="selectedCountry"
-            app:argType="string" />
+            android:name="loginFlowSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings"
+            app:nullable="false" />
 
         <action
             android:id="@+id/action_fragmentCountry_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/confirmFragment"
+        android:name="com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment"
+        android:label="fragment_confirm"
+        tools:layout="@layout/fragment_confirm">
+
         <argument
-            android:name="loginSettings"
-            app:argType="com.progressterra.ipbandroidview.ui.login.LoginSettings" />
+            android:name="phoneNumber"
+            app:argType="string" />
+
+        <argument
+            android:name="loginFlowSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings"
+            app:nullable="false" />
+
+        <action
+            android:id="@+id/action_confirmFragment_to_personalFragment"
+            app:destination="@id/personalFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/personalFragment"
+        android:name="com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment"
+        android:label="fragment_personal"
+        tools:layout="@layout/fragment_personal" >
+
+        <argument
+            android:name="loginFlowSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings"
+            app:nullable="false" />
     </fragment>
 </navigation>

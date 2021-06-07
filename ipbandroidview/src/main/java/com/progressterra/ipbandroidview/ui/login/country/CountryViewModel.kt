@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.ui.login.country
 
 import androidx.lifecycle.*
 import androidx.navigation.NavDirections
-import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,8 +12,7 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 internal class CountryViewModel(
-    private var selectedCountry: String,
-    private val loginSettings: LoginSettings
+    private val loginFlowSettings: LoginFlowSettings
 ) : ViewModel() {
 
     private val allCountry = Country.values().asList()
@@ -25,7 +24,7 @@ internal class CountryViewModel(
         it.map { country ->
             CountryUi(
                 name = country.name,
-                selected = country.name == selectedCountry,
+                selected = country.name == loginFlowSettings.phoneNumberSettings.defaultCountry,
                 title = when (locale.language) {
                     "ru" -> country.titleRu
                     else -> country.titleEn
@@ -41,8 +40,11 @@ internal class CountryViewModel(
         _action.value =
             Event(
                 CountryFragmentDirections.actionFragmentCountryToFragmentLogin(
-                    selectedCountry = selectedCountry,
-                    loginSettings = loginSettings
+                    loginFlowSettings = loginFlowSettings.copy(
+                        phoneNumberSettings = loginFlowSettings.phoneNumberSettings.copy(
+                            defaultCountry = selectedCountry
+                        )
+                    )
                 )
             )
     }

@@ -7,27 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
-import com.progressterra.ipbandroidview.utils.extensions.argument
 import com.progressterra.ipbandroidview.utils.extensions.hideKeyboard
 import com.progressterra.ipbandroidview.utils.extensions.showKeyboard
 
 
-internal class ConfirmFragment : BaseFragment() {
+class ConfirmFragment : BaseFragment() {
 
-    private var selectedCountry by argument<String>()
-    private var phoneNumber by argument<String>()
-    private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
-
+    private val args: ConfirmFragmentArgs by navArgs()
 
     private val viewModel: ConfirmViewModel by viewModels {
         ConfirmViewModelFactory(
-            phoneNumber,
-            onLoginFlowFinishListener
+            args.phoneNumber
         )
     }
 
@@ -57,10 +53,14 @@ internal class ConfirmFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel.fragment.observe(viewLifecycleOwner, this::onFragment)
-        viewModel.clearConfirmCode.observe(viewLifecycleOwner) {
-            cleanBlockCode()
+        viewModel.apply {
+            action.observe(viewLifecycleOwner, this@ConfirmFragment::onAction)
+            toastBundle.observe(viewLifecycleOwner, this@ConfirmFragment::showToast)
         }
+//        viewModel.fragment.observe(viewLifecycleOwner, this::onFragment)
+//        viewModel.clearConfirmCode.observe(viewLifecycleOwner) {
+//            cleanBlockCode()
+//        }
     }
 
     private fun cleanBlockCode() {
@@ -94,19 +94,6 @@ internal class ConfirmFragment : BaseFragment() {
     override fun onStop() {
         super.onStop()
         hideKeyboard(requireContext(), binding.editText)
-    }
-
-    companion object {
-        fun newInstance(
-            selectedCountry: String,
-            phoneNumber: String,
-            onLoginFlowFinishListener: OnLoginFlowFinishListener?
-        ): ConfirmFragment =
-            ConfirmFragment().apply {
-                this.selectedCountry = selectedCountry
-                this.phoneNumber = phoneNumber
-                this.onLoginFlowFinishListener = onLoginFlowFinishListener
-            }
     }
 }
 

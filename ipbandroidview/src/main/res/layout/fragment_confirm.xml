@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.progressterra.ipbandroidview.ui.login.confirm.ConfirmViewModel" />
@@ -22,9 +23,25 @@
             android:layout_marginTop="24dp"
             android:gravity="center"
             android:minHeight="100dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/info_confirm_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="@{vm.confirmInfo}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirm_logo_iv"
+            app:layout_goneMarginTop="80dp"
+            app:setVisibilityMainContentByScreenState="@{vm.screenState}"
+            tools:text="@string/confirm_resend_error" />
 
         <EditText
             android:id="@+id/editText"
@@ -51,16 +68,6 @@
             app:layout_constraintTop_toTopOf="@id/info_confirm_tv"
             app:setVisibilityLoaderByScreenState="@{vm.screenState}" />
 
-        <TextView
-            android:id="@+id/info_confirm_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{vm.confirmInfo}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/confirm_logo_iv"
-            app:setVisibilityMainContentByScreenState="@{vm.screenState}" />
 
         <TextView
             android:id="@+id/digit1"
@@ -168,6 +175,12 @@
             app:layout_constraintTop_toBottomOf="@id/line_view"
             app:layout_constraintVertical_bias="1" />
 
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.footerEnabled}"
+            app:constraint_referenced_ids="line_view, confirm_banner_iv"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

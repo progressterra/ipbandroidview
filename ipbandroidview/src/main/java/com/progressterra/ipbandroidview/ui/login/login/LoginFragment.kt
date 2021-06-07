@@ -11,9 +11,10 @@ import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
 import com.progressterra.ipbandroidview.utils.DefaultArgsValues
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
@@ -25,23 +26,16 @@ class LoginFragment : BaseFragment() {
     private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
 
     private val args: LoginFragmentArgs by navArgs()
-    private val loginSettings: LoginSettings by lazy {
-        if (args.loginSettings != null)
-            args.loginSettings!!
-        else {
-            LoginSettings(
-                args.enableAgreement,
-                args.enableFooter,
-                args.footerImageResId
-            )
-        }
+    private val loginSettings: PhoneNumberSettings by lazy {
+        val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
+        loginFlowSettings.phoneNumberSettings
     }
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
-            selectedCountry = args.selectedCountry,
+            selectedCountry = loginSettings.defaultCountry,
             onLoginFlowFinishListener = onLoginFlowFinishListener,
-            loginSettings = loginSettings
+            loginFlowSettings = args.loginFlowSettings
         )
     }
 
@@ -58,8 +52,8 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.apply {
-            nextFragment.observe(viewLifecycleOwner, this@LoginFragment::onFragment)
             toastBundle.observe(viewLifecycleOwner, this@LoginFragment::showToast)
+            action.observe(viewLifecycleOwner, this@LoginFragment::onAction)
 
             screenState.observe(viewLifecycleOwner) {
                 binding.loginNext.text =
@@ -88,11 +82,9 @@ class LoginFragment : BaseFragment() {
                 }
             }
         }
-
-        viewModel.action.observe(viewLifecycleOwner, this::onAction)
     }
 
-    // Старый метод, если аттрибуты будут подтверждены - будет выпилен
+    // Старый метод, если навигация будет подтверждена - будет выпилен
     override fun onFragment(event: Event<Fragment>) {
         val fragment = event.contentIfNotHandled
         activity?.supportFragmentManager?.commit {
