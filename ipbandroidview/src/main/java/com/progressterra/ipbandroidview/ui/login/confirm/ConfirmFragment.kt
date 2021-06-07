@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
-import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.hideKeyboard
 import com.progressterra.ipbandroidview.utils.extensions.showKeyboard
