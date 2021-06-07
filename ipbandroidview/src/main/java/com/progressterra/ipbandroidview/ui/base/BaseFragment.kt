@@ -14,7 +14,7 @@ open class BaseFragment : Fragment() {
 
     internal open fun showToast(event: Event<ToastBundle>) {
         val toastBundle = event.contentIfNotHandled
-        if (toastBundle != null) {
+        toastBundle?.let {
             val id = toastBundle.id
             val args = toastBundle.args
             if (id != null) {
