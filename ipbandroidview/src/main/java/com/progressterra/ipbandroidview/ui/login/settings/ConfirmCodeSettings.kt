@@ -8,5 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class ConfirmCodeSettings(
     val enableLogo: Boolean = false,
     val enableFooter: Boolean = false,
-    val footerImageId: Int = DefaultArgsValues.DEFAULT_RES
+    val logoImageResId: Int = DefaultArgsValues.DEFAULT_RES,
+    val footerImageResId: Int = DefaultArgsValues.DEFAULT_RES,
+    val outlinedCircles: Boolean = false
 ) : Parcelable

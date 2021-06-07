@@ -14,6 +14,8 @@
         <item name="app_buttonOutlinedTextColor">?app_buttonColor</item>
         <item name="app_buttonStrokeWidth">1dp</item>
 
+        <item name="app_progressBar_color">@color/color_buttonDisabled</item>
+
         <!-- Forms defaults       -->
         <item name="app_formsUnderlineColor">@color/color_lines</item>
         <item name="app_formsTextColor">@color/color_textFootnote</item>
@@ -45,6 +47,20 @@
         <item name="app_textFootnote1Color">@color/color_textFootnote</item>
         <item name="app_textFootnote2Color">@color/color_textFootnote</item>
         <item name="app_textFootnoteAttentionColor">@color/color_textFootnoteAttention</item>
+
+
+        <!-- Круги в подтверждении номера -->
+        <item name="app_confirm_circle_default_color">@color/color_buttonDisabled</item>
+        <item name="app_confirm_circle_success_color">@color/color_textFootnoteAttention</item>
+        <item name="app_confirm_circle_gradient_start_color">?app_confirm_circle_success_color
+        </item>
+        <item name="app_confirm_circle_gradient_end_color">?app_confirm_circle_success_color</item>
+        <item name="app_confirm_text_color">@color/white</item>
+        <item name="app_confirm_text_size">24sp</item>
+        <item name="app_confirm_circle_1_color">?app_confirm_circle_success_color</item>
+        <item name="app_confirm_circle_2_color">?app_confirm_circle_success_color</item>
+        <item name="app_confirm_circle_3_color">?app_confirm_circle_success_color</item>
+        <item name="app_confirm_circle_4_color">?app_confirm_circle_success_color</item>
     </style>
 
     <!-- Текст   -->

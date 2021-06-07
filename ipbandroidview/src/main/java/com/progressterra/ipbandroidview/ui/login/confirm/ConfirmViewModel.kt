@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStat
 import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
@@ -17,12 +18,11 @@ import kotlinx.coroutines.launch
 
 internal class ConfirmViewModel(
     private val phoneNumber: String,
-    val footerEnabled: Boolean,
-    val logoEnabled: Boolean
+    private val loginFlowSettings: LoginFlowSettings
 ) : BaseViewModel() {
-
-
     private var isCalled: Boolean = false
+
+    val outLinedCircles: Boolean = loginFlowSettings.confirmCodeSettings.outlinedCircles
 
     private val _clearConfirmCode = MutableLiveData<Event<Any>>()
     val clearConfirmCode: LiveData<Event<Any>> = _clearConfirmCode
@@ -44,7 +44,8 @@ internal class ConfirmViewModel(
     private fun startResendCodeCounter() {
         viewModelScope.launch {
             for (i in 59 downTo 0) {
-                _counterScore.postValue(i.toString())
+                val toView = if (i >= 10) "$i" else "0$i"
+                _counterScore.postValue(toView)
                 delay(1000)
             }
             resendCodeOperationReady.postValue(true)
@@ -85,13 +86,15 @@ internal class ConfirmViewModel(
                                 true -> _action.postValue(
                                     Event(
                                         MainNavGraphDirections.actionGlobalBaseFlow(
-                                            true
+                                            authFinished = true
                                         )
                                     )
                                 )
                                 false -> _action.postValue(
                                     Event(
-                                        ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment()
+                                        ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(
+                                            loginFlowSettings
+                                        )
                                     )
                                 )
                             }

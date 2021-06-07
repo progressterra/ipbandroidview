@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Text sizes -->
-    <dimen name="textSize_Title">20sp</dimen>
+    <dimen name="textSize_Title">24sp</dimen>
     <dimen name="textSize_CalloutButton1">17sp</dimen>
     <dimen name="textSize_CalloutButton2">16sp</dimen>
     <dimen name="textSize_CalloutClickable">16sp</dimen>

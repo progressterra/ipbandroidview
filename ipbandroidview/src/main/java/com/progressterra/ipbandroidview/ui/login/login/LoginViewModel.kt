@@ -61,7 +61,8 @@ internal class LoginViewModel(
                 _action.postValue(
                     Event(
                         LoginFragmentDirections.actionFragmentLoginToConfirmFragment(
-                            phoneWithCountryCode
+                            phoneWithCountryCode,
+                            loginFlowSettings
                         )
                     )
                 )

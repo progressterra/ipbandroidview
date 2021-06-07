@@ -46,4 +46,28 @@
     <attr name="app_textFootnote1Color" format="color" />
     <attr name="app_textFootnote2Color" format="color" />
     <attr name="app_textFootnoteAttentionColor" format="color" />
+
+    <!-- Авторизация   -->
+    <!-- Дефолтный заполненый круг   -->
+    <!-- Цвет до ввода цифры   -->
+    <attr name="app_confirm_circle_default_color" format="color" />
+    <!-- Цвет после ввода цифры   -->
+    <attr name="app_confirm_circle_success_color" format="color" />
+    <attr name="app_confirm_text_color" format="color" />
+    <attr name="app_confirm_text_size" format="dimension" />
+
+    <!-- Заполненый с градиентом круг   -->
+    <!-- Градиент после ввода цифры    -->
+    <attr name="app_confirm_circle_gradient_start_color" format="color" />
+    <attr name="app_confirm_circle_gradient_end_color" format="color" />
+
+    <!-- Пустотелый круг   -->
+    <!-- Можно каждому свой цвет задать   -->
+    <attr name="app_confirm_circle_1_color" format="color" />
+    <attr name="app_confirm_circle_2_color" format="color" />
+    <attr name="app_confirm_circle_3_color" format="color" />
+    <attr name="app_confirm_circle_4_color" format="color" />
+
+    <!-- Progressbar color   -->
+    <attr name="app_progressBar_color" format="color" />
 </resources>

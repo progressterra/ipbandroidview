@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true">
+        <shape android:shape="oval">
+            <gradient android:endColor="?app_confirm_circle_gradient_end_color" android:startColor="?app_confirm_circle_gradient_start_color" />
+        </shape>
+    </item>
+
+    <item android:state_enabled="false">
+        <shape android:shape="oval">
+            <solid android:color="?app_confirm_circle_default_color" />
+        </shape>
+    </item>
+
+</selector>

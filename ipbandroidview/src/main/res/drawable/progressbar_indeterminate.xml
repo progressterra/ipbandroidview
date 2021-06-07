@@ -17,7 +17,7 @@
 
         <gradient
             android:angle="0"
-            android:endColor="?app_buttonFilledTextColor"
+            android:endColor="?app_progressBar_color"
             android:startColor="#00FFFFFF"
             android:type="sweep"
             android:useLevel="false" />

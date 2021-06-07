@@ -1,38 +1,42 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
-import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
-import com.progressterra.ipbandroidview.utils.extensions.hideKeyboard
-import com.progressterra.ipbandroidview.utils.extensions.showKeyboard
+import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.utils.extensions.*
 
 
 class ConfirmFragment : BaseFragment() {
 
     private val args: ConfirmFragmentArgs by navArgs()
 
-    private val viewModel: ConfirmViewModel by viewModels {
-        ConfirmViewModelFactory(
-            args.phoneNumber
-        )
+    private val confirmSettings: ConfirmCodeSettings by lazy {
+        val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
+        loginFlowSettings.confirmCodeSettings
     }
 
+    private val viewModel: ConfirmViewModel by viewModels {
+        ConfirmViewModelFactory(
+            args.phoneNumber,
+            args.loginFlowSettings
+        )
+    }
 
     private lateinit var binding: FragmentConfirmBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentConfirmBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -49,6 +53,21 @@ class ConfirmFragment : BaseFragment() {
         binding.lifecycleOwner = this
         setupViewModel()
         setupCodeBlockParameters()
+
+        applySettings()
+    }
+
+    private fun applySettings() {
+        binding.apply {
+            if (confirmSettings.enableLogo && confirmSettings.logoImageResId.notDefaultArg()) {
+                confirmLogoIv.setImageResource(confirmSettings.logoImageResId)
+                confirmLogoIv.isVisible = confirmSettings.enableLogo
+            }
+            if (confirmSettings.enableFooter && confirmSettings.footerImageResId.notDefaultArg()) {
+                confirmBannerIv.setImageResource(confirmSettings.footerImageResId)
+                groupFooter.isVisible = confirmSettings.enableFooter
+            }
+        }
     }
 
     private fun setupViewModel() {
@@ -56,10 +75,9 @@ class ConfirmFragment : BaseFragment() {
             action.observe(viewLifecycleOwner, this@ConfirmFragment::onAction)
             toastBundle.observe(viewLifecycleOwner, this@ConfirmFragment::showToast)
         }
-//        viewModel.fragment.observe(viewLifecycleOwner, this::onFragment)
-//        viewModel.clearConfirmCode.observe(viewLifecycleOwner) {
-//            cleanBlockCode()
-//        }
+        viewModel.clearConfirmCode.observe(viewLifecycleOwner) {
+            cleanBlockCode()
+        }
     }
 
     private fun cleanBlockCode() {
@@ -78,15 +96,11 @@ class ConfirmFragment : BaseFragment() {
     private fun setDigitItemParameters(inputString: Char?, textView: TextView) {
         if (inputString == null) {
             textView.text = ""
-            ColorsPalette.secondaryColor?.let {
-                textView.backgroundTintList = ColorStateList.valueOf(it)
-            }
+            textView.isEnabled = false
 
         } else {
             textView.text = inputString.toString()
-            ColorsPalette.mainColor?.let {
-                textView.backgroundTintList = ColorStateList.valueOf(it)
-            }
+            textView.isEnabled = true
         }
     }
 
