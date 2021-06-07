@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
+import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.country.CountryFragment
 import com.progressterra.ipbandroidview.utils.DefaultArgsValues
@@ -21,16 +22,26 @@ import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 
 class LoginFragment : BaseFragment() {
 
-    private var container: Int? = null
-
     private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
 
     private val args: LoginFragmentArgs by navArgs()
+    private val loginSettings: LoginSettings by lazy {
+        if (args.loginSettings != null)
+            args.loginSettings!!
+        else {
+            LoginSettings(
+                args.enableAgreement,
+                args.enableFooter,
+                args.footerImageResId
+            )
+        }
+    }
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
             selectedCountry = args.selectedCountry,
-            onLoginFlowFinishListener = onLoginFlowFinishListener
+            onLoginFlowFinishListener = onLoginFlowFinishListener,
+            loginSettings = loginSettings
         )
     }
 
@@ -41,8 +52,6 @@ class LoginFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (this.container == null)
-            this.container = container?.id ?: throw Exception("Container is null")
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -63,15 +72,15 @@ class LoginFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
-            if (args.enableAgreement) {
+            if (loginSettings.agreementEnabled) {
                 textViewAgreement.apply {
                     text = Html.fromHtml(getString(R.string.login_agreement_html))
                     movementMethod = LinkMovementMethod.getInstance()
                     visibility = View.VISIBLE
                 }
             }
-            if (args.enableFooter) {
-                val resId = args.footerImageResId
+            if (loginSettings.footerEnabled) {
+                val resId = loginSettings.footerImageId
                 if (resId != DefaultArgsValues.DEFAULT_RES) {
                     viewFooterDivider.visibility = View.VISIBLE
                     ivFooter.visibility = View.VISIBLE
@@ -83,6 +92,7 @@ class LoginFragment : BaseFragment() {
         viewModel.action.observe(viewLifecycleOwner, this::onAction)
     }
 
+    // Старый метод, если аттрибуты будут подтверждены - будет выпилен
     override fun onFragment(event: Event<Fragment>) {
         val fragment = event.contentIfNotHandled
         activity?.supportFragmentManager?.commit {
@@ -97,41 +107,4 @@ class LoginFragment : BaseFragment() {
             }
         }
     }
-
-
-//    companion object {
-//
-//        /**
-//         *  @param selectedCountry - Country enum name
-//         *  @param enableUserAgreement - Включает текст с пользовтелеским соглашением, по дефолту выключено
-//         *  @param enableFooterImage - Включает картинку в футере, по дефолту выключено
-//         *  @param footerImageRes - id ресурса с картинкой футера
-//         */
-//        fun newInstance(
-//            selectedCountry: String? = null,
-//            loginFinishListener: OnLoginFlowFinishListener? = null,
-//            enableUserAgreement: Boolean? = null,
-//            enableFooterImage: Boolean? = null,
-//            footerImageRes: Int? = null
-//        ): LoginFragment {
-//            return LoginFragment().apply {
-//                this.selectedCountry = selectedCountry ?: Country.RUSSIA.name
-//                onLoginFlowFinishListener = loginFinishListener
-//                loginSettings = LoginSettings(
-//                    agreementEnabled = enableUserAgreement ?: false,
-//                    footerEnabled = enableFooterImage ?: false,
-//                    footerImageId = footerImageRes,
-//                    loginFinishListener = loginFinishListener
-//                )
-//            }
-//        }
-//
-//        internal fun newInstance(
-//            selectedCountry: String,
-//            loginSettings: LoginSettings
-//        ): LoginFragment = LoginFragment().apply {
-//            this.selectedCountry = selectedCountry
-//            this.loginSettings = loginSettings
-//        }
-//    }
 }

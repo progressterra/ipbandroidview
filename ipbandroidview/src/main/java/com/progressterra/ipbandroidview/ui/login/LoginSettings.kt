@@ -1,8 +1,12 @@
 package com.progressterra.ipbandroidview.ui.login
 
-internal data class LoginSettings(
-    val agreementEnabled: Boolean,
-    val footerEnabled: Boolean,
-    val footerImageId: Int? = null,
-    val loginFinishListener: OnLoginFlowFinishListener? = null
-)
+import android.os.Parcelable
+import com.progressterra.ipbandroidview.utils.DefaultArgsValues
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class LoginSettings(
+    val agreementEnabled: Boolean = false,
+    val footerEnabled: Boolean = false,
+    val footerImageId: Int = DefaultArgsValues.DEFAULT_RES
+) : Parcelable

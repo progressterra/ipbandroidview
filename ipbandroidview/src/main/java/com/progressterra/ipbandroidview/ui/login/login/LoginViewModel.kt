@@ -6,6 +6,7 @@ import androidx.navigation.NavDirections
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.ui.login.LoginSettings
 import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.confirm.ConfirmFragment
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
@@ -16,7 +17,8 @@ import kotlinx.coroutines.launch
 
 internal class LoginViewModel(
     private var selectedCountry: String,
-    private val onLoginFlowFinishListener: OnLoginFlowFinishListener?
+    private val onLoginFlowFinishListener: OnLoginFlowFinishListener?,
+    private val loginSettings: LoginSettings
 ) : ViewModel() {
 
     private val _screenState = MutableLiveData(ScreenState.DEFAULT)
@@ -45,7 +47,7 @@ internal class LoginViewModel(
 
     fun selectCountry() {
         _action.value =
-            Event(LoginFragmentDirections.actionFragmentLoginToFragmentCountry(selectedCountry))
+            Event(LoginFragmentDirections.actionFragmentLoginToFragmentCountry(selectedCountry, loginSettings))
     }
 
     fun next(phone: String) {

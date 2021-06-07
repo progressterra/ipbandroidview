@@ -33,18 +33,27 @@
             android:name="footerImageResId"
             android:defaultValue="-1"
             app:argType="integer" />
+        <argument
+            android:name="loginSettings"
+            android:defaultValue="@null"
+            app:argType="com.progressterra.ipbandroidview.ui.login.LoginSettings"
+            app:nullable="true" />
     </fragment>
 
     <fragment
         android:id="@+id/fragmentCountry"
         android:name="com.progressterra.ipbandroidview.ui.login.country.CountryFragment"
         android:label="fragment_country"
-        tools:layout="@layout/fragment_country" >
+        tools:layout="@layout/fragment_country">
         <argument
             android:name="selectedCountry"
             app:argType="string" />
+
         <action
             android:id="@+id/action_fragmentCountry_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
+        <argument
+            android:name="loginSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.LoginSettings" />
     </fragment>
 </navigation>

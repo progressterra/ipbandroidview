@@ -39,7 +39,12 @@ internal class CountryViewModel(
 
     fun onItemClick(selectedCountry: String) {
         _action.value =
-            Event(CountryFragmentDirections.actionFragmentCountryToFragmentLogin(selectedCountry))
+            Event(
+                CountryFragmentDirections.actionFragmentCountryToFragmentLogin(
+                    selectedCountry = selectedCountry,
+                    loginSettings = loginSettings
+                )
+            )
     }
 
     fun changedSearchValue(value: String) {

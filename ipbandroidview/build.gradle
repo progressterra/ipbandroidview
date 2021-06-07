@@ -5,6 +5,7 @@ plugins {
 }
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply from: 'publish.gradle'
+apply plugin: "kotlin-parcelize"
 
 android {
     compileSdkVersion 30
