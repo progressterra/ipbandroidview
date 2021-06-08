@@ -27,8 +27,8 @@ internal class ConfirmViewModel(
     private val _clearConfirmCode = MutableLiveData<Event<Any>>()
     val clearConfirmCode: LiveData<Event<Any>> = _clearConfirmCode
 
-    private val _counterScore = MutableLiveData<String>()
-    val counterScore: LiveData<String> = _counterScore
+    private val _counterScore = MutableLiveData<Int>()
+    val counterScore: LiveData<Int> = _counterScore
 
     private val _resendCodeOperationReady = MutableLiveData(false)
     var resendCodeOperationReady = _resendCodeOperationReady
@@ -44,8 +44,7 @@ internal class ConfirmViewModel(
     private fun startResendCodeCounter() {
         viewModelScope.launch {
             for (i in 59 downTo 0) {
-                val toView = if (i >= 10) "$i" else "0$i"
-                _counterScore.postValue(toView)
+                _counterScore.postValue(i)
                 delay(1000)
             }
             resendCodeOperationReady.postValue(true)
