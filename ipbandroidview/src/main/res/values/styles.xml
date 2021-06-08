@@ -19,6 +19,7 @@
         <!-- Forms defaults       -->
         <item name="app_formsUnderlineColor">@color/color_lines</item>
         <item name="app_formsTextColor">@color/color_textFootnote</item>
+        <item name="app_formsUnderlineInvalidateColor">#FF0000</item>
 
         <!--  Background defaults      -->
         <item name="app_backgroundColor">@color/color_background</item>

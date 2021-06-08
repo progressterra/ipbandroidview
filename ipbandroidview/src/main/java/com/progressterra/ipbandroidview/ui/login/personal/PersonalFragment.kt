@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidview.R
@@ -18,6 +20,7 @@ import java.util.*
 
 class PersonalFragment : BaseFragment() {
 
+    private val args: PersonalFragmentArgs by navArgs()
 
     private val viewModel: PersonalViewModel by viewModels()
 
@@ -47,14 +50,38 @@ class PersonalFragment : BaseFragment() {
 
         setupDatePickerDialog()
         initListeners()
+        initEditTextValidation()
     }
 
     private fun initListeners() {
-        binding.personalData.editTextName.afterTextChanged { viewModel.updateFirstName(it) }
-        binding.personalData.editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
-        binding.personalData.editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
-        binding.personalData.radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
-        binding.personalData.radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+        binding.personalData.apply {
+            editTextName.afterTextChanged { viewModel.updateFirstName(it) }
+            editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
+            editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
+            radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+        }
+    }
+
+    private fun initEditTextValidation() {
+        viewModel.personalInfo.observe(viewLifecycleOwner, {
+            binding.personalData.apply {
+                setEditTextValidState(editTextName, it.nameIsValid)
+                setEditTextValidState(editTextSecondName, it.lastNameIsValid)
+                setEditTextValidState(editTextEmail, it.emailIsValid)
+                setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
+            }
+        })
+    }
+
+    private fun setEditTextValidState(view: View, isValid: Boolean) {
+        view.background = if (isValid) AppCompatResources.getDrawable(
+            requireContext(),
+            R.drawable.background_edittext
+        ) else AppCompatResources.getDrawable(
+            requireContext(),
+            R.drawable.background_edittext_invalid
+        )
     }
 
     private fun setupDatePickerDialog() {
@@ -66,7 +93,6 @@ class PersonalFragment : BaseFragment() {
                 viewModel.updateBirthdate(dayOfMonth, month, year)
                 binding.personalData.textViewBirthDay.text =
                     getString(R.string.birthday_date, dayOfMonth, month + 1, year)
-//                binding.personalData.textViewBirthDay.text = "$dayOfMonth.$month.$year"
             },
             calendar[Calendar.YEAR],
             calendar[Calendar.MONTH],

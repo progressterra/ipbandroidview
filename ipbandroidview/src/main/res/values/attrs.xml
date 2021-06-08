@@ -15,6 +15,7 @@
 
     <!-- Поля ввода   -->
     <attr name="app_formsUnderlineColor" format="color" />
+    <attr name="app_formsUnderlineInvalidateColor" format="color" />
     <attr name="app_formsTextColor" format="color" />
 
     <!-- Общий фон -->
