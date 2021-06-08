@@ -20,6 +20,10 @@ import java.util.*
 
 class PersonalFragment : BaseFragment() {
 
+    private val DEFAULT_YEAR = 1995
+    private val DEFAULT_MONTH = 1
+    private val DEFAULT_DAY = 14
+
     private val args: PersonalFragmentArgs by navArgs()
 
     private val viewModel: PersonalViewModel by viewModels()
@@ -66,7 +70,7 @@ class PersonalFragment : BaseFragment() {
     private fun initEditTextValidation() {
         viewModel.personalInfo.observe(viewLifecycleOwner, {
             binding.personalData.apply {
-                setEditTextValidState(editTextName, it.nameIsValid)
+
                 setEditTextValidState(editTextSecondName, it.lastNameIsValid)
                 setEditTextValidState(editTextEmail, it.emailIsValid)
                 setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
@@ -98,6 +102,8 @@ class PersonalFragment : BaseFragment() {
             calendar[Calendar.MONTH],
             calendar[Calendar.DAY_OF_MONTH]
         )
+        dialog.updateDate(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY)
+        dialog.datePicker.maxDate = System.currentTimeMillis()
 
         binding.personalData.textViewBirthDay.setOnClickListener {
             dialog.show()

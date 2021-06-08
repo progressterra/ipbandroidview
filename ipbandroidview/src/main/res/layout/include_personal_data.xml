@@ -30,6 +30,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:paddingBottom="5dp"
+            android:background="@{vm.personalInfo.nameIsValid ? @drawable/background_edittext : @drawable/background_edittext_invalid}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/textView_name_label"
@@ -37,22 +39,22 @@
 
         <TextView
             android:id="@+id/textView_secondName_label"
-            style="@style/Footnote"
+            style="@style/Text.Footnote1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/personal_second_name"
-            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/editText_name" />
 
         <EditText
             android:id="@+id/editText_secondName"
+            style="@style/Text.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:paddingBottom="5dp"
             android:background="@drawable/background_edittext_invalid"
-            android:textColor="@color/grey_dark"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/textView_secondName_label"
@@ -65,30 +67,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:background="@drawable/background_edittext_invalid"
-             android:text="Дата вашего рождения"
+            android:text="Дата вашего рождения"
+            android:paddingBottom="5dp"
+            app:drawableEndCompat="@drawable/ic_arrow_right"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/editText_secondName" />
 
-<!--        <View-->
-<!--            android:id="@+id/line1"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="1dp"-->
-<!--            android:layout_marginTop="7dp"-->
-<!--            android:background="#979797"-->
-<!--            android:backgroundTint="@{vm.personalInfo.birthDateIsValid ? @color/black :@color/theme_color }"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/guideline_end"-->
-<!--            app:layout_constraintStart_toStartOf="@id/guideline_start"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/textView_birthDay" />-->
-
         <TextView
             android:id="@+id/textView_birthDay_hint"
-            style="@style/Footnote"
+            style="@style/Text.FootnoteAttention"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:text="@string/personal_birthday_description"
-            android:textColor="@color/footnote_accent_color"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/textView_birthDay" />

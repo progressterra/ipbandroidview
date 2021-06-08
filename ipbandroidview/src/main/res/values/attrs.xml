@@ -37,6 +37,8 @@
     <attr name="app_textFootnote1Spacing" format="dimension" />
     <attr name="app_textFootnote2Size" format="dimension" />
     <attr name="app_textFootnote2Spacing" format="dimension" />
+    <attr name="app_textFootnoteAttentionSize" format="dimension" />
+    <attr name="app_textFootnoteAttentionSpacing" format="dimension" />
     <!-- Цвета   -->
     <attr name="app_textDefaultColor" format="color" />
     <attr name="app_textTitleColor" format="color" />

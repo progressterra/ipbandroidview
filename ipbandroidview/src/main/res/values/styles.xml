@@ -39,6 +39,8 @@
         <item name="app_textFootnote1Spacing">@dimen/textSpacing_Footnote1</item>
         <item name="app_textFootnote2Size">@dimen/textSize_Footnote2</item>
         <item name="app_textFootnote2Spacing">@dimen/textSpacing_Footnote2</item>
+        <item name="app_textFootnoteAttentionSize">?app_textFootnote1Size</item>
+        <item name="app_textFootnoteAttentionSpacing">?app_textFootnote1Spacing</item>
         <item name="app_textDefaultColor">@color/color_textDefault</item>
         <item name="app_textTitleColor">?app_textDefaultColor</item>
         <item name="app_textCallout1Color">?app_textDefaultColor</item>
@@ -119,6 +121,12 @@
         <item name="android:textSize">?app_textFootnote2Size</item>
         <item name="lineSpacing">?app_textFootnote2Spacing</item>
         <item name="android:textColor">?app_textFootnote2Color</item>
+    </style>
+
+    <style name="Text.FootnoteAttention">
+        <item name="android:textSize">?app_textFootnoteAttentionSize</item>
+        <item name="lineSpacing">?app_textFootnoteAttentionSpacing</item>
+        <item name="android:textColor">?app_textFootnoteAttentionColor</item>
     </style>
 
     <style name="Text.Forms" parent="Text.CalloutButton1">
