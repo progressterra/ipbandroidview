@@ -1,10 +1,7 @@
 package com.progressterra.ipbandroidview.ui.base
 
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.utils.Event
@@ -31,15 +28,6 @@ open class BaseFragment : Fragment() {
                         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
-        }
-    }
-
-    internal open fun onFragment(event: Event<Fragment>) {
-        val fragment = event.contentIfNotHandled
-        activity?.supportFragmentManager?.commit {
-            if (fragment != null) {
-                replace(((view as ViewGroup).parent as View).id, fragment)
             }
         }
     }

@@ -7,26 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
-import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
-import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import java.util.*
 
-class PersonalFragment : Fragment() {
+class PersonalFragment : BaseFragment() {
 
-    private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
 
-    private val viewModel: PersonalViewModel by viewModels {
-        PersonalViewModelFactory(
-            onLoginFlowFinishListener
-        )
-    }
+    private val viewModel: PersonalViewModel by viewModels()
 
     private lateinit var binding: FragmentPersonalBinding
 
@@ -48,7 +41,8 @@ class PersonalFragment : Fragment() {
             citiesList.observe(viewLifecycleOwner) {
                 setupCitySpinner(it)
             }
-            toastTextRes.observe(viewLifecycleOwner, this@PersonalFragment::showToastFromRes)
+            _toastBundle.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
+            _action.observe(viewLifecycleOwner, this@PersonalFragment::onAction)
         }
 
         setupDatePickerDialog()
@@ -70,7 +64,9 @@ class PersonalFragment : Fragment() {
             requireContext(),
             { _, year, month, dayOfMonth ->
                 viewModel.updateBirthdate(dayOfMonth, month, year)
-                binding.personalData.textViewBirthDay.text = "$dayOfMonth.$month.$year"
+                binding.personalData.textViewBirthDay.text =
+                    getString(R.string.birthday_date, dayOfMonth, month + 1, year)
+//                binding.personalData.textViewBirthDay.text = "$dayOfMonth.$month.$year"
             },
             calendar[Calendar.YEAR],
             calendar[Calendar.MONTH],
@@ -79,12 +75,6 @@ class PersonalFragment : Fragment() {
 
         binding.personalData.textViewBirthDay.setOnClickListener {
             dialog.show()
-        }
-    }
-
-    private fun showToastFromRes(event: Event<Int>) {
-        event.contentIfNotHandled?.let {
-            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
         }
     }
 
