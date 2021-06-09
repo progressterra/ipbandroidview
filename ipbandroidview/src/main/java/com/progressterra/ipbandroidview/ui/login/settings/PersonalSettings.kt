@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class PersonalSettings(
-    val skipRegistrationButton: Boolean = false,
-    val shortSexDescription: Boolean = false,
-    val emailDescription: Boolean = false,
-    val lastNameAttentionColor: Boolean = false
+    val enableSkipRegistrationButton: Boolean = false,
+    val enableSexShortDescription: Boolean = false,
+    val enableEmailDescription: Boolean = false,
+    val setLastNameAttentionColor: Boolean = false
 ) : Parcelable

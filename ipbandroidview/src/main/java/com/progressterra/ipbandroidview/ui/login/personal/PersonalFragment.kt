@@ -85,13 +85,11 @@ class PersonalFragment : BaseFragment() {
             editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
             radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
             radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
-
-
         }
     }
 
     private fun applySettings() {
-        if (personalSettings.lastNameAttentionColor) {
+        if (personalSettings.setLastNameAttentionColor) {
             val typedValue = TypedValue()
             val theme = context?.theme
             theme?.resolveAttribute(R.attr.app_textFootnoteAttentionColor, typedValue, true)
