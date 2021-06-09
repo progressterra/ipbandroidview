@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
-import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.utils.Event
@@ -18,7 +17,6 @@ import kotlinx.coroutines.launch
 
 internal class LoginViewModel(
     private var selectedCountry: String,
-    private val onLoginFlowFinishListener: OnLoginFlowFinishListener?,
     private val loginFlowSettings: LoginFlowSettings
 ) : BaseViewModel() {
 

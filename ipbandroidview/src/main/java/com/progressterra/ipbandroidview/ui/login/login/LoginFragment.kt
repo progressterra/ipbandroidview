@@ -11,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
 import com.progressterra.ipbandroidview.utils.DefaultArgsValues
@@ -21,18 +20,16 @@ import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 
 class LoginFragment : BaseFragment() {
 
-    private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
 
     private val args: LoginFragmentArgs by navArgs()
-    private val loginSettings: PhoneNumberSettings by lazy {
+    private val phoneNumberSettings: PhoneNumberSettings by lazy {
         val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
         loginFlowSettings.phoneNumberSettings
     }
 
     private val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
-            selectedCountry = loginSettings.defaultCountry,
-            onLoginFlowFinishListener = onLoginFlowFinishListener,
+            selectedCountry = phoneNumberSettings.defaultCountry,
             loginFlowSettings = args.loginFlowSettings
         )
     }
@@ -64,15 +61,15 @@ class LoginFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
-            if (loginSettings.agreementEnabled) {
+            if (phoneNumberSettings.agreementEnabled) {
                 textViewAgreement.apply {
                     text = Html.fromHtml(getString(R.string.login_agreement_html))
                     movementMethod = LinkMovementMethod.getInstance()
                     visibility = View.VISIBLE
                 }
             }
-            if (loginSettings.footerEnabled) {
-                val resId = loginSettings.footerImageId
+            if (phoneNumberSettings.footerEnabled) {
+                val resId = phoneNumberSettings.footerImageId
                 if (resId != DefaultArgsValues.DEFAULT_RES) {
                     viewFooterDivider.visibility = View.VISIBLE
                     ivFooter.visibility = View.VISIBLE
