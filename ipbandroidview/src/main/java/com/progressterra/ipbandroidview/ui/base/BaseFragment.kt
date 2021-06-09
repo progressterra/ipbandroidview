@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.utils.ToastBundle
 
 open class BaseFragment : Fragment() {
 
-    internal fun showToast(event: Event<ToastBundle>) {
+    protected fun showToast(event: Event<ToastBundle>) {
         val toastBundle = event.contentIfNotHandled
         toastBundle?.let {
             val id = toastBundle.id
@@ -35,7 +35,7 @@ open class BaseFragment : Fragment() {
         }
     }
 
-    internal fun onAction(event: Event<NavDirections>) {
+    protected fun onAction(event: Event<NavDirections>) {
         val action = event.contentIfNotHandled
         if (action != null) {
             findNavController().navigate(action)

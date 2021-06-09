@@ -1,5 +1,8 @@
 package com.progressterra.ipbandroidview.ui.login.personal
 
+import android.os.Bundle
+import androidx.core.os.bundleOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
@@ -11,16 +14,21 @@ import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesLi
 import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
+import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ToastBundle
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
 import kotlinx.coroutines.launch
 
-internal class PersonalViewModel : BaseViewModel() {
+internal class PersonalViewModel(val personalSettings: PersonalSettings) : BaseViewModel() {
 
     val personalInfo = MutableLiveData(PersonalInfo())
     val personalDataIsValid = MutableLiveData(false)
     val citiesList = MutableLiveData<List<CitiesListResponse.City>>()
+
+    private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
+    val setFragmentResult: LiveData<Event<Bundle>> = _setFragmentResult
 
     init {
         val api = LoginApi.newInstance()
@@ -48,7 +56,11 @@ internal class PersonalViewModel : BaseViewModel() {
         personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
     }
 
-    fun updateBirthdate(day: Int, month: Int, year: Int) { // TODO: 08.06.2021 Проверь месяц, в UI шел кривой (январь 0 и т.д.)
+    fun updateBirthdate(
+        day: Int,
+        month: Int,
+        year: Int
+    ) { // TODO: 08.06.2021 Проверь месяц, в UI шел кривой (январь 0 и т.д.)
         personalInfo.value?.birthdate = "$year-$month-$day"
         personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
         personalInfo.notifyObserver()
@@ -105,8 +117,13 @@ internal class PersonalViewModel : BaseViewModel() {
                     loginApi.confirmEmail(email)
                 }
             }
-            _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow(authFinished = true)))
+            _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
+            _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
         }
     }
 
+    fun skipRegistration() {
+        _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_SKIP to true)))
+        _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
+    }
 }

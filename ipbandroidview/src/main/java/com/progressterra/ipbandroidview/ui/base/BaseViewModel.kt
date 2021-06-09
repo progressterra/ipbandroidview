@@ -9,12 +9,12 @@ import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
 
 open class BaseViewModel : ViewModel() {
-    internal val _action = MutableLiveData<Event<NavDirections>>()
+    protected val _action = MutableLiveData<Event<NavDirections>>()
     val action: LiveData<Event<NavDirections>> = _action
 
-    internal val _toastBundle = MutableLiveData<Event<ToastBundle>>()
+    protected val _toastBundle = MutableLiveData<Event<ToastBundle>>()
     val toastBundle: LiveData<Event<ToastBundle>> = _toastBundle
 
-    internal val _screenState = MutableLiveData(ScreenState.DEFAULT)
+    protected val _screenState = MutableLiveData(ScreenState.DEFAULT)
     val screenState: LiveData<ScreenState> = _screenState
 }

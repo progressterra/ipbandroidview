@@ -2,12 +2,13 @@ package com.progressterra.ipbandroidview.ui.login.personal
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
@@ -15,6 +16,10 @@ import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesLi
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
+import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
+import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import java.util.*
 
@@ -26,7 +31,16 @@ class PersonalFragment : BaseFragment() {
 
     private val args: PersonalFragmentArgs by navArgs()
 
-    private val viewModel: PersonalViewModel by viewModels()
+    private val personalSettings: PersonalSettings by lazy {
+        val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
+        loginFlowSettings.personalSettings
+    }
+
+    private val viewModel: PersonalViewModel by viewModels {
+        PersonalViewModelFactory(
+            personalSettings
+        )
+    }
 
     private lateinit var binding: FragmentPersonalBinding
 
@@ -48,13 +62,20 @@ class PersonalFragment : BaseFragment() {
             citiesList.observe(viewLifecycleOwner) {
                 setupCitySpinner(it)
             }
-            _toastBundle.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
-            _action.observe(viewLifecycleOwner, this@PersonalFragment::onAction)
+            toastBundle.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
+            action.observe(viewLifecycleOwner, this@PersonalFragment::onAction)
+            setFragmentResult.observe(viewLifecycleOwner) {
+                val bundle = it.contentIfNotHandled
+                bundle?.let {
+                    setFragmentResult(LoginKeys.AUTH_BUNDLE, bundle)
+                }
+            }
         }
 
         setupDatePickerDialog()
         initListeners()
         initEditTextValidation()
+        applySettings()
     }
 
     private fun initListeners() {
@@ -64,13 +85,24 @@ class PersonalFragment : BaseFragment() {
             editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
             radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
             radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+
+
+        }
+    }
+
+    private fun applySettings() {
+        if (personalSettings.lastNameAttentionColor) {
+            val typedValue = TypedValue()
+            val theme = context?.theme
+            theme?.resolveAttribute(R.attr.app_textFootnoteAttentionColor, typedValue, true)
+            binding.personalData.textViewSecondNameLabel.setTextColor(typedValue.data)
         }
     }
 
     private fun initEditTextValidation() {
         viewModel.personalInfo.observe(viewLifecycleOwner, {
             binding.personalData.apply {
-
+                setEditTextValidState(editTextName, it.nameIsValid)
                 setEditTextValidState(editTextSecondName, it.lastNameIsValid)
                 setEditTextValidState(editTextEmail, it.emailIsValid)
                 setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
@@ -112,8 +144,9 @@ class PersonalFragment : BaseFragment() {
 
     private fun setupCitySpinner(citiesList: List<CitiesListResponse.City>) {
         val spinnerAdapter =
-            ArrayAdapter(
-                requireContext(), android.R.layout.simple_spinner_dropdown_item,
+            NoPaddingArrayAdapter(
+                requireContext(),
+                R.layout.item_city,
                 citiesList
             ).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

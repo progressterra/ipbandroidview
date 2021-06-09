@@ -24,8 +24,8 @@
 
         <action
             android:id="@+id/action_fragmentLogin_to_confirmFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/fragmentConfirm" />
+            app:destination="@id/fragmentConfirm"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -41,8 +41,8 @@
 
         <action
             android:id="@+id/action_fragmentCountry_to_fragmentLogin"
-            app:popUpToInclusive="true"
-            app:destination="@id/fragmentLogin" />
+            app:destination="@id/fragmentLogin"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -62,8 +62,8 @@
 
         <action
             android:id="@+id/action_confirmFragment_to_personalFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/fragmentPersonal" />
+            app:destination="@id/fragmentPersonal"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment

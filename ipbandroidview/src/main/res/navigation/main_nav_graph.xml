@@ -13,8 +13,8 @@
         app:destination="@id/login_flow"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
-        app:popUpToInclusive="true"
-        app:popUpTo="@id/main_nav_graph">
+        app:popUpTo="@id/main_nav_graph"
+        app:popUpToInclusive="true">
         <argument
             android:name="loginFlowSettings"
             app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings" />
@@ -25,6 +25,5 @@
         app:destination="@id/base_flow"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
-        app:popUpTo="@id/main_nav_graph">
-    </action>
+        app:popUpTo="@id/main_nav_graph" />
 </navigation>

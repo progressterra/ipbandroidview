@@ -30,8 +30,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:hint="Мария"
             android:paddingBottom="5dp"
-            android:background="@{vm.personalInfo.nameIsValid ? @drawable/background_edittext : @drawable/background_edittext_invalid}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/textView_name_label"
@@ -53,8 +53,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
+            android:hint="Смирнова"
             android:paddingBottom="5dp"
-            android:background="@drawable/background_edittext_invalid"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/textView_secondName_label"
@@ -65,10 +65,9 @@
             style="@style/Body1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/background_edittext_invalid"
+            android:layout_marginTop="35dp"
+            android:paddingVertical="5dp"
             android:text="Дата вашего рождения"
-            android:paddingBottom="5dp"
             app:drawableEndCompat="@drawable/ic_arrow_right"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
@@ -85,35 +84,28 @@
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/textView_birthDay" />
 
-
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/city_spinner"
+            style="@style/Spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/editText_name"
+            android:paddingBottom="5dp"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/textView_birthDay_hint" />
 
-        <TextView
-            android:id="@+id/set_city_info_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:text="Выберите ваш город из списка"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/city_spinner" />
-
         <EditText
             android:id="@+id/editText_email"
+            style="@style/Text.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:hint="@string/personal_email_hint"
-            android:textColor="@color/grey_dark"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/set_city_info_tv" />
+            app:layout_constraintTop_toBottomOf="@id/city_spinner" />
 
         <TextView
             android:id="@+id/set_email_info_tv"
@@ -121,6 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:text="Подтвердите и получите 300 приветственных бонусов"
+            android:visibility="@{vm.personalSettings.emailDescription}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/editText_email" />
@@ -132,9 +125,21 @@
             android:layout_marginTop="21dp"
             android:gravity="center"
             android:text="Позвольте нам дать для вас качественные предложения. Кто вы? "
+            android:visibility="@{!vm.personalSettings.shortSexDescription}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/set_email_info_tv" />
+
+        <TextView
+            android:id="@+id/tv_sex_short"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/your_sex"
+            android:visibility="@{vm.personalSettings.shortSexDescription}"
+            app:layout_constraintBottom_toBottomOf="@id/radioGroup_sex"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="@id/radioGroup_sex" />
 
         <RadioGroup
             android:id="@+id/radioGroup_sex"
@@ -144,8 +149,9 @@
             android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/set_sex_info_tv">
+            app:layout_constraintStart_toEndOf="@id/tv_sex_short"
+            app:layout_constraintTop_toBottomOf="@id/set_sex_info_tv"
+            app:layout_goneMarginTop="28dp">
 
             <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/radioButton_male"
@@ -164,44 +170,49 @@
                 android:button="@null" />
         </RadioGroup>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_next"
-            style="@style/Callout1"
+            style="@style/Button.Filled"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="38dp"
             android:enabled="@{vm.personalDataIsValid}"
             android:onClick="@{_->vm.addPersonalInfo()}"
             android:text="@string/next"
-            android:textAllCaps="false"
+            app:layout_constraintBottom_toTopOf="@id/button_skip"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/radioGroup_sex" />
+            app:layout_constraintTop_toBottomOf="@id/radioGroup_sex"
+            app:layout_goneMarginBottom="24dp" />
 
-        <!--<Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_skip"
-            style="@style/Callout1"
+            style="@style/Button.Outlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:onClick="@{()->vm.skipRegistration()}"
             android:text="@string/personal_skip"
-            android:textAllCaps="false"
+            android:visibility="@{vm.personalSettings.skipRegistrationButton}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/button_next" />-->
+            app:layout_constraintTop_toBottomOf="@id/button_next" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="40dp" />
+            app:layout_constraintGuide_begin="24dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_end"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="40dp" />
+            app:layout_constraintGuide_end="24dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
