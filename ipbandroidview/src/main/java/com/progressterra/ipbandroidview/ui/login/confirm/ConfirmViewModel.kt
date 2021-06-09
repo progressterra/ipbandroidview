@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
+import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -10,6 +12,7 @@ import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
@@ -36,6 +39,9 @@ internal class ConfirmViewModel(
     private val _confirmInfo =
         MutableLiveData<String>("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
     val confirmInfo: LiveData<String> = _confirmInfo
+
+    private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
+    val setFragmentResult: LiveData<Event<Bundle>> = _setFragmentResult
 
     init {
         startResendCodeCounter()
@@ -82,13 +88,10 @@ internal class ConfirmViewModel(
                         SUCCESS -> {
                             isCalled = false
                             when (response.userExist) {
-                                true -> _action.postValue(
-                                    Event(
-                                        MainNavGraphDirections.actionGlobalBaseFlow(
-                                            authFinished = true
-                                        )
-                                    )
-                                )
+                                true -> {
+                                    _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
+                                    _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
+                                }
                                 false -> _action.postValue(
                                     Event(
                                         ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(

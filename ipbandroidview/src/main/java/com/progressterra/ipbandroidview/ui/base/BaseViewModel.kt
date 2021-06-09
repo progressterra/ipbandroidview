@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
 
-internal open class BaseViewModel : ViewModel() {
+open class BaseViewModel : ViewModel() {
     internal val _action = MutableLiveData<Event<NavDirections>>()
     val action: LiveData<Event<NavDirections>> = _action
 

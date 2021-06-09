@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.utils
 
-internal class ToastBundle(var id: Int? = null, vararg args: String) {
+class ToastBundle(var id: Int? = null, vararg args: String) {
 
     val args: MutableList<String?> = mutableListOf()
 

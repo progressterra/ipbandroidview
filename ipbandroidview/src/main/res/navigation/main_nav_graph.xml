@@ -13,6 +13,7 @@
         app:destination="@id/login_flow"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
+        app:popUpToInclusive="true"
         app:popUpTo="@id/main_nav_graph">
         <argument
             android:name="loginFlowSettings"
@@ -25,9 +26,5 @@
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popUpTo="@id/main_nav_graph">
-        <argument
-            android:name="auth_finished"
-            android:defaultValue="false"
-            app:argType="boolean" />
     </action>
 </navigation>

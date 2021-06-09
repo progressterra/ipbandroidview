@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.utils.extensions.*
 
 
@@ -74,9 +76,15 @@ class ConfirmFragment : BaseFragment() {
         viewModel.apply {
             action.observe(viewLifecycleOwner, this@ConfirmFragment::onAction)
             toastBundle.observe(viewLifecycleOwner, this@ConfirmFragment::showToast)
-        }
-        viewModel.clearConfirmCode.observe(viewLifecycleOwner) {
-            cleanBlockCode()
+            clearConfirmCode.observe(viewLifecycleOwner) {
+                cleanBlockCode()
+            }
+            setFragmentResult.observe(viewLifecycleOwner) {
+                val bundle = it.contentIfNotHandled
+                bundle?.let {
+                    setFragmentResult(LoginKeys.AUTH_BUNDLE, bundle)
+                }
+            }
         }
     }
 

@@ -15,14 +15,17 @@ open class BaseFragment : Fragment() {
             val id = toastBundle.id
             val args = toastBundle.args
             if (id != null) {
+                // Ветка если только id передали
                 if (args.isEmpty()) {
                     Toast.makeText(context, getString(id), Toast.LENGTH_SHORT).show()
                 } else {
-                    for (text in args) {
-                        Toast.makeText(context, getString(id, text), Toast.LENGTH_SHORT).show()
-                    }
+                    // Аргументы в качестве vararg передаются
+                    Toast.makeText(context, getString(id, *args.toTypedArray()), Toast.LENGTH_SHORT)
+                        .show()
                 }
             } else {
+                // Если нет id, значит присутсвует неправильное использование данного класса
+                // и единственный адекватный путь это отобразить подряд их
                 if (args.isNotEmpty()) {
                     for (text in args) {
                         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
