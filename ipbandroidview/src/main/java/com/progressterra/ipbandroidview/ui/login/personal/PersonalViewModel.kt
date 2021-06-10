@@ -21,7 +21,10 @@ import com.progressterra.ipbandroidview.utils.ToastBundle
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
 import kotlinx.coroutines.launch
 
-internal class PersonalViewModel(val personalSettings: PersonalSettings) : BaseViewModel() {
+internal class PersonalViewModel(
+    val personalSettings: PersonalSettings,
+    private val newLoginFlow: Boolean
+) : BaseViewModel() {
 
     val personalInfo = MutableLiveData(PersonalInfo())
     val personalDataIsValid = MutableLiveData(false)
@@ -29,6 +32,9 @@ internal class PersonalViewModel(val personalSettings: PersonalSettings) : BaseV
 
     private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
     val setFragmentResult: LiveData<Event<Bundle>> = _setFragmentResult
+
+    private val _popBackStack = MutableLiveData<Event<Boolean>>()
+    val popBackStack: LiveData<Event<Boolean>> = _popBackStack
 
     init {
         val api = LoginApi.newInstance()
@@ -118,12 +124,18 @@ internal class PersonalViewModel(val personalSettings: PersonalSettings) : BaseV
                 }
             }
             _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
-            _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
+            if (newLoginFlow)
+                _popBackStack.postValue(Event(true))
+            else
+                _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
         }
     }
 
     fun skipRegistration() {
         _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_SKIP to true)))
-        _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
+        if (newLoginFlow)
+            _popBackStack.value = Event(true)
+        else
+            _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
     }
 }
