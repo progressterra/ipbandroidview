@@ -3,13 +3,13 @@
 
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/divider_small_grey" />
+            <solid android:color="?app_formsUnderlineColor" />
         </shape>
     </item>
 
     <item android:bottom="1dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/white" />
+            <solid android:color="?app_backgroundColor" />
         </shape>
     </item>
 

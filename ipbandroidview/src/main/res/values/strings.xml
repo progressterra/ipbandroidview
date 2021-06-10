@@ -9,6 +9,9 @@
     <string name="login_error_format_phone">Телефон может содержать только цифры</string>
     <string name="login_agreement_html">Нажимая кнопку "Далее", я соглашаюсь с &lt;a href="https://google.com"&gt;Пользовательским соглашением&lt;a/&gt; и даю согласие на обработку персональных данных</string>
 
+    <!-- Фрагмент ввода кода подтверждения  -->
+    <string name="confirm_resend_error">Ошибка при повторной отправке кода</string>
+
     <!--  Фрагмент ввода персональных данных  -->
     <string name="personal_tell_us_about">Пожалуйста, расскажите немного о себе</string>
     <string name="personal_name">Имя</string>
@@ -33,7 +36,8 @@
     <string name="resend_code">Выслать повторно</string>
     <string name="confirm_info">На указанный номер %s было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.</string>
 
-    <string name="can_resend_code_after">через 00:%s</string>
+    <string name="can_resend_code_after">через 00:%02d</string>
+    <string name="birthday_date">%1$02d.%2$02d.%3$d</string>
 
     <string-array name="cities">
         <item>Город1</item>
@@ -62,5 +66,6 @@
     <string name="refresh">Обновить</string>
     <string name="Network_error">Ошибка сети</string>
     <string name="user_data_error">Ошибка при указании пользовательских данных</string>
+    <string name="your_sex">Ваш пол:</string>
 
 </resources>

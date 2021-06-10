@@ -1,4 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="app_defaultCornerRadius" format="dimension" />
 
+
+    <!-- Кнопки -->
+    <attr name="app_buttonCornerRadius" format="dimension" />
+    <attr name="app_buttonColor" format="color" />
+    <attr name="app_buttonGradientStartColor" format="color" />
+    <attr name="app_buttonGradientEndColor" format="color" />
+    <attr name="app_buttonDisabledColor" format="color" />
+    <attr name="app_buttonFilledTextColor" format="color" />
+    <attr name="app_buttonOutlinedTextColor" format="color" />
+    <attr name="app_buttonOutlinedStrokeWidth" format="dimension" />
+
+    <!-- Поля ввода   -->
+    <attr name="app_formsUnderlineColor" format="color" />
+    <attr name="app_formsUnderlineInvalidateColor" format="color" />
+    <attr name="app_formsTextColor" format="color" />
+
+    <!-- Общий фон -->
+    <attr name="app_backgroundColor" format="color" />
+
+    <!-- Текст   -->
+    <!-- Размеры   -->
+    <attr name="app_textTitleSize" format="dimension" />
+    <attr name="app_textTitleLineSpacing" format="dimension" />
+    <attr name="app_textCalloutButton1Size" format="dimension" />
+    <attr name="app_textCalloutButton1Spacing" format="dimension" />
+    <attr name="app_textCalloutButton2Size" format="dimension" />
+    <attr name="app_textCalloutButton2Spacing" format="dimension" />
+    <attr name="app_textCalloutClickableSize" format="dimension" />
+    <attr name="app_textCalloutClickableSpacing" format="dimension" />
+    <attr name="app_textBodySize" format="dimension" />
+    <attr name="app_textBodySpacing" format="dimension" />
+    <attr name="app_textFootnote1Size" format="dimension" />
+    <attr name="app_textFootnote1Spacing" format="dimension" />
+    <attr name="app_textFootnote2Size" format="dimension" />
+    <attr name="app_textFootnote2Spacing" format="dimension" />
+    <attr name="app_textFootnoteAttentionSize" format="dimension" />
+    <attr name="app_textFootnoteAttentionSpacing" format="dimension" />
+    <!-- Цвета   -->
+    <attr name="app_textDefaultColor" format="color" />
+    <attr name="app_textTitleColor" format="color" />
+    <attr name="app_textCallout1Color" format="color" />
+    <attr name="app_textCallout2Color" format="color" />
+    <attr name="app_textCalloutClickableColor" format="color" />
+    <attr name="app_textBodyColor" format="color" />
+    <attr name="app_textFootnote1Color" format="color" />
+    <attr name="app_textFootnote2Color" format="color" />
+    <attr name="app_textFootnoteAttentionColor" format="color" />
+
+    <!-- Авторизация   -->
+    <!-- Дефолтный заполненый круг   -->
+    <!-- Цвет до ввода цифры   -->
+    <attr name="app_confirm_circle_default_color" format="color" />
+    <!-- Цвет после ввода цифры   -->
+    <attr name="app_confirm_circle_success_color" format="color" />
+    <attr name="app_confirm_text_color" format="color" />
+    <attr name="app_confirm_text_size" format="dimension" />
+
+    <!-- Заполненый с градиентом круг   -->
+    <!-- Градиент после ввода цифры    -->
+    <attr name="app_confirm_circle_gradient_start_color" format="color" />
+    <attr name="app_confirm_circle_gradient_end_color" format="color" />
+
+    <!-- Пустотелый круг   -->
+    <!-- Можно каждому свой цвет задать   -->
+    <attr name="app_confirm_circle_1_color" format="color" />
+    <attr name="app_confirm_circle_2_color" format="color" />
+    <attr name="app_confirm_circle_3_color" format="color" />
+    <attr name="app_confirm_circle_4_color" format="color" />
+
+    <!-- Progressbar color   -->
+    <attr name="app_progressBar_color" format="color" />
 </resources>

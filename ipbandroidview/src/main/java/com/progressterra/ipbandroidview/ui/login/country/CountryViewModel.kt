@@ -1,16 +1,19 @@
 package com.progressterra.ipbandroidview.ui.login.country
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import androidx.navigation.NavDirections
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
-import com.progressterra.ipbandroidview.ui.login.login.LoginFragment
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-internal class CountryViewModel(private var selectedCountry: String) : ViewModel() {
+internal class CountryViewModel(
+    private val loginFlowSettings: LoginFlowSettings
+) : ViewModel() {
 
     private val allCountry = Country.values().asList()
     private val locale = Locale.getDefault()
@@ -21,7 +24,7 @@ internal class CountryViewModel(private var selectedCountry: String) : ViewModel
         it.map { country ->
             CountryUi(
                 name = country.name,
-                selected = country.name == selectedCountry,
+                selected = country.name == loginFlowSettings.phoneNumberSettings.defaultCountry,
                 title = when (locale.language) {
                     "ru" -> country.titleRu
                     else -> country.titleEn
@@ -30,11 +33,20 @@ internal class CountryViewModel(private var selectedCountry: String) : ViewModel
         }
     }
 
-    private val _nextFragment = MutableLiveData<Fragment>()
-    val nextFragment: LiveData<Fragment> = _nextFragment
+    private val _action = MutableLiveData<Event<NavDirections>>()
+    val action: LiveData<Event<NavDirections>> = _action
 
     fun onItemClick(selectedCountry: String) {
-        _nextFragment.value = LoginFragment.newInstance(selectedCountry)
+        _action.value =
+            Event(
+                CountryFragmentDirections.actionFragmentCountryToFragmentLogin(
+                    loginFlowSettings = loginFlowSettings.copy(
+                        phoneNumberSettings = loginFlowSettings.phoneNumberSettings.copy(
+                            defaultCountry = selectedCountry
+                        )
+                    )
+                )
+            )
     }
 
     fun changedSearchValue(value: String) {

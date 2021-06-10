@@ -5,12 +5,6 @@
 
     <data>
 
-        <import type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
-
-        <variable
-            name="ColorPaletteObject"
-            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
-
         <variable
             name="vm"
             type="com.progressterra.ipbandroidview.ui.login.confirm.ConfirmViewModel" />
@@ -28,10 +22,51 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:minHeight="100dp"
+            android:minHeight="88dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_confirmInfo"
+            style="@style/Text.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:minHeight="100dp"
+            android:text="@{vm.confirmInfo}"
+            android:visibility="@{vm.screenState.isDefault()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirm_logo_iv"
+            app:layout_goneMarginTop="80dp"
+            tools:text="Но номер +79121234567 было отправлено SMS с кодом активации. Чтобы завершить подтверждение номера, введите код ."
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginTop="24dp"
+            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/confirm_logo_iv"
+            app:layout_goneMarginTop="80dp"
+            app:setVisibilityLoaderByScreenState="@{vm.screenState}" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="tv_confirmInfo, pb_loading" />
 
         <EditText
             android:id="@+id/editText"
@@ -49,114 +84,115 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/digit1" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@id/info_confirm_tv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/info_confirm_tv"
-            app:setVisibilityLoaderByScreenState="@{vm.screenState}" />
-
-        <TextView
-            android:id="@+id/info_confirm_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{vm.confirmInfo}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/confirm_logo_iv"
-            app:setVisibilityMainContentByScreenState="@{vm.screenState}" />
 
         <TextView
             android:id="@+id/digit1"
-
+            style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:width="52dp"
             android:height="52dp"
-            android:background="@drawable/circle"
+            android:background="@{vm.outLinedCircles ? @drawable/confirm_circle_1 : @drawable/confirm_circle_base}"
+            android:enabled="false"
             android:gravity="center"
             android:minWidth="10dp"
-            android:textColor="#FAFAFA"
-            android:textSize="28sp"
+            android:textColor="?app_confirm_text_color"
+            android:textSize="?app_confirm_text_size"
             app:layout_constraintEnd_toStartOf="@id/digit2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv"
-            app:setTintFromPalette="@{ColorPaletteObject}" />
+            app:layout_constraintTop_toBottomOf="@id/barrier_info"
+            tools:text="1"
+            tools:textColor="@color/black"
+            tools:textSize="24sp" />
 
         <TextView
             android:id="@+id/digit2"
+            style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:width="52dp"
             android:height="52dp"
-            android:background="@drawable/circle"
+            android:background="@{vm.outLinedCircles ? @drawable/confirm_circle_2 : @drawable/confirm_circle_base}"
+            android:enabled="false"
             android:gravity="center"
             android:minWidth="10dp"
-            android:textColor="#FAFAFA"
-            android:textSize="28sp"
+            android:textColor="?app_confirm_text_color"
+            android:textSize="?app_confirm_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/digit1"
             app:layout_constraintEnd_toStartOf="@id/digit3"
             app:layout_constraintStart_toEndOf="@id/digit1"
-            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv"
-            app:setTintFromPalette="@{ColorPaletteObject}" />
+            app:layout_constraintTop_toTopOf="@id/digit1"
+            tools:text="1"
+            tools:textColor="@color/black"
+            tools:textSize="24sp" />
 
         <TextView
             android:id="@+id/digit3"
+            style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:width="52dp"
             android:height="52dp"
-            android:background="@drawable/circle"
+            android:background="@{vm.outLinedCircles ? @drawable/confirm_circle_3 : @drawable/confirm_circle_base}"
+            android:enabled="false"
             android:gravity="center"
-            android:textColor="#FAFAFA"
-            android:textSize="28sp"
+            android:textColor="?app_confirm_text_color"
+            android:textSize="?app_confirm_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/digit1"
             app:layout_constraintEnd_toStartOf="@id/digit4"
             app:layout_constraintStart_toEndOf="@id/digit2"
-            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv"
-            app:setTintFromPalette="@{ColorPaletteObject}" />
+            app:layout_constraintTop_toTopOf="@id/digit1"
+            tools:text="1"
+            tools:textColor="@color/black"
+            tools:textSize="24sp" />
 
         <TextView
             android:id="@+id/digit4"
+            style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:width="52dp"
             android:height="52dp"
-            android:background="@drawable/circle"
+            android:background="@{vm.outLinedCircles ? @drawable/confirm_circle_4 : @drawable/confirm_circle_base}"
+            android:enabled="false"
             android:gravity="center"
-            android:textColor="#FAFAFA"
-            android:textSize="28sp"
+            android:textColor="?app_confirm_text_color"
+            android:textSize="?app_confirm_text_size"
+            app:layout_constraintBottom_toBottomOf="@id/digit1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/digit3"
-            app:layout_constraintTop_toBottomOf="@id/info_confirm_tv"
-            app:setTintFromPalette="@{ColorPaletteObject}" />
+            app:layout_constraintTop_toTopOf="@id/digit1"
+            tools:text="1"
+            tools:textColor="@color/black"
+            tools:textSize="24sp" />
 
         <TextView
             android:id="@+id/resend_code"
+            style="@style/Text.CalloutClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="66dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
+            android:enabled="@{vm.resendCodeOperationReady}"
             android:onClick="@{_-> vm.resendConfirmationCode()}"
             android:text="@string/resend_code"
-            android:textColor="@color/theme_color"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="?app_textFootnoteAttentionColor"
+            app:layout_constraintStart_toStartOf="@id/digit1"
             app:layout_constraintTop_toBottomOf="@id/digit1"
-            app:setMainTextColor="@{ColorPaletteObject}" />
+            tools:textColor="@color/black" />
 
         <TextView
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="33dp"
             android:text="@{@string/can_resend_code_after(vm.counterScore)}"
+            android:textColor="?app_textFootnote1Color"
+            android:visibility="@{!vm.resendCodeOperationReady}"
+            app:layout_constraintBaseline_toBaselineOf="@id/resend_code"
             app:layout_constraintStart_toEndOf="@id/resend_code"
-            app:layout_constraintTop_toTopOf="@id/resend_code"
-            app:visibility="@{!vm.resendCodeOperationReady}" />
+            tools:text="через 00:55"
+            tools:textColor="@android:color/darker_gray" />
 
         <View
             android:id="@+id/line_view"
@@ -165,8 +201,7 @@
             android:layout_marginTop="60dp"
             android:layout_marginBottom="8dp"
             android:background="#989090"
-            app:layout_constraintTop_toBottomOf="@id/resend_code"
-            app:setMainColor="@{ColorPaletteObject}" />
+            app:layout_constraintTop_toBottomOf="@id/resend_code" />
 
         <ImageView
             android:id="@+id/confirm_banner_iv"
@@ -179,9 +214,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/line_view"
-            app:layout_constraintVertical_bias="1"
-            app:setDrawableFromPalette="@{ColorsPalette.INSTANCE.confirmImageRes}" />
+            app:layout_constraintVertical_bias="1" />
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_footer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="line_view, confirm_banner_iv"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

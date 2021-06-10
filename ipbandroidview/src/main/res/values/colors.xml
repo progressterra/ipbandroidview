@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Default theme colors  -->
+    <color name="color_button">#D2333E</color>
+    <color name="color_buttonDisabled">#858585</color>
+    <color name="color_background">#FFFFFF</color>
+    <color name="color_textDefault">#1B1B1B</color>
+    <color name="color_textFootnote">#979797</color>
+    <color name="color_textFootnoteAttention">#EF8539</color>
+    <color name="color_lines">#DEDEDE</color>
+
+    <color name="valid_line">?app_formsUnderlineColor</color>
+    <color name="invalid_line">?app_formsUnderlineInvalidateColor</color>
+
+
+    <!-- OLD    -->
     <!--  Основные цвета  -->
     <color name="white">#FFFFFF</color>
     <color name="grey_lite">#e7e7e7</color>

@@ -17,7 +17,8 @@ uploadArchives {
 
     repositories.mavenDeployer {
         configuration = configurations.deployLibrary
-        repository(url: 'git:dev_lib://git@bitbucket.org:' + COMPANY + '/' + REPOSITORY_NAME + '.git') // TODO: не забудь поменять для тестов
+        repository(url: 'git:dev_lib://git@bitbucket.org:' + COMPANY + '/' + REPOSITORY_NAME + '.git')
+        // TODO: не забудь поменять для тестов
 
         pom.project {
             groupId = ARTIFACT_PACKAGE
@@ -26,4 +27,5 @@ uploadArchives {
             packaging ARTIFACT_PACKAGING
         }
     }
+    println("${major}.${generateMinorVersionCode()}")
 }

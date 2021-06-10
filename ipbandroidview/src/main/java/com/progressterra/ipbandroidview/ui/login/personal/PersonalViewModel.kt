@@ -1,8 +1,9 @@
 package com.progressterra.ipbandroidview.ui.login.personal
 
+import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
@@ -10,19 +11,24 @@ import com.progressterra.ipbandroidapi.interfaces.client.login.models.PersonalIn
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
+import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
+import com.progressterra.ipbandroidview.ui.base.BaseViewModel
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
+import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.utils.ToastBundle
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
 import kotlinx.coroutines.launch
 
-class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener?) : ViewModel() {
+internal class PersonalViewModel(val personalSettings: PersonalSettings) : BaseViewModel() {
+
     val personalInfo = MutableLiveData(PersonalInfo())
     val personalDataIsValid = MutableLiveData(false)
     val citiesList = MutableLiveData<List<CitiesListResponse.City>>()
 
-    private val _toastTextRes = MutableLiveData<Event<Int>>()
-    val toastTextRes: LiveData<Event<Int>> = _toastTextRes
+    private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
+    val setFragmentResult: LiveData<Event<Bundle>> = _setFragmentResult
 
     init {
         val api = LoginApi.newInstance()
@@ -50,7 +56,11 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
         personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
     }
 
-    fun updateBirthdate(day: Int, month: Int, year: Int) {
+    fun updateBirthdate(
+        day: Int,
+        month: Int,
+        year: Int
+    ) { // TODO: 08.06.2021 Проверь месяц, в UI шел кривой (январь 0 и т.д.)
         personalInfo.value?.birthdate = "$year-$month-$day"
         personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
         personalInfo.notifyObserver()
@@ -75,7 +85,7 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
             // запрашиваем токен, чтобы он сохранился в префах, так как используется в послед запросах
             bonusesApi.getAccessToken().let {
                 if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                    _toastTextRes.postValue(Event(R.string.Network_error))
+                    _toastBundle.postValue(Event(ToastBundle(R.string.Network_error)))
                     return@launch
                 }
             }
@@ -83,7 +93,7 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
             personalInfo.value?.let { personalInfo ->
                 loginApi.addClientInfo(personalInfo).let {
                     if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                        _toastTextRes.postValue(Event(R.string.user_data_error))
+                        _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
                         return@launch
                     }
                 }
@@ -91,7 +101,7 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
                 personalInfo.city?.let { city ->
                     loginApi.addCity(city).let {
                         if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                            _toastTextRes.postValue(Event(R.string.user_data_error))
+                            _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
                             return@launch
                         }
                     }
@@ -100,16 +110,20 @@ class PersonalViewModel(val onLoginFlowFinishListener: OnLoginFlowFinishListener
                 personalInfo.email?.let { email ->
                     loginApi.addEmail(email).let {
                         if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                            _toastTextRes.postValue(Event(R.string.user_data_error))
+                            _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
                             return@launch
                         }
                     }
-
                     loginApi.confirmEmail(email)
                 }
             }
-            onLoginFlowFinishListener?.onLoginFinish()
+            _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
+            _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
         }
     }
 
+    fun skipRegistration() {
+        _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_SKIP to true)))
+        _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
+    }
 }

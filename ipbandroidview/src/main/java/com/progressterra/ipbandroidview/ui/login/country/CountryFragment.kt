@@ -5,28 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentCountryBinding
 import com.progressterra.ipbandroidview.databinding.ItemCountryBinding
+import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
-import com.progressterra.ipbandroidview.utils.extensions.argument
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
-internal class CountryFragment : Fragment() {
+class CountryFragment : BaseFragment() {
 
-    private var container: Int? = null
-
-    private var selectedCountry by argument<String>()
+    private val args: CountryFragmentArgs by navArgs()
 
     private lateinit var binding: FragmentCountryBinding
+
     private val vm: CountryViewModel by viewModels {
         CountryViewModelFactory(
-            selectedCountry = selectedCountry
+            loginFlowSettings = args.loginFlowSettings
         )
     }
 
@@ -43,8 +41,6 @@ internal class CountryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (this.container == null)
-            this.container = container?.id ?: throw Exception("Container is null")
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_country, container, false)
         return binding.root
     }
@@ -54,7 +50,7 @@ internal class CountryFragment : Fragment() {
         vm.countryUi.observe(viewLifecycleOwner, {
             adapter.setItems(it)
         })
-        vm.nextFragment.observe(viewLifecycleOwner, this::nextFragment)
+        vm.action.observe(viewLifecycleOwner, this::onAction)
 
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
@@ -63,23 +59,6 @@ internal class CountryFragment : Fragment() {
                 adapter = this@CountryFragment.adapter
             }
             countryValue.afterTextChanged(vm::changedSearchValue)
-        }
-    }
-
-    private fun nextFragment(fragment: Fragment) {
-        if (container != null)
-            activity?.supportFragmentManager?.commit {
-                replace(((view as ViewGroup).parent as View).id, fragment)
-            }
-    }
-
-    companion object {
-        fun newInstance(
-            selectedCountry: String
-        ): CountryFragment {
-            return CountryFragment().apply {
-                this.selectedCountry = selectedCountry
-            }
         }
     }
 }

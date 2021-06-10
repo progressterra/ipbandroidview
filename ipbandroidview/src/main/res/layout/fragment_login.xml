@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
-
-
-        <variable
-            name="ColorsPaletteObject"
-            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
-
-        <variable
-            name="ScreenState"
-            type="com.progressterra.ipbandroidview.utils.ScreenState" />
 
         <variable
             name="vm"
@@ -23,39 +11,36 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:background="?attr/app_backgroundColor"
         android:orientation="vertical"
         tools:context="com.progressterra.ipbandroidview.ui.login.login.LoginFragment">
 
         <TextView
             android:id="@+id/textView_hint"
-            style="@style/Body1"
+            style="@style/Text.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="51dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="51dp"
+            android:layout_marginEnd="59dp"
             android:gravity="center_horizontal"
-            android:text="@string/login_description"
-            android:textColor="@color/text_color"
-            app:setMainTextColor="@{ColorsPaletteObject}" />
+            android:text="@string/login_description" />
 
         <TextView
             android:id="@+id/textView_countyLabel"
-            style="@style/Footnote"
+            style="@style/Text.Footnote1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/login_country"
-            app:setSecondaryTextColor="@{ColorsPaletteObject}" />
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="36dp"
+            android:text="@string/login_country" />
 
         <FrameLayout
             android:id="@+id/login_country_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="41dp"
+            android:layout_marginStart="19dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="29dp"
             android:background="@drawable/border_bottom_grey_ripple"
@@ -63,47 +48,40 @@
 
             <TextView
                 android:id="@+id/login_country"
-                style="@style/Body1"
+                style="@style/Text.Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="4dp"
                 android:text="@{vm.countryText}"
-                android:textColor="@color/grey_dark"
-                android:textSize="16sp"
-                app:setMainTextColor="@{ColorsPaletteObject}"
                 tools:text="Россия (+7)" />
         </FrameLayout>
 
         <TextView
             android:id="@+id/textView_phoneLabel"
-            style="@style/Footnote"
+            style="@style/Text.Footnote1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
+            android:layout_marginStart="19dp"
             android:layout_marginTop="20dp"
-            android:text="@string/login_phone"
-            android:textColor="@color/form_text_color"
-            app:setSecondaryTextColor="@{ColorsPaletteObject}" />
+            android:text="@string/login_phone" />
 
         <EditText
             android:id="@+id/login_phone"
-            style="@style/Body1"
+            style="@style/Text.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="42dp"
+            android:layout_marginStart="19dp"
             android:layout_marginTop="3dp"
             android:layout_marginEnd="29dp"
             android:background="@drawable/background_edittext"
             android:inputType="number"
             android:text="@{vm.phoneText}"
-            android:textColor="@color/grey_dark"
-            app:setMainTextColor="@{ColorsPaletteObject}"
             tools:text="241" />
 
         <TextView
             android:id="@+id/textView_agreement"
-            style="@style/Footnote"
+            style="@style/Text.Footnote1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -112,49 +90,47 @@
             android:gravity="center_horizontal"
             android:text="@string/login_agreement_html"
             android:textAlignment="textStart"
-            android:textColor="@color/grey_dark"
+            android:textColor="?app_textBodyColor"
             android:visibility="gone" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/login_next"
+                style="@style/Button.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="38dp"
-                android:background="@drawable/button"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                app:setMainColor="@{ColorsPaletteObject}" />
+                android:layout_marginBottom="38dp" />
 
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:elevation="3dp"
-                app:setVisibilityLoaderByScreenState="@{vm.screenState}" />
+                android:indeterminateDrawable="@drawable/progressbar_indeterminate"
+                android:visibility="@{vm.screenState.isLoading()}" />
         </FrameLayout>
 
 
         <View
+            android:id="@+id/view_footerDivider"
             android:layout_width="match_parent"
             android:layout_height="16dp"
             android:background="#9E9E9E"
-            app:setSecondaryColor="@{ColorsPaletteObject}" />
+            android:visibility="gone" />
 
         <ImageView
+            android:id="@+id/iv_footer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            app:setDrawableFromPalette="@{ColorsPalette.INSTANCE.loginImageRes}" />
-
-
+            android:visibility="gone" />
     </LinearLayout>
 </layout>

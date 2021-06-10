@@ -2,29 +2,43 @@ package com.progressterra.ipbandroidview.ui.login.personal
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.fragment.app.Fragment
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
-import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
-import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.ui.base.BaseFragment
+import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
+import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import java.util.*
 
-class PersonalFragment : Fragment() {
+class PersonalFragment : BaseFragment() {
 
-    private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
+    private val DEFAULT_YEAR = 1995
+    private val DEFAULT_MONTH = 1
+    private val DEFAULT_DAY = 14
+
+    private val args: PersonalFragmentArgs by navArgs()
+
+    private val personalSettings: PersonalSettings by lazy {
+        val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
+        loginFlowSettings.personalSettings
+    }
 
     private val viewModel: PersonalViewModel by viewModels {
         PersonalViewModelFactory(
-            onLoginFlowFinishListener
+            personalSettings
         )
     }
 
@@ -48,21 +62,60 @@ class PersonalFragment : Fragment() {
             citiesList.observe(viewLifecycleOwner) {
                 setupCitySpinner(it)
             }
-            toastTextRes.observe(viewLifecycleOwner, this@PersonalFragment::showToastFromRes)
+            toastBundle.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
+            action.observe(viewLifecycleOwner, this@PersonalFragment::onAction)
+            setFragmentResult.observe(viewLifecycleOwner) {
+                val bundle = it.contentIfNotHandled
+                bundle?.let {
+                    setFragmentResult(LoginKeys.AUTH_BUNDLE, bundle)
+                }
+            }
         }
-
-
 
         setupDatePickerDialog()
         initListeners()
+        initEditTextValidation()
+        applySettings()
     }
 
     private fun initListeners() {
-        binding.personalData.editTextName.afterTextChanged { viewModel.updateFirstName(it) }
-        binding.personalData.editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
-        binding.personalData.editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
-        binding.personalData.radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
-        binding.personalData.radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+        binding.personalData.apply {
+            editTextName.afterTextChanged { viewModel.updateFirstName(it) }
+            editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
+            editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
+            radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+        }
+    }
+
+    private fun applySettings() {
+        if (personalSettings.setLastNameAttentionColor) {
+            val typedValue = TypedValue()
+            val theme = context?.theme
+            theme?.resolveAttribute(R.attr.app_textFootnoteAttentionColor, typedValue, true)
+            binding.personalData.textViewSecondNameLabel.setTextColor(typedValue.data)
+        }
+    }
+
+    private fun initEditTextValidation() {
+        viewModel.personalInfo.observe(viewLifecycleOwner, {
+            binding.personalData.apply {
+                setEditTextValidState(editTextName, it.nameIsValid)
+                setEditTextValidState(editTextSecondName, it.lastNameIsValid)
+                setEditTextValidState(editTextEmail, it.emailIsValid)
+                setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
+            }
+        })
+    }
+
+    private fun setEditTextValidState(view: View, isValid: Boolean) {
+        view.background = if (isValid) AppCompatResources.getDrawable(
+            requireContext(),
+            R.drawable.background_edittext
+        ) else AppCompatResources.getDrawable(
+            requireContext(),
+            R.drawable.background_edittext_invalid
+        )
     }
 
     private fun setupDatePickerDialog() {
@@ -72,28 +125,26 @@ class PersonalFragment : Fragment() {
             requireContext(),
             { _, year, month, dayOfMonth ->
                 viewModel.updateBirthdate(dayOfMonth, month, year)
-                binding.personalData.textViewBirthDay.text = "$dayOfMonth.$month.$year"
+                binding.personalData.textViewBirthDay.text =
+                    getString(R.string.birthday_date, dayOfMonth, month + 1, year)
             },
             calendar[Calendar.YEAR],
             calendar[Calendar.MONTH],
             calendar[Calendar.DAY_OF_MONTH]
         )
+        dialog.updateDate(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY)
+        dialog.datePicker.maxDate = System.currentTimeMillis()
 
         binding.personalData.textViewBirthDay.setOnClickListener {
             dialog.show()
         }
     }
 
-    private fun showToastFromRes(event: Event<Int>) {
-        event.contentIfNotHandled?.let {
-            Toast.makeText(context, getString(it), Toast.LENGTH_SHORT).show()
-        }
-    }
-
     private fun setupCitySpinner(citiesList: List<CitiesListResponse.City>) {
         val spinnerAdapter =
-            ArrayAdapter(
-                requireContext(), android.R.layout.simple_spinner_dropdown_item,
+            NoPaddingArrayAdapter(
+                requireContext(),
+                R.layout.item_city,
                 citiesList
             ).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -118,13 +169,4 @@ class PersonalFragment : Fragment() {
                 })
         }
     }
-
-    companion object {
-        fun newInstance(
-            onLoginFlowFinishListener: OnLoginFlowFinishListener?
-        ) = PersonalFragment().apply {
-            this.onLoginFlowFinishListener = onLoginFlowFinishListener
-        }
-    }
-
 }

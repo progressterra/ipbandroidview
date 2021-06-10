@@ -31,7 +31,7 @@
             app:visibility="@{item.selected}" />
 
         <TextView
-            style="@style/TextNormalMedium"
+            style="@style/Text.Body"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -44,7 +44,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="@drawable/ic_check"
-            android:backgroundTint="@color/theme_color"
+            android:backgroundTint="?app_buttonColor"
             app:visibility="@{item.selected}" />
 
     </LinearLayout>

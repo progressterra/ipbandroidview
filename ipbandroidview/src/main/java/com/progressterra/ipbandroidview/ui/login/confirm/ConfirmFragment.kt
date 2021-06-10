@@ -1,45 +1,44 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
+import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
-import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
-import com.progressterra.ipbandroidview.ui.login.OnLoginFlowFinishListener
-import com.progressterra.ipbandroidview.utils.Event
-import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
-import com.progressterra.ipbandroidview.utils.extensions.argument
-import com.progressterra.ipbandroidview.utils.extensions.hideKeyboard
-import com.progressterra.ipbandroidview.utils.extensions.showKeyboard
+import com.progressterra.ipbandroidview.ui.base.BaseFragment
+import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
+import com.progressterra.ipbandroidview.utils.extensions.*
 
 
-internal class ConfirmFragment : Fragment() {
+class ConfirmFragment : BaseFragment() {
 
-    private var selectedCountry by argument<String>()
-    private var phoneNumber by argument<String>()
-    private var onLoginFlowFinishListener: OnLoginFlowFinishListener? = null
+    private val args: ConfirmFragmentArgs by navArgs()
 
+    private val confirmSettings: ConfirmCodeSettings by lazy {
+        val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
+        loginFlowSettings.confirmCodeSettings
+    }
 
     private val viewModel: ConfirmViewModel by viewModels {
         ConfirmViewModelFactory(
-            phoneNumber,
-            onLoginFlowFinishListener
+            args.phoneNumber,
+            args.loginFlowSettings
         )
     }
-
 
     private lateinit var binding: FragmentConfirmBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentConfirmBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -56,12 +55,36 @@ internal class ConfirmFragment : Fragment() {
         binding.lifecycleOwner = this
         setupViewModel()
         setupCodeBlockParameters()
+
+        applySettings()
+    }
+
+    private fun applySettings() {
+        binding.apply {
+            if (confirmSettings.enableLogo && confirmSettings.logoImageResId.notDefaultArg()) {
+                confirmLogoIv.setImageResource(confirmSettings.logoImageResId)
+                confirmLogoIv.isVisible = confirmSettings.enableLogo
+            }
+            if (confirmSettings.enableFooter && confirmSettings.footerImageResId.notDefaultArg()) {
+                confirmBannerIv.setImageResource(confirmSettings.footerImageResId)
+                groupFooter.isVisible = confirmSettings.enableFooter
+            }
+        }
     }
 
     private fun setupViewModel() {
-        viewModel.fragment.observe(viewLifecycleOwner, this::onFragment)
-        viewModel.clearConfirmCode.observe(viewLifecycleOwner) {
-            cleanBlockCode()
+        viewModel.apply {
+            action.observe(viewLifecycleOwner, this@ConfirmFragment::onAction)
+            toastBundle.observe(viewLifecycleOwner, this@ConfirmFragment::showToast)
+            clearConfirmCode.observe(viewLifecycleOwner) {
+                cleanBlockCode()
+            }
+            setFragmentResult.observe(viewLifecycleOwner) {
+                val bundle = it.contentIfNotHandled
+                bundle?.let {
+                    setFragmentResult(LoginKeys.AUTH_BUNDLE, bundle)
+                }
+            }
         }
     }
 
@@ -81,43 +104,17 @@ internal class ConfirmFragment : Fragment() {
     private fun setDigitItemParameters(inputString: Char?, textView: TextView) {
         if (inputString == null) {
             textView.text = ""
-            ColorsPalette.secondaryColor?.let {
-                textView.backgroundTintList = ColorStateList.valueOf(it)
-            }
+            textView.isEnabled = false
 
         } else {
             textView.text = inputString.toString()
-            ColorsPalette.mainColor?.let {
-                textView.backgroundTintList = ColorStateList.valueOf(it)
-            }
-        }
-    }
-
-    private fun onFragment(event: Event<Fragment>) {
-        val fragment = event.contentIfNotHandled
-        activity?.supportFragmentManager?.commit {
-            if (fragment != null) {
-                replace(((view as ViewGroup).parent as View).id, fragment)
-            }
+            textView.isEnabled = true
         }
     }
 
     override fun onStop() {
         super.onStop()
         hideKeyboard(requireContext(), binding.editText)
-    }
-
-    companion object {
-        fun newInstance(
-            selectedCountry: String,
-            phoneNumber: String,
-            onLoginFlowFinishListener: OnLoginFlowFinishListener?
-        ): ConfirmFragment =
-            ConfirmFragment().apply {
-                this.selectedCountry = selectedCountry
-                this.phoneNumber = phoneNumber
-                this.onLoginFlowFinishListener = onLoginFlowFinishListener
-            }
     }
 }
 
