@@ -73,4 +73,7 @@
 
     <!-- Progressbar color   -->
     <attr name="app_progressBar_color" format="color" />
+
+    <!-- Animation time   -->
+    <attr name="app_animation_duration" format="integer" />
 </resources>

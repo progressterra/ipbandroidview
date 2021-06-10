@@ -66,6 +66,7 @@
         <item name="app_confirm_circle_4_color">?app_confirm_circle_success_color</item>
 
 
+        <item name="app_animation_duration">200</item>
     </style>
 
     <!-- Текст   -->
