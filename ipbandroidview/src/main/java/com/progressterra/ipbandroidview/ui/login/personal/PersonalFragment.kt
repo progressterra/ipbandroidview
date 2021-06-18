@@ -10,17 +10,18 @@ import android.widget.AdapterView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
+import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
 import java.util.*
 
 class PersonalFragment : BaseFragment() {
@@ -38,7 +39,8 @@ class PersonalFragment : BaseFragment() {
 
     private val viewModel: PersonalViewModel by viewModels {
         PersonalViewModelFactory(
-            personalSettings
+            personalSettings,
+            args.loginFlowSettings.newLoginFlow
         )
     }
 
@@ -76,6 +78,16 @@ class PersonalFragment : BaseFragment() {
         initListeners()
         initEditTextValidation()
         applySettings()
+
+        // TODO: 10.06.2021 если приживется, то нужно окультурить
+        if (args.loginFlowSettings.newLoginFlow)
+            viewModel.popBackStack.observe(viewLifecycleOwner) { event ->
+                event.contentIfNotHandled?.let {
+                    if (it) {
+                        findNavController().popBackStack(R.id.fragmentLogin, true)
+                    }
+                }
+            }
     }
 
     private fun initListeners() {

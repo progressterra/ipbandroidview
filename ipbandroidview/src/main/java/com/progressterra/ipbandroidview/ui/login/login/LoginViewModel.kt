@@ -16,11 +16,11 @@ import com.progressterra.ipbandroidview.utils.ToastBundle
 import kotlinx.coroutines.launch
 
 internal class LoginViewModel(
-    private var selectedCountry: String,
-    private val loginFlowSettings: LoginFlowSettings
+    selectedCountry: String,
+    private var loginFlowSettings: LoginFlowSettings
 ) : BaseViewModel() {
 
-    private val country: Country = Country.valueOf(selectedCountry)
+    private var country: Country = Country.valueOf(selectedCountry)
 
     private val _countryText = MutableLiveData(country)
     val countryText: LiveData<String> = _countryText.map {
@@ -37,6 +37,14 @@ internal class LoginViewModel(
             Event(
                 LoginFragmentDirections.actionFragmentLoginToFragmentCountry(loginFlowSettings)
             )
+    }
+
+    fun updateCountry(newCountry: String) {
+        loginFlowSettings = loginFlowSettings.copy(
+            phoneNumberSettings = loginFlowSettings.phoneNumberSettings.copy(defaultCountry = newCountry)
+        )
+        country = Country.valueOf(newCountry)
+        _countryText.value = country
     }
 
     fun next(phone: String) {
@@ -80,7 +88,7 @@ internal class LoginViewModel(
             // Если шаблон не совпадает
             if (!phone.startsWith(country.phoneStart!!)) {
                 _phoneText.value = ""
-                phoneCode = country.phoneStart
+                phoneCode = country.phoneStart as String
                 _toastBundle.value = Event(ToastBundle(R.string.login_error_start_phone, phoneCode))
             }
         }

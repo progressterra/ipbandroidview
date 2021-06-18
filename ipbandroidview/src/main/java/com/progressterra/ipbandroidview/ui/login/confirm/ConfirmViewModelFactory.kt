@@ -6,11 +6,12 @@ import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 
 internal class ConfirmViewModelFactory(
     private val phoneNumber: String,
-    private val loginFlowSettings: LoginFlowSettings
+    private val loginFlowSettings: LoginFlowSettings,
+    private val newLoginFlow: Boolean
 ) :
     ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        ConfirmViewModel(phoneNumber, loginFlowSettings) as T
+        ConfirmViewModel(phoneNumber, loginFlowSettings, newLoginFlow) as T
 }

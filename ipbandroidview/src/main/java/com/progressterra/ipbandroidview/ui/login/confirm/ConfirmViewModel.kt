@@ -21,7 +21,8 @@ import kotlinx.coroutines.launch
 
 internal class ConfirmViewModel(
     private val phoneNumber: String,
-    private val loginFlowSettings: LoginFlowSettings
+    private val loginFlowSettings: LoginFlowSettings,
+    private val newLoginFlowSettings: Boolean
 ) : BaseViewModel() {
     private var isCalled: Boolean = false
 
@@ -42,6 +43,9 @@ internal class ConfirmViewModel(
 
     private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
     val setFragmentResult: LiveData<Event<Bundle>> = _setFragmentResult
+
+    private val _popBackStack = MutableLiveData<Event<Boolean>>()
+    val popBackStack: LiveData<Event<Boolean>> = _popBackStack
 
     init {
         startResendCodeCounter()
@@ -90,7 +94,10 @@ internal class ConfirmViewModel(
                             when (response.userExist) {
                                 true -> {
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
-                                    _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
+                                    if (newLoginFlowSettings)
+                                        _popBackStack.postValue(Event(true))
+                                    else
+                                        _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
                                 }
                                 false -> _action.postValue(
                                     Event(

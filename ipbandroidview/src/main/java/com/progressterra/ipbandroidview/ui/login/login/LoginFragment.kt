@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
 import com.progressterra.ipbandroidview.utils.DefaultArgsValues
 import com.progressterra.ipbandroidview.utils.ScreenState
@@ -41,6 +42,15 @@ class LoginFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setFragmentResultListener(LoginKeys.AUTH_COUNTRY) { _, bundle ->
+            viewModel.updateCountry(
+                bundle.getString(
+                    LoginKeys.AUTH_NEW_COUNTRY,
+                    phoneNumberSettings.defaultCountry
+                )
+            )
+        }
+
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }

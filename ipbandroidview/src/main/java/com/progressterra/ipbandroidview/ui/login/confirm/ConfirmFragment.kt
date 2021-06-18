@@ -8,7 +8,9 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
@@ -29,7 +31,8 @@ class ConfirmFragment : BaseFragment() {
     private val viewModel: ConfirmViewModel by viewModels {
         ConfirmViewModelFactory(
             args.phoneNumber,
-            args.loginFlowSettings
+            args.loginFlowSettings,
+            args.loginFlowSettings.newLoginFlow
         )
     }
 
@@ -57,6 +60,17 @@ class ConfirmFragment : BaseFragment() {
         setupCodeBlockParameters()
 
         applySettings()
+
+        // TODO: 10.06.2021 если приживется идея, то нужно окультурить
+        if (args.loginFlowSettings.newLoginFlow) {
+            viewModel.popBackStack.observe(viewLifecycleOwner) { event ->
+                event.contentIfNotHandled?.let {
+                    if (it) {
+                        findNavController().popBackStack(R.id.fragmentLogin, true)
+                    }
+                }
+            }
+        }
     }
 
     private fun applySettings() {

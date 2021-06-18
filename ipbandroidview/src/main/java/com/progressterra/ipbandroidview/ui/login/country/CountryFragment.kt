@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.progressterra.ipbandroidview.R
@@ -13,6 +16,7 @@ import com.progressterra.ipbandroidview.databinding.FragmentCountryBinding
 import com.progressterra.ipbandroidview.databinding.ItemCountryBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
+import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
@@ -34,6 +38,13 @@ class CountryFragment : BaseFragment() {
                 lifecycleOwner = viewLifecycleOwner
                 item = country
                 vm = this@CountryFragment.vm
+                itemCountry.setOnClickListener {
+                    setFragmentResult(
+                        LoginKeys.AUTH_COUNTRY,
+                        bundleOf(LoginKeys.AUTH_NEW_COUNTRY to country.name)
+                    )
+                    findNavController().popBackStack()
+                }
             }
         })
 
