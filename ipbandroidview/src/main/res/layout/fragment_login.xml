@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/app_backgroundColor"
         android:orientation="vertical"
-        tools:context="com.progressterra.ipbandroidview.ui.login.login.LoginFragment">
+        tools:context=".ui.login.login.LoginFragment">
 
         <TextView
             android:id="@+id/textView_hint"
