@@ -12,8 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/app_backgroundColor"
         android:orientation="vertical"
+        android:background="?attr/app_backgroundColor"
         tools:context=".ui.login.login.LoginFragment">
 
         <TextView
