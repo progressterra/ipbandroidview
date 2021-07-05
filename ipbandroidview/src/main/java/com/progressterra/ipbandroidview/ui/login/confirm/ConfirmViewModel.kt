@@ -99,14 +99,22 @@ internal class ConfirmViewModel(
                                     else
                                         _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
                                 }
-                                false -> _action.postValue(
-                                    Event(
-                                        ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(
-                                            loginFlowSettings
+                                false -> {
+                                    if (loginFlowSettings.needSkipPersonalInfoInput) {
+                                        _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
+                                    } else {
+                                        _action.postValue(
+                                            Event(
+                                                ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(
+                                                    loginFlowSettings
+                                                )
+                                            )
                                         )
-                                    )
-                                )
+                                    }
+
+                                }
                             }
+
                         }
                         ERROR -> {
                             _clearConfirmCode.postValue(Event(Any()))
