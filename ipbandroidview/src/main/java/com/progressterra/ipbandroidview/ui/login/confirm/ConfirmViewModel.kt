@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
 import android.os.Bundle
+import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -101,7 +102,7 @@ internal class ConfirmViewModel(
                                 }
                                 false -> {
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
-
+                                    Log.d("test2","Client not exists")
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
 
                                     /*if (loginFlowSettings.needSkipPersonalInfoInput) {
