@@ -100,6 +100,7 @@ internal class ConfirmViewModel(
                                         _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
                                 }
                                 false -> {
+                                    _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
 
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
 
