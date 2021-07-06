@@ -101,7 +101,6 @@ internal class ConfirmViewModel(
                                         _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
                                 }
                                 false -> {
-                                    _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
                                     Log.d("test2","Client not exists")
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
 

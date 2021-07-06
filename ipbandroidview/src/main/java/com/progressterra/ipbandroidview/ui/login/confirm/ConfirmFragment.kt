@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,6 +97,8 @@ class ConfirmFragment : BaseFragment() {
             setFragmentResult.observe(viewLifecycleOwner) {
                 val bundle = it.contentIfNotHandled
                 bundle?.let {
+                    Log.d("test2","sendFragementResult")
+
                     setFragmentResult(LoginKeys.AUTH_BUNDLE, bundle)
                 }
             }
