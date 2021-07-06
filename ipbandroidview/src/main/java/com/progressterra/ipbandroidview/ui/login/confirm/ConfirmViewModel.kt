@@ -103,6 +103,7 @@ internal class ConfirmViewModel(
                                 false -> {
                                     Log.d("test2","Client not exists")
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
+                                    _popBackStack.postValue(Event(true))
 
                                     /*if (loginFlowSettings.needSkipPersonalInfoInput) {
                                         _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
