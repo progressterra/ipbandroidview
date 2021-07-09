@@ -97,8 +97,6 @@ class ConfirmFragment : BaseFragment() {
             setFragmentResult.observe(viewLifecycleOwner) {
                 val bundle = it.contentIfNotHandled
                 bundle?.let {
-                    Log.d("test2","sendFragementResult")
-
                     setFragmentResult(LoginKeys.AUTH_BUNDLE, bundle)
                 }
             }

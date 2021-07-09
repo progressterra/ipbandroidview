@@ -101,12 +101,9 @@ internal class ConfirmViewModel(
                                         _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
                                 }
                                 false -> {
-                                    Log.d("test2","Client not exists")
-                                    _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
-                                    _popBackStack.postValue(Event(true))
-
-                                    /*if (loginFlowSettings.needSkipPersonalInfoInput) {
+                                    if (loginFlowSettings.needSkipPersonalInfoInput) {
                                         _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
+                                        _popBackStack.postValue(Event(true))
                                     } else {
                                         _action.postValue(
                                             Event(
@@ -115,7 +112,7 @@ internal class ConfirmViewModel(
                                                 )
                                             )
                                         )
-                                    }*/
+                                    }
 
                                 }
                             }
