@@ -136,7 +136,7 @@ class PersonalFragment : BaseFragment() {
         val dialog = DatePickerDialog(
             requireContext(),
             { _, year, month, dayOfMonth ->
-                viewModel.updateBirthdate(dayOfMonth, month, year)
+                viewModel.updateBirthdate(dayOfMonth, month + 1, year)
                 binding.personalData.textViewBirthDay.text =
                     getString(R.string.birthday_date, dayOfMonth, month + 1, year)
             },

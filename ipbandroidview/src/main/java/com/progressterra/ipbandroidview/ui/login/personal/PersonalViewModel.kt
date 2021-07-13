@@ -66,7 +66,7 @@ internal class PersonalViewModel(
         day: Int,
         month: Int,
         year: Int
-    ) { // TODO: 08.06.2021 Проверь месяц, в UI шел кривой (январь 0 и т.д.)
+    ) {
         personalInfo.value?.birthdate = "$year-$month-$day"
         personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
         personalInfo.notifyObserver()
