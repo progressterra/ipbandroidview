@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
 import android.os.Bundle
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -100,23 +99,14 @@ internal class ConfirmViewModel(
                                     else
                                         _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
                                 }
-                                false -> {
-                                    if (loginFlowSettings.needSkipPersonalInfoInput) {
-                                        _setFragmentResult.postValue(Event(bundleOf(LoginKeys.USER_NOT_EXIST to true)))
-                                        _popBackStack.postValue(Event(true))
-                                    } else {
-                                        _action.postValue(
-                                            Event(
-                                                ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(
-                                                    loginFlowSettings
-                                                )
-                                            )
+                                false -> _action.postValue(
+                                    Event(
+                                        ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(
+                                            loginFlowSettings
                                         )
-                                    }
-
-                                }
+                                    )
+                                )
                             }
-
                         }
                         ERROR -> {
                             _clearConfirmCode.postValue(Event(Any()))
