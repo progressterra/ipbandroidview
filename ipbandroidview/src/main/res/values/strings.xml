@@ -67,5 +67,6 @@
     <string name="Network_error">Ошибка сети</string>
     <string name="user_data_error">Ошибка при указании пользовательских данных</string>
     <string name="your_sex">Ваш пол:</string>
+    <string name="product_subinfo_detail_button">Подробнее</string>
 
 </resources>

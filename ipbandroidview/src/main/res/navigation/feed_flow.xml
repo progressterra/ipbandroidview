@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/feed_flow"
+    app:startDestination="@id/subInfoDialogFragmentHtml">
+
+    <dialog
+        android:id="@+id/subInfoDialogFragmentHtml"
+        android:name="com.progressterra.ipbandroidview.ui.feeds.product_sub_info.detail_sub_info_content.SubInfoDialogFragmentHtml"
+        android:label="SubInfoDialogFragmentHtml">
+        <argument
+            android:name="url"
+            app:argType="string" />
+
+    </dialog>
+    <dialog
+        android:id="@+id/subInfoDialogFragmentVideo"
+        android:name="com.progressterra.ipbandroidview.ui.feeds.product_sub_info.detail_sub_info_content.SubInfoDialogFragmentVideo"
+        android:label="SubInfoDialogFragmentVideo">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/trainingFragment"
+        android:name="com.progressterra.ipbandroidview.ui.feeds.TrainingFragment"
+        android:label="TrainingFragment" />
+</navigation>
