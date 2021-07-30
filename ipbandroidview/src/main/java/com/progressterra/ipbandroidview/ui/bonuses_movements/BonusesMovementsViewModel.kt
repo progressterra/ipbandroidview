@@ -1,7 +1,5 @@
-package com.progressterra.ipbandroidview.ui.bonus_movement_mine
+package com.progressterra.ipbandroidview.ui.bonuses_movements
 
-import android.text.format.DateUtils
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -9,8 +7,8 @@ import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
-import com.progressterra.ipbandroidview.ui.bonus_movement_mine.adapter.Transaction
-import com.progressterra.ipbandroidview.ui.bonus_movement_mine.adapter.TransactionWithDate
+import com.progressterra.ipbandroidview.ui.bonuses_movements.adapter.Transaction
+import com.progressterra.ipbandroidview.ui.bonuses_movements.adapter.TransactionWithDate
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class TransactionsViewModel : BaseViewModel() {
+internal class BonusesMovementsViewModel : BaseViewModel() {
 
     private val bonusesApi = BonusesApi.getInstance()
 
@@ -63,61 +61,13 @@ class TransactionsViewModel : BaseViewModel() {
             )
         }
 
-        val result = convertToTransactionsWithDate(data)
+        val result = TransactionWithDate.convertToTransactionsWithDate(data)
 
         _transactionList.postValue(result)
-    }
-
-    fun convertToTransactionsWithDate(transactions: List<Transaction>): List<TransactionWithDate> {
-        if (transactions.isEmpty()) return emptyList()
-
-        val transactionsWithDate = mutableListOf<TransactionWithDate>()
-
-        val now = Date(System.currentTimeMillis())
-
-        if (transactions.firstOrNull()?.rawDate?.date?.compareTo(now.date) == 0) {
-            transactionsWithDate.add(TransactionWithDate(null, "Сегодня"))
-        } else {
-            transactionsWithDate.add(
-                TransactionWithDate(
-                    null,
-                    transactions.firstOrNull()?.formattedDate
-                )
-            )
-        }
-
-        for (i in transactions.indices) {
-            transactionsWithDate.add(TransactionWithDate(transactions[i], null))
-
-            if (transactions[i].formattedDate != transactions.getOrNull(i + 1)?.formattedDate) {
-                transactions.getOrNull(i + 1)?.let {
-                    transactionsWithDate.add(
-                        TransactionWithDate(
-                            null,
-                            it.formattedDate
-                        )
-                    )
-                }
-            }
-        }
-        return transactionsWithDate
-
-    }
-
-    private fun dateType(date: Date, formatted: String): String {
-        return if (DateUtils.isToday(date.time)) formatted else "Сегодня"
     }
 
     private suspend fun getToken(): String {
         val response = bonusesApi.getAccessToken()
         return response.responseBody?.accessToken.orIfNull { throw Exception(response.errorString) }
     }
-}
-
-inline fun <T> tryOrNull(block: () -> T): T? = try {
-    block.invoke()
-} catch (e: Exception) {
-    Log.e("tryOrNull", "${e.message}")
-    e.printStackTrace()
-    null
 }

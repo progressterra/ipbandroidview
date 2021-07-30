@@ -1,35 +1,35 @@
-package com.progressterra.ipbandroidview.ui.bonus_movement_mine.adapter
+package com.progressterra.ipbandroidview.ui.bonuses_movements.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.ItemTransactionDateBinding
-import com.progressterra.ipbandroidview.databinding.ItemTransationBinding
+import com.progressterra.ipbandroidview.databinding.ItemBonusesMovementsBinding
+import com.progressterra.ipbandroidview.databinding.ItemBonusesMovementsDateBinding
 
 
 const val DATE_TYPE = 0
 const val TRANSACTION_TYPE = 1
 
-class TransactionsAdapter(var items: List<TransactionWithDate>) :
+internal class BonusesMovementsAdapter(var items: List<TransactionWithDate>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         if (viewType == TRANSACTION_TYPE) {
-            return TransactionsViewHolder(
+            return QuantityViewHolder(
                 DataBindingUtil.inflate(
                     inflater,
-                    R.layout.item_transation,
+                    R.layout.item_bonuses_movements,
                     parent,
                     false
                 )
             )
         } else {
-            return TransactionsDateViewHolder(
+            return DateViewHolder(
                 DataBindingUtil.inflate(
                     inflater,
-                    R.layout.item_transaction_date,
+                    R.layout.item_bonuses_movements_date,
                     parent,
                     false
                 )
@@ -39,10 +39,10 @@ class TransactionsAdapter(var items: List<TransactionWithDate>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == TRANSACTION_TYPE) {
-            (holder as TransactionsViewHolder).bind(items[position].transaction)
+            (holder as QuantityViewHolder).bind(items[position].transaction)
 
         } else if (getItemViewType(position) == DATE_TYPE) {
-            (holder as TransactionsDateViewHolder).bind(
+            (holder as DateViewHolder).bind(
                 items[position].dateType ?: ""
             )
         }
@@ -58,28 +58,28 @@ class TransactionsAdapter(var items: List<TransactionWithDate>) :
         } else
             TRANSACTION_TYPE
     }
-}
 
-class TransactionsViewHolder(var binding: ItemTransationBinding) :
-    RecyclerView.ViewHolder(binding.root) {
-    fun bind(item: Transaction?) {
-        if (item == null) return
+    inner class QuantityViewHolder(var binding: ItemBonusesMovementsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Transaction?) {
+            if (item == null) return
 
-        binding.item = item
+            binding.item = item
 
-        if (item.quantity >= 0) {
-            binding.ivTransactionStatus.setImageResource(R.drawable.ic_transaction_positive)
-        } else {
-            binding.ivTransactionStatus.setImageResource(R.drawable.ic_transaction_negative)
+            if (item.quantity >= 0) {
+                binding.ivTransactionStatus.setImageResource(R.drawable.ic_transaction_positive)
+            } else {
+                binding.ivTransactionStatus.setImageResource(R.drawable.ic_transaction_negative)
+            }
         }
     }
-}
 
-class TransactionsDateViewHolder(var binding: ItemTransactionDateBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+    inner class DateViewHolder(var binding: ItemBonusesMovementsDateBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(date: String) {
-        binding.tvTransactionsDate.text = date
+        fun bind(date: String) {
+            binding.tvTransactionsDate.text = date
+        }
+
     }
-
 }

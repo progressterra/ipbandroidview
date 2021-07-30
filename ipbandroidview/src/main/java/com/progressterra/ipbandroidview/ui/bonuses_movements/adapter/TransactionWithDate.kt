@@ -1,8 +1,8 @@
-package com.progressterra.ipbandroidview.ui.bonus_movement_mine.adapter
+package com.progressterra.ipbandroidview.ui.bonuses_movements.adapter
 
 import java.util.*
 
-class TransactionWithDate(
+internal class TransactionWithDate(
     val transaction: Transaction?,
     val dateType: String?
 ) {

@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.progressterra.ipbandroidview.ui.bonus_movement_mine.TransactionsViewModel" />
+            type="com.progressterra.ipbandroidview.ui.bonuses_movements.BonusesMovementsViewModel" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -29,11 +29,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <androidx.appcompat.widget.AppCompatButton
                 style="@style/Button.Filled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> vm.getInfo(false)}"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
                 android:text="Обновить"
                 android:visibility="@{vm.screenState.isError()}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +51,7 @@
                 android:layout_height="match_parent"
                 android:visibility="@{vm.screenState.isDefault()}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_transation"
+                tools:listitem="@layout/item_bonuses_movements_date"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

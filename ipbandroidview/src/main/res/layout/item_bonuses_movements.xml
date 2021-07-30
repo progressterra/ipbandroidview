@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.progressterra.ipbandroidview.ui.bonus_movement_mine.adapter.Transaction" />
+            type="com.progressterra.ipbandroidview.ui.bonuses_movements.adapter.Transaction" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
