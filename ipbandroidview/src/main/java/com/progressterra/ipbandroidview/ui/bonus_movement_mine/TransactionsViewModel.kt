@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.ui.bonus_movement_mine
 
 import android.text.format.DateUtils
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
-import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.bonus_movement_mine.adapter.Transaction
@@ -19,9 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class TransactionsViewModel(
-//    private val transactionsInteractorImpl: TransactionsInteractor
-) : BaseViewModel() {
+class TransactionsViewModel : BaseViewModel() {
 
     private val bonusesApi = BonusesApi.getInstance()
 
@@ -52,16 +50,16 @@ class TransactionsViewModel(
 
     private suspend fun updateInfo() {
         val token = getToken()
-        val response = bonusesApi.getTransactionsList(token)
+        val response = bonusesApi.getTransactionsRaw(token)
         val rawData = response.responseBody.orIfNull { throw Exception(response.errorString) }
         val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
         val data = rawData.map {
             Transaction(
-                formattedDate = sdf.format(it.dateEvent.parseToDate()),
+                formattedDate = sdf.format(it.dateEvent),
                 quantity = it.quantity,
                 typeBonusName = it.typeBonusName,
                 typeOperation = it.typeOperation,
-                rawDate = it.dateEvent.parseToDate()
+                rawDate = it.dateEvent
             )
         }.map {
             TransactionWithDate(
@@ -81,4 +79,12 @@ class TransactionsViewModel(
         val response = bonusesApi.getAccessToken()
         return response.responseBody?.accessToken.orIfNull { throw Exception(response.errorString) }
     }
+}
+
+inline fun <T> tryOrNull(block: () -> T): T? = try {
+    block.invoke()
+} catch (e: Exception) {
+    Log.e("tryOrNull", "${e.message}")
+    e.printStackTrace()
+    null
 }
