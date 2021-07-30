@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.login.country
 
 import androidx.lifecycle.*
 import androidx.navigation.NavDirections
+import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
@@ -13,7 +14,7 @@ import java.util.*
 
 internal class CountryViewModel(
     private val loginFlowSettings: LoginFlowSettings
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val allCountry = Country.values().asList()
     private val locale = Locale.getDefault()
@@ -32,9 +33,6 @@ internal class CountryViewModel(
             )
         }
     }
-
-    private val _action = MutableLiveData<Event<NavDirections>>()
-    val action: LiveData<Event<NavDirections>> = _action
 
     fun onItemClick(selectedCountry: String) {
         _action.value =
