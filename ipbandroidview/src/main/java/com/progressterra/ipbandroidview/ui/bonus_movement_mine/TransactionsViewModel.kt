@@ -61,14 +61,47 @@ class TransactionsViewModel : BaseViewModel() {
                 typeOperation = it.typeOperation,
                 rawDate = it.dateEvent
             )
-        }.map {
-            TransactionWithDate(
-                transaction = it,
-                dateType = dateType(it.rawDate ?: Date(), it.formattedDate)
+        }
+
+        val result = convertToTransactionsWithDate(data)
+
+        _transactionList.postValue(result)
+    }
+
+    fun convertToTransactionsWithDate(transactions: List<Transaction>): List<TransactionWithDate> {
+        if (transactions.isEmpty()) return emptyList()
+
+        val transactionsWithDate = mutableListOf<TransactionWithDate>()
+
+        val now = Date(System.currentTimeMillis())
+
+        if (transactions.firstOrNull()?.rawDate?.date?.compareTo(now.date) == 0) {
+            transactionsWithDate.add(TransactionWithDate(null, "Сегодня"))
+        } else {
+            transactionsWithDate.add(
+                TransactionWithDate(
+                    null,
+                    transactions.firstOrNull()?.formattedDate
+                )
             )
         }
 
-        _transactionList.postValue(data)
+        for (i in transactions.indices) {
+            transactionsWithDate.add(TransactionWithDate(transactions[i], null))
+
+            if (transactions[i].formattedDate != transactions.getOrNull(i + 1)?.formattedDate) {
+                transactions.getOrNull(i + 1)?.let {
+                    transactionsWithDate.add(
+                        TransactionWithDate(
+                            null,
+                            it.formattedDate
+                        )
+                    )
+                }
+            }
+        }
+        return transactionsWithDate
+
     }
 
     private fun dateType(date: Date, formatted: String): String {

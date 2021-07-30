@@ -15,41 +15,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?app_backgroundColor">
+            android:layout_height="match_parent">
 
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="@{vm.screenState.isLoading()}" />
+                android:visibility="@{vm.screenState.isLoading()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 style="@style/Button.Filled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:onClick="@{() -> vm.getInfo(false)}"
                 android:text="Обновить"
-                android:visibility="@{vm.screenState.isError()}" />
+                android:visibility="@{vm.screenState.isError()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_transactions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{vm.screenState.isDefault()}">
+                android:visibility="@{vm.screenState.isDefault()}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_transation"
+                tools:visibility="visible" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_transactions"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_transation"
-                    tools:visibility="visible" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>

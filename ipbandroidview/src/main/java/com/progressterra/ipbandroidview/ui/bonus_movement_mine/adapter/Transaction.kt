@@ -7,7 +7,7 @@ data class Transaction(
     val quantity: Int,
     val typeBonusName: String,
     val typeOperation: Int,
-    val rawDate: Date?
+    val rawDate: Date
 ){
     companion object{
 
