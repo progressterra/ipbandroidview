@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.databinding.FragmentTransactionsBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.bonus_movement_mine.adapter.TransactionsAdapter
 import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.utils.ScreenState
 
 class TransactionsFragment : BaseFragment() {
 
@@ -39,6 +40,10 @@ class TransactionsFragment : BaseFragment() {
         }
         binding.swipeRefresh.setOnRefreshListener { vm.getInfo(true) }
         vm.showError.observe(viewLifecycleOwner, this::showError)
+        vm.screenState.observe(viewLifecycleOwner) {
+            if (it != ScreenState.LOADING)
+                binding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun showError(errorEvent: Event<Int>) {

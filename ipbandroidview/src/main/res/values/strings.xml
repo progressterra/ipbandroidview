@@ -69,5 +69,6 @@
     <string name="your_sex">Ваш пол:</string>
 
     <string name="network_error">Ошибка при получении данных</string>
+    <string name="transaction">%d баллов</string>
 
 </resources>
