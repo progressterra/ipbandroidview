@@ -68,4 +68,6 @@
     <string name="user_data_error">Ошибка при указании пользовательских данных</string>
     <string name="your_sex">Ваш пол:</string>
 
+    <string name="network_error">Ошибка при получении данных</string>
+
 </resources>
