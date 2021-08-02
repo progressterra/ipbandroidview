@@ -26,7 +26,7 @@ class CountryFragment : BaseFragment() {
 
     private lateinit var binding: FragmentCountryBinding
 
-    private val vm: CountryViewModel by viewModels {
+    override internal val vm: CountryViewModel by viewModels {
         CountryViewModelFactory(
             loginFlowSettings = args.loginFlowSettings
         )
