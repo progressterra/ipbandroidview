@@ -36,8 +36,8 @@ open class BaseViewModel : ViewModel() {
         _action.postValue(Event(action))
     }
 
-    internal inline fun <T> tryWithState(tryBlock: () -> T): T? =
-        try {
+    internal inline fun <T> tryWithState(tryBlock: () -> T): T? {
+        return try {
             _screenState.postValue(ScreenState.LOADING)
             val data = tryBlock.invoke()
             _screenState.postValue(ScreenState.DEFAULT)
@@ -49,4 +49,5 @@ open class BaseViewModel : ViewModel() {
             _screenState.postValue(ScreenState.ERROR)
             null
         }
+    }
 }
