@@ -98,7 +98,7 @@
             app:layout_constraintStart_toStartOf="@id/btn_add_new_address"
             app:layout_constraintTop_toTopOf="@id/btn_add_new_address" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_new_address"
             setLoadStateToButton="@{vm.addAddressStatus.loading}"
             android:layout_width="match_parent"
