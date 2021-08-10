@@ -93,26 +93,23 @@ class AddNewAddressViewModel :
     }
 
     fun setAddressFromSuggestion(suggestion: Suggestion) {
-        _address.postValue(suggestion.data?.convertToUIModel())
+        _address.value = suggestion.data?.convertToUIModel()
         addressValidation()
     }
 
     // установка эатажа
     fun setFloor(floor: String) {
         _address.postValue(address.value?.copy(floor = floor))
-        addressValidation()
     }
 
     // установка номера квартиры
     fun setFlatNumber(number: String) {
         _address.postValue(address.value?.copy(apartment = number))
-        addressValidation()
     }
 
     // установка номера подъезда
     fun setEntranceNumber(number: String) {
         _address.postValue(address.value?.copy(entrance = number))
-        addressValidation()
     }
 
     private fun addressValidation() {
