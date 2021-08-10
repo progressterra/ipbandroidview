@@ -46,6 +46,7 @@ class ListOfAddressesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvListOfAddress.adapter = adapter
+        binding.rvListOfAddress.itemAnimator = null
 
         binding.tvAddAddress.setOnClickListener {
             findNavController().navigate(R.id.action_listOfAddressesFragment_to_addNewAddressFragment)

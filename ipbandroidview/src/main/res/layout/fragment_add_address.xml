@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/et_main_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
             app:layout_constraintTop_toBottomOf="@id/et_main_address" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/et_flat_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,6 +58,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_set_entrance_and_floor" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/et_entrance_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,6 +69,7 @@
             app:layout_constraintTop_toTopOf="@id/et_flat_number" />
 
         <EditText
+            android:singleLine="true"
             android:id="@+id/et_floor_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,6 +103,7 @@
             app:layout_constraintTop_toTopOf="@id/btn_add_new_address" />
 
         <androidx.appcompat.widget.AppCompatButton
+            android:background="@color/theme_color"
             android:id="@+id/btn_add_new_address"
             setLoadStateToButton="@{vm.addAddressStatus.loading}"
             android:layout_width="match_parent"
