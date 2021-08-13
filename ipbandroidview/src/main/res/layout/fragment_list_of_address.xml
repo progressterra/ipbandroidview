@@ -47,6 +47,7 @@
 
             <Button
                 android:id="@+id/tv_add_address"
+                style="@style/Button.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
