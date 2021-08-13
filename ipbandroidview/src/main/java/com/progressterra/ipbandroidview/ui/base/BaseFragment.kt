@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.utils.ToastBundle
 
 open class BaseFragment : Fragment() {
 
-    internal open val vm by viewModels<BaseViewModel>()
+    protected open val vm by viewModels<BaseViewModel>()
 
     protected open fun showToast(event: Event<ToastBundle>) {
         val toastBundle = event.contentIfNotHandled
