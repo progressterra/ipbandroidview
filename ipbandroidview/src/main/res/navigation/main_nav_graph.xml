@@ -27,11 +27,17 @@
         app:destination="@id/login_flow"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim">
-        
+
         <argument
             android:name="loginFlowSettings"
             app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings" />
     </action>
+
+    <action
+        android:id="@+id/action_global_addresses_flow"
+        app:destination="@id/addresses_flow"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
 
     <action
         android:id="@+id/action_global_base_flow"
