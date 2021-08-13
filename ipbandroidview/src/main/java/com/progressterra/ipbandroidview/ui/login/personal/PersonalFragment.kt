@@ -15,7 +15,7 @@ import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentPersonalBinding
+import com.progressterra.ipbandroidview.databinding.FragmentPersonalLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
@@ -44,13 +44,13 @@ class PersonalFragment : BaseFragment() {
         )
     }
 
-    private lateinit var binding: FragmentPersonalBinding
+    private lateinit var binding: FragmentPersonalLibBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPersonalBinding.inflate(inflater, container, false)
+        binding = FragmentPersonalLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -156,7 +156,7 @@ class PersonalFragment : BaseFragment() {
         val spinnerAdapter =
             NoPaddingArrayAdapter(
                 requireContext(),
-                R.layout.item_city,
+                R.layout.item_city_lib,
                 citiesList
             ).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

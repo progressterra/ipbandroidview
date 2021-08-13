@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentCountryBinding
-import com.progressterra.ipbandroidview.databinding.ItemCountryBinding
+import com.progressterra.ipbandroidview.databinding.FragmentCountryLibBinding
+import com.progressterra.ipbandroidview.databinding.ItemCountryLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
@@ -24,35 +24,37 @@ class CountryFragment : BaseFragment() {
 
     private val args: CountryFragmentArgs by navArgs()
 
-    private lateinit var binding: FragmentCountryBinding
+    private lateinit var binding: FragmentCountryLibBinding
 
-    override internal val vm: CountryViewModel by viewModels {
+    override val vm: CountryViewModel by viewModels {
         CountryViewModelFactory(
             loginFlowSettings = args.loginFlowSettings
         )
     }
 
     private val adapter =
-        RecyclerViewAdapter<CountryUi>(R.layout.item_country, onNormalBind = { binding, country ->
-            (binding as ItemCountryBinding).apply {
-                lifecycleOwner = viewLifecycleOwner
-                item = country
-                vm = this@CountryFragment.vm
-                itemCountry.setOnClickListener {
-                    setFragmentResult(
-                        LoginKeys.AUTH_COUNTRY,
-                        bundleOf(LoginKeys.AUTH_NEW_COUNTRY to country.name)
-                    )
-                    findNavController().popBackStack()
+        RecyclerViewAdapter<CountryUi>(
+            R.layout.item_country_lib,
+            onNormalBind = { binding, country ->
+                (binding as ItemCountryLibBinding).apply {
+                    lifecycleOwner = viewLifecycleOwner
+                    item = country
+                    vm = this@CountryFragment.vm
+                    itemCountry.setOnClickListener {
+                        setFragmentResult(
+                            LoginKeys.AUTH_COUNTRY,
+                            bundleOf(LoginKeys.AUTH_NEW_COUNTRY to country.name)
+                        )
+                        findNavController().popBackStack()
+                    }
                 }
-            }
-        })
+            })
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_country, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_country_lib, container, false)
         return binding.root
     }
 

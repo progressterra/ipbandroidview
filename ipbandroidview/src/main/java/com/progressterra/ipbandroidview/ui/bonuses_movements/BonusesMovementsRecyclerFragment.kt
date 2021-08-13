@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
-import com.progressterra.ipbandroidview.databinding.FragmentBonusesMovementsBinding
+import com.progressterra.ipbandroidview.databinding.FragmentBonusesMovementsLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.bonuses_movements.adapter.BonusesMovementsAdapter
 import com.progressterra.ipbandroidview.utils.Event
@@ -16,7 +16,7 @@ class BonusesMovementsRecyclerFragment : BaseFragment() {
 
     override val vm by viewModels<BonusesMovementsViewModel>()
 
-    private lateinit var binding: FragmentBonusesMovementsBinding
+    private lateinit var binding: FragmentBonusesMovementsLibBinding
 
     private val adapter = BonusesMovementsAdapter(emptyList())
 
@@ -25,7 +25,7 @@ class BonusesMovementsRecyclerFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBonusesMovementsBinding.inflate(inflater, container, false)
+        binding = FragmentBonusesMovementsLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 

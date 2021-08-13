@@ -8,11 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesOrderTabBinding
+import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesOrderTabLibBinding
 import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
 
 internal class BonusesTabOrderFragment : Fragment() {
-    private lateinit var binding: FragmentDetailBonusesOrderTabBinding
+    private lateinit var binding: FragmentDetailBonusesOrderTabLibBinding
     private val viewModel: BonusesDetailsViewModel by activityViewModels()
     internal var onPurchaseClickListener: OnPurchaseClickListener? = null
 
@@ -24,7 +24,7 @@ internal class BonusesTabOrderFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_detail_bonuses_order_tab,
+            R.layout.fragment_detail_bonuses_order_tab_lib,
             container,
             false
         )
