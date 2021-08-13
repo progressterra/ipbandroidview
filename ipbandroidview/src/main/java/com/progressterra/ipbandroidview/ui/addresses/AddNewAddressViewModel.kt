@@ -42,7 +42,9 @@ class AddNewAddressViewModel :
 
     // получение списка подсказок
     fun getSuggestions(query: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+            Log.d("http", throwable.toString())
+        }) {
             addressApi.getSuggestionsAddressFromDadata(query).let {
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                     _suggestions.postValue(it.responseBody?.suggestions ?: emptyList())
