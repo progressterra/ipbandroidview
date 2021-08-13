@@ -18,7 +18,7 @@
             android:id="@+id/text_of_suggestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{item.value}"
+            android:text="@{item.previewOfSuggestion }"
             android:textColor="@color/black"
             android:textSize="18sp" />
 

@@ -5,10 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
-import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressUI
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
+import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
@@ -54,7 +55,7 @@ class ListOfAddressesViewModel :
 
             addressApi.getAddressList(accessToken).let {
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    _listOfAddress.postValue(it.responseBody?.convertToUiModel())
+                    _listOfAddress.postValue(AddressesMapper.convertDtoToAddressUiModel(it.responseBody))
                     _screenState.postValue(ScreenState.DEFAULT)
                 } else {
                     _screenState.postValue(ScreenState.ERROR)
@@ -91,7 +92,10 @@ class ListOfAddressesViewModel :
                 defaultShipping = sdf.format(currentDate)
             }
 
-            addressApi.updateClientAddress(accessToken, address).let {
+            addressApi.updateClientAddress(
+                accessToken,
+                AddressesMapper.convertAddressUiModelToDto(address)
+            ).let {
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                     getListOfAddresses()
                     _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_success)))

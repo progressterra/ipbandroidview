@@ -5,11 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
-import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressUI
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.dadata.Suggestion
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
+import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
@@ -79,7 +80,10 @@ class AddNewAddressViewModel :
                 }
             }
 
-            addressApi.addClientAddress(accessToken, address.value!!).let {
+            addressApi.addClientAddress(
+                accessToken,
+                AddressesMapper.convertAddressUiModelToDto(address.value!!)
+            ).let {
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                     _toastBundle.postValue(Event(ToastBundle(R.string.add_address_success)))
                     _popBackStack.postValue(Event(true))
@@ -93,7 +97,8 @@ class AddNewAddressViewModel :
     }
 
     fun setAddressFromSuggestion(suggestion: Suggestion) {
-        _address.value = suggestion.data?.convertToUIModel()
+        _address.value =
+            suggestion.suggestionExtendedInfo?.let { AddressesMapper.convertSuggestionToAddressUIModel(it) }
         addressValidation()
     }
 

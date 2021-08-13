@@ -28,7 +28,7 @@ class AddNewAddressFragment : BaseFragment() {
                     item = suggestion
                     suggestionBinding.root.setOnClickListener {
                         viewModel.setAddressFromSuggestion(suggestion)
-                        binding.etMainAddress.setText(suggestion.value ?: "")
+                        binding.etMainAddress.setText(suggestion.previewOfSuggestion ?: "")
                     }
                 }
             })

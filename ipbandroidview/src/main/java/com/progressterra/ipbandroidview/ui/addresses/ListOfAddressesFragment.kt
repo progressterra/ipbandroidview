@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressUI
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentListOfAddressBinding
 import com.progressterra.ipbandroidview.databinding.ItemAddressBinding
+import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
