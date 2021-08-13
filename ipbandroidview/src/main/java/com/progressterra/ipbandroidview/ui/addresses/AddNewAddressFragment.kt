@@ -82,7 +82,8 @@ class AddNewAddressFragment : BaseFragment() {
             }
 
             etMainAddress.setOnItemClickListener { parent, view, position, id ->
-                adapter.getItem(position)?.let { vm.setAddressFromSuggestion(it) }
+                adapter.getItem(position)
+                    ?.let { this@AddNewAddressFragment.vm.setAddressFromSuggestion(it) }
                 binding.etMainAddress.setText(
                     adapter.getItem(position)?.previewOfSuggestion ?: "",
                     false
