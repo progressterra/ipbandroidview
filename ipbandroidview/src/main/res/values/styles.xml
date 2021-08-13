@@ -50,6 +50,7 @@
         <item name="app_textFootnote1Color">@color/color_textFootnote</item>
         <item name="app_textFootnote2Color">@color/color_textFootnote</item>
         <item name="app_textFootnoteAttentionColor">@color/color_textFootnoteAttention</item>
+        <item name="app_textAttentionColor">@color/color_textFootnoteAttention</item>
 
 
         <!-- Круги в подтверждении номера -->
