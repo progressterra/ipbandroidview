@@ -77,7 +77,7 @@
     <string name="entrance">Подъезд</string>
     <string name="floor">Этаж</string>
     <string name="add_address">Добавить адрес</string>
-    <string name="add_new_address">Добавить адресс</string>
+    <string name="add_new_address">Добавить адрес</string>
     <string name="address_by_default">По умолчанию</string>
     <string name="suggestions_error">Ошибка при получении подсказок</string>
     <string name="add_address_error">Ошибка при добавлении адреса</string>
