@@ -16,6 +16,7 @@
 
         <TextView
             android:id="@+id/tv_address_of_delivery"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -25,7 +26,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:singleLine="true"
             android:id="@+id/et_main_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,10 +33,12 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
             android:hint="@string/input_address_of_delivery"
+            android:singleLine="true"
             app:layout_constraintTop_toBottomOf="@id/tv_address_of_delivery" />
 
         <TextView
             android:id="@+id/tv_set_entrance_and_floor"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -46,34 +48,37 @@
             app:layout_constraintTop_toBottomOf="@id/et_main_address" />
 
         <EditText
-            android:singleLine="true"
             android:id="@+id/et_flat_number"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/flat"
+            android:singleLine="true"
             android:text="@{vm.address.apartment}"
             app:layout_constraintEnd_toStartOf="@id/et_entrance_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_set_entrance_and_floor" />
 
         <EditText
-            android:singleLine="true"
             android:id="@+id/et_entrance_number"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/entrance"
+            android:singleLine="true"
             android:text="@{vm.address.entrance}"
             app:layout_constraintEnd_toStartOf="@id/et_floor_number"
             app:layout_constraintStart_toEndOf="@id/et_flat_number"
             app:layout_constraintTop_toTopOf="@id/et_flat_number" />
 
         <EditText
-            android:singleLine="true"
             android:id="@+id/et_floor_number"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/floor"
+            android:singleLine="true"
             android:text="@{vm.address.floor}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/et_entrance_number"

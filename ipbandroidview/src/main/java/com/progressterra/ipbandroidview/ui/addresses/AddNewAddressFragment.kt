@@ -9,21 +9,21 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.dadata.Suggestion
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentAddAddressBinding
-import com.progressterra.ipbandroidview.databinding.ItemSuggestionsBinding
+import com.progressterra.ipbandroidview.databinding.FragmentAddAddressLibBinding
+import com.progressterra.ipbandroidview.databinding.ItemSuggestionsLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
 class AddNewAddressFragment : BaseFragment() {
-    private lateinit var binding: FragmentAddAddressBinding
+    private lateinit var binding: FragmentAddAddressLibBinding
     override val vm: AddNewAddressViewModel by viewModels()
 
 
     private val adapter =
         RecyclerViewAdapter<Suggestion>(
-            R.layout.item_suggestions,
+            R.layout.item_suggestions_lib,
             onNormalBind = { suggestionBinding, suggestion ->
-                (suggestionBinding as ItemSuggestionsBinding).apply {
+                (suggestionBinding as ItemSuggestionsLibBinding).apply {
                     lifecycleOwner = viewLifecycleOwner
                     item = suggestion
                     suggestionBinding.root.setOnClickListener {
@@ -38,10 +38,7 @@ class AddNewAddressFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAddAddressBinding.inflate(inflater, container, false).apply {
-            vm = this@AddNewAddressFragment.vm
-            lifecycleOwner = this@AddNewAddressFragment
-        }
+        binding = FragmentAddAddressLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -89,6 +86,10 @@ class AddNewAddressFragment : BaseFragment() {
     }
 
     private fun setupView() {
+        binding.apply {
+            vm = this@AddNewAddressFragment.vm
+            lifecycleOwner = viewLifecycleOwner
+        }
         binding.rvFoundAddresses.adapter = adapter
     }
 

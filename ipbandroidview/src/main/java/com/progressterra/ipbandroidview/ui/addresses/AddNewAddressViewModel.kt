@@ -43,7 +43,7 @@ class AddNewAddressViewModel :
     // получение списка подсказок
     fun getSuggestions(query: String) {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
-            Log.d("http", throwable.toString())
+            Log.e("http", throwable.toString())
         }) {
             addressApi.getSuggestionsAddressFromDadata(query).let {
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
@@ -58,7 +58,7 @@ class AddNewAddressViewModel :
     // добавление нового адреса
     fun addNewAddress() {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            Log.d("http", throwable.toString())
+            Log.e("http", throwable.toString())
             _addAddressStatus.postValue(ScreenState.ERROR)
             _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
         }) {

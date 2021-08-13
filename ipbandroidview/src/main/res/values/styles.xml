@@ -132,6 +132,12 @@
         <item name="android:textColor">?app_textFootnoteAttentionColor</item>
     </style>
 
+    <style name="Text.BodyAttention">
+        <item name="android:textSize">?app_textBodySize</item>
+        <item name="lineSpacing">?app_textFootnoteAttentionSpacing</item>
+        <item name="android:textColor">?app_textFootnoteAttentionColor</item>
+    </style>
+
     <style name="Text.Forms" parent="Text.CalloutButton1">
         <item name="android:textColor">?app_formsTextColor</item>
     </style>

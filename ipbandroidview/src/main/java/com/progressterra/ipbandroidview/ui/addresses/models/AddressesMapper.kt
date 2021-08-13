@@ -94,20 +94,18 @@ object AddressesMapper {
             listOfAddressesResponse?.addressInfo?.defaultShippingAddress?.idUnique
         val defaultBillingAddressId =
             listOfAddressesResponse?.addressInfo?.defaultBillingAddress?.idUnique
-        val convertedAddresses = mutableListOf<AddressUI>()
 
-        listOfAddressesResponse?.addressInfo?.listAddress?.map {
-            convertedAddresses.add(
-                AddressUI(
-                    idUnique = it.idUnique,
-                    nameCity = it.nameCity,
-                    postalCode = it.postalCode,
-                    building = it.building,
-                    apartment = it.apartment,
-                    floor = it.floor,
-                    nameStreet = it.nameStreet,
-                    entrance = it.entrance,
-                    isDefaultShippingAddress = it.idUnique == defaultShippingAddressId,
+        return listOfAddressesResponse?.addressInfo?.listAddress?.map {
+            AddressUI(
+                idUnique = it.idUnique,
+                nameCity = it.nameCity,
+                postalCode = it.postalCode,
+                building = it.building,
+                apartment = it.apartment,
+                floor = it.floor,
+                nameStreet = it.nameStreet,
+                entrance = it.entrance,
+                isDefaultShippingAddress = it.idUnique == defaultShippingAddressId,
                     isDefaultBillingAddress = it.idUnique == defaultBillingAddressId,
                     idClient = it.idClient,
                     dateAdded = it.dateAdded,
@@ -128,19 +126,16 @@ object AddressesMapper {
                     kladrCity = it.kladrCity,
                     kladrArea = it.kladrArea,
                     kladrDistrict = it.kladrArea,
-                    kladrStreet = it.kladrStreet,
-                    kladrHouse = it.kladrHouse,
-                    nameCountry = it.nameCountry,
-                    nameRegion = it.nameRegion,
-                    nameArea = it.nameArea,
-                    nameDistrict = it.nameDistrict,
-                    houseNUmber = it.houseNUmber,
-                    latitude = it.latitude,
-                    longitude = it.longitude
-                )
+                kladrStreet = it.kladrStreet,
+                kladrHouse = it.kladrHouse,
+                nameCountry = it.nameCountry,
+                nameRegion = it.nameRegion,
+                nameArea = it.nameArea,
+                nameDistrict = it.nameDistrict,
+                houseNUmber = it.houseNUmber,
+                latitude = it.latitude,
+                longitude = it.longitude
             )
-        }
-
-        return convertedAddresses
+        } ?: emptyList()
     }
 }

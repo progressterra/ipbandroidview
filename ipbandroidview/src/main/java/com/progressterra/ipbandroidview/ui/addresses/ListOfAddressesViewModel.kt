@@ -34,7 +34,7 @@ class ListOfAddressesViewModel :
 
     fun getListOfAddresses() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
-            Log.d("http", throwable.toString())
+            Log.e("http", throwable.toString())
             _screenState.postValue(ScreenState.ERROR)
         }) {
             var accessToken: String
@@ -68,7 +68,7 @@ class ListOfAddressesViewModel :
     fun setCurrentAddressAsDefault(address: AddressUI) {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
             _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_error)))
-            Log.d("http", throwable.toString())
+            Log.e("http", throwable.toString())
         }) {
 
             var accessToken: String
@@ -85,7 +85,7 @@ class ListOfAddressesViewModel :
             // устанавливаем даты в адресе текущим днем, так как логика на сервере устанавливает адреса с
             // более новыми датами, как адресс по умолчанию
             address.apply {
-                val currentDate = Date(System.currentTimeMillis())
+                val currentDate = Date()
                 val sdf = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
                 sdf.timeZone = TimeZone.getTimeZone("Europe/Moscow")
                 defaultBilling = sdf.format(currentDate)

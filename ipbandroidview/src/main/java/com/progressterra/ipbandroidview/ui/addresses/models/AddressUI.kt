@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.ui.addresses.models
 
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.Address
-
 
 data class AddressUI(
     var idUnique: String? = null,
@@ -67,46 +65,5 @@ data class AddressUI(
             address += ", п $it "
         }
         return address
-    }
-
-    fun convertToUpdateAddressRequest(): Address {
-        return Address(
-            idUnique = idUnique,
-            nameCity = nameCity,
-            postalCode = postalCode,
-            building = building,
-            apartment = apartment,
-            floor = floor,
-            nameStreet = nameStreet,
-            entrance = entrance,
-            idClient = idClient,
-            dateAdded = dateAdded,
-            dateVerification = dateVerification,
-            idManagerVerification = idManagerVerification,
-            dateDeactivation = dateDeactivation,
-            defaultBilling = defaultBilling,
-            defaultShipping = defaultShipping,
-            fiasIDCountry = fiasIDCountry,
-            fiasIDRegion = fiasIDRegion,
-            fiasIDCity = fiasIDCity,
-            fiasIDArea = fiasIDArea,
-            fiasIDDistrict = fiasIDDistrict,
-            fiasIDHouse = fiasIDHouse,
-            fiasIDStreet = fiasIDStreet,
-            kladrCountry = kladrCountry,
-            kladrRegion = kladrRegion,
-            kladrCity = kladrCity,
-            kladrArea = kladrArea,
-            kladrDistrict = kladrArea,
-            kladrStreet = kladrStreet,
-            kladrHouse = kladrHouse,
-            nameCountry = nameCountry,
-            nameRegion = nameRegion,
-            nameArea = nameArea,
-            nameDistrict = nameDistrict,
-            houseNUmber = houseNUmber,
-            latitude = latitude,
-            longitude = longitude
-        )
     }
 }

@@ -17,6 +17,7 @@
 
         <TextView
             android:id="@+id/tv_index"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -27,17 +28,18 @@
 
         <TextView
             android:id="@+id/tv_is_default_address"
+            style="@style/Text.BodyAttention"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="@string/address_by_default"
-            android:textColor="@color/theme_color"
             android:visibility="@{item.isDefaultShippingAddress()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_city"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
@@ -48,6 +50,7 @@
 
         <TextView
             android:id="@+id/tv_address"
+            style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
