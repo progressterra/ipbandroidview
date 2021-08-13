@@ -28,7 +28,7 @@ class AddNewAddressViewModel :
     private val _suggestions = MutableLiveData<List<Suggestion>>()
     val suggestions: LiveData<List<Suggestion>> = _suggestions
 
-    private val _address = MutableLiveData<AddressUI>()
+    private val _address = MutableLiveData(AddressUI())
     val address: LiveData<AddressUI> = _address
 
     private val _popBackStack = MutableLiveData<Event<Boolean>>()
