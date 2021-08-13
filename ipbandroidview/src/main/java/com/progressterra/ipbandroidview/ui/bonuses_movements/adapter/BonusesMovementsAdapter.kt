@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.ItemBonusesMovementsBinding
-import com.progressterra.ipbandroidview.databinding.ItemBonusesMovementsDateBinding
+import com.progressterra.ipbandroidview.databinding.ItemBonusesMovementsDateLibBinding
+import com.progressterra.ipbandroidview.databinding.ItemBonusesMovementsLibBinding
 
 
 const val DATE_TYPE = 0
@@ -20,7 +20,7 @@ internal class BonusesMovementsAdapter(var items: List<TransactionWithDate>) :
             return QuantityViewHolder(
                 DataBindingUtil.inflate(
                     inflater,
-                    R.layout.item_bonuses_movements,
+                    R.layout.item_bonuses_movements_lib,
                     parent,
                     false
                 )
@@ -29,7 +29,7 @@ internal class BonusesMovementsAdapter(var items: List<TransactionWithDate>) :
             return DateViewHolder(
                 DataBindingUtil.inflate(
                     inflater,
-                    R.layout.item_bonuses_movements_date,
+                    R.layout.item_bonuses_movements_date_lib,
                     parent,
                     false
                 )
@@ -59,7 +59,7 @@ internal class BonusesMovementsAdapter(var items: List<TransactionWithDate>) :
             TRANSACTION_TYPE
     }
 
-    inner class QuantityViewHolder(var binding: ItemBonusesMovementsBinding) :
+    inner class QuantityViewHolder(var binding: ItemBonusesMovementsLibBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Transaction?) {
             if (item == null) return
@@ -74,7 +74,7 @@ internal class BonusesMovementsAdapter(var items: List<TransactionWithDate>) :
         }
     }
 
-    inner class DateViewHolder(var binding: ItemBonusesMovementsDateBinding) :
+    inner class DateViewHolder(var binding: ItemBonusesMovementsDateLibBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(date: String) {

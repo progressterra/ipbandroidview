@@ -10,20 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.progressterra.ipbandroidview.databinding.FragmentBonusesBinding
+import com.progressterra.ipbandroidview.databinding.FragmentBonusesLibBinding
 
 class BonusesBannerFragment : Fragment() {
 
     private val bonusesBannerViewModel: BonusesBannerViewModel by viewModels()
     private var onBntNextClickListener: View.OnClickListener? = null
-    private lateinit var fragmentBonusesBinding: FragmentBonusesBinding
+    private lateinit var fragmentBonusesBinding: FragmentBonusesLibBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragmentBonusesBinding = FragmentBonusesBinding.inflate(inflater, container, false)
+        fragmentBonusesBinding = FragmentBonusesLibBinding.inflate(inflater, container, false)
         return fragmentBonusesBinding.root
     }
 

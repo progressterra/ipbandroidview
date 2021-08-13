@@ -12,13 +12,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesBinding
+import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesLibBinding
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.*
 import com.progressterra.ipbandroidview.utils.ScreenState
 
 
 class BonusesDetailFragment : Fragment() {
-    private lateinit var binding: FragmentDetailBonusesBinding
+    private lateinit var binding: FragmentDetailBonusesLibBinding
     private val viewModel: BonusesDetailsViewModel by activityViewModels()
     private var onPurchaseClickListener: OnPurchaseClickListener? = null
 
@@ -41,7 +41,12 @@ class BonusesDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_detail_bonuses, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_detail_bonuses_lib,
+                container,
+                false
+            )
         return binding.root
     }
 

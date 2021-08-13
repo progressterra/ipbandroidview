@@ -20,7 +20,7 @@ class ZoomImageViewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_image_zoom_viewer, container, false)
+        return inflater.inflate(R.layout.fragment_image_zoom_viewer_lib, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
