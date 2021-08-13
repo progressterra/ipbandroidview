@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.addresses.models
 
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.Address
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.ListOfAddressesResponse
+import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.dadata.Suggestion
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.dadata.SuggestionExtendedInfo
 
 object AddressesMapper {
@@ -46,6 +47,15 @@ object AddressesMapper {
             isDefaultShippingAddress = null,
             isDefaultBillingAddress = null
         )
+    }
+
+    fun convertSuggestionsDtoToUIModels(suggestions: List<Suggestion>?): List<SuggestionUI> {
+        return suggestions?.map {
+            SuggestionUI(
+                suggestionExtendedInfo = it.suggestionExtendedInfo,
+                previewOfSuggestion = it.previewOfSuggestion
+            )
+        } ?: emptyList()
     }
 
     fun convertAddressUiModelToDto(addressUI: AddressUI): Address {

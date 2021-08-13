@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.dadata.Suggestion
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
+import com.progressterra.ipbandroidview.ui.addresses.models.SuggestionUI
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
@@ -25,8 +25,8 @@ class AddNewAddressViewModel :
     private val addressApi = AddressApi()
     private val repository = BonusesApi.getInstance()
 
-    private val _suggestions = MutableLiveData<List<Suggestion>>()
-    val suggestions: LiveData<List<Suggestion>> = _suggestions
+    private val _suggestions = MutableLiveData<List<SuggestionUI>>()
+    val suggestions: LiveData<List<SuggestionUI>> = _suggestions
 
     private val _address = MutableLiveData(AddressUI())
     val address: LiveData<AddressUI> = _address
@@ -47,7 +47,7 @@ class AddNewAddressViewModel :
         }) {
             addressApi.getSuggestionsAddressFromDadata(query).let {
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    _suggestions.postValue(it.responseBody?.suggestions ?: emptyList())
+                    _suggestions.postValue(AddressesMapper.convertSuggestionsDtoToUIModels(it.responseBody?.suggestions))
                 } else {
                     _toastBundle.postValue(Event(ToastBundle(R.string.suggestions_error)))
                 }
@@ -98,9 +98,13 @@ class AddNewAddressViewModel :
         }
     }
 
-    fun setAddressFromSuggestion(suggestion: Suggestion) {
+    fun setAddressFromSuggestion(suggestion: SuggestionUI) {
         _address.value =
-            suggestion.suggestionExtendedInfo?.let { AddressesMapper.convertSuggestionToAddressUIModel(it) }
+            suggestion.suggestionExtendedInfo?.let {
+                AddressesMapper.convertSuggestionToAddressUIModel(
+                    it
+                )
+            }
         addressValidation()
     }
 
