@@ -103,8 +103,8 @@
             app:layout_constraintTop_toTopOf="@id/btn_add_new_address" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:background="@color/theme_color"
             android:id="@+id/btn_add_new_address"
+            style="@style/Button.Filled"
             setLoadStateToButton="@{vm.addAddressStatus.loading}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
