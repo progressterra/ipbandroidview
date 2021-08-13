@@ -7,7 +7,12 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.SuggestionUI
 
 class SuggestionsArrayAdapter(context: Context, var items: MutableList<SuggestionUI>) :
-    ArrayAdapter<SuggestionUI>(context, R.layout.item_suggestions_lib, items) {
+    ArrayAdapter<SuggestionUI>(
+        context,
+        R.layout.item_suggestions_lib,
+        R.id.text_of_suggestion,
+        items
+    ) {
 
     override fun getFilter(): Filter {
         return object : Filter() {
