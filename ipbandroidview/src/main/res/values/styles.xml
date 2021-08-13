@@ -50,6 +50,7 @@
         <item name="app_textFootnote1Color">@color/color_textFootnote</item>
         <item name="app_textFootnote2Color">@color/color_textFootnote</item>
         <item name="app_textFootnoteAttentionColor">@color/color_textFootnoteAttention</item>
+        <item name="app_textAttentionColor">@color/color_textFootnoteAttention</item>
 
 
         <!-- Круги в подтверждении номера -->
@@ -130,6 +131,11 @@
         <item name="android:textSize">?app_textFootnoteAttentionSize</item>
         <item name="lineSpacing">?app_textFootnoteAttentionSpacing</item>
         <item name="android:textColor">?app_textFootnoteAttentionColor</item>
+    </style>
+
+    <style name="Text.Body.Attention" parent="">
+        <item name="android:textColor">?attr/app_textAttentionColor</item>
+
     </style>
 
     <style name="Text.Forms" parent="Text.CalloutButton1">

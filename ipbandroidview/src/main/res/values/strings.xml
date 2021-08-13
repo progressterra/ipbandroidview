@@ -70,5 +70,19 @@
 
     <string name="network_error">Ошибка при получении данных</string>
     <string name="transaction">%d баллов</string>
+    <string name="address_of_delivery">Адрес доставки</string>
+    <string name="input_address_of_delivery">Введите адрес доставки</string>
+    <string name="input_entrance_and_floor">Укажите подъезд и этаж</string>
+    <string name="flat">Квартира</string>
+    <string name="entrance">Подъезд</string>
+    <string name="floor">Этаж</string>
+    <string name="add_address">Добавить адрес</string>
+    <string name="add_new_address">Добавить адрес</string>
+    <string name="address_by_default">По умолчанию</string>
+    <string name="suggestions_error">Ошибка при получении подсказок</string>
+    <string name="add_address_error">Ошибка при добавлении адреса</string>
+    <string name="add_address_success">Новый адрес успешно добавлен</string>
+    <string name="set_default_address_error">Ошибка при установке адреса по-умолчанию</string>
+    <string name="set_default_address_success">Адрес по-умолчанию обновлен</string>
 
 </resources>

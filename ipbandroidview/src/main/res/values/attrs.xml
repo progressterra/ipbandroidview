@@ -49,6 +49,7 @@
     <attr name="app_textFootnote1Color" format="color" />
     <attr name="app_textFootnote2Color" format="color" />
     <attr name="app_textFootnoteAttentionColor" format="color" />
+    <attr name="app_textAttentionColor" format="color" />
 
     <!-- Авторизация   -->
     <!-- Дефолтный заполненый круг   -->

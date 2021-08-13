@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.addresses.AddNewAddressViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_address_of_delivery"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/address_of_delivery"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/et_main_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/input_address_of_delivery"
+            android:singleLine="true"
+            app:layout_constraintTop_toBottomOf="@id/tv_address_of_delivery" />
+
+        <TextView
+            android:id="@+id/tv_set_entrance_and_floor"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/input_entrance_and_floor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_main_address" />
+
+        <EditText
+            android:id="@+id/et_flat_number"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="@string/flat"
+            android:singleLine="true"
+            android:text="@{vm.address.apartment}"
+            app:layout_constraintEnd_toStartOf="@id/et_entrance_number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_set_entrance_and_floor" />
+
+        <EditText
+            android:id="@+id/et_entrance_number"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/entrance"
+            android:singleLine="true"
+            android:text="@{vm.address.entrance}"
+            app:layout_constraintEnd_toStartOf="@id/et_floor_number"
+            app:layout_constraintStart_toEndOf="@id/et_flat_number"
+            app:layout_constraintTop_toTopOf="@id/et_flat_number" />
+
+        <EditText
+            android:id="@+id/et_floor_number"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/floor"
+            android:singleLine="true"
+            android:text="@{vm.address.floor}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/et_entrance_number"
+            app:layout_constraintTop_toTopOf="@id/et_flat_number" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_found_addresses"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@id/btn_add_new_address"
+            app:layout_constraintTop_toBottomOf="@id/et_floor_number">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <ProgressBar
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:visibility="@{vm.addAddressStatus.loading}"
+            app:layout_constraintBottom_toBottomOf="@id/btn_add_new_address"
+            app:layout_constraintEnd_toEndOf="@id/btn_add_new_address"
+            app:layout_constraintStart_toStartOf="@id/btn_add_new_address"
+            app:layout_constraintTop_toTopOf="@id/btn_add_new_address" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_new_address"
+            style="@style/Button.Filled"
+            setLoadStateToButton="@{vm.addAddressStatus.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="12dp"
+            android:enabled="@{vm.addAddressButtonEnabled}"
+            android:text="@string/add_address"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
