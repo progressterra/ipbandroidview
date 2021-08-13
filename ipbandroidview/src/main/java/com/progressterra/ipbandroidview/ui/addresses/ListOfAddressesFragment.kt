@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
 class ListOfAddressesFragment : BaseFragment() {
     private lateinit var binding: FragmentListOfAddressBinding
-    private val viewModel: ListOfAddressesViewModel by viewModels()
+    override val vm: ListOfAddressesViewModel by viewModels()
 
     private val adapter =
         RecyclerViewAdapter<AddressUI>(
@@ -26,7 +26,7 @@ class ListOfAddressesFragment : BaseFragment() {
                     lifecycleOwner = viewLifecycleOwner
                     item = address
                     addressBinding.root.setOnClickListener {
-                        viewModel.setCurrentAddressAsDefault(address)
+                        vm.setCurrentAddressAsDefault(address)
                     }
                 }
             })
@@ -38,7 +38,7 @@ class ListOfAddressesFragment : BaseFragment() {
     ): View {
         binding = FragmentListOfAddressBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@ListOfAddressesFragment
-            vm = viewModel
+            vm = this@ListOfAddressesFragment.vm
         }
         return binding.root
     }
@@ -52,14 +52,14 @@ class ListOfAddressesFragment : BaseFragment() {
             findNavController().navigate(R.id.action_listOfAddressesFragment_to_addNewAddressFragment)
         }
 
-        viewModel.listOfAddress.observe(viewLifecycleOwner) {
+        vm.listOfAddress.observe(viewLifecycleOwner) {
             adapter.setItems(it)
         }
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.getListOfAddresses()
+        vm.getListOfAddresses()
     }
 
 }

@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
 class AddNewAddressFragment : BaseFragment() {
     private lateinit var binding: FragmentAddAddressBinding
-    private val viewModel: AddNewAddressViewModel by viewModels()
+    override val vm: AddNewAddressViewModel by viewModels()
 
 
     private val adapter =
@@ -27,7 +27,7 @@ class AddNewAddressFragment : BaseFragment() {
                     lifecycleOwner = viewLifecycleOwner
                     item = suggestion
                     suggestionBinding.root.setOnClickListener {
-                        viewModel.setAddressFromSuggestion(suggestion)
+                        vm.setAddressFromSuggestion(suggestion)
                         binding.etMainAddress.setText(suggestion.previewOfSuggestion ?: "")
                     }
                 }
@@ -39,7 +39,7 @@ class AddNewAddressFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAddAddressBinding.inflate(inflater, container, false).apply {
-            vm = viewModel
+            vm = this@AddNewAddressFragment.vm
             lifecycleOwner = this@AddNewAddressFragment
         }
         return binding.root
@@ -55,28 +55,28 @@ class AddNewAddressFragment : BaseFragment() {
 
     private fun setupListeners() {
         binding.etMainAddress.addTextChangedListener {
-            viewModel.getSuggestions(it.toString())
+            vm.getSuggestions(it.toString())
         }
 
         binding.etEntranceNumber.addTextChangedListener {
-            viewModel.setEntranceNumber(it.toString())
+            vm.setEntranceNumber(it.toString())
         }
 
         binding.etFlatNumber.addTextChangedListener {
-            viewModel.setFlatNumber(it.toString())
+            vm.setFlatNumber(it.toString())
         }
 
         binding.etFloorNumber.addTextChangedListener {
-            viewModel.setFloor(it.toString())
+            vm.setFloor(it.toString())
         }
 
         binding.btnAddNewAddress.setOnClickListener {
-            viewModel.addNewAddress()
+            vm.addNewAddress()
         }
     }
 
     private fun setupViewModel() {
-        viewModel.apply {
+        vm.apply {
 
             suggestions.observe(viewLifecycleOwner) {
                 adapter.setItems(it)
