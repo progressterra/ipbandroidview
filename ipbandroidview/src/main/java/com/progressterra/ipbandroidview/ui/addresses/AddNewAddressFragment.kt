@@ -28,9 +28,8 @@ class AddNewAddressFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupViewModel()
         setupView()
+        setupViewModel()
         setupListeners()
     }
 
@@ -60,7 +59,7 @@ class AddNewAddressFragment : BaseFragment() {
         vm.apply {
             suggestions.observe(viewLifecycleOwner) {
                 adapter.clear()
-                adapter.addAll(it)
+                adapter.addAll(it.toMutableList())
                 adapter.notifyDataSetChanged()
                 binding.etMainAddress.showDropDown()
                 binding.etMainAddress.setSelection(binding.etMainAddress.text.toString().length)
@@ -73,6 +72,8 @@ class AddNewAddressFragment : BaseFragment() {
     }
 
     private fun setupView() {
+        adapter = SuggestionsArrayAdapter(requireContext(), mutableListOf())
+
         binding.apply {
             vm = this@AddNewAddressFragment.vm
             lifecycleOwner = viewLifecycleOwner
