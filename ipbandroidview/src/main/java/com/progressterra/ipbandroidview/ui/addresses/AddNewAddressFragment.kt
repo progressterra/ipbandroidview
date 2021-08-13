@@ -89,8 +89,8 @@ class AddNewAddressFragment : BaseFragment() {
         binding.apply {
             vm = this@AddNewAddressFragment.vm
             lifecycleOwner = viewLifecycleOwner
+            rvFoundAddresses.adapter = adapter
         }
-        binding.rvFoundAddresses.adapter = adapter
     }
 
 
