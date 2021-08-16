@@ -20,23 +20,23 @@ open class BaseViewModel : ViewModel() {
     protected val _screenState = MutableLiveData(ScreenState.DEFAULT)
     val screenState: LiveData<ScreenState> = _screenState
 
-    internal fun showToast(id: Int) {
+    protected fun showToast(id: Int) {
         _toastBundle.postValue(Event(ToastBundle(id = id)))
     }
 
-    internal fun showToast(vararg args: String) {
+    protected fun showToast(vararg args: String) {
         _toastBundle.postValue(Event(ToastBundle(id = null, *args)))
     }
 
-    internal fun showToast(id: Int, vararg args: String) {
+    protected fun showToast(id: Int, vararg args: String) {
         _toastBundle.postValue(Event(ToastBundle(id, *args)))
     }
 
-    internal fun navigate(action: NavDirections) {
+    protected fun navigate(action: NavDirections) {
         _action.postValue(Event(action))
     }
 
-    internal inline fun <T> tryWithState(tryBlock: () -> T): T? {
+    protected inline fun <T> tryWithState(tryBlock: () -> T): T? {
         return try {
             _screenState.postValue(ScreenState.LOADING)
             val data = tryBlock.invoke()
