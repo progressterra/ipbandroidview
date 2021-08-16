@@ -87,6 +87,8 @@
         <ProgressBar
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:elevation="3dp"
+            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
             android:visibility="@{vm.addAddressStatus.loading}"
             app:layout_constraintBottom_toBottomOf="@id/btn_add_new_address"
             app:layout_constraintEnd_toEndOf="@id/btn_add_new_address"
