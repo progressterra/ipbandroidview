@@ -47,7 +47,7 @@ class ListOfAddressesViewModel :
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                     accessToken = it.responseBody?.accessToken ?: ""
                 } else {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
+                    _toastBundle.postValue(Event(ToastBundle(R.string.network_error)))
                     _screenState.postValue(ScreenState.ERROR)
                     return@launch
                 }
@@ -67,7 +67,7 @@ class ListOfAddressesViewModel :
 
     fun setCurrentAddressAsDefault(address: AddressUI) {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_error)))
+            _toastBundle.postValue(Event(ToastBundle(R.string.network_error)))
             Log.e("http", throwable.toString())
         }) {
 
@@ -77,7 +77,7 @@ class ListOfAddressesViewModel :
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                     accessToken = it.responseBody?.accessToken ?: ""
                 } else {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_error)))
+                    _toastBundle.postValue(Event(ToastBundle(R.string.network_error)))
                     return@launch
                 }
             }

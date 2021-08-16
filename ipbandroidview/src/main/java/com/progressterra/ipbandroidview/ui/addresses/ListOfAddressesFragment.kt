@@ -8,28 +8,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentListOfAddressLibBinding
-import com.progressterra.ipbandroidview.databinding.ItemAddressLibBinding
-import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
 
 class ListOfAddressesFragment : BaseFragment() {
     private lateinit var binding: FragmentListOfAddressLibBinding
     override val vm: ListOfAddressesViewModel by viewModels()
 
-    private val adapter =
-        RecyclerViewAdapter<AddressUI>(
-            R.layout.item_address_lib,
-            onNormalBind = { addressBinding, address ->
-                (addressBinding as ItemAddressLibBinding).apply {
-                    lifecycleOwner = viewLifecycleOwner
-                    item = address
-                    addressBinding.root.setOnClickListener {
-                        vm.setCurrentAddressAsDefault(address)
-                    }
-                }
-            })
+    private val adapter = AddressesListAdapter {
+        vm.setCurrentAddressAsDefault(it)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,19 +32,24 @@ class ListOfAddressesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
-        binding.rvListOfAddress.adapter = adapter
-        binding.rvListOfAddress.itemAnimator = null
+        setupListeners()
+        setupViewModel()
+    }
 
+    private fun setupViewModel() {
+        vm.listOfAddress.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+    }
+
+    private fun setupListeners() {
         binding.tvAddAddress.setOnClickListener {
             findNavController().navigate(R.id.action_listOfAddressesFragment_to_addNewAddressFragment)
-        }
-
-        vm.listOfAddress.observe(viewLifecycleOwner) {
-            adapter.setItems(it)
         }
     }
 
     private fun setupView() {
+        binding.rvListOfAddress.adapter = adapter
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             vm = this@ListOfAddressesFragment.vm
