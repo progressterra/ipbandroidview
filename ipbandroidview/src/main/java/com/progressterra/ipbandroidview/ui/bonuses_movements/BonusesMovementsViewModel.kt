@@ -17,12 +17,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-internal class BonusesMovementsViewModel : BaseViewModel() {
+class BonusesMovementsViewModel : BaseViewModel() {
 
     private val bonusesApi = BonusesApi.getInstance()
 
     private val _transactionList = MutableLiveData<List<TransactionWithDate>>()
-    val transactionList: LiveData<List<TransactionWithDate>> = _transactionList
+ internal   val transactionList: LiveData<List<TransactionWithDate>> = _transactionList
 
     private val _showError = MutableLiveData<Event<Int>>()
     val showError: LiveData<Event<Int>> = _showError

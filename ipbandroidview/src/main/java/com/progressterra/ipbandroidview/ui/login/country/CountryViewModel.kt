@@ -1,7 +1,9 @@
 package com.progressterra.ipbandroidview.ui.login.country
 
-import androidx.lifecycle.*
-import androidx.navigation.NavDirections
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
 import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
@@ -12,7 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-internal class CountryViewModel(
+class CountryViewModel(
     private val loginFlowSettings: LoginFlowSettings
 ) : BaseViewModel() {
 
@@ -21,7 +23,7 @@ internal class CountryViewModel(
     private var filter: String = ""
 
     private val _country = MutableLiveData(allCountry)
-    val countryUi: LiveData<List<CountryUi>> = _country.map {
+    internal val countryUi: LiveData<List<CountryUi>> = _country.map {
         it.map { country ->
             CountryUi(
                 name = country.name,
