@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <AutoCompleteTextView
             android:id="@+id/et_main_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,8 +54,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:hint="@string/flat"
+            android:maxLength="10"
             android:singleLine="true"
             android:text="@{vm.address.apartment}"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@id/et_entrance_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_set_entrance_and_floor" />
@@ -66,8 +68,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/entrance"
+            android:maxLength="10"
             android:singleLine="true"
             android:text="@{vm.address.entrance}"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toStartOf="@id/et_floor_number"
             app:layout_constraintStart_toEndOf="@id/et_flat_number"
             app:layout_constraintTop_toTopOf="@id/et_flat_number" />
@@ -78,29 +82,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/floor"
+            android:maxLength="4"
             android:singleLine="true"
             android:text="@{vm.address.floor}"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/et_entrance_number"
-            app:layout_constraintTop_toTopOf="@id/et_flat_number" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_found_addresses"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="12dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/btn_add_new_address"
-            app:layout_constraintTop_toBottomOf="@id/et_floor_number">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            app:layout_constraintTop_toTopOf="@id/et_flat_number"
+            tools:text="" />
 
         <ProgressBar
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:elevation="3dp"
+            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
             android:visibility="@{vm.addAddressStatus.loading}"
             app:layout_constraintBottom_toBottomOf="@id/btn_add_new_address"
             app:layout_constraintEnd_toEndOf="@id/btn_add_new_address"

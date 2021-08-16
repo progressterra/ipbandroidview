@@ -7,31 +7,15 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.dadata.Suggestion
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentAddAddressLibBinding
-import com.progressterra.ipbandroidview.databinding.ItemSuggestionsLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
 class AddNewAddressFragment : BaseFragment() {
     private lateinit var binding: FragmentAddAddressLibBinding
     override val vm: AddNewAddressViewModel by viewModels()
 
 
-    private val adapter =
-        RecyclerViewAdapter<Suggestion>(
-            R.layout.item_suggestions_lib,
-            onNormalBind = { suggestionBinding, suggestion ->
-                (suggestionBinding as ItemSuggestionsLibBinding).apply {
-                    lifecycleOwner = viewLifecycleOwner
-                    item = suggestion
-                    suggestionBinding.root.setOnClickListener {
-                        vm.setAddressFromSuggestion(suggestion)
-                        binding.etMainAddress.setText(suggestion.previewOfSuggestion ?: "")
-                    }
-                }
-            })
+    private lateinit var adapter: SuggestionsArrayAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +28,8 @@ class AddNewAddressFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupViewModel()
         setupView()
+        setupViewModel()
         setupListeners()
     }
 
@@ -74,9 +57,12 @@ class AddNewAddressFragment : BaseFragment() {
 
     private fun setupViewModel() {
         vm.apply {
-
             suggestions.observe(viewLifecycleOwner) {
-                adapter.setItems(it)
+                adapter.clear()
+                adapter.addAll(it.toMutableList())
+                adapter.notifyDataSetChanged()
+                binding.etMainAddress.showDropDown()
+                binding.etMainAddress.setSelection(binding.etMainAddress.text.toString().length)
             }
 
             popBackStack.observe(viewLifecycleOwner) {
@@ -86,10 +72,24 @@ class AddNewAddressFragment : BaseFragment() {
     }
 
     private fun setupView() {
+        adapter = SuggestionsArrayAdapter(requireContext(), mutableListOf())
+
         binding.apply {
             vm = this@AddNewAddressFragment.vm
             lifecycleOwner = viewLifecycleOwner
-            rvFoundAddresses.adapter = adapter
+            binding.etMainAddress.setAdapter(adapter)
+            binding.etMainAddress.setOnClickListener {
+                binding.etMainAddress.showDropDown()
+            }
+
+            etMainAddress.setOnItemClickListener { parent, view, position, id ->
+                adapter.getItem(position)
+                    ?.let { this@AddNewAddressFragment.vm.setAddressFromSuggestion(it) }
+                binding.etMainAddress.setText(
+                    adapter.getItem(position)?.previewOfSuggestion ?: "",
+                    false
+                )
+            }
         }
     }
 
