@@ -49,14 +49,6 @@ class ChatViewModel : BaseViewModel() {
                 _messagesList.postValue(messages)
 
             }
-            repository.getMessagesList(dialogId, messageListPage.toString()).let {
-                if (it.resultIsSuccess()) {
-                    _messagesList.postValue(it.data!!)
-                    _screenState.postValue(ScreenState.DEFAULT)
-                } else {
-                    _screenState.postValue(ScreenState.ERROR)
-                }
-            }
         }
     }
 
