@@ -84,5 +84,6 @@
     <string name="add_address_success">Новый адрес успешно добавлен</string>
     <string name="set_default_address_error">Ошибка при установке адреса по-умолчанию</string>
     <string name="set_default_address_success">Адрес по-умолчанию обновлен</string>
+    <string name="sellers_reply">Ответ продавца</string>
 
 </resources>
