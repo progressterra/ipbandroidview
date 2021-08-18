@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.chat
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -8,7 +7,7 @@ import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.ChatRepository
-import com.progressterra.ipbandroidview.data.IRepozitory
+import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.utils.SResult
@@ -20,7 +19,7 @@ import com.progressterra.ipbandroidview.utils.extensions.toToastResult
 class ChatViewModel(
     savedState: SavedStateHandle
 ) : BaseViewModel() {
-    private val repo: IRepozitory.Chat = ChatRepository()
+    private val repo: IRepository.Chat = ChatRepository()
 
     private val idEnterprise: String = savedState.get<String>("idEnterprise")
         .orIfNull { throw NullPointerException("Did you forget to set idEnterprise?") }

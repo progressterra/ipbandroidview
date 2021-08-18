@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.data.AmbassadorRepository
 import com.progressterra.ipbandroidview.data.IRepository
-import com.progressterra.ipbandroidview.data.Repository
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
@@ -24,7 +24,7 @@ import java.io.InputStream
 class UserInfoViewModel :
     ViewModel() {
 
-    private val repository: IRepository = Repository()
+    private val repository: IRepository.AmbassadorInfo = AmbassadorRepository()
 
 
     private val _ambassadorStateInfo = MutableLiveData<AmbassadorStatusResponse>()

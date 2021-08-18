@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.utils.extensions.isSuccess
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 
-internal class ChatRepository : BaseRepository(), IRepozitory.Chat {
+internal class ChatRepository : BaseRepository(), IRepository.Chat {
     private val messengerApi = IMessengerCore()
 
     override suspend fun getMessagesList(dialogId: String, page: String): SResult<List<Message>> {
