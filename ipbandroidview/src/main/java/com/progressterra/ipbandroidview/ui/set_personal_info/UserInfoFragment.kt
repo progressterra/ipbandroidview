@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.progressterra.ipbandroidview.databinding.FragmentUserInfoLibBinding
-import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.FileHelper
+import com.progressterra.ipbandroidview.utils.SResult
 import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.IOException
@@ -177,9 +177,9 @@ class UserInfoFragment : Fragment() {
         }
     }
 
-    private fun showMessage(errorEvent: Event<Int>) {
-        errorEvent.contentIfNotHandled?.let {
-            Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
+    private fun showMessage(result: SResult.Toast) {
+        if (result.message is Int) {
+            Snackbar.make(requireView(), result.message, Snackbar.LENGTH_SHORT).show()
         }
     }
 

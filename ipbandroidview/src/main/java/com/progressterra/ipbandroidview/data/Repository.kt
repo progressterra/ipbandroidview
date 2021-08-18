@@ -112,7 +112,7 @@ internal class Repository : IRepository {
             keyPharmApi.uploadSnilsPhotoUrl(snilsPhotoUrl, accessToken)
 
         return if (response.status == 0) {
-            SResult.Success(Any())
+            SResult.Completed
         } else {
             SResult.Failed(response.message)
         }
@@ -127,7 +127,7 @@ internal class Repository : IRepository {
             accessToken
         )
         return if (response.status == 0) {
-            SResult.Success(Any())
+            SResult.Completed
         } else {
             SResult.Failed(response.message)
         }
@@ -169,7 +169,7 @@ internal class Repository : IRepository {
             accessToken, urlImage
         )
         return if (response.status == 0) {
-            SResult.Success(Any())
+            SResult.Completed
         } else {
             SResult.Failed(response.message)
         }

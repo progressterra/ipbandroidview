@@ -12,7 +12,6 @@ import com.progressterra.ipbandroidview.data.Repository
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
-import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ISResult
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.ScreenState
@@ -45,7 +44,6 @@ class UserInfoViewModel :
     private val _screenState = MutableLiveData<SResult<Any>>()
     val screenState: LiveData<SResult<Any>> = _screenState
 
-    //b
 
     private val _becomeSelfEmployedBtnState = MutableLiveData<ScreenState>()
     val becomeSelfEmployedBtnState: LiveData<ScreenState> = _becomeSelfEmployedBtnState
@@ -69,8 +67,8 @@ class UserInfoViewModel :
     val allInfoUserModel: LiveData<UserInfoModelUI> = _allInfoUserModel
 
     // выводим снек на экран
-    private val _showMessage = MutableLiveData<Event<Int>>()
-    val showMessage: LiveData<Event<Int>> = _showMessage
+    private val _showMessage = MutableLiveData<SResult.Toast>()
+    val showMessage: LiveData<SResult.Toast> = _showMessage
 
     // обновляет статус кнопки "Обновить информацию" для базовых персональных данных (Имя/фамилия/отчество)
     private val _updateMainPersonalDataIsEnabled = MutableLiveData(false)
@@ -156,7 +154,7 @@ class UserInfoViewModel :
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
             Log.d("test2", throwable.toString())
             _screenState.postValue(SResult.Failed())
-            _showMessage.postValue(Event(R.string.network_error))
+            _showMessage.postValue(SResult.Toast(R.string.network_error))
         }) {
             _screenState.postValue(SResult.Loading())
             var accessToken: String
@@ -165,7 +163,7 @@ class UserInfoViewModel :
                     accessToken = it.data!!
                 } else {
                     _screenState.postValue(SResult.Failed())
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -185,7 +183,7 @@ class UserInfoViewModel :
                     )
                 } else {
                     _screenState.postValue(SResult.Failed())
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -207,7 +205,7 @@ class UserInfoViewModel :
                     _screenState.postValue(SResult.Success(Any()))
                 } else {
                     _screenState.postValue(SResult.Failed())
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -219,7 +217,7 @@ class UserInfoViewModel :
     fun uploadPassportImage(imageData: File) {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
             _passportImageUploadState.postValue(SResult.Failed(""))
-            _showMessage.postValue(Event(R.string.network_error))
+            _showMessage.postValue(SResult.Toast(R.string.network_error))
         }) {
             _passportImageUploadState.postValue(SResult.Loading())
             var accessToken: String
@@ -228,7 +226,7 @@ class UserInfoViewModel :
                     accessToken = it.data!!
                 } else {
                     _passportImageUploadState.postValue(SResult.Failed(""))
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -246,17 +244,17 @@ class UserInfoViewModel :
                                 //
                                 updateAmbassadorStatus(accessToken)
                                 _passportImageUploadState.postValue(uploadImageResult)
-                                _showMessage.postValue(Event(R.string.passport_successully_updated))
+                                _showMessage.postValue(SResult.Toast(R.string.passport_successully_updated))
                             } else {
                                 _passportImageUploadState.postValue(SResult.Failed(""))
-                                _showMessage.postValue(Event(R.string.network_error))
+                                _showMessage.postValue(SResult.Toast(R.string.network_error))
                                 return@launch
                             }
                         }
 
                 } else {
                     _passportImageUploadState.postValue(SResult.Failed(""))
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -266,7 +264,7 @@ class UserInfoViewModel :
     // загрузка изображения СНИЛСа
     fun uploadSnilsImage(imageData: File) {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
-            _showMessage.postValue(Event(R.string.network_error))
+            _showMessage.postValue(SResult.Toast(R.string.network_error))
             _snilsImageUploadState.postValue(SResult.Failed(""))
         }) {
             _snilsImageUploadState.postValue(SResult.Loading())
@@ -277,7 +275,7 @@ class UserInfoViewModel :
                     accessToken = it.data!!
                 } else {
                     _snilsImageUploadState.postValue(SResult.Failed(""))
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -290,19 +288,19 @@ class UserInfoViewModel :
                         accessToken
                     ).let {
                         if (it.isSuccess()) {
-                            _showMessage.postValue(Event(R.string.snils_successully_updated))
+                            _showMessage.postValue(SResult.Toast(R.string.snils_successully_updated))
                             _snilsImageUploadState.postValue(uploadImageResult)
                             updateAmbassadorStatus(accessToken)
                         } else {
                             _snilsImageUploadState.postValue(SResult.Failed(""))
-                            _showMessage.postValue(Event(R.string.network_error))
+                            _showMessage.postValue(SResult.Toast(R.string.network_error))
                             return@launch
                         }
                     }
 
                 } else {
                     _snilsImageUploadState.postValue(SResult.Failed(""))
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -313,7 +311,7 @@ class UserInfoViewModel :
     // загрузка изображения контракта с амбассадором
     fun uploadContractImage(imageData: File) {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
-            _showMessage.postValue(Event(R.string.network_error))
+            _showMessage.postValue(SResult.Toast(R.string.network_error))
             _contractImageUploadState.postValue(SResult.Failed(""))
         }) {
             _contractImageUploadState.postValue(SResult.Loading())
@@ -324,7 +322,7 @@ class UserInfoViewModel :
                     accessToken = it.data!!
                 } else {
                     _contractImageUploadState.postValue(SResult.Failed(""))
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -337,19 +335,19 @@ class UserInfoViewModel :
                         uploadImageResult.data?.uploadedImageUrl!!
                     ).let {
                         if (it.isSuccess()) {
-                            _showMessage.postValue(Event(R.string.contract_successully_updated))
+                            _showMessage.postValue(SResult.Toast(R.string.contract_successully_updated))
                             _contractImageUploadState.postValue(uploadImageResult)
                             updateAmbassadorStatus(accessToken)
                         } else {
                             _contractImageUploadState.postValue(SResult.Failed(""))
-                            _showMessage.postValue(Event(R.string.network_error))
+                            _showMessage.postValue(SResult.Toast(R.string.network_error))
                             return@launch
                         }
                     }
 
                 } else {
                     _contractImageUploadState.postValue(SResult.Failed(""))
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     return@launch
                 }
             }
@@ -406,7 +404,7 @@ class UserInfoViewModel :
     // обновляем базовую информацию о пользователе
     fun updateMainUserData() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
-            _showMessage.postValue(Event(R.string.personal_info_updating_error))
+            _showMessage.postValue(SResult.Toast(R.string.personal_info_updating_error))
             _onlyBaseUserInfo.postValue(SResult.Failed(data = onlyBaseUserInfo.value?.data))
             _updateMainPersonalDataIsEnabled.postValue(true)
         }) {
@@ -418,7 +416,7 @@ class UserInfoViewModel :
                 if (it.isSuccess()) {
                     accessToken = it.data!!
                 } else {
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                     _updateMainPersonalDataIsEnabled.postValue(true)
                     _onlyBaseUserInfo.postValue(SResult.Failed(data = onlyBaseUserInfo.value?.data))
                     return@launch
@@ -437,7 +435,7 @@ class UserInfoViewModel :
                     // в ответ приходит обновленная модель базовых данных, обновляем уже сохраненную
                     // чтобы могли корректно определить статус для кнопки обновления
                     _updateMainPersonalDataIsEnabled.postValue(false)
-                    _showMessage.postValue(Event(R.string.personal_info_updating_success))
+                    _showMessage.postValue(SResult.Toast(R.string.personal_info_updating_success))
                 } else {
                     _onlyBaseUserInfo.postValue(SResult.Failed(data = onlyBaseUserInfo.value?.data))
                     _updateMainPersonalDataIsEnabled.postValue(true)
@@ -448,7 +446,7 @@ class UserInfoViewModel :
 
     private fun updateBankUserData() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
-            _showMessage.postValue(Event(R.string.personal_info_updating_error))
+            _showMessage.postValue(SResult.Toast(R.string.personal_info_updating_error))
             _onlyBaseUserInfo.postValue(SResult.Failed(onlyBaseUserInfo.value?.data))
             _updateBankPersonalDataIsEnabled.postValue(true)
         }) {
@@ -460,7 +458,7 @@ class UserInfoViewModel :
                 if (it.isSuccess()) {
                     accessToken = it.data!!
                 } else {
-                    _showMessage.postValue(Event(R.string.personal_info_updating_error))
+                    _showMessage.postValue(SResult.Toast(R.string.personal_info_updating_error))
                     _updateBankPersonalDataIsEnabled.postValue(true)
                     _onlyBankUserInfo.postValue(SResult.Failed(onlyBankUserInfo.value?.data))
                     return@launch
@@ -482,10 +480,10 @@ class UserInfoViewModel :
                     // в ответ приходит обновленная модель банковских данных, обновляем уже сохраненную
                     // чтобы могли корректно определить статус для кнопки обновления
                     _updateBankPersonalDataIsEnabled.postValue(false)
-                    _showMessage.postValue(Event(R.string.personal_info_updating_success))
+                    _showMessage.postValue(SResult.Toast(R.string.personal_info_updating_success))
                 } else {
                     _onlyBankUserInfo.postValue(SResult.Failed(onlyBankUserInfo.value?.data))
-                    _showMessage.postValue(Event(R.string.personal_info_updating_error))
+                    _showMessage.postValue(SResult.Toast(R.string.personal_info_updating_error))
                     _updateBankPersonalDataIsEnabled.postValue(true)
                 }
             }
@@ -497,7 +495,7 @@ class UserInfoViewModel :
             if (it.isSuccess()) {
                 _ambassadorStateInfo.postValue(it.data!!)
             } else {
-                _showMessage.postValue(Event(R.string.network_error))
+                _showMessage.postValue(SResult.Toast(R.string.network_error))
             }
         }
     }
@@ -526,7 +524,7 @@ class UserInfoViewModel :
                 } else {
                     _becomeSelfEmployedBtnState.postValue(ScreenState.ERROR)
 
-                    _showMessage.postValue(Event(R.string.network_error))
+                    _showMessage.postValue(SResult.Toast(R.string.network_error))
                 }
             }
         }
