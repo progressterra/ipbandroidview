@@ -50,14 +50,14 @@ class ChatFragment : BaseFragment() {
     private fun setupViewModel() {
         with(vm) {
             messagesList.observe(viewLifecycleOwner) {
-                messageListAdapter.submitList(it.data)
+                messageListAdapter.submitList(it.data) {
+                    binding.rvMessages.smoothScrollToPosition(0)
+                }
+
             }
 
             messageSendingStatus.observe(viewLifecycleOwner) {
                 when (it) {
-                    is SResult.Completed -> {
-                        binding.rvMessages.smoothScrollToPosition(0)
-                    }
                     is SResult.Toast -> it.handleToastResult()
                     else -> Unit
                 }

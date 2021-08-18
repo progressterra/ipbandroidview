@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.data
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.utils.SResult
 
-interface IRepozitory {
+internal interface IRepozitory {
     suspend fun getAccessToken(): SResult<String>
 
     interface Chat {

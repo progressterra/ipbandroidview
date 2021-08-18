@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.data
 
-import android.util.Log
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.IMessengerCore
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.AdditionalDataJSON
@@ -14,7 +13,7 @@ import com.progressterra.ipbandroidview.utils.extensions.isSuccess
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 
-class ChatRepository : BaseRepository(), IRepozitory.Chat {
+internal class ChatRepository : BaseRepository(), IRepozitory.Chat {
     private val messengerApi = IMessengerCore()
 
     override suspend fun getMessagesList(dialogId: String, page: String): SResult<List<Message>> {
