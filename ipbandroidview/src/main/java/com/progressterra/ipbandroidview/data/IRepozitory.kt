@@ -20,7 +20,7 @@ interface IRepozitory {
         suspend fun getDialogInfo(
             clientId: String,
             partnerId: String,
-            dialogName: String = "",
+            descriptionDialog: String = "",
             dialogImage: String = ""
         ): SResult<String>
     }

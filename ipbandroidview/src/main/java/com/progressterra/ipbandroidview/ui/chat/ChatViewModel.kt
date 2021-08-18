@@ -1,13 +1,10 @@
 package com.progressterra.ipbandroidview.ui.chat
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.IMessengerCore
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.AdditionalDataJSON
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.DialogInfoRequest
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.ChatRepository
@@ -24,7 +21,6 @@ class ChatViewModel(
     savedState: SavedStateHandle
 ) : BaseViewModel() {
     private val repo: IRepozitory.Chat = ChatRepository()
-    private val messengerApi = IMessengerCore()
 
     private val idEnterprise: String = savedState.get<String>("idEnterprise")
         .orIfNull { throw NullPointerException("Did you forget to set idEnterprise?") }
@@ -59,6 +55,7 @@ class ChatViewModel(
         if (messageText.isNullOrEmpty())
             return
 
+        Log.d("myTag", "$dialogId")
         if (dialogId == null) {
             _messagesList.postValue(emptyFailed())
             return
@@ -78,26 +75,24 @@ class ChatViewModel(
 
     // получаем информацию о диалоге между текущим пользователем и заданной организацией
     fun getDialogInfo() {
-        safeLaunch {
+        safeLaunch(onCatch = {
+            _messagesList.postValue(emptyFailed())
+        }) {
             _messagesList.postValue(loadingResult())
-        }
-        safeLaunchWithState {
-            val ids = listOf(UserData.clientInfo.idUnique, idEnterprise)
-            val response = messengerApi.getDialogInfo(
-                DialogInfoRequest(
-                    listId = ids,
-                    descriptionDialog = descriptionDialog,
-                    additionalData = "",
-                    additionalDataJSON = Gson().toJson(
-                        AdditionalDataJSON(idEnterprise, imageUrl)
-                    )
-                )
+            val result = repo.getDialogInfo(
+                UserData.clientInfo.idUnique,
+                idEnterprise,
+                descriptionDialog,
+                imageUrl
             )
 
-            val dialogIdLocal: String = response.dialogInfo
-                ?.idUnique.orIfNull { throw NullPointerException("Dialog id is null!") }
-            dialogId = dialogIdLocal
-            getMessagesList(dialogIdLocal)
+            when (result) {
+                is SResult.Success -> {
+                    dialogId = result.data
+                    getMessagesList(result.data)
+                }
+                else -> _messagesList.postValue(emptyFailed())
+            }
         }
     }
 }

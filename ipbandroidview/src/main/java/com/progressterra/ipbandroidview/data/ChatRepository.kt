@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.data
 
+import android.util.Log
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.IMessengerCore
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.AdditionalDataJSON
@@ -42,12 +43,12 @@ class ChatRepository : BaseRepository(), IRepozitory.Chat {
     override suspend fun getDialogInfo(
         clientId: String,
         partnerId: String,
-        dialogName: String,
+        descriptionDialog: String,
         dialogImage: String
     ): SResult<String> {
         val request = DialogInfoRequest(
             listId = listOf(clientId, partnerId),
-            descriptionDialog = dialogName,
+            descriptionDialog = descriptionDialog,
             additionalDataJSON = Gson().toJson(AdditionalDataJSON(partnerId, dialogImage))
         )
         val response = messengerApi.getDialogInfo(request)
