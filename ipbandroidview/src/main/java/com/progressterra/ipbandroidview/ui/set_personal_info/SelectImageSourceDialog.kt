@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.progressterra.ipbandroidview.databinding.DialogSelectPhotoSourceBinding
+import com.progressterra.ipbandroidview.databinding.DialogSelectPhotoSourceLibBinding
 
 class SelectImageSourceDialog : BottomSheetDialogFragment() {
 
-    private lateinit var binding: DialogSelectPhotoSourceBinding
+    private lateinit var binding: DialogSelectPhotoSourceLibBinding
     var selectFromDeviceListener: View.OnClickListener? = null
     var selectFromCameraListener: View.OnClickListener? = null
 
@@ -19,7 +19,7 @@ class SelectImageSourceDialog : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DialogSelectPhotoSourceBinding.inflate(inflater, container, false)
+        binding = DialogSelectPhotoSourceLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
