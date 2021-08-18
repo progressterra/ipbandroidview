@@ -1,11 +1,9 @@
 package com.progressterra.ipbandroidview.data
 
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.iProBonusApi.IProBonus
 import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.IPBAmbassadorAmbassador
 import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.remoteData.ipbMediaDataCore.IpbMediaDataCore
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
@@ -17,13 +15,11 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.ResponseBody
 import java.io.File
 
-internal class Repository : IRepository {
+internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorInfo {
 
     private val keyPharmApi = IPBAmbassadorAmbassador()
     private val mediaDataApi = IpbMediaDataCore()
     private val ipbApi = IProBonus()
-    private val ipbRepository = BonusesApi.getInstance()
-
 
     // получение информации о пользователе: имя,емейл,дата рождения и пр
     override suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> {
@@ -141,16 +137,6 @@ internal class Repository : IRepository {
             SResult.Failed(response.result?.message)
         }
     }
-
-    override suspend fun getAccessToken(): SResult<String> {
-        val response = ipbRepository.getAccessToken()
-        return if (response.globalResponseStatus == GlobalResponseStatus.SUCCESS && response.responseBody?.accessToken != null) {
-            SResult.Success(response.responseBody?.accessToken!!)
-        } else {
-            SResult.Failed(response.errorString)
-        }
-    }
-
 
     override suspend fun getContractOfAmbassador(accessToken: String): ISResult<ResponseBody> {
         val response = keyPharmApi.getContractOfAmbassador(accessToken)
