@@ -17,6 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:elevation="3dp"
+            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
             android:visibility="@{vm.screenState.loading}" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -55,21 +57,42 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_send"
-                app:layout_constraintEnd_toStartOf="@id/iv_send"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_send" />
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/br_button"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="20dp"
                 android:src="@drawable/ic_baseline_send_24"
                 android:visibility="@{!vm.messageSandingStatus.loading}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@id/et_input_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/et_input_message" />
+
+            <ProgressBar
+                android:id="@+id/pb_loading"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="20dp"
+                android:elevation="3dp"
+                android:indeterminateDrawable="@drawable/progressbar_indeterminate"
+                android:visibility="@{vm.messageSandingStatus.loading}"
+                app:layout_constraintBottom_toBottomOf="@id/et_input_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/et_input_message"
+                tools:visibility="visible" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/br_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:barrierDirection="start"
+                app:constraint_referenced_ids="pb_loading, iv_send" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_messages"
@@ -79,17 +102,8 @@
                 app:layout_constraintBottom_toTopOf="@id/et_input_message"
                 app:layout_constraintTop_toTopOf="parent"
                 app:reverseLayout="true"
+                tools:itemCount="2"
                 tools:listitem="@layout/item_message_lib" />
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="@{vm.messageSandingStatus.loading}"
-                app:layout_constraintBottom_toBottomOf="@id/iv_send"
-                app:layout_constraintEnd_toEndOf="@id/iv_send"
-                app:layout_constraintStart_toStartOf="@id/iv_send"
-                app:layout_constraintTop_toTopOf="@id/iv_send" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

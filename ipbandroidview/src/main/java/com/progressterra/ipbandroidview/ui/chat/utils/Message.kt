@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
 import java.text.SimpleDateFormat
 import java.util.*
 
-internal data class Message(
+data class Message(
     val contentText: String,
     val dateCreate: String,
     val idClient: String

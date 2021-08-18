@@ -45,15 +45,16 @@ open class BaseViewModel : ViewModel() {
         tryBlock: () -> T
     ): T? {
         return try {
-            _screenState.postValue(ScreenState.LOADING)
+            state.postValue(ScreenState.LOADING)
             val data = tryBlock.invoke()
-            _screenState.postValue(ScreenState.DEFAULT)
+            state.postValue(ScreenState.DEFAULT)
             data
         } catch (e: CancellationException) {
             Log.e("tryWithState", "${e.message}")
             null
         } catch (e: Exception) {
-            _screenState.postValue(ScreenState.ERROR)
+            Log.e(javaClass.simpleName, e.message, e)
+            state.postValue(ScreenState.ERROR)
             null
         }
     }
@@ -82,7 +83,7 @@ open class BaseViewModel : ViewModel() {
     ) {
         viewModelScope.launch(dispatcher) {
             tryWithState(state) {
-                launchBlock
+                launchBlock.invoke()
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.chat
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -7,15 +8,14 @@ import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.IMessengerCore
+import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.AdditionalDataJSON
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.DialogInfoRequest
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.MessageSendingRequest
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.additionalDataJSON
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.chat.utils.convertToMessagesList
 import com.progressterra.ipbandroidview.utils.ScreenState
-import kotlinx.coroutines.Job
 
 class ChatViewModel(
     savedState: SavedStateHandle
@@ -30,19 +30,16 @@ class ChatViewModel(
 
     private var dialogId: String? = null
 
-    private var messageUpdatingJob: Job? = null
-
     private var messageListPage = 0
 
     private val _messagesList = MutableLiveData<List<Message>>()
-    internal val messageList: LiveData<List<Message>> = _messagesList
+    val messageList: LiveData<List<Message>> = _messagesList
 
     private val _messageSandingStatus = MutableLiveData<ScreenState>()
     val messageSandingStatus: LiveData<ScreenState> = _messageSandingStatus
 
 
     init {
-
         getDialogInfo()
     }
 
@@ -62,7 +59,6 @@ class ChatViewModel(
             _screenState.value = ScreenState.ERROR
             return
         }
-
         safeLaunchWithState(state = _messageSandingStatus) {
             val token = bonusesApi.getAccessToken()
                 .responseBody?.accessToken.orIfNull { throw NullPointerException("Token is null!") }
@@ -86,15 +82,13 @@ class ChatViewModel(
                     descriptionDialog = descriptionDialog,
                     additionalData = "",
                     additionalDataJSON = Gson().toJson(
-                        additionalDataJSON(
-                            idEnterprise,
-                            imageUrl
-                        )
+                        AdditionalDataJSON(idEnterprise, imageUrl)
                     )
                 )
             )
 
-            val dialogIdLocal: String = response.dialogInfo.idUnique
+            val dialogIdLocal: String = response.dialogInfo
+                ?.idUnique.orIfNull { throw NullPointerException("Dialog id is null!") }
             dialogId = dialogIdLocal
             getMessagesList(dialogIdLocal)
         }
