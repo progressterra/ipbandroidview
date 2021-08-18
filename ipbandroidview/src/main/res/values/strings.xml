@@ -84,5 +84,27 @@
     <string name="add_address_success">Новый адрес успешно добавлен</string>
     <string name="set_default_address_error">Ошибка при установке адреса по-умолчанию</string>
     <string name="set_default_address_success">Адрес по-умолчанию обновлен</string>
+    <string name="passport_successully_updated">Фото паспорта успешно обновлено</string>
+    <string name="snils_successully_updated">Фото СНИЛС успешно обновлено</string>
+    <string name="contract_successully_updated">Фото договора успешно загружено</string>
+    <string name="personal_info_updating_error">Ошибка при обновлении персональных данных</string>
+    <string name="personal_info_updating_success">Персональные данные успешно обновлены</string>
+    <string name="become_self_employed">Стать самозанятым</string>
+    <string name="refresh_personal_data">Обновить данные</string>
+    <string name="name">Имя</string>
+    <string name="document_save_successfuly">Документ успешно сохранен</string>
+    <string name="gph_download">Поделиться договором ГПХ</string>
+    <string name="gph_share">Скачать договор ГПХ</string>
+    <string name="last_name">Фамилия</string>
+    <string name="middle_name">Отчество</string>
+    <string name="make_contract_photo">Сделайте фото подписанного вами договора или загрузите его из галереи</string>
+    <string name="send_data">Отправить данные</string>
+    <string name="CPP_of_bank">КПП Банка</string>
+    <string name="inn_of_bank">ИНН Банка</string>
+    <string name="corr_acc">Корреспондентский счет</string>
+    <string name="bic">БИК</string>
+    <string name="account_number">Номер счета</string>
+    <string name="bank_name">Наименование банка</string>
+    <string name="acc_requisites">Реквизиты карточного счета:</string>
 
 </resources>

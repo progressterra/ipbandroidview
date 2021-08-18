@@ -236,5 +236,9 @@
         <item name="lineHeight">20sp</item>
     </style>
 
+    <!-- Поля ввода -->
+    <style name="EditTextBackground" parent="Text.Body">
+        <item name="backgroundTint">?app_formsUnderlineColor</item>
+    </style>
 
 </resources>
