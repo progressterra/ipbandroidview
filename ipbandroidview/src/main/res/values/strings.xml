@@ -92,5 +92,6 @@
     <string name="become_self_employed">Стать самозанятым</string>
     <string name="refresh_personal_data">Обновить данные</string>
     <string name="name">Имя</string>
+    <string name="document_save_successfuly">Документ успешно сохранен</string>
 
 </resources>

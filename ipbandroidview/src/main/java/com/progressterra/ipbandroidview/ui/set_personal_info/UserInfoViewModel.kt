@@ -42,8 +42,8 @@ class UserInfoViewModel :
         _inputStreamForDownloadedContractFileForShare
 
     // состояние загрузки для базовых данных профиля
-    private val _screenState = MutableLiveData<ScreenState>()
-    val screenState: LiveData<ScreenState> = _screenState
+    private val _screenState = MutableLiveData<SResult<Any>>()
+    val screenState: LiveData<SResult<Any>> = _screenState
 
     //b
 
@@ -155,16 +155,16 @@ class UserInfoViewModel :
     fun getMainUserInfo() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
             Log.d("test2", throwable.toString())
-            _screenState.postValue(ScreenState.ERROR)
+            _screenState.postValue(SResult.Failed())
             _showMessage.postValue(Event(R.string.network_error))
         }) {
-            _screenState.postValue(ScreenState.LOADING)
+            _screenState.postValue(SResult.Loading())
             var accessToken: String
             repository.getAccessToken().let {
                 if (it.isSuccess()) {
                     accessToken = it.data!!
                 } else {
-                    _screenState.postValue(ScreenState.ERROR)
+                    _screenState.postValue(SResult.Failed())
                     _showMessage.postValue(Event(R.string.network_error))
                     return@launch
                 }
@@ -184,7 +184,7 @@ class UserInfoViewModel :
                         )
                     )
                 } else {
-                    _screenState.postValue(ScreenState.ERROR)
+                    _screenState.postValue(SResult.Failed())
                     _showMessage.postValue(Event(R.string.network_error))
                     return@launch
                 }
@@ -204,9 +204,9 @@ class UserInfoViewModel :
                             cpp = it.data?.kppBank ?: ""
                         )
                     )
-                    _screenState.postValue(ScreenState.DEFAULT)
+                    _screenState.postValue(SResult.Success(Any()))
                 } else {
-                    _screenState.postValue(ScreenState.ERROR)
+                    _screenState.postValue(SResult.Failed())
                     _showMessage.postValue(Event(R.string.network_error))
                     return@launch
                 }

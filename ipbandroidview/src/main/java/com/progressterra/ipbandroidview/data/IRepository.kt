@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.utils.SResult
 import okhttp3.ResponseBody
 import java.io.File
 
-interface IRepository {
+internal interface IRepository {
     // получение информации о пользователе: имя,емейл,дата рождения и пр
     suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo>
 

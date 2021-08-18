@@ -17,7 +17,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.ResponseBody
 import java.io.File
 
-class Repository : IRepository {
+internal class Repository : IRepository {
 
     private val keyPharmApi = IPBAmbassadorAmbassador()
     private val mediaDataApi = IpbMediaDataCore()

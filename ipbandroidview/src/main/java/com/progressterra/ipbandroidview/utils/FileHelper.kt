@@ -14,9 +14,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.progressterra.ipbandroidview.R
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,7 +41,6 @@ class FileHelper {
     }
 
     // создает файл для записи в него изображения с камеры в полном разрешении
-    @Throws(IOException::class)
     fun createImageFile(context: Context): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -63,7 +62,7 @@ class FileHelper {
                     doOnComplete.invoke()
                 }
             } catch (e: java.lang.Exception) {
-                Log.d("test1", e.toString())
+                Log.e("cameraResult", e.toString())
             }
         }
     }
@@ -111,7 +110,7 @@ class FileHelper {
 
                     Snackbar.make(
                         fragment.requireView(),
-                        "Документ успешно сохранен",
+                        fragment.requireContext().getString(R.string.document_save_successfuly),
                         Snackbar.LENGTH_SHORT
                     )
                         .show()

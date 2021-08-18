@@ -29,7 +29,7 @@
             android:layout_gravity="center"
             android:onClick="@{_->vm.getMainUserInfo()}"
             android:text="@string/refresh"
-            android:visibility="@{vm.screenState.isError()}" />
+            android:visibility="@{vm.screenState.error}" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -40,11 +40,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="@{vm.screenState.isDefault()}">
+                android:visibility="@{vm.screenState.success}">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-
-                    xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white">
@@ -60,16 +58,15 @@
 
                     <TextView
                         android:id="@+id/tv_name"
+                        style="@style/Text.CalloutClick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="55dp"
                         android:layout_marginEnd="32dp"
                         android:lineSpacingExtra="6sp"
                         android:text="@{vm.onlyBaseUserInfo.data.fullName}"
-                        android:textColor="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="Иван Иванов" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
                     <ImageView
@@ -168,7 +165,7 @@
                     app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
-                    style="@style/Footnote"
+                    style="@style/Text.Footnote1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
@@ -190,7 +187,7 @@
                     android:text="@{vm.allInfoUserModel.lastName}" />
 
                 <TextView
-                    style="@style/Footnote"
+                    style="@style/Text.Footnote1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
@@ -265,6 +262,7 @@
                         android:id="@+id/tv_gph_contract_download"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
+                        android:background="@color/theme_color"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="Скачать договор ГПХ"
@@ -279,6 +277,7 @@
                         android:id="@+id/tv_gph_contract_share"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
+                        android:background="@color/theme_color"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:text="Поделиться договором ГПХ"
@@ -320,7 +319,7 @@
 
                         <TextView
                             android:id="@+id/tv_upload_contract_info"
-                            style="@style/Body1"
+                            style="@style/Text.Body"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -371,7 +370,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
-                    style="@style/Callout1"
+                    style="@style/Text.CalloutClick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"

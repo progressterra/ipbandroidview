@@ -16,7 +16,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
-import com.progressterra.ipbandroidview.databinding.FragmentSelfEmployedLibBinding
+import com.progressterra.ipbandroidview.databinding.FragmentUserInfoLibBinding
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.FileHelper
 import com.squareup.picasso.Picasso
@@ -38,7 +38,7 @@ class UserInfoFragment : Fragment() {
 
     private val viewModel: UserInfoViewModel by viewModels()
     private var currentPhotoPath: String? = null
-    private lateinit var binding: FragmentSelfEmployedLibBinding
+    private lateinit var binding: FragmentUserInfoLibBinding
     private val fileHelper by lazy { FileHelper() }
     private var saveFileInputStream: InputStream? = null
 
@@ -47,18 +47,22 @@ class UserInfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSelfEmployedLibBinding.inflate(inflater, container, false).apply {
-            vm = viewModel
-            lifecycleOwner = this@UserInfoFragment
-        }
+        binding = FragmentUserInfoLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.toString()
+        setupView()
         setupListeners()
         setupViewModel()
+    }
+
+    private fun setupView() {
+        binding.apply {
+            vm = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
     }
 
 

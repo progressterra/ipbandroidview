@@ -239,7 +239,7 @@
     <!-- Поля ввода -->
 
 
-    <style name="EditTextBackground">
+    <style name="Text.BodyEditTextBackground">
         <item name="backgroundTint">?app_formsUnderlineColor</item>
     </style>
 
