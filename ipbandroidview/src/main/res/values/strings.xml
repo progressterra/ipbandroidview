@@ -84,5 +84,13 @@
     <string name="add_address_success">Новый адрес успешно добавлен</string>
     <string name="set_default_address_error">Ошибка при установке адреса по-умолчанию</string>
     <string name="set_default_address_success">Адрес по-умолчанию обновлен</string>
+    <string name="passport_successully_updated">Фото паспорта успешно обновлено</string>
+    <string name="snils_successully_updated">Фото СНИЛС успешно обновлено</string>
+    <string name="contract_successully_updated">Фото договора успешно загружено</string>
+    <string name="personal_info_updating_error">Ошибка при обновлении персональных данных</string>
+    <string name="personal_info_updating_success">Персональные данные успешно обновлены</string>
+    <string name="become_self_employed">Стать самозанятым</string>
+    <string name="refresh_personal_data">Обновить данные</string>
+    <string name="name">Имя</string>
 
 </resources>

@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.set_personal_info.UserInfoViewModel" />
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/theme_color"
+            android:elevation="5dp"
+            android:visibility="@{vm.screenState.loading}" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{_->vm.getMainUserInfo()}"
+            android:text="@string/refresh"
+            android:visibility="@{vm.screenState.isError()}" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="@{vm.screenState.isDefault()}">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/iv_header"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="55dp"
+                        android:layout_marginEnd="32dp"
+                        android:lineSpacingExtra="6sp"
+                        android:text="@{vm.onlyBaseUserInfo.data.fullName}"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Иван Иванов" />
+
+
+                    <ImageView
+                        android:id="@+id/iv_photo"
+                        android:layout_width="93dp"
+                        android:layout_height="93dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="48dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_status"
+                        style="@style/Text.Title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:lineSpacingExtra="4sp"
+                        android:text="@{vm.ambassadorStateInfo.ambassadorInfo.statusText}"
+                        android:textColor="@color/theme_color"
+                        app:layout_constraintTop_toBottomOf="@id/iv_photo" />
+
+                    <TextView
+                        android:id="@+id/tv_gph_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:lineSpacingExtra="4sp"
+                        android:text="@{vm.ambassadorStateInfo.ambassadorInfo.message}"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_status" />
+
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_gph_info">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/become_self_yempoyed"
+                            style="@style/Button.Filled"
+                            setLoadStateToButton="@{vm.becomeSelfEmployedBtnState.loading}"
+                            android:layout_width="180dp"
+                            android:layout_height="36dp"
+                            android:onClick="@{_->vm.becomeSelfEmployed()}"
+                            android:paddingStart="13dp"
+                            android:paddingEnd="13dp"
+                            android:text="@string/become_self_employed"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:visibility="@{vm.ambassadorStateInfo.ambassadorInfo.statusWork==2}" />
+
+                        <ProgressBar
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:elevation="5dp"
+                            android:indeterminateTint="@color/white"
+                            android:progressTint="@color/white"
+                            android:visibility="@{vm.becomeSelfEmployedBtnState.loading}" />
+
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="28dp"
+                    android:text="@string/name" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/EditTextBackground"
+                    setValidationStatus="@{vm.allInfoUserModel.nameIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    style="@style/Footnote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Фамилия"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_last_name"
+                    style="@style/EditTextBackground"
+                    setValidationStatus="@{vm.allInfoUserModel.lastNameIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.lastName}" />
+
+                <TextView
+                    style="@style/Footnote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Отчество"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_middle_name"
+                    style="@style/EditTextBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.middleName}" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="50dp">
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_update_personal_data"
+                        style="@style/Button.Filled"
+                        setLoadStateToButton="@{vm.onlyBaseUserInfo.loading}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{vm.updateMainPersonalDataIsEnabled}"
+                        android:onClick="@{_->vm.updateMainUserData()}"
+                        android:text="@string/refresh_personal_data"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <ProgressBar
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:elevation="5dp"
+                        android:visibility="@{vm.onlyBaseUserInfo.loading}">
+
+                    </ProgressBar>
+                </FrameLayout>
+
+
+                <include
+                    android:id="@+id/upload_photo_layout"
+                    layout="@layout/layout_upload_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginEnd="24dp"
+                    app:passportImageIsLoading="@{vm.passportImageUploadState.loading}"
+                    app:snilsImageIsLoading="@{vm.snilsImageUploadState.loading}" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="25dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tv_gph_contract_download"
+                        style="@style/Button.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Скачать договор ГПХ"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_gph_contract_share"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/tv_gph_contract_share"
+                        style="@style/Button.Filled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="Поделиться договором ГПХ"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_gph_contract_download"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/group_upload_contract"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="12dp"
+                    android:maxHeight="245dp"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_goneMarginEnd="20dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="5dp"
+                            android:visibility="@{vm.contractImageUploadState.loading}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_upload_contract_info"
+                            style="@style/Body1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="28dp"
+                            android:layout_marginEnd="20dp"
+                            android:gravity="center"
+                            android:text="Сделайте фото подписанного вами договора или загрузите его из галереи "
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_goneMarginStart="20dp" />
+
+                        <ImageView
+                            android:id="@+id/act_preview"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@drawable/confirmed_applications_background"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_select_contract_from_device"
+                            android:layout_width="36dp"
+                            android:layout_height="31dp"
+                            android:layout_marginEnd="16dp"
+                            android:src="@drawable/ic_select_from_device"
+                            app:layout_constraintEnd_toStartOf="@id/iv_select_contract_from_camera"
+                            app:layout_constraintTop_toTopOf="@id/iv_select_contract_from_camera" />
+
+
+                        <ImageView
+                            android:id="@+id/iv_select_contract_from_camera"
+                            android:layout_width="36dp"
+                            android:layout_height="28dp"
+                            android:layout_marginTop="25dp"
+                            android:layout_marginEnd="31dp"
+                            android:layout_marginBottom="31dp"
+                            android:src="@drawable/ic_select_from_camera"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_upload_contract_info" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    style="@style/Callout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="48dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="Реквизиты карточного счета:" />
+
+                <TextView
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Наименование банка"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_bank_name"
+                    style="@style/EditTextBackground"
+                    setValidationStatus="@{vm.allInfoUserModel.bankNameIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.bankName}" />
+
+                <TextView
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Номер счета"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_account"
+                    style="@style/EditTextBackground"
+                    setValidationStatus="@{vm.allInfoUserModel.accountIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.account}" />
+
+                <TextView
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="БИК"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_bic"
+                    style="@style/EditTextBackground"
+                    setValidationStatus="@{vm.allInfoUserModel.bicIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.bic}" />
+
+                <TextView
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="Корреспондентский счет"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_corr_account"
+                    style="@style/EditTextBackground"
+                    setValidationStatus="@{vm.allInfoUserModel.correspondentAccountIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.correspondentAccount}" />
+
+                <TextView
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="ИНН Банка"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_inn"
+                    style="@style/EditTextBackground"
+
+                    setValidationStatus="@{vm.allInfoUserModel.innIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.inn}" />
+
+                <TextView
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="КПП Банка"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_cpp"
+                    style="@style/EditTextBackground"
+                    setValidationStatus="@{vm.allInfoUserModel.cppIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="40dp"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.cpp}" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="50dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_send_user_data"
+                        style="@style/Button.Filled"
+                        setLoadStateToButton="@{vm.onlyBankUserInfo.loading}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{vm.updateBankPersonalDataIsEnabled}"
+                        android:onClick="@{_->vm.sendBaseUserInfo()}"
+                        android:text="Отправить данные"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <ProgressBar
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:elevation="5dp"
+                        android:visibility="@{vm.onlyBankUserInfo.loading}" />
+
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
+
+
+</layout>
