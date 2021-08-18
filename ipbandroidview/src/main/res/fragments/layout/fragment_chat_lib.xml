@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -19,7 +20,7 @@
             android:layout_gravity="center"
             android:elevation="3dp"
             android:indeterminateDrawable="@drawable/progressbar_indeterminate"
-            android:visibility="@{vm.screenState.loading}" />
+            android:visibility="@{vm.messagesList.isLoading()}" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/Button.Filled"
@@ -28,22 +29,22 @@
             android:layout_gravity="center"
             android:onClick="@{_->vm.getDialogInfo()}"
             android:text="@string/refresh"
-            android:visibility="@{vm.screenState.error}" />
+            android:visibility="@{vm.messagesList.isError()}" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{vm.screenState.isDefault()}">
+            android:visibility="@{vm.messagesList.isSuccess()}">
 
             <TextView
                 style="@style/Text.Body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Список сообщений пуст"
+                android:text="@string/messages_empty_list"
                 android:textColor="@color/black"
-                android:visibility="@{vm.messageList.empty}"
+                android:visibility="@{vm.messagesList.data.empty}"
                 app:layout_constrainedHeight="true"
                 app:layout_constraintBottom_toTopOf="@id/et_input_message"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +59,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
+                android:text="@={vm.message}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/br_button"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -67,8 +69,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
+                android:onClick="@{() -> vm.sendMessage()}"
                 android:src="@drawable/ic_baseline_send_24"
-                android:visibility="@{!vm.messageSandingStatus.loading}"
+                android:visibility="@{vm.messageSendingStatus.isSuccess()}"
                 app:layout_constraintBottom_toBottomOf="@id/et_input_message"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/et_input_message" />
@@ -80,7 +83,7 @@
                 android:layout_marginEnd="20dp"
                 android:elevation="3dp"
                 android:indeterminateDrawable="@drawable/progressbar_indeterminate"
-                android:visibility="@{vm.messageSandingStatus.loading}"
+                android:visibility="@{vm.messageSendingStatus.isLoading()}"
                 app:layout_constraintBottom_toBottomOf="@id/et_input_message"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/et_input_message"
@@ -97,11 +100,12 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_messages"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/et_input_message"
                 app:layout_constraintTop_toTopOf="parent"
                 app:reverseLayout="true"
+                app:stackFromEnd="false"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_message_lib" />
         </androidx.constraintlayout.widget.ConstraintLayout>

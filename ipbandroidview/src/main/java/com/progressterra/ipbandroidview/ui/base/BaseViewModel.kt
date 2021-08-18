@@ -65,12 +65,14 @@ open class BaseViewModel : ViewModel() {
      */
     protected fun safeLaunch(
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        onCatch: ((e: Exception) -> Unit)? = null,
         launchBlock: suspend () -> Unit
     ) {
         viewModelScope.launch(dispatcher) {
             try {
                 launchBlock.invoke()
             } catch (e: Exception) {
+                onCatch?.invoke(e)
                 Log.e(javaClass.simpleName, "$e")
             }
         }

@@ -1,27 +1,30 @@
 package com.progressterra.ipbandroidview.ui.chat
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.google.gson.Gson
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.IMessengerCore
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.AdditionalDataJSON
 import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.DialogInfoRequest
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.MessageSendingRequest
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.data.ChatRepository
+import com.progressterra.ipbandroidview.data.IRepozitory
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
-import com.progressterra.ipbandroidview.ui.chat.utils.convertToMessagesList
-import com.progressterra.ipbandroidview.utils.ScreenState
+import com.progressterra.ipbandroidview.utils.SResult
+import com.progressterra.ipbandroidview.utils.extensions.completedResult
+import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
+import com.progressterra.ipbandroidview.utils.extensions.loadingResult
+import com.progressterra.ipbandroidview.utils.extensions.toToastResult
 
 class ChatViewModel(
     savedState: SavedStateHandle
 ) : BaseViewModel() {
+    private val repo: IRepozitory.Chat = ChatRepository()
     private val messengerApi = IMessengerCore()
-    private val bonusesApi = BonusesApi.getInstance()
 
     private val idEnterprise: String = savedState.get<String>("idEnterprise")
         .orIfNull { throw NullPointerException("Did you forget to set idEnterprise?") }
@@ -32,48 +35,52 @@ class ChatViewModel(
 
     private var messageListPage = 0
 
-    private val _messagesList = MutableLiveData<List<Message>>()
-    val messageList: LiveData<List<Message>> = _messagesList
+    val message = MutableLiveData<String>()
 
-    private val _messageSandingStatus = MutableLiveData<ScreenState>()
-    val messageSandingStatus: LiveData<ScreenState> = _messageSandingStatus
+    private val _messagesList = MutableLiveData<SResult<List<Message>>>()
+    val messagesList: LiveData<SResult<List<Message>>> = _messagesList
 
+    private val _messageSendingStatus = MutableLiveData<SResult<*>>(completedResult())
+    val messageSendingStatus: LiveData<SResult<*>> = _messageSendingStatus
 
     init {
         getDialogInfo()
     }
 
     private fun getMessagesList(dialogId: String) {
-        safeLaunchWithState {
-            val response = messengerApi.getMessagesList(dialogId, messageListPage.toString())
-            val messages = response.convertToMessagesList()
+        safeLaunch {
+            val messages = repo.getMessagesList(dialogId, messageListPage.toString())
             _messagesList.postValue(messages)
         }
     }
 
-
-    fun sendMessage(messageText: String) {
-        if (messageText.isBlank()) return
+    fun sendMessage() {
+        val messageText = message.value
+        if (messageText.isNullOrEmpty())
+            return
 
         if (dialogId == null) {
-            _screenState.value = ScreenState.ERROR
+            _messagesList.postValue(emptyFailed())
             return
         }
-        safeLaunchWithState(state = _messageSandingStatus) {
-            val token = bonusesApi.getAccessToken()
-                .responseBody?.accessToken.orIfNull { throw NullPointerException("Token is null!") }
 
-            val rawMessages = messengerApi
-                .sendMessage(MessageSendingRequest(dialogId!!, token, messageText))
-                .orIfNull { throw NullPointerException("Messages response is null") }
-            val messages = rawMessages.convertToMessagesList()
+        safeLaunch(onCatch = {
+            _messageSendingStatus.postValue(R.string.message_send_error.toToastResult())
+        }) {
+            _messageSendingStatus.postValue(loadingResult())
+            val token = repo.getAccessToken().data.orEmpty()
+            val messages = repo.sendMessage(messageText, token, dialogId!!)
+            message.postValue("")
             _messagesList.postValue(messages)
+            _messageSendingStatus.postValue(completedResult())
         }
     }
-
 
     // получаем информацию о диалоге между текущим пользователем и заданной организацией
     fun getDialogInfo() {
+        safeLaunch {
+            _messagesList.postValue(loadingResult())
+        }
         safeLaunchWithState {
             val ids = listOf(UserData.clientInfo.idUnique, idEnterprise)
             val response = messengerApi.getDialogInfo(

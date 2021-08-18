@@ -15,7 +15,7 @@ data class Message(
 
 internal fun MessagesListResponse.convertToMessagesList(): List<Message> {
     return dataList
-        ?.sortedBy { it.dateCreate }
+        ?.sortedByDescending { it.dateCreate }
         ?.map {
             Message(
                 contentText = it.contentText ?: "",

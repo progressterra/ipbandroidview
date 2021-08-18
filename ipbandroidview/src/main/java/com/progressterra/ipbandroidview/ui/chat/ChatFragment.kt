@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.databinding.FragmentChatLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.chat.utils.MessagesListAdapter
-import com.progressterra.ipbandroidview.utils.ScreenState
+import com.progressterra.ipbandroidview.utils.SResult
 
 class ChatFragment : BaseFragment() {
 
@@ -39,55 +38,35 @@ class ChatFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupView()
         setupViewModel()
-        setupListeners()
-    }
-
-
-    private fun setupListeners() {
-        binding.ivSend.setOnClickListener {
-            vm.sendMessage(binding.etInputMessage.text.toString())
-        }
     }
 
     private fun setupView() {
         binding.vm = vm
         binding.lifecycleOwner = viewLifecycleOwner
 
-        val params: ViewGroup.LayoutParams = binding.rvMessages.layoutParams
-        params.height = 0
-        binding.rvMessages.layoutParams = params
-
         binding.rvMessages.adapter = messageListAdapter
     }
 
     private fun setupViewModel() {
         with(vm) {
-            messageList.observe(viewLifecycleOwner) {
-                messageListAdapter.submitList(it.reversed())
+            messagesList.observe(viewLifecycleOwner) {
+                messageListAdapter.submitList(it.data)
             }
 
-            messageSandingStatus.observe(viewLifecycleOwner) {
+            messageSendingStatus.observe(viewLifecycleOwner) {
                 when (it) {
-                    ScreenState.DEFAULT -> {
-                        binding.etInputMessage.setText("")
-                        binding.rvMessages.scrollToPosition(0)
+                    is SResult.Completed -> {
+                        binding.rvMessages.smoothScrollToPosition(0)
                     }
-                    ScreenState.ERROR -> Toast.makeText(
-                        requireContext(),
-                        "Ошибка при отправке сообщения",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    else -> {
-                    }
+                    is SResult.Toast -> it.handleToastResult()
+                    else -> Unit
                 }
             }
         }
     }
 
-
     override fun onResume() {
         super.onResume()
-        view?.requestLayout()
         vm.getDialogInfo()
     }
 }

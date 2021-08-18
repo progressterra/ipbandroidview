@@ -85,5 +85,7 @@
     <string name="set_default_address_error">Ошибка при установке адреса по-умолчанию</string>
     <string name="set_default_address_success">Адрес по-умолчанию обновлен</string>
     <string name="sellers_reply">Ответ продавца</string>
+    <string name="message_send_error">Ошибка при отправке сообщения</string>
+    <string name="messages_empty_list">Список сообщений пуст</string>
 
 </resources>

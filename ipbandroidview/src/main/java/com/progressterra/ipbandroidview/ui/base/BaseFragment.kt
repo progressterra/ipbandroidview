@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.ToastBundle
 
 open class BaseFragment : Fragment() {
@@ -51,5 +52,15 @@ open class BaseFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         vm.action.observe(viewLifecycleOwner, this::onAction)
         vm.toastBundle.observe(viewLifecycleOwner, this::showToast)
+    }
+
+    protected fun SResult.Toast.handleToastResult() {
+        when (message) {
+            is String -> message as String
+            is Int -> getString(message as Int)
+            else -> null
+        }?.let {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        }
     }
 }
