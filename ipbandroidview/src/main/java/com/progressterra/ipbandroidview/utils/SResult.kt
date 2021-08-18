@@ -1,4 +1,4 @@
-package com.progressterra.core.sresult
+package com.progressterra.ipbandroidview.utils
 
 sealed class SResult<out T : Any> : ISResult<T> {
     override val data: T? = null

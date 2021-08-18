@@ -5,14 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.progressterra.core.sresult.ISResult
-import com.progressterra.core.sresult.SResult
 import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.data.IRepository
+import com.progressterra.ipbandroidview.data.Repository
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
 import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.utils.ISResult
+import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -23,7 +25,7 @@ import java.io.InputStream
 class UserInfoViewModel :
     ViewModel() {
 
-    private val repository = RepositoryImpl()
+    private val repository: IRepository = Repository()
 
 
     private val _ambassadorStateInfo = MutableLiveData<AmbassadorStatusResponse>()

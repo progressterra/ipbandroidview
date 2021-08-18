@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:backgroundTint="@color/theme_color"
-            android:elevation="5dp"
+            android:elevation="3dp"
+            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
             android:visibility="@{vm.screenState.loading}" />
 
         <Button
@@ -234,7 +235,8 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:elevation="5dp"
+                        android:elevation="3dp"
+                        android:indeterminateDrawable="@drawable/progressbar_indeterminate"
                         android:visibility="@{vm.onlyBaseUserInfo.loading}">
 
                     </ProgressBar>
@@ -260,7 +262,6 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/tv_gph_contract_download"
-                        style="@style/Button.Filled"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:paddingStart="10dp"
@@ -275,7 +276,6 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/tv_gph_contract_share"
-                        style="@style/Button.Filled"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:paddingStart="10dp"
@@ -529,7 +529,8 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:elevation="5dp"
+                        android:elevation="3dp"
+                        android:indeterminateDrawable="@drawable/progressbar_indeterminate"
                         android:visibility="@{vm.onlyBankUserInfo.loading}" />
 
                 </FrameLayout>

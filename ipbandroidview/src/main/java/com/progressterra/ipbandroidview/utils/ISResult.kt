@@ -1,4 +1,4 @@
-package com.progressterra.core.sresult
+package com.progressterra.ipbandroidview.utils
 
 interface ISResult<out T : Any> {
 

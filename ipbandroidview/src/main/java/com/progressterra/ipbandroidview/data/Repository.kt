@@ -1,7 +1,5 @@
-package com.progressterra.ipbandroidview.ui.set_personal_info
+package com.progressterra.ipbandroidview.data
 
-import com.progressterra.core.sresult.ISResult
-import com.progressterra.core.sresult.SResult
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.iProBonusApi.IProBonus
 import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.IPBAmbassadorAmbassador
@@ -11,13 +9,15 @@ import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStat
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
+import com.progressterra.ipbandroidview.utils.ISResult
+import com.progressterra.ipbandroidview.utils.SResult
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.ResponseBody
 import java.io.File
 
-class RepositoryImpl {
+class Repository : IRepository {
 
     private val keyPharmApi = IPBAmbassadorAmbassador()
     private val mediaDataApi = IpbMediaDataCore()
@@ -26,7 +26,7 @@ class RepositoryImpl {
 
 
     // получение информации о пользователе: имя,емейл,дата рождения и пр
-    suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> {
+    override suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> {
         val response = ipbApi.getClientInfo(accessToken)
         return if (response.result?.status == 0) {
             SResult.Success(ClientInfo.convertToUiModel(response))
@@ -35,10 +35,10 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun uploadImage(
+    override suspend fun uploadImage(
         accessToken: String,
-        alias: String = "userdata",
-        tag: String = "0",
+        alias: String,
+        tag: String,
         imageData: File
     ): ISResult<ImageUpload> {
         val filePart = MultipartBody.Part.createFormData(
@@ -55,7 +55,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun updateClientInfo(
+    override suspend fun updateClientInfo(
         accessToken: String,
         name: String,
         soname: String,
@@ -69,7 +69,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun getBankClientInfo(accessToken: String): ISResult<UserBankData> {
+    override suspend fun getBankClientInfo(accessToken: String): ISResult<UserBankData> {
         val response = keyPharmApi.getUserBankData(accessToken)
         return if (response.result?.status == 0) {
             SResult.Success(UserBankData.convertToUiModel(response))
@@ -80,7 +80,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun updateBankClientInfo(
+    override suspend fun updateBankClientInfo(
         accessToken: String,
         bankName: String,
         numberAccount: String,
@@ -104,7 +104,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun uploadSnilsPhotoUrl(
+    override suspend fun uploadSnilsPhotoUrl(
         snilsPhotoUrl: String,
         accessToken: String
     ): ISResult<Any> {
@@ -118,7 +118,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun uploadPassportPhotoUrl(
+    override suspend fun uploadPassportPhotoUrl(
         passportPhotoUrl: String,
         accessToken: String
     ): ISResult<Any> {
@@ -133,7 +133,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun getAmbassadorStatus(accessToken: String): SResult<AmbassadorStatusResponse> {
+    override suspend fun getAmbassadorStatus(accessToken: String): SResult<AmbassadorStatusResponse> {
         val response = keyPharmApi.getAmbassadorStatus(accessToken)
         return if (response.result?.status == 0) {
             SResult.Success(response)
@@ -142,7 +142,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun getAccessToken(): SResult<String> {
+    override suspend fun getAccessToken(): SResult<String> {
         val response = ipbRepository.getAccessToken()
         return if (response.globalResponseStatus == GlobalResponseStatus.SUCCESS && response.responseBody?.accessToken != null) {
             SResult.Success(response.responseBody?.accessToken!!)
@@ -152,7 +152,7 @@ class RepositoryImpl {
     }
 
 
-    suspend fun getContractOfAmbassador(accessToken: String): ISResult<ResponseBody> {
+    override suspend fun getContractOfAmbassador(accessToken: String): ISResult<ResponseBody> {
         val response = keyPharmApi.getContractOfAmbassador(accessToken)
         return if (response.isSuccessful && response.body() != null) {
             SResult.Success(response.body()!!)
@@ -161,7 +161,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun uploadAmbassadorContractPhotoUrl(
+    override suspend fun uploadAmbassadorContractPhotoUrl(
         accessToken: String,
         urlImage: String
     ): ISResult<Any> {
@@ -175,7 +175,7 @@ class RepositoryImpl {
         }
     }
 
-    suspend fun becomeSelfEmployed(accessToken: String): ISResult<AmbassadorStatusResponse> {
+    override suspend fun becomeSelfEmployed(accessToken: String): ISResult<AmbassadorStatusResponse> {
         val response = keyPharmApi.becomeSelfEmployed(accessToken)
         return if (response.result?.status == 0) {
             SResult.Success(response)
