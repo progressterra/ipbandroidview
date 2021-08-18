@@ -237,6 +237,7 @@
                         android:layout_gravity="center"
                         android:elevation="3dp"
                         android:indeterminateDrawable="@drawable/progressbar_indeterminate"
+                        android:indeterminateTint="@color/theme_color"
                         android:visibility="@{vm.onlyBaseUserInfo.loading}">
 
                     </ProgressBar>
@@ -531,6 +532,7 @@
                         android:layout_gravity="center"
                         android:elevation="3dp"
                         android:indeterminateDrawable="@drawable/progressbar_indeterminate"
+                        android:indeterminateTint="@color/theme_color"
                         android:visibility="@{vm.onlyBankUserInfo.loading}" />
 
                 </FrameLayout>

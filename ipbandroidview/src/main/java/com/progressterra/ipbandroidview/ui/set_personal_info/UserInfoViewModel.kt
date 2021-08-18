@@ -410,7 +410,7 @@ class UserInfoViewModel :
             _onlyBaseUserInfo.postValue(SResult.Failed(data = onlyBaseUserInfo.value?.data))
             _updateMainPersonalDataIsEnabled.postValue(true)
         }) {
-            SResult.Loading(data = onlyBaseUserInfo.value?.data)
+            _onlyBaseUserInfo.postValue(SResult.Loading(data = onlyBaseUserInfo.value?.data))
             var accessToken: String
             _updateMainPersonalDataIsEnabled.postValue(false)
 
