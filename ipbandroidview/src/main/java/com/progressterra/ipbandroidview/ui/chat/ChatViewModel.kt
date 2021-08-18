@@ -55,7 +55,6 @@ class ChatViewModel(
         if (messageText.isNullOrEmpty())
             return
 
-        Log.d("myTag", "$dialogId")
         if (dialogId == null) {
             _messagesList.postValue(emptyFailed())
             return
