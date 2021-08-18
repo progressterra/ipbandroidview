@@ -1,21 +1,32 @@
 package com.progressterra.ipbandroidview.ui.chat
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.interfaces.client.chat.ChatApi
+import androidx.lifecycle.SavedStateHandle
+import com.google.gson.Gson
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
+import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.IMessengerCore
+import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.DialogInfoRequest
+import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.MessageSendingRequest
+import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.additionalDataJSON
+import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.chat.utils.convertToMessagesList
 import com.progressterra.ipbandroidview.utils.ScreenState
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
-class ChatViewModel : BaseViewModel() {
-    private val ambassadorApi = ChatApi()
+class ChatViewModel(
+    savedState: SavedStateHandle
+) : BaseViewModel() {
+    private val messengerApi = IMessengerCore()
+    private val bonusesApi = BonusesApi.getInstance()
+
+    private val idEnterprise: String = savedState.get<String>("idEnterprise")
+        .orIfNull { throw NullPointerException("Did you forget to set idEnterprise?") }
+    private val imageUrl: String = savedState.get<String>("imageUrl") ?: ""
+    private val descriptionDialog: String = savedState.get<String>("descriptionDialog") ?: ""
 
     private var dialogId: String? = null
 
@@ -31,24 +42,15 @@ class ChatViewModel : BaseViewModel() {
 
 
     init {
+
         getDialogInfo()
     }
 
     private fun getMessagesList(dialogId: String) {
-        val handler = CoroutineExceptionHandler { context, exception ->
-            Log.e("http", exception.toString())
-        }
-        viewModelScope.launch(handler) {
-
-            tryWithState {
-                val response = ambassadorApi.getMessagesList(
-                    dialogId,
-                    messageListPage.toString()
-                ).responseBody
-                val messages = response?.convertToMessagesList() ?: listOf()
-                _messagesList.postValue(messages)
-
-            }
+        safeLaunchWithState {
+            val response = messengerApi.getMessagesList(dialogId, messageListPage.toString())
+            val messages = response.convertToMessagesList()
+            _messagesList.postValue(messages)
         }
     }
 
@@ -56,58 +58,45 @@ class ChatViewModel : BaseViewModel() {
     fun sendMessage(messageText: String) {
         if (messageText.isBlank()) return
 
-        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+        if (dialogId == null) {
+            _screenState.value = ScreenState.ERROR
+            return
+        }
 
-        }) {
-            _messageSandingStatus.postValue(ScreenState.LOADING)
+        safeLaunchWithState(state = _messageSandingStatus) {
+            val token = bonusesApi.getAccessToken()
+                .responseBody?.accessToken.orIfNull { throw NullPointerException("Token is null!") }
 
-            if (dialogId == null) {
-                _screenState.postValue(ScreenState.ERROR)
-                return@launch
-            }
-
-            var accessToken: String
-            repository.getAccessToken().let {
-                if (it.status == Status.SUCCESS) {
-                    accessToken = it.data!!
-                } else {
-                    _messageSandingStatus.postValue(ScreenState.ERROR)
-                    return@launch
-                }
-            }
-
-            repository.sendMessage(messageText, accessToken, dialogId!!).let {
-                if (it.resultIsSuccess()) {
-                    _messagesList.postValue(it.data!!)
-                    _messageSandingStatus.postValue(ScreenState.DEFAULT)
-                } else {
-                    _messageSandingStatus.postValue(ScreenState.ERROR)
-                }
-            }
+            val rawMessages = messengerApi
+                .sendMessage(MessageSendingRequest(dialogId!!, token, messageText))
+                .orIfNull { throw NullPointerException("Messages response is null") }
+            val messages = rawMessages.convertToMessagesList()
+            _messagesList.postValue(messages)
         }
     }
 
 
     // получаем информацию о диалоге между текущим пользователем и заданной организацией
     fun getDialogInfo() {
+        safeLaunchWithState {
+            val ids = listOf(UserData.clientInfo.idUnique, idEnterprise)
+            val response = messengerApi.getDialogInfo(
+                DialogInfoRequest(
+                    listId = ids,
+                    descriptionDialog = descriptionDialog,
+                    additionalData = "",
+                    additionalDataJSON = Gson().toJson(
+                        additionalDataJSON(
+                            idEnterprise,
+                            imageUrl
+                        )
+                    )
+                )
+            )
 
-        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
-            _screenState.postValue(ScreenState.ERROR)
-        }) {
-            _screenState.postValue(ScreenState.LOADING)
-            repository.getDialogInfo(
-                UserData.clientInfo.idUnique, "50881abb-d4cd-4781-8259-b617f3cd23a2"
-            ).let {
-                if (it.resultIsSuccess()) {
-                    dialogId = it.data
-                    getMessagesList(it.data!!)
-                } else {
-                    _screenState.postValue(ScreenState.ERROR)
-                }
-            }
-
-
+            val dialogIdLocal: String = response.dialogInfo.idUnique
+            dialogId = dialogIdLocal
+            getMessagesList(dialogIdLocal)
         }
-
     }
 }

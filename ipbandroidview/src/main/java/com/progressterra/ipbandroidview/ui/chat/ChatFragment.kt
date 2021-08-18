@@ -61,7 +61,7 @@ class ChatFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        vm.apply {
+        with(vm) {
             messageList.observe(viewLifecycleOwner) {
                 messageListAdapter.submitList(it.reversed())
             }
@@ -77,6 +77,8 @@ class ChatFragment : BaseFragment() {
                         "Ошибка при отправке сообщения",
                         Toast.LENGTH_SHORT
                     ).show()
+                    else -> {
+                    }
                 }
             }
         }
