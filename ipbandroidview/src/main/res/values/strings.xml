@@ -98,5 +98,13 @@
     <string name="last_name">Фамилия</string>
     <string name="middle_name">Отчество</string>
     <string name="make_contract_photo">Сделайте фото подписанного вами договора или загрузите его из галереи</string>
+    <string name="send_data">Отправить данные</string>
+    <string name="CPP_of_bank">КПП Банка</string>
+    <string name="inn_of_bank">ИНН Банка</string>
+    <string name="corr_acc">Корреспондентский счет</string>
+    <string name="bic">БИК</string>
+    <string name="account_number">Номер счета</string>
+    <string name="bank_name">Наименование банка</string>
+    <string name="acc_requisites">Реквизиты карточного счета:</string>
 
 </resources>
