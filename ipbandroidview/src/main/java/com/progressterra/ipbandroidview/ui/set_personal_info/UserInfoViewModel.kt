@@ -407,12 +407,10 @@ class UserInfoViewModel :
     fun updateMainUserData() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
             _showMessage.postValue(Event(R.string.personal_info_updating_error))
-            _onlyBaseUserInfo.postValue(onlyBaseUserInfo.value?.apply {
-                SResult.Loading(data = this.data)
-            })
+            _onlyBaseUserInfo.postValue(SResult.Failed(data = onlyBaseUserInfo.value?.data))
             _updateMainPersonalDataIsEnabled.postValue(true)
         }) {
-            _onlyBaseUserInfo.postValue(onlyBaseUserInfo.value?.apply { SResult.Loading(data = this.data) })
+            SResult.Loading(data = onlyBaseUserInfo.value?.data)
             var accessToken: String
             _updateMainPersonalDataIsEnabled.postValue(false)
 
@@ -422,10 +420,7 @@ class UserInfoViewModel :
                 } else {
                     _showMessage.postValue(Event(R.string.network_error))
                     _updateMainPersonalDataIsEnabled.postValue(true)
-                    _onlyBaseUserInfo.postValue(onlyBaseUserInfo.value?.apply {
-                        SResult.Failed(data = this.data)
-
-                    })
+                    _onlyBaseUserInfo.postValue(SResult.Failed(data = onlyBaseUserInfo.value?.data))
                     return@launch
                 }
             }
@@ -444,11 +439,8 @@ class UserInfoViewModel :
                     _updateMainPersonalDataIsEnabled.postValue(false)
                     _showMessage.postValue(Event(R.string.personal_info_updating_success))
                 } else {
-                    _onlyBaseUserInfo.postValue(onlyBaseUserInfo.value?.apply {
-                        SResult.Failed(data = this.data)
-
-                        _updateMainPersonalDataIsEnabled.postValue(true)
-                    })
+                    _onlyBaseUserInfo.postValue(SResult.Failed(data = onlyBaseUserInfo.value?.data))
+                    _updateMainPersonalDataIsEnabled.postValue(true)
                 }
             }
         }
@@ -457,14 +449,10 @@ class UserInfoViewModel :
     private fun updateBankUserData() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
             _showMessage.postValue(Event(R.string.personal_info_updating_error))
-            _onlyBaseUserInfo.postValue(onlyBaseUserInfo.value?.apply {
-                SResult.Loading(data = this.data)
-            })
+            _onlyBaseUserInfo.postValue(SResult.Failed(onlyBaseUserInfo.value?.data))
             _updateBankPersonalDataIsEnabled.postValue(true)
         }) {
-            _onlyBankUserInfo.postValue(onlyBankUserInfo.value?.apply {
-                SResult.Loading(data = this.data)
-            })
+            _onlyBankUserInfo.postValue(SResult.Loading(onlyBankUserInfo.value?.data))
             var accessToken: String
             _updateBankPersonalDataIsEnabled.postValue(false)
 
@@ -474,9 +462,7 @@ class UserInfoViewModel :
                 } else {
                     _showMessage.postValue(Event(R.string.personal_info_updating_error))
                     _updateBankPersonalDataIsEnabled.postValue(true)
-                    _onlyBankUserInfo.postValue(onlyBankUserInfo.value?.apply {
-                        SResult.Failed(data = this.data)
-                    })
+                    _onlyBankUserInfo.postValue(SResult.Failed(onlyBankUserInfo.value?.data))
                     return@launch
                 }
             }
@@ -498,9 +484,7 @@ class UserInfoViewModel :
                     _updateBankPersonalDataIsEnabled.postValue(false)
                     _showMessage.postValue(Event(R.string.personal_info_updating_success))
                 } else {
-                    _onlyBankUserInfo.postValue(onlyBankUserInfo.value?.apply {
-                        SResult.Failed(data = this.data)
-                    })
+                    _onlyBankUserInfo.postValue(SResult.Failed(onlyBankUserInfo.value?.data))
                     _showMessage.postValue(Event(R.string.personal_info_updating_error))
                     _updateBankPersonalDataIsEnabled.postValue(true)
                 }
