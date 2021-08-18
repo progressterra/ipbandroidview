@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.set_personal_info
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -151,6 +152,7 @@ class UserInfoViewModel :
     // получает базовую информацию о пользователе
     fun getMainUserInfo() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+            Log.d("test2", throwable.toString())
             _screenState.postValue(ScreenState.ERROR)
             _showMessage.postValue(Event(R.string.network_error))
         }) {
