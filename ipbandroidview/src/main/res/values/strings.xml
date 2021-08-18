@@ -84,6 +84,9 @@
     <string name="add_address_success">Новый адрес успешно добавлен</string>
     <string name="set_default_address_error">Ошибка при установке адреса по-умолчанию</string>
     <string name="set_default_address_success">Адрес по-умолчанию обновлен</string>
+    <string name="sellers_reply">Ответ продавца</string>
+    <string name="message_send_error">Ошибка при отправке сообщения</string>
+    <string name="messages_empty_list">Список сообщений пуст</string>
     <string name="passport_successully_updated">Фото паспорта успешно обновлено</string>
     <string name="snils_successully_updated">Фото СНИЛС успешно обновлено</string>
     <string name="contract_successully_updated">Фото договора успешно загружено</string>

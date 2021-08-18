@@ -4,10 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavDirections
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.concurrent.CancellationException
 
 open class BaseViewModel : ViewModel() {
@@ -36,18 +40,53 @@ open class BaseViewModel : ViewModel() {
         _action.postValue(Event(action))
     }
 
-    protected inline fun <T> tryWithState(tryBlock: () -> T): T? {
+    protected inline fun <T> tryWithState(
+        state: MutableLiveData<ScreenState> = _screenState,
+        tryBlock: () -> T
+    ): T? {
         return try {
-            _screenState.postValue(ScreenState.LOADING)
+            state.postValue(ScreenState.LOADING)
             val data = tryBlock.invoke()
-            _screenState.postValue(ScreenState.DEFAULT)
+            state.postValue(ScreenState.DEFAULT)
             data
         } catch (e: CancellationException) {
             Log.e("tryWithState", "${e.message}")
             null
         } catch (e: Exception) {
-            _screenState.postValue(ScreenState.ERROR)
+            Log.e(javaClass.simpleName, e.message, e)
+            state.postValue(ScreenState.ERROR)
             null
+        }
+    }
+
+    /**
+     *  Безопасное выполнение корутины
+     *  @param dispatcher - поток, по дефолту UI
+     */
+    protected fun safeLaunch(
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        onCatch: ((e: Exception) -> Unit)? = null,
+        launchBlock: suspend () -> Unit
+    ) {
+        viewModelScope.launch(dispatcher) {
+            try {
+                launchBlock.invoke()
+            } catch (e: Exception) {
+                onCatch?.invoke(e)
+                Log.e(javaClass.simpleName, "$e")
+            }
+        }
+    }
+
+    protected fun safeLaunchWithState(
+        dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        state: MutableLiveData<ScreenState> = _screenState,
+        launchBlock: suspend () -> Unit
+    ) {
+        viewModelScope.launch(dispatcher) {
+            tryWithState(state) {
+                launchBlock.invoke()
+            }
         }
     }
 }
