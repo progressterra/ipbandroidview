@@ -45,8 +45,4 @@
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popUpTo="@id/main_nav_graph" />
-    <fragment
-        android:id="@+id/userInfoFragment"
-        android:name="com.progressterra.ipbandroidview.ui.set_personal_info.UserInfoFragment"
-        android:label="UserInfoFragment" />
 </navigation>
