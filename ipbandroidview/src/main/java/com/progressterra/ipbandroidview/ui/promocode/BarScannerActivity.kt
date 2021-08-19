@@ -21,7 +21,6 @@ internal class BarScannerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityBarScannerLibBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         binding.btnBack.setOnClickListener {
             setResult(RESULT_CANCELED)
@@ -48,7 +47,6 @@ internal class BarScannerActivity : AppCompatActivity() {
 
     override fun onPause() {
         codeScanner.releaseResources()
-        WindowCompat.setDecorFitsSystemWindows(window, true)
         super.onPause()
     }
 }
