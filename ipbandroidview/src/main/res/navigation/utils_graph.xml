@@ -26,4 +26,14 @@
             app:nullable="false" />
     </fragment>
 
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.progressterra.ipbandroidview.ui.set_personal_info.UserInfoFragment"
+        android:label="UserInfoFragment">
+        <argument
+            android:name="header_res"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+
 </navigation>
