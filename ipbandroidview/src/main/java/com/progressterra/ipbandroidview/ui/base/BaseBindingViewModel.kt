@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.ui.base
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidview.utils.SResult
 import kotlinx.coroutines.CoroutineDispatcher
@@ -10,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-open class BaseBindingViewModel : BaseViewModel(), ISResultContainer {
+open class BaseBindingViewModel : ViewModel(), ISResultContainer {
     override val resultLiveData: LiveData<*>? = null
     override val supportLiveData: MutableLiveData<SResult<*>>? = null
     override val toastLiveData = MutableLiveData<SResult.Toast>()

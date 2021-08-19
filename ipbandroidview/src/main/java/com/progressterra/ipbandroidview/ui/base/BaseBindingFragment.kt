@@ -19,15 +19,21 @@ import com.progressterra.ipbandroidview.BR
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.toToastResult
 
+/**
+ * Базовый фрагмент с dataBinding. Сам создает dataBinding, привязывает vm к фрагменту и передает
+ * lifecycleOwner в фрагмент
+ */
 open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBindingViewModel>(@LayoutRes private val layoutRes: Int) :
     Fragment() {
 
-
     private var _binding: Binding? = null
-    private val binding: Binding
+    protected val binding: Binding
         get() = _binding!!
     protected open val vm by viewModels<BaseBindingViewModel>()
 
+    /**
+     *  "раздувание" разметки и установка вм в разметку
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +47,10 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         return binding.root
     }
 
+    /**
+     *  Подписывается на базовые лайвдаты в вм и вызывает onInitBinding.
+     *  Настройку фрагмента следует производить в onInitBinding
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm.supportLiveData?.observeAndHandleSResult {
@@ -56,6 +66,10 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         onInitBinding(binding, savedInstanceState)
     }
 
+    /**
+     *  Дефолтная обработка SResult
+     *  Обрабатываемые типы: Toast, Failed, NavResult
+     */
     protected fun <T : Any> SResult<T>.defaultResultHandling() {
         when (this) {
             is SResult.Toast -> handleToastResult()
@@ -65,14 +79,23 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         }
     }
 
+    /**
+     *  После вывода сообщения на экран, вызовется данный метод
+     */
     protected open fun onToast(toastMessage: String) {
 
     }
 
+    /**
+     * Обработка лайвдаты с SResult
+     */
     protected open fun <T : Any> handleSupportLiveData(result: SResult<T>) {
         result.defaultResultHandling()
     }
 
+    /**
+     *  Выводит тост в случае если в сообщение в Failed не пустое
+     */
     private fun <T : Any> SResult.Failed<T>.handleFailedResult() {
         when (message) {
             is String -> message as String
@@ -82,6 +105,9 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         }?.toToastResult()?.handleToastResult()
     }
 
+    /**
+     *  Определяет тип данных в Toast и выводит тост на экран с вызовом onToast()
+     */
     private fun SResult.Toast.handleToastResult() {
         when (message) {
             is String -> message as String
@@ -93,6 +119,9 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         }
     }
 
+    /**
+     * Навигация возможно как через action, так и через id в графе
+     */
     private fun SResult.NavResult.handleNavResult() {
         when (navDirections) {
             is NavDirections -> findNavController().navigate(navDirections as NavDirections)
@@ -100,6 +129,9 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         }
     }
 
+    /**
+     *  Подписывается на изменения SResult и "открывает" даненые (аналог Event)
+     */
     protected fun <T : SResult<T>> LiveData<T>.observeAndHandleSResult(observer: (T) -> Unit) {
         this.observe(viewLifecycleOwner) {
             it?.handle {
@@ -108,14 +140,23 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         }
     }
 
+    /**
+     *  Обнуляет _binding что бы не было утечек
+     */
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
 
+    /**
+     *  Вызовется в onViewCreated()
+     */
     protected open fun onInitBinding(binding: Binding, savedInstanceState: Bundle?) {
     }
 
+    /**
+     *  @param permission - разрешение для которого необходимо проверить доступность
+     */
     protected fun isPermissionGranted(permission: String): Boolean {
         return ContextCompat.checkSelfPermission(
             requireContext(),
