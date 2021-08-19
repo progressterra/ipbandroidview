@@ -15,8 +15,10 @@ import androidx.core.content.FileProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.progressterra.ipbandroidview.databinding.FragmentUserInfoLibBinding
+import com.progressterra.ipbandroidview.utils.DEFAULT_RES
 import com.progressterra.ipbandroidview.utils.FileHelper
 import com.progressterra.ipbandroidview.utils.SResult
 import com.squareup.picasso.Picasso
@@ -41,6 +43,7 @@ class UserInfoFragment : Fragment() {
     private lateinit var binding: FragmentUserInfoLibBinding
     private val fileHelper by lazy { FileHelper() }
     private var saveFileInputStream: InputStream? = null
+    private val arg: UserInfoFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +65,10 @@ class UserInfoFragment : Fragment() {
         binding.apply {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
+        }
+
+        if (arg.headerRes != DEFAULT_RES) {
+            binding.ivHeader.setImageResource(arg.headerRes)
         }
     }
 
