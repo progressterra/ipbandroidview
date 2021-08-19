@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentConfirmBinding
+import com.progressterra.ipbandroidview.databinding.FragmentConfirmLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
@@ -36,13 +36,13 @@ class ConfirmFragment : BaseFragment() {
         )
     }
 
-    private lateinit var binding: FragmentConfirmBinding
+    private lateinit var binding: FragmentConfirmLibBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentConfirmBinding.inflate(inflater, container, false)
+        binding = FragmentConfirmLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 

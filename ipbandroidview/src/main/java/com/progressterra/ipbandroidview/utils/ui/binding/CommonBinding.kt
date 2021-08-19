@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.databinding.BindingAdapter
 import androidx.databinding.BindingConversion
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
@@ -91,4 +92,14 @@ internal fun setTintFromPalette(view: View, colorsPalette: ColorsPalette?) {
     ColorsPalette.secondaryColor?.let {
         view.backgroundTintList = ColorStateList.valueOf(it)
     }
+}
+
+@BindingAdapter("setLoadStateToButton")
+internal fun setLoadStateToButton(button: AppCompatButton, isLoading: Boolean) {
+    if (isLoading) {
+        button.textScaleX = 0.0f
+    } else {
+        button.textScaleX = 1f
+    }
+
 }

@@ -1,15 +1,21 @@
 package com.progressterra.ipbandroidview.ui.base
 
+import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.ToastBundle
 
 open class BaseFragment : Fragment() {
 
-    protected fun showToast(event: Event<ToastBundle>) {
+    protected open val vm by viewModels<BaseViewModel>()
+
+    protected open fun showToast(event: Event<ToastBundle>) {
         val toastBundle = event.contentIfNotHandled
         toastBundle?.let {
             val id = toastBundle.id
@@ -35,10 +41,26 @@ open class BaseFragment : Fragment() {
         }
     }
 
-    protected fun onAction(event: Event<NavDirections>) {
+    protected open fun onAction(event: Event<NavDirections>) {
         val action = event.contentIfNotHandled
         if (action != null) {
             findNavController().navigate(action)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        vm.action.observe(viewLifecycleOwner, this::onAction)
+        vm.toastBundle.observe(viewLifecycleOwner, this::showToast)
+    }
+
+    protected fun SResult.Toast.handleToastResult() {
+        when (message) {
+            is String -> message as String
+            is Int -> getString(message as Int)
+            else -> null
+        }?.let {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         }
     }
 }
