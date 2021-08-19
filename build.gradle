@@ -4,7 +4,6 @@ buildscript {
         kotlin_version = "1.5.10"
         lifecycle_version = "2.3.1"
         nav_version = "2.4.0-alpha02"
-        permission_dispatcher = "4.9.1"
     }
 
     apply from: "functions.gradle"
@@ -32,7 +31,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        jcenter()
         maven { url 'https://jitpack.io' }
 
         maven {
