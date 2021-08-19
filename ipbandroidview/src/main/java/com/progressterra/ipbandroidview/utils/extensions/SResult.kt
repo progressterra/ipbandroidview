@@ -14,6 +14,11 @@ fun String.toToastResult() = SResult.Toast(this)
 fun Int.toToastResult() = SResult.Toast(this)
 
 /**
+ * Any в тост
+ */
+fun Any.toToastResult() = SResult.Toast(this)
+
+/**
  *  Action в navResult
  */
 fun NavDirections.toNavResult() = SResult.NavResult(this)

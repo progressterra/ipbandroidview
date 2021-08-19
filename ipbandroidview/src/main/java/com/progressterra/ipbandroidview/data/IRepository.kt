@@ -84,4 +84,9 @@ internal interface IRepository {
 
         suspend fun becomeSelfEmployed(accessToken: String): ISResult<AmbassadorStatusResponse>
     }
+
+    interface PromoCode {
+        suspend fun getAccessToken(): SResult<String>
+        suspend fun setPromoCode(accessToken: String, promoCode: String): SResult<*>
+    }
 }

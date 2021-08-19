@@ -58,7 +58,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
-    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.1.51"
+    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.1.58"
 
     //zoom image view
     api 'com.github.MikeOrtiz:TouchImageView:3.1.0'
@@ -73,4 +73,11 @@ dependencies {
     // Navigation
     api "androidx.navigation:navigation-fragment-ktx:$nav_version"
     api "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Permissions
+    api "com.github.permissions-dispatcher:permissionsdispatcher:$permission_dispatcher"
+    kapt "com.github.permissions-dispatcher:permissionsdispatcher-processor:$permission_dispatcher"
+
+    // QR
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
 }
