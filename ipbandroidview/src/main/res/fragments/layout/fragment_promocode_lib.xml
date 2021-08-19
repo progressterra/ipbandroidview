@@ -81,7 +81,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:clickable="@{!vm.result.isLoading()}"
-            android:enabled="@{!vm.code.empty}"
+            android:enabled="@{vm.buttonEnabled}"
             android:onClick="@{() -> vm.send()}"
             android:text="@{vm.result.isLoading() ? @string/empty_string : @string/promocode_send}"
             app:layout_constraintBottom_toBottomOf="parent"

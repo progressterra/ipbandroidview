@@ -122,7 +122,7 @@
     <string name="promocode_never_ok">Перейти в настройки</string>
     <string name="promocode_never_cancel">Возможно позже</string>
 
-    <string name="permission_rationale">Для использования данного функционала, необходимо предоставить разрешение!</string>
+    <string name="permission_rationale">Для использования данного функционала необходимо предоставить разрешение!</string>
     <string name="permission_never_ask_again">Разршение можно будет предоставить в настройках телефона!</string>
 
     <string name="empty_string"> </string>

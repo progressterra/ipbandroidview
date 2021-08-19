@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.promocode
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.CommonRepository
 import com.progressterra.ipbandroidview.data.IRepository
@@ -16,12 +17,14 @@ class PromoCodeViewModel : BaseBindingViewModel() {
 
     val code = MutableLiveData("")
 
+    val buttonEnabled: LiveData<Boolean> = code.map { it.isNotBlank() }
+
     private val _result = MutableLiveData<SResult<*>>(toSuccessResult())
     val result: LiveData<SResult<*>> = _result
 
     fun send() {
         val mCode = code.value ?: return
-        if (mCode.isNotEmpty()) {
+        if (mCode.isNotBlank()) {
             safeNamedLaunch(launchName = javaClass.simpleName,
                 onCatch = {
                     _result.postValue(R.string.ErrorString.toToastResult())
