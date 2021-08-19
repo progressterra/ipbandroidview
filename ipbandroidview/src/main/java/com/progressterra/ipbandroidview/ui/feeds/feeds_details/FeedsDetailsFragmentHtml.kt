@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.feeds.product_sub_info.detail_sub_info_content
+package com.progressterra.ipbandroidview.ui.feeds.feeds_details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.progressterra.ipbandroidview.databinding.DialogDetailgFragmentHtmlBinding
+import com.progressterra.ipbandroidview.databinding.DialogDetailFeedHtmlLibBinding
 
-class SubInfoDialogFragmentHtml : DialogFragment() {
+class FeedsDetailsFragmentHtml : DialogFragment() {
 
-    private lateinit var binding: DialogDetailgFragmentHtmlBinding
+    private lateinit var binding: DialogDetailFeedHtmlLibBinding
 
-    private val args: SubInfoDialogFragmentHtmlArgs by navArgs()
+    private val args: FeedsDetailsFragmentHtmlArgs by navArgs()
 
 
     override fun onCreateView(
@@ -21,7 +21,7 @@ class SubInfoDialogFragmentHtml : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DialogDetailgFragmentHtmlBinding.inflate(inflater, container, false)
+        binding = DialogDetailFeedHtmlLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 

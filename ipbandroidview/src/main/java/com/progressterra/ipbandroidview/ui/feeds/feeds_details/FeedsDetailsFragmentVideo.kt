@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.feeds.product_sub_info.detail_sub_info_content
+package com.progressterra.ipbandroidview.ui.feeds.feeds_details
 
 import android.net.Uri
 import android.os.Bundle
@@ -10,23 +10,23 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
-import com.progressterra.ipbandroidview.databinding.DialogFeedDetailVideoBinding
+import com.progressterra.ipbandroidview.databinding.DialogDetailFeedVideoLibBinding
 
 
-class SubInfoDialogFragmentVideo : DialogFragment() {
+class FeedsDetailsFragmentVideo : DialogFragment() {
 
-    private val args: SubInfoDialogFragmentVideoArgs by navArgs()
+    private val args: FeedsDetailsFragmentVideoArgs by navArgs()
 
     private var currentPlayPos: Long? = null
 
-    private lateinit var binding: DialogFeedDetailVideoBinding
+    private lateinit var binding: DialogDetailFeedVideoLibBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DialogFeedDetailVideoBinding.inflate(inflater, container, false)
+        binding = DialogDetailFeedVideoLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,7 +34,7 @@ class SubInfoDialogFragmentVideo : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         currentPlayPos = savedInstanceState?.getLong("currentPlayPosition")
 
-        setupContent(args.url)
+        setupVideoPlayer(args.url)
 
         binding.btnClose.setOnClickListener {
             findNavController().popBackStack()
@@ -55,7 +55,7 @@ class SubInfoDialogFragmentVideo : DialogFragment() {
         binding.playerView.player?.release()
     }
 
-    private fun setupContent(url: String) {
+    private fun setupVideoPlayer(url: String) {
 
         val playerView = binding.playerView
         val player = SimpleExoPlayer.Builder(requireContext()).build()

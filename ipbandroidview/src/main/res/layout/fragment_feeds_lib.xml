@@ -5,7 +5,7 @@
 
         <variable
             name="vm"
-            type="com.progressterra.ipbandroidview.ui.feeds.TrainingTabViewModel" />
+            type="com.progressterra.ipbandroidview.ui.feeds.FeedsViewModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,28 +13,28 @@
         android:layout_height="match_parent">
 
         <ProgressBar
-            visibilityFromBoolean="@{vm.screenState.loading}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:elevation="5dp" />
+            android:elevation="5dp"
+            android:visibility="@{vm.screenState.loading}" />
 
         <Button
             android:id="@+id/btn_refresh"
-            visibilityFromBoolean="@{vm.screenState.error}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Обновить" />
+            android:text="@string/refresh"
+            android:visibility="@{vm.screenState.error}" />
 
         <FrameLayout
-            visibilityFromBoolean="@{vm.screenState.isDefault()}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="@{vm.screenState.isDefault()}">
 
             <androidx.recyclerview.widget.RecyclerView
-                style="@style/Button.Filled"
                 android:id="@+id/rv_training"
+                style="@style/Button.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="20dp"
