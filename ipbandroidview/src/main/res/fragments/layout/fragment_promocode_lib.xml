@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.promocode.PromoCodeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/v_rect"
+            android:layout_width="188dp"
+            android:layout_height="188dp"
+            android:background="@drawable/ic_rect_qr"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_scan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_qr"
+            android:layout_width="188dp"
+            android:layout_height="188dp"
+            android:src="@drawable/ic_qr_placeholder"
+            app:layout_constraintBottom_toBottomOf="@id/v_rect"
+            app:layout_constraintEnd_toEndOf="@id/v_rect"
+            app:layout_constraintStart_toStartOf="@id/v_rect"
+            app:layout_constraintTop_toTopOf="@id/v_rect" />
+
+        <TextView
+            android:id="@+id/tv_scan"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/promocode_camera"
+            app:layout_constraintBottom_toTopOf="@id/tv_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/v_rect" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/promocode_type"
+            app:layout_constraintBottom_toTopOf="@id/et_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_scan" />
+
+        <EditText
+            android:id="@+id/et_type"
+            style="@style/EditTextBackground"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@={vm.code}"
+            app:layout_constraintBottom_toTopOf="@id/btn_send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_type"
+            tools:text="hoba" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_send"
+            style="@style/Button.Filled"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:clickable="@{!vm.result.isLoading()}"
+            android:enabled="@{vm.buttonEnabled}"
+            android:onClick="@{() -> vm.send()}"
+            android:text="@{vm.result.isLoading() ? @string/empty_string : @string/promocode_send}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/et_type" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="4dp"
+            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
+            android:visibility="@{vm.result.isLoading()}"
+            app:layout_constraintBottom_toBottomOf="@id/btn_send"
+            app:layout_constraintEnd_toEndOf="@id/btn_send"
+            app:layout_constraintStart_toStartOf="@id/btn_send"
+            app:layout_constraintTop_toTopOf="@id/btn_send"
+            tools:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

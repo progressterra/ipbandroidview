@@ -110,4 +110,20 @@
     <string name="bank_name">Наименование банка</string>
     <string name="acc_requisites">Реквизиты карточного счета:</string>
 
+    <!--  PromoCode  -->
+    <string name="promocode_camera">Считать QR-код</string>
+    <string name="promocode_type">или введите промокод вручную</string>
+    <string name="promocode_success">Промокод успешно активирован</string>
+    <string name="promocode_send">Отправить</string>
+    <string name="promocode_camera_hint">Наведите камеру\nна QR-код</string>
+    <string name="promocode_cancel">Отмена</string>
+    <string name="promocode_never_dialog_title">Разрешение на использование камеры</string>
+    <string name="promocode_never_dialog_description">Разрешение необходимо что бы Вы могли просканировать QR-код. Его можно предоставить в настройках.</string>
+    <string name="promocode_never_ok">Перейти в настройки</string>
+    <string name="promocode_never_cancel">Возможно позже</string>
+
+    <string name="permission_rationale">Для использования данного функционала необходимо предоставить разрешение!</string>
+    <string name="permission_never_ask_again">Разршение можно будет предоставить в настройках телефона!</string>
+
+    <string name="empty_string"> </string>
 </resources>

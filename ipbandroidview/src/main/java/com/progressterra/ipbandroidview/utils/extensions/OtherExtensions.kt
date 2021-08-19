@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import com.progressterra.ipbandroidview.utils.DefaultArgsValues
+import com.progressterra.ipbandroidview.utils.DEFAULT_RES
 import com.progressterra.ipbandroidview.utils.delegate.FragmentArgumentDelegate
 import com.progressterra.ipbandroidview.utils.delegate.FragmentNullableArgumentDelegate
 import kotlin.properties.ReadWriteProperty
@@ -38,4 +38,4 @@ fun <T> MutableLiveData<T>.notifyObserver() {
     this.value = this.value
 }
 
-fun Int.notDefaultArg(): Boolean = this != DefaultArgsValues.DEFAULT_RES
+fun Int.notDefaultArg(): Boolean = this != DEFAULT_RES

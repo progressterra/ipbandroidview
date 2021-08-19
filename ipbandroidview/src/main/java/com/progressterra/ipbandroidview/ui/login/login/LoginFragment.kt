@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
-import com.progressterra.ipbandroidview.utils.DefaultArgsValues
+import com.progressterra.ipbandroidview.utils.DEFAULT_RES
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 
@@ -80,7 +80,7 @@ class LoginFragment : BaseFragment() {
             }
             if (phoneNumberSettings.footerEnabled) {
                 val resId = phoneNumberSettings.footerImageId
-                if (resId != DefaultArgsValues.DEFAULT_RES) {
+                if (resId != DEFAULT_RES) {
                     viewFooterDivider.visibility = View.VISIBLE
                     ivFooter.visibility = View.VISIBLE
                     ivFooter.setImageResource(resId)
