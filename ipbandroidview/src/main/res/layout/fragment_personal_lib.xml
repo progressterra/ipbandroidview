@@ -40,7 +40,7 @@
 
             <include
                 android:id="@+id/personal_data"
-                layout="@layout/include_personal_data"
+                layout="@layout/include_personal_data_lib"
                 app:vm="@{vm}" />
 
         </ScrollView>

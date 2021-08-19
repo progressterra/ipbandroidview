@@ -9,12 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentTrainingBinding
+import com.progressterra.ipbandroidview.databinding.FragmentFeedsLibBinding
 import com.progressterra.ipbandroidview.ui.feeds.models.ContentType
 import com.progressterra.ipbandroidview.ui.feeds.product_sub_info.FeedsAdapter
 
 class TrainingFragment : Fragment() {
-    private lateinit var binding: FragmentTrainingBinding
+    private lateinit var binding: FragmentFeedsLibBinding
     private val feedsViewModel: FeedsViewModel by viewModels()
 
     private val adapter = FeedsAdapter {
@@ -36,7 +36,7 @@ class TrainingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentTrainingBinding.inflate(inflater, container, false)
+        binding = FragmentFeedsLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesTransactionTabBinding
+import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesTransactionTabLibBinding
 import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
 
 internal class BonusesTabTransactionFragment : Fragment() {
 
     private val viewModel: BonusesDetailsViewModel by activityViewModels()
-    private lateinit var binding: FragmentDetailBonusesTransactionTabBinding
+    private lateinit var binding: FragmentDetailBonusesTransactionTabLibBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,7 +23,7 @@ internal class BonusesTabTransactionFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_detail_bonuses_transaction_tab,
+            R.layout.fragment_detail_bonuses_transaction_tab_lib,
             container,
             false
         )

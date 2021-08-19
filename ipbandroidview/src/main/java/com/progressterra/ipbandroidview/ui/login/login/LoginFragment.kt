@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.*
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.FragmentLoginBinding
+import com.progressterra.ipbandroidview.databinding.FragmentLoginLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
@@ -35,7 +35,7 @@ class LoginFragment : BaseFragment() {
         )
     }
 
-    private lateinit var binding: FragmentLoginBinding
+    private lateinit var binding: FragmentLoginLibBinding
 
 
     override fun onCreateView(
@@ -51,7 +51,7 @@ class LoginFragment : BaseFragment() {
             )
         }
 
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        binding = FragmentLoginLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 

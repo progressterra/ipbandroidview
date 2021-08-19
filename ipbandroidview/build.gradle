@@ -34,7 +34,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
+    sourceSets {
+        main {
+            res.srcDirs = ['src/main/res', 'src/main/res/fragments']
+        }
+    }
     buildFeatures {
         dataBinding = true
     }
@@ -54,7 +58,7 @@ dependencies {
     api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
-    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.0.81"
+    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.1.51"
 
     //zoom image view
     api 'com.github.MikeOrtiz:TouchImageView:3.1.0'
@@ -63,7 +67,7 @@ dependencies {
     api 'com.squareup.picasso:picasso:2.71828'
 
     // AndroidX
-    api "androidx.fragment:fragment-ktx:1.3.4"
+    implementation "androidx.fragment:fragment-ktx:1.3.5"
 
     // Navigation
     api "androidx.navigation:navigation-fragment-ktx:$nav_version"
