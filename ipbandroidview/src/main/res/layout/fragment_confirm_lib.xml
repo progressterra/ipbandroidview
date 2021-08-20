@@ -15,14 +15,12 @@
         android:layout_height="match_parent"
         tools:context=".ui.login.confirm.ConfirmFragment">
 
-
         <ImageView
             android:id="@+id/confirm_logo_iv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:minHeight="88dp"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +81,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/digit1" />
-
 
         <TextView
             android:id="@+id/digit1"
@@ -194,35 +191,15 @@
             tools:text="через 00:55"
             tools:textColor="@android:color/darker_gray" />
 
-        <View
-            android:id="@+id/line_view"
-            android:layout_width="match_parent"
-            android:layout_height="16dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="8dp"
-            android:background="#989090"
-            app:layout_constraintTop_toBottomOf="@id/resend_code" />
 
         <ImageView
             android:id="@+id/confirm_banner_iv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:gravity="center"
-            android:minHeight="200dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/line_view"
-            app:layout_constraintVertical_bias="1" />
-
-        <androidx.constraintlayout.widget.Group
-            android:id="@+id/group_footer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="line_view, confirm_banner_iv"
-            tools:visibility="visible" />
-
+            app:layout_constraintTop_toBottomOf="@id/resend_code"
+            tools:src="@tools:sample/backgrounds/scenic" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

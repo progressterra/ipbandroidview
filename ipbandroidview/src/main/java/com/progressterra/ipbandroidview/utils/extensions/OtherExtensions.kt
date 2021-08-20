@@ -2,6 +2,8 @@ package com.progressterra.ipbandroidview.utils.extensions
 
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.progressterra.ipbandroidview.utils.DEFAULT_RES
@@ -39,3 +41,10 @@ fun <T> MutableLiveData<T>.notifyObserver() {
 }
 
 fun Int.notDefaultArg(): Boolean = this != DEFAULT_RES
+
+fun Int.applyIfNotDefault(imageView: ImageView) {
+    if (this != DEFAULT_RES) {
+        imageView.setImageResource(this)
+        imageView.visibility = View.VISIBLE
+    }
+}
