@@ -204,7 +204,8 @@ class UserInfoViewModel :
                             bic = it.data?.bik ?: "",
                             correspondentAccount = it.data?.correspondentAccount ?: "",
                             inn = it.data?.tinOfBank ?: "",
-                            cpp = it.data?.kppBank ?: ""
+                            cpp = it.data?.kppBank ?: "",
+                            clientInn = it.data?.tinOnClient ?: ""
                         )
                     )
                     _screenState.postValue(SResult.Success(Any()))
