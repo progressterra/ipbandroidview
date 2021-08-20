@@ -126,4 +126,5 @@
     <string name="permission_never_ask_again">Разршение можно будет предоставить в настройках телефона!</string>
 
     <string name="empty_string"> </string>
+    <string name="user_inn">Ваш ИНН</string>
 </resources>

@@ -140,6 +140,11 @@ class UserInfoViewModel :
         updateUploadBankUserDataButtonState()
     }
 
+    fun updateClientInn(clientInn: String) {
+        _allInfoUserModel.value = allInfoUserModel.value?.copy(clientInn = clientInn)
+        updateUploadBankUserDataButtonState()
+    }
+
     // обновляет банковскую информацию о пользователе
     fun sendBaseUserInfo() {
         // проверяет, было ли успешно загружено фото. Маркером явлеяется наличие в префах ссылки на фото.
@@ -397,6 +402,11 @@ class UserInfoViewModel :
             onlyBankUserInfo.value?.data?.kppBank != allInfoUserModel.value?.cpp
                     && allInfoUserModel.value?.bankFieldsIsValid == true -> _updateBankPersonalDataIsEnabled.value =
                 true
+
+            onlyBankUserInfo.value?.data?.tinOnClient != allInfoUserModel.value?.clientInn
+                    && allInfoUserModel.value?.bankFieldsIsValid == true -> _updateBankPersonalDataIsEnabled.value =
+                true
+
             else -> _updateBankPersonalDataIsEnabled.value = false
         }
     }
@@ -473,6 +483,7 @@ class UserInfoViewModel :
                 allInfoUserModel.value?.correspondentAccount ?: "",
                 allInfoUserModel.value?.inn ?: "",
                 allInfoUserModel.value?.cpp ?: "",
+                allInfoUserModel.value?.clientInn ?: ""
             ).let {
                 _onlyBankUserInfo.postValue(it)
                 if (it.isSuccess()) {

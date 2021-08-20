@@ -154,6 +154,7 @@ class UserInfoFragment : Fragment() {
             viewModel.updateInn(text.toString())
         }
         binding.etCpp.doOnTextChanged { text, _, _, _ -> viewModel.updateCpp(text.toString()) }
+        binding.etClientInn.doOnTextChanged { text, _, _, _ -> viewModel.updateClientInn(text.toString()) }
     }
 
     private fun setupViewModel() {

@@ -370,6 +370,27 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/user_inn"
+                    android:textColor="@color/theme_color" />
+
+                <EditText
+                    android:id="@+id/et_client_inn"
+                    style="@style/EditTextBackground"
+                    setValidationStatus="@{vm.allInfoUserModel.clientInnIsValid}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="25dp"
+                    android:singleLine="true"
+                    android:text="@{vm.allInfoUserModel.clientInn}" />
+
+                <TextView
                     style="@style/Text.CalloutClick"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

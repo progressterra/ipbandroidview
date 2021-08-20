@@ -9,7 +9,8 @@ data class UserInfoModelUI(
     var bic: String = "",
     var correspondentAccount: String = "",
     var inn: String = "",
-    var cpp: String = ""
+    var cpp: String = "",
+    var clientInn: String = ""
 ) {
 
 
@@ -39,10 +40,13 @@ data class UserInfoModelUI(
     val cppIsValid
         get() = cpp.isNotBlank()
 
+    val clientInnIsValid
+        get() = clientInn.isNotBlank()
+
     val bankFieldsIsValid: Boolean =
         bankNameIsValid && accountIsValid
                 && bicIsValid && correspondentAccountIsValid
-                && innIsValid && cppIsValid
+                && innIsValid && cppIsValid && clientInnIsValid
 
     val baseInfoIsValid: Boolean = nameIsValid && lastNameIsValid
 }

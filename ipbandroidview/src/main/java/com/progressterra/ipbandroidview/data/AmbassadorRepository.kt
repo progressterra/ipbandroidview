@@ -70,7 +70,7 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         return if (response.result?.status == 0) {
             SResult.Success(UserBankData.convertToUiModel(response))
         } else if (response.result?.status == 1) {
-            return SResult.Success(UserBankData("", "", "", "", "", ""))
+            return SResult.Success(UserBankData("", "", "", "", "", "", ""))
         } else {
             SResult.Failed(response.result?.message)
         }
@@ -83,7 +83,8 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         bik: String,
         correspondentAccount: String,
         tinOfBank: String,
-        kppBank: String
+        kppBank: String,
+        clientInn: String
     ): ISResult<UserBankData> {
         val response = keyPharmApi.updateUserBankData(
             accessToken, bankName = bankName,
@@ -91,7 +92,8 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
             bik = bik,
             correspondentAccount = correspondentAccount,
             tinOfBank = tinOfBank,
-            kppBank = kppBank
+            kppBank = kppBank,
+            tinOfClient = clientInn
         )
         return if (response.result?.status == 0) {
             SResult.Success(UserBankData.convertToUiModel(response))
