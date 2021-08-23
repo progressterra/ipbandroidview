@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -75,14 +74,8 @@ class ConfirmFragment : BaseFragment() {
 
     private fun applySettings() {
         binding.apply {
-            if (confirmSettings.enableLogo && confirmSettings.logoImageResId.notDefaultArg()) {
-                confirmLogoIv.setImageResource(confirmSettings.logoImageResId)
-                confirmLogoIv.isVisible = confirmSettings.enableLogo
-            }
-            if (confirmSettings.enableFooter && confirmSettings.footerImageResId.notDefaultArg()) {
-                confirmBannerIv.setImageResource(confirmSettings.footerImageResId)
-                groupFooter.isVisible = confirmSettings.enableFooter
-            }
+            confirmSettings.logoImageResId.applyIfNotDefault(confirmLogoIv)
+            confirmSettings.footerImageResId.applyIfNotDefault(confirmBannerIv)
         }
     }
 
