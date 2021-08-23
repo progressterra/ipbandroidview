@@ -125,7 +125,7 @@
             android:layout_marginTop="21dp"
             android:gravity="center"
             android:text="Позвольте нам дать для вас качественные предложения. Кто вы? "
-            android:visibility="@{!vm.personalSettings.enableSexShortDescription}"
+            android:visibility="@{!vm.personalSettings.enableSexShortDescription &amp;&amp; vm.personalSettings.enableSex}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/set_email_info_tv" />
@@ -136,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_sex"
-            android:visibility="@{vm.personalSettings.enableSexShortDescription}"
+            android:visibility="@{vm.personalSettings.enableSexShortDescription &amp;&amp; vm.personalSettings.enableSex}"
             app:layout_constraintBottom_toBottomOf="@id/radioGroup_sex"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toTopOf="@id/radioGroup_sex" />
@@ -148,6 +148,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:visibility="@{vm.personalSettings.enableSex}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toEndOf="@id/tv_sex_short"
             app:layout_constraintTop_toBottomOf="@id/set_sex_info_tv"

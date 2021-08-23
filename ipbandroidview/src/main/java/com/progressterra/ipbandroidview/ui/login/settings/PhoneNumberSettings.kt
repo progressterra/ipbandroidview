@@ -9,6 +9,6 @@ import kotlinx.parcelize.Parcelize
 data class PhoneNumberSettings(
     val defaultCountry: String = Country.RUSSIA.name,
     val agreementEnabled: Boolean = false,
-    val footerEnabled: Boolean = false,
-    val footerImageId: Int = DEFAULT_RES
+    val footerImageId: Int = DEFAULT_RES,
+    val headerImageId: Int = DEFAULT_RES
 ) : Parcelable

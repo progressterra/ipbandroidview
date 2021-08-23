@@ -43,6 +43,11 @@ internal class PersonalViewModel(
                 citiesList.postValue(it.responseBody?.dataList?.filter { city -> !city.name.isNullOrEmpty() })
             }
         }
+
+        if (!personalSettings.enableSex) {
+            personalInfo.value?.sexType = SexType.NONE
+            personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        }
     }
 
     fun updateFirstName(newName: String) {
