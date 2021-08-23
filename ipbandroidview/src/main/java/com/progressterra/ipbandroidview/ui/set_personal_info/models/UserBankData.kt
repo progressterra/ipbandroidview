@@ -10,6 +10,7 @@ data class UserBankData(
     val kppBank: String,
     val numberAccount: String,
     val tinOfBank: String,
+    val tinOnClient: String
 ) {
     companion object {
         fun convertToUiModel(data: BankInfoResponse): UserBankData {
@@ -19,7 +20,8 @@ data class UserBankData(
                 data.clientBankData.correspondentAccount ?: "",
                 data.clientBankData.kppBank ?: "",
                 data.clientBankData.numberAccount ?: "",
-                data.clientBankData.tinOfBank ?: ""
+                data.clientBankData.tinOfBank ?: "",
+                data.clientBankData.tinOfClient ?: ""
             )
         }
 
@@ -30,7 +32,8 @@ data class UserBankData(
                 data.data?.bankAccountDetails?.correspondentAccount ?: "",
                 data.data?.bankAccountDetails?.kppBank ?: "",
                 data.data?.bankAccountDetails?.numberAccount ?: "",
-                data.data?.bankAccountDetails?.tinOfBank ?: ""
+                data.data?.bankAccountDetails?.tinOfBank ?: "",
+                data.data?.bankAccountDetails?.tinOfClient ?: ""
             )
         }
     }

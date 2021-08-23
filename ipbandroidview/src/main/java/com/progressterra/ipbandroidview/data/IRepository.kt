@@ -58,7 +58,8 @@ internal interface IRepository {
             bik: String,
             correspondentAccount: String,
             tinOfBank: String,
-            kppBank: String
+            kppBank: String,
+            clientInn: String
         ): ISResult<UserBankData>
 
         suspend fun uploadSnilsPhotoUrl(

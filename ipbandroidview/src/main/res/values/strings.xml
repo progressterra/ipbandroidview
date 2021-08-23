@@ -96,8 +96,8 @@
     <string name="refresh_personal_data">Обновить данные</string>
     <string name="name">Имя</string>
     <string name="document_save_successfuly">Документ успешно сохранен</string>
-    <string name="gph_download">Поделиться договором ГПХ</string>
-    <string name="gph_share">Скачать договор ГПХ</string>
+    <string name="gph_download">Поделиться \n договором ГПХ</string>
+    <string name="gph_share">Скачать \n договор ГПХ</string>
     <string name="last_name">Фамилия</string>
     <string name="middle_name">Отчество</string>
     <string name="make_contract_photo">Сделайте фото подписанного вами договора или загрузите его из галереи</string>
@@ -126,4 +126,5 @@
     <string name="permission_never_ask_again">Разршение можно будет предоставить в настройках телефона!</string>
 
     <string name="empty_string"> </string>
+    <string name="user_inn">Ваш ИНН</string>
 </resources>
