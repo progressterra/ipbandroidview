@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FilledButtonWithLoading">
+        <attr name="text" />
+        <attr name="isLoading" format="boolean" />
+        <attr name="loadingIsClickable" format="boolean" />
+        <attr name="buttonTint" format="color" />
+        <attr name="enabled" />
+        <attr name="textColor" />
+    </declare-styleable>
+</resources>
