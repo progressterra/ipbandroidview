@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -8,7 +8,7 @@
         android:id="@+id/btn"
         style="@style/Button.Filled"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:stateListAnimator="@xml/button_state"
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent" />
@@ -17,6 +17,7 @@
         android:id="@+id/pb"
         android:layout_width="36dp"
         android:layout_height="36dp"
+        android:layout_gravity="center"
         android:elevation="4dp"
         android:indeterminateTint="@color/white"
         android:visibility="gone"
@@ -24,4 +25,4 @@
         app:layout_constraintEnd_toEndOf="@id/btn"
         app:layout_constraintStart_toStartOf="@id/btn"
         app:layout_constraintTop_toTopOf="@id/btn" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

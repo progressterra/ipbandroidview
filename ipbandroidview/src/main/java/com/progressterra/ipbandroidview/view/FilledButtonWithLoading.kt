@@ -9,16 +9,16 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.progressterra.ipbandroidview.R
 
 class FilledButtonWithLoading(
     context: Context,
     attrs: AttributeSet?
-) : ConstraintLayout(context, attrs) {
+) : FrameLayout(context, attrs) {
 
     private val button: AppCompatButton
     private val progressBar: ProgressBar
