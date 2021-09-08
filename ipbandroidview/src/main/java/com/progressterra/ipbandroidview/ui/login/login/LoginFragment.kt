@@ -88,7 +88,7 @@ class LoginFragment : BaseFragment() {
             binding.btnSkip.apply {
                 isVisible = phoneNumberSettings.showSkipBtn
                 setOnClickListener {
-                    findNavController().popBackStack(R.id.fragmentLogin, true)
+                    findNavController().popBackStack()
                 }
             }
 
