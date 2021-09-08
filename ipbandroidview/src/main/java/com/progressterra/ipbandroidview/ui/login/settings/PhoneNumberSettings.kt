@@ -10,5 +10,6 @@ data class PhoneNumberSettings(
     val defaultCountry: String = Country.RUSSIA.name,
     val agreementEnabled: Boolean = false,
     val footerImageId: Int = DEFAULT_RES,
-    val headerImageId: Int = DEFAULT_RES
+    val headerImageId: Int = DEFAULT_RES,
+    val showSkipBtn: Boolean = false
 ) : Parcelable

@@ -6,7 +6,9 @@ import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.*
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginLibBinding
@@ -82,6 +84,13 @@ class LoginFragment : BaseFragment() {
             phoneNumberSettings.headerImageId.applyIfNotDefault(ivHeader)
 
             phoneNumberSettings.footerImageId.applyIfNotDefault(ivFooter)
+
+            binding.btnSkip.apply {
+                isVisible = phoneNumberSettings.showSkipBtn
+                setOnClickListener {
+                    findNavController().popBackStack(R.id.fragmentLogin, true)
+                }
+            }
 
         }
     }
