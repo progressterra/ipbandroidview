@@ -127,4 +127,5 @@
 
     <string name="empty_string"> </string>
     <string name="user_inn">Ваш ИНН</string>
+    <string name="skip">Пропустить</string>
 </resources>

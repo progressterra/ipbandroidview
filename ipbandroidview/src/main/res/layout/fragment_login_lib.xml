@@ -132,5 +132,17 @@
             android:gravity="center"
             android:visibility="visible"
             tools:src="@tools:sample/backgrounds/scenic" />
+
+        <TextView
+            android:id="@+id/btn_skip"
+            style="@style/Text.CalloutClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/skip" />
+
+
     </LinearLayout>
 </layout>
