@@ -36,4 +36,16 @@
             app:argType="integer" />
     </fragment>
 
+    <fragment
+        android:id="@+id/fragmentRemoveAccount"
+        android:name="com.progressterra.ipbandroidview.ui.remove_account.RemoveAccountFragment"
+        android:label="RemoveAccountFragment"
+        tools:layout="@layout/fragment_remove_account_lib">
+
+        <argument
+            android:name="confirmCodeSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings"
+            app:nullable="false" />
+    </fragment>
+
 </navigation>
