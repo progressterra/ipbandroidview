@@ -9,10 +9,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentRemoveAccountLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 import com.progressterra.ipbandroidview.utils.extensions.hideKeyboard
@@ -55,7 +53,7 @@ class RemoveAccountFragment : BaseFragment() {
         vm.popBackStack.observe(viewLifecycleOwner) { event ->
             event.contentIfNotHandled?.let {
                 if (it) {
-                    findNavController().popBackStack(R.id.fragmentLogin, true)
+                    findNavController().popBackStack()
                 }
             }
         }
@@ -78,7 +76,7 @@ class RemoveAccountFragment : BaseFragment() {
             setFragmentResult.observe(viewLifecycleOwner) {
                 val bundle = it.contentIfNotHandled
                 bundle?.let {
-                    setFragmentResult(LoginKeys.AUTH_BUNDLE, bundle)
+                    setFragmentResult(RemoveAccountKeys.REMOVE_BUNDLE, bundle)
                 }
             }
         }

@@ -10,7 +10,6 @@ import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
-import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.extensions.isSuccess
@@ -34,7 +33,7 @@ class RemoveAccountViewModel(confirmCodeSettings: ConfirmCodeSettings) : BaseVie
     val resendCodeOperationReady: LiveData<Boolean> = _resendCodeOperationReady
 
     private val _confirmInfo =
-        MutableLiveData<String>("На номер ${UserData.phone} было отправлено SMS с кодом. Чтобы завершить удаление аккаунта, введите 4-значный код активации.")
+        MutableLiveData("На номер ${UserData.phone} было отправлено SMS с кодом. Чтобы завершить удаление аккаунта, введите 4-значный код активации.")
     val confirmInfo: LiveData<String> = _confirmInfo
 
     private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
@@ -99,7 +98,7 @@ class RemoveAccountViewModel(confirmCodeSettings: ConfirmCodeSettings) : BaseVie
                     val response = api.removeClientEnd(token, code)
 
                     if (response.isSuccess()) {
-                        _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
+                        _setFragmentResult.postValue(Event(bundleOf(RemoveAccountKeys.SUCCESS_KEY to true)))
                         _popBackStack.postValue(Event(true))
                     } else {
                         _clearConfirmCode.postValue(Event(Any()))
