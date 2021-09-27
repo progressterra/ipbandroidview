@@ -11,6 +11,8 @@
 
     <!-- Фрагмент ввода кода подтверждения  -->
     <string name="confirm_resend_error">Ошибка при повторной отправке кода</string>
+    <string name="remove_resend_error">Ошибка при отправке кода</string>
+
 
     <!--  Фрагмент ввода персональных данных  -->
     <string name="personal_tell_us_about">Пожалуйста, расскажите немного о себе</string>
