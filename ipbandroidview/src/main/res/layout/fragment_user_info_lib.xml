@@ -20,7 +20,6 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/theme_color"
             android:elevation="3dp"
-            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
             android:visibility="@{vm.screenState.loading}" />
 
         <com.progressterra.ipbandroidview.view.FilledButtonWithLoading

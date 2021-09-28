@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="3dp"
-            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
             android:visibility="@{vm.messagesList.isLoading()}" />
 
         <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
@@ -81,7 +80,6 @@
                 android:layout_height="32dp"
                 android:layout_marginEnd="20dp"
                 android:elevation="3dp"
-                android:indeterminateDrawable="@drawable/progressbar_indeterminate"
                 android:visibility="@{vm.messageSendingStatus.isLoading()}"
                 app:layout_constraintBottom_toBottomOf="@id/et_input_message"
                 app:layout_constraintEnd_toEndOf="parent"
