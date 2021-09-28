@@ -22,13 +22,12 @@
             android:indeterminateDrawable="@drawable/progressbar_indeterminate"
             android:visibility="@{vm.messagesList.isLoading()}" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            style="@style/Button.Filled"
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="@{_->vm.getDialogInfo()}"
-            android:text="@string/refresh"
+            app:text="@string/refresh"
             android:visibility="@{vm.messagesList.isError()}" />
 
 

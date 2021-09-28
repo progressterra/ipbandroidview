@@ -34,12 +34,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:setVisibilityLoaderByScreenState="@{ScreenState}" />
 
-        <Button
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/refreshButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
-            android:text="@string/refresh"
+            android:visibility="@{ScreenState.isError()}"
             app:setVisibilityRefreshContentScreenState="@{ScreenState}" />
 
 

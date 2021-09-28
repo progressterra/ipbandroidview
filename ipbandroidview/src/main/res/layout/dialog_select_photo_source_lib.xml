@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -7,20 +7,20 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/btn_select_from_device"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="Выбрать с устройства" />
+            app:text="Выбрать с устройства" />
 
-        <Button
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/btn_select_from_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="12dp"
-            android:text="Сделать фото" />
+            app:text="Сделать фото" />
 
     </LinearLayout>
 
