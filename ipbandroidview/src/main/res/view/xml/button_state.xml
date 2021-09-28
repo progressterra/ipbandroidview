@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- the pressed state; increase x and y size to 150% -->
+
+    <!-- Pressed state   -->
+    <item android:state_pressed="true">
+        <set>
+            <objectAnimator
+                android:duration="50"
+                android:propertyName="scaleX"
+                android:valueTo="0.98"
+                android:valueType="floatType" />
+            <objectAnimator
+                android:duration="50"
+                android:propertyName="scaleY"
+                android:valueTo="0.98"
+                android:valueType="floatType" />
+        </set>
+    </item>
+
+    <!-- Enabled State   -->
     <item android:state_enabled="true">
         <set>
             <objectAnimator
@@ -15,7 +32,8 @@
                 android:valueType="floatType" />
         </set>
     </item>
-    <!-- the default, non-pressed state; set x and y size to 100% -->
+
+    <!-- Disabled state   -->
     <item android:state_enabled="false">
         <set>
             <objectAnimator
