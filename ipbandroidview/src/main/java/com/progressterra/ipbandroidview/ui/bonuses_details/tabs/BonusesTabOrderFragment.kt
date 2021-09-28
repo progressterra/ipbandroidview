@@ -17,7 +17,7 @@ internal class BonusesTabOrderFragment :
 
     private val adapter =
         RecyclerViewAdapter<Purchase>(
-            R.layout.item_country_lib,
+            R.layout.item_order_lib,
             onNormalBind = { binding, country ->
                 (binding as ItemOrderLibBinding).apply {
                     lifecycleOwner = viewLifecycleOwner
