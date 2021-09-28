@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.bonuses_details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.progressterra.ipbandroidview.R
@@ -16,24 +16,20 @@ import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabTransa
 class BonusesDetailFragment :
     BaseBindingFragment<FragmentDetailBonusesLibBinding, BonusesDetailsViewModel>(R.layout.fragment_detail_bonuses_lib) {
 
-    override val vm by activityViewModels<BonusesDetailsViewModel>()
+    override val vm by viewModels<BonusesDetailsViewModel>(ownerProducer = { this })
 
     override fun onInitBinding(
         binding: FragmentDetailBonusesLibBinding,
         savedInstanceState: Bundle?
     ) {
         super.onInitBinding(binding, savedInstanceState)
-        setupView()
-    }
-
-    private fun setupView() {
         setupTabAdapter()
     }
 
     private fun setupTabAdapter() {
-        val demoCollectionAdapter = DemoCollectionAdapter(this)
+        val tabAdapter = TabAdapter(this)
 
-        binding.pager.adapter = demoCollectionAdapter
+        binding.pager.adapter = tabAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
             when (position) {
@@ -44,7 +40,7 @@ class BonusesDetailFragment :
         }.attach()
     }
 
-    inner class DemoCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+    inner class TabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = 3
 
         override fun createFragment(position: Int): Fragment {

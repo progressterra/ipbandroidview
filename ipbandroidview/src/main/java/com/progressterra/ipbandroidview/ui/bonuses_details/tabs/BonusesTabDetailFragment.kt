@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.bonuses_details.tabs
 
 import android.os.Bundle
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusMessage
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesMainTabLibBinding
@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 internal class BonusesTabDetailFragment :
     BaseBindingFragment<FragmentDetailBonusesMainTabLibBinding, PromoCodeViewModel>(R.layout.fragment_detail_bonuses_main_tab_lib) {
 
-    override val vm by activityViewModels<BonusesDetailsViewModel>()
+    override val vm by viewModels<BonusesDetailsViewModel>(ownerProducer = { requireParentFragment() })
 
     private val adapter =
         RecyclerViewAdapter<BonusMessage>(
