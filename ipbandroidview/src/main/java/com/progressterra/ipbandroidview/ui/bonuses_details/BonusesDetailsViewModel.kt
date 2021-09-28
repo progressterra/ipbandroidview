@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.ui.bonuses_details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusMessage
@@ -10,11 +9,12 @@ import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesI
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Purchase
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Transaction
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-internal class BonusesDetailsViewModel : ViewModel() {
+class BonusesDetailsViewModel : BaseBindingViewModel() {
 
     private val repository = BonusesApi.getInstance()
 

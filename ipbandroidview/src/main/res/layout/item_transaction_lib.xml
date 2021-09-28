@@ -3,7 +3,7 @@
     <data>
 
         <variable
-            name="Trasaction"
+            name="item"
             type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Transaction" />
     </data>
 
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="@{Trasaction.typeBonusName}"
+                    android:text="@{item.typeBonusName}"
                     android:textColor="@color/text_in_forms" />
 
                 <TextView
@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="start"
-                    android:text="@{Trasaction.dateEvent}" />
+                    android:text="@{item.dateEvent}" />
 
             </LinearLayout>
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:textColor="@color/text_in_forms"
-                    app:setBonusTransactionType="@{Trasaction.typeOperation}" />
+                    app:setBonusTransactionType="@{item.typeOperation}" />
 
                 <TextView
                     android:id="@+id/bonus_train_operations_sum"
@@ -75,8 +75,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="end"
-                    app:setColorAndTextFormattingByQuantity="@{Trasaction.quantity}"
-                    app:textFromInt="@{Trasaction.quantity}" />
+
+                    app:setColorAndTextFormattingByQuantity="@{item.quantity}"
+                    app:textFromInt="@{item.quantity}" />
 
             </LinearLayout>
 

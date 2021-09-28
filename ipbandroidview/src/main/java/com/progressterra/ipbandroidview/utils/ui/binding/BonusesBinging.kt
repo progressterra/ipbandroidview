@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette
 
 @BindingAdapter("app:setBonusTransactionType")
 internal fun setBonusTransactionType(textView: TextView, type: Int) {
@@ -18,12 +17,12 @@ internal fun setBonusTransactionType(textView: TextView, type: Int) {
 @BindingAdapter("app:setColorAndTextFormattingByQuantity")
 internal fun setColorAndTextFormattingByQuantity(textView: TextView, quantity: Int) {
     if (quantity <= 0) {
-        textView.setTextColor(ColorsPalette.negativeTextColor ?: Color.RED)
+        textView.setTextColor(Color.RED)
         textView.text = String.format(
             textView.context.getString(R.string.negative_sum), kotlin.math.abs(quantity)
         )
     } else {
-        textView.setTextColor(ColorsPalette.positiveTextColor ?: Color.GREEN)
+        textView.setTextColor(Color.GREEN)
         textView.text = String.format(
             textView.context.getString(R.string.positive_sum), kotlin.math.abs(quantity)
         )
