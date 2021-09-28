@@ -60,6 +60,7 @@ class FilledButtonWithLoading(
         }
 
         progressBar.visibility = if (mLoading) VISIBLE else GONE
+        progressBar.indeterminateTintList = button.textColors
         if (!mLoading) button.text = mText
         setIsLoading(mLoading)
         isEnabled = enabled

@@ -19,7 +19,6 @@
         android:layout_height="36dp"
         android:layout_gravity="center"
         android:elevation="4dp"
-        android:indeterminateTint="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/btn"
         app:layout_constraintEnd_toEndOf="@id/btn"
