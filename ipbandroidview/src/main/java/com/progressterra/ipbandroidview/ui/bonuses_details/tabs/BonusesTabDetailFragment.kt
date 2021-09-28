@@ -1,44 +1,52 @@
 package com.progressterra.ipbandroidview.ui.bonuses_details.tabs
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusMessage
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesMainTabLibBinding
+import com.progressterra.ipbandroidview.databinding.ItemBonusMessageLibBinding
+import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
+import com.progressterra.ipbandroidview.ui.promocode.PromoCodeViewModel
+import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 
-internal class BonusesTabDetailFragment : Fragment() {
+internal class BonusesTabDetailFragment :
+    BaseBindingFragment<FragmentDetailBonusesMainTabLibBinding, PromoCodeViewModel>(R.layout.fragment_detail_bonuses_main_tab_lib) {
 
-    private val viewModel: BonusesDetailsViewModel by activityViewModels()
-    private lateinit var binding: FragmentDetailBonusesMainTabLibBinding
+    override val vm by activityViewModels<BonusesDetailsViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+    private val adapter =
+        RecyclerViewAdapter<BonusMessage>(
+            R.layout.item_bonus_message_lib,
+            onNormalBind = { binding, bonusMessage ->
+                (binding as ItemBonusMessageLibBinding).apply {
+                    lifecycleOwner = viewLifecycleOwner
+                    item = bonusMessage
+                }
+            })
+
+    override fun onInitBinding(
+        binding: FragmentDetailBonusesMainTabLibBinding,
         savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_detail_bonuses_main_tab_lib,
-            container,
-            false
-        )
-        return binding.root
+    ) {
+        super.onInitBinding(binding, savedInstanceState)
+        setupViewModel()
+        setupView()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupViewModel()
+    private fun setupView() {
+        binding.bonusMessagesRv.adapter = adapter
     }
 
     private fun setupViewModel() {
-        viewModel.bonusMessageList.observe(viewLifecycleOwner) {
-            binding.bonusMessagesRv.adapter = BonusMessageListAdapter(it)
+        vm.bonusMessageList.observe(viewLifecycleOwner) {
+            adapter.setItems(it)
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
+        view?.requestLayout()
     }
 }
