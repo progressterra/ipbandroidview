@@ -5,6 +5,7 @@ import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -46,13 +47,20 @@ class FilledButtonWithLoading(
         mButtonColor = attributes.getColor(R.styleable.FilledButtonWithLoading_buttonTint, -1)
         val enabled = attributes.getBoolean(R.styleable.FilledButtonWithLoading_enabled, true)
         val textColor = attributes.getColor(R.styleable.FilledButtonWithLoading_textColor, -1)
+        val textPadding = attributes.getFloat(R.styleable.FilledButtonWithLoading_paddingText, 8f)
+
 
         mLoadingIsClickable = clickableOnLoading
         mText = text ?: ""
         mLoading = isLoading
         mTextColor = if (textColor != -1) textColor else button.currentTextColor
         button.setTextColor(mTextColor)
-
+        button.setPadding(
+            dpToPx(textPadding),
+            button.paddingTop,
+            dpToPx(textPadding),
+            button.paddingBottom
+        )
         val list = buttonColorStateList()
 
         if (mButtonColor != -1) {
@@ -204,5 +212,9 @@ class FilledButtonWithLoading(
 
             }
         })
+    }
+
+    private fun dpToPx(v: Float): Int {
+        return v.times(Resources.getSystem().displayMetrics.density).toInt()
     }
 }
