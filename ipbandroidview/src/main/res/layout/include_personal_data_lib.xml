@@ -178,6 +178,7 @@
             android:layout_marginTop="38dp"
             android:enabled="@{vm.personalDataIsValid}"
             android:onClick="@{_->vm.addPersonalInfo()}"
+            app:isLoading="@{vm.screenState.isLoading()}"
             app:layout_constraintBottom_toTopOf="@id/button_skip"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
