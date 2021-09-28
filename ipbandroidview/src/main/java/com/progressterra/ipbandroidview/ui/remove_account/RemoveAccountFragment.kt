@@ -39,8 +39,7 @@ class RemoveAccountFragment : BaseFragment() {
 
         binding.editText.afterTextChanged(vm::checkIt)
 
-        binding.editText.requestFocus()
-        showKeyboard(requireContext(), binding.editText)
+
 
         binding.vm = vm
         binding.lifecycleOwner = this
@@ -57,6 +56,11 @@ class RemoveAccountFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showKeyboard(requireActivity(), binding.editText)
     }
 
     private fun applySettings() {
@@ -107,7 +111,7 @@ class RemoveAccountFragment : BaseFragment() {
     }
 
     override fun onStop() {
+        hideKeyboard(requireActivity(), binding.editText)
         super.onStop()
-        hideKeyboard(requireContext(), binding.editText)
     }
 }

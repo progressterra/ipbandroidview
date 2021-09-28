@@ -51,7 +51,7 @@ class ConfirmFragment : BaseFragment() {
         binding.editText.afterTextChanged(viewModel::checkIt)
 
         binding.editText.requestFocus()
-        showKeyboard(requireContext(), binding.editText)
+        showKeyboard(requireActivity(), binding.editText)
 
         binding.vm = viewModel
         binding.lifecycleOwner = this
@@ -120,8 +120,8 @@ class ConfirmFragment : BaseFragment() {
     }
 
     override fun onStop() {
+        hideKeyboard(requireActivity(), binding.editText)
         super.onStop()
-        hideKeyboard(requireContext(), binding.editText)
     }
 }
 
