@@ -16,6 +16,16 @@ import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatButton
 import com.progressterra.ipbandroidview.R
 
+/**
+ * Attributes:
+ *  text
+ *  isLoading - boolean
+ *  paddingText - right and left paddings
+ *  loadingIsClickable - by default - false
+ *  buttonTint - color
+ *  enabled
+ *  textColor
+ */
 class FilledButtonWithLoading(
     context: Context,
     attrs: AttributeSet?
@@ -47,7 +57,7 @@ class FilledButtonWithLoading(
         mButtonColor = attributes.getColor(R.styleable.FilledButtonWithLoading_buttonTint, -1)
         val enabled = attributes.getBoolean(R.styleable.FilledButtonWithLoading_enabled, true)
         val textColor = attributes.getColor(R.styleable.FilledButtonWithLoading_textColor, -1)
-        val textPadding = attributes.getFloat(R.styleable.FilledButtonWithLoading_paddingText, 8f)
+        val textPadding = attributes.getDimension(R.styleable.FilledButtonWithLoading_paddingText, 8f)
 
 
         mLoadingIsClickable = clickableOnLoading

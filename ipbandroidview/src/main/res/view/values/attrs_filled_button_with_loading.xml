@@ -3,7 +3,7 @@
     <declare-styleable name="FilledButtonWithLoading">
         <attr name="text" />
         <attr name="isLoading" />
-        <attr name="paddingText" format="float" />
+        <attr name="paddingText" format="dimension" />
         <attr name="loadingIsClickable" format="boolean" />
         <attr name="buttonTint" format="color" />
         <attr name="enabled" />
