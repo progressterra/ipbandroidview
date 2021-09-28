@@ -29,14 +29,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/refreshButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
             android:onClick="@{_->vm.updateDetailBonusesInfo()}"
-            android:text="@string/refresh"
-            android:visibility="@{vm.status.error}" />
+            android:visibility="@{vm.status.error}"
+            app:text="@string/refresh" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
