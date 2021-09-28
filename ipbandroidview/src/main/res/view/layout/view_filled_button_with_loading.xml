@@ -9,6 +9,8 @@
         style="@style/Button.Filled"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:stateListAnimator="@xml/button_state"
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent" />
