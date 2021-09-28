@@ -39,8 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
-            android:visibility="@{ScreenState.isError()}"
-            app:setVisibilityRefreshContentScreenState="@{ScreenState}" />
+            android:visibility="@{ScreenState.isError()}" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
