@@ -16,7 +16,6 @@ import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
-import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 
@@ -61,11 +60,6 @@ class LoginFragment : BaseFragment() {
         viewModel.apply {
             toastBundle.observe(viewLifecycleOwner, this@LoginFragment::showToast)
             action.observe(viewLifecycleOwner, this@LoginFragment::onAction)
-
-            screenState.observe(viewLifecycleOwner) {
-                binding.loginNext.text =
-                    if (it == ScreenState.LOADING) "" else getString(R.string.next)
-            }
         }
         binding.apply {
             vm = viewModel

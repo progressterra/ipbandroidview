@@ -91,28 +91,16 @@
             app:layout_constraintTop_toTopOf="@id/et_flat_number"
             tools:text="" />
 
-        <ProgressBar
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:elevation="3dp"
-            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
-            android:visibility="@{vm.addAddressStatus.loading}"
-            app:layout_constraintBottom_toBottomOf="@id/btn_add_new_address"
-            app:layout_constraintEnd_toEndOf="@id/btn_add_new_address"
-            app:layout_constraintStart_toStartOf="@id/btn_add_new_address"
-            app:layout_constraintTop_toTopOf="@id/btn_add_new_address" />
-
-        <androidx.appcompat.widget.AppCompatButton
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/btn_add_new_address"
-            style="@style/Button.Filled"
-            setLoadStateToButton="@{vm.addAddressStatus.loading}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="12dp"
             android:enabled="@{vm.addAddressButtonEnabled}"
-            android:text="@string/add_address"
+            app:text="@string/add_address"
+            app:isLoading="@{vm.addAddressStatus.isLoading()}"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

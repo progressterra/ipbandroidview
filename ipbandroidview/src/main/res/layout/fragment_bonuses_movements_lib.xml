@@ -30,19 +30,18 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/Button.Filled"
+            <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> vm.getInfo(false)}"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
-                android:text="Обновить"
                 android:visibility="@{vm.screenState.isError()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:text="Обновить" />
 
 
             <androidx.recyclerview.widget.RecyclerView

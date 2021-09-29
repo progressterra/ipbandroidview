@@ -9,6 +9,8 @@
         style="@style/Button.Filled"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:stateListAnimator="@xml/button_state"
         android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,7 +21,6 @@
         android:layout_height="36dp"
         android:layout_gravity="center"
         android:elevation="4dp"
-        android:indeterminateTint="@color/white"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/btn"
         app:layout_constraintEnd_toEndOf="@id/btn"
