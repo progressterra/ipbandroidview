@@ -48,4 +48,14 @@
             app:nullable="false" />
     </fragment>
 
+    <dialog
+        android:id="@+id/dialogWebViewLib"
+        android:name="com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialog"
+        android:label="WebViewDialog">
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="false" />
+    </dialog>
+
 </navigation>
