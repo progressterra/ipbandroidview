@@ -1,0 +1,3 @@
+[submodule "ipbandroidapi"]
+	path = ipbandroidapi
+	url = git@bitbucket.org:iHomosum/ipbandroidapi.git
