@@ -39,6 +39,7 @@ class WebViewDialog : DialogFragment() {
             loadUrl(args.url)
             settings.loadWithOverviewMode = true
             settings.useWideViewPort = true
+            settings.javaScriptEnabled = true
         }
     }
 
