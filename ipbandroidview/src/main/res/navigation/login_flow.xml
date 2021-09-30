@@ -29,6 +29,10 @@
             app:enterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/toWebViewDialog"
+            app:destination="@id/dialogWebViewLib" />
     </fragment>
 
     <fragment
@@ -46,6 +50,16 @@
             android:id="@+id/action_fragmentCountry_to_fragmentLogin"
             app:destination="@id/fragmentLogin" />
     </fragment>
+
+    <dialog
+        android:id="@+id/dialogWebViewLib"
+        android:name="com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialog"
+        android:label="WebViewDialog">
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="false" />
+    </dialog>
 
     <fragment
         android:id="@+id/fragmentConfirm"

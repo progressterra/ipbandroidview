@@ -1,11 +1,14 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
 import android.os.Bundle
-import android.text.Html
+import android.text.SpannableString
+import android.text.Spanned
 import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
@@ -13,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
+import com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialogArgs
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
@@ -67,13 +71,6 @@ class LoginFragment : BaseFragment() {
             lifecycleOwner = viewLifecycleOwner
             loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
-            if (phoneNumberSettings.agreementEnabled) {
-                textViewAgreement.apply {
-                    text = Html.fromHtml(getString(R.string.login_agreement_html))
-                    movementMethod = LinkMovementMethod.getInstance()
-                    visibility = View.VISIBLE
-                }
-            }
 
             phoneNumberSettings.headerImageId.applyIfNotDefault(ivHeader)
 
@@ -86,6 +83,93 @@ class LoginFragment : BaseFragment() {
                 }
             }
 
+        }
+
+        applyAgreements()
+    }
+
+
+    private fun applyAgreements() {
+        val policy = phoneNumberSettings.privacyPolicy
+        val terms = phoneNumberSettings.termsOfUse
+
+        when {
+            policy != null && terms != null -> setTermsAndPolicy(policy, terms)
+            policy != null -> setPolicy(policy)
+            terms != null -> setTerms(terms)
+        }
+    }
+
+    private fun setPolicy(policyUrl: String) {
+        val ss =
+            SpannableString(resources.getString(R.string.login_policy))
+
+        val clickableSpan: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+               findNavController().navigate(
+                   LoginFragmentDirections.toWebViewDialog(policyUrl)
+               )
+            }
+        }
+
+        ss.setSpan(clickableSpan, 39, 67, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        binding.textViewAgreement.apply {
+            movementMethod = LinkMovementMethod.getInstance()
+            text = ss
+            visibility = View.VISIBLE
+        }
+    }
+
+    private fun setTerms(termsUrl: String) {
+        val ss =
+            SpannableString(resources.getString(R.string.login_terms))
+
+        val clickableSpan: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+                findNavController().navigate(
+                    LoginFragmentDirections.toWebViewDialog(termsUrl)
+                )
+            }
+        }
+
+        ss.setSpan(clickableSpan, 39, 67, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        binding.textViewAgreement.apply {
+            movementMethod = LinkMovementMethod.getInstance()
+            text = ss
+            visibility = View.VISIBLE
+        }
+    }
+
+    private fun setTermsAndPolicy(policyUrl: String, termsUrl: String) {
+        val ss =
+            SpannableString(resources.getString(R.string.login_terms_and_policy))
+
+        val termsSpan: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+                findNavController().navigate(
+                    LoginFragmentDirections.toWebViewDialog(termsUrl)
+                )
+            }
+        }
+
+        val policySpan: ClickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+                findNavController().navigate(
+                    LoginFragmentDirections.toWebViewDialog(policyUrl)
+                )
+            }
+        }
+
+        ss.setSpan(termsSpan, 60, 88, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(policySpan, 106, 134, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+
+        binding.textViewAgreement.apply {
+            movementMethod = LinkMovementMethod.getInstance()
+            text = ss
+            visibility = View.VISIBLE
         }
     }
 }
