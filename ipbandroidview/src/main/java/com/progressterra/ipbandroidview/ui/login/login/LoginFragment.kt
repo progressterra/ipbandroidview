@@ -1,14 +1,15 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
 import android.os.Bundle
+import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.*
 import androidx.navigation.fragment.findNavController
@@ -16,7 +17,6 @@ import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialogArgs
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
@@ -106,13 +106,19 @@ class LoginFragment : BaseFragment() {
 
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-               findNavController().navigate(
-                   LoginFragmentDirections.toWebViewDialog(policyUrl)
-               )
+                findNavController().navigate(
+                    LoginFragmentDirections.toWebViewDialog(policyUrl)
+                )
             }
         }
 
         ss.setSpan(clickableSpan, 39, 67, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.theme_color, null)),
+            39,
+            67,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
         binding.textViewAgreement.apply {
             movementMethod = LinkMovementMethod.getInstance()
@@ -133,7 +139,13 @@ class LoginFragment : BaseFragment() {
             }
         }
 
-        ss.setSpan(clickableSpan, 39, 68, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(clickableSpan, 40, 68, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.theme_color, null)),
+            40,
+            68,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
         binding.textViewAgreement.apply {
             movementMethod = LinkMovementMethod.getInstance()
@@ -164,6 +176,19 @@ class LoginFragment : BaseFragment() {
 
         ss.setSpan(termsSpan, 60, 88, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(policySpan, 106, 134, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        ss.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.theme_color, null)),
+            60,
+            88,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        ss.setSpan(
+            ForegroundColorSpan(resources.getColor(R.color.theme_color, null)),
+            106,
+            134,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
 
         binding.textViewAgreement.apply {
