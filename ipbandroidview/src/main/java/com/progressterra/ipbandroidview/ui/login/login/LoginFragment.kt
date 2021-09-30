@@ -133,7 +133,7 @@ class LoginFragment : BaseFragment() {
             }
         }
 
-        ss.setSpan(clickableSpan, 39, 67, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(clickableSpan, 39, 68, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         binding.textViewAgreement.apply {
             movementMethod = LinkMovementMethod.getInstance()
