@@ -8,7 +8,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class PhoneNumberSettings(
     val defaultCountry: String = Country.RUSSIA.name,
-    val agreementEnabled: Boolean = false,
+    val privacyPolicy: String? = null,
+    val termsOfUse: String? = null,
     val footerImageId: Int = DEFAULT_RES,
     val headerImageId: Int = DEFAULT_RES,
     val showSkipBtn: Boolean = false
