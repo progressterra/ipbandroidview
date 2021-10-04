@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.set_personal_info.models
 
-import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.models.client_info.ClientInfoResponse
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
 import java.util.*
 
 data class ClientInfo(

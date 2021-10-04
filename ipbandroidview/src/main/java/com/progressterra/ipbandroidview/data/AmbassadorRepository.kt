@@ -1,9 +1,11 @@
 package com.progressterra.ipbandroidview.data
 
-import com.progressterra.ipbandroidapi.remoteData.iProBonusApi.IProBonus
-import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.IPBAmbassador
-import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
-import com.progressterra.ipbandroidapi.remoteData.ipbMediaDataCore.IpbMediaDataCore
+
+import com.progressterra.ipbandroidapi.api.iProBonusApi.IProBonus
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
+import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore
+import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
@@ -19,7 +21,7 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
 
     private val keyPharmApi = IPBAmbassador.Ambassador()
     private val mediaDataApi = IpbMediaDataCore.EntityMobile()
-    private val ipbApi = IProBonus.IProBonus()
+    private val ipbApi = SCRMApiQwerty.ClientsV3()
 
     // получение информации о пользователе: имя,емейл,дата рождения и пр
     override suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> {
