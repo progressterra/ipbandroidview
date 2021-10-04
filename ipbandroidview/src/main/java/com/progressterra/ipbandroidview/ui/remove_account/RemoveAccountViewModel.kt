@@ -3,9 +3,9 @@ package com.progressterra.ipbandroidview.ui.remove_account
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.*
+import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
-import com.progressterra.ipbandroidapi.remoteData.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel

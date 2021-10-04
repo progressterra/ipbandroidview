@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.data
 
-import com.progressterra.ipbandroidapi.remoteData.ipbPromoCodeApi.IPBPromoCode
+
+import com.progressterra.ipbandroidapi.api.ipbPromoCodeApi.IPBPromoCode
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.completedResult
-import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
 import com.progressterra.ipbandroidview.utils.extensions.isSuccess
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 
