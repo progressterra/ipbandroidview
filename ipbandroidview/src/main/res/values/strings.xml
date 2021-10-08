@@ -132,4 +132,6 @@
     <string name="empty_string"> </string>
     <string name="user_inn">Ваш ИНН</string>
     <string name="skip">Пропустить</string>
+    <string name="addresses_list_is_empty">Список адресов пуст</string>
+
 </resources>
