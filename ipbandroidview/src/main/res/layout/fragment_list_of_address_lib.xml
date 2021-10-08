@@ -34,6 +34,18 @@
             android:layout_height="match_parent"
             android:visibility="@{vm.screenState.isDefault()}">
 
+
+            <TextView
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/addresses_list_is_empty"
+                android:visibility="@{vm.listOfAddress.empty}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list_of_address"
                 android:layout_width="match_parent"
