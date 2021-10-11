@@ -9,5 +9,6 @@ data class CategoryUILib(
     override val id: String,
     val title: String,
     val subCategory: List<SubCategoryUILib>,
-    val urlImage: String?
+    val urlImage: String?,
+    var expanded: Boolean = false
 ) : IListItem, Parcelable

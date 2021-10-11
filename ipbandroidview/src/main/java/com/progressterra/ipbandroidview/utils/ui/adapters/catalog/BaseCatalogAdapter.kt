@@ -3,22 +3,20 @@ package com.progressterra.ipbandroidview.utils.ui.adapters.catalog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.ItemCategoryLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemCategorySubLibBinding
-import com.progressterra.ipbandroidview.utils.ui.adapters.decorators.RecyclerOrientation
-import com.progressterra.ipbandroidview.utils.ui.adapters.decorators.SimpleSpacesItemDecoration
 import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.DataBindingRecyclerAdapter
 import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.DiffUtilCallback
 
 class BaseCatalogAdapter(
     private val onSubItemClick: ((SubCategoryUILib) -> Unit),
     private val lifeCycleOwner: LifecycleOwner,
-    private val itemMargin: Int = 8,
-    private val onCategoryClick: (Int) -> Unit
+    private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
 ) : ListAdapter<CategoryUILib, BaseCatalogAdapter.CategoryViewHolder>(DiffUtilCallback()) {
     private val rvPool = RecyclerView.RecycledViewPool()
 
@@ -29,14 +27,13 @@ class BaseCatalogAdapter(
             binding = binding,
             lifecycleOwner = lifeCycleOwner,
             onSubItemClick = onSubItemClick,
-            itemMargin = itemMargin,
             rvPool = rvPool,
             onCategoryClick = onCategoryClick
         )
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        getItem(position)?.let { holder.onBind(it, position) }
+        getItem(position)?.let { holder.onBind(it) }
     }
 
 
@@ -44,9 +41,8 @@ class BaseCatalogAdapter(
         private val binding: ItemCategoryLibBinding,
         private val lifecycleOwner: LifecycleOwner,
         private val onSubItemClick: (SubCategoryUILib) -> Unit,
-        private val itemMargin: Int,
         private val rvPool: RecyclerView.RecycledViewPool,
-        private val onCategoryClick: (Int) -> Unit
+        private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private val adapter: DataBindingRecyclerAdapter<SubCategoryUILib, ItemCategorySubLibBinding> by lazy {
@@ -57,7 +53,7 @@ class BaseCatalogAdapter(
             )
         }
 
-        fun onBind(categoryUI: CategoryUILib, viewHolderPos: Int) {
+        fun onBind(categoryUI: CategoryUILib) {
             with(binding) {
                 item = categoryUI
                 lifecycleOwner = lifecycleOwner
@@ -66,24 +62,17 @@ class BaseCatalogAdapter(
                 rvSub.setRecycledViewPool(rvPool)
 
                 adapter.submitList(categoryUI.subCategory)
-                rvSub.addItemDecoration(
-                    SimpleSpacesItemDecoration(
-                        itemMargin,
-                        RecyclerOrientation.HORIZONTAL
-                    )
-                )
 
                 tvHint.visibility =
                     if (categoryUI.urlImage.isNullOrBlank()) View.VISIBLE else View.GONE
 
-                root.setOnClickListener {
-                    onCategoryClick(viewHolderPos)
+                rvSub.isVisible = categoryUI.expanded
 
-                    rvSub.visibility =
-                        if (rvSub.visibility == View.GONE)
-                            View.VISIBLE
-                        else
-                            View.GONE
+                root.setOnClickListener {
+                    onCategoryClick?.invoke(layoutPosition, !categoryUI.expanded)
+
+                    categoryUI.expanded = !categoryUI.expanded
+                    notifyItemChanged(layoutPosition)
                 }
             }
         }
