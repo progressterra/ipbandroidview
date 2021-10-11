@@ -76,4 +76,6 @@ dependencies {
 
     // QR
     api 'com.budiyev.android:code-scanner:2.1.0'
+
+    api("androidx.paging:paging-runtime-ktx:3.0.1")
 }

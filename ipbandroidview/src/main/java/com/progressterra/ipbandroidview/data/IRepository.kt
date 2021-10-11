@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.data
 
 
+import androidx.paging.PagingData
+import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
@@ -8,6 +10,7 @@ import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
 import com.progressterra.ipbandroidview.utils.ISResult
 import com.progressterra.ipbandroidview.utils.SResult
+import kotlinx.coroutines.flow.Flow
 import okhttp3.ResponseBody
 import java.io.File
 
@@ -85,6 +88,11 @@ internal interface IRepository {
         ): ISResult<Any>
 
         suspend fun becomeSelfEmployed(accessToken: String): ISResult<AmbassadorStatusResponse>
+    }
+
+    interface Store {
+        fun getStorePage(idCategory: String): Flow<PagingData<RGGoodsInventoryExt>>
+        fun updateSearch(search: String)
     }
 
     interface PromoCode {
