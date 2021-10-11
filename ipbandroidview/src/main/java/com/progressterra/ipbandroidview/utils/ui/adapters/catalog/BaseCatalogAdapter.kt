@@ -17,7 +17,8 @@ import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.DiffUtilCallb
 class BaseCatalogAdapter(
     private val onSubItemClick: ((SubCategoryUILib) -> Unit),
     private val lifeCycleOwner: LifecycleOwner,
-    private val itemMargin: Int = 8
+    private val itemMargin: Int = 8,
+    private val onCategoryClick: (Int) -> Unit
 ) : ListAdapter<CategoryUILib, BaseCatalogAdapter.CategoryViewHolder>(DiffUtilCallback()) {
     private val rvPool = RecyclerView.RecycledViewPool()
 
@@ -29,12 +30,13 @@ class BaseCatalogAdapter(
             lifecycleOwner = lifeCycleOwner,
             onSubItemClick = onSubItemClick,
             itemMargin = itemMargin,
-            rvPool = rvPool
+            rvPool = rvPool,
+            onCategoryClick = onCategoryClick
         )
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        getItem(position)?.let { holder.onBind(it) }
+        getItem(position)?.let { holder.onBind(it, position) }
     }
 
 
@@ -43,7 +45,8 @@ class BaseCatalogAdapter(
         private val lifecycleOwner: LifecycleOwner,
         private val onSubItemClick: (SubCategoryUILib) -> Unit,
         private val itemMargin: Int,
-        private val rvPool: RecyclerView.RecycledViewPool
+        private val rvPool: RecyclerView.RecycledViewPool,
+        private val onCategoryClick: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private val adapter: DataBindingRecyclerAdapter<SubCategoryUILib, ItemCategorySubLibBinding> by lazy {
@@ -54,7 +57,7 @@ class BaseCatalogAdapter(
             )
         }
 
-        fun onBind(categoryUI: CategoryUILib) {
+        fun onBind(categoryUI: CategoryUILib, viewHolderPos: Int) {
             with(binding) {
                 item = categoryUI
                 lifecycleOwner = lifecycleOwner
@@ -74,6 +77,8 @@ class BaseCatalogAdapter(
                     if (categoryUI.urlImage.isNullOrBlank()) View.VISIBLE else View.GONE
 
                 root.setOnClickListener {
+                    onCategoryClick(viewHolderPos)
+
                     rvSub.visibility =
                         if (rvSub.visibility == View.GONE)
                             View.VISIBLE
