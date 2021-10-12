@@ -2,8 +2,6 @@ package com.progressterra.ipbandroidview.ui.bonuses_banner
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.switchMap
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidview.data.CommonRepository
 import com.progressterra.ipbandroidview.data.IRepository
@@ -19,6 +17,7 @@ class BonusesBannerViewModel : BaseBindingViewModel() {
 
     fun updateBonuses() {
         safeLaunch {
+            _bonusesInfo.postValue(loadingResult())
             _bonusesInfo.postValue(repo.getBonusesInfo())
         }
     }
