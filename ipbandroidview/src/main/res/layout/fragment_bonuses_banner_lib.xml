@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.bonuses_banner.BonusesBannerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/bonuses_quantity(vm.bonusesInfo.data.currentQuantity)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="300 бонусов" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{@string/bonuses_date(vm.bonusesInfo.data.dateBurning)}"
+            app:layout_constraintStart_toStartOf="@id/tvQuantity"
+            app:layout_constraintTop_toBottomOf="@id/tvQuantity"
+            tools:text="29.03 сгорит" />
+
+        <ImageView
+            android:id="@+id/ivFire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:src="@drawable/ic_fire"
+            app:layout_constraintBottom_toBottomOf="@id/tvDate"
+            app:layout_constraintStart_toEndOf="@id/tvDate"
+            app:layout_constraintTop_toTopOf="@id/tvDate" />
+
+        <TextView
+            android:id="@+id/tvBurningQuantity"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:text="@{@string/bonuses_quantity(vm.bonusesInfo.data.forBurningQuantity)}"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvDate"
+            app:layout_constraintStart_toEndOf="@id/ivFire"
+            tools:text="250 бонусов" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.bonusesInfo.isLoading()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.bonusesInfo.data.currentQuantity > 0}"
+            app:constraint_referenced_ids="tvDate, ivFire, tvBurningQuantity" />
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{vm.bonusesInfo.isSuccess()}"
+            app:constraint_referenced_ids="tvBurningQuantity, tvDate, tvQuantity, ivFire" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
