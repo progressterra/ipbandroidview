@@ -46,9 +46,19 @@ fun String?.toFailedResult() = SResult.Failed(this, null)
 fun Int.toFailedResult() = SResult.Failed(this, null)
 
 /**
+ *  Люая переменная в неудачный результат
+ */
+fun <T : Any?> T?.toFailedResult() = SResult.Failed(this, null)
+
+/**
  *  Функция для создания "загрузки"
  */
 fun loadingResult() = SResult.Loading(null)
+
+/**
+ *  Загрузка с данными
+ */
+fun <T : Any?> T?.toLoadingResult() = SResult.Loading(this)
 
 /**
  *  Функция для создания завершенного результата

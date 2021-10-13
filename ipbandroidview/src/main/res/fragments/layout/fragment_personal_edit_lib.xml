@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.personal_edit.PersonalEditViewModel" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clPersonal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp">
+
+                <ImageView
+                    android:id="@+id/ivPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:src="@drawable/ic_photo_placeholder"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvName"
+                    style="@style/Text.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:singleLine="true"
+                    android:text="@{vm.userData.data.fullName}"
+                    app:layout_constraintBottom_toBottomOf="@id/ivPhoto"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivPhoto"
+                    app:layout_constraintTop_toTopOf="@id/ivPhoto"
+                    tools:text="Имя Фамилия" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/spacer"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/spacer_solid" />
+
+            <LinearLayout
+                android:id="@+id/llPersonal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/clPersonal">
+
+
+                <TextView
+                    android:id="@+id/tv_name_label"
+                    style="@style/Text.Footnote1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/personal_name" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/Text.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/background_edittext"
+                    android:hint="@string/personal_name_hint"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="5dp"
+                    android:text="@={vm.name}"
+                    app:isValid="@{vm.nameIsValid}"
+                    tools:text="Мария" />
+
+                <TextView
+                    android:id="@+id/tv_secondName_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/personal_second_name" />
+
+                <EditText
+                    android:id="@+id/et_secondName"
+                    style="@style/Text.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/background_edittext"
+                    android:hint="@string/personal_second_name_hint"
+                    android:inputType="textPersonName"
+                    android:paddingBottom="5dp"
+                    android:text="@={vm.lastName}"
+                    app:isValid="@{vm.lastNameIsValid}"
+                    tools:text="Иванова" />
+
+                <TextView
+                    android:id="@+id/tv_email_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="E-mail" />
+
+                <EditText
+                    android:id="@+id/et_email"
+                    style="@style/Text.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/background_edittext"
+                    android:hint="@string/personal_email_hint"
+                    android:inputType="textWebEmailAddress"
+                    android:paddingBottom="5dp"
+                    android:text="@={vm.email}"
+                    app:isValid="@{vm.emailIsValid}"
+                    tools:text="ivanovamary1901@mail.ru" />
+
+                <TextView
+                    android:id="@+id/tv_phone_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Телефон" />
+
+                <EditText
+                    android:id="@+id/et_phoneNumber"
+                    style="@style/Text.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/background_edittext"
+                    android:ellipsize="end"
+                    android:enabled="false"
+                    android:maxLines="1"
+                    android:paddingBottom="5dp"
+                    android:text="@{vm.phone}"
+                    android:textColor="@color/black"
+                    tools:text="+754564564654" />
+
+                <TextView
+                    android:id="@+id/tv_birthDay_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Дата рождения" />
+
+                <TextView
+                    android:id="@+id/tv_birthDay"
+                    style="@style/Text.Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/background_edittext"
+                    android:paddingBottom="5dp"
+                    android:text="@{vm.birthDay}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/guideline_start"
+                    app:layout_constraintTop_toBottomOf="@id/tv_birthDay_label"
+                    tools:text="22.02.2020" />
+
+                <TextView
+                    android:id="@+id/tv_city_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Город" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_city"
+                        style="@style/Text.Body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:background="@drawable/background_edittext"
+                        android:paddingBottom="5dp"
+                        android:text="@{vm.city.data}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Тосква" />
+
+                    <ProgressBar
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="@dimen/margin_medium"
+                        android:padding="2dp"
+                        android:visibility="@{vm.city.isLoading()}"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_city"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintStart_toStartOf="@id/tv_city"
+                        app:layout_constraintTop_toTopOf="@id/tv_city" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </LinearLayout>
+
+
+            <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_large"
+                android:onClick="@{() -> vm.onUpdateData()}"
+                app:enabled="@{vm.dataIsValid}"
+                app:isLoading="@{vm.userData.isLoading()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/llPersonal"
+                app:text="Обновить данные" />
+        </LinearLayout>
+    </ScrollView>
+</layout>
