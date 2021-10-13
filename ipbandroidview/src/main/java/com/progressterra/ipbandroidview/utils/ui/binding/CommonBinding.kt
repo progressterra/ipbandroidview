@@ -10,6 +10,10 @@ import com.progressterra.ipbandroidview.utils.ScreenState
 @BindingConversion
 fun convertBooleanToVisibility(isVisible: Boolean): Int = if (isVisible) View.VISIBLE else View.GONE
 
+@BindingAdapter("invisible")
+fun setInvisible(v: View, isVisible: Boolean) {
+    v.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+}
 
 @BindingAdapter("textFromInt")
 internal fun textFromInt(view: TextView, text: Int) {

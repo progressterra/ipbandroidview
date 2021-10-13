@@ -67,6 +67,10 @@
         <item name="app_confirm_circle_4_color">?app_confirm_circle_success_color</item>
 
 
+        <!--   BonusesBanner     -->
+        <item name="app_bonusesBannerTextColor">@color/black</item>
+
+
         <item name="app_animation_duration">200</item>
     </style>
 

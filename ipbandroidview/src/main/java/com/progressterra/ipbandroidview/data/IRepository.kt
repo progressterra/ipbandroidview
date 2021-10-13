@@ -4,6 +4,7 @@ package com.progressterra.ipbandroidview.data
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
@@ -98,5 +99,9 @@ internal interface IRepository {
     interface PromoCode {
         suspend fun getAccessToken(): SResult<String>
         suspend fun setPromoCode(accessToken: String, promoCode: String): SResult<*>
+    }
+
+    interface Bonuses {
+        suspend fun getBonusesInfo(): SResult<BonusesInfo>
     }
 }

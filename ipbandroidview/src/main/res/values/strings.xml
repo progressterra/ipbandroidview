@@ -134,4 +134,8 @@
     <string name="skip">Пропустить</string>
     <string name="addresses_list_is_empty">Список адресов пуст</string>
 
+    <!-- Bonuses Banner   -->
+    <string name="bonuses_quantity">%d бонусов</string>
+    <string name="bonuses_date">%s сгорит</string>
+
 </resources>

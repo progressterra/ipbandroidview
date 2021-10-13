@@ -77,4 +77,7 @@
 
     <!-- Animation time   -->
     <attr name="app_animation_duration" format="integer" />
+
+    <!-- Bonuses Banner   -->
+    <attr name="app_bonusesBannerTextColor" format="color" />
 </resources>
