@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="IPBAndroidView" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="app_defaultCornerRadius">8dp</item>
@@ -77,16 +77,22 @@
     <!-- Текст   -->
     <style name="Text">
         <item name="fontFamily">@font/roboto</item>
-        <item name="fontWeight">400</item>
+        <item name="android:textFontWeight" tools:targetApi="P">400</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <!-- Название разделов, списков   -->
     <style name="Text.Title">
-        <item name="fontWeight">700</item>
+        <item name="android:textFontWeight" tools:targetApi="P">700</item>
         <item name="android:textSize">?app_textTitleSize</item>
         <item name="lineSpacing">?app_textTitleLineSpacing</item>
         <item name="android:textColor">?app_textTitleColor</item>
+    </style>
+
+    <style name="Text.Subheading">
+        <item name="android:textFontWeight" tools:targetApi="P">400</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- Текст в кнопках   -->
@@ -116,6 +122,14 @@
         <item name="android:textSize">?app_textBodySize</item>
         <item name="lineSpacing">?app_textBodySpacing</item>
         <item name="android:textColor">?app_textBodyColor</item>
+    </style>
+
+    <style name="Text.Body.Medium">
+        <item name="android:textFontWeight" tools:targetApi="P">500</item>
+    </style>
+
+    <style name="Text.Body.Regular">
+        <item name="android:textFontWeight" tools:targetApi="P">400</item>
     </style>
 
     <!-- Сноски, текст в карточках товара   -->
@@ -175,7 +189,7 @@
         <item name="android:textColor">@color/text_color</item>
         <item name="android:textSize">16sp</item>
         <item name="fontFamily">@font/roboto</item>
-        <item name="fontWeight">400</item>
+        <item name="android:textFontWeight" tools:targetApi="P">400</item>
         <item name="lineHeight">24sp</item>
     </style>
 

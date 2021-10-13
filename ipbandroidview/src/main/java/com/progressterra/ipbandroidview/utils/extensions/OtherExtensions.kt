@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidview.utils.DEFAULT_RES
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.delegate.FragmentArgumentDelegate
@@ -64,3 +65,9 @@ suspend fun <T : Any> safeApiCall(
             e.message.toFailedResult()
         }
     }
+
+val UserData.fullName: String
+    get() = "${clientInfo.name} ${clientInfo.soname}"
+
+val UserData.email: String
+    get() = clientAdditionalInfo.emailGeneral

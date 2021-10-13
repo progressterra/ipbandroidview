@@ -63,7 +63,8 @@ class PersonalFragment : BaseFragment() {
 
         viewModel.apply {
             citiesList.observe(viewLifecycleOwner) {
-                setupCitySpinner(it)
+                if (it != null)
+                    setupCitySpinner(it)
             }
             toastBundle.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
             action.observe(viewLifecycleOwner, this@PersonalFragment::onAction)
