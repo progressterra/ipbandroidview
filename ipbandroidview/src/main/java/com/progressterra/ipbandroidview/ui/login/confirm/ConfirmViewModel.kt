@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
 import android.os.Bundle
+import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -92,6 +93,7 @@ internal class ConfirmViewModel(
                     when (response.status) {
                         SUCCESS -> {
                             isCalled = false
+                            Log.d("myTag", "response = ${response.userExist}, corrupted = ${!UserData.isPersonalCorrupted}")
                             when (response.userExist && !UserData.isPersonalCorrupted) {
                                 true -> {
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
