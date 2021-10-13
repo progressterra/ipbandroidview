@@ -91,7 +91,7 @@ internal class ConfirmViewModel(
                     when (response.status) {
                         SUCCESS -> {
                             isCalled = false
-                            when (response.userExist) {
+                            when (response.userExist && !response.isDataCorrupted) {
                                 true -> {
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
                                     if (newLoginFlowSettings)

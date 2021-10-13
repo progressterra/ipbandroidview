@@ -6,9 +6,14 @@ import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidview.utils.DEFAULT_RES
+import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.delegate.FragmentArgumentDelegate
 import com.progressterra.ipbandroidview.utils.delegate.FragmentNullableArgumentDelegate
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlin.properties.ReadWriteProperty
 
 fun <T> Bundle.put(key: String, value: T?) {
@@ -48,3 +53,21 @@ fun Int.applyIfNotDefault(imageView: ImageView) {
         imageView.visibility = View.VISIBLE
     }
 }
+
+suspend fun <T : Any> safeApiCall(
+    dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    block: suspend () -> SResult<T>
+): SResult<T> =
+    withContext(dispatcher) {
+        try {
+            block.invoke()
+        } catch (e: Exception) {
+            e.message.toFailedResult()
+        }
+    }
+
+val UserData.fullName: String
+    get() = "${clientInfo.name} ${clientInfo.soname}"
+
+val UserData.email: String
+    get() = clientAdditionalInfo.emailGeneral

@@ -45,4 +45,30 @@
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popUpTo="@id/main_nav_graph" />
+
+
+    <action
+        android:id="@+id/toInfoDialog"
+        app:destination="@id/infoDialogLib" />
+
+    <dialog
+        android:id="@+id/infoDialogLib"
+        android:name="com.progressterra.ipbandroidview.ui.dialog_info.InfoDialogLib"
+        android:label="InfoDialogLib">
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="description"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="button"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="imageRes"
+            app:argType="integer" />
+    </dialog>
 </navigation>

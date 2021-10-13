@@ -1,47 +1,24 @@
 package com.progressterra.ipbandroidview.ui.bonuses_banner
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
-import kotlinx.coroutines.launch
+import com.progressterra.ipbandroidview.data.CommonRepository
+import com.progressterra.ipbandroidview.data.IRepository
+import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
+import com.progressterra.ipbandroidview.utils.SResult
+import com.progressterra.ipbandroidview.utils.extensions.loadingResult
 
-internal class BonusesBannerViewModel : ViewModel() {
+class BonusesBannerViewModel : BaseBindingViewModel() {
+    private val repo: IRepository.Bonuses = CommonRepository()
 
-    val bonusesInfo = MutableLiveData<BonusesInfo>()
-    private val repository = BonusesApi.getInstance()
+    private val _bonusesInfo = MutableLiveData<SResult<BonusesInfo>>(loadingResult())
+    val bonusesInfo: LiveData<SResult<BonusesInfo>> = _bonusesInfo
 
-    init {
-        updateBonusesInfo()
-    }
-
-    fun updateBonusesInfo() {
-        viewModelScope.launch {
-            getAccessToken()?.let {
-                getGeneralBonusesInfo(it)
-            }
+    fun updateBonuses() {
+        safeLaunch {
+            _bonusesInfo.postValue(loadingResult())
+            _bonusesInfo.postValue(repo.getBonusesInfo())
         }
     }
-
-    private suspend fun getGeneralBonusesInfo(accessToken: String) {
-        repository.getBonusesInfo(accessToken).let { bonusesInfoResponse ->
-            if (bonusesInfoResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                bonusesInfoResponse.responseBody?.let {
-                    bonusesInfo.postValue(it)
-                }
-            }
-        }
-    }
-
-    private suspend fun getAccessToken(): String? {
-        repository.getAccessToken().let {
-            if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                return it.responseBody?.accessToken
-            }
-        }
-        return null
-    }
-
 }

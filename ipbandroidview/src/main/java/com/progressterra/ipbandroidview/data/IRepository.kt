@@ -1,13 +1,21 @@
 package com.progressterra.ipbandroidview.data
 
 
+import androidx.paging.PagingData
+import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
+import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
+import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
+import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
+import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
 import com.progressterra.ipbandroidview.utils.ISResult
 import com.progressterra.ipbandroidview.utils.SResult
+import kotlinx.coroutines.flow.Flow
 import okhttp3.ResponseBody
 import java.io.File
 
@@ -87,8 +95,35 @@ internal interface IRepository {
         suspend fun becomeSelfEmployed(accessToken: String): ISResult<AmbassadorStatusResponse>
     }
 
+    interface Store {
+        fun getStorePage(idCategory: String): Flow<PagingData<RGGoodsInventoryExt>>
+        fun updateSearch(search: String)
+    }
+
     interface PromoCode {
         suspend fun getAccessToken(): SResult<String>
         suspend fun setPromoCode(accessToken: String, promoCode: String): SResult<*>
+    }
+
+    interface Bonuses {
+        suspend fun getBonusesInfo(): SResult<BonusesInfo>
+    }
+
+    interface Personal {
+        suspend fun updatePersonalInfoLocal(): SResult<ClientInfoUI>
+        suspend fun getClientCity(): SResult<String>
+        suspend fun updatePersonalInfo(name: String, soname: String): SResult<ClientInfoResponse>
+        suspend fun updateEmail(email: String): SResult<*>
+        suspend fun confirmEmail(email: String): SResult<*>
+    }
+
+
+    companion object {
+        fun Personal(
+            city: SCRMApiQwerty.ClientCity,
+            client: SCRMApiQwerty.ClientsV3,
+            login: LoginApi
+        ): Personal =
+            PersonalRepository(city, client, login)
     }
 }
