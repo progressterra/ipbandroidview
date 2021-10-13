@@ -1,9 +1,10 @@
 package com.progressterra.ipbandroidview.ui.personal_edit
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidview.MainNavGraphDirections
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.prefs.UserDataLocal
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.chat.utils.format
@@ -42,7 +43,6 @@ class PersonalEditViewModel : BaseBindingViewModel() {
         ).toSuccessResult()
     )
     val userData: LiveData<SResult<ClientInfoUI>> by lazy {
-        Log.d("myTag", "ud = ${_userData.value?.data}")
         _userData
     }
 
@@ -105,9 +105,26 @@ class PersonalEditViewModel : BaseBindingViewModel() {
 
             if (result is SResult.Success) {
                 _userData.postValue(result.data.toSuccessResult())
+
+                navLiveData.postValue(
+                    MainNavGraphDirections.toInfoDialog(
+                        "Отлично!",
+                        "Изменения успешно сохранены",
+                        "Ок",
+                        R.drawable.ic_dialog_success
+                    ).toNavResult()
+                )
             } else {
                 _userData.postValue(_userData.value?.data?.toSuccessResult())
-                toastLiveData.postValue((result as? SResult.Failed)?.message?.toToastResult())
+
+                navLiveData.postValue(
+                    MainNavGraphDirections.toInfoDialog(
+                        "Упс, произошла ошибка",
+                        "Попробуйте сохранить изменения ещё раз",
+                        "Ок",
+                        R.drawable.ic_dialog_failed
+                    ).toNavResult()
+                )
             }
         }
     }

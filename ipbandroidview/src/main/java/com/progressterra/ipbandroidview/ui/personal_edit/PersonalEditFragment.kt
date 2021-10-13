@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.personal_edit
 
-import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalEditLibBinding

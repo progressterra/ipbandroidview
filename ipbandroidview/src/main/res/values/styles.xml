@@ -124,6 +124,14 @@
         <item name="android:textColor">?app_textBodyColor</item>
     </style>
 
+    <style name="Text.Body.Medium">
+        <item name="android:textFontWeight" tools:targetApi="P">500</item>
+    </style>
+
+    <style name="Text.Body.Regular">
+        <item name="android:textFontWeight" tools:targetApi="P">400</item>
+    </style>
+    
     <!-- Сноски, текст в карточках товара   -->
     <style name="Text.Footnote1">
         <item name="android:textSize">?app_textFootnote1Size</item>
