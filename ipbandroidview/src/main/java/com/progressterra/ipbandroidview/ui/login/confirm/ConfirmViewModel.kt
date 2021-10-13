@@ -1,13 +1,11 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
 import android.os.Bundle
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.ERROR
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.SUCCESS
 import com.progressterra.ipbandroidview.MainNavGraphDirections
@@ -93,7 +91,6 @@ internal class ConfirmViewModel(
                     when (response.status) {
                         SUCCESS -> {
                             isCalled = false
-                            Log.d("myTag", "response = ${response.userExist}, corrupted = ${!response.isDataCorrupted}")
                             when (response.userExist && !response.isDataCorrupted) {
                                 true -> {
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
