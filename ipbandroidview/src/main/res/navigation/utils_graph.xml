@@ -58,4 +58,25 @@
             app:nullable="false" />
     </dialog>
 
+    <dialog
+        android:id="@+id/infoDialogLib"
+        android:name="com.progressterra.ipbandroidview.ui.dialog_info.InfoDialogLib"
+        android:label="InfoDialogLib">
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="description"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="button"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="imageRes"
+            app:argType="integer" />
+    </dialog>
+
 </navigation>
