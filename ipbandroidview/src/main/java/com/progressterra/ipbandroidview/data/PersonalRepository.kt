@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.*
 
-class PersonalRepository(
+internal class PersonalRepository(
     private val cityApi: SCRMApiQwerty.ClientCity,
     private val clientApi: SCRMApiQwerty.ClientsV3,
     private val loginApi: LoginApi

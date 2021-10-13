@@ -5,7 +5,9 @@ import androidx.paging.PagingData
 import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
+import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
+import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
@@ -113,5 +115,15 @@ internal interface IRepository {
         suspend fun updatePersonalInfo(name: String, soname: String): SResult<ClientInfoResponse>
         suspend fun updateEmail(email: String): SResult<*>
         suspend fun confirmEmail(email: String): SResult<*>
+    }
+
+
+    companion object {
+        fun Personal(
+            city: SCRMApiQwerty.ClientCity,
+            client: SCRMApiQwerty.ClientsV3,
+            login: LoginApi
+        ): Personal =
+            PersonalRepository(city, client, login)
     }
 }

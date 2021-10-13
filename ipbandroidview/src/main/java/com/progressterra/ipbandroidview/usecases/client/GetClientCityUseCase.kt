@@ -3,14 +3,13 @@ package com.progressterra.ipbandroidview.usecases.client
 import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidview.data.IRepository
-import com.progressterra.ipbandroidview.data.PersonalRepository
 import com.progressterra.ipbandroidview.data.prefs.UserDataLocal
 import com.progressterra.ipbandroidview.utils.IUseCase
 import com.progressterra.ipbandroidview.utils.SResult
 
 
 internal class GetClientCityUseCase : IGetClientCityUseCase {
-    private val repo: IRepository.Personal = PersonalRepository(
+    private val repo: IRepository.Personal = IRepository.Personal(
         SCRMApiQwerty.ClientCity(),
         SCRMApiQwerty.ClientsV3(),
         LoginApi.newInstance()

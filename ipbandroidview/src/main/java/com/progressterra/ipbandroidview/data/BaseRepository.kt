@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 
-open class BaseRepository : IRepository {
+internal open class BaseRepository : IRepository {
     private val bonusesApi = BonusesApi.getInstance()
 
     override suspend fun getAccessToken(): SResult<String> {

@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidview.data.IRepository
-import com.progressterra.ipbandroidview.data.PersonalRepository
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientUpdateInfo
 import com.progressterra.ipbandroidview.utils.IUseCase
@@ -15,7 +14,7 @@ import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 
 
 internal class UpdateClientPersonalDataUseCase : IUpdateClientPersonalDataUseCase {
-    private val repo: IRepository.Personal = PersonalRepository(
+    private val repo: IRepository.Personal = IRepository.Personal(
         SCRMApiQwerty.ClientCity(),
         SCRMApiQwerty.ClientsV3(),
         LoginApi.newInstance()
