@@ -103,7 +103,7 @@ internal class PageLoader {
         size = response.allQuantityItemsProducts ?: 0
 
         val totalPages = response.totalPage ?: 0
-        val endOfList = totalPages == page
+        val endOfList = totalPages <= page
 
         return PagingSource.LoadResult.Page(
             data = data,
