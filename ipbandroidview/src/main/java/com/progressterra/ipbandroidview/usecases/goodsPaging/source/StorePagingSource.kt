@@ -25,7 +25,7 @@ internal class StorePagingSource(
     companion object {
         const val DEF_PAGE = 1
         const val DEF_PAGE_SIZE = 10
-        const val DEF_INITIAL_LOAD = 20
+        const val DEF_INITIAL_LOAD = 10
     }
 }
 
@@ -102,9 +102,8 @@ internal class PageLoader {
 
         size = response.allQuantityItemsProducts ?: 0
 
-        val totalItems = response.allQuantityItemsProducts ?: 0
-        val currentItems = data.size
-        val endOfList = totalItems.minus(currentItems.times(page)) <= 0
+        val totalPages = response.totalPage ?: 0
+        val endOfList = totalPages <= page
 
         return PagingSource.LoadResult.Page(
             data = data,
