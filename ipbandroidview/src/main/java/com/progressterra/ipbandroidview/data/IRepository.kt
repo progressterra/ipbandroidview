@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
+import com.progressterra.ipbandroidview.usecases.goodsPaging.source.StorePagingSource
 import com.progressterra.ipbandroidview.utils.ISResult
 import com.progressterra.ipbandroidview.utils.SResult
 import kotlinx.coroutines.flow.Flow
@@ -96,7 +97,12 @@ internal interface IRepository {
     }
 
     interface Store {
-        fun getStorePage(idCategory: String): Flow<PagingData<RGGoodsInventoryExt>>
+        fun getStorePage(
+            idCategory: String,
+            pageSize: Int = StorePagingSource.DEF_PAGE_SIZE,
+            initialLoad: Int = StorePagingSource.DEF_INITIAL_LOAD
+        ): Flow<PagingData<RGGoodsInventoryExt>>
+
         fun updateSearch(search: String)
     }
 

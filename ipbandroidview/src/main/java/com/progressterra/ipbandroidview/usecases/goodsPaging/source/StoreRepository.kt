@@ -12,13 +12,16 @@ internal class StoreRepository : IRepository.Store {
 
     private var storePagingSource: StorePagingSource = StorePagingSource(pageLoader, "")
 
-
-    override fun getStorePage(idCategory: String): Flow<PagingData<RGGoodsInventoryExt>> {
+    override fun getStorePage(
+        idCategory: String,
+        pageSize: Int,
+        initialLoad: Int
+    ): Flow<PagingData<RGGoodsInventoryExt>> {
         return Pager(
             config = PagingConfig(
-                pageSize = StorePagingSource.DEF_PAGE_SIZE,
+                pageSize = pageSize,
                 enablePlaceholders = false,
-                initialLoadSize = StorePagingSource.DEF_INITIAL_LOAD
+                initialLoadSize = initialLoad
             ),
             pagingSourceFactory = {
                 storePagingSource = StorePagingSource(pageLoader, idCategory)
