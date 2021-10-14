@@ -49,7 +49,7 @@ class ChatDrawableFragment : BaseFragment() {
     private fun setupViewModel() {
         with(vm) {
             messagesList.observe(viewLifecycleOwner) {
-                messageListAdapter.submitList(it.data) {
+                messageListAdapter.submitList(it.data?.asReversed()) {
                     binding.rvMessages.smoothScrollToPosition(0)
                 }
             }

@@ -42,7 +42,8 @@ class ChatDrawableViewModel(
     private fun getMessagesList(dialogId: String) {
         safeLaunch {
             val messages = repo.getMessagesList(dialogId, messageListPage.toString())
-            val converted = MessageWithDateUI.convertToTransactionsWithDate(messages.data)
+            val converted =
+                MessageWithDateUI.convertToTransactionsWithDate(messages.data?.sortedBy { it.rawDate })
             _messagesList.postValue(converted.toSuccessResult())
         }
     }
@@ -63,7 +64,8 @@ class ChatDrawableViewModel(
             _messageSendingStatus.postValue(loadingResult())
             val token = repo.getAccessToken().data.orEmpty()
             val messages = repo.sendMessage(messageText, token, dialogId!!)
-            val converted = MessageWithDateUI.convertToTransactionsWithDate(messages.data)
+            val converted =
+                MessageWithDateUI.convertToTransactionsWithDate(messages.data?.sortedBy { it.rawDate })
             message.postValue("")
             _messagesList.postValue(converted.toSuccessResult())
             _messageSendingStatus.postValue(completedResult())
