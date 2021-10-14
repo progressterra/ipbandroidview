@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color_chat"
             tools:text="8 декабря" />
     </LinearLayout>
 </layout>
