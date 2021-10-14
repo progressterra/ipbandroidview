@@ -28,6 +28,7 @@
 
 
     <color name="text_color">#1B1B1B</color>
+    <color name="text_color_chat">#000</color>
     <color name="form_text_color">#979797</color>
 
     <!-- Границы -->

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.chat.utils
 
 
-
 import com.progressterra.ipbandroidapi.api.iMessengerCore.models.MessagesListResponse
 import com.progressterra.ipbandroidapi.utils.extentions.orNow
 import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
@@ -11,7 +10,9 @@ import java.util.*
 data class Message(
     val contentText: String,
     val dateCreate: String,
-    val idClient: String
+    val time: String,
+    val idClient: String,
+    val rawDate: Date?
 )
 
 internal fun MessagesListResponse.convertToMessagesList(): List<Message> {
@@ -21,7 +22,9 @@ internal fun MessagesListResponse.convertToMessagesList(): List<Message> {
             Message(
                 contentText = it.contentText ?: "",
                 dateCreate = it.dateCreate.parseToDate().orNow().format("dd MMMM yyyy, H:mm"),
-                idClient = it.idClient ?: ""
+                time = it.dateCreate.parseToDate().orNow().format("HH:mm"),
+                idClient = it.idClient ?: "",
+                it.dateCreate.parseToDate()
             )
         }
         ?: listOf()
