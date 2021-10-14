@@ -26,8 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="@{_->vm.getDialogInfo()}"
-            app:text="@string/refresh"
-            android:visibility="@{vm.messagesList.isError()}" />
+            android:visibility="@{vm.messagesList.isError()}"
+            app:text="@string/refresh" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,6 +57,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
+                android:hint="@string/message_hint"
                 android:text="@={vm.message}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/br_button"
