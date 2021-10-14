@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:onClick="@{() -> vm.sendMessage()}"
-                    android:src="@drawable/ic_baseline_send_24"
+                    android:src="@drawable/ic_send_button"
                     app:layout_constraintBottom_toBottomOf="@id/et_input_message"
                     app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
