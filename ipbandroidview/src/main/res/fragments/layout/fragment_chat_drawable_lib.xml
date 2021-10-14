@@ -44,6 +44,8 @@
                 android:textColor="@color/text_color_chat"
                 android:visibility="@{vm.messagesList.data.empty}"
                 app:layout_constrainedHeight="true"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
                 app:layout_constraintBottom_toTopOf="@id/clInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
