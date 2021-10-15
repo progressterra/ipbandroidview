@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?backgroundColor"
+        android:orientation="vertical">
+
+        <include layout="@layout/view_header_lib" />
+
+
+        <TextView
+            android:id="@+id/test"
+            style="@style/Text.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/invite_from_contact_list"
+            android:textColor="@color/theme_color" />
+
+        <TextView
+            android:id="@+id/tv_html_info"
+            style="@style/Text.Body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/inviting_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/test" />
+
+        <TextView
+            android:id="@+id/tv_full_info"
+            style="@style/Text.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/conditions_for_attracting_clients"
+            android:textColor="@color/theme_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_html_info" />
+
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
+            android:id="@+id/btnSelectContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="114dp"
+            android:layout_marginEnd="24dp"
+            app:text="@string/choose_from_contacts" />
+
+    </LinearLayout>
+</layout>
