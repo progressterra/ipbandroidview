@@ -149,6 +149,15 @@
     <string name="copy_inviting_link">Скопировать ссылку-приглашение</string>
     <string name="inviting_text">%1$s %2$s приглашает вас в приложение SmthApp. Введите при регистрации код %3$s и получите дополнительные приветсвенные 150р на счёт
 </string>
+    <string name="invite_friends">Пригласить друзей</string>
+    <string name="invite_friends_from_contacts">Пригласить друзей из списка контактов</string>
+    <string name="show_more">Подробнее</string>
+    <string name="conditions_for_attracting_clients">Условия привлечения клиентов</string>
+    <string name="choose_from_contacts">Выбрать из списка контактов</string>
+    <string name="invite_from_contact_list">Пригласить друзей из списка контактов</string>
+    <string name="inviting_info">Вы сможете получать процент с каждой продажи приглашенного вами друга.</string>
+    <string name="invite_friend_and_earn_more">Пригласите друзей и зарабатывайте больше</string>
+    <string name="text_copied_to_clipboard">Текст скопирован в буфер обмена</string>
 
 
 </resources>
