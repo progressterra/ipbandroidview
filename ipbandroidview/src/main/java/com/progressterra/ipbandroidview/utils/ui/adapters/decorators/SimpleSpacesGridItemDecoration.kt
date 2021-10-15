@@ -3,11 +3,12 @@ package com.progressterra.ipbandroidview.utils.ui.adapters.decorators
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.progressterra.ipbandroidview.utils.extensions.dpToPx
 
 
 /**
- *  @param verticalSpacing in Px
- *  @param horizontalSpacing in Px
+ *  @param verticalSpacing in Dp
+ *  @param horizontalSpacing in Dp
  */
 class SimpleSpacesGridItemDecoration(
     private val spanCount: Int = 2,
@@ -28,20 +29,20 @@ class SimpleSpacesGridItemDecoration(
 
         if (includeEdge) {
             outRect.left =
-                horizontalSpacing - column * horizontalSpacing / spanCount // spacing - column * ((1f / spanCount) * spacing)
+                horizontalSpacing.dpToPx - column * horizontalSpacing.dpToPx / spanCount // spacing - column * ((1f / spanCount) * spacing)
             outRect.right =
-                (column + 1) * horizontalSpacing / spanCount // (column + 1) * ((1f / spanCount) * spacing)
+                (column + 1) * horizontalSpacing.dpToPx / spanCount // (column + 1) * ((1f / spanCount) * spacing)
             if (position < spanCount) { // top edge
-                outRect.top = verticalSpacing
+                outRect.top = verticalSpacing.dpToPx
             }
-            outRect.bottom = verticalSpacing // item bottom
+            outRect.bottom = verticalSpacing.dpToPx // item bottom
         } else {
             outRect.left =
-                column * horizontalSpacing / spanCount // column * ((1f / spanCount) * spacing)
+                column * horizontalSpacing.dpToPx / spanCount // column * ((1f / spanCount) * spacing)
             outRect.right =
-                horizontalSpacing - (column + 1) * horizontalSpacing / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                horizontalSpacing.dpToPx - (column + 1) * horizontalSpacing.dpToPx / spanCount // spacing - (column + 1) * ((1f /    spanCount) * spacing)
             if (position >= spanCount) {
-                outRect.top = verticalSpacing // item top
+                outRect.top = verticalSpacing.dpToPx // item top
             }
         }
     }
