@@ -28,9 +28,6 @@
 
             app:enterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_fragment_invite_friends_to_htmlTextShowingDialog"
-            app:destination="@id/htmlTextShowingDialog" />
     </fragment>
 
     <fragment
