@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.data
 
 
 import androidx.paging.PagingData
+import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.CatalogItem
 import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
@@ -131,6 +132,10 @@ internal interface IRepository {
         suspend fun getAccessToken(): SResult<String>
         suspend fun getInviteInfo(accessToken: String): SResult<UserInviteDataUI>
         suspend fun sendInvites(invitingMembersRequest: InvitingMembersRequest): SResult<UserInviteResultUI>
+    }
+
+    interface Catalog {
+        suspend fun getCatalog(): SResult<List<CatalogItem>>
     }
 
 
