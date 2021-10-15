@@ -38,7 +38,7 @@
                 android:orientation="vertical"
                 android:visibility="@{vm.infoForInvitingMembers.success}">
 
-                <include layout="@layout/view_header" />
+                <include layout="@layout/view_header_lib" />
 
 
                 <TextView

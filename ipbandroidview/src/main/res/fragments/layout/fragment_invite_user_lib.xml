@@ -9,7 +9,7 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <include layout="@layout/view_header" />
+        <include layout="@layout/view_header_lib" />
 
 
         <TextView
