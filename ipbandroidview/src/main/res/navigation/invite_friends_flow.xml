@@ -60,13 +60,5 @@
             app:popUpToInclusive="true" />
     </dialog>
 
-    <dialog
-        android:id="@+id/htmlTextShowingDialog"
-        android:name="com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialog"
-        android:label="HtmlTextShowingDialog"
-        tools:layout="@layout/dialog_web_view_lib">
-        <argument
-            android:name="url"
-            app:argType="string" />
-    </dialog>
+
 </navigation>
