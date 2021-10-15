@@ -3,12 +3,16 @@ package com.progressterra.ipbandroidview.data
 
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.InvitingMembersRequest
 import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
+import com.progressterra.ipbandroidview.ui.contacts.models.UserInviteDataUI
+import com.progressterra.ipbandroidview.ui.contacts.models.UserInviteResultUI
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
@@ -123,6 +127,12 @@ internal interface IRepository {
         suspend fun confirmEmail(email: String): SResult<*>
     }
 
+    interface UserInviting {
+        suspend fun getAccessToken(): SResult<String>
+        suspend fun getInviteInfo(accessToken: String): SResult<UserInviteDataUI>
+        suspend fun sendInvites(invitingMembersRequest: InvitingMembersRequest): SResult<UserInviteResultUI>
+    }
+
 
     companion object {
         fun Personal(
@@ -131,5 +141,8 @@ internal interface IRepository {
             login: LoginApi
         ): Personal =
             PersonalRepository(city, client, login)
+
+        fun UserInviting(ambassadorInvite: IPBAmbassador.AmbassadorInvite): UserInviting =
+            UserInvitingRepository(ambassadorInvite)
     }
 }

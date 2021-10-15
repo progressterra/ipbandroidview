@@ -1,0 +1,64 @@
+package com.progressterra.ipbandroidview.ui.contacts
+
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.os.Bundle
+import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.databinding.FragmentInviteFriendsStartLibBinding
+import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
+import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
+
+
+internal class InviteFriendsStartFragment :
+    BaseBindingFragment<FragmentInviteFriendsStartLibBinding, BaseBindingViewModel>(
+        R.layout.fragment_invite_friends_start_lib
+    ) {
+
+    override val vm by viewModels<UserInviteInfoViewModel>()
+
+    override fun onInitBinding(
+        binding: FragmentInviteFriendsStartLibBinding,
+        savedInstanceState: Bundle?
+    ) {
+        super.onInitBinding(binding, savedInstanceState)
+        setupListeners()
+        setupHeader(R.string.invite_friends, true)
+
+    }
+
+    private fun setupListeners() {
+        binding.btnContactList.setOnClickListener {
+            findNavController().navigate(InviteFriendsStartFragmentDirections.toInvite())
+        }
+
+        binding.btnCopyLink.setOnClickListener {
+            copyTextOfInviting()
+        }
+    }
+
+    private fun copyTextOfInviting() {
+        val clipboard: ClipboardManager? =
+            getSystemService(requireContext(), ClipboardManager::class.java)
+        val clip = ClipData.newPlainText(
+            "label",
+            getString(
+                R.string.inviting_text,
+                UserData.clientInfo.name,
+                UserData.clientInfo.soname,
+                vm.infoForInvitingMembers.value?.data?.promocode
+            )
+        )
+        clipboard?.setPrimaryClip(clip)
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.text_copied_to_clipboard),
+            Toast.LENGTH_SHORT
+        )
+            .show()
+    }
+}

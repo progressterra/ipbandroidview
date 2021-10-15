@@ -138,4 +138,17 @@
     <string name="bonuses_quantity">%d бонусов</string>
     <string name="bonuses_date">%s сгорит</string>
 
+    <!-- Приглашение друзей   -->
+    <string name="permission_on_denied_title">Невозможно отправить приглашения.</string>
+    <string name="permission_on_denied_description">Предоставьте доступ к списку контактов и попробуйте пригласить друзей ещё раз!\nПредоставить приложению доступ?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="ok">Ок</string>
+    <string name="retry_invite">Повторить отправку</string>
+    <string name="settings_tab">Настройки</string>
+    <string name="copy_inviting_link">Скопировать ссылку-приглашение</string>
+    <string name="inviting_text">%1$s %2$s приглашает вас в приложение SmthApp. Введите при регистрации код %3$s и получите дополнительные приветсвенные 150р на счёт
+</string>
+
+
 </resources>
