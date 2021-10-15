@@ -86,6 +86,7 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="24dp"
+                    android:src="@drawable/ic_education"
                     app:layout_constraintTop_toBottomOf="@id/tvShowDescription" />
 
                 <androidx.appcompat.widget.AppCompatButton
