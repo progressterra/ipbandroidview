@@ -2,9 +2,12 @@ package com.progressterra.ipbandroidview.ui.base
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
@@ -16,6 +19,7 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.BR
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.toToastResult
 
@@ -98,9 +102,9 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
      */
     private fun <T : Any> SResult.Failed<T>.handleFailedResult() {
         when (message) {
-            is String -> message as String
-            is Int -> getString(message as Int)
-            is Throwable -> (message as Throwable).message
+            is String -> message
+            is Int -> getString(message)
+            is Throwable -> message.message
             else -> null
         }?.toToastResult()?.handleToastResult()
     }
@@ -110,8 +114,8 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
      */
     private fun SResult.Toast.handleToastResult() {
         when (message) {
-            is String -> message as String
-            is Int -> getString(message as Int)
+            is String -> message
+            is Int -> getString(message)
             else -> null
         }?.let {
             onToast(it)
@@ -124,8 +128,8 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
      */
     private fun SResult.NavResult.handleNavResult() {
         when (navDirections) {
-            is NavDirections -> findNavController().navigate(navDirections as NavDirections)
-            is Int -> findNavController().navigate(navDirections as Int)
+            is NavDirections -> findNavController().navigate(navDirections)
+            is Int -> findNavController().navigate(navDirections)
         }
     }
 
@@ -162,5 +166,30 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
             requireContext(),
             permission
         ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    open fun setupHeader(
+        title: Int? = null,
+        backVisible: Boolean = true
+    ) {
+        try {
+            val back = binding.root.findViewById<ImageView>(R.id.iv_back_header)
+
+            if (backVisible) {
+                back.visibility = View.VISIBLE
+                back.setOnClickListener {
+                    findNavController().popBackStack()
+                }
+            } else {
+                back.visibility = View.GONE
+            }
+
+            title?.let {
+                binding.root.findViewById<TextView>(R.id.tv_title_header).text =
+                    resources.getString(title)
+            }
+        } catch (e: Exception) {
+            Log.e(javaClass.simpleName, "$e")
+        }
     }
 }

@@ -4,8 +4,10 @@ package com.progressterra.ipbandroidview.data
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.CatalogItem
 import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.InvitingMembersRequest
 import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
@@ -14,6 +16,8 @@ import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
+import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteDataUI
+import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteResultUI
 import com.progressterra.ipbandroidview.usecases.goodsPaging.source.StorePagingSource
 import com.progressterra.ipbandroidview.utils.ISResult
 import com.progressterra.ipbandroidview.utils.SResult
@@ -124,6 +128,11 @@ internal interface IRepository {
         suspend fun confirmEmail(email: String): SResult<*>
     }
 
+    interface UserInviting {
+        suspend fun getInviteInfo(): SResult<UserInviteDataUI>
+        suspend fun sendInvites(invitingMembersRequest: InvitingMembersRequest): SResult<UserInviteResultUI>
+    }
+
     interface Catalog {
         suspend fun getCatalog(): SResult<List<CatalogItem>>
     }
@@ -136,5 +145,8 @@ internal interface IRepository {
             login: LoginApi
         ): Personal =
             PersonalRepository(city, client, login)
+
+        fun UserInviting(ambassadorInvite: IPBAmbassador.AmbassadorInvite): UserInvitingRepository =
+            UserInvitingRepository(ambassadorInvite)
     }
 }
