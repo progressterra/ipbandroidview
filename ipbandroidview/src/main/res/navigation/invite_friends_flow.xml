@@ -14,8 +14,6 @@
             android:id="@+id/toInvite"
             app:destination="@id/fragment_invite_friends"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/wait_anim"
-            app:popEnterAnim="@anim/wait_anim"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
@@ -28,8 +26,6 @@
             android:id="@+id/toContactList"
             app:destination="@id/fragment_contact_list"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/wait_anim"
-            app:popEnterAnim="@anim/wait_anim"
             app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_fragment_invite_friends_to_htmlTextShowingDialog"
@@ -45,8 +41,6 @@
             android:id="@+id/toResult"
             app:destination="@id/dialog_invite_result"
             app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/wait_anim"
-            app:popEnterAnim="@anim/wait_anim"
             app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
