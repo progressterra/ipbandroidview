@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.data
 
 
 import androidx.paging.PagingData
+import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.CatalogItem
 import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
@@ -121,6 +122,10 @@ internal interface IRepository {
         suspend fun updatePersonalInfo(name: String, soname: String): SResult<ClientInfoResponse>
         suspend fun updateEmail(email: String): SResult<*>
         suspend fun confirmEmail(email: String): SResult<*>
+    }
+
+    interface Catalog {
+        suspend fun getCatalog(): SResult<List<CatalogItem>>
     }
 
 
