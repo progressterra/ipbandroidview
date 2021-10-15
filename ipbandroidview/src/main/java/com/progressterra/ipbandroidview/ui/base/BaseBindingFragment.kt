@@ -173,7 +173,7 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         backVisible: Boolean = true
     ) {
         try {
-            val back = requireView().findViewById<ImageView>(R.id.iv_back_header)
+            val back = binding.root.findViewById<ImageView>(R.id.iv_back_header)
 
             if (backVisible) {
                 back.visibility = View.VISIBLE
@@ -185,7 +185,7 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
             }
 
             title?.let {
-                requireView().findViewById<TextView>(R.id.tv_title_header).text =
+                binding.root.findViewById<TextView>(R.id.tv_title_header).text =
                     resources.getString(title)
             }
         } catch (e: Exception) {
