@@ -27,21 +27,12 @@ class UserInviteInfoViewModel :
     }
 
     fun getInfo() {
-        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable -> } + Dispatchers.IO) {
+        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+            _infoForInvitingMembers.postValue(SResult.Failed())
+        } + Dispatchers.IO) {
             _infoForInvitingMembers.postValue(SResult.Loading())
 
-            var accessToken: String
-
-            repository.getAccessToken().let {
-                if (it.isSuccess()) {
-                    accessToken = it.data ?: ""
-                } else {
-                    _infoForInvitingMembers.postValue(SResult.Failed())
-                    return@launch
-                }
-            }
-
-            repository.getInviteInfo(accessToken).let {
+            repository.getInviteInfo().let {
                 _infoForInvitingMembers.postValue(it)
             }
 

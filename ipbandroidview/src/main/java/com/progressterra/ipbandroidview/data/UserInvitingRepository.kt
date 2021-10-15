@@ -6,14 +6,22 @@ import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteDataUI
 import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteResultUI
 import com.progressterra.ipbandroidview.ui.user_inviting.models.toUiModel
 import com.progressterra.ipbandroidview.utils.SResult
+import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 
 internal class UserInvitingRepository(val ambassadorInvite: IPBAmbassador.AmbassadorInvite) :
     BaseRepository(), IRepository.UserInviting {
 
-    override suspend fun getInviteInfo(accessToken: String): SResult<UserInviteDataUI> {
-        val response = ambassadorInvite.getInviteInfo(accessToken)
+    override suspend fun getInviteInfo(): SResult<UserInviteDataUI> {
+        val tokenResult = getAccessToken()
+        val token: String
+        when (tokenResult) {
+            is SResult.Success -> token = tokenResult.data
+            else -> return emptyFailed()
+        }
+
+        val response = ambassadorInvite.getInviteInfo(token)
         return response.inviteData?.toUiModel()?.toSuccessResult()
             ?: response.result?.message.toFailedResult()
     }

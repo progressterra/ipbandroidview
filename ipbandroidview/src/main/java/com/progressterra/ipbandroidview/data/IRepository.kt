@@ -129,7 +129,7 @@ internal interface IRepository {
     }
 
     interface UserInviting {
-        suspend fun getInviteInfo(accessToken: String): SResult<UserInviteDataUI>
+        suspend fun getInviteInfo(): SResult<UserInviteDataUI>
         suspend fun sendInvites(invitingMembersRequest: InvitingMembersRequest): SResult<UserInviteResultUI>
     }
 
