@@ -9,6 +9,8 @@
     <include app:graph="@navigation/login_flow" />
 
     <include app:graph="@navigation/addresses_flow" />
+    <include app:graph="@navigation/invite_friends_flow" />
+
 
     <action
         android:id="@+id/action_global_login_flow"
@@ -36,6 +38,12 @@
     <action
         android:id="@+id/action_global_addresses_flow"
         app:destination="@id/addresses_flow"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim" />
+
+    <action
+        android:id="@+id/action_global_invite_friends_flow"
+        app:destination="@id/invite_friends_flow"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim" />
 

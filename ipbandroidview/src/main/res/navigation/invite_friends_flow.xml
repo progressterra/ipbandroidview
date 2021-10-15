@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/invite_friends_flow"
+    app:startDestination="@id/fragment_invite_friends_start">
+
+    <fragment
+        android:id="@+id/fragment_invite_friends_start"
+        android:name="com.progressterra.ipbandroidview.ui.user_inviting.InviteFriendsStartFragment"
+        android:label="InviteFriendsStartFragment"
+        tools:layout="@layout/fragment_invite_friends_start_lib">
+        <action
+            android:id="@+id/toInvite"
+            app:destination="@id/fragment_invite_friends"
+            app:enterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_invite_friends"
+        android:name="com.progressterra.ipbandroidview.ui.user_inviting.UserInviteFragment"
+        android:label="UserInviteFragment"
+        tools:layout="@layout/fragment_invite_user_lib">
+        <action
+            android:id="@+id/toContactList"
+            app:destination="@id/fragment_contact_list"
+
+            app:enterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fragment_invite_friends_to_htmlTextShowingDialog"
+            app:destination="@id/htmlTextShowingDialog" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_contact_list"
+        android:name="com.progressterra.ipbandroidview.ui.user_inviting.ContactListFragment"
+        android:label="ContactListFragment"
+        tools:layout="@layout/fragment_contacts_list_lib">
+        <action
+            android:id="@+id/toResult"
+            app:destination="@id/dialog_invite_result"
+            app:enterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+
+
+    <dialog
+        android:id="@+id/dialog_invite_result"
+        android:name="com.progressterra.ipbandroidview.ui.user_inviting.SendingInviteFinishDialog"
+        android:label="SendingInviteFinishDialog"
+        tools:layout="@layout/dialog_invite_sendings_finish_lib">
+
+
+        <action
+            android:id="@+id/toInvite"
+            app:destination="@id/fragment_invite_friends_start"
+            app:popUpTo="@id/fragment_invite_friends_start"
+            app:popUpToInclusive="true" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/htmlTextShowingDialog"
+        android:name="com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialog"
+        android:label="HtmlTextShowingDialog"
+        tools:layout="@layout/dialog_web_view_lib">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </dialog>
+</navigation>
