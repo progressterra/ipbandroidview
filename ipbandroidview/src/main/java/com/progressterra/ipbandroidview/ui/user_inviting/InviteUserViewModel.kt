@@ -127,36 +127,34 @@ class InviteUserViewModel : BaseBindingViewModel() {
                         }
 
                         for (contact in successfulInvitedContacts.withIndex()) {
-                            if (contact.index == successfulInvitedContacts.size - 1)
+                            if (contact.index == successfulInvitedContacts.lastIndex)
                                 userInvitingResultTextSb.append("${contact.value.name} ") else {
                                 userInvitingResultTextSb.append("${contact.value.name}, ")
                             }
                         }
-                        userInvitingResultTextSb.append(" приглашение успешно отправлено")
-                        userInvitingResultTextSb.append("\n")
+                        userInvitingResultTextSb.append("приглашение успешно отправлено")
                     }
 
 
                     // формируем текст для неуспешно приглашенных пользователей
                     if (unsuccessfulInvitedContacts.isNotEmpty()) {
-
+                        userInvitingResultTextSb.append("\n")
                         if (unsuccessfulInvitedContacts.size == 1) {
                             userInvitingResultTextSb.append("Пользователь ")
                         } else {
                             userInvitingResultTextSb.append("Пользователи ")
                         }
 
-                        userInvitingResultTextSb.append("Пользователь")
                         for (contact in unsuccessfulInvitedContacts.withIndex()) {
-                            if (contact.index == unsuccessfulInvitedContacts.size - 1)
+                            if (contact.index == unsuccessfulInvitedContacts.lastIndex)
                                 userInvitingResultTextSb.append("${contact.value.name} ") else {
                                 userInvitingResultTextSb.append("${contact.value.name}, ")
                             }
                         }
                         if (unsuccessfulInvitedContacts.size == 1) {
-                            userInvitingResultTextSb.append(" уже является участником программы лояльности")
+                            userInvitingResultTextSb.append("уже является участником программы лояльности")
                         } else {
-                            userInvitingResultTextSb.append(" уже являются участником программы лояльности")
+                            userInvitingResultTextSb.append("уже являются участником программы лояльности")
                         }
 
                     }

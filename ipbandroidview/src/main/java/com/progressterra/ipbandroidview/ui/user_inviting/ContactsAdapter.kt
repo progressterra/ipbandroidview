@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.ui.user_inviting.models.ContactUi
 internal class ContactsAdapter :
     ListAdapter<ContactUi, ContactViewHolder>(diffUtil) {
 
-    lateinit var onItemSelected: (ContactUi) -> Unit
+    var onItemSelected: ((ContactUi) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
@@ -41,13 +41,12 @@ private val diffUtil = object : DiffUtil.ItemCallback<ContactUi>() {
 }
 
 internal class ContactViewHolder(
-    var binding: ItemContactLibBinding,
-
-    ) : RecyclerView.ViewHolder(binding.root) {
+    var binding: ItemContactLibBinding
+) : RecyclerView.ViewHolder(binding.root) {
 
 
     fun bind(
-        contactUi: ContactUi, onItemSelected: (ContactUi) -> Unit
+        contactUi: ContactUi, onItemSelected: ((ContactUi) -> Unit)?
     ) {
         binding.item = contactUi
         binding.cbSelectContact.setOnCheckedChangeListener(null)
@@ -55,7 +54,7 @@ internal class ContactViewHolder(
 
         binding.cbSelectContact.setOnCheckedChangeListener { buttonView, isChecked ->
             contactUi.isSelected = isChecked
-            onItemSelected.invoke(contactUi)
+            onItemSelected?.invoke(contactUi)
         }
     }
 }

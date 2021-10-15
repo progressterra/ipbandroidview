@@ -168,7 +168,7 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    fun setupHeader(
+    open fun setupHeader(
         title: Int? = null,
         backVisible: Boolean = true
     ) {

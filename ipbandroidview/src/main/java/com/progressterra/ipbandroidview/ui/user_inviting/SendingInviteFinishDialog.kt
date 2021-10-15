@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.progressterra.ipbandroidview.databinding.DialogInviteSendingsFinishLibBinding
 
-class SendingInviteFinishDialog : BottomSheetDialogFragment() {
+internal class SendingInviteFinishDialog : BottomSheetDialogFragment() {
     private val vm by activityViewModels<InviteUserViewModel>()
 
     private lateinit var binding: DialogInviteSendingsFinishLibBinding

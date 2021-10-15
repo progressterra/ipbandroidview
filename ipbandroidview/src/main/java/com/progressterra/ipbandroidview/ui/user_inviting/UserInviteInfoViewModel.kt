@@ -21,6 +21,7 @@ class UserInviteInfoViewModel :
 
     private var repository = IRepository.UserInviting(IPBAmbassador.AmbassadorInvite())
 
+
     init {
         getInfo()
     }

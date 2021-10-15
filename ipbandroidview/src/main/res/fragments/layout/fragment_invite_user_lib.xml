@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="?backgroundColor"
         android:orientation="vertical">
 
         <include layout="@layout/view_header_lib" />
@@ -47,15 +47,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_html_info" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/btnSelectContacts"
-            style="@style/Button.Filled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="114dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/choose_from_contacts" />
+            app:text="@string/choose_from_contacts" />
 
     </LinearLayout>
 </layout>

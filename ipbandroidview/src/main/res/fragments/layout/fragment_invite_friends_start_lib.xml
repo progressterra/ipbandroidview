@@ -34,7 +34,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="?app_backgroundColor"
                 android:orientation="vertical"
                 android:visibility="@{vm.infoForInvitingMembers.success}">
 
@@ -89,16 +89,15 @@
                     android:src="@drawable/ic_education"
                     app:layout_constraintTop_toBottomOf="@id/tvShowDescription" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
                     android:id="@+id/btnContactList"
-                    style="@style/Button.Filled"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="60dp"
                     android:layout_marginEnd="24dp"
-                    android:text="@string/invite_friends_from_contacts"
-                    app:layout_constraintTop_toBottomOf="@id/wvVideo" />
+                    app:layout_constraintTop_toBottomOf="@id/wvVideo"
+                    app:text="@string/invite_friends_from_contacts" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

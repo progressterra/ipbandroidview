@@ -129,7 +129,6 @@ internal interface IRepository {
     }
 
     interface UserInviting {
-        suspend fun getAccessToken(): SResult<String>
         suspend fun getInviteInfo(accessToken: String): SResult<UserInviteDataUI>
         suspend fun sendInvites(invitingMembersRequest: InvitingMembersRequest): SResult<UserInviteResultUI>
     }
@@ -147,7 +146,7 @@ internal interface IRepository {
         ): Personal =
             PersonalRepository(city, client, login)
 
-        fun UserInviting(ambassadorInvite: IPBAmbassador.AmbassadorInvite): UserInviting =
+        fun UserInviting(ambassadorInvite: IPBAmbassador.AmbassadorInvite): UserInvitingRepository =
             UserInvitingRepository(ambassadorInvite)
     }
 }

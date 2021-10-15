@@ -11,11 +11,10 @@ import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentInviteFriendsStartLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
-import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 
 
 internal class InviteFriendsStartFragment :
-    BaseBindingFragment<FragmentInviteFriendsStartLibBinding, BaseBindingViewModel>(
+    BaseBindingFragment<FragmentInviteFriendsStartLibBinding, UserInviteInfoViewModel>(
         R.layout.fragment_invite_friends_start_lib
     ) {
 

@@ -12,7 +12,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="?app_backgroundColor"
         android:orientation="vertical">
 
         <include layout="@layout/view_header_lib" />
@@ -33,7 +33,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/search_background"
+            android:background="@drawable/search_contact_background"
             android:orientation="horizontal">
 
             <ImageView
