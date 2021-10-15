@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_invite_friends_start"
-        android:name="com.progressterra.ipbandroidview.ui.contacts.InviteFriendsStartFragment"
+        android:name="com.progressterra.ipbandroidview.ui.user_inviting.InviteFriendsStartFragment"
         android:label="InviteFriendsStartFragment"
         tools:layout="@layout/fragment_invite_friends_start_lib">
         <action
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/fragment_invite_friends"
-        android:name="com.progressterra.ipbandroidview.ui.contacts.UserInviteFragment"
+        android:name="com.progressterra.ipbandroidview.ui.user_inviting.UserInviteFragment"
         android:label="UserInviteFragment"
         tools:layout="@layout/fragment_invite_user_lib">
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/fragment_contact_list"
-        android:name="com.progressterra.ipbandroidview.ui.contacts.ContactListFragment"
+        android:name="com.progressterra.ipbandroidview.ui.user_inviting.ContactListFragment"
         android:label="ContactListFragment"
         tools:layout="@layout/fragment_contacts_list_lib">
         <action
@@ -47,7 +47,7 @@
 
     <dialog
         android:id="@+id/dialog_invite_result"
-        android:name="com.progressterra.ipbandroidview.ui.contacts.SendingInviteFinishDialog"
+        android:name="com.progressterra.ipbandroidview.ui.user_inviting.SendingInviteFinishDialog"
         android:label="SendingInviteFinishDialog"
         tools:layout="@layout/dialog_invite_sendings_finish_lib">
 

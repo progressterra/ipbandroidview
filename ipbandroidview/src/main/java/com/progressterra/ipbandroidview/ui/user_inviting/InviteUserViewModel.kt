@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.contacts
+package com.progressterra.ipbandroidview.ui.user_inviting
 
 import androidx.lifecycle.*
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.I
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
-import com.progressterra.ipbandroidview.ui.contacts.models.ContactUi
+import com.progressterra.ipbandroidview.ui.user_inviting.models.ContactUi
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.*
 import kotlinx.coroutines.launch

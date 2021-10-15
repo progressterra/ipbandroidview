@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.contacts
+package com.progressterra.ipbandroidview.ui.user_inviting
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidview.databinding.ItemContactLibBinding
-import com.progressterra.ipbandroidview.ui.contacts.models.ContactUi
+import com.progressterra.ipbandroidview.ui.user_inviting.models.ContactUi
 
 internal class ContactsAdapter :
     ListAdapter<ContactUi, ContactViewHolder>(diffUtil) {

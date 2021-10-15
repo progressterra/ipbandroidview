@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.contacts
+package com.progressterra.ipbandroidview.ui.user_inviting
 
 import android.Manifest
 import android.content.Intent

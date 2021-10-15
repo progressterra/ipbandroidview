@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.contacts
+package com.progressterra.ipbandroidview.ui.user_inviting
 
 import android.database.Cursor
 import android.net.Uri
@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentContactsListLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
-import com.progressterra.ipbandroidview.ui.contacts.models.ContactUi
+import com.progressterra.ipbandroidview.ui.user_inviting.models.ContactUi
 
 class ContactListFragment :
     BaseBindingFragment<FragmentContactsListLibBinding, InviteUserViewModel>(R.layout.fragment_contacts_list_lib) {

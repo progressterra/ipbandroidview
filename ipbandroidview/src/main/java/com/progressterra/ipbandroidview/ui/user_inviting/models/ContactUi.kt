@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.contacts.models
+package com.progressterra.ipbandroidview.ui.user_inviting.models
 
 import java.util.*
 

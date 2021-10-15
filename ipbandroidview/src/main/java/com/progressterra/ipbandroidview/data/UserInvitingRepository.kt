@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.data
 
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.InvitingMembersRequest
-import com.progressterra.ipbandroidview.ui.contacts.models.UserInviteDataUI
-import com.progressterra.ipbandroidview.ui.contacts.models.UserInviteResultUI
-import com.progressterra.ipbandroidview.ui.contacts.models.toUiModel
+import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteDataUI
+import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteResultUI
+import com.progressterra.ipbandroidview.ui.user_inviting.models.toUiModel
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult

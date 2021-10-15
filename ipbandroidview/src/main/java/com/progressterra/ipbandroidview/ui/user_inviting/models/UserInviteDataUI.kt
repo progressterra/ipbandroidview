@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.contacts.models
+package com.progressterra.ipbandroidview.ui.user_inviting.models
 
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.AmbassadorInviteDataResponse
 

@@ -11,12 +11,12 @@ import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
-import com.progressterra.ipbandroidview.ui.contacts.models.UserInviteDataUI
-import com.progressterra.ipbandroidview.ui.contacts.models.UserInviteResultUI
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
+import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteDataUI
+import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteResultUI
 import com.progressterra.ipbandroidview.usecases.goodsPaging.source.StorePagingSource
 import com.progressterra.ipbandroidview.utils.ISResult
 import com.progressterra.ipbandroidview.utils.SResult
