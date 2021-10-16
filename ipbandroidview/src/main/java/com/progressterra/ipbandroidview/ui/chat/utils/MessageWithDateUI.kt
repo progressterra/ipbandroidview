@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.chat.utils
 
 import android.text.format.DateUtils
+import android.util.Log
 
 class MessageWithDateUI(
     val message: Message?,
@@ -14,6 +15,11 @@ class MessageWithDateUI(
         fun convertToTransactionsWithDate(rawMessages: List<Message>?): List<MessageWithDateUI> {
             // проверяем список на пустоту
             if (rawMessages.isNullOrEmpty()) return emptyList()
+
+
+            rawMessages.forEach {
+                Log.d("myTag", "it = ${it.rawDate}")
+            }
 
             val messageWithDate = mutableListOf<MessageWithDateUI>()
             // получаем текушую дату
@@ -35,6 +41,7 @@ class MessageWithDateUI(
             // итерируясь по списку проверяем дату в последующем и текущем сообщении, если дата в последующем
             // отличается от даты в текущем то добавляем в наш список объект даты от последующего сообщения
             rawMessages.forEachIndexed { index, rawMessage ->
+                Log.d("myTag", "new = ${rawMessage.rawDate}")
                 messageWithDate.add(MessageWithDateUI(rawMessage, null))
 
                 if (rawMessage.dateCreate != rawMessages.getOrNull(index + 1)?.dateCreate) {
@@ -42,19 +49,34 @@ class MessageWithDateUI(
                     // Добавляем следующую дату, если она не сегодня и еще не добавлена
                     rawMessages.getOrNull(index + 1)?.let { nextMsg ->
                         val isToday = DateUtils.isToday(nextMsg.rawDate?.time ?: 0)
-                        val dateAdded =
-                            messageWithDate.contains(MessageWithDateUI(null, nextMsg.dateWoTime))
-                        val todayAdded = messageWithDate.contains(MessageWithDateUI(null, "Сегодня"))
 
-//                        if (!isToday && !dateAdded) {
-//                            messageWithDate.add(MessageWithDateUI(null, nextMsg.dateWoTime))
-//
-//                        }
+                        // если не null - Значит дата уже добавлена
+                        val dateAdded =
+                            messageWithDate.find {
+                                it.dayOfMessageSending == rawMessage.dateWoTime
+                            } != null
+
+                        // если не null - Значит дата уже добавлена
+                        val todayAdded =
+                            messageWithDate.find {
+                                it.dayOfMessageSending == "Сегодня"
+                            } != null
 
                         when {
-                            isToday && !todayAdded -> messageWithDate.add(MessageWithDateUI(null, "Сегодня"))
-                            !isToday && !dateAdded -> messageWithDate.add(MessageWithDateUI(null, nextMsg.dateWoTime))
-                            else -> {}
+                            isToday && !todayAdded -> messageWithDate.add(
+                                MessageWithDateUI(
+                                    null,
+                                    "Сегодня"
+                                )
+                            )
+                            !isToday && !dateAdded -> messageWithDate.add(
+                                MessageWithDateUI(
+                                    null,
+                                    nextMsg.dateWoTime
+                                )
+                            )
+                            else -> {
+                            }
                         }
                     }
                 }
