@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.chat.utils
 
 import android.text.format.DateUtils
-import android.util.Log
 
 class MessageWithDateUI(
     val message: Message?,
@@ -15,11 +14,6 @@ class MessageWithDateUI(
         fun convertToTransactionsWithDate(rawMessages: List<Message>?): List<MessageWithDateUI> {
             // проверяем список на пустоту
             if (rawMessages.isNullOrEmpty()) return emptyList()
-
-
-            rawMessages.forEach {
-                Log.d("myTag", "it = ${it.rawDate}")
-            }
 
             val messageWithDate = mutableListOf<MessageWithDateUI>()
             // получаем текушую дату
@@ -41,7 +35,6 @@ class MessageWithDateUI(
             // итерируясь по списку проверяем дату в последующем и текущем сообщении, если дата в последующем
             // отличается от даты в текущем то добавляем в наш список объект даты от последующего сообщения
             rawMessages.forEachIndexed { index, rawMessage ->
-                Log.d("myTag", "new = ${rawMessage.rawDate}")
                 messageWithDate.add(MessageWithDateUI(rawMessage, null))
 
                 if (rawMessage.dateCreate != rawMessages.getOrNull(index + 1)?.dateCreate) {

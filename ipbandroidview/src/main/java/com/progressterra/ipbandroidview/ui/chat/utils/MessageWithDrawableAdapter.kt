@@ -87,11 +87,15 @@ internal class MessageWithDrawableAdapter :
 
     private fun View.animateFade() {
         alpha = 0f
-        translationY = 20f
+        translationY = 400f
+        scaleY = 0.5f
+        scaleX = 0.5f
         animate().apply {
             alpha(1f)
             translationY(0f)
-            duration = ANIMATE_DURATION.div(2L)
+            scaleX(1f)
+            scaleY(1f)
+            duration = ANIMATE_DURATION.toLong()
         }
     }
 }

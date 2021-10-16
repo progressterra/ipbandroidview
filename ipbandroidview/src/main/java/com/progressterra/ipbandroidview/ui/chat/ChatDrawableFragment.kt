@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnticipateInterpolator
+import android.view.animation.LinearInterpolator
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.progressterra.ipbandroidview.databinding.FragmentChatDrawableLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.chat.utils.MessageWithDrawableAdapter
+import com.progressterra.ipbandroidview.ui.chat.utils.MessagesAnimator
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.ui.adapters.animators.SlideInUpAnimator
 
@@ -49,7 +51,7 @@ class ChatDrawableFragment : BaseFragment() {
         binding.rvMessages.adapter = messageListAdapter
 
 
-        binding.rvMessages.itemAnimator = SlideInUpAnimator(AnticipateInterpolator()).apply {
+        binding.rvMessages.itemAnimator = MessagesAnimator(LinearInterpolator()).apply {
             addDuration = MessageWithDrawableAdapter.ANIMATE_DURATION.div(2L)
             removeDuration = MessageWithDrawableAdapter.ANIMATE_DURATION.div(2L)
             changeDuration = MessageWithDrawableAdapter.ANIMATE_DURATION.div(2L)
@@ -72,7 +74,7 @@ class ChatDrawableFragment : BaseFragment() {
                             binding.rvMessages.smoothScrollBy(
                                 0,
                                 height.times(3),
-                                AnticipateInterpolator(),
+                                LinearInterpolator(),
                                 MessageWithDrawableAdapter.ANIMATE_DURATION
                             )
                     }
