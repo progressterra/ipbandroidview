@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.ChatRepository
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
+import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.chat.utils.MessageWithDateUI
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.*
@@ -29,22 +30,17 @@ class ChatDrawableViewModel(
 
     val message = MutableLiveData<String>()
 
+    private val mMessagesList = mutableListOf<Message>()
     private val _messagesList = MutableLiveData<SResult<List<MessageWithDateUI>>>()
     val messagesList: LiveData<SResult<List<MessageWithDateUI>>> = _messagesList
 
     private val _messageSendingStatus = MutableLiveData<SResult<*>>(completedResult())
     val messageSendingStatus: LiveData<SResult<*>> = _messageSendingStatus
 
-    init {
-        getDialogInfo()
-    }
-
     private fun getMessagesList(dialogId: String) {
         safeLaunch {
             val messages = repo.getMessagesList(dialogId, messageListPage.toString())
-            val converted =
-                MessageWithDateUI.convertToTransactionsWithDate(messages.data?.sortedBy { it.rawDate })
-            _messagesList.postValue(converted.toSuccessResult())
+            _messagesList.postValue(updateLocalMessages(messages.data).toSuccessResult())
         }
     }
 
@@ -64,10 +60,10 @@ class ChatDrawableViewModel(
             _messageSendingStatus.postValue(loadingResult())
             val token = repo.getAccessToken().data.orEmpty()
             val messages = repo.sendMessage(messageText, token, dialogId!!)
-            val converted =
-                MessageWithDateUI.convertToTransactionsWithDate(messages.data?.sortedBy { it.rawDate })
             message.postValue("")
-            _messagesList.postValue(converted.toSuccessResult())
+
+            _messagesList.postValue(updateLocalMessages(messages.data).toSuccessResult())
+
             _messageSendingStatus.postValue(completedResult())
         }
     }
@@ -93,5 +89,14 @@ class ChatDrawableViewModel(
                 else -> _messagesList.postValue(emptyFailed())
             }
         }
+    }
+
+    private fun updateLocalMessages(list: List<Message>?): List<MessageWithDateUI> {
+        list?.forEach {
+            if (!mMessagesList.contains(it))
+                mMessagesList.add(it)
+        }
+
+        return MessageWithDateUI.convertToTransactionsWithDate(mMessagesList.sortedBy { it.rawDate })
     }
 }

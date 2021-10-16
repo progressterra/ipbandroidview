@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.chat.utils
 
-import java.util.*
+import android.text.format.DateUtils
 
 class MessageWithDateUI(
     val message: Message?,
@@ -17,11 +17,10 @@ class MessageWithDateUI(
 
             val messageWithDate = mutableListOf<MessageWithDateUI>()
             // получаем текушую дату
-            val now = Date(System.currentTimeMillis())
 
             // если дата первого сообщения совпадает с текущей, помещаем первым итемом в наш список
             // объект даты с текстом "Сегодня"
-            if (rawMessages.firstOrNull()?.rawDate?.date?.compareTo(now.date) == 0) {
+            if (DateUtils.isToday(rawMessages.firstOrNull()?.rawDate?.time ?: 0)) {
                 messageWithDate.add(MessageWithDateUI(null, "Сегодня"))
             } else {
                 // если нет то первым в список помещаем дату соответствующую первому сообщению
@@ -35,32 +34,25 @@ class MessageWithDateUI(
 
             // итерируясь по списку проверяем дату в последующем и текущем сообщении, если дата в последующем
             // отличается от даты в текущем то добавляем в наш список объект даты от последующего сообщения
+            rawMessages.forEachIndexed { index, rawMessage ->
+                messageWithDate.add(MessageWithDateUI(rawMessage, null))
 
-            for (i in rawMessages.indices) {
-                messageWithDate.add(MessageWithDateUI(rawMessages[i], null))
+                if (rawMessage.dateCreate != rawMessages.getOrNull(index + 1)?.dateCreate) {
 
-                if (rawMessages[i].dateCreate != rawMessages.getOrNull(i + 1)?.dateCreate) {
-                    rawMessages.getOrNull(i + 1)?.let {
+                    // Добавляем следующую дату, если она не сегодня и еще не добавлена
+                    rawMessages.getOrNull(index + 1)?.let { nextMsg ->
+                        val isToday = DateUtils.isToday(nextMsg.rawDate?.time ?: 0)
+                        val dateAdded =
+                            messageWithDate.contains(MessageWithDateUI(null, nextMsg.dateCreate))
+                        if (!isToday && !dateAdded) {
+                            messageWithDate.add(MessageWithDateUI(null, nextMsg.dateCreate))
 
-                        if (it.rawDate?.date?.compareTo(now.date) == 0) {
-                            messageWithDate.add(
-                                MessageWithDateUI(
-                                    null,
-                                    "Сегодня"
-                                )
-                            )
-                        } else {
-                            messageWithDate.add(
-                                MessageWithDateUI(
-                                    null,
-                                    it.dateCreate
-                                )
-                            )
                         }
                     }
                 }
             }
-            return messageWithDate
+
+            return messageWithDate.asReversed()
         }
     }
 }
