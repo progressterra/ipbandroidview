@@ -11,6 +11,7 @@ data class Message(
     val contentText: String,
     val dateCreate: String,
     val time: String,
+    val dateWoTime: String,
     val idClient: String,
     val rawDate: Date?
 )
@@ -23,6 +24,7 @@ internal fun MessagesListResponse.convertToMessagesList(): List<Message> {
                 contentText = it.contentText ?: "",
                 dateCreate = it.dateCreate.parseToDate().orNow().format("dd MMMM yyyy, H:mm"),
                 time = it.dateCreate.parseToDate().orNow().format("HH:mm"),
+                dateWoTime = it.dateCreate.parseToDate().orNow().format("dd MMMM yyyy"),
                 idClient = it.idClient ?: "",
                 it.dateCreate.parseToDate()
             )

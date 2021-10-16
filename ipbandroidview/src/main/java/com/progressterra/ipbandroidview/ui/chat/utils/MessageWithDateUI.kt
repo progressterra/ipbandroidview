@@ -43,10 +43,18 @@ class MessageWithDateUI(
                     rawMessages.getOrNull(index + 1)?.let { nextMsg ->
                         val isToday = DateUtils.isToday(nextMsg.rawDate?.time ?: 0)
                         val dateAdded =
-                            messageWithDate.contains(MessageWithDateUI(null, nextMsg.dateCreate))
-                        if (!isToday && !dateAdded) {
-                            messageWithDate.add(MessageWithDateUI(null, nextMsg.dateCreate))
+                            messageWithDate.contains(MessageWithDateUI(null, nextMsg.dateWoTime))
+                        val todayAdded = messageWithDate.contains(MessageWithDateUI(null, "Сегодня"))
 
+//                        if (!isToday && !dateAdded) {
+//                            messageWithDate.add(MessageWithDateUI(null, nextMsg.dateWoTime))
+//
+//                        }
+
+                        when {
+                            isToday && !todayAdded -> messageWithDate.add(MessageWithDateUI(null, "Сегодня"))
+                            !isToday && !dateAdded -> messageWithDate.add(MessageWithDateUI(null, nextMsg.dateWoTime))
+                            else -> {}
                         }
                     }
                 }
