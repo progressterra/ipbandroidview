@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.chat.utils
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -11,10 +12,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.ItemMessageDateBinding
 import com.progressterra.ipbandroidview.databinding.ItemMessageSupportDrawableLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemMessageUserDrawableLibBinding
-
-const val USER_MESSAGE = 0
-const val PARTNER_MESSAGE = 1
-const val DATE_OF_MESSAGE = 2
 
 internal class MessageWithDrawableAdapter :
     ListAdapter<MessageWithDateUI, RecyclerView.ViewHolder>(diffUtil) {
@@ -51,13 +48,11 @@ internal class MessageWithDrawableAdapter :
         }
     }
 
-
     /**
      * Если айди клиента в сообщении совпадает с текущим клиентским айди => сообщение от текущего пользователя
      * Если айди клиента в сообщении не совпадает с текущим клиентским айди => сообщение от партнера
      * Если в объекте указан не пустой день отправки сообщения => отрисовываем как айтем даты
      */
-
     override fun getItemViewType(position: Int): Int {
         return if (getItem(position)?.dayOfMessageSending != null) {
             DATE_OF_MESSAGE
@@ -69,6 +64,7 @@ internal class MessageWithDrawableAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        holder.itemView.animateFade()
         when (getItemViewType(position)) {
             DATE_OF_MESSAGE -> {
                 (holder as DateViewHolder).bind(getItem(position).dayOfMessageSending)
@@ -79,6 +75,27 @@ internal class MessageWithDrawableAdapter :
             PARTNER_MESSAGE -> {
                 (holder as PartnerMessageViewHolder).bind(getItem(position).message)
             }
+        }
+    }
+
+    companion object {
+        private const val USER_MESSAGE = 0
+        private const val PARTNER_MESSAGE = 1
+        private const val DATE_OF_MESSAGE = 2
+        const val ANIMATE_DURATION = 400
+    }
+
+    private fun View.animateFade() {
+        alpha = 0f
+        translationY = 400f
+        scaleY = 0.5f
+        scaleX = 0.5f
+        animate().apply {
+            alpha(1f)
+            translationY(0f)
+            scaleX(1f)
+            scaleY(1f)
+            duration = ANIMATE_DURATION.toLong()
         }
     }
 }
@@ -107,7 +124,7 @@ class DateViewHolder(private val binding: ItemMessageDateBinding) :
 
 private val diffUtil = object : DiffUtil.ItemCallback<MessageWithDateUI>() {
     override fun areItemsTheSame(oldItem: MessageWithDateUI, newItem: MessageWithDateUI): Boolean {
-        return oldItem == newItem
+        return oldItem.message?.idUnique == newItem.message?.idUnique
     }
 
     override fun areContentsTheSame(
