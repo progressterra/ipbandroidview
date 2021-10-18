@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 data class Message(
+    val idUnique: String,
     val contentText: String,
     val dateCreate: String,
     val time: String,
@@ -21,6 +22,7 @@ internal fun MessagesListResponse.convertToMessagesList(): List<Message> {
         ?.sortedByDescending { it.dateCreate }
         ?.map {
             Message(
+                idUnique = it.idUnique ?: "",
                 contentText = it.contentText ?: "",
                 dateCreate = it.dateCreate.parseToDate().orNow().format("dd MMMM yyyy, H:mm"),
                 time = it.dateCreate.parseToDate().orNow().format("HH:mm"),

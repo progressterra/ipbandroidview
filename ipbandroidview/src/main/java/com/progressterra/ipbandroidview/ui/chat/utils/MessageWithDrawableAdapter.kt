@@ -124,14 +124,14 @@ class DateViewHolder(private val binding: ItemMessageDateBinding) :
 
 private val diffUtil = object : DiffUtil.ItemCallback<MessageWithDateUI>() {
     override fun areItemsTheSame(oldItem: MessageWithDateUI, newItem: MessageWithDateUI): Boolean {
-        return oldItem.message?.rawDate == newItem.message?.rawDate
+        return oldItem.message?.idUnique == newItem.message?.idUnique
     }
 
     override fun areContentsTheSame(
         oldItem: MessageWithDateUI,
         newItem: MessageWithDateUI
     ): Boolean {
-        return (oldItem.message?.contentText == newItem.message?.contentText
-                && oldItem.message?.time == newItem.message?.time)
+        return oldItem.message?.contentText == newItem.message?.contentText
+                && oldItem.message?.time == newItem.message?.time
     }
 }
