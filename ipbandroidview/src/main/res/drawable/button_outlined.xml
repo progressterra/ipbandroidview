@@ -13,7 +13,7 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle" tools:ignore="ExtraText">
             <corners android:radius="?attr/app_buttonCornerRadius" />
-            <solid android:color="?app_buttonDisabledColor" />
+            <stroke android:width="?attr/app_buttonOutlinedStrokeWidth" android:color="?app_buttonDisabledColor" />
         </shape>
     </item>
 

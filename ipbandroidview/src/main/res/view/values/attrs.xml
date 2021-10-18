@@ -4,4 +4,7 @@
     <attr name="enabled" format="boolean" />
     <attr name="textColor" format="color" />
     <attr name="isLoading" format="boolean" />
+    <attr name="paddingText" format="dimension" />
+    <attr name="loadingIsClickable" format="boolean" />
+    <attr name="buttonTint" format="color" />
 </resources>
