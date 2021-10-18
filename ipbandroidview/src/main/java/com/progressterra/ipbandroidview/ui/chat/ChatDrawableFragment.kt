@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnticipateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +12,6 @@ import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.chat.utils.MessageWithDrawableAdapter
 import com.progressterra.ipbandroidview.ui.chat.utils.MessagesAnimator
 import com.progressterra.ipbandroidview.utils.SResult
-import com.progressterra.ipbandroidview.utils.ui.adapters.animators.SlideInUpAnimator
 
 class ChatDrawableFragment : BaseFragment() {
     private var _binding: FragmentChatDrawableLibBinding? = null
@@ -70,13 +68,12 @@ class ChatDrawableFragment : BaseFragment() {
                             binding.rvMessages.findViewHolderForLayoutPosition(0)
                                 ?.itemView?.height ?: 200
 
-                        if (visiblePosition <= 0)
-                            binding.rvMessages.smoothScrollBy(
-                                0,
-                                height.times(3),
-                                LinearInterpolator(),
-                                MessageWithDrawableAdapter.ANIMATE_DURATION
-                            )
+                        binding.rvMessages.smoothScrollBy(
+                            0,
+                            height.times(visiblePosition).times(3),
+                            LinearInterpolator(),
+                            MessageWithDrawableAdapter.ANIMATE_DURATION
+                        )
                     }
                 }
             }
