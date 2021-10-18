@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.IListItem
 class PagerRecyclerAdapter<Item : IListItem, Binding : ViewDataBinding>(
     @LayoutRes private val layoutRes: Int,
     private val onItemClick: ((Item) -> Unit)? = null,
-    private val onItemBind: (Binding.(Item) -> Unit)? = null,
+    private val onItemBind: (Binding.(Item, position: Int) -> Unit)? = null,
     private val lifecycleOwner: LifecycleOwner? = null,
     diffUtil: PagerDiffUtil<Item> = PagerDiffUtil()
 ) : PagingDataAdapter<Item, PagerViewHolder<Item, Binding>>(diffUtil) {

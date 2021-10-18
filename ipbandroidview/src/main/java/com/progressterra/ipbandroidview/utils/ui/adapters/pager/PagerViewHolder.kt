@@ -12,7 +12,7 @@ class PagerViewHolder<Item : IListItem, Binding : ViewDataBinding>(private val b
     fun onBind(
         item: Item,
         onItemClick: ((Item) -> Unit)?,
-        onItemBind: (Binding.(Item) -> Unit)?,
+        onItemBind: (Binding.(Item, position: Int) -> Unit)?,
         lifecycleOwner: LifecycleOwner?
     ) {
         onItemClick?.let { onCLick ->
@@ -21,7 +21,7 @@ class PagerViewHolder<Item : IListItem, Binding : ViewDataBinding>(private val b
             }
         }
 
-        onItemBind?.invoke(binding, item)
+        onItemBind?.invoke(binding, item, layoutPosition)
         binding.setVariable(BR.item, item)
         binding.lifecycleOwner = lifecycleOwner
     }
