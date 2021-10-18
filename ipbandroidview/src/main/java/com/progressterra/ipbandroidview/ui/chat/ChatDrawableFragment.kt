@@ -60,21 +60,22 @@ class ChatDrawableFragment : BaseFragment() {
         with(vm) {
             messagesList.observe(viewLifecycleOwner) {
                 messageListAdapter.submitList(it.data) {
-                    val visiblePosition =
-                        (binding.rvMessages.layoutManager as? LinearLayoutManager)?.findFirstVisibleItemPosition()
+                    val visiblePosition = (binding.rvMessages.layoutManager as? LinearLayoutManager)
+                        ?.findFirstVisibleItemPosition()
+                    val positionsToScroll =
+                        if (visiblePosition != null && visiblePosition != 0) visiblePosition else 1
 
-                    visiblePosition?.let {
-                        val height =
-                            binding.rvMessages.findViewHolderForLayoutPosition(0)
-                                ?.itemView?.height ?: 200
+                    val height =
+                        binding.rvMessages.findViewHolderForLayoutPosition(0)
+                            ?.itemView?.height ?: 200
 
-                        binding.rvMessages.smoothScrollBy(
-                            0,
-                            height.times(visiblePosition).times(3),
-                            LinearInterpolator(),
-                            MessageWithDrawableAdapter.ANIMATE_DURATION
-                        )
-                    }
+                    binding.rvMessages.smoothScrollBy(
+                        0,
+                        height.times(positionsToScroll).times(3),
+                        LinearInterpolator(),
+                        MessageWithDrawableAdapter.ANIMATE_DURATION
+                    )
+
                 }
             }
 

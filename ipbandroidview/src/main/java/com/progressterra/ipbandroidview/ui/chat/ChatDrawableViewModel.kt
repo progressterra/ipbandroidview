@@ -40,7 +40,11 @@ class ChatDrawableViewModel(
     private fun getMessagesList(dialogId: String) {
         safeLaunch {
             val messages = repo.getMessagesList(dialogId, messageListPage.toString())
-            _messagesList.postValue(updateLocalMessages(messages.data).toSuccessResult())
+
+            val converted = MessageWithDateUI
+                .convertToTransactionsWithDate(messages.data?.sortedBy { it.rawDate })
+
+            _messagesList.postValue(converted.toSuccessResult())
         }
     }
 
@@ -62,7 +66,10 @@ class ChatDrawableViewModel(
             val messages = repo.sendMessage(messageText, token, dialogId!!)
             message.postValue("")
 
-            _messagesList.postValue(updateLocalMessages(messages.data).toSuccessResult())
+            val converted = MessageWithDateUI
+                .convertToTransactionsWithDate(messages.data?.sortedBy { it.rawDate })
+
+            _messagesList.postValue(converted.toSuccessResult())
 
             _messageSendingStatus.postValue(completedResult())
         }
@@ -91,12 +98,12 @@ class ChatDrawableViewModel(
         }
     }
 
-    private fun updateLocalMessages(list: List<Message>?): List<MessageWithDateUI> {
-        list?.forEach {
-            if (!mMessagesList.contains(it))
-                mMessagesList.add(it)
-        }
-
-        return MessageWithDateUI.convertToTransactionsWithDate(mMessagesList.sortedBy { it.rawDate })
-    }
+//    private fun updateLocalMessages(list: List<Message>?): List<MessageWithDateUI> {
+//        list?.forEach {
+//            if (!mMessagesList.contains(it))
+//                mMessagesList.add(it)
+//        }
+//
+//        return MessageWithDateUI.convertToTransactionsWithDate(mMessagesList.sortedBy { it.rawDate })
+//    }
 }
