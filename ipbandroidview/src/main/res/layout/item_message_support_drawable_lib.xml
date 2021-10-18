@@ -37,7 +37,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="20dp"
             android:text="@{message.contentText}"
-            android:textColor="@color/black"
+            android:textColor="@color/chat_support"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +53,7 @@
             android:layout_marginTop="12dp"
             android:paddingBottom="32dp"
             android:text="@{message.time}"
-            android:textColor="@color/theme_color"
+            android:textColor="@color/chat_time"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_message_text"
             tools:text="18:04" />
