@@ -14,6 +14,7 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.isVisible
 import com.progressterra.ipbandroidview.R
 
 /**
@@ -36,8 +37,8 @@ class OutlinedButtonWithLoading(
 
     private var mText: String = ""
     private var mLoading: Boolean = false
-    private var mTextColor: Int = -1
-    private var mButtonColor: Int = -1
+    private var mTextColor: Int = DEF_RES
+    private var mButtonColor: Int = DEF_RES
     private var mLoadingIsClickable = false
 
     private val duration = 200L
@@ -56,9 +57,11 @@ class OutlinedButtonWithLoading(
             attributes.getBoolean(R.styleable.OutlinedButtonWithLoading_isLoading, false)
         val clickableOnLoading =
             attributes.getBoolean(R.styleable.OutlinedButtonWithLoading_loadingIsClickable, false)
-        mButtonColor = attributes.getColor(R.styleable.OutlinedButtonWithLoading_buttonTint, -1)
+        mButtonColor =
+            attributes.getColor(R.styleable.OutlinedButtonWithLoading_buttonTint, DEF_RES)
         val enabled = attributes.getBoolean(R.styleable.OutlinedButtonWithLoading_enabled, true)
-        val textColor = attributes.getColor(R.styleable.OutlinedButtonWithLoading_textColor, -1)
+        val textColor =
+            attributes.getColor(R.styleable.OutlinedButtonWithLoading_textColor, DEF_RES)
         val textPadding =
             attributes.getDimension(R.styleable.OutlinedButtonWithLoading_paddingText, 8f)
 
@@ -67,7 +70,7 @@ class OutlinedButtonWithLoading(
         mText = text ?: ""
         mLoading = isLoading
 
-        mTextColor = if (textColor != -1) textColor else button.currentTextColor
+        mTextColor = if (textColor != DEF_RES) textColor else button.currentTextColor
 
         button.setTextColor(buttonTextColorStateList())
 
@@ -79,11 +82,11 @@ class OutlinedButtonWithLoading(
         )
         val list = buttonColorStateList()
 
-        if (mButtonColor != -1) {
+        if (mButtonColor != DEF_RES) {
             button.backgroundTintList = list
         }
 
-        progressBar.visibility = if (mLoading) VISIBLE else GONE
+        progressBar.isVisible = mLoading
         progressBar.indeterminateTintList = button.textColors
         if (!mLoading) button.text = mText
         setIsLoading(mLoading)
@@ -141,21 +144,22 @@ class OutlinedButtonWithLoading(
     }
 
     fun setIsLoading(isLoading: Boolean) {
-        if (mLoading != isLoading) {
-            mLoading = isLoading
+        if (mLoading == isLoading)
+            return
 
-            if (!mLoadingIsClickable) {
-                isClickable = !mLoading
-                button.isClickable = !mLoading
-            }
+        mLoading = isLoading
 
-            if (mLoading) {
-                button.text = ""
-                animateLoading()
-            } else {
-                button.text = mText
-                animateText()
-            }
+        if (!mLoadingIsClickable) {
+            isClickable = !mLoading
+            button.isClickable = !mLoading
+        }
+
+        if (mLoading) {
+            button.text = ""
+            animateLoading()
+        } else {
+            button.text = mText
+            animateText()
         }
     }
 
@@ -248,5 +252,9 @@ class OutlinedButtonWithLoading(
 
     private fun dpToPx(v: Float): Int {
         return v.times(Resources.getSystem().displayMetrics.density).toInt()
+    }
+
+    companion object {
+        private const val DEF_RES = -1
     }
 }
