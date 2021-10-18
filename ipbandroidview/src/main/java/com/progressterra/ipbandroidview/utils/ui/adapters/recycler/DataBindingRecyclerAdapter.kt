@@ -13,7 +13,7 @@ class DataBindingRecyclerAdapter<Item : IListItem, Binding : ViewDataBinding>(
     @LayoutRes
     private val layoutRes: Int,
     private val onItemClick: ((Item) -> Unit)? = null,
-    private val onItemBind: (Binding.(Item) -> Unit)? = null,
+    private val onItemBind: (Binding.(Item, position: Int) -> Unit)? = null,
     private val lifecycleOwner: LifecycleOwner? = null,
     diffUtilCallback: DiffUtil.ItemCallback<Item> = DiffUtilCallback()
 ) : ListAdapter<Item, DataBindingViewHolder<Item, Binding>>(diffUtilCallback) {
