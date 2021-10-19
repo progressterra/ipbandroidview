@@ -51,8 +51,8 @@
 
             <ImageView
                 android:id="@+id/iv_clear_search"
-                android:layout_width="31dp"
-                android:layout_height="31dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:enabled="@{!vm.search.empty}"
