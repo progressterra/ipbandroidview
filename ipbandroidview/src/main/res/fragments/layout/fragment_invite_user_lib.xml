@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?backgroundColor"
+        android:background="?app_backgroundColor"
         android:orientation="vertical">
 
         <include layout="@layout/view_header_lib" />
@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="@dimen/margin_medium"
             android:text="@string/invite_from_contact_list"
             android:textColor="@color/theme_color" />
 
