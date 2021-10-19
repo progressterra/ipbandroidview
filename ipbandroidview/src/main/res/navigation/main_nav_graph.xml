@@ -15,8 +15,10 @@
     <action
         android:id="@+id/action_global_login_flow"
         app:destination="@id/login_flow"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
+        app:enterAnim="@anim/slide_left"
+        app:exitAnim="@anim/wait_anim"
+        app:popEnterAnim="@anim/wait_anim"
+        app:popExitAnim="@anim/slide_right"
         app:popUpTo="@id/main_nav_graph"
         app:popUpToInclusive="true">
         <argument
@@ -27,8 +29,10 @@
     <action
         android:id="@+id/action_global_login_flow_without_popup"
         app:destination="@id/login_flow"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim">
+        app:enterAnim="@anim/slide_left"
+        app:exitAnim="@anim/wait_anim"
+        app:popEnterAnim="@anim/wait_anim"
+        app:popExitAnim="@anim/slide_right">
 
         <argument
             android:name="loginFlowSettings"
@@ -38,20 +42,26 @@
     <action
         android:id="@+id/action_global_addresses_flow"
         app:destination="@id/addresses_flow"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim" />
+        app:enterAnim="@anim/slide_left"
+        app:exitAnim="@anim/wait_anim"
+        app:popEnterAnim="@anim/wait_anim"
+        app:popExitAnim="@anim/slide_right" />
 
     <action
         android:id="@+id/action_global_invite_friends_flow"
         app:destination="@id/invite_friends_flow"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim" />
+        app:enterAnim="@anim/slide_left"
+        app:exitAnim="@anim/wait_anim"
+        app:popEnterAnim="@anim/wait_anim"
+        app:popExitAnim="@anim/slide_right" />
 
     <action
         android:id="@+id/action_global_base_flow"
         app:destination="@id/base_flow"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
+        app:enterAnim="@anim/slide_left"
+        app:exitAnim="@anim/wait_anim"
+        app:popEnterAnim="@anim/wait_anim"
+        app:popExitAnim="@anim/slide_right"
         app:popUpTo="@id/main_nav_graph" />
 
 
