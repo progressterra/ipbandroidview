@@ -69,10 +69,19 @@ class BaseCatalogAdapter(
                 rvSub.isVisible = categoryUI.expanded
 
                 root.setOnClickListener {
-                    onCategoryClick?.invoke(layoutPosition, !categoryUI.expanded)
-
-                    categoryUI.expanded = !categoryUI.expanded
-                    notifyItemChanged(layoutPosition)
+                    if (categoryUI.subCategory.isEmpty()) {
+                        onSubItemClick.invoke(
+                            SubCategoryUILib(
+                                id = categoryUI.id,
+                                name = categoryUI.title,
+                                urlImage = categoryUI.urlImage
+                            )
+                        )
+                    } else {
+                        onCategoryClick?.invoke(layoutPosition, !categoryUI.expanded)
+                        categoryUI.expanded = !categoryUI.expanded
+                        notifyItemChanged(layoutPosition)
+                    }
                 }
             }
         }
