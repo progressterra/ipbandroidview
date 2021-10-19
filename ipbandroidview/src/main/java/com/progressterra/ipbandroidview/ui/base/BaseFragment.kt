@@ -74,7 +74,7 @@ open class BaseFragment : Fragment() {
         backVisible: Boolean = true
     ) {
         try {
-            val back = requireActivity().findViewById<ImageView>(R.id.iv_back_header)
+            val back = requireView().findViewById<ImageView>(R.id.iv_back_header)
 
             if (backVisible) {
                 back.visibility = View.VISIBLE
@@ -86,7 +86,7 @@ open class BaseFragment : Fragment() {
             }
 
             title?.let {
-                requireActivity().findViewById<TextView>(R.id.tv_title_header).text =
+                requireView().findViewById<TextView>(R.id.tv_title_header).text =
                     resources.getString(title)
             }
         } catch (e: Exception) {
@@ -99,7 +99,7 @@ open class BaseFragment : Fragment() {
         backVisible: Boolean = true
     ) {
         try {
-            val back = requireActivity().findViewById<ImageView>(R.id.iv_back_header)
+            val back = requireView().findViewById<ImageView>(R.id.iv_back_header)
 
             if (backVisible) {
                 back.visibility = View.VISIBLE
@@ -111,7 +111,7 @@ open class BaseFragment : Fragment() {
             }
 
             title?.let {
-                requireActivity().findViewById<TextView>(R.id.tv_title_header).text = title
+                requireView().findViewById<TextView>(R.id.tv_title_header).text = title
             }
         } catch (e: Exception) {
             Log.e(javaClass.simpleName, "$e")
