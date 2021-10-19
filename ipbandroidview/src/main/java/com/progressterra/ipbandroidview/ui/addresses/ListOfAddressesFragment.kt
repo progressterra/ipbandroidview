@@ -30,7 +30,7 @@ class ListOfAddressesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setupHeader(R.string.address_list_title)
         setupView()
         setupListeners()
         setupViewModel()

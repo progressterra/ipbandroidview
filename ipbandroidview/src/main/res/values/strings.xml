@@ -164,4 +164,9 @@
     <string name="bdwi_invite_title">Приглашайте друзей и получайте больше бонусов</string>
     <string name="bdwi_invite_button">Пригласить друзей</string>
     <string name="bdwi_bonuses_title">История движения бонусов</string>
+
+<!-- Выбор и добавление адреса   -->
+    <string name="address_list_title">Адрес доставки</string>
+    <string name="address_add_title">Адрес доставки</string>
+
 </resources>

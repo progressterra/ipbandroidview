@@ -10,29 +10,41 @@
             type="com.progressterra.ipbandroidview.ui.addresses.ListOfAddressesViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/view_header_lib" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{vm.screenState.loading}" />
+            android:visibility="@{vm.screenState.loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:onClick="@{_->vm.getListOfAddresses()}"
             android:visibility="@{vm.screenState.error}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:text="@string/refresh" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{vm.screenState.isDefault()}">
+            android:layout_height="0dp"
+            android:visibility="@{vm.screenState.isDefault()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
 
 
             <TextView
@@ -73,5 +85,5 @@
                 app:text="@string/add_new_address" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
