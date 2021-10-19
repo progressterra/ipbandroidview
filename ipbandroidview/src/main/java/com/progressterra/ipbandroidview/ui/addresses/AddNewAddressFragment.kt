@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentAddAddressLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 
@@ -28,6 +29,7 @@ class AddNewAddressFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupHeader(R.string.address_add_title)
         setupView()
         setupViewModel()
         setupListeners()
