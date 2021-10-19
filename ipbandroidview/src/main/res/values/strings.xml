@@ -159,5 +159,9 @@
     <string name="invite_friend_and_earn_more">Пригласите друзей и зарабатывайте больше</string>
     <string name="text_copied_to_clipboard">Текст скопирован в буфер обмена</string>
 
-
+    <!--  Bonus detail with invite  -->
+    <string name="bdwi_title">Мои бонусы</string>
+    <string name="bdwi_invite_title">Приглашайте друзей и получайте больше бонусов</string>
+    <string name="bdwi_invite_button">Пригласить друзей</string>
+    <string name="bdwi_bonuses_title">История движения бонусов</string>
 </resources>
