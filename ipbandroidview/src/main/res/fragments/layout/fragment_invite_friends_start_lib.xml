@@ -12,34 +12,48 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:background="?app_backgroundColor">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/view_header"
+                layout="@layout/view_header_lib" />
 
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="@{vm.infoForInvitingMembers.loading}" />
+                android:visibility="@{vm.infoForInvitingMembers.loading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity=""
                 android:onClick="@{_->vm.getInfo()}"
                 android:text="@string/refresh"
-                android:visibility="@{vm.infoForInvitingMembers.error}" />
+                android:visibility="@{vm.infoForInvitingMembers.error}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:background="?app_backgroundColor"
                 android:orientation="vertical"
-                android:visibility="@{vm.infoForInvitingMembers.success}">
-
-                <include layout="@layout/view_header_lib" />
+                android:visibility="@{vm.infoForInvitingMembers.success}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_header">
 
 
                 <TextView
@@ -107,10 +121,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="22dp"
-                        android:layout_marginBottom="22dp"
                         android:src="@drawable/copy" />
 
                     <TextView
@@ -118,13 +132,14 @@
                         style="@style/Text.Body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginStart="22dp"
                         android:text="@string/copy_inviting_link"
                         android:textColor="@color/theme_color" />
 
                 </LinearLayout>
             </LinearLayout>
-        </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
 

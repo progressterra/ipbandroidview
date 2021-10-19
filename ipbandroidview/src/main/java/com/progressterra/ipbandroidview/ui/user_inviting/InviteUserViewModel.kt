@@ -56,6 +56,9 @@ class InviteUserViewModel : BaseBindingViewModel() {
         }
     }
 
+    fun clearSearchQuery() {
+        search.value = ""
+    }
 
     fun selectContact(contactUi: ContactUi) {
         mContacts[mContacts.indexOf(contactUi)] = contactUi
