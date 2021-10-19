@@ -51,14 +51,13 @@
 
             <ImageView
                 android:id="@+id/iv_clear_search"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:enabled="@{!vm.search.empty}"
                 android:onClick="@{_->vm.clearSearchQuery()}"
-                android:src="@drawable/ic_search"
+                android:src="@drawable/ic_baseline_close_24"
                 android:stateListAnimator="@animator/fade_in_out_anim"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
