@@ -192,4 +192,28 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
             Log.e(javaClass.simpleName, "$e")
         }
     }
+
+    open fun setupHeader(
+        title: String? = null,
+        backVisible: Boolean = true
+    ) {
+        try {
+            val back = binding.root.findViewById<ImageView>(R.id.iv_back_header)
+
+            if (backVisible) {
+                back.visibility = View.VISIBLE
+                back.setOnClickListener {
+                    findNavController().popBackStack()
+                }
+            } else {
+                back.visibility = View.GONE
+            }
+
+            title?.let {
+                binding.root.findViewById<TextView>(R.id.tv_title_header).text = title
+            }
+        } catch (e: Exception) {
+            Log.e(javaClass.simpleName, "$e")
+        }
+    }
 }
