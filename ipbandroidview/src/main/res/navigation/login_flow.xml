@@ -19,15 +19,19 @@
         <action
             android:id="@+id/action_fragmentLogin_to_fragmentCountry"
             app:destination="@id/fragmentCountry"
-            app:enterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:popUpTo="@id/fragmentLogin" />
 
         <action
             android:id="@+id/action_fragmentLogin_to_confirmFragment"
             app:destination="@id/fragmentConfirm"
-            app:enterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:popUpToInclusive="false" />
 
         <action
@@ -48,7 +52,11 @@
 
         <action
             android:id="@+id/action_fragmentCountry_to_fragmentLogin"
-            app:destination="@id/fragmentLogin" />
+            app:destination="@id/fragmentLogin"
+            app:enterAnim="@anim/slide_right"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_left" />
     </fragment>
 
     <dialog
@@ -79,8 +87,10 @@
         <action
             android:id="@+id/action_confirmFragment_to_personalFragment"
             app:destination="@id/fragmentPersonal"
-            app:enterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:popUpToInclusive="true" />
     </fragment>
 
