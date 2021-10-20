@@ -43,6 +43,7 @@
                 android:layout_marginStart="@dimen/margin_medium"
                 android:layout_marginEnd="@dimen/margin_medium"
                 android:text="@string/messages_empty_list"
+                android:textAlignment="center"
                 android:textColor="@color/chat_date"
                 android:visibility="@{vm.messagesList.data.empty}"
                 app:layout_constrainedHeight="true"
