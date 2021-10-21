@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.IListItem
 
 class PagerRecyclerAdapter<Item : IListItem, Binding : ViewDataBinding>(
@@ -14,7 +15,7 @@ class PagerRecyclerAdapter<Item : IListItem, Binding : ViewDataBinding>(
     private val onItemClick: ((Item) -> Unit)? = null,
     private val onItemBind: (Binding.(Item, position: Int) -> Unit)? = null,
     private val lifecycleOwner: LifecycleOwner? = null,
-    diffUtil: PagerDiffUtil<Item> = PagerDiffUtil()
+    diffUtil: DiffUtil.ItemCallback<Item> = PagerDiffUtil()
 ) : PagingDataAdapter<Item, PagerViewHolder<Item, Binding>>(diffUtil) {
 
 
