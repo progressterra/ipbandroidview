@@ -86,7 +86,7 @@ class ListOfAddressesViewModel :
             // более новыми датами, как адресс по умолчанию
             address.apply {
                 val currentDate = Date()
-                val sdf = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+                val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 sdf.timeZone = TimeZone.getTimeZone("Europe/Moscow")
                 defaultBilling = sdf.format(currentDate)
                 defaultShipping = sdf.format(currentDate)
