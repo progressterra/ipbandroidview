@@ -45,7 +45,7 @@ data class AddressUI(
         var address = ""
 
         nameStreet?.let {
-            address += "ул $it, "
+            address += "$it, "
         }
 
         houseNUmber?.let {
