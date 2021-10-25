@@ -90,6 +90,7 @@ class ListOfAddressesViewModel :
                 sdf.timeZone = TimeZone.getTimeZone("Europe/Moscow")
                 defaultBilling = sdf.format(currentDate)
                 defaultShipping = sdf.format(currentDate)
+                dateAdded = sdf.format(currentDate)
             }
 
             addressApi.updateClientAddress(
