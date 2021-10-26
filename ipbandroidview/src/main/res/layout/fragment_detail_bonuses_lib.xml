@@ -2,20 +2,15 @@
 <layout>
 
     <data>
-
-
         <variable
             name="vm"
             type="com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel" />
-
-
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical">
 
         <ProgressBar
@@ -33,6 +28,7 @@
             android:id="@+id/refreshButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="150dp"
             android:onClick="@{_->vm.updateDetailBonusesInfo()}"
             android:visibility="@{vm.status.error}"
@@ -45,16 +41,6 @@
             android:visibility="@{vm.status.isDefault()}">
 
             <TextView
-                android:id="@+id/my_bonuses_tv"
-                style="@style/Callout1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_bonuses"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/number_of_bonuses_tv_detail"
                 style="@style/Title"
                 android:layout_width="wrap_content"
@@ -65,7 +51,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/my_bonuses_tv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/bonus_expiration_date_tv"
@@ -136,5 +122,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 </layout>
