@@ -81,17 +81,6 @@ open class BaseBindingBottomSheetDialog<Binding : ViewDataBinding, out ViewModel
         return dialog
     }
 
-
-    override fun onResume() {
-        super.onResume()
-
-        // Диалог на весь экран по ширине, а не wrapContent
-        dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-    }
-
     /**
      *  Подписывается на базовые лайвдаты в вм и вызывает onInitBinding.
      *  Настройку фрагмента следует производить в onInitBinding
