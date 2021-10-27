@@ -9,6 +9,10 @@ import com.progressterra.ipbandroidview.utils.SResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 open class BaseBindingViewModel : ViewModel(), ISResultContainer {
@@ -86,4 +90,14 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
             }
         }
     }
+
+    /**
+     *  Flow -> StateFlow
+     */
+    protected fun <T> Flow<T>.stateInLazy(initialValue: T): StateFlow<T> =
+        stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            initialValue
+        )
 }
