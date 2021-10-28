@@ -2,12 +2,12 @@ package com.progressterra.ipbandroidview.ui.personal_edit
 
 import androidx.lifecycle.*
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
+import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.prefs.UserDataLocal
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
-import com.progressterra.ipbandroidview.ui.chat.utils.format
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientUpdateInfo
 import com.progressterra.ipbandroidview.usecases.client.IGetClientCityUseCase

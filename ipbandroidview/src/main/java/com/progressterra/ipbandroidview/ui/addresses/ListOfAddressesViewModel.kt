@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
-import com.progressterra.ipbandroidview.ui.chat.utils.format
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle

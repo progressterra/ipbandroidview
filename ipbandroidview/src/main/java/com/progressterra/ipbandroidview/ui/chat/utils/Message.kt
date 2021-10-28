@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.ui.chat.utils
 
 
 import com.progressterra.ipbandroidapi.api.iMessengerCore.models.MessagesListResponse
+import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidapi.utils.extentions.orNow
 import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
-import java.text.SimpleDateFormat
 import java.util.*
 
 data class Message(
@@ -32,9 +32,4 @@ internal fun MessagesListResponse.convertToMessagesList(): List<Message> {
             )
         }
         ?: listOf()
-}
-
-fun Date.format(pattern: String): String {
-    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
-    return sdf.format(this)
 }
