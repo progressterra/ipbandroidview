@@ -57,7 +57,8 @@ class FilledButtonWithLoading(
         mButtonColor = attributes.getColor(R.styleable.FilledButtonWithLoading_buttonTint, -1)
         val enabled = attributes.getBoolean(R.styleable.FilledButtonWithLoading_enabled, true)
         val textColor = attributes.getColor(R.styleable.FilledButtonWithLoading_textColor, -1)
-        val textPadding = attributes.getDimension(R.styleable.FilledButtonWithLoading_paddingText, 8f)
+        val textPadding =
+            attributes.getDimension(R.styleable.FilledButtonWithLoading_paddingText, 8f)
 
 
         mLoadingIsClickable = clickableOnLoading
@@ -100,6 +101,14 @@ class FilledButtonWithLoading(
         val colors = intArrayOf(mButtonColor, disabledColor)
 
         return ColorStateList(states, colors)
+    }
+
+    fun setButtonTint(color: Int) {
+        mButtonColor = color
+        val list = buttonColorStateList()
+        if (mButtonColor != -1) {
+            button.backgroundTintList = list
+        }
     }
 
     override fun setOnClickListener(l: OnClickListener?) {

@@ -14,10 +14,11 @@ internal class StorePagingSource(
     private val pageLoader: PageLoader,
     private val idCategory: String
 ) : PagingSource<Int, RGGoodsInventoryExt>() {
-    override fun getRefreshKey(state: PagingState<Int, RGGoodsInventoryExt>): Int {
-        val anchorPos = state.anchorPosition ?: return DEF_PAGE
-        val page = state.closestPageToPosition(anchorPos) ?: return DEF_PAGE
-        return page.nextKey?.minus(1) ?: page.prevKey?.plus(1) ?: DEF_PAGE
+    override fun getRefreshKey(state: PagingState<Int, RGGoodsInventoryExt>): Int? {
+        return state.anchorPosition?.let {
+            state.closestPageToPosition(it)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
+        }
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, RGGoodsInventoryExt> {
