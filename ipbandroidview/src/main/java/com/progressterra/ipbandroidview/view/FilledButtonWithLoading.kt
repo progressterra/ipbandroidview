@@ -72,11 +72,8 @@ class FilledButtonWithLoading(
             dpToPx(textPadding),
             button.paddingBottom
         )
-        val list = buttonColorStateList()
 
-        if (mButtonColor != -1) {
-            button.backgroundTintList = list
-        }
+        setButtonTint(mButtonColor)
 
         progressBar.visibility = if (mLoading) VISIBLE else GONE
         progressBar.indeterminateTintList = button.textColors
