@@ -8,15 +8,14 @@ import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.ChatRepository
 import com.progressterra.ipbandroidview.data.IRepository
-import com.progressterra.ipbandroidview.ui.base.BaseViewModel
-import com.progressterra.ipbandroidview.ui.chat.utils.Message
+import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.chat.utils.MessageWithDateUI
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.*
 
 class ChatDrawableViewModel(
     savedState: SavedStateHandle
-) : BaseViewModel() {
+) : BaseBindingViewModel() {
     private val repo: IRepository.Chat = ChatRepository()
 
     private val idEnterprise: String = savedState.get<String>("idEnterprise")
@@ -30,7 +29,6 @@ class ChatDrawableViewModel(
 
     val message = MutableLiveData<String>()
 
-    private val mMessagesList = mutableListOf<Message>()
     private val _messagesList = MutableLiveData<SResult<List<MessageWithDateUI>>>()
     val messagesList: LiveData<SResult<List<MessageWithDateUI>>> = _messagesList
 
@@ -97,13 +95,4 @@ class ChatDrawableViewModel(
             }
         }
     }
-
-//    private fun updateLocalMessages(list: List<Message>?): List<MessageWithDateUI> {
-//        list?.forEach {
-//            if (!mMessagesList.contains(it))
-//                mMessagesList.add(it)
-//        }
-//
-//        return MessageWithDateUI.convertToTransactionsWithDate(mMessagesList.sortedBy { it.rawDate })
-//    }
 }
