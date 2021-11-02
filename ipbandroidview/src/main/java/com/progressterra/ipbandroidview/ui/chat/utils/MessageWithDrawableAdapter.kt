@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.databinding.ItemMessageDateBinding
 import com.progressterra.ipbandroidview.databinding.ItemMessageSupportDrawableLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemMessageUserDrawableLibBinding
 
-internal class MessageWithDrawableAdapter :
+class MessageWithDrawableAdapter :
     ListAdapter<MessageWithDateUI, RecyclerView.ViewHolder>(diffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
