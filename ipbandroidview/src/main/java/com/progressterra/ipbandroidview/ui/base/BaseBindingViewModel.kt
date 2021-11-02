@@ -80,6 +80,7 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
      */
     protected fun safeLaunch(
         dispatcher: CoroutineDispatcher = Dispatchers.IO,
+        onCatch: ((e: Exception) -> Unit)? = null,
         launchBlock: suspend () -> Unit
     ) {
         viewModelScope.launch(dispatcher) {
@@ -87,6 +88,7 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
                 launchBlock.invoke()
             } catch (e: Exception) {
                 Log.e(javaClass.simpleName, "e")
+                onCatch?.invoke(e)
             }
         }
     }
