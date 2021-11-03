@@ -34,4 +34,6 @@ sealed class SResult<out T : Any> : ISResult<T> {
     override fun isSuccess(): Boolean = !isLoading() && !isError()
     override fun isLoading(): Boolean = this is Loading
     override fun isError(): Boolean = this is Failed
+    override fun isEmptySuccess(): Boolean =
+        this.isSuccess() && (this.data as? List<*>)?.isEmpty() == true
 }
