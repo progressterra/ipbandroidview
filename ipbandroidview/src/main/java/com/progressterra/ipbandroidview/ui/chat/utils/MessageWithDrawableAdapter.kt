@@ -79,9 +79,9 @@ open class MessageWithDrawableAdapter :
     }
 
     companion object {
-        internal const val USER_MESSAGE = 0
-        internal const val PARTNER_MESSAGE = 1
-        internal const val DATE_OF_MESSAGE = 2
+        const val USER_MESSAGE = 0
+        const val PARTNER_MESSAGE = 1
+        const val DATE_OF_MESSAGE = 2
         const val ANIMATE_DURATION = 400
     }
 
