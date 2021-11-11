@@ -102,4 +102,24 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
             SharingStarted.WhileSubscribed(5000),
             initialValue
         )
+
+
+    /**
+     *  FragmentLifecycle
+     */
+    open fun onStart() {
+
+    }
+
+    open fun onResume() {
+
+    }
+
+    open fun onPause() {
+
+    }
+
+    open fun onStop() {
+
+    }
 }
