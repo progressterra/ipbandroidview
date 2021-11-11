@@ -216,4 +216,24 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
             Log.e(javaClass.simpleName, "$e")
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        vm.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        vm.onResume()
+    }
+
+    override fun onPause() {
+        vm.onPause()
+        super.onPause()
+    }
+
+    override fun onStop() {
+        vm.onStop()
+        super.onStop()
+    }
 }
