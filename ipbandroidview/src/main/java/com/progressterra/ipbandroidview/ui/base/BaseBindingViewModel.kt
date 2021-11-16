@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidview.utils.SResult
+import com.progressterra.ipbandroidview.utils.extensions.navBackResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -121,5 +122,9 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
 
     open fun onStop() {
 
+    }
+
+    fun navigateBack() {
+        navLiveData.postValue(navBackResult())
     }
 }
