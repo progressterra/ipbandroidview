@@ -20,9 +20,11 @@ sealed class SResult<out T : Any> : ISResult<T> {
 
     data class Loading<out T : Any>(override val data: T? = null) : SResult<T>()
 
-    class NavResult(val navDirections: Any) : SResult<Nothing>() {
+    open class NavResult(val navDirections: Any) : SResult<Nothing>() {
         override var isNeedHandle: Boolean = true
     }
+
+    object NavBackResult : NavResult(Any())
 
     override fun handle(onHandled: () -> Unit) {
         if (!isHandled) {

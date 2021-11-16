@@ -66,6 +66,11 @@ fun <T : Any?> T?.toLoadingResult() = SResult.Loading(this)
 fun completedResult() = SResult.Completed
 
 /**
+ * Функция для создания навигации назад
+ */
+fun navBackResult() = SResult.NavBackResult
+
+/**
  *  Failed без результатов
  */
 fun emptyFailed() = SResult.Failed(null, null)
