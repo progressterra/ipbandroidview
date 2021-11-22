@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentInviteFriendsStartLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
@@ -45,12 +44,7 @@ internal class InviteFriendsStartFragment :
             getSystemService(requireContext(), ClipboardManager::class.java)
         val clip = ClipData.newPlainText(
             "label",
-            getString(
-                R.string.inviting_text,
-                UserData.clientInfo.name,
-                UserData.clientInfo.soname,
-                vm.infoForInvitingMembers.value?.data?.promocode
-            )
+            vm.infoForInvitingMembers.value?.data?.textInvite ?: ""
         )
         clipboard?.setPrimaryClip(clip)
         Toast.makeText(
