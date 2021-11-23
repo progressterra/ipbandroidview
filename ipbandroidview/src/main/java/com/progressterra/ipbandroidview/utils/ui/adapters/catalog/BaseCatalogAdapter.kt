@@ -18,7 +18,6 @@ class BaseCatalogAdapter(
     private val lifeCycleOwner: LifecycleOwner,
     private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
 ) : ListAdapter<CategoryUILib, BaseCatalogAdapter.CategoryViewHolder>(DiffUtilCallback()) {
-    private val rvPool = RecyclerView.RecycledViewPool()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,7 +26,6 @@ class BaseCatalogAdapter(
             binding = binding,
             lifecycleOwner = lifeCycleOwner,
             onSubItemClick = onSubItemClick,
-            rvPool = rvPool,
             onCategoryClick = onCategoryClick
         )
     }
@@ -41,7 +39,6 @@ class BaseCatalogAdapter(
         private val binding: ItemCategoryLibBinding,
         private val lifecycleOwner: LifecycleOwner,
         private val onSubItemClick: (SubCategoryUILib) -> Unit,
-        private val rvPool: RecyclerView.RecycledViewPool,
         private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -59,7 +56,7 @@ class BaseCatalogAdapter(
                 lifecycleOwner = lifecycleOwner
 
                 rvSub.adapter = adapter
-                rvSub.setRecycledViewPool(rvPool)
+
 
                 adapter.submitList(categoryUI.subCategory)
 
