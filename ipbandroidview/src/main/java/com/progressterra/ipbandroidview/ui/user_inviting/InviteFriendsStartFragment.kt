@@ -77,7 +77,7 @@ internal class InviteFriendsStartFragment :
         } else {
             Toast.makeText(
                 context,
-                "Действие не поддерживается ни в одном приложении",
+                getString(R.string.incorrect_action),
                 Toast.LENGTH_SHORT
             ).show()
         }
