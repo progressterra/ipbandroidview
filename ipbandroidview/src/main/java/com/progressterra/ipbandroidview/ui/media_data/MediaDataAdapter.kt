@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.databinding.ItemFeedHtmlLibBinding
-import com.progressterra.ipbandroidview.databinding.ItemFeedVideoLibBinding
-
+import com.progressterra.ipbandroidview.databinding.ItemMediaDataHtmlLibBinding
+import com.progressterra.ipbandroidview.databinding.ItemMediaDataPdfLibBinding
+import com.progressterra.ipbandroidview.databinding.ItemMediaDataVideoLibBinding
 import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.squareup.picasso.Picasso
@@ -19,7 +19,7 @@ const val TEXT_VIEW_TYPE = 0
 const val VIDEO_VIEW_TYPE = 1
 const val PDF_VIEW_TYPE = 2
 
-class FeedsAdapter(
+class MediaDataListAdapter(
     private val onClick: (MediaDataUi) -> Unit
 ) :
     ListAdapter<MediaDataUi, RecyclerView.ViewHolder>(feedDiffUtil) {
@@ -28,35 +28,35 @@ class FeedsAdapter(
         val inflater = LayoutInflater.from(parent.context)
         when (viewType) {
             TEXT_VIEW_TYPE -> {
-                val binding: ItemFeedHtmlLibBinding =
+                val binding: ItemMediaDataHtmlLibBinding =
                     DataBindingUtil.inflate(
                         inflater,
-                        R.layout.item_feed_html_lib,
+                        R.layout.item_media_data_html_lib,
                         parent,
                         false
                     )
-                return FeedHtmlViewHolder(binding)
+                return MediaDataHtmlViewHolder(binding)
             }
             VIDEO_VIEW_TYPE -> {
-                val binding: ItemFeedVideoLibBinding =
+                val binding: ItemMediaDataVideoLibBinding =
                     DataBindingUtil.inflate(
                         inflater,
-                        R.layout.item_feed_video_lib,
+                        R.layout.item_media_data_video_lib,
                         parent,
                         false
                     )
-                return FeedVideoViewHolder(binding)
+                return MediaDataVideoViewHolder(binding)
             }
 
             PDF_VIEW_TYPE -> {
-                val binding: ItemFeedHtmlLibBinding =
+                val binding: ItemMediaDataHtmlLibBinding =
                     DataBindingUtil.inflate(
                         inflater,
-                        R.layout.item_feed_html_lib,
+                        R.layout.item_media_data_html_lib,
                         parent,
                         false
                     )
-                return FeedHtmlViewHolder(binding)
+                return MediaDataHtmlViewHolder(binding)
             }
 
             else -> {
@@ -70,16 +70,21 @@ class FeedsAdapter(
             ContentType.VIDEO -> VIDEO_VIEW_TYPE
             ContentType.HTML -> TEXT_VIEW_TYPE
             ContentType.PDF -> PDF_VIEW_TYPE
+            ContentType.UNKNOWN -> error("Unknown content type")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
-            VIDEO_VIEW_TYPE -> (holder as FeedVideoViewHolder).bind(
+            VIDEO_VIEW_TYPE -> (holder as MediaDataVideoViewHolder).bind(
                 getItem(position),
                 onClick
             )
-            TEXT_VIEW_TYPE -> (holder as FeedHtmlViewHolder).bind(
+            TEXT_VIEW_TYPE -> (holder as MediaDataHtmlViewHolder).bind(
+                getItem(position),
+                onClick
+            )
+            PDF_VIEW_TYPE -> (holder as MediaDataPdfViewHolder).bind(
                 getItem(position),
                 onClick
             )
@@ -99,7 +104,7 @@ private val feedDiffUtil = object : DiffUtil.ItemCallback<MediaDataUi>() {
 
 }
 
-class FeedHtmlViewHolder(var binding: ItemFeedHtmlLibBinding) :
+class MediaDataHtmlViewHolder(var binding: ItemMediaDataHtmlLibBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: MediaDataUi, onClick: (MediaDataUi) -> Unit) {
@@ -110,8 +115,7 @@ class FeedHtmlViewHolder(var binding: ItemFeedHtmlLibBinding) :
     }
 }
 
-
-class FeedVideoViewHolder(var binding: ItemFeedVideoLibBinding) :
+class MediaDataVideoViewHolder(var binding: ItemMediaDataVideoLibBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: MediaDataUi, onClick: (MediaDataUi) -> Unit) {
@@ -123,6 +127,19 @@ class FeedVideoViewHolder(var binding: ItemFeedVideoLibBinding) :
         binding.productSubInfo = item
 
         binding.ivPreview.setOnClickListener {
+            onClick(item)
+        }
+    }
+}
+
+class MediaDataPdfViewHolder(var binding: ItemMediaDataPdfLibBinding) :
+    RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(item: MediaDataUi, onClick: (MediaDataUi) -> Unit) {
+
+        binding.productSubInfo = item
+
+        binding.btnShowMore.setOnClickListener {
             onClick(item)
         }
     }

@@ -32,15 +32,14 @@ class MediaDataListViewModel(
         _downloadedFileStream
 
     init {
-        getMediaDataList()
+        fetchMediaDataList()
     }
 
     fun downloadFile(url: String?) {
         if (url == null) return
-
     }
 
-    fun getMediaDataList() {
+    fun fetchMediaDataList() {
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
             Log.d("MediaDataListViewModel", throwable.toString())
         }) {

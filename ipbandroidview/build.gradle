@@ -66,6 +66,7 @@ dependencies {
     // image downloading
     api 'com.squareup.picasso:picasso:2.71828'
 
+    implementation 'com.google.android.exoplayer:exoplayer:2.14.0'
 
     // AndroidX
     implementation "androidx.fragment:fragment-ktx:1.3.6"

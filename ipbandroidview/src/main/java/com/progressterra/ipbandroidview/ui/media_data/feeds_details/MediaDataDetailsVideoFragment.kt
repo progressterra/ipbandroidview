@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.databinding.DialogDetailFeedVideoLibBind
 
 class MediaDataDetailsVideoFragment : DialogFragment() {
 
-    private val args: FeedsDetailsFragmentVideoArgs by navArgs()
+    private val args: MediaDataDetailsVideoFragmentArgs by navArgs()
 
     private var currentPlayPos: Long? = null
 

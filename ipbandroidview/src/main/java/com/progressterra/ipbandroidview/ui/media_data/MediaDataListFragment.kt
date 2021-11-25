@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.ui.media_data
 
 import android.os.Bundle
-import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentMediaDataLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
@@ -16,9 +16,11 @@ class MediaDataListFragment :
 
     private val fileHelper by lazy { FileHelper() }
 
+    val args: MediaDataListFragmentArgs by navArgs()
+
     override val vm by viewModels<MediaDataListViewModel>()
 
-    private val adapter = FeedsAdapter {
+    private val adapter = MediaDataListAdapter {
         when (it.contentType) {
             ContentType.VIDEO -> findNavController().navigate(
                 R.id.subInfoDialogFragmentVideo,
@@ -36,9 +38,8 @@ class MediaDataListFragment :
         }
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onInitBinding(binding: FragmentMediaDataLibBinding, savedInstanceState: Bundle?) {
+        super.onInitBinding(binding, savedInstanceState)
         setupView()
         setupViewModel()
     }
@@ -57,7 +58,7 @@ class MediaDataListFragment :
                 fileHelper.showFileViewDialog(
                     it,
                     requireContext(),
-                    "com.progressterra.fileprovider"
+                    args.authority
                 )
             }
         }

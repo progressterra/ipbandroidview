@@ -13,7 +13,7 @@ class MediaDataDetailsHtmlFragment : DialogFragment() {
 
     private lateinit var binding: DialogDetailFeedHtmlLibBinding
 
-    private val args: FeedsDetailsFragmentHtmlArgs by navArgs()
+    private val args: MediaDataDetailsHtmlFragmentArgs by navArgs()
 
 
     override fun onCreateView(
