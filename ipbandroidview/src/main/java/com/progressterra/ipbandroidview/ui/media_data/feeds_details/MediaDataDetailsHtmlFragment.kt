@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.feeds.feeds_details
+package com.progressterra.ipbandroidview.ui.media_data.feeds_details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.databinding.DialogDetailFeedHtmlLibBinding
 
-class FeedsDetailsFragmentHtml : DialogFragment() {
+class MediaDataDetailsHtmlFragment : DialogFragment() {
 
     private lateinit var binding: DialogDetailFeedHtmlLibBinding
 

@@ -5,7 +5,7 @@
 
         <variable
             name="ProductSubInfo"
-            type="com.progressterra.ipbandroidview.ui.feeds.models.FeedUi" />
+            type="com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

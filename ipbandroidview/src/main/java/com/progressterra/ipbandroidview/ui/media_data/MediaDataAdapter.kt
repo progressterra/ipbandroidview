@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.feeds.product_sub_info
+package com.progressterra.ipbandroidview.ui.media_data
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,22 +6,23 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.ItemFeedHtmlLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemFeedVideoLibBinding
 
-import com.progressterra.ipbandroidview.ui.feeds.models.ContentType
-import com.progressterra.ipbandroidview.ui.feeds.models.FeedUi
+import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
+import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
+import com.squareup.picasso.Picasso
 
 
 const val TEXT_VIEW_TYPE = 0
 const val VIDEO_VIEW_TYPE = 1
+const val PDF_VIEW_TYPE = 2
 
 class FeedsAdapter(
-    private val onClick: (FeedUi) -> Unit
+    private val onClick: (MediaDataUi) -> Unit
 ) :
-    ListAdapter<FeedUi, RecyclerView.ViewHolder>(feedDiffUtil) {
+    ListAdapter<MediaDataUi, RecyclerView.ViewHolder>(feedDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -46,8 +47,20 @@ class FeedsAdapter(
                     )
                 return FeedVideoViewHolder(binding)
             }
+
+            PDF_VIEW_TYPE -> {
+                val binding: ItemFeedHtmlLibBinding =
+                    DataBindingUtil.inflate(
+                        inflater,
+                        R.layout.item_feed_html_lib,
+                        parent,
+                        false
+                    )
+                return FeedHtmlViewHolder(binding)
+            }
+
             else -> {
-                throw IllegalStateException("Incorrect view type: $viewType")
+                throw error("Incorrect view type: $viewType")
             }
         }
     }
@@ -56,6 +69,7 @@ class FeedsAdapter(
         return when (getItem(position).contentType) {
             ContentType.VIDEO -> VIDEO_VIEW_TYPE
             ContentType.HTML -> TEXT_VIEW_TYPE
+            ContentType.PDF -> PDF_VIEW_TYPE
         }
     }
 
@@ -74,12 +88,12 @@ class FeedsAdapter(
 
 }
 
-private val feedDiffUtil = object : DiffUtil.ItemCallback<FeedUi>() {
-    override fun areItemsTheSame(oldItem: FeedUi, newItem: FeedUi): Boolean {
+private val feedDiffUtil = object : DiffUtil.ItemCallback<MediaDataUi>() {
+    override fun areItemsTheSame(oldItem: MediaDataUi, newItem: MediaDataUi): Boolean {
         return oldItem.idUnique == newItem.idUnique
     }
 
-    override fun areContentsTheSame(oldItem: FeedUi, newItem: FeedUi): Boolean {
+    override fun areContentsTheSame(oldItem: MediaDataUi, newItem: MediaDataUi): Boolean {
         return oldItem.previewText == newItem.previewText && oldItem.urlData == newItem.urlData
     }
 
@@ -88,7 +102,7 @@ private val feedDiffUtil = object : DiffUtil.ItemCallback<FeedUi>() {
 class FeedHtmlViewHolder(var binding: ItemFeedHtmlLibBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: FeedUi, onClick: (FeedUi) -> Unit) {
+    fun bind(item: MediaDataUi, onClick: (MediaDataUi) -> Unit) {
         binding.productSubInfo = item
         binding.btnShowMore.setOnClickListener {
             onClick(item)
@@ -96,15 +110,16 @@ class FeedHtmlViewHolder(var binding: ItemFeedHtmlLibBinding) :
     }
 }
 
+
 class FeedVideoViewHolder(var binding: ItemFeedVideoLibBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: FeedUi, onClick: (FeedUi) -> Unit) {
+    fun bind(item: MediaDataUi, onClick: (MediaDataUi) -> Unit) {
 
         // грузим превью видео
-        Glide.with(binding.root.context)
-            .load(item.urlData)
+        Picasso.get().load(item.urlData)
             .into(binding.ivPreview)
+
         binding.productSubInfo = item
 
         binding.ivPreview.setOnClickListener {

@@ -6,7 +6,7 @@
 
     <dialog
         android:id="@+id/subInfoDialogFragmentHtml"
-        android:name="com.progressterra.ipbandroidview.ui.feeds.feeds_details.FeedsDetailsFragmentHtml"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.feeds_details.MediaDataDetailsHtmlFragment"
         android:label="SubInfoDialogFragmentHtml">
         <argument
             android:name="url"
@@ -15,7 +15,7 @@
     </dialog>
     <dialog
         android:id="@+id/subInfoDialogFragmentVideo"
-        android:name="com.progressterra.ipbandroidview.ui.feeds.feeds_details.FeedsDetailsFragmentVideo"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.feeds_details.MediaDataDetailsVideoFragment"
         android:label="SubInfoDialogFragmentVideo">
         <argument
             android:name="url"
@@ -23,6 +23,6 @@
     </dialog>
     <fragment
         android:id="@+id/trainingFragment"
-        android:name="com.progressterra.ipbandroidview.ui.feeds.TrainingFragment"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.MediaDataListFragment"
         android:label="TrainingFragment" />
 </navigation>

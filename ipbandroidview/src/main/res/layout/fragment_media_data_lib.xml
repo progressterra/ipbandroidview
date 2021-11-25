@@ -5,7 +5,7 @@
 
         <variable
             name="vm"
-            type="com.progressterra.ipbandroidview.ui.feeds.FeedsViewModel" />
+            type="com.progressterra.ipbandroidview.ui.media_data.MediaDataListViewModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,20 +17,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="5dp"
-            android:visibility="@{vm.screenState.loading}" />
+            android:visibility="@{vm.mediaDataList.loading}" />
 
-        <Button
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/btn_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/refresh"
-            android:visibility="@{vm.screenState.error}" />
+            android:visibility="@{vm.mediaDataList.error}" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{vm.screenState.isDefault()}">
+            android:visibility="@{vm.mediaDataList.success}">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_training"

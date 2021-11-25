@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.feeds.feeds_details
+package com.progressterra.ipbandroidview.ui.media_data.feeds_details
 
 import android.net.Uri
 import android.os.Bundle
@@ -13,7 +13,7 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.progressterra.ipbandroidview.databinding.DialogDetailFeedVideoLibBinding
 
 
-class FeedsDetailsFragmentVideo : DialogFragment() {
+class MediaDataDetailsVideoFragment : DialogFragment() {
 
     private val args: FeedsDetailsFragmentVideoArgs by navArgs()
 

@@ -171,5 +171,46 @@ class FileHelper {
         }
     }
 
+    fun showFileViewDialog(inputStream: InputStream, context: Context, authority: String) {
+        val storeDirectory =
+            context.getExternalFilesDir(null) // DCIM folder
+        val outputFile = File(storeDirectory, "ListOfFiles.pdf")
+
+        outputFile.createNewFile()
+        inputStream.use { input ->
+            val outputStream = FileOutputStream(outputFile)
+            outputStream.use { output ->
+                val buffer = ByteArray(4 * 1024) // buffer size
+                while (true) {
+                    val byteCount = input.read(buffer)
+                    if (byteCount < 0) break
+                    output.write(buffer, 0, byteCount)
+                }
+                output.flush()
+            }
+        }
+
+        outputFile.also {
+            val fileUri: Uri = FileProvider.getUriForFile(
+                context,
+                authority,
+                it
+            )
+
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(fileUri, "application/pdf")
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            }
+
+            if (intent.resolveActivity(context.packageManager) != null)
+                context.startActivity(intent) else {
+                Toast.makeText(
+                    context,
+                    "Действие не поддерживается ни в одном приложении",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 
 }

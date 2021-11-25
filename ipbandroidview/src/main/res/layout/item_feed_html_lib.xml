@@ -7,7 +7,7 @@
 
         <variable
             name="ProductSubInfo"
-            type="com.progressterra.ipbandroidview.ui.feeds.models.FeedUi" />
+            type="com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi" />
     </data>
 
     <LinearLayout
