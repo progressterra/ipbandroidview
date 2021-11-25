@@ -17,7 +17,9 @@ import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.Event
+import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
+import com.progressterra.ipbandroidview.utils.extensions.loadingResult
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
 import kotlinx.coroutines.launch
 
@@ -42,6 +44,11 @@ internal class PersonalViewModel(
             api.getCitiesList().let {
                 citiesList.postValue(it.responseBody?.dataList?.filter { city -> !city.name.isNullOrEmpty() })
             }
+        }
+
+        if (!personalSettings.enableSex) {
+            personalInfo.value?.sexType = SexType.NONE
+            personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
         }
     }
 
@@ -87,11 +94,13 @@ internal class PersonalViewModel(
         val loginApi = LoginApi.newInstance()
         val bonusesApi = BonusesApi.getInstance()
         viewModelScope.launch {
+            _screenState.postValue(ScreenState.LOADING)
 
             // запрашиваем токен, чтобы он сохранился в префах, так как используется в послед запросах
             bonusesApi.getAccessToken().let {
                 if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
                     _toastBundle.postValue(Event(ToastBundle(R.string.Network_error)))
+                    _screenState.postValue(ScreenState.ERROR)
                     return@launch
                 }
             }
@@ -100,6 +109,7 @@ internal class PersonalViewModel(
                 loginApi.addClientInfo(personalInfo).let {
                     if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
                         _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
+                        _screenState.postValue(ScreenState.ERROR)
                         return@launch
                     }
                 }
@@ -108,6 +118,7 @@ internal class PersonalViewModel(
                     loginApi.addCity(city).let {
                         if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
                             _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
+                            _screenState.postValue(ScreenState.ERROR)
                             return@launch
                         }
                     }
@@ -117,6 +128,7 @@ internal class PersonalViewModel(
                     loginApi.addEmail(email).let {
                         if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
                             _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
+                            _screenState.postValue(ScreenState.ERROR)
                             return@launch
                         }
                     }
@@ -124,6 +136,8 @@ internal class PersonalViewModel(
                 }
             }
             _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
+
+            _screenState.postValue(ScreenState.DEFAULT)
             if (newLoginFlow)
                 _popBackStack.postValue(Event(true))
             else

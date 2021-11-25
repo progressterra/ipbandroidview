@@ -1,10 +1,11 @@
 package com.progressterra.ipbandroidview.data
 
 import com.google.gson.Gson
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.IMessengerCore
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.AdditionalDataJSON
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.DialogInfoRequest
-import com.progressterra.ipbandroidapi.remoteData.iMessengerCore.models.MessageSendingRequest
+import com.progressterra.ipbandroidapi.api.iMessengerCore.IMessengerCore
+import com.progressterra.ipbandroidapi.api.iMessengerCore.models.AdditionalDataJSON
+import com.progressterra.ipbandroidapi.api.iMessengerCore.models.DialogInfoRequest
+import com.progressterra.ipbandroidapi.api.iMessengerCore.models.MessageSendingRequest
+
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.chat.utils.convertToMessagesList
@@ -14,7 +15,7 @@ import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 
 internal class ChatRepository : BaseRepository(), IRepository.Chat {
-    private val messengerApi = IMessengerCore()
+    private val messengerApi = IMessengerCore.Mobile()
 
     override suspend fun getMessagesList(dialogId: String, page: String): SResult<List<Message>> {
         val response = messengerApi.getMessagesList(dialogId, page)

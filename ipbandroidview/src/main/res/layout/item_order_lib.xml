@@ -4,13 +4,9 @@
 
     <data>
 
-        <variable
-            name="ColorPalette"
-            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
-
 
         <variable
-            name="Purchase"
+            name="item"
             type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Purchase" />
     </data>
 
@@ -44,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="start"
-                    android:text="@{Purchase.shopName}" />
+                    android:text="@{item.shopName}" />
 
                 <TextView
                     android:id="@+id/bonus_shopping_list_data"
@@ -52,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:text="@{Purchase.purchaseDate}" />
+                    android:text="@{item.purchaseDate}" />
 
                 <TextView
                     android:id="@+id/bonus_shopping_list_purchase_amount"
@@ -70,8 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="start"
-                    app:setMainTextColor="@{ColorPalette}"
-                    app:textFromInt="@{Purchase.purchaseSum}" />
+                    app:textFromInt="@{item.purchaseSum}" />
 
             </LinearLayout>
 
@@ -104,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="end"
-                    app:textFromInt="@{Purchase.addedBonusesSum}" />
+                    app:textFromInt="@{item.addedBonusesSum}" />
 
                 <TextView
                     android:id="@+id/bonus_shopping_action_spending"
@@ -120,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="end"
-                    app:textFromInt="@{Purchase.spentBonusesSum}" />
+                    app:textFromInt="@{item.spentBonusesSum}" />
             </LinearLayout>
 
             <ImageView

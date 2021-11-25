@@ -2,25 +2,15 @@
 <layout>
 
     <data>
-
         <variable
-            name="ColorPalette"
-            type="com.progressterra.ipbandroidview.ui.bonuses_details.tabs.ColorsPalette" />
-
-        <variable
-            name="ScreenState"
-            type="com.progressterra.ipbandroidview.utils.ScreenState" />
-
-        <variable
-            name="BonusesInfo"
-            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo" />
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical">
 
         <ProgressBar
@@ -28,36 +18,27 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="100dp"
+            android:visibility="@{vm.status.loading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:setVisibilityLoaderByScreenState="@{ScreenState}" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/refreshButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="150dp"
-            android:text="@string/refresh"
-            app:setVisibilityRefreshContentScreenState="@{ScreenState}" />
+            android:onClick="@{_->vm.updateDetailBonusesInfo()}"
+            android:visibility="@{vm.status.error}"
+            app:text="@string/refresh" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:setVisibilityMainContentByScreenState="@{ScreenState}">
-
-            <TextView
-                android:id="@+id/my_bonuses_tv"
-                style="@style/Callout1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_bonuses"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:setMainTextColor="@{ColorPalette}" />
+            android:visibility="@{vm.status.isDefault()}">
 
             <TextView
                 android:id="@+id/number_of_bonuses_tv_detail"
@@ -65,12 +46,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="@{@string/bonuses_count(BonusesInfo.currentQuantity)}"
+                android:text="@{@string/bonuses_count(vm.bonusesInfo.currentQuantity)}"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/my_bonuses_tv" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/bonus_expiration_date_tv"
@@ -80,13 +61,12 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="19dp"
-                android:text="@{@string/expired(BonusesInfo.dateBurning)}"
+                android:text="@{@string/expired(vm.bonusesInfo.dateBurning)}"
                 android:textColor="@color/text_in_forms"
                 app:layout_constraintEnd_toStartOf="@id/fire_iv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/number_of_bonuses_tv_detail"
-                app:setSecondaryTextColor="@{ColorPalette}"
-                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                app:visibility="@{vm.bonusesInfo.showAllBonusesInfo}" />
 
             <ImageView
                 android:id="@+id/fire_iv"
@@ -99,7 +79,7 @@
                 app:layout_constraintEnd_toStartOf="@id/bonus_expiration_number_tv"
                 app:layout_constraintStart_toEndOf="@id/bonus_expiration_date_tv"
                 app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv"
-                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                app:visibility="@{vm.bonusesInfo.showAllBonusesInfo}" />
 
             <View
                 android:id="@+id/horizontal_line"
@@ -113,14 +93,13 @@
                 style="@style/Footnote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{@string/bonuses_count(BonusesInfo.forBurningQuantity)}"
+                android:text="@{@string/bonuses_count(vm.bonusesInfo.forBurningQuantity)}"
                 android:textColor="@color/text_in_forms"
                 app:layout_constraintBottom_toBottomOf="@id/bonus_expiration_date_tv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/fire_iv"
                 app:layout_constraintTop_toTopOf="@id/bonus_expiration_date_tv"
-                app:setSecondaryTextColor="@{ColorPalette}"
-                app:visibility="@{BonusesInfo.showAllBonusesInfo}" />
+                app:visibility="@{vm.bonusesInfo.showAllBonusesInfo}" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
@@ -143,5 +122,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 </layout>

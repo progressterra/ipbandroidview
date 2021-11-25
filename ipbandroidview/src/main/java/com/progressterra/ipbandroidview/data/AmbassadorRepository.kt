@@ -1,9 +1,11 @@
 package com.progressterra.ipbandroidview.data
 
-import com.progressterra.ipbandroidapi.remoteData.iProBonusApi.IProBonus
-import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.IPBAmbassadorAmbassador
-import com.progressterra.ipbandroidapi.remoteData.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
-import com.progressterra.ipbandroidapi.remoteData.ipbMediaDataCore.IpbMediaDataCore
+
+import com.progressterra.ipbandroidapi.api.iProBonusApi.IProBonus
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
+import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
+import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore
+import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
@@ -17,9 +19,9 @@ import java.io.File
 
 internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorInfo {
 
-    private val keyPharmApi = IPBAmbassadorAmbassador()
-    private val mediaDataApi = IpbMediaDataCore()
-    private val ipbApi = IProBonus()
+    private val keyPharmApi = IPBAmbassador.Ambassador()
+    private val mediaDataApi = IpbMediaDataCore.EntityMobile()
+    private val ipbApi = SCRMApiQwerty.ClientsV3()
 
     // получение информации о пользователе: имя,емейл,дата рождения и пр
     override suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> {
@@ -70,7 +72,7 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         return if (response.result?.status == 0) {
             SResult.Success(UserBankData.convertToUiModel(response))
         } else if (response.result?.status == 1) {
-            return SResult.Success(UserBankData("", "", "", "", "", ""))
+            return SResult.Success(UserBankData("", "", "", "", "", "", ""))
         } else {
             SResult.Failed(response.result?.message)
         }
@@ -83,7 +85,8 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         bik: String,
         correspondentAccount: String,
         tinOfBank: String,
-        kppBank: String
+        kppBank: String,
+        clientInn: String
     ): ISResult<UserBankData> {
         val response = keyPharmApi.updateUserBankData(
             accessToken, bankName = bankName,
@@ -91,7 +94,8 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
             bik = bik,
             correspondentAccount = correspondentAccount,
             tinOfBank = tinOfBank,
-            kppBank = kppBank
+            kppBank = kppBank,
+            tinOfClient = clientInn
         )
         return if (response.result?.status == 0) {
             SResult.Success(UserBankData.convertToUiModel(response))

@@ -14,6 +14,11 @@ fun String.toToastResult() = SResult.Toast(this)
 fun Int.toToastResult() = SResult.Toast(this)
 
 /**
+ * Any в тост
+ */
+fun Any.toToastResult() = SResult.Toast(this)
+
+/**
  *  Action в navResult
  */
 fun NavDirections.toNavResult() = SResult.NavResult(this)
@@ -41,14 +46,29 @@ fun String?.toFailedResult() = SResult.Failed(this, null)
 fun Int.toFailedResult() = SResult.Failed(this, null)
 
 /**
+ *  Люая переменная в неудачный результат
+ */
+fun <T : Any?> T?.toFailedResult() = SResult.Failed(this, null)
+
+/**
  *  Функция для создания "загрузки"
  */
 fun loadingResult() = SResult.Loading(null)
 
 /**
+ *  Загрузка с данными
+ */
+fun <T : Any?> T?.toLoadingResult() = SResult.Loading(this)
+
+/**
  *  Функция для создания завершенного результата
  */
 fun completedResult() = SResult.Completed
+
+/**
+ * Функция для создания навигации назад
+ */
+fun navBackResult() = SResult.NavBackResult
 
 /**
  *  Failed без результатов

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.progressterra.ipbandroidview.ui.chat.ChatDrawableViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:elevation="3dp"
+            android:visibility="@{vm.messagesList.isLoading()}" />
+
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="@{_->vm.getDialogInfo()}"
+            android:visibility="@{vm.messagesList.isError()}"
+            app:text="@string/refresh" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{vm.messagesList.isSuccess()}">
+
+            <TextView
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:text="@string/messages_empty_list"
+                android:textAlignment="center"
+                android:textColor="@color/chat_date"
+                android:visibility="@{vm.messagesList.data.empty}"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintBottom_toTopOf="@id/clInput"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.3" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_messages"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                android:paddingTop="@dimen/margin_large"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/clInput"
+                app:layout_constraintTop_toTopOf="parent"
+                app:reverseLayout="true"
+                app:stackFromEnd="false"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_message_user_drawable_lib" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/background_stroke_chat"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <EditText
+                    android:id="@+id/et_input_message"
+                    style="@style/Text.Body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/message_hint"
+                    android:maxLines="5"
+                    android:text="@={vm.message}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/br_button"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_send"
+                    invisible="@{vm.messageSendingStatus.isSuccess()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:onClick="@{() -> vm.sendMessage()}"
+                    android:src="@drawable/ic_send_button"
+                    app:layout_constraintBottom_toBottomOf="@id/et_input_message"
+                    app:layout_constraintDimensionRatio="1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/et_input_message" />
+
+                <ProgressBar
+                    android:id="@+id/pb_loading"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:elevation="3dp"
+                    android:visibility="@{vm.messageSendingStatus.isLoading()}"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_send"
+                    app:layout_constraintEnd_toEndOf="@id/iv_send"
+                    app:layout_constraintStart_toStartOf="@id/iv_send"
+                    app:layout_constraintTop_toTopOf="@id/iv_send"
+                    tools:visibility="visible" />
+
+                <androidx.constraintlayout.widget.Barrier
+                    android:id="@+id/br_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:barrierDirection="start"
+                    app:constraint_referenced_ids="pb_loading, iv_send" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

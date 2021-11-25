@@ -21,6 +21,7 @@ import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
+import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
 import java.util.*
 
@@ -62,7 +63,8 @@ class PersonalFragment : BaseFragment() {
 
         viewModel.apply {
             citiesList.observe(viewLifecycleOwner) {
-                setupCitySpinner(it)
+                if (it != null)
+                    setupCitySpinner(it)
             }
             toastBundle.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
             action.observe(viewLifecycleOwner, this@PersonalFragment::onAction)
@@ -107,6 +109,8 @@ class PersonalFragment : BaseFragment() {
             theme?.resolveAttribute(R.attr.app_textFootnoteAttentionColor, typedValue, true)
             binding.personalData.textViewSecondNameLabel.setTextColor(typedValue.data)
         }
+
+        personalSettings.logoId.applyIfNotDefault(binding.ivLogo)
     }
 
     private fun initEditTextValidation() {

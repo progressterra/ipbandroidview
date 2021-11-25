@@ -26,4 +26,58 @@
             app:nullable="false" />
     </fragment>
 
+    <fragment
+        android:id="@+id/fragment_chat_drawable_lib"
+        android:name="com.progressterra.ipbandroidview.ui.chat.ChatDrawableFragment"
+        android:label="ChatDrawableFragment"
+        tools:layout="@layout/fragment_chat_drawable_lib">
+
+        <argument
+            android:name="idEnterprise"
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="imageUrl"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+        <argument
+            android:name="descriptionDialog"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.progressterra.ipbandroidview.ui.set_personal_info.UserInfoFragment"
+        android:label="UserInfoFragment">
+        <argument
+            android:name="header_res"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentRemoveAccount"
+        android:name="com.progressterra.ipbandroidview.ui.remove_account.RemoveAccountFragment"
+        android:label="RemoveAccountFragment"
+        tools:layout="@layout/fragment_remove_account_lib">
+
+        <argument
+            android:name="confirmCodeSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings"
+            app:nullable="false" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/dialogWebViewLib"
+        android:name="com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialog"
+        android:label="WebViewDialog">
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="false" />
+    </dialog>
+
 </navigation>

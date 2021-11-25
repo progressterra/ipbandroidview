@@ -14,5 +14,7 @@ interface ISResult<out T : Any> {
 
     fun isError(): Boolean
 
+    fun isEmptySuccess(): Boolean
+
     fun handle(onHandled: () -> Unit)
 }

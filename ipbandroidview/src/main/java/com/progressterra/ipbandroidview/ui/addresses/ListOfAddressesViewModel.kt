@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
@@ -16,7 +17,6 @@ import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ListOfAddressesViewModel :
@@ -86,10 +86,9 @@ class ListOfAddressesViewModel :
             // более новыми датами, как адресс по умолчанию
             address.apply {
                 val currentDate = Date()
-                val sdf = SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
-                sdf.timeZone = TimeZone.getTimeZone("Europe/Moscow")
-                defaultBilling = sdf.format(currentDate)
-                defaultShipping = sdf.format(currentDate)
+                defaultBilling = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+                defaultShipping = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+                dateAdded = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
             }
 
             addressApi.updateClientAddress(

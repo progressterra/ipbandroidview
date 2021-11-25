@@ -1,16 +1,21 @@
 package com.progressterra.ipbandroidview.ui.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.ToastBundle
 
+@Deprecated(replaceWith = ReplaceWith("BaseBindingFragment"), message = "")
 open class BaseFragment : Fragment() {
 
     protected open val vm by viewModels<BaseViewModel>()
@@ -61,6 +66,55 @@ open class BaseFragment : Fragment() {
             else -> null
         }?.let {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    open fun setupHeader(
+        title: Int? = null,
+        backVisible: Boolean = true
+    ) {
+        try {
+            val back = requireView().findViewById<ImageView>(R.id.iv_back_header)
+
+            if (backVisible) {
+                back.visibility = View.VISIBLE
+                back.setOnClickListener {
+                    findNavController().popBackStack()
+                }
+            } else {
+                back.visibility = View.GONE
+            }
+
+            title?.let {
+                requireView().findViewById<TextView>(R.id.tv_title_header).text =
+                    resources.getString(title)
+            }
+        } catch (e: Exception) {
+            Log.e(javaClass.simpleName, "$e")
+        }
+    }
+
+    open fun setupHeader(
+        title: String? = null,
+        backVisible: Boolean = true
+    ) {
+        try {
+            val back = requireView().findViewById<ImageView>(R.id.iv_back_header)
+
+            if (backVisible) {
+                back.visibility = View.VISIBLE
+                back.setOnClickListener {
+                    findNavController().popBackStack()
+                }
+            } else {
+                back.visibility = View.GONE
+            }
+
+            title?.let {
+                requireView().findViewById<TextView>(R.id.tv_title_header).text = title
+            }
+        } catch (e: Exception) {
+            Log.e(javaClass.simpleName, "$e")
         }
     }
 }

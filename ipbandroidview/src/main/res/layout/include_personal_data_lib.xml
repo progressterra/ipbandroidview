@@ -125,7 +125,7 @@
             android:layout_marginTop="21dp"
             android:gravity="center"
             android:text="Позвольте нам дать для вас качественные предложения. Кто вы? "
-            android:visibility="@{!vm.personalSettings.enableSexShortDescription}"
+            android:visibility="@{!vm.personalSettings.enableSexShortDescription &amp;&amp; vm.personalSettings.enableSex}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/set_email_info_tv" />
@@ -136,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_sex"
-            android:visibility="@{vm.personalSettings.enableSexShortDescription}"
+            android:visibility="@{vm.personalSettings.enableSexShortDescription &amp;&amp; vm.personalSettings.enableSex}"
             app:layout_constraintBottom_toBottomOf="@id/radioGroup_sex"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toTopOf="@id/radioGroup_sex" />
@@ -148,6 +148,7 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
+            android:visibility="@{vm.personalSettings.enableSex}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toEndOf="@id/tv_sex_short"
             app:layout_constraintTop_toBottomOf="@id/set_sex_info_tv"
@@ -170,36 +171,35 @@
                 android:button="@null" />
         </RadioGroup>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/button_next"
-            style="@style/Button.Filled"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="38dp"
             android:enabled="@{vm.personalDataIsValid}"
             android:onClick="@{_->vm.addPersonalInfo()}"
-            android:text="@string/next"
+            app:isLoading="@{vm.screenState.isLoading()}"
             app:layout_constraintBottom_toTopOf="@id/button_skip"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/radioGroup_sex"
-            app:layout_goneMarginBottom="24dp" />
+            app:layout_goneMarginBottom="24dp"
+            app:text="@string/next" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/button_skip"
-            style="@style/Button.Outlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             android:onClick="@{()->vm.skipRegistration()}"
-            android:text="@string/personal_skip"
             android:visibility="@{vm.personalSettings.enableSkipRegistrationButton}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/button_next" />
+            app:layout_constraintTop_toBottomOf="@id/button_next"
+            app:text="@string/personal_skip" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_start"

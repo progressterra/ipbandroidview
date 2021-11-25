@@ -19,17 +19,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="3dp"
-            android:indeterminateDrawable="@drawable/progressbar_indeterminate"
             android:visibility="@{vm.messagesList.isLoading()}" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            style="@style/Button.Filled"
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="@{_->vm.getDialogInfo()}"
-            android:text="@string/refresh"
-            android:visibility="@{vm.messagesList.isError()}" />
+            android:visibility="@{vm.messagesList.isError()}"
+            app:text="@string/refresh" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -59,6 +57,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
+                android:hint="@string/message_hint"
                 android:text="@={vm.message}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/br_button"
@@ -70,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:onClick="@{() -> vm.sendMessage()}"
-                android:src="@drawable/ic_baseline_send_24"
+                android:src="@drawable/ic_send_button"
                 android:visibility="@{vm.messageSendingStatus.isSuccess()}"
                 app:layout_constraintBottom_toBottomOf="@id/et_input_message"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +81,6 @@
                 android:layout_height="32dp"
                 android:layout_marginEnd="20dp"
                 android:elevation="3dp"
-                android:indeterminateDrawable="@drawable/progressbar_indeterminate"
                 android:visibility="@{vm.messageSendingStatus.isLoading()}"
                 app:layout_constraintBottom_toBottomOf="@id/et_input_message"
                 app:layout_constraintEnd_toEndOf="parent"

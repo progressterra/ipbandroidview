@@ -19,16 +19,24 @@
         <action
             android:id="@+id/action_fragmentLogin_to_fragmentCountry"
             app:destination="@id/fragmentCountry"
-            app:enterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:popUpTo="@id/fragmentLogin" />
 
         <action
             android:id="@+id/action_fragmentLogin_to_confirmFragment"
             app:destination="@id/fragmentConfirm"
-            app:enterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:popUpToInclusive="false" />
+
+        <action
+            android:id="@+id/toWebViewDialog"
+            app:destination="@id/dialogWebViewLib" />
     </fragment>
 
     <fragment
@@ -44,8 +52,22 @@
 
         <action
             android:id="@+id/action_fragmentCountry_to_fragmentLogin"
-            app:destination="@id/fragmentLogin" />
+            app:destination="@id/fragmentLogin"
+            app:enterAnim="@anim/slide_right"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_left" />
     </fragment>
+
+    <dialog
+        android:id="@+id/dialogWebViewLib"
+        android:name="com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialog"
+        android:label="WebViewDialog">
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="false" />
+    </dialog>
 
     <fragment
         android:id="@+id/fragmentConfirm"
@@ -65,8 +87,10 @@
         <action
             android:id="@+id/action_confirmFragment_to_personalFragment"
             app:destination="@id/fragmentPersonal"
-            app:enterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"
             app:popUpToInclusive="true" />
     </fragment>
 

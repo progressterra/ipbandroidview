@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,30 +10,54 @@
             type="com.progressterra.ipbandroidview.ui.addresses.ListOfAddressesViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?app_backgroundColor">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/view_header_lib" />
 
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{vm.screenState.loading}" />
+            android:visibility="@{vm.screenState.loading}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            style="@style/Button.Filled"
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:onClick="@{_->vm.getListOfAddresses()}"
-            android:text="@string/refresh"
-            android:visibility="@{vm.screenState.error}" />
+            android:visibility="@{vm.screenState.error}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:text="@string/refresh" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{vm.screenState.isDefault()}">
+            android:layout_height="0dp"
+            android:visibility="@{vm.screenState.isDefault()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+
+
+            <TextView
+                style="@style/Text.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/addresses_list_is_empty"
+                android:visibility="@{vm.listOfAddress.empty}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list_of_address"
@@ -48,19 +73,18 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
                 android:id="@+id/tv_add_address"
-                style="@style/Button.Filled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="12dp"
-                android:text="@string/add_new_address"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="1" />
+                app:layout_constraintVertical_bias="1"
+                app:text="@string/add_new_address" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

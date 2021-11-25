@@ -7,10 +7,14 @@
     <string name="login_empty_phone">Не указан номер телефона</string>
     <string name="login_error_start_phone">Телефон должен начинаться с %s</string>
     <string name="login_error_format_phone">Телефон может содержать только цифры</string>
-    <string name="login_agreement_html">Нажимая кнопку "Далее", я соглашаюсь с &lt;a href="https://google.com"&gt;Пользовательским соглашением&lt;a/&gt; и даю согласие на обработку персональных данных</string>
+    <string name="login_terms">Нажимая кнопку \"Далее\", я ознакомился с Пользовательским соглашением и даю согласие на обработку персональных данных</string>
+    <string name="login_policy">Нажимая кнопку \"Далее\", я соглашаюсь с Политикой конфиденциальности и даю согласие на обработку персональных данных</string>
+    <string name="login_terms_and_policy">Нажимая кнопку \"Далее\" вы подтверждаете, что ознакомились с Пользовательским соглашением и соглашаетесь с Политикой конфиденциальности.</string>
 
     <!-- Фрагмент ввода кода подтверждения  -->
     <string name="confirm_resend_error">Ошибка при повторной отправке кода</string>
+    <string name="remove_resend_error">Ошибка при отправке кода</string>
+
 
     <!--  Фрагмент ввода персональных данных  -->
     <string name="personal_tell_us_about">Пожалуйста, расскажите немного о себе</string>
@@ -97,8 +101,8 @@
     <string name="refresh_personal_data">Обновить данные</string>
     <string name="name">Имя</string>
     <string name="document_save_successfuly">Документ успешно сохранен</string>
-    <string name="gph_download">Поделиться договором ГПХ</string>
-    <string name="gph_share">Скачать договор ГПХ</string>
+    <string name="gph_download">Поделиться \n договором ГПХ</string>
+    <string name="gph_share">Скачать \n договор ГПХ</string>
     <string name="last_name">Фамилия</string>
     <string name="middle_name">Отчество</string>
     <string name="make_contract_photo">Сделайте фото подписанного вами договора или загрузите его из галереи</string>
@@ -110,5 +114,60 @@
     <string name="account_number">Номер счета</string>
     <string name="bank_name">Наименование банка</string>
     <string name="acc_requisites">Реквизиты карточного счета:</string>
+
+    <!--  PromoCode  -->
+    <string name="promocode_camera">Считать QR-код</string>
+    <string name="promocode_type">или введите промокод вручную</string>
+    <string name="promocode_success">Промокод успешно активирован</string>
+    <string name="promocode_send">Отправить</string>
+    <string name="promocode_camera_hint">Наведите камеру\nна QR-код</string>
+    <string name="promocode_cancel">Отмена</string>
+    <string name="promocode_never_dialog_title">Разрешение на использование камеры</string>
+    <string name="promocode_never_dialog_description">Разрешение необходимо что бы Вы могли просканировать QR-код. Его можно предоставить в настройках.</string>
+    <string name="promocode_never_ok">Перейти в настройки</string>
+    <string name="promocode_never_cancel">Возможно позже</string>
+
+    <string name="permission_rationale">Для использования данного функционала необходимо предоставить разрешение!</string>
+    <string name="permission_never_ask_again">Разршение можно будет предоставить в настройках телефона!</string>
+
+    <string name="empty_string"> </string>
+    <string name="user_inn">Ваш ИНН</string>
+    <string name="skip">Пропустить</string>
+    <string name="addresses_list_is_empty">Список адресов пуст</string>
+
+    <!-- Bonuses Banner   -->
+    <string name="bonuses_quantity">%d бонусов</string>
+    <string name="bonuses_date">%s сгорит</string>
+
+    <!-- Приглашение друзей   -->
+    <string name="permission_on_denied_title">Невозможно отправить приглашения.</string>
+    <string name="permission_on_denied_description">Предоставьте доступ к списку контактов и попробуйте пригласить друзей ещё раз!\nПредоставить приложению доступ?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="ok">Ок</string>
+    <string name="retry_invite">Повторить отправку</string>
+    <string name="settings_tab">Настройки</string>
+    <string name="copy_inviting_link">Скопировать ссылку-приглашение</string>
+    <string name="inviting_text">%1$s %2$s приглашает вас в приложение SmthApp. Введите при регистрации код %3$s и получите дополнительные приветсвенные 150р на счёт
+</string>
+    <string name="invite_friends">Пригласить друзей</string>
+    <string name="invite_friends_from_contacts">Пригласить друзей из списка контактов</string>
+    <string name="show_more">Подробнее</string>
+    <string name="conditions_for_attracting_clients">Условия привлечения клиентов</string>
+    <string name="choose_from_contacts">Выбрать из списка контактов</string>
+    <string name="invite_from_contact_list">Пригласить друзей из списка контактов</string>
+    <string name="inviting_info">Вы сможете получать процент с каждой продажи приглашенного вами друга.</string>
+    <string name="invite_friend_and_earn_more">Пригласите друзей и зарабатывайте больше</string>
+    <string name="text_copied_to_clipboard">Текст скопирован в буфер обмена</string>
+
+    <!--  Bonus detail with invite  -->
+    <string name="bdwi_title">Мои бонусы</string>
+    <string name="bdwi_invite_title">Приглашайте друзей и получайте больше бонусов</string>
+    <string name="bdwi_invite_button">Пригласить друзей</string>
+    <string name="bdwi_bonuses_title">История движения бонусов</string>
+
+<!-- Выбор и добавление адреса   -->
+    <string name="address_list_title">Адрес доставки</string>
+    <string name="address_add_title">Адрес доставки</string>
 
 </resources>
