@@ -131,11 +131,11 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="22dp"
                     android:layout_marginTop="42dp"
-                    android:drawableStart="@drawable/copy"
                     android:drawablePadding="22dp"
                     android:gravity="center_vertical"
                     android:text="@string/copy_inviting_link"
-                    android:textColor="@color/theme_color" />
+                    android:textColor="@color/theme_color"
+                    app:drawableStartCompat="@drawable/copy" />
 
 
                 <TextView
@@ -146,11 +146,11 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="22dp"
                     android:layout_marginTop="12dp"
-                    android:drawableStart="@drawable/ic_share"
                     android:drawablePadding="22dp"
                     android:gravity="center_vertical"
                     android:text="@string/share"
-                    android:textColor="@color/theme_color" />
+                    android:textColor="@color/theme_color"
+                    app:drawableStartCompat="@drawable/ic_share" />
 
             </LinearLayout>
 
