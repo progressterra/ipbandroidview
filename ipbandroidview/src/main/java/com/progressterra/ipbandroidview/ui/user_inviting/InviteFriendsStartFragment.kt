@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.user_inviting
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
@@ -37,6 +38,10 @@ internal class InviteFriendsStartFragment :
         binding.btnCopyLink.setOnClickListener {
             copyTextOfInviting()
         }
+
+        binding.btnShare.setOnClickListener {
+            showShareDialog()
+        }
     }
 
     private fun copyTextOfInviting() {
@@ -53,5 +58,28 @@ internal class InviteFriendsStartFragment :
             Toast.LENGTH_SHORT
         )
             .show()
+    }
+
+    private fun showShareDialog() {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+
+            type = "text/plain"
+
+            val extraString = vm.infoForInvitingMembers.value?.data?.textInvite ?: ""
+
+            putExtra(
+                Intent.EXTRA_TEXT,
+                extraString
+            )
+        }
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            requireActivity().startActivity(intent)
+        } else {
+            Toast.makeText(
+                context,
+                "Действие не поддерживается ни в одном приложении",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
