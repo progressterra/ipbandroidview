@@ -112,12 +112,24 @@
     <fragment
         android:id="@+id/mediaDataListFragment"
         android:name="com.progressterra.ipbandroidview.ui.media_data.MediaDataListFragment"
-        android:label="MediaDataListFragment" >
-        <argument android:name="authority"
+        android:label="MediaDataListFragment">
+        <argument
+            android:name="authority"
             app:argType="string" />
-        <argument android:name="entityId"
+        <argument
+            android:name="entityId"
             app:argType="string" />
     </fragment>
+
+    <dialog
+        android:id="@+id/dialogWebViewLib"
+        android:name="com.progressterra.ipbandroidview.ui.dialog_web_view.WebViewDialog"
+        android:label="WebViewDialog">
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="false" />
+    </dialog>
 
 
 </navigation>

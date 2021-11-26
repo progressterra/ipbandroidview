@@ -323,11 +323,6 @@
                       <LayoutPositions />
                     </value>
                   </entry>
-                  <entry key="action_media_data">
-                    <value>
-                      <LayoutPositions />
-                    </value>
-                  </entry>
                   <entry key="addresses_flow">
                     <value>
                       <LayoutPositions>
@@ -341,6 +336,18 @@
                     </value>
                   </entry>
                   <entry key="base_flow">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="dialogWebViewLib">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
