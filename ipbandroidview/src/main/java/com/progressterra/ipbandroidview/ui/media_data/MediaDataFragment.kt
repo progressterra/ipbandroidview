@@ -7,9 +7,12 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentMediaDataBinding
 import com.progressterra.ipbandroidview.databinding.ItemMediaDataHtmlLibBinding
+import com.progressterra.ipbandroidview.databinding.ItemMediaDataPdfLibBinding
+import com.progressterra.ipbandroidview.databinding.ItemMediaDataVideoLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
@@ -39,24 +42,15 @@ class MediaDataFragment :
                         )
                     )
                     ContentType.PDF
+                    -> binding.container.addView(getPdfView(infalter, mediaData))
+                    ContentType.VIDEO
                     -> binding.container.addView(
-                        infalter.inflate(
-                            R.layout.item_media_data_pdf_lib,
-                            binding.container,
-                            false
-                        )
-                    )
-                    ContentType.VIDEO -> binding.container.addView(
-                        infalter.inflate(
-                            R.layout.item_media_data_video_lib, binding.container,
-                            false
-                        )
+                        getVideoView(infalter, mediaData)
                     )
                 }
             }
         }
     }
-
 
     private fun getHtmlView(inflater: LayoutInflater, mediaData: MediaDataUi): View {
         val binding = ItemMediaDataHtmlLibBinding.inflate(inflater)
@@ -64,6 +58,33 @@ class MediaDataFragment :
         binding.btnShowMore.setOnClickListener {
             findNavController().navigate(
                 R.id.dialogWebViewLib,
+                bundleOf("url" to mediaData.urlData)
+            )
+        }
+        return binding.root
+    }
+
+    private fun getPdfView(inflater: LayoutInflater, mediaData: MediaDataUi): View {
+        val binding = ItemMediaDataPdfLibBinding.inflate(inflater)
+        binding.productSubInfo = mediaData
+        binding.btnShowMore.setOnClickListener {
+            vm.downloadFile(mediaData.urlData)
+        }
+        return binding.root
+    }
+
+    private fun getVideoView(inflater: LayoutInflater, mediaData: MediaDataUi): View {
+        val binding = ItemMediaDataVideoLibBinding.inflate(inflater)
+        binding.productSubInfo = mediaData
+
+        Glide.with(binding.root.context)
+            .load(mediaData.urlData)
+            .thumbnail(0.5f)
+            .into(binding.ivPreview)
+
+        binding.ivPreview.setOnClickListener {
+            findNavController().navigate(
+                R.id.subInfoDialogFragmentVideo,
                 bundleOf("url" to mediaData.urlData)
             )
         }
