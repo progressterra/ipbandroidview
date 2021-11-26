@@ -104,4 +104,34 @@
             android:name="imageRes"
             app:argType="integer" />
     </dialog>
+
+    <dialog
+        android:id="@+id/subInfoDialogFragmentHtml"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.feeds_details.MediaDataDetailsHtmlFragment"
+        android:label="SubInfoDialogFragmentHtml">
+        <argument
+            android:name="url"
+            app:argType="string" />
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/subInfoDialogFragmentVideo"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.feeds_details.MediaDataDetailsVideoFragment"
+        android:label="SubInfoDialogFragmentVideo">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </dialog>
+    <fragment
+        android:id="@+id/mediaDataListFragment"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.MediaDataListFragment"
+        android:label="MediaDataListFragment" >
+        <argument android:name="authority"
+            app:argType="string" />
+        <argument android:name="entityId"
+            app:argType="string" />
+    </fragment>
+
+
 </navigation>

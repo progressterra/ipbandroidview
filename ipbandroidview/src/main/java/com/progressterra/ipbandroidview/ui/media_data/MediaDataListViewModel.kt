@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.data.MediaDataRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
-import com.progressterra.ipbandroidview.ui.login.settings.MediaDataSettings
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.loadingResult
@@ -22,8 +21,8 @@ class MediaDataListViewModel(
 ) : BaseBindingViewModel() {
     private val repo = MediaDataRepository()
 
-    private val mediaDataSettings: MediaDataSettings =
-        savedState.get<MediaDataSettings>("mediaDataFlowSettings")
+    private val mediaDataSettings: String =
+        savedState.get<String>("entityId")
             .orIfNull { throw NullPointerException("Did you forget to set idEntity?") }
 
     private val _mediaDataList = MutableLiveData<SResult<List<MediaDataUi>>>()
@@ -47,7 +46,7 @@ class MediaDataListViewModel(
         }) {
 
             _mediaDataList.postValue(loadingResult())
-            _mediaDataList.postValue(repo.getMediaDataList(mediaDataSettings.idEntity))
+            _mediaDataList.postValue(repo.getMediaDataList(mediaDataSettings))
         }
     }
 

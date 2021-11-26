@@ -58,7 +58,7 @@ class MediaDataListFragment :
                 fileHelper.showFileViewDialog(
                     it,
                     requireContext(),
-                    args.mediaDataFlowSettings.authority
+                    args.authority
                 )
             }
         }

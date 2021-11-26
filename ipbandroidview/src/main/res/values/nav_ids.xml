@@ -4,5 +4,4 @@
     <item name="login_flow" type="id" />
     <item name="addresses_flow" type="id" />
     <item name="invite_friends_flow" type="id" />
-    <item name="media_data_flow" type="id" />
 </resources>
