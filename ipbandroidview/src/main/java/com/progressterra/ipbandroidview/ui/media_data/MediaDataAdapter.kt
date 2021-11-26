@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.progressterra.ipbandroidview.databinding.ItemMediaDataHtmlLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemMediaDataPdfLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemMediaDataVideoLibBinding
@@ -119,7 +120,9 @@ class MediaDataVideoViewHolder(var binding: ItemMediaDataVideoLibBinding) :
     fun bind(item: MediaDataUi, onClick: (MediaDataUi) -> Unit) {
 
         // грузим превью видео
-        Picasso.get().load(item.urlData)
+        Glide.with(binding.root.context)
+            .load(item.urlData)
+            .thumbnail(0.5f)
             .into(binding.ivPreview)
 
         binding.productSubInfo = item
