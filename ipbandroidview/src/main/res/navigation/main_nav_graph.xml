@@ -121,5 +121,16 @@
             app:nullable="false" />
     </dialog>
 
+    <fragment
+        android:id="@+id/mediaDataFragment"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.MediaDataFragment"
+        android:label="MediaDataFragment">
+        <argument
+            android:name="authority"
+            app:argType="string" />
+        <argument
+            android:name="mediaDataId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
