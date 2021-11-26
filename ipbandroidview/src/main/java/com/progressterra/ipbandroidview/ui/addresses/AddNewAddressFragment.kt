@@ -68,7 +68,7 @@ class AddNewAddressFragment : BaseFragment() {
             }
 
             popBackStack.observe(viewLifecycleOwner) {
-                findNavController().popBackStack()
+                findNavController().popBackStack(R.id.listOfAddressesFragment, true)
             }
         }
     }
