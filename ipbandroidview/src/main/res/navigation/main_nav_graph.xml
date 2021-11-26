@@ -11,21 +11,6 @@
     <include app:graph="@navigation/addresses_flow" />
     <include app:graph="@navigation/invite_friends_flow" />
 
-
-    <action
-        android:id="@+id/action_global_login_flow"
-        app:destination="@id/login_flow"
-        app:enterAnim="@anim/slide_left"
-        app:exitAnim="@anim/wait_anim"
-        app:popEnterAnim="@anim/wait_anim"
-        app:popExitAnim="@anim/slide_right"
-        app:popUpTo="@id/main_nav_graph"
-        app:popUpToInclusive="true">
-        <argument
-            android:name="loginFlowSettings"
-            app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings" />
-    </action>
-
     <action
         android:id="@+id/action_media_data"
         app:destination="@id/login_flow"
@@ -107,7 +92,7 @@
 
     <dialog
         android:id="@+id/subInfoDialogFragmentHtml"
-        android:name="com.progressterra.ipbandroidview.ui.media_data.feeds_details.MediaDataDetailsHtmlFragment"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.media_data_details.MediaDataDetailsHtmlFragment"
         android:label="SubInfoDialogFragmentHtml">
         <argument
             android:name="url"
@@ -117,7 +102,7 @@
 
     <dialog
         android:id="@+id/subInfoDialogFragmentVideo"
-        android:name="com.progressterra.ipbandroidview.ui.media_data.feeds_details.MediaDataDetailsVideoFragment"
+        android:name="com.progressterra.ipbandroidview.ui.media_data.media_data_details.MediaDataDetailsVideoFragment"
         android:label="SubInfoDialogFragmentVideo">
         <argument
             android:name="url"

@@ -16,7 +16,7 @@ class MediaDataListFragment :
 
     private val fileHelper by lazy { FileHelper() }
 
-    val args: MediaDataListFragmentArgs by navArgs()
+    private val args: MediaDataListFragmentArgs by navArgs()
 
     override val vm by viewModels<MediaDataListViewModel>()
 
@@ -51,7 +51,7 @@ class MediaDataListFragment :
     private fun setupViewModel() {
         with(vm) {
             mediaDataList.observe(viewLifecycleOwner) {
-                adapter.submitList(it.data ?: emptyList())
+                adapter.submitList(it.data)
             }
 
             downloadedFileStream.observe(viewLifecycleOwner) {

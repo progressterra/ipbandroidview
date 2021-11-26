@@ -45,7 +45,7 @@ class MediaDataListViewModel(
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
             _mediaDataList.postValue(emptyFailed())
 
-            Log.d("MediaDataListViewModel", throwable.toString())
+            Log.e("MediaDataListViewModel", throwable.toString())
         }) {
 
             _mediaDataList.postValue(loadingResult())

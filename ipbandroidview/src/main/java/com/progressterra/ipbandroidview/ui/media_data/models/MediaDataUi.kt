@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.media_data.models
 
 import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData
 
-class MediaDataUi(
+data class MediaDataUi(
     val alias: String?,
     val contentType: ContentType,
     val dateEvent: String?,

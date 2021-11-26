@@ -1,37 +1,32 @@
-package com.progressterra.ipbandroidview.ui.media_data.feeds_details
+package com.progressterra.ipbandroidview.ui.media_data.media_data_details
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.DialogDetailFeedVideoLibBinding
+import com.progressterra.ipbandroidview.ui.base.BaseBindingDialogFragment
+import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 
 
-class MediaDataDetailsVideoFragment : DialogFragment() {
+class MediaDataDetailsVideoFragment :
+    BaseBindingDialogFragment<DialogDetailFeedVideoLibBinding, BaseBindingViewModel>(
+        R.layout.dialog_detail_feed_video_lib
+    ) {
 
     private val args: MediaDataDetailsVideoFragmentArgs by navArgs()
 
     private var currentPlayPos: Long? = null
 
-    private lateinit var binding: DialogDetailFeedVideoLibBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+    override fun onInitBinding(
+        binding: DialogDetailFeedVideoLibBinding,
         savedInstanceState: Bundle?
-    ): View {
-        binding = DialogDetailFeedVideoLibBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    ) {
+        super.onInitBinding(binding, savedInstanceState)
         currentPlayPos = savedInstanceState?.getLong("currentPlayPosition")
 
         setupVideoPlayer(args.url)
@@ -41,14 +36,6 @@ class MediaDataDetailsVideoFragment : DialogFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-    }
-
     override fun onPause() {
         super.onPause()
         binding.playerView.player?.stop()
@@ -56,8 +43,6 @@ class MediaDataDetailsVideoFragment : DialogFragment() {
     }
 
     private fun setupVideoPlayer(url: String) {
-
-        val playerView = binding.playerView
         val player = SimpleExoPlayer.Builder(requireContext()).build()
 
         val mediaItem: MediaItem = MediaItem.fromUri(Uri.parse(url))
@@ -69,7 +54,7 @@ class MediaDataDetailsVideoFragment : DialogFragment() {
         }
         player.play()
 
-        playerView.player = player
+        binding.playerView.player = player
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

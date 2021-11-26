@@ -2,11 +2,9 @@ package com.progressterra.ipbandroidview.ui.media_data
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.ItemMediaDataHtmlLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemMediaDataPdfLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemMediaDataVideoLibBinding
@@ -14,10 +12,6 @@ import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.squareup.picasso.Picasso
 
-
-const val TEXT_VIEW_TYPE = 0
-const val VIDEO_VIEW_TYPE = 1
-const val PDF_VIEW_TYPE = 2
 
 class MediaDataListAdapter(
     private val onClick: (MediaDataUi) -> Unit
@@ -29,9 +23,8 @@ class MediaDataListAdapter(
         when (viewType) {
             TEXT_VIEW_TYPE -> {
                 val binding: ItemMediaDataHtmlLibBinding =
-                    DataBindingUtil.inflate(
+                    ItemMediaDataHtmlLibBinding.inflate(
                         inflater,
-                        R.layout.item_media_data_html_lib,
                         parent,
                         false
                     )
@@ -39,9 +32,8 @@ class MediaDataListAdapter(
             }
             VIDEO_VIEW_TYPE -> {
                 val binding: ItemMediaDataVideoLibBinding =
-                    DataBindingUtil.inflate(
+                    ItemMediaDataVideoLibBinding.inflate(
                         inflater,
-                        R.layout.item_media_data_video_lib,
                         parent,
                         false
                     )
@@ -50,9 +42,8 @@ class MediaDataListAdapter(
 
             PDF_VIEW_TYPE -> {
                 val binding: ItemMediaDataPdfLibBinding =
-                    DataBindingUtil.inflate(
+                    ItemMediaDataPdfLibBinding.inflate(
                         inflater,
-                        R.layout.item_media_data_pdf_lib,
                         parent,
                         false
                     )
@@ -66,11 +57,12 @@ class MediaDataListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position).contentType) {
+        return when (getItem(position)?.contentType) {
             ContentType.VIDEO -> VIDEO_VIEW_TYPE
             ContentType.HTML -> TEXT_VIEW_TYPE
             ContentType.PDF -> PDF_VIEW_TYPE
             ContentType.UNKNOWN -> error("Unknown content type")
+            else -> error("Unknown content type")
         }
     }
 
@@ -89,6 +81,12 @@ class MediaDataListAdapter(
                 onClick
             )
         }
+    }
+
+    companion object {
+        const val TEXT_VIEW_TYPE = 0
+        const val VIDEO_VIEW_TYPE = 1
+        const val PDF_VIEW_TYPE = 2
     }
 
 }

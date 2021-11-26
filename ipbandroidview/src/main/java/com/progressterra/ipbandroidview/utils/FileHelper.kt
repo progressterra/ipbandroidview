@@ -206,7 +206,7 @@ class FileHelper {
                 context.startActivity(intent) else {
                 Toast.makeText(
                     context,
-                    "Действие не поддерживается ни в одном приложении",
+                    context.getText(R.string.incorrect_action),
                     Toast.LENGTH_SHORT
                 ).show()
             }
