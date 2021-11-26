@@ -16,10 +16,9 @@
         android:orientation="vertical"
         tools:ignore="WebViewLayout">
 
-
         <TextView
             android:id="@+id/tv_sub_info_title"
-            style="@style/Title"
+            style="@style/Text.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{ProductSubInfo.alias}"
@@ -34,14 +33,13 @@
 
         <TextView
             android:id="@+id/btn_show_more"
-            style="@style/Text.CalloutClick"
+            style="@style/Text.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:lineSpacingExtra="5dp"
             android:text="@string/product_subinfo_detail_button"
-            android:textAllCaps="false"
-            android:textSize="15sp" />
+            android:textAllCaps="false" />
 
         <View
             android:layout_width="match_parent"
