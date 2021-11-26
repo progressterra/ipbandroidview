@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.data.MediaDataRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.utils.SResult
+import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
 import com.progressterra.ipbandroidview.utils.extensions.loadingResult
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +43,8 @@ class MediaDataListViewModel(
 
     fun fetchMediaDataList() {
         viewModelScope.launch(Dispatchers.IO + CoroutineExceptionHandler { _, throwable ->
+            _mediaDataList.postValue(emptyFailed())
+
             Log.d("MediaDataListViewModel", throwable.toString())
         }) {
 
