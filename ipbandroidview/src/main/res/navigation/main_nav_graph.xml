@@ -11,8 +11,9 @@
     <include app:graph="@navigation/addresses_flow" />
     <include app:graph="@navigation/invite_friends_flow" />
 
+
     <action
-        android:id="@+id/action_media_data"
+        android:id="@+id/action_global_login_flow"
         app:destination="@id/login_flow"
         app:enterAnim="@anim/slide_left"
         app:exitAnim="@anim/wait_anim"
@@ -21,8 +22,8 @@
         app:popUpTo="@id/main_nav_graph"
         app:popUpToInclusive="true">
         <argument
-            android:name="mediaDataFlowSettings"
-            app:argType="com.progressterra.ipbandroidview.ui.login.settings.MediaDataSettings" />
+            android:name="loginFlowSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings" />
     </action>
 
 

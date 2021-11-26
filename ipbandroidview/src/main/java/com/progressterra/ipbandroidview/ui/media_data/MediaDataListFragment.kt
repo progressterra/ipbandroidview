@@ -28,7 +28,7 @@ class MediaDataListFragment :
             )
 
             ContentType.HTML -> findNavController().navigate(
-                R.id.subInfoDialogFragmentHtml,
+                R.id.dialogWebViewLib,
                 bundleOf("url" to it.urlData)
             )
 
