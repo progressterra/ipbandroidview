@@ -395,6 +395,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="mediaDataFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="mediaDataListFragment">
                     <value>
                       <LayoutPositions>
@@ -402,18 +414,6 @@
                           <Point>
                             <option name="x" value="310" />
                             <option name="y" value="-2490" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="subInfoDialogFragmentHtml">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -492,18 +492,6 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="dialogWebViewLib">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="368" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="fragmentRemoveAccount">
                     <value>
                       <LayoutPositions>
@@ -535,6 +523,18 @@
                           <Point>
                             <option name="x" value="12" />
                             <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="mediaDataFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="310" />
+                            <option name="y" value="-3450" />
                           </Point>
                         </option>
                       </LayoutPositions>
