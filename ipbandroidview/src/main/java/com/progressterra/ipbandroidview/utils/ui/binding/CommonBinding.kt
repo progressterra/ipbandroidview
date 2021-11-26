@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.utils.ui.binding
 
+import android.util.Base64
 import android.view.View
+import android.webkit.WebView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.databinding.BindingAdapter
@@ -37,5 +39,17 @@ internal fun setLoadStateToButton(button: AppCompatButton, isLoading: Boolean) {
     } else {
         button.textScaleX = 1f
     }
+}
 
+@BindingAdapter("setHtmlData")
+fun setHtmlData(webView: WebView, url: String?) {
+    url ?: return
+    val htmlString = Base64.encodeToString(url.toByteArray(), Base64.NO_PADDING)
+
+    webView.loadData(htmlString, "text/html", "base64")
+    webView.settings.javaScriptEnabled = true
+    webView.settings.apply {
+        loadWithOverviewMode = true
+        useWideViewPort = true
+    }
 }

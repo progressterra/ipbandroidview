@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
+import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
@@ -45,6 +46,11 @@ internal interface IRepository {
             descriptionDialog: String = "",
             dialogImage: String = ""
         ): SResult<String>
+    }
+
+    interface MediaData {
+        suspend fun getMediaDataList(idEntity: String): SResult<List<MediaDataUi>>
+        suspend fun getMediaData(idMediaData: String): SResult<MediaDataUi>
     }
 
     interface AmbassadorInfo {
