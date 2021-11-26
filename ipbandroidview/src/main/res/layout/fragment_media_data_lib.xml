@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:elevation="5dp"
+            android:elevation="4dp"
             android:visibility="@{vm.mediaDataList.loading}" />
 
         <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="5dp"
+            android:onClick="@{_->vm.fetchMediaDataList()}"
             android:visibility="@{vm.mediaDataList.error}"
             app:text="@string/refresh" />
 

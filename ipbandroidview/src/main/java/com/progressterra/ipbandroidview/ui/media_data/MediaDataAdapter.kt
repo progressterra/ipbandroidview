@@ -49,14 +49,14 @@ class MediaDataListAdapter(
             }
 
             PDF_VIEW_TYPE -> {
-                val binding: ItemMediaDataHtmlLibBinding =
+                val binding: ItemMediaDataPdfLibBinding =
                     DataBindingUtil.inflate(
                         inflater,
-                        R.layout.item_media_data_html_lib,
+                        R.layout.item_media_data_pdf_lib,
                         parent,
                         false
                     )
-                return MediaDataHtmlViewHolder(binding)
+                return MediaDataPdfViewHolder(binding)
             }
 
             else -> {
