@@ -28,9 +28,13 @@ class ListOfAddressesViewModel :
     private val _listOfAddress = MutableLiveData<List<AddressUI>>()
     val listOfAddress: LiveData<List<AddressUI>> = _listOfAddress
 
+    private val _popBackStack = MutableLiveData<Event<Boolean>>()
+    val popBackStack: LiveData<Event<Boolean>> = _popBackStack
+
     init {
         getListOfAddresses()
     }
+
 
     fun getListOfAddresses() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -98,6 +102,7 @@ class ListOfAddressesViewModel :
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                     getListOfAddresses()
                     _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_success)))
+                    _popBackStack.postValue(Event(true))
                 } else {
                     _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_error)))
                 }

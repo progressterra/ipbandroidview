@@ -40,6 +40,12 @@ class ListOfAddressesFragment : BaseFragment() {
         vm.listOfAddress.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+
+        vm.popBackStack.observe(viewLifecycleOwner) {
+            it.contentIfNotHandled?.let {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun setupListeners() {
