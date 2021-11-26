@@ -92,16 +92,6 @@
     </dialog>
 
     <dialog
-        android:id="@+id/subInfoDialogFragmentHtml"
-        android:name="com.progressterra.ipbandroidview.ui.media_data.media_data_details.MediaDataDetailsHtmlFragment"
-        android:label="SubInfoDialogFragmentHtml">
-        <argument
-            android:name="url"
-            app:argType="string" />
-
-    </dialog>
-
-    <dialog
         android:id="@+id/subInfoDialogFragmentVideo"
         android:name="com.progressterra.ipbandroidview.ui.media_data.media_data_details.MediaDataDetailsVideoFragment"
         android:label="SubInfoDialogFragmentVideo">
