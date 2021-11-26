@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
@@ -17,6 +18,7 @@ import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class AddNewAddressViewModel :
@@ -62,7 +64,16 @@ class AddNewAddressViewModel :
             _addAddressStatus.postValue(ScreenState.ERROR)
             _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
         }) {
-            if (address.value == null) return@launch
+            val mAddress = address.value ?: return@launch
+            // устанавливаем даты в адресе текущим днем, так как логика на сервере устанавливает адреса с
+            // более новыми датами, как адресс по умолчанию
+
+            mAddress.apply {
+                val currentDate = Date()
+                defaultBilling = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+                defaultShipping = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+                dateAdded = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+            }
 
             if (addAddressStatus.value == ScreenState.LOADING) {
                 return@launch
@@ -82,9 +93,11 @@ class AddNewAddressViewModel :
                 }
             }
 
+
+
             addressApi.addClientAddress(
                 accessToken,
-                AddressesMapper.convertAddressUiModelToDto(address.value!!)
+                AddressesMapper.convertAddressUiModelToDto(mAddress)
             ).let {
                 if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
                     _toastBundle.postValue(Event(ToastBundle(R.string.add_address_success)))
