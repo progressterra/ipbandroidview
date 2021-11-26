@@ -10,10 +10,26 @@
 
     <include app:graph="@navigation/addresses_flow" />
     <include app:graph="@navigation/invite_friends_flow" />
+    <include app:graph="@navigation/media_data_flow" />
 
 
     <action
         android:id="@+id/action_global_login_flow"
+        app:destination="@id/login_flow"
+        app:enterAnim="@anim/slide_left"
+        app:exitAnim="@anim/wait_anim"
+        app:popEnterAnim="@anim/wait_anim"
+        app:popExitAnim="@anim/slide_right"
+        app:popUpTo="@id/main_nav_graph"
+        app:popUpToInclusive="true">
+        <argument
+            android:name="mediaDataFlowSettings"
+            app:argType="com.progressterra.ipbandroidview.ui.login.settings.MediaDataSettings" />
+    </action>
+
+
+    <action
+        android:id="@+id/action_global_media_data_flow"
         app:destination="@id/login_flow"
         app:enterAnim="@anim/slide_left"
         app:exitAnim="@anim/wait_anim"
