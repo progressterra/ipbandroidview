@@ -9,9 +9,11 @@ import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.data.MediaDataRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
+import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
 import com.progressterra.ipbandroidview.utils.extensions.loadingResult
+import com.progressterra.ipbandroidview.utils.extensions.toToastResult
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,8 +31,8 @@ class MediaDataListViewModel(
     private val _mediaDataList = MutableLiveData<SResult<List<MediaDataUi>>>()
     val mediaDataList: LiveData<SResult<List<MediaDataUi>>> = _mediaDataList
 
-    private val _downloadedFileStream = MutableLiveData<InputStream>()
-    val downloadedFileStream: LiveData<InputStream> =
+    private val _downloadedFileStream = MutableLiveData<Event<InputStream>>()
+    val downloadedFileStream: LiveData<Event<InputStream>> =
         _downloadedFileStream
 
     init {
@@ -39,6 +41,18 @@ class MediaDataListViewModel(
 
     fun downloadFile(url: String?) {
         if (url == null) return
+        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+            toastLiveData.postValue("Ошибка при скачивании файла".toToastResult())
+        }) {
+
+            repo.downloadFile(url).let {
+                if (it is SResult.Success) {
+                    _downloadedFileStream.postValue(Event(it.data.byteStream()))
+                } else {
+                    toastLiveData.postValue("Ошибка при скачивании файла".toToastResult())
+                }
+            }
+        }
     }
 
     fun fetchMediaDataList() {

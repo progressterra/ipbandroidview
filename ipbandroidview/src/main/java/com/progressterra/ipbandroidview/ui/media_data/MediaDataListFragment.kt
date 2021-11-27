@@ -55,11 +55,13 @@ class MediaDataListFragment :
             }
 
             downloadedFileStream.observe(viewLifecycleOwner) {
-                fileHelper.showFileViewDialog(
-                    it,
-                    requireContext(),
-                    args.authority
-                )
+                it.contentIfNotHandled?.let {
+                    fileHelper.showFileViewDialog(
+                        it,
+                        requireContext(),
+                        args.authority
+                    )
+                }
             }
         }
     }
