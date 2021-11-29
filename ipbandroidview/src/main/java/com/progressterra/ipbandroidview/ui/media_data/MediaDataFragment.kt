@@ -59,13 +59,12 @@ class MediaDataFragment :
 
         vm.downloadedFileStream.observeAndHandleSResult {
             if (it is SResult.Success)
-                it.handle {
                     fileHelper.showFileViewDialog(
                         it.data,
                         requireContext(),
                         args.authority
                     )
-                }
+
         }
     }
 
