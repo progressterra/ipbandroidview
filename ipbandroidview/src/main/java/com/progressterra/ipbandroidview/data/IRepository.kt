@@ -51,6 +51,7 @@ internal interface IRepository {
     interface MediaData {
         suspend fun getMediaDataList(idEntity: String): SResult<List<MediaDataUi>>
         suspend fun getMediaData(idMediaData: String): SResult<MediaDataUi>
+        suspend fun downloadFile(fileUrl: String): SResult<ResponseBody>
     }
 
     interface AmbassadorInfo {

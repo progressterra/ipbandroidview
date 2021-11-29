@@ -4,8 +4,10 @@ import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.media_data.models.toUiModel
 import com.progressterra.ipbandroidview.utils.SResult
+import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
+import okhttp3.ResponseBody
 
 class MediaDataRepository : IRepository.MediaData {
 
@@ -21,5 +23,10 @@ class MediaDataRepository : IRepository.MediaData {
         val response = mediaDataApi.getMediaDataById(idMediaData)
         return response.mediaData?.toUiModel()?.toSuccessResult()
             ?: response.result?.message.toFailedResult()
+    }
+
+    override suspend fun downloadFile(fileUrl: String): SResult<ResponseBody> {
+        val response = mediaDataApi.downloadFile(fileUrl)
+        return response.body()?.toSuccessResult() ?: emptyFailed()
     }
 }
