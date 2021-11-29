@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.databinding.FragmentMediaDataLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
 import com.progressterra.ipbandroidview.utils.FileHelper
+import com.progressterra.ipbandroidview.utils.SResult
 
 class MediaDataListFragment :
     BaseBindingFragment<FragmentMediaDataLibBinding, MediaDataListViewModel>(R.layout.fragment_media_data_lib) {
@@ -54,14 +55,15 @@ class MediaDataListFragment :
                 adapter.submitList(it.data)
             }
 
-            downloadedFileStream.observe(viewLifecycleOwner) {
-                it.contentIfNotHandled?.let {
-                    fileHelper.showFileViewDialog(
-                        it,
-                        requireContext(),
-                        args.authority
-                    )
-                }
+            downloadedFileStream.observeAndHandleSResult {
+                if (it is SResult.Success)
+                    it.handle {
+                        fileHelper.showFileViewDialog(
+                            it.data,
+                            requireContext(),
+                            args.authority
+                        )
+                    }
             }
         }
     }

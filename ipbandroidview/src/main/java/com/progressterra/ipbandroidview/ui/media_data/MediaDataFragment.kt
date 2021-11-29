@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.utils.FileHelper
+import com.progressterra.ipbandroidview.utils.SResult
 
 class MediaDataFragment :
     BaseBindingFragment<FragmentMediaDataBinding, MediaDataViewModel>(R.layout.fragment_media_data) {
@@ -34,7 +35,7 @@ class MediaDataFragment :
         setupViewModel()
     }
 
-    fun setupViewModel() {
+    private fun setupViewModel() {
         vm.mediaData.observe(viewLifecycleOwner) { it ->
             it.data?.let { mediaData ->
                 val infalter = LayoutInflater.from(requireContext())
@@ -56,14 +57,15 @@ class MediaDataFragment :
             }
         }
 
-        vm.downloadedFileStream.observe(viewLifecycleOwner) {
-            it.contentIfNotHandled?.let {
-                fileHelper.showFileViewDialog(
-                    it,
-                    requireContext(),
-                    args.authority
-                )
-            }
+        vm.downloadedFileStream.observeAndHandleSResult {
+            if (it is SResult.Success)
+                it.handle {
+                    fileHelper.showFileViewDialog(
+                        it.data,
+                        requireContext(),
+                        args.authority
+                    )
+                }
         }
     }
 
