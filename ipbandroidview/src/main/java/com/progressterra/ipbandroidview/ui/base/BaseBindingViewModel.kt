@@ -42,7 +42,7 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
                 try {
                     launchBlock.invoke()
                 } catch (e: Exception) {
-                    Log.e(javaClass.simpleName, "$e")
+                    Log.e(this@BaseBindingViewModel.javaClass.simpleName, "$e", e)
                     onCatch?.invoke(e)
                 }
             }
@@ -69,7 +69,7 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
             try {
                 launchBlock.invoke()
             } catch (e: Exception) {
-                Log.e(javaClass.simpleName, "$e")
+                Log.e(this@BaseBindingViewModel.javaClass.simpleName, "$e", e)
             }
         }
         namedJobs[launchName] = newJob
@@ -88,7 +88,7 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
             try {
                 launchBlock.invoke()
             } catch (e: Exception) {
-                Log.e(javaClass.simpleName, "e")
+                Log.e(this@BaseBindingViewModel.javaClass.simpleName, "$e", e)
                 onCatch?.invoke(e)
             }
         }
