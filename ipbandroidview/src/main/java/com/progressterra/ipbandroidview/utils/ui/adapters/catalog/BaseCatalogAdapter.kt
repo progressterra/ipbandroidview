@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.databinding.ItemCategoryLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemCategorySubLibBinding
 import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.DataBindingRecyclerAdapter
 import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.DiffUtilCallback
+import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.ScrollStateHolder
 
 class BaseCatalogAdapter(
     private val onSubItemClick: ((SubCategoryUILib) -> Unit),

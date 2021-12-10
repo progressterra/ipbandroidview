@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.utils.ui.adapters.catalog
+package com.progressterra.ipbandroidview.utils.ui.adapters.recycler
 
 import android.os.Bundle
 import android.os.Parcelable
