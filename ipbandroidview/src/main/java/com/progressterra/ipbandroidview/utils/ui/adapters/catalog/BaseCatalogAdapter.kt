@@ -18,7 +18,7 @@ class BaseCatalogAdapter(
     private val onSubItemClick: ((SubCategoryUILib) -> Unit),
     private val lifeCycleOwner: LifecycleOwner,
     private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null,
-    private val scrollStateHolder: ScrollStateHolder
+    private val scrollStateHolder: ScrollStateHolder? = null
 ) : ListAdapter<CategoryUILib, BaseCatalogAdapter.CategoryViewHolder>(DiffUtilCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
@@ -98,17 +98,17 @@ class BaseCatalogAdapter(
                 }
             }
 
-            scrollStateHolder.restoreScrollState(binding.rvSub, this)
+            scrollStateHolder?.restoreScrollState(binding.rvSub, this)
         }
 
         fun onCreated() {
             binding.rvSub.adapter = adapter
             binding.rvSub.layoutManager = layoutManager
-            scrollStateHolder.setupRecyclerView(binding.rvSub, this)
+            scrollStateHolder?.setupRecyclerView(binding.rvSub, this)
         }
 
         fun onRecycled() {
-            scrollStateHolder.saveScrollState(binding.rvSub, this)
+            scrollStateHolder?.saveScrollState(binding.rvSub, this)
             currentItem = null
         }
     }
