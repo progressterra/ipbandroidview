@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ScrollStateHolder(savedInstanceState: Bundle? = null) {
 
     companion object {
-        const val STATE_BUNDLE = "scroll_state_bundle"
+        private const val STATE_BUNDLE = "_scroll_state_holder_bundle_key_"
     }
 
     /**

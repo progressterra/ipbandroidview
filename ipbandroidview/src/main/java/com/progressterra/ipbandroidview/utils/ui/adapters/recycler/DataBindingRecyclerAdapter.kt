@@ -18,7 +18,6 @@ class DataBindingRecyclerAdapter<Item : IListItem, Binding : ViewDataBinding>(
     diffUtilCallback: DiffUtil.ItemCallback<Item> = DiffUtilCallback()
 ) : ListAdapter<Item, DataBindingViewHolder<Item, Binding>>(diffUtilCallback) {
 
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

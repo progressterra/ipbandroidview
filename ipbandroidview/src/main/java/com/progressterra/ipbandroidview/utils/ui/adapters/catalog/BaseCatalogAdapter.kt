@@ -52,7 +52,7 @@ class BaseCatalogAdapter(
         private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
     ) : RecyclerView.ViewHolder(binding.root), ScrollStateHolder.ScrollStateKeyProvider {
 
-        private var currentItem: CategoryUILib? = null
+        private var currentId: String? = null
 
         private val adapter: DataBindingRecyclerAdapter<SubCategoryUILib, ItemCategorySubLibBinding> by lazy {
             DataBindingRecyclerAdapter(
@@ -62,11 +62,11 @@ class BaseCatalogAdapter(
             )
         }
 
-        override fun getScrollStateKey(): String? = currentItem?.title
+        override fun getScrollStateKey(): String? = currentId
 
         fun onBind(categoryUI: CategoryUILib) {
             with(binding) {
-                currentItem = categoryUI
+                currentId = categoryUI.id
 
                 item = categoryUI
                 lifecycleOwner = lifecycleOwner
@@ -105,7 +105,7 @@ class BaseCatalogAdapter(
 
         fun onRecycled() {
             scrollStateHolder?.saveScrollState(binding.rvSub, this)
-            currentItem = null
+            currentId = null
         }
     }
 }
