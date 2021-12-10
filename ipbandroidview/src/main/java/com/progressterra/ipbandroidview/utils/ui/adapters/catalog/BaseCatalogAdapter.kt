@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.utils.ui.adapters.catalog
 
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,52 +17,45 @@ import com.progressterra.ipbandroidview.utils.ui.adapters.recycler.DiffUtilCallb
 class BaseCatalogAdapter(
     private val onSubItemClick: ((SubCategoryUILib) -> Unit),
     private val lifeCycleOwner: LifecycleOwner,
-    private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
+    private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null,
+    private val scrollStateHolder: ScrollStateHolder
 ) : ListAdapter<CategoryUILib, BaseCatalogAdapter.CategoryViewHolder>(DiffUtilCallback()) {
-
-    private val scrollStates = hashMapOf<String, Parcelable>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemCategoryLibBinding.inflate(layoutInflater, parent, false)
-        return CategoryViewHolder(
+        val vh = CategoryViewHolder(
             binding = binding,
             lifecycleOwner = lifeCycleOwner,
             onSubItemClick = onSubItemClick,
             onCategoryClick = onCategoryClick
         )
-    }
 
-    override fun onViewRecycled(holder: CategoryViewHolder) {
-        super.onViewRecycled(holder)
+        vh.onCreated()
 
-        val key = currentList[holder.absoluteAdapterPosition].title
-        holder.layoutManager.onSaveInstanceState()?.let { scrollStates[key] = it }
+        return vh
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         getItem(position)?.let { holder.onBind(it) }
-
-        val key = currentList[holder.absoluteAdapterPosition].title
-        val state = scrollStates[key]
-
-        if (state != null) {
-            holder.layoutManager.onRestoreInstanceState(state)
-        } else {
-            holder.layoutManager.scrollToPosition(0)
-        }
     }
 
+    override fun onViewRecycled(holder: CategoryViewHolder) {
+        super.onViewRecycled(holder)
+        holder.onRecycled()
+    }
 
     inner class CategoryViewHolder(
         private val binding: ItemCategoryLibBinding,
         private val lifecycleOwner: LifecycleOwner,
         private val onSubItemClick: (SubCategoryUILib) -> Unit,
         private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
-    ) : RecyclerView.ViewHolder(binding.root) {
+    ) : RecyclerView.ViewHolder(binding.root), ScrollStateHolder.ScrollStateKeyProvider {
 
         val layoutManager =
             LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
+
+        private var currentItem: CategoryUILib? = null
 
         private val adapter: DataBindingRecyclerAdapter<SubCategoryUILib, ItemCategorySubLibBinding> by lazy {
             DataBindingRecyclerAdapter(
@@ -73,13 +65,14 @@ class BaseCatalogAdapter(
             )
         }
 
+        override fun getScrollStateKey(): String? = currentItem?.title
+
         fun onBind(categoryUI: CategoryUILib) {
             with(binding) {
+                currentItem = categoryUI
+
                 item = categoryUI
                 lifecycleOwner = lifecycleOwner
-
-                rvSub.adapter = adapter
-                rvSub.layoutManager = layoutManager
 
                 adapter.submitList(categoryUI.subCategory)
 
@@ -104,6 +97,19 @@ class BaseCatalogAdapter(
                     }
                 }
             }
+
+            scrollStateHolder.restoreScrollState(binding.rvSub, this)
+        }
+
+        fun onCreated() {
+            binding.rvSub.adapter = adapter
+            binding.rvSub.layoutManager = layoutManager
+            scrollStateHolder.setupRecyclerView(binding.rvSub, this)
+        }
+
+        fun onRecycled() {
+            scrollStateHolder.saveScrollState(binding.rvSub, this)
+            currentItem = null
         }
     }
 }
