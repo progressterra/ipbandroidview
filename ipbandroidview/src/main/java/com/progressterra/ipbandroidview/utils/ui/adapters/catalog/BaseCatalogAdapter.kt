@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidview.R
@@ -52,9 +51,6 @@ class BaseCatalogAdapter(
         private val onSubItemClick: (SubCategoryUILib) -> Unit,
         private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
     ) : RecyclerView.ViewHolder(binding.root), ScrollStateHolder.ScrollStateKeyProvider {
-
-        val layoutManager =
-            LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
 
         private var currentItem: CategoryUILib? = null
 
@@ -104,7 +100,6 @@ class BaseCatalogAdapter(
 
         fun onCreated() {
             binding.rvSub.adapter = adapter
-            binding.rvSub.layoutManager = layoutManager
             scrollStateHolder?.setupRecyclerView(binding.rvSub, this)
         }
 
