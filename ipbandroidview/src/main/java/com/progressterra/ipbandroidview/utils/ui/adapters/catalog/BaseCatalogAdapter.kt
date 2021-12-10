@@ -1,10 +1,12 @@
 package com.progressterra.ipbandroidview.utils.ui.adapters.catalog
 
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.progressterra.ipbandroidview.R
@@ -19,6 +21,8 @@ class BaseCatalogAdapter(
     private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
 ) : ListAdapter<CategoryUILib, BaseCatalogAdapter.CategoryViewHolder>(DiffUtilCallback()) {
 
+    private val scrollStates = hashMapOf<String, Parcelable>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemCategoryLibBinding.inflate(layoutInflater, parent, false)
@@ -30,8 +34,24 @@ class BaseCatalogAdapter(
         )
     }
 
+    override fun onViewRecycled(holder: CategoryViewHolder) {
+        super.onViewRecycled(holder)
+
+        val key = currentList[holder.absoluteAdapterPosition].title
+        holder.layoutManager.onSaveInstanceState()?.let { scrollStates[key] = it }
+    }
+
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         getItem(position)?.let { holder.onBind(it) }
+
+        val key = currentList[holder.absoluteAdapterPosition].title
+        val state = scrollStates[key]
+
+        if (state != null) {
+            holder.layoutManager.onRestoreInstanceState(state)
+        } else {
+            holder.layoutManager.scrollToPosition(0)
+        }
     }
 
 
@@ -41,6 +61,9 @@ class BaseCatalogAdapter(
         private val onSubItemClick: (SubCategoryUILib) -> Unit,
         private val onCategoryClick: ((position: Int, isExpanded: Boolean) -> Unit)? = null
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        val layoutManager =
+            LinearLayoutManager(binding.root.context, RecyclerView.HORIZONTAL, false)
 
         private val adapter: DataBindingRecyclerAdapter<SubCategoryUILib, ItemCategorySubLibBinding> by lazy {
             DataBindingRecyclerAdapter(
@@ -56,7 +79,7 @@ class BaseCatalogAdapter(
                 lifecycleOwner = lifecycleOwner
 
                 rvSub.adapter = adapter
-
+                rvSub.layoutManager = layoutManager
 
                 adapter.submitList(categoryUI.subCategory)
 
