@@ -1,12 +1,15 @@
 package com.progressterra.ipbandroidview.data
 
 import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore
+import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData
+import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageData
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.media_data.models.toUiModel
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 
 class MediaDataRepository : IRepository.MediaData {
@@ -28,5 +31,16 @@ class MediaDataRepository : IRepository.MediaData {
     override suspend fun downloadFile(fileUrl: String): SResult<ResponseBody> {
         val response = mediaDataApi.downloadFile(fileUrl)
         return response.body()?.toSuccessResult() ?: emptyFailed()
+    }
+
+    override suspend fun uploadImage(
+        image: MultipartBody.Part,
+        alias: String?
+    ): SResult<UploadImageData> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getMediaDataByEntity(idEntity: String): SResult<List<MediaData>> {
+        TODO("Not yet implemented")
     }
 }
