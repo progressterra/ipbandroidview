@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.data.prefs.UserDataLocal
 import com.progressterra.ipbandroidview.utils.IUseCase
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
+import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 
 internal class GetClientAvatarUseCase : IGetClientAvatarUseCase {
@@ -29,7 +30,13 @@ internal class GetClientAvatarUseCase : IGetClientAvatarUseCase {
             UserDataLocal.avatarUrl = avatarUrl
         }
 
-        return avatarUrl?.toSuccessResult().orIfNull { emptyFailed() }
+        return avatarUrl?.toSuccessResult().orIfNull {
+            if (result is SResult.Failed) {
+                result.message.toFailedResult()
+            } else {
+                emptyFailed()
+            }
+        }
     }
 }
 
