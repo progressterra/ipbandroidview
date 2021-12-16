@@ -19,7 +19,6 @@ import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
-import com.progressterra.ipbandroidview.utils.extensions.loadingResult
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
 import kotlinx.coroutines.launch
 

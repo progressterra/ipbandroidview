@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.data
 
 
-import com.progressterra.ipbandroidapi.api.iProBonusApi.IProBonus
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore

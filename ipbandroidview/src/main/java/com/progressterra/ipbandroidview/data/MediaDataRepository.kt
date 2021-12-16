@@ -3,16 +3,18 @@ package com.progressterra.ipbandroidview.data
 import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore
 import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData
 import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageData
+import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.media_data.models.toUiModel
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
+import com.progressterra.ipbandroidview.utils.extensions.safeApiCall
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 
-class MediaDataRepository : IRepository.MediaData {
+internal class MediaDataRepository : BaseRepository(), IRepository.MediaData {
 
     private val mediaDataApi = IpbMediaDataCore.EntityMobile()
 
@@ -36,11 +38,22 @@ class MediaDataRepository : IRepository.MediaData {
     override suspend fun uploadImage(
         image: MultipartBody.Part,
         alias: String?
-    ): SResult<UploadImageData> {
-        TODO("Not yet implemented")
-    }
+    ): SResult<UploadImageData> =
+        safeApiCall {
+            val token = getAccessToken().data ?: return@safeApiCall emptyFailed()
 
-    override suspend fun getMediaDataByEntity(idEntity: String): SResult<List<MediaData>> {
-        TODO("Not yet implemented")
-    }
+            val response = mediaDataApi.uploadImage(
+                token, alias ?: "0", "0", image
+            )
+
+            response.uploadImageData?.toSuccessResult()
+                .orIfNull { response.toFailedResult() }
+        }
+
+    override suspend fun getMediaDataByEntity(idEntity: String): SResult<List<MediaData>> =
+        safeApiCall {
+            val response = mediaDataApi.getMediaDataListByEntity(idEntity)
+
+            response.mediaDataList?.toSuccessResult().orIfNull { response.toFailedResult() }
+        }
 }

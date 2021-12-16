@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.InvitingMembersRequest
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData
 import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageData
 import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
