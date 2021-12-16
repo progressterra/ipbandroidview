@@ -33,5 +33,10 @@ internal class GetClientAvatarUseCase : IGetClientAvatarUseCase {
     }
 }
 
-interface IGetClientAvatarUseCase : IUseCase.InOut<String, SResult<String>>
+interface IGetClientAvatarUseCase : IUseCase.InOut<String, SResult<String>> {
+
+    companion object {
+        fun IGetClientAvatarUseCase(): IGetClientAvatarUseCase = GetClientAvatarUseCase()
+    }
+}
 

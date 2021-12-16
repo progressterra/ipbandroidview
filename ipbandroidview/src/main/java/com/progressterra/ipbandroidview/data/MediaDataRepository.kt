@@ -40,20 +40,24 @@ internal class MediaDataRepository : BaseRepository(), IRepository.MediaData {
         alias: String?
     ): SResult<UploadImageData> =
         safeApiCall {
-            val token = getAccessToken().data ?: return@safeApiCall emptyFailed()
+            val token = when (val tokenResult = getAccessToken()) {
+                is SResult.Success -> tokenResult.data
+                is SResult.Failed -> return@safeApiCall tokenResult.message.toFailedResult()
+                else -> return@safeApiCall emptyFailed()
+            }
 
             val response = mediaDataApi.uploadImage(
                 token, alias ?: "0", "0", image
             )
 
             response.uploadImageData?.toSuccessResult()
-                .orIfNull { response.toFailedResult() }
+                .orIfNull { response.responseToFailedResult() }
         }
 
     override suspend fun getMediaDataByEntity(idEntity: String): SResult<List<MediaData>> =
         safeApiCall {
             val response = mediaDataApi.getMediaDataListByEntity(idEntity)
 
-            response.mediaDataList?.toSuccessResult().orIfNull { response.toFailedResult() }
+            response.mediaDataList?.toSuccessResult().orIfNull { response.responseToFailedResult() }
         }
 }

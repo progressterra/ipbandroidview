@@ -46,7 +46,7 @@ fun String?.toFailedResult() = SResult.Failed(this, null)
 fun Int.toFailedResult() = SResult.Failed(this, null)
 
 /**
- *  Люая переменная в неудачный результат
+ *  Любая переменная в неудачный результат
  */
 fun <T : Any?> T?.toFailedResult() = SResult.Failed(this, null)
 

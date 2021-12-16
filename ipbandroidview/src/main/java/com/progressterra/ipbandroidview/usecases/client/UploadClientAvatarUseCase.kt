@@ -24,4 +24,10 @@ internal class UploadClientAvatarUseCase : IUploadClientAvatarUseCase {
     }
 }
 
-interface IUploadClientAvatarUseCase : IUseCase.InOut<UploadClientAvatarParams, SResult<UploadImageData>>
+interface IUploadClientAvatarUseCase :
+    IUseCase.InOut<UploadClientAvatarParams, SResult<UploadImageData>> {
+
+    companion object {
+        fun IUploadClientAvatarUseCase(): IUploadClientAvatarUseCase = UploadClientAvatarUseCase()
+    }
+}
