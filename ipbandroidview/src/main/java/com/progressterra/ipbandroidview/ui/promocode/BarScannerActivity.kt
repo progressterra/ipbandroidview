@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.promocode
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
 import com.budiyev.android.codescanner.CodeScanner
 import com.progressterra.ipbandroidview.databinding.ActivityBarScannerLibBinding
 

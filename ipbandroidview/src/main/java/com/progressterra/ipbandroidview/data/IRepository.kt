@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
 import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.InvitingMembersRequest
+import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageData
 import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
@@ -23,6 +24,7 @@ import com.progressterra.ipbandroidview.usecases.goodsPaging.source.StorePagingS
 import com.progressterra.ipbandroidview.utils.ISResult
 import com.progressterra.ipbandroidview.utils.SResult
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import java.io.File
 
@@ -52,6 +54,13 @@ internal interface IRepository {
         suspend fun getMediaDataList(idEntity: String): SResult<List<MediaDataUi>>
         suspend fun getMediaData(idMediaData: String): SResult<MediaDataUi>
         suspend fun downloadFile(fileUrl: String): SResult<ResponseBody>
+        suspend fun uploadImage(
+            image: MultipartBody.Part,
+            alias: String? = null
+        ): SResult<UploadImageData>
+
+        suspend fun getMediaDataByEntity(idEntity: String):
+                SResult<List<com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData>>
     }
 
     interface AmbassadorInfo {

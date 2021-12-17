@@ -46,7 +46,7 @@ fun String?.toFailedResult() = SResult.Failed(this, null)
 fun Int.toFailedResult() = SResult.Failed(this, null)
 
 /**
- *  Люая переменная в неудачный результат
+ *  Любая переменная в неудачный результат
  */
 fun <T : Any?> T?.toFailedResult() = SResult.Failed(this, null)
 
@@ -74,3 +74,8 @@ fun navBackResult() = SResult.NavBackResult
  *  Failed без результатов
  */
 fun emptyFailed() = SResult.Failed(null, null)
+
+inline fun <T : Any> SResult<T>.dataOrFailed(onFailed: (message: Any?) -> T): T =
+    data ?: onFailed(if (this is SResult.Failed) message else null)
+
+

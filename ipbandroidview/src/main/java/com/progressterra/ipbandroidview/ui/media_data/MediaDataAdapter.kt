@@ -11,7 +11,6 @@ import com.progressterra.ipbandroidview.databinding.ItemMediaDataPdfLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemMediaDataVideoLibBinding
 import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
-import com.squareup.picasso.Picasso
 
 
 class MediaDataListAdapter(

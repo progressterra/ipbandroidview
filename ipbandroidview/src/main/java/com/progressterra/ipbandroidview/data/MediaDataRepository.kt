@@ -1,32 +1,60 @@
 package com.progressterra.ipbandroidview.data
 
 import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore
+import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData
+import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageData
+import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.media_data.models.toUiModel
 import com.progressterra.ipbandroidview.utils.SResult
-import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
-import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
-import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
+import com.progressterra.ipbandroidview.utils.extensions.*
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 
-class MediaDataRepository : IRepository.MediaData {
+internal class MediaDataRepository : BaseRepository(), IRepository.MediaData {
 
     private val mediaDataApi = IpbMediaDataCore.EntityMobile()
 
-    override suspend fun getMediaDataList(idEntity: String): SResult<List<MediaDataUi>> {
-        val response = mediaDataApi.getMediaDataListByEntity(idEntity)
-        return response.mediaDataList?.toUiModel()?.toSuccessResult()
-            ?: response.result?.message.toFailedResult()
-    }
+    override suspend fun getMediaDataList(idEntity: String): SResult<List<MediaDataUi>> =
+        safeApiCall {
+            val response = mediaDataApi.getMediaDataListByEntity(idEntity)
 
-    override suspend fun getMediaData(idMediaData: String): SResult<MediaDataUi> {
+            response.mediaDataList?.toUiModel()?.toSuccessResult()
+                ?: response.responseToFailedResult()
+        }
+
+    override suspend fun getMediaData(idMediaData: String): SResult<MediaDataUi> = safeApiCall {
         val response = mediaDataApi.getMediaDataById(idMediaData)
-        return response.mediaData?.toUiModel()?.toSuccessResult()
-            ?: response.result?.message.toFailedResult()
+
+        response.mediaData?.toUiModel()?.toSuccessResult()
+            ?: response.responseToFailedResult()
     }
 
-    override suspend fun downloadFile(fileUrl: String): SResult<ResponseBody> {
+    override suspend fun downloadFile(fileUrl: String): SResult<ResponseBody> = safeApiCall {
         val response = mediaDataApi.downloadFile(fileUrl)
-        return response.body()?.toSuccessResult() ?: emptyFailed()
+
+        response.body()?.toSuccessResult() ?: emptyFailed()
     }
+
+    override suspend fun uploadImage(
+        image: MultipartBody.Part,
+        alias: String?
+    ): SResult<UploadImageData> =
+        safeApiCall {
+            val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
+
+            val response = mediaDataApi.uploadImage(
+                token, alias ?: "0", "0", image
+            )
+
+            response.uploadImageData?.toSuccessResult()
+                .orIfNull { response.responseToFailedResult() }
+        }
+
+    override suspend fun getMediaDataByEntity(idEntity: String): SResult<List<MediaData>> =
+        safeApiCall {
+            val response = mediaDataApi.getMediaDataListByEntity(idEntity)
+
+            response.mediaDataList?.toSuccessResult().orIfNull { response.responseToFailedResult() }
+        }
 }
