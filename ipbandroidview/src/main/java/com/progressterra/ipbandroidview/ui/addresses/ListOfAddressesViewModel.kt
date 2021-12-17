@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.utils.extentions.orNow
 import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
@@ -94,7 +95,7 @@ class ListOfAddressesViewModel :
                 // Получаем дату текущего адреса по умолчанию
                 val lastSavedDate =
                     listOfAddress.value?.first { it.isDefaultShippingAddress ?: false }
-                        ?.dateAdded.parseToDate().orIfNull { Date() }
+                        ?.dateAdded.parseToDate().orNow()
 
                 // Увеличиваем самую новую дату, чтобы выбранный адрес точно был по умолчанию
                 val updatedLastDate = Date().apply {
