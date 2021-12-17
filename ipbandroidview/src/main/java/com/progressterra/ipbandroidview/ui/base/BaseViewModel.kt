@@ -14,6 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.CancellationException
 
+@Deprecated("Dep", ReplaceWith("BaseBindingViewModel"))
 open class BaseViewModel : ViewModel() {
     protected val _action = MutableLiveData<Event<NavDirections>>()
     val action: LiveData<Event<NavDirections>> = _action
