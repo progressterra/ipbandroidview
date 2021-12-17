@@ -74,3 +74,8 @@ fun navBackResult() = SResult.NavBackResult
  *  Failed без результатов
  */
 fun emptyFailed() = SResult.Failed(null, null)
+
+inline fun <T : Any> SResult<T>.dataOrFailed(onFailed: (message: Any?) -> T): T =
+    data ?: onFailed(if (this is SResult.Failed) message else null)
+
+

@@ -17,12 +17,7 @@ internal class PersonalRepository(
 ) : BaseRepository(), IRepository.Personal {
 
     override suspend fun updatePersonalInfoLocal(): SResult<ClientInfoUI> = safeApiCall {
-        val tokenResult = getAccessToken()
-        val token: String
-        when (tokenResult) {
-            is SResult.Success -> token = tokenResult.data
-            else -> return@safeApiCall emptyFailed()
-        }
+        val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
 
         val response = clientApi.getClientInfo(token)
         if (response.isSuccess()) {
@@ -41,7 +36,7 @@ internal class PersonalRepository(
                 UserData.clientInfo.soname
             ).toSuccessResult()
         } else {
-            response.toFailedResult()
+            response.responseToFailedResult()
         }
     }
 
@@ -50,18 +45,13 @@ internal class PersonalRepository(
         soname: String
     ): SResult<ClientInfoResponse> =
         safeApiCall {
-            val tokenResult = getAccessToken()
-            val token: String
-            when (tokenResult) {
-                is SResult.Success -> token = tokenResult.data
-                else -> return@safeApiCall emptyFailed()
-            }
+            val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
             val response = clientApi.updateClientInfo(token, name, soname, "")
 
             if (response.isSuccess()) {
                 response.toSuccessResult()
             } else {
-                response.toFailedResult()
+                response.responseToFailedResult()
             }
         }
 
@@ -82,16 +72,11 @@ internal class PersonalRepository(
     }
 
     override suspend fun getClientCity(): SResult<String> = safeApiCall {
-        val tokenResult = getAccessToken()
-        val token: String
-        when (tokenResult) {
-            is SResult.Success -> token = tokenResult.data
-            else -> return@safeApiCall emptyFailed()
-        }
+        val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
 
         val response = cityApi.getClientCity(token)
 
         response.city?.cityName?.toSuccessResult()
-            .orIfNull { response.toFailedResult() }
+            .orIfNull { response.responseToFailedResult() }
     }
 }

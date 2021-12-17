@@ -5,13 +5,11 @@ import com.progressterra.ipbandroidapi.api.iMessengerCore.IMessengerCore
 import com.progressterra.ipbandroidapi.api.iMessengerCore.models.AdditionalDataJSON
 import com.progressterra.ipbandroidapi.api.iMessengerCore.models.DialogInfoRequest
 import com.progressterra.ipbandroidapi.api.iMessengerCore.models.MessageSendingRequest
-
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.chat.utils.convertToMessagesList
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.isSuccess
-import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 
 internal class ChatRepository : BaseRepository(), IRepository.Chat {
@@ -22,7 +20,7 @@ internal class ChatRepository : BaseRepository(), IRepository.Chat {
         return if (response.isSuccess()) {
             response.convertToMessagesList().toSuccessResult()
         } else {
-            response.message.toFailedResult()
+            response.responseToFailedResult()
         }
     }
 
@@ -36,7 +34,7 @@ internal class ChatRepository : BaseRepository(), IRepository.Chat {
         return if (response.isSuccess()) {
             response.convertToMessagesList().toSuccessResult()
         } else {
-            response.message.toFailedResult()
+            response.responseToFailedResult()
         }
     }
 
@@ -53,6 +51,6 @@ internal class ChatRepository : BaseRepository(), IRepository.Chat {
         )
         val response = messengerApi.getDialogInfo(request)
         return response.dialogInfo?.idUnique?.toSuccessResult()
-            .orIfNull { response.message.toFailedResult() }
+            .orIfNull { response.responseToFailedResult() }
     }
 }

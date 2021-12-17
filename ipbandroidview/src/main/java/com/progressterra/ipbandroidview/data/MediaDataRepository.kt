@@ -7,10 +7,7 @@ import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.media_data.models.toUiModel
 import com.progressterra.ipbandroidview.utils.SResult
-import com.progressterra.ipbandroidview.utils.extensions.emptyFailed
-import com.progressterra.ipbandroidview.utils.extensions.safeApiCall
-import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
-import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
+import com.progressterra.ipbandroidview.utils.extensions.*
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 
@@ -21,13 +18,13 @@ internal class MediaDataRepository : BaseRepository(), IRepository.MediaData {
     override suspend fun getMediaDataList(idEntity: String): SResult<List<MediaDataUi>> {
         val response = mediaDataApi.getMediaDataListByEntity(idEntity)
         return response.mediaDataList?.toUiModel()?.toSuccessResult()
-            ?: response.result?.message.toFailedResult()
+            ?: response.responseToFailedResult()
     }
 
     override suspend fun getMediaData(idMediaData: String): SResult<MediaDataUi> {
         val response = mediaDataApi.getMediaDataById(idMediaData)
         return response.mediaData?.toUiModel()?.toSuccessResult()
-            ?: response.result?.message.toFailedResult()
+            ?: response.responseToFailedResult()
     }
 
     override suspend fun downloadFile(fileUrl: String): SResult<ResponseBody> {
@@ -40,11 +37,7 @@ internal class MediaDataRepository : BaseRepository(), IRepository.MediaData {
         alias: String?
     ): SResult<UploadImageData> =
         safeApiCall {
-            val token = when (val tokenResult = getAccessToken()) {
-                is SResult.Success -> tokenResult.data
-                is SResult.Failed -> return@safeApiCall tokenResult.message.toFailedResult()
-                else -> return@safeApiCall emptyFailed()
-            }
+            val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
 
             val response = mediaDataApi.uploadImage(
                 token, alias ?: "0", "0", image

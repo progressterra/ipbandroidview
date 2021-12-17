@@ -25,7 +25,7 @@ internal class CommonRepository : BaseRepository(), IRepository.PromoCode, IRepo
     }
 
     override suspend fun getBonusesInfo(): SResult<BonusesInfo> = safeApiCall {
-        val token = getAccessToken().data ?: return@safeApiCall emptyFailed()
+        val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
         val response = bonusesApi.getBonusesInfo(token)
 
         response.responseBody?.toSuccessResult()
@@ -33,11 +33,11 @@ internal class CommonRepository : BaseRepository(), IRepository.PromoCode, IRepo
     }
 
     override suspend fun getCatalog(): SResult<List<CatalogItem>> = safeApiCall {
-        val token = getAccessToken().data ?: return@safeApiCall emptyFailed()
+        val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
         val response = ieCoreCatalog.getCatalog(token)
 
         val catalogs = response.data?.get(0)?.childItems
 
-        catalogs?.toSuccessResult() ?: return@safeApiCall response.result?.message.toFailedResult()
+        catalogs?.toSuccessResult() ?: response.responseToFailedResult()
     }
 }
