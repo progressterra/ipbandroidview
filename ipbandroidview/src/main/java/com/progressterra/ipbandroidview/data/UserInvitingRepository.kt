@@ -19,9 +19,11 @@ internal class UserInvitingRepository(val ambassadorInvite: IPBAmbassador.Ambass
             ?: response.responseToFailedResult()
     }
 
-    override suspend fun sendInvites(invitingMembersRequest: InvitingMembersRequest): SResult<UserInviteResultUI> {
-        val response = ambassadorInvite.sendInvites(invitingMembersRequest)
-        return response.dataInviteByPhone?.toUiModel()?.toSuccessResult()
-            ?: response.responseToFailedResult()
-    }
+    override suspend fun sendInvites(invitingMembersRequest: InvitingMembersRequest): SResult<UserInviteResultUI> =
+        safeApiCall {
+            val response = ambassadorInvite.sendInvites(invitingMembersRequest)
+
+            response.dataInviteByPhone?.toUiModel()?.toSuccessResult()
+                ?: response.responseToFailedResult()
+        }
 }

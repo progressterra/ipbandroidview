@@ -15,21 +15,25 @@ internal class MediaDataRepository : BaseRepository(), IRepository.MediaData {
 
     private val mediaDataApi = IpbMediaDataCore.EntityMobile()
 
-    override suspend fun getMediaDataList(idEntity: String): SResult<List<MediaDataUi>> {
-        val response = mediaDataApi.getMediaDataListByEntity(idEntity)
-        return response.mediaDataList?.toUiModel()?.toSuccessResult()
-            ?: response.responseToFailedResult()
-    }
+    override suspend fun getMediaDataList(idEntity: String): SResult<List<MediaDataUi>> =
+        safeApiCall {
+            val response = mediaDataApi.getMediaDataListByEntity(idEntity)
 
-    override suspend fun getMediaData(idMediaData: String): SResult<MediaDataUi> {
+            response.mediaDataList?.toUiModel()?.toSuccessResult()
+                ?: response.responseToFailedResult()
+        }
+
+    override suspend fun getMediaData(idMediaData: String): SResult<MediaDataUi> = safeApiCall {
         val response = mediaDataApi.getMediaDataById(idMediaData)
-        return response.mediaData?.toUiModel()?.toSuccessResult()
+
+        response.mediaData?.toUiModel()?.toSuccessResult()
             ?: response.responseToFailedResult()
     }
 
-    override suspend fun downloadFile(fileUrl: String): SResult<ResponseBody> {
+    override suspend fun downloadFile(fileUrl: String): SResult<ResponseBody> = safeApiCall {
         val response = mediaDataApi.downloadFile(fileUrl)
-        return response.body()?.toSuccessResult() ?: emptyFailed()
+
+        response.body()?.toSuccessResult() ?: emptyFailed()
     }
 
     override suspend fun uploadImage(

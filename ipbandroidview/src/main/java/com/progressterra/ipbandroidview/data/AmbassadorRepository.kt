@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
 import com.progressterra.ipbandroidview.utils.ISResult
 import com.progressterra.ipbandroidview.utils.SResult
+import com.progressterra.ipbandroidview.utils.extensions.safeApiCall
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -23,9 +24,9 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
     private val ipbApi = SCRMApiQwerty.ClientsV3()
 
     // получение информации о пользователе: имя,емейл,дата рождения и пр
-    override suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> {
+    override suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> = safeApiCall {
         val response = ipbApi.getClientInfo(accessToken)
-        return if (response.result?.status == 0) {
+        if (response.result?.status == 0) {
             SResult.Success(ClientInfo.convertToUiModel(response))
         } else {
             SResult.Failed(response.result?.message)
@@ -37,7 +38,7 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         alias: String,
         tag: String,
         imageData: File
-    ): ISResult<ImageUpload> {
+    ): ISResult<ImageUpload> = safeApiCall {
         val filePart = MultipartBody.Part.createFormData(
             "file",
             imageData.path,
@@ -45,7 +46,7 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         )
 
         val response = mediaDataApi.uploadImage(accessToken, alias, tag, filePart)
-        return if (response.result?.status == 0) {
+        if (response.result?.status == 0) {
             SResult.Success(ImageUpload.convertToUiModel(response))
         } else {
             SResult.Failed(response.result?.message)
@@ -57,25 +58,26 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         name: String,
         soname: String,
         patronymic: String
-    ): ISResult<ClientInfo> {
+    ): ISResult<ClientInfo> = safeApiCall {
         val response = ipbApi.updateClientInfo(accessToken, name, soname, patronymic)
-        return if (response.result?.status == 0) {
+        if (response.result?.status == 0) {
             SResult.Success(ClientInfo.convertToUiModel(response))
         } else {
             SResult.Failed(response.result?.message)
         }
     }
 
-    override suspend fun getBankClientInfo(accessToken: String): ISResult<UserBankData> {
-        val response = keyPharmApi.getUserBankData(accessToken)
-        return if (response.result?.status == 0) {
-            SResult.Success(UserBankData.convertToUiModel(response))
-        } else if (response.result?.status == 1) {
-            return SResult.Success(UserBankData("", "", "", "", "", "", ""))
-        } else {
-            SResult.Failed(response.result?.message)
+    override suspend fun getBankClientInfo(accessToken: String): ISResult<UserBankData> =
+        safeApiCall {
+            val response = keyPharmApi.getUserBankData(accessToken)
+            if (response.result?.status == 0) {
+                SResult.Success(UserBankData.convertToUiModel(response))
+            } else if (response.result?.status == 1) {
+                SResult.Success(UserBankData("", "", "", "", "", "", ""))
+            } else {
+                SResult.Failed(response.result?.message)
+            }
         }
-    }
 
     override suspend fun updateBankClientInfo(
         accessToken: String,
@@ -86,7 +88,7 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         tinOfBank: String,
         kppBank: String,
         clientInn: String
-    ): ISResult<UserBankData> {
+    ): ISResult<UserBankData> = safeApiCall {
         val response = keyPharmApi.updateUserBankData(
             accessToken, bankName = bankName,
             numberAccount = numberAccount,
@@ -96,7 +98,8 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
             kppBank = kppBank,
             tinOfClient = clientInn
         )
-        return if (response.result?.status == 0) {
+
+        if (response.result?.status == 0) {
             SResult.Success(UserBankData.convertToUiModel(response))
         } else {
             SResult.Failed(response.result?.message)
@@ -106,11 +109,11 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
     override suspend fun uploadSnilsPhotoUrl(
         snilsPhotoUrl: String,
         accessToken: String
-    ): ISResult<Any> {
+    ): ISResult<Any> = safeApiCall {
         val response =
             keyPharmApi.uploadSnilsPhotoUrl(snilsPhotoUrl, accessToken)
 
-        return if (response.status == 0) {
+        if (response.status == 0) {
             SResult.Completed
         } else {
             SResult.Failed(response.message)
@@ -120,57 +123,63 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
     override suspend fun uploadPassportPhotoUrl(
         passportPhotoUrl: String,
         accessToken: String
-    ): ISResult<Any> {
+    ): ISResult<Any> = safeApiCall {
         val response = keyPharmApi.uploadPassportPhotoUrl(
             passportPhotoUrl,
             accessToken
         )
-        return if (response.status == 0) {
+
+        if (response.status == 0) {
             SResult.Completed
         } else {
             SResult.Failed(response.message)
         }
     }
 
-    override suspend fun getAmbassadorStatus(accessToken: String): SResult<AmbassadorStatusResponse> {
-        val response = keyPharmApi.getAmbassadorStatus(accessToken)
-        return if (response.result?.status == 0) {
-            SResult.Success(response)
-        } else {
-            SResult.Failed(response.result?.message)
-        }
-    }
+    override suspend fun getAmbassadorStatus(accessToken: String): SResult<AmbassadorStatusResponse> =
+        safeApiCall {
+            val response = keyPharmApi.getAmbassadorStatus(accessToken)
 
-    override suspend fun getContractOfAmbassador(accessToken: String): ISResult<ResponseBody> {
-        val response = keyPharmApi.getContractOfAmbassador(accessToken)
-        return if (response.isSuccessful && response.body() != null) {
-            SResult.Success(response.body()!!)
-        } else {
-            SResult.Failed()
+            if (response.result?.status == 0) {
+                SResult.Success(response)
+            } else {
+                SResult.Failed(response.result?.message)
+            }
         }
-    }
+
+    override suspend fun getContractOfAmbassador(accessToken: String): ISResult<ResponseBody> =
+        safeApiCall {
+            val response = keyPharmApi.getContractOfAmbassador(accessToken)
+            if (response.isSuccessful && response.body() != null) {
+                SResult.Success(response.body()!!)
+            } else {
+                SResult.Failed()
+            }
+        }
 
     override suspend fun uploadAmbassadorContractPhotoUrl(
         accessToken: String,
         urlImage: String
-    ): ISResult<Any> {
+    ): ISResult<Any> = safeApiCall {
         val response = keyPharmApi.uploadAmbassadorContractPhotoUrl(
             accessToken, urlImage
         )
-        return if (response.status == 0) {
+
+        if (response.status == 0) {
             SResult.Completed
         } else {
             SResult.Failed(response.message)
         }
     }
 
-    override suspend fun becomeSelfEmployed(accessToken: String): ISResult<AmbassadorStatusResponse> {
-        val response = keyPharmApi.becomeSelfEmployed(accessToken)
-        return if (response.result?.status == 0) {
-            SResult.Success(response)
-        } else {
-            SResult.Failed(response.result?.message)
-        }
-    }
+    override suspend fun becomeSelfEmployed(accessToken: String): ISResult<AmbassadorStatusResponse> =
+        safeApiCall {
+            val response = keyPharmApi.becomeSelfEmployed(accessToken)
 
+            if (response.result?.status == 0) {
+                SResult.Success(response)
+            } else {
+                SResult.Failed(response.result?.message)
+            }
+        }
 }

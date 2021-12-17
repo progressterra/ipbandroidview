@@ -15,14 +15,16 @@ internal class CommonRepository : BaseRepository(), IRepository.PromoCode, IRepo
     private val bonusesApi = BonusesApi.getInstance()
     private val ieCoreCatalog = IECommersCore.Catalog()
 
-    override suspend fun setPromoCode(accessToken: String, promoCode: String): SResult<*> {
-        val response = promoCodeApi.setPromoCode(accessToken, promoCode)
-        return if (response.isSuccess()) {
-            completedResult()
-        } else {
-            response.result?.message.toFailedResult()
+    override suspend fun setPromoCode(accessToken: String, promoCode: String): SResult<*> =
+        safeApiCall {
+            val response = promoCodeApi.setPromoCode(accessToken, promoCode)
+
+            if (response.isSuccess()) {
+                completedResult()
+            } else {
+                response.result?.message.toFailedResult()
+            }
         }
-    }
 
     override suspend fun getBonusesInfo(): SResult<BonusesInfo> = safeApiCall {
         val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
