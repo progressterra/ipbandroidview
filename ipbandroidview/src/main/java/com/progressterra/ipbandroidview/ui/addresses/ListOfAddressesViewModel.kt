@@ -8,6 +8,8 @@ import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidapi.utils.extentions.format
+import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
@@ -89,10 +91,19 @@ class ListOfAddressesViewModel :
             // устанавливаем даты в адресе текущим днем, так как логика на сервере устанавливает адреса с
             // более новыми датами, как адресс по умолчанию
             address.apply {
-                val currentDate = Date()
-                defaultBilling = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
-                defaultShipping = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
-                dateAdded = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+                // Получаем дату текущего адреса по умолчанию
+                val lastSavedDate =
+                    listOfAddress.value?.first { it.isDefaultShippingAddress ?: false }
+                        ?.dateAdded.parseToDate().orIfNull { Date() }
+
+                // Увеличиваем самую новую дату, чтобы выбранный адрес точно был по умолчанию
+                val updatedLastDate = Date().apply {
+                    if (this <= lastSavedDate) time = lastSavedDate.time + 10000
+                }
+
+                defaultBilling = updatedLastDate.format()
+                defaultShipping = updatedLastDate.format()
+                dateAdded = updatedLastDate.format()
             }
 
             addressApi.updateClientAddress(
