@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.utils.ui.binding
 
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
@@ -44,7 +45,7 @@ fun setImageCircle(iv: ImageView, url: String?, placeholder: Drawable?) {
             }
 
             override fun onError(e: Exception?) {
-                log("ex = $e")
+                Log.e("setImageCircle", e?.localizedMessage ?: e.toString())
             }
         })
     }
@@ -77,7 +78,7 @@ fun setImageRounded(iv: ImageView, url: String?, radius: Int, placeholder: Drawa
             override fun onSuccess() {}
 
             override fun onError(e: Exception?) {
-                log("url = $url ,ex = $e", ex = e)
+                Log.e("setImageRounded", e?.localizedMessage ?: e.toString())
             }
         })
     }
