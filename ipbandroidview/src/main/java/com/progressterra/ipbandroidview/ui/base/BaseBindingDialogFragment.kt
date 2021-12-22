@@ -96,6 +96,7 @@ open class BaseBindingDialogFragment<Binding : ViewDataBinding, out ViewModel : 
         when (this) {
             is SResult.Toast -> handleToastResult()
             is SResult.Failed -> handleFailedResult()
+            is SResult.NavBackResult -> findNavController().popBackStack()
             is SResult.NavResult -> handleNavResult()
             else -> Unit
         }
