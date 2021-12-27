@@ -4,12 +4,14 @@ import android.graphics.drawable.Drawable
 import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.utils.log
-import com.progressterra.ripcurl.utils.view.image_view.CircleTransform
-import com.progressterra.ripcurl.utils.view.image_view.RoundCornersTransform
-import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 @BindingAdapter("url")
@@ -19,6 +21,8 @@ fun setImageFromUrl(iv: ImageView, url: String?) {
     else
         Picasso.get()
             .load(url)
+            .fit()
+            .centerCrop()
             .placeholder(R.drawable.image_placeholder)
             .into(iv)
 }
@@ -28,26 +32,36 @@ fun setImageCircle(iv: ImageView, url: String?, placeholder: Drawable?) {
     if (url.isNullOrBlank()) {
         iv.setImageDrawable(placeholder)
     } else {
-        val picasso = Picasso.get()
-            .load(url)
-            .fit()
-            .centerCrop()
-            .transform(CircleTransform())
+        val requestListener = object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                Log.e("setImageCircle", e?.message ?: e.toString())
+                return false
+            }
 
-        if (placeholder != null) {
-            picasso.placeholder(placeholder)
-        } else {
-            picasso.noPlaceholder()
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
         }
 
-        picasso.into(iv, object : Callback {
-            override fun onSuccess() {
-            }
+        Glide.with(iv)
+            .load(url)
+            .fitCenter()
+            .circleCrop()
+            .placeholder(placeholder)
+            .addListener(requestListener)
+            .into(iv)
 
-            override fun onError(e: Exception?) {
-                Log.e("setImageCircle", e?.localizedMessage ?: e.toString())
-            }
-        })
     }
 }
 
@@ -58,28 +72,34 @@ fun setImageRounded(iv: ImageView, url: String?, radius: Int, placeholder: Drawa
             iv.setImageDrawable(placeholder)
         }
     } else {
-        val picasso = Picasso.get()
-            .load(url)
-            .fit()
-            .centerCrop()
-            .transform(
-                RoundCornersTransform(
-                    radius.takeIf { it != 0 }.orIfNull { 10 }.toFloat()
-                )
-            )
+        val requestListener = object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                Log.e("setImageRounded", e?.message ?: e.toString())
+                return false
+            }
 
-        if (placeholder != null) {
-            picasso.placeholder(placeholder)
-        } else {
-            picasso.noPlaceholder()
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
         }
 
-        picasso.into(iv, object : Callback {
-            override fun onSuccess() {}
-
-            override fun onError(e: Exception?) {
-                Log.e("setImageRounded", e?.localizedMessage ?: e.toString())
-            }
-        })
+        Glide.with(iv)
+            .load(url)
+            .fitCenter()
+            .centerCrop()
+            .transform(RoundedCorners(radius.takeIf { it != 0 }.orIfNull { 10 }))
+            .addListener(requestListener)
+            .into(iv)
     }
 }
