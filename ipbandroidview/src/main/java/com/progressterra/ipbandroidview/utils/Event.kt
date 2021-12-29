@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.utils
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an event.
  */
+@Deprecated(message = "just because", replaceWith = ReplaceWith("SResult"))
 class Event<T>(content: T?) {
     private val mContent: T
     private var hasBeenHandled = false
