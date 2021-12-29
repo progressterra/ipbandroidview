@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.utils
 
+@Deprecated("coz SResult is better", ReplaceWith("SResult"))
 enum class ScreenState {
     LOADING,
     DEFAULT,
