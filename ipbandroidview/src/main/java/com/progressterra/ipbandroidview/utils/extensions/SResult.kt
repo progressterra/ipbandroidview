@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.utils.extensions
 
 import androidx.navigation.NavDirections
+import com.progressterra.ipbandroidapi.remoteData.models.base.BaseResponse
 import com.progressterra.ipbandroidview.utils.SResult
 
 /**
@@ -49,6 +50,12 @@ fun Int.toFailedResult() = SResult.Failed(this, null)
  *  Любая переменная в неудачный результат
  */
 fun <T : Any?> T?.toFailedResult() = SResult.Failed(this, null)
+
+/**
+ * BaseResponse с сообщением об ошибке в неудачный результат
+ */
+fun <T : Any> BaseResponse.responseToFailedResult(): SResult<T> =
+    (message ?: result?.message).toFailedResult()
 
 /**
  *  Функция для создания "загрузки"
