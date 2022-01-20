@@ -13,9 +13,8 @@ import com.bumptech.glide.request.target.Target
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 
-@BindingAdapter(value = ["url", "placeholder"])
+@BindingAdapter(value = ["url", "placeholder"], requireAll = false)
 fun setImageFromUrl(iv: ImageView, url: String?, placeholder: Drawable?) {
-
     if (url.isNullOrBlank()) {
         iv.setImageResource(R.drawable.image_placeholder)
     } else {
