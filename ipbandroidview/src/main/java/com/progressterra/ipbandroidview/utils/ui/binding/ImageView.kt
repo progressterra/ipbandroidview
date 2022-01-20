@@ -21,7 +21,6 @@ fun setImageFromUrl(iv: ImageView, url: String?, placeholder: Drawable?) {
         val glide = Glide.with(iv)
             .load(url)
             .fitCenter()
-            .circleCrop()
 
         if (placeholder == null) {
             glide.placeholder(R.drawable.image_placeholder)
