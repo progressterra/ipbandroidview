@@ -10,22 +10,37 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 
-@BindingAdapter(value = ["url", "placeholder"], requireAll = false)
-fun setImageFromUrl(iv: ImageView, url: String?, placeholder: Drawable?) {
+@BindingAdapter(value = ["url", "isShimmerPlaceholder"], requireAll = false)
+fun setImageFromUrl(iv: ImageView, url: String?, isShimmerPlaceholder: Boolean?) {
     if (url.isNullOrBlank()) {
         iv.setImageResource(R.drawable.image_placeholder)
     } else {
         val glide = Glide.with(iv)
             .load(url)
             .fitCenter()
+            .error(R.drawable.image_placeholder)
 
-        if (placeholder == null) {
+        if (isShimmerPlaceholder == null || isShimmerPlaceholder == false) {
             glide.placeholder(R.drawable.image_placeholder)
         } else {
-            glide.placeholder(placeholder)
+            val shimmer = Shimmer.AlphaHighlightBuilder()// The attributes for a ShimmerDrawable is set by this builder
+                .setDuration(1800) // how long the shimmering animation takes to do one full sweep
+                .setBaseAlpha(0.7f) //the alpha of the underlying children
+                .setHighlightAlpha(0.6f) // the shimmer alpha amount
+                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
+                .setAutoStart(true)
+                .build()
+
+            val shimmerDrawable = ShimmerDrawable().apply {
+                setShimmer(shimmer)
+            }
+
+            glide.placeholder(shimmerDrawable)
         }
 
         glide.into(iv)
