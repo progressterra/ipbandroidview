@@ -12,19 +12,26 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
-import com.squareup.picasso.Picasso
 
-@BindingAdapter("url")
-fun setImageFromUrl(iv: ImageView, url: String?) {
-    if (url.isNullOrBlank())
+@BindingAdapter(value = ["url", "placeholder"])
+fun setImageFromUrl(iv: ImageView, url: String?, placeholder: Drawable?) {
+
+    if (url.isNullOrBlank()) {
         iv.setImageResource(R.drawable.image_placeholder)
-    else
-        Picasso.get()
+    } else {
+        val glide = Glide.with(iv)
             .load(url)
-            .fit()
-            .centerCrop()
-            .placeholder(R.drawable.image_placeholder)
-            .into(iv)
+            .fitCenter()
+            .circleCrop()
+
+        if (placeholder == null) {
+            glide.placeholder(R.drawable.image_placeholder)
+        } else {
+            glide.placeholder(placeholder)
+        }
+
+        glide.into(iv)
+    }
 }
 
 @BindingAdapter(value = ["circleUrl", "placeholder"], requireAll = false)
