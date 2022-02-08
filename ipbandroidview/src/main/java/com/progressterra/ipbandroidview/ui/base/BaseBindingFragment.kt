@@ -21,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.BR
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.utils.SResult
+import com.progressterra.ipbandroidview.utils.ToastBundle
 import com.progressterra.ipbandroidview.utils.extensions.toToastResult
 
 /**
@@ -117,10 +118,30 @@ open class BaseBindingFragment<Binding : ViewDataBinding, out ViewModel : BaseBi
         when (message) {
             is String -> message
             is Int -> getString(message)
+            is ToastBundle -> resolveStringFromToastBundle(message)
             else -> null
         }?.let {
             onToast(it)
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    /**
+     * Возвращает строку из ToastBundle
+     */
+    private fun resolveStringFromToastBundle(toastBundle: ToastBundle): String? {
+        val id = toastBundle.id
+        val args = toastBundle.args
+        return if (id != null) {
+            // Ветка если только id передали
+            if (args.isEmpty()) {
+                getString(id)
+            } else {
+                // Аргументы в качестве vararg передаются
+                getString(id, *args.toTypedArray())
+            }
+        } else {
+            null
         }
     }
 
