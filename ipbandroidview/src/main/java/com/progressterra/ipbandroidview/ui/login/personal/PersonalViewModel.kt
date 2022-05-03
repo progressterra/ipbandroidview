@@ -78,11 +78,11 @@ internal class PersonalViewModel(
         personalInfo.notifyObserver()
     }
 
-    fun updateEmail(newEmail: String) {
-        personalInfo.value?.email = newEmail
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
-        personalInfo.notifyObserver()
-    }
+//    fun updateEmail(newEmail: String) {
+//        personalInfo.value?.email = newEmail
+//        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+//        personalInfo.notifyObserver()
+//    }
 
     fun updateCity(newCity: CitiesListResponse.City) {
         personalInfo.value?.city = newCity
@@ -123,16 +123,16 @@ internal class PersonalViewModel(
                     }
                 }
 
-                personalInfo.email?.let { email ->
-                    loginApi.addEmail(email).let {
-                        if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                            _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
-                            _screenState.postValue(ScreenState.ERROR)
-                            return@launch
-                        }
-                    }
-                    loginApi.confirmEmail(email)
-                }
+//                personalInfo.email?.let { email ->
+//                    loginApi.addEmail(email).let {
+//                        if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+//                            _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
+//                            _screenState.postValue(ScreenState.ERROR)
+//                            return@launch
+//                        }
+//                    }
+//                    loginApi.confirmEmail(email)
+//                }
             }
             _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
 
