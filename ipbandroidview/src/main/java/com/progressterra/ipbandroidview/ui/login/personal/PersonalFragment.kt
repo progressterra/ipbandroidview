@@ -96,7 +96,7 @@ class PersonalFragment : BaseFragment() {
         binding.personalData.apply {
             editTextName.afterTextChanged { viewModel.updateFirstName(it) }
             editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
-            editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            //editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
             radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
             radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
         }
