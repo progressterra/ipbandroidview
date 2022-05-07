@@ -17,7 +17,6 @@ import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesLi
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
-import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
@@ -25,17 +24,16 @@ import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
 import java.util.*
 
-class PersonalFragment : BaseFragment() {
+private const val DEFAULT_YEAR = 1995
+private const val DEFAULT_MONTH = 1
+private const val DEFAULT_DAY = 14
 
-    private val DEFAULT_YEAR = 1995
-    private val DEFAULT_MONTH = 1
-    private val DEFAULT_DAY = 14
+class PersonalFragment : BaseFragment() {
 
     private val args: PersonalFragmentArgs by navArgs()
 
     private val personalSettings: PersonalSettings by lazy {
-        val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
-        loginFlowSettings.personalSettings
+        args.loginFlowSettings.personalSettings
     }
 
     private val viewModel: PersonalViewModel by viewModels {
@@ -59,8 +57,6 @@ class PersonalFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.vm = viewModel
-
-
         viewModel.apply {
             citiesList.observe(viewLifecycleOwner) {
                 if (it != null)
@@ -82,7 +78,7 @@ class PersonalFragment : BaseFragment() {
         applySettings()
 
         // TODO: 10.06.2021 если приживется, то нужно окультурить
-        if (args.loginFlowSettings.newLoginFlow)
+        if (args.loginFlowSettings.newLoginFlow) {
             viewModel.popBackStack.observe(viewLifecycleOwner) { event ->
                 event.contentIfNotHandled?.let {
                     if (it) {
@@ -90,13 +86,15 @@ class PersonalFragment : BaseFragment() {
                     }
                 }
             }
+        }
+
     }
 
     private fun initListeners() {
         binding.personalData.apply {
             editTextName.afterTextChanged { viewModel.updateFirstName(it) }
             editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
-            //editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
             radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
             radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
         }
@@ -114,14 +112,14 @@ class PersonalFragment : BaseFragment() {
     }
 
     private fun initEditTextValidation() {
-        viewModel.personalInfo.observe(viewLifecycleOwner, {
+        viewModel.personalInfo.observe(viewLifecycleOwner) {
             binding.personalData.apply {
                 setEditTextValidState(editTextName, it.nameIsValid)
                 setEditTextValidState(editTextSecondName, it.lastNameIsValid)
                 setEditTextValidState(editTextEmail, it.emailIsValid)
                 setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
             }
-        })
+        }
     }
 
     private fun setEditTextValidState(view: View, isValid: Boolean) {

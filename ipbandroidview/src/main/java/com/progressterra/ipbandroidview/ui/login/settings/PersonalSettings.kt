@@ -11,5 +11,6 @@ data class PersonalSettings(
     val enableSexShortDescription: Boolean = false,
     val enableEmailDescription: Boolean = false,
     val setLastNameAttentionColor: Boolean = false,
-    val enableSex: Boolean = true
+    val enableSex: Boolean = true,
+    val enableEmail: Boolean = true
 ) : Parcelable

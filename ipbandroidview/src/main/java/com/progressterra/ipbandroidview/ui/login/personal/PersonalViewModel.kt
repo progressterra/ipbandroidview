@@ -78,11 +78,11 @@ internal class PersonalViewModel(
         personalInfo.notifyObserver()
     }
 
-//    fun updateEmail(newEmail: String) {
-//        personalInfo.value?.email = newEmail
-//        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
-//        personalInfo.notifyObserver()
-//    }
+    fun updateEmail(newEmail: String) {
+        personalInfo.value?.email = newEmail
+        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        personalInfo.notifyObserver()
+    }
 
     fun updateCity(newCity: CitiesListResponse.City) {
         personalInfo.value?.city = newCity
