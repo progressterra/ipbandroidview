@@ -78,6 +78,7 @@ internal class PersonalViewModel(
         personalInfo.notifyObserver()
     }
 
+    //Will not invoked if enableEmail is false
     fun updateEmail(newEmail: String) {
         personalInfo.value?.email = newEmail
         personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
@@ -122,17 +123,18 @@ internal class PersonalViewModel(
                         }
                     }
                 }
-
-//                personalInfo.email?.let { email ->
-//                    loginApi.addEmail(email).let {
-//                        if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-//                            _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
-//                            _screenState.postValue(ScreenState.ERROR)
-//                            return@launch
-//                        }
-//                    }
-//                    loginApi.confirmEmail(email)
-//                }
+                if (personalSettings.enableEmail) {
+                    personalInfo.email?.let { email ->
+                        loginApi.addEmail(email).let {
+                            if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
+                                _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
+                                _screenState.postValue(ScreenState.ERROR)
+                                return@launch
+                            }
+                        }
+                        loginApi.confirmEmail(email)
+                    }
+                }
             }
             _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
 

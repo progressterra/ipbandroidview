@@ -94,7 +94,9 @@ class PersonalFragment : BaseFragment() {
         binding.personalData.apply {
             editTextName.afterTextChanged { viewModel.updateFirstName(it) }
             editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
-            editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            if (personalSettings.enableEmail) {
+                editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            }
             radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
             radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
         }
@@ -116,7 +118,9 @@ class PersonalFragment : BaseFragment() {
             binding.personalData.apply {
                 setEditTextValidState(editTextName, it.nameIsValid)
                 setEditTextValidState(editTextSecondName, it.lastNameIsValid)
-                setEditTextValidState(editTextEmail, it.emailIsValid)
+                if (personalSettings.enableEmail) {
+                    setEditTextValidState(editTextEmail, it.emailIsValid)
+                }
                 setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
             }
         }
