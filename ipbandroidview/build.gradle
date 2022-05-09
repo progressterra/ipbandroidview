@@ -61,7 +61,7 @@ dependencies {
     api "com.progressterra.ipbandroidapi:ipbandroidapi:0.3.8"
 
     //zoom image view
-    api 'com.github.MikeOrtiz:TouchImageView:3.1.0'
+    api 'com.github.MikeOrtiz:TouchImageView:3.1.1'
 
     // image downloading
     api 'com.squareup.picasso:picasso:2.71828'
