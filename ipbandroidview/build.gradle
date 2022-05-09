@@ -53,17 +53,17 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
 
     // Lifecycle
-    api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
-    api "com.progressterra:ipbandroidapi:0.3.9"
+    implementation "com.progressterra:ipbandroidapi:0.3.9"
 
     //zoom image view
-    api "com.github.MikeOrtiz:TouchImageView:3.1.1"
+    implementation "com.github.MikeOrtiz:TouchImageView:3.1.1"
 
     // image downloading
-    api "com.squareup.picasso:picasso:2.71828"
-    api "com.github.bumptech.glide:glide:4.12.0"
+    implementation "com.squareup.picasso:picasso:2.71828"
+    implementation "com.github.bumptech.glide:glide:4.12.0"
 
     implementation "com.google.android.exoplayer:exoplayer:2.17.1"
 
@@ -75,11 +75,11 @@ dependencies {
     implementation "com.facebook.shimmer:shimmer:0.5.0"
 
     // Navigation
-    api "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    api "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // QR
-    api "com.github.yuriy-budiyev:code-scanner:2.1.2"
+    implementation "com.github.yuriy-budiyev:code-scanner:2.1.2"
 
-    api "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
 }
