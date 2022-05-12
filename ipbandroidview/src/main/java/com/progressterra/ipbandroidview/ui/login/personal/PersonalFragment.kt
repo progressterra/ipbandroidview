@@ -28,6 +28,8 @@ private const val DEFAULT_YEAR = 1995
 private const val DEFAULT_MONTH = 1
 private const val DEFAULT_DAY = 14
 
+//TODO require email switching
+
 class PersonalFragment : BaseFragment() {
 
     private val args: PersonalFragmentArgs by navArgs()

@@ -11,7 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small">
 
@@ -28,6 +28,7 @@
 
         <TextView
             style="@style/Text.Subheading"
+            android:id="@+id/name"
             android:layout_marginStart="@dimen/margin_medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
