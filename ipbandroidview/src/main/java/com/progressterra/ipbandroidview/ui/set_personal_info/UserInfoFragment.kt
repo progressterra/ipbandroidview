@@ -25,8 +25,6 @@ import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import java.util.*
-
 
 const val CAMERA_PERMISSION_REQUEST_SNILS = 12
 const val CAMERA_PERMISSION_REQUEST_PASSPORT = 13

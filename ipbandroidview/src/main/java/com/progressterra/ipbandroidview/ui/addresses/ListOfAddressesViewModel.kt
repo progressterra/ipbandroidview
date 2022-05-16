@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidapi.utils.extentions.format
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidapi.utils.extentions.orNow
 import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
 import com.progressterra.ipbandroidview.R
@@ -37,7 +36,6 @@ class ListOfAddressesViewModel :
     init {
         getListOfAddresses()
     }
-
 
     fun getListOfAddresses() {
         viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
@@ -70,7 +68,6 @@ class ListOfAddressesViewModel :
             }
         }
     }
-
 
     fun setCurrentAddressAsDefault(address: AddressUI) {
         viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->

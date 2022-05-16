@@ -16,7 +16,7 @@ class SuggestionsArrayAdapter(context: Context, var items: MutableList<Suggestio
 
     override fun getFilter(): Filter {
         return object : Filter() {
-            override fun performFiltering(constraint: CharSequence?): FilterResults? {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val result = FilterResults()
                 result.values = items
                 result.count = items.size

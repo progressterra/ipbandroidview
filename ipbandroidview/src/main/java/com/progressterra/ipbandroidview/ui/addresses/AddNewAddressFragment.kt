@@ -22,7 +22,7 @@ class AddNewAddressFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentAddAddressLibBinding.inflate(inflater, container, false)
         return binding.root
     }
