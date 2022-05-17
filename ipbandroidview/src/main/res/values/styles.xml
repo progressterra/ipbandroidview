@@ -102,6 +102,10 @@
         <item name="lineSpacing">28sp</item>
     </style>
 
+    <style name="Text.Title.Black">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <!-- Текст в кнопках   -->
     <style name="Text.CalloutButton1">
         <item name="fontFamily">@font/roboto_medium</item>
