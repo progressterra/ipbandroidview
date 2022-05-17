@@ -95,6 +95,13 @@
         <item name="lineSpacing">28sp</item>
     </style>
 
+    <style name="Text.Headline">
+        <item name="android:fontFamily">@font/proxima_nova_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="lineSpacing">28sp</item>
+    </style>
+
     <!-- Текст в кнопках   -->
     <style name="Text.CalloutButton1">
         <item name="fontFamily">@font/roboto_medium</item>
