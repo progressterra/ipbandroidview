@@ -7,5 +7,5 @@
         android:fillColor="#00000000"
         android:pathData="M15,1.5L179,1.5A13.5,13.5 0,0 1,192.5 15L192.5,179A13.5,13.5 0,0 1,179 192.5L15,192.5A13.5,13.5 0,0 1,1.5 179L1.5,15A13.5,13.5 0,0 1,15 1.5z"
         android:strokeWidth="3"
-        android:strokeColor="@color/theme_color" />
+        android:strokeColor="@color/accent" />
 </vector>

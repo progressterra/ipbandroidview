@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="6dp"
-            android:background="@color/theme_color"
+            android:background="@color/accent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_address" />
     </androidx.constraintlayout.widget.ConstraintLayout>

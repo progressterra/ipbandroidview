@@ -46,6 +46,6 @@
             android:layout_height="1dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/theme_color" />
+            android:background="@color/accent" />
     </LinearLayout>
 </layout>

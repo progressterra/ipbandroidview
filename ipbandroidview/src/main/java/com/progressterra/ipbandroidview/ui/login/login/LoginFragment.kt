@@ -114,7 +114,7 @@ class LoginFragment : BaseFragment() {
 
         ss.setSpan(clickableSpan, 39, 67, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.theme_color, null)),
+            ForegroundColorSpan(resources.getColor(R.color.accent, null)),
             39,
             67,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -141,7 +141,7 @@ class LoginFragment : BaseFragment() {
 
         ss.setSpan(clickableSpan, 40, 68, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.theme_color, null)),
+            ForegroundColorSpan(resources.getColor(R.color.accent, null)),
             40,
             68,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -178,13 +178,13 @@ class LoginFragment : BaseFragment() {
         ss.setSpan(policySpan, 106, 134, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         ss.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.theme_color, null)),
+            ForegroundColorSpan(resources.getColor(R.color.accent, null)),
             60,
             88,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
         ss.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.theme_color, null)),
+            ForegroundColorSpan(resources.getColor(R.color.accent, null)),
             106,
             134,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

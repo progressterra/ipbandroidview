@@ -10,7 +10,7 @@
     <group>
         <clip-path android:pathData="M44.409,40.748a24.984,24.984 0,0 1,-38.818 0c3.267,-4.37 8.267,-6.535 12.362,-7.6a13.726,13.726 0,0 0,1.063 5.984C20.394,35.984 25,35.709 25,35.709s4.606,0.275 5.945,3.425a13.149,13.149 0,0 0,1.063 -5.984c4.134,1.063 9.173,3.228 12.401,7.598z M 0,0" />
         <path
-            android:fillColor="@color/theme_color"
+            android:fillColor="@color/accent"
             android:pathData="M0.591,28.15h48.819v26.85L0.591,55z" />
     </group>
     <group>

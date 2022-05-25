@@ -14,7 +14,7 @@
 
     <color name="chat_user">#000</color>
     <color name="chat_support">#000</color>
-    <color name="chat_time">@color/theme_color</color>
+    <color name="chat_time">@color/accent</color>
     <color name="chat_date">#000</color>
 
 
@@ -28,7 +28,7 @@
 
     <!--Цвета приложения-->
     <color name="theme_header">#FFFFFF</color>
-    <color name="theme_color">#D4343F</color>
+    <color name="accent">#D4343F</color>
     <color name="theme_color_ripple">#9b9898</color>
 
 

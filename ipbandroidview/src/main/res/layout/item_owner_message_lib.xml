@@ -30,7 +30,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/sellers_reply"
-                android:textColor="@color/theme_color" />
+                android:textColor="@color/accent" />
 
             <TextView
                 android:id="@+id/tv_message_text"
