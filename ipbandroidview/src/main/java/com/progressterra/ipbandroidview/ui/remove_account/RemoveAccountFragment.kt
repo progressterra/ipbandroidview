@@ -39,15 +39,12 @@ class RemoveAccountFragment : BaseFragment() {
 
         binding.editText.afterTextChanged(vm::checkIt)
 
-
-
         binding.vm = vm
         binding.lifecycleOwner = this
         setupViewModel()
         setupCodeBlockParameters()
 
         applySettings()
-
 
         vm.popBackStack.observe(viewLifecycleOwner) { event ->
             event.contentIfNotHandled?.let {

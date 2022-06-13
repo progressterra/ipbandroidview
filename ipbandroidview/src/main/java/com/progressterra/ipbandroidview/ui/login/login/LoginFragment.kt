@@ -26,7 +26,6 @@ import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 
 class LoginFragment : BaseFragment() {
 
-
     private val args: LoginFragmentArgs by navArgs()
     private val phoneNumberSettings: PhoneNumberSettings by lazy {
         val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
@@ -41,7 +40,6 @@ class LoginFragment : BaseFragment() {
     }
 
     private lateinit var binding: FragmentLoginLibBinding
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,7 +85,6 @@ class LoginFragment : BaseFragment() {
 
         applyAgreements()
     }
-
 
     private fun applyAgreements() {
         val policy = phoneNumberSettings.privacyPolicy
