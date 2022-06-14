@@ -25,6 +25,7 @@ internal class ConfirmViewModel(
     private val loginFlowSettings: LoginFlowSettings,
     private val newLoginFlowSettings: Boolean
 ) : BaseViewModel() {
+
     private var isCalled: Boolean = false
 
     val outLinedCircles: Boolean = loginFlowSettings.confirmCodeSettings.outlinedCircles
@@ -39,7 +40,7 @@ internal class ConfirmViewModel(
     var resendCodeOperationReady = _resendCodeOperationReady
 
     private val _confirmInfo =
-        MutableLiveData<String>("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
+        MutableLiveData("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
     val confirmInfo: LiveData<String> = _confirmInfo
 
     private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
@@ -93,15 +94,21 @@ internal class ConfirmViewModel(
                         SUCCESS -> {
                             isCalled = false
                             UserData.clientExist = true
-                            when (response.userExist && !response.isDataCorrupted) {
-                                true -> {
-                                    _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
-                                    if (newLoginFlowSettings)
-                                        _popBackStack.postValue(Event(true))
-                                    else
-                                        _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
-                                }
-                                false -> _action.postValue(
+                            if (response.userExist && !UserData.isDataCorrupted(
+                                    includeEmail = loginFlowSettings.enableEmail,
+                                    includeSex = loginFlowSettings.enableSex,
+                                    includeBirthDate = loginFlowSettings.enableBirthDate,
+                                    includeName = loginFlowSettings.enableName,
+                                    includeSurname = loginFlowSettings.enableSurname
+                                )
+                            ) {
+                                _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
+                                if (newLoginFlowSettings)
+                                    _popBackStack.postValue(Event(true))
+                                else
+                                    _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
+                            } else {
+                                _action.postValue(
                                     Event(
                                         ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(
                                             loginFlowSettings

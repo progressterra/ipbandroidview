@@ -14,21 +14,20 @@ import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesLi
 import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
-import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
 import kotlinx.coroutines.launch
 
-internal class PersonalViewModel(
-    val personalSettings: PersonalSettings,
-    private val newLoginFlow: Boolean
-) : BaseViewModel() {
+internal class PersonalViewModel(val loginFlowSettings: LoginFlowSettings) : BaseViewModel() {
 
     val personalInfo = MutableLiveData(PersonalInfo())
+
     val personalDataIsValid = MutableLiveData(false)
+
     val citiesList = MutableLiveData<List<CitiesListResponse.City>>()
 
     private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
@@ -45,7 +44,7 @@ internal class PersonalViewModel(
             }
         }
 
-        if (!personalSettings.enableSex) {
+        if (!loginFlowSettings.enableSex) {
             personalInfo.value?.sexType = SexType.NONE
             personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
         }
@@ -137,7 +136,7 @@ internal class PersonalViewModel(
             _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
 
             _screenState.postValue(ScreenState.DEFAULT)
-            if (newLoginFlow)
+            if (loginFlowSettings.newLoginFlow)
                 _popBackStack.postValue(Event(true))
             else
                 _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
@@ -146,7 +145,7 @@ internal class PersonalViewModel(
 
     fun skipRegistration() {
         _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_SKIP to true)))
-        if (newLoginFlow)
+        if (loginFlowSettings.newLoginFlow)
             _popBackStack.value = Event(true)
         else
             _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))

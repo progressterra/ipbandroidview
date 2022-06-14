@@ -7,7 +7,6 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import android.text.style.TextAppearanceSpan
 import android.view.LayoutInflater
 import android.view.View
@@ -56,7 +55,6 @@ class LoginFragment : BaseFragment() {
                 )
             )
         }
-
         binding = FragmentLoginLibBinding.inflate(inflater, container, false)
         return binding.root
     }

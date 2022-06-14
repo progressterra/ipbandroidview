@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -28,21 +29,12 @@ private const val DEFAULT_YEAR = 1995
 private const val DEFAULT_MONTH = 1
 private const val DEFAULT_DAY = 14
 
-//TODO require email switching
-
 class PersonalFragment : BaseFragment() {
 
     private val args: PersonalFragmentArgs by navArgs()
 
-    private val personalSettings: PersonalSettings by lazy {
-        args.loginFlowSettings.personalSettings
-    }
-
     private val viewModel: PersonalViewModel by viewModels {
-        PersonalViewModelFactory(
-            personalSettings,
-            args.loginFlowSettings.newLoginFlow
-        )
+        PersonalViewModelFactory(args.loginFlowSettings)
     }
 
     private lateinit var binding: FragmentPersonalLibBinding
@@ -73,13 +65,10 @@ class PersonalFragment : BaseFragment() {
                 }
             }
         }
-
         setupDatePickerDialog()
-        initListeners()
+        initInputs()
         initEditTextValidation()
         applySettings()
-
-        // TODO: 10.06.2021 если приживется, то нужно окультурить
         if (args.loginFlowSettings.newLoginFlow) {
             viewModel.popBackStack.observe(viewLifecycleOwner) { event ->
                 event.contentIfNotHandled?.let {
@@ -89,41 +78,64 @@ class PersonalFragment : BaseFragment() {
                 }
             }
         }
-
     }
 
-    private fun initListeners() {
+    private fun initInputs() {
         binding.personalData.apply {
-            editTextName.afterTextChanged { viewModel.updateFirstName(it) }
-            editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
-            if (personalSettings.enableEmail) {
-                editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            if (args.loginFlowSettings.enableName) {
+                editTextName.afterTextChanged { viewModel.updateFirstName(it) }
+            } else {
+                textViewNameLabel.isVisible = false
+                editTextName.isVisible = false
             }
-            radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
-            radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+            if (args.loginFlowSettings.enableSurname) {
+                editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
+            } else {
+                editTextSecondName.isVisible = false
+                textViewSecondNameLabel.isVisible = false
+            }
+            if (args.loginFlowSettings.enableEmail) {
+                editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            } else {
+                editTextEmail.isVisible = false
+                setEmailInfoTv.isVisible = false
+            }
+            if (args.loginFlowSettings.enableSex) {
+                radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
+                radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+            } else {
+                setSexInfoTv.isVisible = false
+                radioGroupSex.isVisible = false
+                tvSexShort.isVisible = false
+            }
         }
     }
 
     private fun applySettings() {
-        if (personalSettings.setLastNameAttentionColor) {
+        if (args.loginFlowSettings.personalSettings.setLastNameAttentionColor) {
             val typedValue = TypedValue()
             val theme = context?.theme
             theme?.resolveAttribute(R.attr.app_textFootnoteAttentionColor, typedValue, true)
             binding.personalData.textViewSecondNameLabel.setTextColor(typedValue.data)
         }
-
-        personalSettings.logoId.applyIfNotDefault(binding.ivLogo)
+        args.loginFlowSettings.personalSettings.logoId.applyIfNotDefault(binding.ivLogo)
     }
 
     private fun initEditTextValidation() {
         viewModel.personalInfo.observe(viewLifecycleOwner) {
             binding.personalData.apply {
-                setEditTextValidState(editTextName, it.nameIsValid)
-                setEditTextValidState(editTextSecondName, it.lastNameIsValid)
-                if (personalSettings.enableEmail) {
+                if (args.loginFlowSettings.enableName) {
+                    setEditTextValidState(editTextName, it.nameIsValid)
+                }
+                if (args.loginFlowSettings.enableSurname) {
+                    setEditTextValidState(editTextSecondName, it.lastNameIsValid)
+                }
+                if (args.loginFlowSettings.enableEmail) {
                     setEditTextValidState(editTextEmail, it.emailIsValid)
                 }
-                setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
+                if (args.loginFlowSettings.enableBirthDate) {
+                    setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
+                }
             }
         }
     }
@@ -172,21 +184,20 @@ class PersonalFragment : BaseFragment() {
 
         binding.personalData.citySpinner.apply {
             adapter = spinnerAdapter
-            onItemSelectedListener =
-                (object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        parent: AdapterView<*>?,
-                        view: View?,
-                        position: Int,
-                        id: Long
-                    ) {
-                        viewModel.updateCity(citiesList[position])
-                    }
+            onItemSelectedListener = (object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.updateCity(citiesList[position])
+                }
 
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                        viewModel.updateCity(citiesList[0])
-                    }
-                })
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    viewModel.updateCity(citiesList[0])
+                }
+            })
         }
     }
 }

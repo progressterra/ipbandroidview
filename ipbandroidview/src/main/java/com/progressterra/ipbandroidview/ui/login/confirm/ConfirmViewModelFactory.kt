@@ -13,5 +13,9 @@ internal class ConfirmViewModelFactory(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =
-        ConfirmViewModel(phoneNumber, loginFlowSettings, newLoginFlow) as T
+        ConfirmViewModel(
+            phoneNumber = phoneNumber,
+            loginFlowSettings = loginFlowSettings,
+            newLoginFlowSettings = newLoginFlow
+        ) as T
 }

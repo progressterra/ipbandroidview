@@ -29,9 +29,9 @@ class ConfirmFragment : BaseFragment() {
 
     private val viewModel: ConfirmViewModel by viewModels {
         ConfirmViewModelFactory(
-            args.phoneNumber,
-            args.loginFlowSettings,
-            args.loginFlowSettings.newLoginFlow
+            phoneNumber = args.phoneNumber,
+            loginFlowSettings = args.loginFlowSettings,
+            newLoginFlow = args.loginFlowSettings.newLoginFlow
         )
     }
 
@@ -47,12 +47,9 @@ class ConfirmFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.editText.afterTextChanged(viewModel::checkIt)
-
         binding.editText.requestFocus()
         showKeyboard(requireActivity(), binding.editText)
-
         binding.vm = viewModel
         binding.lifecycleOwner = this
         setupViewModel()

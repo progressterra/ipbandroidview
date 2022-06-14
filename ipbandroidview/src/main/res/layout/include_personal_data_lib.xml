@@ -103,7 +103,6 @@
             android:layout_marginTop="24dp"
             android:hint="@string/personal_email_hint"
             android:paddingBottom="5dp"
-            android:visibility="@{vm.personalSettings.enableEmail}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/city_spinner" />
@@ -114,7 +113,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:text="Подтвердите и получите 300 приветственных бонусов"
-            android:visibility="@{vm.personalSettings.enableEmailDescription}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/editText_email" />
@@ -126,7 +124,7 @@
             android:layout_marginTop="21dp"
             android:gravity="center"
             android:text="Позвольте нам дать для вас качественные предложения. Кто вы? "
-            android:visibility="@{!vm.personalSettings.enableSexShortDescription &amp;&amp; vm.personalSettings.enableSex}"
+            android:visibility="@{!vm.loginFlowSettings.personalSettings.enableSexShortDescription &amp;&amp; vm.loginFlowSettings.enableSex}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/set_email_info_tv" />
@@ -137,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_sex"
-            android:visibility="@{vm.personalSettings.enableSexShortDescription &amp;&amp; vm.personalSettings.enableSex}"
+            android:visibility="@{vm.loginFlowSettings.personalSettings.enableSexShortDescription &amp;&amp; vm.loginFlowSettings.enableSex}"
             app:layout_constraintBottom_toBottomOf="@id/radioGroup_sex"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toTopOf="@id/radioGroup_sex" />
@@ -149,7 +147,6 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="@{vm.personalSettings.enableSex}"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toEndOf="@id/tv_sex_short"
             app:layout_constraintTop_toBottomOf="@id/set_sex_info_tv"
@@ -194,7 +191,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             android:onClick="@{()->vm.skipRegistration()}"
-            android:visibility="@{vm.personalSettings.enableSkipRegistrationButton}"
+            android:visibility="@{vm.loginFlowSettings.personalSettings.enableSkipRegistrationButton}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintHorizontal_bias="0.0"
