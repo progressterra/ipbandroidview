@@ -107,7 +107,7 @@
 
             <TextView
                 android:id="@+id/textView_agreement"
-                style="@style/Text.Footnote1"
+                style="@style/Typography.RegularText.Note.Grey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"

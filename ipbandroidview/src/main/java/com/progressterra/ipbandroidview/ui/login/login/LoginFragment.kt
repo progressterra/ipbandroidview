@@ -28,6 +28,7 @@ import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 class LoginFragment : BaseFragment() {
 
     private val args: LoginFragmentArgs by navArgs()
+
     private val phoneNumberSettings: PhoneNumberSettings by lazy {
         val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
         loginFlowSettings.phoneNumberSettings
@@ -95,7 +96,6 @@ class LoginFragment : BaseFragment() {
     private fun setPolicy(policyUrl: String) {
         val ss =
             SpannableString(resources.getString(R.string.login_policy))
-
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
                 findNavController().navigate(
@@ -103,7 +103,6 @@ class LoginFragment : BaseFragment() {
                 )
             }
         }
-
         ss.setSpan(clickableSpan, 61, 89, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(
             StyleSpan(R.style.Typography_BoldText_Note_Gray),
@@ -111,7 +110,6 @@ class LoginFragment : BaseFragment() {
             89,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-
         binding.textViewAgreement.apply {
             movementMethod = LinkMovementMethod.getInstance()
             text = ss
@@ -122,7 +120,6 @@ class LoginFragment : BaseFragment() {
     private fun setTerms(termsUrl: String) {
         val ss =
             SpannableString(resources.getString(R.string.login_terms))
-
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
                 findNavController().navigate(
@@ -130,7 +127,6 @@ class LoginFragment : BaseFragment() {
                 )
             }
         }
-
         ss.setSpan(clickableSpan, 40, 68, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(
             ForegroundColorSpan(resources.getColor(R.color.accent, null)),
@@ -138,7 +134,6 @@ class LoginFragment : BaseFragment() {
             68,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-
         binding.textViewAgreement.apply {
             movementMethod = LinkMovementMethod.getInstance()
             text = ss
@@ -149,7 +144,6 @@ class LoginFragment : BaseFragment() {
     private fun setTermsAndPolicy(policyUrl: String, termsUrl: String) {
         val ss =
             SpannableString(resources.getString(R.string.login_terms_and_policy))
-
         val termsSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
                 findNavController().navigate(
@@ -157,7 +151,6 @@ class LoginFragment : BaseFragment() {
                 )
             }
         }
-
         val policySpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
                 findNavController().navigate(
@@ -165,10 +158,8 @@ class LoginFragment : BaseFragment() {
                 )
             }
         }
-
         ss.setSpan(termsSpan, 60, 88, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(policySpan, 106, 134, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
         ss.setSpan(
             ForegroundColorSpan(resources.getColor(R.color.accent, null)),
             60,
@@ -181,8 +172,6 @@ class LoginFragment : BaseFragment() {
             134,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-
-
         binding.textViewAgreement.apply {
             movementMethod = LinkMovementMethod.getInstance()
             text = ss
