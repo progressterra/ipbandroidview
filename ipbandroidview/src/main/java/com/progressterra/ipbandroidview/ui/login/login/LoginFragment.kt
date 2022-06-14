@@ -8,6 +8,7 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.text.style.TextAppearanceSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -105,10 +106,10 @@ class LoginFragment : BaseFragment() {
         }
         ss.setSpan(clickableSpan, 61, 89, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(
-            StyleSpan(R.style.Typography_BoldText_Note_Gray),
+            TextAppearanceSpan(context, R.style.Typography_BoldText_Note_Gray),
             61,
             89,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            Spannable.SPAN_INCLUSIVE_INCLUSIVE
         )
         binding.textViewAgreement.apply {
             movementMethod = LinkMovementMethod.getInstance()
