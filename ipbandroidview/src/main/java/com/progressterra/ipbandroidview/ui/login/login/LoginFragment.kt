@@ -7,6 +7,7 @@ import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,31 +66,25 @@ class LoginFragment : BaseFragment() {
         }
         binding.apply {
             vm = viewModel
-            binding.lifecycleOwner = this@LoginFragment
+            lifecycleOwner = this@LoginFragment
             lifecycleOwner = viewLifecycleOwner
             loginPhone.afterTextChanged(viewModel::checkPhone)
             loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
-
             phoneNumberSettings.headerImageId.applyIfNotDefault(ivHeader)
-
             phoneNumberSettings.footerImageId.applyIfNotDefault(ivFooter)
-
-            binding.btnSkip.apply {
+            btnSkip.apply {
                 isVisible = phoneNumberSettings.showSkipBtn
                 setOnClickListener {
                     findNavController().popBackStack()
                 }
             }
-
         }
-
         applyAgreements()
     }
 
     private fun applyAgreements() {
         val policy = phoneNumberSettings.privacyPolicy
         val terms = phoneNumberSettings.termsOfUse
-
         when {
             policy != null && terms != null -> setTermsAndPolicy(policy, terms)
             policy != null -> setPolicy(policy)
@@ -109,11 +104,11 @@ class LoginFragment : BaseFragment() {
             }
         }
 
-        ss.setSpan(clickableSpan, 39, 67, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(clickableSpan, 61, 89, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(
-            ForegroundColorSpan(resources.getColor(R.color.accent, null)),
-            39,
-            67,
+            StyleSpan(R.style.Typography_BoldText_Note_Gray),
+            61,
+            89,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
 
