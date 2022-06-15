@@ -26,7 +26,8 @@ internal class PersonalViewModel(val loginFlowSettings: LoginFlowSettings) : Bas
 
     val personalInfo = MutableLiveData(PersonalInfo())
 
-    val personalDataIsValid = MutableLiveData(false)
+    private val _personalDataIsValid = MutableLiveData(false)
+    val personalDataIsValid: LiveData<Boolean> = _personalDataIsValid
 
     val citiesList = MutableLiveData<List<CitiesListResponse.City>>()
 
@@ -46,25 +47,25 @@ internal class PersonalViewModel(val loginFlowSettings: LoginFlowSettings) : Bas
 
         if (!loginFlowSettings.enableSex) {
             personalInfo.value?.sexType = SexType.NONE
-            personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+            checkPersonalInfo()
         }
     }
 
     fun updateFirstName(newName: String) {
         personalInfo.value?.name = newName
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        checkPersonalInfo()
         personalInfo.notifyObserver()
     }
 
     fun updateLastName(newLastName: String) {
         personalInfo.value?.lastname = newLastName
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        checkPersonalInfo()
         personalInfo.notifyObserver()
     }
 
     fun updateSex(sexType: SexType) {
         personalInfo.value?.sexType = sexType
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        checkPersonalInfo()
     }
 
     fun updateBirthdate(
@@ -73,20 +74,33 @@ internal class PersonalViewModel(val loginFlowSettings: LoginFlowSettings) : Bas
         year: Int
     ) {
         personalInfo.value?.birthdate = "$year-$month-$day"
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        checkPersonalInfo()
         personalInfo.notifyObserver()
     }
 
-    //Will not invoked if enableEmail is false
     fun updateEmail(newEmail: String) {
         personalInfo.value?.email = newEmail
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        checkPersonalInfo()
         personalInfo.notifyObserver()
     }
 
     fun updateCity(newCity: CitiesListResponse.City) {
         personalInfo.value?.city = newCity
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        checkPersonalInfo()
+    }
+
+    fun checkPersonalInfo() {
+        _personalDataIsValid.postValue(
+            personalInfo.value?.infoIsValid(
+                includeName = loginFlowSettings.enableName,
+                includeSurname = loginFlowSettings.enableSurname,
+                includeBirthDate = loginFlowSettings.enableBirthDate,
+                includeCity = loginFlowSettings.enableCity,
+                includeEmail = loginFlowSettings.enableEmail,
+                includePatronymic = false,
+                includeSex = loginFlowSettings.enableSex
+            )
+        )
     }
 
     fun addPersonalInfo() {

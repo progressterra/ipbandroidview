@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.ui.login.personal
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,12 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
+import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
-import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
@@ -68,7 +66,7 @@ class PersonalFragment : BaseFragment() {
         setupDatePickerDialog()
         initInputs()
         initEditTextValidation()
-        applySettings()
+        applyHeaderLogo()
         if (args.loginFlowSettings.newLoginFlow) {
             viewModel.popBackStack.observe(viewLifecycleOwner) { event ->
                 event.contentIfNotHandled?.let {
@@ -80,61 +78,63 @@ class PersonalFragment : BaseFragment() {
         }
     }
 
-    private fun initInputs() {
+    private fun initInputs(settings: LoginFlowSettings) {
         binding.personalData.apply {
-            if (args.loginFlowSettings.enableName) {
-                editTextName.afterTextChanged { viewModel.updateFirstName(it) }
+            if (settings.enableName) {
+                etName.afterTextChanged { viewModel.updateFirstName(it) }
             } else {
-                textViewNameLabel.isVisible = false
-                editTextName.isVisible = false
+                tilName.isVisible = false
             }
-            if (args.loginFlowSettings.enableSurname) {
-                editTextSecondName.afterTextChanged { viewModel.updateLastName(it) }
+            if (settings.enableSurname) {
+                etSurname.afterTextChanged { viewModel.updateLastName(it) }
             } else {
-                editTextSecondName.isVisible = false
-                textViewSecondNameLabel.isVisible = false
+                tilSurname.isVisible = false
             }
-            if (args.loginFlowSettings.enableEmail) {
-                editTextEmail.afterTextChanged { viewModel.updateEmail(it) }
+            if (settings.enableEmail) {
+                etEmail.afterTextChanged { viewModel.updateEmail(it) }
             } else {
-                editTextEmail.isVisible = false
-                setEmailInfoTv.isVisible = false
+                tilEmail.isVisible = false
             }
-            if (args.loginFlowSettings.enableSex) {
-                radioButtonMale.setOnClickListener { viewModel.updateSex(SexType.MALE) }
-                radioButtonFemale.setOnClickListener { viewModel.updateSex(SexType.FEMALE) }
+            buttonSkip.apply {
+                setOnClickListener { viewModel.skipRegistration() }
+                isVisible =
+                    settings.personalSettings.enableSkipRegistrationButton
+            }
+            buttonNext.apply {
+                viewModel.screenState.observe(viewLifecycleOwner) { setIsLoading(it.isLoading()) }
+                viewModel.personalDataIsValid.observe(viewLifecycleOwner) {
+                    isEnabled = it
+                }
+                setOnClickListener { viewModel.addPersonalInfo() }
+            }
+            if (settings.enableSex) {
+
             } else {
-                setSexInfoTv.isVisible = false
-                radioGroupSex.isVisible = false
+                vSex.isVisible = false
+                vSexClickable.isVisible = false
                 tvSexShort.isVisible = false
             }
         }
     }
 
-    private fun applySettings() {
-        if (args.loginFlowSettings.personalSettings.setLastNameAttentionColor) {
-            val typedValue = TypedValue()
-            val theme = context?.theme
-            theme?.resolveAttribute(R.attr.app_textFootnoteAttentionColor, typedValue, true)
-            binding.personalData.textViewSecondNameLabel.setTextColor(typedValue.data)
-        }
-        args.loginFlowSettings.personalSettings.logoId.applyIfNotDefault(binding.ivLogo)
+    private fun applyHeaderLogo() {
+        args.loginFlowSettings.personalSettings.logoId.applyIfNotDefault(binding.ivHeader)
     }
 
     private fun initEditTextValidation() {
         viewModel.personalInfo.observe(viewLifecycleOwner) {
             binding.personalData.apply {
                 if (args.loginFlowSettings.enableName) {
-                    setEditTextValidState(editTextName, it.nameIsValid)
+                    setEditTextValidState(etName, it.nameIsValid)
                 }
                 if (args.loginFlowSettings.enableSurname) {
-                    setEditTextValidState(editTextSecondName, it.lastNameIsValid)
+                    setEditTextValidState(etSurname, it.lastNameIsValid)
                 }
                 if (args.loginFlowSettings.enableEmail) {
-                    setEditTextValidState(editTextEmail, it.emailIsValid)
+                    setEditTextValidState(etEmail, it.emailIsValid)
                 }
                 if (args.loginFlowSettings.enableBirthDate) {
-                    setEditTextValidState(textViewBirthDay, it.birthDateIsValid)
+                    setEditTextValidState(etBirthDay, it.birthDateIsValid)
                 }
             }
         }

@@ -31,7 +31,9 @@
 
         <TextView
             android:id="@+id/textView_hint"
-            style="@style/Typography.RegularText.Note.Black"
+            style="@style/Typography.RegularText"
+            android:textColor="@color/black"
+            android:textSize="12sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -58,7 +60,9 @@
 
             <TextView
                 android:id="@+id/textView_countyLabel"
-                style="@style/Text.Footnote1"
+                style="@style/Typography.RegularText"
+                android:textSize="12sp"
+                android:textColor="#979797"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_country"
@@ -76,7 +80,9 @@
 
                 <TextView
                     android:id="@+id/login_country"
-                    style="@style/Text.Body"
+                    style="@style/Typography.RegularText"
+                    android:textSize="16sp"
+                    android:textColor="#1B1B1B"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -87,7 +93,9 @@
 
             <TextView
                 android:id="@+id/textView_phoneLabel"
-                style="@style/Text.Footnote1"
+                style="@style/Typography.RegularText"
+                android:textSize="12sp"
+                android:textColor="#979797"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -97,7 +105,9 @@
 
             <EditText
                 android:id="@+id/login_phone"
-                style="@style/Text.Body"
+                style="@style/Typography.RegularText"
+                android:textSize="16sp"
+                android:textColor="#1B1B1B"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -109,7 +119,9 @@
 
             <TextView
                 android:id="@+id/textView_agreement"
-                style="@style/Typography.RegularText.Note.Grey"
+                style="@style/Typography.RegularText"
+                android:textSize="12sp"
+                android:textColor="#9D9995"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
@@ -138,7 +150,9 @@
 
         <TextView
             android:id="@+id/btn_skip"
-            style="@style/Text.CalloutClick"
+            style="@style/Typography.RegularText"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -146,6 +160,8 @@
             android:layout_marginEnd="20dp"
             android:text="@string/skip"
             android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/login_next" />
 

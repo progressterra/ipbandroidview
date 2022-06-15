@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -17,57 +18,48 @@
         tools:context=".ui.login.personal.PersonalFragment">
 
         <ImageView
-            android:id="@+id/iv_logo"
+            android:id="@+id/iv_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:visibility="gone"
+            android:visibility="visible"
+            android:scaleType="fitXY"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/scrollView"
+            tools:layout_height="200dp"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/textView_label"
-            style="@style/Text.Body"
+            style="@style/Typography.RegularText"
+            android:textSize="14sp"
+            android:textColor="#010000"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:gravity="center"
+            android:justificationMode="inter_word"
             android:text="@string/personal_tell_us_about"
-            app:layout_constraintEnd_toEndOf="@id/guideline_end"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/iv_logo"
-            app:layout_goneMarginTop="0dp" />
+            android:layout_marginStart="86dp"
+            android:layout_marginEnd="86dp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/iv_header" />
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="26dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_label">
+            app:layout_constraintTop_toBottomOf="@id/iv_header">
 
             <include
                 android:id="@+id/personal_data"
                 layout="@layout/include_personal_data_lib"
                 app:vm="@{vm}" />
-
         </ScrollView>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_start"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="40dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_end"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="40dp" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

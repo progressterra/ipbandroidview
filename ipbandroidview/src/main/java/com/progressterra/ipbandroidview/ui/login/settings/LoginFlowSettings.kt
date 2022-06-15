@@ -13,5 +13,6 @@ data class LoginFlowSettings(
     val enableSex: Boolean = true,
     val enableBirthDate: Boolean = true,
     val enableName: Boolean = true,
-    val enableSurname: Boolean = true
+    val enableSurname: Boolean = true,
+    val enableCity: Boolean = true
 ) : Parcelable

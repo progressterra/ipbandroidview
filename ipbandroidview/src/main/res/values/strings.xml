@@ -17,7 +17,7 @@
 
 
     <!--  Фрагмент ввода персональных данных  -->
-    <string name="personal_tell_us_about">Пожалуйста, расскажите немного о себе</string>
+    <string name="personal_tell_us_about">Мы рады приветствовать Вас в приложении нашего магазина</string>
     <string name="personal_name">Имя</string>
     <string name="personal_name_hint">Ваше имя</string>
     <string name="personal_second_name">Фамилия</string>
@@ -70,7 +70,7 @@
     <string name="refresh">Обновить</string>
     <string name="Network_error">Ошибка сети</string>
     <string name="user_data_error">Ошибка при указании пользовательских данных</string>
-    <string name="your_sex">Ваш пол:</string>
+    <string name="your_sex">Пол</string>
     <string name="product_subinfo_detail_button">Подробнее</string>
 
     <string name="network_error">Ошибка при получении данных</string>
