@@ -136,17 +136,22 @@
                 app:layout_constraintTop_toBottomOf="@id/login_phone" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
+        <Button
             android:id="@+id/login_next"
+            android:textAppearance="@style/Typography.BoldText"
+            android:textColor="@color/white"
+            android:text="@string/next"
+            android:textSize="14sp"
+            android:backgroundTint="#333333"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="34dp"
             android:layout_marginTop="78dp"
-            android:layout_marginEnd="24dp"
-            app:isLoading="@{vm.screenState.isLoading()}"
-            app:layout_constraintTop_toBottomOf="@id/cl_input"
-            app:text="@string/next" />
+            android:layout_marginEnd="34dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_input"/>
 
         <TextView
             android:id="@+id/btn_skip"
