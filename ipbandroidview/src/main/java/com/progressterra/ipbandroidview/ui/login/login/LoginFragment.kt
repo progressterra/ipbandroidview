@@ -104,7 +104,7 @@ class LoginFragment : BaseFragment() {
         }
         ss.setSpan(clickableSpan, 61, 89, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(
-            TextAppearanceSpan(context, R.style.Typography_BoldText),
+            TextAppearanceSpan(context, R.style.Typography_Policy),
             61,
             89,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE
