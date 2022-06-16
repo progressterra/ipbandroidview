@@ -58,8 +58,7 @@
 
             <include
                 android:id="@+id/personal_data"
-                layout="@layout/include_personal_data_lib"
-                app:vm="@{vm}" />
+                layout="@layout/include_personal_data_lib"/>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
