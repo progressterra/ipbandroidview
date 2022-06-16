@@ -170,4 +170,8 @@
     <string name="address_list_title">Адрес доставки</string>
     <string name="address_add_title">Адрес доставки</string>
 
+    <string name="choose_sex">Пол</string>
+    <string name="male">Женский</string>
+    <string name="female">Мужской</string>
+
 </resources>

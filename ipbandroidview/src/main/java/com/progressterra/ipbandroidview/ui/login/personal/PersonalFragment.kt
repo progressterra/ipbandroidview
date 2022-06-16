@@ -12,6 +12,7 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
 import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalLibBinding
@@ -108,10 +109,24 @@ class PersonalFragment : BaseFragment() {
                 setOnClickListener { viewModel.addPersonalInfo() }
             }
             if (settings.enableSex) {
-
+                findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>("buy bundle")
+                    ?.observe(
+                        viewLifecycleOwner
+                    ) { bundle ->
+                        when (bundle.getInt("sex")) {
+                            0 -> {
+                                viewModel.updateSex(SexType.FEMALE)
+                                tvSex.text = "Женский"
+                            }
+                            1 -> {
+                                viewModel.updateSex(SexType.MALE)
+                                tvSex.text = "Женский"
+                            }
+                        }
+                    }
             } else {
                 vSex.isVisible = false
-                vSexClickable.isVisible = false
+                tvSex.isVisible = false
                 tvSexShort.isVisible = false
             }
         }

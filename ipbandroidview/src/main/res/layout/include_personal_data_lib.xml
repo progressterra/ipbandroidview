@@ -122,8 +122,11 @@
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/til_email" />
 
-        <View
-            android:id="@+id/v_sex_clickable"
+        <TextView
+            android:id="@+id/tv_sex"
+            style="@style/Typography.RegularText"
+            android:textSize="16sp"
+            android:textColor="#1B1B1B"
             android:layout_width="0dp"
             android:layout_height="25dp"
             app:layout_constraintStart_toStartOf="@id/v_sex"

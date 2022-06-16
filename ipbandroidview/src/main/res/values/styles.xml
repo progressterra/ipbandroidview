@@ -183,6 +183,10 @@
         <item name="android:fontFamily">@font/proxima_nova_bold</item>
     </style>
 
+    <style name="NoBackgroundDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@null</item>
+    </style>
+
     <!-- Кнопки  -->
 
     <style name="Button">
