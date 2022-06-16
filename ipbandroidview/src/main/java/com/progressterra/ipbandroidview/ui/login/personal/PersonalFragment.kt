@@ -64,7 +64,7 @@ class PersonalFragment : BaseFragment() {
             }
         }
         setupDatePickerDialog()
-        initInputs()
+        initInputs(args.loginFlowSettings)
         initEditTextValidation()
         applyHeaderLogo()
         if (args.loginFlowSettings.newLoginFlow) {
@@ -157,8 +157,7 @@ class PersonalFragment : BaseFragment() {
             requireContext(),
             { _, year, month, dayOfMonth ->
                 viewModel.updateBirthdate(dayOfMonth, month + 1, year)
-                binding.personalData.textViewBirthDay.text =
-                    getString(R.string.birthday_date, dayOfMonth, month + 1, year)
+                binding.personalData.etBirthDay.setText(getString(R.string.birthday_date, dayOfMonth, month + 1, year))
             },
             calendar[Calendar.YEAR],
             calendar[Calendar.MONTH],
@@ -167,7 +166,7 @@ class PersonalFragment : BaseFragment() {
         dialog.updateDate(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY)
         dialog.datePicker.maxDate = System.currentTimeMillis()
 
-        binding.personalData.textViewBirthDay.setOnClickListener {
+        binding.personalData.etBirthDay.setOnClickListener {
             dialog.show()
         }
     }
