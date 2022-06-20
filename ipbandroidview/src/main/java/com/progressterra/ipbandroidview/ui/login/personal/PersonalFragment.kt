@@ -84,17 +84,20 @@ class PersonalFragment : BaseFragment() {
             if (settings.enableName) {
                 etName.afterTextChanged { viewModel.updateFirstName(it) }
             } else {
-                tilName.isVisible = false
+                etName.isVisible = false
+                tvNameLabel.isVisible = false
             }
             if (settings.enableSurname) {
                 etSurname.afterTextChanged { viewModel.updateLastName(it) }
             } else {
-                tilSurname.isVisible = false
+                etSurname.isVisible = false
+                tvSurnameLabel.isVisible = false
             }
             if (settings.enableEmail) {
                 etEmail.afterTextChanged { viewModel.updateEmail(it) }
             } else {
-                tilEmail.isVisible = false
+                etEmail.isVisible = false
+                tvEmailLabel.isVisible = false
             }
             buttonSkip.apply {
                 setOnClickListener { viewModel.skipRegistration() }
@@ -149,7 +152,7 @@ class PersonalFragment : BaseFragment() {
                     setEditTextValidState(etEmail, it.emailIsValid)
                 }
                 if (args.loginFlowSettings.enableBirthDate) {
-                    setEditTextValidState(etBirthDay, it.birthDateIsValid)
+                    setEditTextValidState(tvBirthDay, it.birthDateIsValid)
                 }
             }
         }
@@ -172,7 +175,7 @@ class PersonalFragment : BaseFragment() {
             requireContext(),
             { _, year, month, dayOfMonth ->
                 viewModel.updateBirthdate(dayOfMonth, month + 1, year)
-                binding.personalData.etBirthDay.setText(getString(R.string.birthday_date, dayOfMonth, month + 1, year))
+                binding.personalData.tvBirthDay.text = getString(R.string.birthday_date, dayOfMonth, month + 1, year)
             },
             calendar[Calendar.YEAR],
             calendar[Calendar.MONTH],
@@ -181,7 +184,7 @@ class PersonalFragment : BaseFragment() {
         dialog.updateDate(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY)
         dialog.datePicker.maxDate = System.currentTimeMillis()
 
-        binding.personalData.etBirthDay.setOnClickListener {
+        binding.personalData.tvBirthDay.setOnClickListener {
             dialog.show()
         }
     }

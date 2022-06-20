@@ -162,7 +162,7 @@
                     android:text="Дата рождения" />
 
                 <TextView
-                    android:id="@+id/tv_birthDay"
+                    android:id="@+id/tv_birth_day"
                     style="@style/Text.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
