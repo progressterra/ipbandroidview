@@ -19,15 +19,14 @@
 
         <ImageView
             android:id="@+id/iv_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H, 375:216"
             android:visibility="visible"
             android:scaleType="fitXY"
-            tools:layout_height="200dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/scrollView"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
@@ -58,7 +57,7 @@
 
             <include
                 android:id="@+id/personal_data"
-                layout="@layout/include_personal_data_lib"/>
+                layout="@layout/include_personal_data_lib" />
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
