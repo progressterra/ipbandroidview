@@ -162,12 +162,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="38dp"
+            app:textColor="@color/white"
+            app:buttonTint="#333333"
             app:layout_constraintBottom_toTopOf="@id/button_skip"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/v_sex"
             app:layout_goneMarginBottom="24dp"
-            app:text="@string/next" />
+            app:text="@string/registration" />
 
         <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
             android:id="@+id/button_skip"
@@ -175,6 +177,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
+            app:textColor="@color/white"
+            app:buttonTint="#333333"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintHorizontal_bias="0.0"
