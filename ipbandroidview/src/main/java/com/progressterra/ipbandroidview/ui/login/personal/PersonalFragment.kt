@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.ui.login.personal
 
 import android.app.DatePickerDialog
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -172,12 +174,12 @@ class PersonalFragment : BaseFragment() {
     }
 
     private fun setEditTextValidState(view: View, isValid: Boolean) {
-        view.background = if (isValid) AppCompatResources.getDrawable(
-            requireContext(),
-            R.drawable.background_edittext
-        ) else AppCompatResources.getDrawable(
-            requireContext(),
-            R.drawable.background_edittext_invalid
+        view.backgroundTintList = ColorStateList.valueOf(
+            if (isValid) {
+                Color.parseColor("#DEDEDE")
+            } else {
+                Color.parseColor("#B3241D")
+            }
         )
     }
 
