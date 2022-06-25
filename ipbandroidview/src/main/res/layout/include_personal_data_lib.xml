@@ -26,7 +26,7 @@
             style="@style/Typography.RegularText"
             android:textSize="16sp"
             android:textColor="#1B1B1B"
-            android:background="@drawable/background_edittext"
+            android:backgroundTint="#DEDEDE"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -35,31 +35,18 @@
             app:layout_constraintStart_toStartOf="@id/guideline_start"
             app:layout_constraintTop_toBottomOf="@id/tv_name_label" />
 
-        <TextView
-            android:id="@+id/tv_surname_label"
-            style="@style/Typography.RegularText"
-            android:textSize="12sp"
-            android:textColor="#9D9995"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="@string/personal_second_name"
-            app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/et_name" />
-
         <EditText
             android:id="@+id/et_surname"
             style="@style/Typography.RegularText"
-            android:textSize="16sp"
-            android:textColor="#1B1B1B"
-            android:background="@drawable/background_edittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:backgroundTint="#DEDEDE"
             android:paddingBottom="5dp"
+            android:textColor="#1B1B1B"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintStart_toStartOf="@id/guideline_start"
-            app:layout_constraintTop_toBottomOf="@id/tv_surname_label" />
+            tools:layout_editor_absoluteY="138dp" />
 
         <TextView
             android:id="@+id/tv_birthDay_label"
@@ -82,9 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:paddingBottom="5dp"
-            android:background="@drawable/background_edittext"
-            app:layout_constraintStart_toStartOf="@id/v_sex"
-            app:layout_constraintEnd_toEndOf="@id/v_sex"
+            android:backgroundTint="#DEDEDE"
+            app:layout_constraintStart_toStartOf="@id/guideline_start"
+            app:layout_constraintEnd_toEndOf="@id/guideline_end"
             app:layout_constraintTop_toBottomOf="@id/tv_birthDay_label"/>
 
         <androidx.appcompat.widget.AppCompatSpinner
@@ -115,7 +102,7 @@
             style="@style/Typography.RegularText"
             android:textSize="16sp"
             android:textColor="#1B1B1B"
-            android:background="@drawable/background_edittext"
+            android:backgroundTint="#DEDEDE"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
