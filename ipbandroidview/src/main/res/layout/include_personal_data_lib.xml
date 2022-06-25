@@ -79,6 +79,7 @@
             android:textSize="16sp"
             android:textColor="#1B1B1B"
             android:layout_width="0dp"
+            android:enabled="false"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:paddingBottom="5dp"
