@@ -16,11 +16,6 @@
 
         <item name="app_progressBar_color">@color/color_buttonDisabled</item>
 
-        <!-- Forms defaults       -->
-        <item name="app_formsUnderlineColor">@color/color_lines</item>
-        <item name="app_formsTextColor">@color/color_textFootnote</item>
-        <item name="app_formsUnderlineInvalidateColor">#FF0000</item>
-
         <!--  Background defaults      -->
         <item name="app_backgroundColor">@color/color_background</item>
 
@@ -165,10 +160,6 @@
     <style name="Text.Body.Attention" parent="">
         <item name="android:textColor">?attr/app_textAttentionColor</item>
 
-    </style>
-
-    <style name="Text.Forms" parent="Text.CalloutButton1">
-        <item name="android:textColor">?app_formsTextColor</item>
     </style>
 
     <style name="Typography">
