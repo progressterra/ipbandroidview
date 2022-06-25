@@ -9,9 +9,6 @@
     <color name="color_textFootnoteAttention">#EF8539</color>
     <color name="color_lines">#DEDEDE</color>
 
-    <color name="valid_line">?app_formsUnderlineColor</color>
-    <color name="invalid_line">?app_formsUnderlineInvalidateColor</color>
-
     <color name="chat_user">#000</color>
     <color name="chat_support">#000</color>
     <color name="chat_time">@color/accent</color>
