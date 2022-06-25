@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -107,6 +108,10 @@ class PersonalFragment : BaseFragment() {
                 etEmail.isVisible = false
                 tvEmailLabel.isVisible = false
             }
+            if (!settings.enableBirthDate) {
+                etBirthDay.isVisible = false
+                tvBirthDayLabel.isVisible = false
+            }
             buttonSkip.apply {
                 setOnClickListener { viewModel.skipRegistration() }
                 isVisible =
@@ -160,7 +165,7 @@ class PersonalFragment : BaseFragment() {
                     setEditTextValidState(etEmail, it.emailIsValid)
                 }
                 if (args.loginFlowSettings.enableBirthDate) {
-                    setEditTextValidState(tvBirthDay, it.birthDateIsValid)
+                    setEditTextValidState(etBirthDay, it.birthDateIsValid)
                 }
             }
         }
@@ -182,7 +187,8 @@ class PersonalFragment : BaseFragment() {
             requireContext(),
             { _, year, month, dayOfMonth ->
                 viewModel.updateBirthdate(dayOfMonth, month + 1, year)
-                binding.personalData.tvBirthDay.text = getString(R.string.birthday_date, dayOfMonth, month + 1, year)
+                binding.personalData.etBirthDay.setText(getString(R.string.birthday_date, dayOfMonth, month + 1, year))
+                Log.d("BIRTH", "Dialog set bd $dayOfMonth, ${month + 1}, $year")
             },
             calendar[Calendar.YEAR],
             calendar[Calendar.MONTH],
@@ -191,7 +197,7 @@ class PersonalFragment : BaseFragment() {
         dialog.updateDate(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY)
         dialog.datePicker.maxDate = System.currentTimeMillis()
 
-        binding.personalData.tvBirthDay.setOnClickListener {
+        binding.personalData.etBirthDay.setOnClickListener {
             Log.d("BIRTH", "Dialog show")
             dialog.show()
         }
