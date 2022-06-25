@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.login.personal
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,13 +37,15 @@ class PersonalFragment : BaseFragment() {
         PersonalViewModelFactory(args.loginFlowSettings)
     }
 
-    private lateinit var binding: FragmentPersonalLibBinding
+    private var _binding: FragmentPersonalLibBinding? = null
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPersonalLibBinding.inflate(inflater, container, false)
+        _binding = FragmentPersonalLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -77,6 +80,11 @@ class PersonalFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun initInputs(settings: LoginFlowSettings) {
@@ -170,7 +178,6 @@ class PersonalFragment : BaseFragment() {
 
     private fun setupDatePickerDialog() {
         val calendar = Calendar.getInstance()
-
         val dialog = DatePickerDialog(
             requireContext(),
             { _, year, month, dayOfMonth ->
@@ -185,6 +192,7 @@ class PersonalFragment : BaseFragment() {
         dialog.datePicker.maxDate = System.currentTimeMillis()
 
         binding.personalData.tvBirthDay.setOnClickListener {
+            Log.d("BIRTH", "Dialog show")
             dialog.show()
         }
     }
