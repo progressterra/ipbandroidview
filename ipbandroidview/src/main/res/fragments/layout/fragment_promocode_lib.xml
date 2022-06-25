@@ -59,7 +59,6 @@
 
         <EditText
             android:id="@+id/et_type"
-            style="@style/EditTextBackground"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"

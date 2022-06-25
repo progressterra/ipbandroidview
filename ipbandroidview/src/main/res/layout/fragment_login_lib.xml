@@ -74,7 +74,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/border_bottom_grey_ripple"
                 android:onClick="@{() -> vm.selectCountry()}"
                 app:layout_constraintTop_toBottomOf="@id/textView_countyLabel">
 
