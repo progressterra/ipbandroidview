@@ -199,7 +199,7 @@ class PersonalFragment : BaseFragment() {
         dialog.updateDate(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY)
         dialog.datePicker.maxDate = System.currentTimeMillis()
 
-        binding.personalData.etBirthDay.setOnClickListener {
+        binding.personalData.vBirthDay.setOnClickListener {
             Log.d("BIRTH", "Dialog show")
             dialog.show()
         }

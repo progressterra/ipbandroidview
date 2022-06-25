@@ -85,7 +85,6 @@
                     android:backgroundTint="#DEDEDE"
                     android:hint="@string/personal_name_hint"
                     android:inputType="textPersonName"
-                    android:paddingBottom="5dp"
                     android:text="@={vm.name}"
                     app:isValid="@{vm.nameIsValid}"
                     tools:text="Мария" />
@@ -106,7 +105,6 @@
                     android:backgroundTint="#DEDEDE"
                     android:hint="@string/personal_second_name_hint"
                     android:inputType="textPersonName"
-                    android:paddingBottom="5dp"
                     android:text="@={vm.lastName}"
                     app:isValid="@{vm.lastNameIsValid}"
                     tools:text="Иванова" />
@@ -127,7 +125,6 @@
                     android:backgroundTint="#DEDEDE"
                     android:hint="@string/personal_email_hint"
                     android:inputType="textWebEmailAddress"
-                    android:paddingBottom="5dp"
                     android:text="@={vm.email}"
                     app:isValid="@{vm.emailIsValid}"
                     tools:text="ivanovamary1901@mail.ru" />
@@ -149,7 +146,6 @@
                     android:ellipsize="end"
                     android:enabled="false"
                     android:maxLines="1"
-                    android:paddingBottom="5dp"
                     android:text="@{vm.phone}"
                     android:textColor="@color/black"
                     tools:text="+754564564654" />
