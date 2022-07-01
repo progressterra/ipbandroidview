@@ -139,7 +139,6 @@
 
                 <EditText
                     android:id="@+id/et_name"
-                    style="@style/EditTextBackground"
                     setValidationStatus="@{vm.allInfoUserModel.nameIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -163,7 +162,6 @@
 
                 <EditText
                     android:id="@+id/et_last_name"
-                    style="@style/EditTextBackground"
                     setValidationStatus="@{vm.allInfoUserModel.lastNameIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -185,7 +183,6 @@
 
                 <EditText
                     android:id="@+id/et_middle_name"
-                    style="@style/EditTextBackground"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
@@ -350,7 +347,6 @@
 
                 <EditText
                     android:id="@+id/et_client_inn"
-                    style="@style/EditTextBackground"
                     setValidationStatus="@{vm.allInfoUserModel.clientInnIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -380,7 +376,6 @@
 
                 <EditText
                     android:id="@+id/et_bank_name"
-                    style="@style/EditTextBackground"
                     setValidationStatus="@{vm.allInfoUserModel.bankNameIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -401,7 +396,6 @@
 
                 <EditText
                     android:id="@+id/et_account"
-                    style="@style/EditTextBackground"
                     setValidationStatus="@{vm.allInfoUserModel.accountIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -422,7 +416,6 @@
 
                 <EditText
                     android:id="@+id/et_bic"
-                    style="@style/EditTextBackground"
                     setValidationStatus="@{vm.allInfoUserModel.bicIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -443,7 +436,6 @@
 
                 <EditText
                     android:id="@+id/et_corr_account"
-                    style="@style/EditTextBackground"
                     setValidationStatus="@{vm.allInfoUserModel.correspondentAccountIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -464,8 +456,6 @@
 
                 <EditText
                     android:id="@+id/et_inn"
-                    style="@style/EditTextBackground"
-
                     setValidationStatus="@{vm.allInfoUserModel.innIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -486,7 +476,6 @@
 
                 <EditText
                     android:id="@+id/et_cpp"
-                    style="@style/EditTextBackground"
                     setValidationStatus="@{vm.allInfoUserModel.cppIsValid}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

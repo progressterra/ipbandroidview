@@ -53,8 +53,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:paddingStart="34dp"
             android:paddingEnd="31dp"
-            android:paddingBottom="30dp"
-            android:paddingTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
@@ -62,6 +60,7 @@
                 android:id="@+id/textView_countyLabel"
                 style="@style/Typography.RegularText"
                 android:textSize="12sp"
+                android:layout_marginTop="15dp"
                 android:textColor="#979797"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,7 +73,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:background="@drawable/border_bottom_grey_ripple"
                 android:onClick="@{() -> vm.selectCountry()}"
                 app:layout_constraintTop_toBottomOf="@id/textView_countyLabel">
 
@@ -111,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/background_edittext"
+                android:backgroundTint="#DEDEDE"
                 android:inputType="number"
                 android:text="@{vm.phoneText}"
                 app:layout_constraintTop_toBottomOf="@id/textView_phoneLabel"
@@ -120,20 +118,16 @@
             <TextView
                 android:id="@+id/textView_agreement"
                 style="@style/Typography.RegularText"
-                android:textSize="12sp"
-                android:textColor="#9D9995"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
                 android:layout_marginHorizontal="10dp"
-                android:text="@string/login_terms"
-                android:textAlignment="center"
-                android:visibility="gone"
-                tools:visibility="visible"
                 android:justificationMode="inter_word"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/login_phone" />
+                android:text="@string/login_terms"
+                android:textColor="#9D9995"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_phone"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button

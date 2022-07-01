@@ -1,13 +1,17 @@
 package com.progressterra.ipbandroidview.ui.login.personal
 
 import android.app.DatePickerDialog
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -36,13 +40,15 @@ class PersonalFragment : BaseFragment() {
         PersonalViewModelFactory(args.loginFlowSettings)
     }
 
-    private lateinit var binding: FragmentPersonalLibBinding
+    private var _binding: FragmentPersonalLibBinding? = null
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPersonalLibBinding.inflate(inflater, container, false)
+        _binding = FragmentPersonalLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -79,6 +85,11 @@ class PersonalFragment : BaseFragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun initInputs(settings: LoginFlowSettings) {
         binding.personalData.apply {
             if (settings.enableName) {
@@ -98,6 +109,10 @@ class PersonalFragment : BaseFragment() {
             } else {
                 etEmail.isVisible = false
                 tvEmailLabel.isVisible = false
+            }
+            if (!settings.enableBirthDate) {
+                etBirthDay.isVisible = false
+                tvBirthDayLabel.isVisible = false
             }
             buttonSkip.apply {
                 setOnClickListener { viewModel.skipRegistration() }
@@ -152,30 +167,30 @@ class PersonalFragment : BaseFragment() {
                     setEditTextValidState(etEmail, it.emailIsValid)
                 }
                 if (args.loginFlowSettings.enableBirthDate) {
-                    setEditTextValidState(tvBirthDay, it.birthDateIsValid)
+                    setEditTextValidState(etBirthDay, it.birthDateIsValid)
                 }
             }
         }
     }
 
     private fun setEditTextValidState(view: View, isValid: Boolean) {
-        view.background = if (isValid) AppCompatResources.getDrawable(
-            requireContext(),
-            R.drawable.background_edittext
-        ) else AppCompatResources.getDrawable(
-            requireContext(),
-            R.drawable.background_edittext_invalid
+        view.backgroundTintList = ColorStateList.valueOf(
+            if (isValid) {
+                Color.parseColor("#DEDEDE")
+            } else {
+                Color.parseColor("#B3241D")
+            }
         )
     }
 
     private fun setupDatePickerDialog() {
         val calendar = Calendar.getInstance()
-
         val dialog = DatePickerDialog(
             requireContext(),
             { _, year, month, dayOfMonth ->
                 viewModel.updateBirthdate(dayOfMonth, month + 1, year)
-                binding.personalData.tvBirthDay.text = getString(R.string.birthday_date, dayOfMonth, month + 1, year)
+                binding.personalData.etBirthDay.setText(getString(R.string.birthday_date, dayOfMonth, month + 1, year))
+                Log.d("BIRTH", "Dialog set bd $dayOfMonth, ${month + 1}, $year")
             },
             calendar[Calendar.YEAR],
             calendar[Calendar.MONTH],
@@ -184,7 +199,8 @@ class PersonalFragment : BaseFragment() {
         dialog.updateDate(DEFAULT_YEAR, DEFAULT_MONTH, DEFAULT_DAY)
         dialog.datePicker.maxDate = System.currentTimeMillis()
 
-        binding.personalData.tvBirthDay.setOnClickListener {
+        binding.personalData.etBirthDay.setOnClickListener {
+            Log.d("BIRTH", "Dialog show")
             dialog.show()
         }
     }
