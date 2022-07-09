@@ -11,51 +11,52 @@
 
         <include layout="@layout/view_header_lib" />
 
-
         <TextView
             android:id="@+id/test"
-            style="@style/Text.Title"
+            android:gravity="center"
+            style="@style/Typography.BoldText"
+            android:textSize="24sp"
+            android:layout_marginHorizontal="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:text="@string/invite_from_contact_list"
-            android:textColor="@color/accent" />
+            android:text="@string/invite_friend_and_earn_more"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/amb_logo"/>
 
         <TextView
             android:id="@+id/tv_html_info"
             style="@style/Text.Body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="24dp"
-            android:text="@string/inviting_info"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/test" />
+            android:layout_marginHorizontal="70dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/inviting_info"/>
+
+        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
+            android:id="@+id/btnSelectContacts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="75dp"
+            android:layout_marginEnd="33dp"
+            app:buttonTint="#333333"
+            app:text="@string/choose_from_contacts" />
 
         <TextView
             android:id="@+id/tv_full_info"
             style="@style/Text.Body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="22dp"
             android:text="@string/conditions_for_attracting_clients"
-            android:textColor="@color/accent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_html_info" />
-
-        <com.progressterra.ipbandroidview.view.FilledButtonWithLoading
-            android:id="@+id/btnSelectContacts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="114dp"
-            android:layout_marginEnd="24dp"
-            app:text="@string/choose_from_contacts" />
-
+            android:textColor="@color/black"/>
     </LinearLayout>
 </layout>

@@ -18,14 +18,15 @@
         <include layout="@layout/view_header_lib" />
 
         <TextView
-            style="@style/Text.Title"
+            style="@style/Typography.RegularText"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="18dp"
-            android:text="@string/choose_from_contacts"
-            android:textColor="@color/accent" />
+            android:text="@string/choose_from_contacts_info"
+            android:textColor="@color/black" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,7 +34,6 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/search_contact_background"
             android:orientation="horizontal">
 
             <ImageView
@@ -41,7 +41,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="16dp"
                 android:enabled="@{vm.search.empty}"
                 android:src="@drawable/ic_search"
                 android:stateListAnimator="@animator/fade_in_out_anim"
@@ -54,7 +53,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center"
-                android:layout_marginStart="16dp"
                 android:enabled="@{!vm.search.empty}"
                 android:onClick="@{_->vm.clearSearchQuery()}"
                 android:src="@drawable/ic_baseline_close_24"
@@ -63,13 +61,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="#979797"
+                app:layout_constraintStart_toStartOf="@id/iv_search"
+                app:layout_constraintEnd_toEndOf="@id/et_filter"
+                app:layout_constraintTop_toBottomOf="@id/et_filter"/>
 
             <EditText
                 android:id="@+id/et_filter"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:layout_marginEnd="15dp"
+                android:layout_marginStart="25dp"
                 android:background="@android:color/transparent"
                 android:hint="@string/search"
                 android:maxLines="1"
