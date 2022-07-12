@@ -127,7 +127,10 @@ class PersonalFragment : BaseFragment() {
                 setOnClickListener { viewModel.addPersonalInfo() }
             }
             if (settings.enableSex) {
-                findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>("buy bundle")
+                tvSex.setOnClickListener {
+                    PersonalFragmentDirections.fromPersonalToSs()
+                }
+                findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>("sex selection")
                     ?.observe(
                         viewLifecycleOwner
                     ) { bundle ->

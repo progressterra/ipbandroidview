@@ -94,11 +94,24 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <dialog
+        android:id="@+id/sex_selection_dialog"
+        android:name="com.progressterra.ipbandroidview.ui.login.personal.sexselection.SexSelectionDialog"
+        android:label="SSD" />
+
     <fragment
         android:id="@+id/fragmentPersonal"
         android:name="com.progressterra.ipbandroidview.ui.login.personal.PersonalFragment"
         android:label="fragment_personal"
         tools:layout="@layout/fragment_personal_lib">
+
+        <action
+            android:id="@+id/from_personal_to_ss"
+            app:destination="@id/sex_selection_dialog"
+            app:enterAnim="@anim/slide_left"
+            app:exitAnim="@anim/wait_anim"
+            app:popEnterAnim="@anim/wait_anim"
+            app:popExitAnim="@anim/slide_right"/>
 
         <argument
             android:name="loginFlowSettings"
