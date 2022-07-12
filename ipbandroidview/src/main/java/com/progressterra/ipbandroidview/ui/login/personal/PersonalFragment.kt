@@ -128,7 +128,7 @@ class PersonalFragment : BaseFragment() {
             }
             if (settings.enableSex) {
                 tvSex.setOnClickListener {
-                    PersonalFragmentDirections.fromPersonalToSs()
+                    findNavController().navigate(PersonalFragmentDirections.fromPersonalToSs())
                 }
                 findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>("sex selection")
                     ?.observe(
@@ -141,7 +141,7 @@ class PersonalFragment : BaseFragment() {
                             }
                             1 -> {
                                 viewModel.updateSex(SexType.MALE)
-                                tvSex.text = "Женский"
+                                tvSex.text = "Мужской"
                             }
                         }
                     }

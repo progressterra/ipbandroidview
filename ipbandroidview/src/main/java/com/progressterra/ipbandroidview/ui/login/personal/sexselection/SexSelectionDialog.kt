@@ -40,7 +40,7 @@ class SexSelectionDialog : BottomSheetDialogFragment() {
         binding.tvFemale.setOnClickListener {
             chooseSex(0)
         }
-        binding.tvFemale.setOnClickListener {
+        binding.tvMale.setOnClickListener {
             chooseSex(1)
         }
     }
