@@ -74,6 +74,7 @@
                 android:onClick="@{() -> vm.sendMessage()}"
                 android:src="@drawable/ic_send_button_new"
                 android:visibility="@{vm.messageSendingStatus.isSuccess()}"
+                app:layout_constraintStart_toEndOf="@id/et_input_message"
                 app:layout_constraintBottom_toBottomOf="@id/et_input_message"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/et_input_message" />
@@ -85,8 +86,8 @@
                 android:elevation="3dp"
                 android:visibility="@{vm.messageSendingStatus.isLoading()}"
                 app:layout_constraintBottom_toBottomOf="@id/iv_send"
-                app:layout_constraintEnd_toEndOf="@id/iv_send"
-                app:layout_constraintStart_toStartOf="@id/iv_send"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/et_input_message"
                 app:layout_constraintTop_toTopOf="@id/iv_send"
                 tools:visibility="visible" />
 
