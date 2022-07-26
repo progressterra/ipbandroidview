@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="message_hint">Сообщение...</string>
+    <string name="message_hint">Ваше сообщение…</string>
     <string name="share">Поделиться</string>
     <string name="incorrect_action">Действие не поддерживается ни в одном приложении</string>
     <string name="registration">Зарегистрироваться</string>
