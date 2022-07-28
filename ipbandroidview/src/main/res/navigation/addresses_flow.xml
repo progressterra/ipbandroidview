@@ -8,6 +8,7 @@
         android:id="@+id/addNewAddressFragment"
         android:name="com.progressterra.ipbandroidview.ui.addresses.AddNewAddressFragment"
         android:label="AddNewAddressFragment" />
+
     <fragment
         android:id="@+id/listOfAddressesFragment"
         android:name="com.progressterra.ipbandroidview.ui.addresses.ListOfAddressesFragment"
