@@ -168,8 +168,8 @@
     <string name="bdwi_bonuses_title">История движения бонусов</string>
 
 <!-- Выбор и добавление адреса   -->
-    <string name="address_list_title">Адрес доставки</string>
-    <string name="address_add_title">Адрес доставки</string>
+    <string name="address_list_title">Адреса</string>
+    <string name="address_add_title">Добавить адрес</string>
 
     <string name="choose_sex">Пол</string>
     <string name="male">Женский</string>
