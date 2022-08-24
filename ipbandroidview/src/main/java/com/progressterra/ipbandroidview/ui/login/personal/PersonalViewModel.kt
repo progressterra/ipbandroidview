@@ -5,12 +5,12 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.progressterra.ipbandroidapi.api.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.interfaces.client.login.models.PersonalInfo
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
+import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
@@ -47,25 +47,65 @@ internal class PersonalViewModel(
 
         if (!personalSettings.enableSex) {
             personalInfo.value?.sexType = SexType.NONE
-            personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+            personalDataIsValid.postValue(
+                personalInfo.value?.infoIsValid(
+                    includeName = true,
+                    includeSurname = true,
+                    includeSex = false,
+                    includeBirthDate = true,
+                    includeCity = false,
+                    includeEmail = false,
+                    includePatronymic = false
+                )
+            )
         }
     }
 
     fun updateFirstName(newName: String) {
         personalInfo.value?.name = newName
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        personalDataIsValid.postValue(
+            personalInfo.value?.infoIsValid(
+                includeName = true,
+                includeSurname = true,
+                includeSex = false,
+                includeBirthDate = true,
+                includeCity = false,
+                includeEmail = false,
+                includePatronymic = false
+            )
+        )
         personalInfo.notifyObserver()
     }
 
     fun updateLastName(newLastName: String) {
         personalInfo.value?.lastname = newLastName
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        personalDataIsValid.postValue(
+            personalInfo.value?.infoIsValid(
+                includeName = true,
+                includeSurname = true,
+                includeSex = false,
+                includeBirthDate = true,
+                includeCity = false,
+                includeEmail = false,
+                includePatronymic = false
+            )
+        )
         personalInfo.notifyObserver()
     }
 
     fun updateSex(sexType: SexType) {
         personalInfo.value?.sexType = sexType
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        personalDataIsValid.postValue(
+            personalInfo.value?.infoIsValid(
+                includeName = true,
+                includeSurname = true,
+                includeSex = false,
+                includeBirthDate = true,
+                includeCity = false,
+                includeEmail = false,
+                includePatronymic = false
+            )
+        )
     }
 
     fun updateBirthdate(
@@ -74,20 +114,50 @@ internal class PersonalViewModel(
         year: Int
     ) {
         personalInfo.value?.birthdate = "$year-$month-$day"
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        personalDataIsValid.postValue(
+            personalInfo.value?.infoIsValid(
+                includeName = true,
+                includeSurname = true,
+                includeSex = false,
+                includeBirthDate = true,
+                includeCity = false,
+                includeEmail = false,
+                includePatronymic = false
+            )
+        )
         personalInfo.notifyObserver()
     }
 
     //Will not invoked if enableEmail is false
     fun updateEmail(newEmail: String) {
         personalInfo.value?.email = newEmail
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        personalDataIsValid.postValue(
+            personalInfo.value?.infoIsValid(
+                includeName = true,
+                includeSurname = true,
+                includeSex = false,
+                includeBirthDate = true,
+                includeCity = false,
+                includeEmail = false,
+                includePatronymic = false
+            )
+        )
         personalInfo.notifyObserver()
     }
 
     fun updateCity(newCity: CitiesListResponse.City) {
         personalInfo.value?.city = newCity
-        personalDataIsValid.postValue(personalInfo.value?.infoIsValid())
+        personalDataIsValid.postValue(
+            personalInfo.value?.infoIsValid(
+                includeName = true,
+                includeSurname = true,
+                includeSex = false,
+                includeBirthDate = true,
+                includeCity = false,
+                includeEmail = false,
+                includePatronymic = false
+            )
+        )
     }
 
     fun addPersonalInfo() {
@@ -97,23 +167,15 @@ internal class PersonalViewModel(
             _screenState.postValue(ScreenState.LOADING)
 
             // запрашиваем токен, чтобы он сохранился в префах, так как используется в послед запросах
-            bonusesApi.getAccessToken().let {
-                if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.Network_error)))
-                    _screenState.postValue(ScreenState.ERROR)
-                    return@launch
-                }
-            }
+            val token = loginApi.accessToken()
 
             personalInfo.value?.let { personalInfo ->
-                loginApi.addClientInfo(personalInfo).let {
-                    if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                        _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
-                        _screenState.postValue(ScreenState.ERROR)
-                        return@launch
-                    }
-                }
-
+                loginApi.addClientInfo(
+                    token,
+                    personalInfo.lastname ?: "",
+                    personalInfo.name ?: "",
+                    personalInfo.patronymic ?: ""
+                )
                 personalInfo.city?.let { city ->
                     loginApi.addCity(city).let {
                         if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
@@ -124,13 +186,7 @@ internal class PersonalViewModel(
                     }
                 }
                 personalInfo.email?.let { email ->
-                    loginApi.addEmail(email).let {
-                        if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                            _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
-                            _screenState.postValue(ScreenState.ERROR)
-                            return@launch
-                        }
-                    }
+                    loginApi.addEmail(token, email)
                     loginApi.confirmEmail(email)
                 }
             }

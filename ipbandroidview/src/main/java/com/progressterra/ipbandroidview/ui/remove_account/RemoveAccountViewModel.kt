@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.remove_account
 import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.lifecycle.*
-import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
@@ -18,7 +17,6 @@ import kotlinx.coroutines.launch
 
 class RemoveAccountViewModel(confirmCodeSettings: ConfirmCodeSettings) : BaseViewModel() {
     private var isCalled: Boolean = false
-    private val api: SCRMApiQwerty.ClientManagement = SCRMApiQwerty.ClientManagement()
     private val bonusesApi: BonusesApi = BonusesApi.getInstance()
 
     val outLinedCircles: Boolean = confirmCodeSettings.outlinedCircles
@@ -65,48 +63,48 @@ class RemoveAccountViewModel(confirmCodeSettings: ConfirmCodeSettings) : BaseVie
 
 
         safeLaunch {
-            val tokenResponse = bonusesApi.getAccessToken()
-            val token = tokenResponse.responseBody?.accessToken.orIfNull {
-                showToast(tokenResponse.errorString)
-                return@safeLaunch
-            }
-
-            val response = api.removeClientBegin(token)
-            if (response.isSuccess()) {
-                _resendCodeOperationReady.postValue(false)
-                startResendCodeCounter()
-            } else {
-                showToast(R.string.remove_resend_error)
-            }
+//            val tokenResponse = bonusesApi.getAccessToken()
+//            val token = tokenResponse.responseBody?.accessToken.orIfNull {
+//                showToast(tokenResponse.errorString)
+//                return@safeLaunch
+//            }
+//
+//            val response = api.removeClientBegin(token)
+//            if (response.isSuccess()) {
+//                _resendCodeOperationReady.postValue(false)
+//                startResendCodeCounter()
+//            } else {
+//                showToast(R.string.remove_resend_error)
+//            }
         }
     }
 
     fun checkIt(code: String) {
-        if (code.length == 4)
-            if (!isCalled) {
-                isCalled = true
-                safeLaunch {
-                    _screenState.postValue(ScreenState.LOADING)
-
-                    val tokenResponse = bonusesApi.getAccessToken()
-                    val token = tokenResponse.responseBody?.accessToken.orIfNull {
-                        showToast(tokenResponse.errorString)
-                        _screenState.postValue(ScreenState.DEFAULT)
-                        return@safeLaunch
-                    }
-
-                    val response = api.removeClientEnd(token, code)
-
-                    if (response.isSuccess()) {
-                        _setFragmentResult.postValue(Event(bundleOf(RemoveAccountKeys.SUCCESS_KEY to true)))
-                        _popBackStack.postValue(Event(true))
-                    } else {
-                        _clearConfirmCode.postValue(Event(Any()))
-                        isCalled = false
-                        _confirmInfo.postValue("Код введен неправльно. Проверьте еще раз SMS с кодом. Или можете запросить новый код, нажав “Выслать повторно”")
-                    }
-                }
-            }
+//        if (code.length == 4)
+//            if (!isCalled) {
+//                isCalled = true
+//                safeLaunch {
+//                    _screenState.postValue(ScreenState.LOADING)
+//
+//                    val tokenResponse = bonusesApi.getAccessToken()
+//                    val token = tokenResponse.responseBody?.accessToken.orIfNull {
+//                        showToast(tokenResponse.errorString)
+//                        _screenState.postValue(ScreenState.DEFAULT)
+//                        return@safeLaunch
+//                    }
+//
+//                    val response = api.removeClientEnd(token, code)
+//
+//                    if (response.isSuccess()) {
+//                        _setFragmentResult.postValue(Event(bundleOf(RemoveAccountKeys.SUCCESS_KEY to true)))
+//                        _popBackStack.postValue(Event(true))
+//                    } else {
+//                        _clearConfirmCode.postValue(Event(Any()))
+//                        isCalled = false
+//                        _confirmInfo.postValue("Код введен неправльно. Проверьте еще раз SMS с кодом. Или можете запросить новый код, нажав “Выслать повторно”")
+//                    }
+//                }
+//            }
     }
 }
 

@@ -6,7 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
+import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidapi.utils.extentions.orNow
@@ -26,7 +27,7 @@ class ListOfAddressesViewModel :
     BaseViewModel() {
 
     private val addressApi = AddressApi()
-    private val repository = BonusesApi.getInstance()
+    private val repository = LoginApi.newInstance()
 
     private val _listOfAddress = MutableLiveData<List<AddressUI>>()
     val listOfAddress: LiveData<List<AddressUI>> = _listOfAddress
@@ -50,14 +51,10 @@ class ListOfAddressesViewModel :
                 _screenState.postValue(ScreenState.LOADING)
             }
 
-            repository.getAccessToken().let {
-                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    accessToken = it.responseBody?.accessToken ?: ""
-                } else {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.network_error)))
-                    _screenState.postValue(ScreenState.ERROR)
-                    return@launch
-                }
+            repository.accessToken().let {
+                accessToken = it
+                _toastBundle.postValue(Event(ToastBundle(R.string.network_error)))
+                _screenState.postValue(ScreenState.ERROR)
             }
 
             addressApi.getAddressList(accessToken).let {
@@ -80,13 +77,8 @@ class ListOfAddressesViewModel :
 
             var accessToken: String
 
-            repository.getAccessToken().let {
-                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    accessToken = it.responseBody?.accessToken ?: ""
-                } else {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.network_error)))
-                    return@launch
-                }
+            repository.accessToken().let {
+                accessToken = it
             }
 
             // устанавливаем даты в адресе текущим днем, так как логика на сервере устанавливает адреса с

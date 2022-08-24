@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
+import com.progressterra.ipbandroidapi.api.ipbambassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.AmbassadorRepository
 import com.progressterra.ipbandroidview.data.IRepository

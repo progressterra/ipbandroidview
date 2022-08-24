@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.bonuses_movements.adapter.Transaction
@@ -20,6 +19,8 @@ import java.util.*
 class BonusesMovementsViewModel : BaseViewModel() {
 
     private val bonusesApi = BonusesApi.getInstance()
+
+    private val loginApi = com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi.newInstance()
 
     private val _transactionList = MutableLiveData<List<TransactionWithDate>>()
  internal   val transactionList: LiveData<List<TransactionWithDate>> = _transactionList
@@ -49,9 +50,8 @@ class BonusesMovementsViewModel : BaseViewModel() {
     private suspend fun updateInfo() {
         val token = getToken()
         val response = bonusesApi.getTransactionsRaw(token)
-        val rawData = response.responseBody.orIfNull { throw Exception(response.errorString) }
         val sdf = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
-        val data = rawData.map {
+        val data = response.map {
             Transaction(
                 formattedDate = sdf.format(it.dateEvent),
                 quantity = it.quantity,
@@ -67,7 +67,6 @@ class BonusesMovementsViewModel : BaseViewModel() {
     }
 
     private suspend fun getToken(): String {
-        val response = bonusesApi.getAccessToken()
-        return response.responseBody?.accessToken.orIfNull { throw Exception(response.errorString) }
+        return loginApi.accessToken()
     }
 }

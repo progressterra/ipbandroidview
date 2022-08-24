@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.usecases.catalog.models
 
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.CatalogItem
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.CatalogItem
 import com.progressterra.ipbandroidview.utils.ui.adapters.catalog.CategoryUILib
 import com.progressterra.ipbandroidview.utils.ui.adapters.catalog.SubCategoryUILib
 

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.user_inviting.models
 
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.InviteByPhoneResponse
+import com.progressterra.ipbandroidapi.api.ipbambassador.models.invite_members.InviteByPhoneResponse
 
 data class UserInviteResultUI(
     val listSuccessfulInvite: List<String>,

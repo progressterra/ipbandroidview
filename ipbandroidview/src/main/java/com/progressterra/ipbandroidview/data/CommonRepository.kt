@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.data
 
 
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.IECommersCore
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.CatalogItem
-import com.progressterra.ipbandroidapi.api.ipbPromoCodeApi.IPBPromoCode
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.IECommersCore
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.CatalogItem
+import com.progressterra.ipbandroidapi.api.ipbpromocodeapi.IPBPromoCode
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidview.utils.SResult
@@ -29,9 +29,7 @@ internal class CommonRepository : BaseRepository(), IRepository.PromoCode, IRepo
     override suspend fun getBonusesInfo(): SResult<BonusesInfo> = safeApiCall {
         val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
         val response = bonusesApi.getBonusesInfo(token)
-
-        response.responseBody?.toSuccessResult()
-            ?: response.errorString.toFailedResult()
+        response.toSuccessResult()
     }
 
     override suspend fun getCatalog(): SResult<List<CatalogItem>> = safeApiCall {

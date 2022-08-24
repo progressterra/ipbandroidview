@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.data
 
 import com.google.gson.Gson
-import com.progressterra.ipbandroidapi.api.iMessengerCore.IMessengerCore
-import com.progressterra.ipbandroidapi.api.iMessengerCore.models.AdditionalDataJSON
-import com.progressterra.ipbandroidapi.api.iMessengerCore.models.DialogInfoRequest
-import com.progressterra.ipbandroidapi.api.iMessengerCore.models.MessageSendingRequest
+import com.progressterra.ipbandroidapi.api.imessengercore.IMessengerCore
+import com.progressterra.ipbandroidapi.api.imessengercore.models.AdditionalDataJSON
+import com.progressterra.ipbandroidapi.api.imessengercore.models.DialogInfoRequest
+import com.progressterra.ipbandroidapi.api.imessengercore.models.MessageSendingRequest
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.chat.utils.convertToMessagesList

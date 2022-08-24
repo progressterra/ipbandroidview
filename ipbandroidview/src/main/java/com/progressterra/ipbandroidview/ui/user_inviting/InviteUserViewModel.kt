@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.ui.user_inviting
 
 import androidx.lifecycle.*
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.InvitingMembersRequest
+import com.progressterra.ipbandroidapi.api.ipbambassador.IPBAmbassador
+import com.progressterra.ipbandroidapi.api.ipbambassador.models.invite_members.InvitingMembersRequest
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel

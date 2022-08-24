@@ -2,16 +2,14 @@ package com.progressterra.ipbandroidview.data
 
 
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.CatalogItem
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientInfoResponse
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.invite_members.InvitingMembersRequest
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageData
-import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.CatalogItem
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.RGGoodsInventoryExt
+import com.progressterra.ipbandroidapi.api.ipbambassador.IPBAmbassador
+import com.progressterra.ipbandroidapi.api.ipbambassador.models.ambassador_status.AmbassadorStatusResponse
+import com.progressterra.ipbandroidapi.api.ipbambassador.models.invite_members.InvitingMembersRequest
+import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.UploadImageData
+import com.progressterra.ipbandroidapi.api.scrm.models.clientinfo.ClientInfoResponse
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
@@ -60,7 +58,7 @@ internal interface IRepository {
         ): SResult<UploadImageData>
 
         suspend fun getMediaDataByEntity(idEntity: String):
-                SResult<List<com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData>>
+                SResult<List<com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.MediaData>>
     }
 
     interface AmbassadorInfo {
@@ -155,13 +153,6 @@ internal interface IRepository {
 
 
     companion object {
-        fun Personal(
-            city: SCRMApiQwerty.ClientCity,
-            client: SCRMApiQwerty.ClientsV3,
-            login: LoginApi
-        ): Personal =
-            PersonalRepository(city, client, login)
-
         fun UserInviting(ambassadorInvite: IPBAmbassador.AmbassadorInvite): UserInvitingRepository =
             UserInvitingRepository(ambassadorInvite)
     }

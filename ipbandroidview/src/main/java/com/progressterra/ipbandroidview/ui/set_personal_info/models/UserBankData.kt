@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.set_personal_info.models
 
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.BankInfoResponse
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.UpdateBankInfoResponse
+import com.progressterra.ipbandroidapi.api.ipbambassador.models.client_info.BankInfoResponse
+import com.progressterra.ipbandroidapi.api.ipbambassador.models.client_info.UpdateBankInfoResponse
 
 
 data class UserBankData(

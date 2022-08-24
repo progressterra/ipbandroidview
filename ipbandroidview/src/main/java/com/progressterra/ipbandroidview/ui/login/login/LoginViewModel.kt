@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country

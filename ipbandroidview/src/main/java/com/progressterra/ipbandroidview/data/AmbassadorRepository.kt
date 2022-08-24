@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.data
 
 
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.ambassador_status.AmbassadorStatusResponse
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore
-import com.progressterra.ipbandroidapi.api.scrmApiQwerty.SCRMApiQwerty
+import com.progressterra.ipbandroidapi.api.ipbambassador.IPBAmbassador
+import com.progressterra.ipbandroidapi.api.ipbambassador.models.ambassador_status.AmbassadorStatusResponse
+import com.progressterra.ipbandroidapi.api.ipbmediadatacore.IpbMediaDataCore
+import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
@@ -21,15 +21,15 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
 
     private val keyPharmApi = IPBAmbassador.Ambassador()
     private val mediaDataApi = IpbMediaDataCore.EntityMobile()
-    private val ipbApi = SCRMApiQwerty.ClientsV3()
+    private val ipbApi = LoginApi.newInstance()
 
     // получение информации о пользователе: имя,емейл,дата рождения и пр
     override suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> = safeApiCall {
-        val response = ipbApi.getClientInfo(accessToken)
-        if (response.result?.status == 0) {
+        val response = ipbApi.clientInfo(accessToken)
+        if (response.result.status == 0) {
             SResult.Success(ClientInfo.convertToUiModel(response))
         } else {
-            SResult.Failed(response.result?.message)
+            SResult.Failed(response.result.message)
         }
     }
 
@@ -59,11 +59,11 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         soname: String,
         patronymic: String
     ): ISResult<ClientInfo> = safeApiCall {
-        val response = ipbApi.updateClientInfo(accessToken, name, soname, patronymic)
-        if (response.result?.status == 0) {
+        val response = ipbApi.addClientInfo(accessToken, name, soname, patronymic)
+        if (response.result.status == 0) {
             SResult.Success(ClientInfo.convertToUiModel(response))
         } else {
-            SResult.Failed(response.result?.message)
+            SResult.Failed(response.result.message)
         }
     }
 

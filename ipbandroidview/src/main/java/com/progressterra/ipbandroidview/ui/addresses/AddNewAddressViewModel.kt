@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
@@ -59,66 +59,66 @@ class AddNewAddressViewModel :
 
     // добавление нового адреса
     fun addNewAddress() {
-        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
-            Log.e("http", throwable.toString())
-            _addAddressStatus.postValue(ScreenState.ERROR)
-            _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
-        }) {
-            val mAddress = address.value ?: return@launch
-            // устанавливаем даты в адресе текущим днем, так как логика на сервере устанавливает адреса с
-            // более новыми датами, как адресс по умолчанию
-
-            mAddress.apply {
-                val currentDate = Date()
-                defaultBilling = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
-                defaultShipping = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
-                dateAdded = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
-            }
-
-            if (addAddressStatus.value == ScreenState.LOADING) {
-                return@launch
-            }
-
-            _addAddressStatus.postValue(ScreenState.LOADING)
-
-            var accessToken: String
-
-            repository.getAccessToken().let {
-                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    accessToken = it.responseBody?.accessToken ?: ""
-                } else {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
-                    _addAddressStatus.postValue(ScreenState.ERROR)
-                    return@launch
-                }
-            }
-
-
-
-            addressApi.addClientAddress(
-                accessToken,
-                AddressesMapper.convertAddressUiModelToDto(mAddress)
-            ).let {
-                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.add_address_success)))
-                    _popBackStack.postValue(Event(true))
-                    _addAddressStatus.postValue(ScreenState.DEFAULT)
-                } else {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
-                    _addAddressStatus.postValue(ScreenState.ERROR)
-                }
-            }
-        }
+//        viewModelScope.launch(CoroutineExceptionHandler { _, throwable ->
+//            Log.e("http", throwable.toString())
+//            _addAddressStatus.postValue(ScreenState.ERROR)
+//            _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
+//        }) {
+//            val mAddress = address.value ?: return@launch
+//            // устанавливаем даты в адресе текущим днем, так как логика на сервере устанавливает адреса с
+//            // более новыми датами, как адресс по умолчанию
+//
+//            mAddress.apply {
+//                val currentDate = Date()
+//                defaultBilling = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+//                defaultShipping = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+//                dateAdded = currentDate.format("yyyy-MM-dd'T'HH:mm:ss")
+//            }
+//
+//            if (addAddressStatus.value == ScreenState.LOADING) {
+//                return@launch
+//            }
+//
+//            _addAddressStatus.postValue(ScreenState.LOADING)
+//
+//            var accessToken: String
+//
+//            repository.getAccessToken().let {
+//                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+//                    accessToken = it.responseBody?.accessToken ?: ""
+//                } else {
+//                    _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
+//                    _addAddressStatus.postValue(ScreenState.ERROR)
+//                    return@launch
+//                }
+//            }
+//
+//
+//
+//            addressApi.addClientAddress(
+//                accessToken,
+//                AddressesMapper.convertAddressUiModelToDto(mAddress)
+//            ).let {
+//                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+//                    _toastBundle.postValue(Event(ToastBundle(R.string.add_address_success)))
+//                    _popBackStack.postValue(Event(true))
+//                    _addAddressStatus.postValue(ScreenState.DEFAULT)
+//                } else {
+//                    _toastBundle.postValue(Event(ToastBundle(R.string.add_address_error)))
+//                    _addAddressStatus.postValue(ScreenState.ERROR)
+//                }
+//            }
+//        }
     }
 
     fun setAddressFromSuggestion(suggestion: SuggestionUI) {
-        _address.value =
-            suggestion.suggestionExtendedInfo?.let {
-                AddressesMapper.convertSuggestionToAddressUIModel(
-                    it
-                )
-            }
-        addressValidation()
+//        _address.value =
+//            suggestion.suggestionExtendedInfo?.let {
+//                AddressesMapper.convertSuggestionToAddressUIModel(
+//                    it
+//                )
+//            }
+//        addressValidation()
     }
 
     // установка эатажа

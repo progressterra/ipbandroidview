@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.user_inviting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.IPBAmbassador
+import com.progressterra.ipbandroidapi.api.ipbambassador.IPBAmbassador
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteDataUI

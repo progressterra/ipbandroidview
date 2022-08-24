@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.chat.utils
 
 
-import com.progressterra.ipbandroidapi.api.iMessengerCore.models.MessagesListResponse
+import com.progressterra.ipbandroidapi.api.imessengercore.models.MessagesListResponse
 import com.progressterra.ipbandroidapi.utils.extentions.format
 import com.progressterra.ipbandroidapi.utils.extentions.orNow
 import com.progressterra.ipbandroidapi.utils.extentions.parseToDate

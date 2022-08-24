@@ -3,10 +3,10 @@ package com.progressterra.ipbandroidview.usecases.goodsPaging.source
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.IECommersCore
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.remoteData.DEFAULT_ID
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.IECommersCore
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.RGGoodsInventoryExt
+import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
+import com.progressterra.ipbandroidapi.remotedata.DEFAULT_ID
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import kotlinx.coroutines.delay
 
@@ -33,7 +33,8 @@ internal class StorePagingSource(
 }
 
 internal class PageLoader {
-    private val bonusApi: BonusesApi = BonusesApi.getInstance()
+    private val loginApi = LoginApi.newInstance()
+
     private val ieCoreProduct: IECommersCore.Product = IECommersCore.Product()
 
     private val attemptsCount = 3
@@ -75,9 +76,7 @@ internal class PageLoader {
             return PagingSource.LoadResult.Page(emptyList(), null, null)
 
         val page = params.key ?: StorePagingSource.DEF_PAGE
-        val token = bonusApi.getAccessToken()
-            .responseBody.orIfNull { throw NullPointerException("Body of token is null") }
-            .accessToken.orIfNull { throw NullPointerException("Token is null") }
+        val token = loginApi.accessToken()
 
 
         val response = if (search.isNotBlank())

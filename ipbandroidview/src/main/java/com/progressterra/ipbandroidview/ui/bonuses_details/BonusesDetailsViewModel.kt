@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusMes
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Purchase
 import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Transaction
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.async
@@ -70,15 +70,15 @@ class BonusesDetailsViewModel : BaseBindingViewModel() {
     }
 
     private suspend fun getBonusMessageList(accessToken: String) {
-        repository.getBonusMessageList(accessToken).let { bonusMessageListResponse ->
-            if (bonusMessageListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                bonusMessageListResponse.responseBody?.let {
-                    _bonusMessageList.postValue(it)
-                }
-            } else {
-                _status.postValue(ScreenState.ERROR)
-            }
-        }
+//        repository.getBonusMessageList(accessToken).let { bonusMessageListResponse ->
+//            if (bonusMessageListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+//                bonusMessageListResponse.responseBody?.let {
+//                    _bonusMessageList.postValue(it)
+//                }
+//            } else {
+//                _status.postValue(ScreenState.ERROR)
+//            }
+//        }
     }
 
 
@@ -95,38 +95,38 @@ class BonusesDetailsViewModel : BaseBindingViewModel() {
     }
 
     private suspend fun getTransactionsList(accessToken: String) {
-        repository.getTransactionsList(accessToken).let { transactionsListResponse ->
-            if (transactionsListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                transactionsListResponse.responseBody?.let {
-                    _transactionList.postValue(it)
-                }
-            } else {
-                _status.postValue(ScreenState.ERROR)
-            }
-        }
+//        repository.getTransactionsList(accessToken).let { transactionsListResponse ->
+//            if (transactionsListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+//                transactionsListResponse.responseBody?.let {
+//                    _transactionList.postValue(it)
+//                }
+//            } else {
+//                _status.postValue(ScreenState.ERROR)
+//            }
+//        }
     }
 
     private suspend fun getGeneralBonusesInfo(accessToken: String) {
-        repository.getBonusesInfo(accessToken).let { bonusesInfoResponse ->
-            if (bonusesInfoResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                bonusesInfoResponse.responseBody?.let {
-                    _bonusesInfo.postValue(it)
-                }
-            } else {
-                _status.postValue(ScreenState.ERROR)
-            }
-        }
+//        repository.getBonusesInfo(accessToken).let { bonusesInfoResponse ->
+//            if (bonusesInfoResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+//                bonusesInfoResponse.responseBody?.let {
+//                    _bonusesInfo.postValue(it)
+//                }
+//            } else {
+//                _status.postValue(ScreenState.ERROR)
+//            }
+//        }
     }
 
     private suspend fun getAccessToken(): String? {
-        repository.getAccessToken().let {
-            if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                return it.responseBody?.accessToken
-            } else {
-                _status.postValue(ScreenState.ERROR)
-            }
-        }
+//        repository.getAccessToken().let {
+//            if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+//                return it.responseBody?.accessToken
+//            } else {
+//                _status.postValue(ScreenState.ERROR)
+//            }
+//        }
+//        return null
         return null
     }
-
 }

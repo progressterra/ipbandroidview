@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.ui.addresses.models
 
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.Address
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.ListOfAddressesResponse
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.dadata.Suggestion
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.address.dadata.SuggestionExtendedInfo
+import com.progressterra.ipbandroidapi.api.scrm.models.address.Address
+import com.progressterra.ipbandroidapi.api.scrm.models.address.ListOfAddressesResponse
+import com.progressterra.ipbandroidapi.api.scrm.models.address.dadata.Suggestion
+import com.progressterra.ipbandroidapi.api.scrm.models.address.dadata.SuggestionExtendedInfo
 
 object AddressesMapper {
     fun convertSuggestionToAddressUIModel(suggestion: SuggestionExtendedInfo): AddressUI {

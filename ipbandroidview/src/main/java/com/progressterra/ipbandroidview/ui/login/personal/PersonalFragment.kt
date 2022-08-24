@@ -12,8 +12,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.progressterra.ipbandroidapi.api.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
-import com.progressterra.ipbandroidapi.remoteData.scrm.models.responses.CitiesListResponse
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment

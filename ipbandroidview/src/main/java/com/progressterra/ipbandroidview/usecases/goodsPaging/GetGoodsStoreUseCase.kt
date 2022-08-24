@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.usecases.goodsPaging
 
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.usecases.goodsPaging.source.StorePagingSource
 import com.progressterra.ipbandroidview.usecases.goodsPaging.source.StoreRepository

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.set_personal_info.models
 
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageResponse
+import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.UploadImageResponse
 
 
 class ImageUpload(val uploadedImageUrl: String) {

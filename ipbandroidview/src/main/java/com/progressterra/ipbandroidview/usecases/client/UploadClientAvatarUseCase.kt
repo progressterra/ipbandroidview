@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.usecases.client
 
 
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageData
+import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.UploadImageData
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.data.MediaDataRepository
 import com.progressterra.ipbandroidview.data.prefs.UserDataLocal

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.media_data.models
 
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData
+import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.MediaData
 
 data class MediaDataUi(
     val alias: String?,

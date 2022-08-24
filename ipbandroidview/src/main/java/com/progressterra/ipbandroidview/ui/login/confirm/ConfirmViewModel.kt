@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
 import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.ERROR
-import com.progressterra.ipbandroidapi.remoteData.models.base.GlobalResponseStatus.SUCCESS
+import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus.ERROR
+import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus.SUCCESS
 import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
@@ -93,7 +93,7 @@ internal class ConfirmViewModel(
                         SUCCESS -> {
                             isCalled = false
                             UserData.clientExist = true
-                            when (response.userExist && !response.isDataCorrupted) {
+                            when (response.userExist) {
                                 true -> {
                                     _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
                                     if (newLoginFlowSettings)

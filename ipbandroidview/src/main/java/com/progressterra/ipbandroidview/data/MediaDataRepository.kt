@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.data
 
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.IpbMediaDataCore
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.MediaData
-import com.progressterra.ipbandroidapi.api.ipbMediaDataCore.models.UploadImageData
+import com.progressterra.ipbandroidapi.api.ipbmediadatacore.IpbMediaDataCore
+import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.MediaData
+import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.UploadImageData
 import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.media_data.models.toUiModel

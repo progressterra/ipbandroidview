@@ -1,10 +1,11 @@
 package com.progressterra.ipbandroidview.utils.extensions
 
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.Client
-import com.progressterra.ipbandroidapi.api.ipbAmbassador.models.client_info.ClientAdditionalInfo
+import com.progressterra.ipbandroidapi.api.scrm.models.clientinfo.ClientAdditionalInfoModel
+import com.progressterra.ipbandroidapi.api.scrm.models.clientinfo.ClientInfoModel
+import com.progressterra.ipbandroidapi.localdata.shared_pref.models.ClientAdditionalInfo
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.ClientInfo
 import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
-import com.progressterra.ipbandroidapi.remoteData.models.base.BaseResponse
+import com.progressterra.ipbandroidapi.remotedata.models.base.BaseResponse
 import com.progressterra.ipbandroidapi.utils.extentions.orNow
 import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
 import com.progressterra.ipbandroidapi.utils.extentions.tryOrNull
@@ -14,9 +15,9 @@ fun BaseResponse.isSuccess(): Boolean {
     return this.status == 0 || this.result?.status == 0
 }
 
-val Client.toPrefModel: ClientInfo
+val ClientInfoModel.toPrefModel: ClientInfo
     get() = ClientInfo(
-        idUnique = idUnique ?: "",
+        idUnique = idUnique,
         sex = when (sex) {
             1 -> SexType.MALE
             2 -> SexType.FEMALE
@@ -26,13 +27,13 @@ val Client.toPrefModel: ClientInfo
         name = name ?: "",
         patronymic = patronymic ?: "",
         dateOfBirth = tryOrNull { dateOfBirth.parseToDate() }.orNow(),
-        dateOfRegister = dateOfRegister ?: ""
+        dateOfRegister = dateOfRegister
     )
 
-val ClientAdditionalInfo.toPrefModel: com.progressterra.ipbandroidapi.localdata.shared_pref.models.ClientAdditionalInfo
-    get() = com.progressterra.ipbandroidapi.localdata.shared_pref.models.ClientAdditionalInfo(
+val ClientAdditionalInfoModel.toPrefModel: ClientAdditionalInfo
+    get() = ClientAdditionalInfo(
         additionalInfo = additionalInfo ?: "",
-        statusCompletion = statusCompletion ?: 0,
+        statusCompletion = statusCompletion,
         emailGeneral = eMailGeneral ?: "",
         phoneGeneral = phoneGeneral ?: ""
     )

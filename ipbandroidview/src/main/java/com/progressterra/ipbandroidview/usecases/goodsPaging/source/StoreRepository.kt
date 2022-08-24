@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.usecases.goodsPaging.source
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidapi.api.iECommersCoreApi.models.RGGoodsInventoryExt
+import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.data.IRepository
 import kotlinx.coroutines.flow.Flow
 
