@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.api.scrm.models.verification.VerificationType
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.country.enums.Country
@@ -17,7 +17,8 @@ import kotlinx.coroutines.launch
 
 internal class LoginViewModel(
     selectedCountry: String,
-    private var loginFlowSettings: LoginFlowSettings
+    private var loginFlowSettings: LoginFlowSettings,
+    private val api : SCRMRepository
 ) : BaseViewModel() {
 
     private var country: Country = Country.valueOf(selectedCountry)
@@ -58,12 +59,11 @@ internal class LoginViewModel(
         val countryCode = country.phoneCode.replace("-", "")
         val phoneWithCountryCode = if (phone.startsWith(countryCode)) phone else countryCode + phone
 
-        val api = LoginApi.newInstance()
+
         viewModelScope.launch {
             _screenState.postValue(ScreenState.LOADING)
-            val loginResponse = api.verificationChannelBegin(phoneWithCountryCode)
-            _screenState.postValue(ScreenState.DEFAULT)
-            if (loginResponse.status == GlobalResponseStatus.SUCCESS)
+            try {
+                api.verificationChannelBegin(VerificationType.PHONE, phone)
                 _action.postValue(
                     Event(
                         LoginFragmentDirections.actionFragmentLoginToConfirmFragment(
@@ -72,9 +72,9 @@ internal class LoginViewModel(
                         )
                     )
                 )
-            else {
+            } catch (e: Exception) {
                 _screenState.postValue(ScreenState.ERROR)
-                _toastBundle.postValue(Event(ToastBundle(id = null, loginResponse.errorMessage)))
+
             }
         }
     }

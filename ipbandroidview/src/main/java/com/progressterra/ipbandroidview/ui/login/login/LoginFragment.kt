@@ -22,10 +22,12 @@ import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class LoginFragment : BaseFragment() {
-
 
     private val args: LoginFragmentArgs by navArgs()
     private val phoneNumberSettings: PhoneNumberSettings by lazy {
@@ -33,12 +35,12 @@ class LoginFragment : BaseFragment() {
         loginFlowSettings.phoneNumberSettings
     }
 
-    private val viewModel: LoginViewModel by viewModels {
-        LoginViewModelFactory(
-            selectedCountry = phoneNumberSettings.defaultCountry,
-            loginFlowSettings = args.loginFlowSettings
+    private val viewModel: LoginViewModel = getViewModel(parameters = {
+        parametersOf(
+            phoneNumberSettings.defaultCountry,
+            args.loginFlowSettings
         )
-    }
+    })
 
     private lateinit var binding: FragmentLoginLibBinding
 
