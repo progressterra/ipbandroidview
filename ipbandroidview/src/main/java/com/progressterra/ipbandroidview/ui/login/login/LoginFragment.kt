@@ -26,7 +26,6 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-
 class LoginFragment : BaseFragment() {
 
     private val args: LoginFragmentArgs by navArgs()
@@ -35,7 +34,7 @@ class LoginFragment : BaseFragment() {
         loginFlowSettings.phoneNumberSettings
     }
 
-    private val viewModel: LoginViewModel = getViewModel(parameters = {
+    private val viewModel: LoginViewModel by viewModel(parameters = {
         parametersOf(
             phoneNumberSettings.defaultCountry,
             args.loginFlowSettings
