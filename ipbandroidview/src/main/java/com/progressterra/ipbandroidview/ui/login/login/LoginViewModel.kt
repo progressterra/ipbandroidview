@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.login.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
@@ -72,7 +73,9 @@ internal class LoginViewModel(
                         )
                     )
                 )
+                Log.d("LOGIN", "SUCCESS CHANNEL BEGIN")
             } catch (e: Exception) {
+                Log.e("LOGIN", "FAILED CHANNEL BEGIN", e)
                 _screenState.postValue(ScreenState.ERROR)
 
             }
