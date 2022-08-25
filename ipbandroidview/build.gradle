@@ -59,7 +59,7 @@ dependencies {
     implementation "com.progressterra.ipbandroidapi:ipbandroidapi:0.3.68"
 
     // Koin for Android
-    implementation "io.insert-koin:koin-android:$koin_version"
+    api "io.insert-koin:koin-android:$koin_version"
 
     // Koin Test
     testImplementation "io.insert-koin:koin-test:$koin_version"
