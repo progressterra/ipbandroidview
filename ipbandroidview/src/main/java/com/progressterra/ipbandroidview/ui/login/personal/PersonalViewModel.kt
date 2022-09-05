@@ -5,31 +5,37 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.api.scrm.models.responses.CitiesListResponse
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.interfaces.client.login.models.PersonalInfo
-import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
-import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.api.PersonalInfo
+import com.progressterra.ipbandroidapi.api.cities.CitiesRepository
+import com.progressterra.ipbandroidapi.api.cities.model.CitiesListResponse
+import com.progressterra.ipbandroidapi.api.cities.model.City
+import com.progressterra.ipbandroidapi.api.city.CityRepository
+import com.progressterra.ipbandroidapi.api.city.model.AddCityRequest
+import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.api.scrm.model.ClientInfoRequest
+import com.progressterra.ipbandroidapi.user.SexType
 import com.progressterra.ipbandroidview.MainNavGraphDirections
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
-import com.progressterra.ipbandroidview.utils.ToastBundle
 import com.progressterra.ipbandroidview.utils.extensions.notifyObserver
 import kotlinx.coroutines.launch
 
 internal class PersonalViewModel(
     val personalSettings: PersonalSettings,
-    private val newLoginFlow: Boolean
+    private val newLoginFlow: Boolean,
+    private val citiesRepository: CitiesRepository,
+    private val sCRMRepository: SCRMRepository,
+    private val iBonusRepository: IBonusRepository,
+    private val cityRepository: CityRepository
 ) : BaseViewModel() {
 
     val personalInfo = MutableLiveData(PersonalInfo())
     val personalDataIsValid = MutableLiveData(false)
-    val citiesList = MutableLiveData<List<CitiesListResponse.City>>()
+    val citiesList = MutableLiveData<List<City>>()
 
     private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
     val setFragmentResult: LiveData<Event<Bundle>> = _setFragmentResult
@@ -38,10 +44,9 @@ internal class PersonalViewModel(
     val popBackStack: LiveData<Event<Boolean>> = _popBackStack
 
     init {
-        val api = LoginApi.newInstance()
         viewModelScope.launch {
-            api.getCitiesList().let {
-                citiesList.postValue(it.responseBody?.dataList?.filter { city -> !city.name.isNullOrEmpty() })
+            citiesRepository.getCities().map {
+                citiesList.postValue(it)
             }
         }
 
@@ -145,8 +150,14 @@ internal class PersonalViewModel(
         personalInfo.notifyObserver()
     }
 
-    fun updateCity(newCity: CitiesListResponse.City) {
-        personalInfo.value?.city = newCity
+    fun updateCity(newCity: City) {
+        personalInfo.value?.city = CitiesListResponse.Data(
+            newCity.idUnique,
+            newCity.latitudeCenter,
+            newCity.longitudeCenter,
+            newCity.name,
+            newCity.radius
+        )
         personalDataIsValid.postValue(
             personalInfo.value?.infoIsValid(
                 includeName = true,
@@ -161,33 +172,30 @@ internal class PersonalViewModel(
     }
 
     fun addPersonalInfo() {
-        val loginApi = LoginApi.newInstance()
-        val bonusesApi = BonusesApi.getInstance()
         viewModelScope.launch {
             _screenState.postValue(ScreenState.LOADING)
 
             // запрашиваем токен, чтобы он сохранился в префах, так как используется в послед запросах
-            val token = loginApi.accessToken()
-
-            personalInfo.value?.let { personalInfo ->
-                loginApi.addClientInfo(
-                    token,
-                    personalInfo.lastname ?: "",
-                    personalInfo.name ?: "",
-                    personalInfo.patronymic ?: ""
-                )
-                personalInfo.city?.let { city ->
-                    loginApi.addCity(city).let {
-                        if (it.globalResponseStatus == GlobalResponseStatus.ERROR) {
-                            _toastBundle.postValue(Event(ToastBundle(R.string.user_data_error)))
-                            _screenState.postValue(ScreenState.ERROR)
-                            return@launch
-                        }
+            val token = sCRMRepository.getAccessToken().map { token ->
+                personalInfo.value?.let { info ->
+                    sCRMRepository.setPersonalInfo(
+                        token,
+                        info.sexType ?: SexType.NONE,
+                        info.lastname ?: "",
+                        info.name ?: "",
+                        info.patronymic ?: "",
+                        info.birthdate ?: "",
+                        ""
+                    )
+                    info.city?.let {
+                        cityRepository.setCity(
+                            token,
+                            cityName = it.name ?: "",
+                            idrfCity = it.idUnique,
+                            latitude = it.latitudeCenter.toDouble(),
+                            longitude = it.longitudeCenter.toDouble()
+                        )
                     }
-                }
-                personalInfo.email?.let { email ->
-                    loginApi.addEmail(token, email)
-                    loginApi.confirmEmail(email)
                 }
             }
             _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))

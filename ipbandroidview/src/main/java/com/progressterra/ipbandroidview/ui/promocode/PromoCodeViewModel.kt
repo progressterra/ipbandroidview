@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.data.CommonRepository
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.utils.SResult
@@ -12,8 +11,9 @@ import com.progressterra.ipbandroidview.utils.extensions.loadingResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 import com.progressterra.ipbandroidview.utils.extensions.toToastResult
 
-class PromoCodeViewModel : BaseBindingViewModel() {
-    private val repo: IRepository.PromoCode = CommonRepository()
+class PromoCodeViewModel(
+    private val repo: IRepository.PromoCode
+) : BaseBindingViewModel() {
 
     val code = MutableLiveData("")
 

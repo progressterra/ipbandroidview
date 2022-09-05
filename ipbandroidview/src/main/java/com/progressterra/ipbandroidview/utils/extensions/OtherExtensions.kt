@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
+import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.utils.DEFAULT_RES
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.delegate.FragmentArgumentDelegate

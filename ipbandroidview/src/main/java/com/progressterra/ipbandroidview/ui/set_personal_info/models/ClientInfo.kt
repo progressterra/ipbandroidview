@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.set_personal_info.models
 
-import com.progressterra.ipbandroidapi.api.scrm.models.clientinfo.ClientInfoResponse
+import com.progressterra.ipbandroidapi.api.scrm.model.ClientGeneralData
 import java.util.*
 
 data class ClientInfo(
@@ -11,25 +11,25 @@ data class ClientInfo(
     var dateOfBirth: String
 ) {
     companion object {
-        fun convertToUiModel(response: ClientInfoResponse): ClientInfo {
+        fun convertToUiModel(response: ClientGeneralData): ClientInfo {
             return ClientInfo(
-                response.data.clientInfo.name ?: "",
-                response.data.clientInfo.soname ?: "",
+                response.client.name,
+                response.client.soname,
                 "${
-                    response.data.clientInfo.name?.replaceFirstChar {
+                    response.client.name.replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(
                             Locale.getDefault()
                         ) else it.toString()
-                    } ?: ""
+                    }
                 } ${
-                    response.data.clientInfo.soname?.replaceFirstChar {
+                    response.client.soname.replaceFirstChar {
                         if (it.isLowerCase()) it.titlecase(
                             Locale.getDefault()
                         ) else it.toString()
-                    } ?: ""
+                    }
                 }",
-                response.data.clientInfo.patronymic ?: "",
-                response.data.clientInfo.dateOfBirth ?: ""
+                response.client.patronymic,
+                response.client.dateOfBirth
             )
         }
     }

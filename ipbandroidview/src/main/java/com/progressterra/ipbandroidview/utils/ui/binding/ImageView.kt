@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.facebook.shimmer.Shimmer
 import com.facebook.shimmer.ShimmerDrawable
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.utils.orIfNull
 import com.progressterra.ipbandroidview.R
 
 @BindingAdapter(value = ["url", "isShimmerPlaceholder"], requireAll = false)

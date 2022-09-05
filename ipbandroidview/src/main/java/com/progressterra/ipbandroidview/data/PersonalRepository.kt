@@ -1,13 +1,5 @@
 package com.progressterra.ipbandroidview.data
 
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
-import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
-import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
-import com.progressterra.ipbandroidview.utils.SResult
-import com.progressterra.ipbandroidview.utils.extensions.*
-
 //internal class PersonalRepository(
 //    private val cityApi: SCRMApiQwerty.ClientCity,
 //    private val clientApi: SCRMApiQwerty.ClientsV3,

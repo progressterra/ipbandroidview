@@ -3,20 +3,20 @@ package com.progressterra.ipbandroidview.ui.bonuses_details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusMessage
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Purchase
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Transaction
-import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
+import com.progressterra.ipbandroidapi.api.purchases.PurchasesRepository
+import com.progressterra.ipbandroidview.data.model.BonusMessage
+import com.progressterra.ipbandroidview.data.model.BonusesInfo
+import com.progressterra.ipbandroidview.data.model.Purchase
+import com.progressterra.ipbandroidview.data.model.Transaction
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.utils.ScreenState
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class BonusesDetailsViewModel : BaseBindingViewModel() {
+class BonusesDetailsViewModel(
+    private val purchasesRepository: PurchasesRepository
+) : BaseBindingViewModel() {
 
-    private val repository = BonusesApi.getInstance()
 
     private val _bonusesInfo = MutableLiveData<BonusesInfo>()
     val bonusesInfo: LiveData<BonusesInfo> = _bonusesInfo
@@ -37,7 +37,6 @@ class BonusesDetailsViewModel : BaseBindingViewModel() {
     init {
         updateDetailBonusesInfo()
     }
-
 
     fun updateDetailBonusesInfo() {
         viewModelScope.launch {
@@ -83,15 +82,15 @@ class BonusesDetailsViewModel : BaseBindingViewModel() {
 
 
     private suspend fun getPurchasesList(accessToken: String) {
-        repository.getPurchasesList(accessToken).let { purchasesListResponse ->
-            if (purchasesListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                purchasesListResponse.responseBody?.let {
-                    _purchasesList.postValue(it)
-                }
-            } else {
-                _status.postValue(ScreenState.ERROR)
-            }
-        }
+//        purchasesRepository.getPurchasesList(accessToken).let { purchasesListResponse ->
+//            if (purchasesListResponse.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+//                purchasesListResponse.responseBody?.let {
+//                    _purchasesList.postValue(it)
+//                }
+//            } else {
+//                _status.postValue(ScreenState.ERROR)
+//            }
+//        }
     }
 
     private suspend fun getTransactionsList(accessToken: String) {

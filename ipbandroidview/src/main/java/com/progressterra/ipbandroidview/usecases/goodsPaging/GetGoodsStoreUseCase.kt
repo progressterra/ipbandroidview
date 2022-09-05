@@ -8,8 +8,9 @@ import com.progressterra.ipbandroidview.usecases.goodsPaging.source.StoreReposit
 import com.progressterra.ipbandroidview.utils.IUseCase
 import kotlinx.coroutines.flow.Flow
 
-internal class GetGoodsStoreUseCase : IGetGoodsStoreLibUseCase {
-    private val repo: IRepository.Store = StoreRepository()
+internal class GetGoodsStoreUseCase(
+    private val repo: IRepository.Store
+) : IGetGoodsStoreLibUseCase {
 
     override fun invoke(param: PaginationParam): Flow<PagingData<RGGoodsInventoryExt>> {
         return repo.getStorePage(
@@ -27,11 +28,8 @@ internal class GetGoodsStoreUseCase : IGetGoodsStoreLibUseCase {
 
 interface IGetGoodsStoreLibUseCase :
     IUseCase.FlowInOut<PaginationParam, PagingData<RGGoodsInventoryExt>> {
-    fun updateFilters(search: String)
 
-    companion object {
-        fun IGetGoodsStoreLibUseCase(): IGetGoodsStoreLibUseCase = GetGoodsStoreUseCase()
-    }
+    fun updateFilters(search: String)
 }
 
 data class PaginationParam(

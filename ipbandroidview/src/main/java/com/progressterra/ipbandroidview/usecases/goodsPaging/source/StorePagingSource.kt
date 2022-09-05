@@ -5,9 +5,9 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.progressterra.ipbandroidapi.api.iecommerscoreapi.IECommersCore
 import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.RGGoodsInventoryExt
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.remotedata.DEFAULT_ID
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.base.NetworkSettings.DEFAULT_ID
+import com.progressterra.ipbandroidapi.utils.orIfNull
 import kotlinx.coroutines.delay
 
 internal class StorePagingSource(
@@ -32,9 +32,9 @@ internal class StorePagingSource(
     }
 }
 
-internal class PageLoader {
-    private val loginApi = LoginApi.newInstance()
-
+internal class PageLoader(
+    private val sCRMRepository: SCRMRepository
+) {
     private val ieCoreProduct: IECommersCore.Product = IECommersCore.Product()
 
     private val attemptsCount = 3
@@ -76,12 +76,12 @@ internal class PageLoader {
             return PagingSource.LoadResult.Page(emptyList(), null, null)
 
         val page = params.key ?: StorePagingSource.DEF_PAGE
-        val token = loginApi.accessToken()
+        val token = sCRMRepository.getAccessToken()
 
 
         val response = if (search.isNotBlank())
             ieCoreProduct.searchProductsByCategoryCollapsed(
-                accessToken = token,
+                accessToken = token.getOrNull() ?: "",
                 searchString = search,
                 idCategory = idCategory,
                 pageNumberIncome = page,
@@ -91,7 +91,7 @@ internal class PageLoader {
             ).data.orIfNull { throw NullPointerException("Data is null") }
         else
             ieCoreProduct.getProductsByCategoryCollapsed(
-                accessToken = token,
+                accessToken = token.getOrNull() ?: "",
                 idCategory = idCategory,
                 pageNumberIncome = page,
                 pageSizeIncome = params.loadSize,

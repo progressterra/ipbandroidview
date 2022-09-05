@@ -4,14 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
-import com.progressterra.ipbandroidapi.utils.extentions.format
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
-import com.progressterra.ipbandroidapi.utils.extentions.orNow
-import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
+import com.progressterra.ipbandroidapi.api.address.AddressRepository
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.utils.format
+import com.progressterra.ipbandroidapi.utils.orNow
+import com.progressterra.ipbandroidapi.utils.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
@@ -23,11 +20,10 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import java.util.*
 
-class ListOfAddressesViewModel :
-    BaseViewModel() {
-
-    private val addressApi = AddressApi()
-    private val repository = LoginApi.newInstance()
+class ListOfAddressesViewModel(
+    private val addressRepository: AddressRepository,
+    private val sCRMRepository: SCRMRepository
+) : BaseViewModel() {
 
     private val _listOfAddress = MutableLiveData<List<AddressUI>>()
     val listOfAddress: LiveData<List<AddressUI>> = _listOfAddress
@@ -45,25 +41,22 @@ class ListOfAddressesViewModel :
             Log.e("http", throwable.toString())
             _screenState.postValue(ScreenState.ERROR)
         }) {
-            var accessToken: String
+            var accessToken: String = ""
 
             if (listOfAddress.value.isNullOrEmpty()) {
                 _screenState.postValue(ScreenState.LOADING)
             }
 
-            repository.accessToken().let {
+            sCRMRepository.getAccessToken().getOrNull()?.let {
                 accessToken = it
                 _toastBundle.postValue(Event(ToastBundle(R.string.network_error)))
                 _screenState.postValue(ScreenState.ERROR)
             }
 
-            addressApi.getAddressList(accessToken).let {
-                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    _listOfAddress.postValue(AddressesMapper.convertDtoToAddressUiModel(it.responseBody))
-                    _screenState.postValue(ScreenState.DEFAULT)
-                } else {
-                    _screenState.postValue(ScreenState.ERROR)
-                }
+            addressRepository.getAddressList(accessToken).getOrNull()?.let {
+                _listOfAddress.postValue(AddressesMapper.convertDtoToAddressUiModel(it))
+                _screenState.postValue(ScreenState.DEFAULT)
+
             }
         }
     }
@@ -75,9 +68,9 @@ class ListOfAddressesViewModel :
             Log.e("http", throwable.toString())
         }) {
 
-            var accessToken: String
+            var accessToken: String = ""
 
-            repository.accessToken().let {
+            sCRMRepository.getAccessToken().getOrNull()?.let {
                 accessToken = it
             }
 
@@ -99,17 +92,13 @@ class ListOfAddressesViewModel :
                 dateAdded = updatedLastDate.format()
             }
 
-            addressApi.updateClientAddress(
+            addressRepository.setClientAddress(
                 accessToken,
                 AddressesMapper.convertAddressUiModelToDto(address)
             ).let {
-                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    getListOfAddresses()
-                    _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_success)))
-                    _popBackStack.postValue(Event(true))
-                } else {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_error)))
-                }
+                getListOfAddresses()
+                _toastBundle.postValue(Event(ToastBundle(R.string.set_default_address_success)))
+                _popBackStack.postValue(Event(true))
             }
         }
     }

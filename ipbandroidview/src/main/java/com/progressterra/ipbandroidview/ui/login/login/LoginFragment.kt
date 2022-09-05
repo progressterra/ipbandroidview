@@ -16,19 +16,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentLoginLibBinding
-import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PhoneNumberSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class LoginFragment : BaseFragment() {
+class LoginFragment : Fragment() {
 
     private val args: LoginFragmentArgs by navArgs()
+
     private val phoneNumberSettings: PhoneNumberSettings by lazy {
         val loginFlowSettings: LoginFlowSettings = args.loginFlowSettings
         loginFlowSettings.phoneNumberSettings
@@ -41,8 +40,8 @@ class LoginFragment : BaseFragment() {
         )
     })
 
-    private lateinit var binding: FragmentLoginLibBinding
-
+    private var _binding: FragmentLoginLibBinding? = null
+    private val binding: FragmentLoginLibBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,34 +56,25 @@ class LoginFragment : BaseFragment() {
             )
         }
 
-        binding = FragmentLoginLibBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.apply {
-            toastBundle.observe(viewLifecycleOwner, this@LoginFragment::showToast)
-            action.observe(viewLifecycleOwner, this@LoginFragment::onAction)
-        }
-        binding.apply {
-            vm = viewModel
-            binding.lifecycleOwner = this@LoginFragment
-            lifecycleOwner = viewLifecycleOwner
-            loginPhone.afterTextChanged(viewModel::checkPhone)
-            loginNext.setOnClickListener { viewModel.next(loginPhone.text.toString()) }
+        binding.loginPhone.afterTextChanged(viewModel::checkPhone)
+        binding.loginNext.setOnClickListener { viewModel.next(binding.loginPhone.text.toString()) }
 
-            phoneNumberSettings.headerImageId.applyIfNotDefault(ivHeader)
+        phoneNumberSettings.headerImageId.applyIfNotDefault(binding.ivHeader)
 
-            phoneNumberSettings.footerImageId.applyIfNotDefault(ivFooter)
+        phoneNumberSettings.footerImageId.applyIfNotDefault(binding.ivFooter)
 
-            binding.btnSkip.apply {
-                isVisible = phoneNumberSettings.showSkipBtn
-                setOnClickListener {
-                    findNavController().popBackStack()
-                }
+        binding.btnSkip.apply {
+            isVisible = phoneNumberSettings.showSkipBtn
+            setOnClickListener {
+                findNavController().popBackStack()
             }
-
         }
+
 
         applyAgreements()
     }
@@ -197,5 +187,10 @@ class LoginFragment : BaseFragment() {
             text = ss
             visibility = View.VISIBLE
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

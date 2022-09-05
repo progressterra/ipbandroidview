@@ -4,28 +4,19 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.interfaces.client.addresses.AddressApi
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus
-import com.progressterra.ipbandroidapi.utils.extentions.format
-import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidapi.api.address.AddressRepository
+import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressUI
 import com.progressterra.ipbandroidview.ui.addresses.models.AddressesMapper
 import com.progressterra.ipbandroidview.ui.addresses.models.SuggestionUI
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
-import com.progressterra.ipbandroidview.utils.ToastBundle
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.launch
-import java.util.*
 
-
-class AddNewAddressViewModel :
-    BaseViewModel() {
-
-    private val addressApi = AddressApi()
-    private val repository = BonusesApi.getInstance()
+class AddNewAddressViewModel(
+    private val addressRepository: AddressRepository,
+    private val iBonusRepository: IBonusRepository
+) : BaseViewModel() {
 
     private val _suggestions = MutableLiveData<List<SuggestionUI>>()
     val suggestions: LiveData<List<SuggestionUI>> = _suggestions
@@ -42,19 +33,19 @@ class AddNewAddressViewModel :
     private val _addAddressButtonEnabled = MutableLiveData<Boolean>(false)
     val addAddressButtonEnabled: LiveData<Boolean> = _addAddressButtonEnabled
 
-    // получение списка подсказок
+    // TODO получение списка подсказок
     fun getSuggestions(query: String) {
-        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
-            Log.e("http", throwable.toString())
-        }) {
-            addressApi.getSuggestionsAddressFromDadata(query).let {
-                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
-                    _suggestions.postValue(AddressesMapper.convertSuggestionsDtoToUIModels(it.responseBody?.suggestions))
-                } else {
-                    _toastBundle.postValue(Event(ToastBundle(R.string.suggestions_error)))
-                }
-            }
-        }
+//        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+//            Log.e("http", throwable.toString())
+//        }) {
+//            address.getSuggestionsAddressFromDadata(query).let {
+//                if (it.globalResponseStatus == GlobalResponseStatus.SUCCESS) {
+//                    _suggestions.postValue(AddressesMapper.convertSuggestionsDtoToUIModels(it.responseBody?.suggestions))
+//                } else {
+//                    _toastBundle.postValue(Event(ToastBundle(R.string.suggestions_error)))
+//                }
+//            }
+//        }
     }
 
     // добавление нового адреса

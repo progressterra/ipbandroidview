@@ -2,66 +2,66 @@ package com.progressterra.ipbandroidview.ui.addresses.models
 
 
 data class AddressUI(
-    var idUnique: String? = null,
-    var idClient: String? = null,
-    var dateAdded: String? = null,
-    var dateVerification: String? = null,
-    var idManagerVerification: String? = null,
-    var dateDeactivation: String? = null,
-    var defaultShipping: String? = null,
-    var defaultBilling: String? = null,
-    var fiasIDCountry: String? = null,
-    var fiasIDRegion: String? = null,
-    var fiasIDCity: String? = null,
-    var fiasIDArea: String? = null,
-    var fiasIDDistrict: String? = null,
-    var fiasIDStreet: String? = null,
-    var fiasIDHouse: String? = null,
-    var kladrCountry: String? = null,
-    var kladrRegion: String? = null,
-    var kladrCity: String? = null,
-    var kladrArea: String? = null,
-    var kladrDistrict: String? = null,
-    var kladrStreet: String? = null,
-    var kladrHouse: String? = null,
-    var nameCountry: String? = null,
-    var nameRegion: String? = null,
-    var nameCity: String? = null,
-    var nameStreet: String? = null,
-    var nameArea: String? = null,
-    var nameDistrict: String? = null,
-    var postalCode: String? = null,
-    var houseNUmber: String? = null,
-    var building: String? = null,
-    var apartment: String? = null,
-    var entrance: String? = null,
-    var floor: String? = null,
-    var latitude: Double? = null,
-    var longitude: Double? = null,
-    val isDefaultShippingAddress: Boolean? = null,
-    val isDefaultBillingAddress: Boolean? = null
+    var idUnique: String = "",
+    var idClient: String = "",
+    var dateAdded: String = "",
+    var dateVerification: String = "",
+    var idManagerVerification: String = "",
+    var dateDeactivation: String = "",
+    var defaultShipping: String = "",
+    var defaultBilling: String = "",
+    var fiasIDCountry: String = "",
+    var fiasIDRegion: String = "",
+    var fiasIDCity: String = "",
+    var fiasIDArea: String = "",
+    var fiasIDDistrict: String = "",
+    var fiasIDStreet: String = "",
+    var fiasIDHouse: String = "",
+    var kladrCountry: String = "",
+    var kladrRegion: String = "",
+    var kladrCity: String = "",
+    var kladrArea: String = "",
+    var kladrDistrict: String = "",
+    var kladrStreet: String = "",
+    var kladrHouse: String = "",
+    var nameCountry: String = "",
+    var nameRegion: String = "",
+    var nameCity: String = "",
+    var nameStreet: String = "",
+    var nameArea: String = "",
+    var nameDistrict: String = "",
+    var postalCode: String = "",
+    var houseNUmber: String = "",
+    var building: String = "",
+    var apartment: String = "",
+    var entrance: String = "",
+    var floor: String = "",
+    var latitude: Double = 0.0,
+    var longitude: Double = 0.0,
+    val isDefaultShippingAddress: Boolean = false,
+    val isDefaultBillingAddress: Boolean = false
 ) {
     fun getFullAddress(): String {
         var address = ""
 
-        nameStreet?.let {
+        nameStreet.let {
             address += "$it, "
         }
 
-        houseNUmber?.let {
+        houseNUmber.let {
             address += "д $it"
         }
 
-        apartment?.let {
+        apartment.let {
             if (it != "0")
                 address += ", кв $it"
         }
 
-        floor?.let {
+        floor.let {
             address += ", эт $it"
         }
 
-        entrance?.let {
+        entrance.let {
             address += ", п $it "
         }
         return address

@@ -1,19 +1,15 @@
 package com.progressterra.ipbandroidview.ui.login.confirm
 
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
-import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus.ERROR
-import com.progressterra.ipbandroidapi.remotedata.models.base.GlobalResponseStatus.SUCCESS
-import com.progressterra.ipbandroidview.MainNavGraphDirections
+import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
-import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
+import com.progressterra.ipbandroidview.usecases.scrm.ConfirmSMSCodeUseCase
+import com.progressterra.ipbandroidview.usecases.scrm.StartSMSAuthUseCase
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
 import com.progressterra.ipbandroidview.utils.ToastBundle
@@ -23,7 +19,8 @@ import kotlinx.coroutines.launch
 internal class ConfirmViewModel(
     private val phoneNumber: String,
     private val loginFlowSettings: LoginFlowSettings,
-    private val newLoginFlowSettings: Boolean
+    private val confirmSMSCodeUseCase: ConfirmSMSCodeUseCase,
+    private val startSMSAuthUseCase: StartSMSAuthUseCase
 ) : BaseViewModel() {
     private var isCalled: Boolean = false
 
@@ -39,7 +36,7 @@ internal class ConfirmViewModel(
     var resendCodeOperationReady = _resendCodeOperationReady
 
     private val _confirmInfo =
-        MutableLiveData<String>("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
+        MutableLiveData("На указанный номер $phoneNumber было отправлено SMS с кодом. Чтобы завершить подтверждение номера, введите 4-значный код активации.")
     val confirmInfo: LiveData<String> = _confirmInfo
 
     private val _setFragmentResult = MutableLiveData<Event<Bundle>>()
@@ -68,10 +65,10 @@ internal class ConfirmViewModel(
             return
         }
 
-        val api = LoginApi.newInstance()
         viewModelScope.launch {
-            val loginResponse = api.verificationChannelBegin(phoneNumber)
-            if (loginResponse.status == SUCCESS) {
+            val loginResponse =
+                startSMSAuthUseCase.startAuth(phoneNumber)
+            if (loginResponse) {
                 resendCodeOperationReady.postValue(false)
                 startResendCodeCounter()
             } else {
@@ -86,35 +83,22 @@ internal class ConfirmViewModel(
                 isCalled = true
                 viewModelScope.launch {
                     _screenState.postValue(ScreenState.LOADING)
-                    val api = LoginApi.newInstance()
-                    val response = api.verificationChannelEnd(phoneNumber, code)
+                    val response = confirmSMSCodeUseCase.confirmCode(phoneNumber, code)
                     _screenState.postValue(ScreenState.DEFAULT)
-                    when (response.status) {
-                        SUCCESS -> {
-                            isCalled = false
-                            UserData.clientExist = true
-                            when (response.userExist) {
-                                true -> {
-                                    _setFragmentResult.postValue(Event(bundleOf(LoginKeys.AUTH_DONE to true)))
-                                    if (newLoginFlowSettings)
-                                        _popBackStack.postValue(Event(true))
-                                    else
-                                        _action.postValue(Event(MainNavGraphDirections.actionGlobalBaseFlow()))
-                                }
-                                false -> _action.postValue(
-                                    Event(
-                                        ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(
-                                            loginFlowSettings
-                                        )
-                                    )
+                    if (response) {
+                        isCalled = false
+                        UserData.clientExist = true
+                        _action.postValue(
+                            Event(
+                                ConfirmFragmentDirections.actionConfirmFragmentToPersonalFragment(
+                                    loginFlowSettings
                                 )
-                            }
-                        }
-                        ERROR -> {
-                            _clearConfirmCode.postValue(Event(Any()))
-                            isCalled = false
-                            _confirmInfo.postValue("Код введен неправльно. Проверьте еще раз SMS с кодом. Или можете запросить новый код, нажав “Выслать повторно”")
-                        }
+                            )
+                        )
+                    } else {
+                        _clearConfirmCode.postValue(Event(Any()))
+                        isCalled = false
+                        _confirmInfo.postValue("Код введен неправльно. Проверьте еще раз SMS с кодом. Или можете запросить новый код, нажав “Выслать повторно”")
                     }
                 }
             }

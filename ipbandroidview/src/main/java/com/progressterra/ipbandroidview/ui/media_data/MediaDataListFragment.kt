@@ -36,6 +36,9 @@ class MediaDataListFragment :
             ContentType.PDF -> {
                 vm.downloadFile(it.urlData)
             }
+            ContentType.UNKNOWN -> {
+
+            }
         }
     }
 

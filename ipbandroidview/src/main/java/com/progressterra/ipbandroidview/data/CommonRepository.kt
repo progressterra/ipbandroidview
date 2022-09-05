@@ -1,19 +1,22 @@
 package com.progressterra.ipbandroidview.data
 
-
+import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
 import com.progressterra.ipbandroidapi.api.iecommerscoreapi.IECommersCore
 import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.CatalogItem
 import com.progressterra.ipbandroidapi.api.ipbpromocodeapi.IPBPromoCode
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.data.model.BonusesInfo
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.*
 
-internal class CommonRepository : BaseRepository(), IRepository.PromoCode, IRepository.Bonuses,
+internal class CommonRepository(
+    private val promoCodeApi: IPBPromoCode.PromoCodeUse,
+    private val iBonusRepository: IBonusRepository,
+    private val ieCoreCatalog: IECommersCore.Catalog,
+    sCRMRepository: SCRMRepository
+) : BaseRepository(sCRMRepository), IRepository.PromoCode, IRepository.Bonuses,
     IRepository.Catalog {
-    private val promoCodeApi = IPBPromoCode.PromoCodeUse()
-    private val bonusesApi = BonusesApi.getInstance()
-    private val ieCoreCatalog = IECommersCore.Catalog()
+
 
     override suspend fun setPromoCode(accessToken: String, promoCode: String): SResult<*> =
         safeApiCall {
@@ -28,8 +31,9 @@ internal class CommonRepository : BaseRepository(), IRepository.PromoCode, IRepo
 
     override suspend fun getBonusesInfo(): SResult<BonusesInfo> = safeApiCall {
         val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
-        val response = bonusesApi.getBonusesInfo(token)
-        response.toSuccessResult()
+        val response =
+            iBonusRepository.getGeneralInfo(token).getOrNull() ?: return@safeApiCall emptyFailed()
+        BonusesInfo(response).toSuccessResult()
     }
 
     override suspend fun getCatalog(): SResult<List<CatalogItem>> = safeApiCall {

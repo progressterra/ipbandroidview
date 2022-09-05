@@ -1,15 +1,14 @@
 package com.progressterra.ipbandroidview.utils.extensions
 
-import com.progressterra.ipbandroidapi.api.scrm.models.clientinfo.ClientAdditionalInfoModel
-import com.progressterra.ipbandroidapi.api.scrm.models.clientinfo.ClientInfoModel
-import com.progressterra.ipbandroidapi.localdata.shared_pref.models.ClientAdditionalInfo
-import com.progressterra.ipbandroidapi.localdata.shared_pref.models.ClientInfo
-import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
-import com.progressterra.ipbandroidapi.remotedata.models.base.BaseResponse
-import com.progressterra.ipbandroidapi.utils.extentions.orNow
-import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
-import com.progressterra.ipbandroidapi.utils.extentions.tryOrNull
-
+import com.progressterra.ipbandroidapi.api.scrm.model.ClientAdditionalInfoModel
+import com.progressterra.ipbandroidapi.api.scrm.model.ClientInfoModel
+import com.progressterra.ipbandroidapi.base.BaseResponse
+import com.progressterra.ipbandroidapi.user.ClientAdditionalInfo
+import com.progressterra.ipbandroidapi.user.ClientInfo
+import com.progressterra.ipbandroidapi.user.SexType
+import com.progressterra.ipbandroidapi.utils.orNow
+import com.progressterra.ipbandroidapi.utils.parseToDate
+import com.progressterra.ipbandroidapi.utils.tryOrNull
 
 fun BaseResponse.isSuccess(): Boolean {
     return this.status == 0 || this.result?.status == 0

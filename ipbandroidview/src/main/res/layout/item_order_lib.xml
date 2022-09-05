@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Purchase" />
+            type="com.progressterra.ipbandroidview.data.model.Purchase" />
     </data>
 
     <LinearLayout

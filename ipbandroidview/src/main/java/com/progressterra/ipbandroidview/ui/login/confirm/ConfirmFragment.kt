@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
@@ -16,7 +15,8 @@ import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.utils.extensions.*
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ConfirmFragment : BaseFragment() {
 
@@ -27,33 +27,31 @@ class ConfirmFragment : BaseFragment() {
         loginFlowSettings.confirmCodeSettings
     }
 
-    private val viewModel: ConfirmViewModel by viewModels {
-        ConfirmViewModelFactory(
-            args.phoneNumber,
-            args.loginFlowSettings,
-            args.loginFlowSettings.newLoginFlow
-        )
-    }
+    private val viewModelInjected: ConfirmViewModel by viewModel(
+        parameters = { parametersOf(args.phoneNumber, args.loginFlowSettings) }
+    )
 
-    private lateinit var binding: FragmentConfirmLibBinding
+    private var _binding: FragmentConfirmLibBinding? = null
+    private val binding: FragmentConfirmLibBinding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentConfirmLibBinding.inflate(inflater, container, false)
+        _binding = FragmentConfirmLibBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.editText.afterTextChanged(viewModel::checkIt)
+        binding.editText.afterTextChanged(viewModelInjected::checkIt)
 
         binding.editText.requestFocus()
         showKeyboard(requireActivity(), binding.editText)
 
-        binding.vm = viewModel
+        binding.vm = viewModelInjected
         binding.lifecycleOwner = this
         setupViewModel()
         setupCodeBlockParameters()
@@ -62,7 +60,7 @@ class ConfirmFragment : BaseFragment() {
 
         // TODO: 10.06.2021 если приживется идея, то нужно окультурить
         if (args.loginFlowSettings.newLoginFlow) {
-            viewModel.popBackStack.observe(viewLifecycleOwner) { event ->
+            viewModelInjected.popBackStack.observe(viewLifecycleOwner) { event ->
                 event.contentIfNotHandled?.let {
                     if (it) {
                         findNavController().popBackStack(R.id.fragmentLogin, true)
@@ -80,7 +78,7 @@ class ConfirmFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        viewModel.apply {
+        viewModelInjected.apply {
             action.observe(viewLifecycleOwner, this@ConfirmFragment::onAction)
             toastBundle.observe(viewLifecycleOwner, this@ConfirmFragment::showToast)
             clearConfirmCode.observe(viewLifecycleOwner) {
@@ -117,6 +115,11 @@ class ConfirmFragment : BaseFragment() {
             textView.text = inputString.toString()
             textView.isEnabled = true
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onStop() {

@@ -3,10 +3,9 @@ package com.progressterra.ipbandroidview.ui.chat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidapi.utils.orIfNull
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.data.ChatRepository
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.chat.utils.MessageWithDateUI
@@ -14,9 +13,9 @@ import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.*
 
 class ChatDrawableViewModel(
-    savedState: SavedStateHandle
+    savedState: SavedStateHandle,
+    private val repo: IRepository.Chat
 ) : BaseBindingViewModel() {
-    private val repo: IRepository.Chat = ChatRepository()
 
     private val idEnterprise: String = savedState.get<String>("idEnterprise")
         .orIfNull { throw NullPointerException("Did you forget to set idEnterprise?") }

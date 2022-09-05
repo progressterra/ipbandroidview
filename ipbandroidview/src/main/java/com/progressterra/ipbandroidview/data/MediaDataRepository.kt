@@ -3,7 +3,8 @@ package com.progressterra.ipbandroidview.data
 import com.progressterra.ipbandroidapi.api.ipbmediadatacore.IpbMediaDataCore
 import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.MediaData
 import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.UploadImageData
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.utils.orIfNull
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.ui.media_data.models.toUiModel
 import com.progressterra.ipbandroidview.utils.SResult
@@ -11,7 +12,9 @@ import com.progressterra.ipbandroidview.utils.extensions.*
 import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 
-internal class MediaDataRepository : BaseRepository(), IRepository.MediaData {
+internal class MediaDataRepository(
+    sCRMRepository: SCRMRepository
+) : BaseRepository(sCRMRepository), IRepository.MediaData {
 
     private val mediaDataApi = IpbMediaDataCore.EntityMobile()
 

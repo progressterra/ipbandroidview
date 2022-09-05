@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.api.ipbambassador.IPBAmbassador
+import com.progressterra.ipbandroidview.data.CommonRepository
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.user_inviting.models.UserInviteDataUI
@@ -12,15 +13,14 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserInviteInfoViewModel :
+class UserInviteInfoViewModel(
+    private val repository: IRepository.UserInviting
+) :
     BaseBindingViewModel() {
 
     private val _infoForInvitingMembers = MutableLiveData<SResult<UserInviteDataUI>>()
     val infoForInvitingMembers: LiveData<SResult<UserInviteDataUI>> =
         _infoForInvitingMembers
-
-    private var repository = IRepository.UserInviting(IPBAmbassador.AmbassadorInvite())
-
 
     init {
         getInfo()

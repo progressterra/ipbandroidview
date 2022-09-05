@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.ui.user_inviting
 import androidx.lifecycle.*
 import com.progressterra.ipbandroidapi.api.ipbambassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbambassador.models.invite_members.InvitingMembersRequest
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
@@ -11,11 +12,12 @@ import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.*
 import kotlinx.coroutines.launch
 
-class InviteUserViewModel : BaseBindingViewModel() {
-    val sendingInviteState: MutableLiveData<SResult<String>> = MutableLiveData()
+class InviteUserViewModel(
+    private val repository: IRepository.UserInviting,
+    private val sCRMRepository: SCRMRepository
+) : BaseBindingViewModel() {
 
-    private var repository =
-        IRepository.UserInviting(IPBAmbassador.AmbassadorInvite())
+    val sendingInviteState: MutableLiveData<SResult<String>> = MutableLiveData()
 
     val resultText: LiveData<String> = sendingInviteState.switchMap {
         liveData {
@@ -71,11 +73,10 @@ class InviteUserViewModel : BaseBindingViewModel() {
 
             var accessToken: String
             sendingInviteState.postValue(SResult.Loading(""))
-            repository
 
-            repository.getAccessToken().let {
-                if (it is SResult.Success) {
-                    accessToken = it.data
+            sCRMRepository.getAccessToken().let {
+                if (it.isSuccess) {
+                    accessToken = it.getOrNull()!!
                 } else {
                     toastLiveData.postValue(SResult.Toast(R.string.network_error))
                     return@launch

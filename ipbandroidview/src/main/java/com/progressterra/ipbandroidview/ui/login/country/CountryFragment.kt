@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,18 +20,13 @@ import com.progressterra.ipbandroidview.ui.login.country.models.CountryUi
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CountryFragment : BaseFragment() {
-
-    private val args: CountryFragmentArgs by navArgs()
+class CountryFragment : Fragment() {
 
     private lateinit var binding: FragmentCountryLibBinding
 
-    override val vm: CountryViewModel by viewModels {
-        CountryViewModelFactory(
-            loginFlowSettings = args.loginFlowSettings
-        )
-    }
+    private val vm: CountryViewModel by viewModel()
 
     private val adapter =
         RecyclerViewAdapter<CountryUi>(
@@ -60,11 +56,9 @@ class CountryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        vm.countryUi.observe(viewLifecycleOwner, {
+        vm.countryUi.observe(viewLifecycleOwner) {
             adapter.setItems(it)
-        })
-        vm.action.observe(viewLifecycleOwner, this::onAction)
-
+        }
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             countryRecycle.apply {

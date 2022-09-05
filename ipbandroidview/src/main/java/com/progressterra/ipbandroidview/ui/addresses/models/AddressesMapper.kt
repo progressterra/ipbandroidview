@@ -1,9 +1,10 @@
 package com.progressterra.ipbandroidview.ui.addresses.models
 
-import com.progressterra.ipbandroidapi.api.scrm.models.address.Address
-import com.progressterra.ipbandroidapi.api.scrm.models.address.ListOfAddressesResponse
-import com.progressterra.ipbandroidapi.api.scrm.models.address.dadata.Suggestion
-import com.progressterra.ipbandroidapi.api.scrm.models.address.dadata.SuggestionExtendedInfo
+import com.progressterra.ipbandroidapi.api.address.model.AddressInfo
+import com.progressterra.ipbandroidapi.api.address.model.AddressesInfo
+import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
+import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionInfo
+
 
 object AddressesMapper {
     fun convertSuggestionToAddressUIModel(suggestion: SuggestionExtendedInfo): AddressUI {
@@ -11,12 +12,12 @@ object AddressesMapper {
             idUnique = "00000000-0000-0000-0000-000000000000",
             idClient = "00000000-0000-0000-0000-000000000000",
             dateAdded = "0001-01-01T00:00:00",
-            dateVerification = null,
-            idManagerVerification = null,
-            dateDeactivation = null,
-            defaultShipping = null,
-            defaultBilling = null,
-            fiasIDCountry = null,
+            dateVerification = "",
+            idManagerVerification = "",
+            dateDeactivation = "",
+            defaultShipping = "",
+            defaultBilling = "",
+            fiasIDCountry = "",
             fiasIDRegion = suggestion.regionFiasId,
             fiasIDCity = suggestion.cityFiasId,
             fiasIDArea = suggestion.areaFiasId,
@@ -43,21 +44,21 @@ object AddressesMapper {
             entrance = suggestion.entrance,
             floor = suggestion.floor,
             latitude = try {
-                suggestion.geoLat?.toDouble() ?: 0.0
+                suggestion.geoLat.toDouble()
             } catch (e: Exception) {
                 0.0
             },
             longitude = try {
-                suggestion.geoLon?.toDouble() ?: 0.0
+                suggestion.geoLon.toDouble()
             } catch (e: Exception) {
                 0.0
             },
-            isDefaultShippingAddress = null,
-            isDefaultBillingAddress = null
+            isDefaultShippingAddress = false,
+            isDefaultBillingAddress = false
         )
     }
 
-    fun convertSuggestionsDtoToUIModels(suggestions: List<Suggestion>?): List<SuggestionUI> {
+    fun convertSuggestionsDtoToUIModels(suggestions: List<SuggestionInfo>?): List<SuggestionUI> {
         return suggestions?.map {
             SuggestionUI(
                 suggestionExtendedInfo = it.suggestionExtendedInfo,
@@ -66,8 +67,8 @@ object AddressesMapper {
         } ?: emptyList()
     }
 
-    fun convertAddressUiModelToDto(addressUI: AddressUI): Address {
-        return Address(
+    fun convertAddressUiModelToDto(addressUI: AddressUI): AddressInfo {
+        return AddressInfo(
             idUnique = addressUI.idUnique,
             nameCity = addressUI.nameCity,
             postalCode = addressUI.postalCode,
@@ -107,13 +108,13 @@ object AddressesMapper {
         )
     }
 
-    fun convertDtoToAddressUiModel(listOfAddressesResponse: ListOfAddressesResponse?): List<AddressUI> {
+    fun convertDtoToAddressUiModel(addressesInfo: AddressesInfo): List<AddressUI> {
         val defaultShippingAddressId =
-            listOfAddressesResponse?.addressInfo?.defaultShippingAddress?.idUnique
+            addressesInfo.defaultShippingAddress.idUnique
         val defaultBillingAddressId =
-            listOfAddressesResponse?.addressInfo?.defaultBillingAddress?.idUnique
+            addressesInfo.defaultBillingAddress.idUnique
 
-        return listOfAddressesResponse?.addressInfo?.listAddress?.map {
+        return addressesInfo.listAddress.map {
             AddressUI(
                 idUnique = it.idUnique,
                 nameCity = it.nameCity,
@@ -154,6 +155,6 @@ object AddressesMapper {
                 latitude = it.latitude,
                 longitude = it.longitude
             )
-        } ?: emptyList()
+        }
     }
 }

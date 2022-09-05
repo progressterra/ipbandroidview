@@ -1,33 +1,30 @@
 package com.progressterra.ipbandroidview.ui.personal_edit
 
 import androidx.lifecycle.*
-import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
-import com.progressterra.ipbandroidapi.utils.extentions.format
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidapi.utils.format
+import com.progressterra.ipbandroidapi.utils.orIfNull
 import com.progressterra.ipbandroidview.MainNavGraphDirections
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.prefs.UserDataLocal
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientUpdateInfo
-import com.progressterra.ipbandroidview.usecases.client.IGetClientCityUseCase
-import com.progressterra.ipbandroidview.usecases.client.IUpdateClientPersonalDataUseCase
+import com.progressterra.ipbandroidview.usecases.scrm.GetClientCityUseCase
+import com.progressterra.ipbandroidview.usecases.scrm.UpdateClientInfoUseCase
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.*
 
-class PersonalEditViewModel : BaseBindingViewModel() {
-
-    private val getCityUseCase: IGetClientCityUseCase =
-        IGetClientCityUseCase.IGetClientCityUseCase()
-
-    private val updateDataUseCase: IUpdateClientPersonalDataUseCase =
-        IUpdateClientPersonalDataUseCase.IUpdateClientPersonalDataUseCase()
+class PersonalEditViewModel(
+    private val getClientCityUseCase: GetClientCityUseCase,
+    private val updateClientInfoUseCase: UpdateClientInfoUseCase
+) : BaseBindingViewModel() {
 
     val city: LiveData<SResult<String>> by lazyUnsafe {
         liveData {
             if (UserDataLocal.city.isEmpty()) {
                 emit(loadingResult())
-                emit(getCityUseCase.invoke())
+                emit(getClientCityUseCase.getClientCity())
             } else {
                 emit(UserDataLocal.city.toSuccessResult())
             }
@@ -95,7 +92,7 @@ class PersonalEditViewModel : BaseBindingViewModel() {
 
             _userData.postValue(_userData.value?.data.toLoadingResult())
 
-            val result = updateDataUseCase.invoke(
+            val result = updateClientInfoUseCase.updateInfo(
                 ClientUpdateInfo(
                     name = name,
                     soname = soname,
@@ -103,7 +100,7 @@ class PersonalEditViewModel : BaseBindingViewModel() {
                 )
             )
 
-            if (result is SResult.Success) {
+            if (result) {
                 _userData.postValue(result.data.toSuccessResult())
 
                 navLiveData.postValue(

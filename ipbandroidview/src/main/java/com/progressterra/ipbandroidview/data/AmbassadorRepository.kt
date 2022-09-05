@@ -4,7 +4,8 @@ package com.progressterra.ipbandroidview.data
 import com.progressterra.ipbandroidapi.api.ipbambassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbambassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbmediadatacore.IpbMediaDataCore
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.api.scrm.model.ClientInfoRequest
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
@@ -17,19 +18,20 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.ResponseBody
 import java.io.File
 
-internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorInfo {
+internal class AmbassadorRepository(
+    private val keyPharmApi: IPBAmbassador.Ambassador,
+    private val mediaDataApi: IpbMediaDataCore.EntityMobile,
+    private val sCRMRepository: SCRMRepository
+) : BaseRepository(sCRMRepository), IRepository.AmbassadorInfo {
 
-    private val keyPharmApi = IPBAmbassador.Ambassador()
-    private val mediaDataApi = IpbMediaDataCore.EntityMobile()
-    private val ipbApi = LoginApi.newInstance()
 
     // получение информации о пользователе: имя,емейл,дата рождения и пр
     override suspend fun getClientInfo(accessToken: String): ISResult<ClientInfo> = safeApiCall {
-        val response = ipbApi.clientInfo(accessToken)
-        if (response.result.status == 0) {
-            SResult.Success(ClientInfo.convertToUiModel(response))
+        val response = sCRMRepository.getClientInfoByToken(accessToken)
+        if (response.isSuccess) {
+            SResult.Success(ClientInfo.convertToUiModel(response.getOrNull()!!))
         } else {
-            SResult.Failed(response.result.message)
+            SResult.Failed(response.exceptionOrNull()?.message)
         }
     }
 
@@ -59,23 +61,32 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         soname: String,
         patronymic: String
     ): ISResult<ClientInfo> = safeApiCall {
-        val response = ipbApi.addClientInfo(accessToken, name, soname, patronymic)
-        if (response.result.status == 0) {
-            SResult.Success(ClientInfo.convertToUiModel(response))
+        val response = sCRMRepository.setPersonalInfo(
+            accessToken = accessToken,
+            name = name,
+            soname = soname,
+            patronymic = patronymic
+        )
+        if (response.isSuccess) {
+            SResult.Success(ClientInfo.convertToUiModel(response.getOrNull()!!))
         } else {
-            SResult.Failed(response.result.message)
+            SResult.Failed(response.exceptionOrNull()?.message)
         }
     }
 
     override suspend fun getBankClientInfo(accessToken: String): ISResult<UserBankData> =
         safeApiCall {
             val response = keyPharmApi.getUserBankData(accessToken)
-            if (response.result?.status == 0) {
-                SResult.Success(UserBankData.convertToUiModel(response))
-            } else if (response.result?.status == 1) {
-                SResult.Success(UserBankData("", "", "", "", "", "", ""))
-            } else {
-                SResult.Failed(response.result?.message)
+            when (response.result?.status) {
+                0 -> {
+                    SResult.Success(UserBankData.convertToUiModel(response))
+                }
+                1 -> {
+                    SResult.Success(UserBankData("", "", "", "", "", "", ""))
+                }
+                else -> {
+                    SResult.Failed(response.result?.message)
+                }
             }
         }
 

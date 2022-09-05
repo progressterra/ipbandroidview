@@ -4,15 +4,12 @@ package com.progressterra.ipbandroidview.data
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.CatalogItem
 import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.RGGoodsInventoryExt
-import com.progressterra.ipbandroidapi.api.ipbambassador.IPBAmbassador
 import com.progressterra.ipbandroidapi.api.ipbambassador.models.ambassador_status.AmbassadorStatusResponse
 import com.progressterra.ipbandroidapi.api.ipbambassador.models.invite_members.InvitingMembersRequest
 import com.progressterra.ipbandroidapi.api.ipbmediadatacore.models.UploadImageData
-import com.progressterra.ipbandroidapi.api.scrm.models.clientinfo.ClientInfoResponse
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.BonusesInfo
+import com.progressterra.ipbandroidview.data.model.BonusesInfo
 import com.progressterra.ipbandroidview.ui.chat.utils.Message
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
-import com.progressterra.ipbandroidview.ui.personal_edit.models.ClientInfoUI
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ClientInfo
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.ImageUpload
 import com.progressterra.ipbandroidview.ui.set_personal_info.models.UserBankData
@@ -26,7 +23,7 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import java.io.File
 
-internal interface IRepository {
+interface IRepository {
     suspend fun getAccessToken(): SResult<String>
 
     interface Chat {
@@ -134,14 +131,6 @@ internal interface IRepository {
         suspend fun getBonusesInfo(): SResult<BonusesInfo>
     }
 
-    interface Personal {
-        suspend fun updatePersonalInfoLocal(): SResult<ClientInfoUI>
-        suspend fun getClientCity(): SResult<String>
-        suspend fun updatePersonalInfo(name: String, soname: String): SResult<ClientInfoResponse>
-        suspend fun updateEmail(email: String): SResult<*>
-        suspend fun confirmEmail(email: String): SResult<*>
-    }
-
     interface UserInviting {
         suspend fun getInviteInfo(): SResult<UserInviteDataUI>
         suspend fun sendInvites(invitingMembersRequest: InvitingMembersRequest): SResult<UserInviteResultUI>
@@ -149,11 +138,5 @@ internal interface IRepository {
 
     interface Catalog {
         suspend fun getCatalog(): SResult<List<CatalogItem>>
-    }
-
-
-    companion object {
-        fun UserInviting(ambassadorInvite: IPBAmbassador.AmbassadorInvite): UserInvitingRepository =
-            UserInvitingRepository(ambassadorInvite)
     }
 }

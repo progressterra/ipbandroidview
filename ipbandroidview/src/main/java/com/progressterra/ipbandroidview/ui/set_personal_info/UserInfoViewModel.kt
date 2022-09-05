@@ -21,11 +21,8 @@ import java.io.File
 import java.io.InputStream
 
 
-class UserInfoViewModel :
+class UserInfoViewModel(private val repository: IRepository.AmbassadorInfo) :
     ViewModel() {
-
-    private val repository: IRepository.AmbassadorInfo = AmbassadorRepository()
-
 
     private val _ambassadorStateInfo = MutableLiveData<AmbassadorStatusResponse>()
     val ambassadorStateInfo: LiveData<AmbassadorStatusResponse> = _ambassadorStateInfo

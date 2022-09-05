@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.bonuses_details.tabs
 
 import android.os.Bundle
 import androidx.fragment.app.viewModels
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Purchase
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.data.model.Purchase
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesOrderTabLibBinding
 import com.progressterra.ipbandroidview.databinding.ItemOrderLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment

@@ -1,23 +1,15 @@
 package com.progressterra.ipbandroidview.ui.remove_account
 
 import android.os.Bundle
-import androidx.core.os.bundleOf
 import androidx.lifecycle.*
-import com.progressterra.ipbandroidapi.interfaces.client.bonuses.BonusesApi
-import com.progressterra.ipbandroidapi.localdata.shared_pref.UserData
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
-import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.ui.base.BaseViewModel
 import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
 import com.progressterra.ipbandroidview.utils.Event
-import com.progressterra.ipbandroidview.utils.ScreenState
-import com.progressterra.ipbandroidview.utils.extensions.isSuccess
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class RemoveAccountViewModel(confirmCodeSettings: ConfirmCodeSettings) : BaseViewModel() {
-    private var isCalled: Boolean = false
-    private val bonusesApi: BonusesApi = BonusesApi.getInstance()
 
     val outLinedCircles: Boolean = confirmCodeSettings.outlinedCircles
 

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.utils.extensions
 
 import androidx.navigation.NavDirections
-import com.progressterra.ipbandroidapi.remotedata.models.base.BaseResponse
+import com.progressterra.ipbandroidapi.base.BaseResponse
 import com.progressterra.ipbandroidview.utils.SResult
 
 /**

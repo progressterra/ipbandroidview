@@ -1,17 +1,18 @@
 package com.progressterra.ipbandroidview.data
 
-import com.progressterra.ipbandroidapi.interfaces.client.login.LoginApi
-import com.progressterra.ipbandroidapi.remotedata.models.base.BaseResponse
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.base.BaseResponse
+import com.progressterra.ipbandroidapi.utils.orIfNull
 import com.progressterra.ipbandroidview.utils.SResult
 import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
 import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
 
-internal open class BaseRepository : IRepository {
-private val loginApi = LoginApi.newInstance()
+internal open class BaseRepository(
+    private val sCRMRepository: SCRMRepository
+) : IRepository {
 
     override suspend fun getAccessToken(): SResult<String> {
-        val response = loginApi.accessToken()
+        val response = sCRMRepository.getAccessToken().getOrNull() ?: ""
         return response.toSuccessResult()
     }
 

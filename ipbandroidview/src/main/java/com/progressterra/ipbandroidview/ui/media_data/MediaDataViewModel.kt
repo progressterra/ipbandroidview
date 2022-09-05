@@ -5,7 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.utils.extentions.orIfNull
+import com.progressterra.ipbandroidapi.utils.orIfNull
+import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.data.MediaDataRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
@@ -20,9 +21,9 @@ import kotlinx.coroutines.launch
 import java.io.InputStream
 
 class MediaDataViewModel(
-    savedState: SavedStateHandle
+    savedState: SavedStateHandle,
+    private val repo: IRepository.MediaData
 ) : BaseBindingViewModel() {
-    private val repo = MediaDataRepository()
 
     private val mediaDataSettings: String =
         savedState.get<String>("mediaDataId")

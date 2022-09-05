@@ -47,23 +47,22 @@ class MediaDataFragment :
                             mediaData
                         )
                     )
-                    ContentType.PDF
-                    -> binding.container.addView(getPdfView(infalter, mediaData))
-                    ContentType.VIDEO
-                    -> binding.container.addView(
+                    ContentType.PDF -> binding.container.addView(getPdfView(infalter, mediaData))
+                    ContentType.VIDEO -> binding.container.addView(
                         getVideoView(infalter, mediaData)
                     )
+                    else -> {}
                 }
             }
         }
 
         vm.downloadedFileStream.observeAndHandleSResult {
             if (it is SResult.Success)
-                    fileHelper.showFileViewDialog(
-                        it.data,
-                        requireContext(),
-                        args.authority
-                    )
+                fileHelper.showFileViewDialog(
+                    it.data,
+                    requireContext(),
+                    args.authority
+                )
 
         }
     }

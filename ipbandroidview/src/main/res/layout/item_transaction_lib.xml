@@ -4,7 +4,7 @@
 
         <variable
             name="item"
-            type="com.progressterra.ipbandroidapi.interfaces.client.bonuses.models.Transaction" />
+            type="com.progressterra.ipbandroidview.data.model.Transaction" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

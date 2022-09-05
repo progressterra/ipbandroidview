@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.ui.chat.utils
 
 
 import com.progressterra.ipbandroidapi.api.imessengercore.models.MessagesListResponse
-import com.progressterra.ipbandroidapi.utils.extentions.format
-import com.progressterra.ipbandroidapi.utils.extentions.orNow
-import com.progressterra.ipbandroidapi.utils.extentions.parseToDate
+import com.progressterra.ipbandroidapi.utils.format
+import com.progressterra.ipbandroidapi.utils.orNow
+import com.progressterra.ipbandroidapi.utils.parseToDate
 import java.util.*
 
 data class Message(

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.addresses.models
 
-import com.progressterra.ipbandroidapi.api.scrm.models.address.dadata.SuggestionExtendedInfo
+import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 
 data class SuggestionUI(
     val suggestionExtendedInfo: SuggestionExtendedInfo?,

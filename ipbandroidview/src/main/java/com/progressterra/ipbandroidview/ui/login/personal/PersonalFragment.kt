@@ -8,27 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.progressterra.ipbandroidapi.api.scrm.models.responses.CitiesListResponse
-import com.progressterra.ipbandroidapi.localdata.shared_pref.models.SexType
+import com.progressterra.ipbandroidapi.api.cities.model.City
+import com.progressterra.ipbandroidapi.user.SexType
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPersonalLibBinding
-import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 private const val DEFAULT_YEAR = 1995
 private const val DEFAULT_MONTH = 1
 private const val DEFAULT_DAY = 14
 
-class PersonalFragment : BaseFragment() {
+class PersonalFragment : Fragment() {
 
     private val args: PersonalFragmentArgs by navArgs()
 
@@ -36,12 +36,7 @@ class PersonalFragment : BaseFragment() {
         args.loginFlowSettings.personalSettings
     }
 
-    private val viewModel: PersonalViewModel by viewModels {
-        PersonalViewModelFactory(
-            personalSettings,
-            args.loginFlowSettings.newLoginFlow
-        )
-    }
+    private val viewModel: PersonalViewModel by viewModel()
 
     private lateinit var binding: FragmentPersonalLibBinding
 
@@ -62,8 +57,6 @@ class PersonalFragment : BaseFragment() {
                 if (it != null)
                     setupCitySpinner(it)
             }
-            toastBundle.observe(viewLifecycleOwner, this@PersonalFragment::showToast)
-            action.observe(viewLifecycleOwner, this@PersonalFragment::onAction)
             setFragmentResult.observe(viewLifecycleOwner) {
                 val bundle = it.contentIfNotHandled
                 bundle?.let {
@@ -158,7 +151,7 @@ class PersonalFragment : BaseFragment() {
         }
     }
 
-    private fun setupCitySpinner(citiesList: List<CitiesListResponse.City>) {
+    private fun setupCitySpinner(citiesList: List<City>) {
         val spinnerAdapter =
             NoPaddingArrayAdapter(
                 requireContext(),

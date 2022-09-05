@@ -4,11 +4,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidapi.api.iecommerscoreapi.models.RGGoodsInventoryExt
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.data.IRepository
 import kotlinx.coroutines.flow.Flow
 
-internal class StoreRepository : IRepository.Store {
-    private val pageLoader: PageLoader = PageLoader()
+internal class StoreRepository(
+    sCRMRepository: SCRMRepository
+) : IRepository.Store {
+    private val pageLoader: PageLoader = PageLoader(sCRMRepository)
 
     private var storePagingSource: StorePagingSource = StorePagingSource(pageLoader, "")
 

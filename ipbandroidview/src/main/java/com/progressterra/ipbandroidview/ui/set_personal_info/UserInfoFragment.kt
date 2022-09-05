@@ -14,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.progressterra.ipbandroidview.databinding.FragmentUserInfoLibBinding
@@ -22,11 +21,10 @@ import com.progressterra.ipbandroidview.utils.DEFAULT_RES
 import com.progressterra.ipbandroidview.utils.FileHelper
 import com.progressterra.ipbandroidview.utils.SResult
 import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import java.util.*
-
 
 const val CAMERA_PERMISSION_REQUEST_SNILS = 12
 const val CAMERA_PERMISSION_REQUEST_PASSPORT = 13
@@ -38,7 +36,7 @@ const val SELECT_CONTRACT_PHOTO = 13
 
 class UserInfoFragment : Fragment() {
 
-    private val viewModel: UserInfoViewModel by viewModels()
+    private val viewModel: UserInfoViewModel by viewModel()
     private var currentPhotoPath: String? = null
     private lateinit var binding: FragmentUserInfoLibBinding
     private val fileHelper by lazy { FileHelper() }

@@ -104,7 +104,6 @@ open class BaseBindingViewModel : ViewModel(), ISResultContainer {
             initialValue
         )
 
-
     /**
      *  FragmentLifecycle
      */
