@@ -15,8 +15,7 @@ import kotlinx.coroutines.launch
 
 class UserInviteInfoViewModel(
     private val repository: IRepository.UserInviting
-) :
-    BaseBindingViewModel() {
+) : BaseBindingViewModel() {
 
     private val _infoForInvitingMembers = MutableLiveData<SResult<UserInviteDataUI>>()
     val infoForInvitingMembers: LiveData<SResult<UserInviteDataUI>> =

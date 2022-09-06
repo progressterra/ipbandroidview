@@ -6,18 +6,18 @@ import com.progressterra.ipbandroidapi.api.scrm.model.VerificationType
 interface ConfirmSMSCodeUseCase {
 
     //TODO what is infoDevice?
-    suspend fun confirmCode(phoneNumber: String, confirmCode: String): Boolean
+    suspend fun confirmCode(phoneNumber: String, confirmCode: String): Result<Unit>
 
     class Base(
         private val sCRMRepository: SCRMRepository
     ) : ConfirmSMSCodeUseCase {
 
-        override suspend fun confirmCode(phoneNumber: String, confirmCode: String): Boolean =
+        override suspend fun confirmCode(phoneNumber: String, confirmCode: String): Result<Unit> =
             sCRMRepository.finishVerificationChannel(
                 VerificationType.PHONE,
                 phoneNumber,
                 confirmCode,
                 ""
-            ).isSuccess
+            ).map {  }
     }
 }

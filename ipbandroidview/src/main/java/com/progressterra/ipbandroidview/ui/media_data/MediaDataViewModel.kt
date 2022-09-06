@@ -21,13 +21,9 @@ import kotlinx.coroutines.launch
 import java.io.InputStream
 
 class MediaDataViewModel(
-    savedState: SavedStateHandle,
+    private val mediaDataId: String,
     private val repo: IRepository.MediaData
 ) : BaseBindingViewModel() {
-
-    private val mediaDataSettings: String =
-        savedState.get<String>("mediaDataId")
-            .orIfNull { throw NullPointerException("Did you forget to set mediaDataId?") }
 
     private val _mediaData = MutableLiveData<SResult<MediaDataUi>>()
     val mediaData: LiveData<SResult<MediaDataUi>> = _mediaData
@@ -65,7 +61,7 @@ class MediaDataViewModel(
         }) {
 
             _mediaData.postValue(loadingResult())
-            _mediaData.postValue(repo.getMediaData(mediaDataSettings))
+            _mediaData.postValue(repo.getMediaData(mediaDataId))
         }
     }
 

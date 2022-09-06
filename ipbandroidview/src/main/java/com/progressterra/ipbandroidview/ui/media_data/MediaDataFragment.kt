@@ -18,17 +18,21 @@ import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
 import com.progressterra.ipbandroidview.utils.FileHelper
 import com.progressterra.ipbandroidview.utils.SResult
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MediaDataFragment :
     BaseBindingFragment<FragmentMediaDataBinding, MediaDataViewModel>(R.layout.fragment_media_data) {
 
-    override val vm by viewModels<MediaDataViewModel>()
+    override val vm by viewModel<MediaDataViewModel>(
+        parameters = {
+            parametersOf(args.mediaDataId)
+        }
+    )
 
     private val fileHelper by lazy { FileHelper() }
 
-
     private val args by navArgs<MediaDataFragmentArgs>()
-
 
     override fun onInitBinding(binding: FragmentMediaDataBinding, savedInstanceState: Bundle?) {
         super.onInitBinding(binding, savedInstanceState)

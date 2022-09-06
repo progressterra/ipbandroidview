@@ -24,7 +24,9 @@ class PersonalEditViewModel(
         liveData {
             if (UserDataLocal.city.isEmpty()) {
                 emit(loadingResult())
-                emit(getClientCityUseCase.getClientCity())
+                getClientCityUseCase.getClientCity().onSuccess {
+                    emit(it.toSuccessResult())
+                }
             } else {
                 emit(UserDataLocal.city.toSuccessResult())
             }
@@ -100,8 +102,8 @@ class PersonalEditViewModel(
                 )
             )
 
-            if (result) {
-                _userData.postValue(result.data.toSuccessResult())
+            if (result.isSuccess) {
+                _userData.postValue(result.getOrNull()!!.toSuccessResult())
 
                 navLiveData.postValue(
                     MainNavGraphDirections.toInfoDialog(

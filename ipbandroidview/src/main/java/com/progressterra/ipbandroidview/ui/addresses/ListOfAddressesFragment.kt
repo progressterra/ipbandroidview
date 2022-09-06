@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentListOfAddressLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ListOfAddressesFragment : BaseFragment() {
     private lateinit var binding: FragmentListOfAddressLibBinding
-    override val vm: ListOfAddressesViewModel by viewModels()
+    override val vm: ListOfAddressesViewModel by viewModel()
 
     private val adapter = AddressesListAdapter {
         vm.setCurrentAddressAsDefault(it)

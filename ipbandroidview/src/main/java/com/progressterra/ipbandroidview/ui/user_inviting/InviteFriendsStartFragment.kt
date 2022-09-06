@@ -6,19 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentInviteFriendsStartLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class InviteFriendsStartFragment :
     BaseBindingFragment<FragmentInviteFriendsStartLibBinding, UserInviteInfoViewModel>(
         R.layout.fragment_invite_friends_start_lib
     ) {
 
-    override val vm by viewModels<UserInviteInfoViewModel>()
+    override val vm by viewModel<UserInviteInfoViewModel>()
 
     override fun onInitBinding(
         binding: FragmentInviteFriendsStartLibBinding,

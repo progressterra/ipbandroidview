@@ -23,10 +23,24 @@ import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.addresses.AddNewAddressViewModel
 import com.progressterra.ipbandroidview.ui.addresses.ListOfAddressesViewModel
 import com.progressterra.ipbandroidview.ui.bonuses_banner.BonusesBannerViewModel
+import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
+import com.progressterra.ipbandroidview.ui.bonuses_movements.BonusesMovementsViewModel
+import com.progressterra.ipbandroidview.ui.chat.ChatDrawableViewModel
+import com.progressterra.ipbandroidview.ui.chat.ChatViewModel
 import com.progressterra.ipbandroidview.ui.login.confirm.ConfirmViewModel
+import com.progressterra.ipbandroidview.ui.login.country.CountryViewModel
 import com.progressterra.ipbandroidview.ui.login.login.LoginViewModel
+import com.progressterra.ipbandroidview.ui.login.personal.PersonalViewModel
+import com.progressterra.ipbandroidview.ui.login.settings.ConfirmCodeSettings
 import com.progressterra.ipbandroidview.ui.login.settings.LoginFlowSettings
+import com.progressterra.ipbandroidview.ui.login.settings.PersonalSettings
+import com.progressterra.ipbandroidview.ui.media_data.MediaDataListViewModel
+import com.progressterra.ipbandroidview.ui.media_data.MediaDataViewModel
+import com.progressterra.ipbandroidview.ui.personal_edit.PersonalEditViewModel
 import com.progressterra.ipbandroidview.ui.promocode.PromoCodeViewModel
+import com.progressterra.ipbandroidview.ui.remove_account.RemoveAccountViewModel
+import com.progressterra.ipbandroidview.ui.set_personal_info.UserInfoViewModel
+import com.progressterra.ipbandroidview.ui.user_inviting.InviteUserViewModel
 import com.progressterra.ipbandroidview.ui.user_inviting.UserInviteInfoViewModel
 import com.progressterra.ipbandroidview.usecases.scrm.ConfirmSMSCodeUseCase
 import com.progressterra.ipbandroidview.usecases.scrm.GetClientCityUseCase
@@ -101,10 +115,6 @@ val iProBonusUIModule = module {
     }
 
     viewModel {
-        AddNewAddressViewModel(get(), get())
-    }
-
-    viewModel {
         ListOfAddressesViewModel(get(), get())
     }
 
@@ -114,6 +124,58 @@ val iProBonusUIModule = module {
 
     viewModel {
         UserInviteInfoViewModel(get())
+    }
+
+    viewModel {
+        PersonalEditViewModel(get(), get())
+    }
+
+    viewModel {
+        AddNewAddressViewModel(get(), get())
+    }
+
+    viewModel { (mediaDataId: String) ->
+        MediaDataViewModel(mediaDataId, get())
+    }
+
+    viewModel { (idEnterprise: String, imageUrl: String, descriptionDialog: String) ->
+        ChatViewModel(idEnterprise, imageUrl, descriptionDialog, get())
+    }
+
+    viewModel {
+        BonusesDetailsViewModel(get())
+    }
+
+    viewModel { (loginFlowSettings: LoginFlowSettings) ->
+        CountryViewModel(loginFlowSettings)
+    }
+
+    viewModel { (idEnterprise: String, imageUrl: String, descriptionDialog: String) ->
+        ChatDrawableViewModel(idEnterprise, imageUrl, descriptionDialog, get())
+    }
+
+    viewModel {
+        InviteUserViewModel(get(), get())
+    }
+
+    viewModel { (entityId: String) ->
+        MediaDataListViewModel(entityId, get())
+    }
+
+    viewModel { (confirmCodeSettings: ConfirmCodeSettings) ->
+        RemoveAccountViewModel(confirmCodeSettings)
+    }
+
+    viewModel {
+        UserInfoViewModel(get())
+    }
+
+    viewModel {
+        BonusesMovementsViewModel(get(), get())
+    }
+
+    viewModel { (personalSettings: PersonalSettings, newLoginFlow: Boolean) ->
+        PersonalViewModel(personalSettings, newLoginFlow, get(), get(), get(), get())
     }
 
     factory {

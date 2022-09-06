@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.ui.media_data
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.R
@@ -11,6 +10,8 @@ import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.media_data.models.ContentType
 import com.progressterra.ipbandroidview.utils.FileHelper
 import com.progressterra.ipbandroidview.utils.SResult
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MediaDataListFragment :
     BaseBindingFragment<FragmentMediaDataLibBinding, MediaDataListViewModel>(R.layout.fragment_media_data_lib) {
@@ -19,7 +20,11 @@ class MediaDataListFragment :
 
     private val args: MediaDataListFragmentArgs by navArgs()
 
-    override val vm by viewModels<MediaDataListViewModel>()
+    override val vm by viewModel<MediaDataListViewModel>(
+        parameters = {
+            parametersOf(args.entityId)
+        }
+    )
 
     private val adapter = MediaDataListAdapter {
         when (it.contentType) {
@@ -60,12 +65,11 @@ class MediaDataListFragment :
 
             downloadedFileStream.observeAndHandleSResult {
                 if (it is SResult.Success)
-                        fileHelper.showFileViewDialog(
-                            it.data,
-                            requireContext(),
-                            args.authority
-                        )
-
+                    fileHelper.showFileViewDialog(
+                        it.data,
+                        requireContext(),
+                        args.authority
+                    )
             }
         }
     }

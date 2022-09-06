@@ -4,17 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.progressterra.ipbandroidview.databinding.FragmentBonusesMovementsLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.bonuses_movements.adapter.BonusesMovementsAdapter
 import com.progressterra.ipbandroidview.utils.Event
 import com.progressterra.ipbandroidview.utils.ScreenState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BonusesMovementsRecyclerFragment : BaseFragment() {
 
-    override val vm by viewModels<BonusesMovementsViewModel>()
+    override val vm by viewModel<BonusesMovementsViewModel>()
 
     private lateinit var binding: FragmentBonusesMovementsLibBinding
 

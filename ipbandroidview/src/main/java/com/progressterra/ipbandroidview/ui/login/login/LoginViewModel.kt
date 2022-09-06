@@ -54,7 +54,7 @@ class LoginViewModel(
         val phoneWithCountryCode = if (phone.startsWith(countryCode)) phone else countryCode + phone
         viewModelScope.launch(Dispatchers.IO) {
             _screenState.postValue(ScreenState.LOADING)
-            if (startSMSAuthUseCase.startAuth(phone)) {
+            if (startSMSAuthUseCase.startAuth(phone).isSuccess) {
                 _action.postValue(
                     Event(
                         LoginFragmentDirections.actionFragmentLoginToConfirmFragment(

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.bonuses_details.tabs
 
 import android.os.Bundle
-import androidx.fragment.app.viewModels
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.data.model.Transaction
 import com.progressterra.ipbandroidview.databinding.FragmentDetailBonusesTransactionTabLibBinding
@@ -9,11 +8,12 @@ import com.progressterra.ipbandroidview.databinding.ItemTransactionLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.bonuses_details.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 internal class BonusesTabTransactionFragment :
     BaseBindingFragment<FragmentDetailBonusesTransactionTabLibBinding, BonusesDetailsViewModel>(R.layout.fragment_detail_bonuses_transaction_tab_lib) {
 
-    override val vm by viewModels<BonusesDetailsViewModel>(ownerProducer = { requireParentFragment() })
+    override val vm by viewModel<BonusesDetailsViewModel>()
 
     private val adapter =
         RecyclerViewAdapter<Transaction>(

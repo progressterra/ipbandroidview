@@ -21,12 +21,19 @@ import com.progressterra.ipbandroidview.ui.login.settings.LoginKeys
 import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.ui.adapters.RecyclerViewAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class CountryFragment : Fragment() {
 
     private lateinit var binding: FragmentCountryLibBinding
 
-    private val vm: CountryViewModel by viewModel()
+    private val args by navArgs<CountryFragmentArgs>()
+
+    private val vm: CountryViewModel by viewModel(
+        parameters = {
+            parametersOf(args.loginFlowSettings)
+        }
+    )
 
     private val adapter =
         RecyclerViewAdapter<CountryUi>(

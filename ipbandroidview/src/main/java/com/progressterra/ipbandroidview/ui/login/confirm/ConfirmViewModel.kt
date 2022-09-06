@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.utils.ToastBundle
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-internal class ConfirmViewModel(
+class ConfirmViewModel(
     private val phoneNumber: String,
     private val loginFlowSettings: LoginFlowSettings,
     private val confirmSMSCodeUseCase: ConfirmSMSCodeUseCase,
@@ -68,7 +68,7 @@ internal class ConfirmViewModel(
         viewModelScope.launch {
             val loginResponse =
                 startSMSAuthUseCase.startAuth(phoneNumber)
-            if (loginResponse) {
+            if (loginResponse.isSuccess) {
                 resendCodeOperationReady.postValue(false)
                 startResendCodeCounter()
             } else {
@@ -85,7 +85,7 @@ internal class ConfirmViewModel(
                     _screenState.postValue(ScreenState.LOADING)
                     val response = confirmSMSCodeUseCase.confirmCode(phoneNumber, code)
                     _screenState.postValue(ScreenState.DEFAULT)
-                    if (response) {
+                    if (response.isSuccess) {
                         isCalled = false
                         UserData.clientExist = true
                         _action.postValue(

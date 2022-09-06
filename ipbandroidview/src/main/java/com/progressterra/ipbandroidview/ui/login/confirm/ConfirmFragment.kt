@@ -27,7 +27,7 @@ class ConfirmFragment : BaseFragment() {
         loginFlowSettings.confirmCodeSettings
     }
 
-    private val viewModelInjected: ConfirmViewModel by viewModel(
+    override val vm: ConfirmViewModel by viewModel(
         parameters = { parametersOf(args.phoneNumber, args.loginFlowSettings) }
     )
 
@@ -46,12 +46,12 @@ class ConfirmFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.editText.afterTextChanged(viewModelInjected::checkIt)
+        binding.editText.afterTextChanged(vm::checkIt)
 
         binding.editText.requestFocus()
         showKeyboard(requireActivity(), binding.editText)
 
-        binding.vm = viewModelInjected
+        binding.vm = vm
         binding.lifecycleOwner = this
         setupViewModel()
         setupCodeBlockParameters()
@@ -60,7 +60,7 @@ class ConfirmFragment : BaseFragment() {
 
         // TODO: 10.06.2021 если приживется идея, то нужно окультурить
         if (args.loginFlowSettings.newLoginFlow) {
-            viewModelInjected.popBackStack.observe(viewLifecycleOwner) { event ->
+            vm.popBackStack.observe(viewLifecycleOwner) { event ->
                 event.contentIfNotHandled?.let {
                     if (it) {
                         findNavController().popBackStack(R.id.fragmentLogin, true)
@@ -78,7 +78,7 @@ class ConfirmFragment : BaseFragment() {
     }
 
     private fun setupViewModel() {
-        viewModelInjected.apply {
+        vm.apply {
             action.observe(viewLifecycleOwner, this@ConfirmFragment::onAction)
             toastBundle.observe(viewLifecycleOwner, this@ConfirmFragment::showToast)
             clearConfirmCode.observe(viewLifecycleOwner) {

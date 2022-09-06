@@ -5,18 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.progressterra.ipbandroidview.databinding.FragmentChatLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
 import com.progressterra.ipbandroidview.ui.chat.utils.MessagesListAdapter
 import com.progressterra.ipbandroidview.utils.SResult
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ChatFragment : BaseFragment() {
 
     private var _binding: FragmentChatLibBinding? = null
-    private val binding: FragmentChatLibBinding
-        get() = _binding!!
+    private val binding: FragmentChatLibBinding get() = _binding!!
 
-    override val vm by viewModels<ChatViewModel>()
+    private val args by navArgs<ChatFragmentArgs>()
+
+    override val vm by viewModel<ChatViewModel>(
+        parameters = {
+            parametersOf(
+                args.idEnterprise, args.imageUrl, args.descriptionDialog
+            )
+        }
+    )
 
     private val messageListAdapter: MessagesListAdapter = MessagesListAdapter()
 

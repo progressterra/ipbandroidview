@@ -3,20 +3,28 @@ package com.progressterra.ipbandroidview.ui.chat
 import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentChatDrawableLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.chat.utils.MessageWithDrawableAdapter
 import com.progressterra.ipbandroidview.ui.chat.utils.MessagesAnimator
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class ChatDrawableFragment :
     BaseBindingFragment<FragmentChatDrawableLibBinding, ChatDrawableViewModel>(
         R.layout.fragment_chat_drawable_lib
     ) {
 
-    override val vm by viewModels<ChatDrawableViewModel>()
+    private val args by navArgs<ChatDrawableFragmentArgs>()
+
+    override val vm by viewModel<ChatDrawableViewModel>(
+        parameters = {
+            parametersOf(args.idEnterprise, args.imageUrl, args.descriptionDialog)
+        }
+    )
 
     private val messageListAdapter = MessageWithDrawableAdapter()
 

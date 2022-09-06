@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentAddAddressLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AddNewAddressFragment : BaseFragment() {
     private lateinit var binding: FragmentAddAddressLibBinding
-    override val vm: AddNewAddressViewModel by viewModels()
+    override val vm: AddNewAddressViewModel by viewModel()
 
 
     private lateinit var adapter: SuggestionsArrayAdapter

@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.utils.extensions.afterTextChanged
 import com.progressterra.ipbandroidview.utils.extensions.applyIfNotDefault
 import com.progressterra.ipbandroidview.utils.ui.adapters.NoPaddingArrayAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.util.*
 
 private const val DEFAULT_YEAR = 1995
@@ -36,7 +37,11 @@ class PersonalFragment : Fragment() {
         args.loginFlowSettings.personalSettings
     }
 
-    private val viewModel: PersonalViewModel by viewModel()
+    private val viewModel: PersonalViewModel by viewModel(
+        parameters = {
+            parametersOf(args.loginFlowSettings.personalSettings, args.loginFlowSettings.newLoginFlow)
+        }
+    )
 
     private lateinit var binding: FragmentPersonalLibBinding
 

@@ -24,7 +24,7 @@ interface UpdateClientInfoUseCase {
             if (clientInfoResult.isFailure)
                 return Result.failure(clientInfoResult.exceptionOrNull()!!)
             val setEmailResult = sCRMRepository.setEmail(tokenResult.getOrNull()!!, info.email)
-            if (setEmailResult.isFailure && setEmailResult.getOrNull() != false)
+            if (setEmailResult.isFailure)
                 return Result.failure(setEmailResult.exceptionOrNull()!!)
             return Result.success(
                 ClientInfoUI(

@@ -8,16 +8,16 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentPromocodeLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PromoCodeFragment :
     BaseBindingFragment<FragmentPromocodeLibBinding, PromoCodeViewModel>(R.layout.fragment_promocode_lib) {
 
-    override val vm by viewModels<PromoCodeViewModel>()
+    override val vm by viewModel<PromoCodeViewModel>()
 
     private val showCameraFragment =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

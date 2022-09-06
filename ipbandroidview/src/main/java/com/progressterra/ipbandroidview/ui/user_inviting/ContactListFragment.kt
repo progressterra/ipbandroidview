@@ -9,11 +9,12 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.databinding.FragmentContactsListLibBinding
 import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.user_inviting.models.ContactUi
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ContactListFragment :
     BaseBindingFragment<FragmentContactsListLibBinding, InviteUserViewModel>(R.layout.fragment_contacts_list_lib) {
 
-    override val vm by activityViewModels<InviteUserViewModel>()
+    override val vm by viewModel<InviteUserViewModel>()
 
     private val adapter = ContactsAdapter()
 

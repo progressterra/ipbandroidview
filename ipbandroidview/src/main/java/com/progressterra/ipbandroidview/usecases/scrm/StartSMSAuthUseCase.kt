@@ -5,14 +5,13 @@ import com.progressterra.ipbandroidapi.api.scrm.model.VerificationType
 
 interface StartSMSAuthUseCase {
 
-    suspend fun startAuth(phoneNumber: String): Boolean
+    suspend fun startAuth(phoneNumber: String): Result<Unit>
 
     class Base(
         private val sCRMRepository: SCRMRepository
     ) : StartSMSAuthUseCase {
 
-        override suspend fun startAuth(phoneNumber: String): Boolean =
-            sCRMRepository.startVerificationChannel(VerificationType.PHONE, phoneNumber).getOrNull()
-                ?: false
+        override suspend fun startAuth(phoneNumber: String): Result<Unit> =
+            sCRMRepository.startVerificationChannel(VerificationType.PHONE, phoneNumber)
     }
 }

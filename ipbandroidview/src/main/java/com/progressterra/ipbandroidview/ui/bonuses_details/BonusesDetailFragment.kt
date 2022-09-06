@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.ui.bonuses_details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.progressterra.ipbandroidview.R
@@ -11,12 +10,12 @@ import com.progressterra.ipbandroidview.ui.base.BaseBindingFragment
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabDetailFragment
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabOrderFragment
 import com.progressterra.ipbandroidview.ui.bonuses_details.tabs.BonusesTabTransactionFragment
-
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BonusesDetailFragment :
     BaseBindingFragment<FragmentDetailBonusesLibBinding, BonusesDetailsViewModel>(R.layout.fragment_detail_bonuses_lib) {
 
-    override val vm by viewModels<BonusesDetailsViewModel>(ownerProducer = { this })
+    override val vm by viewModel<BonusesDetailsViewModel>()
 
     override fun onInitBinding(
         binding: FragmentDetailBonusesLibBinding,

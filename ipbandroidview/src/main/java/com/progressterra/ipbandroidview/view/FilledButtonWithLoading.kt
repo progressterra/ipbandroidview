@@ -212,19 +212,19 @@ class FilledButtonWithLoading(
         onAnimationEnd: (() -> Unit)? = null
     ) {
         this.addListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {
+            override fun onAnimationStart(p0: Animator) {
                 onAnimationStart?.invoke()
             }
 
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(p0: Animator) {
                 onAnimationEnd?.invoke()
             }
 
-            override fun onAnimationCancel(animation: Animator?) {
+            override fun onAnimationCancel(p0: Animator) {
 
             }
 
-            override fun onAnimationRepeat(animation: Animator?) {
+            override fun onAnimationRepeat(p0: Animator) {
 
             }
         })

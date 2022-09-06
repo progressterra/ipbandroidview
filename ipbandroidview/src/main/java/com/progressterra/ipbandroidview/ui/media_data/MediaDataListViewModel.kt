@@ -3,9 +3,7 @@ package com.progressterra.ipbandroidview.ui.media_data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidapi.utils.orIfNull
 import com.progressterra.ipbandroidview.data.IRepository
 import com.progressterra.ipbandroidview.ui.base.BaseBindingViewModel
 import com.progressterra.ipbandroidview.ui.media_data.models.MediaDataUi
@@ -20,13 +18,9 @@ import kotlinx.coroutines.launch
 import java.io.InputStream
 
 class MediaDataListViewModel(
-    savedState: SavedStateHandle,
+    private val entityId: String,
     private val repo: IRepository.MediaData
 ) : BaseBindingViewModel() {
-
-    private val mediaDataSettings: String =
-        savedState.get<String>("entityId")
-            .orIfNull { throw NullPointerException("Did you forget to set idEntity?") }
 
     private val _mediaDataList = MutableLiveData<SResult<List<MediaDataUi>>>()
     val mediaDataList: LiveData<SResult<List<MediaDataUi>>> = _mediaDataList
@@ -62,7 +56,7 @@ class MediaDataListViewModel(
             Log.e("MediaDataListViewModel", throwable.toString())
         }) {
             _mediaDataList.postValue(loadingResult())
-            _mediaDataList.postValue(repo.getMediaDataList(mediaDataSettings))
+            _mediaDataList.postValue(repo.getMediaDataList(entityId))
         }
     }
 }

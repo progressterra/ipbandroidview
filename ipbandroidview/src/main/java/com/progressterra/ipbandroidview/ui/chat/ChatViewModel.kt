@@ -16,14 +16,11 @@ import com.progressterra.ipbandroidview.utils.extensions.loadingResult
 import com.progressterra.ipbandroidview.utils.extensions.toToastResult
 
 class ChatViewModel(
-    savedState: SavedStateHandle,
+    private val idEnterprise: String,
+    private val imageUrl: String,
+    private val descriptionDialog: String,
     private val repo: IRepository.Chat
 ) : BaseViewModel() {
-
-    private val idEnterprise: String = savedState.get<String>("idEnterprise")
-        .orIfNull { throw NullPointerException("Did you forget to set idEnterprise?") }
-    private val imageUrl: String = savedState.get<String>("imageUrl") ?: ""
-    private val descriptionDialog: String = savedState.get<String>("descriptionDialog") ?: ""
 
     private var dialogId: String? = null
 
