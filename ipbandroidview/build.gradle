@@ -2,7 +2,6 @@ plugins {
     id "com.android.library"
     id "kotlin-android"
     id "kotlin-kapt"
-    id "androidx.navigation.safeargs.kotlin"
     id "kotlin-parcelize"
 }
 
@@ -41,31 +40,31 @@ android {
         }
     }
     buildFeatures {
-        dataBinding = true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.3.1"
     }
 }
 
 dependencies {
-    implementation "androidx.core:core-ktx:1.8.0"
-    implementation "androidx.appcompat:appcompat:1.5.0"
-    implementation "com.google.android.material:material:1.6.1"
-    testImplementation "junit:junit:4.13.2"
-    androidTestImplementation "androidx.test.ext:junit:1.1.3"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
-
-    // Lifecycle
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-
-    implementation "com.progressterra.ipbandroidapi:ipbandroidapi:0.3.78"
-
-    // Koin for Android
-    api "io.insert-koin:koin-android:$koin_version"
-    api "io.insert-koin:koin-core:$koin_version"
-
-    // Koin Test
-    testImplementation "io.insert-koin:koin-test:$koin_version"
-    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
+    implementation libs.coreKtx
+    implementation libs.androidMaterial
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.bundles.coroutines
+    implementation libs.bundles.orbit
+    implementation libs.bundles.activity
+    implementation libs.bundles.compose
+    implementation libs.bundles.koin
+    implementation libs.bundles.accompanist
+    implementation libs.appyxCore
+    testImplementation libs.appyxJunit
+    testImplementation libs.orbitTest
+    testImplementation libs.junit
+    androidTestImplementation libs.junitAndroid
+    androidTestImplementation libs.uiTestJunit4
+    implementation "com.progressterra.ipbandroidapi:ipbandroidapi:0.3.79"
 
     //zoom image view
     implementation "com.github.MikeOrtiz:TouchImageView:3.1.1"
@@ -75,17 +74,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:4.13.2"
 
     implementation "com.google.android.exoplayer:exoplayer:2.18.1"
-
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-
-    // AndroidX
-    implementation "androidx.fragment:fragment-ktx:1.5.2"
-
-    implementation "com.facebook.shimmer:shimmer:0.5.0"
-
-    // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    
 
     // QR
     implementation "com.github.yuriy-budiyev:code-scanner:2.1.2"
