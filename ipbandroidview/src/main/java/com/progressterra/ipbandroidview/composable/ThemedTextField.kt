@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview
+package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,6 +10,12 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.AppTheme
+import com.progressterra.ipbandroidview.appColors
+import com.progressterra.ipbandroidview.appTypography
+import com.progressterra.ipbandroidview.dimensions
+
+private val roundingCornerSize = 8.dp
 
 @Composable
 fun ThemedTextField(
@@ -48,7 +54,7 @@ fun ThemedTextField(
             .drawBehind {
                 //todo on focus line
             }, value = text, onValueChange = onChange,
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(roundingCornerSize),
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,
@@ -65,8 +71,11 @@ fun ThemedTextField(
             textColor = MaterialTheme.appColors.black,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
-            focusedIndicatorColor = Color.Transparent
-        )
+            focusedIndicatorColor = Color.Transparent,
+            errorIndicatorColor = Color.Transparent,
+            cursorColor = MaterialTheme.appColors.primary,
+
+            )
     )
 }
 

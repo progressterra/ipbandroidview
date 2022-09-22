@@ -13,7 +13,7 @@ fun SystemUiSetup() {
     val transparentColor: (Color) -> Color = { original ->
         systemBarColor.compositeOver(original)
     }
-    LaunchedEffect(Unit) {
+    SideEffect {
         systemUiController.setStatusBarColor(
             color = systemBarColor, darkIcons = true,
             transformColorForLightContent = transparentColor

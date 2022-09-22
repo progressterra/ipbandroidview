@@ -1,5 +1,4 @@
-package com.progressterra.ipbandroidview
-
+package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -11,6 +10,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.AppTheme
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.appColors
+import com.progressterra.ipbandroidview.appTypography
+
+private val navButtonSize = 32.dp
 
 @Composable
 fun TopAppBarWithBackNav(title: String, onBack: () -> Unit) {
@@ -25,6 +30,7 @@ fun TopAppBarWithBackNav(title: String, onBack: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
+                    modifier = Modifier.size(navButtonSize),
                     onClick = { onBack() }
                 ) {
                     Icon(

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview
+package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.MaterialTheme
@@ -7,19 +7,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import com.progressterra.ipbandroidview.appColors
+import com.progressterra.ipbandroidview.appTypography
 
 @Composable
 fun LinkText(
     linkTextData: List<LinkTextData>,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val annotatedString = createAnnotatedString(linkTextData)
 
     ClickableText(
         text = annotatedString,
-        style = MaterialTheme.appTypography.tertiaryText,
+        style = MaterialTheme.appTypography.tertiaryText.copy(
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.appColors.gray2
+        ),
         onClick = { offset ->
             linkTextData.forEach { annotatedStringData ->
                 if (annotatedStringData.tag != null && annotatedStringData.annotation != null) {

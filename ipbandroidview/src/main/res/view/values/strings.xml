@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="message_hint">Сообщение...</string>
-    <string name="share">Поделиться</string>
-    <string name="incorrect_action">Действие не поддерживается ни в одном приложении</string>
     <string name="splash_logo">Логотип на экране загрузки</string>
     <string name="navigate_back">Навигация назад</string>
     <string name="authorization">Авторизация</string>
     <string name="phone_number">Номер телефона</string>
+    <string name="auth_warning_0">Нажимая кнопку «Авторизоваться», я соглашаюсь с&#160;</string>
+    <string name="offer">офертой</string>
+    <string name="and">&#160;и&#160;</string>
+    <string name="privacy_policy">политикой конфиденциальности</string>
+    <string name="auth_button">Авторизоваться</string>
+    <string name="auth_skip">Пока пропустить</string>
 </resources>
