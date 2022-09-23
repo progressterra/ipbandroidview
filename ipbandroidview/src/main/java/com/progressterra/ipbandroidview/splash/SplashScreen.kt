@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.AppTheme
 import com.progressterra.ipbandroidview.R
 
 @Composable
-fun SplashScreen() {
+fun SplashScreen(state: SplashState) {
     Surface(modifier = Modifier.fillMaxSize(), color = AppTheme.colors.surfaces) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -25,7 +25,7 @@ fun SplashScreen() {
                 modifier = Modifier
                     .width(150.dp)
                     .height(150.dp),
-                painter = painterResource(id = R.drawable.splash_logo),
+                painter = painterResource(id = state.logoId),
                 contentDescription = stringResource(id = R.string.splash_logo)
             )
         }
@@ -36,6 +36,10 @@ fun SplashScreen() {
 @Composable
 fun SplashScreenPreview() {
     AppTheme {
-        SplashScreen()
+        SplashScreen(
+            SplashState(
+                R.drawable.splash_logo
+            )
+        )
     }
 }

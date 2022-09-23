@@ -17,9 +17,10 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
     Scaffold(topBar = {
-        TopAppBarWithBackNav(title = stringResource(id = R.string.authorization), onBack = {})
+        TopAppBarWithBackNav(title = stringResource(id = R.string.authorization),
+            onBack = { interactor.onBack() })
     }) {
         Surface(
             modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background
@@ -43,9 +44,10 @@ fun SignInScreen() {
                             .padding(AppTheme.dimensions.normal)
                     ) {
                         ThemedTextField(
-                            text = "",
+                            modifier = Modifier.fillMaxWidth(),
+                            text = state.phoneNumber,
                             hint = stringResource(id = R.string.phone_number),
-                            onChange = {},
+                            onChange = { interactor.onPhoneNumber(it) },
                             enabled = true,
                             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                         )
@@ -55,12 +57,12 @@ fun SignInScreen() {
                             LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
                             LinkTextData(text = stringResource(id = R.string.offer),
                                 tag = "offer",
-                                annotation = "https://stackoverflow.com/questions/65567412/jetpack-compose-text-hyperlink-some-section-of-the-text",
+                                annotation = stringResource(id = R.string.offer_url),
                                 onClick = { }),
                             LinkTextData(text = stringResource(id = R.string.and)),
                             LinkTextData(text = stringResource(id = R.string.privacy_policy),
                                 tag = "privacy policy",
-                                annotation = "https://stackoverflow.com/questions/65567412/jetpack-compose-text-hyperlink-some-section-of-the-text",
+                                annotation = stringResource(id = R.string.privacy_policy_url),
                                 onClick = {})
                         ), modifier = Modifier.padding(top = AppTheme.dimensions.small)
                     )
@@ -70,7 +72,8 @@ fun SignInScreen() {
                         .fillMaxWidth()
                         .clip(
                             RoundedCornerShape(
-                                topStart = AppTheme.dimensions.medium, topEnd = AppTheme.dimensions.medium
+                                topStart = AppTheme.dimensions.medium,
+                                topEnd = AppTheme.dimensions.medium
                             )
                         )
                         .background(AppTheme.colors.surfaces)
@@ -78,13 +81,13 @@ fun SignInScreen() {
                 ) {
                     ThemedButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { },
+                        onClick = { interactor.onNext() },
                         text = stringResource(id = R.string.auth_button)
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                     ThemedTextButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { },
+                        onClick = { interactor.onSkip() },
                         text = stringResource(id = R.string.auth_skip)
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
@@ -98,6 +101,6 @@ fun SignInScreen() {
 @Composable
 fun SplashScreenPreview() {
     AppTheme {
-        SignInScreen()
+        SignInScreen(SignInState("+7 (999) 999-99-99", true), SignInInteractor.Empty())
     }
 }

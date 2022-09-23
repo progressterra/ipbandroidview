@@ -16,7 +16,12 @@ private val verticalPadding = 15.dp
 private val horizontalPadding = 32.dp
 
 @Composable
-fun ThemedButton(modifier: Modifier = Modifier, onClick: () -> Unit, text: String, enabled: Boolean = true) {
+fun ThemedButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    text: String,
+    enabled: Boolean = true
+) {
     Button(
         modifier = modifier,
         onClick = onClick,

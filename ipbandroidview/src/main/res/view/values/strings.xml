@@ -18,4 +18,6 @@
     <string name="name_surname">Имя и Фамилия</string>
     <string name="email">E-mail</string>
     <string name="birthday">Дата рождения</string>
+    <string name="offer_url" />
+    <string name="privacy_policy_url" />
 </resources>

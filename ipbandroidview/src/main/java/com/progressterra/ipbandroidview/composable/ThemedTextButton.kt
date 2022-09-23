@@ -14,11 +14,20 @@ private val verticalPadding = 15.dp
 private val horizontalPadding = 32.dp
 
 @Composable
-fun ThemedTextButton(modifier: Modifier = Modifier, onClick: () -> Unit, text: String, enabled: Boolean = true) {
+fun ThemedTextButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    text: String,
+    enabled: Boolean = true
+) {
     TextButton(
-        modifier = modifier, onClick = onClick, enabled = enabled, colors = ButtonDefaults.textButtonColors(
+        modifier = modifier,
+        onClick = onClick,
+        enabled = enabled,
+        colors = ButtonDefaults.textButtonColors(
             contentColor = AppTheme.colors.primary, disabledContentColor = AppTheme.colors.gray2
-        ), contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
+        ),
+        contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
     ) {
         Text(text = text, style = AppTheme.typography.button)
     }

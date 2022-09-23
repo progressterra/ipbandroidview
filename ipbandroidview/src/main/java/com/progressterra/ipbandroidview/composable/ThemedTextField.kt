@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.composable
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
@@ -19,6 +18,7 @@ private val roundingCornerSize = 8.dp
 
 @Composable
 fun ThemedTextField(
+    modifier: Modifier = Modifier,
     text: String,
     hint: String,
     onChange: (String) -> Unit,
@@ -49,7 +49,7 @@ fun ThemedTextField(
     } else null
 
     TextField(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         value = text,
         onValueChange = onChange,
         shape = RoundedCornerShape(roundingCornerSize),
@@ -71,9 +71,8 @@ fun ThemedTextField(
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             errorIndicatorColor = Color.Transparent,
-            cursorColor = AppTheme.colors.primary,
-
-            )
+            cursorColor = AppTheme.colors.primary
+        )
     )
 }
 
