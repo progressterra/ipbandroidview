@@ -2,14 +2,14 @@ package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.AppTheme
-import com.progressterra.ipbandroidview.appColors
-import com.progressterra.ipbandroidview.appTypography
 
 private val roundingCorner = 14.dp
 private val verticalPadding = 15.dp
@@ -23,12 +23,13 @@ fun ThemedButton(modifier: Modifier = Modifier, onClick: () -> Unit, text: Strin
         shape = RoundedCornerShape(roundingCorner),
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
-            backgroundColor = if (enabled) MaterialTheme.appColors.primary else MaterialTheme.appColors.gray3,
-            contentColor = MaterialTheme.appColors.surfaces,
-            disabledContentColor = MaterialTheme.appColors.gray2
-        ), contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
+            backgroundColor = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray3,
+            contentColor = AppTheme.colors.surfaces,
+            disabledContentColor = AppTheme.colors.gray2
+        ),
+        contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
     ) {
-        Text(text = text, style = MaterialTheme.appTypography.button)
+        Text(text = text, style = AppTheme.typography.button)
     }
 }
 

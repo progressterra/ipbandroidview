@@ -12,31 +12,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.AppTheme
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.appColors
-import com.progressterra.ipbandroidview.appTypography
 
 private val navButtonSize = 32.dp
 
 @Composable
 fun TopAppBarWithBackNav(title: String, onBack: () -> Unit) {
     TopAppBar(
-        backgroundColor = MaterialTheme.appColors.surfaces,
-        elevation = 0.dp,
-        modifier = Modifier.fillMaxWidth()
+        backgroundColor = AppTheme.colors.surfaces, elevation = 0.dp, modifier = Modifier.fillMaxWidth()
     ) {
         Box {
             Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically
+                modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(
-                    modifier = Modifier.size(navButtonSize),
-                    onClick = { onBack() }
-                ) {
+                IconButton(modifier = Modifier.size(navButtonSize), onClick = { onBack() }) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_back),
                         contentDescription = stringResource(id = R.string.navigate_back),
-                        tint = MaterialTheme.appColors.gray1
+                        tint = AppTheme.colors.gray1
                     )
                 }
             }
@@ -48,8 +40,8 @@ fun TopAppBarWithBackNav(title: String, onBack: () -> Unit) {
 
                 Text(
                     text = title,
-                    color = MaterialTheme.appColors.black,
-                    style = MaterialTheme.appTypography.title,
+                    color = AppTheme.colors.black,
+                    style = AppTheme.typography.title,
                     maxLines = 1,
                     textAlign = TextAlign.Center
                 )

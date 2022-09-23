@@ -1,7 +1,8 @@
 package com.progressterra.ipbandroidview
 
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -15,8 +16,7 @@ fun SystemUiSetup() {
     }
     SideEffect {
         systemUiController.setStatusBarColor(
-            color = systemBarColor, darkIcons = true,
-            transformColorForLightContent = transparentColor
+            color = systemBarColor, darkIcons = true, transformColorForLightContent = transparentColor
         )
         systemUiController.setNavigationBarColor(
             color = systemBarColor,

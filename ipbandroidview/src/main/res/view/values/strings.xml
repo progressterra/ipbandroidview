@@ -10,4 +10,12 @@
     <string name="privacy_policy">политикой конфиденциальности</string>
     <string name="auth_button">Авторизоваться</string>
     <string name="auth_skip">Пока пропустить</string>
+    <string name="verification_code">Код подтверждения</string>
+    <string name="verification_code_message">Код из смс на номер:</string>
+    <string name="next">Далее</string>
+    <string name="resend">Повторить отправку</string>
+    <string name="signup">Регистрация</string>
+    <string name="name_surname">Имя и Фамилия</string>
+    <string name="email">E-mail</string>
+    <string name="birthday">Дата рождения</string>
 </resources>

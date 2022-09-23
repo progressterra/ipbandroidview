@@ -1,48 +1,42 @@
 package com.progressterra.ipbandroidview
 
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 
-@Composable
-fun AppTheme(content: @Composable () -> Unit) {
-    CompositionLocalProvider(
-        LocalDimensions provides Dimensions(),
-        LocalTypography provides AppTypography(),
-        LocalColors provides AppColors()
-    ) {
-        MaterialTheme(
-            content = content
-        )
-    }
+object AppTheme {
+
+    val colors
+        @Composable @ReadOnlyComposable get() = LocalColors.current
+
+    val typography
+        @Composable @ReadOnlyComposable get() = LocalTypography.current
+
+    val dimensions
+        @Composable @ReadOnlyComposable get() = LocalDimensions.current
 }
 
-val LocalDimensions = staticCompositionLocalOf { Dimensions() }
-
-@Suppress("unused")
-val MaterialTheme.dimensions: Dimensions
-    @Composable
-    @ReadOnlyComposable
-    get() = LocalDimensions.current
+val LocalDimensions = staticCompositionLocalOf { AppDimensions() }
 
 val LocalTypography = staticCompositionLocalOf { AppTypography() }
 
-@Suppress("unused")
-val MaterialTheme.appTypography: AppTypography
-    @Composable
-    @ReadOnlyComposable
-    get() = LocalTypography.current
-
 val LocalColors = staticCompositionLocalOf { AppColors() }
 
-@Suppress("unused")
-val MaterialTheme.appColors: AppColors
-    @Composable
-    @ReadOnlyComposable
-    get() = LocalColors.current
 
-@Suppress("unused")
-val MaterialTheme.durations: Durations
-    get() = Durations()
+@Composable
+fun AppTheme(
+    colors: AppColors = AppTheme.colors,
+    typography: AppTypography = AppTheme.typography,
+    dimensions: AppDimensions = AppTheme.dimensions,
+    content: @Composable () -> Unit
+) {
+    CompositionLocalProvider(
+        LocalDimensions provides dimensions,
+        LocalTypography provides typography,
+        LocalColors provides colors
+    ) {
+        SystemUiSetup()
+        content()
+    }
+}

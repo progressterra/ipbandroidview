@@ -4,14 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.*
+import com.progressterra.ipbandroidview.AppTheme
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 
@@ -21,15 +22,15 @@ fun SignInScreen() {
         TopAppBarWithBackNav(title = stringResource(id = R.string.authorization), onBack = {})
     }) {
         Surface(
-            modifier = Modifier.fillMaxSize(), color = MaterialTheme.appColors.background
+            modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
-                        start = MaterialTheme.dimensions.small,
-                        top = MaterialTheme.dimensions.small,
-                        end = MaterialTheme.dimensions.small
+                        start = AppTheme.dimensions.small,
+                        top = AppTheme.dimensions.small,
+                        end = AppTheme.dimensions.small
                     ),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -37,9 +38,9 @@ fun SignInScreen() {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(MaterialTheme.dimensions.normal))
-                            .background(MaterialTheme.appColors.surfaces)
-                            .padding(MaterialTheme.dimensions.normal)
+                            .clip(RoundedCornerShape(AppTheme.dimensions.normal))
+                            .background(AppTheme.colors.surfaces)
+                            .padding(AppTheme.dimensions.normal)
                     ) {
                         ThemedTextField(
                             text = "",
@@ -52,46 +53,41 @@ fun SignInScreen() {
                     LinkText(
                         linkTextData = listOf(
                             LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
-                            LinkTextData(
-                                text = stringResource(id = R.string.offer),
+                            LinkTextData(text = stringResource(id = R.string.offer),
                                 tag = "offer",
                                 annotation = "https://stackoverflow.com/questions/65567412/jetpack-compose-text-hyperlink-some-section-of-the-text",
                                 onClick = { }),
                             LinkTextData(text = stringResource(id = R.string.and)),
-                            LinkTextData(
-                                text = stringResource(id = R.string.privacy_policy),
+                            LinkTextData(text = stringResource(id = R.string.privacy_policy),
                                 tag = "privacy policy",
                                 annotation = "https://stackoverflow.com/questions/65567412/jetpack-compose-text-hyperlink-some-section-of-the-text",
                                 onClick = {})
-                        ),
-                        modifier = Modifier.padding(top = MaterialTheme.dimensions.small)
+                        ), modifier = Modifier.padding(top = AppTheme.dimensions.small)
                     )
                 }
-
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(
                             RoundedCornerShape(
-                                topStart = MaterialTheme.dimensions.medium,
-                                topEnd = MaterialTheme.dimensions.medium
+                                topStart = AppTheme.dimensions.medium, topEnd = AppTheme.dimensions.medium
                             )
                         )
-                        .background(MaterialTheme.appColors.surfaces)
-                        .padding(MaterialTheme.dimensions.small)
+                        .background(AppTheme.colors.surfaces)
+                        .padding(AppTheme.dimensions.small)
                 ) {
                     ThemedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { },
                         text = stringResource(id = R.string.auth_button)
                     )
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                     ThemedTextButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = MaterialTheme.dimensions.small),
+                        modifier = Modifier.fillMaxWidth(),
                         onClick = { },
                         text = stringResource(id = R.string.auth_skip)
                     )
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                 }
             }
         }
