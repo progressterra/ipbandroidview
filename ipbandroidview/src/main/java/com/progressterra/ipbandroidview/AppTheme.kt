@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview
 
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -23,7 +25,6 @@ val LocalTypography = staticCompositionLocalOf { AppTypography() }
 
 val LocalColors = staticCompositionLocalOf { AppColors() }
 
-
 @Composable
 fun AppTheme(
     colors: AppColors = AppTheme.colors,
@@ -31,10 +32,15 @@ fun AppTheme(
     dimensions: AppDimensions = AppTheme.dimensions,
     content: @Composable () -> Unit
 ) {
+    val customCursorColors = TextSelectionColors(
+        handleColor = AppTheme.colors.primary,
+        backgroundColor = AppTheme.colors.primary.copy(alpha = 0.4f)
+    )
     CompositionLocalProvider(
         LocalDimensions provides dimensions,
         LocalTypography provides typography,
-        LocalColors provides colors
+        LocalColors provides colors,
+        LocalTextSelectionColors provides customCursorColors
     ) {
         SystemUiSetup()
         content()
