@@ -72,8 +72,8 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                         .fillMaxWidth()
                         .clip(
                             RoundedCornerShape(
-                                topStart = AppTheme.dimensions.medium,
-                                topEnd = AppTheme.dimensions.medium
+                                topStart = AppTheme.dimensions.large,
+                                topEnd = AppTheme.dimensions.large
                             )
                         )
                         .background(AppTheme.colors.surfaces)

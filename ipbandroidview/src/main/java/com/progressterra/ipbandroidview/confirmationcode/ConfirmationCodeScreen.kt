@@ -40,7 +40,7 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(AppTheme.dimensions.normal))
                         .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.weighty)
+                        .padding(AppTheme.dimensions.medium)
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
@@ -49,7 +49,7 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                         style = AppTheme.typography.text,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.weighty))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
                     VerificationCodeInput(modifier = Modifier.fillMaxWidth(),
                         code = state.code,
                         onCode = { interactor.onCode(it) })
@@ -57,7 +57,7 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(AppTheme.dimensions.medium))
+                        .clip(RoundedCornerShape(AppTheme.dimensions.large))
                         .background(AppTheme.colors.surfaces)
                         .padding(AppTheme.dimensions.small)
                 ) {

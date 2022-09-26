@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 data class AppDimensions(
     val small: Dp = 8.dp,
     val normal: Dp = 12.dp,
-    val weighty: Dp = 16.dp,
-    val medium: Dp = 20.dp,
+    val medium: Dp = 16.dp,
+    val large: Dp = 20.dp,
 )
 

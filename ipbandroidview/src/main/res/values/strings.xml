@@ -21,4 +21,7 @@
     <string name="offer_url" />
     <string name="privacy_policy_url" />
     <string name="testetse"/>
+    <string name="city">Город</string>
+    <string name="ready">Готово</string>
+    <string name="address">Адрес</string>
 </resources>

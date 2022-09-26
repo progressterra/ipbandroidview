@@ -93,8 +93,8 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         .fillMaxWidth()
                         .clip(
                             RoundedCornerShape(
-                                topStart = AppTheme.dimensions.medium,
-                                topEnd = AppTheme.dimensions.medium
+                                topStart = AppTheme.dimensions.large,
+                                topEnd = AppTheme.dimensions.large
                             )
                         )
                         .background(AppTheme.colors.surfaces)
