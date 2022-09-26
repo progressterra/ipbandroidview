@@ -23,7 +23,7 @@ dependencyResolutionManagement {
                     "kotlinx-coroutines-android").versionRef("coroutines")
             bundle("coroutines", ["kotlinxCoroutinesCore", "kotlinxCoroutinesAndroid"])
             //Orbit
-            version("orbit", "4.3.2")
+            version("orbit", "4.4.0")
             library("orbitCore", "org.orbit-mvi", "orbit-core").versionRef("orbit")
             library("orbitViewModel", "org.orbit-mvi", "orbit-viewmodel").versionRef("orbit")
             library("orbitCompose", "org.orbit-mvi", "orbit-compose").versionRef("orbit")
