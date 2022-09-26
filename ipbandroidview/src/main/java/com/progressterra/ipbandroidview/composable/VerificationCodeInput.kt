@@ -7,9 +7,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,15 +22,17 @@ private const val digitsCount = 4
 private val spaceBetweenDigits = 12.dp
 private val boxWidth = 56.dp
 
-//TODO only while border
-
 @Composable
 fun VerificationCodeInput(
     modifier: Modifier = Modifier,
     code: String,
     onCode: (String) -> Unit,
 ) {
-    BasicTextField(modifier = modifier,
+    var isFocused by remember { mutableStateOf(false) }
+    BasicTextField(
+        modifier = modifier.onFocusChanged {
+            isFocused = it.isFocused
+        },
         value = code,
         onValueChange = { onCode(it) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -38,7 +41,7 @@ fun VerificationCodeInput(
                 repeat(digitsCount) { index ->
                     Digit(
                         if (index >= code.length) "" else code[index].toString(),
-                        code.length == index
+                        (code.length == index) && isFocused
                     )
                     if (index != digitsCount - 1) Spacer(modifier = Modifier.size(spaceBetweenDigits))
                 }
