@@ -14,12 +14,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.AppTheme
+import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val roundingCornerSize = 8.dp
 private const val digitsCount = 4
 private val spaceBetweenDigits = 12.dp
 private val boxWidth = 56.dp
+
+//TODO only while border
 
 @Composable
 fun VerificationCodeInput(

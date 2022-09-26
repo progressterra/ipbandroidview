@@ -18,7 +18,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.progressterra.ipbandroidview.AppTheme
+import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedTextButton

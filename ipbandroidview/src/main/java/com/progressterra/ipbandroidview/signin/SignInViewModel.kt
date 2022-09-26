@@ -1,18 +1,26 @@
 package com.progressterra.ipbandroidview.signin
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class SignInViewModel : ViewModel(), ContainerHost<SignInState, SignInEffect>, SignInInteractor {
+class SignInViewModel(
+    private val startVerificationChannelUseCase: StartVerificationChannelUseCase
+) : ViewModel(), ContainerHost<SignInState, SignInEffect>, SignInInteractor {
 
     override val container: Container<SignInState, SignInEffect> = container(SignInState())
 
     override fun onNext() = intent {
-        postSideEffect(SignInEffect.Next)
+        if (startVerificationChannelUseCase.start(state.phoneNumber))
+            postSideEffect(SignInEffect.Next)
+        else
+            postSideEffect(SignInEffect.Toast(R.string.wrong_phone))
     }
 
     override fun onSkip() = intent {
@@ -23,7 +31,9 @@ class SignInViewModel : ViewModel(), ContainerHost<SignInState, SignInEffect>, S
         postSideEffect(SignInEffect.Back)
     }
 
-    override fun onPhoneNumber(phoneNumber: String) {
-        TODO("Not yet implemented")
+    override fun onPhoneNumber(phoneNumber: String) = intent {
+        reduce {
+            state.copy(phoneNumber = phoneNumber)
+        }
     }
 }

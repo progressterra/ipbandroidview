@@ -1,7 +1,9 @@
 package com.progressterra.ipbandroidview.signup
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
@@ -18,11 +20,15 @@ class SignUpNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: SignUpViewModel = getViewModel()
+        val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
-                SignUpEffect.Back -> onBack()
-                SignUpEffect.Next -> onNext()
-                SignUpEffect.Skip -> onSkip()
+                is SignUpEffect.Back -> onBack()
+                is SignUpEffect.Next -> onNext()
+                is SignUpEffect.Skip -> onSkip()
+                is SignUpEffect.Toast -> {
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
         val state = viewModel.collectAsState().value

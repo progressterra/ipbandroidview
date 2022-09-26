@@ -24,4 +24,6 @@
     <string name="city">Город</string>
     <string name="ready">Готово</string>
     <string name="address">Адрес</string>
+    <string name="wrong_phone">Неправильный номер телефона!</string>
+    <string name="invalid_data">Неправильные данные!</string>
 </resources>

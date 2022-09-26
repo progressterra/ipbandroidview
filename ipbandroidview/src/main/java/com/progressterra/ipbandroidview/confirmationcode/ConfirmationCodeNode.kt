@@ -1,7 +1,9 @@
 package com.progressterra.ipbandroidview.confirmationcode
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
@@ -17,10 +19,14 @@ class ConfirmationCodeNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: ConfirmationCodeViewModel = getViewModel()
+        val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
-                ConfirmationEffect.Back -> onBack()
-                ConfirmationEffect.Next -> onNext()
+                is ConfirmationEffect.Back -> onBack()
+                is ConfirmationEffect.Next -> onNext()
+                is ConfirmationEffect.Toast -> {
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
         val state = viewModel.collectAsState().value

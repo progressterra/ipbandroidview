@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.AppTheme
+import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedTextButton

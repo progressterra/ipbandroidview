@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview
+package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle

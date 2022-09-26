@@ -1,7 +1,9 @@
 package com.progressterra.ipbandroidview.signin
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
@@ -18,11 +20,15 @@ class SignInNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: SignInViewModel = getViewModel()
+        val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
-                SignInEffect.Back -> onBack()
-                SignInEffect.Next -> onNext()
-                SignInEffect.Skip -> onSkip()
+                is SignInEffect.Back -> onBack()
+                is SignInEffect.Next -> onNext()
+                is SignInEffect.Skip -> onSkip()
+                is SignInEffect.Toast -> {
+                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
         val state = viewModel.collectAsState().value

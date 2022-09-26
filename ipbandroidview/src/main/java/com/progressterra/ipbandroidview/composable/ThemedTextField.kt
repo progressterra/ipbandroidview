@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.AppTheme
+import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val roundingCornerSize = 8.dp
 

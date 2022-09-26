@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview
+package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors

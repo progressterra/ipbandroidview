@@ -9,7 +9,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import com.progressterra.ipbandroidview.AppTheme
+import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun LinkText(
