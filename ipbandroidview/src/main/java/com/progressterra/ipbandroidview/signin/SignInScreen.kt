@@ -29,9 +29,9 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
-                        start = AppTheme.dimensions.small,
-                        top = AppTheme.dimensions.small,
-                        end = AppTheme.dimensions.small
+                        start = AppTheme.dimensions.milli,
+                        top = AppTheme.dimensions.milli,
+                        end = AppTheme.dimensions.milli
                     ),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -64,7 +64,7 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                                 tag = "privacy policy",
                                 annotation = stringResource(id = R.string.privacy_policy_url),
                                 onClick = {})
-                        ), modifier = Modifier.padding(top = AppTheme.dimensions.small)
+                        ), modifier = Modifier.padding(top = AppTheme.dimensions.milli)
                     )
                 }
                 Column(
@@ -72,25 +72,25 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                         .fillMaxWidth()
                         .clip(
                             RoundedCornerShape(
-                                topStart = AppTheme.dimensions.large,
-                                topEnd = AppTheme.dimensions.large
+                                topStart = AppTheme.dimensions.mega,
+                                topEnd = AppTheme.dimensions.mega
                             )
                         )
                         .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.small)
+                        .padding(AppTheme.dimensions.milli)
                 ) {
                     ThemedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onNext() },
                         text = stringResource(id = R.string.auth_button)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                     ThemedTextButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onSkip() },
                         text = stringResource(id = R.string.auth_skip)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                 }
             }
         }

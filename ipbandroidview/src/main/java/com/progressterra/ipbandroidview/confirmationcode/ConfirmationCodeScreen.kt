@@ -30,9 +30,9 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                 Modifier
                     .fillMaxSize()
                     .padding(
-                        start = AppTheme.dimensions.small,
-                        top = AppTheme.dimensions.small,
-                        end = AppTheme.dimensions.small
+                        start = AppTheme.dimensions.milli,
+                        top = AppTheme.dimensions.milli,
+                        end = AppTheme.dimensions.milli
                     ), verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(
@@ -40,7 +40,7 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(AppTheme.dimensions.normal))
                         .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.medium)
+                        .padding(AppTheme.dimensions.kilo)
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
@@ -49,7 +49,7 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                         style = AppTheme.typography.text,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.kilo))
                     VerificationCodeInput(modifier = Modifier.fillMaxWidth(),
                         code = state.code,
                         onCode = { interactor.onCode(it) })
@@ -57,23 +57,23 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(AppTheme.dimensions.large))
+                        .clip(RoundedCornerShape(AppTheme.dimensions.mega))
                         .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.small)
+                        .padding(AppTheme.dimensions.milli)
                 ) {
                     ThemedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onNext() },
                         text = stringResource(id = R.string.next)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                     ThemedTextButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onResend() },
                         text = if (state.isTimer) state.timer else stringResource(id = R.string.resend),
                         enabled = !state.isTimer
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                 }
             }
         }

@@ -26,4 +26,8 @@ class CityViewModel : ViewModel(), ContainerHost<CityState, CityEffect>, CityInt
     override fun onAddress(address: String) {
         TODO("Not yet implemented")
     }
+
+    override fun onAddressFocusChanged(isFocused: Boolean) {
+        TODO("Not yet implemented")
+    }
 }

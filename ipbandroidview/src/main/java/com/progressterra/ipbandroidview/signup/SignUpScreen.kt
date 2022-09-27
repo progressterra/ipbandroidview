@@ -35,9 +35,9 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
-                        start = AppTheme.dimensions.small,
-                        top = AppTheme.dimensions.small,
-                        end = AppTheme.dimensions.small
+                        start = AppTheme.dimensions.milli,
+                        top = AppTheme.dimensions.milli,
+                        end = AppTheme.dimensions.milli
                     ),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -93,12 +93,12 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         .fillMaxWidth()
                         .clip(
                             RoundedCornerShape(
-                                topStart = AppTheme.dimensions.large,
-                                topEnd = AppTheme.dimensions.large
+                                topStart = AppTheme.dimensions.mega,
+                                topEnd = AppTheme.dimensions.mega
                             )
                         )
                         .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.small)
+                        .padding(AppTheme.dimensions.milli)
                 ) {
                     ThemedButton(
                         modifier = Modifier.fillMaxWidth(),
@@ -106,13 +106,13 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         text = stringResource(id = R.string.next),
                         enabled = state.isDataValid,
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                     ThemedTextButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onSkip() },
                         text = stringResource(id = R.string.auth_skip)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                 }
             }
         }
