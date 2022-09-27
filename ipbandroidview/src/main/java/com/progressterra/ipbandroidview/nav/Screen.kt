@@ -19,4 +19,7 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     object ConfirmationCode : Screen()
+
+    @Parcelize
+    object Main : Screen()
 }

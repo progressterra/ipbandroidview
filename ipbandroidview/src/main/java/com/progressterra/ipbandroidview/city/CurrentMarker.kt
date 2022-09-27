@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.city
 
 import com.google.android.gms.maps.model.LatLng
-import com.progressterra.ipbandroidview.IsEmpty
+import com.progressterra.ipbandroidview.base.IsEmpty
 
 data class CurrentMarker(
     val latLng: LatLng = LatLng(Double.MIN_VALUE, Double.MIN_VALUE)

@@ -27,6 +27,7 @@ class RootNode(
             Screen.SignIn -> TODO()
             Screen.SignUp -> TODO()
             Screen.Splash -> TODO()
+            Screen.Main -> TODO()
         }
 
     @Composable

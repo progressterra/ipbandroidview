@@ -55,7 +55,6 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 var isFocused by remember { mutableStateOf(false) }
                 ThemedTextField(modifier = Modifier
                     .constrainAs(address) {
-                        height = Dimension.wrapContent
                         width = Dimension.fillToConstraints
                         top.linkTo(background.top, regularMargin)
                         start.linkTo(background.start, regularMargin)
@@ -82,7 +81,6 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 }
                 AddressSuggestions(
                     modifier = Modifier.constrainAs(suggestions) {
-                        height = Dimension.wrapContent
                         width = Dimension.fillToConstraints
                         top.linkTo(address.bottom, extraSmallMargin)
                         start.linkTo(address.start)
@@ -94,7 +92,6 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 BottomHolder(modifier = Modifier.constrainAs(
                     buttons
                 ) {
-                    height = Dimension.wrapContent
                     width = Dimension.fillToConstraints
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
