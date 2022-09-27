@@ -12,12 +12,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedButton
-import com.progressterra.ipbandroidview.composable.ThemedTextButton
-import com.progressterra.ipbandroidview.composable.TopAppBarWithBackNav
-import com.progressterra.ipbandroidview.composable.VerificationCodeInput
+import com.progressterra.ipbandroidview.composable.*
+import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: ConfirmationCodeInteractor) {
@@ -30,17 +27,17 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                 Modifier
                     .fillMaxSize()
                     .padding(
-                        start = AppTheme.dimensions.milli,
-                        top = AppTheme.dimensions.milli,
-                        end = AppTheme.dimensions.milli
+                        start = AppTheme.dimensions.small,
+                        top = AppTheme.dimensions.small,
+                        end = AppTheme.dimensions.small
                     ), verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(AppTheme.dimensions.normal))
+                        .clip(RoundedCornerShape(AppTheme.dimensions.regular))
                         .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.kilo)
+                        .padding(AppTheme.dimensions.large)
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
@@ -49,31 +46,24 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                         style = AppTheme.typography.text,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.kilo))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
                     VerificationCodeInput(modifier = Modifier.fillMaxWidth(),
                         code = state.code,
                         onCode = { interactor.onCode(it) })
                 }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(AppTheme.dimensions.mega))
-                        .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.milli)
-                ) {
+                BottomHolder {
                     ThemedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onNext() },
                         text = stringResource(id = R.string.next)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                     ThemedTextButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onResend() },
                         text = if (state.isTimer) state.timer else stringResource(id = R.string.resend),
                         enabled = !state.isTimer
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                 }
             }
         }
@@ -84,6 +74,10 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
 @Composable
 fun ConfirmationCodeScreenPreview() {
     AppTheme {
-        ConfirmationCodeScreen(ConfirmationCodeState(), ConfirmationCodeInteractor.Empty())
+        ConfirmationCodeScreen(
+            ConfirmationCodeState(
+                phoneNumber = "+7 999 999 99 99", code = "123"
+            ), ConfirmationCodeInteractor.Empty()
+        )
     }
 }

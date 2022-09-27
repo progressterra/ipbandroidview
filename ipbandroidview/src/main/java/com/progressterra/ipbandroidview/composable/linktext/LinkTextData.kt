@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.linktext
 
 import androidx.compose.ui.text.AnnotatedString
 

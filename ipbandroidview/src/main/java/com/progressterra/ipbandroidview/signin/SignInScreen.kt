@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
+import com.progressterra.ipbandroidview.composable.linktext.LinkText
+import com.progressterra.ipbandroidview.composable.linktext.LinkTextData
 
 @Composable
 fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
@@ -29,9 +31,9 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
-                        start = AppTheme.dimensions.milli,
-                        top = AppTheme.dimensions.milli,
-                        end = AppTheme.dimensions.milli
+                        start = AppTheme.dimensions.small,
+                        top = AppTheme.dimensions.small,
+                        end = AppTheme.dimensions.small
                     ),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -39,9 +41,9 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(AppTheme.dimensions.normal))
+                            .clip(RoundedCornerShape(AppTheme.dimensions.regular))
                             .background(AppTheme.colors.surfaces)
-                            .padding(AppTheme.dimensions.normal)
+                            .padding(AppTheme.dimensions.regular)
                     ) {
                         ThemedTextField(
                             modifier = Modifier.fillMaxWidth(),
@@ -64,33 +66,21 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                                 tag = "privacy policy",
                                 annotation = stringResource(id = R.string.privacy_policy_url),
                                 onClick = {})
-                        ), modifier = Modifier.padding(top = AppTheme.dimensions.milli)
+                        ), modifier = Modifier.padding(top = AppTheme.dimensions.small)
                     )
                 }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(
-                            RoundedCornerShape(
-                                topStart = AppTheme.dimensions.mega,
-                                topEnd = AppTheme.dimensions.mega
-                            )
-                        )
-                        .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.milli)
-                ) {
+                BottomHolder {
                     ThemedButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onNext() },
                         text = stringResource(id = R.string.auth_button)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                     ThemedTextButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onSkip() },
                         text = stringResource(id = R.string.auth_skip)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                 }
             }
         }

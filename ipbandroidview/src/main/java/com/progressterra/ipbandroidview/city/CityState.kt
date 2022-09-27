@@ -6,5 +6,6 @@ import androidx.compose.runtime.Immutable
 data class CityState(
     val isDataValid: Boolean = false,
     val address: String = "",
-    val suggestions: List<Suggestion> = emptyList()
+    val suggestions: List<Suggestion> = emptyList(),
+    val marker: CurrentMarker = CurrentMarker()
 )

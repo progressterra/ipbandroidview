@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.city
 
+import com.google.android.gms.maps.model.LatLng
+
 interface CityInteractor {
 
     fun onBack()
@@ -10,7 +12,9 @@ interface CityInteractor {
 
     fun onAddress(address: String)
 
-    fun onAddressFocusChanged(isFocused: Boolean)
+    fun onMyLocation()
+
+    fun onMapClick(latLng: LatLng)
 
     class Empty : CityInteractor {
 
@@ -22,6 +26,8 @@ interface CityInteractor {
 
         override fun onAddress(address: String) = Unit
 
-        override fun onAddressFocusChanged(isFocused: Boolean) = Unit
+        override fun onMyLocation() = Unit
+
+        override fun onMapClick(latLng: LatLng) = Unit
     }
 }

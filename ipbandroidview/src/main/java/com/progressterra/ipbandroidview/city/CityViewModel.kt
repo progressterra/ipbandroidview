@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.city
 
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.maps.model.LatLng
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -27,7 +28,11 @@ class CityViewModel : ViewModel(), ContainerHost<CityState, CityEffect>, CityInt
         TODO("Not yet implemented")
     }
 
-    override fun onAddressFocusChanged(isFocused: Boolean) {
+    override fun onMyLocation() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onMapClick(latLng: LatLng) {
         TODO("Not yet implemented")
     }
 }
