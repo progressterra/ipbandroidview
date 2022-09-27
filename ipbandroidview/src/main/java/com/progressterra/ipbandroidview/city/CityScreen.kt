@@ -8,16 +8,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.google.android.gms.maps.model.CameraPosition
@@ -51,7 +50,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                         end = AppTheme.dimensions.milli
                     )
             ) {
-                val (buttons, map, address, background, suggestions) = createRefs()
+                val (buttons, map, address, background, suggestions, fab) = createRefs()
                 val smallestMargin = AppTheme.dimensions.nano
                 val smallMargin = AppTheme.dimensions.milli
                 val normalMargin = AppTheme.dimensions.normal
@@ -148,7 +147,8 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 Column(modifier = Modifier
                     .clip(
                         RoundedCornerShape(
-                            topStart = AppTheme.dimensions.mega, topEnd = AppTheme.dimensions.mega
+                            topStart = AppTheme.dimensions.mega,
+                            topEnd = AppTheme.dimensions.mega
                         )
                     )
                     .background(AppTheme.colors.surfaces)
@@ -176,6 +176,22 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.milli))
                 }
+
+                FloatingActionButton(
+                    modifier = Modifier.constrainAs(fab) {
+                        bottom.linkTo(map.bottom, normalMargin)
+                        end.linkTo(map.end, normalMargin)
+                    }.size(40.dp),
+                    onClick = { /*TODO*/ },
+                    backgroundColor = AppTheme.colors.primary
+                ) {
+                    Icon(
+                        modifier = Modifier.size(AppTheme.dimensions.mega),
+                        tint = AppTheme.colors.surfaces,
+                        painter = painterResource(id = R.drawable.ic_location),
+                        contentDescription = stringResource(id = R.string.my_location)
+                    )
+                }
             }
         }
     }
@@ -183,7 +199,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
 
 @Preview
 @Composable
-fun CityScreenPreview() {
+private fun CityScreenPreview() {
     AppTheme {
         CityScreen(CityState(), CityInteractor.Empty())
     }
@@ -191,7 +207,7 @@ fun CityScreenPreview() {
 
 @Preview
 @Composable
-fun CityScreenExpandedSuggestionPreview() {
+private fun CityScreenExpandedSuggestionPreview() {
     AppTheme {
         CityScreen(
             CityState(
