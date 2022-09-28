@@ -6,6 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        classpath "com.google.gms:google-services:4.3.14"
         classpath "com.android.tools.build:gradle:7.3.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
     }
@@ -15,13 +16,12 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url "https://jitpack.io" }
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/progressterra/ipbandroidapi")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                username = project.findProperty("gpr.user")
+                password = project.findProperty("gpr.key")
             }
         }
     }
