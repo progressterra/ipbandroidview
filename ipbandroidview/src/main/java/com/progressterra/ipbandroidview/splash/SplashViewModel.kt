@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.splash
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidapi.user.UserData
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -19,6 +20,6 @@ class SplashViewModel : ViewModel(), ContainerHost<SplashState, SplashEffect> {
     //TODO some preloading here??
     private fun splashInit() = intent {
         delay(1000)
-        postSideEffect(SplashEffect.Ready)
+        postSideEffect(if (UserData.clientExist) SplashEffect.Auth else SplashEffect.NonAuth)
     }
 }

@@ -10,7 +10,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 class SplashNode(
     buildContext: BuildContext,
-    private val onReady: () -> Unit
+    private val onAuth: () -> Unit,
+    private val onNonAuth: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -18,7 +19,8 @@ class SplashNode(
         val viewModel: SplashViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
-                SplashEffect.Ready -> onReady()
+                SplashEffect.Auth -> onAuth()
+                SplashEffect.NonAuth -> onNonAuth()
             }
         }
         val state = viewModel.collectAsState().value
