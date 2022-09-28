@@ -83,16 +83,16 @@ dependencies {
     implementation "androidx.compose.material:material:1.2.1"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     //Koin
-    implementation 'io.insert-koin:koin-android:3.2.2'
-    implementation 'io.insert-koin:koin-androidx-navigation:3.2.2'
-    implementation 'io.insert-koin:koin-androidx-compose:3.2.1'
+    implementation "io.insert-koin:koin-android:3.2.2"
+    implementation "io.insert-koin:koin-androidx-navigation:3.2.2"
+    implementation "io.insert-koin:koin-androidx-compose:3.2.1"
     //Accompanist
     // TODO without it
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.25.1"
     implementation "com.google.accompanist:accompanist-swiperefresh:0.25.1"
     //Testing
-    implementation 'org.orbit-mvi:orbit-test:4.4.0'
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation "org.orbit-mvi:orbit-test:4.4.0"
+    implementation "androidx.core:core-ktx:1.9.0"
     testImplementation "junit:junit:4.13.2"
     //Appyx
     implementation "com.bumble.appyx:core:1.0-alpha09"
@@ -100,7 +100,9 @@ dependencies {
     implementation platform("com.google.firebase:firebase-bom:30.5.0")
     implementation "com.google.firebase:firebase-analytics-ktx"
     implementation "com.google.firebase:firebase-messaging-ktx"
-    implementation 'com.google.maps.android:maps-compose:2.7.2'
+
+    implementation "com.google.android.gms:play-services-location:20.0.0"
+    implementation "com.google.maps.android:maps-compose:2.7.2"
     implementation "com.google.android.gms:play-services-maps:18.1.0"
     //iProBonusAndroidAPI
     implementation "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.0"
