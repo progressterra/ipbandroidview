@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
@@ -13,7 +14,7 @@ fun SystemUiSetup() {
     val transparentColor: (Color) -> Color = { original ->
         systemBarColor.compositeOver(original)
     }
-    SideEffect {
+    LaunchedEffect(Unit) {
         systemUiController.setStatusBarColor(
             color = systemBarColor,
             darkIcons = true,

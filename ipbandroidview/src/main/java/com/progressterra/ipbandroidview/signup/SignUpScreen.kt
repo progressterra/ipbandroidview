@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.signup
 
-import android.app.DatePickerDialog
-import android.widget.DatePicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,18 +9,19 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
-import java.util.*
+import com.progressterra.ipbandroidview.theme.AppTheme
+import com.squaredem.composecalendar.ComposeCalendar
+import java.time.LocalDate
 
 @Composable
 fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
     Scaffold(topBar = {
-        TopAppBarWithBackNav(title = stringResource(id = R.string.signup),
+        TopAppBarWithBackNav(
+            title = stringResource(id = R.string.signup),
             onBack = { interactor.onBack() })
     }) {
         Surface(
@@ -45,21 +44,14 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         .background(AppTheme.colors.surfaces)
                         .padding(AppTheme.dimensions.regular)
                 ) {
-                    val context = LocalContext.current
-                    val calendar = Calendar.getInstance()
-                    val year = calendar.get(Calendar.YEAR)
-                    val month = calendar.get(Calendar.MONTH)
-                    val day = calendar.get(Calendar.DAY_OF_MONTH)
-                    calendar.time = Date()
-                    val datePickerDialog = DatePickerDialog(
-                        context,
-                        { _: DatePicker, pickedYear: Int, pickedMonth: Int, pickedDay: Int ->
-                            interactor.onBirthday("$pickedDay.${pickedMonth + 1}/$pickedYear")
-                        },
-                        year,
-                        month,
-                        day
-                    )
+                    if (state.showCalendar) {
+                        ComposeCalendar(onDone = {
+                            interactor.onBirthday(
+                                "${it.dayOfMonth}.${it.monthValue}.${it.year}", it
+                            )
+                            interactor.closeCalendar()
+                        }, onDismiss = { interactor.closeCalendar() })
+                    }
                     ThemedTextField(modifier = Modifier.fillMaxWidth(),
                         text = state.name,
                         hint = stringResource(id = R.string.name_surname),
@@ -72,7 +64,7 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
                     ThemedTextField(modifier = Modifier
                         .fillMaxWidth()
-                        .clickable { datePickerDialog.show() },
+                        .clickable { interactor.openCalendar() },
                         text = state.birthday,
                         hint = stringResource(id = R.string.birthday),
                         onChange = {})
@@ -119,7 +111,12 @@ fun SignUpScreenPreviewFilled() {
     AppTheme {
         SignUpScreen(
             SignUpState(
-                "+7 (996) 697-76-76", "Даниил", "lala@email.com", "12.12.2012", true
+                "+7 (996) 697-76-76",
+                "Даниил",
+                "lala@email.com",
+                "12.12.2012",
+                LocalDate.now(),
+                true
             ), SignUpInteractor.Empty()
         )
     }

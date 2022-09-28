@@ -1,8 +1,9 @@
 package com.progressterra.ipbandroidview.confirmationcode
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.domain.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidview.domain.endverification.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.startverification.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -12,13 +13,14 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ConfirmationCodeViewModel(
+    phoneNumber: String,
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase
 ) : ViewModel(),
     ContainerHost<ConfirmationCodeState, ConfirmationEffect>, ConfirmationCodeInteractor {
 
     override val container: Container<ConfirmationCodeState, ConfirmationEffect> = container(
-        ConfirmationCodeState()
+        ConfirmationCodeState(phoneNumber = phoneNumber)
     )
 
     init {
@@ -35,8 +37,10 @@ class ConfirmationCodeViewModel(
     }
 
     override fun onNext() = intent {
-        if (endVerificationChannelUseCase.end(state.phoneNumber, state.code))
+        if (endVerificationChannelUseCase.end(state.phoneNumber, state.code)) {
+            UserData.phone = state.phoneNumber
             postSideEffect(ConfirmationEffect.Next)
+        }
     }
 
     override fun onCode(code: String) = intent {

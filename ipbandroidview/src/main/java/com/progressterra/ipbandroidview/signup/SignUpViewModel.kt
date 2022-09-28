@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.signup
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.domain.updateuserinfo.UpdatePersonalInfoUseCase
 import com.progressterra.ipbandroidview.isEmail
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -9,8 +10,11 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import java.time.LocalDate
 
-class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEffect>, SignUpInteractor {
+class SignUpViewModel(
+    private val updatePersonalInfoUseCase: UpdatePersonalInfoUseCase
+) : ViewModel(), ContainerHost<SignUpState, SignUpEffect>, SignUpInteractor {
 
     override val container: Container<SignUpState, SignUpEffect> = container(SignUpState())
 
@@ -23,14 +27,16 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEffect>, S
     }
 
     override fun onNext() = intent {
-        if (state.isDataValid)
+        if (state.isDataValid) {
+            updatePersonalInfoUseCase.update(state.name, state.email, state.birthdayDate)
             postSideEffect(SignUpEffect.Next)
+        }
         else
             postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
     }
 
-    override fun onBirthday(birthday: String) = intent {
-        reduce { state.copy(birthday = birthday) }
+    override fun onBirthday(birthday: String, birthdayDate: LocalDate) = intent {
+        reduce { state.copy(birthday = birthday, birthdayDate = birthdayDate) }
         checkDataValidity()
     }
 
@@ -46,6 +52,18 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEffect>, S
             state.copy(name = name)
         }
         checkDataValidity()
+    }
+
+    override fun openCalendar() = intent {
+        reduce {
+            state.copy(showCalendar = true)
+        }
+    }
+
+    override fun closeCalendar() = intent {
+        reduce {
+            state.copy(showCalendar = false)
+        }
     }
 
     private fun checkDataValidity() = intent {

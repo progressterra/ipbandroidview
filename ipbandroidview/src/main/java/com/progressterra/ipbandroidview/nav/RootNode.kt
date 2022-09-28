@@ -10,7 +10,6 @@ import com.bumble.appyx.navmodel.backstack.BackStack
 import com.bumble.appyx.navmodel.backstack.operation.pop
 import com.bumble.appyx.navmodel.backstack.operation.push
 import com.bumble.appyx.navmodel.backstack.operation.replace
-import com.bumble.appyx.navmodel.backstack.operation.singleTop
 import com.bumble.appyx.navmodel.backstack.transitionhandler.rememberBackstackSlider
 import com.progressterra.ipbandroidview.city.CityNode
 import com.progressterra.ipbandroidview.confirmationcode.ConfirmationCodeNode
@@ -32,31 +31,32 @@ class RootNode(
 
     override fun resolve(navTarget: Screen, buildContext: BuildContext): Node =
         when (navTarget) {
-            Screen.City -> CityNode(
+            is Screen.City -> CityNode(
                 buildContext = buildContext,
                 onBack = { backStack.pop() },
                 onNext = { backStack.push(Screen.Main) },
                 onSkip = { backStack.push(Screen.Main) })
-            Screen.ConfirmationCode -> ConfirmationCodeNode(
+            is Screen.ConfirmationCode -> ConfirmationCodeNode(
                 buildContext = buildContext,
                 onNext = { backStack.push(Screen.SignUp) },
-                onBack = { backStack.pop() })
-            Screen.SignIn -> SignInNode(
+                onBack = { backStack.pop() }
+            )
+            is Screen.SignIn -> SignInNode(
                 buildContext = buildContext,
                 onNext = { backStack.push(Screen.ConfirmationCode) },
                 onSkip = { backStack.push(Screen.Main) },
                 onBack = { backStack.pop() })
-            Screen.SignUp -> SignUpNode(
+            is Screen.SignUp -> SignUpNode(
                 buildContext = buildContext,
                 onNext = { backStack.push(Screen.City) },
                 onSkip = { backStack.push(Screen.Main) },
                 onBack = { backStack.pop() })
-            Screen.Splash -> SplashNode(
+            is Screen.Splash -> SplashNode(
                 buildContext = buildContext,
                 onAuth = { backStack.replace(Screen.SignIn) },
                 onNonAuth = { backStack.replace(Screen.Main) }
             )
-            Screen.Main -> MainNode(buildContext)
+            is Screen.Main -> MainNode(buildContext)
         }
 
     @Composable

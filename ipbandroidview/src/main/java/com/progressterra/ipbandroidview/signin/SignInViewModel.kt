@@ -1,8 +1,9 @@
 package com.progressterra.ipbandroidview.signin
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.startverification.StartVerificationChannelUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -17,9 +18,10 @@ class SignInViewModel(
     override val container: Container<SignInState, SignInEffect> = container(SignInState())
 
     override fun onNext() = intent {
-        if (startVerificationChannelUseCase.start(state.phoneNumber))
+        if (startVerificationChannelUseCase.start(state.phoneNumber)) {
+            UserData.phone = state.phoneNumber
             postSideEffect(SignInEffect.Next)
-        else
+        } else
             postSideEffect(SignInEffect.Toast(R.string.wrong_phone))
     }
 

@@ -26,9 +26,8 @@ class SignInNode(
                 is SignInEffect.Back -> onBack()
                 is SignInEffect.Next -> onNext()
                 is SignInEffect.Skip -> onSkip()
-                is SignInEffect.Toast -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                }
+                is SignInEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_LONG)
+                    .show()
             }
         }
         val state = viewModel.collectAsState().value
