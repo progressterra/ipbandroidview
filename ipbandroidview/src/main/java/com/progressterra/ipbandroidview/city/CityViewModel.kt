@@ -1,16 +1,22 @@
 package com.progressterra.ipbandroidview.city
 
+import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
+import com.progressterra.ipbandroidview.base.ManagePermission
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
 
-class CityViewModel : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
+class CityViewModel(
+    private val managePermission: ManagePermission
+) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
 
     override val container: Container<CityState, CityEffect> = container(CityState())
+
+    private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
     override fun onBack() = intent{
         postSideEffect(CityEffect.Back)
@@ -29,7 +35,9 @@ class CityViewModel : ViewModel(), ContainerHost<CityState, CityEffect>, CityInt
     }
 
     override fun onMyLocation() {
-        TODO("Not yet implemented")
+        if (!managePermission.checkPermission(locationPermission))
+            managePermission.requirePermission(locationPermission)
+
     }
 
     override fun onMapClick(latLng: LatLng) {

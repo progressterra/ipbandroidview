@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.signin
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.domain.startverification.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
