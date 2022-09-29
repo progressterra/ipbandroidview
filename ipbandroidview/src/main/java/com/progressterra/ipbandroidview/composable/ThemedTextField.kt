@@ -46,7 +46,7 @@ fun ThemedTextField(
             )
         }
     } else null
-    var isFocused by rememberSaveable { mutableStateOf(false) }
+    var isFocused by remember{ mutableStateOf(false) }
     val resultModifier = if (isFocused) modifier.then(
         Modifier.border(
             width = 1.dp,
