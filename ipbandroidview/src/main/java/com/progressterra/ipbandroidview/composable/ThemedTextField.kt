@@ -8,7 +8,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,8 +51,8 @@ fun ThemedTextField(
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     TextField(
         modifier = modifier.border(
-            width = if (focused) 1.dp else 0.dp,
-            color = AppTheme.colors.primary,
+            width = 1.dp,
+            color = if (focused) AppTheme.colors.primary else Color.Transparent,
             shape = RoundedCornerShape(roundingCornerSize)
         ),
         value = text,
