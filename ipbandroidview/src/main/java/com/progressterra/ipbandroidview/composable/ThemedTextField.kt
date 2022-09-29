@@ -46,19 +46,16 @@ fun ThemedTextField(
             )
         }
     } else null
-    var isFocused by remember{ mutableStateOf(false) }
-    val resultModifier = if (isFocused) modifier.then(
-        Modifier.border(
-            width = 1.dp,
-            color = AppTheme.colors.primary,
-            shape = RoundedCornerShape(roundingCornerSize)
-        )
-    ) else modifier
+//    var isFocused by remember{ mutableStateOf(false) }
+//    val resultModifier = if (isFocused) modifier.then(
+//        Modifier.border(
+//            width = 1.dp,
+//            color = AppTheme.colors.primary,
+//            shape = RoundedCornerShape(roundingCornerSize)
+//        )
+//    ) else modifier
     TextField(
-        modifier = resultModifier.onFocusChanged {
-
-            isFocused = it.isFocused
-        },
+        modifier = modifier,
         value = text,
         onValueChange = onChange,
         shape = RoundedCornerShape(roundingCornerSize),
