@@ -1,3 +1,8 @@
 package com.progressterra.ipbandroidview.base
 
-interface ManagePermission : CheckPermission, RequirePermission
+interface ManagePermission {
+
+    fun requirePermission(permission: String)
+
+    fun checkPermission(permission: String): Boolean
+}

@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.base
 
 
-interface ResolvePermission : ManagePermission {
+interface PermissionCache : ManagePermission {
 
     fun setListener(listener: PermissionListener)
 
-    class Base : ResolvePermission {
+    class Base : PermissionCache {
 
         private var listener: PermissionListener? = null
 

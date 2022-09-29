@@ -2,6 +2,8 @@ package com.progressterra.ipbandroidview.di
 
 import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
+import com.progressterra.ipbandroidview.base.ManagePermission
+import com.progressterra.ipbandroidview.base.PermissionCache
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
@@ -12,6 +14,7 @@ import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val iPBAndroidViewModule = module {
@@ -49,6 +52,10 @@ val iPBAndroidViewModule = module {
     factory {
         LocationServices.getFusedLocationProviderClient(androidContext())
     }
+
+    single {
+        PermissionCache.Base()
+    }.binds(arrayOf(PermissionCache::class, ManagePermission::class))
 
     single<ProvideLocation> {
         ProvideLocation.Base(get())
