@@ -2,18 +2,18 @@ package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.focusable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,13 +31,13 @@ fun VerificationCodeInput(
     code: String,
     onCode: (String) -> Unit,
 ) {
-    val focusRequester = remember { FocusRequester() }
-    var isFocused by remember { mutableStateOf(false) }
-    BasicTextField(
-        modifier = modifier.focusRequester(focusRequester).onFocusChanged {
-            isFocused = it.isFocused
-        }.focusable(),
+    val mutableInteractionSource = remember { MutableInteractionSource() }
+    val focused = mutableInteractionSource.collectIsFocusedAsState().value
+    BasicTextField(modifier = modifier,
         value = code,
+        singleLine = true,
+        maxLines = 1,
+        interactionSource = mutableInteractionSource,
         onValueChange = { onCode(it) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         decorationBox = {
@@ -45,7 +45,7 @@ fun VerificationCodeInput(
                 repeat(digitsCount) { index ->
                     Digit(
                         if (index >= code.length) "" else code[index].toString(),
-                        (code.length == index) && isFocused
+                        (code.length == index) && focused
                     )
                     if (index != digitsCount - 1) Spacer(modifier = Modifier.size(spaceBetweenDigits))
                 }
@@ -56,25 +56,23 @@ fun VerificationCodeInput(
 
 @Composable
 private fun Digit(
-    digit: String, isActive: Boolean
+    digit: String, active: Boolean
 ) {
-    val baseModifier = Modifier
-        .width(boxWidth)
-        .background(
-            color = AppTheme.colors.background, shape = RoundedCornerShape(roundingCornerSize)
-        )
-    val modifier = if (isActive) baseModifier.then(
-        Modifier.border(
-            width = 1.dp,
-            color = AppTheme.colors.primary,
-            shape = RoundedCornerShape(roundingCornerSize)
-        )
-    ) else baseModifier
     Column(
         horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
     ) {
         Text(
-            modifier = modifier,
+            modifier = Modifier
+                .width(boxWidth)
+                .background(
+                    color = AppTheme.colors.background,
+                    shape = RoundedCornerShape(roundingCornerSize)
+                )
+                .border(
+                    width = 1.dp,
+                    color = if (active) AppTheme.colors.primary else Color.Transparent,
+                    shape = RoundedCornerShape(roundingCornerSize)
+                ),
             text = digit,
             color = AppTheme.colors.black,
             style = AppTheme.typography.headLine,

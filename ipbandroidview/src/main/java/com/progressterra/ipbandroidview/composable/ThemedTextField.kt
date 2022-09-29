@@ -65,6 +65,7 @@ fun ThemedTextField(
         enabled = enabled,
         textStyle = AppTheme.typography.text,
         maxLines = 1,
+        singleLine = true,
         colors = TextFieldDefaults.textFieldColors(
             placeholderColor = AppTheme.colors.gray1,
             disabledPlaceholderColor = AppTheme.colors.gray1,
