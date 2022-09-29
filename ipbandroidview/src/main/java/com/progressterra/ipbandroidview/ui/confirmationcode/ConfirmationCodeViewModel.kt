@@ -15,8 +15,8 @@ import org.orbitmvi.orbit.viewmodel.container
 class ConfirmationCodeViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase
-) : ViewModel(),
-    ContainerHost<ConfirmationCodeState, ConfirmationEffect>, ConfirmationCodeInteractor {
+) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationEffect>,
+    ConfirmationCodeInteractor {
 
     override val container: Container<ConfirmationCodeState, ConfirmationEffect> = container(
         ConfirmationCodeState(phoneNumber = UserData.phone)
@@ -43,18 +43,15 @@ class ConfirmationCodeViewModel(
     }
 
     override fun onCode(code: String) = intent {
-        reduce {
-            state.copy(code = code)
-        }
+        if (code.length > 4) reduce { state.copy(code = code) }
     }
 
     private fun startTimer(seconds: Int = 45) = intent {
         reduce { state.copy(isTimer = true) }
         for (i in seconds downTo 1) {
             delay(1000)
-            reduce {
-                state.copy(timer = "00:$i")
-            }
+            if (i >= 10) reduce { state.copy(timer = "00:$i") }
+            else reduce { state.copy(timer = "00:0$i") }
         }
         reduce { state.copy(isTimer = false) }
     }
