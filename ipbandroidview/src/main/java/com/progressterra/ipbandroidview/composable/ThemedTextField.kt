@@ -1,8 +1,6 @@
 package com.progressterra.ipbandroidview.composable
 
-import android.util.Log
 import androidx.compose.foundation.border
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,9 +10,6 @@ import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,22 +46,16 @@ fun ThemedTextField(
             )
         }
     } else null
-    var focused by remember { mutableStateOf(false) }
-    val resultModifier = if (focused) modifier.then(
-        Modifier.border(
-            width = 1.dp,
+    val mutableInteractionSource = remember { MutableInteractionSource() }
+    val focused = mutableInteractionSource.collectIsFocusedAsState().value
+    TextField(
+        modifier = modifier.border(
+            width = if (focused) 1.dp else 0.dp,
             color = AppTheme.colors.primary,
             shape = RoundedCornerShape(roundingCornerSize)
-        )
-    ) else modifier
-    TextField(
-        modifier = resultModifier
-            .onFocusChanged {
-                Log.d("FOCUS", it.isFocused.toString())
-                focused = it.isFocused
-            }
-            .focusable(enabled),
+        ),
         value = text,
+        interactionSource = mutableInteractionSource,
         onValueChange = onChange,
         shape = RoundedCornerShape(roundingCornerSize),
         keyboardOptions = keyboardOptions,
