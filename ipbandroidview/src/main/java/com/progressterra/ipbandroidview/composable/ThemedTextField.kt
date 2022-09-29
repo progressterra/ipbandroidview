@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,7 +9,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
@@ -59,7 +57,8 @@ fun ThemedTextField(
         )
     ) else modifier
     TextField(
-        modifier = resultModifier.focusable(interactionSource = interactionSource),
+        modifier = resultModifier,
+        interactionSource = interactionSource,
         value = text,
         onValueChange = onChange,
         shape = RoundedCornerShape(roundingCornerSize),
