@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.composable
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -59,9 +60,12 @@ fun ThemedTextField(
         )
     ) else modifier
     TextField(
-        modifier = resultModifier.onFocusChanged {
-            focused = it.isFocused
-        }.focusable(enabled),
+        modifier = resultModifier
+            .onFocusChanged {
+                Log.d("FOCUS", it.isFocused.toString())
+                focused = it.isFocused
+            }
+            .focusable(enabled),
         value = text,
         onValueChange = onChange,
         shape = RoundedCornerShape(roundingCornerSize),
