@@ -1,10 +1,17 @@
 package com.progressterra.ipbandroidview.di
 
+import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
-import com.progressterra.ipbandroidview.domain.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.UpdateFirebaseCloudMessagingTokenUseCase
-import com.progressterra.ipbandroidview.domain.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.domain.*
+import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
+import com.progressterra.ipbandroidview.ui.city.CityViewModel
+import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
+import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
+import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
+import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
+import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val iPBAndroidViewModule = module {
@@ -25,5 +32,45 @@ val iPBAndroidViewModule = module {
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(get(), get())
+    }
+
+    single<CurrentLocationUseCase> {
+        CurrentLocationUseCase.Base(get(), get(), get())
+    }
+
+    single<SuggestionUseCase> {
+        SuggestionUseCase.Base(get(), get())
+    }
+
+    factory<SuggestionMapper> {
+        SuggestionMapper.Base()
+    }
+
+    factory {
+        LocationServices.getFusedLocationProviderClient(androidContext())
+    }
+
+    single<ProvideLocation> {
+        ProvideLocation.Base(get())
+    }
+
+    viewModel {
+        SplashViewModel()
+    }
+
+    viewModel {
+        SignInViewModel(get())
+    }
+
+    viewModel {
+        SignUpViewModel(get())
+    }
+
+    viewModel {
+        ConfirmationCodeViewModel(get(), get())
+    }
+
+    viewModel {
+        CityViewModel(get(), get(), get(), get())
     }
 }

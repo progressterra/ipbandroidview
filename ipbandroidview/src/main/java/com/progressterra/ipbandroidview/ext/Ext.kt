@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview
+package com.progressterra.ipbandroidview.ext
 
 import androidx.core.util.PatternsCompat
 

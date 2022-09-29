@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.compositeOver
 import com.google.accompanist.systemuicontroller.rememberSystemUiController

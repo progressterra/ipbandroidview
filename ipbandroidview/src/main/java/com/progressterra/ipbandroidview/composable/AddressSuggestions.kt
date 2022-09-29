@@ -17,8 +17,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.city.Suggestion
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.ui.city.Suggestion
 
 private val cardElevation: Dp = 4.dp
 private val cardRounding: Dp = 8.dp
@@ -39,16 +39,14 @@ fun AddressSuggestions(
         exit = shrinkVertically()
     ) {
         Card(
-            elevation = cardElevation,
-            shape = RoundedCornerShape(cardRounding)
+            elevation = cardElevation, shape = RoundedCornerShape(cardRounding)
         ) {
             LazyColumn {
                 items(suggestions) {
                     Column(
                         modifier = Modifier
                             .padding(
-                                horizontal = itemHorizontalPadding,
-                                vertical = itemVerticalPadding
+                                horizontal = itemHorizontalPadding, vertical = itemVerticalPadding
                             )
                             .fillMaxWidth()
                     ) {
