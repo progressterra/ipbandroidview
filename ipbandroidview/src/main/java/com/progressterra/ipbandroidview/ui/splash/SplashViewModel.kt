@@ -20,6 +20,6 @@ class SplashViewModel : ViewModel(), ContainerHost<SplashState, SplashEffect> {
     //TODO some preloading here??
     private fun splashInit() = intent {
         delay(1000)
-        postSideEffect(if (UserData.clientExist) SplashEffect.Auth else SplashEffect.NonAuth)
+        postSideEffect(if (!UserData.clientExist) SplashEffect.Auth else SplashEffect.NonAuth)
     }
 }
