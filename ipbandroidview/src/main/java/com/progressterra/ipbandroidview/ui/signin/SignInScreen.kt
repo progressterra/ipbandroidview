@@ -50,7 +50,6 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                             text = state.phoneNumber,
                             hint = stringResource(id = R.string.phone_number),
                             onChange = { interactor.onPhoneNumber(it) },
-                            enabled = true,
                             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                         )
                     }
