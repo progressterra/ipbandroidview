@@ -56,6 +56,7 @@ fun ThemedTextField(
     ) else modifier
     TextField(
         modifier = resultModifier.onFocusChanged {
+
             isFocused = it.isFocused
         },
         value = text,
