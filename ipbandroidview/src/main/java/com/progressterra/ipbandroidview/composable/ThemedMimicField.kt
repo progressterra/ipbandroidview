@@ -44,7 +44,7 @@ fun ThemedMimicField(
         singleLine = true,
         colors = TextFieldDefaults.textFieldColors(
             placeholderColor = AppTheme.colors.gray1,
-            disabledPlaceholderColor = AppTheme.colors.gray2,
+            disabledPlaceholderColor = AppTheme.colors.gray1,
             backgroundColor = AppTheme.colors.background,
             focusedLabelColor = AppTheme.colors.gray2,
             unfocusedLabelColor = AppTheme.colors.gray2,
