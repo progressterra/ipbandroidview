@@ -17,7 +17,8 @@ interface SuggestionUseCase {
 
         override suspend fun suggestions(keyword: String): Result<List<Suggestion>> = handle {
             val suggestionsResult = repo.getSuggestionsAddressFromDadata(
-                keyword
+                keyword,
+                3
             )
             if (suggestionsResult.isFailure) throw UseCaseException()
             suggestionsResult.getOrNull()!!.filter { filter.filter(it) }.map { mapper.map(it) }

@@ -17,7 +17,7 @@ interface GuessLocationUseCase {
 
         override suspend fun guessLocation(latLng: LatLng): Result<String> = handle {
             val suggestionsResult = repo.getSuggestionsAddressFromLocation(
-                latLng.latitude.toFloat(), latLng.longitude.toFloat()
+                latLng.latitude.toFloat(), latLng.longitude.toFloat(), 3
             )
             if (suggestionsResult.isFailure) throw UseCaseException()
             mapper.map(suggestionsResult.getOrNull()!!.first())
