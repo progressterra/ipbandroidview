@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
@@ -65,7 +66,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     hint = stringResource(id = R.string.address),
                     onChange = { interactor.onAddress(it) })
                 val cameraPositionState = rememberCameraPositionState {
-                    position = CameraPosition.fromLatLngZoom(state.marker.latLng, 10f)
+                    position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 5f)
                 }
                 GoogleMap(modifier = Modifier.constrainAs(map) {
                     height = Dimension.fillToConstraints
