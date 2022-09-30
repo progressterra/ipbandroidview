@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidview.base.ManagePermission
 import com.progressterra.ipbandroidview.base.PermissionCache
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.*
+import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
@@ -52,6 +53,10 @@ val iPBAndroidViewModule = module {
 
     factory<SuggestionMapper> {
         SuggestionMapper.Base()
+    }
+
+    factory<AddressGuesserMapper> {
+        AddressGuesserMapper.Base()
     }
 
     factory {
