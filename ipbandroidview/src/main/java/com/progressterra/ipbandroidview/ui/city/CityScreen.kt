@@ -61,7 +61,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                         end.linkTo(background.end, regularMargin)
                     }
                     .onFocusChanged { isFocused = it.isFocused },
-                    text = state.address,
+                    initialText = state.address,
                     hint = stringResource(id = R.string.address),
                     onChange = { interactor.onAddress(it) })
                 val cameraPositionState = rememberCameraPositionState {

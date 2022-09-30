@@ -8,8 +8,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,28 +20,27 @@ private val roundingCornerSize = 8.dp
 @Composable
 fun ThemedTextField(
     modifier: Modifier = Modifier,
-    text: String,
+    initialText: String,
     hint: String,
     onChange: (String) -> Unit,
     enabled: Boolean = true,
     mimic: Boolean = false,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
+    var text by remember {
+        mutableStateOf(initialText)
+    }
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
             Text(
-                text = hint,
-                style = AppTheme.typography.actionBarLabels,
-                maxLines = 1
+                text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
     val placeholder: (@Composable () -> Unit)? = if (text.isEmpty()) {
         {
             Text(
-                text = hint,
-                style = AppTheme.typography.text,
-                maxLines = 1
+                text = hint, style = AppTheme.typography.text, maxLines = 1
             )
         }
     } else null
@@ -56,7 +54,10 @@ fun ThemedTextField(
         ),
         value = text,
         interactionSource = mutableInteractionSource,
-        onValueChange = onChange,
+        onValueChange = {
+            text = it
+            onChange(it)
+        },
         shape = RoundedCornerShape(roundingCornerSize),
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
@@ -90,7 +91,7 @@ fun ThemedTextField(
 private fun ThemedTextFieldPreviewEnabled() {
     AppTheme {
         ThemedTextField(
-            text = "Some text", hint = "Your name", onChange = { }, enabled = true
+            initialText = "Some text", hint = "Your name", onChange = { }, enabled = true
         )
     }
 }
@@ -100,7 +101,7 @@ private fun ThemedTextFieldPreviewEnabled() {
 private fun ThemedTextFieldPreviewDisabled() {
     AppTheme {
         ThemedTextField(
-            text = "Some text", hint = "Your name", onChange = { }, enabled = false
+            initialText = "Some text", hint = "Your name", onChange = { }, enabled = false
         )
     }
 }
@@ -110,7 +111,7 @@ private fun ThemedTextFieldPreviewDisabled() {
 private fun ThemedTextFieldPreviewEmptyDisabled() {
     AppTheme {
         ThemedTextField(
-            text = "", hint = "Your name", onChange = { }, enabled = false
+            initialText = "", hint = "Your name", onChange = { }, enabled = false
         )
     }
 }
