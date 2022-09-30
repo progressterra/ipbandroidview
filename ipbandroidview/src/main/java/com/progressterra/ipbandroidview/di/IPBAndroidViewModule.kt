@@ -17,6 +17,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.binds
 import org.koin.dsl.module
 
+@Suppress("unused")
 val iPBAndroidViewModule = module {
 
     includes(iPBAndroidAPIModule)
@@ -43,6 +44,10 @@ val iPBAndroidViewModule = module {
 
     single<SuggestionUseCase> {
         SuggestionUseCase.Base(get(), get())
+    }
+
+    single<GuessLocationUseCase> {
+        GuessLocationUseCase.Base(get(), get())
     }
 
     factory<SuggestionMapper> {
