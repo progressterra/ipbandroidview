@@ -25,13 +25,13 @@ fun ThemedTextField(
     hint: String,
     onChange: (String) -> Unit,
     enabled: Boolean = true,
+    mimic: Boolean = false,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
             Text(
                 text = hint,
-                color = AppTheme.colors.gray2,
                 style = AppTheme.typography.actionBarLabels,
                 maxLines = 1
             )
@@ -41,7 +41,6 @@ fun ThemedTextField(
         {
             Text(
                 text = hint,
-                color = AppTheme.colors.gray1,
                 style = AppTheme.typography.text,
                 maxLines = 1
             )
@@ -68,12 +67,13 @@ fun ThemedTextField(
         singleLine = true,
         colors = TextFieldDefaults.textFieldColors(
             placeholderColor = AppTheme.colors.gray1,
-            disabledPlaceholderColor = AppTheme.colors.gray1,
+            disabledPlaceholderColor = AppTheme.colors.gray2,
             backgroundColor = AppTheme.colors.background,
             focusedLabelColor = AppTheme.colors.gray2,
             unfocusedLabelColor = AppTheme.colors.gray2,
             disabledLabelColor = AppTheme.colors.gray2,
             textColor = AppTheme.colors.black,
+            disabledTextColor = if (!mimic) AppTheme.colors.gray2 else AppTheme.colors.black,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
@@ -87,7 +87,7 @@ fun ThemedTextField(
 
 @Preview
 @Composable
-fun ThemedTextFieldPreview0() {
+private fun ThemedTextFieldPreviewEnabled() {
     AppTheme {
         ThemedTextField(
             text = "Some text", hint = "Your name", onChange = { }, enabled = true
@@ -97,7 +97,17 @@ fun ThemedTextFieldPreview0() {
 
 @Preview
 @Composable
-fun ThemedTextFieldPreview1() {
+private fun ThemedTextFieldPreviewDisabled() {
+    AppTheme {
+        ThemedTextField(
+            text = "Some text", hint = "Your name", onChange = { }, enabled = false
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ThemedTextFieldPreviewEmptyDisabled() {
     AppTheme {
         ThemedTextField(
             text = "", hint = "Your name", onChange = { }, enabled = false

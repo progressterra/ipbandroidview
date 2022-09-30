@@ -20,8 +20,7 @@ import java.time.LocalDate
 @Composable
 fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
     Scaffold(topBar = {
-        TopAppBarWithBackNav(
-            title = stringResource(id = R.string.signup),
+        TopAppBarWithBackNav(title = stringResource(id = R.string.signup),
             onBack = { interactor.onBack() })
     }) {
         Surface(
@@ -62,12 +61,16 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         hint = stringResource(id = R.string.email),
                         onChange = { interactor.onEmail(it) })
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
-                    ThemedTextField(modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { interactor.openCalendar() },
+                    ThemedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { interactor.openCalendar() },
                         text = state.birthday,
                         hint = stringResource(id = R.string.birthday),
-                        onChange = {})
+                        onChange = {},
+                        enabled = false,
+                        mimic = true
+                    )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),

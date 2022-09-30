@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.signup
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.domain.UpdatePersonalInfoUseCase
 import com.progressterra.ipbandroidview.ext.isEmail
@@ -16,7 +17,8 @@ class SignUpViewModel(
     private val updatePersonalInfoUseCase: UpdatePersonalInfoUseCase
 ) : ViewModel(), ContainerHost<SignUpState, SignUpEffect>, SignUpInteractor {
 
-    override val container: Container<SignUpState, SignUpEffect> = container(SignUpState())
+    override val container: Container<SignUpState, SignUpEffect> =
+        container(SignUpState(phoneNumber = UserData.phone))
 
     override fun onBack() = intent {
         postSideEffect(SignUpEffect.Back)
@@ -30,8 +32,7 @@ class SignUpViewModel(
         if (state.isDataValid) {
             updatePersonalInfoUseCase.update(state.name, state.email, state.birthdayDate)
             postSideEffect(SignUpEffect.Next)
-        } else
-            postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
+        } else postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
     }
 
     override fun onBirthday(birthday: String, birthdayDate: LocalDate) = intent {
