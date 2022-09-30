@@ -61,15 +61,12 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         hint = stringResource(id = R.string.email),
                         onChange = { interactor.onEmail(it) })
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
-                    ThemedTextField(
+                    ThemedMimicField(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { interactor.openCalendar() },
-                        initialText = state.birthday,
+                        text = state.birthday,
                         hint = stringResource(id = R.string.birthday),
-                        onChange = {},
-                        enabled = false,
-                        mimic = true
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
                     ThemedTextField(

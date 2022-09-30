@@ -1,14 +1,10 @@
 package com.progressterra.ipbandroidview.composable
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,17 +14,9 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 private val roundingCornerSize = 8.dp
 
 @Composable
-fun ThemedTextField(
-    modifier: Modifier = Modifier,
-    initialText: String,
-    hint: String,
-    onChange: (String) -> Unit,
-    enabled: Boolean = true,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+fun ThemedMimicField(
+    modifier: Modifier = Modifier, text: String, hint: String
 ) {
-    var text by remember {
-        mutableStateOf(initialText)
-    }
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
             Text(
@@ -43,25 +31,14 @@ fun ThemedTextField(
             )
         }
     } else null
-    val mutableInteractionSource = remember { MutableInteractionSource() }
-    val focused = mutableInteractionSource.collectIsFocusedAsState().value
     TextField(
-        modifier = modifier.border(
-            width = 1.dp,
-            color = if (focused) AppTheme.colors.primary else Color.Transparent,
-            shape = RoundedCornerShape(roundingCornerSize)
-        ),
+        modifier = modifier,
         value = text,
-        interactionSource = mutableInteractionSource,
-        onValueChange = {
-            text = it
-            onChange(it)
-        },
+        onValueChange = {},
         shape = RoundedCornerShape(roundingCornerSize),
-        keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,
-        enabled = enabled,
+        enabled = false,
         textStyle = AppTheme.typography.text,
         maxLines = 1,
         singleLine = true,
@@ -73,7 +50,7 @@ fun ThemedTextField(
             unfocusedLabelColor = AppTheme.colors.gray2,
             disabledLabelColor = AppTheme.colors.gray2,
             textColor = AppTheme.colors.black,
-            disabledTextColor = AppTheme.colors.gray2,
+            disabledTextColor = AppTheme.colors.black,
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
@@ -87,30 +64,30 @@ fun ThemedTextField(
 
 @Preview
 @Composable
-private fun ThemedTextFieldPreviewEnabled() {
+private fun ThemedMimicFieldPreviewEnabled() {
     AppTheme {
-        ThemedTextField(
-            initialText = "Some text", hint = "Your name", onChange = { }, enabled = true
+        ThemedMimicField(
+            text = "Some text", hint = "Your name"
         )
     }
 }
 
 @Preview
 @Composable
-private fun ThemedTextFieldPreviewDisabled() {
+private fun ThemedMimicFieldPreviewDisabled() {
     AppTheme {
-        ThemedTextField(
-            initialText = "Some text", hint = "Your name", onChange = { }, enabled = false
+        ThemedMimicField(
+            text = "Some text", hint = "Your name"
         )
     }
 }
 
 @Preview
 @Composable
-private fun ThemedTextFieldPreviewEmptyDisabled() {
+private fun ThemedMimicFieldPreviewEmptyDisabled() {
     AppTheme {
-        ThemedTextField(
-            initialText = "", hint = "Your name", onChange = { }, enabled = false
+        ThemedMimicField(
+            text = "", hint = "Your name"
         )
     }
 }
