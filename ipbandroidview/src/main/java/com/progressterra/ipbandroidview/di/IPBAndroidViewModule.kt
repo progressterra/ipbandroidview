@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidview.base.ManagePermission
 import com.progressterra.ipbandroidview.base.PermissionCache
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.*
+import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
@@ -44,7 +45,7 @@ val iPBAndroidViewModule = module {
     }
 
     single<SuggestionUseCase> {
-        SuggestionUseCase.Base(get(), get())
+        SuggestionUseCase.Base(get(), get(), get())
     }
 
     single<GuessLocationUseCase> {
@@ -54,6 +55,8 @@ val iPBAndroidViewModule = module {
     factory<SuggestionMapper> {
         SuggestionMapper.Base()
     }
+
+    factory<SuggestionFilter> { SuggestionFilter.Base() }
 
     factory<AddressGuesserMapper> {
         AddressGuesserMapper.Base()

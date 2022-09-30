@@ -19,11 +19,9 @@ class CityViewModel(
     private val currentLocationUseCase: CurrentLocationUseCase,
     private val guessLocationUseCase: GuessLocationUseCase,
     private val suggestionUseCase: SuggestionUseCase
-) : ViewModel(), ContainerHost<CityState, CityEffect>,
-    CityInteractor {
+) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
 
-    override val container: Container<CityState, CityEffect> =
-        container(CityState())
+    override val container: Container<CityState, CityEffect> = container(CityState())
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
@@ -47,9 +45,8 @@ class CityViewModel(
     }
 
     override fun onMyLocation() = intent {
-        if (!managePermission.checkPermission(locationPermission)) managePermission.requirePermission(
-            locationPermission
-        )
+        if (!managePermission.checkPermission(locationPermission))
+            managePermission.requirePermission(locationPermission)
         else {
             currentLocationUseCase.currentLocation().map {
                 reduce { state.copy(suggestions = it) }

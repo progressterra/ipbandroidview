@@ -75,7 +75,10 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     end.linkTo(background.end, regularMargin)
                     bottom.linkTo(background.bottom, regularMargin)
                 }, cameraPositionState = cameraPositionState, uiSettings = MapUiSettings(
-                    myLocationButtonEnabled = false
+                    myLocationButtonEnabled = false,
+                    mapToolbarEnabled = false,
+                    zoomControlsEnabled = false,
+                    compassEnabled = false
                 ), onMapClick = { interactor.onMapClick(it) }) {
                     if (!state.marker.isEmpty()) Marker(state = MarkerState(state.marker.latLng))
                 }
