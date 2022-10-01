@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -30,6 +31,7 @@ private val itemLineSpacing: Dp = 2.dp
 fun AddressSuggestions(
     modifier: Modifier = Modifier,
     suggestions: List<Suggestion> = emptyList(),
+    onSuggestion: (Suggestion) -> Unit,
     isVisible: Boolean = false
 ) {
     AnimatedVisibility(
@@ -43,13 +45,12 @@ fun AddressSuggestions(
         ) {
             LazyColumn {
                 items(suggestions) {
-                    Column(
-                        modifier = Modifier
-                            .padding(
-                                horizontal = itemHorizontalPadding, vertical = itemVerticalPadding
-                            )
-                            .fillMaxWidth()
-                    ) {
+                    Column(modifier = Modifier
+                        .padding(
+                            horizontal = itemHorizontalPadding, vertical = itemVerticalPadding
+                        )
+                        .fillMaxWidth()
+                        .clickable { onSuggestion(it) }) {
                         Text(
                             text = it.address,
                             color = AppTheme.colors.black,
@@ -79,13 +80,11 @@ private fun AddressSuggestionsPreview() {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            AddressSuggestions(
-                isVisible = true, suggestions = listOf(
-                    Suggestion("Some address 1", "Some city 1"),
-                    Suggestion("Some address 2", "Some city 2"),
-                    Suggestion("Some address 3", "Some city 3")
-                )
-            )
+            AddressSuggestions(isVisible = true, suggestions = listOf(
+                Suggestion("Some address 1", "Some city 1"),
+                Suggestion("Some address 2", "Some city 2"),
+                Suggestion("Some address 3", "Some city 3")
+            ), onSuggestion = {})
         }
 
     }

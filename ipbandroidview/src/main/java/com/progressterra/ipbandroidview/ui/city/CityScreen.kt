@@ -8,7 +8,6 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -53,15 +52,13 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                         end.linkTo(parent.end)
                         bottom.linkTo(buttons.top, smallMargin)
                     })
-                var isFocused by remember { mutableStateOf(false) }
                 ThemedTextField(modifier = Modifier
                     .constrainAs(address) {
                         width = Dimension.fillToConstraints
                         top.linkTo(background.top, regularMargin)
                         start.linkTo(background.start, regularMargin)
                         end.linkTo(background.end, regularMargin)
-                    }
-                    .onFocusChanged { isFocused = it.isFocused },
+                    },
                     initialText = state.address,
                     hint = stringResource(id = R.string.address),
                     onChange = { interactor.onAddress(it) })
@@ -91,7 +88,8 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                         end.linkTo(address.end)
                     },
                     suggestions = state.suggestions,
-                    isVisible = isFocused && state.suggestions.isNotEmpty()
+                    isVisible = state.isSuggestionsVisible && state.suggestions.isNotEmpty(),
+                    onSuggestion = { interactor.onSuggestion(it) }
                 )
                 BottomHolder(modifier = Modifier.constrainAs(
                     buttons

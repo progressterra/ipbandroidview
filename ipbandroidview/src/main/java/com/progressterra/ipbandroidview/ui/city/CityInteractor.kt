@@ -16,6 +16,8 @@ interface CityInteractor {
 
     fun onMapClick(latLng: LatLng)
 
+    fun onSuggestion(suggestion: Suggestion)
+
     class Empty : CityInteractor {
 
         override fun onBack() = Unit
@@ -29,5 +31,7 @@ interface CityInteractor {
         override fun onMyLocation() = Unit
 
         override fun onMapClick(latLng: LatLng) = Unit
+
+        override fun onSuggestion(suggestion: Suggestion) = Unit
     }
 }
