@@ -33,7 +33,7 @@ fun VerificationCodeInput(
 ) {
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
-    BasicTextField(modifier = modifier,
+    BasicTextField(modifier = modifier.clearFocusOnKeyboardDismiss(),
         value = code,
         singleLine = true,
         maxLines = 1,

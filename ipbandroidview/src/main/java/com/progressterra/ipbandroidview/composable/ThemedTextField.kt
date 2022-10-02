@@ -50,7 +50,7 @@ fun ThemedTextField(
             width = 1.dp,
             color = if (focused) AppTheme.colors.primary else Color.Transparent,
             shape = RoundedCornerShape(roundingCornerSize)
-        ),
+        ).clearFocusOnKeyboardDismiss(),
         value = text,
         interactionSource = mutableInteractionSource,
         onValueChange = {
