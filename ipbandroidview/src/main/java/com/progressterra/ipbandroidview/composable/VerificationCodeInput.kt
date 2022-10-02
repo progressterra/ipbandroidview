@@ -9,8 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,9 +27,11 @@ private val boxWidth = 56.dp
 @Composable
 fun VerificationCodeInput(
     modifier: Modifier = Modifier,
-    code: String,
-    onCode: (String) -> Unit,
+    onCode: ((String) -> Unit)? = null
 ) {
+    var code by remember {
+        mutableStateOf("")
+    }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     BasicTextField(modifier = modifier.clearFocusOnKeyboardDismiss(),
@@ -38,7 +39,10 @@ fun VerificationCodeInput(
         singleLine = true,
         maxLines = 1,
         interactionSource = mutableInteractionSource,
-        onValueChange = { onCode(it) },
+        onValueChange = {
+            code = it
+            onCode?.invoke(it)
+        },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         decorationBox = {
             Row(horizontalArrangement = Arrangement.Center) {
@@ -85,22 +89,6 @@ private fun Digit(
 @Composable
 fun VerificationCodeInputPreview0() {
     AppTheme {
-        VerificationCodeInput(code = "124", onCode = {})
-    }
-}
-
-@Preview
-@Composable
-fun VerificationCodeInputPreview1() {
-    AppTheme {
-        VerificationCodeInput(code = "12", onCode = {})
-    }
-}
-
-@Preview
-@Composable
-fun VerificationCodeInputPreview2() {
-    AppTheme {
-        VerificationCodeInput(code = "1245", onCode = {})
+        VerificationCodeInput()
     }
 }

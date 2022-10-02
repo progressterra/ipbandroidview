@@ -30,7 +30,7 @@ fun LinkText(
                         start = offset,
                         end = offset,
                     ).firstOrNull()?.let {
-                        annotatedStringData.onClick?.invoke(it)
+                        annotatedStringData.onClick?.invoke(it.item)
                     }
                 }
             }

@@ -20,9 +20,10 @@ private val roundingCornerSize = 8.dp
 @Composable
 fun ThemedTextField(
     modifier: Modifier = Modifier,
-    initialText: String,
-    hint: String,
-    onChange: (String) -> Unit,
+    initialText: String = "",
+    hint: String = "",
+    onChange: ((String) -> Unit)? = null,
+    onFocusChange: ((Boolean) -> Unit)? = null,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
@@ -45,17 +46,20 @@ fun ThemedTextField(
     } else null
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
+    onFocusChange?.invoke(focused)
     TextField(
-        modifier = modifier.border(
-            width = 1.dp,
-            color = if (focused) AppTheme.colors.primary else Color.Transparent,
-            shape = RoundedCornerShape(roundingCornerSize)
-        ).clearFocusOnKeyboardDismiss(),
+        modifier = modifier
+            .border(
+                width = 1.dp,
+                color = if (focused) AppTheme.colors.primary else Color.Transparent,
+                shape = RoundedCornerShape(roundingCornerSize)
+            )
+            .clearFocusOnKeyboardDismiss(),
         value = text,
         interactionSource = mutableInteractionSource,
         onValueChange = {
             text = it
-            onChange(it)
+            onChange?.invoke(it)
         },
         shape = RoundedCornerShape(roundingCornerSize),
         keyboardOptions = keyboardOptions,
@@ -90,7 +94,7 @@ fun ThemedTextField(
 private fun ThemedTextFieldPreviewEnabled() {
     AppTheme {
         ThemedTextField(
-            initialText = "Some text", hint = "Your name", onChange = { }, enabled = true
+            initialText = "Some text", hint = "Your name", enabled = true
         )
     }
 }
@@ -100,7 +104,7 @@ private fun ThemedTextFieldPreviewEnabled() {
 private fun ThemedTextFieldPreviewDisabled() {
     AppTheme {
         ThemedTextField(
-            initialText = "Some text", hint = "Your name", onChange = { }, enabled = false
+            initialText = "Some text", hint = "Your name", enabled = false
         )
     }
 }
@@ -110,7 +114,7 @@ private fun ThemedTextFieldPreviewDisabled() {
 private fun ThemedTextFieldPreviewEmptyDisabled() {
     AppTheme {
         ThemedTextField(
-            initialText = "", hint = "Your name", onChange = { }, enabled = false
+            hint = "Your name", enabled = false
         )
     }
 }

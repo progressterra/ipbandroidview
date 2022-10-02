@@ -18,6 +18,8 @@ interface CityInteractor {
 
     fun onSuggestion(suggestion: Suggestion)
 
+    fun onAddressFocus(focused: Boolean)
+
     class Empty : CityInteractor {
 
         override fun onBack() = Unit
@@ -33,5 +35,7 @@ interface CityInteractor {
         override fun onMapClick(latLng: LatLng) = Unit
 
         override fun onSuggestion(suggestion: Suggestion) = Unit
+
+        override fun onAddressFocus(focused: Boolean) = Unit
     }
 }

@@ -40,13 +40,14 @@ class CityViewModel(
     override fun onAddress(address: String) = intent {
         reduce { state.copy(address = address) }
         suggestionUseCase.suggestions(address).map {
-            reduce { state.copy(suggestions = it, isSuggestionsVisible = true) }
+            reduce { state.copy(suggestions = it) }
         }
     }
 
     override fun onMyLocation() = intent {
-        if (!managePermission.checkPermission(locationPermission))
-            managePermission.requirePermission(locationPermission)
+        if (!managePermission.checkPermission(locationPermission)) managePermission.requirePermission(
+            locationPermission
+        )
         else {
             currentLocationUseCase.currentLocation().map {
                 reduce { state.copy(suggestions = it) }
@@ -56,13 +57,19 @@ class CityViewModel(
 
     override fun onMapClick(latLng: LatLng) = intent {
         guessLocationUseCase.guessLocation(latLng).map {
-            reduce { state.copy(address = it, isSuggestionsVisible = false) }
+            reduce { state.copy(address = it) }
         }
     }
 
     override fun onSuggestion(suggestion: Suggestion) = intent {
         reduce {
-            state.copy(address = "${suggestion.city}, ${suggestion.address}", isSuggestionsVisible = false)
+            state.copy(address = "${suggestion.city}, ${suggestion.address}")
+        }
+    }
+
+    override fun onAddressFocus(focused: Boolean) = intent {
+        reduce {
+            state.copy(isAddressInFocus = focused)
         }
     }
 }

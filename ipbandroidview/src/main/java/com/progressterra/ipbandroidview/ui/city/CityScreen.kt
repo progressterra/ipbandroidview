@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -52,13 +52,13 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                         end.linkTo(parent.end)
                         bottom.linkTo(buttons.top, smallMargin)
                     })
-                ThemedTextField(modifier = Modifier
-                    .constrainAs(address) {
-                        width = Dimension.fillToConstraints
-                        top.linkTo(background.top, regularMargin)
-                        start.linkTo(background.start, regularMargin)
-                        end.linkTo(background.end, regularMargin)
-                    },
+                ThemedTextField(modifier = Modifier.constrainAs(address) {
+                    width = Dimension.fillToConstraints
+                    top.linkTo(background.top, regularMargin)
+                    start.linkTo(background.start, regularMargin)
+                    end.linkTo(background.end, regularMargin)
+                },
+                    onFocusChange = { interactor.onAddressFocus(it) },
                     initialText = state.address,
                     hint = stringResource(id = R.string.address),
                     onChange = { interactor.onAddress(it) })
@@ -80,17 +80,15 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 ), onMapClick = { interactor.onMapClick(it) }) {
                     if (!state.marker.isEmpty()) Marker(state = MarkerState(state.marker.latLng))
                 }
-                AddressSuggestions(
-                    modifier = Modifier.constrainAs(suggestions) {
-                        width = Dimension.fillToConstraints
-                        top.linkTo(address.bottom, extraSmallMargin)
-                        start.linkTo(address.start)
-                        end.linkTo(address.end)
-                    },
+                AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {
+                    width = Dimension.fillToConstraints
+                    top.linkTo(address.bottom, extraSmallMargin)
+                    start.linkTo(address.start)
+                    end.linkTo(address.end)
+                },
                     suggestions = state.suggestions,
-                    isVisible = state.isSuggestionsVisible && state.suggestions.isNotEmpty(),
-                    onSuggestion = { interactor.onSuggestion(it) }
-                )
+                    isVisible = state.isAddressInFocus && state.suggestions.isNotEmpty(),
+                    onSuggestion = { interactor.onSuggestion(it) })
                 BottomHolder(modifier = Modifier.constrainAs(
                     buttons
                 ) {

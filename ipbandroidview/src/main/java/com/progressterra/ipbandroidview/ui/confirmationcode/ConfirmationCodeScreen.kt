@@ -48,7 +48,6 @@ fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: Confirmatio
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
                     VerificationCodeInput(modifier = Modifier.fillMaxWidth(),
-                        code = state.code,
                         onCode = { interactor.onCode(it) })
                 }
                 BottomHolder {

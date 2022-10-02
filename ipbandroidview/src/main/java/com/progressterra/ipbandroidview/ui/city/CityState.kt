@@ -8,5 +8,5 @@ data class CityState(
     val address: String = "",
     val suggestions: List<Suggestion> = emptyList(),
     val marker: Marker = Marker(),
-    val isSuggestionsVisible: Boolean = false
+    val isAddressInFocus: Boolean = false
 )

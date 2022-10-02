@@ -73,7 +73,6 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         modifier = Modifier.fillMaxWidth(),
                         initialText = state.phoneNumber,
                         hint = stringResource(id = R.string.phone_number),
-                        onChange = {},
                         enabled = false
                     )
                 }
