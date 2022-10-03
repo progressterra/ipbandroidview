@@ -49,8 +49,9 @@ class SignInViewModel(
         }
         intent {
             withContext(Dispatchers.IO) {
-                Log.d("INTENT", "onPhoneNumber in intent 2: ${Thread.currentThread().name}")
+                Log.d("INTENT", "onPhoneNumber in intent 2 start: ${Thread.currentThread().name}")
                 delay(5000)
+                Log.d("INTENT", "onPhoneNumber in intent 2 end: ${Thread.currentThread().name}")
             }
         }
         Log.d("INTENT", "onPhoneNumber finished: ${Thread.currentThread().name}")
