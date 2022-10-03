@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -20,13 +18,11 @@ class SignInViewModel(
     override val container: Container<SignInState, SignInEffect> = container(SignInState())
 
     override fun onNext() = intent {
-        withContext(Dispatchers.IO) {
-            if (startVerificationChannelUseCase.start(state.phoneNumber)) {
-                UserData.phone = state.phoneNumber
-                postSideEffect(SignInEffect.Next)
-            } else
-                postSideEffect(SignInEffect.Toast(R.string.wrong_phone))
-        }
+        if (startVerificationChannelUseCase.start(state.phoneNumber)) {
+            UserData.phone = state.phoneNumber
+            postSideEffect(SignInEffect.Next)
+        } else
+            postSideEffect(SignInEffect.Toast(R.string.wrong_phone))
     }
 
     override fun onSkip() = intent { postSideEffect(SignInEffect.Skip) }

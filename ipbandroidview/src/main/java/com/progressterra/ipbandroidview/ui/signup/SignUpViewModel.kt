@@ -5,8 +5,6 @@ import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.domain.UpdatePersonalInfoUseCase
 import com.progressterra.ipbandroidview.ext.isEmail
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -27,12 +25,10 @@ class SignUpViewModel(
     override fun onSkip() = intent { postSideEffect(SignUpEffect.Skip) }
 
     override fun onNext() = intent {
-        withContext(Dispatchers.IO) {
-            if (state.isDataValid) {
-                updatePersonalInfoUseCase.update(state.name, state.email, state.birthdayDate)
-                postSideEffect(SignUpEffect.Next)
-            } else postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
-        }
+        if (state.isDataValid) {
+            updatePersonalInfoUseCase.update(state.name, state.email, state.birthdayDate)
+            postSideEffect(SignUpEffect.Next)
+        } else postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
     }
 
     override fun onBirthday(birthday: String, birthdayDate: LocalDate) {
