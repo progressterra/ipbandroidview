@@ -41,8 +41,10 @@ fun VerificationCodeInput(
         maxLines = 1,
         interactionSource = mutableInteractionSource,
         onValueChange = {
-            localCode = it
-            onCode?.invoke(it)
+            if (it.length <= 4) {
+                localCode = it
+                onCode?.invoke(it)
+            }
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
         decorationBox = {
@@ -50,7 +52,7 @@ fun VerificationCodeInput(
                 repeat(digitsCount) { index ->
                     Digit(
                         if (index >= localCode.length) "" else localCode[index].toString(),
-                        (localCode.length == index) && focused
+                        (localCode.length == index || localCode.length == digitsCount) && focused
                     )
                     if (index != digitsCount - 1) Spacer(modifier = Modifier.size(spaceBetweenDigits))
                 }

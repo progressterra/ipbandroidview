@@ -7,6 +7,6 @@ data class CityState(
     val isDataValid: Boolean = false,
     val address: String = "",
     val suggestions: List<Suggestion> = emptyList(),
-    val markerData: MarkerData = MarkerData(),
+    val mapMarker: MapMarker = MapMarker(),
     val isAddressInFocus: Boolean = false
 )

@@ -40,8 +40,8 @@ val iPBAndroidViewModule = module {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(get(), get())
     }
 
-    single<CurrentLocationUseCase> {
-        CurrentLocationUseCase.Base(get(), get(), get())
+    single<CurrentLocationSuggestionsUseCase> {
+        CurrentLocationSuggestionsUseCase.Base(get(), get(), get())
     }
 
     single<SuggestionUseCase> {

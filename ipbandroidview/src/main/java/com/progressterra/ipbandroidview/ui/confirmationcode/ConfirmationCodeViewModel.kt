@@ -42,9 +42,7 @@ class ConfirmationCodeViewModel(
     }
 
     override fun onCode(code: String) = intent {
-        Log.d("Code", "before $code")
         if (code.length <= 4) reduce { state.copy(code = code) }
-        Log.d("Code", "after ${state.code}")
     }
 
     private fun startTimer() = intent {

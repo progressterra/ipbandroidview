@@ -4,7 +4,7 @@ import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidview.base.ManagePermission
-import com.progressterra.ipbandroidview.domain.CurrentLocationUseCase
+import com.progressterra.ipbandroidview.domain.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.domain.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.SuggestionUseCase
 import org.orbitmvi.orbit.Container
@@ -16,7 +16,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class CityViewModel(
     private val managePermission: ManagePermission,
-    private val currentLocationUseCase: CurrentLocationUseCase,
+    private val currentLocationSuggestionsUseCase: CurrentLocationSuggestionsUseCase,
     private val guessLocationUseCase: GuessLocationUseCase,
     private val suggestionUseCase: SuggestionUseCase
 ) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
@@ -43,7 +43,7 @@ class CityViewModel(
             managePermission.requirePermission(locationPermission)
         else {
             intent {
-                currentLocationUseCase.currentLocation().map {
+                currentLocationSuggestionsUseCase.currentLocation().map {
                     reduce { state.copy(suggestions = it) }
                 }
             }
