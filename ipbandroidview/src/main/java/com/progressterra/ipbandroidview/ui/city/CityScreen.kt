@@ -70,10 +70,10 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 val cameraPositionState = rememberCameraPositionState {
                     position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 5f)
                 }
-                LaunchedEffect(key1 = state.marker) {
-                    if (!state.marker.isEmpty()) cameraPositionState.animate(
+                LaunchedEffect(key1 = state.markerData) {
+                    if (!state.markerData.isEmpty()) cameraPositionState.animate(
                         CameraUpdateFactory.newLatLng(
-                            state.marker.latLng
+                            state.markerData.latLng
                         )
                     )
                 }
@@ -90,7 +90,9 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     zoomControlsEnabled = false,
                     compassEnabled = false
                 ), onMapClick = { interactor.onMapClick(it) }) {
-                    if (!state.marker.isEmpty()) Marker(latLng = state.marker.latLng)
+                    if (!state.markerData.isEmpty()) {
+                        Marker(MarkerState(state.markerData.latLng))
+                    }
                 }
                 AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {
                     width = Dimension.fillToConstraints

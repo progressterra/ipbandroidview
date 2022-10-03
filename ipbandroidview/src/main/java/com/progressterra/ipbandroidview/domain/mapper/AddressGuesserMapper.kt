@@ -7,7 +7,10 @@ interface AddressGuesserMapper : Mapper<SuggestionData, String> {
 
     class Base : AddressGuesserMapper {
 
-        override fun map(data: SuggestionData): String =
-            "${data.suggestionExtendedInfo.city}, ${data.suggestionExtendedInfo.street}, ${data.suggestionExtendedInfo.house}"
+        override fun map(data: SuggestionData): String {
+            if (data.suggestionExtendedInfo.city.isBlank() || data.suggestionExtendedInfo.street.isBlank() || data.suggestionExtendedInfo.house.isBlank())
+                return ""
+            return "${data.suggestionExtendedInfo.city}, ${data.suggestionExtendedInfo.street}, ${data.suggestionExtendedInfo.house}"
+        }
     }
 }
