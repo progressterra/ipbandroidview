@@ -1,10 +1,13 @@
 package com.progressterra.ipbandroidview.ui.signup
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.domain.UpdatePersonalInfoUseCase
 import com.progressterra.ipbandroidview.ext.isEmail
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -30,8 +33,10 @@ class SignUpViewModel(
 
     override fun onNext() = intent {
         if (state.isDataValid) {
-            updatePersonalInfoUseCase.update(state.name, state.email, state.birthdayDate)
-            postSideEffect(SignUpEffect.Next)
+            withContext(Dispatchers.IO) {
+                updatePersonalInfoUseCase.update(state.name, state.email, state.birthdayDate)
+                postSideEffect(SignUpEffect.Next)
+            }
         } else postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
     }
 
