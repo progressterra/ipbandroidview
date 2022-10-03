@@ -7,8 +7,6 @@ import com.progressterra.ipbandroidview.base.ManagePermission
 import com.progressterra.ipbandroidview.domain.CurrentLocationUseCase
 import com.progressterra.ipbandroidview.domain.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.SuggestionUseCase
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -16,7 +14,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-//TODO change intent dispatcher of all viewmodel
 class CityViewModel(
     private val managePermission: ManagePermission,
     private val currentLocationUseCase: CurrentLocationUseCase,
@@ -24,8 +21,7 @@ class CityViewModel(
     private val suggestionUseCase: SuggestionUseCase
 ) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
 
-    override val container: Container<CityState, CityEffect> =
-        container(CityState(), settings = Container.Settings(intentDispatcher = Dispatchers.Main))
+    override val container: Container<CityState, CityEffect> = container(CityState())
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
@@ -35,14 +31,10 @@ class CityViewModel(
 
     override fun onNext() = intent { postSideEffect(CityEffect.Next) }
 
-    override fun onAddress(address: String) {
-        intent { reduce { state.copy(address = address) } }
-        intent {
-            withContext(Dispatchers.IO) {
-                suggestionUseCase.suggestions(address).map {
-                    reduce { state.copy(suggestions = it) }
-                }
-            }
+    override fun onAddress(address: String) = intent {
+        reduce { state.copy(address = address) }
+        suggestionUseCase.suggestions(address).map {
+            reduce { state.copy(suggestions = it) }
         }
     }
 
@@ -51,20 +43,16 @@ class CityViewModel(
             managePermission.requirePermission(locationPermission)
         else {
             intent {
-                withContext(Dispatchers.IO) {
-                    currentLocationUseCase.currentLocation().map {
-                        reduce { state.copy(suggestions = it) }
-                    }
+                currentLocationUseCase.currentLocation().map {
+                    reduce { state.copy(suggestions = it) }
                 }
             }
         }
     }
 
     override fun onMapClick(latLng: LatLng) = intent {
-        withContext(Dispatchers.IO) {
-            guessLocationUseCase.guessLocation(latLng).map {
-                reduce { state.copy(address = it) }
-            }
+        guessLocationUseCase.guessLocation(latLng).map {
+            reduce { state.copy(address = it) }
         }
     }
 
