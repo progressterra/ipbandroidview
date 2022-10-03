@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.confirmationcode
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.domain.EndVerificationChannelUseCase
@@ -41,7 +42,9 @@ class ConfirmationCodeViewModel(
     }
 
     override fun onCode(code: String) = intent {
+        Log.d("Code", "before $code")
         if (code.length <= 4) reduce { state.copy(code = code) }
+        Log.d("Code", "after ${state.code}")
     }
 
     private fun startTimer() = intent {
