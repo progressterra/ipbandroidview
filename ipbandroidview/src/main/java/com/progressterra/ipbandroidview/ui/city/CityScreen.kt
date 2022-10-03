@@ -90,7 +90,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     zoomControlsEnabled = false,
                     compassEnabled = false
                 ), onMapClick = { interactor.onMapClick(it) }) {
-                    if (!state.marker.isEmpty()) Marker(state = MarkerState(state.marker.latLng))
+                    if (!state.marker.isEmpty()) Marker(latLng = state.marker.latLng)
                 }
                 AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {
                     width = Dimension.fillToConstraints
