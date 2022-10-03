@@ -92,7 +92,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     compassEnabled = false
                 ), onMapClick = { interactor.onMapClick(it) }) {
                     if (!state.markerData.isEmpty()) {
-                        Marker(MarkerState(state.markerData.latLng))
+                        Marker(MarkerState(state.markerData.latLng), title = "some title", snippet = "some snippet")
                     }
                 }
                 AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {
