@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-private val moveAnimationDuration = 1000L
+private const val moveAnimationDuration = 1000
 
 @Composable
 fun CityScreen(state: CityState, interactor: CityInteractor) {
@@ -74,7 +74,8 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     if (!state.markerData.isEmpty()) cameraPositionState.animate(
                         CameraUpdateFactory.newLatLng(
                             state.markerData.latLng
-                        )
+                        ),
+                        moveAnimationDuration
                     )
                 }
                 GoogleMap(modifier = Modifier.constrainAs(map) {
