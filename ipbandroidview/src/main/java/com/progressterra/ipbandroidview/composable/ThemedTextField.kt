@@ -17,6 +17,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val roundingCornerSize = 8.dp
 
+//TODO ime actions
+
 @Composable
 fun ThemedTextField(
     modifier: Modifier = Modifier,
@@ -41,6 +43,9 @@ fun ThemedTextField(
             )
         }
     } else null
+    var localText by remember(text) {
+        mutableStateOf(text)
+    }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     onFocusChange?.invoke(focused)
@@ -52,9 +57,10 @@ fun ThemedTextField(
                 shape = RoundedCornerShape(roundingCornerSize)
             )
             .clearFocusOnKeyboardDismiss(),
-        value = text,
+        value = localText,
         interactionSource = mutableInteractionSource,
         onValueChange = {
+            localText = it
             onChange?.invoke(it)
         },
         shape = RoundedCornerShape(roundingCornerSize),

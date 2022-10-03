@@ -30,14 +30,18 @@ fun VerificationCodeInput(
     code: String = "",
     onCode: ((String) -> Unit)? = null
 ) {
+    var localCode by remember(code) {
+        mutableStateOf(code)
+    }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     BasicTextField(modifier = modifier.clearFocusOnKeyboardDismiss(),
-        value = code,
+        value = localCode,
         singleLine = true,
         maxLines = 1,
         interactionSource = mutableInteractionSource,
         onValueChange = {
+            localCode = it
             onCode?.invoke(it)
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -45,8 +49,8 @@ fun VerificationCodeInput(
             Row(horizontalArrangement = Arrangement.Center) {
                 repeat(digitsCount) { index ->
                     Digit(
-                        if (index >= code.length) "" else code[index].toString(),
-                        (code.length == index) && focused
+                        if (index >= localCode.length) "" else localCode[index].toString(),
+                        (localCode.length == index) && focused
                     )
                     if (index != digitsCount - 1) Spacer(modifier = Modifier.size(spaceBetweenDigits))
                 }
