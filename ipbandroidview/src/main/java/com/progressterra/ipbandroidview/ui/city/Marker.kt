@@ -8,5 +8,5 @@ data class Marker(
 ) : IsEmpty {
 
     override fun isEmpty(): Boolean =
-        latLng.latitude == Double.MIN_VALUE && latLng.longitude == Double.MIN_VALUE
+        latLng.latitude == Double.MIN_VALUE || latLng.longitude == Double.MIN_VALUE
 }
