@@ -2,7 +2,9 @@ package com.progressterra.ipbandroidview.ui.splash
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidapi.user.UserData
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -17,9 +19,10 @@ class SplashViewModel : ViewModel(), ContainerHost<SplashState, SplashEffect> {
         splashInit()
     }
 
-    //TODO some preloading here??
     private fun splashInit() = intent {
-        delay(1000)
-        postSideEffect(if (!UserData.clientExist) SplashEffect.Auth else SplashEffect.NonAuth)
+        withContext(Dispatchers.IO) {
+            delay(1000)
+            postSideEffect(if (!UserData.clientExist) SplashEffect.Auth else SplashEffect.NonAuth)
+        }
     }
 }

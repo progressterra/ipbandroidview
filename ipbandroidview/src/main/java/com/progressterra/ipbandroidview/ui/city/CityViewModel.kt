@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidview.domain.CurrentLocationUseCase
 import com.progressterra.ipbandroidview.domain.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.SuggestionUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -33,20 +32,14 @@ class CityViewModel(
         postSideEffect(CityEffect.Back)
     }
 
-    override fun onSkip() = intent {
-        postSideEffect(CityEffect.Skip)
-    }
+    override fun onSkip() = intent { postSideEffect(CityEffect.Skip) }
 
-    override fun onNext() = intent {
-        postSideEffect(CityEffect.Next)
-    }
+    override fun onNext() = intent { postSideEffect(CityEffect.Next) }
 
-    //TODO remove delay
     override fun onAddress(address: String) {
         intent { reduce { state.copy(address = address) } }
         intent {
             withContext(Dispatchers.IO) {
-                delay(3000)
                 suggestionUseCase.suggestions(address).map {
                     reduce { state.copy(suggestions = it) }
                 }
@@ -54,14 +47,15 @@ class CityViewModel(
         }
     }
 
-    override fun onMyLocation() = intent {
-        if (!managePermission.checkPermission(locationPermission)) managePermission.requirePermission(
-            locationPermission
-        )
+    override fun onMyLocation() {
+        if (!managePermission.checkPermission(locationPermission))
+            managePermission.requirePermission(locationPermission)
         else {
-            withContext(Dispatchers.IO) {
-                currentLocationUseCase.currentLocation().map {
-                    reduce { state.copy(suggestions = it) }
+            intent {
+                withContext(Dispatchers.IO) {
+                    currentLocationUseCase.currentLocation().map {
+                        reduce { state.copy(suggestions = it) }
+                    }
                 }
             }
         }
@@ -76,14 +70,10 @@ class CityViewModel(
     }
 
     override fun onSuggestion(suggestion: Suggestion) = intent {
-        reduce {
-            state.copy(address = "${suggestion.city}, ${suggestion.address}")
-        }
+        reduce { state.copy(address = "${suggestion.city}, ${suggestion.address}") }
     }
 
     override fun onAddressFocus(focused: Boolean) = intent {
-        reduce {
-            state.copy(isAddressInFocus = focused)
-        }
+        reduce { state.copy(isAddressInFocus = focused) }
     }
 }

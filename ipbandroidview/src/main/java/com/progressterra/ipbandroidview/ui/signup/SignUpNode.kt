@@ -10,6 +10,7 @@ import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
+@Suppress("unused")
 class SignUpNode(
     buildContext: BuildContext,
     private val onBack: () -> Unit,

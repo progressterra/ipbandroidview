@@ -4,7 +4,6 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     id "kotlin-parcelize"
-// TODO to app   id "com.google.gms.google-services"
 }
 
 apply from: "publish.gradle"
