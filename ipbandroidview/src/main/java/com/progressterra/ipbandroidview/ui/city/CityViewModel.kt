@@ -7,6 +7,8 @@ import com.progressterra.ipbandroidview.base.ManagePermission
 import com.progressterra.ipbandroidview.domain.CurrentLocationUseCase
 import com.progressterra.ipbandroidview.domain.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.SuggestionUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -22,13 +24,12 @@ class CityViewModel(
     private val suggestionUseCase: SuggestionUseCase
 ) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
 
-    override val container: Container<CityState, CityEffect> = container(CityState())
+    override val container: Container<CityState, CityEffect> =
+        container(CityState(), settings = Container.Settings(intentDispatcher = Dispatchers.Main))
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
-    override fun onBack() = intent {
-        postSideEffect(CityEffect.Back)
-    }
+    override fun onBack() = intent { postSideEffect(CityEffect.Back) }
 
     override fun onSkip() = intent { postSideEffect(CityEffect.Skip) }
 
@@ -37,8 +38,10 @@ class CityViewModel(
     override fun onAddress(address: String) {
         intent { reduce { state.copy(address = address) } }
         intent {
-            suggestionUseCase.suggestions(address).map {
-                reduce { state.copy(suggestions = it) }
+            withContext(Dispatchers.IO) {
+                suggestionUseCase.suggestions(address).map {
+                    reduce { state.copy(suggestions = it) }
+                }
             }
         }
     }
@@ -48,16 +51,20 @@ class CityViewModel(
             managePermission.requirePermission(locationPermission)
         else {
             intent {
-                currentLocationUseCase.currentLocation().map {
-                    reduce { state.copy(suggestions = it) }
+                withContext(Dispatchers.IO) {
+                    currentLocationUseCase.currentLocation().map {
+                        reduce { state.copy(suggestions = it) }
+                    }
                 }
             }
         }
     }
 
     override fun onMapClick(latLng: LatLng) = intent {
-        guessLocationUseCase.guessLocation(latLng).map {
-            reduce { state.copy(address = it) }
+        withContext(Dispatchers.IO) {
+            guessLocationUseCase.guessLocation(latLng).map {
+                reduce { state.copy(address = it) }
+            }
         }
     }
 
