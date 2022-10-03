@@ -71,12 +71,13 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 5f)
                 }
                 LaunchedEffect(key1 = state.mapMarker) {
-                    if (!state.mapMarker.isEmpty()) cameraPositionState.animate(
-                        CameraUpdateFactory.newLatLng(
-                            state.mapMarker.latLng
-                        ),
-                        moveAnimationDuration
-                    )
+                    state.mapMarker.latLng?.let {
+                        cameraPositionState.animate(
+                            CameraUpdateFactory.newLatLng(
+                                it
+                            ), moveAnimationDuration
+                        )
+                    }
                 }
                 GoogleMap(modifier = Modifier.constrainAs(map) {
                     height = Dimension.fillToConstraints
@@ -91,8 +92,12 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     zoomControlsEnabled = false,
                     compassEnabled = false
                 ), onMapClick = { interactor.onMapClick(it) }) {
-                    if (!state.mapMarker.isEmpty()) {
-                        Marker(MarkerState(state.mapMarker.latLng), title = "some title", snippet = "some snippet")
+                    state.mapMarker.latLng?.let {
+                        Marker(
+                            MarkerState(state.mapMarker.latLng),
+                            title = "some title",
+                            snippet = "some snippet"
+                        )
                     }
                 }
                 AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {

@@ -5,7 +5,4 @@ import com.progressterra.ipbandroidview.base.IsEmpty
 
 data class MapMarker(
     val latLng: LatLng? = null
-) : IsEmpty {
-
-    override fun isEmpty(): Boolean = latLng == null
-}
+)
