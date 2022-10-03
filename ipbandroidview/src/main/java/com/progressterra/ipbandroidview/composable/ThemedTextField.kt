@@ -20,16 +20,13 @@ private val roundingCornerSize = 8.dp
 @Composable
 fun ThemedTextField(
     modifier: Modifier = Modifier,
-    initialText: String = "",
+    text: String = "",
     hint: String = "",
     onChange: ((String) -> Unit)? = null,
     onFocusChange: ((Boolean) -> Unit)? = null,
     enabled: Boolean = true,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
-    var text by remember {
-        mutableStateOf(initialText)
-    }
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
             Text(
@@ -58,7 +55,6 @@ fun ThemedTextField(
         value = text,
         interactionSource = mutableInteractionSource,
         onValueChange = {
-            text = it
             onChange?.invoke(it)
         },
         shape = RoundedCornerShape(roundingCornerSize),
@@ -94,7 +90,7 @@ fun ThemedTextField(
 private fun ThemedTextFieldPreviewEnabled() {
     AppTheme {
         ThemedTextField(
-            initialText = "Some text", hint = "Your name", enabled = true
+            text = "Some text", hint = "Your name", enabled = true
         )
     }
 }
@@ -104,7 +100,7 @@ private fun ThemedTextFieldPreviewEnabled() {
 private fun ThemedTextFieldPreviewDisabled() {
     AppTheme {
         ThemedTextField(
-            initialText = "Some text", hint = "Your name", enabled = false
+            text = "Some text", hint = "Your name", enabled = false
         )
     }
 }

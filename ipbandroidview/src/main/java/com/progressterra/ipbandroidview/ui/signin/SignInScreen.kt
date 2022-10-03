@@ -48,7 +48,7 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                     ) {
                         ThemedTextField(
                             modifier = Modifier.fillMaxWidth(),
-                            initialText = state.phoneNumber,
+                            text = state.phoneNumber,
                             hint = stringResource(id = R.string.phone_number),
                             onChange = { interactor.onPhoneNumber(it) },
                             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)

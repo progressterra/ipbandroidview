@@ -52,12 +52,12 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         }, onDismiss = { interactor.closeCalendar() })
                     }
                     ThemedTextField(modifier = Modifier.fillMaxWidth(),
-                        initialText = state.name,
+                        text = state.name,
                         hint = stringResource(id = R.string.name_surname),
                         onChange = { interactor.onName(it) })
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
                     ThemedTextField(modifier = Modifier.fillMaxWidth(),
-                        initialText = state.email,
+                        text = state.email,
                         hint = stringResource(id = R.string.email),
                         onChange = { interactor.onEmail(it) })
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
@@ -71,7 +71,7 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        initialText = state.phoneNumber,
+                        text = state.phoneNumber,
                         hint = stringResource(id = R.string.phone_number),
                         enabled = false
                     )

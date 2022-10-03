@@ -6,12 +6,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
@@ -19,10 +21,13 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val moveAnimationDuration = 1000L
+
 @Composable
 fun CityScreen(state: CityState, interactor: CityInteractor) {
     Scaffold(topBar = {
-        TopAppBarWithBackNav(title = stringResource(id = R.string.city),
+        TopAppBarWithBackNav(
+            title = stringResource(id = R.string.city),
             onBack = { interactor.onBack() })
     }) {
         Surface(
@@ -59,11 +64,18 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     end.linkTo(background.end, regularMargin)
                 },
                     onFocusChange = { interactor.onAddressFocus(it) },
-                    initialText = state.address,
+                    text = state.address,
                     hint = stringResource(id = R.string.address),
                     onChange = { interactor.onAddress(it) })
                 val cameraPositionState = rememberCameraPositionState {
                     position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 5f)
+                }
+                LaunchedEffect(key1 = state.marker) {
+                    if (!state.marker.isEmpty()) cameraPositionState.animate(
+                        CameraUpdateFactory.newLatLng(
+                            state.marker.latLng
+                        )
+                    )
                 }
                 GoogleMap(modifier = Modifier.constrainAs(map) {
                     height = Dimension.fillToConstraints

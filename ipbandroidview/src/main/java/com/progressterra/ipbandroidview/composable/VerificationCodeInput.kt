@@ -27,11 +27,9 @@ private val boxWidth = 56.dp
 @Composable
 fun VerificationCodeInput(
     modifier: Modifier = Modifier,
+    code: String = "",
     onCode: ((String) -> Unit)? = null
 ) {
-    var code by remember {
-        mutableStateOf("")
-    }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     BasicTextField(modifier = modifier.clearFocusOnKeyboardDismiss(),
@@ -40,7 +38,6 @@ fun VerificationCodeInput(
         maxLines = 1,
         interactionSource = mutableInteractionSource,
         onValueChange = {
-            code = it
             onCode?.invoke(it)
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),

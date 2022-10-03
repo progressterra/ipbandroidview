@@ -7,6 +7,8 @@ import com.progressterra.ipbandroidview.base.ManagePermission
 import com.progressterra.ipbandroidview.domain.CurrentLocationUseCase
 import com.progressterra.ipbandroidview.domain.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.SuggestionUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -21,7 +23,8 @@ class CityViewModel(
     private val suggestionUseCase: SuggestionUseCase
 ) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
 
-    override val container: Container<CityState, CityEffect> = container(CityState())
+    override val container: Container<CityState, CityEffect> = container(CityState(), buildSettings = {
+    })
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
