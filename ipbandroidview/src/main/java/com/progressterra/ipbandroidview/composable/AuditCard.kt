@@ -38,7 +38,7 @@ fun AuditCard(
             .padding(padding),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(modifier = Modifier.weight(1f)) {
+        Column(modifier = Modifier.weight(1f, false)) {
             Text(
                 text = text,
                 color = AppTheme.colors.black,
