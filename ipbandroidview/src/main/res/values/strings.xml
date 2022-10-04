@@ -27,4 +27,7 @@
     <string name="invalid_data">Неправильные данные!</string>
     <string name="my_location">Навигация к моей локации</string>
     <string name="forward">Далее</string>
+    <string name="result">Результат</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>

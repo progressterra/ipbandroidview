@@ -13,16 +13,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.composable.linktext.LinkText
 import com.progressterra.ipbandroidview.composable.linktext.LinkTextData
+import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
+fun SignInScreen(state: SignInState, interactor: SignInInteractor, screenType: SignInScreenType) {
     Scaffold(topBar = {
-        TopAppBarWithBackNav(title = stringResource(id = R.string.authorization),
+        TopAppBarWithBackNav(
+            title = stringResource(id = R.string.authorization),
             onBack = { interactor.onBack() })
     }) {
         Surface(
@@ -76,12 +77,14 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
                         onClick = { interactor.onNext() },
                         text = stringResource(id = R.string.auth_button)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-                    ThemedTextButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = { interactor.onSkip() },
-                        text = stringResource(id = R.string.auth_skip)
-                    )
+                    if (screenType == SignInScreenType.PASSABLE) {
+                        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                        ThemedTextButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = { interactor.onSkip() },
+                            text = stringResource(id = R.string.auth_skip)
+                        )
+                    }
                 }
             }
         }
@@ -90,8 +93,25 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor) {
 
 @Preview
 @Composable
-fun SplashScreenPreview() {
+private fun SplashScreenPreview() {
     AppTheme {
-        SignInScreen(SignInState("+7 (999) 999-99-99", true), SignInInteractor.Empty())
+        SignInScreen(
+            SignInState("+7 (999) 999-99-99", true),
+            SignInInteractor.Empty(),
+            SignInScreenType.PASSABLE
+        )
     }
 }
+
+@Preview
+@Composable
+private fun SplashScreenPreviewWithOnlyAuth() {
+    AppTheme {
+        SignInScreen(
+            SignInState("+7 (999) 999-99-99", true),
+            SignInInteractor.Empty(),
+            SignInScreenType.REQUIRING_AUTH
+        )
+    }
+}
+

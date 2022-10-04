@@ -15,7 +15,8 @@ class SignInNode(
     buildContext: BuildContext,
     private val onNext: () -> Unit,
     private val onSkip: () -> Unit,
-    private val onBack: () -> Unit
+    private val onBack: () -> Unit,
+    private val screenType: SignInScreenType
 ) : Node(buildContext) {
 
     @Composable
@@ -32,6 +33,6 @@ class SignInNode(
             }
         }
         val state = viewModel.collectAsState().value
-        SignInScreen(state = state, interactor = viewModel)
+        SignInScreen(state = state, interactor = viewModel, screenType = screenType)
     }
 }

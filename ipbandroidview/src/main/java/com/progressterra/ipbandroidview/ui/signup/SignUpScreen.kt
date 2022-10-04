@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.signup
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
@@ -20,7 +19,8 @@ import java.time.LocalDate
 @Composable
 fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
     Scaffold(topBar = {
-        TopAppBarWithBackNav(title = stringResource(id = R.string.signup),
+        TopAppBarWithBackNav(
+            title = stringResource(id = R.string.signup),
             onBack = { interactor.onBack() })
     }) {
         Surface(
@@ -62,9 +62,8 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                         onChange = { interactor.onEmail(it) })
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
                     ThemedMimicField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { interactor.openCalendar() },
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { interactor.openCalendar() },
                         text = state.birthday,
                         hint = stringResource(id = R.string.birthday),
                     )

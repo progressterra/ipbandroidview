@@ -21,18 +21,17 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.ui.city.Suggestion
 
-private val cardElevation: Dp = 4.dp
-private val cardRounding: Dp = 8.dp
-private val itemHorizontalPadding: Dp = 8.dp
-private val itemVerticalPadding: Dp = 6.dp
-private val itemLineSpacing: Dp = 2.dp
-
 @Composable
 fun AddressSuggestions(
     modifier: Modifier = Modifier,
     suggestions: List<Suggestion> = emptyList(),
     onSuggestion: (Suggestion) -> Unit,
-    isVisible: Boolean = false
+    isVisible: Boolean = false,
+    cardElevation: Dp = 4.dp,
+    cardRounding: Dp = 8.dp,
+    itemHorizontalPadding: Dp = 8.dp,
+    itemVerticalPadding: Dp = 6.dp,
+    itemLineSpacing: Dp = 2.dp
 ) {
     AnimatedVisibility(
         modifier = modifier,
@@ -46,11 +45,11 @@ fun AddressSuggestions(
             LazyColumn {
                 items(suggestions) {
                     Column(modifier = Modifier
+                        .clickable { onSuggestion(it) }
                         .padding(
                             horizontal = itemHorizontalPadding, vertical = itemVerticalPadding
                         )
-                        .fillMaxWidth()
-                        .clickable { onSuggestion(it) }) {
+                        .fillMaxWidth()) {
                         Text(
                             text = it.address,
                             color = AppTheme.colors.black,

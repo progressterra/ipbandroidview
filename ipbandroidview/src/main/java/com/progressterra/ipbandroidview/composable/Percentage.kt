@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun Percentage(
     modifier: Modifier = Modifier,
     percentage: Int = 0,
-    successPercentage: Int = 50,
+    successPercentage: Int = 85,
     cornerRadius: Dp = 100.dp,
     verticalPadding: Dp = 2.dp,
     horizontalPadding: Dp = 4.dp
@@ -48,6 +48,6 @@ private fun PercentagePreviewFailed() {
 @Composable
 private fun PercentagePreviewSuccessful() {
     AppTheme {
-        Percentage(percentage = 55)
+        Percentage(percentage = 90)
     }
 }

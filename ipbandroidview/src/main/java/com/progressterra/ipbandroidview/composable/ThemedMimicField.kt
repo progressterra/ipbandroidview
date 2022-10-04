@@ -1,21 +1,29 @@
 package com.progressterra.ipbandroidview.composable
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-private val roundingCornerSize = 8.dp
-
 @Composable
 fun ThemedMimicField(
-    modifier: Modifier = Modifier, text: String, hint: String
+    modifier: Modifier = Modifier,
+    roundingCornerSize: Dp = 8.dp,
+    text: String,
+    hint: String,
+    onClick: () -> Unit
 ) {
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
@@ -32,7 +40,13 @@ fun ThemedMimicField(
         }
     } else null
     TextField(
-        modifier = modifier,
+        modifier = modifier
+            .clip(RoundedCornerShape(roundingCornerSize))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(),
+                onClick = onClick
+            ),
         value = text,
         onValueChange = {},
         shape = RoundedCornerShape(roundingCornerSize),
@@ -62,32 +76,26 @@ fun ThemedMimicField(
 
 //TODO other colors
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun ThemedMimicFieldPreviewEnabled() {
     AppTheme {
-        ThemedMimicField(
-            text = "Some text", hint = "Your name"
-        )
+        ThemedMimicField(text = "Some text", hint = "Your name", onClick = {})
     }
 }
 
-@Preview
+@Preview(showBackground = true, backgroundColor = 0xFF888888)
 @Composable
 private fun ThemedMimicFieldPreviewDisabled() {
     AppTheme {
-        ThemedMimicField(
-            text = "Some text", hint = "Your name"
-        )
+        ThemedMimicField(text = "Some text", hint = "Your name", onClick = {})
     }
 }
 
-@Preview
+@Preview(showBackground = true, backgroundColor = 0xFF888888)
 @Composable
 private fun ThemedMimicFieldPreviewEmptyDisabled() {
     AppTheme {
-        ThemedMimicField(
-            text = "", hint = "Your name"
-        )
+        ThemedMimicField(text = "", hint = "Your name", onClick = {})
     }
 }
