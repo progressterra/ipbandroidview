@@ -28,7 +28,7 @@ fun AuditCard(
     text: String = "",
     address: String = "",
     percentage: Int = 0,
-    successPercentage: Int = 50,
+    successPercentage: Int = 85,
     done: Boolean = false
 ) {
     Row(

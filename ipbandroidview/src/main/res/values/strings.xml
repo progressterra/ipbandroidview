@@ -31,4 +31,7 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="icon">Иконка экрана</string>
+    <string name="audits">Аудиты</string>
+    <string name="no_data">Нет данных</string>
+    <string name="completed_audits">Завершённые аудиты</string>
 </resources>

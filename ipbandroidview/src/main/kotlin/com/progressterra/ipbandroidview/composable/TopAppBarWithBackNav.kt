@@ -13,28 +13,35 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val navButtonSize = 32.dp
 
 @Composable
-fun TopAppBarWithBackNav(title: String, onBack: () -> Unit) {
+fun TopAppBarWithBackNav(
+    title: String,
+    onBack: (() -> Unit)? = null,
+    actions: (@Composable RowScope.() -> Unit)? = null
+) {
     TopAppBar(
         backgroundColor = AppTheme.colors.surfaces,
         elevation = 0.dp,
         modifier = Modifier.fillMaxWidth()
     ) {
         Box {
-            Row(
-                modifier = Modifier.fillMaxSize(), verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(modifier = Modifier.size(navButtonSize), onClick = { onBack() }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_back),
-                        contentDescription = stringResource(id = R.string.navigate_back),
-                        tint = AppTheme.colors.gray1
-                    )
+            onBack?.let {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(modifier = Modifier.size(navButtonSize), onClick = { it() }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_back),
+                            contentDescription = stringResource(id = R.string.navigate_back),
+                            tint = AppTheme.colors.gray1
+                        )
+                    }
                 }
             }
             Row(
@@ -42,7 +49,6 @@ fun TopAppBarWithBackNav(title: String, onBack: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-
                 Text(
                     text = title,
                     color = AppTheme.colors.black,
@@ -51,14 +57,62 @@ fun TopAppBarWithBackNav(title: String, onBack: () -> Unit) {
                     textAlign = TextAlign.Center
                 )
             }
+            actions?.let {
+                Row(
+                    Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.End,
+                    verticalAlignment = Alignment.CenterVertically,
+                    content = it
+                )
+            }
         }
     }
 }
 
 @Preview
 @Composable
-fun TopAppBarWithBackNavPreview() {
+private fun TopAppBarWithBackNavPreview0() {
     AppTheme {
         TopAppBarWithBackNav(title = "Some mock title", onBack = {})
+    }
+}
+
+@Preview
+@Composable
+private fun TopAppBarWithBackNavPreview1() {
+    AppTheme {
+        TopAppBarWithBackNav(title = "Some mock title")
+    }
+}
+
+@Preview
+@Composable
+private fun TopAppBarWithBackNavPreview2() {
+    AppTheme {
+        TopAppBarWithBackNav(title = "Some mock title", actions = {
+            Text(
+                text = "SOS",
+                color = AppTheme.colors.black,
+                style = AppTheme.typography.title,
+                maxLines = 1,
+                textAlign = TextAlign.Center
+            )
+        })
+    }
+}
+
+@Preview
+@Composable
+private fun TopAppBarWithBackNavPreview3() {
+    AppTheme {
+        TopAppBarWithBackNav(title = "Some mock title", onBack = {}, actions = {
+            Text(
+                text = "SOS",
+                color = AppTheme.colors.black,
+                style = AppTheme.typography.title,
+                maxLines = 1,
+                textAlign = TextAlign.Center
+            )
+        })
     }
 }
