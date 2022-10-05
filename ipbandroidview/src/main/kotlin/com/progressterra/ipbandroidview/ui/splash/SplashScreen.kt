@@ -10,11 +10,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun SplashScreen(state: SplashState) {
+fun SplashScreen(state: SplashState, settings: SplashSettings) {
     Surface(modifier = Modifier.fillMaxSize(), color = AppTheme.colors.surfaces) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -23,8 +23,8 @@ fun SplashScreen(state: SplashState) {
         ) {
             Image(
                 modifier = Modifier
-                    .width(150.dp)
-                    .height(150.dp),
+                    .width(settings.logoWidth)
+                    .height(settings.logoHeight),
                 painter = painterResource(id = state.logoId),
                 contentDescription = stringResource(id = R.string.splash_logo)
             )
@@ -38,7 +38,11 @@ fun SplashScreenPreview() {
     AppTheme {
         SplashScreen(
             SplashState(
-                R.drawable.splash_logo
+                R.drawable.splash_logo,
+            ),
+            SplashSettings(
+                logoHeight = 150.dp,
+                logoWidth = 150.dp
             )
         )
     }

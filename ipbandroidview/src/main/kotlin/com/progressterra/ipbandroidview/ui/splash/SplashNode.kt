@@ -12,7 +12,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class SplashNode(
     buildContext: BuildContext,
     private val onAuth: () -> Unit,
-    private val onNonAuth: () -> Unit
+    private val onNonAuth: () -> Unit,
+    private val settings: SplashSettings
 ) : Node(buildContext) {
 
     @Composable
@@ -25,6 +26,6 @@ class SplashNode(
             }
         }
         val state = viewModel.collectAsState().value
-        SplashScreen(state = state)
+        SplashScreen(state = state, settings = settings)
     }
 }

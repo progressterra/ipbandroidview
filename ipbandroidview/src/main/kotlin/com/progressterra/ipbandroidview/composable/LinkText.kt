@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.linktext
+package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
@@ -10,6 +10,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import com.progressterra.ipbandroidview.theme.AppTheme
+
+data class LinkTextData(
+    val text: String,
+    val tag: String? = null,
+    val annotation: String? = null,
+    val onClick: ((String) -> Unit)? = null,
+)
 
 @Composable
 fun LinkText(

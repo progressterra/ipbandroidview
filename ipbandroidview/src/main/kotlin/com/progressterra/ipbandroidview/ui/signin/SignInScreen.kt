@@ -15,8 +15,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
-import com.progressterra.ipbandroidview.composable.linktext.LinkText
-import com.progressterra.ipbandroidview.composable.linktext.LinkTextData
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
