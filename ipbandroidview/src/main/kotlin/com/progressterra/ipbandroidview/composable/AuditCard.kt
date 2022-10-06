@@ -63,7 +63,7 @@ fun AuditCard(
                 successPercentage = successPercentage
             )
             Icon(
-                modifier = modifier.size(16.dp),
+                modifier = Modifier.size(16.dp),
                 painter = painterResource(id = R.drawable.ic_forward),
                 contentDescription = stringResource(
                     id = R.string.forward

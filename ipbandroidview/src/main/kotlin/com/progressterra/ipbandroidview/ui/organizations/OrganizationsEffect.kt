@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
-sealed class AuditsEffect {
+sealed class OrganizationsEffect {
 
 
 }
