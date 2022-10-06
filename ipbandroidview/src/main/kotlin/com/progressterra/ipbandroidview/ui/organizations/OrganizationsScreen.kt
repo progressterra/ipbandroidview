@@ -18,13 +18,11 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun OrganizationsScreen(
     state: OrganizationsState, interactor: OrganizationsInteractor
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBarWithBackNav(
-                title = stringResource(id = R.string.organizations)
-            )
-        }
-    ) {
+    Scaffold(topBar = {
+        TopAppBarWithBackNav(
+            title = stringResource(id = R.string.organizations)
+        )
+    }) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -40,12 +38,11 @@ fun OrganizationsScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 items(state.organizations) {
-                    OrganizationCard(
-                        modifier = Modifier.fillMaxWidth(),
+                    OrganizationCard(modifier = Modifier.fillMaxWidth(),
                         address = it.address,
                         description = it.description,
-                        availableChecks = it.availableChecks
-                    )
+                        availableChecks = it.availableChecks,
+                        onClick = { interactor.onOrganization(it.id) })
                 }
             }
         }
@@ -60,26 +57,14 @@ private fun AuditsScreenPreview() {
             state = OrganizationsState(
                 listOf(
                     Organization(
-                        "пл Дружбы народов, 45",
-                        "",
-                        0,
-                        "«Кофемания»"
-                    ),
-                    Organization(
-                        "пл Дружбы народов, 45",
-                        "",
-                        1,
-                        "«KFC»"
-                    ),
-                    Organization(
-                        "пл Дружбы народов, 45",
-                        "",
-                        2,
-                        "«Кофемания»"
+                        "пл Дружбы народов, 45", "", 0, "«Кофемания»"
+                    ), Organization(
+                        "пл Дружбы народов, 45", "", 1, "«KFC»"
+                    ), Organization(
+                        "пл Дружбы народов, 45", "", 2, "«Кофемания»"
                     )
                 )
-            ),
-            interactor = OrganizationsInteractor.Empty()
+            ), interactor = OrganizationsInteractor.Empty()
         )
     }
 }

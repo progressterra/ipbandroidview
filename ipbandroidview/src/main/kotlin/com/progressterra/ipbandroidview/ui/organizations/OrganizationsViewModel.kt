@@ -25,4 +25,8 @@ class OrganizationsViewModel(
         val result = allOrganizationsUseCase.allOrganizations()
         reduce { state.copy(organizations = result) }
     }
+
+    override fun onOrganization(id: String) {
+
+    }
 }
