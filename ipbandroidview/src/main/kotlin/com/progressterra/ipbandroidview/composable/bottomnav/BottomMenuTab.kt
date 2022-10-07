@@ -52,18 +52,16 @@ fun BottomMenuTab(
             }
             Icon(
                 painter = painterResource(id = state.iconId),
-                contentDescription = "${stringResource(id = R.string.icon)} ${state.title}",
+                contentDescription = "${stringResource(id = R.string.icon)} ${stringResource(id = state.titleId)}",
                 tint = if (state.active) AppTheme.colors.primary else AppTheme.colors.gray2
             )
         }
-        if (state.title.isNotBlank()) {
             Spacer(modifier = Modifier.size(gap))
             Text(
-                text = state.title,
+                text = stringResource(id = state.titleId),
                 style = AppTheme.typography.actionBarLabels,
                 color = if (state.active) AppTheme.colors.primary else AppTheme.colors.gray2
             )
-        }
     }
 }
 
@@ -76,7 +74,7 @@ private fun BottomNavItemPreview0() {
                 iconId = R.drawable.ic_profile,
                 active = true,
                 count = 3,
-                title = "Profile"
+                titleId = R.string.address
             )
         )
     }
@@ -91,35 +89,7 @@ private fun BottomNavItemPreview1() {
                 iconId = R.drawable.ic_audits,
                 active = true,
                 count = 0,
-                title = "Audits"
-            )
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun BottomNavItemPreview2() {
-    AppTheme {
-        BottomMenuTab(
-            state = BottomMenuItem(
-                iconId = R.drawable.ic_organization,
-                active = false,
-                count = 0
-            )
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun BottomNavItemPreview3() {
-    AppTheme {
-        BottomMenuTab(
-            state = BottomMenuItem(
-                iconId = R.drawable.ic_audits,
-                active = false,
-                count = 12
+                titleId = R.string.address
             )
         )
     }
