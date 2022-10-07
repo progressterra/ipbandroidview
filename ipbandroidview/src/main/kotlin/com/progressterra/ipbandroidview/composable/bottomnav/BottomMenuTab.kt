@@ -20,13 +20,13 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun BottomNavItem(
+fun BottomMenuTab(
     modifier: Modifier = Modifier,
     gap: Dp = 4.dp,
     padding: Dp = 4.dp,
     countSize: Dp = 13.dp,
     countRadius: Dp = 100.dp,
-    state: BottomNavItemState
+    state: BottomMenuItem
 ) {
     Column(
         modifier = modifier.padding(padding),
@@ -71,8 +71,8 @@ fun BottomNavItem(
 @Composable
 private fun BottomNavItemPreview0() {
     AppTheme {
-        BottomNavItem(
-            state = BottomNavItemState(
+        BottomMenuTab(
+            state = BottomMenuItem(
                 iconId = R.drawable.ic_profile,
                 active = true,
                 count = 3,
@@ -86,8 +86,8 @@ private fun BottomNavItemPreview0() {
 @Composable
 private fun BottomNavItemPreview1() {
     AppTheme {
-        BottomNavItem(
-            state = BottomNavItemState(
+        BottomMenuTab(
+            state = BottomMenuItem(
                 iconId = R.drawable.ic_audits,
                 active = true,
                 count = 0,
@@ -101,8 +101,8 @@ private fun BottomNavItemPreview1() {
 @Composable
 private fun BottomNavItemPreview2() {
     AppTheme {
-        BottomNavItem(
-            state = BottomNavItemState(
+        BottomMenuTab(
+            state = BottomMenuItem(
                 iconId = R.drawable.ic_organization,
                 active = false,
                 count = 0
@@ -115,8 +115,8 @@ private fun BottomNavItemPreview2() {
 @Composable
 private fun BottomNavItemPreview3() {
     AppTheme {
-        BottomNavItem(
-            state = BottomNavItemState(
+        BottomMenuTab(
+            state = BottomMenuItem(
                 iconId = R.drawable.ic_audits,
                 active = false,
                 count = 12

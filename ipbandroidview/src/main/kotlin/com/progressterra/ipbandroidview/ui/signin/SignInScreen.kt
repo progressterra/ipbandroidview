@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun SignInScreen(state: SignInState, interactor: SignInInteractor, screenType: SignInScreenType) {
+fun SignInScreen(state: SignInState, interactor: SignInInteractor, settings: SignInSettings) {
     Scaffold(topBar = {
         TopAppBarWithBackNav(
             title = stringResource(id = R.string.authorization),
@@ -75,7 +75,7 @@ fun SignInScreen(state: SignInState, interactor: SignInInteractor, screenType: S
                         onClick = { interactor.onNext() },
                         text = stringResource(id = R.string.auth_button)
                     )
-                    if (screenType == SignInScreenType.PASSABLE) {
+                    if (settings.type == SignInScreenType.PASSABLE) {
                         Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                         ThemedTextButton(
                             modifier = Modifier.fillMaxWidth(),
@@ -96,7 +96,7 @@ private fun SplashScreenPreview() {
         SignInScreen(
             SignInState("+7 (999) 999-99-99", true),
             SignInInteractor.Empty(),
-            SignInScreenType.PASSABLE
+            SignInSettings(SignInScreenType.PASSABLE)
         )
     }
 }
@@ -108,7 +108,7 @@ private fun SplashScreenPreviewWithOnlyAuth() {
         SignInScreen(
             SignInState("+7 (999) 999-99-99", true),
             SignInInteractor.Empty(),
-            SignInScreenType.REQUIRING_AUTH
+            SignInSettings(SignInScreenType.REQUIRING_AUTH)
         )
     }
 }

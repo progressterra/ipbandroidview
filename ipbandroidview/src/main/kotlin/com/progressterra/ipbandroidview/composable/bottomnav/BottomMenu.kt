@@ -16,8 +16,8 @@ import com.progressterra.ipbandroidview.composable.border
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun BottomNav(
-    modifier: Modifier = Modifier, items: List<BottomNavItemState>
+fun BottomMenu(
+    modifier: Modifier = Modifier, items: List<BottomMenuItem>
 ) {
     Row(
         modifier = modifier
@@ -29,7 +29,7 @@ fun BottomNav(
         verticalAlignment = Alignment.CenterVertically
     ) {
         items.forEach {
-            BottomNavItem(modifier = modifier.weight(1f), state = it)
+            BottomMenuTab(modifier = modifier.weight(1f), state = it)
         }
     }
 }
@@ -38,16 +38,16 @@ fun BottomNav(
 @Composable
 private fun BottomNavPreview() {
     AppTheme {
-        BottomNav(
+        BottomMenu(
             items = listOf(
-                BottomNavItemState(
+                BottomMenuItem(
                     iconId = R.drawable.ic_organization,
                     active = false,
                     count = 12,
                     title = "Organizations"
-                ), BottomNavItemState(
+                ), BottomMenuItem(
                     iconId = R.drawable.ic_audits, active = true, count = 0, title = "Audits"
-                ), BottomNavItemState(
+                ), BottomMenuItem(
                     iconId = R.drawable.ic_profile, active = false, count = 3, title = "Profile"
                 )
 
