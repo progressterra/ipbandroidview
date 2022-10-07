@@ -7,7 +7,7 @@ interface ConfigureScreen {
 
     fun configure(
         onBack: (() -> Unit)? = null,
-        title: String,
+        title: String? = null,
         actions: (@Composable RowScope.() -> Unit)? = null,
         bottomBarVisibility: Boolean = false
     )

@@ -20,7 +20,7 @@ private val navButtonSize = 32.dp
 
 @Composable
 fun ThemedTopAppBar(
-    title: String,
+    title: String? = null,
     onBack: (() -> Unit)? = null,
     actions: (@Composable RowScope.() -> Unit)? = null
 ) {
@@ -44,18 +44,20 @@ fun ThemedTopAppBar(
                     }
                 }
             }
-            Row(
-                modifier = Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = title,
-                    color = AppTheme.colors.black,
-                    style = AppTheme.typography.title,
-                    maxLines = 1,
-                    textAlign = TextAlign.Center
-                )
+            title?.let {
+                Row(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = it,
+                        color = AppTheme.colors.black,
+                        style = AppTheme.typography.title,
+                        maxLines = 1,
+                        textAlign = TextAlign.Center
+                    )
+                }
             }
             actions?.let {
                 Row(
@@ -106,6 +108,22 @@ private fun TopAppBarWithBackNavPreview2() {
 private fun TopAppBarWithBackNavPreview3() {
     AppTheme {
         ThemedTopAppBar(title = "Some mock title", onBack = {}, actions = {
+            Text(
+                text = "SOS",
+                color = AppTheme.colors.black,
+                style = AppTheme.typography.title,
+                maxLines = 1,
+                textAlign = TextAlign.Center
+            )
+        })
+    }
+}
+
+@Preview
+@Composable
+private fun TopAppBarWithBackNavPreview4() {
+    AppTheme {
+        ThemedTopAppBar(onBack = {}, actions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.black,
