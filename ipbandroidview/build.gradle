@@ -103,7 +103,7 @@ dependencies {
     api "com.google.maps.android:maps-compose:2.7.2"
     api "com.google.android.gms:play-services-maps:18.1.0"
     //iProBonusAndroidAPI
-    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.8"
+    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.9"
 
     api "com.squaredem:composecalendar:1.0.2"
 }
