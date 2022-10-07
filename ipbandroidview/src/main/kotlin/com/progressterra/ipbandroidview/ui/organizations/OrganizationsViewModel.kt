@@ -23,8 +23,9 @@ class OrganizationsViewModel(
     }
 
     private fun initOrganizations() = intent {
-        Log.d("ORG", "initOrganizations: ")
+        Log.d("ORG", "initOrganizations start")
         val result = allOrganizationsUseCase.allOrganizations()
+        Log.d("ORG", "initOrganizations $result")
         reduce { state.copy(organizations = result) }
     }
 
