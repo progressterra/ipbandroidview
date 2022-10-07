@@ -91,7 +91,7 @@ fun VerificationCodeInput(
                 repeat(digitsCount) { index ->
                     Digit(
                         if (index >= localCode.length) "" else localCode[index].toString(),
-                        (localCode.length == index && localCode.length == digitsCount) && focused
+                        (localCode.length == index) && focused
                     )
                     if (index != digitsCount - 1) Spacer(modifier = Modifier.size(spaceBetweenDigits))
                 }
