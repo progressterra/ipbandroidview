@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
+import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
@@ -89,6 +90,10 @@ val iPBAndroidViewModule = module {
 
     viewModel {
         SplashViewModel()
+    }
+
+    viewModel {
+        OrganizationsViewModel(get())
     }
 
     viewModel {
