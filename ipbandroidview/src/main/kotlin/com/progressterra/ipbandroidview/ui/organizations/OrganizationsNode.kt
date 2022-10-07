@@ -16,9 +16,6 @@ class OrganizationsNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: OrganizationsViewModel = getViewModel()
-        viewModel.collectSideEffect {
-
-        }
         val state = viewModel.collectAsState().value
         OrganizationsScreen(state = state, interactor = viewModel)
     }

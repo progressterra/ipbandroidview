@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.domain.AllOrganizationsUseCase
 import org.orbitmvi.orbit.Container
@@ -22,6 +23,7 @@ class OrganizationsViewModel(
     }
 
     private fun initOrganizations() = intent {
+        Log.d("ORG", "initOrganizations: ")
         val result = allOrganizationsUseCase.allOrganizations()
         reduce { state.copy(organizations = result) }
     }
