@@ -20,8 +20,6 @@ class SignUpViewModel(
     override val container: Container<SignUpState, SignUpEffect> =
         container(SignUpState(phoneNumber = UserData.phone))
 
-    override fun onBack() = intent { postSideEffect(SignUpEffect.Back) }
-
     override fun onSkip() = intent { postSideEffect(SignUpEffect.Skip) }
 
     override fun onNext() = intent {

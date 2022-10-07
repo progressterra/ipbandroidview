@@ -4,8 +4,6 @@ import com.google.android.gms.maps.model.LatLng
 
 interface CityInteractor {
 
-    fun onBack()
-
     fun onSkip()
 
     fun onNext()
@@ -21,8 +19,6 @@ interface CityInteractor {
     fun onAddressFocus(focused: Boolean)
 
     class Empty : CityInteractor {
-
-        override fun onBack() = Unit
 
         override fun onSkip() = Unit
 

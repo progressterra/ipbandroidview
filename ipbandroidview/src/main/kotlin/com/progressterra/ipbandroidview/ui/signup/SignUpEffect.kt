@@ -4,8 +4,6 @@ import androidx.annotation.StringRes
 
 sealed class SignUpEffect {
 
-    object Back : SignUpEffect()
-
     object Skip : SignUpEffect()
 
     object Next : SignUpEffect()

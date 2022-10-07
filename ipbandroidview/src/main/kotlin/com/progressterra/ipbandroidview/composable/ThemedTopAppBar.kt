@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 private val navButtonSize = 32.dp
 
 @Composable
-fun TopAppBarWithBackNav(
+fun ThemedTopAppBar(
     title: String,
     onBack: (() -> Unit)? = null,
     actions: (@Composable RowScope.() -> Unit)? = null
@@ -73,7 +73,7 @@ fun TopAppBarWithBackNav(
 @Composable
 private fun TopAppBarWithBackNavPreview0() {
     AppTheme {
-        TopAppBarWithBackNav(title = "Some mock title", onBack = {})
+        ThemedTopAppBar(title = "Some mock title", onBack = {})
     }
 }
 
@@ -81,7 +81,7 @@ private fun TopAppBarWithBackNavPreview0() {
 @Composable
 private fun TopAppBarWithBackNavPreview1() {
     AppTheme {
-        TopAppBarWithBackNav(title = "Some mock title")
+        ThemedTopAppBar(title = "Some mock title")
     }
 }
 
@@ -89,7 +89,7 @@ private fun TopAppBarWithBackNavPreview1() {
 @Composable
 private fun TopAppBarWithBackNavPreview2() {
     AppTheme {
-        TopAppBarWithBackNav(title = "Some mock title", actions = {
+        ThemedTopAppBar(title = "Some mock title", actions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.black,
@@ -105,7 +105,7 @@ private fun TopAppBarWithBackNavPreview2() {
 @Composable
 private fun TopAppBarWithBackNavPreview3() {
     AppTheme {
-        TopAppBarWithBackNav(title = "Some mock title", onBack = {}, actions = {
+        ThemedTopAppBar(title = "Some mock title", onBack = {}, actions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.black,

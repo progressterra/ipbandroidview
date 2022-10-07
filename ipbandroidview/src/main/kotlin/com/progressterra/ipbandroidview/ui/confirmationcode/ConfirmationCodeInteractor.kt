@@ -2,8 +2,6 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 
 interface ConfirmationCodeInteractor {
 
-    fun onBack()
-
     fun onResend()
 
     fun onNext()
@@ -11,8 +9,6 @@ interface ConfirmationCodeInteractor {
     fun onCode(code: String)
 
     class Empty : ConfirmationCodeInteractor {
-
-        override fun onBack() = Unit
 
         override fun onResend() = Unit
 

@@ -6,8 +6,6 @@ interface SignInInteractor {
 
     fun onSkip()
 
-    fun onBack()
-
     fun onPhoneNumber(phoneNumber: String)
 
     class Empty : SignInInteractor {
@@ -15,8 +13,6 @@ interface SignInInteractor {
         override fun onNext() = Unit
 
         override fun onSkip() = Unit
-
-        override fun onBack() = Unit
 
         override fun onPhoneNumber(phoneNumber: String) = Unit
     }

@@ -25,8 +25,6 @@ class CityViewModel(
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
-    override fun onBack() = intent { postSideEffect(CityEffect.Back) }
-
     override fun onSkip() = intent { postSideEffect(CityEffect.Skip) }
 
     override fun onNext() = intent { postSideEffect(CityEffect.Next) }

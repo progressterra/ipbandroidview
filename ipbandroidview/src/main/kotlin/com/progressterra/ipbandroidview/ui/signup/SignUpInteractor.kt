@@ -4,7 +4,6 @@ import java.time.LocalDate
 
 interface SignUpInteractor {
 
-    fun onBack()
 
     fun onSkip()
 
@@ -22,7 +21,6 @@ interface SignUpInteractor {
 
     class Empty : SignUpInteractor {
 
-        override fun onBack() = Unit
 
         override fun onSkip() = Unit
 

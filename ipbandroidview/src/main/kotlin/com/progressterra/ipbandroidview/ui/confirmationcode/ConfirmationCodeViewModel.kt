@@ -27,8 +27,6 @@ class ConfirmationCodeViewModel(
         startTimer()
     }
 
-    override fun onBack() = intent { postSideEffect(ConfirmationEffect.Back) }
-
     override fun onResend() {
         intent {
             startVerificationChannelUseCase.start(state.phoneNumber)

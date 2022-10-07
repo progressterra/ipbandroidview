@@ -27,8 +27,6 @@ class SignInViewModel(
 
     override fun onSkip() = intent { postSideEffect(SignInEffect.Skip) }
 
-    override fun onBack() = intent { postSideEffect(SignInEffect.Back) }
-
     override fun onPhoneNumber(phoneNumber: String) = intent {
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
