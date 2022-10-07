@@ -17,7 +17,7 @@ interface AllOrganizationsUseCase {
 
         override suspend fun allOrganizations(): List<Organization> = buildList {
             repo.availableChecklists().map { places ->
-                places.map { place ->
+                places?.map { place ->
                     add(
                         Organization(
                             place.address ?: noData,
