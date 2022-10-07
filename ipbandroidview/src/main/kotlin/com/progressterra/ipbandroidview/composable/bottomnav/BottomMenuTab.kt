@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.composable.bottomnav
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -26,12 +27,14 @@ fun BottomMenuTab(
     padding: Dp = 4.dp,
     countSize: Dp = 13.dp,
     countRadius: Dp = 100.dp,
-    state: BottomMenuItem
+    state: BottomMenuItem,
+    onClick: (id: String) -> Unit
 ) {
-    Column(
-        modifier = modifier.padding(padding),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Column(modifier = modifier
+        .clickable {
+            onClick(state.id)
+        }
+        .padding(padding), horizontalAlignment = Alignment.CenterHorizontally) {
         Box(contentAlignment = Alignment.TopEnd) {
             if (state.count > 0) {
                 Box(
@@ -56,12 +59,12 @@ fun BottomMenuTab(
                 tint = if (state.active) AppTheme.colors.primary else AppTheme.colors.gray2
             )
         }
-            Spacer(modifier = Modifier.size(gap))
-            Text(
-                text = stringResource(id = state.titleId),
-                style = AppTheme.typography.actionBarLabels,
-                color = if (state.active) AppTheme.colors.primary else AppTheme.colors.gray2
-            )
+        Spacer(modifier = Modifier.size(gap))
+        Text(
+            text = stringResource(id = state.titleId),
+            style = AppTheme.typography.actionBarLabels,
+            color = if (state.active) AppTheme.colors.primary else AppTheme.colors.gray2
+        )
     }
 }
 
@@ -69,14 +72,13 @@ fun BottomMenuTab(
 @Composable
 private fun BottomNavItemPreview0() {
     AppTheme {
-        BottomMenuTab(
-            state = BottomMenuItem(
-                iconId = R.drawable.ic_profile,
-                active = true,
-                count = 3,
-                titleId = R.string.address
-            )
-        )
+        BottomMenuTab(state = BottomMenuItem(
+            id = "",
+            iconId = R.drawable.ic_profile,
+            active = true,
+            count = 3,
+            titleId = R.string.address
+        ), onClick = {})
     }
 }
 
@@ -84,13 +86,12 @@ private fun BottomNavItemPreview0() {
 @Composable
 private fun BottomNavItemPreview1() {
     AppTheme {
-        BottomMenuTab(
-            state = BottomMenuItem(
-                iconId = R.drawable.ic_audits,
-                active = true,
-                count = 0,
-                titleId = R.string.address
-            )
-        )
+        BottomMenuTab(state = BottomMenuItem(
+            id = "",
+            iconId = R.drawable.ic_audits,
+            active = true,
+            count = 0,
+            titleId = R.string.address
+        ), onClick = {})
     }
 }

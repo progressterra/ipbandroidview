@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun BottomMenu(
-    modifier: Modifier = Modifier, items: List<BottomMenuItem>
+    modifier: Modifier = Modifier, items: List<BottomMenuItem>, onClick: (id: String) -> Unit
 ) {
     Row(
         modifier = modifier
@@ -29,7 +29,7 @@ fun BottomMenu(
         verticalAlignment = Alignment.CenterVertically
     ) {
         items.forEach {
-            BottomMenuTab(modifier = modifier.weight(1f), state = it)
+            BottomMenuTab(modifier = modifier.weight(1f), state = it, onClick = onClick)
         }
     }
 }
@@ -38,26 +38,27 @@ fun BottomMenu(
 @Composable
 private fun BottomNavPreview() {
     AppTheme {
-        BottomMenu(
-            items = listOf(
-                BottomMenuItem(
-                    iconId = R.drawable.ic_organization,
-                    active = false,
-                    count = 12,
-                    titleId = R.string.address
-                ), BottomMenuItem(
-                    iconId = R.drawable.ic_audits,
-                    active = true,
-                    count = 0,
-                    titleId = R.string.address
-                ), BottomMenuItem(
-                    iconId = R.drawable.ic_profile,
-                    active = false,
-                    count = 3,
-                    titleId = R.string.address
-                )
-
+        BottomMenu(items = listOf(
+            BottomMenuItem(
+                iconId = R.drawable.ic_organization,
+                active = false,
+                count = 12,
+                titleId = R.string.address,
+                id = ""
+            ), BottomMenuItem(
+                iconId = R.drawable.ic_audits,
+                active = true,
+                count = 0,
+                titleId = R.string.address,
+                id = ""
+            ), BottomMenuItem(
+                iconId = R.drawable.ic_profile,
+                active = false,
+                count = 3,
+                titleId = R.string.address,
+                id = ""
             )
-        )
+
+        ), onClick = {})
     }
 }
