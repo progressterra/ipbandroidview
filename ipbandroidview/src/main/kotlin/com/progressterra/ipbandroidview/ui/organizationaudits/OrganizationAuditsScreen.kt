@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.organizationaudits
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ fun OrganizationAuditsScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
+            .background(AppTheme.colors.background)
             .padding(top = 8.dp, start = 8.dp, end = 8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {

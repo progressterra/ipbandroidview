@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.organizationaudits
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.domain.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.ui.organizations.Organization
@@ -30,6 +31,7 @@ class OrganizationAuditsViewModel(
 
     private fun fetch() = intent {
         val audits = organizationAuditsUseCase.organizationsAudits(organization.id)
+        Log.d("AUDITS", "fetch: $audits")
         reduce { state.copy(audits = audits) }
     }
 
