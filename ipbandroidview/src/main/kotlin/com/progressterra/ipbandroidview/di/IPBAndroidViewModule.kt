@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
+import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationInfo
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
@@ -113,8 +114,8 @@ val iPBAndroidViewModule = module {
         ConfirmationCodeViewModel(get(), get())
     }
 
-    viewModel { (id: String) ->
-        OrganizationAuditsViewModel(id, get())
+    viewModel { (info: OrganizationInfo) ->
+        OrganizationAuditsViewModel(info, get())
     }
 
     viewModel {
