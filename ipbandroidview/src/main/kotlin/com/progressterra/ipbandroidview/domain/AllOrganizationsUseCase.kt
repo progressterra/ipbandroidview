@@ -23,7 +23,8 @@ interface AllOrganizationsUseCase {
                             place.address ?: noData,
                             place.idUnique?.toString() ?: Constants.DEFAULT_ID,
                             place.countAvailableRFCheck ?: 0,
-                            place.name ?: noData
+                            place.name ?: noData,
+                            place.imageURL ?: ""
                         )
                     )
                 }
