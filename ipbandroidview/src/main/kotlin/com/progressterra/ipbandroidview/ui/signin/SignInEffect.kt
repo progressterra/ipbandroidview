@@ -8,5 +8,6 @@ sealed class SignInEffect {
 
     object Skip : SignInEffect()
 
+    @Suppress("unused")
     class Toast(@StringRes val message: Int) : SignInEffect()
 }

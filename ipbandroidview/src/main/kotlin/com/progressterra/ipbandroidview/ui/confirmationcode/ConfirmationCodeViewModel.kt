@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.domain.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay
@@ -39,6 +40,8 @@ class ConfirmationCodeViewModel(
         if (endVerificationChannelUseCase.end(state.phoneNumber, state.code)) {
             UserData.phone = state.phoneNumber
             postSideEffect(ConfirmationEffect.Next)
+        } else {
+            postSideEffect(ConfirmationEffect.Toast(R.string.wrong_auth_code))
         }
     }
 
