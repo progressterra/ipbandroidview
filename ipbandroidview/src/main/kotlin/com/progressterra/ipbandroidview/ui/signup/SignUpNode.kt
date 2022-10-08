@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.base.ConfigureScreen
+import com.progressterra.ipbandroidview.ui.root.RootViewModel
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -16,7 +16,6 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class SignUpNode(
     buildContext: BuildContext,
-    private val configureScreen: ConfigureScreen,
     private val onBack: () -> Unit,
     private val onNext: () -> Unit,
     private val onSkip: () -> Unit
@@ -24,7 +23,8 @@ class SignUpNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        configureScreen.configure(onBack = onBack, title = stringResource(id = R.string.signup))
+        val rootViewModel: RootViewModel = getViewModel()
+        rootViewModel.configure(onBack = onBack, title = stringResource(id = R.string.signup))
         val viewModel: SignUpViewModel = getViewModel()
         val context = LocalContext.current
         viewModel.collectSideEffect {

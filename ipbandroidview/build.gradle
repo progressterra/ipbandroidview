@@ -83,7 +83,6 @@ dependencies {
     api "androidx.constraintlayout:constraintlayout-compose:1.0.1"
     //Koin
     api "io.insert-koin:koin-android:3.2.2"
-    api "io.insert-koin:koin-androidx-navigation:3.2.2"
     api "io.insert-koin:koin-androidx-compose:3.2.1"
     //Accompanist
     api "com.google.accompanist:accompanist-systemuicontroller:0.25.1"

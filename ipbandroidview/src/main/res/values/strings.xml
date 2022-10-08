@@ -35,4 +35,5 @@
     <string name="no_data">Нет данных</string>
     <string name="completed_audits">Завершённые аудиты</string>
     <string name="organizations">Заведения</string>
+    <string name="profile">Профиль</string>
 </resources>

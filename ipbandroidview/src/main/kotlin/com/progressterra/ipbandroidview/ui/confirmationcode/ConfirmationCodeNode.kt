@@ -8,14 +8,13 @@ import androidx.compose.ui.res.stringResource
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.base.ConfigureScreen
+import com.progressterra.ipbandroidview.ui.root.RootViewModel
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class ConfirmationCodeNode(
-    private val configureScreen: ConfigureScreen,
     buildContext: BuildContext,
     private val onNext: () -> Unit,
     private val onBack: () -> Unit
@@ -23,7 +22,8 @@ class ConfirmationCodeNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        configureScreen.configure(
+        val rootViewModel: RootViewModel = getViewModel()
+        rootViewModel.configure(
             onBack = onBack, title = stringResource(id = R.string.verification_code)
         )
         val viewModel: ConfirmationCodeViewModel = getViewModel()

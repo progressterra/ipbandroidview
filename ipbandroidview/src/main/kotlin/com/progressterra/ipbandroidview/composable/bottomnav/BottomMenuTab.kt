@@ -28,6 +28,7 @@ fun BottomMenuTab(
     countSize: Dp = 13.dp,
     countRadius: Dp = 100.dp,
     state: BottomMenuItem,
+    active: Boolean,
     onClick: (id: String) -> Unit
 ) {
     Column(modifier = modifier
@@ -56,14 +57,14 @@ fun BottomMenuTab(
             Icon(
                 painter = painterResource(id = state.iconId),
                 contentDescription = "${stringResource(id = R.string.icon)} ${stringResource(id = state.titleId)}",
-                tint = if (state.active) AppTheme.colors.primary else AppTheme.colors.gray2
+                tint = if (active) AppTheme.colors.primary else AppTheme.colors.gray2
             )
         }
         Spacer(modifier = Modifier.size(gap))
         Text(
             text = stringResource(id = state.titleId),
             style = AppTheme.typography.actionBarLabels,
-            color = if (state.active) AppTheme.colors.primary else AppTheme.colors.gray2
+            color = if (active) AppTheme.colors.primary else AppTheme.colors.gray2
         )
     }
 }
@@ -72,13 +73,11 @@ fun BottomMenuTab(
 @Composable
 private fun BottomNavItemPreview0() {
     AppTheme {
-        BottomMenuTab(state = BottomMenuItem(
-            id = "",
-            iconId = R.drawable.ic_profile,
-            active = true,
-            count = 3,
-            titleId = R.string.address
-        ), onClick = {})
+        BottomMenuTab(
+            state = BottomMenuItem(
+                id = "", iconId = R.drawable.ic_profile, count = 3, titleId = R.string.address
+            ), onClick = {}, active = true
+        )
     }
 }
 
@@ -86,12 +85,10 @@ private fun BottomNavItemPreview0() {
 @Composable
 private fun BottomNavItemPreview1() {
     AppTheme {
-        BottomMenuTab(state = BottomMenuItem(
-            id = "",
-            iconId = R.drawable.ic_audits,
-            active = true,
-            count = 0,
-            titleId = R.string.address
-        ), onClick = {})
+        BottomMenuTab(
+            state = BottomMenuItem(
+                id = "", iconId = R.drawable.ic_audits, count = 0, titleId = R.string.address
+            ), onClick = {}, active = false
+        )
     }
 }
