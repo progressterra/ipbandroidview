@@ -41,7 +41,7 @@ class ConfirmationCodeViewModel(
             UserData.phone = state.phoneNumber
             postSideEffect(ConfirmationEffect.Next)
         } else {
-            postSideEffect(ConfirmationEffect.Toast(R.string.wrong_auth_code))
+            postSideEffect(ConfirmationEffect.Toast(R.string.wrong_code))
         }
     }
 
