@@ -43,15 +43,12 @@ private fun BottomNavPreview() {
                 BottomMenuItem(iconId = R.drawable.ic_organization,
                     count = 12,
                     titleId = R.string.address,
-                    id = "",
                     onClick = {}), BottomMenuItem(iconId = R.drawable.ic_audits,
                     count = 0,
                     titleId = R.string.address,
-                    id = "",
                     onClick = {}), BottomMenuItem(iconId = R.drawable.ic_profile,
                     count = 3,
                     titleId = R.string.address,
-                    id = "",
                     onClick = {})
             ), activeIndex = 0
         )
