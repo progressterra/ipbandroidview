@@ -73,7 +73,7 @@ fun BottomMenuTab(
 private fun BottomNavItemPreview0() {
     AppTheme {
         BottomMenuTab(
-            state = BottomMenuItem(id = "",
+            state = BottomMenuItem(
                 iconId = R.drawable.ic_profile,
                 count = 3,
                 titleId = R.string.address,
@@ -87,7 +87,7 @@ private fun BottomNavItemPreview0() {
 private fun BottomNavItemPreview1() {
     AppTheme {
         BottomMenuTab(
-            state = BottomMenuItem(id = "",
+            state = BottomMenuItem(
                 iconId = R.drawable.ic_audits,
                 count = 0,
                 titleId = R.string.address,
