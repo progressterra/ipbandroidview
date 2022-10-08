@@ -36,4 +36,6 @@
     <string name="completed_audits">Завершённые аудиты</string>
     <string name="organizations">Заведения</string>
     <string name="profile">Профиль</string>
+    <string name="organization_image">Изображение организации</string>
+    <string name="map">Карта</string>
 </resources>
