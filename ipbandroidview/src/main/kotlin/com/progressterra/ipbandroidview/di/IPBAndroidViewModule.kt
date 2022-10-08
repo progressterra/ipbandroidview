@@ -13,7 +13,6 @@ import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
-import com.progressterra.ipbandroidview.ui.root.RootViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
@@ -87,10 +86,6 @@ val iPBAndroidViewModule = module {
 
     single<ProvideLocation> {
         ProvideLocation.Base(get())
-    }
-
-    viewModel {
-        RootViewModel()
     }
 
     viewModel {
