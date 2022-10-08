@@ -10,7 +10,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class OrganizationAuditsViewModel(
     private val id: String, private val organizationAuditsUseCase: OrganizationAuditsUseCase
-) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect> {
+) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect>, OrganizationAuditsInteractor {
 
     override val container: Container<OrganizationAuditsState, OrganizationAuditsEffect> =
         container(
@@ -24,5 +24,9 @@ class OrganizationAuditsViewModel(
     private fun fetch() = intent {
         val audits = organizationAuditsUseCase.organizationsAudits(id)
         reduce { state.copy(audits = audits) }
+    }
+
+    override fun onMapClick() {
+        TODO("Not yet implemented")
     }
 }
