@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.root
 
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -15,7 +16,7 @@ class RootViewModel : ViewModel(), ContainerHost<RootState, RootEffect> {
     fun configure(
         onBack: (() -> Unit)? = null,
         title: String? = null,
-        actions: (RowScope.() -> Unit)? = null,
+        actions: (@Composable RowScope.() -> Unit)? = null,
         bottomBarVisibility: Boolean = false
     ) = intent {
         reduce {
