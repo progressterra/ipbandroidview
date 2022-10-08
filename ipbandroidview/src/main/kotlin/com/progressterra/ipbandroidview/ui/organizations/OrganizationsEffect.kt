@@ -4,5 +4,6 @@ import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationInfo
 
 sealed class OrganizationsEffect {
 
-    class Organization(info: OrganizationInfo) : OrganizationsEffect()
+    @Suppress("unused")
+    class Organization(val info: OrganizationInfo) : OrganizationsEffect()
 }
