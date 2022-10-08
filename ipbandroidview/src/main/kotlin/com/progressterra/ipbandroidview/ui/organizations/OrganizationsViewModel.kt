@@ -3,9 +3,11 @@ package com.progressterra.ipbandroidview.ui.organizations
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.domain.AllOrganizationsUseCase
+import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationInfo
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
@@ -29,7 +31,7 @@ class OrganizationsViewModel(
         reduce { state.copy(organizations = result) }
     }
 
-    override fun onOrganization(id: String) {
-
+    override fun onOrganization(info: OrganizationInfo) = intent {
+        postSideEffect(OrganizationsEffect.Organization(info))
     }
 }

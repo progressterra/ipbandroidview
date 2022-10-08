@@ -4,5 +4,6 @@ data class Organization(
     val address: String,
     val id: String,
     val availableChecks: Int,
-    val description: String
+    val name: String,
+    val imageUrl: String
 )

@@ -9,12 +9,18 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class OrganizationAuditsViewModel(
-    private val id: String, private val organizationAuditsUseCase: OrganizationAuditsUseCase
-) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect>, OrganizationAuditsInteractor {
+    private val info: OrganizationInfo,
+    private val organizationAuditsUseCase: OrganizationAuditsUseCase
+) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect>,
+    OrganizationAuditsInteractor {
 
     override val container: Container<OrganizationAuditsState, OrganizationAuditsEffect> =
         container(
-            OrganizationAuditsState()
+            OrganizationAuditsState(
+                organizationName = info.name,
+                organizationAddress = info.address,
+                imageUrl = info.imageUrl
+            )
         )
 
     init {
@@ -22,7 +28,7 @@ class OrganizationAuditsViewModel(
     }
 
     private fun fetch() = intent {
-        val audits = organizationAuditsUseCase.organizationsAudits(id)
+        val audits = organizationAuditsUseCase.organizationsAudits(info.id)
         reduce { state.copy(audits = audits) }
     }
 
