@@ -7,5 +7,6 @@ data class BottomMenuItem(
     val id: String,
     @StringRes val titleId: Int,
     val count: Int = 0,
-    @DrawableRes val iconId: Int
+    @DrawableRes val iconId: Int,
+    val onClick: () -> Unit
 )

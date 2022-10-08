@@ -28,12 +28,11 @@ fun BottomMenuTab(
     countSize: Dp = 13.dp,
     countRadius: Dp = 100.dp,
     state: BottomMenuItem,
-    active: Boolean,
-    onClick: (id: String) -> Unit
+    active: Boolean
 ) {
     Column(modifier = modifier
         .clickable {
-            onClick(state.id)
+            state.onClick()
         }
         .padding(padding), horizontalAlignment = Alignment.CenterHorizontally) {
         Box(contentAlignment = Alignment.TopEnd) {
@@ -74,9 +73,11 @@ fun BottomMenuTab(
 private fun BottomNavItemPreview0() {
     AppTheme {
         BottomMenuTab(
-            state = BottomMenuItem(
-                id = "", iconId = R.drawable.ic_profile, count = 3, titleId = R.string.address
-            ), onClick = {}, active = true
+            state = BottomMenuItem(id = "",
+                iconId = R.drawable.ic_profile,
+                count = 3,
+                titleId = R.string.address,
+                onClick = {}), active = true
         )
     }
 }
@@ -86,9 +87,11 @@ private fun BottomNavItemPreview0() {
 private fun BottomNavItemPreview1() {
     AppTheme {
         BottomMenuTab(
-            state = BottomMenuItem(
-                id = "", iconId = R.drawable.ic_audits, count = 0, titleId = R.string.address
-            ), onClick = {}, active = false
+            state = BottomMenuItem(id = "",
+                iconId = R.drawable.ic_audits,
+                count = 0,
+                titleId = R.string.address,
+                onClick = {}), active = false
         )
     }
 }
