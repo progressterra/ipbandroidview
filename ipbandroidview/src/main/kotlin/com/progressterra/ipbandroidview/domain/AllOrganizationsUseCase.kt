@@ -24,7 +24,9 @@ interface AllOrganizationsUseCase {
                             place.idUnique?.toString() ?: Constants.DEFAULT_ID,
                             place.countAvailableRFCheck ?: 0,
                             place.name ?: noData,
-                            place.imageURL ?: ""
+                            place.imageURL ?: "",
+                            place.latitude ?: 0.0,
+                            place.longitude ?: 0.0
                         )
                     )
                 }

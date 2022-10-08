@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.OrganizationCard
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationInfo
 
 @Composable
 fun OrganizationsScreen(
@@ -36,12 +35,7 @@ fun OrganizationsScreen(
                     availableChecks = it.availableChecks,
                     onClick = {
                         interactor.onOrganization(
-                            OrganizationInfo(
-                                it.id,
-                                it.imageUrl,
-                                it.name,
-                                it.address
-                            )
+                            it
                         )
                     })
             }
@@ -57,11 +51,11 @@ private fun AuditsScreenPreview() {
             state = OrganizationsState(
                 listOf(
                     Organization(
-                        "пл Дружбы народов, 45", "", 0, "«Кофемания»", ""
+                        "пл Дружбы народов, 45", "", 0, "«Кофемания»", "", 0.0, 0.0
                     ), Organization(
-                        "пл Дружбы народов, 45", "", 1, "«KFC»", ""
+                        "пл Дружбы народов, 45", "", 1, "«KFC»", "", 0.0, 0.0
                     ), Organization(
-                        "пл Дружбы народов, 45", "", 2, "«Кофемания»", ""
+                        "пл Дружбы народов, 45", "", 2, "«Кофемания»", "", 0.0, 0.0
                     )
                 )
             ), interactor = OrganizationsInteractor.Empty()

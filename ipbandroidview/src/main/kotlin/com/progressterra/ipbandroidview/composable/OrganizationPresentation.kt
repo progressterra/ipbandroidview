@@ -19,6 +19,7 @@ import coil.compose.AsyncImage
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+//TODO map click
 @Composable
 fun OrganizationPresentation(
     modifier: Modifier = Modifier,
@@ -34,7 +35,7 @@ fun OrganizationPresentation(
             .padding(12.dp)
     ) {
         AsyncImage(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)),
             model = imageUrl,
             contentDescription = stringResource(id = R.string.organization_image),
             contentScale = ContentScale.FillWidth
@@ -55,10 +56,11 @@ fun OrganizationPresentation(
                 )
             }
             Column(
-                modifier.clickable { onMapClick() },
+                modifier.clickable { },
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Icon(
+                    modifier = Modifier.size(16.dp),
                     painter = painterResource(id = R.drawable.ic_map),
                     contentDescription = stringResource(
                         id = R.string.map

@@ -1,13 +1,11 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
-import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationInfo
-
 interface OrganizationsInteractor {
 
-    fun onOrganization(info: OrganizationInfo)
+    fun onOrganization(organization: Organization)
 
     class Empty : OrganizationsInteractor {
 
-        override fun onOrganization(info: OrganizationInfo) = Unit
+        override fun onOrganization(organization: Organization) = Unit
     }
 }
