@@ -7,11 +7,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.Lifecycle
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.core.ConfigureScreen
@@ -20,9 +23,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SignInScreen(state: SignInState, interactor: SignInInteractor, settings: SignInSettings, configureScreen: ConfigureScreen) {
-    configureScreen.configureScreen(
-        ScreenConfiguration(title = stringResource(id = R.string.authorization), topBarVisibility = true)
-    )
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val title = stringResource(id = R.string.authorization)
+    LaunchedEffect(lifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED) {
+        configureScreen.configureScreen(
+            ScreenConfiguration(title = title, topBarVisibility = true)
+        )
+    }
     Surface(
         modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background
     ) {
