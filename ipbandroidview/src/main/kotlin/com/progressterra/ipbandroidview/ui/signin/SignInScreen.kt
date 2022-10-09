@@ -7,10 +7,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,9 +20,14 @@ import com.progressterra.ipbandroidview.core.ScreenConfiguration
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun SignInScreen(state: SignInState, interactor: SignInInteractor, settings: SignInSettings, configureScreen: ConfigureScreen) {
+fun SignInScreen(
+    state: SignInState,
+    interactor: SignInInteractor,
+    settings: SignInSettings,
+    configureScreen: ConfigureScreen
+) {
     val title = stringResource(id = R.string.authorization)
-    ComposableLifecycle { source, event ->
+    ComposableLifecycle { _, event ->
         if (event == Lifecycle.Event.ON_RESUME) {
             configureScreen.configureScreen(
                 ScreenConfiguration(title = title, topBarVisibility = true)
@@ -102,8 +105,8 @@ private fun SplashScreenPreview() {
         SignInScreen(
             SignInState("+7 (999) 999-99-99", true),
             SignInInteractor.Empty(),
-            SignInSettings(SignInScreenType.PASSABLE)
-        , ConfigureScreen.Empty())
+            SignInSettings(SignInScreenType.PASSABLE), ConfigureScreen.Empty()
+        )
     }
 }
 
@@ -114,8 +117,8 @@ private fun SplashScreenPreviewWithOnlyAuth() {
         SignInScreen(
             SignInState("+7 (999) 999-99-99", true),
             SignInInteractor.Empty(),
-            SignInSettings(SignInScreenType.REQUIRING_AUTH)
-        , ConfigureScreen.Empty())
+            SignInSettings(SignInScreenType.REQUIRING_AUTH), ConfigureScreen.Empty()
+        )
     }
 }
 

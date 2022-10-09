@@ -25,7 +25,7 @@ fun ConfirmationCodeScreen(
     configureScreen: ConfigureScreen
 ) {
     val title = stringResource(id = R.string.verification_code)
-    ComposableLifecycle { source, event ->
+    ComposableLifecycle { _, event ->
         if (event == Lifecycle.Event.ON_RESUME) {
             configureScreen.configureScreen(
                 ScreenConfiguration(
