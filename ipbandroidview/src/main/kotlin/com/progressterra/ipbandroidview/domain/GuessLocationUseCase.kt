@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.domain
 
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
-import com.progressterra.ipbandroidview.base.AbstractUseCase
-import com.progressterra.ipbandroidview.base.UseCaseException
+import com.progressterra.ipbandroidview.core.AbstractUseCase
+import com.progressterra.ipbandroidview.core.UseCaseException
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 
 interface GuessLocationUseCase {

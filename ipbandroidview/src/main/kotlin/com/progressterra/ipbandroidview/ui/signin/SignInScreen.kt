@@ -14,10 +14,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
+import com.progressterra.ipbandroidview.core.ConfigureScreen
+import com.progressterra.ipbandroidview.core.ScreenConfiguration
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun SignInScreen(state: SignInState, interactor: SignInInteractor, settings: SignInSettings) {
+fun SignInScreen(state: SignInState, interactor: SignInInteractor, settings: SignInSettings, configureScreen: ConfigureScreen) {
+    configureScreen.configureScreen(
+        ScreenConfiguration(title = stringResource(id = R.string.authorization), topBarVisibility = true)
+    )
     Surface(
         modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background
     ) {
@@ -90,7 +95,7 @@ private fun SplashScreenPreview() {
             SignInState("+7 (999) 999-99-99", true),
             SignInInteractor.Empty(),
             SignInSettings(SignInScreenType.PASSABLE)
-        )
+        , ConfigureScreen.Empty())
     }
 }
 
@@ -102,7 +107,7 @@ private fun SplashScreenPreviewWithOnlyAuth() {
             SignInState("+7 (999) 999-99-99", true),
             SignInInteractor.Empty(),
             SignInSettings(SignInScreenType.REQUIRING_AUTH)
-        )
+        , ConfigureScreen.Empty())
     }
 }
 

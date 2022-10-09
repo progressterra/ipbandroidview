@@ -16,10 +16,21 @@ import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.VerificationCodeInput
+import com.progressterra.ipbandroidview.core.ConfigureScreen
+import com.progressterra.ipbandroidview.core.ScreenConfiguration
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun ConfirmationCodeScreen(state: ConfirmationCodeState, interactor: ConfirmationCodeInteractor) {
+fun ConfirmationCodeScreen(
+    state: ConfirmationCodeState,
+    interactor: ConfirmationCodeInteractor,
+    configureScreen: ConfigureScreen
+) {
+    configureScreen.configureScreen(
+        ScreenConfiguration(
+            title = stringResource(id = R.string.verification_code), topBarVisibility = true
+        )
+    )
     Surface(modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background) {
         Column(
             Modifier
@@ -74,7 +85,7 @@ fun ConfirmationCodeScreenPreview() {
         ConfirmationCodeScreen(
             ConfirmationCodeState(
                 phoneNumber = "+7 999 999 99 99", code = "123"
-            ), ConfirmationCodeInteractor.Empty()
+            ), ConfirmationCodeInteractor.Empty(), ConfigureScreen.Empty()
         )
     }
 }

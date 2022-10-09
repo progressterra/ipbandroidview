@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.base
+package com.progressterra.ipbandroidview.core
 
 @Suppress("unused")
 interface IPBActivity : PermissionListener

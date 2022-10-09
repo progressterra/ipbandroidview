@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.base.ManageResources
+import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.ui.organizations.Organization
 
 interface AllOrganizationsUseCase {

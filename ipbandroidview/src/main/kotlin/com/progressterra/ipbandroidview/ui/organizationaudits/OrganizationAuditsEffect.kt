@@ -1,3 +1,6 @@
 package com.progressterra.ipbandroidview.ui.organizationaudits
 
-sealed class OrganizationAuditsEffect
+sealed class OrganizationAuditsEffect {
+
+    object OnBack : OrganizationAuditsEffect()
+}

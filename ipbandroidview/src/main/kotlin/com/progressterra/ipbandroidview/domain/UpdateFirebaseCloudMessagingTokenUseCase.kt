@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.user.UserData
-import com.progressterra.ipbandroidview.base.AbstractUseCaseWithToken
+import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.data.ProvideLocation
 
 interface UpdateFirebaseCloudMessagingTokenUseCase {

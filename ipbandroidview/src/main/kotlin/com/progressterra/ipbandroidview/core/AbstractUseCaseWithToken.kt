@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.base
+package com.progressterra.ipbandroidview.core
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.user.UserData

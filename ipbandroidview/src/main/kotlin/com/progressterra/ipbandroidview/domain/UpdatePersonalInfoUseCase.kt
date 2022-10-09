@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
-import com.progressterra.ipbandroidview.base.AbstractUseCaseWithToken
-import com.progressterra.ipbandroidview.base.UseCaseException
+import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
+import com.progressterra.ipbandroidview.core.UseCaseException
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import java.time.LocalDate
 import java.time.ZoneId

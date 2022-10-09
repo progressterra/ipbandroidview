@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.domain.mapper
 
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionData
-import com.progressterra.ipbandroidview.base.Mapper
+import com.progressterra.ipbandroidview.core.Mapper
 import com.progressterra.ipbandroidview.ui.city.Suggestion
 
 interface SuggestionMapper : Mapper<SuggestionData, Suggestion> {

@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
-import com.progressterra.ipbandroidview.base.AbstractUseCase
-import com.progressterra.ipbandroidview.base.UseCaseException
+import com.progressterra.ipbandroidview.core.AbstractUseCase
+import com.progressterra.ipbandroidview.core.UseCaseException
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.Suggestion

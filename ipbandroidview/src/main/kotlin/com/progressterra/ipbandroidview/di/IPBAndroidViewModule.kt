@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.di
 
 import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
-import com.progressterra.ipbandroidview.base.ManagePermission
-import com.progressterra.ipbandroidview.base.ManageResources
-import com.progressterra.ipbandroidview.base.PermissionCache
+import com.progressterra.ipbandroidview.core.ManagePermission
+import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.core.PermissionCache
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter

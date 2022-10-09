@@ -5,15 +5,27 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrganizationCard
+import com.progressterra.ipbandroidview.core.ConfigureScreen
+import com.progressterra.ipbandroidview.core.ScreenConfiguration
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrganizationsScreen(
-    state: OrganizationsState, interactor: OrganizationsInteractor
+    state: OrganizationsState, interactor: OrganizationsInteractor, configureScreen: ConfigureScreen
 ) {
+    configureScreen.configureScreen(
+        ScreenConfiguration(
+            title = stringResource(id = R.string.organizations),
+            topBarVisibility = true,
+            bottomBarVisibility = true
+        )
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +70,8 @@ private fun AuditsScreenPreview() {
                         "пл Дружбы народов, 45", "", 2, "«Кофемания»", "", 0.0, 0.0
                     )
                 )
-            ), interactor = OrganizationsInteractor.Empty()
+            ), interactor = OrganizationsInteractor.Empty(),
+            configureScreen = ConfigureScreen.Empty()
         )
     }
 }

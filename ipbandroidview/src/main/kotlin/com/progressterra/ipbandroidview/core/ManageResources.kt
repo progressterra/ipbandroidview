@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.base
+package com.progressterra.ipbandroidview.core
 
 import android.content.Context
 import androidx.annotation.StringRes
