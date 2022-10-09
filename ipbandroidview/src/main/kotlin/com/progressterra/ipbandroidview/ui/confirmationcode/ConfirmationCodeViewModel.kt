@@ -39,9 +39,9 @@ class ConfirmationCodeViewModel(
     override fun onNext() = intent {
         if (endVerificationChannelUseCase.end(state.phoneNumber, state.code)) {
             UserData.phone = state.phoneNumber
-            postSideEffect(ConfirmationEffect.Next)
+            postSideEffect(ConfirmationEffect.OnNext)
         } else {
-            postSideEffect(ConfirmationEffect.Toast(R.string.wrong_code))
+            postSideEffect(ConfirmationEffect.OnToast(R.string.wrong_code))
         }
     }
 
@@ -58,5 +58,9 @@ class ConfirmationCodeViewModel(
             else reduce { state.copy(timer = "00:0$i") }
         }
         reduce { state.copy(isTimer = false) }
+    }
+
+    override fun onBack() =intent  {
+        postSideEffect(ConfirmationEffect.OnBack)
     }
 }

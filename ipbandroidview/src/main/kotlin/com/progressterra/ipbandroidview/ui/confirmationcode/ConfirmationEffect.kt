@@ -4,7 +4,9 @@ import androidx.annotation.StringRes
 
 sealed class ConfirmationEffect {
 
-    object Next : ConfirmationEffect()
+    object OnBack : ConfirmationEffect()
 
-    class Toast(@StringRes val message: Int) : ConfirmationEffect()
+    object OnNext : ConfirmationEffect()
+
+    class OnToast(@StringRes val message: Int) : ConfirmationEffect()
 }

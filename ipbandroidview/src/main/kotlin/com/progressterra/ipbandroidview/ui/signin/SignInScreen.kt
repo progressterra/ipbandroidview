@@ -23,12 +23,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SignInScreen(state: SignInState, interactor: SignInInteractor, settings: SignInSettings, configureScreen: ConfigureScreen) {
-    val lifecycleOwner = LocalLifecycleOwner.current
     val title = stringResource(id = R.string.authorization)
-    LaunchedEffect(lifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED) {
-        configureScreen.configureScreen(
-            ScreenConfiguration(title = title, topBarVisibility = true)
-        )
+    ComposableLifecycle { source, event ->
+        if (event == Lifecycle.Event.ON_RESUME) {
+            configureScreen.configureScreen(
+                ScreenConfiguration(title = title, topBarVisibility = true)
+            )
+        }
     }
     Surface(
         modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background

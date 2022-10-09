@@ -6,19 +6,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.BottomHolder
-import com.progressterra.ipbandroidview.composable.ThemedButton
-import com.progressterra.ipbandroidview.composable.ThemedTextButton
-import com.progressterra.ipbandroidview.composable.VerificationCodeInput
+import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.core.ConfigureScreen
 import com.progressterra.ipbandroidview.core.ScreenConfiguration
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -29,14 +24,16 @@ fun ConfirmationCodeScreen(
     interactor: ConfirmationCodeInteractor,
     configureScreen: ConfigureScreen
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
     val title = stringResource(id = R.string.verification_code)
-    LaunchedEffect(lifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED) {
-        configureScreen.configureScreen(
-            ScreenConfiguration(
-                title = title, topBarVisibility = true
+    ComposableLifecycle { source, event ->
+        if (event == Lifecycle.Event.ON_RESUME) {
+            configureScreen.configureScreen(
+                ScreenConfiguration(
+                    onBack = { interactor.onBack() },
+                    title = title, topBarVisibility = true
+                )
             )
-        )
+        }
     }
     Surface(modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background) {
         Column(
