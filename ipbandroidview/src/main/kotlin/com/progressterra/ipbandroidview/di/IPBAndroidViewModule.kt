@@ -61,7 +61,7 @@ val iPBAndroidViewModule = module {
     }
 
     single<AllOrganizationsUseCase> {
-        AllOrganizationsUseCase.Base(get(), get())
+        AllOrganizationsUseCase.Base(get(), get(), get(), get())
     }
 
     factory<ManageResources> {
@@ -91,7 +91,7 @@ val iPBAndroidViewModule = module {
     }
 
     single<OrganizationAuditsUseCase> {
-        OrganizationAuditsUseCase.Base(get(), get())
+        OrganizationAuditsUseCase.Base(get(), get(), get(), get())
     }
 
     viewModel {

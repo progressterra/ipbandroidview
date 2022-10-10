@@ -19,10 +19,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
-import androidx.constraintlayout.compose.atLeast
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -38,7 +34,7 @@ fun OrganizationCard(
     availableChecks: Int = 0,
     onClick: () -> Unit
 ) {
-    ConstraintLayout(
+    Row(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
             .clickable(
@@ -47,14 +43,11 @@ fun OrganizationCard(
                 onClick = onClick
             )
             .background(AppTheme.colors.surfaces)
-            .padding(padding)
+            .padding(padding),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val (info, counterAndIcon, spacer) = createRefs()
-        Column(modifier = Modifier.constrainAs(info) {
-            start.linkTo(parent.start)
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-        }) {
+        Column(modifier = Modifier.weight(1f, false)) {
             Text(
                 text = address,
                 color = AppTheme.colors.black,
@@ -72,18 +65,10 @@ fun OrganizationCard(
                 overflow = TextOverflow.Ellipsis
             )
         }
-        Spacer(modifier = Modifier.constrainAs(spacer) {
-            width = Dimension.fillToConstraints.atLeast(horizontalGap)
-            top.linkTo(parent.top)
-            bottom.linkTo(parent.bottom)
-        })
         Row(
-            modifier = Modifier.constrainAs(counterAndIcon) {
-                end.linkTo(parent.end)
-                top.linkTo(parent.top)
-                bottom.linkTo(parent.bottom)
-            }, verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically
         ) {
+            Spacer(modifier = Modifier.size(horizontalGap))
             if (availableChecks > 0) AvailableChecks(count = availableChecks)
             Icon(
                 modifier = Modifier.size(16.dp),
@@ -94,7 +79,6 @@ fun OrganizationCard(
                 tint = AppTheme.colors.gray2
             )
         }
-        createHorizontalChain(info, spacer, counterAndIcon, chainStyle = ChainStyle.SpreadInside)
     }
 }
 
