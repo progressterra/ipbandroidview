@@ -39,4 +39,5 @@
     <string name="organization_image">Изображение организации</string>
     <string name="map">Карта</string>
     <string name="wrong_code">Неправильный код!</string>
+    <string name="create_audit">Провести аудит</string>
 </resources>

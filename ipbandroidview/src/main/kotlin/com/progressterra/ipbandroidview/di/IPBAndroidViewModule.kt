@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
+import com.progressterra.ipbandroidview.ui.audits.AuditsViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
@@ -92,6 +93,10 @@ val iPBAndroidViewModule = module {
 
     single<OrganizationAuditsUseCase> {
         OrganizationAuditsUseCase.Base(get(), get(), get(), get())
+    }
+
+    viewModel {
+        AuditsViewModel()
     }
 
     viewModel {
