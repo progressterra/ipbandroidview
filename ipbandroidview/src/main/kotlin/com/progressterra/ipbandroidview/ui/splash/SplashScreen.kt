@@ -11,15 +11,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.ConfigureScreen
-import com.progressterra.ipbandroidview.core.ScreenConfiguration
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun SplashScreen(state: SplashState, settings: SplashSettings, configureScreen: ConfigureScreen) {
-    configureScreen.configureScreen(
-        ScreenConfiguration()
-    )
+fun SplashScreen(state: SplashState, settings: SplashSettings) {
     Surface(modifier = Modifier.fillMaxSize(), color = AppTheme.colors.surfaces) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -48,8 +43,7 @@ fun SplashScreenPreview() {
             SplashSettings(
                 logoHeight = 150.dp,
                 logoWidth = 150.dp
-            ),
-            ConfigureScreen.Empty()
+            )
         )
     }
 }
