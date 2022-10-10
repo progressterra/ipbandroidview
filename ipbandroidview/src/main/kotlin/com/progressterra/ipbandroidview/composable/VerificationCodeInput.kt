@@ -10,13 +10,16 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -62,9 +65,8 @@ fun VerificationCodeInput(
             )
         }
     }
-
     var localCode by remember(code) {
-        mutableStateOf(code)
+        mutableStateOf(TextFieldValue(text= code, selection = TextRange(code.length)))
     }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
@@ -75,9 +77,9 @@ fun VerificationCodeInput(
         maxLines = 1,
         interactionSource = mutableInteractionSource,
         onValueChange = {
-            if (it.length <= 4) {
+            if (it.text.length <= 4) {
                 localCode = it
-                onCode?.invoke(it)
+                onCode?.invoke(it.text)
             }
         },
         keyboardOptions = KeyboardOptions(
@@ -90,8 +92,8 @@ fun VerificationCodeInput(
             Row(horizontalArrangement = Arrangement.Center) {
                 repeat(digitsCount) { index ->
                     Digit(
-                        if (index >= localCode.length) "" else localCode[index].toString(),
-                        (localCode.length == index) && focused
+                        if (index >= localCode.text.length) "" else localCode.text[index].toString(),
+                        (localCode.text.length == index) && focused
                     )
                     if (index != digitsCount - 1) Spacer(modifier = Modifier.size(spaceBetweenDigits))
                 }
