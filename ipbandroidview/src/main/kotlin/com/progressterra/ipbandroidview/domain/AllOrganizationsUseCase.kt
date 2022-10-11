@@ -24,7 +24,7 @@ interface AllOrganizationsUseCase {
 
         override suspend fun allOrganizations(): List<Organization> {
             val checklists = withToken {
-                repo.availableChecklists(it)
+                repo.availableChecklistsAndDocs(it)
             }
             return buildList {
                 checklists.map { places ->

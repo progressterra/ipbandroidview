@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -26,24 +25,21 @@ fun AuditResult(
     audit: String = "",
     worker: String = "",
     time: String = "",
-    cornerRadius: Dp = 12.dp,
-    padding: Dp = 12.dp,
-    verticalGap: Dp = 4.dp,
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(cornerRadius))
+            .clip(RoundedCornerShape(12.dp))
             .background(AppTheme.colors.surfaces)
-            .padding(padding)
+            .padding(12.dp)
     ) {
         Text(
             text = "${stringResource(id = R.string.result)}: $score/$maxScore",
             color = if (passed) AppTheme.colors.primary else AppTheme.colors.error,
             style = AppTheme.typography.title
         )
-        Spacer(modifier = Modifier.size(verticalGap))
+        Spacer(modifier = Modifier.size(4.dp))
         Text(text = audit, color = AppTheme.colors.black, style = AppTheme.typography.text)
-        Spacer(modifier = Modifier.size(verticalGap))
+        Spacer(modifier = Modifier.size(4.dp))
         Text(
             text = "$worker, $time",
             color = AppTheme.colors.gray2,

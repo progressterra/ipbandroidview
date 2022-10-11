@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.R
@@ -73,7 +74,7 @@ fun AuditsScreen(state: AuditsState, interactor: AuditsInteractor) {
                 }
             }
             ThemedButton(
-                modifier = Modifier.constrainAs(button) {
+                modifier = Modifier.zIndex(1f).constrainAs(button) {
                     width = Dimension.fillToConstraints
                     start.linkTo(parent.start, 16.dp)
                     end.linkTo(parent.end, 16.dp)
@@ -96,7 +97,11 @@ private fun AuditsScreenPreview() {
                     Document("", "Some audit 1", false, "Lenina 13", 87),
                     Document("", "Some audit 2", false, "Lenina 13", 15),
                     Document("", "Some audit 3", true, "Lenina 13", 30),
-                    Document("", "Some audit 4", true, "Lenina 13", 90)
+                    Document("", "Some audit 4", true, "Lenina 13", 90),
+                    Document("", "Some audit 5", false, "Lenina 13", 87),
+                    Document("", "Some audit 6", true, "Lenina 13", 6),
+                    Document("", "Some audit 7", true, "Lenina 13", 56),
+                    Document("", "Some audit 8", true, "Lenina 13", 99)
                 )
             ), interactor = AuditsInteractor.Empty()
         )
