@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
@@ -93,7 +92,7 @@ fun AuditChecksScreen(state: AuditChecksState, interactor: AuditChecksInteractor
 
                 }
                 ScreenState.ERROR -> ThemedRefreshButton(onClick = { interactor.onRefresh() })
-                ScreenState.LOADING -> CircularProgressIndicator()
+                ScreenState.LOADING -> ThemedProgressBar()
             }
         }
     }

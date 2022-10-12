@@ -50,7 +50,7 @@ class OrganizationAuditsViewModel(
         val mapIntent =
             Intent(Intent.ACTION_VIEW, Uri.parse("geo:${state.latitude},${state.longitude}"))
         mapIntent.setPackage("com.google.android.apps.maps")
-        startActivity.startActivity(mapIntent)
+        startActivity.startActivityFromIntent(mapIntent)
     }
 
     override fun onBack() = intent {

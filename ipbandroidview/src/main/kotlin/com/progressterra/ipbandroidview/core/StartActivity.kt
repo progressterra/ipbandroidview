@@ -4,5 +4,5 @@ import android.content.Intent
 
 interface StartActivity {
 
-    fun startActivity(intent: Intent)
+    fun startActivityFromIntent(intent: Intent)
 }

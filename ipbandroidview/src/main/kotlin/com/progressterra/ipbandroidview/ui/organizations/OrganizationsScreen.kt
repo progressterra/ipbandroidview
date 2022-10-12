@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,6 +12,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrganizationCard
+import com.progressterra.ipbandroidview.composable.ThemedProgressBar
 import com.progressterra.ipbandroidview.composable.ThemedRefreshButton
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
@@ -59,7 +59,7 @@ fun OrganizationsScreen(
                     }
                 }
                 ScreenState.ERROR -> ThemedRefreshButton(onClick = { interactor.onRefresh() })
-                ScreenState.LOADING -> CircularProgressIndicator()
+                ScreenState.LOADING -> ThemedProgressBar()
             }
         }
     }

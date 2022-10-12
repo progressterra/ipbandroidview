@@ -14,8 +14,8 @@ interface StartActivityCache : StartActivity {
             this.listener = listener
         }
 
-        override fun startActivity(intent: Intent) {
-            listener?.startActivity(intent)
+        override fun startActivityFromIntent(intent: Intent) {
+            listener?.startActivityFromIntent(intent)
         }
     }
 }
