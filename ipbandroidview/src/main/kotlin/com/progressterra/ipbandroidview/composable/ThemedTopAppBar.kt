@@ -27,7 +27,8 @@ fun ThemedTopAppBar(
     TopAppBar(
         backgroundColor = AppTheme.colors.surfaces,
         elevation = 0.dp,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        contentPadding = PaddingValues(horizontal = 16.dp)
     ) {
         Box {
             onBack?.let {
