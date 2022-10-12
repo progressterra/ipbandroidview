@@ -18,8 +18,8 @@ class SignInViewModel(
     override val container: Container<SignInState, SignInEffect> = container(SignInState())
 
     override fun onNext() = intent {
-        if (startVerificationChannelUseCase.start(state.phoneNumber)) {
-            UserData.phone = state.phoneNumber
+        if (startVerificationChannelUseCase.start(state.phoneNumber.trim())) {
+            UserData.phone = state.phoneNumber.trim()
             postSideEffect(SignInEffect.Next)
         } else
             postSideEffect(SignInEffect.Toast(R.string.wrong_phone))

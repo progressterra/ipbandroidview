@@ -22,7 +22,9 @@ fun ConfirmationCodeScreen(
     interactor: ConfirmationCodeInteractor
 ) {
     Scaffold(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.verification_code), onBack = { interactor.onBack() })
+        ThemedTopAppBar(
+            title = stringResource(id = R.string.verification_code),
+            onBack = { interactor.onBack() })
     }) {
         Surface(modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background) {
             Column(
