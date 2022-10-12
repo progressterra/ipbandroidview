@@ -25,11 +25,10 @@ interface DocumentChecklistUseCase {
         override suspend fun documentChecklist(
             id: String
         ): Result<List<Check>> {
-            val responseChecklist = withToken { repo.checklistForDoc(it, id) }
-            if (responseChecklist.isFailure) return Result.failure(responseChecklist.exceptionOrNull()!!)
+            val responseChecklist = withToken { repo.checklistForDoc(it, id) }.getOrThrow()
             return Result.success(
                 buildList {
-                    responseChecklist.getOrNull()!!.map { check ->
+                    responseChecklist.map { check ->
                         check.idUnique?.let { id ->
                             add(
                                 when (check.answerCheckList?.yesNo) {

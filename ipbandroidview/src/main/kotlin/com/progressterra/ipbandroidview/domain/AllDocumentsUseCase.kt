@@ -28,24 +28,21 @@ interface AllDocumentsUseCase {
         override suspend fun allDocuments(): Result<List<Document>> {
             val documents = withToken {
                 repo.allDocuments(
-                    it, FilterAndSort(null, null, null, null, null, null)
+                    it, FilterAndSort(emptyList(), null, "", true, 0, 100)
                 )
-            }
-            if (documents.isFailure) return Result.failure(documents.exceptionOrNull()!!)
+            }.getOrThrow()
             return Result.success(buildList {
-                documents.map { docs ->
-                    docs.map { doc ->
-                        doc.idUnique?.let { docId ->
-                            add(Document(
-                                id = docId,
-                                name = doc.nameRFCheck ?: noData,
-                                done = doc.dateEnd != null,
-                                address = doc.nameComPlace ?: noData,
-                                percentage = tryOrNull { doc.countDRPositiveAnswer!! / doc.countDR!! }
-                                    ?: 0,
-                                checkCounter = doc.countDR ?: 0,
-                                repetitiveness = "PLACEHOLDER", lastTimeChecked = "PLACEHOLDER"))
-                        }
+                documents.map { doc ->
+                    doc.idUnique?.let { docId ->
+                        add(Document(
+                            id = docId,
+                            name = doc.nameRFCheck ?: noData,
+                            done = doc.dateEnd != null,
+                            address = doc.nameComPlace ?: noData,
+                            percentage = tryOrNull { doc.countDRPositiveAnswer!! / doc.countDR!! }
+                                ?: 0,
+                            checkCounter = doc.countDR ?: 0,
+                            repetitiveness = "PLACEHOLDER", lastTimeChecked = "PLACEHOLDER"))
                     }
                 }
             })

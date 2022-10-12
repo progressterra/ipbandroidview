@@ -15,9 +15,7 @@ abstract class AbstractUseCaseWithToken(
             UserData.deviceId,
             locationResult.getOrNull()?.latitude?.toFloat() ?: 0f,
             locationResult.getOrNull()?.longitude?.toFloat() ?: 0f
-        )
-        if (result.isFailure)
-            return Result.failure(result.exceptionOrNull()!!)
+        ).onFailure { return Result.failure(it) }
         return block.invoke(result.getOrNull()!!)
     }
 }

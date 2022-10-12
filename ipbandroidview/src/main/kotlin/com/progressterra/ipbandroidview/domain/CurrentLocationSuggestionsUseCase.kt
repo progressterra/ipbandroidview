@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.UseCaseException
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.Suggestion
@@ -18,15 +17,13 @@ interface CurrentLocationSuggestionsUseCase {
     ) : CurrentLocationSuggestionsUseCase, AbstractUseCase() {
 
         override suspend fun currentLocation(): Result<List<Suggestion>> = handle {
-            val locationResult = provideLocation.location()
-            if (locationResult.isFailure) emptyList<Suggestion>()
+            val locationResult = provideLocation.location().getOrThrow()
             val suggestionsResult = repo.getSuggestionsAddressFromLocation(
-                locationResult.getOrNull()!!.latitude.toFloat(),
-                locationResult.getOrNull()!!.longitude.toFloat(),
+                locationResult.latitude.toFloat(),
+                locationResult.longitude.toFloat(),
                 3
-            )
-            if (suggestionsResult.isFailure) throw UseCaseException()
-            suggestionsResult.getOrNull()!!.map { mapper.map(it) }
+            ).getOrThrow()
+            suggestionsResult.map { mapper.map(it) }
         }
     }
 }

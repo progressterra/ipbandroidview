@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
-import com.progressterra.ipbandroidview.core.UseCaseException
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import java.time.LocalDate
 import java.time.ZoneId
@@ -28,13 +27,12 @@ interface UpdatePersonalInfoUseCase {
                     ZoneId.systemDefault()
                 ).toInstant()
             )
-            val personalResult = withToken {
+            withToken {
                 repo.setPersonalInfo(
                     it, name = firstName, soname = lastName, dateOfBirth = birthday.format()
                 )
-            }
-            val emailResult = withToken { repo.setEmail(it, email) }
-            if (emailResult.isFailure || personalResult.isFailure) throw UseCaseException()
+            }.onFailure { throw it }
+            withToken { repo.setEmail(it, email) }.onFailure { throw it }
         }
     }
 }
