@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.auditchecks
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.core.ScreenState
 
 @Immutable
 data class AuditChecksState(
@@ -9,5 +10,7 @@ data class AuditChecksState(
     val repetitiveness: String = "",
     val lastTimeChecked: String = "",
     val checks: List<Check> = emptyList(),
-    val state: AuditState = AuditState.NONE
+    val ongoing: Boolean = false,
+    val done: Boolean = false,
+    val screenState: ScreenState = ScreenState.LOADING
 )

@@ -10,6 +10,8 @@ import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ui.audits.Document
 
+//TODO placeholders
+
 interface AllDocumentsUseCase {
 
     suspend fun allDocuments(): Result<List<Document>>
@@ -34,12 +36,15 @@ interface AllDocumentsUseCase {
                 documents.map { docs ->
                     docs.map { doc ->
                         doc.idUnique?.let { docId ->
-                            add(Document(id = docId,
+                            add(Document(
+                                id = docId,
                                 name = doc.nameRFCheck ?: noData,
                                 done = doc.dateEnd != null,
                                 address = doc.nameComPlace ?: noData,
-                                percentage = tryOrNull { doc.countDRPositiveAnswer!! + doc.countDRNegativeAnswer!! / doc.countDR!! }
-                                    ?: 0))
+                                percentage = tryOrNull { doc.countDRPositiveAnswer!! / doc.countDR!! }
+                                    ?: 0,
+                                checkCounter = doc.countDR ?: 0,
+                                repetitiveness = "PLACEHOLDER", lastTimeChecked = "PLACEHOLDER"))
                         }
                     }
                 }

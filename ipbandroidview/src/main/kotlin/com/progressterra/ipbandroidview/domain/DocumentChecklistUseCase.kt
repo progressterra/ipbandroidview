@@ -6,13 +6,12 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
-import com.progressterra.ipbandroidview.ui.auditchecks.AuditState
 import com.progressterra.ipbandroidview.ui.auditchecks.Check
 import com.progressterra.ipbandroidview.ui.auditchecks.CheckState
 
 interface DocumentChecklistUseCase {
 
-    suspend fun documentChecklist(id: String, auditState: AuditState): Result<List<Check>>
+    suspend fun documentChecklist(id: String): Result<List<Check>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -24,7 +23,7 @@ interface DocumentChecklistUseCase {
         private val noData = manageResources.string(R.string.no_data)
 
         override suspend fun documentChecklist(
-            id: String, auditState: AuditState
+            id: String
         ): Result<List<Check>> {
             val responseChecklist = withToken { repo.checklistForDoc(it, id) }
             if (responseChecklist.isFailure) return Result.failure(responseChecklist.exceptionOrNull()!!)
@@ -52,7 +51,7 @@ interface DocumentChecklistUseCase {
                                         id = id,
                                         category = check.parameter?.internalName ?: noData,
                                         name = check.shortDescription ?: noData,
-                                        state = if (auditState == AuditState.NONE) CheckState.NONE else CheckState.ONGOING,
+                                        state = CheckState.NONE,
                                         comment = check.answerCheckList?.comments ?: ""
                                     )
                                 }

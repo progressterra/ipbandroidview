@@ -2,13 +2,17 @@ package com.progressterra.ipbandroidview.ui.audits
 
 interface AuditsInteractor {
 
-    fun onDocumentDetails(id: String)
+    fun onRefresh()
+
+    fun onDocumentChecklist(document: Document)
 
     fun onAudit()
 
     class Empty : AuditsInteractor {
 
-        override fun onDocumentDetails(id: String) = Unit
+        override fun onRefresh() = Unit
+
+        override fun onDocumentChecklist(document: Document) = Unit
 
         override fun onAudit() = Unit
     }

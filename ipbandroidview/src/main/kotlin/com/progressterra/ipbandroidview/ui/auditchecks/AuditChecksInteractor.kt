@@ -2,6 +2,8 @@ package com.progressterra.ipbandroidview.ui.auditchecks
 
 interface AuditChecksInteractor {
 
+    fun onRefresh()
+
     fun onCheck(check: Check)
 
     fun onBack()
@@ -19,5 +21,7 @@ interface AuditChecksInteractor {
         override fun onStart() = Unit
 
         override fun onStop() = Unit
+
+        override fun onRefresh() = Unit
     }
 }

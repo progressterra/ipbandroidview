@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.audits
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.AllDocumentsUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -20,15 +21,20 @@ class AuditsViewModel(
     }
 
     private fun fetch() = intent {
-        allDocumentsUseCase.allDocuments().map {
+        reduce { state.copy(screenState = ScreenState.LOADING) }
+        allDocumentsUseCase.allDocuments().onSuccess {
             reduce {
-                state.copy(documents = it)
+                state.copy(documents = it, screenState = ScreenState.SUCCESS)
             }
-        }
+        }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    override fun onDocumentDetails(id: String) = intent {
-        postSideEffect(AuditsEffect.OnDocumentDetails(id))
+    override fun onRefresh() {
+        fetch()
+    }
+
+    override fun onDocumentChecklist(document: Document) = intent {
+        postSideEffect(AuditsEffect.OnDocumentDetails(document))
     }
 
     override fun onAudit() = intent {

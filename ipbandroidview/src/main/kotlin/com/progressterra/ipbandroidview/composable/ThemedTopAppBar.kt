@@ -36,7 +36,7 @@ fun ThemedTopAppBar(
                     modifier = Modifier.fillMaxSize(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    IconButton(modifier = Modifier.size(navButtonSize), onClick = { it() }) {
+                    IconButton(onClick = { it() }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_back),
                             contentDescription = stringResource(id = R.string.navigate_back),
