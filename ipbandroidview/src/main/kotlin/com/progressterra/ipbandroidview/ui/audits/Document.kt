@@ -1,5 +1,9 @@
 package com.progressterra.ipbandroidview.ui.audits
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Document(
     val id: String,
     val name: String,
@@ -9,4 +13,4 @@ data class Document(
     val repetitiveness: String,
     val lastTimeChecked: String,
     val done: Boolean
-)
+) : Parcelable
