@@ -4,5 +4,5 @@ sealed class AuditChecksEffect {
 
     object OnBack : AuditChecksEffect()
     
-    class OnCheck(check: Check) : AuditChecksEffect()
+    class OnCheck(val check: Check) : AuditChecksEffect()
 }

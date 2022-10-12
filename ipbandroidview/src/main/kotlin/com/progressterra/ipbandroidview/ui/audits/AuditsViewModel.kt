@@ -38,6 +38,6 @@ class AuditsViewModel(
     }
 
     override fun onAudit() = intent {
-        postSideEffect(AuditsEffect.OnAudit)
+        postSideEffect(AuditsEffect.OnOrganizations)
     }
 }
