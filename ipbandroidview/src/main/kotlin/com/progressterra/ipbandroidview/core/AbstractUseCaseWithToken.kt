@@ -10,11 +10,11 @@ abstract class AbstractUseCaseWithToken(
 ) : AbstractUseCase() {
 
     protected suspend fun <T> withToken(block: suspend (accessToken: String) -> Result<T>): Result<T> {
-        val location = provideLocation.location()
+        val locationResult = provideLocation.location()
         val result = sCRMRepository.getAccessToken(
             UserData.deviceId,
-            location.latitude.toFloat(),
-            location.longitude.toFloat()
+            locationResult.getOrNull()?.latitude?.toFloat() ?: 0f,
+            locationResult.getOrNull()?.longitude?.toFloat() ?: 0f
         )
         if (result.isFailure)
             return Result.failure(result.exceptionOrNull()!!)

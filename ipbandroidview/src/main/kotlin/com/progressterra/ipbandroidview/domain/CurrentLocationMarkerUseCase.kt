@@ -14,8 +14,14 @@ interface CurrentLocationMarkerUseCase {
     ) : CurrentLocationMarkerUseCase, AbstractUseCase() {
 
         override suspend fun currentLocation(): Result<MapMarker> = handle {
-            val location = provideLocation.location()
-            MapMarker(LatLng(location.latitude, location.longitude))
+            val locationResult = provideLocation.location()
+            if (locationResult.isFailure) throw locationResult.exceptionOrNull()!!
+            MapMarker(
+                LatLng(
+                    locationResult.getOrNull()!!.latitude,
+                    locationResult.getOrNull()!!.longitude
+                )
+            )
         }
     }
 }

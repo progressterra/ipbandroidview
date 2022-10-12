@@ -18,9 +18,12 @@ interface CurrentLocationSuggestionsUseCase {
     ) : CurrentLocationSuggestionsUseCase, AbstractUseCase() {
 
         override suspend fun currentLocation(): Result<List<Suggestion>> = handle {
-            val location = provideLocation.location()
+            val locationResult = provideLocation.location()
+            if (locationResult.isFailure) emptyList<Suggestion>()
             val suggestionsResult = repo.getSuggestionsAddressFromLocation(
-                location.latitude.toFloat(), location.longitude.toFloat(), 3
+                locationResult.getOrNull()!!.latitude.toFloat(),
+                locationResult.getOrNull()!!.longitude.toFloat(),
+                3
             )
             if (suggestionsResult.isFailure) throw UseCaseException()
             suggestionsResult.getOrNull()!!.map { mapper.map(it) }
