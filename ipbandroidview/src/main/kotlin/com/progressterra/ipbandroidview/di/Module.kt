@@ -2,9 +2,7 @@ package com.progressterra.ipbandroidview.di
 
 import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
-import com.progressterra.ipbandroidview.core.ManagePermission
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.PermissionCache
+import com.progressterra.ipbandroidview.core.*
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
@@ -89,6 +87,10 @@ val iPBAndroidViewModule = module {
         PermissionCache.Base()
     }.binds(arrayOf(PermissionCache::class, ManagePermission::class))
 
+    single {
+        StartActivityCache.Base()
+    }.binds(arrayOf(StartActivityCache::class, StartActivity::class))
+
     single<ProvideLocation> {
         ProvideLocation.Base(get())
     }
@@ -126,7 +128,7 @@ val iPBAndroidViewModule = module {
     }
 
     viewModel { (organization: Organization) ->
-        OrganizationAuditsViewModel(organization, get())
+        OrganizationAuditsViewModel(organization, get(), get())
     }
 
     viewModel {

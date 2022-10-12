@@ -31,7 +31,7 @@ fun OrganizationCard(
     horizontalGap: Dp = 16.dp,
     address: String = "",
     description: String = "",
-    availableChecks: Int = 0,
+    warnings: Int = 0,
     onClick: () -> Unit
 ) {
     Row(
@@ -69,7 +69,7 @@ fun OrganizationCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Spacer(modifier = Modifier.size(horizontalGap))
-            if (availableChecks > 0) AvailableChecks(count = availableChecks)
+            if (warnings > 0) AvailableChecks(count = warnings)
             Icon(
                 modifier = Modifier.size(16.dp),
                 painter = painterResource(id = R.drawable.ic_forward),
@@ -89,7 +89,7 @@ private fun OrganizationPreviewSmall() {
         OrganizationCard(
             address = "пл Дружбы народов, 45",
             description = "«Кофемания»",
-            availableChecks = 1,
+            warnings = 1,
             onClick = {}
         )
     }
@@ -103,7 +103,7 @@ private fun OrganizationPreviewLarge() {
             modifier = Modifier.fillMaxWidth(),
             address = "пл Дружбы народов, 45",
             description = "«Кофемания»",
-            availableChecks = 1, onClick = {}
+            warnings = 1, onClick = {}
         )
     }
 }

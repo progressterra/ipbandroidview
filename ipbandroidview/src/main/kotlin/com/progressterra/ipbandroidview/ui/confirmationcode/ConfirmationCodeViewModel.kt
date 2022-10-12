@@ -60,7 +60,7 @@ class ConfirmationCodeViewModel(
         reduce { state.copy(isTimer = false) }
     }
 
-    override fun onBack() =intent  {
+    override fun onBack() = intent {
         postSideEffect(ConfirmationEffect.OnBack)
     }
 }

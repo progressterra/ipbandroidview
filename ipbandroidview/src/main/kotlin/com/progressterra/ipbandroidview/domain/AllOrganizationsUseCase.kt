@@ -9,9 +9,11 @@ import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ui.organizations.Organization
 
+//TODO warnings
+
 interface AllOrganizationsUseCase {
 
-    suspend fun allOrganizations(): List<Organization>
+    suspend fun allOrganizations(): Result<List<Organization>>
 
     class Base(
         private val repo: ChecklistRepository,
@@ -22,25 +24,23 @@ interface AllOrganizationsUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun allOrganizations(): List<Organization> {
-            val checklists = withToken {
+        override suspend fun allOrganizations(): Result<List<Organization>> = handle {
+            val places = withToken {
                 repo.availableChecklistsAndDocs(it)
-            }
-            return buildList {
-                checklists.map { places ->
-                    places.map { place ->
-                        add(
-                            Organization(
-                                place.address ?: noData,
-                                place.idUnique ?: Constants.DEFAULT_ID,
-                                place.countAvailableRFCheck ?: 0,
-                                place.name ?: noData,
-                                place.imageURL ?: "",
-                                place.latitude ?: 0.0,
-                                place.longitude ?: 0.0
-                            )
+            }.getOrThrow()
+            buildList {
+                places.map { place ->
+                    add(
+                        Organization(
+                            place.address ?: noData,
+                            place.idUnique ?: Constants.DEFAULT_ID,
+                            0,
+                            place.name ?: noData,
+                            place.imageURL ?: "",
+                            place.latitude ?: 0.0,
+                            place.longitude ?: 0.0
                         )
-                    }
+                    )
                 }
             }
         }

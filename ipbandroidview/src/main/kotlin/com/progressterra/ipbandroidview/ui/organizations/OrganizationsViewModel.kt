@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.AllOrganizationsUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -20,14 +20,16 @@ class OrganizationsViewModel(
     )
 
     init {
-        initOrganizations()
+        onRefresh()
     }
 
-    private fun initOrganizations() = intent {
-        Log.d("ORG", "initOrganizations start")
-        val result = allOrganizationsUseCase.allOrganizations()
-        Log.d("ORG", "initOrganizations $result")
-        reduce { state.copy(organizations = result) }
+    override fun onRefresh() = intent {
+        reduce { state.copy(screenState = ScreenState.LOADING) }
+        allOrganizationsUseCase.allOrganizations().onSuccess {
+            reduce { state.copy(organizations = it, screenState = ScreenState.SUCCESS) }
+        }.onFailure {
+            reduce { state.copy(screenState = ScreenState.ERROR) }
+        }
     }
 
     override fun onOrganization(organization: Organization) = intent {

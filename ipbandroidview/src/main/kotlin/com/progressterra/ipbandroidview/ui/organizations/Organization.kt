@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Organization(
     val address: String,
     val id: String,
-    val availableChecks: Int,
+    val warnings: Int,
     val name: String,
     val imageUrl: String,
     val latitude: Double,

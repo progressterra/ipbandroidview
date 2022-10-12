@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAudit
 
 interface OrganizationAuditsUseCase {
 
-    suspend fun organizationsAudits(id: String): List<OrganizationAudit>
+    suspend fun organizationsAudits(id: String): Result<List<OrganizationAudit>>
 
     class Base(
         private val repo: ChecklistRepository,
@@ -23,15 +23,14 @@ interface OrganizationAuditsUseCase {
 
         override suspend fun organizationsAudits(
             id: String
-        ): List<OrganizationAudit> {
-            val availableChecks = withToken {repo.availableChecklistsForPlace(it, id) }
-            return buildList {
-                availableChecks.map { audits ->
-                    audits.map {
-                        OrganizationAudit(
-                            it.name ?: noData, it.description ?: noData, false
-                        )
-                    }
+        ): Result<List<OrganizationAudit>> = handle {
+            val availableChecks =
+                withToken { repo.availableChecklistsForPlace(it, id) }.getOrThrow()
+            buildList {
+                availableChecks.map {
+                    OrganizationAudit(
+                        it.name ?: noData, it.description ?: noData, false
+                    )
                 }
             }
         }

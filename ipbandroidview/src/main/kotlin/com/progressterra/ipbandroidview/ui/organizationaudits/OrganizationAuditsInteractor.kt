@@ -6,10 +6,14 @@ interface OrganizationAuditsInteractor {
 
     fun onBack()
 
+    fun onRefresh()
+
     class Empty : OrganizationAuditsInteractor {
 
         override fun onMapClick() = Unit
 
         override fun onBack() = Unit
+
+        override fun onRefresh() = Unit
     }
 }
