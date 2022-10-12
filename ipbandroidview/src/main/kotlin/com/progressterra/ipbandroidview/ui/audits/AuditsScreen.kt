@@ -24,13 +24,17 @@ fun AuditsScreen(state: AuditsState, interactor: AuditsInteractor) {
     Scaffold(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppTheme.colors.background),
+            contentAlignment = Alignment.Center
+        ) {
             when (state.screenState) {
                 ScreenState.SUCCESS ->
                     ConstraintLayout(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(AppTheme.colors.background)
                             .padding(
                                 top = AppTheme.dimensions.small,
                                 start = AppTheme.dimensions.small,
