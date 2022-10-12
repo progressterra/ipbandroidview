@@ -28,7 +28,7 @@ interface AllDocumentsUseCase {
         override suspend fun allDocuments(): Result<List<Document>> {
             val documents = withToken {
                 repo.allDocuments(
-                    it, FilterAndSort(emptyList(), null, "", true, 0, 100)
+                    it, FilterAndSort(emptyList(), null, "", false, 0, 100)
                 )
             }.getOrThrow()
             return Result.success(buildList {
