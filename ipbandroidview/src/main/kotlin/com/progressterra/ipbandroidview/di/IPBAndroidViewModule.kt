@@ -95,8 +95,10 @@ val iPBAndroidViewModule = module {
         OrganizationAuditsUseCase.Base(get(), get(), get(), get())
     }
 
+    single<AllDocumentsUseCase> { AllDocumentsUseCase.Base(get(), get(), get(), get()) }
+
     viewModel {
-        AuditsViewModel()
+        AuditsViewModel(get())
     }
 
     viewModel {

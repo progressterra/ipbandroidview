@@ -18,43 +18,41 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.ui.auditchecks.CheckState
+
+//TODO Colors to composable
 
 @Composable
 fun CheckCard(
     modifier: Modifier = Modifier,
-    gap: Dp = 16.dp,
-    padding: Dp = 12.dp,
-    cornerRadius: Dp = 12.dp,
     successColor: Color = Color(0xFFA0ECAC),
     failedColor: Color = Color(0xFFF5B5B5),
-    success: Boolean = false,
+    state: CheckState,
     onClick: () -> Unit,
-    text: String = ""
+    name: String = ""
 ) {
-    Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(cornerRadius))
-            .background(if (success) successColor else failedColor)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = true)
-            ) { onClick() }
-            .padding(padding),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+    Row(modifier = modifier
+        .clip(RoundedCornerShape(12.dp))
+        .background(if (state == CheckState.SUCCESSFUL) successColor else if (state == CheckState.FAILED) failedColor else AppTheme.colors.surfaces)
+        .clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = rememberRipple(bounded = true)
+        ) { onClick() }
+        .padding(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween) {
         Text(
             modifier = Modifier.weight(1f, false),
-            text = text,
+            text = name,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = AppTheme.colors.black,
             style = AppTheme.typography.text
         )
-        Spacer(modifier = Modifier.size(gap))
+        Spacer(modifier = Modifier.size(16.dp))
         Icon(
             modifier = Modifier.size(16.dp),
             painter = painterResource(id = R.drawable.ic_forward),
@@ -68,24 +66,68 @@ fun CheckCard(
 
 @Preview(showBackground = true)
 @Composable
-fun CheckCardPreviewCheck() {
+private fun CheckCardPreviewOngoing() {
     AppTheme {
         CheckCard(
-            text = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
+            name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
             onClick = {},
-            success = true
+            state = CheckState.ONGOING
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun CheckCardPreviewUncheck() {
+private fun CheckCardPreviewNone() {
     AppTheme {
         CheckCard(
-            text = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
+            name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
             onClick = {},
-            success = false
+            state = CheckState.NONE
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CheckCardPreviewCheck() {
+    AppTheme {
+        CheckCard(
+            name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
+            onClick = {},
+            state = CheckState.SUCCESSFUL
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CheckCardPreviewUncheck() {
+    AppTheme {
+        CheckCard(
+            name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
+            onClick = {},
+            state = CheckState.FAILED
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CheckCardPreviewShort() {
+    AppTheme {
+        Column(modifier = Modifier.fillMaxWidth()) {
+            CheckCard(
+                name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
+                onClick = {},
+                state = CheckState.FAILED
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+            CheckCard(
+                name = "Наличие документов",
+                onClick = {},
+                state = CheckState.FAILED
+            )
+        }
     }
 }

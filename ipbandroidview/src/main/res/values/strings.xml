@@ -41,4 +41,7 @@
     <string name="wrong_code">Неправильный код!</string>
     <string name="create_audit">Провести аудит</string>
     <string name="questions">вопросов</string>
+    <string name="audit">Аудит</string>
+    <string name="start_audit">Начать проверку</string>
+    <string name="pause_audit">Остановить проверку</string>
 </resources>
