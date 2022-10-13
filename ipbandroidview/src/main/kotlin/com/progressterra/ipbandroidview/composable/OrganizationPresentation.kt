@@ -38,11 +38,12 @@ fun OrganizationPresentation(
     ) {
         AsyncImage(
             modifier = Modifier
+                .height(188.dp)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp)),
             model = imageUrl,
             contentDescription = stringResource(id = R.string.organization_image),
-            contentScale = ContentScale.FillWidth
+            contentScale = ContentScale.Fit
         )
         Spacer(modifier = Modifier.size(12.dp))
         Row(
