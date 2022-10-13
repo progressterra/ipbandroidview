@@ -13,7 +13,6 @@ import com.progressterra.ipbandroidview.ui.audits.AuditsViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
-import com.progressterra.ipbandroidview.ui.organizations.Organization
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
@@ -102,16 +101,6 @@ val iPBAndroidViewModule = module {
 
     single<DocumentChecklistUseCase> { DocumentChecklistUseCase.Base(get(), get(), get(), get()) }
 
-    single {
-        DistinctFactory<Organization, OrganizationAuditsViewModel> {
-            OrganizationAuditsViewModel(
-                it,
-                get(),
-                get()
-            )
-        }
-    }
-
     viewModel {
         AuditsViewModel(get())
     }
@@ -136,16 +125,15 @@ val iPBAndroidViewModule = module {
         ConfirmationCodeViewModel(get(), get())
     }
 
-
-    viewModel { (organization: Organization) ->
-        get<DistinctFactory<Organization, OrganizationAuditsViewModel>>()[organization]
+    viewModel {
+        OrganizationAuditsViewModel(get(), get())
     }
 
     viewModel {
         CityViewModel(get(), get(), get(), get())
     }
 
-    viewModel { params ->
-        AuditChecksViewModel(params.get(), get())
+    viewModel {
+        AuditChecksViewModel(get())
     }
 }

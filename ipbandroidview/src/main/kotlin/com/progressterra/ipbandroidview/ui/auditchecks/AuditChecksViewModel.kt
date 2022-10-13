@@ -12,37 +12,41 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class AuditChecksViewModel(
-    private val document: Document,
     private val documentChecklistUseCase: DocumentChecklistUseCase
 ) : ViewModel(), ContainerHost<AuditChecksState, AuditChecksEffect>,
     AuditChecksInteractor {
 
     override val container: Container<AuditChecksState, AuditChecksEffect> = container(
-        AuditChecksState(
-            name = document.name,
-            checkCounter = document.checkCounter,
-            repetitiveness = document.repetitiveness,
-            lastTimeChecked = document.lastTimeChecked,
-            done = document.done,
-            ongoing = false
-        )
+        AuditChecksState()
     )
 
-    init {
-        fetch()
-    }
-
-    private fun fetch() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
-        documentChecklistUseCase.documentChecklist(document.id).onSuccess {
+    @Suppress("unused")
+    fun setDocument(document: Document) = intent {
+        reduce {
+            AuditChecksState(
+                id = document.id,
+                name = document.name,
+                checkCounter = document.checkCounter,
+                repetitiveness = document.repetitiveness,
+                lastTimeChecked = document.lastTimeChecked,
+                done = document.done,
+                ongoing = false
+            )
+        }
+        documentChecklistUseCase.documentChecklist(state.id).onSuccess {
             reduce { state.copy(checks = it, screenState = ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
         }
     }
 
-    override fun onRefresh() {
-        fetch()
+    override fun onRefresh() = intent {
+        reduce { state.copy(screenState = ScreenState.LOADING) }
+        documentChecklistUseCase.documentChecklist(state.id).onSuccess {
+            reduce { state.copy(checks = it, screenState = ScreenState.SUCCESS) }
+        }.onFailure {
+            reduce { state.copy(screenState = ScreenState.ERROR) }
+        }
     }
 
     override fun onCheck(check: Check) = intent {

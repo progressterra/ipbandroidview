@@ -15,7 +15,6 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class OrganizationAuditsViewModel(
-    private val organization: Organization,
     private val organizationAuditsUseCase: OrganizationAuditsUseCase,
     private val startActivity: StartActivity
 ) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect>,
@@ -23,22 +22,34 @@ class OrganizationAuditsViewModel(
 
     override val container: Container<OrganizationAuditsState, OrganizationAuditsEffect> =
         container(
+            OrganizationAuditsState()
+        )
+
+    @Suppress("unused")
+    fun setOrganization(
+        organization: Organization,
+    ) = intent {
+        reduce {
             OrganizationAuditsState(
+                id = organization.id,
                 organizationName = organization.name,
                 organizationAddress = organization.address,
                 imageUrl = organization.imageUrl,
                 latitude = organization.latitude,
-                longitude = organization.longitude
+                longitude = organization.longitude,
+                warnings = organization.warnings
             )
-        )
-
-    init {
-        onRefresh()
+        }
+        organizationAuditsUseCase.organizationsAudits(state.id).onSuccess {
+            reduce { state.copy(audits = it, screenState = ScreenState.SUCCESS) }
+        }.onFailure {
+            reduce { state.copy(screenState = ScreenState.ERROR) }
+        }
     }
 
     override fun onRefresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        organizationAuditsUseCase.organizationsAudits(organization.id).onSuccess {
+        organizationAuditsUseCase.organizationsAudits(state.id).onSuccess {
             reduce { state.copy(audits = it, screenState = ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }

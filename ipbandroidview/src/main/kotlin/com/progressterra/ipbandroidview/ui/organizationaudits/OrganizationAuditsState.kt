@@ -5,11 +5,13 @@ import com.progressterra.ipbandroidview.core.ScreenState
 
 @Immutable
 data class OrganizationAuditsState(
-    val organizationName: String,
-    val organizationAddress: String,
-    val imageUrl: String,
+    val id: String = "",
+    val organizationName: String = "",
+    val organizationAddress: String = "",
+    val imageUrl: String = "",
     val audits: List<OrganizationAudit> = emptyList(),
     val screenState: ScreenState = ScreenState.LOADING,
-    val latitude: Double,
-    val longitude: Double
+    val warnings: Int = 0,
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0
 )

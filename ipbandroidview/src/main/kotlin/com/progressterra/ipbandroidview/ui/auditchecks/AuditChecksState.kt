@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 
 @Immutable
 data class AuditChecksState(
+    val id: String = "",
     val name: String = "",
     val checkCounter: Int = 0,
     val repetitiveness: String = "",
