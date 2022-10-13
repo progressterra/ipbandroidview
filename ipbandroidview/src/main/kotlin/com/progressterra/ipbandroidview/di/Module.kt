@@ -127,15 +127,15 @@ val iPBAndroidViewModule = module {
         ConfirmationCodeViewModel(get(), get())
     }
 
-    viewModel { (organization: Organization) ->
-        OrganizationAuditsViewModel(organization, get(), get())
+    viewModel { params ->
+        OrganizationAuditsViewModel(params.get(), get(), get())
     }
 
     viewModel {
         CityViewModel(get(), get(), get(), get())
     }
 
-    viewModel { (document: Document) ->
-        AuditChecksViewModel(document, get())
+    viewModel { params ->
+        AuditChecksViewModel(params.get(), get())
     }
 }
