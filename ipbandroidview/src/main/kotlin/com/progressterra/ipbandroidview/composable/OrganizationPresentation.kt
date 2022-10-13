@@ -2,11 +2,14 @@ package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,7 +22,6 @@ import coil.compose.AsyncImage
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-//TODO map click
 @Composable
 fun OrganizationPresentation(
     modifier: Modifier = Modifier,
@@ -35,7 +37,9 @@ fun OrganizationPresentation(
             .padding(12.dp)
     ) {
         AsyncImage(
-            modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(8.dp)),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp)),
             model = imageUrl,
             contentDescription = stringResource(id = R.string.organization_image),
             contentScale = ContentScale.FillWidth
@@ -56,8 +60,16 @@ fun OrganizationPresentation(
                 )
             }
             Column(
-                modifier.clickable { },
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(100.dp))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(),
+                        onClick = onMapClick
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 Icon(
                     modifier = Modifier.size(16.dp),
