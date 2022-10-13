@@ -49,7 +49,7 @@ fun AuditsScreen(state: AuditsState, interactor: AuditsInteractor) {
                             },
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            items(state.documents.filter { it.done }) {
+                            items(state.documents.filter { !it.done }) {
                                 AuditCard(
                                     modifier = Modifier.fillMaxWidth(),
                                     name = it.name,
@@ -59,13 +59,16 @@ fun AuditsScreen(state: AuditsState, interactor: AuditsInteractor) {
                                     onClick = { interactor.onDocumentChecklist(it) }
                                 )
                             }
-                            item {
-                                CategoryDivider(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    title = stringResource(id = R.string.completed_audits)
-                                )
+                            val doneDocuments = state.documents.filter { it.done }
+                            if (doneDocuments.isNotEmpty()) {
+                                item {
+                                    CategoryDivider(
+                                        modifier = Modifier.fillMaxWidth(),
+                                        title = stringResource(id = R.string.completed_audits)
+                                    )
+                                }
                             }
-                            items(state.documents.filter { !it.done }) {
+                            items(doneDocuments) {
                                 AuditCard(
                                     modifier = Modifier.fillMaxWidth(),
                                     name = it.name,
