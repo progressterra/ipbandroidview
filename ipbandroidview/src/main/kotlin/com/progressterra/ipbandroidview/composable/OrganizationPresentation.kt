@@ -43,7 +43,7 @@ fun OrganizationPresentation(
                 .clip(RoundedCornerShape(8.dp)),
             model = imageUrl,
             contentDescription = stringResource(id = R.string.organization_image),
-            contentScale = ContentScale.Fit
+            contentScale = ContentScale.FillBounds
         )
         Spacer(modifier = Modifier.size(12.dp))
         Row(
