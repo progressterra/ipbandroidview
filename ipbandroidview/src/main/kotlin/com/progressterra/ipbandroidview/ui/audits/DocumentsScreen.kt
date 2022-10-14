@@ -107,14 +107,14 @@ private fun DocumentsScreenPreview() {
             state = DocumentsState(
                 screenState = ScreenState.SUCCESS,
                 documents = listOf(
-                    Document("", "Some audit 1", "Lenina 13", 87, 25, "", "", false),
-                    Document("", "Some audit 2", "Lenina 13", 15, 25, "", "", false),
-                    Document("", "Some audit 3", "Lenina 13", 30, 25, "", "", false),
-                    Document("", "Some audit 4", "Lenina 13", 90, 25, "", "", false),
-                    Document("", "Some audit 5", "Lenina 13", 87, 25, "", "", true),
-                    Document("", "Some audit 6", "Lenina 13", 6, 25, "", "", true),
-                    Document("", "Some audit 7", "Lenina 13", 56, 25, "", "", true),
-                    Document("", "Some audit 8", "Lenina 13", 99, 25, "", "", true)
+                    Document("", "", "Some audit 1", "Lenina 13", 87, 25, "", "", false),
+                    Document("", "", "Some audit 2", "Lenina 13", 15, 25, "", "", false),
+                    Document("", "", "Some audit 3", "Lenina 13", 30, 25, "", "", false),
+                    Document("", "", "Some audit 4", "Lenina 13", 90, 25, "", "", false),
+                    Document("", "", "Some audit 5", "Lenina 13", 87, 25, "", "", true),
+                    Document("", "", "Some audit 6", "Lenina 13", 6, 25, "", "", true),
+                    Document("", "", "Some audit 7", "Lenina 13", 56, 25, "", "", true),
+                    Document("", "", "Some audit 8", "Lenina 13", 99, 25, "", "", true)
                 )
             ), interactor = DocumentsInteractor.Empty()
         )
