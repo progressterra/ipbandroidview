@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.core.ScreenState
 
 @Immutable
@@ -15,5 +16,6 @@ data class ChecklistState(
     val ongoing: Boolean = false,
     val done: Boolean = false,
     val sheetVisibility: Boolean = false,
-    val screenState: ScreenState = ScreenState.LOADING
+    val screenState: ScreenState = ScreenState.LOADING,
+    val voiceState: VoiceState = VoiceState.IDLE
 )

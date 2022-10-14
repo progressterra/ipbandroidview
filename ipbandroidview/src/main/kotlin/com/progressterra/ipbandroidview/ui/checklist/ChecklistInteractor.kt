@@ -2,23 +2,29 @@ package com.progressterra.ipbandroidview.ui.checklist
 
 interface ChecklistInteractor {
 
-    fun onRefresh()
+    fun refresh()
 
     fun onCheck(check: Check)
 
     fun onSheetVisibilityChange(visibility: Boolean)
 
-    fun onBack()
+    fun back()
 
-    fun onStart()
-
-    fun onStop()
+    fun startStopAudit()
 
     fun closeSheet()
 
     fun yesNo(yes: Boolean)
 
-    fun onCheckCommentaryChange(commentary: String)
+    fun onCheckCommentaryChange(comment: String)
+
+    fun startPauseVoicePlay()
+
+    fun startStopVoiceRecording()
+
+    fun removeRecord()
+
+    fun ready()
 
     class Empty : ChecklistInteractor {
 
@@ -26,20 +32,24 @@ interface ChecklistInteractor {
 
         override fun onCheck(check: Check) = Unit
 
-        override fun onBack() = Unit
+        override fun back() = Unit
 
-        override fun onStart() = Unit
+        override fun startStopAudit() = Unit
 
-        override fun onStop() = Unit
-
-        override fun onRefresh() = Unit
+        override fun refresh() = Unit
 
         override fun closeSheet() = Unit
 
         override fun yesNo(yes: Boolean) = Unit
 
-        override fun onCheckCommentaryChange(commentary: String) {
-            TODO("Not yet implemented")
-        }
+        override fun onCheckCommentaryChange(comment: String) = Unit
+
+        override fun startPauseVoicePlay() = Unit
+
+        override fun startStopVoiceRecording() = Unit
+
+        override fun removeRecord() = Unit
+
+        override fun ready() = Unit
     }
 }

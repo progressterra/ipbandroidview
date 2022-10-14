@@ -28,8 +28,8 @@ sealed class VoiceState {
 fun VoiceInput(
     modifier: Modifier = Modifier,
     voiceState: VoiceState,
-    onStartStop: () -> Unit,
-    onRecord: () -> Unit,
+    onStartPausePlay: () -> Unit,
+    onStartStopRecording: () -> Unit,
     onRemove: () -> Unit
 ) {
     Box(modifier = modifier) {
@@ -38,7 +38,8 @@ fun VoiceInput(
                 modifier = Modifier
                     .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
                     .background(AppTheme.colors.background)
-                    .padding(12.dp),
+                    .padding(12.dp)
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -49,7 +50,10 @@ fun VoiceInput(
                             style = AppTheme.typography.text,
                             color = AppTheme.colors.gray1
                         )
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onRecord) {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = onStartStopRecording
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_mic),
                                 contentDescription = stringResource(
@@ -87,9 +91,9 @@ fun VoiceInput(
                             )
                         }
                         Spacer(modifier = Modifier.size(16.dp))
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartStop) {
+                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartPausePlay) {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_mic),
+                                painter = painterResource(id = R.drawable.ic_play),
                                 contentDescription = stringResource(
                                     id = R.string.mic
                                 ),
@@ -125,7 +129,7 @@ fun VoiceInput(
                             )
                         }
                         Spacer(modifier = Modifier.size(16.dp))
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartStop) {
+                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartPausePlay) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_pause),
                                 contentDescription = stringResource(
@@ -146,7 +150,7 @@ fun VoiceInput(
                                 tint = AppTheme.colors.error
                             )
                         }
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartStop) {
+                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartPausePlay) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_mic),
                                 contentDescription = stringResource(
@@ -168,7 +172,11 @@ fun VoiceInput(
 @Composable
 fun VoiceInputPreviewIdle() {
     AppTheme {
-        VoiceInput(voiceState = VoiceState.IDLE, onStartStop = {}, onRecord = {}, onRemove = {})
+        VoiceInput(
+            voiceState = VoiceState.IDLE,
+            onStartPausePlay = {},
+            onStartStopRecording = {},
+            onRemove = {})
     }
 }
 
@@ -176,7 +184,11 @@ fun VoiceInputPreviewIdle() {
 @Composable
 fun VoiceInputPreviewRecord() {
     AppTheme {
-        VoiceInput(voiceState = VoiceState.RECORD, onStartStop = {}, onRecord = {}, onRemove = {})
+        VoiceInput(
+            voiceState = VoiceState.RECORD,
+            onStartPausePlay = {},
+            onStartStopRecording = {},
+            onRemove = {})
     }
 }
 
@@ -187,8 +199,8 @@ fun VoiceInputPreviewPlay() {
     AppTheme {
         VoiceInput(
             voiceState = VoiceState.PLAY(0.4f),
-            onStartStop = {},
-            onRecord = {},
+            onStartPausePlay = {},
+            onStartStopRecording = {},
             onRemove = {})
     }
 }
@@ -199,8 +211,8 @@ fun VoiceInputPreviewPause() {
     AppTheme {
         VoiceInput(
             voiceState = VoiceState.PAUSE(0.9f),
-            onStartStop = {},
-            onRecord = {},
+            onStartPausePlay = {},
+            onStartStopRecording = {},
             onRemove = {})
     }
 }

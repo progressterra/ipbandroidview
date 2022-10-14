@@ -25,7 +25,6 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
-
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
         skipHalfExpanded = true,
@@ -37,14 +36,34 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         if (state.sheetVisibility && !sheetState.isVisible) sheetState.show()
         if (!state.sheetVisibility && sheetState.isVisible) sheetState.hide()
     }
-
     ModalBottomSheetLayout(
-        modifier = Modifier.padding(
-            top = 8.dp, start = 8.dp, end = 8.dp
-        ), sheetState = sheetState, sheetShape = RoundedCornerShape(
+        sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
         ), sheetContent = {
-            state.currentCheck?.let {
+            if (state.currentCheck == null) {
+                Column(
+                    modifier = Modifier
+                        .background(AppTheme.colors.background)
+                        .fillMaxWidth(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    ThemedTopDialogBar(rightActions = {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = { interactor.closeSheet() }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_mark),
+                                contentDescription = stringResource(R.string.close),
+                                tint = AppTheme.colors.gray1
+                            )
+                        }
+                    })
+                    Spacer(modifier = Modifier.size(150.dp))
+                    ThemedProgressBar()
+                    Spacer(modifier = Modifier.size(150.dp))
+                }
+            } else {
                 ThemedTopDialogBar(title = "PLACEHOLDER", rightActions = {
                     IconButton(
                         modifier = Modifier.size(24.dp),
@@ -58,65 +77,80 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                 })
                 Column(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
-                        .background(AppTheme.colors.surfaces)
-                        .padding(12.dp)
+                        .background(AppTheme.colors.background)
+                        .padding(
+                            top = 8.dp, start = 8.dp, end = 8.dp
+                        )
                 ) {
-                    Text(
-                        text = it.description,
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.text
-                    )
-                }
-                Spacer(modifier = Modifier.size(8.dp))
-                Column(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
-                        .background(AppTheme.colors.surfaces)
-                        .padding(12.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    YesNoButton(modifier = Modifier.fillMaxWidth(),
-                        state = it.state,
-                        onClick = { interactor.yesNo(it) })
-                    ThemedNotebook(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = it.comment,
-                        hint = stringResource(
-                            id = R.string.text_comment
-                        ),
-                        onChange = { interactor.onCheckCommentaryChange(it) },
-                        enabled = !it.state.done
-                    )
+                    Column(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+                            .background(AppTheme.colors.surfaces)
+                            .padding(12.dp)
+                            .fillMaxWidth()
+                    ) {
+                        Text(
+                            text = state.currentCheck.description,
+                            color = AppTheme.colors.black,
+                            style = AppTheme.typography.text
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(8.dp))
+                    Column(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+                            .background(AppTheme.colors.surfaces)
+                    ) {
+                        Box(modifier = Modifier.padding(12.dp)) {
+                            YesNoButton(modifier = Modifier.fillMaxWidth(),
+                                state = state.currentCheck.state,
+                                onClick = { interactor.yesNo(it) })
+                        }
+                        Box(modifier = Modifier.padding(horizontal = 12.dp)) {
+                            ThemedNotebook(
+                                modifier = Modifier.fillMaxWidth(),
+                                text = state.currentCheck.comment,
+                                hint = stringResource(
+                                    id = R.string.text_comment
+                                ),
+                                onChange = { interactor.onCheckCommentaryChange(it) },
+                                enabled = !state.currentCheck.state.done
+                            )
+                        }
+                        Box(modifier = Modifier.padding(4.dp)) {
+                            VoiceInput(modifier = Modifier.fillMaxWidth(),
+                                voiceState = state.voiceState,
+                                onStartPausePlay = { interactor.startPauseVoicePlay() },
+                                onStartStopRecording = { interactor.startStopVoiceRecording() },
+                                onRemove = {
+                                    interactor.removeRecord()
+                                })
+                        }
+                    }
+                    Row(Modifier.padding(horizontal = 8.dp, vertical = 25.dp)) {
+                        ThemedButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = { interactor.ready() },
+                            text = stringResource(id = R.string.ready)
+                        )
+                    }
                 }
             }
-        }, sheetBackgroundColor = AppTheme.colors.background
+        }, sheetBackgroundColor = AppTheme.colors.surfaces
     ) {
         Scaffold(topBar = {
-            ThemedTopAppBar(onBack = { interactor.onBack() },
+            ThemedTopAppBar(onBack = { interactor.back() },
                 title = stringResource(id = R.string.audit),
                 actions = {
                     if (!state.done) {
-                        if (state.ongoing) {
-                            IconButton(onClick = { interactor.onStop() }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_pause),
-                                    contentDescription = stringResource(
-                                        id = R.string.pause_audit
-                                    ),
-                                    tint = AppTheme.colors.gray1
-                                )
-                            }
-                        } else {
-                            IconButton(onClick = { interactor.onStart() }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_play),
-                                    contentDescription = stringResource(
-                                        id = R.string.start_audit
-                                    ),
-                                    tint = AppTheme.colors.gray1
-                                )
-                            }
+                        IconButton(onClick = { interactor.startStopAudit() }) {
+                            Icon(
+                                painter = painterResource(id = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play),
+                                contentDescription = stringResource(
+                                    id = if (state.ongoing) R.string.pause_audit else R.string.start_audit
+                                ),
+                                tint = AppTheme.colors.gray1
+                            )
                         }
                     }
                 })
@@ -159,7 +193,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         }
 
                     }
-                    ScreenState.ERROR -> ThemedRefreshButton(onClick = { interactor.onRefresh() })
+                    ScreenState.ERROR -> ThemedRefreshButton(onClick = { interactor.refresh() })
                     ScreenState.LOADING -> ThemedProgressBar()
                 }
             }
@@ -274,6 +308,26 @@ private fun ChecklistScreenPreviewDialog() {
                     "",
                     "description"
                 )
+            ), interactor = ChecklistInteractor.Empty()
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ChecklistScreenPreviewDialogLoading() {
+    AppTheme {
+        ChecklistScreen(
+            state = ChecklistState(
+                screenState = ScreenState.SUCCESS,
+                ongoing = false,
+                name = "Some audit",
+                checkCounter = 25,
+                repetitiveness = "Every day",
+                lastTimeChecked = "yesterday",
+                checks = listOf(),
+                sheetVisibility = true,
+                currentCheck = null
             ), interactor = ChecklistInteractor.Empty()
         )
     }

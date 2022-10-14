@@ -74,19 +74,19 @@ private fun OrganizationAuditsScreenPreview() {
                 longitude = 0.0,
                 audits = listOf(
                     OrganizationAudit(
-                        "Check some 1", "Yesterday", false
+                        "", "Check some 1", "Yesterday", false
                     ), OrganizationAudit(
-                        "Check some 2", "Yesterday", false
+                        "", "Check some 2", " Yesterday ", false
                     ), OrganizationAudit(
-                        "Check some 3", "Yesterday", false
+                        "", "Check some 3", " Yesterday ", false
                     ), OrganizationAudit(
-                        "Check some 4", "Yesterday", true
+                        "", "Check some 4", " Yesterday ", true
                     ), OrganizationAudit(
-                        "Check some 5", "Yesterday", false
+                        "", "Check some 5", " Yesterday ", false
                     ), OrganizationAudit(
-                        "Check some 6", "Yesterday", false
+                        "", "Check some 6", " Yesterday ", false
                     ), OrganizationAudit(
-                        "Check some 7", "Yesterday", true
+                        "", "Check some 7", " Yesterday ", true
                     )
                 )
             ), interactor = OrganizationAuditsInteractor.Empty()

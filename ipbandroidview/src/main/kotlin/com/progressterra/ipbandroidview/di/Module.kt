@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.di
 
+import android.media.MediaPlayer
+import android.media.MediaRecorder
 import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.core.*
@@ -8,8 +10,8 @@ import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
-import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import com.progressterra.ipbandroidview.ui.audits.DocumentsViewModel
+import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
@@ -21,6 +23,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.binds
 import org.koin.dsl.module
+import java.io.File
 
 @Suppress("unused")
 val iPBAndroidViewModule = module {
@@ -133,7 +136,16 @@ val iPBAndroidViewModule = module {
         CityViewModel(get(), get(), get(), get())
     }
 
+    //TODO encoder?
     viewModel {
-        ChecklistViewModel(get())
+        val file = File(androidContext().filesDir, "Recorded audio.mp4")
+        val mediaRecorder = MediaRecorder(androidContext())
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        mediaRecorder.setOutputFile(file)
+        val mediaPlayer = MediaPlayer()
+        mediaPlayer.setDataSource(file.absolutePath)
+        ChecklistViewModel(get(), get(), mediaRecorder, mediaPlayer)
     }
 }
