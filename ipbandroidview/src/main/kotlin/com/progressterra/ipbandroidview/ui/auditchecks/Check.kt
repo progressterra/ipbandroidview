@@ -9,5 +9,6 @@ data class Check(
     val id: String,
     val category: String,
     val name: String,
-    val comment: String
+    val comment: String,
+    val description: String
 ) : Parcelable

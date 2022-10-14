@@ -10,8 +10,10 @@ data class AuditChecksState(
     val checkCounter: Int = 0,
     val repetitiveness: String = "",
     val lastTimeChecked: String = "",
+    val currentCheck: Check? = null,
     val checks: List<Check> = emptyList(),
     val ongoing: Boolean = false,
     val done: Boolean = false,
+    val sheetVisibility: Boolean = false,
     val screenState: ScreenState = ScreenState.LOADING
 )

@@ -26,7 +26,7 @@ fun AuditTitle(
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
             .background(AppTheme.colors.surfaces)
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)

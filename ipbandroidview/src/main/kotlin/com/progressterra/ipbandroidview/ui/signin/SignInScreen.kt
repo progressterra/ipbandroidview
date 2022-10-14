@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -33,9 +34,9 @@ fun SignInScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
-                        start = AppTheme.dimensions.small,
-                        top = AppTheme.dimensions.small,
-                        end = AppTheme.dimensions.small
+                        start = 8.dp,
+                        top = 8.dp,
+                        end = 8.dp
                     ),
                 verticalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -43,9 +44,9 @@ fun SignInScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(AppTheme.dimensions.regular))
+                            .clip(RoundedCornerShape(12.dp))
                             .background(AppTheme.colors.surfaces)
-                            .padding(AppTheme.dimensions.regular)
+                            .padding(12.dp)
                     ) {
                         ThemedTextField(
                             modifier = Modifier.fillMaxWidth(),
@@ -68,7 +69,7 @@ fun SignInScreen(
                                 tag = "privacy policy",
                                 annotation = stringResource(id = R.string.privacy_policy_url),
                                 onClick = { Log.d("CLICK", "SignInScreen: $it") })
-                        ), modifier = Modifier.padding(top = AppTheme.dimensions.small)
+                        ), modifier = Modifier.padding(top = 8.dp)
                     )
                 }
                 BottomHolder {
@@ -78,7 +79,7 @@ fun SignInScreen(
                         text = stringResource(id = R.string.auth_button)
                     )
                     if (settings.type == SignInScreenType.PASSABLE) {
-                        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                        Spacer(modifier = Modifier.size(8.dp))
                         ThemedTextButton(
                             modifier = Modifier.fillMaxWidth(),
                             onClick = { interactor.onSkip() },

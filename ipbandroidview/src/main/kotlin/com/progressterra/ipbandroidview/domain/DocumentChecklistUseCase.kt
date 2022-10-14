@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
@@ -11,7 +12,7 @@ import com.progressterra.ipbandroidview.ui.auditchecks.CheckState
 
 interface DocumentChecklistUseCase {
 
-    suspend fun documentChecklist(id: String): Result<List<Check>>
+    suspend fun documentChecklist(id: String, done: Boolean): Result<List<Check>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -23,37 +24,24 @@ interface DocumentChecklistUseCase {
         private val noData = manageResources.string(R.string.no_data)
 
         override suspend fun documentChecklist(
-            id: String
+            id: String, done: Boolean
         ): Result<List<Check>> {
             val responseChecklist = withToken { repo.checklistForDoc(it, id) }.getOrThrow()
             return Result.success(
                 buildList {
                     responseChecklist.map { check ->
                         check.idUnique?.let { id ->
+                            val yesNo =
+                                if (check.answerCheckList?.yesNo == true) YesNo.YES else if (check.answerCheckList?.yesNo == false) YesNo.NO else YesNo.NONE
                             add(
-                                when (check.answerCheckList?.yesNo) {
-                                    true -> Check(
-                                        id = id,
-                                        category = check.parameter?.internalName ?: noData,
-                                        name = check.shortDescription ?: noData,
-                                        state = CheckState.SUCCESSFUL,
-                                        comment = check.answerCheckList?.comments ?: ""
-                                    )
-                                    false -> Check(
-                                        id = id,
-                                        category = check.parameter?.internalName ?: noData,
-                                        name = check.shortDescription ?: noData,
-                                        state = CheckState.FAILED,
-                                        comment = check.answerCheckList?.comments ?: ""
-                                    )
-                                    null -> Check(
-                                        id = id,
-                                        category = check.parameter?.internalName ?: noData,
-                                        name = check.shortDescription ?: noData,
-                                        state = CheckState.NONE,
-                                        comment = check.answerCheckList?.comments ?: ""
-                                    )
-                                }
+                                Check(
+                                    id = id,
+                                    category = check.parameter?.internalName ?: noData,
+                                    name = check.shortDescription ?: noData,
+                                    state = CheckState(done, yesNo),
+                                    comment = check.answerCheckList?.comments ?: "",
+                                    description = check.description ?: noData
+                                )
                             )
                         }
                     }

@@ -36,9 +36,9 @@ fun AuditsScreen(state: AuditsState, interactor: AuditsInteractor) {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(
-                                top = AppTheme.dimensions.small,
-                                start = AppTheme.dimensions.small,
-                                end = AppTheme.dimensions.small
+                                top = 8.dp,
+                                start = 8.dp,
+                                end = 8.dp
                             )
                     ) {
                         val (list, button) = createRefs()

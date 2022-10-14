@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.Border
-import com.progressterra.ipbandroidview.composable.border
+import com.progressterra.ipbandroidview.composable.utils.Border
+import com.progressterra.ipbandroidview.composable.utils.border
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

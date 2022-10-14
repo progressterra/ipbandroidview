@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.composable.yesno
 
-enum class YesNoState {
+enum class YesNo {
+    NONE,
     YES,
-    NO,
-    NONE
+    NO
 }

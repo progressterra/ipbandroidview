@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -31,17 +32,14 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
-                    start = AppTheme.dimensions.small,
-                    top = AppTheme.dimensions.small,
-                    end = AppTheme.dimensions.small
+                    start = 8.dp,
+                    top = 8.dp,
+                    end = 8.dp
                 )
         ) {
             val (buttons, map, address, background, suggestions, fab) = createRefs()
-            val extraSmallMargin = AppTheme.dimensions.extraSmall
-            val smallMargin = AppTheme.dimensions.small
-            val regularMargin = AppTheme.dimensions.regular
             Box(modifier = Modifier
-                .clip(RoundedCornerShape(AppTheme.dimensions.regular))
+                .clip(RoundedCornerShape(12.dp))
                 .background(AppTheme.colors.surfaces)
                 .constrainAs(background) {
                     height = Dimension.fillToConstraints
@@ -49,13 +47,13 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                    bottom.linkTo(buttons.top, smallMargin)
+                    bottom.linkTo(buttons.top, 8.dp)
                 })
             ThemedTextField(modifier = Modifier.constrainAs(address) {
                 width = Dimension.fillToConstraints
-                top.linkTo(background.top, regularMargin)
-                start.linkTo(background.start, regularMargin)
-                end.linkTo(background.end, regularMargin)
+                top.linkTo(background.top, 12.dp)
+                start.linkTo(background.start, 12.dp)
+                end.linkTo(background.end, 12.dp)
             },
                 onFocusChange = { interactor.onAddressFocus(it) },
                 text = state.address,
@@ -76,10 +74,10 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
             GoogleMap(modifier = Modifier.constrainAs(map) {
                 height = Dimension.fillToConstraints
                 width = Dimension.fillToConstraints
-                top.linkTo(address.bottom, regularMargin)
-                start.linkTo(background.start, regularMargin)
-                end.linkTo(background.end, regularMargin)
-                bottom.linkTo(background.bottom, regularMargin)
+                top.linkTo(address.bottom, 12.dp)
+                start.linkTo(background.start, 12.dp)
+                end.linkTo(background.end, 12.dp)
+                bottom.linkTo(background.bottom, 12.dp)
             }, cameraPositionState = cameraPositionState, uiSettings = MapUiSettings(
                 myLocationButtonEnabled = false,
                 mapToolbarEnabled = false,
@@ -96,7 +94,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
             }
             AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {
                 width = Dimension.fillToConstraints
-                top.linkTo(address.bottom, extraSmallMargin)
+                top.linkTo(address.bottom, 4.dp)
                 start.linkTo(address.start)
                 end.linkTo(address.end)
             },
@@ -117,7 +115,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     text = stringResource(id = R.string.ready),
                     enabled = state.isDataValid,
                 )
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                Spacer(modifier = Modifier.size(8.dp))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { interactor.onSkip() },
@@ -125,8 +123,8 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 )
             }
             LocationButton(modifier = Modifier.constrainAs(fab) {
-                bottom.linkTo(map.bottom, regularMargin)
-                end.linkTo(map.end, regularMargin)
+                bottom.linkTo(map.bottom, 12.dp)
+                end.linkTo(map.end, 12.dp)
             }, onClick = { interactor.onMyLocation() })
         }
     }

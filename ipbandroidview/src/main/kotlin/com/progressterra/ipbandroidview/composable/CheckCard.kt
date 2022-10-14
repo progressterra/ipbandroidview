@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.ui.auditchecks.CheckState
 
@@ -36,7 +37,7 @@ fun CheckCard(
 ) {
     Row(modifier = modifier
         .clip(RoundedCornerShape(12.dp))
-        .background(if (state == CheckState.SUCCESSFUL) successColor else if (state == CheckState.FAILED) failedColor else AppTheme.colors.surfaces)
+        .background(if (state.yesNo == YesNo.YES) successColor else if (state.yesNo == YesNo.NO) failedColor else AppTheme.colors.surfaces)
         .clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(bounded = true)
@@ -71,63 +72,7 @@ private fun CheckCardPreviewOngoing() {
         CheckCard(
             name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
             onClick = {},
-            state = CheckState.ONGOING
+            state = CheckState(false, YesNo.YES)
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun CheckCardPreviewNone() {
-    AppTheme {
-        CheckCard(
-            name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
-            onClick = {},
-            state = CheckState.NONE
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun CheckCardPreviewCheck() {
-    AppTheme {
-        CheckCard(
-            name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
-            onClick = {},
-            state = CheckState.SUCCESSFUL
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun CheckCardPreviewUncheck() {
-    AppTheme {
-        CheckCard(
-            name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
-            onClick = {},
-            state = CheckState.FAILED
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun CheckCardPreviewShort() {
-    AppTheme {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            CheckCard(
-                name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
-                onClick = {},
-                state = CheckState.FAILED
-            )
-            Spacer(modifier = Modifier.size(16.dp))
-            CheckCard(
-                name = "Наличие документов",
-                onClick = {},
-                state = CheckState.FAILED
-            )
-        }
     }
 }

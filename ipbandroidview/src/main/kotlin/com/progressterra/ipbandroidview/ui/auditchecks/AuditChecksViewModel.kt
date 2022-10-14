@@ -33,7 +33,7 @@ class AuditChecksViewModel(
                 ongoing = false
             )
         }
-        documentChecklistUseCase.documentChecklist(state.id).onSuccess {
+        documentChecklistUseCase.documentChecklist(state.id, state.done).onSuccess {
             reduce { state.copy(checks = it, screenState = ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
@@ -42,7 +42,7 @@ class AuditChecksViewModel(
 
     override fun onRefresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        documentChecklistUseCase.documentChecklist(state.id).onSuccess {
+        documentChecklistUseCase.documentChecklist(state.id, state.done).onSuccess {
             reduce { state.copy(checks = it, screenState = ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
@@ -50,7 +50,7 @@ class AuditChecksViewModel(
     }
 
     override fun onCheck(check: Check) = intent {
-        postSideEffect(AuditChecksEffect.OnCheck(check))
+
     }
 
     override fun onBack() = intent {
@@ -63,5 +63,21 @@ class AuditChecksViewModel(
 
     override fun onStop() = intent {
 
+    }
+
+    override fun onSheetVisibilityChange(visibility: Boolean) {
+
+    }
+
+    override fun closeSheet() {
+
+    }
+
+    override fun yesNo(yes: Boolean) {
+
+    }
+
+    override fun onCheckCommentaryChange(commentary: String) {
+        TODO("Not yet implemented")
     }
 }

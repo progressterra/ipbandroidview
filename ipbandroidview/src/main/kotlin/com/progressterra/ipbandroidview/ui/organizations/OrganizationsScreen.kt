@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrganizationCard
 import com.progressterra.ipbandroidview.composable.ThemedProgressBar
@@ -36,14 +37,14 @@ fun OrganizationsScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(
-                            top = AppTheme.dimensions.small,
-                            start = AppTheme.dimensions.small,
-                            end = AppTheme.dimensions.small
+                            top = 8.dp,
+                            start = 8.dp,
+                            end = 8.dp
                         )
                 ) {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                        verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         items(state.organizations) {
                             OrganizationCard(modifier = Modifier.fillMaxWidth(),

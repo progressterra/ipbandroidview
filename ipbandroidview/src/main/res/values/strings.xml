@@ -45,4 +45,10 @@
     <string name="start_audit">Начать проверку</string>
     <string name="pause_audit">Остановить проверку</string>
     <string name="refresh">Обновить</string>
+    <string name="voice_message">Голосовое сообщение</string>
+    <string name="mic">Микрофон</string>
+    <string name="trash">Удалить аудиосообщение</string>
+    <string name="pause">Пауза</string>
+    <string name="close">Закрыть</string>
+    <string name="text_comment">Текстовый комментарий</string>
 </resources>

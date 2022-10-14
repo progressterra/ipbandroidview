@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.utils
 
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier

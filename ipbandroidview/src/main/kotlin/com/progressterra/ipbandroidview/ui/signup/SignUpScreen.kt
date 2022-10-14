@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -24,18 +25,18 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(
-                    start = AppTheme.dimensions.small,
-                    top = AppTheme.dimensions.small,
-                    end = AppTheme.dimensions.small
+                    start = 8.dp,
+                    top = 8.dp,
+                    end = 8.dp
                 ),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(AppTheme.dimensions.regular))
+                    .clip(RoundedCornerShape(12.dp))
                     .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.regular)
+                    .padding(12.dp)
             ) {
                 if (state.showCalendar) {
                     ComposeCalendar(onDone = {
@@ -49,19 +50,19 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                     text = state.name,
                     hint = stringResource(id = R.string.name_surname),
                     onChange = { interactor.onName(it) })
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
+                Spacer(modifier = Modifier.size(12.dp))
                 ThemedTextField(modifier = Modifier.fillMaxWidth(),
                     text = state.email,
                     hint = stringResource(id = R.string.email),
                     onChange = { interactor.onEmail(it) })
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
+                Spacer(modifier = Modifier.size(12.dp))
                 ThemedMimicField(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { interactor.openCalendar() },
                     text = state.birthday,
                     hint = stringResource(id = R.string.birthday),
                 )
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.regular))
+                Spacer(modifier = Modifier.size(12.dp))
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.phoneNumber,
@@ -76,7 +77,7 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                     text = stringResource(id = R.string.next),
                     enabled = state.isDataValid,
                 )
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                Spacer(modifier = Modifier.size(8.dp))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { interactor.onSkip() },

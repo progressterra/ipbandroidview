@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.composable.bottomnav
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +14,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
@@ -23,10 +22,6 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun BottomMenuTab(
     modifier: Modifier = Modifier,
-    gap: Dp = 4.dp,
-    padding: Dp = 4.dp,
-    countSize: Dp = 13.dp,
-    countRadius: Dp = 100.dp,
     state: BottomMenuItem,
     active: Boolean
 ) {
@@ -34,13 +29,13 @@ fun BottomMenuTab(
         .clickable {
             state.onClick()
         }
-        .padding(padding), horizontalAlignment = Alignment.CenterHorizontally) {
+        .padding(4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         Box(contentAlignment = Alignment.TopEnd) {
             if (state.count > 0) {
                 Box(
                     modifier = Modifier
-                        .size(countSize)
-                        .clip(RoundedCornerShape(countRadius))
+                        .size(13.dp)
+                        .clip(CircleShape)
                         .background(AppTheme.colors.primary)
                         .zIndex(1f),
                     contentAlignment = Alignment.Center
@@ -59,7 +54,7 @@ fun BottomMenuTab(
                 tint = if (active) AppTheme.colors.primary else AppTheme.colors.gray2
             )
         }
-        Spacer(modifier = Modifier.size(gap))
+        Spacer(modifier = Modifier.size(4.dp))
         Text(
             text = stringResource(id = state.titleId),
             style = AppTheme.typography.actionBarLabels,

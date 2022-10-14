@@ -7,21 +7,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
-
-private val padding: Dp = 8.dp
-private val rounding: Dp = 20.dp
 
 @Composable
 fun BottomHolder(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
 
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(topStart = rounding, topEnd = rounding))
+            .clip(
+                RoundedCornerShape(
+                    topStart = AppTheme.dimensions.largeRounding,
+                    topEnd = AppTheme.dimensions.largeRounding
+                )
+            )
             .background(AppTheme.colors.surfaces)
-            .padding(padding), content = content
+            .padding(8.dp), content = content
     )
 }
 
@@ -35,7 +36,7 @@ private fun BottomHolderPreview() {
                 onClick = { },
                 text = "Some button 1",
             )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+            Spacer(modifier = Modifier.size(8.dp))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(), onClick = { }, text = "Some button 2"
             )

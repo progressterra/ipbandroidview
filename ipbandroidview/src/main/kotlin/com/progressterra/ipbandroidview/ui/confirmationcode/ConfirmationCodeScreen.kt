@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -31,17 +32,17 @@ fun ConfirmationCodeScreen(
                 Modifier
                     .fillMaxSize()
                     .padding(
-                        start = AppTheme.dimensions.small,
-                        top = AppTheme.dimensions.small,
-                        end = AppTheme.dimensions.small
+                        start = 8.dp,
+                        top = 8.dp,
+                        end = 8.dp
                     ), verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(AppTheme.dimensions.regular))
+                        .clip(RoundedCornerShape(12.dp))
                         .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.large)
+                        .padding(16.dp)
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
@@ -50,7 +51,7 @@ fun ConfirmationCodeScreen(
                         style = AppTheme.typography.text,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
+                    Spacer(modifier = Modifier.size(16.dp))
                     VerificationCodeInput(modifier = Modifier.fillMaxWidth(),
                         code = state.code,
                         onCode = { interactor.onCode(it) })
@@ -61,7 +62,7 @@ fun ConfirmationCodeScreen(
                         onClick = { interactor.onNext() },
                         text = stringResource(id = R.string.next)
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    Spacer(modifier = Modifier.size(8.dp))
                     ThemedTextButton(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = { interactor.onResend() },

@@ -6,10 +6,10 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class AppDimensions(
-    val extraSmall: Dp = 4.dp,
-    val small: Dp = 8.dp,
-    val regular: Dp = 12.dp,
-    val large: Dp = 16.dp,
-    val extraLarge: Dp = 20.dp
+    val smallRounding: Dp = 10.dp,
+    val mediumRounding: Dp = 12.dp,
+    val largeRounding: Dp = 20.dp,
+    val buttonRounding: Dp = 14.dp,
+
 )
 
