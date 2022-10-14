@@ -33,18 +33,17 @@ interface ChecklistUseCase {
             }.getOrThrow()
             buildList {
                 result.map { check ->
-                    check.idUnique?.let {
-                        add(
-                            Check(
-                                id = id,
-                                category = check.parameter?.internalName ?: noData,
-                                name = check.shortDescription ?: noData,
-                                yesNo = YesNo.NONE,
-                                comment = "",
-                                description = check.description ?: noData
-                            )
+                    add(
+                        Check(
+                            id = check.idUnique!!,
+                            category = check.parameter?.internalName ?: noData,
+                            name = check.shortDescription ?: noData,
+                            yesNo = YesNo.NONE,
+                            comment = "",
+                            description = check.description ?: noData
                         )
-                    }
+                    )
+
                 }
             }
         }
