@@ -28,8 +28,12 @@ interface UpdateAnswerUseCase {
             val result = withToken {
                 repo.createOrUpdateAnswer(
                     it, DRAnswerChekListItemEntity(
-                        yesNo = check.yesNo.toBoolean(), comments = check.comment,
-                        null, null, null, iddrCheckListItem = check.id
+                        yesNo = check.yesNo.toBoolean(),
+                        comments = check.comment,
+                        rangeValue = 0,
+                        specificMeaning = 0.0,
+                        specificFreeMeaning = "",
+                        iddrCheckListItem = check.id
                     )
                 )
             }.getOrThrow()
