@@ -74,12 +74,16 @@ class ChecklistViewModel(
 
     override fun startStopAudit() = intent {
         if (state.ongoing)
-            finishDocumentUseCase.finishDocument(state.checklist.checklistId)
+            finishDocumentUseCase.finishDocument(state.checklist.checklistId).onSuccess {
+                reduce { state.copy(ongoing = false) }
+            }
         else
             createDocumentUseCase.createDocument(
                 state.checklist.checklistId,
                 state.checklist.placeId
-            )
+            ).onSuccess {
+                reduce { state.copy(ongoing = true) }
+            }
     }
 
     override fun startPauseVoicePlay() = intent {
