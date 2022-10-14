@@ -140,14 +140,14 @@ val iPBAndroidViewModule = module {
 
     //TODO encoder?
     viewModel {
-        val file = File(androidContext().filesDir, "Recorded audio.mp4")
+//        val file = File(androidContext().filesDir, "Recorded audio.mp4")
         val mediaRecorder = MediaRecorder(androidContext())
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-        mediaRecorder.setOutputFile(file)
+//        mediaRecorder.setOutputFile(file)
         val mediaPlayer = MediaPlayer()
-        mediaPlayer.setDataSource(file.absolutePath)
+//        mediaPlayer.setDataSource(file.absolutePath)
         ChecklistViewModel(get(), mediaRecorder, mediaPlayer)
     }
 }
