@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -173,6 +174,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         )
                     }
                     state.checks.groupBy { it.category }.forEach { (category, checks) ->
+                        Log.d("GROUP", "$category: $checks")
                         item {
                             CategoryDivider(
                                 modifier = Modifier.fillMaxWidth(), title = category
