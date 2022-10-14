@@ -173,14 +173,14 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             checkCounter = state.checkCounter
                         )
                     }
-                    state.checks.groupBy { it.category }.forEach { (category, checks) ->
-                        Log.d("GROUP", "$category: $checks")
-                        item {
-                            CategoryDivider(
-                                modifier = Modifier.fillMaxWidth(), title = category
-                            )
-                        }
-                        items(checks) {
+//                    state.checks.groupBy { it.category }.forEach { (category, checks) ->
+//                        Log.d("GROUP", "$category: $checks")
+//                        item {
+//                            CategoryDivider(
+//                                modifier = Modifier.fillMaxWidth(), title = category
+//                            )
+//                        }
+                        items(state.checks) {
                             CheckCard(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -190,7 +190,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 state = it.state
                             )
                         }
-                    }
+//                    }
 
                 }
             }
