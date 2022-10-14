@@ -1,7 +1,10 @@
 package com.progressterra.ipbandroidview.core
 
+import android.os.Parcelable
 import com.progressterra.ipbandroidview.ui.checklist.Check
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Checklist(
     val id: String,
     val name: String,
@@ -9,4 +12,4 @@ data class Checklist(
     val repetitiveness: String,
     val lastTimeChecked: String,
     val checks: List<Check>
-)
+) : Parcelable
