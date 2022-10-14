@@ -31,9 +31,9 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
             interactor.onSheetVisibilityChange(it == ModalBottomSheetValue.Expanded)
             true
         })
-    LaunchedEffect(state.sheetVisibility) {
-        if (state.sheetVisibility && !sheetState.isVisible) sheetState.show()
-        if (!state.sheetVisibility && sheetState.isVisible) sheetState.hide()
+    LaunchedEffect(state.currentCheck) {
+        if (state.currentCheck != null)
+            sheetState.show()
     }
     ModalBottomSheetLayout(
         sheetState = sheetState, sheetShape = RoundedCornerShape(
