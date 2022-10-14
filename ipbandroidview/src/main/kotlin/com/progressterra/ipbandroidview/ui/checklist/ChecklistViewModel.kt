@@ -55,12 +55,10 @@ class ChecklistViewModel(
         reduce {
             state.copy(
                 currentCheck = state.currentCheck?.copy(
-                    state = CheckState(
-                        state.checklist.done,
-                        if (yes) YesNo.YES else YesNo.NO
-                    )
+                    if (yes) YesNo.YES else YesNo.NO
                 )
             )
+
         }
     }
 

@@ -10,7 +10,6 @@ import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ext.toBoolean
 import com.progressterra.ipbandroidview.ext.toYesNo
 import com.progressterra.ipbandroidview.ui.checklist.Check
-import com.progressterra.ipbandroidview.ui.checklist.CheckState
 
 interface UpdateAnswerUseCase {
 
@@ -29,13 +28,13 @@ interface UpdateAnswerUseCase {
             val result = withToken {
                 repo.createOrUpdateAnswer(
                     it, DRAnswerChekListItemEntity(
-                        yesNo = check.state.yesNo.toBoolean(), comments = check.comment,
+                        yesNo = check.yesNo.toBoolean(), comments = check.comment,
                         null, null, null, iddrCheckListItem = check.id
                     )
                 )
             }.getOrThrow()
             Check(
-                state = CheckState(false, result.answerCheckList?.yesNo.toYesNo()),
+                yesNo = result.answerCheckList?.yesNo.toYesNo(),
                 id = result.idUnique!!,
                 category = result.parameter?.internalName ?: noData,
                 name = result.shortDescription ?: noData,

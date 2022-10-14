@@ -21,13 +21,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.checklist.CheckState
 
 @Composable
 fun YesNoButton(
     modifier: Modifier = Modifier,
-    state: CheckState,
-    onClick: (Boolean) -> Unit
+    yesNo: YesNo,
+    onClick: (Boolean) -> Unit,
+    enabled: Boolean = true
 ) {
 
     @Composable
@@ -43,7 +43,7 @@ fun YesNoButton(
             .clip(RoundedCornerShape(AppTheme.dimensions.buttonRounding))
             .background(if (active) activeColor else baseColor)
             .clickable(
-                enabled = !state.done,
+                enabled = enabled,
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(bounded = true)
             ) { onClick() }
@@ -68,14 +68,14 @@ fun YesNoButton(
         Button(modifier = Modifier.weight(1f),
             text = stringResource(id = R.string.yes),
             activeColor = AppTheme.colors.primary,
-            active = state.yesNo == YesNo.YES,
-            baseColor = if (state.yesNo == YesNo.NO) AppTheme.colors.gray3 else Color(0xFFA0ECAC),
+            active = yesNo == YesNo.YES,
+            baseColor = if (yesNo == YesNo.NO) AppTheme.colors.gray3 else Color(0xFFA0ECAC),
             onClick = { onClick(true) })
         Button(modifier = Modifier.weight(1f),
             text = stringResource(id = R.string.no),
             activeColor = AppTheme.colors.error,
-            active = state.yesNo == YesNo.NO,
-            baseColor = if (state.yesNo == YesNo.YES) AppTheme.colors.gray3 else Color(0xFFF5B5B5),
+            active = yesNo == YesNo.NO,
+            baseColor = if (yesNo == YesNo.YES) AppTheme.colors.gray3 else Color(0xFFF5B5B5),
             onClick = { onClick(false) })
     }
 }
@@ -84,7 +84,7 @@ fun YesNoButton(
 @Composable
 private fun YesNoButtonPreview() {
     AppTheme {
-        YesNoButton(state = CheckState(false, YesNo.NONE), onClick = {})
+        YesNoButton(yesNo = YesNo.NONE, onClick = {})
     }
 }
 
@@ -92,7 +92,7 @@ private fun YesNoButtonPreview() {
 @Composable
 private fun YesNoButtonPreviewYes() {
     AppTheme {
-        YesNoButton(state = CheckState(true, YesNo.YES), onClick = {})
+        YesNoButton(yesNo = YesNo.YES, onClick = {})
     }
 }
 
@@ -102,7 +102,20 @@ private fun YesNoButtonPreviewNo() {
     AppTheme {
         YesNoButton(
             modifier = Modifier.fillMaxWidth(),
-            CheckState(false, YesNo.NO),
+            yesNo = YesNo.NO,
             onClick = {})
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun YesNoButtonPreviewDisabled() {
+    AppTheme {
+        YesNoButton(
+            modifier = Modifier.fillMaxWidth(),
+            yesNo = YesNo.NO,
+            onClick = {},
+            enabled = false
+        )
     }
 }

@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.checklist.CheckState
 
 //TODO Colors to composable
 
@@ -31,13 +30,13 @@ fun CheckCard(
     modifier: Modifier = Modifier,
     successColor: Color = Color(0xFFA0ECAC),
     failedColor: Color = Color(0xFFF5B5B5),
-    state: CheckState,
+    yesNo: YesNo,
     onClick: () -> Unit,
     name: String = ""
 ) {
     Row(modifier = modifier
         .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
-        .background(if (state.yesNo == YesNo.YES) successColor else if (state.yesNo == YesNo.NO) failedColor else AppTheme.colors.surfaces)
+        .background(if (yesNo == YesNo.YES) successColor else if (yesNo == YesNo.NO) failedColor else AppTheme.colors.surfaces)
         .clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(bounded = true)
@@ -72,7 +71,7 @@ private fun CheckCardPreviewOngoing() {
         CheckCard(
             name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
             onClick = {},
-            state = CheckState(false, YesNo.YES)
+            yesNo = YesNo.YES
         )
     }
 }

@@ -9,7 +9,6 @@ import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ui.checklist.Check
-import com.progressterra.ipbandroidview.ui.checklist.CheckState
 
 interface ChecklistUseCase {
 
@@ -40,7 +39,7 @@ interface ChecklistUseCase {
                                 id = id,
                                 category = check.parameter?.internalName ?: noData,
                                 name = check.shortDescription ?: noData,
-                                state = CheckState(false, YesNo.NONE),
+                                yesNo = YesNo.NONE,
                                 comment = "",
                                 description = check.description ?: noData
                             )

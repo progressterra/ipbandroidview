@@ -97,9 +97,12 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             .background(AppTheme.colors.surfaces)
                     ) {
                         Box(modifier = Modifier.padding(12.dp)) {
-                            YesNoButton(modifier = Modifier.fillMaxWidth(),
-                                state = state.currentCheck.state,
-                                onClick = { interactor.yesNo(it) })
+                            YesNoButton(
+                                modifier = Modifier.fillMaxWidth(),
+                                yesNo = state.currentCheck.yesNo,
+                                onClick = { interactor.yesNo(it) },
+                                enabled = state.ongoing
+                            )
                         }
                         Box(modifier = Modifier.padding(horizontal = 12.dp)) {
                             ThemedNotebook(
@@ -109,7 +112,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     id = R.string.text_comment
                                 ),
                                 onChange = { interactor.onCheckCommentaryChange(it) },
-                                enabled = !state.currentCheck.state.done
+                                enabled = state.ongoing
                             )
                         }
                         Box(modifier = Modifier.padding(4.dp)) {
@@ -122,13 +125,14 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 })
                         }
                     }
-                    Row(Modifier.padding(horizontal = 8.dp, vertical = 25.dp)) {
-                        ThemedButton(
-                            modifier = Modifier.fillMaxWidth(),
-                            onClick = { interactor.ready() },
-                            text = stringResource(id = R.string.ready)
-                        )
-                    }
+                    if (state.ongoing)
+                        Row(Modifier.padding(horizontal = 8.dp, vertical = 25.dp)) {
+                            ThemedButton(
+                                modifier = Modifier.fillMaxWidth(),
+                                onClick = { interactor.ready() },
+                                text = stringResource(id = R.string.ready)
+                            )
+                        }
                 }
             }
         }, sheetBackgroundColor = AppTheme.colors.surfaces
@@ -184,7 +188,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     coroutineScope.launch { sheetState.show() }
                                 },
                                 name = it.name,
-                                state = it.state
+                                yesNo = it.yesNo
                             )
                         }
                     }
@@ -208,7 +212,7 @@ private fun ChecklistScreenPreview() {
                     lastTimeChecked = "yesterday",
                     checks = listOf(
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "1 category",
                             "Some check 1\nWith more text",
@@ -216,7 +220,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         ),
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "1 category",
                             "Some check 2",
@@ -224,7 +228,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         ),
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "1 category",
                             "Some check 3",
@@ -232,7 +236,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         ),
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "1 category",
                             "Some check 4",
@@ -240,7 +244,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         ),
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "1 category",
                             "Some check 5\nWith more text",
@@ -248,7 +252,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         ),
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "2 category",
                             "Some check 6",
@@ -256,7 +260,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         ),
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "2 category",
                             "Some check 7",
@@ -264,7 +268,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         ),
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "2 category",
                             "Some check 8\nWith more text",
@@ -272,7 +276,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         ),
                         Check(
-                            CheckState(false, YesNo.YES),
+                            yesNo = YesNo.YES,
                             "",
                             "3 category",
                             "Some check 9",
@@ -300,7 +304,7 @@ private fun ChecklistScreenPreviewDialog() {
                     checks = listOf()
                 ),
                 currentCheck = Check(
-                    CheckState(false, YesNo.YES),
+                    yesNo = YesNo.YES,
                     "",
                     "2 category",
                     "Some check 8\nWith more text",
