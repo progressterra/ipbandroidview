@@ -19,6 +19,6 @@ class SplashViewModel : ViewModel(), ContainerHost<SplashState, SplashEffect> {
 
     private fun splashInit() = intent {
         delay(1000)
-        postSideEffect(if (!UserData.clientExist) SplashEffect.Auth else SplashEffect.NonAuth)
+        postSideEffect(if (UserData.clientExist) SplashEffect.NonAuth else SplashEffect.Auth)
     }
 }

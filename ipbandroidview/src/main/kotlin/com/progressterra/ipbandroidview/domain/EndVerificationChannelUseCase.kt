@@ -20,7 +20,10 @@ interface EndVerificationChannelUseCase {
                 code,
                 "SDK: ${Build.VERSION.SDK_INT} Model: ${Build.MODEL}"
             )
-            result.map { UserData.deviceId = it }
+            result.map {
+                UserData.deviceId = it
+                UserData.clientExist = true
+            }
             return result.isSuccess
         }
     }
