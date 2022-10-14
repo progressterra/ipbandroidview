@@ -1,8 +1,10 @@
 package com.progressterra.ipbandroidview.ui.audits
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.AllDocumentsUseCase
+import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -11,7 +13,8 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class DocumentsViewModel(
-    private val allDocumentsUseCase: AllDocumentsUseCase
+    private val allDocumentsUseCase: AllDocumentsUseCase,
+    private val documentChecklistUseCase: DocumentChecklistUseCase
 ) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect>, DocumentsInteractor {
 
     override val container: Container<DocumentsState, DocumentsEffect> = container(DocumentsState())
@@ -34,7 +37,22 @@ class DocumentsViewModel(
     }
 
     override fun onDocumentChecklist(document: Document) = intent {
-        postSideEffect(DocumentsEffect.OnDocumentDetails(document))
+        reduce { state.copy(screenState = ScreenState.LOADING) }
+        documentChecklistUseCase.documentChecklist(document.id, document.done).onSuccess {
+            postSideEffect(
+                DocumentsEffect.OnChecklist(
+                    Checklist(
+                        id = document.id,
+                        name = document.name,
+                        repetitiveness = "PLACEHOLDER",
+                        lastTimeChecked = document.lastTimeChecked,
+                        checks = it
+                    )
+                )
+            )
+        }.onFailure {
+            reduce { state.copy(screenState = ScreenState.ERROR) }
+        }
     }
 
     override fun onAudit() = intent {

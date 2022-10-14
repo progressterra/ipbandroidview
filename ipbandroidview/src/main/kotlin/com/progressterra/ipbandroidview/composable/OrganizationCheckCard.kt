@@ -1,12 +1,16 @@
 package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,12 +26,18 @@ fun OrganizationCheckCard(
     modifier: Modifier = Modifier,
     name: String = "",
     lastTime: String = "",
-    warning: Boolean = false
+    warning: Boolean = false,
+    onClick: () -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(),
+                onClick = onClick
+            )
             .background(AppTheme.colors.surfaces)
             .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -75,7 +85,7 @@ fun OrganizationCheckCard(
 @Composable
 private fun OrganizationCheckCardPreview() {
     AppTheme {
-        OrganizationCheckCard(name = "Name", lastTime = "Last time")
+        OrganizationCheckCard(name = "Name", lastTime = "Last time", onClick = {})
     }
 }
 
@@ -83,6 +93,6 @@ private fun OrganizationCheckCardPreview() {
 @Composable
 private fun OrganizationCheckCardPreviewWarning() {
     AppTheme {
-        OrganizationCheckCard(name = "Name", lastTime = "Last time", warning = true)
+        OrganizationCheckCard(name = "Name", lastTime = "Last time", warning = true, onClick = {})
     }
 }

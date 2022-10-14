@@ -8,6 +8,8 @@ interface OrganizationAuditsInteractor {
 
     fun onRefresh()
 
+    fun onAuditClick(organizationAudit: OrganizationAudit)
+
     class Empty : OrganizationAuditsInteractor {
 
         override fun onMapClick() = Unit
@@ -15,5 +17,7 @@ interface OrganizationAuditsInteractor {
         override fun onBack() = Unit
 
         override fun onRefresh() = Unit
+
+        override fun onAuditClick(organizationAudit: OrganizationAudit) = Unit
     }
 }

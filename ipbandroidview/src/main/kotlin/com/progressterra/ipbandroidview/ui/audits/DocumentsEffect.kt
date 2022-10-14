@@ -1,9 +1,11 @@
 package com.progressterra.ipbandroidview.ui.audits
 
+import com.progressterra.ipbandroidview.core.Checklist
+
 sealed class DocumentsEffect {
 
     @Suppress("unused")
-    class OnDocumentDetails(val document: Document) : DocumentsEffect()
+    class OnChecklist(val checklist: Checklist) : DocumentsEffect()
 
     object OnOrganizations : DocumentsEffect()
 }

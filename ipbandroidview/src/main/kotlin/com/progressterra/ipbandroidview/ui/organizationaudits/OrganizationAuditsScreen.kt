@@ -49,7 +49,12 @@ fun OrganizationAuditsScreen(
                     }
                     items(state.audits) {
                         OrganizationCheckCard(
-                            name = it.name, lastTime = it.lastTime, warning = it.warning
+                            name = it.name,
+                            lastTime = it.lastTime,
+                            warning = it.warning,
+                            onClick = {
+                                interactor.onAuditClick(it)
+                            }
                         )
                     }
                 }
