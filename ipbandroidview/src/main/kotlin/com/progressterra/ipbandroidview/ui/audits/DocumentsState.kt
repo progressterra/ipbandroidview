@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.core.ScreenState
 
 @Immutable
-data class AuditsState(
+data class DocumentsState(
     val documents: List<Document> = emptyList(),
     val screenState: ScreenState = ScreenState.LOADING
 )

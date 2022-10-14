@@ -1,10 +1,10 @@
-package com.progressterra.ipbandroidview.ui.auditchecks
+package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.core.ScreenState
 
 @Immutable
-data class AuditChecksState(
+data class ChecklistState(
     val id: String = "",
     val name: String = "",
     val checkCounter: Int = 0,

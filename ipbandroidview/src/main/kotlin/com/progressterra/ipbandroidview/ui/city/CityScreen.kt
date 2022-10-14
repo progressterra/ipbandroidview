@@ -39,7 +39,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
         ) {
             val (buttons, map, address, background, suggestions, fab) = createRefs()
             Box(modifier = Modifier
-                .clip(RoundedCornerShape(12.dp))
+                .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
                 .background(AppTheme.colors.surfaces)
                 .constrainAs(background) {
                     height = Dimension.fillToConstraints

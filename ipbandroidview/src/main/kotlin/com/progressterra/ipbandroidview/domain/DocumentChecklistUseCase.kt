@@ -7,8 +7,8 @@ import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
-import com.progressterra.ipbandroidview.ui.auditchecks.Check
-import com.progressterra.ipbandroidview.ui.auditchecks.CheckState
+import com.progressterra.ipbandroidview.ui.checklist.Check
+import com.progressterra.ipbandroidview.ui.checklist.CheckState
 
 interface DocumentChecklistUseCase {
 

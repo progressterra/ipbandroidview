@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.auditchecks.CheckState
+import com.progressterra.ipbandroidview.ui.checklist.CheckState
 
 //TODO Colors to composable
 
@@ -36,7 +36,7 @@ fun CheckCard(
     name: String = ""
 ) {
     Row(modifier = modifier
-        .clip(RoundedCornerShape(12.dp))
+        .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
         .background(if (state.yesNo == YesNo.YES) successColor else if (state.yesNo == YesNo.NO) failedColor else AppTheme.colors.surfaces)
         .clickable(
             interactionSource = remember { MutableInteractionSource() },

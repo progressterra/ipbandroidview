@@ -10,11 +10,11 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class AuditsViewModel(
+class DocumentsViewModel(
     private val allDocumentsUseCase: AllDocumentsUseCase
-) : ViewModel(), ContainerHost<AuditsState, AuditsEffect>, AuditsInteractor {
+) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect>, DocumentsInteractor {
 
-    override val container: Container<AuditsState, AuditsEffect> = container(AuditsState())
+    override val container: Container<DocumentsState, DocumentsEffect> = container(DocumentsState())
 
     init {
         fetch()
@@ -34,10 +34,10 @@ class AuditsViewModel(
     }
 
     override fun onDocumentChecklist(document: Document) = intent {
-        postSideEffect(AuditsEffect.OnDocumentDetails(document))
+        postSideEffect(DocumentsEffect.OnDocumentDetails(document))
     }
 
     override fun onAudit() = intent {
-        postSideEffect(AuditsEffect.OnOrganizations)
+        postSideEffect(DocumentsEffect.OnOrganizations)
     }
 }

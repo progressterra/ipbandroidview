@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.auditchecks.CheckState
+import com.progressterra.ipbandroidview.ui.checklist.CheckState
 
 @Composable
 fun YesNoButton(

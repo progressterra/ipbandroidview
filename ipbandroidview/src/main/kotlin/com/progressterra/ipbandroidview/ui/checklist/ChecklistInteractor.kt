@@ -1,6 +1,6 @@
-package com.progressterra.ipbandroidview.ui.auditchecks
+package com.progressterra.ipbandroidview.ui.checklist
 
-interface AuditChecksInteractor {
+interface ChecklistInteractor {
 
     fun onRefresh()
 
@@ -20,7 +20,7 @@ interface AuditChecksInteractor {
 
     fun onCheckCommentaryChange(commentary: String)
 
-    class Empty : AuditChecksInteractor {
+    class Empty : ChecklistInteractor {
 
         override fun onSheetVisibilityChange(visibility: Boolean) = Unit
 

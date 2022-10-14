@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -32,7 +33,7 @@ fun OrganizationPresentation(
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
             .background(AppTheme.colors.surfaces)
             .padding(12.dp)
     ) {
@@ -40,7 +41,7 @@ fun OrganizationPresentation(
             modifier = Modifier
                 .height(188.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp)),
+                .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding)),
             model = imageUrl,
             contentDescription = stringResource(id = R.string.organization_image),
             contentScale = ContentScale.FillBounds
@@ -63,7 +64,7 @@ fun OrganizationPresentation(
             Column(
                 modifier = Modifier
                     .size(48.dp)
-                    .clip(RoundedCornerShape(100.dp))
+                    .clip(CircleShape)
                     .clickable(
                         interactionSource = remember { MutableInteractionSource() },
                         indication = rememberRipple(),

@@ -34,7 +34,7 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
+                    .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
                     .background(AppTheme.colors.surfaces)
                     .padding(12.dp)
             ) {

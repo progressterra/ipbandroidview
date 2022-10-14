@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.auditchecks
+package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
@@ -11,19 +11,19 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class AuditChecksViewModel(
+class ChecklistViewModel(
     private val documentChecklistUseCase: DocumentChecklistUseCase
-) : ViewModel(), ContainerHost<AuditChecksState, AuditChecksEffect>,
-    AuditChecksInteractor {
+) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
+    ChecklistInteractor {
 
-    override val container: Container<AuditChecksState, AuditChecksEffect> = container(
-        AuditChecksState()
+    override val container: Container<ChecklistState, ChecklistEffect> = container(
+        ChecklistState()
     )
 
     @Suppress("unused")
     fun setDocument(document: Document) = intent {
         reduce {
-            AuditChecksState(
+            ChecklistState(
                 id = document.id,
                 name = document.name,
                 checkCounter = document.checkCounter,
@@ -54,7 +54,7 @@ class AuditChecksViewModel(
     }
 
     override fun onBack() = intent {
-        postSideEffect(AuditChecksEffect.OnBack)
+        postSideEffect(ChecklistEffect.OnBack)
     }
 
     override fun onStart() = intent {

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.audits
 
-interface AuditsInteractor {
+interface DocumentsInteractor {
 
     fun onRefresh()
 
@@ -8,7 +8,7 @@ interface AuditsInteractor {
 
     fun onAudit()
 
-    class Empty : AuditsInteractor {
+    class Empty : DocumentsInteractor {
 
         override fun onRefresh() = Unit
 

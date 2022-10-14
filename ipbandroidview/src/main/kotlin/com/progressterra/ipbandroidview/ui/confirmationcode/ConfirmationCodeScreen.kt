@@ -40,7 +40,7 @@ fun ConfirmationCodeScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
+                        .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
                         .background(AppTheme.colors.surfaces)
                         .padding(16.dp)
                 ) {

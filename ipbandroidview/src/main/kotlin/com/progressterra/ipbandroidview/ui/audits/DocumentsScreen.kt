@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun AuditsScreen(state: AuditsState, interactor: AuditsInteractor) {
+fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
     Scaffold(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) {
@@ -101,10 +101,10 @@ fun AuditsScreen(state: AuditsState, interactor: AuditsInteractor) {
 
 @Preview
 @Composable
-private fun AuditsScreenPreview() {
+private fun DocumentsScreenPreview() {
     AppTheme {
-        AuditsScreen(
-            state = AuditsState(
+        DocumentsScreen(
+            state = DocumentsState(
                 screenState = ScreenState.SUCCESS,
                 documents = listOf(
                     Document("", "Some audit 1", "Lenina 13", 87, 25, "", "", false),
@@ -116,7 +116,7 @@ private fun AuditsScreenPreview() {
                     Document("", "Some audit 7", "Lenina 13", 56, 25, "", "", true),
                     Document("", "Some audit 8", "Lenina 13", 99, 25, "", "", true)
                 )
-            ), interactor = AuditsInteractor.Empty()
+            ), interactor = DocumentsInteractor.Empty()
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.auditchecks
+package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -24,7 +24,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AuditChecksScreen(state: AuditChecksState, interactor: AuditChecksInteractor) {
+fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
 
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
@@ -58,7 +58,7 @@ fun AuditChecksScreen(state: AuditChecksState, interactor: AuditChecksInteractor
                 })
                 Column(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
+                        .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
                         .background(AppTheme.colors.surfaces)
                         .padding(12.dp)
                 ) {
@@ -71,7 +71,7 @@ fun AuditChecksScreen(state: AuditChecksState, interactor: AuditChecksInteractor
                 Spacer(modifier = Modifier.size(8.dp))
                 Column(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
+                        .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
                         .background(AppTheme.colors.surfaces)
                         .padding(12.dp),
                     verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -169,10 +169,10 @@ fun AuditChecksScreen(state: AuditChecksState, interactor: AuditChecksInteractor
 
 @Preview
 @Composable
-private fun AuditChecksScreenPreview() {
+private fun ChecklistScreenPreview() {
     AppTheme {
-        AuditChecksScreen(
-            state = AuditChecksState(
+        ChecklistScreen(
+            state = ChecklistState(
                 screenState = ScreenState.SUCCESS,
                 ongoing = true,
                 name = "Some audit",
@@ -211,17 +211,17 @@ private fun AuditChecksScreenPreview() {
                     ),
                     Check(CheckState(false, YesNo.YES), "", "3 category", "Some check 9", "", "")
                 ),
-            ), interactor = AuditChecksInteractor.Empty()
+            ), interactor = ChecklistInteractor.Empty()
         )
     }
 }
 
 @Preview
 @Composable
-private fun AuditChecksScreenPreviewLoading() {
+private fun ChecklistScreenPreviewLoading() {
     AppTheme {
-        AuditChecksScreen(
-            state = AuditChecksState(
+        ChecklistScreen(
+            state = ChecklistState(
                 screenState = ScreenState.LOADING,
                 ongoing = false,
                 name = "Some audit",
@@ -229,17 +229,17 @@ private fun AuditChecksScreenPreviewLoading() {
                 repetitiveness = "Every day",
                 lastTimeChecked = "yesterday",
                 checks = listOf(),
-            ), interactor = AuditChecksInteractor.Empty()
+            ), interactor = ChecklistInteractor.Empty()
         )
     }
 }
 
 @Preview
 @Composable
-private fun AuditChecksScreenPreviewError() {
+private fun ChecklistScreenPreviewError() {
     AppTheme {
-        AuditChecksScreen(
-            state = AuditChecksState(
+        ChecklistScreen(
+            state = ChecklistState(
                 screenState = ScreenState.ERROR,
                 ongoing = false,
                 name = "Some audit",
@@ -247,17 +247,17 @@ private fun AuditChecksScreenPreviewError() {
                 repetitiveness = "Every day",
                 lastTimeChecked = "yesterday",
                 checks = listOf(),
-            ), interactor = AuditChecksInteractor.Empty()
+            ), interactor = ChecklistInteractor.Empty()
         )
     }
 }
 
 @Preview
 @Composable
-private fun AuditChecksScreenPreviewDialog() {
+private fun ChecklistScreenPreviewDialog() {
     AppTheme {
-        AuditChecksScreen(
-            state = AuditChecksState(
+        ChecklistScreen(
+            state = ChecklistState(
                 screenState = ScreenState.SUCCESS,
                 ongoing = false,
                 name = "Some audit",
@@ -274,7 +274,7 @@ private fun AuditChecksScreenPreviewDialog() {
                     "",
                     "description"
                 )
-            ), interactor = AuditChecksInteractor.Empty()
+            ), interactor = ChecklistInteractor.Empty()
         )
     }
 }

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.auditchecks
+package com.progressterra.ipbandroidview.ui.checklist
 
 import android.os.Parcelable
 import com.progressterra.ipbandroidview.composable.yesno.YesNo

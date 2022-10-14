@@ -8,8 +8,8 @@ import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
-import com.progressterra.ipbandroidview.ui.auditchecks.AuditChecksViewModel
-import com.progressterra.ipbandroidview.ui.audits.AuditsViewModel
+import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
+import com.progressterra.ipbandroidview.ui.audits.DocumentsViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
@@ -102,7 +102,7 @@ val iPBAndroidViewModule = module {
     single<DocumentChecklistUseCase> { DocumentChecklistUseCase.Base(get(), get(), get(), get()) }
 
     viewModel {
-        AuditsViewModel(get())
+        DocumentsViewModel(get())
     }
 
     viewModel {
@@ -134,6 +134,6 @@ val iPBAndroidViewModule = module {
     }
 
     viewModel {
-        AuditChecksViewModel(get())
+        ChecklistViewModel(get())
     }
 }

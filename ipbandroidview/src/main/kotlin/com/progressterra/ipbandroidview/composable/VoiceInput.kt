@@ -36,7 +36,7 @@ fun VoiceInput(
         Box(modifier = Modifier.padding(8.dp)) {
             Row(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
+                    .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
                     .background(AppTheme.colors.background)
                     .padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -74,7 +74,7 @@ fun VoiceInput(
                             modifier = Modifier
                                 .weight(1f)
                                 .height(4.dp)
-                                .clip(RoundedCornerShape(2))
+                                .clip(RoundedCornerShape(AppTheme.dimensions.lineRounding))
                                 .background(AppTheme.colors.surfaces),
                             contentAlignment = Alignment.CenterStart
                         ) {
@@ -82,7 +82,7 @@ fun VoiceInput(
                                 modifier = Modifier
                                     .fillMaxWidth(voiceState.listened)
                                     .height(4.dp)
-                                    .clip(RoundedCornerShape(2))
+                                    .clip(RoundedCornerShape(AppTheme.dimensions.lineRounding))
                                     .background(AppTheme.colors.primary)
                             )
                         }
@@ -112,7 +112,7 @@ fun VoiceInput(
                             modifier = Modifier
                                 .weight(1f)
                                 .height(4.dp)
-                                .clip(RoundedCornerShape(2))
+                                .clip(RoundedCornerShape(AppTheme.dimensions.lineRounding))
                                 .background(AppTheme.colors.surfaces),
                             contentAlignment = Alignment.CenterStart
                         ) {
@@ -120,7 +120,7 @@ fun VoiceInput(
                                 modifier = Modifier
                                     .fillMaxWidth(voiceState.listened)
                                     .height(4.dp)
-                                    .clip(RoundedCornerShape(2))
+                                    .clip(RoundedCornerShape(AppTheme.dimensions.lineRounding))
                                     .background(AppTheme.colors.primary)
                             )
                         }
