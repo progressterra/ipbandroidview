@@ -38,7 +38,8 @@ class ChecklistViewModel(
                 repetitiveness = checklist.repetitiveness,
                 lastTimeChecked = checklist.lastTimeChecked,
                 done = checklist.done,
-                ongoing = false
+                ongoing = false,
+                checks = checklist.checks
             )
         }
     }
