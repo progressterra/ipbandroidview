@@ -30,7 +30,8 @@ fun VoiceInput(
     voiceState: VoiceState,
     onStartPausePlay: () -> Unit,
     onStartStopRecording: () -> Unit,
-    onRemove: () -> Unit
+    onRemove: () -> Unit,
+    enabled: Boolean = true
 ) {
     Box(modifier = modifier) {
         Box(modifier = Modifier.padding(8.dp)) {
@@ -52,7 +53,7 @@ fun VoiceInput(
                         )
                         IconButton(
                             modifier = Modifier.size(24.dp),
-                            onClick = onStartStopRecording
+                            onClick = onStartStopRecording, enabled = enabled
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_mic),
@@ -64,7 +65,11 @@ fun VoiceInput(
                         }
                     }
                     is VoiceState.PAUSE -> {
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onRemove) {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = onRemove,
+                            enabled = enabled
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_trash),
                                 contentDescription = stringResource(
@@ -91,7 +96,11 @@ fun VoiceInput(
                             )
                         }
                         Spacer(modifier = Modifier.size(16.dp))
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartPausePlay) {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = onStartPausePlay,
+                            enabled = enabled
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_play),
                                 contentDescription = stringResource(
@@ -102,7 +111,11 @@ fun VoiceInput(
                         }
                     }
                     is VoiceState.PLAY -> {
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onRemove) {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = onRemove,
+                            enabled = enabled
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_trash),
                                 contentDescription = stringResource(
@@ -129,7 +142,11 @@ fun VoiceInput(
                             )
                         }
                         Spacer(modifier = Modifier.size(16.dp))
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartPausePlay) {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = onStartPausePlay,
+                            enabled = enabled
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_pause),
                                 contentDescription = stringResource(
@@ -141,7 +158,11 @@ fun VoiceInput(
 
                     }
                     is VoiceState.RECORD -> {
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onRemove) {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = onRemove,
+                            enabled = enabled
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_trash),
                                 contentDescription = stringResource(
@@ -150,7 +171,11 @@ fun VoiceInput(
                                 tint = AppTheme.colors.error
                             )
                         }
-                        IconButton(modifier = Modifier.size(24.dp), onClick = onStartPausePlay) {
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = onStartPausePlay,
+                            enabled = enabled
+                        ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_mic),
                                 contentDescription = stringResource(

@@ -116,23 +116,28 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             )
                         }
                         Box(modifier = Modifier.padding(4.dp)) {
-                            VoiceInput(modifier = Modifier.fillMaxWidth(),
+                            VoiceInput(
+                                modifier = Modifier.fillMaxWidth(),
                                 voiceState = state.voiceState,
                                 onStartPausePlay = { interactor.startPauseVoicePlay() },
                                 onStartStopRecording = { interactor.startStopVoiceRecording() },
                                 onRemove = {
                                     interactor.removeRecord()
-                                })
+                                }, enabled = state.ongoing
+                            )
                         }
                     }
-                    if (state.ongoing)
-                        Row(Modifier.padding(horizontal = 8.dp, vertical = 25.dp)) {
+                    if (state.ongoing) {
+                        Spacer(modifier = Modifier.size(25.dp))
+                        Row(Modifier.padding(horizontal = 8.dp)) {
                             ThemedButton(
                                 modifier = Modifier.fillMaxWidth(),
                                 onClick = { interactor.ready() },
                                 text = stringResource(id = R.string.ready)
                             )
                         }
+                    }
+                    Spacer(modifier = Modifier.size(25.dp))
                 }
             }
         }, sheetBackgroundColor = AppTheme.colors.surfaces
