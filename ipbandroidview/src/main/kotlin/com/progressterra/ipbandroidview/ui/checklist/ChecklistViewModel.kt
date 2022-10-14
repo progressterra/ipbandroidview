@@ -6,10 +6,8 @@ import android.media.MediaRecorder
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
+import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ManagePermission
-import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
-import com.progressterra.ipbandroidview.ui.audits.Document
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -18,7 +16,6 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ChecklistViewModel(
-    private val documentChecklistUseCase: DocumentChecklistUseCase,
     private val managePermission: ManagePermission,
     private val mediaRecorder: MediaRecorder,
     private val mediaPlayer: MediaPlayer
@@ -32,31 +29,17 @@ class ChecklistViewModel(
     private val permission = Manifest.permission.RECORD_AUDIO
 
     @Suppress("unused")
-    fun setDocument(document: Document) = intent {
+    fun setDocument(checklist: Checklist) = intent {
         reduce {
             ChecklistState(
-                id = document.id,
-                name = document.name,
-                checkCounter = document.checkCounter,
-                repetitiveness = document.repetitiveness,
-                lastTimeChecked = document.lastTimeChecked,
-                done = document.done,
+                id = checklist.id,
+                name = checklist.name,
+                checkCounter = checklist.checks.size,
+                repetitiveness = checklist.repetitiveness,
+                lastTimeChecked = checklist.lastTimeChecked,
+                done = checklist.done,
                 ongoing = false
             )
-        }
-        documentChecklistUseCase.documentChecklist(state.id, state.done).onSuccess {
-            reduce { state.copy(checks = it, screenState = ScreenState.SUCCESS) }
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
-        }
-    }
-
-    override fun refresh() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
-        documentChecklistUseCase.documentChecklist(state.id, state.done).onSuccess {
-            reduce { state.copy(checks = it, screenState = ScreenState.SUCCESS) }
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
         }
     }
 

@@ -19,7 +19,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.composable.yesno.YesNoButton
-import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -156,45 +155,41 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                 })
         }) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                when (state.screenState) {
-                    ScreenState.SUCCESS -> LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(AppTheme.colors.background)
-                            .padding(
-                                top = 8.dp, start = 8.dp, end = 8.dp
-                            ), verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(AppTheme.colors.background)
+                        .padding(
+                            top = 8.dp, start = 8.dp, end = 8.dp
+                        ), verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    item {
+                        AuditTitle(
+                            modifier = Modifier.fillMaxWidth(),
+                            name = state.name,
+                            repetitiveness = state.repetitiveness,
+                            lastTimeChecked = state.lastTimeChecked,
+                            checkCounter = state.checkCounter
+                        )
+                    }
+                    state.checks.groupBy { it.category }.forEach { (category, checks) ->
                         item {
-                            AuditTitle(
-                                modifier = Modifier.fillMaxWidth(),
-                                name = state.name,
-                                repetitiveness = state.repetitiveness,
-                                lastTimeChecked = state.lastTimeChecked,
-                                checkCounter = state.checkCounter
+                            CategoryDivider(
+                                modifier = Modifier.fillMaxWidth(), title = category
                             )
                         }
-                        state.checks.groupBy { it.category }.forEach { (category, checks) ->
-                            item {
-                                CategoryDivider(
-                                    modifier = Modifier.fillMaxWidth(), title = category
-                                )
-                            }
-                            items(checks) {
-                                CheckCard(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(IntrinsicSize.Max),
-                                    onClick = { interactor.onCheck(it) },
-                                    name = it.name,
-                                    state = it.state
-                                )
-                            }
+                        items(checks) {
+                            CheckCard(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(IntrinsicSize.Max),
+                                onClick = { interactor.onCheck(it) },
+                                name = it.name,
+                                state = it.state
+                            )
                         }
-
                     }
-                    ScreenState.ERROR -> ThemedRefreshButton(onClick = { interactor.refresh() })
-                    ScreenState.LOADING -> ThemedProgressBar()
+
                 }
             }
         }
@@ -207,7 +202,6 @@ private fun ChecklistScreenPreview() {
     AppTheme {
         ChecklistScreen(
             state = ChecklistState(
-                screenState = ScreenState.SUCCESS,
                 ongoing = true,
                 name = "Some audit",
                 checkCounter = 25,
@@ -250,41 +244,6 @@ private fun ChecklistScreenPreview() {
     }
 }
 
-@Preview
-@Composable
-private fun ChecklistScreenPreviewLoading() {
-    AppTheme {
-        ChecklistScreen(
-            state = ChecklistState(
-                screenState = ScreenState.LOADING,
-                ongoing = false,
-                name = "Some audit",
-                checkCounter = 25,
-                repetitiveness = "Every day",
-                lastTimeChecked = "yesterday",
-                checks = listOf(),
-            ), interactor = ChecklistInteractor.Empty()
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun ChecklistScreenPreviewError() {
-    AppTheme {
-        ChecklistScreen(
-            state = ChecklistState(
-                screenState = ScreenState.ERROR,
-                ongoing = false,
-                name = "Some audit",
-                checkCounter = 25,
-                repetitiveness = "Every day",
-                lastTimeChecked = "yesterday",
-                checks = listOf(),
-            ), interactor = ChecklistInteractor.Empty()
-        )
-    }
-}
 
 @Preview
 @Composable
@@ -292,7 +251,6 @@ private fun ChecklistScreenPreviewDialog() {
     AppTheme {
         ChecklistScreen(
             state = ChecklistState(
-                screenState = ScreenState.SUCCESS,
                 ongoing = false,
                 name = "Some audit",
                 checkCounter = 25,
@@ -319,7 +277,6 @@ private fun ChecklistScreenPreviewDialogLoading() {
     AppTheme {
         ChecklistScreen(
             state = ChecklistState(
-                screenState = ScreenState.SUCCESS,
                 ongoing = false,
                 name = "Some audit",
                 checkCounter = 25,

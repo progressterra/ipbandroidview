@@ -2,8 +2,6 @@ package com.progressterra.ipbandroidview.ui.checklist
 
 interface ChecklistInteractor {
 
-    fun refresh()
-
     fun onCheck(check: Check)
 
     fun onSheetVisibilityChange(visibility: Boolean)
@@ -35,8 +33,6 @@ interface ChecklistInteractor {
         override fun back() = Unit
 
         override fun startStopAudit() = Unit
-
-        override fun refresh() = Unit
 
         override fun closeSheet() = Unit
 
