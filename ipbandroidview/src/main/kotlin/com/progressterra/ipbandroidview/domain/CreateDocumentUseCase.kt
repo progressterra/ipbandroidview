@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain
 
+import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.DHCheckPerformedEntityCreate
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
@@ -25,7 +26,12 @@ interface CreateDocumentUseCase {
             withToken {
                 repo.createDoc(
                     it, DHCheckPerformedEntityCreate(
-                        idChecklist, "", idPlace, Date(System.currentTimeMillis()).format(), "", ""
+                        idChecklist,
+                        Constants.DEFAULT_ID,
+                        idPlace,
+                        Date(System.currentTimeMillis()).format(),
+                        "",
+                        ""
                     )
                 )
             }.onFailure { throw it }
