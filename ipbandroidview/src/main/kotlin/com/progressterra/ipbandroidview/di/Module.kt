@@ -104,8 +104,10 @@ val iPBAndroidViewModule = module {
 
     single<DocumentChecklistUseCase> { DocumentChecklistUseCase.Base(get(), get(), get(), get()) }
 
+    single<ChecklistUseCase> { ChecklistUseCase.Base(get(), get(), get(), get()) }
+
     viewModel {
-        DocumentsViewModel(get())
+        DocumentsViewModel(get(), get())
     }
 
     viewModel {
@@ -129,7 +131,7 @@ val iPBAndroidViewModule = module {
     }
 
     viewModel {
-        OrganizationAuditsViewModel(get(), get())
+        OrganizationAuditsViewModel(get(), get(), get())
     }
 
     viewModel {
@@ -146,6 +148,6 @@ val iPBAndroidViewModule = module {
         mediaRecorder.setOutputFile(file)
         val mediaPlayer = MediaPlayer()
         mediaPlayer.setDataSource(file.absolutePath)
-        ChecklistViewModel(get(), get(), mediaRecorder, mediaPlayer)
+        ChecklistViewModel(get(), mediaRecorder, mediaPlayer)
     }
 }
