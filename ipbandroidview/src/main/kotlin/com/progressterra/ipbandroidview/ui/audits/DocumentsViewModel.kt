@@ -38,11 +38,12 @@ class DocumentsViewModel(
 
     override fun onDocumentChecklist(document: Document) = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        documentChecklistUseCase.documentChecklist(document.id, document.done).onSuccess {
+        documentChecklistUseCase.documentChecklist(document.checklistId, document.done).onSuccess {
             postSideEffect(
                 DocumentsEffect.OnChecklist(
                     Checklist(
-                        id = document.id,
+                        checklistId = document.checklistId,
+                        placeId = document.placeId,
                         name = document.name,
                         repetitiveness = "PLACEHOLDER",
                         lastTimeChecked = document.lastTimeChecked,

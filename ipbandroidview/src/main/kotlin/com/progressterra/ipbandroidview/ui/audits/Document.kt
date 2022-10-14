@@ -5,7 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Document(
-    val id: String,
+    val checklistId: String,
+    val placeId: String,
     val name: String,
     val address: String,
     val percentage: Int,

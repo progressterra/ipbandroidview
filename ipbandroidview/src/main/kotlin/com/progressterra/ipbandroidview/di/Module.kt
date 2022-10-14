@@ -23,7 +23,6 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.binds
 import org.koin.dsl.module
-import java.io.File
 
 @Suppress("unused")
 val iPBAndroidViewModule = module {
@@ -106,6 +105,20 @@ val iPBAndroidViewModule = module {
 
     single<ChecklistUseCase> { ChecklistUseCase.Base(get(), get(), get(), get()) }
 
+    single<UpdateAnswerUseCase> { UpdateAnswerUseCase.Base(get(), get(), get(), get()) }
+
+    single<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get()) }
+
+    single<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get()) }
+
+    factory {
+        MediaPlayer()
+    }
+
+    factory {
+        MediaRecorder(androidContext())
+    }
+
     viewModel {
         DocumentsViewModel(get(), get())
     }
@@ -138,16 +151,7 @@ val iPBAndroidViewModule = module {
         CityViewModel(get(), get(), get(), get())
     }
 
-    //TODO encoder?
     viewModel {
-//        val file = File(androidContext().filesDir, "Recorded audio.mp4")
-        val mediaRecorder = MediaRecorder(androidContext())
-//        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-//        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-//        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-//        mediaRecorder.setOutputFile(file)
-        val mediaPlayer = MediaPlayer()
-//        mediaPlayer.setDataSource(file.absolutePath)
-        ChecklistViewModel(get(), mediaRecorder, mediaPlayer)
+        ChecklistViewModel(get(), get(), get(), get(), get(), get())
     }
 }

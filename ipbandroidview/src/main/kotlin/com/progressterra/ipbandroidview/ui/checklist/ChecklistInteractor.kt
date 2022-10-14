@@ -4,13 +4,9 @@ interface ChecklistInteractor {
 
     fun onCheck(check: Check)
 
-    fun onSheetVisibilityChange(visibility: Boolean)
-
     fun back()
 
     fun startStopAudit()
-
-    fun closeSheet()
 
     fun yesNo(yes: Boolean)
 
@@ -26,15 +22,11 @@ interface ChecklistInteractor {
 
     class Empty : ChecklistInteractor {
 
-        override fun onSheetVisibilityChange(visibility: Boolean) = Unit
-
         override fun onCheck(check: Check) = Unit
 
         override fun back() = Unit
 
         override fun startStopAudit() = Unit
-
-        override fun closeSheet() = Unit
 
         override fun yesNo(yes: Boolean) = Unit
 

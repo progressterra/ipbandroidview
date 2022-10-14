@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,22 +19,18 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.composable.yesno.YesNoButton
+import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.theme.AppTheme
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden,
-        skipHalfExpanded = true,
-        confirmStateChange = {
-            interactor.onSheetVisibilityChange(it == ModalBottomSheetValue.Expanded)
-            true
-        })
-    LaunchedEffect(state.currentCheck) {
-        if (state.currentCheck != null)
-            sheetState.show()
-    }
+        skipHalfExpanded = true
+    )
+    val coroutineScope = rememberCoroutineScope()
     ModalBottomSheetLayout(
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
@@ -50,7 +46,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     ThemedTopDialogBar(rightActions = {
                         IconButton(
                             modifier = Modifier.size(24.dp),
-                            onClick = { interactor.closeSheet() }) {
+                            onClick = { coroutineScope.launch { sheetState.hide() } }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_mark),
                                 contentDescription = stringResource(R.string.close),
@@ -66,7 +62,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                 ThemedTopDialogBar(title = "PLACEHOLDER", rightActions = {
                     IconButton(
                         modifier = Modifier.size(24.dp),
-                        onClick = { interactor.closeSheet() }) {
+                        onClick = { coroutineScope.launch { sheetState.hide() } }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_mark),
                             contentDescription = stringResource(R.string.close),
@@ -141,7 +137,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
             ThemedTopAppBar(onBack = { interactor.back() },
                 title = stringResource(id = R.string.audit),
                 actions = {
-                    if (!state.done) {
+                    if (!state.checklist.done) {
                         IconButton(onClick = { interactor.startStopAudit() }) {
                             Icon(
                                 painter = painterResource(id = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play),
@@ -166,13 +162,13 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     item {
                         AuditTitle(
                             modifier = Modifier.fillMaxWidth(),
-                            name = state.name,
-                            repetitiveness = state.repetitiveness,
-                            lastTimeChecked = state.lastTimeChecked,
-                            checkCounter = state.checkCounter
+                            name = state.checklist.name,
+                            repetitiveness = state.checklist.repetitiveness,
+                            lastTimeChecked = state.checklist.lastTimeChecked,
+                            checkCounter = state.checklist.checks.size
                         )
                     }
-                    state.checks.groupBy { it.category }.forEach { (category, checks) ->
+                    state.checklist.checks.groupBy { it.category }.forEach { (category, checks) ->
                         item {
                             CategoryDivider(
                                 modifier = Modifier.fillMaxWidth(), title = category
@@ -183,7 +179,10 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(IntrinsicSize.Max),
-                                onClick = { interactor.onCheck(it) },
+                                onClick = {
+                                    interactor.onCheck(it)
+                                    coroutineScope.launch { sheetState.show() }
+                                },
                                 name = it.name,
                                 state = it.state
                             )
@@ -203,41 +202,84 @@ private fun ChecklistScreenPreview() {
         ChecklistScreen(
             state = ChecklistState(
                 ongoing = true,
-                name = "Some audit",
-                checkCounter = 25,
-                repetitiveness = "Every day",
-                lastTimeChecked = "yesterday",
-                checks = listOf(
-                    Check(
-                        CheckState(false, YesNo.YES),
-                        "",
-                        "1 category",
-                        "Some check 1\nWith more text",
-                        "",
-                        ""
-                    ),
-                    Check(CheckState(false, YesNo.YES), "", "1 category", "Some check 2", "", ""),
-                    Check(CheckState(false, YesNo.YES), "", "1 category", "Some check 3", "", ""),
-                    Check(CheckState(false, YesNo.YES), "", "1 category", "Some check 4", "", ""),
-                    Check(
-                        CheckState(false, YesNo.YES),
-                        "",
-                        "1 category",
-                        "Some check 5\nWith more text",
-                        "",
-                        ""
-                    ),
-                    Check(CheckState(false, YesNo.YES), "", "2 category", "Some check 6", "", ""),
-                    Check(CheckState(false, YesNo.YES), "", "2 category", "Some check 7", "", ""),
-                    Check(
-                        CheckState(false, YesNo.YES),
-                        "",
-                        "2 category",
-                        "Some check 8\nWith more text",
-                        "",
-                        ""
-                    ),
-                    Check(CheckState(false, YesNo.YES), "", "3 category", "Some check 9", "", "")
+                checklist = Checklist(
+                    name = "Some audit",
+                    repetitiveness = "Every day",
+                    lastTimeChecked = "yesterday",
+                    checks = listOf(
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "1 category",
+                            "Some check 1\nWith more text",
+                            "",
+                            ""
+                        ),
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "1 category",
+                            "Some check 2",
+                            "",
+                            ""
+                        ),
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "1 category",
+                            "Some check 3",
+                            "",
+                            ""
+                        ),
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "1 category",
+                            "Some check 4",
+                            "",
+                            ""
+                        ),
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "1 category",
+                            "Some check 5\nWith more text",
+                            "",
+                            ""
+                        ),
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "2 category",
+                            "Some check 6",
+                            "",
+                            ""
+                        ),
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "2 category",
+                            "Some check 7",
+                            "",
+                            ""
+                        ),
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "2 category",
+                            "Some check 8\nWith more text",
+                            "",
+                            ""
+                        ),
+                        Check(
+                            CheckState(false, YesNo.YES),
+                            "",
+                            "3 category",
+                            "Some check 9",
+                            "",
+                            ""
+                        )
+                    )
                 ),
             ), interactor = ChecklistInteractor.Empty()
         )
@@ -251,12 +293,12 @@ private fun ChecklistScreenPreviewDialog() {
         ChecklistScreen(
             state = ChecklistState(
                 ongoing = false,
-                name = "Some audit",
-                checkCounter = 25,
-                repetitiveness = "Every day",
-                lastTimeChecked = "yesterday",
-                checks = listOf(),
-                sheetVisibility = true,
+                checklist = Checklist(
+                    name = "Some audit",
+                    repetitiveness = "Every day",
+                    lastTimeChecked = "yesterday",
+                    checks = listOf()
+                ),
                 currentCheck = Check(
                     CheckState(false, YesNo.YES),
                     "",
@@ -277,12 +319,12 @@ private fun ChecklistScreenPreviewDialogLoading() {
         ChecklistScreen(
             state = ChecklistState(
                 ongoing = false,
-                name = "Some audit",
-                checkCounter = 25,
-                repetitiveness = "Every day",
-                lastTimeChecked = "yesterday",
-                checks = listOf(),
-                sheetVisibility = true,
+                checklist = Checklist(
+                    name = "Some audit",
+                    repetitiveness = "Every day",
+                    lastTimeChecked = "yesterday",
+                    checks = listOf()
+                ),
                 currentCheck = null
             ), interactor = ChecklistInteractor.Empty()
         )
