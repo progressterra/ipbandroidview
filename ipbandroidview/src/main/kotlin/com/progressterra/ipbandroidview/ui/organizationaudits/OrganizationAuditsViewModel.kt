@@ -78,6 +78,7 @@ class OrganizationAuditsViewModel(
             postSideEffect(
                 OrganizationAuditsEffect.OnChecklist(
                     Checklist(
+                        placeId = state.id,
                         checklistId = organizationAudit.id,
                         name = organizationAudit.name,
                         repetitiveness = "PLACEHOLDER",

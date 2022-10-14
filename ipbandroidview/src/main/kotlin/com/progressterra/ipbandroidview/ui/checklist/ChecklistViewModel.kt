@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.core.ManagePermission
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.ext.replaceById
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -38,6 +39,7 @@ class ChecklistViewModel(
         reduce {
             ChecklistState(
                 ongoing = false,
+                currentCheck = null,
                 checklist = checklist
             )
         }
@@ -115,7 +117,11 @@ class ChecklistViewModel(
 
     override fun ready() = intent {
         state.currentCheck?.let { updateAnswerUseCase.update(it) }?.onSuccess {
-            reduce { state.copy(currentCheck = it) }
+            reduce {
+                state.copy(
+                    checklist = state.checklist.copy(checks = state.checklist.checks.replaceById(it))
+                )
+            }
         }
     }
 }
