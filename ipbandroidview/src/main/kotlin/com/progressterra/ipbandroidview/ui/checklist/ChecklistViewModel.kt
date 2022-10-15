@@ -4,12 +4,14 @@ import android.Manifest
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ManagePermission
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.replaceById
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -22,6 +24,7 @@ class ChecklistViewModel(
     private val createDocumentUseCase: CreateDocumentUseCase,
     private val finishDocumentUseCase: FinishDocumentUseCase,
     private val updateAnswerUseCase: UpdateAnswerUseCase,
+    private val fetchExistingAuditUseCase: FetchExistingAuditUseCase,
     private val managePermission: ManagePermission,
     private val mediaRecorder: MediaRecorder,
     private val mediaPlayer: MediaPlayer
@@ -38,7 +41,6 @@ class ChecklistViewModel(
     fun setDocument(checklist: Checklist) = intent {
         reduce {
             ChecklistState(
-                ongoing = false,
                 currentCheck = null,
                 checklist = checklist
             )
@@ -57,7 +59,7 @@ class ChecklistViewModel(
         reduce {
             state.copy(
                 currentCheck = state.currentCheck?.copy(
-                    if (yes) YesNo.YES else YesNo.NO
+                    yesNo = if (yes) YesNo.YES else YesNo.NO
                 )
             )
 
@@ -73,16 +75,25 @@ class ChecklistViewModel(
     }
 
     override fun startStopAudit() = intent {
-        if (state.ongoing)
+        if (state.checklist.ongoing)
             finishDocumentUseCase.finishDocument(state.checklist.checklistId).onSuccess {
-                reduce { state.copy(ongoing = false) }
+                reduce { state.copy(checklist = state.checklist.copy(ongoing = false)) }
             }
         else
-            createDocumentUseCase.createDocument(
-                state.checklist.checklistId,
-                state.checklist.placeId
+            fetchExistingAuditUseCase.fetchExistingAudit(
+                state.checklist.placeId,
+                state.checklist.checklistId
             ).onSuccess {
-                reduce { state.copy(ongoing = true) }
+                reduce { state.copy(checklist = state.checklist.copy(checks = it, ongoing = true)) }
+            }.onFailure {
+                createDocumentUseCase.createDocument(
+                    state.checklist.checklistId,
+                    state.checklist.placeId
+                ).onSuccess {
+                    reduce { state.copy(checklist = state.checklist.copy(ongoing = true)) }
+                }.onFailure {
+                    postSideEffect(ChecklistEffect.OnToast(R.string.error_connection))
+                }
             }
     }
 

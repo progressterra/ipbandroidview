@@ -32,7 +32,7 @@ interface AllDocumentsUseCase {
                 )
             }.getOrThrow()
             buildList {
-                documents.map { doc ->
+                documents?.map { doc ->
                     add(Document(
                         placeId = doc.idrfComPlace!!,
                         checklistId = doc.idUnique!!,

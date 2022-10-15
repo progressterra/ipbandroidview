@@ -48,7 +48,8 @@ class DocumentsViewModel(
                         repetitiveness = "PLACEHOLDER",
                         lastTimeChecked = document.lastTimeChecked,
                         checks = it,
-                        done = document.done
+                        done = document.done,
+                        ongoing = !document.done
                     )
                 )
             )

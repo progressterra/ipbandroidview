@@ -29,7 +29,7 @@ interface OrganizationAuditsUseCase {
             val availableChecks =
                 withToken { repo.availableChecklistsForPlace(it, id) }.getOrThrow()
             buildList {
-                availableChecks.map { doc ->
+                availableChecks?.map { doc ->
                     doc.idUnique?.let {
                         add(
                             OrganizationAudit(

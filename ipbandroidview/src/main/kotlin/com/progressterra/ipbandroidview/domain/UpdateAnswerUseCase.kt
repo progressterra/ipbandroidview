@@ -38,8 +38,8 @@ interface UpdateAnswerUseCase {
                 )
             }.getOrThrow()
             Check(
-                yesNo = result.answerCheckList?.yesNo.toYesNo(),
-                id = result.idUnique!!,
+                yesNo = result?.answerCheckList?.yesNo.toYesNo(),
+                id = result?.idUnique!!,
                 category = result.parameter?.internalName ?: noData,
                 name = result.shortDescription ?: noData,
                 comment = result.answerCheckList?.comments ?: "",

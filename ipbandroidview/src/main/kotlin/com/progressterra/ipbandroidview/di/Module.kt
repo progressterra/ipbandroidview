@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.core.*
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.*
+import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
@@ -111,6 +112,8 @@ val iPBAndroidViewModule = module {
 
     single<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get()) }
 
+    single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get(), get()) }
+
     factory {
         MediaPlayer()
     }
@@ -152,6 +155,6 @@ val iPBAndroidViewModule = module {
     }
 
     viewModel {
-        ChecklistViewModel(get(), get(), get(), get(), get(), get())
+        ChecklistViewModel(get(), get(), get(), get(), get(), get(), get())
     }
 }

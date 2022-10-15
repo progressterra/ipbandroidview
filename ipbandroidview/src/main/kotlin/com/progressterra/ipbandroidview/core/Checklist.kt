@@ -10,6 +10,7 @@ data class Checklist(
     val placeId: String = "",
     val name: String = "",
     val done: Boolean = false,
+    val ongoing: Boolean = false,
     val repetitiveness: String = "",
     val lastTimeChecked: String = "",
     val checks: List<Check> = emptyList()

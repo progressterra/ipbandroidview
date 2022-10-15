@@ -28,7 +28,7 @@ interface DocumentChecklistUseCase {
             val responseChecklist = withToken { repo.checklistForDoc(it, id) }.getOrThrow()
             return Result.success(
                 buildList {
-                    responseChecklist.map { check ->
+                    responseChecklist?.map { check ->
                         check.idUnique?.let { id ->
                             val yesNo =
                                 if (check.answerCheckList?.yesNo == true) YesNo.YES else if (check.answerCheckList?.yesNo == false) YesNo.NO else YesNo.NONE

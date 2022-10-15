@@ -84,7 +84,8 @@ class OrganizationAuditsViewModel(
                         repetitiveness = "PLACEHOLDER",
                         lastTimeChecked = organizationAudit.lastTime,
                         checks = it,
-                        done = false
+                        done = false,
+                        ongoing = false
                     )
                 )
             )

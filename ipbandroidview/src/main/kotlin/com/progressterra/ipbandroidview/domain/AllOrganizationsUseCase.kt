@@ -29,7 +29,7 @@ interface AllOrganizationsUseCase {
                 repo.availableChecklistsAndDocs(it)
             }.getOrThrow()
             buildList {
-                places.map { place ->
+                places?.map { place ->
                     add(
                         Organization(
                             place.address ?: noData,

@@ -101,7 +101,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 modifier = Modifier.fillMaxWidth(),
                                 yesNo = state.currentCheck.yesNo,
                                 onClick = { interactor.yesNo(it) },
-                                enabled = state.ongoing
+                                enabled = state.checklist.ongoing
                             )
                         }
                         Box(modifier = Modifier.padding(horizontal = 12.dp)) {
@@ -112,7 +112,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     id = R.string.text_comment
                                 ),
                                 onChange = { interactor.onCheckCommentaryChange(it) },
-                                enabled = state.ongoing
+                                enabled = state.checklist.ongoing
                             )
                         }
                         Box(modifier = Modifier.padding(4.dp)) {
@@ -123,11 +123,11 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 onStartStopRecording = { interactor.startStopVoiceRecording() },
                                 onRemove = {
                                     interactor.removeRecord()
-                                }, enabled = state.ongoing
+                                }, enabled = state.checklist.ongoing
                             )
                         }
                     }
-                    if (state.ongoing) {
+                    if (state.checklist.ongoing) {
                         Spacer(modifier = Modifier.size(25.dp))
                         Row(Modifier.padding(horizontal = 8.dp)) {
                             ThemedButton(
@@ -149,9 +149,9 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     if (!state.checklist.done) {
                         IconButton(onClick = { interactor.startStopAudit() }) {
                             Icon(
-                                painter = painterResource(id = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play),
+                                painter = painterResource(id = if (state.checklist.ongoing) R.drawable.ic_pause else R.drawable.ic_play),
                                 contentDescription = stringResource(
-                                    id = if (state.ongoing) R.string.pause_audit else R.string.start_audit
+                                    id = if (state.checklist.ongoing) R.string.pause_audit else R.string.start_audit
                                 ),
                                 tint = AppTheme.colors.gray1
                             )
@@ -210,8 +210,8 @@ private fun ChecklistScreenPreview() {
     AppTheme {
         ChecklistScreen(
             state = ChecklistState(
-                ongoing = true,
                 checklist = Checklist(
+                    ongoing = true,
                     name = "Some audit",
                     repetitiveness = "Every day",
                     lastTimeChecked = "yesterday",
@@ -301,8 +301,8 @@ private fun ChecklistScreenPreviewDialog() {
     AppTheme {
         ChecklistScreen(
             state = ChecklistState(
-                ongoing = false,
                 checklist = Checklist(
+                    ongoing = false,
                     name = "Some audit",
                     repetitiveness = "Every day",
                     lastTimeChecked = "yesterday",
@@ -327,8 +327,8 @@ private fun ChecklistScreenPreviewDialogLoading() {
     AppTheme {
         ChecklistScreen(
             state = ChecklistState(
-                ongoing = false,
                 checklist = Checklist(
+                    ongoing = false,
                     name = "Some audit",
                     repetitiveness = "Every day",
                     lastTimeChecked = "yesterday",
