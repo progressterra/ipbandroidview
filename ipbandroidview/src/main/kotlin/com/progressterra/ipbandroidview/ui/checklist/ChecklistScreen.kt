@@ -288,7 +288,10 @@ private fun ChecklistScreenPreview() {
                             "",
                             ""
                         )
-                    )
+                    ),
+                done = false,
+                    checklistId = "",
+                    placeId = ""
                 ),
             ), interactor = ChecklistInteractor.Empty()
         )
@@ -306,7 +309,10 @@ private fun ChecklistScreenPreviewDialog() {
                     name = "Some audit",
                     repetitiveness = "Every day",
                     lastTimeChecked = "yesterday",
-                    checks = listOf()
+                    checks = listOf(),
+                    done = false,
+                    checklistId = "",
+                    placeId = ""
                 ),
                 currentCheck = Check(
                     yesNo = YesNo.YES,
@@ -332,7 +338,10 @@ private fun ChecklistScreenPreviewDialogLoading() {
                     name = "Some audit",
                     repetitiveness = "Every day",
                     lastTimeChecked = "yesterday",
-                    checks = listOf()
+                    checks = listOf(),
+                    done = false,
+                    checklistId = "",
+                    placeId = ""
                 ),
                 currentCheck = null
             ), interactor = ChecklistInteractor.Empty()

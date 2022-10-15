@@ -6,12 +6,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Checklist(
-    val checklistId: String = "",
-    val placeId: String = "",
-    val name: String = "",
-    val done: Boolean = false,
-    val ongoing: Boolean = false,
-    val repetitiveness: String = "",
-    val lastTimeChecked: String = "",
-    val checks: List<Check> = emptyList()
+    val checklistId: String,
+    val placeId: String,
+    val name: String,
+    val done: Boolean,
+    val ongoing: Boolean,
+    val repetitiveness: String,
+    val lastTimeChecked: String,
+    val checks: List<Check>
 ) : Parcelable

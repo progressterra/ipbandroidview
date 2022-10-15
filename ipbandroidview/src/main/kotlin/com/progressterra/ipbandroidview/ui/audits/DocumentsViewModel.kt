@@ -53,6 +53,7 @@ class DocumentsViewModel(
                     )
                 )
             )
+            reduce { state.copy(screenState = ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
         }
