@@ -32,7 +32,18 @@ class ChecklistViewModel(
     ChecklistInteractor {
 
     override val container: Container<ChecklistState, ChecklistEffect> = container(
-        ChecklistState()
+        ChecklistState(
+            checklist = Checklist(
+                checklistId = "",
+                placeId = "",
+                name = "",
+                done = false,
+                ongoing = false,
+                repetitiveness = "",
+                lastTimeChecked = "",
+                checks = emptyList()
+            )
+        )
     )
 
     private val permission = Manifest.permission.RECORD_AUDIO
