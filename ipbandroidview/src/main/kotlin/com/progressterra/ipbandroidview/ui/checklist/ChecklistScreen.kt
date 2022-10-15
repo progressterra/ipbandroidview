@@ -132,7 +132,10 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         Row(Modifier.padding(horizontal = 8.dp)) {
                             ThemedButton(
                                 modifier = Modifier.fillMaxWidth(),
-                                onClick = { interactor.ready() },
+                                onClick = {
+                                    interactor.ready()
+                                    coroutineScope.launch { sheetState.hide() }
+                                },
                                 text = stringResource(id = R.string.ready)
                             )
                         }
@@ -289,7 +292,7 @@ private fun ChecklistScreenPreview() {
                             ""
                         )
                     ),
-                done = false,
+                    done = false,
                     checklistId = "",
                     placeId = ""
                 ),

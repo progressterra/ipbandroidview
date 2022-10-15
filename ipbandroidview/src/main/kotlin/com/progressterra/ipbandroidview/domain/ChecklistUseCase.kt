@@ -36,7 +36,7 @@ interface ChecklistUseCase {
                     add(
                         Check(
                             id = check.idUnique!!,
-                            category = check.parameter?.internalName ?: noData,
+                            category = "${check.parameter?.indexName ?: noData}. ${check.parameter?.internalName ?: noData}",
                             name = check.shortDescription ?: noData,
                             yesNo = YesNo.NONE,
                             comment = "",

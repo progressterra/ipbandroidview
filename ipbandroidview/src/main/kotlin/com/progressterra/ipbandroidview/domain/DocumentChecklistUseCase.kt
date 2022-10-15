@@ -35,11 +35,11 @@ interface DocumentChecklistUseCase {
                             add(
                                 Check(
                                     id = id,
-                                    category = check.parameter?.internalName ?: noData,
+                                    category = "${check.parameter?.indexName ?: noData}. ${check.parameter?.internalName ?: noData}",
                                     name = check.shortDescription ?: noData,
                                     yesNo = yesNo,
                                     comment = check.answerCheckList?.comments ?: "",
-                                    description = check.description ?: noData
+                                    description = check.description ?: noData,
                                 )
                             )
                         }

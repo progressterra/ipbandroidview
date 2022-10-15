@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ManagePermission
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
+import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
@@ -25,6 +26,7 @@ class ChecklistViewModel(
     private val finishDocumentUseCase: FinishDocumentUseCase,
     private val updateAnswerUseCase: UpdateAnswerUseCase,
     private val fetchExistingAuditUseCase: FetchExistingAuditUseCase,
+    private val documentChecklistUseCase: DocumentChecklistUseCase,
     private val managePermission: ManagePermission,
     private val mediaRecorder: MediaRecorder,
     private val mediaPlayer: MediaPlayer
@@ -89,23 +91,45 @@ class ChecklistViewModel(
         if (state.checklist.ongoing)
             finishDocumentUseCase.finishDocument(state.checklist.checklistId).onSuccess {
                 reduce { state.copy(checklist = state.checklist.copy(ongoing = false)) }
+                postSideEffect(ChecklistEffect.OnToast(R.string.audit_ended))
+            }.onFailure {
+                postSideEffect(ChecklistEffect.OnToast(R.string.error_connection))
             }
-        else
+        else {
+            var documentId: String? = null
             fetchExistingAuditUseCase.fetchExistingAudit(
                 state.checklist.placeId,
                 state.checklist.checklistId
             ).onSuccess {
-                reduce { state.copy(checklist = state.checklist.copy(checks = it, ongoing = true)) }
+                documentId = it
+//                reduce { state.copy(checklist = state.checklist.copy(checks = it, ongoing = true)) }
             }.onFailure {
                 createDocumentUseCase.createDocument(
                     state.checklist.checklistId,
                     state.checklist.placeId
                 ).onSuccess {
-                    reduce { state.copy(checklist = state.checklist.copy(ongoing = true)) }
+                    documentId = it
+//                    reduce { state.copy(checklist = state.checklist.copy(ongoing = true)) }
                 }.onFailure {
                     postSideEffect(ChecklistEffect.OnToast(R.string.error_connection))
                 }
             }
+            documentId?.let { id ->
+                documentChecklistUseCase.documentChecklist(id).onSuccess { checks ->
+                    reduce {
+                        state.copy(
+                            checklist = state.checklist.copy(
+                                checks = checks,
+                                ongoing = true
+                            )
+                        )
+                    }
+                    postSideEffect(ChecklistEffect.OnToast(R.string.audit_started))
+                }.onFailure {
+                    postSideEffect(ChecklistEffect.OnToast(R.string.error_connection))
+                }
+            }
+        }
     }
 
     override fun startPauseVoicePlay() = intent {
@@ -148,6 +172,9 @@ class ChecklistViewModel(
                     checklist = state.checklist.copy(checks = state.checklist.checks.replaceById(it))
                 )
             }
+            postSideEffect(ChecklistEffect.OnToast(R.string.answer_done))
+        }?.onFailure {
+            postSideEffect(ChecklistEffect.OnToast(R.string.error_happend))
         }
     }
 }

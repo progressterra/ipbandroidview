@@ -11,7 +11,7 @@ import java.util.*
 
 interface CreateDocumentUseCase {
 
-    suspend fun createDocument(idChecklist: String, idPlace: String): Result<Unit>
+    suspend fun createDocument(idChecklist: String, idPlace: String): Result<String>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -22,8 +22,8 @@ interface CreateDocumentUseCase {
         override suspend fun createDocument(
             idChecklist: String,
             idPlace: String
-        ): Result<Unit> = handle {
-            withToken {
+        ): Result<String> = handle {
+            val result = withToken {
                 repo.createDoc(
                     it, DHCheckPerformedEntityCreate(
                         idChecklist,
@@ -34,7 +34,8 @@ interface CreateDocumentUseCase {
                         ""
                     )
                 )
-            }.onFailure { throw it }
+            }.getOrThrow()
+            result?.idUnique!!
         }
     }
 }

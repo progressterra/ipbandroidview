@@ -40,7 +40,7 @@ interface UpdateAnswerUseCase {
             Check(
                 yesNo = result?.answerCheckList?.yesNo.toYesNo(),
                 id = result?.idUnique!!,
-                category = result.parameter?.internalName ?: noData,
+                category = "${result.parameter?.indexName ?: noData}. ${result.parameter?.internalName ?: noData}",
                 name = result.shortDescription ?: noData,
                 comment = result.answerCheckList?.comments ?: "",
                 description = result.description ?: noData
