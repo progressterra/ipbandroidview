@@ -180,17 +180,16 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             checkCounter = state.checklist.checks.size
                         )
                     }
-                    state.checklist.checks.groupBy { it.category }.forEach { (category, checks) ->
+                    state.checklist.checks.groupBy { it.category }.toSortedMap().forEach { (category, checks) ->
                         item {
                             CategoryDivider(
                                 modifier = Modifier.fillMaxWidth(), title = category
                             )
                         }
-                        items(checks) {
+                        items(checks.sortedBy { it.name }) {
                             CheckCard(
                                 modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(IntrinsicSize.Max),
+                                    .fillMaxWidth(),
                                 onClick = {
                                     interactor.onCheck(it)
                                     coroutineScope.launch { sheetState.show() }
