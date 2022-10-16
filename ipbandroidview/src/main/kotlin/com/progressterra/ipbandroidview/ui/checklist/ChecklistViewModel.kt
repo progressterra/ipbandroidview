@@ -52,7 +52,7 @@ class ChecklistViewModel(
     }
 
     override fun back() = intent {
-        postSideEffect(ChecklistEffect.OnBack)
+        postSideEffect(ChecklistEffect.Back)
     }
 
     override fun yesNo(yes: Boolean) = intent {
@@ -92,9 +92,10 @@ class ChecklistViewModel(
                 ).onSuccess {
                     reduce { state.copy(checklist = state.checklist.copy(ongoing = true)) }
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.OnToast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                 }
             }
+        postSideEffect(ChecklistEffect.RefreshAudits)
     }
 
     override fun startPauseVoicePlay() = intent {

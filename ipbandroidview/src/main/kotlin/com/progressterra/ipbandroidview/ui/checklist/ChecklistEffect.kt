@@ -5,8 +5,10 @@ import androidx.annotation.StringRes
 
 sealed class ChecklistEffect {
 
-    object OnBack : ChecklistEffect()
+    object Back : ChecklistEffect()
 
     @Suppress("unused")
-    class OnToast(@StringRes val message: Int) : ChecklistEffect()
+    class Toast(@StringRes val message: Int) : ChecklistEffect()
+
+    object RefreshAudits : ChecklistEffect()
 }
