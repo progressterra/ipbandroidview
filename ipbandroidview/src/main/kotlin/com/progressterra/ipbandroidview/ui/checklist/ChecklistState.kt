@@ -8,5 +8,5 @@ import com.progressterra.ipbandroidview.core.Checklist
 data class ChecklistState(
     val currentCheck: Check? = null,
     val voiceState: VoiceState = VoiceState.IDLE,
-    val checklist: Checklist= Checklist()
+    val checklist: Checklist
 )

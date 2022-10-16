@@ -52,4 +52,8 @@
     <string name="close">Закрыть</string>
     <string name="text_comment">Текстовый комментарий</string>
     <string name="error_connection">Нет связи с сервером!</string>
+    <string name="answer_done">Ответ засчитан</string>
+    <string name="error_happend">Произошла ошибка, ответ не засчитан</string>
+    <string name="audit_started">Аудит начался</string>
+    <string name="audit_ended">Аудит закончен</string>
 </resources>
