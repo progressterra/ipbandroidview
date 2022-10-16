@@ -90,11 +90,13 @@ class ChecklistViewModel(
 
     override fun startStopAudit() = intent {
         if (state.checklist.ongoing)
-            finishDocumentUseCase.finishDocument(state.checklist.checklistId).onSuccess {
-                reduce { state.copy(checklist = state.checklist.copy(ongoing = false)) }
-                postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
-            }.onFailure {
-                postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
+            state.checklist.documentId?.let { documentId ->
+                finishDocumentUseCase.finishDocument(documentId).onSuccess {
+                    reduce { state.copy(checklist = state.checklist.copy(ongoing = false)) }
+                    postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
+                }.onFailure {
+                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
+                }
             }
         else {
             fetchExistingAuditUseCase.fetchExistingAudit(
