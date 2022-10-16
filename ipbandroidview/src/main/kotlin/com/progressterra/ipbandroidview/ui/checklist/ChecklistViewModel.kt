@@ -43,7 +43,8 @@ class ChecklistViewModel(
                 ongoing = false,
                 repetitiveness = "",
                 lastTimeChecked = "",
-                checks = emptyList()
+                checks = emptyList(),
+                documentId = null
             )
         )
     )
@@ -65,7 +66,7 @@ class ChecklistViewModel(
     }
 
     override fun back() = intent {
-        postSideEffect(ChecklistEffect.OnBack)
+        postSideEffect(ChecklistEffect.Back)
     }
 
     override fun yesNo(yes: Boolean) = intent {
@@ -91,30 +92,39 @@ class ChecklistViewModel(
         if (state.checklist.ongoing)
             finishDocumentUseCase.finishDocument(state.checklist.checklistId).onSuccess {
                 reduce { state.copy(checklist = state.checklist.copy(ongoing = false)) }
-                postSideEffect(ChecklistEffect.OnToast(R.string.audit_ended))
+                postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
             }.onFailure {
-                postSideEffect(ChecklistEffect.OnToast(R.string.error_connection))
+                postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
             }
         else {
-            var documentId: String? = null
             fetchExistingAuditUseCase.fetchExistingAudit(
                 state.checklist.placeId,
                 state.checklist.checklistId
             ).onSuccess {
-                documentId = it
-//                reduce { state.copy(checklist = state.checklist.copy(checks = it, ongoing = true)) }
+                reduce {
+                    state.copy(
+                        checklist = state.checklist.copy(
+                            documentId = it
+                        )
+                    )
+                }
             }.onFailure {
                 createDocumentUseCase.createDocument(
                     state.checklist.checklistId,
                     state.checklist.placeId
                 ).onSuccess {
-                    documentId = it
-//                    reduce { state.copy(checklist = state.checklist.copy(ongoing = true)) }
+                    reduce {
+                        state.copy(
+                            checklist = state.checklist.copy(
+                                documentId = it
+                            )
+                        )
+                    }
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.OnToast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                 }
             }
-            documentId?.let { id ->
+            state.checklist.documentId?.let { id ->
                 documentChecklistUseCase.documentChecklist(id).onSuccess { checks ->
                     reduce {
                         state.copy(
@@ -124,45 +134,25 @@ class ChecklistViewModel(
                             )
                         )
                     }
-                    postSideEffect(ChecklistEffect.OnToast(R.string.audit_started))
+                    postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.OnToast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                 }
             }
         }
+        postSideEffect(ChecklistEffect.RefreshAudits)
     }
 
     override fun startPauseVoicePlay() = intent {
-//        mediaPlayer.setOnBufferingUpdateListener { _, percent ->
-//            intent {
-//                reduce {
-//                    state.copy(
-//                        voiceState = VoiceState.PLAY(percent / 100f)
-//                    )
-//                }
-//            }
-//        }
-//        if (state.voiceState is VoiceState.PLAY) {
-//            mediaPlayer.pause()
-//            intent { reduce { state.copy(voiceState = VoiceState.PAUSE(mediaPlayer.currentPosition / mediaPlayer.duration.toFloat())) } }
-//        }
-//        if (state.voiceState is VoiceState.PAUSE)
-//            mediaPlayer.start()
+
     }
 
     override fun startStopVoiceRecording() = intent {
-//        if (managePermission.checkPermission(permission)) {
-//            if (state.voiceState == VoiceState.IDLE)
-//                mediaRecorder.start()
-//            if (state.voiceState == VoiceState.RECORD)
-//                mediaRecorder.stop()
-//        } else {
-//            managePermission.requirePermission(permission)
-//        }
+
     }
 
     override fun removeRecord() {
-        TODO("Not yet implemented")
+
     }
 
     override fun ready() = intent {
@@ -172,9 +162,9 @@ class ChecklistViewModel(
                     checklist = state.checklist.copy(checks = state.checklist.checks.replaceById(it))
                 )
             }
-            postSideEffect(ChecklistEffect.OnToast(R.string.answer_done))
+            postSideEffect(ChecklistEffect.Toast(R.string.answer_done))
         }?.onFailure {
-            postSideEffect(ChecklistEffect.OnToast(R.string.error_happend))
+            postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
         }
     }
 }

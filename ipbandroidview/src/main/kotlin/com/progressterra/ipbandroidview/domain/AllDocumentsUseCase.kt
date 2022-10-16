@@ -35,7 +35,8 @@ interface AllDocumentsUseCase {
                 documents?.map { doc ->
                     add(Document(
                         placeId = doc.idrfComPlace!!,
-                        checklistId = doc.idUnique!!,
+                        checklistId = doc.idrfCheck!!,
+                        documentId = doc.idUnique!!,
                         name = doc.nameRFCheck ?: noData,
                         done = doc.dateEnd != null,
                         address = doc.nameComPlace ?: noData,

@@ -49,7 +49,8 @@ class DocumentsViewModel(
                         lastTimeChecked = document.lastTimeChecked,
                         checks = it,
                         done = document.done,
-                        ongoing = !document.done
+                        ongoing = !document.done,
+                        documentId = document.documentId
                     )
                 )
             )

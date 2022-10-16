@@ -8,6 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class Checklist(
     val checklistId: String,
     val placeId: String,
+    val documentId: String?,
     val name: String,
     val done: Boolean,
     val ongoing: Boolean,

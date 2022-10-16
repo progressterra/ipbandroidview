@@ -85,7 +85,8 @@ class OrganizationAuditsViewModel(
                         lastTimeChecked = organizationAudit.lastTime,
                         checks = it,
                         done = false,
-                        ongoing = false
+                        ongoing = false,
+                        documentId = null
                     )
                 )
             )

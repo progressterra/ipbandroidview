@@ -180,25 +180,27 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             checkCounter = state.checklist.checks.size
                         )
                     }
-                    state.checklist.checks.groupBy { it.category }.toSortedMap().forEach { (category, checks) ->
-                        item {
-                            CategoryDivider(
-                                modifier = Modifier.fillMaxWidth(), title = category
-                            )
+                    state.checklist.checks.groupBy { it.category }
+                        .toSortedMap()
+                        .forEach { (category, checks) ->
+                            item {
+                                CategoryDivider(
+                                    modifier = Modifier.fillMaxWidth(), title = category
+                                )
+                            }
+                            items(checks.sortedBy { it.name }) {
+                                CheckCard(
+                                    modifier = Modifier
+                                        .fillMaxWidth(),
+                                    onClick = {
+                                        interactor.onCheck(it)
+                                        coroutineScope.launch { sheetState.show() }
+                                    },
+                                    name = it.name,
+                                    yesNo = it.yesNo
+                                )
+                            }
                         }
-                        items(checks.sortedBy { it.name }) {
-                            CheckCard(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
-                                onClick = {
-                                    interactor.onCheck(it)
-                                    coroutineScope.launch { sheetState.show() }
-                                },
-                                name = it.name,
-                                yesNo = it.yesNo
-                            )
-                        }
-                    }
 
                 }
             }
@@ -293,7 +295,8 @@ private fun ChecklistScreenPreview() {
                     ),
                     done = false,
                     checklistId = "",
-                    placeId = ""
+                    placeId = "",
+                    documentId = null
                 ),
             ), interactor = ChecklistInteractor.Empty()
         )
@@ -314,7 +317,8 @@ private fun ChecklistScreenPreviewDialog() {
                     checks = listOf(),
                     done = false,
                     checklistId = "",
-                    placeId = ""
+                    placeId = "",
+                    documentId = null
                 ),
                 currentCheck = Check(
                     yesNo = YesNo.YES,
@@ -343,7 +347,8 @@ private fun ChecklistScreenPreviewDialogLoading() {
                     checks = listOf(),
                     done = false,
                     checklistId = "",
-                    placeId = ""
+                    placeId = "",
+                    documentId = null
                 ),
                 currentCheck = null
             ), interactor = ChecklistInteractor.Empty()
