@@ -5,6 +5,7 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ManagePermission
@@ -50,6 +51,8 @@ class ChecklistViewModel(
     )
 
     private val permission = Manifest.permission.RECORD_AUDIO
+
+    private val fileName = "Recorded voice message"
 
     @Suppress("unused")
     fun setDocument(checklist: Checklist) = intent {
@@ -146,15 +149,41 @@ class ChecklistViewModel(
     }
 
     override fun startPauseVoicePlay() = intent {
-
+        if (state.voiceState is VoiceState.PAUSE) {
+            mediaPlayer.setDataSource(fileName)
+            mediaPlayer.prepare()
+//            mediaPlayer.seekTo()
+            mediaPlayer.start()
+        }
+        if (state.voiceState is VoiceState.PLAY) {
+            mediaPlayer.stop()
+            mediaPlayer.reset()
+            reduce { state.copy(voiceState = VoiceState.RECORD) }
+        }
     }
 
     override fun startStopVoiceRecording() = intent {
-
+        if (state.voiceState is VoiceState.IDLE)
+            if (managePermission.checkPermission(permission)) {
+                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+                mediaRecorder.setOutputFile(fileName)
+                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
+                mediaRecorder.prepare()
+                mediaRecorder.start()
+                reduce { state.copy(voiceState = VoiceState.RECORD) }
+            } else {
+                managePermission.requirePermission(permission)
+            }
+        if (state.voiceState is VoiceState.RECORD) {
+            mediaRecorder.stop()
+            mediaRecorder.reset()
+            reduce { state.copy(voiceState = VoiceState.PAUSE(0f)) }
+        }
     }
 
-    override fun removeRecord() {
-
+    override fun removeRecord() = intent {
+        reduce { state.copy(voiceState = VoiceState.IDLE) }
     }
 
     override fun ready() = intent {

@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.DRAnswerChekListItemEntity
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
@@ -43,7 +44,8 @@ interface UpdateAnswerUseCase {
                 category = "${result.parameter?.indexName ?: noData}. ${result.parameter?.internalName ?: noData}",
                 name = result.shortDescription ?: noData,
                 comment = result.answerCheckList?.comments ?: "",
-                description = result.description ?: noData
+                description = result.description ?: noData,
+                voiceState = VoiceState.IDLE
             )
         }
     }

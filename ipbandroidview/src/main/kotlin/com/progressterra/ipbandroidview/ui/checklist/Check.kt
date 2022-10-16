@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.os.Parcelable
+import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import kotlinx.parcelize.Parcelize
 
@@ -11,5 +12,6 @@ data class Check(
     val category: String,
     val name: String,
     val comment: String,
-    val description: String
+    val description: String,
+    val voiceState: VoiceState
 ) : Parcelable

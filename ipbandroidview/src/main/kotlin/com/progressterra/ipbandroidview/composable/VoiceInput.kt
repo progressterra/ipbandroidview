@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.composable
 
+import android.os.Parcelable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,11 +17,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
+import kotlinx.parcelize.Parcelize
 
-sealed class VoiceState {
+sealed class VoiceState : Parcelable {
+
+    @Parcelize
     object IDLE : VoiceState()
+
+    @Parcelize
     object RECORD : VoiceState()
+
+    @Parcelize
     class PLAY(val listened: Float) : VoiceState()
+
+    @Parcelize
     class PAUSE(val listened: Float) : VoiceState()
 }
 

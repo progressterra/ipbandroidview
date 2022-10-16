@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
@@ -40,7 +41,8 @@ interface ChecklistUseCase {
                             name = check.shortDescription ?: noData,
                             yesNo = YesNo.NONE,
                             comment = "",
-                            description = check.description ?: noData
+                            description = check.description ?: noData,
+                            voiceState = VoiceState.IDLE
                         )
                     )
 

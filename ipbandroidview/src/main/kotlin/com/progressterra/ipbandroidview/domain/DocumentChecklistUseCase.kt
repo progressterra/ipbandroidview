@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
@@ -40,6 +41,7 @@ interface DocumentChecklistUseCase {
                                     yesNo = yesNo,
                                     comment = check.answerCheckList?.comments ?: "",
                                     description = check.description ?: noData,
+                                    voiceState = VoiceState.IDLE
                                 )
                             )
                         }

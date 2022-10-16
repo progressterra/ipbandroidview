@@ -226,7 +226,9 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 1\nWith more text",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -234,7 +236,9 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 2",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -242,7 +246,9 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 3",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -250,7 +256,9 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 4",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -258,7 +266,9 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 5\nWith more text",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -266,7 +276,9 @@ private fun ChecklistScreenPreview() {
                             "2 category",
                             "Some check 6",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -274,7 +286,9 @@ private fun ChecklistScreenPreview() {
                             "2 category",
                             "Some check 7",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -282,7 +296,9 @@ private fun ChecklistScreenPreview() {
                             "2 category",
                             "Some check 8\nWith more text",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -290,7 +306,9 @@ private fun ChecklistScreenPreview() {
                             "3 category",
                             "Some check 9",
                             "",
-                            ""
+                            "",
+                            voiceState = VoiceState.IDLE
+
                         )
                     ),
                     done = false,
@@ -326,7 +344,9 @@ private fun ChecklistScreenPreviewDialog() {
                     "2 category",
                     "Some check 8\nWith more text",
                     "",
-                    "description"
+                    "description",
+                    voiceState = VoiceState.IDLE
+
                 )
             ), interactor = ChecklistInteractor.Empty()
         )
