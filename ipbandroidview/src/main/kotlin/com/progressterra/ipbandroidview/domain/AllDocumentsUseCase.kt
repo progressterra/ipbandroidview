@@ -47,7 +47,7 @@ interface AllDocumentsUseCase {
                             address = doc.nameComPlace ?: noData,
                             checkCounter = doc.countDR ?: 0,
                             repetitiveness = "PLACEHOLDER", lastTimeChecked = "PLACEHOLDER",
-                            finishDate = doc.dateEnd?.parseToDate()?.format("MM.dd") ?: noData,
+                            finishDate = doc.dateEnd?.parseToDate()?.format("dd.MM") ?: noData,
                             stats = ChecklistStats(
                                 total = doc.countDR ?: 0,
                                 successful = doc.countDRPositiveAnswer ?: 0,

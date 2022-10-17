@@ -204,7 +204,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                 }
                 BottomHolder(
                     Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .align(Alignment.BottomCenter)
                 ) {
                     Row {
