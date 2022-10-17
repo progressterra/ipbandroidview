@@ -16,7 +16,7 @@ interface VoiceManager {
     ) : VoiceManager {
 
         override fun startRecording(checkId: String) {
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.VOICE_RECOGNITION)
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             mediaRecorder.setOutputFile(mediaFiles.retrieveName(checkId))
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)

@@ -169,9 +169,21 @@ class ChecklistViewModel(
             }
         }
         intent {
+            var progress: Float
             while (state.voiceState.ongoing) {
-                reduce { state.copy(voiceState = VoiceState.Player(true, audioManager.progress())) }
-                delay(1000)
+                progress = audioManager.progress()
+                if (progress == 1f)
+                    reduce { state.copy(voiceState = VoiceState.Player(false, 1f)) }
+                else
+                    reduce {
+                        state.copy(
+                            voiceState = VoiceState.Player(
+                                true,
+                                audioManager.progress()
+                            )
+                        )
+                    }
+                delay(250)
             }
         }
     }
