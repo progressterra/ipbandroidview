@@ -4,8 +4,6 @@ import android.media.MediaPlayer
 
 interface AudioManager {
 
-    fun setListener(listener: AudioProgressListener)
-
     fun startPlay(checkId: String, progress: Float)
 
     fun progress(): Float
@@ -20,7 +18,6 @@ interface AudioManager {
     ) : AudioManager {
 
         private var lastPreparedCheckId: String? = null
-        private var listener: AudioProgressListener? = null
 
         private fun prepare(checkId: String) {
             if (lastPreparedCheckId != checkId)
@@ -35,11 +32,6 @@ interface AudioManager {
                 prepare(checkId)
             mediaPlayer.seekTo((mediaPlayer.duration * progress).toInt())
             mediaPlayer.start()
-            mediaPlayer.setOnBufferingUpdateListener { _, percent ->
-                listener?.progress(percent.toFloat() / 100f)
-                if (percent == 100)
-                    listener?.ended()
-            }
         }
 
         override fun stopPlay() {
@@ -54,8 +46,5 @@ interface AudioManager {
         override fun progress(): Float =
             mediaPlayer.currentPosition.toFloat() / mediaPlayer.duration.toFloat()
 
-        override fun setListener(listener: AudioProgressListener) {
-            this.listener = listener
-        }
     }
 }

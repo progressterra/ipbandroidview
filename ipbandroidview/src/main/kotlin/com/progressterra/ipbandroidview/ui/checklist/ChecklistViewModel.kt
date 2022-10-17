@@ -35,7 +35,7 @@ class ChecklistViewModel(
     private val voiceManager: VoiceManager,
     private val audioManager: AudioManager
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
-    ChecklistInteractor, AudioProgressListener {
+    ChecklistInteractor {
 
     override val container: Container<ChecklistState, ChecklistEffect> = container(
         ChecklistState(
@@ -52,10 +52,6 @@ class ChecklistViewModel(
             )
         )
     )
-
-    init {
-        audioManager.setListener(this)
-    }
 
     private val permission = Manifest.permission.RECORD_AUDIO
 
@@ -174,15 +170,27 @@ class ChecklistViewModel(
                 }
             }
         }
-    }
-
-    override fun progress(progress: Float) = intent {
-        reduce { state.copy(voiceState = VoiceState.Player(state.voiceState.ongoing, progress)) }
-    }
-
-    override fun ended() = intent {
-        voiceManager.stopRecording()
-        reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
+        intent {
+            var progress: Float
+            while (state.voiceState.ongoing) {
+                Log.d("AUDIO", "state: ${state.voiceState.ongoing}")
+                progress = audioManager.progress()
+                Log.d("AUDIO", "progress: ${state.voiceState.ongoing}")
+                reduce {
+                    state.copy(
+                        voiceState = VoiceState.Player(
+                            state.voiceState.ongoing,
+                            progress
+                        )
+                    )
+                }
+                if (progress >= 1f) {
+                    voiceManager.stopRecording()
+                    reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
+                }
+                delay(250)
+            }
+        }
     }
 
     override fun pausePlay() = intent {
