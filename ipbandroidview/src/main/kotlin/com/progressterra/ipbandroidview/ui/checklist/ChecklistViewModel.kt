@@ -220,6 +220,7 @@ class ChecklistViewModel(
     }
 
     override fun removeRecord() = intent {
+        audioManager.reset()
         reduce { state.copy(voiceState = VoiceState.Recorder(false)) }
     }
 
