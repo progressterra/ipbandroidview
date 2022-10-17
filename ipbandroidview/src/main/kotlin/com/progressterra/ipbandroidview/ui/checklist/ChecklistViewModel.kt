@@ -63,12 +63,11 @@ class ChecklistViewModel(
     }
 
     override fun onCheck(check: Check?) = intent {
-        reduce { state.copy(currentCheck = check) }
-        if (check == null) {
+        if (state.currentCheck != null && check == null) {
             audioManager.endPlay()
             voiceManager.stopRecording()
         }
-
+        reduce { state.copy(currentCheck = check) }
     }
 
     override fun back() = intent {
@@ -82,7 +81,6 @@ class ChecklistViewModel(
                     yesNo = if (yes) YesNo.YES else YesNo.NO
                 )
             )
-
         }
     }
 

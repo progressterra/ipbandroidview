@@ -13,7 +13,6 @@ interface VoiceManager {
         private val mediaFiles: MediaFiles
     ) : VoiceManager {
 
-
         override fun startRecording(checkId: String) {
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
