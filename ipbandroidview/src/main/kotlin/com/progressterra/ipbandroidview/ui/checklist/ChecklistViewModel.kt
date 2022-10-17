@@ -172,9 +172,10 @@ class ChecklistViewModel(
             var progress: Float
             while (state.voiceState.ongoing) {
                 progress = audioManager.progress()
-                if (progress == 1f)
-                    reduce { state.copy(voiceState = VoiceState.Player(false, 1f)) }
-                else
+                if (progress == 1f) {
+                    audioManager.stopPlay()
+                    reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
+                } else
                     reduce {
                         state.copy(
                             voiceState = VoiceState.Player(
@@ -183,7 +184,7 @@ class ChecklistViewModel(
                             )
                         )
                     }
-                delay(250)
+                delay(100)
             }
         }
     }

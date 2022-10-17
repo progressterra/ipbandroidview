@@ -10,8 +10,6 @@ interface AudioManager {
 
     fun stopPlay()
 
-    fun endPlay()
-
     fun reset()
 
     class Base(
@@ -23,7 +21,7 @@ interface AudioManager {
 
         private fun prepare(checkId: String) {
             if (lastPreparedCheckId != checkId)
-                endPlay()
+                reset()
             mediaPlayer.setDataSource(mediaFiles.retrieveName(checkId))
             mediaPlayer.prepare()
             lastPreparedCheckId = checkId
@@ -37,12 +35,8 @@ interface AudioManager {
         }
 
         override fun stopPlay() {
-            mediaPlayer.pause()
-        }
-
-        override fun endPlay() {
             mediaPlayer.stop()
-            mediaPlayer.reset()
+            reset()
         }
 
         override fun reset() {
