@@ -40,8 +40,7 @@ interface DocumentChecklistUseCase {
                                     name = check.shortDescription ?: noData,
                                     yesNo = yesNo,
                                     comment = check.answerCheckList?.comments ?: "",
-                                    description = check.description ?: noData,
-                                    voiceState = VoiceState.IDLE
+                                    description = check.description ?: noData
                                 )
                             )
                         }

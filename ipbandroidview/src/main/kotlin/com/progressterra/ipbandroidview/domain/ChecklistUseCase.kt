@@ -41,8 +41,7 @@ interface ChecklistUseCase {
                             name = check.shortDescription ?: noData,
                             yesNo = YesNo.NONE,
                             comment = "",
-                            description = check.description ?: noData,
-                            voiceState = VoiceState.IDLE
+                            description = check.description ?: noData
                         )
                     )
 

@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.checklist
 
 interface ChecklistInteractor {
 
-    fun onCheck(check: Check)
+    fun onCheck(check: Check?)
 
     fun back()
 
@@ -22,7 +22,7 @@ interface ChecklistInteractor {
 
     class Empty : ChecklistInteractor {
 
-        override fun onCheck(check: Check) = Unit
+        override fun onCheck(check: Check?) = Unit
 
         override fun back() = Unit
 

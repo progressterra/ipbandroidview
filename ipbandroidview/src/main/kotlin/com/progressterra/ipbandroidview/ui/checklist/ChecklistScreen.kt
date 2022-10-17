@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +32,10 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         skipHalfExpanded = true
     )
     val coroutineScope = rememberCoroutineScope()
+    LaunchedEffect(sheetState) {
+        if (!sheetState.isVisible)
+            interactor.onCheck(null)
+    }
     ModalBottomSheetLayout(
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
@@ -226,9 +231,7 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 1\nWith more text",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -236,9 +239,7 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 2",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -246,9 +247,7 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 3",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -256,9 +255,7 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 4",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -266,9 +263,7 @@ private fun ChecklistScreenPreview() {
                             "1 category",
                             "Some check 5\nWith more text",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -276,9 +271,7 @@ private fun ChecklistScreenPreview() {
                             "2 category",
                             "Some check 6",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -286,9 +279,7 @@ private fun ChecklistScreenPreview() {
                             "2 category",
                             "Some check 7",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -296,9 +287,7 @@ private fun ChecklistScreenPreview() {
                             "2 category",
                             "Some check 8\nWith more text",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         ),
                         Check(
                             yesNo = YesNo.YES,
@@ -306,9 +295,7 @@ private fun ChecklistScreenPreview() {
                             "3 category",
                             "Some check 9",
                             "",
-                            "",
-                            voiceState = VoiceState.IDLE
-
+                            ""
                         )
                     ),
                     done = false,
@@ -344,9 +331,7 @@ private fun ChecklistScreenPreviewDialog() {
                     "2 category",
                     "Some check 8\nWith more text",
                     "",
-                    "description",
-                    voiceState = VoiceState.IDLE
-
+                    "description"
                 )
             ), interactor = ChecklistInteractor.Empty()
         )

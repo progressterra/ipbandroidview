@@ -12,6 +12,5 @@ data class Check(
     val category: String,
     val name: String,
     val comment: String,
-    val description: String,
-    val voiceState: VoiceState
+    val description: String
 ) : Parcelable

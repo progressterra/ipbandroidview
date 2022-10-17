@@ -44,8 +44,7 @@ interface UpdateAnswerUseCase {
                 category = "${result.parameter?.indexName ?: noData}. ${result.parameter?.internalName ?: noData}",
                 name = result.shortDescription ?: noData,
                 comment = result.answerCheckList?.comments ?: "",
-                description = result.description ?: noData,
-                voiceState = VoiceState.IDLE
+                description = result.description ?: noData
             )
         }
     }

@@ -89,22 +89,10 @@ fun VoiceInput(
                             )
                         }
                         Spacer(modifier = Modifier.size(16.dp))
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(4.dp)
-                                .clip(RoundedCornerShape(AppTheme.dimensions.lineRounding))
-                                .background(AppTheme.colors.surfaces),
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth(voiceState.listened)
-                                    .height(4.dp)
-                                    .clip(RoundedCornerShape(AppTheme.dimensions.lineRounding))
-                                    .background(AppTheme.colors.primary)
-                            )
-                        }
+                        ThemedLinearProgressIndicator(
+                            modifier = Modifier.weight(1f),
+                            progress = voiceState.listened
+                        )
                         Spacer(modifier = Modifier.size(16.dp))
                         IconButton(
                             modifier = Modifier.size(24.dp),
@@ -135,22 +123,10 @@ fun VoiceInput(
                             )
                         }
                         Spacer(modifier = Modifier.size(16.dp))
-                        Box(
-                            modifier = Modifier
-                                .weight(1f)
-                                .height(4.dp)
-                                .clip(RoundedCornerShape(AppTheme.dimensions.lineRounding))
-                                .background(AppTheme.colors.surfaces),
-                            contentAlignment = Alignment.CenterStart
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxWidth(voiceState.listened)
-                                    .height(4.dp)
-                                    .clip(RoundedCornerShape(AppTheme.dimensions.lineRounding))
-                                    .background(AppTheme.colors.primary)
-                            )
-                        }
+                        ThemedLinearProgressIndicator(
+                            modifier = Modifier.weight(1f),
+                            progress = voiceState.listened
+                        )
                         Spacer(modifier = Modifier.size(16.dp))
                         IconButton(
                             modifier = Modifier.size(24.dp),

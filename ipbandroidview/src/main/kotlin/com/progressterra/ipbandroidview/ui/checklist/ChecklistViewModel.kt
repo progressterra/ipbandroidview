@@ -1,14 +1,14 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.Manifest
-import android.media.MediaPlayer
-import android.media.MediaRecorder
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ManagePermission
+import com.progressterra.ipbandroidview.core.voice.AudioManager
+import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
@@ -29,8 +29,8 @@ class ChecklistViewModel(
     private val fetchExistingAuditUseCase: FetchExistingAuditUseCase,
     private val documentChecklistUseCase: DocumentChecklistUseCase,
     private val managePermission: ManagePermission,
-    private val mediaRecorder: MediaRecorder,
-    private val mediaPlayer: MediaPlayer
+    private val voiceManager: VoiceManager,
+    private val audioManager: AudioManager
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
     ChecklistInteractor {
 
@@ -52,8 +52,6 @@ class ChecklistViewModel(
 
     private val permission = Manifest.permission.RECORD_AUDIO
 
-    private val fileName = "Recorded voice message"
-
     @Suppress("unused")
     fun setDocument(checklist: Checklist) = intent {
         reduce {
@@ -64,8 +62,13 @@ class ChecklistViewModel(
         }
     }
 
-    override fun onCheck(check: Check) = intent {
+    override fun onCheck(check: Check?) = intent {
         reduce { state.copy(currentCheck = check) }
+        if (check == null) {
+            audioManager.endPlay()
+            voiceManager.stopRecording()
+        }
+
     }
 
     override fun back() = intent {
@@ -148,36 +151,38 @@ class ChecklistViewModel(
         postSideEffect(ChecklistEffect.RefreshAudits)
     }
 
-    override fun startPauseVoicePlay() = intent {
-        if (state.voiceState is VoiceState.PAUSE) {
-            mediaPlayer.setDataSource(fileName)
-            mediaPlayer.prepare()
-//            mediaPlayer.seekTo()
-            mediaPlayer.start()
+    override fun startPauseVoicePlay() {
+        intent {
+            state.currentCheck?.let {
+                if (state.voiceState is VoiceState.PAUSE) {
+                    audioManager.startPlay(it.id, (state.voiceState as VoiceState.PAUSE).listened)
+                    reduce { state.copy(voiceState = VoiceState.PLAY((state.voiceState as VoiceState.PAUSE).listened)) }
+                }
+                if (state.voiceState is VoiceState.PLAY) {
+                    audioManager.stopPlay()
+                    reduce { state.copy(voiceState = VoiceState.PAUSE((state.voiceState as VoiceState.PLAY).listened)) }
+                }
+            }
         }
-        if (state.voiceState is VoiceState.PLAY) {
-            mediaPlayer.stop()
-            mediaPlayer.reset()
-            reduce { state.copy(voiceState = VoiceState.RECORD) }
+        intent {
+            while (state.voiceState is VoiceState.PLAY) {
+                reduce { state.copy(voiceState = VoiceState.PLAY(audioManager.progress())) }
+            }
         }
     }
 
     override fun startStopVoiceRecording() = intent {
         if (state.voiceState is VoiceState.IDLE)
             if (managePermission.checkPermission(permission)) {
-                mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-                mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-                mediaRecorder.setOutputFile(fileName)
-                mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
-                mediaRecorder.prepare()
-                mediaRecorder.start()
-                reduce { state.copy(voiceState = VoiceState.RECORD) }
+                state.currentCheck?.let {
+                    voiceManager.startRecording(it.id)
+                    reduce { state.copy(voiceState = VoiceState.RECORD) }
+                }
             } else {
                 managePermission.requirePermission(permission)
             }
         if (state.voiceState is VoiceState.RECORD) {
-            mediaRecorder.stop()
-            mediaRecorder.reset()
+            voiceManager.stopRecording()
             reduce { state.copy(voiceState = VoiceState.PAUSE(0f)) }
         }
     }
