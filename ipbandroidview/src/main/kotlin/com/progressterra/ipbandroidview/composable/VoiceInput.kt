@@ -51,12 +51,6 @@ fun VoiceInput(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         if (state.ongoing)
-                            Text(
-                                text = stringResource(id = R.string.voice_message),
-                                style = AppTheme.typography.text,
-                                color = AppTheme.colors.gray1
-                            )
-                        else
                             IconButton(
                                 modifier = Modifier.size(24.dp),
                                 onClick = onRemove
@@ -69,6 +63,12 @@ fun VoiceInput(
                                     tint = AppTheme.colors.error
                                 )
                             }
+                        else
+                            Text(
+                                text = stringResource(id = R.string.voice_message),
+                                style = AppTheme.typography.text,
+                                color = AppTheme.colors.gray1
+                            )
                         IconButton(
                             modifier = Modifier.size(24.dp),
                             onClick = if (state.ongoing) onStopRecording else onStartRecording
@@ -122,7 +122,7 @@ fun VoiceInput(
                         onClick = if (state.ongoing) onPausePlay else onStartPlay
                     ) {
                         Icon(
-                            painter = painterResource(id = if (state.ongoing) R.drawable.ic_play else R.drawable.ic_pause),
+                            painter = painterResource(id = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play),
                             contentDescription = stringResource(
                                 id = R.string.pause_stop
                             ),
