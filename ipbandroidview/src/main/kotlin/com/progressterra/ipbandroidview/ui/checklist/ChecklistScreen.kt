@@ -123,12 +123,14 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         Box(modifier = Modifier.padding(4.dp)) {
                             VoiceInput(
                                 modifier = Modifier.fillMaxWidth(),
-                                voiceState = state.voiceState,
-                                onStartPausePlay = { interactor.startPauseVoicePlay() },
-                                onStartStopRecording = { interactor.startStopVoiceRecording() },
+                                state = state.voiceState,
+                                onStartRecording = { interactor.startRecording() },
+                                onStopRecording = { interactor.stopRecording() },
+                                onStartPlay = { interactor.startPlay() },
+                                onPausePlay = { interactor.pausePlay() },
                                 onRemove = {
                                     interactor.removeRecord()
-                                }, enabled = state.checklist.ongoing
+                                }
                             )
                         }
                     }
