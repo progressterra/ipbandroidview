@@ -126,7 +126,7 @@ val iPBAndroidViewModule = module {
     }
 
     single<MediaFiles> {
-        MediaFiles.Base()
+        MediaFiles.Base(androidContext())
     }
 
     single<VoiceManager> {
