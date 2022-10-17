@@ -148,21 +148,10 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         }, sheetBackgroundColor = AppTheme.colors.surfaces
     ) {
         Scaffold(topBar = {
-            ThemedTopAppBar(onBack = { interactor.back() },
-                title = stringResource(id = R.string.audit),
-                actions = {
-                    if (!state.checklist.done) {
-                        IconButton(onClick = { interactor.startStopAudit() }) {
-                            Icon(
-                                painter = painterResource(id = if (state.checklist.ongoing) R.drawable.ic_pause else R.drawable.ic_play),
-                                contentDescription = stringResource(
-                                    id = if (state.checklist.ongoing) R.string.pause_audit else R.string.start_audit
-                                ),
-                                tint = AppTheme.colors.gray1
-                            )
-                        }
-                    }
-                })
+            ThemedTopAppBar(
+                onBack = { interactor.back() },
+                title = stringResource(id = R.string.audit)
+            )
         }) {
             Box(
                 modifier = Modifier
@@ -202,25 +191,27 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             }
                         }
                 }
-                BottomHolder(
-                    Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.BottomCenter)
-                ) {
-                    Row {
-                        ThemedButton(
-                            modifier = Modifier.weight(1f),
-                            onClick = { interactor.startStopAudit() },
-                            text = stringResource(
-                                id = if (state.checklist.ongoing) R.string.end_audit else R.string.start_audit
-                            ),
-                            tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) Color(
-                                0xFFA0ECAC
-                            ) else AppTheme.colors.primary,
-                            textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.gray1
-                        )
-                        if (state.checklist.ongoing) Spacer(modifier = Modifier.size(8.dp))
-                        Stats(modifier = Modifier.weight(1f), stats = state.stats)
+                if (!state.checklist.done) {
+                    BottomHolder(
+                        Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.BottomCenter)
+                    ) {
+                        Row {
+                            ThemedButton(
+                                modifier = Modifier.weight(1f),
+                                onClick = { interactor.startStopAudit() },
+                                text = stringResource(
+                                    id = if (state.checklist.ongoing) R.string.end_audit else R.string.start_audit
+                                ),
+                                tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) Color(
+                                    0xFFA0ECAC
+                                ) else AppTheme.colors.primary,
+                                textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.gray1
+                            )
+                            if (state.checklist.ongoing) Spacer(modifier = Modifier.size(8.dp))
+                            Stats(modifier = Modifier.weight(1f), stats = state.stats)
+                        }
                     }
                 }
             }
