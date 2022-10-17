@@ -56,4 +56,5 @@
     <string name="error_happend">Произошла ошибка, ответ не засчитан</string>
     <string name="audit_started">Аудит начался</string>
     <string name="audit_ended">Аудит закончен</string>
+    <string name="pause_stop">Остановить или продолжить воспроизведение</string>
 </resources>

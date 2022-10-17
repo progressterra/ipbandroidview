@@ -7,6 +7,6 @@ import com.progressterra.ipbandroidview.core.Checklist
 @Immutable
 data class ChecklistState(
     val currentCheck: Check? = null,
-    val voiceState: VoiceState = VoiceState.IDLE,
+    val voiceState: VoiceState = VoiceState.Recorder(false),
     val checklist: Checklist
 )

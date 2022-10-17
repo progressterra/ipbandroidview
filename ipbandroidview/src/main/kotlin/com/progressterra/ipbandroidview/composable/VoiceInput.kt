@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.composable
 
-import android.os.Parcelable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,53 +16,62 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
-import kotlinx.parcelize.Parcelize
 
-sealed class VoiceState : Parcelable {
+sealed class VoiceState(
+    val ongoing: Boolean
+) {
 
-    @Parcelize
-    object IDLE : VoiceState()
+    class Recorder(ongoing: Boolean) : VoiceState(ongoing)
 
-    @Parcelize
-    object RECORD : VoiceState()
-
-    @Parcelize
-    class PLAY(val listened: Float) : VoiceState()
-
-    @Parcelize
-    class PAUSE(val listened: Float) : VoiceState()
+    class Player(ongoing: Boolean, val progress: Float) : VoiceState(ongoing)
 }
+
 
 @Composable
 fun VoiceInput(
     modifier: Modifier = Modifier,
-    voiceState: VoiceState,
-    onStartPausePlay: () -> Unit,
-    onStartStopRecording: () -> Unit,
-    onRemove: () -> Unit,
-    enabled: Boolean = true
+    state: VoiceState,
+    onStartPlay: () -> Unit,
+    onPausePlay: () -> Unit,
+    onStartRecording: () -> Unit,
+    onStopRecording: () -> Unit,
+    onRemove: () -> Unit
 ) {
-    Box(modifier = modifier) {
-        Box(modifier = Modifier.padding(8.dp)) {
-            Row(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
-                    .background(AppTheme.colors.background)
-                    .padding(12.dp)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                when (voiceState) {
-                    is VoiceState.IDLE -> {
-                        Text(
-                            text = stringResource(id = R.string.voice_message),
-                            style = AppTheme.typography.text,
-                            color = AppTheme.colors.gray1
-                        )
+    when (state) {
+        is VoiceState.Recorder ->
+            Box(modifier = modifier) {
+                Box(modifier = Modifier.padding(8.dp)) {
+                    Row(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                            .background(AppTheme.colors.background)
+                            .padding(12.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        if (state.ongoing)
+                            Text(
+                                text = stringResource(id = R.string.voice_message),
+                                style = AppTheme.typography.text,
+                                color = AppTheme.colors.gray1
+                            )
+                        else
+                            IconButton(
+                                modifier = Modifier.size(24.dp),
+                                onClick = onRemove
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_trash),
+                                    contentDescription = stringResource(
+                                        id = R.string.trash
+                                    ),
+                                    tint = AppTheme.colors.error
+                                )
+                            }
                         IconButton(
                             modifier = Modifier.size(24.dp),
-                            onClick = onStartStopRecording, enabled = enabled
+                            onClick = if (state.ongoing) onStopRecording else onStartRecording
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_mic),
@@ -72,110 +80,58 @@ fun VoiceInput(
                                 ),
                                 tint = AppTheme.colors.primary
                             )
-                        }
-                    }
-                    is VoiceState.PAUSE -> {
-                        IconButton(
-                            modifier = Modifier.size(24.dp),
-                            onClick = onRemove,
-                            enabled = enabled
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_trash),
-                                contentDescription = stringResource(
-                                    id = R.string.trash
-                                ),
-                                tint = AppTheme.colors.error
-                            )
-                        }
-                        Spacer(modifier = Modifier.size(16.dp))
-                        ThemedLinearProgressIndicator(
-                            modifier = Modifier.weight(1f),
-                            progress = voiceState.listened
-                        )
-                        Spacer(modifier = Modifier.size(16.dp))
-                        IconButton(
-                            modifier = Modifier.size(24.dp),
-                            onClick = onStartPausePlay,
-                            enabled = enabled
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_play),
-                                contentDescription = stringResource(
-                                    id = R.string.mic
-                                ),
-                                tint = AppTheme.colors.primary
-                            )
-                        }
-                    }
-                    is VoiceState.PLAY -> {
-                        IconButton(
-                            modifier = Modifier.size(24.dp),
-                            onClick = onRemove,
-                            enabled = enabled
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_trash),
-                                contentDescription = stringResource(
-                                    id = R.string.trash
-                                ),
-                                tint = AppTheme.colors.error
-                            )
-                        }
-                        Spacer(modifier = Modifier.size(16.dp))
-                        ThemedLinearProgressIndicator(
-                            modifier = Modifier.weight(1f),
-                            progress = voiceState.listened
-                        )
-                        Spacer(modifier = Modifier.size(16.dp))
-                        IconButton(
-                            modifier = Modifier.size(24.dp),
-                            onClick = onStartPausePlay,
-                            enabled = enabled
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_pause),
-                                contentDescription = stringResource(
-                                    id = R.string.pause
-                                ),
-                                tint = AppTheme.colors.primary
-                            )
-                        }
 
+                        }
                     }
-                    is VoiceState.RECORD -> {
-                        IconButton(
-                            modifier = Modifier.size(24.dp),
-                            onClick = onRemove,
-                            enabled = enabled
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_trash),
-                                contentDescription = stringResource(
-                                    id = R.string.trash
-                                ),
-                                tint = AppTheme.colors.error
-                            )
-                        }
-                        IconButton(
-                            modifier = Modifier.size(24.dp),
-                            onClick = onStartPausePlay,
-                            enabled = enabled
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_mic),
-                                contentDescription = stringResource(
-                                    id = R.string.mic
-                                ),
-                                tint = AppTheme.colors.primary
-                            )
-                        }
+
+                }
+                if (state.ongoing)
+                    PulsingDot(modifier = Modifier.align(Alignment.CenterEnd), size = 64.dp)
+            }
+        is VoiceState.Player ->
+            Box(modifier = modifier.padding(8.dp)) {
+                Row(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                        .background(AppTheme.colors.background)
+                        .padding(12.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    IconButton(
+                        modifier = Modifier.size(24.dp),
+                        onClick = onRemove
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_trash),
+                            contentDescription = stringResource(
+                                id = R.string.trash
+                            ),
+                            tint = AppTheme.colors.error
+                        )
+                    }
+                    Spacer(modifier = Modifier.size(16.dp))
+                    ThemedLinearProgressIndicator(
+                        modifier = Modifier.weight(1f),
+                        progress = state.progress
+                    )
+                    Spacer(modifier = Modifier.size(16.dp))
+                    IconButton(
+                        modifier = Modifier.size(24.dp),
+                        onClick = if (state.ongoing) onPausePlay else onStartPlay
+                    ) {
+                        Icon(
+                            painter = painterResource(id = if (state.ongoing) R.drawable.ic_play else R.drawable.ic_pause),
+                            contentDescription = stringResource(
+                                id = R.string.pause_stop
+                            ),
+                            tint = AppTheme.colors.primary
+                        )
                     }
                 }
+
             }
-        }
-        if (voiceState == VoiceState.RECORD)
-            PulsingDot(modifier = Modifier.align(Alignment.CenterEnd), size = 64.dp)
     }
 }
 
@@ -184,9 +140,11 @@ fun VoiceInput(
 fun VoiceInputPreviewIdle() {
     AppTheme {
         VoiceInput(
-            voiceState = VoiceState.IDLE,
-            onStartPausePlay = {},
-            onStartStopRecording = {},
+            state = VoiceState.Recorder(false),
+            onStartPlay = {},
+            onPausePlay = {},
+            onStartRecording = {},
+            onStopRecording = {},
             onRemove = {})
     }
 }
@@ -196,10 +154,13 @@ fun VoiceInputPreviewIdle() {
 fun VoiceInputPreviewRecord() {
     AppTheme {
         VoiceInput(
-            voiceState = VoiceState.RECORD,
-            onStartPausePlay = {},
-            onStartStopRecording = {},
-            onRemove = {})
+            state = VoiceState.Recorder(true),
+            onStartPlay = {},
+            onPausePlay = {},
+            onStartRecording = {},
+            onStopRecording = {},
+            onRemove = {}
+        )
     }
 }
 
@@ -209,9 +170,11 @@ fun VoiceInputPreviewRecord() {
 fun VoiceInputPreviewPlay() {
     AppTheme {
         VoiceInput(
-            voiceState = VoiceState.PLAY(0.4f),
-            onStartPausePlay = {},
-            onStartStopRecording = {},
+            state = VoiceState.Player(true, 0.5f),
+            onStartPlay = {},
+            onPausePlay = {},
+            onStartRecording = {},
+            onStopRecording = {},
             onRemove = {})
     }
 }
@@ -221,9 +184,11 @@ fun VoiceInputPreviewPlay() {
 fun VoiceInputPreviewPause() {
     AppTheme {
         VoiceInput(
-            voiceState = VoiceState.PAUSE(0.9f),
-            onStartPausePlay = {},
-            onStartStopRecording = {},
+            state = VoiceState.Player(false, 0.3f),
+            onStartPlay = {},
+            onPausePlay = {},
+            onStartRecording = {},
+            onStopRecording = {},
             onRemove = {})
     }
 }

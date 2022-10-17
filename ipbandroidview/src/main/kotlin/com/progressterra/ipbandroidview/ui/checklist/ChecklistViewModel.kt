@@ -15,6 +15,7 @@ import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.replaceById
+import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -64,8 +65,8 @@ class ChecklistViewModel(
 
     override fun onCheck(check: Check?) = intent {
         if (state.currentCheck != null && check == null) {
-            audioManager.endPlay()
-            voiceManager.stopRecording()
+            audioManager.reset()
+            voiceManager.reset()
         }
         reduce { state.copy(currentCheck = check) }
     }
@@ -149,51 +150,72 @@ class ChecklistViewModel(
         postSideEffect(ChecklistEffect.RefreshAudits)
     }
 
-    override fun startPauseVoicePlay() {
+
+    override fun startPlay() {
         intent {
             state.currentCheck?.let {
-                if (state.voiceState is VoiceState.PAUSE) {
-                    audioManager.startPlay(it.id, (state.voiceState as VoiceState.PAUSE).listened)
-                    reduce { state.copy(voiceState = VoiceState.PLAY((state.voiceState as VoiceState.PAUSE).listened)) }
-                }
-                if (state.voiceState is VoiceState.PLAY) {
-                    audioManager.stopPlay()
-                    reduce { state.copy(voiceState = VoiceState.PAUSE((state.voiceState as VoiceState.PLAY).listened)) }
+                audioManager.startPlay(
+                    it.id,
+                    (state.voiceState as VoiceState.Player).progress
+                )
+                reduce {
+                    state.copy(
+                        voiceState = VoiceState.Player(
+                            true,
+                            (state.voiceState as VoiceState.Player).progress
+                        )
+                    )
                 }
             }
         }
         intent {
-            while (state.voiceState is VoiceState.PLAY) {
-                reduce { state.copy(voiceState = VoiceState.PLAY(audioManager.progress())) }
+            while (state.voiceState.ongoing) {
+                reduce { state.copy(voiceState = VoiceState.Player(true, audioManager.progress())) }
+                delay(1000)
             }
         }
     }
 
-    override fun startStopVoiceRecording() = intent {
-        if (state.voiceState is VoiceState.IDLE)
-            if (managePermission.checkPermission(permission)) {
-                state.currentCheck?.let {
-                    voiceManager.startRecording(it.id)
-                    reduce { state.copy(voiceState = VoiceState.RECORD) }
-                }
-            } else {
-                managePermission.requirePermission(permission)
-            }
-        if (state.voiceState is VoiceState.RECORD) {
-            voiceManager.stopRecording()
-            reduce { state.copy(voiceState = VoiceState.PAUSE(0f)) }
+    override fun pausePlay() = intent {
+        audioManager.stopPlay()
+        reduce {
+            state.copy(
+                voiceState = VoiceState.Player(
+                    false, (state.voiceState as VoiceState.Player).progress
+                )
+            )
         }
+    }
+
+    override fun startRecording() = intent {
+        if (managePermission.checkPermission(permission)) {
+            state.currentCheck?.let {
+                voiceManager.startRecording(it.id)
+                reduce { state.copy(voiceState = VoiceState.Recorder(true)) }
+            }
+        } else {
+            managePermission.requirePermission(permission)
+        }
+    }
+
+    override fun stopRecording() = intent {
+        voiceManager.stopRecording()
+        reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
     }
 
     override fun removeRecord() = intent {
-        reduce { state.copy(voiceState = VoiceState.IDLE) }
+        reduce { state.copy(voiceState = VoiceState.Recorder(false)) }
     }
 
     override fun ready() = intent {
         state.currentCheck?.let { updateAnswerUseCase.update(it) }?.onSuccess {
             reduce {
                 state.copy(
-                    checklist = state.checklist.copy(checks = state.checklist.checks.replaceById(it))
+                    checklist = state.checklist.copy(
+                        checks = state.checklist.checks.replaceById(
+                            it
+                        )
+                    )
                 )
             }
             postSideEffect(ChecklistEffect.Toast(R.string.answer_done))

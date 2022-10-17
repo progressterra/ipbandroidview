@@ -12,9 +12,13 @@ interface ChecklistInteractor {
 
     fun onCheckCommentaryChange(comment: String)
 
-    fun startPauseVoicePlay()
-
-    fun startStopVoiceRecording()
+    fun startPlay()
+    
+    fun pausePlay()
+    
+    fun startRecording()
+    
+    fun stopRecording()
 
     fun removeRecord()
 
@@ -32,9 +36,13 @@ interface ChecklistInteractor {
 
         override fun onCheckCommentaryChange(comment: String) = Unit
 
-        override fun startPauseVoicePlay() = Unit
+        override fun startPlay() = Unit
 
-        override fun startStopVoiceRecording() = Unit
+        override fun pausePlay() = Unit
+
+        override fun startRecording() = Unit
+
+        override fun stopRecording() = Unit
 
         override fun removeRecord() = Unit
 

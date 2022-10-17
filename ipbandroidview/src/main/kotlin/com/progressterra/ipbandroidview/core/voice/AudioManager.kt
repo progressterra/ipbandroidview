@@ -12,6 +12,8 @@ interface AudioManager {
 
     fun endPlay()
 
+    fun reset()
+
     class Base(
         private val mediaPlayer: MediaPlayer,
         private val mediaFiles: MediaFiles
@@ -40,6 +42,10 @@ interface AudioManager {
 
         override fun endPlay() {
             mediaPlayer.stop()
+            mediaPlayer.reset()
+        }
+
+        override fun reset() {
             mediaPlayer.reset()
         }
 

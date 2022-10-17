@@ -8,6 +8,8 @@ interface VoiceManager {
 
     fun stopRecording()
 
+    fun reset()
+
     class Base(
         private val mediaRecorder: MediaRecorder,
         private val mediaFiles: MediaFiles
@@ -24,6 +26,10 @@ interface VoiceManager {
 
         override fun stopRecording() {
             mediaRecorder.stop()
+            reset()
+        }
+
+        override fun reset() {
             mediaRecorder.reset()
         }
     }
