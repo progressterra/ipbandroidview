@@ -175,7 +175,7 @@ class ChecklistViewModel(
             while (state.voiceState.ongoing) {
                 Log.d("AUDIO", "state: ${state.voiceState.ongoing}")
                 progress = audioManager.progress()
-                Log.d("AUDIO", "progress: ${state.voiceState.ongoing}")
+                Log.d("AUDIO", "progress: $progress")
                 reduce {
                     state.copy(
                         voiceState = VoiceState.Player(
