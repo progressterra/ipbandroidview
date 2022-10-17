@@ -125,15 +125,15 @@ val iPBAndroidViewModule = module {
         MediaRecorder(androidContext())
     }
 
-    single {
+    single<MediaFiles> {
         MediaFiles.Base()
     }
 
-    single {
+    single<VoiceManager> {
         VoiceManager.Base(get(), get())
     }
 
-    single {
+    single<AudioManager> {
         AudioManager.Base(get(), get())
     }
 
