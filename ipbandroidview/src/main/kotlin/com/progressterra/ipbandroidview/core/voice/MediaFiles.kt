@@ -1,12 +1,16 @@
 package com.progressterra.ipbandroidview.core.voice
 
+import android.content.Context
+
 interface MediaFiles {
 
     fun retrieveName(checkId: String): String
 
-    class Base : MediaFiles {
+    class Base(
+        private val context: Context
+    ) : MediaFiles {
 
         override fun retrieveName(checkId: String): String =
-            "Voice message for check with id $checkId"
+            "${context.filesDir.path}/Voice message for check with id $checkId"
     }
 }
