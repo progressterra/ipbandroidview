@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.Manifest
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
@@ -170,11 +171,13 @@ class ChecklistViewModel(
         }
         intent {
             var progress: Float
-            while (state.voiceState.ongoing) {
+            while (true) {
                 progress = audioManager.progress()
+                Log.d("AUDIO", "$progress")
                 if (progress == 1f) {
                     audioManager.stopPlay()
                     reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
+                    break
                 } else
                     reduce {
                         state.copy(
@@ -184,7 +187,7 @@ class ChecklistViewModel(
                             )
                         )
                     }
-                delay(100)
+                delay(500)
             }
         }
     }
