@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ManagePermission
 import com.progressterra.ipbandroidview.core.voice.AudioManager
+import com.progressterra.ipbandroidview.core.voice.AudioProgressListener
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
@@ -34,7 +35,7 @@ class ChecklistViewModel(
     private val voiceManager: VoiceManager,
     private val audioManager: AudioManager
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
-    ChecklistInteractor {
+    ChecklistInteractor, AudioProgressListener {
 
     override val container: Container<ChecklistState, ChecklistEffect> = container(
         ChecklistState(
@@ -51,6 +52,10 @@ class ChecklistViewModel(
             )
         )
     )
+
+    init {
+        audioManager.setListener(this)
+    }
 
     private val permission = Manifest.permission.RECORD_AUDIO
 
@@ -169,27 +174,15 @@ class ChecklistViewModel(
                 }
             }
         }
-        intent {
-            var progress: Float
-            while (true) {
-                progress = audioManager.progress()
-                Log.d("AUDIO", "$progress")
-                if (progress == 1f) {
-                    audioManager.stopPlay()
-                    reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
-                    break
-                } else
-                    reduce {
-                        state.copy(
-                            voiceState = VoiceState.Player(
-                                true,
-                                audioManager.progress()
-                            )
-                        )
-                    }
-                delay(500)
-            }
-        }
+    }
+
+    override fun progress(progress: Float) = intent {
+        reduce { state.copy(voiceState = VoiceState.Player(state.voiceState.ongoing, progress)) }
+    }
+
+    override fun ended() = intent {
+        voiceManager.stopRecording()
+        reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
     }
 
     override fun pausePlay() = intent {
