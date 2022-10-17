@@ -185,7 +185,7 @@ class ChecklistViewModel(
                     )
                 }
                 if (progress >= 1f) {
-                    voiceManager.stopRecording()
+                    voiceManager.reset()
                     reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
                 }
                 delay(250)
