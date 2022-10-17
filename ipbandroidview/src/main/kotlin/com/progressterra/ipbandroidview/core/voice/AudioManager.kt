@@ -4,11 +4,11 @@ import android.media.MediaPlayer
 
 interface AudioManager {
 
-    fun startPlay(checkId: String, progress: Float)
+    fun play(checkId: String, progress: Float)
 
     fun progress(): Float
 
-    fun stopPlay()
+    fun pause()
 
     fun reset()
 
@@ -27,24 +27,22 @@ interface AudioManager {
             lastPreparedCheckId = checkId
         }
 
-        override fun startPlay(checkId: String, progress: Float) {
+        override fun play(checkId: String, progress: Float) {
             if (lastPreparedCheckId != checkId)
                 prepare(checkId)
-            mediaPlayer.seekTo((mediaPlayer.duration * progress).toInt())
             mediaPlayer.start()
         }
 
-        override fun stopPlay() {
-            mediaPlayer.stop()
-            reset()
+        override fun pause() {
+            mediaPlayer.pause()
         }
 
         override fun reset() {
             mediaPlayer.reset()
+            lastPreparedCheckId = null
         }
 
         override fun progress(): Float =
             mediaPlayer.currentPosition.toFloat() / mediaPlayer.duration.toFloat()
-
     }
 }

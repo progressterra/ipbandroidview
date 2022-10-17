@@ -9,7 +9,6 @@ import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ManagePermission
 import com.progressterra.ipbandroidview.core.voice.AudioManager
-import com.progressterra.ipbandroidview.core.voice.AudioProgressListener
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
@@ -156,7 +155,7 @@ class ChecklistViewModel(
     override fun startPlay() {
         intent {
             state.currentCheck?.let {
-                audioManager.startPlay(
+                audioManager.play(
                     it.id,
                     (state.voiceState as VoiceState.Player).progress
                 )
@@ -194,7 +193,7 @@ class ChecklistViewModel(
     }
 
     override fun pausePlay() = intent {
-        audioManager.stopPlay()
+        audioManager.pause()
         reduce {
             state.copy(
                 voiceState = VoiceState.Player(
