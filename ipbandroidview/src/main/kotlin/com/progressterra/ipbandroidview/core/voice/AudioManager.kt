@@ -14,7 +14,7 @@ interface AudioManager {
 
     class Base(
         private val mediaPlayer: MediaPlayer,
-        private val createName: CreateName
+        private val mediaFiles: MediaFiles
     ) : AudioManager {
 
         private var lastPreparedCheckId: String? = null
@@ -22,7 +22,7 @@ interface AudioManager {
         private fun prepare(checkId: String) {
             if (lastPreparedCheckId != checkId)
                 endPlay()
-            mediaPlayer.setDataSource(createName.audioFileForCheckId(checkId))
+            mediaPlayer.setDataSource(mediaFiles.retrieveName(checkId))
             mediaPlayer.prepare()
             lastPreparedCheckId = checkId
         }

@@ -5,6 +5,9 @@ import android.media.MediaRecorder
 import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.core.*
+import com.progressterra.ipbandroidview.core.voice.AudioManager
+import com.progressterra.ipbandroidview.core.voice.MediaFiles
+import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
@@ -114,12 +117,24 @@ val iPBAndroidViewModule = module {
 
     single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get(), get()) }
 
-    factory {
+    single {
         MediaPlayer()
     }
 
-    factory {
+    single {
         MediaRecorder(androidContext())
+    }
+
+    single {
+        MediaFiles.Base()
+    }
+
+    single {
+        VoiceManager.Base(get(), get())
+    }
+
+    single {
+        AudioManager.Base(get(), get())
     }
 
     viewModel {
