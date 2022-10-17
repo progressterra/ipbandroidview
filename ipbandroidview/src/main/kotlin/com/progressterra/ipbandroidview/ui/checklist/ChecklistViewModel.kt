@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
+import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ManagePermission
@@ -48,7 +49,8 @@ class ChecklistViewModel(
                 lastTimeChecked = "",
                 checks = emptyList(),
                 documentId = null
-            )
+            ),
+            stats = ChecklistStats(0, 0, 0, 0)
         )
     )
 
@@ -59,7 +61,8 @@ class ChecklistViewModel(
         reduce {
             ChecklistState(
                 currentCheck = null,
-                checklist = checklist
+                checklist = checklist,
+                stats = checklist.createStats()
             )
         }
     }
@@ -224,15 +227,16 @@ class ChecklistViewModel(
         reduce { state.copy(voiceState = VoiceState.Recorder(false)) }
     }
 
+    //TODO loading state
     override fun ready() = intent {
         state.currentCheck?.let { updateAnswerUseCase.update(it) }?.onSuccess {
+            val newChecklist = state.checklist.copy(
+                checks = state.checklist.checks.replaceById(it)
+            )
             reduce {
                 state.copy(
-                    checklist = state.checklist.copy(
-                        checks = state.checklist.checks.replaceById(
-                            it
-                        )
-                    )
+                    checklist = newChecklist,
+                    stats = newChecklist.createStats()
                 )
             }
             postSideEffect(ChecklistEffect.Toast(R.string.answer_done))

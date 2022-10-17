@@ -19,16 +19,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
+import com.progressterra.ipbandroidview.composable.stats.Stats
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun AuditCard(
+fun DocumentCard(
     modifier: Modifier = Modifier,
     name: String = "",
     address: String = "",
-    percentage: Int = 0,
-    successPercentage: Int = 85,
     done: Boolean = false,
+    stats: ChecklistStats,
     onClick: () -> Unit
 ) {
     Row(
@@ -60,24 +61,19 @@ fun AuditCard(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-        }
-        Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.size(8.dp))
-            if (!done) {
-                Percentage(
-                    percentage = percentage,
-                    successPercentage = successPercentage
-                )
-            }
-            Icon(
-                modifier = Modifier.size(16.dp),
-                painter = painterResource(id = R.drawable.ic_forward),
-                contentDescription = stringResource(
-                    id = R.string.forward
-                ),
-                tint = AppTheme.colors.gray2
-            )
+            Stats(Modifier.fillMaxWidth(), stats)
         }
+        Spacer(modifier = Modifier.size(8.dp))
+        Icon(
+            modifier = Modifier.size(16.dp),
+            painter = painterResource(id = R.drawable.ic_forward),
+            contentDescription = stringResource(
+                id = R.string.forward
+            ),
+            tint = AppTheme.colors.gray2
+        )
+
     }
 }
 
@@ -85,11 +81,13 @@ fun AuditCard(
 @Composable
 private fun AuditCardPreviewEmpty() {
     AppTheme {
-        AuditCard(
+        DocumentCard(
             name = "Ирина проводит аудит: «Наличие необходимого минимума продовольственных запасов на складе»",
             address = "пл Дружбы народов, 45, «Кофемания»",
-            percentage = 15,
-            onClick = {}
+            onClick = {},
+            stats = ChecklistStats(
+                43, 15, 20, 8
+            )
         )
     }
 }
@@ -98,10 +96,13 @@ private fun AuditCardPreviewEmpty() {
 @Composable
 private fun AuditCardPreviewZero() {
     AppTheme {
-        AuditCard(
+        DocumentCard(
             name = "Ирина проводит аудит: «Наличие необходимого минимума продовольственных запасов на складе»",
             address = "пл Дружбы народов, 45, «Кофемания»",
-            onClick = {}
+            onClick = {},
+            stats = ChecklistStats(
+                43, 15, 20, 8
+            )
         )
     }
 }
@@ -110,11 +111,13 @@ private fun AuditCardPreviewZero() {
 @Composable
 private fun AuditCardPreviewFull() {
     AppTheme {
-        AuditCard(
+        DocumentCard(
             name = "Ирина проводит аудит: «Наличие необходимого минимума продовольственных запасов на складе»",
             address = "пл Дружбы народов, 45, «Кофемания»",
-            percentage = 89,
-            onClick = {}
+            onClick = {},
+            stats = ChecklistStats(
+                43, 15, 20, 8
+            )
         )
     }
 }

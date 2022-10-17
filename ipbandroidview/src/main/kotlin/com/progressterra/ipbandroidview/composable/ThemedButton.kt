@@ -7,6 +7,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -16,7 +17,9 @@ fun ThemedButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    textColor: Color = AppTheme.colors.surfaces,
+    tint: Color = AppTheme.colors.primary
 ) {
     Button(
         modifier = modifier,
@@ -24,8 +27,8 @@ fun ThemedButton(
         shape = RoundedCornerShape(AppTheme.dimensions.buttonRounding),
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
-            backgroundColor = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray3,
-            contentColor = AppTheme.colors.surfaces,
+            backgroundColor = if (enabled) tint else AppTheme.colors.gray3,
+            contentColor = textColor,
             disabledContentColor = AppTheme.colors.gray2
         ),
         contentPadding = PaddingValues(

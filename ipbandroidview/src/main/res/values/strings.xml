@@ -33,6 +33,7 @@
     <string name="icon">Иконка экрана</string>
     <string name="audits">Аудиты</string>
     <string name="no_data">Нет данных</string>
+    <string name="no_data_short">Н/д</string>
     <string name="completed_audits">Завершённые аудиты</string>
     <string name="organizations">Заведения</string>
     <string name="profile">Профиль</string>
@@ -42,8 +43,9 @@
     <string name="create_audit">Провести аудит</string>
     <string name="questions">вопросов</string>
     <string name="audit">Аудит</string>
-    <string name="start_audit">Начать проверку</string>
+    <string name="start_audit">Начать аудит</string>
     <string name="pause_audit">Остановить проверку</string>
+    <string name="end_audit">Завершить</string>
     <string name="refresh">Обновить</string>
     <string name="voice_message">Голосовое сообщение</string>
     <string name="mic">Микрофон</string>

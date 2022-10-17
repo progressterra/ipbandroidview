@@ -16,6 +16,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
+import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -50,34 +51,36 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
                             items(state.documents.filter { !it.done }) {
-                                AuditCard(
+                                DocumentCard(
                                     modifier = Modifier.fillMaxWidth(),
                                     name = it.name,
                                     address = it.address,
-                                    percentage = it.percentage,
                                     done = it.done,
-                                    onClick = { interactor.onDocumentChecklist(it) }
+                                    onClick = { interactor.onDocumentChecklist(it) },
+                                    stats = it.stats
                                 )
                             }
-                            val doneDocuments = state.documents.filter { it.done }
-                            if (doneDocuments.isNotEmpty()) {
-                                item {
-                                    CategoryDivider(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        title = stringResource(id = R.string.completed_audits)
-                                    )
+                            state.documents.filter { it.done }
+                                .groupBy { it.finishDate }
+                                .toSortedMap()
+                                .forEach {
+                                    item {
+                                        CategoryDivider(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            title = "${stringResource(id = R.string.completed_audits)} ${it.key}"
+                                        )
+                                    }
+                                    items(it.value) { document ->
+                                        DocumentCard(
+                                            modifier = Modifier.fillMaxWidth(),
+                                            name = document.name,
+                                            address = document.address,
+                                            done = document.done,
+                                            onClick = { interactor.onDocumentChecklist(document) },
+                                            stats = document.stats
+                                        )
+                                    }
                                 }
-                            }
-                            items(doneDocuments) {
-                                AuditCard(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    name = it.name,
-                                    address = it.address,
-                                    percentage = it.percentage,
-                                    done = it.done,
-                                    onClick = { interactor.onDocumentChecklist(it) }
-                                )
-                            }
                         }
                         ThemedButton(
                             modifier = Modifier
@@ -113,10 +116,11 @@ private fun DocumentsScreenPreview() {
                         "",
                         "Some audit 1",
                         "Lenina 13",
-                        87,
                         25,
                         "",
                         "",
+                        "",
+                        ChecklistStats(7, 3, 3, 1),
                         false
                     ),
                     Document(
@@ -125,10 +129,11 @@ private fun DocumentsScreenPreview() {
                         "",
                         "Some audit 2",
                         "Lenina 13",
-                        15,
                         25,
                         "",
                         "",
+                        "",
+                        ChecklistStats(7, 3, 3, 1),
                         false
                     ),
                     Document(
@@ -137,10 +142,11 @@ private fun DocumentsScreenPreview() {
                         "",
                         "Some audit 3",
                         "Lenina 13",
-                        30,
                         25,
                         "",
                         "",
+                        "",
+                        ChecklistStats(7, 3, 3, 1),
                         false
                     ),
                     Document(
@@ -149,59 +155,12 @@ private fun DocumentsScreenPreview() {
                         "",
                         "Some audit 4",
                         "Lenina 13",
-                        90,
                         25,
                         "",
                         "",
+                        "",
+                        ChecklistStats(7, 3, 3, 1),
                         false
-                    ),
-                    Document(
-                        documentId = "",
-                        "",
-                        "",
-                        "Some audit 5",
-                        "Lenina 13",
-                        87,
-                        25,
-                        "",
-                        "",
-                        true
-                    ),
-                    Document(
-                        documentId = "",
-                        "",
-                        "",
-                        "Some audit 6",
-                        "Lenina 13",
-                        6,
-                        25,
-                        "",
-                        "",
-                        true
-                    ),
-                    Document(
-                        documentId = "",
-                        checklistId = "",
-                        placeId = "",
-                        name = "Some audit 7",
-                        address = "Lenina 13",
-                        percentage = 56,
-                        checkCounter = 25,
-                        repetitiveness = "",
-                        lastTimeChecked = "",
-                        done = true
-                    ),
-                    Document(
-                        documentId = "",
-                        "",
-                        "",
-                        "Some audit 8",
-                        "Lenina 13",
-                        99,
-                        25,
-                        "",
-                        "",
-                        true
                     )
                 )
             ), interactor = DocumentsInteractor.Empty()
