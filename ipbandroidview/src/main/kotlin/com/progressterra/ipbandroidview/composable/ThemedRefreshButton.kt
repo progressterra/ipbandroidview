@@ -42,7 +42,7 @@ fun ThemedRefreshButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 
 @Preview
 @Composable
-fun ThemedRefreshButtonPreview() {
+private fun ThemedRefreshButtonPreview() {
     AppTheme {
         ThemedRefreshButton(onClick = {})
     }

@@ -49,7 +49,7 @@ fun AuditTitle(
             )
         }
         Text(
-            text = "$checkCounter ${stringResource(id = R.string.questions)}",
+            text = "${stringResource(id = R.string.questions)}: $checkCounter",
             color = AppTheme.colors.gray2,
             style = AppTheme.typography.tertiaryText
         )

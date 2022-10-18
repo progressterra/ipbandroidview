@@ -77,7 +77,7 @@ fun ConfirmationCodeScreen(
 
 @Preview
 @Composable
-fun ConfirmationCodeScreenPreview() {
+private fun ConfirmationCodeScreenPreview() {
     AppTheme {
         ConfirmationCodeScreen(
             ConfirmationCodeState(

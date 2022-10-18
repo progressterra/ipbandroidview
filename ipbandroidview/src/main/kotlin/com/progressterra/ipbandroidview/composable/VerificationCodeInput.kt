@@ -102,7 +102,7 @@ fun VerificationCodeInput(
 
 @Preview
 @Composable
-fun VerificationCodeInputPreview0() {
+private fun VerificationCodeInputPreview0() {
     AppTheme {
         VerificationCodeInput()
     }

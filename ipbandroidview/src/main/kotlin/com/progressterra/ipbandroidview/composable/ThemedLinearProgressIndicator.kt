@@ -21,7 +21,7 @@ fun ThemedLinearProgressIndicator(
 
 @Preview
 @Composable
-fun ThemedLinearProgressIndicatorPreview() {
+private fun ThemedLinearProgressIndicatorPreview() {
     AppTheme {
         ThemedLinearProgressIndicator(progress = 0.4f)
     }

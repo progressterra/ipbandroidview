@@ -42,7 +42,7 @@ fun ThemedButton(
 
 @Preview
 @Composable
-fun ThemedButtonEnabledPreview() {
+private fun ThemedButtonEnabledPreview() {
     AppTheme {
         ThemedButton(onClick = {}, text = "Some button")
     }
@@ -50,7 +50,7 @@ fun ThemedButtonEnabledPreview() {
 
 @Preview
 @Composable
-fun ThemedButtonDisabledPreview() {
+private fun ThemedButtonDisabledPreview() {
     AppTheme {
         ThemedButton(onClick = {}, text = "Some button", enabled = false)
     }

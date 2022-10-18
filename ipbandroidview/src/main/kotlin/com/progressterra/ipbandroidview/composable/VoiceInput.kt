@@ -137,7 +137,7 @@ fun VoiceInput(
 
 @Preview
 @Composable
-fun VoiceInputPreviewIdle() {
+private fun VoiceInputPreviewIdle() {
     AppTheme {
         VoiceInput(
             state = VoiceState.Recorder(false),
@@ -151,7 +151,7 @@ fun VoiceInputPreviewIdle() {
 
 @Preview
 @Composable
-fun VoiceInputPreviewRecord() {
+private fun VoiceInputPreviewRecord() {
     AppTheme {
         VoiceInput(
             state = VoiceState.Recorder(true),
@@ -167,7 +167,7 @@ fun VoiceInputPreviewRecord() {
 
 @Preview
 @Composable
-fun VoiceInputPreviewPlay() {
+private fun VoiceInputPreviewPlay() {
     AppTheme {
         VoiceInput(
             state = VoiceState.Player(true, 0.5f),
@@ -181,7 +181,7 @@ fun VoiceInputPreviewPlay() {
 
 @Preview
 @Composable
-fun VoiceInputPreviewPause() {
+private fun VoiceInputPreviewPause() {
     AppTheme {
         VoiceInput(
             state = VoiceState.Player(false, 0.3f),

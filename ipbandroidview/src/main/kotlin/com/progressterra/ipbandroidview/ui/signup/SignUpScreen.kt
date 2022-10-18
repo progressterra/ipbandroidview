@@ -90,7 +90,7 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
 
 @Preview
 @Composable
-fun SignUpScreenPreviewEmpty() {
+private fun SignUpScreenPreviewEmpty() {
     AppTheme {
         SignUpScreen(SignUpState(phoneNumber = "+7 (996) 697-76-76"), SignUpInteractor.Empty())
     }
@@ -99,7 +99,7 @@ fun SignUpScreenPreviewEmpty() {
 
 @Preview
 @Composable
-fun SignUpScreenPreviewFilled() {
+private fun SignUpScreenPreviewFilled() {
     AppTheme {
         SignUpScreen(
             SignUpState(

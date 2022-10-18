@@ -34,7 +34,7 @@ fun SplashScreen(state: SplashState, settings: SplashSettings) {
 
 @Preview
 @Composable
-fun SplashScreenPreview() {
+private fun SplashScreenPreview() {
     AppTheme {
         SplashScreen(
             SplashState(
