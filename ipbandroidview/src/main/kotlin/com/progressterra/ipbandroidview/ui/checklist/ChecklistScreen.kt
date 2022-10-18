@@ -207,10 +207,12 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) Color(
                                     0xFFA0ECAC
                                 ) else AppTheme.colors.primary,
-                                textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.gray1
+                                textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces
                             )
-                            if (state.checklist.ongoing) Spacer(modifier = Modifier.size(8.dp))
-                            Stats(modifier = Modifier.weight(1f), stats = state.stats)
+                            if (state.checklist.ongoing) {
+                                Spacer(modifier = Modifier.size(8.dp))
+                                Stats(modifier = Modifier.weight(1f), stats = state.stats)
+                            }
                         }
                     }
                 }
