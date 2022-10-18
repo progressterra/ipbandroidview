@@ -1,14 +1,14 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
-interface OrganizationsInteractor {
+import com.progressterra.ipbandroidview.actions.Refresh
+
+interface OrganizationsInteractor : Refresh {
 
     fun onOrganization(organization: Organization)
 
-    fun onRefresh()
-
     class Empty : OrganizationsInteractor {
 
-        override fun onRefresh() = Unit
+        override fun refresh() = Unit
 
         override fun onOrganization(organization: Organization) = Unit
     }

@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditU
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
-import com.progressterra.ipbandroidview.ui.audits.DocumentsViewModel
+import com.progressterra.ipbandroidview.ui.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel

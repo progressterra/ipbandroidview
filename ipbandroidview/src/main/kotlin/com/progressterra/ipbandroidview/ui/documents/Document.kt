@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.audits
+package com.progressterra.ipbandroidview.ui.documents
 
 import android.os.Parcelable
 import com.progressterra.ipbandroidview.composable.stats.ChecklistStats

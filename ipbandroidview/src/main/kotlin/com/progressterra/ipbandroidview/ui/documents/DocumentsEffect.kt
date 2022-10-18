@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.audits
+package com.progressterra.ipbandroidview.ui.documents
 
 import com.progressterra.ipbandroidview.core.Checklist
 

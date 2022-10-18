@@ -227,7 +227,6 @@ class ChecklistViewModel(
         reduce { state.copy(voiceState = VoiceState.Recorder(false)) }
     }
 
-    //TODO loading state
     override fun ready() = intent {
         state.currentCheck?.let { updateAnswerUseCase.update(it) }?.onSuccess {
             val newChecklist = state.checklist.copy(

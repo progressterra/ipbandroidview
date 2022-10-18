@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.ui.organizationaudits
 
-interface OrganizationAuditsInteractor {
+import com.progressterra.ipbandroidview.actions.Refresh
+
+interface OrganizationAuditsInteractor: Refresh {
 
     fun onMapClick()
 
     fun onBack()
-
-    fun onRefresh()
 
     fun onAuditClick(organizationAudit: OrganizationAudit)
 
@@ -16,7 +16,7 @@ interface OrganizationAuditsInteractor {
 
         override fun onBack() = Unit
 
-        override fun onRefresh() = Unit
+        override fun refresh() = Unit
 
         override fun onAuditClick(organizationAudit: OrganizationAudit) = Unit
     }

@@ -1,24 +1,52 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.*
+import com.progressterra.ipbandroidview.composable.AuditTitle
+import com.progressterra.ipbandroidview.composable.BottomHolder
+import com.progressterra.ipbandroidview.composable.CategoryDivider
+import com.progressterra.ipbandroidview.composable.CheckCard
+import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedNotebook
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.ThemedTopDialogBar
+import com.progressterra.ipbandroidview.composable.VoiceInput
 import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.composable.stats.Stats
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
@@ -41,29 +69,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
         ), sheetContent = {
-            if (state.currentCheck == null) {
-                Column(
-                    modifier = Modifier
-                        .background(AppTheme.colors.background)
-                        .fillMaxWidth(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    ThemedTopDialogBar(rightActions = {
-                        IconButton(modifier = Modifier.size(24.dp),
-                            onClick = { coroutineScope.launch { sheetState.hide() } }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_mark),
-                                contentDescription = stringResource(R.string.close),
-                                tint = AppTheme.colors.gray1
-                            )
-                        }
-                    })
-                    Spacer(modifier = Modifier.size(150.dp))
-                    ThemedProgressBar()
-                    Spacer(modifier = Modifier.size(150.dp))
-                }
-            } else {
+            state.currentCheck?.let {
                 ThemedTopDialogBar(title = "PLACEHOLDER", rightActions = {
                     IconButton(modifier = Modifier.size(24.dp),
                         onClick = { coroutineScope.launch { sheetState.hide() } }) {
@@ -157,12 +163,14 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                 modifier = Modifier
                     .fillMaxSize()
                     .background(AppTheme.colors.background)
-                    .padding(
-                        top = 8.dp, start = 8.dp, end = 8.dp
-                    )
             ) {
+                var spacerSize by remember { mutableStateOf(0.dp) }
                 LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            top = 8.dp, start = 8.dp, end = 8.dp
+                        ),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     item {
@@ -190,12 +198,14 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 )
                             }
                         }
+                    item { Spacer(modifier = Modifier.size(spacerSize + 8.dp)) }
                 }
                 if (!state.checklist.done) {
                     BottomHolder(
                         Modifier
                             .fillMaxWidth()
                             .align(Alignment.BottomCenter)
+                            .onSizeChanged { spacerSize = it.height.dp }
                     ) {
                         Row {
                             ThemedButton(

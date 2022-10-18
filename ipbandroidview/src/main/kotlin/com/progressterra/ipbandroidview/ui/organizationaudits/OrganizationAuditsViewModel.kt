@@ -50,7 +50,7 @@ class OrganizationAuditsViewModel(
         }
     }
 
-    override fun onRefresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         organizationAuditsUseCase.organizationsAudits(state.id).onSuccess {
             reduce { state.copy(audits = it, screenState = ScreenState.SUCCESS) }

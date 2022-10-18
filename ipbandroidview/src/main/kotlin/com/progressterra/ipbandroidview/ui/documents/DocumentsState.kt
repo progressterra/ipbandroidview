@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.audits
+package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.core.ScreenState

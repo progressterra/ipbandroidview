@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.audits
+package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.Checklist
@@ -32,7 +32,7 @@ class DocumentsViewModel(
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    override fun onRefresh() {
+    override fun refresh() {
         fetch()
     }
 

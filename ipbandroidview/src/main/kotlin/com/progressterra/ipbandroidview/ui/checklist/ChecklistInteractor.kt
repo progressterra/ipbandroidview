@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
-interface ChecklistInteractor {
+import com.progressterra.ipbandroidview.actions.Back
+
+interface ChecklistInteractor : Back {
 
     fun onCheck(check: Check?)
-
-    fun back()
 
     fun startStopAudit()
 
@@ -13,11 +13,11 @@ interface ChecklistInteractor {
     fun onCheckCommentaryChange(comment: String)
 
     fun startPlay()
-    
+
     fun pausePlay()
-    
+
     fun startRecording()
-    
+
     fun stopRecording()
 
     fun removeRecord()

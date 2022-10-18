@@ -1,8 +1,8 @@
-package com.progressterra.ipbandroidview.ui.audits
+package com.progressterra.ipbandroidview.ui.documents
 
-interface DocumentsInteractor {
+import com.progressterra.ipbandroidview.actions.Refresh
 
-    fun onRefresh()
+interface DocumentsInteractor : Refresh {
 
     fun onDocumentChecklist(document: Document)
 
@@ -10,7 +10,7 @@ interface DocumentsInteractor {
 
     class Empty : DocumentsInteractor {
 
-        override fun onRefresh() = Unit
+        override fun refresh() = Unit
 
         override fun onDocumentChecklist(document: Document) = Unit
 

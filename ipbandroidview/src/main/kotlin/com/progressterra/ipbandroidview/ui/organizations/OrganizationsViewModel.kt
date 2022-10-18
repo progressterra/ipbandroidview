@@ -20,10 +20,10 @@ class OrganizationsViewModel(
     )
 
     init {
-        onRefresh()
+        refresh()
     }
 
-    override fun onRefresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allOrganizationsUseCase.allOrganizations().onSuccess {
             reduce { state.copy(organizations = it, screenState = ScreenState.SUCCESS) }

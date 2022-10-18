@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
-import com.progressterra.ipbandroidview.ui.audits.Document
+import com.progressterra.ipbandroidview.ui.documents.Document
 
 //TODO placeholders
 //TODO Stats placeholders, maybe stats to string
