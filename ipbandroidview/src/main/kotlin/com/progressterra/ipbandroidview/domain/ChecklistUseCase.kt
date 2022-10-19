@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
@@ -19,14 +18,14 @@ interface ChecklistUseCase {
         provideLocation: ProvideLocation,
         manageResources: ManageResources,
         scrmRepository: SCRMRepository,
-        private val repo: ChecklistRepository
+        private val checklistRepository: ChecklistRepository
     ) : AbstractUseCaseWithToken(scrmRepository, provideLocation), ChecklistUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
         override suspend fun details(id: String): Result<List<Check>> = handle {
             val result = withToken {
-                repo.checklistElements(
+                checklistRepository.checklistElements(
                     it,
                     id,
                     FilterAndSort(emptyList(), null, "", false, 0, 100)
@@ -41,10 +40,11 @@ interface ChecklistUseCase {
                             name = check.shortDescription ?: noData,
                             yesNo = YesNo.NONE,
                             comment = "",
-                            description = check.description ?: noData
+                            description = check.description ?: noData,
+                            attachedPhotosPointers = null,
+                            attachedVoicePointer = null
                         )
                     )
-
                 }
             }
         }

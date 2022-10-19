@@ -1,12 +1,13 @@
 package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
+import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
-import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
+import com.progressterra.ipbandroidview.core.AbstractUseCaseWithTokenAndSaving
 import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ui.checklist.Check
 
@@ -18,8 +19,11 @@ interface DocumentChecklistUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         manageResources: ManageResources,
-        private val repo: ChecklistRepository
-    ) : DocumentChecklistUseCase, AbstractUseCaseWithToken(scrmRepository, provideLocation) {
+        fileExplorer: FileExplorer,
+        private val repo: ChecklistRepository,
+        private val mediaDataRepository: IPBMediaDataRepository,
+    ) : DocumentChecklistUseCase,
+        AbstractUseCaseWithTokenAndSaving(scrmRepository, provideLocation, fileExplorer) {
 
         private val noData = manageResources.string(R.string.no_data)
 
@@ -33,6 +37,34 @@ interface DocumentChecklistUseCase {
                         check.idUnique?.let { id ->
                             val yesNo =
                                 if (check.answerCheckList?.yesNo == true) YesNo.YES else if (check.answerCheckList?.yesNo == false) YesNo.NO else YesNo.NONE
+                            val attachedPhotos = withToken {
+                                mediaDataRepository.attachedToEntity(
+                                    it,
+                                    check.idUnique!!
+                                )
+                            }.getOrThrow()?.filter { it.contentType == 0 }?.map { item ->
+                                save(withToken {
+                                    mediaDataRepository.downloadFile(
+                                        it,
+                                        item.urlData!!
+                                    )
+                                }.getOrThrow(), item.idUnique!!)
+                                item.idUnique!!
+                            }
+                            val attachedVoiceMessageData = withToken {
+                                mediaDataRepository.attachedToEntity(
+                                    it,
+                                    check.idUnique!!
+                                )
+                            }.getOrThrow()?.firstOrNull { it.contentType == 6 }
+                            attachedVoiceMessageData?.let { data ->
+                                save(withToken {
+                                    mediaDataRepository.downloadFile(
+                                        it,
+                                        data.urlData!!
+                                    )
+                                }.getOrThrow(), data.idUnique!!)
+                            }
                             add(
                                 Check(
                                     id = id,
@@ -40,7 +72,9 @@ interface DocumentChecklistUseCase {
                                     name = check.shortDescription ?: noData,
                                     yesNo = yesNo,
                                     comment = check.answerCheckList?.comments ?: "",
-                                    description = check.description ?: noData
+                                    description = check.description ?: noData,
+                                    attachedVoicePointer = attachedVoiceMessageData?.idUnique,
+                                    attachedPhotosPointers = attachedPhotos
                                 )
                             )
                         }

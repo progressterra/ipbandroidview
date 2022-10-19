@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.core.voice
 
 import android.media.MediaPlayer
+import com.progressterra.ipbandroidview.core.FileExplorer
 
 interface AudioManager {
 
@@ -14,7 +15,7 @@ interface AudioManager {
 
     class Base(
         private val mediaPlayer: MediaPlayer,
-        private val voiceFiles: VoiceFiles
+        private val fileExplorer: FileExplorer
     ) : AudioManager {
 
         private var lastPreparedCheckId: String? = null
@@ -22,7 +23,7 @@ interface AudioManager {
         private fun prepare(checkId: String) {
             if (lastPreparedCheckId != checkId)
                 reset()
-            mediaPlayer.setDataSource(voiceFiles.retrieveName(checkId))
+            mediaPlayer.setDataSource(fileExplorer.path(checkId))
             mediaPlayer.prepare()
             lastPreparedCheckId = checkId
         }

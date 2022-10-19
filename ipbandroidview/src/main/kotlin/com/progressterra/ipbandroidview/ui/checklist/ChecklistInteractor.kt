@@ -26,6 +26,8 @@ interface ChecklistInteractor : Back {
 
     fun openImage(id: String)
 
+    fun onCamera()
+
     class Empty : ChecklistInteractor {
 
         override fun openImage(id: String) = Unit
@@ -51,5 +53,7 @@ interface ChecklistInteractor : Back {
         override fun removeRecord() = Unit
 
         override fun ready() = Unit
+
+        override fun onCamera() = Unit
     }
 }

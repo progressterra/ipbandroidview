@@ -35,7 +35,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.AuditTitle
@@ -47,11 +46,9 @@ import com.progressterra.ipbandroidview.composable.ThemedNotebook
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.ThemedTopDialogBar
 import com.progressterra.ipbandroidview.composable.VoiceInput
-import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
+import com.progressterra.ipbandroidview.composable.attachedphotos.AttachedPhoto
 import com.progressterra.ipbandroidview.composable.stats.Stats
-import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.composable.yesno.YesNoButton
-import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -136,22 +133,21 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     interactor.removeRecord()
                                 })
                         }
-//                        Box(
-//                            modifier = Modifier.padding(
-//                                top = 4.dp,
-//                                start = 12.dp,
-//                                end = 12.dp,
-//                                bottom = 12.dp
-//                            )
-//                        ) {
-//                            AttachedPhoto(
-//                                readOnly = state.checklist.done || !state.checklist.ongoing,
-//                                photos = state.currentCheck.,
-//                                onPhotoSelect = {}
-//                            ) {
-//
-//                            }
-//                        }
+                        Box(
+                            modifier = Modifier.padding(
+                                top = 4.dp,
+                                start = 12.dp,
+                                end = 12.dp,
+                                bottom = 12.dp
+                            )
+                        ) {
+                            AttachedPhoto(
+                                readOnly = state.checklist.done || !state.checklist.ongoing,
+                                photosIds = state.photos,
+                                onPhotoSelect = { interactor.openImage(it) },
+                                onCamera = { interactor.onCamera() }
+                            )
+                        }
                     }
                     if (state.checklist.ongoing) {
                         Spacer(modifier = Modifier.size(25.dp))
@@ -246,60 +242,60 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         }
     }
 }
-
-@Preview
-@Composable
-private fun ChecklistScreenPreview() {
-    AppTheme {
-        ChecklistScreen(
-            state = ChecklistState(
-                checklist = Checklist(
-                    ongoing = true,
-                    name = "Some audit",
-                    repetitiveness = "Every day",
-                    lastTimeChecked = "yesterday",
-                    checks = listOf(
-                        Check(
-                            yesNo = YesNo.YES,
-                            "",
-                            "1 category",
-                            "Some check 1\nWith more text",
-                            "",
-                            ""
-                        ), Check(
-                            yesNo = YesNo.YES, "", "1 category", "Some check 2", "", ""
-                        ), Check(
-                            yesNo = YesNo.YES, "", "1 category", "Some check 3", "", ""
-                        ), Check(
-                            yesNo = YesNo.YES, "", "1 category", "Some check 4", "", ""
-                        ), Check(
-                            yesNo = YesNo.YES,
-                            "",
-                            "1 category",
-                            "Some check 5\nWith more text",
-                            "",
-                            ""
-                        ), Check(
-                            yesNo = YesNo.YES, "", "2 category", "Some check 6", "", ""
-                        ), Check(
-                            yesNo = YesNo.YES, "", "2 category", "Some check 7", "", ""
-                        ), Check(
-                            yesNo = YesNo.YES,
-                            "",
-                            "2 category",
-                            "Some check 8\nWith more text",
-                            "",
-                            ""
-                        ), Check(
-                            yesNo = YesNo.YES, "", "3 category", "Some check 9", "", ""
-                        )
-                    ),
-                    done = false,
-                    checklistId = "",
-                    placeId = "",
-                    documentId = null
-                ), stats = ChecklistStats(14, 12, 1, 1)
-            ), interactor = ChecklistInteractor.Empty()
-        )
-    }
-}
+//
+//@Preview
+//@Composable
+//private fun ChecklistScreenPreview() {
+//    AppTheme {
+//        ChecklistScreen(
+//            state = ChecklistState(
+//                checklist = Checklist(
+//                    ongoing = true,
+//                    name = "Some audit",
+//                    repetitiveness = "Every day",
+//                    lastTimeChecked = "yesterday",
+//                    checks = listOf(
+//                        Check(
+//                            yesNo = YesNo.YES,
+//                            "",
+//                            "1 category",
+//                            "Some check 1\nWith more text",
+//                            "",
+//                            ""
+//                        ), Check(
+//                            yesNo = YesNo.YES, "", "1 category", "Some check 2", "", ""
+//                        ), Check(
+//                            yesNo = YesNo.YES, "", "1 category", "Some check 3", "", ""
+//                        ), Check(
+//                            yesNo = YesNo.YES, "", "1 category", "Some check 4", "", ""
+//                        ), Check(
+//                            yesNo = YesNo.YES,
+//                            "",
+//                            "1 category",
+//                            "Some check 5\nWith more text",
+//                            "",
+//                            ""
+//                        ), Check(
+//                            yesNo = YesNo.YES, "", "2 category", "Some check 6", "", ""
+//                        ), Check(
+//                            yesNo = YesNo.YES, "", "2 category", "Some check 7", "", ""
+//                        ), Check(
+//                            yesNo = YesNo.YES,
+//                            "",
+//                            "2 category",
+//                            "Some check 8\nWith more text",
+//                            "",
+//                            ""
+//                        ), Check(
+//                            yesNo = YesNo.YES, "", "3 category", "Some check 9", "", ""
+//                        )
+//                    ),
+//                    done = false,
+//                    checklistId = "",
+//                    placeId = "",
+//                    documentId = null
+//                ), stats = ChecklistStats(14, 12, 1, 1)
+//            ), interactor = ChecklistInteractor.Empty()
+//        )
+//    }
+//}

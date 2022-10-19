@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.Manifest
+import android.content.Intent
+import android.provider.MediaStore
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
@@ -8,15 +10,15 @@ import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
-import com.progressterra.ipbandroidview.core.ManagePermission
+import com.progressterra.ipbandroidview.core.FileExplorer
+import com.progressterra.ipbandroidview.core.StartActivityCache
+import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
-import com.progressterra.ipbandroidview.domain.DownloadFileUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
-import com.progressterra.ipbandroidview.domain.UploadImageUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.replaceById
 import kotlinx.coroutines.delay
@@ -26,6 +28,7 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import java.io.File
 
 class ChecklistViewModel(
     private val createDocumentUseCase: CreateDocumentUseCase,
@@ -33,11 +36,11 @@ class ChecklistViewModel(
     private val updateAnswerUseCase: UpdateAnswerUseCase,
     private val fetchExistingAuditUseCase: FetchExistingAuditUseCase,
     private val documentChecklistUseCase: DocumentChecklistUseCase,
-    private val uploadImageUseCase: UploadImageUseCase,
-    private val downloadFileUseCase: DownloadFileUseCase,
     private val managePermission: ManagePermission,
     private val voiceManager: VoiceManager,
-    private val audioManager: AudioManager
+    private val audioManager: AudioManager,
+    private val fileExplorer: FileExplorer,
+    private val startActivityCache: StartActivityCache
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
     ChecklistInteractor {
 
@@ -54,7 +57,10 @@ class ChecklistViewModel(
                 checks = emptyList(),
                 documentId = null
             ),
-            stats = ChecklistStats(0, 0, 0, 0)
+            stats = ChecklistStats(0, 0, 0, 0),
+            photos = emptyList(),
+            voiceState = VoiceState.Recorder(false),
+            currentCheck = null
         )
     )
 
@@ -66,7 +72,9 @@ class ChecklistViewModel(
             ChecklistState(
                 currentCheck = null,
                 checklist = checklist,
-                stats = checklist.createStats()
+                stats = checklist.createStats(),
+                photos = emptyList(),
+                voiceState = VoiceState.Recorder(false)
             )
         }
     }
@@ -232,7 +240,15 @@ class ChecklistViewModel(
     }
 
     override fun ready() = intent {
-        state.currentCheck?.let { updateAnswerUseCase.update(it) }?.onSuccess {
+        state.currentCheck?.let {
+            updateAnswerUseCase.update(
+                it,
+                state.photos,
+                if (fileExplorer.exists(fileExplorer.createAudioName(it.id))) fileExplorer.createAudioName(
+                    it.id
+                ) else null
+            )
+        }?.onSuccess {
             val newChecklist = state.checklist.copy(
                 checks = state.checklist.checks.replaceById(it)
             )
@@ -246,5 +262,32 @@ class ChecklistViewModel(
         }?.onFailure {
             postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
         }
+    }
+
+    fun removePhoto(id: String) = intent {
+        fileExplorer.delete(id)
+        val newPhotos = state.photos.toMutableList()
+        newPhotos.remove(id)
+        reduce { state.copy(photos = newPhotos) }
+    }
+
+    override fun openImage(id: String) = intent {
+        postSideEffect(ChecklistEffect.Image(id))
+    }
+
+    override fun onCamera() = intent {
+        startActivityCache.startActivityFromIntent(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+            val newPhotoOrdinal = state.photos.size.toString()
+            val photoFile: File = File.createTempFile(
+                "Temp_$newPhotoOrdinal",
+                ".jpg",
+                fileExplorer.home()
+            ).apply {
+                val newPhotos = state.photos.toMutableList()
+                newPhotos.add(fileExplorer.path("Temp_$newPhotoOrdinal.jpg"))
+                reduce { state.copy(photos = newPhotos) }
+            }
+            putExtra(MediaStore.EXTRA_OUTPUT, fileExplorer.uriForFile(photoFile))
+        })
     }
 }

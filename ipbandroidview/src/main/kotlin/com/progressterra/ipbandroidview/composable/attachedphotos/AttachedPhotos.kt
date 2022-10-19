@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.composable.attachedphotos
 
-import android.graphics.Bitmap
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -10,7 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -20,8 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -32,30 +28,34 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun AttachedPhoto(
     modifier: Modifier = Modifier,
     readOnly: Boolean,
-    photos: List<Photo>,
+    photosIds: List<String>,
     onPhotoSelect: (id: String) -> Unit,
     onCamera: () -> Unit
 ) {
 
     @Composable
-    fun Item(thumbnail: Bitmap, id: String) {
-        Image(
+    fun Item(id: String, ordinal: String) {
+        Box(
             modifier = Modifier
                 .size(48.dp)
                 .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                .background(AppTheme.colors.background)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(),
                     onClick = { onPhotoSelect(id) }
-                ),
-            bitmap = thumbnail.asImageBitmap(),
-            contentDescription = stringResource(id = R.string.photo),
-            contentScale = ContentScale.FillBounds
-        )
+                )) {
+            Text(
+                text = ordinal,
+                color = AppTheme.colors.primary,
+                style = AppTheme.typography.text
+            )
+        }
+
     }
 
     LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        if (photos.isEmpty()) {
+        if (photosIds.isEmpty()) {
             item {
                 Row(
                     modifier = Modifier.clickable(
@@ -99,8 +99,8 @@ fun AttachedPhoto(
                     }
                 }
             }
-            items(photos) {
-                Item(thumbnail = it.thumbnail, id = it.id)
+            itemsIndexed(photosIds) { index, item ->
+                Item(ordinal = index.toString(), id = item)
             }
         }
     }

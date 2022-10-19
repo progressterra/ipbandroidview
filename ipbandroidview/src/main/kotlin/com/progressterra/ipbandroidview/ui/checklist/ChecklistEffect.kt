@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.annotation.StringRes
 
-
 sealed class ChecklistEffect {
 
     object Back : ChecklistEffect()
@@ -11,4 +10,6 @@ sealed class ChecklistEffect {
     class Toast(@StringRes val message: Int) : ChecklistEffect()
 
     object RefreshAudits : ChecklistEffect()
+
+    class Image(val id: String) : ChecklistEffect()
 }

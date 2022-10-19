@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.core
+package com.progressterra.ipbandroidview.core.permission
 
 
 interface PermissionCache : ManagePermission {

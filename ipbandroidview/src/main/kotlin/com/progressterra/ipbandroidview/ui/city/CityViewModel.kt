@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.city
 import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
-import com.progressterra.ipbandroidview.core.ManagePermission
+import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.domain.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.domain.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.SuggestionUseCase
