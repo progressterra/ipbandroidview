@@ -4,70 +4,28 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
-import com.progressterra.ipbandroidview.core.*
+import com.progressterra.ipbandroidview.core.FileExplorer
+import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.core.StartActivity
+import com.progressterra.ipbandroidview.core.StartActivityCache
+import com.progressterra.ipbandroidview.core.permission.ManagePermission
+import com.progressterra.ipbandroidview.core.permission.PermissionCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
-import com.progressterra.ipbandroidview.core.voice.VoiceFiles
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.data.ProvideLocation
-import com.progressterra.ipbandroidview.domain.*
-import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
-import com.progressterra.ipbandroidview.ui.documents.DocumentsViewModel
-import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
-import com.progressterra.ipbandroidview.ui.city.CityViewModel
-import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
-import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
-import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
-import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
-import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
-import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
 import org.koin.android.ext.koin.androidContext
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.binds
 import org.koin.dsl.module
 
 @Suppress("unused")
 val iPBAndroidViewModule = module {
 
-    includes(iPBAndroidAPIModule)
+    includes(iPBAndroidAPIModule, useCasesModule, viewModelsModule)
 
-    single<EndVerificationChannelUseCase> {
-        EndVerificationChannelUseCase.Base(get())
-    }
-
-    single<StartVerificationChannelUseCase> {
-        StartVerificationChannelUseCase.Base(get())
-    }
-
-    single<UpdatePersonalInfoUseCase> {
-        UpdatePersonalInfoUseCase.Base(get(), get())
-    }
-
-    single<UpdateFirebaseCloudMessagingTokenUseCase> {
-        UpdateFirebaseCloudMessagingTokenUseCase.Base(get(), get())
-    }
-
-    single<CurrentLocationMarkerUseCase> {
-        CurrentLocationMarkerUseCase.Base(get())
-    }
-
-    single<CurrentLocationSuggestionsUseCase> {
-        CurrentLocationSuggestionsUseCase.Base(get(), get(), get())
-    }
-
-    single<SuggestionUseCase> {
-        SuggestionUseCase.Base(get(), get(), get())
-    }
-
-    single<GuessLocationUseCase> {
-        GuessLocationUseCase.Base(get(), get())
-    }
-
-    single<AllOrganizationsUseCase> {
-        AllOrganizationsUseCase.Base(get(), get(), get(), get())
-    }
 
     factory<ManageResources> {
         ManageResources.Base(androidContext())
@@ -99,23 +57,12 @@ val iPBAndroidViewModule = module {
         ProvideLocation.Base(get())
     }
 
-    single<OrganizationAuditsUseCase> {
-        OrganizationAuditsUseCase.Base(get(), get(), get(), get())
+    single<FileExplorer> {
+        FileExplorer.Base(
+            androidContext(),
+            get(qualifier = StringQualifier("authority"))
+        )
     }
-
-    single<AllDocumentsUseCase> { AllDocumentsUseCase.Base(get(), get(), get(), get()) }
-
-    single<DocumentChecklistUseCase> { DocumentChecklistUseCase.Base(get(), get(), get(), get()) }
-
-    single<ChecklistUseCase> { ChecklistUseCase.Base(get(), get(), get(), get()) }
-
-    single<UpdateAnswerUseCase> { UpdateAnswerUseCase.Base(get(), get(), get(), get()) }
-
-    single<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get()) }
-
-    single<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get()) }
-
-    single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get(), get()) }
 
     single {
         MediaPlayer()
@@ -123,10 +70,6 @@ val iPBAndroidViewModule = module {
 
     single {
         MediaRecorder(androidContext())
-    }
-
-    single<VoiceFiles> {
-        VoiceFiles.Base(androidContext())
     }
 
     single<VoiceManager> {
@@ -137,39 +80,5 @@ val iPBAndroidViewModule = module {
         AudioManager.Base(get(), get())
     }
 
-    viewModel {
-        DocumentsViewModel(get(), get())
-    }
 
-    viewModel {
-        SplashViewModel()
-    }
-
-    viewModel {
-        OrganizationsViewModel(get())
-    }
-
-    viewModel {
-        SignInViewModel(get())
-    }
-
-    viewModel {
-        SignUpViewModel(get())
-    }
-
-    viewModel {
-        ConfirmationCodeViewModel(get(), get())
-    }
-
-    viewModel {
-        OrganizationAuditsViewModel(get(), get(), get())
-    }
-
-    viewModel {
-        CityViewModel(get(), get(), get(), get())
-    }
-
-    viewModel {
-        ChecklistViewModel(get(), get(), get(), get(), get(), get(), get(), get())
-    }
 }
