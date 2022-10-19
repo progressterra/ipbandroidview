@@ -46,7 +46,7 @@ import com.progressterra.ipbandroidview.composable.ThemedNotebook
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.ThemedTopDialogBar
 import com.progressterra.ipbandroidview.composable.VoiceInput
-import com.progressterra.ipbandroidview.composable.attachedphotos.AttachedPhoto
+import com.progressterra.ipbandroidview.composable.AttachedPhoto
 import com.progressterra.ipbandroidview.composable.stats.Stats
 import com.progressterra.ipbandroidview.composable.yesno.YesNoButton
 import com.progressterra.ipbandroidview.theme.AppTheme

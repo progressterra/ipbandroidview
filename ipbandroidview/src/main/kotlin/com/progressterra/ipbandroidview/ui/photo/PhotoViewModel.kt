@@ -11,10 +11,10 @@ import org.orbitmvi.orbit.viewmodel.container
 class PhotoViewModel(private val fileExplorer: FileExplorer) : ViewModel(),
     ContainerHost<PhotoState, PhotoEffect>, PhotoInteractor {
 
-    override val container: Container<PhotoState, PhotoEffect> = container(PhotoState(null))
+    override val container: Container<PhotoState, PhotoEffect> = container(PhotoState(null, true))
 
-    fun setImage(id: String) = intent {
-        reduce { PhotoState(fileExplorer.obtainBitmap(id)) }
+    fun setImage(id: String, readOnly: Boolean) = intent {
+        reduce { PhotoState(fileExplorer.obtainBitmap(id), readOnly = readOnly) }
     }
 
     override fun back() {

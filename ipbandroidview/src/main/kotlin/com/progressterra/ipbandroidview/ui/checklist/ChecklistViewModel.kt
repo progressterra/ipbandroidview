@@ -272,7 +272,7 @@ class ChecklistViewModel(
     }
 
     override fun openImage(id: String) = intent {
-        postSideEffect(ChecklistEffect.Image(id))
+        postSideEffect(ChecklistEffect.Image(id, !state.checklist.ongoing))
     }
 
     override fun onCamera() = intent {
@@ -284,7 +284,7 @@ class ChecklistViewModel(
                 fileExplorer.home()
             ).apply {
                 val newPhotos = state.photos.toMutableList()
-                newPhotos.add(fileExplorer.path("Temp_$newPhotoOrdinal.jpg"))
+                newPhotos.add("Temp_$newPhotoOrdinal.jpg")
                 reduce { state.copy(photos = newPhotos) }
             }
             putExtra(MediaStore.EXTRA_OUTPUT, fileExplorer.uriForFile(photoFile))

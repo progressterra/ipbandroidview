@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.attachedphotos
+package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
