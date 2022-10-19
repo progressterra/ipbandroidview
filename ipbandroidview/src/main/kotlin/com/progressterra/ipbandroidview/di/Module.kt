@@ -6,7 +6,7 @@ import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.core.*
 import com.progressterra.ipbandroidview.core.voice.AudioManager
-import com.progressterra.ipbandroidview.core.voice.MediaFiles
+import com.progressterra.ipbandroidview.core.voice.VoiceFiles
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.*
@@ -125,8 +125,8 @@ val iPBAndroidViewModule = module {
         MediaRecorder(androidContext())
     }
 
-    single<MediaFiles> {
-        MediaFiles.Base(androidContext())
+    single<VoiceFiles> {
+        VoiceFiles.Base(androidContext())
     }
 
     single<VoiceManager> {

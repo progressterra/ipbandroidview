@@ -1,47 +1,45 @@
 package com.progressterra.ipbandroidview.composable
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun ThemedTopAppBar(
+fun TransparentTopAppBar(
+    modifier: Modifier = Modifier,
     title: String? = null,
-    onBack: (() -> Unit)? = null,
-    actions: (@Composable RowScope.() -> Unit)? = null
+    onBack: (@Composable RowScope.() -> Unit)? = null,
+    actions: (@Composable RowScope.() -> Unit)? = null,
+    contentColor: Color = AppTheme.colors.surfaces
 ) {
     TopAppBar(
-        backgroundColor = AppTheme.colors.surfaces,
+        backgroundColor = Color.Transparent,
         elevation = 0.dp,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp)
     ) {
         Box {
             onBack?.let {
                 Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    IconButton(onClick = { it() }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_back),
-                            contentDescription = stringResource(id = R.string.navigate_back),
-                            tint = AppTheme.colors.gray1
-                        )
-                    }
-                }
+                    Modifier.fillMaxSize(),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically,
+                    content = it
+                )
             }
             title?.let {
                 Row(
@@ -51,7 +49,7 @@ fun ThemedTopAppBar(
                 ) {
                     Text(
                         text = it,
-                        color = AppTheme.colors.black,
+                        color = contentColor,
                         style = AppTheme.typography.title,
                         maxLines = 1,
                         textAlign = TextAlign.Center
@@ -74,7 +72,7 @@ fun ThemedTopAppBar(
 @Composable
 private fun TopAppBarWithBackNavPreview0() {
     AppTheme {
-        ThemedTopAppBar(title = "Some mock title", onBack = {})
+        TransparentTopAppBar(title = "Some mock title", onBack = {})
     }
 }
 
@@ -82,23 +80,7 @@ private fun TopAppBarWithBackNavPreview0() {
 @Composable
 private fun TopAppBarWithBackNavPreview1() {
     AppTheme {
-        ThemedTopAppBar(title = "Some mock title")
-    }
-}
-
-@Preview
-@Composable
-private fun TopAppBarWithBackNavPreview2() {
-    AppTheme {
-        ThemedTopAppBar(title = "Some mock title", actions = {
-            Text(
-                text = "SOS",
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
-                maxLines = 1,
-                textAlign = TextAlign.Center
-            )
-        })
+        TransparentTopAppBar(title = "Some mock title")
     }
 }
 
@@ -106,26 +88,18 @@ private fun TopAppBarWithBackNavPreview2() {
 @Composable
 private fun TopAppBarWithBackNavPreview3() {
     AppTheme {
-        ThemedTopAppBar(title = "Some mock title", onBack = {}, actions = {
+        TransparentTopAppBar(title = "Some mock title", onBack = {
             Text(
                 text = "SOS",
-                color = AppTheme.colors.black,
+                color = AppTheme.colors.surfaces,
                 style = AppTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
-        })
-    }
-}
-
-@Preview
-@Composable
-private fun TopAppBarWithBackNavPreview4() {
-    AppTheme {
-        ThemedTopAppBar(onBack = {}, actions = {
+        }, actions = {
             Text(
                 text = "SOS",
-                color = AppTheme.colors.black,
+                color = AppTheme.colors.surfaces,
                 style = AppTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center

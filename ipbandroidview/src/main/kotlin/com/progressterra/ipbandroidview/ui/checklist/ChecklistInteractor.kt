@@ -24,7 +24,11 @@ interface ChecklistInteractor : Back {
 
     fun ready()
 
+    fun openImage(id: String)
+
     class Empty : ChecklistInteractor {
+
+        override fun openImage(id: String) = Unit
 
         override fun onCheck(check: Check?) = Unit
 

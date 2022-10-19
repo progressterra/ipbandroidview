@@ -13,8 +13,10 @@ import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.domain.DownloadFileUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.domain.UploadImageUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.replaceById
 import kotlinx.coroutines.delay
@@ -31,6 +33,8 @@ class ChecklistViewModel(
     private val updateAnswerUseCase: UpdateAnswerUseCase,
     private val fetchExistingAuditUseCase: FetchExistingAuditUseCase,
     private val documentChecklistUseCase: DocumentChecklistUseCase,
+    private val uploadImageUseCase: UploadImageUseCase,
+    private val downloadFileUseCase: DownloadFileUseCase,
     private val managePermission: ManagePermission,
     private val voiceManager: VoiceManager,
     private val audioManager: AudioManager

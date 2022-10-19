@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.bottomnav
+package com.progressterra.ipbandroidview.composable.bottombar
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

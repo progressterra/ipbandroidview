@@ -45,7 +45,7 @@ fun VoiceInput(
                         modifier = Modifier
                             .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
                             .background(AppTheme.colors.background)
-                            .padding(12.dp)
+                            .padding(horizontal = 12.dp, vertical = 14.dp)
                             .fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween

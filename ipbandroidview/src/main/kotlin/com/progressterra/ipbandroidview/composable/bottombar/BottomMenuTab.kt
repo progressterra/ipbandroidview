@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.bottomnav
+package com.progressterra.ipbandroidview.composable.bottombar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

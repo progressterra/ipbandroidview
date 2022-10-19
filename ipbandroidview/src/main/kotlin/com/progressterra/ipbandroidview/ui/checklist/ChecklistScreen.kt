@@ -136,6 +136,22 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     interactor.removeRecord()
                                 })
                         }
+//                        Box(
+//                            modifier = Modifier.padding(
+//                                top = 4.dp,
+//                                start = 12.dp,
+//                                end = 12.dp,
+//                                bottom = 12.dp
+//                            )
+//                        ) {
+//                            AttachedPhoto(
+//                                readOnly = state.checklist.done || !state.checklist.ongoing,
+//                                photos = state.currentCheck.,
+//                                onPhotoSelect = {}
+//                            ) {
+//
+//                            }
+//                        }
                     }
                     if (state.checklist.ongoing) {
                         Spacer(modifier = Modifier.size(25.dp))

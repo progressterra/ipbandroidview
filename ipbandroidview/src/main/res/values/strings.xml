@@ -44,7 +44,7 @@
     <string name="refresh">Обновить</string>
     <string name="voice_message">Голосовое сообщение</string>
     <string name="mic">Микрофон</string>
-    <string name="trash">Удалить аудиосообщение</string>
+    <string name="trash">Удалить</string>
     <string name="close">Закрыть</string>
     <string name="text_comment">Текстовый комментарий</string>
     <string name="error_connection">Нет связи с сервером!</string>
@@ -53,4 +53,8 @@
     <string name="audit_started">Аудит начался</string>
     <string name="audit_ended">Аудит закончен</string>
     <string name="pause_stop">Остановить или продолжить воспроизведение</string>
+    <string name="image">Изображение</string>
+    <string name="photo">Фотография</string>
+    <string name="camera">Камера</string>
+    <string name="add_photo">Добавить фото</string>
 </resources>

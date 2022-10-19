@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.StateBox
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.CategoryDivider
 import com.progressterra.ipbandroidview.composable.DocumentCard
 import com.progressterra.ipbandroidview.composable.ThemedButton
