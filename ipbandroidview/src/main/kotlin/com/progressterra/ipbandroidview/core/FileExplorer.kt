@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
@@ -65,8 +66,10 @@ interface FileExplorer {
         override fun obtainOrCreateAudioFile(id: String): File =
             File("$voiceFolderPath/Voice $id.m4a")
 
-        override fun obtainPictureAsBitmap(id: String): Bitmap =
-            BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
+        override fun obtainPictureAsBitmap(id: String): Bitmap {
+            Log.d("PHOTO", "obtainPictureAsBitmap: $id")
+            return BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
+        }
 
         override fun obtainPictureAsFile(id: String): File = File("$picturesFolderPath/$id.jpg")
 
