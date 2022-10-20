@@ -11,10 +11,12 @@ import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.FileExplorer
+import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.StartActivityCache
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
+import com.progressterra.ipbandroidview.domain.CheckMediaDetailsUseCase
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
@@ -40,7 +42,8 @@ class ChecklistViewModel(
     private val voiceManager: VoiceManager,
     private val audioManager: AudioManager,
     private val fileExplorer: FileExplorer,
-    private val startActivityCache: StartActivityCache
+    private val startActivityCache: StartActivityCache,
+    private val checkMediaDetailsUseCase: CheckMediaDetailsUseCase
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
     ChecklistInteractor {
 
@@ -60,7 +63,9 @@ class ChecklistViewModel(
             stats = ChecklistStats(0, 0, 0, 0),
             photos = emptyList(),
             voiceState = VoiceState.Recorder(false),
-            currentCheck = null
+            currentCheck = null,
+            screenState = ScreenState.SUCCESS,
+            currentCheckDetails = null
         )
     )
 
@@ -71,10 +76,12 @@ class ChecklistViewModel(
         reduce {
             ChecklistState(
                 currentCheck = null,
+                currentCheckDetails = null,
                 checklist = checklist,
                 stats = checklist.createStats(),
                 photos = emptyList(),
-                voiceState = VoiceState.Recorder(false)
+                voiceState = VoiceState.Recorder(false),
+                screenState = ScreenState.SUCCESS
             )
         }
     }
@@ -83,8 +90,21 @@ class ChecklistViewModel(
         if (state.currentCheck != null && check == null) {
             audioManager.reset()
             voiceManager.reset()
+            reduce { state.copy(photos = emptyList()) }
         }
         reduce { state.copy(currentCheck = check) }
+        refresh()
+    }
+
+    override fun refresh() = intent {
+        state.currentCheck?.let {
+            reduce { state.copy(screenState = ScreenState.LOADING) }
+            checkMediaDetailsUseCase.checkDetails(it).onSuccess {
+                reduce { state.copy(currentCheckDetails = it, screenState = ScreenState.SUCCESS) }
+            }.onFailure {
+                reduce { state.copy(screenState = ScreenState.ERROR) }
+            }
+        }
     }
 
     override fun back() = intent {
@@ -242,11 +262,9 @@ class ChecklistViewModel(
     override fun ready() = intent {
         state.currentCheck?.let {
             updateAnswerUseCase.update(
-                it,
+                check = it,
                 state.photos,
-                if (fileExplorer.exists(fileExplorer.createAudioName(it.id))) fileExplorer.createAudioName(
-                    it.id
-                ) else null
+                fileExplorer.exist(it.id)
             )
         }?.onSuccess {
             val newChecklist = state.checklist.copy(
@@ -264,8 +282,9 @@ class ChecklistViewModel(
         }
     }
 
+    @Suppress("unused")
     fun removePhoto(id: String) = intent {
-        fileExplorer.delete(id)
+        fileExplorer.deletePicture(id)
         val newPhotos = state.photos.toMutableList()
         newPhotos.remove(id)
         reduce { state.copy(photos = newPhotos) }
@@ -281,7 +300,7 @@ class ChecklistViewModel(
             val photoFile: File = File.createTempFile(
                 "Temp_$newPhotoOrdinal",
                 ".jpg",
-                fileExplorer.home()
+                fileExplorer.picturesFolder()
             ).apply {
                 val newPhotos = state.photos.toMutableList()
                 newPhotos.add("Temp_$newPhotoOrdinal.jpg")

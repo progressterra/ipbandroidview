@@ -19,7 +19,7 @@ interface VoiceManager {
         override fun startRecording(checkId: String) {
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            mediaRecorder.setOutputFile(fileExplorer.obtainFile(fileExplorer.createAudioName(checkId)))
+            mediaRecorder.setOutputFile(fileExplorer.obtainOrCreateAudioFile(checkId))
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
             mediaRecorder.prepare()
             mediaRecorder.start()

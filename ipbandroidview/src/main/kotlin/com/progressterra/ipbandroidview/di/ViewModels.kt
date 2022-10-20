@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeView
 import com.progressterra.ipbandroidview.ui.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
+import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
@@ -48,6 +49,10 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        ChecklistViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get())
+        ChecklistViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get())
+    }
+
+    viewModel {
+        PhotoViewModel(get())
     }
 }

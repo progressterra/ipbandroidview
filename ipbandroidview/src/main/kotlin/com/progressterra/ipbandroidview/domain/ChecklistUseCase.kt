@@ -40,9 +40,7 @@ interface ChecklistUseCase {
                             name = check.shortDescription ?: noData,
                             yesNo = YesNo.NONE,
                             comment = "",
-                            description = check.description ?: noData,
-                            attachedPhotosPointers = null,
-                            attachedVoicePointer = null
+                            description = check.description ?: noData
                         )
                     )
                 }

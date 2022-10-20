@@ -37,16 +37,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.AttachedPhoto
 import com.progressterra.ipbandroidview.composable.AuditTitle
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.CategoryDivider
 import com.progressterra.ipbandroidview.composable.CheckCard
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedNotebook
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.ThemedTopDialogBar
 import com.progressterra.ipbandroidview.composable.VoiceInput
-import com.progressterra.ipbandroidview.composable.AttachedPhoto
 import com.progressterra.ipbandroidview.composable.stats.Stats
 import com.progressterra.ipbandroidview.composable.yesno.YesNoButton
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -66,7 +67,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
         ), sheetContent = {
-            state.currentCheck?.let {
+            if (state.currentCheck != null && state.currentCheckDetails != null) {
                 ThemedTopDialogBar(title = "PLACEHOLDER", rightActions = {
                     IconButton(modifier = Modifier.size(24.dp),
                         onClick = { coroutineScope.launch { sheetState.hide() } }) {
@@ -77,90 +78,92 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         )
                     }
                 })
-                Column(
-                    modifier = Modifier
-                        .background(AppTheme.colors.background)
-                        .padding(
-                            top = 8.dp, start = 8.dp, end = 8.dp
-                        )
-                ) {
+                StateBox(state = state.screenState, onRefresh = { interactor.refresh() }) {
                     Column(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
-                            .background(AppTheme.colors.surfaces)
-                            .padding(12.dp)
-                            .fillMaxWidth()
+                            .background(AppTheme.colors.background)
+                            .padding(
+                                top = 8.dp, start = 8.dp, end = 8.dp
+                            )
                     ) {
-                        Text(
-                            text = state.currentCheck.description,
-                            color = AppTheme.colors.black,
-                            style = AppTheme.typography.text
-                        )
-                    }
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Column(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
-                            .background(AppTheme.colors.surfaces)
-                    ) {
-                        Box(modifier = Modifier.padding(12.dp)) {
-                            YesNoButton(
-                                modifier = Modifier.fillMaxWidth(),
-                                yesNo = state.currentCheck.yesNo,
-                                onClick = { interactor.yesNo(it) },
-                                enabled = state.checklist.ongoing
-                            )
-                        }
-                        Box(modifier = Modifier.padding(horizontal = 12.dp)) {
-                            ThemedNotebook(
-                                modifier = Modifier.fillMaxWidth(),
-                                text = state.currentCheck.comment,
-                                hint = stringResource(
-                                    id = R.string.text_comment
-                                ),
-                                onChange = { interactor.onCheckCommentaryChange(it) },
-                                enabled = state.checklist.ongoing
-                            )
-                        }
-                        Box(modifier = Modifier.padding(4.dp)) {
-                            VoiceInput(modifier = Modifier.fillMaxWidth(),
-                                state = state.voiceState,
-                                onStartRecording = { interactor.startRecording() },
-                                onStopRecording = { interactor.stopRecording() },
-                                onStartPlay = { interactor.startPlay() },
-                                onPausePlay = { interactor.pausePlay() },
-                                onRemove = {
-                                    interactor.removeRecord()
-                                })
-                        }
-                        Box(
-                            modifier = Modifier.padding(
-                                top = 4.dp,
-                                start = 12.dp,
-                                end = 12.dp,
-                                bottom = 12.dp
-                            )
+                        Column(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+                                .background(AppTheme.colors.surfaces)
+                                .padding(12.dp)
+                                .fillMaxWidth()
                         ) {
-                            AttachedPhoto(
-                                readOnly = state.checklist.done || !state.checklist.ongoing,
-                                photosIds = state.photos,
-                                onPhotoSelect = { interactor.openImage(it) },
-                                onCamera = { interactor.onCamera() }
+                            Text(
+                                text = state.currentCheck.description,
+                                color = AppTheme.colors.black,
+                                style = AppTheme.typography.text
                             )
                         }
-                    }
-                    if (state.checklist.ongoing) {
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Column(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+                                .background(AppTheme.colors.surfaces)
+                        ) {
+                            Box(modifier = Modifier.padding(12.dp)) {
+                                YesNoButton(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    yesNo = state.currentCheck.yesNo,
+                                    onClick = { interactor.yesNo(it) },
+                                    enabled = state.checklist.ongoing
+                                )
+                            }
+                            Box(modifier = Modifier.padding(horizontal = 12.dp)) {
+                                ThemedNotebook(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    text = state.currentCheck.comment,
+                                    hint = stringResource(
+                                        id = R.string.text_comment
+                                    ),
+                                    onChange = { interactor.onCheckCommentaryChange(it) },
+                                    enabled = state.checklist.ongoing
+                                )
+                            }
+                            Box(modifier = Modifier.padding(4.dp)) {
+                                VoiceInput(modifier = Modifier.fillMaxWidth(),
+                                    state = state.voiceState,
+                                    onStartRecording = { interactor.startRecording() },
+                                    onStopRecording = { interactor.stopRecording() },
+                                    onStartPlay = { interactor.startPlay() },
+                                    onPausePlay = { interactor.pausePlay() },
+                                    onRemove = {
+                                        interactor.removeRecord()
+                                    })
+                            }
+                            Box(
+                                modifier = Modifier.padding(
+                                    top = 4.dp,
+                                    start = 12.dp,
+                                    end = 12.dp,
+                                    bottom = 12.dp
+                                )
+                            ) {
+                                AttachedPhoto(
+                                    readOnly = state.checklist.done || !state.checklist.ongoing,
+                                    photosIds = state.photos.ifEmpty { state.currentCheckDetails.attachedPhotosPointers },
+                                    onPhotoSelect = { interactor.openImage(it) },
+                                    onCamera = { interactor.onCamera() }
+                                )
+                            }
+                        }
+                        if (state.checklist.ongoing) {
+                            Spacer(modifier = Modifier.size(25.dp))
+                            Row(Modifier.padding(horizontal = 8.dp)) {
+                                ThemedButton(
+                                    modifier = Modifier.fillMaxWidth(), onClick = {
+                                        interactor.ready()
+                                        coroutineScope.launch { sheetState.hide() }
+                                    }, text = stringResource(id = R.string.ready)
+                                )
+                            }
+                        }
                         Spacer(modifier = Modifier.size(25.dp))
-                        Row(Modifier.padding(horizontal = 8.dp)) {
-                            ThemedButton(
-                                modifier = Modifier.fillMaxWidth(), onClick = {
-                                    interactor.ready()
-                                    coroutineScope.launch { sheetState.hide() }
-                                }, text = stringResource(id = R.string.ready)
-                            )
-                        }
                     }
-                    Spacer(modifier = Modifier.size(25.dp))
                 }
             }
         }, sheetBackgroundColor = AppTheme.colors.surfaces

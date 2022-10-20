@@ -23,7 +23,7 @@ interface AudioManager {
         private fun prepare(checkId: String) {
             if (lastPreparedCheckId != checkId)
                 reset()
-            mediaPlayer.setDataSource(fileExplorer.path(checkId))
+            mediaPlayer.setDataSource(fileExplorer.obtainOrCreateAudioFile(checkId).path)
             mediaPlayer.prepare()
             lastPreparedCheckId = checkId
         }

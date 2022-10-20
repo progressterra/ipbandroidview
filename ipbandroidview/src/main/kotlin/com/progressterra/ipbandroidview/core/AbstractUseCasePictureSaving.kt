@@ -6,14 +6,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 
-abstract class AbstractUseCaseWithTokenAndSaving(
+abstract class AbstractUseCasePictureSaving(
     scrmRepository: SCRMRepository,
     provideLocation: ProvideLocation,
     private val fileExplorer: FileExplorer
 ) : AbstractUseCaseWithToken(scrmRepository, provideLocation) {
 
     protected suspend fun save(inputStream: InputStream, id: String) {
-        if (!fileExplorer.exists(id))
-            withContext(Dispatchers.IO) { fileExplorer.saveFile(inputStream, id) }
+        withContext(Dispatchers.IO) { fileExplorer.savePicture(inputStream, id) }
     }
 }

@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.checklist.model.DRAnswerChekListItemE
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.AbstractUseCaseWithTokenAndSaving
+import com.progressterra.ipbandroidview.core.AbstractUseCasePictureSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
@@ -18,7 +18,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 
 interface UpdateAnswerUseCase {
 
-    suspend fun update(check: Check, photos: List<String>?, voice: String?): Result<Check>
+    suspend fun update(check: Check, photos: List<String>, voiceWasCreated: Boolean): Result<Check>
 
     class Base(
         manageResources: ManageResources,
@@ -27,17 +27,17 @@ interface UpdateAnswerUseCase {
         private val fileExplorer: FileExplorer,
         private val repo: ChecklistRepository,
         private val mediaDataRepository: IPBMediaDataRepository,
-    ) : AbstractUseCaseWithTokenAndSaving(scrmRepository, provideLocation, fileExplorer),
+    ) : AbstractUseCasePictureSaving(scrmRepository, provideLocation, fileExplorer),
         UpdateAnswerUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
         override suspend fun update(
             check: Check,
-            photos: List<String>?,
-            voice: String?
+            photos: List<String>,
+            voiceWasCreated: Boolean
         ): Result<Check> = handle {
-            voice?.let {
+            if (voiceWasCreated) {
                 withToken { token ->
                     mediaDataRepository.attachToEntity(
                         token,
@@ -48,30 +48,29 @@ interface UpdateAnswerUseCase {
                         0,
                         MultipartBody.Part.createFormData(
                             "file",
-                            fileExplorer.path(it),
-                            fileExplorer.obtainFile(it).asRequestBody("audio/*".toMediaTypeOrNull())
+                            fileExplorer.obtainOrCreateAudioFile(check.id).name,
+                            fileExplorer.obtainOrCreateAudioFile(check.id)
+                                .asRequestBody("audio/*".toMediaTypeOrNull())
                         )
                     )
                 }
             }
-            photos?.let {
-                it.forEach { photoId ->
-                    withToken { token ->
-                        mediaDataRepository.attachToEntity(
-                            token,
-                            check.id,
-                            0,
-                            "DrCheckListItem",
-                            "",
-                            0,
-                            MultipartBody.Part.createFormData(
-                                "file",
-                                fileExplorer.path(photoId),
-                                fileExplorer.obtainFile(photoId)
-                                    .asRequestBody("image/*".toMediaTypeOrNull())
-                            )
+            photos.forEach { photoId ->
+                withToken { token ->
+                    mediaDataRepository.attachToEntity(
+                        token,
+                        check.id,
+                        0,
+                        "DrCheckListItem",
+                        "",
+                        0,
+                        MultipartBody.Part.createFormData(
+                            "file",
+                            fileExplorer.obtainPictureAsFile(photoId).name,
+                            fileExplorer.obtainPictureAsFile(photoId)
+                                .asRequestBody("image/*".toMediaTypeOrNull())
                         )
-                    }
+                    )
                 }
             }
             val result = withToken {
@@ -86,43 +85,13 @@ interface UpdateAnswerUseCase {
                     )
                 )
             }.getOrThrow()
-            val attachedPhotos = withToken {
-                mediaDataRepository.attachedToEntity(
-                    it,
-                    check.id
-                )
-            }.getOrThrow()?.filter { it.contentType == 0 }?.map { item ->
-                save(withToken {
-                    mediaDataRepository.downloadFile(
-                        it,
-                        item.urlData!!
-                    )
-                }.getOrThrow(), item.idUnique!!)
-                item.idUnique!!
-            }
-            val attachedVoiceMessageData = withToken {
-                mediaDataRepository.attachedToEntity(
-                    it,
-                    check.id
-                )
-            }.getOrThrow()?.firstOrNull { it.contentType == 6 }
-            attachedVoiceMessageData?.let { data ->
-                save(withToken {
-                    mediaDataRepository.downloadFile(
-                        it,
-                        data.urlData!!
-                    )
-                }.getOrThrow(), data.idUnique!!)
-            }
             Check(
                 yesNo = result?.answerCheckList?.yesNo.toYesNo(),
                 id = result?.idUnique!!,
                 category = "${result.parameter?.indexName ?: noData}. ${result.parameter?.internalName ?: noData}",
                 name = result.shortDescription ?: noData,
                 comment = result.answerCheckList?.comments ?: "",
-                description = result.description ?: noData,
-                attachedVoicePointer = attachedVoiceMessageData?.idUnique,
-                attachedPhotosPointers = attachedPhotos
+                description = result.description ?: noData
             )
         }
     }
