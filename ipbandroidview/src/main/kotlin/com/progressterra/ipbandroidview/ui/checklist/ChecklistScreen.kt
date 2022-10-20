@@ -67,18 +67,18 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
         ), sheetContent = {
-            if (state.currentCheck != null && state.currentCheckDetails != null) {
-                ThemedTopDialogBar(title = "PLACEHOLDER", rightActions = {
-                    IconButton(modifier = Modifier.size(24.dp),
-                        onClick = { coroutineScope.launch { sheetState.hide() } }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_mark),
-                            contentDescription = stringResource(R.string.close),
-                            tint = AppTheme.colors.gray1
-                        )
-                    }
-                })
-                StateBox(state = state.screenState, onRefresh = { interactor.refresh() }) {
+            ThemedTopDialogBar(title = "PLACEHOLDER", rightActions = {
+                IconButton(modifier = Modifier.size(24.dp),
+                    onClick = { coroutineScope.launch { sheetState.hide() } }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_mark),
+                        contentDescription = stringResource(R.string.close),
+                        tint = AppTheme.colors.gray1
+                    )
+                }
+            })
+            StateBox(state = state.screenState, onRefresh = { interactor.refresh() }) {
+                if (state.currentCheck != null && state.currentCheckDetails != null) {
                     Column(
                         modifier = Modifier
                             .background(AppTheme.colors.background)
