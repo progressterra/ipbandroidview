@@ -14,11 +14,11 @@ import java.io.InputStream
 
 interface FileExplorer {
 
-    fun savePicture(inputStream: InputStream, id: String, force: Boolean = false)
+    fun writeInputStreamToPicture(inputStream: InputStream, id: String, force: Boolean = false)
 
-    fun obtainPictureAsBitmap(id: String): Bitmap
+    fun obtainPictureFileAsBitmap(id: String): Bitmap
 
-    fun obtainPictureAsFile(id: String): File
+    fun obtainPictureFile(id: String): File
 
     fun deletePicture(id: String)
 
@@ -45,10 +45,11 @@ interface FileExplorer {
         override fun uriForFile(file: File): Uri = FileProvider.getUriForFile(
             context,
             authority,
-            file
+            file,
+            file.name
         )
 
-        override fun savePicture(inputStream: InputStream, id: String, force: Boolean) {
+        override fun writeInputStreamToPicture(inputStream: InputStream, id: String, force: Boolean) {
             if (!File("$picturesFolderPath/$id.jpg").exists() || force)
                 inputStream.use { input ->
                     val fos = FileOutputStream(File("$picturesFolderPath/$id.jpg"))
@@ -66,12 +67,12 @@ interface FileExplorer {
         override fun obtainOrCreateAudioFile(id: String): File =
             File("$voiceFolderPath/Voice $id.m4a")
 
-        override fun obtainPictureAsBitmap(id: String): Bitmap {
+        override fun obtainPictureFileAsBitmap(id: String): Bitmap {
             Log.d("PHOTO", "obtainPictureAsBitmap: $id")
             return BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
         }
 
-        override fun obtainPictureAsFile(id: String): File = File("$picturesFolderPath/$id.jpg")
+        override fun obtainPictureFile(id: String): File = File("$picturesFolderPath/$id.jpg")
 
         override fun deletePicture(id: String) {
             File("$picturesFolderPath/$id.jpg").delete()

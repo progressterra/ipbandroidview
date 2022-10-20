@@ -16,7 +16,7 @@ class PhotoViewModel(private val fileExplorer: FileExplorer) : ViewModel(),
 
     @Suppress("unused")
     fun setImage(id: String, readOnly: Boolean) = intent {
-        reduce { PhotoState(fileExplorer.obtainPictureAsBitmap(id), readOnly = readOnly) }
+        reduce { PhotoState(fileExplorer.obtainPictureFileAsBitmap(id), readOnly = readOnly) }
     }
 
     override fun back() = intent {

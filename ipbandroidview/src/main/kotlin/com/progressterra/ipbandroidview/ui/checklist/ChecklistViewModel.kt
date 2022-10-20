@@ -23,9 +23,7 @@ import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.replaceById
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.withContext
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -307,13 +305,7 @@ class ChecklistViewModel(
         if (managePermission.checkPermission(cameraPermission)) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val newPhotoId = "TempPhoto${state.photos.size}"
-            val photoFile: File = withContext(Dispatchers.IO) {
-                File.createTempFile(
-                    newPhotoId,
-                    ".jpg",
-                    fileExplorer.picturesFolder()
-                )
-            }
+            val photoFile: File = fileExplorer.obtainPictureFile(newPhotoId)
             val uri = fileExplorer.uriForFile(photoFile)
             Log.d("PHOTO", "photo uri $uri")
             reduce { state.copy(photos = state.photos.toMutableList().apply { add(newPhotoId) }) }

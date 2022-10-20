@@ -13,6 +13,6 @@ abstract class AbstractUseCasePictureSaving(
 ) : AbstractUseCaseWithToken(scrmRepository, provideLocation) {
 
     protected suspend fun save(inputStream: InputStream, id: String) {
-        withContext(Dispatchers.IO) { fileExplorer.savePicture(inputStream, id) }
+        withContext(Dispatchers.IO) { fileExplorer.writeInputStreamToPicture(inputStream, id) }
     }
 }
