@@ -88,11 +88,15 @@ class ChecklistViewModel(
         }
     }
 
-    override fun onCheck(check: Check?) = intent {
-        if (state.currentCheck != null && check == null) {
+    override fun onCheck(check: Check) = intent {
+        if (state.currentCheck != null) {
             Log.d("RESET", "onCheck reset")
-            audioManager.reset()
-            voiceManager.reset()
+            try {
+                audioManager.reset()
+                voiceManager.reset()
+            } catch (e: Exception) {
+                Log.e("RESET", e.message, e)
+            }
             reduce { state.copy(photos = emptyList(), voiceState = VoiceState.Recorder(false)) }
         }
         reduce { state.copy(currentCheck = check) }

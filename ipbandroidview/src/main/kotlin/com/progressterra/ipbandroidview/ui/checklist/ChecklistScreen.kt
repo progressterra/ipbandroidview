@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,7 +22,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -61,10 +59,6 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true
     )
     val coroutineScope = rememberCoroutineScope()
-    LaunchedEffect(sheetState) {
-        Log.d("RESET", "Launched effect triggered: ${sheetState.isVisible}")
-        if (!sheetState.isVisible) interactor.onCheck(null)
-    }
     ModalBottomSheetLayout(
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp

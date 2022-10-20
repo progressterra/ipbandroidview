@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.actions.Refresh
 
 interface ChecklistInteractor : Back, Refresh {
 
-    fun onCheck(check: Check?)
+    fun onCheck(check: Check)
 
     fun startStopAudit()
 
@@ -35,7 +35,7 @@ interface ChecklistInteractor : Back, Refresh {
 
         override fun openImage(id: String) = Unit
 
-        override fun onCheck(check: Check?) = Unit
+        override fun onCheck(check: Check) = Unit
 
         override fun back() = Unit
 
