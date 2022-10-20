@@ -304,7 +304,7 @@ class ChecklistViewModel(
         if (managePermission.checkPermission(cameraPermission)) {
             Log.d("Camera started", "on camera intent sended")
             startActivityCache.startActivityFromIntent(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                val newPhotoId = state.photos.size.toString()
+                val newPhotoId = "TempPhoto${state.photos.size}"
                 val photoFile: File = File.createTempFile(
                     newPhotoId,
                     ".jpg",
