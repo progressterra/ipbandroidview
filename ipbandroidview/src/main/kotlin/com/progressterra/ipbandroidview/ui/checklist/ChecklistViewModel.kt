@@ -69,7 +69,9 @@ class ChecklistViewModel(
         )
     )
 
-    private val permission = Manifest.permission.RECORD_AUDIO
+    private val micPermission = Manifest.permission.RECORD_AUDIO
+
+    private val cameraPermission = Manifest.permission.CAMERA
 
     @Suppress("unused")
     fun setDocument(checklist: Checklist) = intent {
@@ -239,14 +241,13 @@ class ChecklistViewModel(
     }
 
     override fun startRecording() = intent {
-        if (managePermission.checkPermission(permission)) {
+        if (managePermission.checkPermission(micPermission)) {
             state.currentCheck?.let {
                 voiceManager.startRecording(it.id)
                 reduce { state.copy(voiceState = VoiceState.Recorder(true)) }
             }
-        } else {
-            managePermission.requirePermission(permission)
-        }
+        } else
+            managePermission.requirePermission(micPermission)
     }
 
     override fun stopRecording() = intent {
@@ -295,18 +296,21 @@ class ChecklistViewModel(
     }
 
     override fun onCamera() = intent {
-        startActivityCache.startActivityFromIntent(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-            val newPhotoOrdinal = state.photos.size.toString()
-            val photoFile: File = File.createTempFile(
-                "Temp_$newPhotoOrdinal",
-                ".jpg",
-                fileExplorer.picturesFolder()
-            ).apply {
-                val newPhotos = state.photos.toMutableList()
-                newPhotos.add("Temp_$newPhotoOrdinal.jpg")
-                reduce { state.copy(photos = newPhotos) }
-            }
-            putExtra(MediaStore.EXTRA_OUTPUT, fileExplorer.uriForFile(photoFile))
-        })
+        if (managePermission.checkPermission(cameraPermission))
+            startActivityCache.startActivityFromIntent(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
+                val newPhotoOrdinal = state.photos.size.toString()
+                val photoFile: File = File.createTempFile(
+                    "Temp_$newPhotoOrdinal",
+                    ".jpg",
+                    fileExplorer.picturesFolder()
+                ).apply {
+                    val newPhotos = state.photos.toMutableList()
+                    newPhotos.add("Temp_$newPhotoOrdinal.jpg")
+                    reduce { state.copy(photos = newPhotos) }
+                }
+                putExtra(MediaStore.EXTRA_OUTPUT, fileExplorer.uriForFile(photoFile))
+            })
+        else
+            managePermission.requirePermission(cameraPermission)
     }
 }

@@ -6,6 +6,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -58,12 +60,17 @@ fun AttachedPhoto(
         if (photosIds.isEmpty()) {
             item {
                 Row(
-                    modifier = Modifier.clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(),
-                        onClick = onCamera,
-                        enabled = !readOnly
-                    ), horizontalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                        .background(AppTheme.colors.background)
+                        .padding(horizontal = 12.dp, vertical = 14.dp)
+                        .fillMaxWidth()
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = rememberRipple(),
+                            onClick = onCamera,
+                            enabled = !readOnly
+                        ), horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
                         text = stringResource(id = R.string.add_photo),
