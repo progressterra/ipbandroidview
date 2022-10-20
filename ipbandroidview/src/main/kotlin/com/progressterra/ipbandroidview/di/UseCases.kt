@@ -50,7 +50,7 @@ val useCasesModule = module {
 
     single<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get()) }
 
-    single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get(), get()) }
+    single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get()) }
 
     single<EndVerificationChannelUseCase> {
         EndVerificationChannelUseCase.Base(get())
