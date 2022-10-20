@@ -29,7 +29,6 @@ val useCasesModule = module {
             get(),
             get(),
             get(),
-            get(),
             get()
         )
     }
