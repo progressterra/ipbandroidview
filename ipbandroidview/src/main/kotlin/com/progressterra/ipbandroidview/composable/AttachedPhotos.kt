@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.composable
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -45,7 +46,11 @@ fun AttachedPhoto(
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(),
-                    onClick = { onPhotoSelect(id) }
+                    onClick = {
+                        Log.d("PHOTO", "photos $photosIds")
+                        Log.d("PHOTO", "selected $id")
+                        onPhotoSelect(id)
+                    }
                 ), contentAlignment = Alignment.Center) {
             Text(
                 text = ordinal,
