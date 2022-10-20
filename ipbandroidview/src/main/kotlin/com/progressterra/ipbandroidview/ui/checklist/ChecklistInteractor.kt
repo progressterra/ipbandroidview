@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.checklist
 
 import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.Refresh
+import com.progressterra.ipbandroidview.core.Photo
 
 interface ChecklistInteractor : Back, Refresh {
 
@@ -25,7 +26,7 @@ interface ChecklistInteractor : Back, Refresh {
 
     fun ready()
 
-    fun openImage(id: String)
+    fun openImage(photo: Photo)
 
     fun onCamera()
 
@@ -33,7 +34,7 @@ interface ChecklistInteractor : Back, Refresh {
 
         override fun refresh() = Unit
 
-        override fun openImage(id: String) = Unit
+        override fun openImage(photo: Photo) = Unit
 
         override fun onCheck(check: Check) = Unit
 

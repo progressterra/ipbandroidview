@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCasePictureSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.core.Photo
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ext.toBoolean
 import com.progressterra.ipbandroidview.ext.toYesNo
@@ -18,7 +19,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 
 interface UpdateAnswerUseCase {
 
-    suspend fun update(check: Check, photos: List<String>, voiceWasCreated: Boolean): Result<Check>
+    suspend fun update(check: Check, photos: List<Photo>, voiceWasCreated: Boolean): Result<Check>
 
     class Base(
         manageResources: ManageResources,
@@ -34,7 +35,7 @@ interface UpdateAnswerUseCase {
 
         override suspend fun update(
             check: Check,
-            photos: List<String>,
+            photos: List<Photo>,
             voiceWasCreated: Boolean
         ): Result<Check> = handle {
             if (voiceWasCreated) {
@@ -55,7 +56,7 @@ interface UpdateAnswerUseCase {
                     )
                 }
             }
-            photos.forEach { photoId ->
+            photos.map { it.id }.forEach { photoId ->
                 withToken { token ->
                     mediaDataRepository.attachToEntity(
                         token,

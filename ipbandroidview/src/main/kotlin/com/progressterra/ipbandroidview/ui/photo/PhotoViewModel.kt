@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.photo
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.FileExplorer
+import com.progressterra.ipbandroidview.core.Photo
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -15,8 +16,15 @@ class PhotoViewModel(private val fileExplorer: FileExplorer) : ViewModel(),
     override val container: Container<PhotoState, PhotoEffect> = container(PhotoState(null, true))
 
     @Suppress("unused")
-    fun setImage(id: String, readOnly: Boolean) = intent {
-        reduce { PhotoState(fileExplorer.obtainPictureFileAsBitmap(id), readOnly = readOnly) }
+    fun setPhoto(
+        photo: Photo
+    ) = intent {
+        reduce {
+            PhotoState(
+                fileExplorer.obtainPictureFileAsBitmap(photo.id),
+                readOnly = !photo.editable
+            )
+        }
     }
 
     override fun back() = intent {
@@ -25,5 +33,6 @@ class PhotoViewModel(private val fileExplorer: FileExplorer) : ViewModel(),
 
     override fun remove() = intent {
         postSideEffect(PhotoEffect.Remove)
+        postSideEffect(PhotoEffect.Back)
     }
 }

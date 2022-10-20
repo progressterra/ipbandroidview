@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.composable
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -25,19 +24,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.core.Photo
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun AttachedPhoto(
     modifier: Modifier = Modifier,
-    readOnly: Boolean,
-    photosIds: List<String>,
-    onPhotoSelect: (id: String) -> Unit,
-    onCamera: () -> Unit
+    photos: List<Photo>,
+    onPhotoSelect: (photo: Photo) -> Unit,
+    onCamera: () -> Unit,
+    enabled: Boolean
 ) {
 
     @Composable
-    fun Item(id: String, ordinal: String) {
+    fun Item(photo: Photo, ordinal: String) {
         Box(
             modifier = Modifier
                 .size(48.dp)
@@ -46,11 +46,8 @@ fun AttachedPhoto(
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(),
-                    onClick = {
-                        Log.d("PHOTO", "photos $photosIds")
-                        Log.d("PHOTO", "selected $id")
-                        onPhotoSelect(id)
-                    }
+                    onClick = { onPhotoSelect(photo) }
+
                 ), contentAlignment = Alignment.Center) {
             Text(
                 text = ordinal,
@@ -60,7 +57,7 @@ fun AttachedPhoto(
         }
 
     }
-    if (photosIds.isEmpty()) {
+    if (photos.isEmpty()) {
         Row(
             modifier = modifier
                 .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
@@ -70,7 +67,7 @@ fun AttachedPhoto(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(),
                     onClick = onCamera,
-                    enabled = !readOnly
+                    enabled = enabled
                 )
                 .padding(horizontal = 12.dp, vertical = 14.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -91,7 +88,7 @@ fun AttachedPhoto(
         }
     } else {
         LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (!readOnly) {
+            if (enabled) {
                 item {
                     Box(
                         modifier = Modifier
@@ -115,8 +112,8 @@ fun AttachedPhoto(
                     }
                 }
             }
-            itemsIndexed(photosIds) { index, item ->
-                Item(ordinal = index.toString(), id = item)
+            itemsIndexed(photos) { index, item ->
+                Item(ordinal = index.toString(), photo = item)
             }
         }
     }

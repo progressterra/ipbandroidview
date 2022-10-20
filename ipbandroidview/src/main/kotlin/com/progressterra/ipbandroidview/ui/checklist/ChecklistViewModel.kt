@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.FileExplorer
+import com.progressterra.ipbandroidview.core.Photo
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.StartActivityCache
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
@@ -104,10 +105,13 @@ class ChecklistViewModel(
     }
 
     override fun refresh() = intent {
-        state.currentCheck?.let {
+        state.currentCheck?.let { check ->
             reduce { state.copy(screenState = ScreenState.LOADING) }
-            checkMediaDetailsUseCase.checkDetails(it).onSuccess {
+            checkMediaDetailsUseCase.checkDetails(check).onSuccess {
                 reduce { state.copy(currentCheckDetails = it, screenState = ScreenState.SUCCESS) }
+                it.attachedVoicePointer?.let {
+                    reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
+                }
             }.onFailure {
                 reduce { state.copy(screenState = ScreenState.ERROR) }
             }
@@ -198,7 +202,7 @@ class ChecklistViewModel(
         intent {
             state.currentCheck?.let {
                 audioManager.play(
-                    it.id,
+                    state.currentCheckDetails?.attachedVoicePointer ?: it.id,
                     (state.voiceState as VoiceState.Player).progress
                 )
                 reduce {
@@ -289,16 +293,15 @@ class ChecklistViewModel(
     }
 
     @Suppress("unused")
-    fun removePhoto(id: String) = intent {
-        fileExplorer.deletePicture(id)
+    fun removePhoto(photo: Photo) = intent {
+        fileExplorer.deletePicture(photo.id)
         val newPhotos = state.photos.toMutableList()
-        newPhotos.remove(id)
+        newPhotos.remove(photo)
         reduce { state.copy(photos = newPhotos) }
     }
 
-    override fun openImage(id: String) = intent {
-        Log.d("PHOTO", "openImage: $id")
-        postSideEffect(ChecklistEffect.Image(id, !state.checklist.ongoing))
+    override fun openImage(photo: Photo) = intent {
+        postSideEffect(ChecklistEffect.Image(photo))
     }
 
     override fun onCamera() = intent {
@@ -308,7 +311,10 @@ class ChecklistViewModel(
             val photoFile: File = fileExplorer.obtainPictureFile(newPhotoId)
             val uri = fileExplorer.uriForFile(photoFile)
             Log.d("PHOTO", "photo uri $uri")
-            reduce { state.copy(photos = state.photos.toMutableList().apply { add(newPhotoId) }) }
+            reduce {
+                state.copy(
+                    photos = state.photos.toMutableList().apply { add(Photo(newPhotoId, true)) })
+            }
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             startActivityCache.startActivityFromIntent(intent)
         } else

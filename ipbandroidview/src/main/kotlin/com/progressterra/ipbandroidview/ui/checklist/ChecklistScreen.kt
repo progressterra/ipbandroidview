@@ -145,8 +145,8 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             ) {
                                 AttachedPhoto(
                                     modifier = Modifier.fillMaxWidth(),
-                                    readOnly = state.checklist.done || !state.checklist.ongoing,
-                                    photosIds = state.photos.ifEmpty { state.currentCheckDetails.attachedPhotosPointers },
+                                    enabled = state.checklist.ongoing,
+                                    photos = state.photos + state.currentCheckDetails.attachedPhotosPointers,
                                     onPhotoSelect = { interactor.openImage(it) },
                                     onCamera = { interactor.onCamera() }
                                 )

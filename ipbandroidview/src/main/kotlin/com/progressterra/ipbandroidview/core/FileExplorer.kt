@@ -45,8 +45,7 @@ interface FileExplorer {
         override fun uriForFile(file: File): Uri = FileProvider.getUriForFile(
             context,
             authority,
-            file,
-            file.name
+            file
         )
 
         override fun writeInputStreamToPicture(inputStream: InputStream, id: String, force: Boolean) {
@@ -67,10 +66,8 @@ interface FileExplorer {
         override fun obtainOrCreateAudioFile(id: String): File =
             File("$voiceFolderPath/Voice $id.m4a")
 
-        override fun obtainPictureFileAsBitmap(id: String): Bitmap {
-            Log.d("PHOTO", "obtainPictureAsBitmap: $id")
-            return BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
-        }
+        override fun obtainPictureFileAsBitmap(id: String): Bitmap = BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
+
 
         override fun obtainPictureFile(id: String): File = File("$picturesFolderPath/$id.jpg")
 

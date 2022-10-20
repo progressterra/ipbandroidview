@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCasePictureSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
+import com.progressterra.ipbandroidview.core.Photo
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ui.checklist.Check
 import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckDetails
@@ -34,7 +35,7 @@ interface CheckMediaDetailsUseCase {
                     )
                 }.getOrThrow(), item.idUnique!!)
                 item.idUnique!!
-            }
+            }?.map { Photo(it, false) }
             val attachedVoiceMessageData = withToken {
                 mediaDataRepository.attachedToEntity(
                     it,
