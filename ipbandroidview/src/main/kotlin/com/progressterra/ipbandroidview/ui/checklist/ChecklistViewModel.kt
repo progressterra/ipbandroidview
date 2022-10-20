@@ -311,6 +311,7 @@ class ChecklistViewModel(
                     ".jpg",
                     fileExplorer.picturesFolder()
                 ).apply {
+                    Log.d("PHOTO", "path to photo $path")
                     val newPhotos = state.photos.toMutableList()
                     newPhotos.add(newPhotoId)
                     reduce { state.copy(photos = newPhotos) }
