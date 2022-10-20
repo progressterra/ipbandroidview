@@ -46,11 +46,11 @@ fun AttachedPhoto(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(),
                     onClick = { onPhotoSelect(id) }
-                )) {
+                ), contentAlignment = Alignment.Center) {
             Text(
                 text = ordinal,
                 color = AppTheme.colors.primary,
-                style = AppTheme.typography.text
+                style = AppTheme.typography.title
             )
         }
 
