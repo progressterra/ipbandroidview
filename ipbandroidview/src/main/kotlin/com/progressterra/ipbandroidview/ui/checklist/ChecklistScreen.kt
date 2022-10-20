@@ -142,7 +142,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     start = 12.dp,
                                     end = 12.dp,
                                     bottom = 12.dp
-                                )
+                                ).fillMaxWidth()
                             ) {
                                 AttachedPhoto(
                                     modifier = Modifier.fillMaxWidth(),
