@@ -6,13 +6,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream
 
-abstract class AbstractUseCasePictureSaving(
+abstract class AbstractUseCaseWithSaving(
     scrmRepository: SCRMRepository,
     provideLocation: ProvideLocation,
     private val fileExplorer: FileExplorer
 ) : AbstractUseCaseWithToken(scrmRepository, provideLocation) {
 
-    protected suspend fun save(inputStream: InputStream, id: String) {
+    protected suspend fun savePicture(inputStream: InputStream, id: String) {
         withContext(Dispatchers.IO) { fileExplorer.writeInputStreamToPicture(inputStream, id) }
+    }
+
+    protected suspend fun saveAudio(inputStream: InputStream, id: String) {
+        withContext(Dispatchers.IO) { fileExplorer.writeInputStreamToAudio(inputStream, id) }
     }
 }

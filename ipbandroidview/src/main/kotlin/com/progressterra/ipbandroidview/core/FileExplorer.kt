@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
@@ -13,6 +12,8 @@ import java.io.InputStream
 
 
 interface FileExplorer {
+
+    fun writeInputStreamToAudio(inputStream: InputStream, id: String, force: Boolean = false)
 
     fun writeInputStreamToPicture(inputStream: InputStream, id: String, force: Boolean = false)
 
@@ -48,10 +49,29 @@ interface FileExplorer {
             file
         )
 
-        override fun writeInputStreamToPicture(inputStream: InputStream, id: String, force: Boolean) {
-            if (!File("$picturesFolderPath/$id.jpg").exists() || force)
+        override fun writeInputStreamToPicture(
+            inputStream: InputStream,
+            id: String,
+            force: Boolean
+        ) {
+            if (!exist(id) || force)
                 inputStream.use { input ->
                     val fos = FileOutputStream(File("$picturesFolderPath/$id.jpg"))
+                    fos.use { output ->
+                        val buffer = ByteArray(4 * 1024)
+                        var read: Int
+                        while (input.read(buffer).also { read = it } != -1) {
+                            output.write(buffer, 0, read)
+                        }
+                        output.flush()
+                    }
+                }
+        }
+
+        override fun writeInputStreamToAudio(inputStream: InputStream, id: String, force: Boolean) {
+            if (!exist(id) || force)
+                inputStream.use { input ->
+                    val fos = FileOutputStream(File("$voiceFolderPath/$id.m4a"))
                     fos.use { output ->
                         val buffer = ByteArray(4 * 1024)
                         var read: Int
@@ -66,8 +86,8 @@ interface FileExplorer {
         override fun obtainOrCreateAudioFile(id: String): File =
             File("$voiceFolderPath/Voice $id.m4a")
 
-        override fun obtainPictureFileAsBitmap(id: String): Bitmap = BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
-
+        override fun obtainPictureFileAsBitmap(id: String): Bitmap =
+            BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
 
         override fun obtainPictureFile(id: String): File = File("$picturesFolderPath/$id.jpg")
 
@@ -79,6 +99,5 @@ interface FileExplorer {
 
         override fun exist(id: String): Boolean =
             File("$voiceFolderPath/Voice $id.m4a").exists() || File("$picturesFolderPath/$id.jpg").exists()
-
     }
 }

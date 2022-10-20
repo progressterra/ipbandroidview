@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCasePictureSaving
+import com.progressterra.ipbandroidview.core.AbstractUseCaseWithSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.Photo
 import com.progressterra.ipbandroidview.data.ProvideLocation
@@ -18,7 +18,7 @@ interface CheckMediaDetailsUseCase {
         scrmRepository: SCRMRepository,
         fileExplorer: FileExplorer,
         private val mediaDataRepository: IPBMediaDataRepository
-    ) : AbstractUseCasePictureSaving(scrmRepository, provideLocation, fileExplorer),
+    ) : AbstractUseCaseWithSaving(scrmRepository, provideLocation, fileExplorer),
         CheckMediaDetailsUseCase {
 
         override suspend fun checkDetails(check: Check): Result<CurrentCheckDetails> = handle {
@@ -28,7 +28,7 @@ interface CheckMediaDetailsUseCase {
                     check.id
                 )
             }.getOrThrow()?.filter { it.contentType == 0 }?.map { item ->
-                save(withToken {
+                savePicture(withToken {
                     mediaDataRepository.downloadFile(
                         it,
                         item.urlData!!
@@ -43,7 +43,7 @@ interface CheckMediaDetailsUseCase {
                 )
             }.getOrThrow()?.firstOrNull { it.contentType == 6 }
             attachedVoiceMessageData?.let { data ->
-                save(withToken {
+                saveAudio(withToken {
                     mediaDataRepository.downloadFile(
                         it,
                         data.urlData!!

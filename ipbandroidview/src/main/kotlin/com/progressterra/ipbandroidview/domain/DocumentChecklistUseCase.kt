@@ -4,9 +4,8 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
-import com.progressterra.ipbandroidview.core.AbstractUseCasePictureSaving
+import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ui.checklist.Check
 
@@ -18,10 +17,9 @@ interface DocumentChecklistUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         manageResources: ManageResources,
-        fileExplorer: FileExplorer,
         private val repo: ChecklistRepository,
     ) : DocumentChecklistUseCase,
-        AbstractUseCasePictureSaving(scrmRepository, provideLocation, fileExplorer) {
+        AbstractUseCaseWithToken(scrmRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
 
