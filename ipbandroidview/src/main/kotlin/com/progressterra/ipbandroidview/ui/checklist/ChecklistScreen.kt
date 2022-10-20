@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -220,7 +221,10 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         Modifier
                             .fillMaxWidth()
                             .align(Alignment.BottomCenter)
-                            .onSizeChanged { spacerSize = it.height.dp }
+                            .onSizeChanged {
+                                spacerSize = it.height.dp
+                                Log.d("SCREEN", "Height: $spacerSize")
+                            }
                     ) {
                         Row {
                             ThemedButton(

@@ -55,40 +55,37 @@ fun AttachedPhoto(
         }
 
     }
-
-    LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        if (photosIds.isEmpty()) {
-            item {
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
-                        .background(AppTheme.colors.background)
-                        .fillMaxWidth()
-                        .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
-                            indication = rememberRipple(),
-                            onClick = onCamera,
-                            enabled = !readOnly
-                        )
-                        .padding(horizontal = 12.dp, vertical = 14.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(id = R.string.add_photo),
-                        style = AppTheme.typography.text,
-                        color = AppTheme.colors.gray1
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_camera),
-                        contentDescription = stringResource(
-                            id = R.string.camera
-                        ),
-                        tint = AppTheme.colors.primary
-                    )
-                }
-            }
-        } else {
+    if (photosIds.isEmpty()) {
+        Row(
+            modifier = modifier
+                .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                .background(AppTheme.colors.background)
+                .fillMaxWidth()
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = rememberRipple(),
+                    onClick = onCamera,
+                    enabled = !readOnly
+                )
+                .padding(horizontal = 12.dp, vertical = 14.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(id = R.string.add_photo),
+                style = AppTheme.typography.text,
+                color = AppTheme.colors.gray1
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.ic_camera),
+                contentDescription = stringResource(
+                    id = R.string.camera
+                ),
+                tint = AppTheme.colors.primary
+            )
+        }
+    } else {
+        LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             if (!readOnly) {
                 item {
                     Box(
