@@ -92,7 +92,12 @@ fun AttachedPhoto(
                         modifier = Modifier
                             .size(48.dp)
                             .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
-                            .background(AppTheme.colors.background),
+                            .background(AppTheme.colors.background)
+                            .clickable(
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = rememberRipple(),
+                                onClick = onCamera
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
