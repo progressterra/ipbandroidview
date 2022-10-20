@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -62,6 +62,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
     )
     val coroutineScope = rememberCoroutineScope()
     LaunchedEffect(sheetState) {
+        Log.d("RESET", "Launched effect triggered: ${sheetState.isVisible}")
         if (!sheetState.isVisible) interactor.onCheck(null)
     }
     ModalBottomSheetLayout(
@@ -78,7 +79,10 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     )
                 }
             })
-            StateBox(modifier = Modifier.fillMaxWidth(), state = state.screenState, onRefresh = { interactor.refresh() }) {
+            StateBox(
+                modifier = Modifier.fillMaxWidth(),
+                state = state.screenState,
+                onRefresh = { interactor.refresh() }) {
                 if (state.currentCheck != null && state.currentCheckDetails != null) {
                     Column(
                         modifier = Modifier
