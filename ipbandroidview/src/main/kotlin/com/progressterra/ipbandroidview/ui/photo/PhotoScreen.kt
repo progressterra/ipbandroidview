@@ -35,12 +35,14 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
                 )
             }
         }, actions = {
-            IconButton(onClick = { interactor.remove() }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_trash),
-                    contentDescription = stringResource(id = R.string.trash),
-                    tint = AppTheme.colors.error
-                )
+            if (!state.readOnly) {
+                IconButton(onClick = { interactor.remove() }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_trash),
+                        contentDescription = stringResource(id = R.string.trash),
+                        tint = AppTheme.colors.error
+                    )
+                }
             }
         })
         state.photo?.let {
