@@ -34,10 +34,12 @@ interface FileExplorer {
         private val authority: String
     ) : FileExplorer {
 
-        private val voiceFolderPath =
+        private val voiceFolderPath by lazy {
             "${context.getExternalFilesDir(Environment.DIRECTORY_RECORDINGS)}"
-        private val picturesFolderPath =
+        }
+        private val picturesFolderPath by lazy {
             "${context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)}"
+        }
 
         override fun uriForFile(file: File): Uri = FileProvider.getUriForFile(
             context,
