@@ -304,14 +304,14 @@ class ChecklistViewModel(
         if (managePermission.checkPermission(cameraPermission)) {
             Log.d("Camera started", "on camera intent sended")
             startActivityCache.startActivityFromIntent(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
-                val newPhotoOrdinal = state.photos.size.toString()
+                val newPhotoId = state.photos.size.toString()
                 val photoFile: File = File.createTempFile(
-                    "Temp_$newPhotoOrdinal",
+                    newPhotoId,
                     ".jpg",
                     fileExplorer.picturesFolder()
                 ).apply {
                     val newPhotos = state.photos.toMutableList()
-                    newPhotos.add("Temp_$newPhotoOrdinal.jpg")
+                    newPhotos.add(newPhotoId)
                     reduce { state.copy(photos = newPhotos) }
                 }
                 putExtra(MediaStore.EXTRA_OUTPUT, fileExplorer.uriForFile(photoFile))
