@@ -15,5 +15,6 @@ data class ChecklistState(
     val checklist: Checklist,
     val stats: ChecklistStats,
     val photos: List<Photo>,
-    val screenState: ScreenState
+    val screenState: ScreenState,
+    val voiceEditable: Boolean
 )

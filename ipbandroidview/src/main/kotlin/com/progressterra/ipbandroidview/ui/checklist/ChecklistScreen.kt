@@ -135,7 +135,8 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     onPausePlay = { interactor.pausePlay() },
                                     onRemove = {
                                         interactor.removeRecord()
-                                    })
+                                    },
+                                editable = state.voiceEditable)
                             }
                             Box(
                                 modifier = Modifier.padding(

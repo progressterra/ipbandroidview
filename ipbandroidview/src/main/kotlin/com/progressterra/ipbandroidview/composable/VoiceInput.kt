@@ -41,7 +41,8 @@ fun VoiceInput(
     onPausePlay: () -> Unit,
     onStartRecording: () -> Unit,
     onStopRecording: () -> Unit,
-    onRemove: () -> Unit
+    onRemove: () -> Unit,
+    editable: Boolean
 ) {
     when (state) {
         is VoiceState.Recorder ->
@@ -107,14 +108,15 @@ fun VoiceInput(
                 ) {
                     IconButton(
                         modifier = Modifier.size(24.dp),
-                        onClick = onRemove
+                        onClick = onRemove,
+                        enabled = editable
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_trash),
                             contentDescription = stringResource(
                                 id = R.string.trash
                             ),
-                            tint = AppTheme.colors.error
+                            tint = if (editable) AppTheme.colors.error else AppTheme.colors.gray2
                         )
                     }
                     Spacer(modifier = Modifier.size(16.dp))
@@ -151,7 +153,9 @@ private fun VoiceInputPreviewIdle() {
             onPausePlay = {},
             onStartRecording = {},
             onStopRecording = {},
-            onRemove = {})
+            onRemove = {},
+            editable = true
+        )
     }
 }
 
@@ -165,7 +169,8 @@ private fun VoiceInputPreviewRecord() {
             onPausePlay = {},
             onStartRecording = {},
             onStopRecording = {},
-            onRemove = {}
+            onRemove = {},
+            editable = true
         )
     }
 }
@@ -181,7 +186,9 @@ private fun VoiceInputPreviewPlay() {
             onPausePlay = {},
             onStartRecording = {},
             onStopRecording = {},
-            onRemove = {})
+            onRemove = {},
+            editable = true
+        )
     }
 }
 
@@ -195,6 +202,8 @@ private fun VoiceInputPreviewPause() {
             onPausePlay = {},
             onStartRecording = {},
             onStopRecording = {},
-            onRemove = {})
+            onRemove = {},
+            editable = false
+        )
     }
 }

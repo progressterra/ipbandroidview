@@ -66,7 +66,8 @@ class ChecklistViewModel(
             voiceState = VoiceState.Recorder(false),
             currentCheck = null,
             screenState = ScreenState.SUCCESS,
-            currentCheckDetails = null
+            currentCheckDetails = null,
+            voiceEditable = true
         )
     )
 
@@ -84,7 +85,8 @@ class ChecklistViewModel(
                 stats = checklist.createStats(),
                 photos = emptyList(),
                 voiceState = VoiceState.Recorder(false),
-                screenState = ScreenState.SUCCESS
+                screenState = ScreenState.SUCCESS,
+                voiceEditable = true
             )
         }
     }
@@ -106,11 +108,16 @@ class ChecklistViewModel(
 
     override fun refresh() = intent {
         state.currentCheck?.let { check ->
-            reduce { state.copy(screenState = ScreenState.LOADING) }
+            reduce { state.copy(screenState = ScreenState.LOADING, voiceEditable = true) }
             checkMediaDetailsUseCase.checkDetails(check).onSuccess {
                 reduce { state.copy(currentCheckDetails = it, screenState = ScreenState.SUCCESS) }
                 it.attachedVoicePointer?.let {
-                    reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
+                    reduce {
+                        state.copy(
+                            voiceState = VoiceState.Player(false, 0f),
+                            voiceEditable = false
+                        )
+                    }
                 }
             }.onFailure {
                 reduce { state.copy(screenState = ScreenState.ERROR) }
