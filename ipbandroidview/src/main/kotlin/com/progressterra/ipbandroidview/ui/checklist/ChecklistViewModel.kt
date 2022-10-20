@@ -296,7 +296,8 @@ class ChecklistViewModel(
     }
 
     override fun onCamera() = intent {
-        if (managePermission.checkPermission(cameraPermission))
+        if (managePermission.checkPermission(cameraPermission)) {
+            Log.d("Camera started", "on camera intent sended")
             startActivityCache.startActivityFromIntent(Intent(MediaStore.ACTION_IMAGE_CAPTURE).apply {
                 val newPhotoOrdinal = state.photos.size.toString()
                 val photoFile: File = File.createTempFile(
@@ -310,7 +311,7 @@ class ChecklistViewModel(
                 }
                 putExtra(MediaStore.EXTRA_OUTPUT, fileExplorer.uriForFile(photoFile))
             })
-        else
+        } else
             managePermission.requirePermission(cameraPermission)
     }
 }
