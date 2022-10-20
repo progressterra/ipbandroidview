@@ -84,7 +84,7 @@ interface FileExplorer {
         }
 
         override fun obtainOrCreateAudioFile(id: String): File =
-            File("$voiceFolderPath/Voice $id.m4a")
+            File("$voiceFolderPath/$id.m4a")
 
         override fun obtainPictureFileAsBitmap(id: String): Bitmap =
             BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
@@ -98,6 +98,6 @@ interface FileExplorer {
         override fun picturesFolder(): File = File(picturesFolderPath)
 
         override fun exist(id: String): Boolean =
-            File("$voiceFolderPath/Voice $id.m4a").exists() || File("$picturesFolderPath/$id.jpg").exists()
+            File("$voiceFolderPath/$id.m4a").exists() || File("$picturesFolderPath/$id.jpg").exists()
     }
 }
