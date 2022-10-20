@@ -60,7 +60,6 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         modifier = Modifier.fillMaxWidth(),
                         name = it.name,
                         address = it.address,
-                        done = it.done,
                         onClick = { interactor.onDocumentChecklist(it) },
                         stats = it.stats
                     )
@@ -80,7 +79,6 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                                 modifier = Modifier.fillMaxWidth(),
                                 name = document.name,
                                 address = document.address,
-                                done = document.done,
                                 onClick = { interactor.onDocumentChecklist(document) },
                                 stats = document.stats
                             )
