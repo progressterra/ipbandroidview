@@ -297,6 +297,7 @@ class ChecklistViewModel(
     }
 
     override fun openImage(id: String) = intent {
+        Log.d("PHOTO", "openImage: $id")
         postSideEffect(ChecklistEffect.Image(id, !state.checklist.ongoing))
     }
 
