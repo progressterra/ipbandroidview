@@ -78,7 +78,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     )
                 }
             })
-            StateBox(modifier = Modifier.fillMaxWidth().height(300.dp), state = state.screenState, onRefresh = { interactor.refresh() }) {
+            StateBox(modifier = Modifier.fillMaxWidth(), state = state.screenState, onRefresh = { interactor.refresh() }) {
                 if (state.currentCheck != null && state.currentCheckDetails != null) {
                     Column(
                         modifier = Modifier
