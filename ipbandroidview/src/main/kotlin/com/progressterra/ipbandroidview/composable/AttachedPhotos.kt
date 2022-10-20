@@ -63,14 +63,16 @@ fun AttachedPhoto(
                     modifier = Modifier
                         .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
                         .background(AppTheme.colors.background)
-                        .padding(horizontal = 12.dp, vertical = 14.dp)
                         .fillMaxWidth()
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = rememberRipple(),
                             onClick = onCamera,
                             enabled = !readOnly
-                        ), horizontalArrangement = Arrangement.SpaceBetween
+                        )
+                        .padding(horizontal = 12.dp, vertical = 14.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = stringResource(id = R.string.add_photo),

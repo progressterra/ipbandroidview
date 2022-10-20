@@ -92,7 +92,7 @@ class ChecklistViewModel(
         if (state.currentCheck != null && check == null) {
             audioManager.reset()
             voiceManager.reset()
-            reduce { state.copy(photos = emptyList()) }
+            reduce { state.copy(photos = emptyList(), voiceState = VoiceState.Recorder(false)) }
         }
         reduce { state.copy(currentCheck = check) }
         refresh()
