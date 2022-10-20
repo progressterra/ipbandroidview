@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
@@ -70,6 +71,7 @@ interface FileExplorer {
 
         override fun writeInputStreamToAudio(inputStream: InputStream, id: String, force: Boolean) {
             if (!exist(id) || force)
+                Log.d("SAVE", "writeInputStreamToAudio: $id")
                 inputStream.use { input ->
                     val fos = FileOutputStream(File("$voiceFolderPath/$id.m4a"))
                     fos.use { output ->
