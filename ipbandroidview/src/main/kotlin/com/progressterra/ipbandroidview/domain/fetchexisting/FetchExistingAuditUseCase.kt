@@ -14,7 +14,6 @@ interface FetchExistingAuditUseCase {
     class Base(
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
-        manageResources: ManageResources,
         private val repo: ChecklistRepository
     ) : AbstractUseCaseWithToken(scrmRepository, provideLocation), FetchExistingAuditUseCase {
 

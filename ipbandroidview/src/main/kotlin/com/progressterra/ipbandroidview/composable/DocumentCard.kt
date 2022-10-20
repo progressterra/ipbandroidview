@@ -28,7 +28,6 @@ fun DocumentCard(
     modifier: Modifier = Modifier,
     name: String = "",
     address: String = "",
-    done: Boolean = false,
     stats: ChecklistStats,
     onClick: () -> Unit
 ) {
