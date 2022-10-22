@@ -5,7 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.core.StartActivity
+import com.progressterra.ipbandroidview.core.startactivity.StartActivity
 import com.progressterra.ipbandroidview.domain.ChecklistUseCase
 import com.progressterra.ipbandroidview.domain.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.ui.organizations.Organization

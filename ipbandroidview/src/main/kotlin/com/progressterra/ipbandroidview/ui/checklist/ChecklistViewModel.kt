@@ -11,9 +11,9 @@ import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.FileExplorer
-import com.progressterra.ipbandroidview.core.Photo
+import com.progressterra.ipbandroidview.core.Picture
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.core.StartActivityCache
+import com.progressterra.ipbandroidview.core.startactivity.StartActivityCache
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
@@ -23,6 +23,8 @@ import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.ext.formPatch
+import com.progressterra.ipbandroidview.ext.markToRemove
 import com.progressterra.ipbandroidview.ext.replaceById
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
@@ -62,12 +64,10 @@ class ChecklistViewModel(
                 documentId = null
             ),
             stats = ChecklistStats(0, 0, 0, 0),
-            photos = emptyList(),
             voiceState = VoiceState.Recorder(false),
             currentCheck = null,
             screenState = ScreenState.SUCCESS,
-            currentCheckDetails = null,
-            voiceEditable = true
+            currentCheckMedia = null,
         )
     )
 
@@ -80,44 +80,38 @@ class ChecklistViewModel(
         reduce {
             ChecklistState(
                 currentCheck = null,
-                currentCheckDetails = null,
+                currentCheckMedia = null,
                 checklist = checklist,
                 stats = checklist.createStats(),
-                photos = emptyList(),
                 voiceState = VoiceState.Recorder(false),
                 screenState = ScreenState.SUCCESS,
-                voiceEditable = true
             )
         }
     }
 
-    override fun onCheck(check: Check) = intent {
-        if (state.currentCheck != null) {
-            Log.d("RESET", "onCheck reset")
-            try {
-                audioManager.reset()
-                voiceManager.reset()
-            } catch (e: Exception) {
-                Log.e("RESET", e.message, e)
-            }
-            reduce { state.copy(photos = emptyList(), voiceState = VoiceState.Recorder(false)) }
-        }
+    override fun check(check: Check) = intent {
         reduce { state.copy(currentCheck = check) }
         refresh()
     }
 
+    override fun closeCheck() = intent {
+        audioManager.reset()
+        voiceManager.reset()
+        fileExplorer.reset()
+    }
+
     override fun refresh() = intent {
         state.currentCheck?.let { check ->
-            reduce { state.copy(screenState = ScreenState.LOADING, voiceEditable = true) }
+            reduce { state.copy(screenState = ScreenState.LOADING) }
             checkMediaDetailsUseCase.checkDetails(check).onSuccess {
-                reduce { state.copy(currentCheckDetails = it, screenState = ScreenState.SUCCESS) }
-                it.attachedVoicePointer?.let {
-                    reduce {
-                        state.copy(
-                            voiceState = VoiceState.Player(false, 0f),
-                            voiceEditable = false
-                        )
-                    }
+                reduce {
+                    state.copy(
+                        currentCheckMedia = it,
+                        screenState = ScreenState.SUCCESS
+                    )
+                }
+                if (it.voices.isNotEmpty()) {
+                    reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
                 }
             }.onFailure {
                 reduce { state.copy(screenState = ScreenState.ERROR) }
@@ -205,34 +199,30 @@ class ChecklistViewModel(
     }
 
 
-    override fun startPlay() {
-        intent {
+    override fun startPausePlay() = intent {
+        if (state.voiceState.ongoing) {
+            audioManager.pause()
+            reduce {
+                state.copy(
+                    voiceState = VoiceState.Player(
+                        false, (state.voiceState as VoiceState.Player).progress
+                    )
+                )
+            }
+        } else {
             state.currentCheck?.let {
                 audioManager.play(
-                    state.currentCheckDetails?.attachedVoicePointer ?: it.id,
-                    (state.voiceState as VoiceState.Player).progress
+                    state.currentCheckMedia?.voices?.first()?.id ?: it.id
                 )
-                reduce {
-                    state.copy(
-                        voiceState = VoiceState.Player(
-                            true,
-                            (state.voiceState as VoiceState.Player).progress
-                        )
-                    )
-                }
             }
-        }
-        intent {
             var progress: Float
             while (state.voiceState.ongoing) {
-                Log.d("AUDIO", "state: ${state.voiceState.ongoing}")
                 progress = audioManager.progress()
                 Log.d("AUDIO", "progress: $progress")
                 reduce {
                     state.copy(
                         voiceState = VoiceState.Player(
-                            state.voiceState.ongoing,
-                            progress
+                            true, progress
                         )
                     )
                 }
@@ -245,30 +235,19 @@ class ChecklistViewModel(
         }
     }
 
-    override fun pausePlay() = intent {
-        audioManager.pause()
-        reduce {
-            state.copy(
-                voiceState = VoiceState.Player(
-                    false, (state.voiceState as VoiceState.Player).progress
-                )
-            )
+    override fun startStopRecording() = intent {
+        if (state.voiceState.ongoing) {
+            voiceManager.stopRecording()
+            reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
+        } else {
+            if (managePermission.checkPermission(micPermission)) {
+                state.currentCheck?.let {
+                    voiceManager.startRecording(it.id)
+                    reduce { state.copy(voiceState = VoiceState.Recorder(true)) }
+                }
+            } else
+                managePermission.requirePermission(micPermission)
         }
-    }
-
-    override fun startRecording() = intent {
-        if (managePermission.checkPermission(micPermission)) {
-            state.currentCheck?.let {
-                voiceManager.startRecording(it.id)
-                reduce { state.copy(voiceState = VoiceState.Recorder(true)) }
-            }
-        } else
-            managePermission.requirePermission(micPermission)
-    }
-
-    override fun stopRecording() = intent {
-        voiceManager.stopRecording()
-        reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
     }
 
     override fun removeRecord() = intent {
@@ -276,14 +255,14 @@ class ChecklistViewModel(
         reduce { state.copy(voiceState = VoiceState.Recorder(false)) }
     }
 
-    override fun ready() = intent {
-        state.currentCheck?.let {
-            updateAnswerUseCase.update(
-                check = it,
-                state.photos,
-                fileExplorer.exist(it.id)
-            )
-        }?.onSuccess {
+    override fun applyCheck() = intent {
+        updateAnswerUseCase.update(
+            check = state.currentCheck!!,
+            checkDetails = state.currentCheckMedia!!.copy(
+                voices = state.currentCheckMedia!!.voices.formPatch(),
+                pictures = state.currentCheckMedia!!.pictures.formPatch()
+            ),
+        ).onSuccess {
             val newChecklist = state.checklist.copy(
                 checks = state.checklist.checks.replaceById(it)
             )
@@ -294,21 +273,26 @@ class ChecklistViewModel(
                 )
             }
             postSideEffect(ChecklistEffect.Toast(R.string.answer_done))
-        }?.onFailure {
+        }.onFailure {
             postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
         }
     }
 
     @Suppress("unused")
-    fun removePhoto(photo: Photo) = intent {
-        fileExplorer.deletePicture(photo.id)
-        val newPhotos = state.photos.toMutableList()
-        newPhotos.remove(photo)
-        reduce { state.copy(photos = newPhotos) }
+    fun removePhoto(picture: Picture) = intent {
+        reduce {
+            state.copy(
+                currentCheckMedia =
+                state.currentCheckMedia!!.copy(
+                    pictures =
+                    state.currentCheckMedia!!.pictures.markToRemove(picture)
+                )
+            )
+        }
     }
 
-    override fun openImage(photo: Photo) = intent {
-        postSideEffect(ChecklistEffect.Image(photo))
+    override fun openImage(picture: Picture) = intent {
+        postSideEffect(ChecklistEffect.Image(picture))
     }
 
     override fun onCamera() = intent {
@@ -320,7 +304,7 @@ class ChecklistViewModel(
             Log.d("PHOTO", "photo uri $uri")
             reduce {
                 state.copy(
-                    photos = state.photos.toMutableList().apply { add(Photo(newPhotoId, true)) })
+                    photos = state.photos.toMutableList().apply { add(Picture(newPhotoId, true)) })
             }
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             startActivityCache.startActivityFromIntent(intent)

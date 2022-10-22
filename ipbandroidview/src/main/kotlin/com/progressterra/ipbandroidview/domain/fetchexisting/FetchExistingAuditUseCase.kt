@@ -2,9 +2,7 @@ package com.progressterra.ipbandroidview.domain.fetchexisting
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
-import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.ProvideLocation
 
 interface FetchExistingAuditUseCase {
@@ -20,7 +18,7 @@ interface FetchExistingAuditUseCase {
         override suspend fun fetchExistingAudit(
             idPlace: String,
             idChecklist: String
-        ): Result<String> = handle {
+        ): Result<String> = runCatching {
             withToken { repo.activeDoc(it, idPlace, idChecklist) }.getOrThrow()?.idUnique!!
         }
     }

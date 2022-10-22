@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.core.FileExplorer
 
 interface VoiceManager {
 
-    fun startRecording(checkId: String)
+    fun startRecording(id: String)
 
     fun stopRecording()
 
@@ -16,10 +16,10 @@ interface VoiceManager {
         private val fileExplorer: FileExplorer
     ) : VoiceManager {
 
-        override fun startRecording(checkId: String) {
+        override fun startRecording(id: String) {
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            mediaRecorder.setOutputFile(fileExplorer.obtainOrCreateAudioFile(checkId))
+            mediaRecorder.setOutputFile(fileExplorer.obtainOrCreateAudioFile(id))
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
             mediaRecorder.prepare()
             mediaRecorder.start()
@@ -27,11 +27,13 @@ interface VoiceManager {
 
         override fun stopRecording() {
             mediaRecorder.stop()
-            reset()
+            mediaRecorder.reset()
         }
 
         override fun reset() {
-            mediaRecorder.reset()
+            runCatching {
+                mediaRecorder.reset()
+            }
         }
     }
 }

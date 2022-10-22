@@ -5,24 +5,20 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
-import android.util.Log
 import androidx.core.content.FileProvider
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 
-
 interface FileExplorer {
 
-    fun writeInputStreamToAudio(inputStream: InputStream, id: String, force: Boolean = false)
+    fun writeInputStreamToAudio(inputStream: InputStream, id: String)
 
-    fun writeInputStreamToPicture(inputStream: InputStream, id: String, force: Boolean = false)
+    fun writeInputStreamToPicture(inputStream: InputStream, id: String)
 
     fun obtainPictureFileAsBitmap(id: String): Bitmap
 
     fun obtainPictureFile(id: String): File
-
-    fun deletePicture(id: String)
 
     fun obtainOrCreateAudioFile(id: String): File
 
@@ -31,6 +27,8 @@ interface FileExplorer {
     fun picturesFolder(): File
 
     fun exist(id: String): Boolean
+
+    fun reset()
 
     class Base(
         private val context: Context,
@@ -52,10 +50,9 @@ interface FileExplorer {
 
         override fun writeInputStreamToPicture(
             inputStream: InputStream,
-            id: String,
-            force: Boolean
+            id: String
         ) {
-            if (!exist(id) || force)
+            if (!exist(id))
                 inputStream.use { input ->
                     val fos = FileOutputStream(File("$picturesFolderPath/$id.jpg"))
                     fos.use { output ->
@@ -69,9 +66,8 @@ interface FileExplorer {
                 }
         }
 
-        override fun writeInputStreamToAudio(inputStream: InputStream, id: String, force: Boolean) {
-            if (!exist(id) || force)
-                Log.d("SAVE", "writeInputStreamToAudio: $id")
+        override fun writeInputStreamToAudio(inputStream: InputStream, id: String) {
+            if (!exist(id))
                 inputStream.use { input ->
                     val fos = FileOutputStream(File("$voiceFolderPath/$id.m4a"))
                     fos.use { output ->
@@ -101,5 +97,14 @@ interface FileExplorer {
 
         override fun exist(id: String): Boolean =
             File("$voiceFolderPath/$id.m4a").exists() || File("$picturesFolderPath/$id.jpg").exists()
+
+        override fun reset() {
+            File(voiceFolderPath).list()?.forEach {
+                File(it).delete()
+            }
+            File(picturesFolderPath).list()?.forEach {
+                File(it).delete()
+            }
+        }
     }
 }

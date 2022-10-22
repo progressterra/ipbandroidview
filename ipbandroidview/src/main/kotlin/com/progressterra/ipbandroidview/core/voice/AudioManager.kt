@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.core.FileExplorer
 
 interface AudioManager {
 
-    fun play(id: String, progress: Float)
+    fun play(id: String)
 
     fun progress(): Float
 
@@ -21,14 +21,14 @@ interface AudioManager {
         private var lastPreparedCheckId: String? = null
 
         private fun prepare(id: String) {
-            if (lastPreparedCheckId != id)
+            if (lastPreparedCheckId != null)
                 reset()
             mediaPlayer.setDataSource(fileExplorer.obtainOrCreateAudioFile(id).path)
             mediaPlayer.prepare()
             lastPreparedCheckId = id
         }
 
-        override fun play(id: String, progress: Float) {
+        override fun play(id: String) {
             if (lastPreparedCheckId != id)
                 prepare(id)
             mediaPlayer.start()
@@ -39,11 +39,12 @@ interface AudioManager {
         }
 
         override fun reset() {
-            mediaPlayer.reset()
-            lastPreparedCheckId = null
+            runCatching {
+                lastPreparedCheckId = null
+                mediaPlayer.reset()
+            }
         }
 
-        override fun progress(): Float =
-            mediaPlayer.currentPosition.toFloat() / mediaPlayer.duration.toFloat()
+        override fun progress(): Float = mediaPlayer.currentPosition.toFloat() / mediaPlayer.duration.toFloat()
     }
 }

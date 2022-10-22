@@ -8,18 +8,18 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.Photo
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ext.toBoolean
 import com.progressterra.ipbandroidview.ext.toYesNo
 import com.progressterra.ipbandroidview.ui.checklist.Check
+import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 
 interface UpdateAnswerUseCase {
 
-    suspend fun update(check: Check, photos: List<Photo>, voiceWasCreated: Boolean): Result<Check>
+    suspend fun update(check: Check, checkDetails: CurrentCheckMedia): Result<Check>
 
     class Base(
         manageResources: ManageResources,
@@ -35,9 +35,10 @@ interface UpdateAnswerUseCase {
 
         override suspend fun update(
             check: Check,
-            photos: List<Photo>,
-            voiceWasCreated: Boolean
+            checkDetails: CurrentCheckMedia
         ): Result<Check> = handle {
+            checkDetails.attachedVoice
+
             if (voiceWasCreated) {
                 withToken { token ->
                     mediaDataRepository.attachToEntity(

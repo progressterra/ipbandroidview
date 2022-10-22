@@ -6,8 +6,8 @@ import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.StartActivity
-import com.progressterra.ipbandroidview.core.StartActivityCache
+import com.progressterra.ipbandroidview.core.startactivity.StartActivity
+import com.progressterra.ipbandroidview.core.startactivity.StartActivityCache
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.permission.PermissionCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager

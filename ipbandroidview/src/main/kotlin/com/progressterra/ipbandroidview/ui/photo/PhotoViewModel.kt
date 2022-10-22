@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.photo
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.FileExplorer
-import com.progressterra.ipbandroidview.core.Photo
+import com.progressterra.ipbandroidview.core.Picture
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -17,12 +17,12 @@ class PhotoViewModel(private val fileExplorer: FileExplorer) : ViewModel(),
 
     @Suppress("unused")
     fun setPhoto(
-        photo: Photo
+        picture: Picture
     ) = intent {
         reduce {
             PhotoState(
-                fileExplorer.obtainPictureFileAsBitmap(photo.id),
-                readOnly = !photo.editable
+                fileExplorer.obtainPictureFileAsBitmap(picture.id),
+                readOnly = !picture.editable
             )
         }
     }

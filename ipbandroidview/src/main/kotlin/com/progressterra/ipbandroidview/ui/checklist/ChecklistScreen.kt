@@ -80,7 +80,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                 modifier = Modifier.fillMaxWidth().heightIn(min = 300.dp),
                 state = state.screenState,
                 onRefresh = { interactor.refresh() }) {
-                if (state.currentCheck != null && state.currentCheckDetails != null) {
+                if (state.currentCheck != null && state.currentCheckMedia != null) {
                     Column(
                         modifier = Modifier
                             .background(AppTheme.colors.background)
@@ -129,9 +129,9 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             Box(modifier = Modifier.padding(4.dp)) {
                                 VoiceInput(modifier = Modifier.fillMaxWidth(),
                                     state = state.voiceState,
-                                    onStartRecording = { interactor.startRecording() },
+                                    onStartRecording = { interactor.startStopRecording() },
                                     onStopRecording = { interactor.stopRecording() },
-                                    onStartPlay = { interactor.startPlay() },
+                                    onStartPlay = { interactor.startPausePlay() },
                                     onPausePlay = { interactor.pausePlay() },
                                     onRemove = {
                                         interactor.removeRecord()
@@ -149,7 +149,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 AttachedPhoto(
                                     modifier = Modifier.fillMaxWidth(),
                                     enabled = state.checklist.ongoing,
-                                    photos = state.photos + state.currentCheckDetails.attachedPhotosPointers,
+                                    pictures = state.photos + state.currentCheckMedia.attachedPhotosPointers,
                                     onPhotoSelect = { interactor.openImage(it) },
                                     onCamera = { interactor.onCamera() }
                                 )
@@ -160,7 +160,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             Row(Modifier.padding(horizontal = 8.dp)) {
                                 ThemedButton(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
-                                        interactor.ready()
+                                        interactor.applyCheck()
                                         coroutineScope.launch { sheetState.hide() }
                                     }, text = stringResource(id = R.string.ready)
                                 )
@@ -211,7 +211,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             items(checks.sortedBy { it.name }) {
                                 CheckCard(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
-                                        interactor.onCheck(it)
+                                        interactor.check(it)
                                         coroutineScope.launch { sheetState.show() }
                                     }, name = it.name, yesNo = it.yesNo
                                 )

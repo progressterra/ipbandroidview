@@ -24,20 +24,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.Photo
+import com.progressterra.ipbandroidview.core.Picture
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun AttachedPhoto(
     modifier: Modifier = Modifier,
-    photos: List<Photo>,
-    onPhotoSelect: (photo: Photo) -> Unit,
+    pictures: List<Picture>,
+    onPhotoSelect: (picture: Picture) -> Unit,
     onCamera: () -> Unit,
     enabled: Boolean
 ) {
 
     @Composable
-    fun Item(photo: Photo, ordinal: String) {
+    fun Item(picture: Picture, ordinal: String) {
         Box(
             modifier = Modifier
                 .size(48.dp)
@@ -46,7 +46,7 @@ fun AttachedPhoto(
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(),
-                    onClick = { onPhotoSelect(photo) }
+                    onClick = { onPhotoSelect(picture) }
 
                 ), contentAlignment = Alignment.Center) {
             Text(
@@ -57,7 +57,7 @@ fun AttachedPhoto(
         }
 
     }
-    if (photos.isEmpty()) {
+    if (pictures.isEmpty()) {
         Row(
             modifier = modifier
                 .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
@@ -112,8 +112,8 @@ fun AttachedPhoto(
                     }
                 }
             }
-            itemsIndexed(photos) { index, item ->
-                Item(ordinal = index.toString(), photo = item)
+            itemsIndexed(pictures) { index, item ->
+                Item(ordinal = index.toString(), picture = item)
             }
         }
     }

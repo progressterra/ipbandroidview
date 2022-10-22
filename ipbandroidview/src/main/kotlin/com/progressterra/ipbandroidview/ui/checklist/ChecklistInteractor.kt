@@ -2,11 +2,13 @@ package com.progressterra.ipbandroidview.ui.checklist
 
 import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.Refresh
-import com.progressterra.ipbandroidview.core.Photo
+import com.progressterra.ipbandroidview.core.Picture
 
 interface ChecklistInteractor : Back, Refresh {
 
-    fun onCheck(check: Check)
+    fun check(check: Check)
+
+    fun closeCheck()
 
     fun startStopAudit()
 
@@ -14,31 +16,27 @@ interface ChecklistInteractor : Back, Refresh {
 
     fun onCheckCommentaryChange(comment: String)
 
-    fun startPlay()
+    fun startPausePlay()
 
-    fun pausePlay()
-
-    fun startRecording()
-
-    fun stopRecording()
+    fun startStopRecording()
 
     fun removeRecord()
 
-    fun ready()
+    fun applyCheck()
 
-    fun openImage(photo: Photo)
+    fun openImage(picture: Picture)
 
     fun onCamera()
 
     class Empty : ChecklistInteractor {
 
+        override fun back() = Unit
+
         override fun refresh() = Unit
 
-        override fun openImage(photo: Photo) = Unit
+        override fun check(check: Check) = Unit
 
-        override fun onCheck(check: Check) = Unit
-
-        override fun back() = Unit
+        override fun closeCheck() = Unit
 
         override fun startStopAudit() = Unit
 
@@ -46,17 +44,15 @@ interface ChecklistInteractor : Back, Refresh {
 
         override fun onCheckCommentaryChange(comment: String) = Unit
 
-        override fun startPlay() = Unit
+        override fun startPausePlay() = Unit
 
-        override fun pausePlay() = Unit
-
-        override fun startRecording() = Unit
-
-        override fun stopRecording() = Unit
+        override fun startStopRecording() = Unit
 
         override fun removeRecord() = Unit
 
-        override fun ready() = Unit
+        override fun applyCheck() = Unit
+
+        override fun openImage(picture: Picture) = Unit
 
         override fun onCamera() = Unit
     }
