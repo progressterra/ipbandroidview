@@ -50,8 +50,8 @@ interface UpdateAnswerUseCase {
                         0,
                         MultipartBody.Part.createFormData(
                             "file",
-                            fileExplorer.obtainOrCreateAudioFile(check.id).name,
-                            fileExplorer.obtainOrCreateAudioFile(check.id)
+                            fileExplorer.audioFile(check.id).name,
+                            fileExplorer.audioFile(check.id)
                                 .asRequestBody("audio/*".toMediaTypeOrNull())
                         )
                     )
@@ -68,8 +68,8 @@ interface UpdateAnswerUseCase {
                         0,
                         MultipartBody.Part.createFormData(
                             "file",
-                            fileExplorer.obtainPictureFile(photoId).name,
-                            fileExplorer.obtainPictureFile(photoId)
+                            fileExplorer.pictureFile(photoId).name,
+                            fileExplorer.pictureFile(photoId)
                                 .asRequestBody("image/*".toMediaTypeOrNull())
                         )
                     )

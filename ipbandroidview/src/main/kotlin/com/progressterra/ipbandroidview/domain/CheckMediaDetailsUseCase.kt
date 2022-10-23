@@ -26,7 +26,7 @@ interface CheckMediaDetailsUseCase {
         CheckMediaDetailsUseCase {
 
         override suspend fun checkDetails(check: Check): Result<CurrentCheckMedia> = handle {
-            var voice: Voice? = null
+            val voices = mutableListOf<Voice>()
             val pictures = mutableListOf<Picture>()
             withToken {
                 mediaDataRepository.attachedToEntity(
@@ -36,29 +36,29 @@ interface CheckMediaDetailsUseCase {
             }.getOrThrow()?.forEach { item ->
                 if (item.contentType == 0) {
                     val sizes = gson.fromJson(item.dataJSON, ImageData::class.java).list
-                    Picture(
-                        id = item.idUnique!!,
-                        local = false,
+                    Picture.Remote(
                         toRemove = false,
                         thumbnail = sizes.first { it.sizeType == 1 }.url,
                         fullSize = sizes.first { it.sizeType == 0 }.url
                     )
-                } else if (item.contentType == 6 && voice == null) {
+                } else if (item.contentType == 6 && voices.size == 0) {
                     saveAudio(withToken {
                         mediaDataRepository.downloadFile(
                             it,
                             item.urlData!!
                         )
                     }.getOrThrow(), item.idUnique!!)
-                    voice = Voice(
-                        id = item.idUnique!!,
-                        local = false,
-                        toRemove = false
+                    voices.add(
+                        Voice(
+                            id = item.idUnique!!,
+                            local = false,
+                            toRemove = false
+                        )
                     )
                 }
             }
             CurrentCheckMedia(
-                attachedVoice = voice ?: Voice.createEmpty(),
+                voices = voices,
                 pictures = pictures
             )
         }

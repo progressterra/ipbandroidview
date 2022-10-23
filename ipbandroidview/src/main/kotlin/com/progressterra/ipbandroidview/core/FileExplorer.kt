@@ -12,21 +12,19 @@ import java.io.InputStream
 
 interface FileExplorer {
 
-    fun writeInputStreamToAudio(inputStream: InputStream, id: String)
+    fun inputStreamToVoices(inputStream: InputStream, id: String)
 
-    fun writeInputStreamToPicture(inputStream: InputStream, id: String)
+    fun inputStreamToPictures(inputStream: InputStream, id: String)
 
-    fun obtainPictureFileAsBitmap(id: String): Bitmap
+    fun bitmapToPictures(bitmap: Bitmap, id: String)
 
-    fun obtainPictureFile(id: String): File
+    fun pictureFileAsBitmap(id: String): Bitmap
 
-    fun obtainOrCreateAudioFile(id: String): File
+    fun pictureFile(id: String): File
+
+    fun audioFile(id: String): File
 
     fun uriForFile(file: File): Uri
-
-    fun picturesFolder(): File
-
-    fun exist(id: String): Boolean
 
     fun reset()
 
@@ -42,13 +40,19 @@ interface FileExplorer {
             "${context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)}"
         }
 
+        override fun bitmapToPictures(bitmap: Bitmap, id: String) {
+            val fileOutputStream = context.openFileOutput("$picturesFolderPath/$id.jpg", Context.MODE_PRIVATE)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
+            fileOutputStream.close()
+        }
+
         override fun uriForFile(file: File): Uri = FileProvider.getUriForFile(
             context,
             authority,
             file
         )
 
-        override fun writeInputStreamToPicture(
+        override fun inputStreamToPictures(
             inputStream: InputStream,
             id: String
         ) {
@@ -66,7 +70,7 @@ interface FileExplorer {
                 }
         }
 
-        override fun writeInputStreamToAudio(inputStream: InputStream, id: String) {
+        override fun inputStreamToVoices(inputStream: InputStream, id: String) {
             if (!exist(id))
                 inputStream.use { input ->
                     val fos = FileOutputStream(File("$voiceFolderPath/$id.m4a"))
@@ -81,21 +85,15 @@ interface FileExplorer {
                 }
         }
 
-        override fun obtainOrCreateAudioFile(id: String): File =
+        override fun audioFile(id: String): File =
             File("$voiceFolderPath/$id.m4a")
 
-        override fun obtainPictureFileAsBitmap(id: String): Bitmap =
+        override fun pictureFileAsBitmap(id: String): Bitmap =
             BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
 
-        override fun obtainPictureFile(id: String): File = File("$picturesFolderPath/$id.jpg")
+        override fun pictureFile(id: String): File = File("$picturesFolderPath/$id.jpg")
 
-        override fun deletePicture(id: String) {
-            File("$picturesFolderPath/$id.jpg").delete()
-        }
-
-        override fun picturesFolder(): File = File(picturesFolderPath)
-
-        override fun exist(id: String): Boolean =
+        private fun exist(id: String): Boolean =
             File("$voiceFolderPath/$id.m4a").exists() || File("$picturesFolderPath/$id.jpg").exists()
 
         override fun reset() {

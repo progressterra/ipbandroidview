@@ -13,8 +13,8 @@ import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.Picture
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.core.startactivity.StartActivityCache
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
+import com.progressterra.ipbandroidview.core.picture.PictureCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.CheckMediaDetailsUseCase
@@ -45,8 +45,8 @@ class ChecklistViewModel(
     private val voiceManager: VoiceManager,
     private val audioManager: AudioManager,
     private val fileExplorer: FileExplorer,
-    private val startActivityCache: StartActivityCache,
-    private val checkMediaDetailsUseCase: CheckMediaDetailsUseCase
+    private val checkMediaDetailsUseCase: CheckMediaDetailsUseCase,
+    private val pictureCache: PictureCache.Client
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
     ChecklistInteractor {
 
@@ -212,7 +212,7 @@ class ChecklistViewModel(
         } else {
             state.currentCheck?.let {
                 audioManager.play(
-                    state.currentCheckMedia?.voices?.first()?.id ?: it.id
+                    state.currentCheckMedia?.voices?.last()?.id ?: it.id
                 )
             }
             var progress: Float
@@ -298,16 +298,27 @@ class ChecklistViewModel(
     override fun onCamera() = intent {
         if (managePermission.checkPermission(cameraPermission)) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val newPhotoId = "TempPhoto${state.photos.size}"
-            val photoFile: File = fileExplorer.obtainPictureFile(newPhotoId)
+            val newPhotoId = "TempPhoto_${System.currentTimeMillis()}"
+            val photoFile: File = fileExplorer.pictureFile(newPhotoId)
             val uri = fileExplorer.uriForFile(photoFile)
             Log.d("PHOTO", "photo uri $uri")
-            reduce {
-                state.copy(
-                    photos = state.photos.toMutableList().apply { add(Picture(newPhotoId, true)) })
-            }
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            startActivityCache.startActivityFromIntent(intent)
+            pictureCache.intentChannel.send(intent)
+            pictureCache.thumbnailChannel.receive()?.let {
+                reduce {
+                    state.copy(
+                        currentCheckMedia = state.currentCheckMedia!!.copy(
+                            pictures = state.currentCheckMedia!!.pictures.plus(
+                                Picture.Local(
+                                    toRemove = false,
+                                    thumbnail = it,
+                                    fullSize = newPhotoId
+                                )
+                            )
+                        )
+                    )
+                }
+            }
         } else
             managePermission.requirePermission(cameraPermission)
     }

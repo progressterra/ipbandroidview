@@ -130,13 +130,12 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 VoiceInput(modifier = Modifier.fillMaxWidth(),
                                     state = state.voiceState,
                                     onStartRecording = { interactor.startStopRecording() },
-                                    onStopRecording = { interactor.stopRecording() },
+                                    onStopRecording = { interactor.startStopRecording() },
                                     onStartPlay = { interactor.startPausePlay() },
-                                    onPausePlay = { interactor.pausePlay() },
+                                    onPausePlay = { interactor.startPausePlay() },
                                     onRemove = {
                                         interactor.removeRecord()
-                                    },
-                                editable = state.voiceEditable)
+                                    })
                             }
                             Box(
                                 modifier = Modifier.padding(
@@ -149,7 +148,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 AttachedPhoto(
                                     modifier = Modifier.fillMaxWidth(),
                                     enabled = state.checklist.ongoing,
-                                    pictures = state.photos + state.currentCheckMedia.attachedPhotosPointers,
+                                    pictures = state.currentCheckMedia.pictures.filter { !it.toRemove },
                                     onPhotoSelect = { interactor.openImage(it) },
                                     onCamera = { interactor.onCamera() }
                                 )

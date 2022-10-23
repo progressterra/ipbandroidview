@@ -93,6 +93,6 @@ val useCasesModule = module {
     }
 
     single<CheckMediaDetailsUseCase> {
-        CheckMediaDetailsUseCase.Base(get(), get(), get(), get())
+        CheckMediaDetailsUseCase.Base(get(), get(), get(), get(), get())
     }
 }

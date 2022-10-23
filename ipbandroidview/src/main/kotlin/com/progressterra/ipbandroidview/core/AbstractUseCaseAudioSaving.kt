@@ -13,6 +13,6 @@ abstract class AbstractUseCaseAudioSaving(
 ) : AbstractUseCaseWithToken(scrmRepository, provideLocation) {
 
     protected suspend fun saveAudio(inputStream: InputStream, id: String) {
-        withContext(Dispatchers.IO) { fileExplorer.writeInputStreamToAudio(inputStream, id) }
+        withContext(Dispatchers.IO) { fileExplorer.inputStreamToVoices(inputStream, id) }
     }
 }

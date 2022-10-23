@@ -57,4 +57,5 @@
     <string name="photo">Фотография</string>
     <string name="camera">Камера</string>
     <string name="add_photo">Добавить фото</string>
+    <string name="thumbnail">Превью фото</string>
 </resources>
