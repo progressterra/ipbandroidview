@@ -310,6 +310,7 @@ class ChecklistViewModel(
                         currentCheckMedia = state.currentCheckMedia!!.copy(
                             pictures = state.currentCheckMedia!!.pictures.plus(
                                 Picture.Local(
+                                    id = newPhotoId,
                                     toRemove = false,
                                     thumbnail = it,
                                     fullSize = newPhotoId

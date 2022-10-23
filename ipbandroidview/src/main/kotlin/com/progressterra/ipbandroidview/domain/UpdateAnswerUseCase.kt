@@ -37,43 +37,51 @@ interface UpdateAnswerUseCase {
             check: Check,
             checkDetails: CurrentCheckMedia
         ): Result<Check> = handle {
-            checkDetails.attachedVoice
-
-            if (voiceWasCreated) {
-                withToken { token ->
-                    mediaDataRepository.attachToEntity(
-                        token,
-                        check.id,
-                        typeContent = 6,
-                        "DrCheckListItem",
-                        "",
-                        0,
-                        MultipartBody.Part.createFormData(
-                            "file",
-                            fileExplorer.audioFile(check.id).name,
-                            fileExplorer.audioFile(check.id)
-                                .asRequestBody("audio/*".toMediaTypeOrNull())
+            checkDetails.voices.forEach { voice ->
+                if (voice.local)
+                    withToken { token ->
+                        mediaDataRepository.attachToEntity(
+                            token,
+                            check.id,
+                            typeContent = 6,
+                            "DrCheckListItem",
+                            "",
+                            0,
+                            MultipartBody.Part.createFormData(
+                                "file",
+                                fileExplorer.audioFile(voice.id).name,
+                                fileExplorer.audioFile(voice.id)
+                                    .asRequestBody("audio/*".toMediaTypeOrNull())
+                            )
                         )
-                    )
-                }
+                    }
+                if (!voice.local)
+                    withToken { token ->
+                        mediaDataRepository.deleteMediaData(token, voice.id)
+                    }
             }
-            photos.map { it.id }.forEach { photoId ->
-                withToken { token ->
-                    mediaDataRepository.attachToEntity(
-                        token,
-                        check.id,
-                        0,
-                        "DrCheckListItem",
-                        "",
-                        0,
-                        MultipartBody.Part.createFormData(
-                            "file",
-                            fileExplorer.pictureFile(photoId).name,
-                            fileExplorer.pictureFile(photoId)
-                                .asRequestBody("image/*".toMediaTypeOrNull())
+            checkDetails.pictures.forEach { picture ->
+                if (picture.local)
+                    withToken { token ->
+                        mediaDataRepository.attachToEntity(
+                            token,
+                            check.id,
+                            typeContent = 0,
+                            "DrCheckListItem",
+                            "",
+                            0,
+                            MultipartBody.Part.createFormData(
+                                "file",
+                                fileExplorer.pictureFile(picture.fullSize).name,
+                                fileExplorer.pictureFile(picture.fullSize)
+                                    .asRequestBody("image/*".toMediaTypeOrNull())
+                            )
                         )
-                    )
-                }
+                    }
+                if (!picture.local)
+                    withToken { token ->
+                        mediaDataRepository.deleteMediaData(token, picture.id)
+                    }
             }
             val result = withToken {
                 repo.createOrUpdateAnswer(
