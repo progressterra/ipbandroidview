@@ -37,8 +37,9 @@ interface CheckMediaDetailsUseCase {
                 if (item.contentType == 0) {
                     val sizes = gson.fromJson(item.dataJSON, ImageData::class.java).list
                     pictures.add(
-                        Picture.Remote(
+                        Picture(
                             id = item.idUnique!!,
+                            local = false,
                             toRemove = false,
                             thumbnail = sizes.first { it.sizeType == 1 }.url,
                             fullSize = sizes.first { it.sizeType == 0 }.url

@@ -16,10 +16,12 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.picture.PictureCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
+import com.progressterra.ipbandroidview.core.voice.Voice
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.formPatch
+import com.progressterra.ipbandroidview.ext.markLastToRemove
 import com.progressterra.ipbandroidview.ext.markToRemove
 import com.progressterra.ipbandroidview.ext.replaceById
 import kotlinx.coroutines.delay
@@ -241,7 +243,20 @@ class ChecklistViewModel(
     override fun startStopRecording() = intent {
         if (state.voiceState.ongoing) {
             voiceManager.stopRecording()
-            reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
+            reduce {
+                state.copy(
+                    voiceState = VoiceState.Player(false, 0f),
+                    currentCheckMedia = state.currentCheckMedia!!.copy(
+                        voices = state.currentCheckMedia!!.voices.plus(
+                            Voice(
+                                id = "TempVoice_${System.currentTimeMillis()}",
+                                local = true,
+                                toRemove = false
+                            )
+                        )
+                    )
+                )
+            }
         } else {
             if (managePermission.checkPermission(micPermission)) {
                 state.currentCheck?.let {
@@ -255,15 +270,26 @@ class ChecklistViewModel(
 
     override fun removeRecord() = intent {
         audioManager.reset()
-        reduce { state.copy(voiceState = VoiceState.Recorder(false)) }
+        reduce {
+            state.copy(
+                voiceState = VoiceState.Recorder(false),
+                currentCheckMedia = state.currentCheckMedia!!.copy(
+                    voices = state.currentCheckMedia!!.voices.markLastToRemove()
+                )
+            )
+        }
     }
 
     override fun applyCheck() = intent {
         updateAnswerUseCase.update(
             check = state.currentCheck!!,
             checkDetails = state.currentCheckMedia!!.copy(
-                voices = state.currentCheckMedia!!.voices.formPatch(),
-                pictures = state.currentCheckMedia!!.pictures.formPatch()
+                voices = state.currentCheckMedia!!.voices.formPatch().apply {
+                    Log.d("CHECK", "$this")
+                },
+                pictures = state.currentCheckMedia!!.pictures.formPatch().apply {
+                    Log.d("CHECK", "$this")
+                }
             ),
         ).onSuccess {
             val newChecklist = state.checklist.copy(
@@ -306,7 +332,6 @@ class ChecklistViewModel(
             val newThumbnailId = "TempPhotoThumbnail_$currentTime"
             val photoFile: File = fileExplorer.pictureFile(newPhotoId)
             val uri = fileExplorer.uriForFile(photoFile)
-            Log.d("PHOTO", "photo uri $uri")
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             pictureCache.intentChannel.send(intent)
             pictureCache.thumbnailChannel.receive()?.let {
@@ -315,8 +340,9 @@ class ChecklistViewModel(
                     state.copy(
                         currentCheckMedia = state.currentCheckMedia!!.copy(
                             pictures = state.currentCheckMedia!!.pictures.plus(
-                                Picture.Local(
+                                Picture(
                                     id = newPhotoId,
+                                    local = true,
                                     toRemove = false,
                                     thumbnail = fileExplorer.uriForFile(
                                         fileExplorer.pictureFile(

@@ -21,8 +21,7 @@ class PhotoViewModel(private val fileExplorer: FileExplorer) : ViewModel(),
     ) = intent {
         reduce {
             PhotoState(
-                picture = picture,
-                bitmap = if (picture.local) fileExplorer.pictureFileAsBitmap(picture.fullSize) else null
+                picture = picture
             )
         }
     }
