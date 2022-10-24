@@ -68,7 +68,7 @@ fun VoiceInput(
                                     contentDescription = stringResource(
                                         id = R.string.trash
                                     ),
-                                    tint = AppTheme.colors.error
+                                    tint = if (enabled) AppTheme.colors.error else AppTheme.colors.gray2
                                 )
                             }
                         else
@@ -87,7 +87,7 @@ fun VoiceInput(
                                 contentDescription = stringResource(
                                     id = R.string.mic
                                 ),
-                                tint = AppTheme.colors.primary
+                                tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
                             )
 
                         }
@@ -118,7 +118,7 @@ fun VoiceInput(
                             contentDescription = stringResource(
                                 id = R.string.trash
                             ),
-                            tint = AppTheme.colors.error
+                            tint = if (enabled) AppTheme.colors.error else AppTheme.colors.gray2
                         )
                     }
                     Spacer(modifier = Modifier.size(16.dp))
