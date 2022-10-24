@@ -82,7 +82,7 @@ val iPBAndroidViewModule = module {
     }
 
     single<VoiceManager> {
-        VoiceManager.Base(get(), get())
+        VoiceManager.Base(get())
     }
 
     single<AudioManager> {
