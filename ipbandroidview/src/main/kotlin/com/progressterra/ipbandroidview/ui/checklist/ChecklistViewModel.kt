@@ -352,8 +352,8 @@ class ChecklistViewModel(
                                 id = newPhotoId,
                                 local = true,
                                 toRemove = false,
-                                thumbnail = newPhotoId,
-                                fullSize = newPhotoId
+                                thumbnail = uri.toString(),
+                                fullSize = uri.toString()
                             )
                         )
                     )
