@@ -76,8 +76,9 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     )
                 }
             })
-            StateBox(
-                modifier = Modifier.fillMaxWidth().heightIn(min = 300.dp),
+            StateBox(modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(min = 300.dp),
                 state = state.screenState,
                 onRefresh = { interactor.refresh() }) {
                 if (state.currentCheck != null && state.currentCheckMedia != null) {
@@ -127,7 +128,8 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 )
                             }
                             Box(modifier = Modifier.padding(4.dp)) {
-                                VoiceInput(modifier = Modifier.fillMaxWidth(),
+                                VoiceInput(
+                                    modifier = Modifier.fillMaxWidth(),
                                     state = state.voiceState,
                                     onStartRecording = { interactor.startStopRecording() },
                                     onStopRecording = { interactor.startStopRecording() },
@@ -135,23 +137,20 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     onPausePlay = { interactor.startPausePlay() },
                                     onRemove = {
                                         interactor.removeRecord()
-                                    })
+                                    },
+                                    enabled = state.checklist.ongoing
+                                )
                             }
                             Box(
                                 modifier = Modifier.padding(
-                                    top = 4.dp,
-                                    start = 12.dp,
-                                    end = 12.dp,
-                                    bottom = 12.dp
+                                    top = 4.dp, start = 12.dp, end = 12.dp, bottom = 12.dp
                                 )
                             ) {
-                                AttachedPhoto(
-                                    modifier = Modifier.fillMaxWidth(),
+                                AttachedPhoto(modifier = Modifier.fillMaxWidth(),
                                     enabled = state.checklist.ongoing,
                                     pictures = state.currentCheckMedia.pictures.filter { !it.toRemove },
                                     onPhotoSelect = { interactor.openImage(it) },
-                                    onCamera = { interactor.onCamera() }
-                                )
+                                    onCamera = { interactor.onCamera() })
                             }
                         }
                         if (state.checklist.ongoing) {
@@ -173,8 +172,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
     ) {
         Scaffold(topBar = {
             ThemedTopAppBar(
-                onBack = { interactor.back() },
-                title = stringResource(id = R.string.audit)
+                onBack = { interactor.back() }, title = stringResource(id = R.string.audit)
             )
         }) {
             Box(
@@ -188,8 +186,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         .fillMaxSize()
                         .padding(
                             top = 8.dp, start = 8.dp, end = 8.dp
-                        ),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ), verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     item {
                         AuditTitle(
@@ -224,8 +221,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             .align(Alignment.BottomCenter)
                             .onGloballyPositioned {
                                 spacerSize = with(density) { it.size.height.toDp() }
-                            }
-                    ) {
+                            }) {
                         Row {
                             ThemedButton(
                                 modifier = Modifier.weight(1f),

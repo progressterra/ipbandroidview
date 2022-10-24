@@ -18,7 +18,11 @@ import com.progressterra.ipbandroidview.core.picture.PictureCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.Voice
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
-import com.progressterra.ipbandroidview.domain.*
+import com.progressterra.ipbandroidview.domain.CheckMediaDetailsUseCase
+import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
+import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
+import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
@@ -31,7 +35,6 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
-import java.io.File
 
 class ChecklistViewModel(
     private val createDocumentUseCase: CreateDocumentUseCase,
@@ -293,12 +296,8 @@ class ChecklistViewModel(
         updateAnswerUseCase.update(
             check = state.currentCheck!!,
             checkDetails = state.currentCheckMedia!!.copy(
-                voices = state.currentCheckMedia!!.voices.formPatch().apply {
-                    Log.d("CHECK", "$this")
-                },
-                pictures = state.currentCheckMedia!!.pictures.formPatch().apply {
-                    Log.d("CHECK", "$this")
-                }
+                voices = state.currentCheckMedia!!.voices.formPatch(),
+                pictures = state.currentCheckMedia!!.pictures.formPatch()
             ),
         ).onSuccess {
             val newChecklist = state.checklist.copy(
@@ -336,29 +335,26 @@ class ChecklistViewModel(
     override fun onCamera() = intent {
         if (managePermission.checkPermission(cameraPermission)) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val currentTime = System.currentTimeMillis()
-            val newPhotoId = "TempPhoto_$currentTime"
-            val photoFile: File = fileExplorer.pictureFile(newPhotoId)
-            val uri = fileExplorer.uriForFile(photoFile)
+            val newPhotoId = "TempPhoto_${System.currentTimeMillis()}"
+            val uri = fileExplorer.uriForFile(fileExplorer.pictureFile(newPhotoId))
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             pictureCache.intentChannel.send(intent)
-            val received = pictureCache.thumbnailChannel.receive()
-            Log.d("CAMERA", "Received $received")
-            reduce {
-                state.copy(
-                    currentCheckMedia = state.currentCheckMedia!!.copy(
-                        pictures = state.currentCheckMedia!!.pictures.plus(
-                            Picture(
-                                id = newPhotoId,
-                                local = true,
-                                toRemove = false,
-                                thumbnail = uri.toString(),
-                                fullSize = uri.toString()
+            if (pictureCache.thumbnailChannel.receive())
+                reduce {
+                    state.copy(
+                        currentCheckMedia = state.currentCheckMedia!!.copy(
+                            pictures = state.currentCheckMedia!!.pictures.plus(
+                                Picture(
+                                    id = newPhotoId,
+                                    local = true,
+                                    toRemove = false,
+                                    thumbnail = uri.toString(),
+                                    fullSize = uri.toString()
+                                )
                             )
                         )
                     )
-                )
-            }
+                }
         } else
             managePermission.requirePermission(cameraPermission)
     }

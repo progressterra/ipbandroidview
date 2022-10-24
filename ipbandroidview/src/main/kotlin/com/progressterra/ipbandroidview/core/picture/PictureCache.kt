@@ -11,18 +11,18 @@ interface PictureCache {
     interface Activity : PictureCache {
 
         val intentChannel: ReceiveChannel<Intent>
-        val thumbnailChannel: SendChannel<Bitmap?>
+        val thumbnailChannel: SendChannel<Boolean>
     }
 
     interface Client : PictureCache {
 
         val intentChannel: SendChannel<Intent>
-        val thumbnailChannel: ReceiveChannel<Bitmap?>
+        val thumbnailChannel: ReceiveChannel<Boolean>
     }
 
     class Base : Activity, Client {
 
         override val intentChannel = Channel<Intent>()
-        override val thumbnailChannel = Channel<Bitmap?>()
+        override val thumbnailChannel = Channel<Boolean>()
     }
 }

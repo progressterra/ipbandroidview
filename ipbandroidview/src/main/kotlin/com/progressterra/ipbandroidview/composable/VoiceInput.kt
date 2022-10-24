@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+//TODO enabled colors
+
 sealed class VoiceState(
     val ongoing: Boolean
 ) {
@@ -41,7 +43,8 @@ fun VoiceInput(
     onPausePlay: () -> Unit,
     onStartRecording: () -> Unit,
     onStopRecording: () -> Unit,
-    onRemove: () -> Unit
+    onRemove: () -> Unit,
+    enabled: Boolean = true
 ) {
     when (state) {
         is VoiceState.Recorder ->
@@ -59,7 +62,8 @@ fun VoiceInput(
                         if (state.ongoing)
                             IconButton(
                                 modifier = Modifier.size(24.dp),
-                                onClick = onRemove
+                                onClick = onRemove,
+                                enabled = enabled
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.ic_trash),
@@ -77,7 +81,8 @@ fun VoiceInput(
                             )
                         IconButton(
                             modifier = Modifier.size(24.dp),
-                            onClick = if (state.ongoing) onStopRecording else onStartRecording
+                            onClick = if (state.ongoing) onStopRecording else onStartRecording,
+                            enabled = enabled
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_mic),
@@ -107,7 +112,8 @@ fun VoiceInput(
                 ) {
                     IconButton(
                         modifier = Modifier.size(24.dp),
-                        onClick = onRemove
+                        onClick = onRemove,
+                        enabled = enabled
                     ) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_trash),
@@ -125,7 +131,8 @@ fun VoiceInput(
                     Spacer(modifier = Modifier.size(16.dp))
                     IconButton(
                         modifier = Modifier.size(24.dp),
-                        onClick = if (state.ongoing) onPausePlay else onStartPlay
+                        onClick = if (state.ongoing) onPausePlay else onStartPlay,
+                        enabled = enabled
                     ) {
                         Icon(
                             painter = painterResource(id = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play),
