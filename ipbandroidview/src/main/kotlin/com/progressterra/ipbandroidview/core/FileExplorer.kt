@@ -14,12 +14,6 @@ interface FileExplorer {
 
     fun inputStreamToVoices(inputStream: InputStream, id: String)
 
-    fun inputStreamToPictures(inputStream: InputStream, id: String)
-
-    fun bitmapToPictures(bitmap: Bitmap, id: String)
-
-    fun pictureFileAsBitmap(id: String): Bitmap
-
     fun pictureFile(id: String): File
 
     fun audioFile(id: String): File
@@ -40,11 +34,6 @@ interface FileExplorer {
             "${context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)}"
         }
 
-        override fun bitmapToPictures(bitmap: Bitmap, id: String) {
-            val fileOutputStream = context.openFileOutput("$picturesFolderPath/$id.jpg", Context.MODE_PRIVATE)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
-            fileOutputStream.close()
-        }
 
         override fun uriForFile(file: File): Uri = FileProvider.getUriForFile(
             context,
@@ -52,23 +41,6 @@ interface FileExplorer {
             file
         )
 
-        override fun inputStreamToPictures(
-            inputStream: InputStream,
-            id: String
-        ) {
-            if (!exist(id))
-                inputStream.use { input ->
-                    val fos = FileOutputStream(File("$picturesFolderPath/$id.jpg"))
-                    fos.use { output ->
-                        val buffer = ByteArray(4 * 1024)
-                        var read: Int
-                        while (input.read(buffer).also { read = it } != -1) {
-                            output.write(buffer, 0, read)
-                        }
-                        output.flush()
-                    }
-                }
-        }
 
         override fun inputStreamToVoices(inputStream: InputStream, id: String) {
             if (!exist(id))
@@ -88,8 +60,6 @@ interface FileExplorer {
         override fun audioFile(id: String): File =
             File("$voiceFolderPath/$id.m4a")
 
-        override fun pictureFileAsBitmap(id: String): Bitmap =
-            BitmapFactory.decodeFile("$picturesFolderPath/$id.jpg")
 
         override fun pictureFile(id: String): File = File("$picturesFolderPath/$id.jpg")
 

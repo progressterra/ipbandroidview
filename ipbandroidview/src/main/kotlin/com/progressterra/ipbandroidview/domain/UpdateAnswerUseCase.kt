@@ -72,8 +72,8 @@ interface UpdateAnswerUseCase {
                             0,
                             MultipartBody.Part.createFormData(
                                 "file",
-                                fileExplorer.pictureFile(picture.fullSize).name,
-                                fileExplorer.pictureFile(picture.fullSize)
+                                fileExplorer.pictureFile(picture.id).name,
+                                fileExplorer.pictureFile(picture.id)
                                     .asRequestBody("image/*".toMediaTypeOrNull())
                             )
                         )
