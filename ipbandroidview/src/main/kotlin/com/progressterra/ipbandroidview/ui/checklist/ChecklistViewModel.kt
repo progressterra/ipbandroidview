@@ -258,23 +258,28 @@ class ChecklistViewModel(
             voiceManager.stopRecording()
             reduce {
                 state.copy(
-                    voiceState = VoiceState.Player(false, 0f),
-                    currentCheckMedia = state.currentCheckMedia!!.copy(
-                        voices = state.currentCheckMedia!!.voices.plus(
-                            Voice(
-                                id = "TempVoice_${System.currentTimeMillis()}",
-                                local = true,
-                                toRemove = false
-                            )
-                        )
-                    )
+                    voiceState = VoiceState.Player(false, 0f)
                 )
             }
         } else {
             if (managePermission.checkPermission(micPermission)) {
+                val newVoiceId = "TempVoice_${System.currentTimeMillis()}"
                 state.currentCheck?.let {
-                    voiceManager.startRecording(it.id)
-                    reduce { state.copy(voiceState = VoiceState.Recorder(true)) }
+                    voiceManager.startRecording(fileExplorer.audioFile(newVoiceId))
+                    reduce {
+                        state.copy(
+                            voiceState = VoiceState.Recorder(true),
+                            currentCheckMedia = state.currentCheckMedia!!.copy(
+                                voices = state.currentCheckMedia!!.voices.plus(
+                                    Voice(
+                                        id = newVoiceId,
+                                        local = true,
+                                        toRemove = false
+                                    )
+                                )
+                            )
+                        )
+                    }
                 }
             } else
                 managePermission.requirePermission(micPermission)

@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.core.voice
 
 import android.media.MediaRecorder
-import com.progressterra.ipbandroidview.core.FileExplorer
+import java.io.File
 
 interface VoiceManager {
 
-    fun startRecording(id: String)
+    fun startRecording(file: File)
 
     fun stopRecording()
 
@@ -13,13 +13,12 @@ interface VoiceManager {
 
     class Base(
         private val mediaRecorder: MediaRecorder,
-        private val fileExplorer: FileExplorer
     ) : VoiceManager {
 
-        override fun startRecording(id: String) {
+        override fun startRecording(file: File) {
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
-            mediaRecorder.setOutputFile(fileExplorer.audioFile(id))
+            mediaRecorder.setOutputFile(file)
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
             mediaRecorder.prepare()
             mediaRecorder.start()
