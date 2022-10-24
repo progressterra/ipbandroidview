@@ -119,7 +119,6 @@ class ChecklistViewModel(
         state.currentCheck?.let { check ->
             reduce { state.copy(screenState = ScreenState.LOADING) }
             checkMediaDetailsUseCase.checkDetails(check).onSuccess {
-                Log.d("PHOTOS", "refresh: $it")
                 reduce {
                     state.copy(
                         currentCheckMedia = it,
@@ -227,12 +226,14 @@ class ChecklistViewModel(
                 )
             }
         } else {
+            Log.d("AUDIO", "start playing")
             state.currentCheck?.let {
                 audioManager.play(
                     state.currentCheckMedia?.voices?.last()?.id!!
                 )
             }
             var progress: Float
+            Log.d("AUDIO", "progress init")
             while (state.voiceState.ongoing) {
                 progress = audioManager.progress()
                 Log.d("AUDIO", "progress: $progress")
