@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -54,7 +55,7 @@ fun AttachedPhoto(
                 bitmap = picture.thumbnail.asImageBitmap(),
                 contentDescription = stringResource(
                     id = R.string.thumbnail
-                ))
+                ), contentScale = ContentScale.FillBounds)
             is Picture.Remote -> AsyncImage(modifier = Modifier
                 .size(48.dp)
                 .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
@@ -65,7 +66,7 @@ fun AttachedPhoto(
 
                 ), model = picture.thumbnail, contentDescription = stringResource(
                 id = R.string.thumbnail
-            ))
+            ), contentScale = ContentScale.FillBounds)
         }
     }
 

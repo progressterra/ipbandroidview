@@ -17,11 +17,7 @@ import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.picture.PictureCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
-import com.progressterra.ipbandroidview.domain.CheckMediaDetailsUseCase
-import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
-import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
-import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
-import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markToRemove
@@ -68,6 +64,7 @@ class ChecklistViewModel(
             currentCheck = null,
             screenState = ScreenState.SUCCESS,
             currentCheckMedia = null,
+            changedInSession = false
         )
     )
 
@@ -77,11 +74,15 @@ class ChecklistViewModel(
 
     @Suppress("unused")
     fun setDocument(checklist: Checklist) = intent {
-        reduce {
+        if (state.checklist.checklistId != checklist.checklistId ||
+            state.checklist.placeId != checklist.placeId ||
+            (state.checklist.documentId != checklist.documentId) && !state.changedInSession
+        ) reduce {
             ChecklistState(
                 currentCheck = null,
                 currentCheckMedia = null,
                 checklist = checklist,
+                changedInSession = false,
                 stats = checklist.createStats(),
                 voiceState = VoiceState.Recorder(false),
                 screenState = ScreenState.SUCCESS,
@@ -196,6 +197,7 @@ class ChecklistViewModel(
                 }
             }
         }
+        reduce { state.copy(changedInSession = true) }
         postSideEffect(ChecklistEffect.RefreshAudits)
     }
 

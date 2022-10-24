@@ -12,6 +12,7 @@ data class ChecklistState(
     val currentCheckMedia: CurrentCheckMedia?,
     val voiceState: VoiceState,
     val checklist: Checklist,
+    val changedInSession: Boolean,
     val stats: ChecklistStats,
-    val screenState: ScreenState,
+    val screenState: ScreenState
 )
