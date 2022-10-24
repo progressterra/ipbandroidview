@@ -104,6 +104,7 @@ class ChecklistViewModel(
         state.currentCheck?.let { check ->
             reduce { state.copy(screenState = ScreenState.LOADING) }
             checkMediaDetailsUseCase.checkDetails(check).onSuccess {
+                Log.d("PHOTOS", "refresh: $it")
                 reduce {
                     state.copy(
                         currentCheckMedia = it,
