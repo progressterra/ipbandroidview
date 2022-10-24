@@ -92,7 +92,7 @@ dependencies {
     api "androidx.core:core-ktx:1.9.0"
     testApi "junit:junit:4.13.2"
     //Appyx
-    api "com.bumble.appyx:core:1.0.0-rc01"
+    api "com.bumble.appyx:core:1.0.0-rc02"
     //Google map
     api platform("com.google.firebase:firebase-bom:30.5.0")
     api "com.google.firebase:firebase-analytics-ktx"

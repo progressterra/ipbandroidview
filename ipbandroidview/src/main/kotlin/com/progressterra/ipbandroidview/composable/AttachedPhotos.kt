@@ -1,15 +1,9 @@
 package com.progressterra.ipbandroidview.composable
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -42,32 +35,17 @@ fun AttachedPhoto(
 
     @Composable
     fun Item(picture: Picture) {
-        when (picture) {
-            is Picture.Local -> Image(modifier = Modifier
-                .size(48.dp)
-                .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(),
-                    onClick = { onPhotoSelect(picture) }
+        AsyncImage(modifier = Modifier
+            .size(48.dp)
+            .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(),
+                onClick = { onPhotoSelect(picture) }
 
-                ),
-                bitmap = picture.thumbnail.asImageBitmap(),
-                contentDescription = stringResource(
-                    id = R.string.thumbnail
-                ), contentScale = ContentScale.FillBounds)
-            is Picture.Remote -> AsyncImage(modifier = Modifier
-                .size(48.dp)
-                .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(),
-                    onClick = { onPhotoSelect(picture) }
-
-                ), model = picture.thumbnail, contentDescription = stringResource(
-                id = R.string.thumbnail
-            ), contentScale = ContentScale.FillBounds)
-        }
+            ), model = picture.thumbnail, contentDescription = stringResource(
+            id = R.string.thumbnail
+        ), contentScale = ContentScale.FillBounds)
     }
 
     if (pictures.isEmpty()) {

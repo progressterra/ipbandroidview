@@ -301,13 +301,16 @@ class ChecklistViewModel(
     override fun onCamera() = intent {
         if (managePermission.checkPermission(cameraPermission)) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            val newPhotoId = "TempPhoto_${System.currentTimeMillis()}"
+            val currentTime = System.currentTimeMillis()
+            val newPhotoId = "TempPhoto_$currentTime"
+            val newThumbnailId = "TempPhotoThumbnail_$currentTime"
             val photoFile: File = fileExplorer.pictureFile(newPhotoId)
             val uri = fileExplorer.uriForFile(photoFile)
             Log.d("PHOTO", "photo uri $uri")
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             pictureCache.intentChannel.send(intent)
             pictureCache.thumbnailChannel.receive()?.let {
+                fileExplorer.bitmapToPictures(it, newThumbnailId)
                 reduce {
                     state.copy(
                         currentCheckMedia = state.currentCheckMedia!!.copy(
@@ -315,7 +318,11 @@ class ChecklistViewModel(
                                 Picture.Local(
                                     id = newPhotoId,
                                     toRemove = false,
-                                    thumbnail = it,
+                                    thumbnail = fileExplorer.uriForFile(
+                                        fileExplorer.pictureFile(
+                                            newThumbnailId
+                                        )
+                                    ).toString(),
                                     fullSize = newPhotoId
                                 )
                             )
