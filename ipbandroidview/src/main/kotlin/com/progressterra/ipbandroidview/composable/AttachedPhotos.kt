@@ -67,7 +67,7 @@ fun AttachedPhoto(
             Text(
                 text = stringResource(id = R.string.add_photo),
                 style = AppTheme.typography.text,
-                color = AppTheme.colors.gray1
+                color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_camera),

@@ -23,8 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-//TODO enabled colors
-
 sealed class VoiceState(
     val ongoing: Boolean
 ) {
@@ -77,7 +75,7 @@ fun VoiceInput(
                             Text(
                                 text = stringResource(id = R.string.voice_message),
                                 style = AppTheme.typography.text,
-                                color = AppTheme.colors.gray1
+                                color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
                             )
                         IconButton(
                             modifier = Modifier.size(24.dp),
