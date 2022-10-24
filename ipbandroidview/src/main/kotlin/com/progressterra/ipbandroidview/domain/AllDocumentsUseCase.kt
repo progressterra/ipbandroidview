@@ -2,7 +2,10 @@ package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
+import com.progressterra.ipbandroidapi.api.checklist.model.SortData
+import com.progressterra.ipbandroidapi.api.checklist.model.TypeVariantSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidapi.ext.tryOrNull
 import com.progressterra.ipbandroidview.R
@@ -28,7 +31,15 @@ interface AllDocumentsUseCase {
         override suspend fun allDocuments(): Result<List<Document>> = handle {
             val documents = withToken {
                 repo.allDocuments(
-                    it, FilterAndSort(emptyList(), null, "", false, 0, 100)
+                    it,
+                    FilterAndSort(
+                        emptyList(),
+                        SortData("dateEnd", TypeVariantSort.ASC),
+                        "",
+                        false,
+                        0,
+                        100
+                    )
                 )
             }.getOrThrow()
             buildList {
@@ -41,7 +52,7 @@ interface AllDocumentsUseCase {
                             name = doc.nameRFCheck ?: noData,
                             address = doc.nameComPlace ?: noData,
                             checkCounter = doc.countDR ?: 0,
-                            finishDate = doc.dateEnd?.parseToDate(),
+                            finishDate = doc.dateEnd?.parseToDate()?.format("dd.MM"),
                             stats = ChecklistStats(
                                 total = doc.countDR ?: 0,
                                 successful = doc.countDRPositiveAnswer ?: 0,

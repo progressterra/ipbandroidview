@@ -66,7 +66,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
         ), sheetContent = {
-            ThemedTopDialogBar(title = "PLACEHOLDER", rightActions = {
+            ThemedTopDialogBar(title = state.currentCheckTitle, rightActions = {
                 IconButton(modifier = Modifier.size(24.dp),
                     onClick = { coroutineScope.launch { sheetState.hide() } }) {
                     Icon(

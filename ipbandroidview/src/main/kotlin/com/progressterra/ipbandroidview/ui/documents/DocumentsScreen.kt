@@ -14,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
@@ -55,16 +54,11 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                 }
                 state.documents.filter { it.finishDate != null }
                     .groupBy { it.finishDate!! }
-                    .toSortedMap(compareBy { it })
                     .forEach {
                         item {
                             CategoryDivider(
                                 modifier = Modifier.fillMaxWidth(),
-                                title = "${stringResource(id = R.string.completed_audits)} ${
-                                    it.key.format(
-                                        "dd.MM"
-                                    )
-                                }"
+                                title = "${stringResource(id = R.string.completed_audits)} ${it.key}"
                             )
                         }
                         items(it.value) { document ->
