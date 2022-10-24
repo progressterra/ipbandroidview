@@ -74,7 +74,7 @@ fun AttachedPhoto(
                 contentDescription = stringResource(
                     id = R.string.camera
                 ),
-                tint = AppTheme.colors.primary
+                tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
             )
         }
     } else {
