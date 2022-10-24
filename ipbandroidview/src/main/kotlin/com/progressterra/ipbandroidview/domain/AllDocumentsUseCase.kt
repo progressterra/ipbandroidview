@@ -34,7 +34,7 @@ interface AllDocumentsUseCase {
                     it,
                     FilterAndSort(
                         emptyList(),
-                        SortData("dateEnd", TypeVariantSort.ASC),
+                        SortData("dateEnd", TypeVariantSort.DESC),
                         "",
                         false,
                         0,
