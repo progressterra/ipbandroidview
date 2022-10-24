@@ -226,7 +226,7 @@ class ChecklistViewModel(
         } else {
             state.currentCheck?.let {
                 audioManager.play(
-                    state.currentCheckMedia?.voices?.last()?.id ?: it.id
+                    state.currentCheckMedia?.voices?.last()?.id!!
                 )
             }
             var progress: Float
@@ -343,7 +343,9 @@ class ChecklistViewModel(
             val uri = fileExplorer.uriForFile(photoFile)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             pictureCache.intentChannel.send(intent)
-            pictureCache.thumbnailChannel.receive()?.let {
+            val received = pictureCache.thumbnailChannel.receive()
+            Log.d("CAMERA", "Received $received")
+            received?.let {
                 fileExplorer.bitmapToPictures(it, newThumbnailId)
                 reduce {
                     state.copy(
