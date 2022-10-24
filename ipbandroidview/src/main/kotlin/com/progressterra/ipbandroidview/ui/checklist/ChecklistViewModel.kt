@@ -335,7 +335,7 @@ class ChecklistViewModel(
     }
 
     override fun openImage(picture: Picture) = intent {
-        postSideEffect(ChecklistEffect.Image(picture))
+        postSideEffect(ChecklistEffect.Image(picture, state.checklist.ongoing))
     }
 
     override fun onCamera() = intent {

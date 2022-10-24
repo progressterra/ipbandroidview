@@ -14,7 +14,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.ThemedProgressBar
 import com.progressterra.ipbandroidview.composable.TransparentTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -44,11 +46,14 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
             }
         })
         state.picture?.let {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 modifier = Modifier.fillMaxWidth(),
                 model = it.fullSize,
                 contentDescription = stringResource(id = R.string.image),
-                contentScale = ContentScale.FillWidth
+                contentScale = ContentScale.FillWidth,
+                loading = {
+                    ThemedProgressBar()
+                }
             )
         }
     }

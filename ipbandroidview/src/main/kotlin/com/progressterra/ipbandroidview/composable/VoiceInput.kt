@@ -129,8 +129,7 @@ fun VoiceInput(
                     Spacer(modifier = Modifier.size(16.dp))
                     IconButton(
                         modifier = Modifier.size(24.dp),
-                        onClick = if (state.ongoing) onPausePlay else onStartPlay,
-                        enabled = enabled
+                        onClick = if (state.ongoing) onPausePlay else onStartPlay
                     ) {
                         Icon(
                             painter = painterResource(id = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play),

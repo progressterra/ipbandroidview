@@ -12,5 +12,5 @@ sealed class ChecklistEffect {
 
     object RefreshAudits : ChecklistEffect()
 
-    class Image(val picture: Picture) : ChecklistEffect()
+    class Image(val picture: Picture, val enabled: Boolean) : ChecklistEffect()
 }

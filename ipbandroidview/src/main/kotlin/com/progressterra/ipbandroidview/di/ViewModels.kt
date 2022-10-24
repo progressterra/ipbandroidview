@@ -53,6 +53,6 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        PhotoViewModel(get())
+        PhotoViewModel()
     }
 }
