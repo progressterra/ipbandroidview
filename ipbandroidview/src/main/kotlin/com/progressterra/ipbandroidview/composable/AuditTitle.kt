@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
@@ -20,8 +19,6 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun AuditTitle(
     modifier: Modifier = Modifier,
     name: String = "",
-    repetitiveness: String = "",
-    lastTimeChecked: String = "",
     checkCounter: Int = 0
 ) {
     Column(
@@ -36,18 +33,6 @@ fun AuditTitle(
             color = AppTheme.colors.black,
             style = AppTheme.typography.title
         )
-        Row {
-            Text(
-                text = "$repetitiveness, ",
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.secondaryText
-            )
-            Text(
-                text = lastTimeChecked,
-                color = AppTheme.colors.error,
-                style = AppTheme.typography.secondaryText
-            )
-        }
         Text(
             text = "${stringResource(id = R.string.questions)}: $checkCounter",
             color = AppTheme.colors.gray2,
@@ -62,8 +47,6 @@ private fun AuditTitlePreview() {
     AppTheme {
         AuditTitle(
             name = "Some name",
-            repetitiveness = "Every week",
-            lastTimeChecked = "yesterday",
             checkCounter = 15
         )
     }

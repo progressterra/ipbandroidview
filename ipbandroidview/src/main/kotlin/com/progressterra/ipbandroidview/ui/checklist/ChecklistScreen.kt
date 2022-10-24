@@ -195,8 +195,6 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         AuditTitle(
                             modifier = Modifier.fillMaxWidth(),
                             name = state.checklist.name,
-                            repetitiveness = state.checklist.repetitiveness,
-                            lastTimeChecked = state.checklist.lastTimeChecked,
                             checkCounter = state.checklist.checks.size
                         )
                     }

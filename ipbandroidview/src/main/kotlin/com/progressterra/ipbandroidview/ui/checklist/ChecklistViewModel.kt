@@ -56,13 +56,12 @@ class ChecklistViewModel(
                 name = "",
                 done = false,
                 ongoing = false,
-                repetitiveness = "",
-                lastTimeChecked = "",
                 checks = emptyList(),
                 documentId = null
             ),
             stats = ChecklistStats(0, 0, 0, 0),
             voiceState = VoiceState.Recorder(false),
+            currentCheckTitle = null,
             currentCheck = null,
             screenState = ScreenState.SUCCESS,
             currentCheckMedia = null,
@@ -81,6 +80,7 @@ class ChecklistViewModel(
             (state.checklist.documentId != checklist.documentId) && !state.changedInSession
         ) reduce {
             ChecklistState(
+                currentCheckTitle = null,
                 currentCheck = null,
                 currentCheckMedia = null,
                 checklist = checklist,
@@ -93,7 +93,16 @@ class ChecklistViewModel(
     }
 
     override fun check(check: Check) = intent {
-        reduce { state.copy(currentCheck = check) }
+        reduce {
+            state.copy(
+                currentCheck = check,
+                currentCheckTitle = "№ ${
+                    state.checklist.checks.indexOf(
+                        check
+                    )
+                }"
+            )
+        }
         refresh()
     }
 

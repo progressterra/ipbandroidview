@@ -36,8 +36,7 @@ interface OrganizationAuditsUseCase {
                                 id = it,
                                 name = doc.name ?: noData,
                                 lastTime = doc.dateUpdated?.parseToDate()?.format("dd.MM.yyyy")
-                                    ?: noData,
-                                warning = false
+                                    ?: noData
                             )
                         )
                     }

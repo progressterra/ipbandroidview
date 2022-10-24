@@ -45,11 +45,9 @@ class DocumentsViewModel(
                         checklistId = document.checklistId,
                         placeId = document.placeId,
                         name = document.name,
-                        repetitiveness = "PLACEHOLDER",
-                        lastTimeChecked = document.lastTimeChecked,
                         checks = it,
-                        done = document.done,
-                        ongoing = !document.done,
+                        done = document.finishDate != null,
+                        ongoing = document.finishDate == null,
                         documentId = document.documentId
                     )
                 )

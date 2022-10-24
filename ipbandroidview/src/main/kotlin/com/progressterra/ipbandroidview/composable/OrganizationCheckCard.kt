@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -26,7 +25,6 @@ fun OrganizationCheckCard(
     modifier: Modifier = Modifier,
     name: String = "",
     lastTime: String = "",
-    warning: Boolean = false,
     onClick: () -> Unit
 ) {
     Row(
@@ -54,21 +52,6 @@ fun OrganizationCheckCard(
         }
         Spacer(modifier = Modifier.size(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
-            if (warning) {
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .background(AppTheme.colors.error)
-                        .padding(horizontal = 6.dp, vertical = 2.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "!",
-                        color = AppTheme.colors.surfaces,
-                        style = AppTheme.typography.tertiaryText
-                    )
-                }
-            }
             Icon(
                 modifier = Modifier.size(24.dp),
                 painter = painterResource(id = R.drawable.ic_forward),
@@ -93,6 +76,6 @@ private fun OrganizationCheckCardPreview() {
 @Composable
 private fun OrganizationCheckCardPreviewWarning() {
     AppTheme {
-        OrganizationCheckCard(name = "Name", lastTime = "Last time", warning = true, onClick = {})
+        OrganizationCheckCard(name = "Name", lastTime = "Last time", onClick = {})
     }
 }

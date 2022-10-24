@@ -14,8 +14,6 @@ data class Checklist(
     val name: String,
     val done: Boolean,
     val ongoing: Boolean,
-    val repetitiveness: String,
-    val lastTimeChecked: String,
     val checks: List<Check>
 ) : Parcelable {
 

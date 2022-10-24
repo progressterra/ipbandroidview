@@ -52,7 +52,6 @@ fun OrganizationAuditsScreen(
                     OrganizationCheckCard(
                         name = it.name,
                         lastTime = it.lastTime,
-                        warning = it.warning,
                         onClick = {
                             interactor.onAuditClick(it)
                         }
@@ -77,19 +76,19 @@ private fun OrganizationAuditsScreenPreview() {
                 longitude = 0.0,
                 audits = listOf(
                     OrganizationAudit(
-                        "", "Check some 1", "Yesterday", false
+                        "", "Check some 1", "Yesterday"
                     ), OrganizationAudit(
-                        "", "Check some 2", " Yesterday ", false
+                        "", "Check some 2", " Yesterday "
                     ), OrganizationAudit(
-                        "", "Check some 3", " Yesterday ", false
+                        "", "Check some 3", " Yesterday "
                     ), OrganizationAudit(
-                        "", "Check some 4", " Yesterday ", true
+                        "", "Check some 4", " Yesterday "
                     ), OrganizationAudit(
-                        "", "Check some 5", " Yesterday ", false
+                        "", "Check some 5", " Yesterday "
                     ), OrganizationAudit(
-                        "", "Check some 6", " Yesterday ", false
+                        "", "Check some 6", " Yesterday "
                     ), OrganizationAudit(
-                        "", "Check some 7", " Yesterday ", true
+                        "", "Check some 7", " Yesterday "
                     )
                 )
             ), interactor = OrganizationAuditsInteractor.Empty()

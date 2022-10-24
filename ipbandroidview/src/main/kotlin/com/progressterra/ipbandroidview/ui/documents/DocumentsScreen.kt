@@ -1,20 +1,11 @@
 package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -23,12 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.CategoryDivider
-import com.progressterra.ipbandroidview.composable.DocumentCard
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedButton
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.*
 import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -56,7 +44,7 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                     ),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.documents.filter { !it.done }) {
+                items(state.documents.filter { it.finishDate == null }) {
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
                         name = it.name,
@@ -65,14 +53,18 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         stats = it.stats
                     )
                 }
-                state.documents.filter { it.done }
-                    .groupBy { it.finishDate }
-                    .toSortedMap()
+                state.documents.filter { it.finishDate != null }
+                    .groupBy { it.finishDate!! }
+                    .toSortedMap(compareBy { it })
                     .forEach {
                         item {
                             CategoryDivider(
                                 modifier = Modifier.fillMaxWidth(),
-                                title = "${stringResource(id = R.string.completed_audits)} ${it.key}"
+                                title = "${stringResource(id = R.string.completed_audits)} ${
+                                    it.key.format(
+                                        "dd.MM"
+                                    )
+                                }"
                             )
                         }
                         items(it.value) { document ->
@@ -121,11 +113,8 @@ private fun DocumentsScreenPreview() {
                         "Some audit 1",
                         "Lenina 13",
                         25,
-                        "",
-                        "",
-                        "",
-                        ChecklistStats(7, 3, 3, 1),
-                        false
+                        null,
+                        ChecklistStats(7, 3, 3, 1)
                     ),
                     Document(
                         documentId = "",
@@ -134,11 +123,8 @@ private fun DocumentsScreenPreview() {
                         "Some audit 2",
                         "Lenina 13",
                         25,
-                        "",
-                        "",
-                        "",
-                        ChecklistStats(7, 3, 3, 1),
-                        false
+                        null,
+                        ChecklistStats(7, 3, 3, 1)
                     ),
                     Document(
                         documentId = "",
@@ -147,11 +133,8 @@ private fun DocumentsScreenPreview() {
                         "Some audit 3",
                         "Lenina 13",
                         25,
-                        "",
-                        "",
-                        "",
-                        ChecklistStats(7, 3, 3, 1),
-                        false
+                        null,
+                        ChecklistStats(7, 3, 3, 1)
                     ),
                     Document(
                         documentId = "",
@@ -160,11 +143,8 @@ private fun DocumentsScreenPreview() {
                         "Some audit 4",
                         "Lenina 13",
                         25,
-                        "",
-                        "",
-                        "",
-                        ChecklistStats(7, 3, 3, 1),
-                        false
+                        null,
+                        ChecklistStats(7, 3, 3, 1)
                     )
                 )
             ), interactor = DocumentsInteractor.Empty()

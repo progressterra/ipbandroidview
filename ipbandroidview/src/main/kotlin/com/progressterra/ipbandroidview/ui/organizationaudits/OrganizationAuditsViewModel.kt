@@ -81,8 +81,6 @@ class OrganizationAuditsViewModel(
                         placeId = state.id,
                         checklistId = organizationAudit.id,
                         name = organizationAudit.name,
-                        repetitiveness = "PLACEHOLDER",
-                        lastTimeChecked = organizationAudit.lastTime,
                         checks = it,
                         done = false,
                         ongoing = false,
