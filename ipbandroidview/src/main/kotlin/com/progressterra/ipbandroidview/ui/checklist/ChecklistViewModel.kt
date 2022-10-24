@@ -338,34 +338,26 @@ class ChecklistViewModel(
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val currentTime = System.currentTimeMillis()
             val newPhotoId = "TempPhoto_$currentTime"
-            val newThumbnailId = "TempPhotoThumbnail_$currentTime"
             val photoFile: File = fileExplorer.pictureFile(newPhotoId)
             val uri = fileExplorer.uriForFile(photoFile)
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             pictureCache.intentChannel.send(intent)
             val received = pictureCache.thumbnailChannel.receive()
             Log.d("CAMERA", "Received $received")
-            received?.let {
-                fileExplorer.bitmapToPictures(it, newThumbnailId)
-                reduce {
-                    state.copy(
-                        currentCheckMedia = state.currentCheckMedia!!.copy(
-                            pictures = state.currentCheckMedia!!.pictures.plus(
-                                Picture(
-                                    id = newPhotoId,
-                                    local = true,
-                                    toRemove = false,
-                                    thumbnail = fileExplorer.uriForFile(
-                                        fileExplorer.pictureFile(
-                                            newThumbnailId
-                                        )
-                                    ).toString(),
-                                    fullSize = newPhotoId
-                                )
+            reduce {
+                state.copy(
+                    currentCheckMedia = state.currentCheckMedia!!.copy(
+                        pictures = state.currentCheckMedia!!.pictures.plus(
+                            Picture(
+                                id = newPhotoId,
+                                local = true,
+                                toRemove = false,
+                                thumbnail = newPhotoId,
+                                fullSize = newPhotoId
                             )
                         )
                     )
-                }
+                )
             }
         } else
             managePermission.requirePermission(cameraPermission)
