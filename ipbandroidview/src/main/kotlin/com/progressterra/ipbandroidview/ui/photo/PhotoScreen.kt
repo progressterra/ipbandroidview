@@ -14,9 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
-import coil.compose.SubcomposeAsyncImage
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedProgressBar
 import com.progressterra.ipbandroidview.composable.TransparentTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -37,23 +35,21 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
                 )
             }
         }, actions = {
-            IconButton(onClick = { interactor.remove() }) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_trash),
-                    contentDescription = stringResource(id = R.string.trash),
-                    tint = AppTheme.colors.error
-                )
-            }
+            if (state.enabled)
+                IconButton(onClick = { interactor.remove() }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_trash),
+                        contentDescription = stringResource(id = R.string.trash),
+                        tint = AppTheme.colors.error
+                    )
+                }
         })
         state.picture?.let {
-            SubcomposeAsyncImage(
+            AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
                 model = it.fullSize,
                 contentDescription = stringResource(id = R.string.image),
-                contentScale = ContentScale.FillWidth,
-                loading = {
-                    ThemedProgressBar()
-                }
+                contentScale = ContentScale.FillWidth
             )
         }
     }
