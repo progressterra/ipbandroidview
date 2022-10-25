@@ -53,7 +53,7 @@ interface DocumentChecklistUseCase {
                     description = checkDTO.description,
                     category = checkDTO.category,
                     categoryNumber = checkDTO.categoryNumber,
-                    ordinal = index,
+                    ordinal = index + 1,
                     yesNo = checkDTO.yesNo,
                     comment = checkDTO.comment
                 )
