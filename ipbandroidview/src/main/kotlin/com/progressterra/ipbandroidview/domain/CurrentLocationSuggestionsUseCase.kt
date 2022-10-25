@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.Suggestion
@@ -14,9 +13,9 @@ interface CurrentLocationSuggestionsUseCase {
         private val provideLocation: ProvideLocation,
         private val repo: SuggestionRepository,
         private val mapper: SuggestionMapper
-    ) : CurrentLocationSuggestionsUseCase, AbstractUseCase() {
+    ) : CurrentLocationSuggestionsUseCase {
 
-        override suspend fun currentLocation(): Result<List<Suggestion>> = handle {
+        override suspend fun currentLocation(): Result<List<Suggestion>> = runCatching{
             val locationResult = provideLocation.location().getOrThrow()
             val suggestionsResult = repo.getSuggestionsAddressFromLocation(
                 locationResult.latitude.toFloat(),

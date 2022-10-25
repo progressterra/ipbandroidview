@@ -28,7 +28,7 @@ interface AllDocumentsUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun allDocuments(): Result<List<Document>> = handle {
+        override suspend fun allDocuments(): Result<List<Document>> = runCatching {
             val documents = withToken {
                 repo.allDocuments(
                     it,

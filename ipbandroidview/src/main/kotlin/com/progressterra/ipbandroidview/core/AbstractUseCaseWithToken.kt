@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.data.ProvideLocation
 abstract class AbstractUseCaseWithToken(
     private val sCRMRepository: SCRMRepository,
     private val provideLocation: ProvideLocation
-) : AbstractUseCase() {
+) {
 
     protected suspend fun <T> withToken(block: suspend (accessToken: String) -> Result<T>): Result<T> {
         val locationResult = provideLocation.location()

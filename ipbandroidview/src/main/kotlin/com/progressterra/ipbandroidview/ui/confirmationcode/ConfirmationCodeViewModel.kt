@@ -36,10 +36,10 @@ class ConfirmationCodeViewModel(
     }
 
     override fun onNext() = intent {
-        if (endVerificationChannelUseCase.end(state.phoneNumber, state.code)) {
+        endVerificationChannelUseCase.end(state.phoneNumber, state.code).onSuccess {
             UserData.phone = state.phoneNumber
             postSideEffect(ConfirmationEffect.OnNext)
-        } else {
+        }.onFailure {
             postSideEffect(ConfirmationEffect.OnToast(R.string.wrong_code))
         }
     }

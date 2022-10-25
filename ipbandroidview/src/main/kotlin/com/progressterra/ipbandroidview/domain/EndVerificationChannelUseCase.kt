@@ -7,24 +7,21 @@ import com.progressterra.ipbandroidapi.user.UserData
 
 interface EndVerificationChannelUseCase {
 
-    suspend fun end(phoneNumber: String, code: String): Boolean
+    suspend fun end(phoneNumber: String, code: String): Result<Unit>
 
     class Base(
         private val repo: SCRMRepository
     ) : EndVerificationChannelUseCase {
 
-        override suspend fun end(phoneNumber: String, code: String): Boolean {
+        override suspend fun end(phoneNumber: String, code: String): Result<Unit> = runCatching {
             val result = repo.finishVerificationChannel(
                 VerificationType.PHONE,
                 phoneNumber,
                 code,
                 "SDK: ${Build.VERSION.SDK_INT} Model: ${Build.MODEL}"
-            )
-            result.map {
-                UserData.deviceId = it
-                UserData.clientExist = true
-            }
-            return result.isSuccess
+            ).getOrThrow()
+            UserData.deviceId = result
+            UserData.clientExist = true
         }
     }
 }

@@ -66,16 +66,20 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
         ), sheetContent = {
-            ThemedTopDialogBar(title = state.currentCheckTitle, rightActions = {
-                IconButton(modifier = Modifier.size(24.dp),
-                    onClick = { coroutineScope.launch { sheetState.hide() } }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_mark),
-                        contentDescription = stringResource(R.string.close),
-                        tint = AppTheme.colors.gray1
-                    )
-                }
-            })
+            ThemedTopDialogBar(
+                title = if (state.currentCheck == null) stringResource(id = R.string.loading) else "${
+                    stringResource(id = R.string.question)
+                } ${state.currentCheck.categoryNumber}-${state.currentCheck.ordinal}",
+                rightActions = {
+                    IconButton(modifier = Modifier.size(24.dp),
+                        onClick = { coroutineScope.launch { sheetState.hide() } }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_mark),
+                            contentDescription = stringResource(R.string.close),
+                            tint = AppTheme.colors.gray1
+                        )
+                    }
+                })
             StateBox(modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 300.dp),
@@ -195,14 +199,14 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             checkCounter = state.checklist.checks.size
                         )
                     }
-                    state.checklist.checks.groupBy { it.category }.toSortedMap()
+                    state.checklist.checks.groupBy { it.categoryNumber }.toSortedMap()
                         .forEach { (category, checks) ->
                             item {
                                 CategoryDivider(
-                                    modifier = Modifier.fillMaxWidth(), title = category
+                                    modifier = Modifier.fillMaxWidth(), title = category.toString()
                                 )
                             }
-                            items(checks.sortedBy { it.name }) {
+                            items(checks.sortedBy { it.ordinal }) {
                                 CheckCard(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
                                         interactor.check(it)
@@ -211,7 +215,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 )
                             }
                         }
-                    item { Spacer(modifier = Modifier.size(spacerSize + 8.dp)) }
+                    item { Spacer(modifier = Modifier.size(spacerSize)) }
                 }
                 if (!state.checklist.done) {
                     val density = LocalDensity.current
@@ -230,7 +234,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     id = if (state.checklist.ongoing) R.string.end_audit else R.string.start_audit
                                 ),
                                 tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) Color(
-                                    0xFFA0ECAC
+                                    0xFFFFCA61
                                 ) else AppTheme.colors.primary,
                                 textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces
                             )

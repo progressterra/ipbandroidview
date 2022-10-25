@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
@@ -23,27 +24,38 @@ interface ChecklistUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun details(id: String): Result<List<Check>> = handle {
+        override suspend fun details(id: String): Result<List<Check>> = runCatching {
             val result = withToken {
                 checklistRepository.checklistElements(
-                    it,
-                    id,
-                    FilterAndSort(emptyList(), null, "", false, 0, 100)
+                    it, id, FilterAndSort(emptyList(), null, "", false, 0, 100)
                 )
             }.getOrThrow()
             buildList {
                 result?.map { check ->
                     add(
-                        Check(
+                        CheckDTO(
                             id = check.idUnique!!,
-                            category = "${check.parameter?.indexName ?: noData}. ${check.parameter?.internalName ?: noData}",
+                            category = check.parameter?.internalName ?: noData,
                             name = check.shortDescription ?: noData,
                             yesNo = YesNo.NONE,
                             comment = "",
-                            description = check.description ?: noData
+                            description = check.description ?: noData,
+                            categoryNumber = check.parameter?.indexName?.toInt()!!,
+                            dateAdded = check.dateAdded?.parseToDate()!!
                         )
                     )
                 }
+            }.sortedBy { it.dateAdded }.mapIndexed { index, checkDTO ->
+                Check(
+                    id = checkDTO.id,
+                    name = checkDTO.name,
+                    description = checkDTO.description,
+                    category = checkDTO.category,
+                    categoryNumber = checkDTO.categoryNumber,
+                    ordinal = index,
+                    yesNo = checkDTO.yesNo,
+                    comment = checkDTO.comment
+                )
             }
         }
     }

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.domain
 
 import com.google.android.gms.maps.model.LatLng
-import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import com.progressterra.ipbandroidview.ui.city.MapMarker
 
@@ -11,9 +10,9 @@ interface CurrentLocationMarkerUseCase {
 
     class Base(
         private val provideLocation: ProvideLocation
-    ) : CurrentLocationMarkerUseCase, AbstractUseCase() {
+    ) : CurrentLocationMarkerUseCase {
 
-        override suspend fun currentLocation(): Result<MapMarker> = handle {
+        override suspend fun currentLocation(): Result<MapMarker> = runCatching {
             val locationResult = provideLocation.location().getOrThrow()
             MapMarker(
                 LatLng(

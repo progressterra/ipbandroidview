@@ -59,4 +59,10 @@
     <string name="add_photo">Добавить фото</string>
     <string name="thumbnail">Превью фото</string>
     <string name="question">Вопрос</string>
+    <string name="loading">Загрузка…</string>
+    <string name="profile">Профиль</string>
+    <string name="edit_profile">Редактировать профиль</string>
+    <string name="success_changed_personal">Данные обновлены</string>
+    <string name="failed_changed_personal">Ошибка, проверьте правильность данных</string>
+    <string name="logout">Выйти из аккаунта</string>
 </resources>

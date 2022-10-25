@@ -25,7 +25,7 @@ interface OrganizationAuditsUseCase {
 
         override suspend fun organizationsAudits(
             id: String
-        ): Result<List<OrganizationAudit>> = handle {
+        ): Result<List<OrganizationAudit>> = runCatching {
             val availableChecks =
                 withToken { repo.availableChecklistsForPlace(it, id) }.getOrThrow()
             buildList {

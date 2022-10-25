@@ -7,6 +7,8 @@ import com.progressterra.ipbandroidview.ui.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
+import com.progressterra.ipbandroidview.ui.profile.ProfileViewModel
+import com.progressterra.ipbandroidview.ui.profiledetails.ProfileDetailsViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
@@ -54,5 +56,13 @@ val viewModelsModule = module {
 
     viewModel {
         PhotoViewModel()
+    }
+
+    viewModel {
+        ProfileViewModel()
+    }
+
+    viewModel {
+        ProfileDetailsViewModel(get())
     }
 }

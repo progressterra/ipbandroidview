@@ -8,6 +8,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -49,7 +50,8 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         name = it.name,
                         address = it.address,
                         onClick = { interactor.onDocumentChecklist(it) },
-                        stats = it.stats
+                        stats = it.stats,
+                        backgroundColor = Color(0xFFFFCA61)
                     )
                 }
                 state.documents.filter { it.finishDate != null }
@@ -72,7 +74,7 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         }
                     }
                 item {
-                    Spacer(modifier = Modifier.size(spacerSize + 32.dp))
+                    Spacer(modifier = Modifier.size(spacerSize + 24.dp))
                 }
             }
             val density = LocalDensity.current

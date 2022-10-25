@@ -36,21 +36,21 @@ interface UpdateAnswerUseCase {
         override suspend fun update(
             check: Check,
             checkDetails: CurrentCheckMedia
-        ): Result<Check> = handle {
+        ): Result<Check> = runCatching {
             checkDetails.voices.forEach { voice ->
                 if (voice.local)
                     withToken { token ->
                         mediaDataRepository.attachToEntity(
-                            token,
-                            check.id,
+                            accessToken = token,
+                            idEntity = check.id,
                             typeContent = 6,
-                            "DrCheckListItem",
-                            "",
-                            0,
+                            entityTypeName = "DrCheckListItem",
+                            alias = "",
+                            tag = 0,
                             MultipartBody.Part.createFormData(
-                                "file",
-                                fileExplorer.audioFile(voice.id).name,
-                                fileExplorer.audioFile(voice.id)
+                                name = "file",
+                                filename = fileExplorer.audioFile(voice.id).name,
+                                body = fileExplorer.audioFile(voice.id)
                                     .asRequestBody("audio/*".toMediaTypeOrNull())
                             )
                         )
@@ -64,16 +64,16 @@ interface UpdateAnswerUseCase {
                 if (picture.local)
                     withToken { token ->
                         mediaDataRepository.attachToEntity(
-                            token,
-                            check.id,
+                            accessToken = token,
+                            idEntity = check.id,
                             typeContent = 0,
-                            "DrCheckListItem",
-                            "",
-                            0,
+                            entityTypeName = "DrCheckListItem",
+                            alias = "",
+                            tag = 0,
                             MultipartBody.Part.createFormData(
-                                "file",
-                                fileExplorer.pictureFile(picture.id).name,
-                                fileExplorer.pictureFile(picture.id)
+                                name = "file",
+                                filename = fileExplorer.pictureFile(picture.id).name,
+                                body = fileExplorer.pictureFile(picture.id)
                                     .asRequestBody("image/*".toMediaTypeOrNull())
                             )
                         )
@@ -96,12 +96,14 @@ interface UpdateAnswerUseCase {
                 )
             }.getOrThrow()
             Check(
-                yesNo = result?.answerCheckList?.yesNo.toYesNo(),
                 id = result?.idUnique!!,
-                category = "${result.parameter?.indexName ?: noData}. ${result.parameter?.internalName ?: noData}",
                 name = result.shortDescription ?: noData,
-                comment = result.answerCheckList?.comments ?: "",
-                description = result.description ?: noData
+                description = result.description ?: noData,
+                category = result.parameter?.internalName ?: noData,
+                categoryNumber = result.parameter?.indexName?.toInt()!!,
+                ordinal = check.ordinal,
+                result.answerCheckList?.yesNo.toYesNo(),
+                result.answerCheckList?.comments ?: "",
             )
         }
     }

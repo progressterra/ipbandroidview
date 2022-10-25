@@ -25,7 +25,7 @@ interface CheckMediaDetailsUseCase {
     ) : AbstractUseCaseAudioSaving(scrmRepository, provideLocation, fileExplorer),
         CheckMediaDetailsUseCase {
 
-        override suspend fun checkDetails(check: Check): Result<CurrentCheckMedia> = handle {
+        override suspend fun checkDetails(check: Check): Result<CurrentCheckMedia> = runCatching {
             val voices = mutableListOf<Voice>()
             val pictures = mutableListOf<Picture>()
             withToken {

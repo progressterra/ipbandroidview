@@ -22,7 +22,7 @@ interface CreateDocumentUseCase {
         override suspend fun createDocument(
             idChecklist: String,
             idPlace: String
-        ): Result<String> = handle {
+        ): Result<String> = runCatching {
             val result = withToken {
                 repo.createDoc(
                     it, DHCheckPerformedEntityCreate(

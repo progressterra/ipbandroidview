@@ -1,17 +1,15 @@
-package com.progressterra.ipbandroidview.ui.checklist
+package com.progressterra.ipbandroidview.domain
 
-import android.os.Parcelable
 import com.progressterra.ipbandroidview.composable.yesno.YesNo
-import kotlinx.parcelize.Parcelize
+import java.util.*
 
-@Parcelize
-data class Check(
+data class CheckDTO(
     val id: String,
     val name: String,
     val description: String,
     val category: String,
     val categoryNumber: Int,
-    val ordinal: Int,
+    val dateAdded: Date,
     val yesNo: YesNo,
     val comment: String
-) : Parcelable
+)

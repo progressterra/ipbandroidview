@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.checklist
 import android.Manifest
 import android.content.Intent
 import android.provider.MediaStore
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
@@ -18,11 +17,7 @@ import com.progressterra.ipbandroidview.core.picture.PictureCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.Voice
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
-import com.progressterra.ipbandroidview.domain.CheckMediaDetailsUseCase
-import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
-import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
-import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
-import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
@@ -64,11 +59,9 @@ class ChecklistViewModel(
             ),
             stats = ChecklistStats(0, 0, 0, 0),
             voiceState = VoiceState.Recorder(false),
-            currentCheckTitle = null,
             currentCheck = null,
             screenState = ScreenState.SUCCESS,
-            currentCheckMedia = null,
-            changedInSession = false
+            currentCheckMedia = null
         )
     )
 
@@ -78,16 +71,11 @@ class ChecklistViewModel(
 
     @Suppress("unused")
     fun setDocument(checklist: Checklist) = intent {
-        if (state.checklist.checklistId != checklist.checklistId ||
-            state.checklist.placeId != checklist.placeId ||
-            (state.checklist.documentId != checklist.documentId) && !state.changedInSession
-        ) reduce {
+        reduce {
             ChecklistState(
-                currentCheckTitle = null,
                 currentCheck = null,
                 currentCheckMedia = null,
                 checklist = checklist,
-                changedInSession = false,
                 stats = checklist.createStats(),
                 voiceState = VoiceState.Recorder(false),
                 screenState = ScreenState.SUCCESS,
@@ -96,16 +84,7 @@ class ChecklistViewModel(
     }
 
     override fun check(check: Check) = intent {
-        reduce {
-            state.copy(
-                currentCheck = check,
-                currentCheckTitle = "№ ${
-                    state.checklist.checks.indexOf(
-                        check
-                    )
-                }"
-            )
-        }
+        reduce { state.copy(currentCheck = check) }
         refresh()
     }
 
@@ -210,7 +189,6 @@ class ChecklistViewModel(
                 }
             }
         }
-        reduce { state.copy(changedInSession = true) }
         postSideEffect(ChecklistEffect.RefreshAudits)
     }
 
@@ -226,17 +204,14 @@ class ChecklistViewModel(
                 )
             }
         } else {
-            Log.d("AUDIO", "start playing")
             state.currentCheck?.let {
                 audioManager.play(
                     state.currentCheckMedia?.voices?.last()?.id!!
                 )
             }
             var progress: Float
-            Log.d("AUDIO", "progress init")
             do {
                 progress = audioManager.progress()
-                Log.d("AUDIO", "progress: $progress")
                 reduce {
                     state.copy(
                         voiceState = VoiceState.Player(
