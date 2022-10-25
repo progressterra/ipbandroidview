@@ -27,14 +27,20 @@ interface UpdatePersonalInfoUseCase {
         override suspend fun update(name: String, email: String): Result<ClientGeneralData> =
             runCatching {
                 Log.d("NAME", name)
-                val splitName = name.split(" ")
+                val splitName = name.trim().split(" ")
                 val firstName = splitName[0]
                 val lastName = splitName[1]
                 Log.d("NAME", "first: $firstName, last: $lastName")
                 withToken { repo.setEmail(it, email) }.onFailure { throw it }
                 withToken {
                     repo.setPersonalInfo(
-                        it, name = firstName, soname = lastName
+                        it,
+                        name = firstName,
+                        soname = lastName,
+                        sex = null,
+                        patronymic = null,
+                        dateOfBirth = null,
+                        comment = null
                     )
                 }.getOrThrow()
             }
@@ -50,7 +56,13 @@ interface UpdatePersonalInfoUseCase {
             )
             withToken {
                 repo.setPersonalInfo(
-                    it, dateOfBirth = birthday.format()
+                    it,
+                    dateOfBirth = birthday.format(),
+                    sex = null,
+                    soname = null,
+                    name = null,
+                    patronymic = null,
+                    comment = null
                 )
             }.getOrThrow()
         }
