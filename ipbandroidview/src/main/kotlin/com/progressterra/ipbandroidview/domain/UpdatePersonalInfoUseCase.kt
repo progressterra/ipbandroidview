@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.ClientGeneralData
 import com.progressterra.ipbandroidapi.ext.format
@@ -25,9 +26,11 @@ interface UpdatePersonalInfoUseCase {
 
         override suspend fun update(name: String, email: String): Result<ClientGeneralData> =
             runCatching {
+                Log.d("NAME", name)
                 val splitName = name.split(" ")
                 val firstName = splitName[0]
                 val lastName = splitName[1]
+                Log.d("NAME", "first: $firstName, last: $lastName")
                 withToken { repo.setEmail(it, email) }.onFailure { throw it }
                 withToken {
                     repo.setPersonalInfo(
