@@ -24,7 +24,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsInteractor) {
     Scaffold(topBar = {
         ThemedTopAppBar(
-            title = stringResource(id = R.string.profile)
+            title = stringResource(id = R.string.information),
+            onBack = { interactor.back() }
         )
     }) {
         Column(
