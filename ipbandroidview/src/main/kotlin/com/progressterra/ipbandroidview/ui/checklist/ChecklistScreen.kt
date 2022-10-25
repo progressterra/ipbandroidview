@@ -203,7 +203,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         .forEach { (category, checks) ->
                             item {
                                 CategoryDivider(
-                                    modifier = Modifier.fillMaxWidth(), title = "$category ${
+                                    modifier = Modifier.fillMaxWidth(), title = "$category. ${
                                         checks.firstOrNull()?.category ?: stringResource(
                                             id = R.string.no_data
                                         )
