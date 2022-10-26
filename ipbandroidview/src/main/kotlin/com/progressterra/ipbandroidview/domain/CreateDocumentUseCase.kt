@@ -26,7 +26,7 @@ interface CreateDocumentUseCase {
                 repo.createDoc(
                     it, DHCheckPerformedEntityCreate(
                         idChecklist,
-                        Constants.DEFAULT_ID,
+                        Constants.EMPTY_ID,
                         idPlace,
                         Date(System.currentTimeMillis()).format(),
                         "",

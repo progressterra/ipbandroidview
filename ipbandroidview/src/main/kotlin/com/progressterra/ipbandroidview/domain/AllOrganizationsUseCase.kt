@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.domain
 
-import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
@@ -32,7 +31,7 @@ interface AllOrganizationsUseCase {
                     add(
                         Organization(
                             place.address ?: noData,
-                            place.idUnique ?: Constants.DEFAULT_ID,
+                            place.idUnique!!,
                             0,
                             place.name ?: noData,
                             place.imageURL ?: "",
