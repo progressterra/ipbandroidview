@@ -66,4 +66,5 @@
     <string name="failed_changed_personal">Ошибка, проверьте правильность данных</string>
     <string name="logout">Выйти из аккаунта</string>
     <string name="information">Информация</string>
+    <string name="set_name">Установите имя</string>
 </resources>

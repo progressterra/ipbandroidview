@@ -61,7 +61,7 @@ val useCasesModule = module {
     }
 
     single<UpdatePersonalInfoUseCase> {
-        UpdatePersonalInfoUseCase.Base(get(), get())
+        UpdatePersonalInfoUseCase.Base(get(), get(), get())
     }
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {

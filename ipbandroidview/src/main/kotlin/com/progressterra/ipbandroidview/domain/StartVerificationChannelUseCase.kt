@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidapi.api.scrm.model.VerificationType
+import com.progressterra.ipbandroidapi.api.scrm.model.IncomeChannelData
 
 interface StartVerificationChannelUseCase {
 
@@ -12,7 +12,12 @@ interface StartVerificationChannelUseCase {
     ) : StartVerificationChannelUseCase {
 
         override suspend fun start(phoneNumber: String): Result<Unit> = runCatching {
-            repo.startVerificationChannel(VerificationType.PHONE, phoneNumber)
+            repo.verificationChannelBegin(
+                IncomeChannelData(
+                    channelType = 0,
+                    channelData = phoneNumber
+                )
+            )
                 .onFailure { throw it }
         }
     }

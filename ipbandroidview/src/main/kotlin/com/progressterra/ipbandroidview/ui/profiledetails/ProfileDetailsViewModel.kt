@@ -27,8 +27,8 @@ class ProfileDetailsViewModel(private val updatePersonalInfoUseCase: UpdatePerso
         reduce {
             state.copy(
                 phone = UserData.phone,
-                name = "${UserData.clientInfo.soname} ${UserData.clientInfo.name}",
-                email = UserData.clientAdditionalInfo.eMailGeneral
+                name = "${UserData.userName.name} ${UserData.userName.surname}",
+                email = UserData.email
             )
         }
     }
@@ -49,8 +49,6 @@ class ProfileDetailsViewModel(private val updatePersonalInfoUseCase: UpdatePerso
 
     override fun back() = intent {
         updatePersonalInfoUseCase.update(state.name, state.email).onSuccess {
-            UserData.clientInfo = it.client
-            UserData.clientAdditionalInfo = it.clientAdditional
             postSideEffect(ProfileDetailsEffect.Toast(R.string.success_changed_personal))
             postSideEffect(ProfileDetailsEffect.UpdateUserInfo)
         }.onFailure {

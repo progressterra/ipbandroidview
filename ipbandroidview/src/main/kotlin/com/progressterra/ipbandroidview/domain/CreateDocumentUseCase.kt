@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.DHCheckPerformedEntityCreate
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
-import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import java.util.*
 

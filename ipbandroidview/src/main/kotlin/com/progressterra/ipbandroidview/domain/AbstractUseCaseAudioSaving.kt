@@ -1,6 +1,7 @@
-package com.progressterra.ipbandroidview.core
+package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

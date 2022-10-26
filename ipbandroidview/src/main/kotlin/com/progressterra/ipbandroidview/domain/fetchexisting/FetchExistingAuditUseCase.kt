@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.domain.fetchexisting
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
+import com.progressterra.ipbandroidview.domain.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.data.ProvideLocation
 
 interface FetchExistingAuditUseCase {

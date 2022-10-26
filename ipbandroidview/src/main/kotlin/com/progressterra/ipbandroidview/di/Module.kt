@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.core.SplitName
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.permission.PermissionCache
 import com.progressterra.ipbandroidview.core.picture.PictureCache
@@ -30,6 +31,10 @@ val iPBAndroidViewModule = module {
 
     factory {
         Gson()
+    }
+
+    factory<SplitName> {
+        SplitName.Base()
     }
 
     factory<ManageResources> {

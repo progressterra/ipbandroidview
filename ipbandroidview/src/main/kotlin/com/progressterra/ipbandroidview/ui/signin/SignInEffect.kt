@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 
 sealed class SignInEffect {
 
-    object Next : SignInEffect()
+    class Next(val phoneNumber: String) : SignInEffect()
 
     object Skip : SignInEffect()
 

@@ -1,10 +1,13 @@
 package com.progressterra.ipbandroidview.domain
 
-import android.util.Log
+import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidapi.api.scrm.model.ClientGeneralData
+import com.progressterra.ipbandroidapi.api.scrm.model.ClientDataIncome
+import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
 import com.progressterra.ipbandroidapi.ext.format
-import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
+import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidapi.user.UserName
+import com.progressterra.ipbandroidview.core.SplitName
 import com.progressterra.ipbandroidview.data.ProvideLocation
 import java.time.LocalDate
 import java.time.ZoneId
@@ -13,58 +16,66 @@ import java.util.Date
 interface UpdatePersonalInfoUseCase {
 
     suspend fun update(
-        name: String,
-        email: String,
-        birthdayDate: LocalDate
-    ): Result<ClientGeneralData>
+        name: String, email: String, birthdayDate: LocalDate
+    ): Result<Unit>
 
-    suspend fun update(name: String, email: String): Result<ClientGeneralData>
+    suspend fun update(name: String, email: String): Result<Unit>
 
     class Base(
-        private val repo: SCRMRepository, provideLocation: ProvideLocation
+        private val splitName: SplitName,
+        private val repo: SCRMRepository,
+        provideLocation: ProvideLocation
     ) : UpdatePersonalInfoUseCase, AbstractUseCaseWithToken(repo, provideLocation) {
 
-        override suspend fun update(name: String, email: String): Result<ClientGeneralData> =
-            runCatching {
-                Log.d("NAME", name)
-                val splitName = name.trim().split(" ")
-                val firstName = splitName[0]
-                val lastName = splitName[1]
-                Log.d("NAME", "first: $firstName, last: $lastName")
-                withToken { repo.setEmail(it, email) }.onFailure { throw it }
-                withToken {
-                    repo.setPersonalInfo(
-                        it,
-                        name = firstName,
-                        soname = lastName,
-                        sex = null,
-                        patronymic = null,
-                        dateOfBirth = null,
-                        comment = null
+        override suspend fun update(name: String, email: String): Result<Unit> = runCatching {
+            val nameList = splitName.splitName(name, false)
+            withToken { repo.setEmail(it, IncomeDataEmail(email)) }.onFailure { throw it }
+            withToken {
+                repo.setPersonalInfo(
+                    it, ClientDataIncome(
+                        sex = 0,
+                        name = nameList[0],
+                        soname = nameList[1],
+                        patronymic = "",
+                        dateOfBirth = Constants.EMPTY_DATE,
+                        comment = ""
                     )
-                }.getOrThrow()
-            }
+                )
+            }.onFailure { throw it }
+            UserData.userName = UserName(
+                name = nameList[0],
+                surname = nameList[1]
+            )
+            UserData.email = email
+        }
 
         override suspend fun update(
             name: String, email: String, birthdayDate: LocalDate
-        ): Result<ClientGeneralData> = runCatching {
-            update(name, email).onFailure { throw it }
+        ): Result<Unit> = runCatching {
+            val nameList = splitName.splitName(name, false)
             val birthday = Date.from(
                 birthdayDate.atStartOfDay(
                     ZoneId.systemDefault()
                 ).toInstant()
             )
+            withToken { repo.setEmail(it, IncomeDataEmail(email)) }.onFailure { throw it }
             withToken {
                 repo.setPersonalInfo(
-                    it,
-                    dateOfBirth = birthday.format(),
-                    sex = null,
-                    soname = null,
-                    name = null,
-                    patronymic = null,
-                    comment = null
+                    it, ClientDataIncome(
+                        sex = 0,
+                        name = nameList[0],
+                        soname = nameList[1],
+                        patronymic = "",
+                        dateOfBirth = birthday.format(),
+                        comment = ""
+                    )
                 )
-            }.getOrThrow()
+            }.onFailure { throw it }
+            UserData.userName = UserName(
+                name = nameList[0],
+                surname = nameList[1]
+            )
+            UserData.email = email
         }
     }
 }

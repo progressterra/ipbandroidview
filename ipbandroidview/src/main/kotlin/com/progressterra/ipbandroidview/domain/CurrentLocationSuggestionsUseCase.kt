@@ -15,7 +15,7 @@ interface CurrentLocationSuggestionsUseCase {
         private val mapper: SuggestionMapper
     ) : CurrentLocationSuggestionsUseCase {
 
-        override suspend fun currentLocation(): Result<List<Suggestion>> = runCatching{
+        override suspend fun currentLocation(): Result<List<Suggestion>> = runCatching {
             val locationResult = provideLocation.location().getOrThrow()
             val suggestionsResult = repo.getSuggestionsAddressFromLocation(
                 locationResult.latitude.toFloat(),

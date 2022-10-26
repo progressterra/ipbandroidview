@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FinalCommentsInput
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCaseWithToken
 import com.progressterra.ipbandroidview.data.ProvideLocation
 
 interface FinishDocumentUseCase {

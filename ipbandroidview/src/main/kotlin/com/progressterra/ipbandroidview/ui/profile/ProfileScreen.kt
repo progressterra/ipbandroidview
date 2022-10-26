@@ -45,7 +45,7 @@ fun ProfileScreen(state: ProfileState, interactor: ProfileInteractor) {
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
-                        text = state.name,
+                        text = state.name.ifBlank { stringResource(id = R.string.set_name) },
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )

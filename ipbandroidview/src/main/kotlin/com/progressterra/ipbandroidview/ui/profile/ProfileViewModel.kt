@@ -22,7 +22,7 @@ class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect>
         reduce {
             state.copy(
                 phone = UserData.phone,
-                name = "${UserData.clientInfo.soname} ${UserData.clientInfo.name}"
+                name = "${UserData.userName.name} ${UserData.userName.surname}"
             )
         }
     }
