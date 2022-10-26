@@ -29,7 +29,7 @@ class DocumentsViewModel(
             reduce {
                 state.copy(documents = it, screenState = ScreenState.SUCCESS)
             }
-            postSideEffect(DocumentsEffect.UpdateCounter(it.size))
+            postSideEffect(DocumentsEffect.UpdateCounter(it.filter { doc -> doc.finishDate == null }.size))
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
