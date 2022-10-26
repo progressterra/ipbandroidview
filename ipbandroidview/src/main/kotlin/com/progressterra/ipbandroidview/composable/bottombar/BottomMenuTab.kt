@@ -30,14 +30,14 @@ fun BottomMenuTab(
             state.onClick()
         }
         .padding(4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(contentAlignment = Alignment.TopEnd) {
+        Box(modifier = Modifier.size(24.dp)) {
             if (state.count > 0) {
                 Box(
                     modifier = Modifier
                         .size(13.dp)
                         .clip(CircleShape)
                         .background(AppTheme.colors.primary)
-                        .zIndex(1f),
+                        .zIndex(1f).align(Alignment.TopEnd),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
@@ -49,6 +49,7 @@ fun BottomMenuTab(
                 }
             }
             Icon(
+                modifier = Modifier.align(Alignment.Center),
                 painter = painterResource(id = state.iconId),
                 contentDescription = "${stringResource(id = R.string.icon)} ${stringResource(id = state.titleId)}",
                 tint = if (active) AppTheme.colors.primary else AppTheme.colors.gray2
