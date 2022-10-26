@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain
 
+import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.ClientDataIncome
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
@@ -36,7 +37,7 @@ interface UpdatePersonalInfoUseCase {
                         name = nameList[0],
                         soname = nameList[1],
                         patronymic = "",
-                        dateOfBirth = Date(System.currentTimeMillis()).format(),
+                        dateOfBirth = Constants.EMPTY_DATE,
                         comment = ""
                     )
                 )
