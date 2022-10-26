@@ -12,8 +12,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileDetailsViewModel(private val updatePersonalInfoUseCase: UpdatePersonalInfoUseCase) :
-    ViewModel(),
-    ContainerHost<ProfileDetailsState, ProfileDetailsEffect>,
+    ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEffect>,
     ProfileDetailsInteractor {
 
     override val container: Container<ProfileDetailsState, ProfileDetailsEffect> =
@@ -27,7 +26,7 @@ class ProfileDetailsViewModel(private val updatePersonalInfoUseCase: UpdatePerso
         reduce {
             state.copy(
                 phone = UserData.phone,
-                name = "${UserData.userName.name} ${UserData.userName.surname}",
+                name = if (UserData.userName.name.isNotBlank() && UserData.userName.surname.isNotBlank()) "${UserData.userName.name} ${UserData.userName.surname}" else "",
                 email = UserData.email
             )
         }

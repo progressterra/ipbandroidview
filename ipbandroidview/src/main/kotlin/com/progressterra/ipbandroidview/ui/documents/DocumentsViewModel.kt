@@ -20,21 +20,19 @@ class DocumentsViewModel(
     override val container: Container<DocumentsState, DocumentsEffect> = container(DocumentsState())
 
     init {
-        fetch()
+        refresh()
     }
 
-    private fun fetch() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allDocumentsUseCase.allDocuments().onSuccess {
             reduce {
                 state.copy(documents = it, screenState = ScreenState.SUCCESS)
             }
+            postSideEffect(DocumentsEffect.UpdateCounter(it.size))
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    override fun refresh() {
-        fetch()
-    }
 
     override fun onDocumentChecklist(document: Document) = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
