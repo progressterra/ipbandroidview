@@ -31,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
@@ -66,10 +65,9 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
         sheetState = sheetState, sheetShape = RoundedCornerShape(
             topStart = 8.dp, topEnd = 8.dp
         ), sheetContent = {
-            ThemedTopDialogBar(
-                title = if (state.currentCheck == null) stringResource(id = R.string.loading) else "${
-                    stringResource(id = R.string.question)
-                } ${state.currentCheck.categoryNumber}-${state.currentCheck.ordinal}",
+            ThemedTopDialogBar(title = if (state.currentCheck == null) stringResource(id = R.string.loading) else "${
+                stringResource(id = R.string.question)
+            } ${state.currentCheck.categoryNumber}-${state.currentCheck.ordinal}",
                 rightActions = {
                     IconButton(modifier = Modifier.size(24.dp),
                         onClick = { coroutineScope.launch { sheetState.hide() } }) {
@@ -237,9 +235,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                 text = stringResource(
                                     id = if (state.checklist.ongoing) R.string.end_audit else R.string.start_audit
                                 ),
-                                tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) Color(
-                                    0xFFFFCA61
-                                ) else AppTheme.colors.primary,
+                                tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.secondary else AppTheme.colors.primary,
                                 textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces
                             )
                             if (state.checklist.ongoing) {

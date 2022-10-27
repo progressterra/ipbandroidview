@@ -51,7 +51,7 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         address = it.address,
                         onClick = { interactor.onDocumentChecklist(it) },
                         stats = it.stats,
-                        backgroundColor = Color(0xFFFFCA61)
+                        backgroundColor = AppTheme.colors.secondary
                     )
                 }
                 state.documents.filter { it.finishDate != null }

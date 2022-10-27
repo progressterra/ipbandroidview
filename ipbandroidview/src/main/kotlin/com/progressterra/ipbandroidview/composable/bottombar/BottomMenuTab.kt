@@ -30,20 +30,20 @@ fun BottomMenuTab(
             state.onClick()
         }
         .padding(4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(modifier = Modifier.size(24.dp)) {
+        Box(modifier = Modifier.size(32.dp)) {
             if (state.count > 0) {
                 Box(
                     modifier = Modifier
-                        .size(13.dp)
+                        .size(16.dp)
                         .clip(CircleShape)
-                        .background(AppTheme.colors.primary)
+                        .background(AppTheme.colors.secondary)
                         .zIndex(1f).align(Alignment.TopEnd),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = state.count.toString(),
                         textAlign = TextAlign.Center,
-                        color = AppTheme.colors.surfaces,
+                        color = AppTheme.colors.black,
                         style = AppTheme.typography.actionBarLabels
                     )
                 }

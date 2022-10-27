@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 @Immutable
 data class AppColors(
     val primary: Color = Color(0xFF364BB9),
+    val secondary: Color = Color(0xFFFFCA61),
     val surfaces: Color = Color.White,
     val black: Color = Color(0xFF111111),
     val gray1: Color = Color(0xFF3E4555),
