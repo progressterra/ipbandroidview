@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.domain.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
@@ -20,11 +19,15 @@ class ConfirmationCodeViewModel(
     ConfirmationCodeInteractor {
 
     override val container: Container<ConfirmationCodeState, ConfirmationEffect> = container(
-        ConfirmationCodeState(phoneNumber = UserData.phone)
+        ConfirmationCodeState()
     )
 
     init {
         startTimer()
+    }
+
+    fun setPhoneNumber(phoneNumber: String) = intent {
+        reduce { state.copy(phoneNumber = phoneNumber) }
     }
 
     override fun onResend() {
