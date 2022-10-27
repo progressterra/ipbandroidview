@@ -62,6 +62,11 @@ fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsI
             }
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
+                onClick = { interactor.confirmChange() },
+                text = stringResource(id = R.string.confirm_change),
+            )
+            ThemedButton(
+                modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.logout() },
                 text = stringResource(id = R.string.logout),
                 textColor = AppTheme.colors.error,

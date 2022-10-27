@@ -67,4 +67,5 @@
     <string name="logout">Выйти из аккаунта</string>
     <string name="information">Информация</string>
     <string name="set_name">Установите имя</string>
+    <string name="confirm_change">Подтвердить изменения</string>
 </resources>

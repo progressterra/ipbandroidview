@@ -4,6 +4,8 @@ import com.progressterra.ipbandroidview.actions.Back
 
 interface ProfileDetailsInteractor : Back {
 
+    fun confirmChange()
+
     fun onEmail(email: String)
 
     fun onName(name: String)
@@ -11,6 +13,8 @@ interface ProfileDetailsInteractor : Back {
     fun logout()
 
     class Empty : ProfileDetailsInteractor {
+
+        override fun confirmChange() = Unit
 
         override fun onEmail(email: String) = Unit
 
