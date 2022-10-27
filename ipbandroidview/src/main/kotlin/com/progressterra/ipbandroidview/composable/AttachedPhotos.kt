@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -52,8 +53,9 @@ fun AttachedPhoto(
         Row(
             modifier = modifier
                 .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
-                .background(AppTheme.colors.background)
                 .fillMaxWidth()
+                .height(TextFieldDefaults.MinHeight)
+                .background(AppTheme.colors.background)
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(),
