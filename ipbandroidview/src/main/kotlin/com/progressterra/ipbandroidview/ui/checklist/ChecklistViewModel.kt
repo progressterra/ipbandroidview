@@ -294,6 +294,7 @@ class ChecklistViewModel(
         }.onFailure {
             postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
         }
+        postSideEffect(ChecklistEffect.RefreshAudits)
     }
 
     @Suppress("unused")
