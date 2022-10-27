@@ -34,7 +34,7 @@ fun AddressSuggestions(
         exit = shrinkVertically()
     ) {
         Card(
-            elevation = 4.dp, shape = RoundedCornerShape(AppTheme.dimensions.tinyRounding)
+            elevation = 4.dp, shape = RoundedCornerShape(AppTheme.roundings.smallRounding)
         ) {
             LazyColumn {
                 items(suggestions) {

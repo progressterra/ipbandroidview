@@ -68,4 +68,5 @@
     <string name="information">Информация</string>
     <string name="set_name">Установите имя</string>
     <string name="confirm_change">Подтвердить изменения</string>
+    <string name="favorite_button">Кнопка \"Добавить в избранное\"</string>
 </resources>

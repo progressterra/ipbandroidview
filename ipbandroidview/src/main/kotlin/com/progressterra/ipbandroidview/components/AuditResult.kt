@@ -28,7 +28,7 @@ fun AuditResult(
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
             .background(AppTheme.colors.surfaces)
             .padding(12.dp)
     ) {

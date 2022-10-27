@@ -17,8 +17,8 @@ fun BottomHolder(modifier: Modifier = Modifier, content: @Composable ColumnScope
         modifier = modifier
             .clip(
                 RoundedCornerShape(
-                    topStart = AppTheme.dimensions.largeRounding,
-                    topEnd = AppTheme.dimensions.largeRounding
+                    topStart = AppTheme.roundings.largeRounding,
+                    topEnd = AppTheme.roundings.largeRounding
                 )
             )
             .background(AppTheme.colors.surfaces)

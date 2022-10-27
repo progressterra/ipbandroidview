@@ -1,29 +1,30 @@
 package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.components.utils.niceClickable
 import com.progressterra.ipbandroidview.core.Picture
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun AttachedPhoto(
@@ -36,29 +37,25 @@ fun AttachedPhoto(
 
     @Composable
     fun Item(picture: Picture) {
-        AsyncImage(modifier = Modifier
-            .size(48.dp)
-            .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(),
-                onClick = { onPhotoSelect(picture) }
-
-            ), model = picture.thumbnail, contentDescription = stringResource(
-            id = R.string.thumbnail
-        ), contentScale = ContentScale.FillBounds)
+        SimpleImage(
+            modifier = Modifier
+                .size(48.dp)
+                .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
+                .niceClickable(onClick = { onPhotoSelect(picture) }),
+            url = picture.thumbnail,
+            options = ImageOptions(contentScale = ContentScale.FillBounds),
+            backgroundColor = AppTheme.colors.surfaces
+        )
     }
 
     if (pictures.isEmpty()) {
         Row(
             modifier = modifier
-                .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
                 .fillMaxWidth()
                 .height(TextFieldDefaults.MinHeight)
                 .background(AppTheme.colors.background)
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = rememberRipple(),
+                .niceClickable(
                     onClick = onCamera,
                     enabled = enabled
                 )
@@ -71,13 +68,7 @@ fun AttachedPhoto(
                 style = AppTheme.typography.text,
                 color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
             )
-            Icon(
-                painter = painterResource(id = R.drawable.ic_camera),
-                contentDescription = stringResource(
-                    id = R.string.camera
-                ),
-                tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
-            )
+            CameraIcon(enabled = enabled)
         }
     } else {
         LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -86,22 +77,12 @@ fun AttachedPhoto(
                     Box(
                         modifier = Modifier
                             .size(48.dp)
-                            .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                            .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
                             .background(AppTheme.colors.background)
-                            .clickable(
-                                interactionSource = remember { MutableInteractionSource() },
-                                indication = rememberRipple(),
-                                onClick = onCamera
-                            ),
+                            .niceClickable(onClick = onCamera),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_camera),
-                            contentDescription = stringResource(
-                                id = R.string.camera
-                            ),
-                            tint = AppTheme.colors.primary
-                        )
+                        CameraIcon(enabled = true)
                     }
                 }
             }

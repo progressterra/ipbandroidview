@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
@@ -20,12 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -41,7 +37,7 @@ fun DocumentCard(
 ) {
     Row(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
             .background(backgroundColor)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
@@ -72,15 +68,7 @@ fun DocumentCard(
             Stats(Modifier.fillMaxWidth(), stats)
         }
         Spacer(modifier = Modifier.size(8.dp))
-        Icon(
-            modifier = Modifier.size(16.dp),
-            painter = painterResource(id = R.drawable.ic_forward),
-            contentDescription = stringResource(
-                id = R.string.forward
-            ),
-            tint = AppTheme.colors.gray2
-        )
-
+        ForwardIcon()
     }
 }
 

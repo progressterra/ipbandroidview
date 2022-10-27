@@ -40,7 +40,7 @@ fun YesNoButton(
         onClick: () -> Unit
     ) {
         Row(modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.dimensions.buttonRounding))
+            .clip(RoundedCornerShape(AppTheme.roundings.buttonRounding))
             .background(if (active) activeColor else baseColor)
             .clickable(
                 enabled = enabled,

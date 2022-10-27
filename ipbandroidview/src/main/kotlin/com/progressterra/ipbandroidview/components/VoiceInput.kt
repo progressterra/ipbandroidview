@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
@@ -18,7 +17,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,7 +50,7 @@ fun VoiceInput(
                 Box(modifier = Modifier.padding(8.dp)) {
                     Row(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                            .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
                             .height(TextFieldDefaults.MinHeight)
                             .fillMaxWidth()
                             .background(AppTheme.colors.background)
@@ -66,13 +64,7 @@ fun VoiceInput(
                                 onClick = onRemove,
                                 enabled = enabled
                             ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_trash),
-                                    contentDescription = stringResource(
-                                        id = R.string.trash
-                                    ),
-                                    tint = if (enabled) AppTheme.colors.error else AppTheme.colors.gray2
-                                )
+                                TrashIcon(enabled = enabled)
                             }
                         else
                             Text(
@@ -85,14 +77,7 @@ fun VoiceInput(
                             onClick = if (state.ongoing) onStopRecording else onStartRecording,
                             enabled = enabled
                         ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_mic),
-                                contentDescription = stringResource(
-                                    id = R.string.mic
-                                ),
-                                tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
-                            )
-
+                            MicIcon(enabled = enabled)
                         }
                     }
 
@@ -104,7 +89,7 @@ fun VoiceInput(
             Box(modifier = modifier.padding(8.dp)) {
                 Row(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding))
+                        .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
                         .background(AppTheme.colors.background)
                         .padding(12.dp)
                         .fillMaxWidth(),
@@ -116,13 +101,7 @@ fun VoiceInput(
                         onClick = onRemove,
                         enabled = enabled
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_trash),
-                            contentDescription = stringResource(
-                                id = R.string.trash
-                            ),
-                            tint = if (enabled) AppTheme.colors.error else AppTheme.colors.gray2
-                        )
+                        TrashIcon(enabled = enabled)
                     }
                     Spacer(modifier = Modifier.size(16.dp))
                     ThemedLinearProgressIndicator(
@@ -134,13 +113,7 @@ fun VoiceInput(
                         modifier = Modifier.size(24.dp),
                         onClick = if (state.ongoing) onPausePlay else onStartPlay
                     ) {
-                        Icon(
-                            painter = painterResource(id = if (state.ongoing) R.drawable.ic_pause else R.drawable.ic_play),
-                            contentDescription = stringResource(
-                                id = R.string.pause_stop
-                            ),
-                            tint = AppTheme.colors.primary
-                        )
+                        PlayPauseIcon(ongoing = state.ongoing)
                     }
                 }
 

@@ -53,7 +53,7 @@ fun ThemedNotebook(
             .border(
                 width = 1.dp,
                 color = if (focused) AppTheme.colors.primary else Color.Transparent,
-                shape = RoundedCornerShape(AppTheme.dimensions.tinyRounding)
+                shape = RoundedCornerShape(AppTheme.roundings.smallRounding)
             )
             .clearFocusOnKeyboardDismiss(),
         value = localText,
@@ -67,7 +67,7 @@ fun ThemedNotebook(
                 focusManager.clearFocus()
             }
         ),
-        shape = RoundedCornerShape(AppTheme.dimensions.tinyRounding),
+        shape = RoundedCornerShape(AppTheme.roundings.smallRounding),
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,

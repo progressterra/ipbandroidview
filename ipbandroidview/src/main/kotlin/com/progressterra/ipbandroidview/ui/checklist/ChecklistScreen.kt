@@ -93,7 +93,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     ) {
                         Column(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+                                .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
                                 .background(AppTheme.colors.surfaces)
                                 .padding(12.dp)
                                 .fillMaxWidth()
@@ -107,7 +107,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         Spacer(modifier = Modifier.size(8.dp))
                         Column(
                             modifier = Modifier
-                                .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+                                .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
                                 .background(AppTheme.colors.surfaces)
                         ) {
                             Box(modifier = Modifier.padding(12.dp)) {

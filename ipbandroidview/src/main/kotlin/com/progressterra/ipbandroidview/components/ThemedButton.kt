@@ -24,7 +24,7 @@ fun ThemedButton(
     Button(
         modifier = modifier,
         onClick = onClick,
-        shape = RoundedCornerShape(AppTheme.dimensions.buttonRounding),
+        shape = RoundedCornerShape(AppTheme.roundings.buttonRounding),
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
             backgroundColor = if (enabled) tint else AppTheme.colors.gray3,

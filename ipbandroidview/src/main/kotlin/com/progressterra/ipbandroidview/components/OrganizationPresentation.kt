@@ -3,7 +3,14 @@ package com.progressterra.ipbandroidview.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
@@ -19,9 +26,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun OrganizationPresentation(
@@ -33,18 +40,18 @@ fun OrganizationPresentation(
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
             .background(AppTheme.colors.surfaces)
             .padding(12.dp)
     ) {
-        AsyncImage(
+        SimpleImage(
             modifier = Modifier
                 .height(188.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(AppTheme.dimensions.tinyRounding)),
-            model = imageUrl,
-            contentDescription = stringResource(id = R.string.organization_image),
-            contentScale = ContentScale.FillBounds
+                .clip(RoundedCornerShape(AppTheme.roundings.smallRounding)),
+            url = imageUrl,
+            options = ImageOptions(contentScale = ContentScale.FillBounds),
+            backgroundColor = AppTheme.colors.surfaces
         )
         Spacer(modifier = Modifier.size(12.dp))
         Row(

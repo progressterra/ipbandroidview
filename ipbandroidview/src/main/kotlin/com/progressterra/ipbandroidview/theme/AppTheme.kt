@@ -15,11 +15,11 @@ object AppTheme {
     val typography
         @Composable @ReadOnlyComposable get() = LocalTypography.current
 
-    val dimensions
-        @Composable @ReadOnlyComposable get() = LocalDimensions.current
+    val roundings
+        @Composable @ReadOnlyComposable get() = LocalRoundings.current
 }
 
-val LocalDimensions = staticCompositionLocalOf { AppDimensions() }
+val LocalRoundings = staticCompositionLocalOf { Roundings() }
 
 val LocalTypography = staticCompositionLocalOf { AppTypography() }
 
@@ -29,7 +29,7 @@ val LocalColors = staticCompositionLocalOf { AppColors() }
 fun AppTheme(
     colors: AppColors = AppTheme.colors,
     typography: AppTypography = AppTheme.typography,
-    dimensions: AppDimensions = AppTheme.dimensions,
+    dimensions: Roundings = AppTheme.roundings,
     content: @Composable () -> Unit
 ) {
     val customCursorColors = TextSelectionColors(
@@ -37,7 +37,7 @@ fun AppTheme(
         backgroundColor = AppTheme.colors.primary.copy(alpha = 0.4f)
     )
     CompositionLocalProvider(
-        LocalDimensions provides dimensions,
+        LocalRoundings provides dimensions,
         LocalTypography provides typography,
         LocalColors provides colors,
         LocalTextSelectionColors provides customCursorColors

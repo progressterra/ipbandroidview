@@ -44,7 +44,7 @@ fun SignInScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+                            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
                             .background(AppTheme.colors.surfaces)
                             .padding(12.dp)
                     ) {

@@ -37,7 +37,7 @@ fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsI
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(AppTheme.dimensions.mediumRounding))
+                    .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
                     .background(AppTheme.colors.surfaces)
                     .padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {

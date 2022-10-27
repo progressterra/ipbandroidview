@@ -24,7 +24,7 @@ fun ThemedRefreshButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     Icon(
         modifier = modifier
             .size(64.dp)
-            .clip(RoundedCornerShape(AppTheme.dimensions.buttonRounding))
+            .clip(RoundedCornerShape(AppTheme.roundings.buttonRounding))
             .background(AppTheme.colors.primary)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
