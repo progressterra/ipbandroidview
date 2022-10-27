@@ -5,9 +5,9 @@ import android.content.Intent
 import android.provider.MediaStore
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.VoiceState
-import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
-import com.progressterra.ipbandroidview.composable.yesno.YesNo
+import com.progressterra.ipbandroidview.components.VoiceState
+import com.progressterra.ipbandroidview.components.stats.ChecklistStats
+import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.core.Checklist
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.Picture

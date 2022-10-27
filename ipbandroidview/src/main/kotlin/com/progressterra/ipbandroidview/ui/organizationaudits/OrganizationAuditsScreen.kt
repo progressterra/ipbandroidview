@@ -13,10 +13,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.OrganizationCheckCard
-import com.progressterra.ipbandroidview.composable.OrganizationPresentation
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.components.StateBox
+import com.progressterra.ipbandroidview.components.OrganizationCheckCard
+import com.progressterra.ipbandroidview.components.OrganizationPresentation
+import com.progressterra.ipbandroidview.components.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 

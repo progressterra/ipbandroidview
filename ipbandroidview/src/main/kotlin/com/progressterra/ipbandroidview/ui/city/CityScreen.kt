@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.*
+import com.progressterra.ipbandroidview.components.*
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private const val moveAnimationDuration = 1000

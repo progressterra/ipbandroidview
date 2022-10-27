@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.core
 
 import android.os.Parcelable
-import com.progressterra.ipbandroidview.composable.stats.ChecklistStats
-import com.progressterra.ipbandroidview.composable.yesno.YesNo
+import com.progressterra.ipbandroidview.components.stats.ChecklistStats
+import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.ui.checklist.Check
 import kotlinx.parcelize.Parcelize
 

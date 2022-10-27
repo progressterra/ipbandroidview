@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.TransparentTopAppBar
+import com.progressterra.ipbandroidview.components.TransparentTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Suppress("unused")
