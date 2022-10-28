@@ -27,7 +27,9 @@ fun FavoriteUncheckedIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun FavoriteUncheckedIconPreview() {
-    FavoriteUncheckedIcon()
+    AppTheme {
+        FavoriteUncheckedIcon()
+    }
 }
 
 @Composable
@@ -46,7 +48,9 @@ fun FavoriteCheckedIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun FavoriteCheckedIconPreview() {
-    FavoriteCheckedIcon()
+    AppTheme {
+        FavoriteCheckedIcon()
+    }
 }
 
 @Composable
@@ -65,9 +69,11 @@ fun MicIcon(modifier: Modifier = Modifier, enabled: Boolean) {
 @Preview
 @Composable
 private fun MicIconPreview() {
-    Column {
-        MicIcon(enabled = true)
-        MicIcon(enabled = false)
+    AppTheme {
+        Column {
+            MicIcon(enabled = true)
+            MicIcon(enabled = false)
+        }
     }
 }
 
@@ -87,9 +93,11 @@ fun CameraIcon(modifier: Modifier = Modifier, enabled: Boolean) {
 @Preview
 @Composable
 private fun CameraIconPreview() {
-    Column {
-        CameraIcon(enabled = true)
-        CameraIcon(enabled = false)
+    AppTheme {
+        Column {
+            CameraIcon(enabled = true)
+            CameraIcon(enabled = false)
+        }
     }
 }
 
@@ -109,9 +117,11 @@ fun TrashIcon(modifier: Modifier = Modifier, enabled: Boolean) {
 @Preview
 @Composable
 private fun TrashIconPreview() {
-    Column {
-        TrashIcon(enabled = true)
-        TrashIcon(enabled = false)
+    AppTheme {
+        Column {
+            TrashIcon(enabled = true)
+            TrashIcon(enabled = false)
+        }
     }
 }
 
@@ -131,9 +141,11 @@ fun PlayPauseIcon(modifier: Modifier = Modifier, ongoing: Boolean) {
 @Preview
 @Composable
 private fun PlayPauseIconPreview() {
-    Column {
-        PlayPauseIcon(ongoing = true)
-        PlayPauseIcon(ongoing = false)
+    AppTheme {
+        Column {
+            PlayPauseIcon(ongoing = true)
+            PlayPauseIcon(ongoing = false)
+        }
     }
 }
 
@@ -153,8 +165,10 @@ fun ForwardIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun ForwardIconPreview() {
-    Column {
-        ForwardIcon()
-        ForwardIcon()
+    AppTheme {
+        Column {
+            ForwardIcon()
+            ForwardIcon()
+        }
     }
 }
