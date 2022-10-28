@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.theme.AppColors
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val roundingCornerSize = 8.dp
@@ -29,7 +30,8 @@ fun ThemedTextField(
     onChange: ((String) -> Unit)? = null,
     onFocusChange: ((Boolean) -> Unit)? = null,
     enabled: Boolean = true,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
@@ -102,7 +104,7 @@ fun ThemedTextField(
 @Preview
 @Composable
 private fun ThemedTextFieldPreviewEnabled() {
-    AppTheme {
+    AppTheme() {
         ThemedTextField(
             text = "Some text", hint = "Your name", enabled = true
         )

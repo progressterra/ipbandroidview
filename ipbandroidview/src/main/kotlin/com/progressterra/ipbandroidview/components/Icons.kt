@@ -17,9 +17,7 @@ fun FavoriteUncheckedIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(R.drawable.ic_favorite),
-        contentDescription = stringResource(
-            id = R.string.favorite_button
-        ),
+        contentDescription = null,
         tint = AppTheme.colors.gray2
     )
 }
@@ -37,9 +35,7 @@ fun FavoriteCheckedIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_favorite_selected),
-        contentDescription = stringResource(
-            id = R.string.favorite_button
-        ),
+        contentDescription = null,
         tint = AppTheme.colors.primary
     )
 }
@@ -58,9 +54,7 @@ fun MicIcon(modifier: Modifier = Modifier, enabled: Boolean) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_mic),
-        contentDescription = stringResource(
-            id = R.string.mic
-        ),
+        contentDescription = null,
         tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
     )
 }
@@ -82,9 +76,7 @@ fun CameraIcon(modifier: Modifier = Modifier, enabled: Boolean) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_camera),
-        contentDescription = stringResource(
-            id = R.string.camera
-        ),
+        contentDescription = null,
         tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
     )
 }
@@ -106,9 +98,7 @@ fun TrashIcon(modifier: Modifier = Modifier, enabled: Boolean) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_trash),
-        contentDescription = stringResource(
-            id = R.string.trash
-        ),
+        contentDescription = null,
         tint = if (enabled) AppTheme.colors.error else AppTheme.colors.gray2
     )
 }
@@ -130,9 +120,7 @@ fun PlayPauseIcon(modifier: Modifier = Modifier, ongoing: Boolean) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = if (ongoing) R.drawable.ic_pause else R.drawable.ic_play),
-        contentDescription = stringResource(
-            id = R.string.pause_stop
-        ),
+        contentDescription = null,
         tint = AppTheme.colors.primary
     )
 }
@@ -152,11 +140,9 @@ private fun PlayPauseIconPreview() {
 @Composable
 fun ForwardIcon(modifier: Modifier = Modifier) {
     Icon(
-        modifier = modifier.size(24.dp),
+        modifier = modifier,
         painter = painterResource(id = R.drawable.ic_forward),
-        contentDescription = stringResource(
-            id = R.string.forward
-        ),
+        contentDescription = null,
         tint = AppTheme.colors.gray2
     )
 }
@@ -169,6 +155,50 @@ private fun ForwardIconPreview() {
         Column {
             ForwardIcon()
             ForwardIcon()
+        }
+    }
+}
+
+@Composable
+fun SettingsIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_settings),
+        contentDescription = null,
+        tint = AppTheme.colors.gray1
+    )
+}
+
+
+@Preview
+@Composable
+private fun SettingsIconPreview() {
+    AppTheme {
+        Column {
+            SettingsIcon()
+            SettingsIcon()
+        }
+    }
+}
+
+@Composable
+fun BackIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_back),
+        contentDescription = null,
+        tint = AppTheme.colors.gray1
+    )
+}
+
+
+@Preview
+@Composable
+private fun BackIconPreview() {
+    AppTheme {
+        Column {
+            BackIcon()
+            BackIcon()
         }
     }
 }
