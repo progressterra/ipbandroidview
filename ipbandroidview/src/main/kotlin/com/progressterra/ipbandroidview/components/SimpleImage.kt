@@ -27,6 +27,6 @@ fun SimpleImage(
                 highlightColor = AppTheme.colors.primary
             )
         },
-        previewPlaceholder = R.drawable.image_placeholder
+        previewPlaceholder = R.drawable.dummy_200x400
     )
 }

@@ -36,9 +36,8 @@ fun StoreItemCard(
     ) {
         val (favoriteButton, image, price, name) = createRefs()
         FavoriteButton(modifier = Modifier.constrainAs(favoriteButton) {
-            translationZ = 1.dp
-            end.linkTo(parent.end)
-            top.linkTo(parent.top)
+            end.linkTo(image.end)
+            top.linkTo(image.top)
         }, favorite = state.favorite, onClick = onFavorite)
         SimpleImage(
             Modifier
@@ -49,11 +48,10 @@ fun StoreItemCard(
                     )
                 )
                 .constrainAs(image) {
+                    width = Dimension.matchParent
                     top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                }, url = state.imageUrl, options = ImageOptions(
-                contentScale = ContentScale.FillBounds
+                }, url = state.imageUri, options = ImageOptions(
+                contentScale = ContentScale.FillWidth
             ), backgroundColor = AppTheme.colors.surfaces
         )
         val margin = 8.dp
@@ -94,13 +92,18 @@ private fun StoreItemCardPreview() {
     AppTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             StoreItemCard(state = StoreItemState(
-                imageUrl = "",
-                "3 000 ₽",
-                "Some cool item with pretty long name that contains many symbols",
-                false
+                id = "",
+                imageUri = "",
+                price = "3 000 ₽",
+                name = "Some cool item with pretty long name that contains many symbols",
+                favorite = false
             ), onClick = { }) {}
             StoreItemCard(state = StoreItemState(
-                imageUrl = "", "3 000 ₽", "Some cool item", true
+                id = "",
+                imageUri = "",
+                price = "3 000 ₽",
+                name = "Some cool item",
+                favorite = true
             ), onClick = { }) {}
         }
 
