@@ -1,21 +1,27 @@
 package com.progressterra.ipbandroidview.components.topbar
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkHorizontally
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
@@ -36,26 +42,42 @@ fun SearchTopBar(
         backgroundColor = AppTheme.colors.surfaces,
         elevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 16.dp)
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 10.dp)
     ) {
         Row(
             Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            AnimatedVisibility(visible = state.expanded) {
+            AnimatedVisibility(
+                visible = state.expanded,
+                enter = expandHorizontally(),
+                exit = shrinkHorizontally()
+            ) {
                 IconButton(onClick = onBack) {
                     BackIcon()
                 }
             }
             ThemedTextField(
+                modifier = Modifier
+                    .weight(1f)
+                    .animateContentSize(
+                        animationSpec = tween(
+                            durationMillis = 300, easing = LinearOutSlowInEasing
+                        )
+                    ),
                 text = state.keyword,
                 hint = stringResource(id = R.string.search),
                 onChange = { onKeyword(it) },
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Search
-                )
+                ),
+                action = onSearch
             )
-            AnimatedVisibility(visible = state.expanded) {
+            AnimatedVisibility(
+                visible = state.expanded,
+                enter = expandHorizontally(),
+                exit = shrinkHorizontally()
+            ) {
                 IconButton(onClick = onFilters) {
                     SettingsIcon()
                 }
@@ -68,7 +90,11 @@ fun SearchTopBar(
 @Composable
 private fun SearchTopBarWithBackNavPreview0() {
     AppTheme {
-        SearchTopBar(title = "Some mock title")
+        SearchTopBar(state = SearchBarState("Some keyword", false),
+            onSearch = {},
+            onBack = {},
+            onKeyword = {},
+            onFilters = {})
     }
 }
 
@@ -76,54 +102,10 @@ private fun SearchTopBarWithBackNavPreview0() {
 @Composable
 private fun SearchTopBarWithBackNavPreview1() {
     AppTheme {
-        SearchTopBar(title = "Some mock title", rightActions = {
-            Text(
-                text = "SOS",
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
-                maxLines = 1,
-                textAlign = TextAlign.Center
-            )
-        })
-    }
-}
-
-@Preview
-@Composable
-private fun SearchTopBarWithBackNavPreview2() {
-    AppTheme {
-        SearchTopBar(title = "Some mock title", leftActions = {
-            Text(
-                text = "SOS",
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
-                maxLines = 1,
-                textAlign = TextAlign.Center
-            )
-        })
-    }
-}
-
-@Preview
-@Composable
-private fun SearchTopBarWithBackNavPreview3() {
-    AppTheme {
-        SearchTopBar(title = "Some mock title", leftActions = {
-            Text(
-                text = "SOS",
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
-                maxLines = 1,
-                textAlign = TextAlign.Center
-            )
-        }, rightActions = {
-            Text(
-                text = "SOS",
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
-                maxLines = 1,
-                textAlign = TextAlign.Center
-            )
-        })
+        SearchTopBar(state = SearchBarState("Some keyword", true),
+            onSearch = {},
+            onBack = {},
+            onKeyword = {},
+            onFilters = {})
     }
 }
