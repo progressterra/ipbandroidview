@@ -43,7 +43,7 @@ class ConfirmationCodeViewModel(
         endVerificationChannelUseCase.end(state.phoneNumber, state.code).onSuccess {
             postSideEffect(ConfirmationCodeEffect.Next)
         }.onFailure {
-            postSideEffect(ConfirmationCodeEffect.ShowToast(R.string.wrong_code))
+            postSideEffect(ConfirmationCodeEffect.Toast(R.string.wrong_code))
         }
     }
 
