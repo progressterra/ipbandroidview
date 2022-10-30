@@ -180,8 +180,8 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding)
                     .background(AppTheme.colors.background)
+                    .padding(padding)
             ) {
                 var spacerSize by remember { mutableStateOf(0.dp) }
                 LazyColumn(

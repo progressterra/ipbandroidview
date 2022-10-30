@@ -59,7 +59,6 @@ class OrganizationAuditsViewModel(
         }
     }
 
-
     override fun onMapClick() = intent {
         val mapIntent =
             Intent(Intent.ACTION_VIEW, Uri.parse("geo:${state.latitude},${state.longitude}"))
@@ -67,10 +66,9 @@ class OrganizationAuditsViewModel(
         startActivity.startActivityFromIntent(mapIntent)
     }
 
-    override fun onBack() = intent {
+    override fun back() = intent {
         postSideEffect(OrganizationAuditsEffect.Back)
     }
-
 
     override fun openDetails(key: OrganizationAudit) = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }

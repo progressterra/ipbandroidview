@@ -4,7 +4,7 @@ sealed class CityEffect {
 
     object Skip : CityEffect()
 
-    object OpenNext : CityEffect()
+    object Next : CityEffect()
 
     object Back : CityEffect()
 }

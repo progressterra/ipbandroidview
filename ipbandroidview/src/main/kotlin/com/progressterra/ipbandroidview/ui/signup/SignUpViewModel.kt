@@ -25,8 +25,8 @@ class SignUpViewModel(
     override fun next() = intent {
         if (state.isDataValid) {
             updatePersonalInfoUseCase.update(state.name, state.email, state.birthdayDate)
-            postSideEffect(SignUpEffect.OpenNext)
-        } else postSideEffect(SignUpEffect.ShowToast(R.string.invalid_data))
+            postSideEffect(SignUpEffect.Next)
+        } else postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
     }
 
     override fun editBirthday(birthday: String, birthdayDate: LocalDate) {

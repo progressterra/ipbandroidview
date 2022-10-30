@@ -140,9 +140,9 @@ class ChecklistViewModel(
             state.checklist.documentId?.let { documentId ->
                 finishDocumentUseCase.finishDocument(documentId).onSuccess {
                     reduce { state.copy(checklist = state.checklist.copy(ongoing = false)) }
-                    postSideEffect(ChecklistEffect.ShowToast(R.string.audit_ended))
+                    postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.ShowToast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                 }
             }
         else {
@@ -170,7 +170,7 @@ class ChecklistViewModel(
                         )
                     }
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.ShowToast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                 }
             }
             state.checklist.documentId?.let { id ->
@@ -183,9 +183,9 @@ class ChecklistViewModel(
                             )
                         )
                     }
-                    postSideEffect(ChecklistEffect.ShowToast(R.string.audit_started))
+                    postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.ShowToast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                 }
             }
         }
@@ -290,9 +290,9 @@ class ChecklistViewModel(
                     stats = newChecklist.createStats()
                 )
             }
-            postSideEffect(ChecklistEffect.ShowToast(R.string.answer_done))
+            postSideEffect(ChecklistEffect.Toast(R.string.answer_done))
         }.onFailure {
-            postSideEffect(ChecklistEffect.ShowToast(R.string.error_happend))
+            postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
         }
         postSideEffect(ChecklistEffect.RefreshAudits)
     }

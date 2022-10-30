@@ -27,7 +27,7 @@ class CityViewModel(
 
     override fun skip() = intent { postSideEffect(CityEffect.Skip) }
 
-    override fun next() = intent { postSideEffect(CityEffect.OpenNext) }
+    override fun next() = intent { postSideEffect(CityEffect.Next) }
 
     override fun editAddress(address: String) = intent {
         reduce { state.copy(address = address) }

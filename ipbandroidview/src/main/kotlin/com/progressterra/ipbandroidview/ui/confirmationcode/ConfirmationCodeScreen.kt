@@ -32,7 +32,7 @@ fun ConfirmationCodeScreen(
 ) {
     Scaffold(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.verification_code),
-            onBack = { interactor.onBack() })
+            onBack = { interactor.back() })
     }) { padding ->
         Column(
             Modifier
@@ -65,7 +65,7 @@ fun ConfirmationCodeScreen(
             BottomHolder {
                 ThemedButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.onNext() },
+                    onClick = { interactor.next() },
                     text = stringResource(id = R.string.next)
                 )
                 Spacer(modifier = Modifier.size(8.dp))

@@ -34,10 +34,10 @@ class ProfileDetailsViewModel(private val updatePersonalInfoUseCase: UpdatePerso
 
     override fun confirmChange() = intent {
         updatePersonalInfoUseCase.update(state.name, state.email).onSuccess {
-            postSideEffect(ProfileDetailsEffect.ShowToast(R.string.success_changed_personal))
+            postSideEffect(ProfileDetailsEffect.Toast(R.string.success_changed_personal))
             postSideEffect(ProfileDetailsEffect.UpdateUserInfo)
         }.onFailure {
-            postSideEffect(ProfileDetailsEffect.ShowToast(R.string.failed_changed_personal))
+            postSideEffect(ProfileDetailsEffect.Toast(R.string.failed_changed_personal))
         }
     }
 

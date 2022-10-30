@@ -28,11 +28,12 @@ fun OrganizationAuditsScreen(
         ThemedTopAppBar(
             onBack = { interactor.back() }, title = stringResource(id = R.string.audits)
         )
-    }) {
+    }) { padding ->
         StateBox(
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppTheme.colors.background),
+                .background(AppTheme.colors.background)
+                .padding(padding),
             onRefresh = { interactor.refresh() },
             state = state.screenState
         ) {

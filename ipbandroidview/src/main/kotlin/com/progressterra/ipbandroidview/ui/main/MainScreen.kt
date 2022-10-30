@@ -29,8 +29,8 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
             onKeyword = { interactor.keyword(it) },
             onSearch = { interactor.search() },
             onFilters = {})
-    }) {
-        Column(modifier = Modifier.padding(it)) {
+    }) { padding ->
+        Column(modifier = Modifier.padding(padding)) {
             LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxSize()

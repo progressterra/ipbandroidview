@@ -26,6 +26,7 @@ class ConfirmationCodeViewModel(
         startTimer()
     }
 
+    @Suppress("unused")
     fun setPhoneNumber(phoneNumber: String) = intent {
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
@@ -38,9 +39,9 @@ class ConfirmationCodeViewModel(
         startTimer()
     }
 
-    override fun onNext() = intent {
+    override fun next() = intent {
         endVerificationChannelUseCase.end(state.phoneNumber, state.code).onSuccess {
-            postSideEffect(ConfirmationCodeEffect.OpenNext)
+            postSideEffect(ConfirmationCodeEffect.Next)
         }.onFailure {
             postSideEffect(ConfirmationCodeEffect.ShowToast(R.string.wrong_code))
         }
@@ -48,7 +49,7 @@ class ConfirmationCodeViewModel(
 
     override fun editCode(code: String) = intent {
         if (code.length <= 4) reduce { state.copy(code = code) }
-        if (code.length == 4) onNext()
+        if (code.length == 4) next()
     }
 
     private fun startTimer() = intent {
@@ -61,7 +62,7 @@ class ConfirmationCodeViewModel(
         reduce { state.copy(isTimer = false) }
     }
 
-    override fun onBack() = intent {
+    override fun back() = intent {
         postSideEffect(ConfirmationCodeEffect.Back)
     }
 }

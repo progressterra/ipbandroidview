@@ -11,5 +11,5 @@ sealed class ProfileDetailsEffect {
     object Logout : ProfileDetailsEffect()
 
     @Suppress("unused")
-    class ShowToast(@StringRes val message: Int) : ProfileDetailsEffect()
+    class Toast(@StringRes val message: Int) : ProfileDetailsEffect()
 }

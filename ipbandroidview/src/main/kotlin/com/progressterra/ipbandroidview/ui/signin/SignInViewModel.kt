@@ -18,9 +18,9 @@ class SignInViewModel(
 
     override fun next() = intent {
         startVerificationChannelUseCase.start(state.phoneNumber.trim()).onSuccess {
-            postSideEffect(SignInEffect.OpenNext(state.phoneNumber))
+            postSideEffect(SignInEffect.Next(state.phoneNumber))
         }.onFailure {
-            postSideEffect(SignInEffect.ShowToast(R.string.wrong_phone))
+            postSideEffect(SignInEffect.Toast(R.string.wrong_phone))
         }
     }
 
