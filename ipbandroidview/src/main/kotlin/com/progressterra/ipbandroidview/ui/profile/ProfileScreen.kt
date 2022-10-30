@@ -29,11 +29,12 @@ fun ProfileScreen(state: ProfileState, interactor: ProfileInteractor) {
         ThemedTopAppBar(
             title = stringResource(id = R.string.profile)
         )
-    }) {
+    }) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppTheme.colors.background)
+                .padding(padding)
                 .padding(8.dp)
         ) {
             Row(

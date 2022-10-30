@@ -4,12 +4,12 @@ import androidx.annotation.StringRes
 
 sealed class ProfileDetailsEffect {
 
-    object GoBack : ProfileDetailsEffect()
+    object Back : ProfileDetailsEffect()
 
     object UpdateUserInfo : ProfileDetailsEffect()
 
     object Logout : ProfileDetailsEffect()
 
     @Suppress("unused")
-    class Toast(@StringRes val message: Int) : ProfileDetailsEffect()
+    class ShowToast(@StringRes val message: Int) : ProfileDetailsEffect()
 }

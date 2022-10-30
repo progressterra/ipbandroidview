@@ -46,9 +46,9 @@ import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedNotebook
 import com.progressterra.ipbandroidview.components.ThemedTopAppBar
-import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
 import com.progressterra.ipbandroidview.components.VoiceInput
 import com.progressterra.ipbandroidview.components.stats.Stats
+import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
 import com.progressterra.ipbandroidview.components.yesno.YesNoButton
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
@@ -125,7 +125,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     hint = stringResource(
                                         id = R.string.text_comment
                                     ),
-                                    onChange = { interactor.onCheckCommentaryChange(it) },
+                                    onChange = { interactor.editCheckCommentary(it) },
                                     enabled = state.checklist.ongoing
                                 )
                             }
@@ -138,7 +138,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                                     onStartPlay = { interactor.startPausePlay() },
                                     onPausePlay = { interactor.startPausePlay() },
                                     onRemove = {
-                                        interactor.removeRecord()
+                                        interactor.remove()
                                     },
                                     enabled = state.checklist.ongoing
                                 )
@@ -176,10 +176,11 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
             ThemedTopAppBar(
                 onBack = { interactor.back() }, title = stringResource(id = R.string.audit)
             )
-        }) {
+        }) { padding ->
             Box(
                 modifier = Modifier
                     .fillMaxSize()
+                    .padding(padding)
                     .background(AppTheme.colors.background)
             ) {
                 var spacerSize by remember { mutableStateOf(0.dp) }
@@ -211,7 +212,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             items(checks.sortedBy { it.ordinal }) {
                                 CheckCard(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
-                                        interactor.check(it)
+                                        interactor.openDetails(it)
                                         coroutineScope.launch { sheetState.show() }
                                     }, name = it.name, yesNo = it.yesNo
                                 )

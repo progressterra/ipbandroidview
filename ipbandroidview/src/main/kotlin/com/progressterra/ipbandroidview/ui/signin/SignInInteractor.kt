@@ -1,19 +1,18 @@
 package com.progressterra.ipbandroidview.ui.signin
 
-interface SignInInteractor {
+import com.progressterra.ipbandroidview.actions.Next
+import com.progressterra.ipbandroidview.actions.Skip
 
-    fun onNext()
+interface SignInInteractor : Skip, Next {
 
-    fun onSkip()
-
-    fun onPhoneNumber(phoneNumber: String)
+    fun editPhoneNumber(phoneNumber: String)
 
     class Empty : SignInInteractor {
 
-        override fun onNext() = Unit
+        override fun next() = Unit
 
-        override fun onSkip() = Unit
+        override fun skip() = Unit
 
-        override fun onPhoneNumber(phoneNumber: String) = Unit
+        override fun editPhoneNumber(phoneNumber: String) = Unit
     }
 }

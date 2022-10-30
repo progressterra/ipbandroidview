@@ -2,11 +2,17 @@ package com.progressterra.ipbandroidview.ui.signin
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -15,7 +21,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.*
+import com.progressterra.ipbandroidview.components.BottomHolder
+import com.progressterra.ipbandroidview.components.LinkText
+import com.progressterra.ipbandroidview.components.LinkTextData
+import com.progressterra.ipbandroidview.components.ThemedButton
+import com.progressterra.ipbandroidview.components.ThemedTextButton
+import com.progressterra.ipbandroidview.components.ThemedTextField
+import com.progressterra.ipbandroidview.components.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -26,66 +38,64 @@ fun SignInScreen(
 ) {
     Scaffold(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.authorization))
-    }) {
-        Surface(
-            modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background
+    }) { padding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppTheme.colors.background)
+                .padding(padding)
+                .padding(
+                    start = 8.dp,
+                    top = 8.dp,
+                    end = 8.dp
+                ),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = 8.dp,
-                        top = 8.dp,
-                        end = 8.dp
-                    ),
-                verticalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Column(modifier = Modifier.fillMaxWidth()) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
-                            .background(AppTheme.colors.surfaces)
-                            .padding(12.dp)
-                    ) {
-                        ThemedTextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = state.phoneNumber,
-                            hint = stringResource(id = R.string.phone_number),
-                            onChange = { interactor.onPhoneNumber(it) },
-                            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
-                        )
-                    }
-                    //TODO url opener
-                    LinkText(
-                        linkTextData = listOf(
-                            LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
-                            LinkTextData(text = stringResource(id = R.string.offer),
-                                tag = "offer",
-                                annotation = stringResource(id = R.string.offer_url),
-                                onClick = { Log.d("CLICK", "SignInScreen: $it") }),
-                            LinkTextData(text = stringResource(id = R.string.and)),
-                            LinkTextData(text = stringResource(id = R.string.privacy_policy),
-                                tag = "privacy policy",
-                                annotation = stringResource(id = R.string.privacy_policy_url),
-                                onClick = { Log.d("CLICK", "SignInScreen: $it") })
-                        ), modifier = Modifier.padding(top = 8.dp)
+            Column(modifier = Modifier.fillMaxWidth()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+                        .background(AppTheme.colors.surfaces)
+                        .padding(12.dp)
+                ) {
+                    ThemedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = state.phoneNumber,
+                        hint = stringResource(id = R.string.phone_number),
+                        onChange = { interactor.editPhoneNumber(it) },
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                     )
                 }
-                BottomHolder {
-                    ThemedButton(
+                //TODO url opener
+                LinkText(
+                    linkTextData = listOf(
+                        LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
+                        LinkTextData(text = stringResource(id = R.string.offer),
+                            tag = "offer",
+                            annotation = stringResource(id = R.string.offer_url),
+                            onClick = { Log.d("CLICK", "SignInScreen: $it") }),
+                        LinkTextData(text = stringResource(id = R.string.and)),
+                        LinkTextData(text = stringResource(id = R.string.privacy_policy),
+                            tag = "privacy policy",
+                            annotation = stringResource(id = R.string.privacy_policy_url),
+                            onClick = { Log.d("CLICK", "SignInScreen: $it") })
+                    ), modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+            BottomHolder {
+                ThemedButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { interactor.next() },
+                    text = stringResource(id = R.string.auth_button)
+                )
+                if (settings.type == SignInScreenType.PASSABLE) {
+                    Spacer(modifier = Modifier.size(8.dp))
+                    ThemedTextButton(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { interactor.onNext() },
-                        text = stringResource(id = R.string.auth_button)
+                        onClick = { interactor.skip() },
+                        text = stringResource(id = R.string.auth_skip)
                     )
-                    if (settings.type == SignInScreenType.PASSABLE) {
-                        Spacer(modifier = Modifier.size(8.dp))
-                        ThemedTextButton(
-                            modifier = Modifier.fillMaxWidth(),
-                            onClick = { interactor.onSkip() },
-                            text = stringResource(id = R.string.auth_skip)
-                        )
-                    }
                 }
             }
         }

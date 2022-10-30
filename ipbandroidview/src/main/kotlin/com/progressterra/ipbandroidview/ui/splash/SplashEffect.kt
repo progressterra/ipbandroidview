@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.splash
 
 sealed class SplashEffect {
 
-    object Auth : SplashEffect()
+    object OpenAuth : SplashEffect()
 
-    object NonAuth : SplashEffect()
+    object OpenMain : SplashEffect()
 }

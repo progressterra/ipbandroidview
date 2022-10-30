@@ -6,8 +6,8 @@ sealed class SignUpEffect {
 
     object Skip : SignUpEffect()
 
-    object Next : SignUpEffect()
+    object OpenNext : SignUpEffect()
 
     @Suppress("unused")
-    class Toast(@StringRes val message: Int) : SignUpEffect()
+    class ShowToast(@StringRes val message: Int) : SignUpEffect()
 }

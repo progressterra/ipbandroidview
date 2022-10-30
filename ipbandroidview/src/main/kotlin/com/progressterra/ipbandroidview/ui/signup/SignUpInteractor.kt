@@ -1,19 +1,16 @@
 package com.progressterra.ipbandroidview.ui.signup
 
+import com.progressterra.ipbandroidview.actions.Next
+import com.progressterra.ipbandroidview.actions.Skip
 import java.time.LocalDate
 
-interface SignUpInteractor {
+interface SignUpInteractor : Skip, Next {
 
+    fun editBirthday(birthday: String, birthdayDate: LocalDate)
 
-    fun onSkip()
+    fun editEmail(email: String)
 
-    fun onNext()
-
-    fun onBirthday(birthday: String, birthdayDate: LocalDate)
-
-    fun onEmail(email: String)
-
-    fun onName(name: String)
+    fun editName(name: String)
 
     fun openCalendar()
 
@@ -21,16 +18,15 @@ interface SignUpInteractor {
 
     class Empty : SignUpInteractor {
 
+        override fun skip() = Unit
 
-        override fun onSkip() = Unit
+        override fun next() = Unit
 
-        override fun onNext() = Unit
+        override fun editBirthday(birthday: String, birthdayDate: LocalDate) = Unit
 
-        override fun onBirthday(birthday: String, birthdayDate: LocalDate) = Unit
+        override fun editEmail(email: String) = Unit
 
-        override fun onEmail(email: String) = Unit
-
-        override fun onName(name: String) = Unit
+        override fun editName(name: String) = Unit
 
         override fun openCalendar() = Unit
 

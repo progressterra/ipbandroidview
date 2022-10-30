@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import com.progressterra.ipbandroidview.actions.Back
+import com.progressterra.ipbandroidview.actions.OpenDetails
 import com.progressterra.ipbandroidview.actions.Refresh
+import com.progressterra.ipbandroidview.actions.Remove
 import com.progressterra.ipbandroidview.core.Picture
 
-interface ChecklistInteractor : Back, Refresh {
-
-    fun check(check: Check)
+interface ChecklistInteractor : Back, Refresh, Remove, OpenDetails<Check> {
 
     fun closeCheck()
 
@@ -14,13 +14,11 @@ interface ChecklistInteractor : Back, Refresh {
 
     fun yesNo(yes: Boolean)
 
-    fun onCheckCommentaryChange(comment: String)
+    fun editCheckCommentary(comment: String)
 
     fun startPausePlay()
 
     fun startStopRecording()
-
-    fun removeRecord()
 
     fun applyCheck()
 
@@ -34,7 +32,7 @@ interface ChecklistInteractor : Back, Refresh {
 
         override fun refresh() = Unit
 
-        override fun check(check: Check) = Unit
+        override fun openDetails(key: Check) = Unit
 
         override fun closeCheck() = Unit
 
@@ -42,13 +40,13 @@ interface ChecklistInteractor : Back, Refresh {
 
         override fun yesNo(yes: Boolean) = Unit
 
-        override fun onCheckCommentaryChange(comment: String) = Unit
+        override fun editCheckCommentary(comment: String) = Unit
 
         override fun startPausePlay() = Unit
 
         override fun startStopRecording() = Unit
 
-        override fun removeRecord() = Unit
+        override fun remove() = Unit
 
         override fun applyCheck() = Unit
 

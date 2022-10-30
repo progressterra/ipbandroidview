@@ -1,8 +1,12 @@
 package com.progressterra.ipbandroidview.ui.splash
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Surface
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,20 +19,20 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SplashScreen(state: SplashState, settings: SplashSettings) {
-    Surface(modifier = Modifier.fillMaxSize(), color = AppTheme.colors.surfaces) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Image(
-                modifier = Modifier
-                    .width(settings.logoWidth)
-                    .height(settings.logoHeight),
-                painter = painterResource(id = state.logoId),
-                contentDescription = stringResource(id = R.string.splash_logo)
-            )
-        }
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(AppTheme.colors.surfaces),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            modifier = Modifier
+                .width(settings.logoWidth)
+                .height(settings.logoHeight),
+            painter = painterResource(id = state.logoId),
+            contentDescription = stringResource(id = R.string.splash_logo)
+        )
     }
 }
 
@@ -39,10 +43,8 @@ private fun SplashScreenPreview() {
         SplashScreen(
             SplashState(
                 R.drawable.splash_logo,
-            ),
-            SplashSettings(
-                logoHeight = 150.dp,
-                logoWidth = 150.dp
+            ), SplashSettings(
+                logoHeight = 150.dp, logoWidth = 150.dp
             )
         )
     }

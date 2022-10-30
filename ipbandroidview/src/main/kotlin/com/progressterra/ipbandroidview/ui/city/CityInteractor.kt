@@ -1,14 +1,13 @@
 package com.progressterra.ipbandroidview.ui.city
 
 import com.google.android.gms.maps.model.LatLng
+import com.progressterra.ipbandroidview.actions.Back
+import com.progressterra.ipbandroidview.actions.Next
+import com.progressterra.ipbandroidview.actions.Skip
 
-interface CityInteractor {
+interface CityInteractor : Back, Next, Skip {
 
-    fun onSkip()
-
-    fun onNext()
-
-    fun onAddress(address: String)
+    fun editAddress(address: String)
 
     fun onMyLocation()
 
@@ -20,11 +19,13 @@ interface CityInteractor {
 
     class Empty : CityInteractor {
 
-        override fun onSkip() = Unit
+        override fun back() = Unit
 
-        override fun onNext() = Unit
+        override fun skip() = Unit
 
-        override fun onAddress(address: String) = Unit
+        override fun next() = Unit
+
+        override fun editAddress(address: String) = Unit
 
         override fun onMyLocation() = Unit
 

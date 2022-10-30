@@ -23,15 +23,14 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsInteractor) {
     Scaffold(topBar = {
-        ThemedTopAppBar(
-            title = stringResource(id = R.string.information),
-            onBack = { interactor.back() }
-        )
-    }) {
+        ThemedTopAppBar(title = stringResource(id = R.string.information),
+            onBack = { interactor.back() })
+    }) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppTheme.colors.background)
+                .padding(padding)
                 .padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Column(
@@ -39,20 +38,17 @@ fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsI
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
                     .background(AppTheme.colors.surfaces)
-                    .padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .padding(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                ThemedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                ThemedTextField(modifier = Modifier.fillMaxWidth(),
                     text = state.name,
                     hint = stringResource(id = R.string.name_surname),
-                    onChange = { interactor.onName(it) }
-                )
-                ThemedTextField(
-                    modifier = Modifier.fillMaxWidth(),
+                    onChange = { interactor.editName(it) })
+                ThemedTextField(modifier = Modifier.fillMaxWidth(),
                     text = state.email,
                     hint = stringResource(id = R.string.email),
-                    onChange = { interactor.onEmail(it) }
-                )
+                    onChange = { interactor.editEmail(it) })
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.phone,
@@ -81,8 +77,7 @@ fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsI
 private fun ProfileScreenPreview() {
     AppTheme {
         ProfileDetailsScreen(
-            ProfileDetailsState("+89994442345", "Канье Вест", ""),
-            ProfileDetailsInteractor.Empty()
+            ProfileDetailsState("+89994442345", "Канье Вест", ""), ProfileDetailsInteractor.Empty()
         )
     }
 }

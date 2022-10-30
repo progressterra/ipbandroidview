@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidview.core.Checklist
 
 sealed class OrganizationAuditsEffect {
 
-    object OnBack : OrganizationAuditsEffect()
+    object Back : OrganizationAuditsEffect()
 
     @Suppress("unused")
-    class OnChecklist(val checklist: Checklist) : OrganizationAuditsEffect()
+    class OpenChecklist(val checklist: Checklist) : OrganizationAuditsEffect()
 }

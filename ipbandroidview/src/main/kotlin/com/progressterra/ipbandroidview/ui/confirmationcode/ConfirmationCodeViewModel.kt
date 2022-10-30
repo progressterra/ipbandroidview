@@ -15,10 +15,10 @@ import org.orbitmvi.orbit.viewmodel.container
 class ConfirmationCodeViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase
-) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationEffect>,
+) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect>,
     ConfirmationCodeInteractor {
 
-    override val container: Container<ConfirmationCodeState, ConfirmationEffect> = container(
+    override val container: Container<ConfirmationCodeState, ConfirmationCodeEffect> = container(
         ConfirmationCodeState()
     )
 
@@ -30,7 +30,7 @@ class ConfirmationCodeViewModel(
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
 
-    override fun onResend() {
+    override fun resend() {
         intent {
             startVerificationChannelUseCase.start(state.phoneNumber)
             reduce { state.copy(code = "") }
@@ -40,13 +40,13 @@ class ConfirmationCodeViewModel(
 
     override fun onNext() = intent {
         endVerificationChannelUseCase.end(state.phoneNumber, state.code).onSuccess {
-            postSideEffect(ConfirmationEffect.OnNext)
+            postSideEffect(ConfirmationCodeEffect.OpenNext)
         }.onFailure {
-            postSideEffect(ConfirmationEffect.OnToast(R.string.wrong_code))
+            postSideEffect(ConfirmationCodeEffect.ShowToast(R.string.wrong_code))
         }
     }
 
-    override fun onCode(code: String) = intent {
+    override fun editCode(code: String) = intent {
         if (code.length <= 4) reduce { state.copy(code = code) }
         if (code.length == 4) onNext()
     }
@@ -62,6 +62,6 @@ class ConfirmationCodeViewModel(
     }
 
     override fun onBack() = intent {
-        postSideEffect(ConfirmationEffect.OnBack)
+        postSideEffect(ConfirmationCodeEffect.Back)
     }
 }

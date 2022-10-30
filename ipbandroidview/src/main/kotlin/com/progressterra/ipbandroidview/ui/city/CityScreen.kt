@@ -1,9 +1,14 @@
 package com.progressterra.ipbandroidview.ui.city
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -16,25 +21,37 @@ import androidx.constraintlayout.compose.Dimension
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
-import com.google.maps.android.compose.*
+import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapUiSettings
+import com.google.maps.android.compose.Marker
+import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.rememberCameraPositionState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.*
+import com.progressterra.ipbandroidview.components.AddressSuggestions
+import com.progressterra.ipbandroidview.components.BottomHolder
+import com.progressterra.ipbandroidview.components.LocationButton
+import com.progressterra.ipbandroidview.components.ThemedButton
+import com.progressterra.ipbandroidview.components.ThemedTextButton
+import com.progressterra.ipbandroidview.components.ThemedTextField
+import com.progressterra.ipbandroidview.components.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private const val moveAnimationDuration = 1000
 
 @Composable
 fun CityScreen(state: CityState, interactor: CityInteractor) {
-    Surface(
-        modifier = Modifier.fillMaxSize(), color = AppTheme.colors.background
-    ) {
+    Scaffold(topBar = {
+        ThemedTopAppBar(
+            title = stringResource(id = R.string.verification_code),
+            onBack = { interactor.back() })
+    }) { padding ->
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
+                .background(AppTheme.colors.background)
+                .padding(padding)
                 .padding(
-                    start = 8.dp,
-                    top = 8.dp,
-                    end = 8.dp
+                    start = 8.dp, top = 8.dp, end = 8.dp
                 )
         ) {
             val (buttons, map, address, background, suggestions, fab) = createRefs()
@@ -58,7 +75,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 onFocusChange = { interactor.onAddressFocus(it) },
                 text = state.address,
                 hint = stringResource(id = R.string.address),
-                onChange = { interactor.onAddress(it) })
+                onChange = { interactor.editAddress(it) })
             val cameraPositionState = rememberCameraPositionState {
                 position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 5f)
             }
@@ -111,14 +128,14 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
             }) {
                 ThemedButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.onNext() },
+                    onClick = { interactor.next() },
                     text = stringResource(id = R.string.ready),
                     enabled = state.isDataValid,
                 )
                 Spacer(modifier = Modifier.size(8.dp))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.onSkip() },
+                    onClick = { interactor.skip() },
                     text = stringResource(id = R.string.auth_skip)
                 )
             }

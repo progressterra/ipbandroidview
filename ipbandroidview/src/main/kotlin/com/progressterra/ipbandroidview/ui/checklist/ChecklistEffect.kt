@@ -8,9 +8,10 @@ sealed class ChecklistEffect {
     object Back : ChecklistEffect()
 
     @Suppress("unused")
-    class Toast(@StringRes val message: Int) : ChecklistEffect()
+    class ShowToast(@StringRes val message: Int) : ChecklistEffect()
 
     object RefreshAudits : ChecklistEffect()
 
-    class Image(val picture: Picture, val enabled: Boolean) : ChecklistEffect()
+    @Suppress("unused")
+    class OpenImage(val picture: Picture, val enabled: Boolean) : ChecklistEffect()
 }

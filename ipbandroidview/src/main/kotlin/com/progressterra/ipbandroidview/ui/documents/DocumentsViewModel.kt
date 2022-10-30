@@ -34,19 +34,19 @@ class DocumentsViewModel(
     }
 
 
-    override fun onDocumentChecklist(document: Document) = intent {
+    override fun openDetails(key: Document) = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        documentChecklistUseCase.documentChecklist(document.documentId).onSuccess {
+        documentChecklistUseCase.documentChecklist(key.documentId).onSuccess {
             postSideEffect(
-                DocumentsEffect.OnChecklist(
+                DocumentsEffect.OpenChecklist(
                     Checklist(
-                        checklistId = document.checklistId,
-                        placeId = document.placeId,
-                        name = document.name,
+                        checklistId = key.checklistId,
+                        placeId = key.placeId,
+                        name = key.name,
                         checks = it,
-                        done = document.finishDate != null,
-                        ongoing = document.finishDate == null,
-                        documentId = document.documentId
+                        done = key.finishDate != null,
+                        ongoing = key.finishDate == null,
+                        documentId = key.documentId
                     )
                 )
             )
@@ -56,7 +56,7 @@ class DocumentsViewModel(
         }
     }
 
-    override fun onAudit() = intent {
-        postSideEffect(DocumentsEffect.OnOrganizations)
+    override fun openOrganizations() = intent {
+        postSideEffect(DocumentsEffect.OpenOrganizations)
     }
 }

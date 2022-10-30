@@ -25,11 +25,11 @@ class CityViewModel(
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
-    override fun onSkip() = intent { postSideEffect(CityEffect.Skip) }
+    override fun skip() = intent { postSideEffect(CityEffect.Skip) }
 
-    override fun onNext() = intent { postSideEffect(CityEffect.Next) }
+    override fun next() = intent { postSideEffect(CityEffect.OpenNext) }
 
-    override fun onAddress(address: String) = intent {
+    override fun editAddress(address: String) = intent {
         reduce { state.copy(address = address) }
         suggestionUseCase.suggestions(address).map {
             reduce { state.copy(suggestions = it) }
@@ -60,5 +60,9 @@ class CityViewModel(
 
     override fun onAddressFocus(focused: Boolean) = intent {
         reduce { state.copy(isAddressInFocus = focused) }
+    }
+
+    override fun back() = intent {
+        postSideEffect(CityEffect.Back)
     }
 }

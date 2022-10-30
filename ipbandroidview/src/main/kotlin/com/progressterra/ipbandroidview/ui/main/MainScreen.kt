@@ -3,8 +3,10 @@ package com.progressterra.ipbandroidview.ui.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -25,22 +27,26 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
         SearchTopBar(state = state.searchBarState,
             onBack = { interactor.back() },
             onKeyword = { interactor.keyword(it) },
-            onSearch = { interactor.search() }) {}
+            onSearch = { interactor.search() },
+            onFilters = {})
     }) {
-        LazyVerticalGrid(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(AppTheme.colors.background),
-            columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(state.items) {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    StoreItemCard(modifier = Modifier.align(Alignment.Center), state = it,
-                        onClick = { interactor.card(it.id) },
-                        onFavorite = { interactor.favorite(it.id) })
+        Column(modifier = Modifier.padding(it)) {
+            LazyVerticalGrid(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppTheme.colors.background),
+                columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
+                contentPadding = PaddingValues(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(state.items) {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        StoreItemCard(modifier = Modifier.align(Alignment.Center),
+                            state = it,
+                            onClick = { interactor.card(it.id) },
+                            onFavorite = { interactor.favorite(it.id) })
+                    }
                 }
             }
         }

@@ -6,9 +6,9 @@ interface ProfileDetailsInteractor : Back {
 
     fun confirmChange()
 
-    fun onEmail(email: String)
+    fun editEmail(email: String)
 
-    fun onName(name: String)
+    fun editName(name: String)
 
     fun logout()
 
@@ -16,9 +16,9 @@ interface ProfileDetailsInteractor : Back {
 
         override fun confirmChange() = Unit
 
-        override fun onEmail(email: String) = Unit
+        override fun editEmail(email: String) = Unit
 
-        override fun onName(name: String) = Unit
+        override fun editName(name: String) = Unit
 
         override fun back() = Unit
 

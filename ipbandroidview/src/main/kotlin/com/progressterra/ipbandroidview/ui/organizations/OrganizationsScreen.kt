@@ -26,11 +26,12 @@ fun OrganizationsScreen(
 ) {
     Scaffold(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.organizations))
-    }) {
+    }) { padding ->
         StateBox(
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppTheme.colors.background),
+                .background(AppTheme.colors.background)
+                .padding(padding),
             state = state.screenState,
             onRefresh = { interactor.refresh() }
         ) {
@@ -50,7 +51,7 @@ fun OrganizationsScreen(
                         description = it.name,
                         warnings = it.warnings,
                         onClick = {
-                            interactor.onOrganization(
+                            interactor.openDetails(
                                 it
                             )
                         })

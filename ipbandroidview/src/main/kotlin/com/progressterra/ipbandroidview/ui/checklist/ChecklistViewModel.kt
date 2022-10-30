@@ -83,8 +83,8 @@ class ChecklistViewModel(
         }
     }
 
-    override fun check(check: Check) = intent {
-        reduce { state.copy(currentCheck = check) }
+    override fun openDetails(key: Check) = intent {
+        reduce { state.copy(currentCheck = key) }
         refresh()
     }
 
@@ -127,7 +127,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun onCheckCommentaryChange(comment: String) = intent {
+    override fun editCheckCommentary(comment: String) = intent {
         reduce {
             state.copy(
                 currentCheck = state.currentCheck?.copy(comment = comment)
@@ -140,9 +140,9 @@ class ChecklistViewModel(
             state.checklist.documentId?.let { documentId ->
                 finishDocumentUseCase.finishDocument(documentId).onSuccess {
                     reduce { state.copy(checklist = state.checklist.copy(ongoing = false)) }
-                    postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
+                    postSideEffect(ChecklistEffect.ShowToast(R.string.audit_ended))
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.ShowToast(R.string.error_connection))
                 }
             }
         else {
@@ -170,7 +170,7 @@ class ChecklistViewModel(
                         )
                     }
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.ShowToast(R.string.error_connection))
                 }
             }
             state.checklist.documentId?.let { id ->
@@ -183,9 +183,9 @@ class ChecklistViewModel(
                             )
                         )
                     }
-                    postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
+                    postSideEffect(ChecklistEffect.ShowToast(R.string.audit_started))
                 }.onFailure {
-                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
+                    postSideEffect(ChecklistEffect.ShowToast(R.string.error_connection))
                 }
             }
         }
@@ -261,7 +261,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun removeRecord() = intent {
+    override fun remove() = intent {
         audioManager.reset()
         reduce {
             state.copy(
@@ -290,9 +290,9 @@ class ChecklistViewModel(
                     stats = newChecklist.createStats()
                 )
             }
-            postSideEffect(ChecklistEffect.Toast(R.string.answer_done))
+            postSideEffect(ChecklistEffect.ShowToast(R.string.answer_done))
         }.onFailure {
-            postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
+            postSideEffect(ChecklistEffect.ShowToast(R.string.error_happend))
         }
         postSideEffect(ChecklistEffect.RefreshAudits)
     }
@@ -311,7 +311,7 @@ class ChecklistViewModel(
     }
 
     override fun openImage(picture: Picture) = intent {
-        postSideEffect(ChecklistEffect.Image(picture, state.checklist.ongoing))
+        postSideEffect(ChecklistEffect.OpenImage(picture, state.checklist.ongoing))
     }
 
     override fun onCamera() = intent {

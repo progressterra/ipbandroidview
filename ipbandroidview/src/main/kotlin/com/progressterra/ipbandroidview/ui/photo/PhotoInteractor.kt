@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.ui.photo
 
 import com.progressterra.ipbandroidview.actions.Back
+import com.progressterra.ipbandroidview.actions.Remove
 
-interface PhotoInteractor : Back {
-
-    fun remove()
+interface PhotoInteractor : Back, Remove {
 
     class Empty : PhotoInteractor {
 

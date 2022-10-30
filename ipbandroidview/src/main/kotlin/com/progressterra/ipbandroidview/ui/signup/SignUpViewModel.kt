@@ -20,26 +20,26 @@ class SignUpViewModel(
     override val container: Container<SignUpState, SignUpEffect> =
         container(SignUpState(phoneNumber = UserData.phone))
 
-    override fun onSkip() = intent { postSideEffect(SignUpEffect.Skip) }
+    override fun skip() = intent { postSideEffect(SignUpEffect.Skip) }
 
-    override fun onNext() = intent {
+    override fun next() = intent {
         if (state.isDataValid) {
             updatePersonalInfoUseCase.update(state.name, state.email, state.birthdayDate)
-            postSideEffect(SignUpEffect.Next)
-        } else postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
+            postSideEffect(SignUpEffect.OpenNext)
+        } else postSideEffect(SignUpEffect.ShowToast(R.string.invalid_data))
     }
 
-    override fun onBirthday(birthday: String, birthdayDate: LocalDate) {
+    override fun editBirthday(birthday: String, birthdayDate: LocalDate) {
         intent { reduce { state.copy(birthday = birthday, birthdayDate = birthdayDate) } }
         checkDataValidity()
     }
 
-    override fun onEmail(email: String) {
+    override fun editEmail(email: String) {
         intent { reduce { state.copy(email = email) } }
         checkDataValidity()
     }
 
-    override fun onName(name: String) {
+    override fun editName(name: String) {
         intent { reduce { state.copy(name = name) } }
         checkDataValidity()
     }

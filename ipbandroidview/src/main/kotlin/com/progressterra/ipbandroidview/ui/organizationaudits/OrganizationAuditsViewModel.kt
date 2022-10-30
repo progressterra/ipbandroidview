@@ -68,19 +68,19 @@ class OrganizationAuditsViewModel(
     }
 
     override fun onBack() = intent {
-        postSideEffect(OrganizationAuditsEffect.OnBack)
+        postSideEffect(OrganizationAuditsEffect.Back)
     }
 
 
-    override fun onAuditClick(organizationAudit: OrganizationAudit) = intent {
+    override fun openDetails(key: OrganizationAudit) = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        checklistUseCase.details(organizationAudit.id).onSuccess {
+        checklistUseCase.details(key.id).onSuccess {
             postSideEffect(
-                OrganizationAuditsEffect.OnChecklist(
+                OrganizationAuditsEffect.OpenChecklist(
                     Checklist(
                         placeId = state.id,
-                        checklistId = organizationAudit.id,
-                        name = organizationAudit.name,
+                        checklistId = key.id,
+                        name = key.name,
                         checks = it,
                         done = false,
                         ongoing = false,

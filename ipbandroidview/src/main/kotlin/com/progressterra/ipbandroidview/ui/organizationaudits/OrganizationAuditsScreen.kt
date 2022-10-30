@@ -26,7 +26,7 @@ fun OrganizationAuditsScreen(
 ) {
     Scaffold(topBar = {
         ThemedTopAppBar(
-            onBack = { interactor.onBack() }, title = stringResource(id = R.string.audits)
+            onBack = { interactor.back() }, title = stringResource(id = R.string.audits)
         )
     }) {
         StateBox(
@@ -53,7 +53,7 @@ fun OrganizationAuditsScreen(
                         name = it.name,
                         lastTime = it.lastTime,
                         onClick = {
-                            interactor.onAuditClick(it)
+                            interactor.openDetails(it)
                         }
                     )
                 }

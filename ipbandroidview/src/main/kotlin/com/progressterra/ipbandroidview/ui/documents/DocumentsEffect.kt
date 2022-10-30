@@ -5,9 +5,10 @@ import com.progressterra.ipbandroidview.core.Checklist
 sealed class DocumentsEffect {
 
     @Suppress("unused")
-    class OnChecklist(val checklist: Checklist) : DocumentsEffect()
+    class OpenChecklist(val checklist: Checklist) : DocumentsEffect()
 
+    @Suppress("unused")
     class UpdateCounter(val counter: Int) : DocumentsEffect()
 
-    object OnOrganizations : DocumentsEffect()
+    object OpenOrganizations : DocumentsEffect()
 }
