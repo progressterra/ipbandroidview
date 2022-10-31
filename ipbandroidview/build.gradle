@@ -115,13 +115,17 @@ dependencies {
     api "com.google.android.gms:play-services-maps:18.1.0"
 
     //iProBonusAndroidAPI*/
-    releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.38"
-    debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.38"
+    releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.40"
+    debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.40"
 
     //ompose-written calendar dialog*/
     api "com.squaredem:composecalendar:1.0.2"
 
     //Landscapist, image library with coil implementation
-    implementation "com.github.skydoves:landscapist-coil:2.0.3"
-    implementation "com.github.skydoves:landscapist-placeholder:2.0.3"
+    api "com.github.skydoves:landscapist-coil:2.0.3"
+    api "com.github.skydoves:landscapist-placeholder:2.0.3"
+
+    //Paging
+    api "androidx.paging:paging-compose:1.0.0-alpha17"
+    api "androidx.paging:paging-runtime-ktx:3.1.1"
 }

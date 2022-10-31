@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.domain
 
 import com.google.android.gms.maps.model.LatLng
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ui.city.MapMarker
 
 interface CurrentLocationMarkerUseCase {

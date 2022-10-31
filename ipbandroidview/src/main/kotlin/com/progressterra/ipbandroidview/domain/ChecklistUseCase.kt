@@ -3,11 +3,11 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.yesno.YesNo
+import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ui.checklist.Check
 
 interface ChecklistUseCase {
@@ -19,7 +19,7 @@ interface ChecklistUseCase {
         manageResources: ManageResources,
         scrmRepository: SCRMRepository,
         private val checklistRepository: ChecklistRepository
-    ) : AbstractUseCaseWithToken(scrmRepository, provideLocation), ChecklistUseCase {
+    ) : AbstractUseCase(scrmRepository, provideLocation), ChecklistUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
@@ -29,32 +29,29 @@ interface ChecklistUseCase {
                     it, id, FilterAndSort(emptyList(), null, "", false, 0, 100)
                 )
             }.getOrThrow()
+            var currentCategory = ""
+            var categorizedChecks = 0
+            var categoryNumber = 0
             buildList {
-                result?.map { check ->
+                result?.mapIndexed { index, check ->
+                    if (check.parameter?.internalName != currentCategory) {
+                        currentCategory = check.parameter?.internalName!!
+                        categoryNumber++
+                        categorizedChecks = index
+                    }
                     add(
-                        CheckDTO(
+                        Check(
                             id = check.idUnique!!,
-                            category = check.parameter?.internalName ?: noData,
+                            category = currentCategory,
                             name = check.shortDescription ?: noData,
                             yesNo = YesNo.NONE,
                             comment = "",
                             description = check.description ?: noData,
-                            categoryNumber = check.parameter?.indexName?.toInt()!!,
-                            dateAdded = check.dateAdded?.parseToDate()!!
+                            categoryNumber = categoryNumber,
+                            ordinal = index + 1 - categorizedChecks
                         )
                     )
                 }
-            }.sortedBy { it.dateAdded }.mapIndexed { index, checkDTO ->
-                Check(
-                    id = checkDTO.id,
-                    name = checkDTO.name,
-                    description = checkDTO.description,
-                    category = checkDTO.category,
-                    categoryNumber = checkDTO.categoryNumber,
-                    ordinal = index + 1,
-                    yesNo = checkDTO.yesNo,
-                    comment = checkDTO.comment
-                )
             }
         }
     }

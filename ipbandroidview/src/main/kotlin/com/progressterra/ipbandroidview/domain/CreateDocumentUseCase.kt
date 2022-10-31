@@ -5,7 +5,8 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.DHCheckPerformedEntityCreate
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.AbstractUseCase
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import java.util.*
 
 interface CreateDocumentUseCase {
@@ -16,7 +17,7 @@ interface CreateDocumentUseCase {
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         private val repo: ChecklistRepository
-    ) : AbstractUseCaseWithToken(scrmRepository, provideLocation), CreateDocumentUseCase {
+    ) : AbstractUseCase(scrmRepository, provideLocation), CreateDocumentUseCase {
 
         override suspend fun createDocument(
             idChecklist: String,

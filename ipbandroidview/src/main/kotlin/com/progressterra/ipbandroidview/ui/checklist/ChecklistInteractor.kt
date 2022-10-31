@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.OpenDetails
 import com.progressterra.ipbandroidview.actions.Refresh
 import com.progressterra.ipbandroidview.actions.Remove
-import com.progressterra.ipbandroidview.core.Picture
+import com.progressterra.ipbandroidview.dto.Picture
 
 interface ChecklistInteractor : Back, Refresh, Remove, OpenDetails<Check> {
 

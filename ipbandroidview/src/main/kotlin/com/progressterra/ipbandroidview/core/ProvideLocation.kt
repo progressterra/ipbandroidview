@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.data
+package com.progressterra.ipbandroidview.core
 
 import android.location.Location
 import com.google.android.gms.location.FusedLocationProviderClient

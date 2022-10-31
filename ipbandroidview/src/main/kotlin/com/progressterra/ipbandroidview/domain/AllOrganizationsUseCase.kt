@@ -3,8 +3,9 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ui.organizations.Organization
 
 //TODO warnings
@@ -18,7 +19,7 @@ interface AllOrganizationsUseCase {
         sCRMRepository: SCRMRepository,
         manageResources: ManageResources,
         provideLocation: ProvideLocation
-    ) : AllOrganizationsUseCase, AbstractUseCaseWithToken(sCRMRepository, provideLocation) {
+    ) : AllOrganizationsUseCase, AbstractUseCase(sCRMRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
 

@@ -3,7 +3,8 @@ package com.progressterra.ipbandroidview.domain
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FinalCommentsInput
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.AbstractUseCase
+import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface FinishDocumentUseCase {
 
@@ -13,7 +14,7 @@ interface FinishDocumentUseCase {
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         private val repo: ChecklistRepository
-    ) : AbstractUseCaseWithToken(scrmRepository, provideLocation), FinishDocumentUseCase {
+    ) : AbstractUseCase(scrmRepository, provideLocation), FinishDocumentUseCase {
 
         override suspend fun finishDocument(idChecklist: String): Result<Unit> = runCatching {
             withToken {

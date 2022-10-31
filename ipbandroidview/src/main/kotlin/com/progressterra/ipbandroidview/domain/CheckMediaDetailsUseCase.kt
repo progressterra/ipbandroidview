@@ -3,11 +3,13 @@ package com.progressterra.ipbandroidview.domain
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
+import com.progressterra.ipbandroidapi.api.ipbmediadata.model.ImageData
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.core.AbstractUseCaseSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
-import com.progressterra.ipbandroidview.core.Picture
-import com.progressterra.ipbandroidview.core.voice.Voice
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.dto.Picture
+import com.progressterra.ipbandroidview.dto.Voice
 import com.progressterra.ipbandroidview.ui.checklist.Check
 import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
 
@@ -21,7 +23,7 @@ interface CheckMediaDetailsUseCase {
         fileExplorer: FileExplorer,
         private val mediaDataRepository: IPBMediaDataRepository,
         private val gson: Gson
-    ) : AbstractUseCaseAudioSaving(scrmRepository, provideLocation, fileExplorer),
+    ) : AbstractUseCaseSaving(scrmRepository, provideLocation, fileExplorer),
         CheckMediaDetailsUseCase {
 
         override suspend fun checkDetails(check: Check): Result<CurrentCheckMedia> = runCatching {
@@ -41,7 +43,7 @@ interface CheckMediaDetailsUseCase {
                             local = false,
                             toRemove = false,
                             thumbnail = sizes.first { it.sizeType == 1 }.url,
-                            fullSize = sizes.first { it.sizeType == 0 }.url
+                            fullSize = sizes.first { it.sizeType == 3 }.url
                         )
                     )
                 } else if (item.contentType == 6 && voices.size == 0) {
@@ -63,16 +65,6 @@ interface CheckMediaDetailsUseCase {
             CurrentCheckMedia(
                 voices = voices,
                 pictures = pictures
-            )
-        }
-
-        data class ImageData(
-            @SerializedName("listInfoImage") val list: List<Item>
-        ) {
-
-            data class Item(
-                @SerializedName("URL") val url: String,
-                @SerializedName("SizeType") val sizeType: Int
             )
         }
     }

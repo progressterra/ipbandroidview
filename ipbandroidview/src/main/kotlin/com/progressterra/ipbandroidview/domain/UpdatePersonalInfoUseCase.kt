@@ -7,8 +7,9 @@ import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidapi.user.UserName
+import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.SplitName
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date
@@ -25,7 +26,7 @@ interface UpdatePersonalInfoUseCase {
         private val splitName: SplitName,
         private val repo: SCRMRepository,
         provideLocation: ProvideLocation
-    ) : UpdatePersonalInfoUseCase, AbstractUseCaseWithToken(repo, provideLocation) {
+    ) : UpdatePersonalInfoUseCase, AbstractUseCase(repo, provideLocation) {
 
         override suspend fun update(name: String, email: String): Result<Unit> = runCatching {
             val nameList = splitName.splitName(name, false)

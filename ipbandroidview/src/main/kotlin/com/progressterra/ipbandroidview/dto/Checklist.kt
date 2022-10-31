@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.core
+package com.progressterra.ipbandroidview.dto
 
 import android.os.Parcelable
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats

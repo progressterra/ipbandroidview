@@ -10,8 +10,9 @@ import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidapi.ext.tryOrNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
+import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ui.documents.Document
 
 interface AllDocumentsUseCase {
@@ -23,7 +24,7 @@ interface AllDocumentsUseCase {
         sCRMRepository: SCRMRepository,
         manageResources: ManageResources,
         private val repo: ChecklistRepository
-    ) : AbstractUseCaseWithToken(sCRMRepository, provideLocation), AllDocumentsUseCase {
+    ) : AbstractUseCase(sCRMRepository, provideLocation), AllDocumentsUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 

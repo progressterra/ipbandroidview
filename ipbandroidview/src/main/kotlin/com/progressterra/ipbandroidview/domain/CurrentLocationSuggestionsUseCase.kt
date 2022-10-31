@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.ui.city.Suggestion
 

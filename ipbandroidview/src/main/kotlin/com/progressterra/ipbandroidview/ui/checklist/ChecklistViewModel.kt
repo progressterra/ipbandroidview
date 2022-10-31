@@ -8,14 +8,14 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.VoiceState
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.yesno.YesNo
-import com.progressterra.ipbandroidview.core.Checklist
+import com.progressterra.ipbandroidview.dto.Checklist
 import com.progressterra.ipbandroidview.core.FileExplorer
-import com.progressterra.ipbandroidview.core.Picture
+import com.progressterra.ipbandroidview.dto.Picture
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.picture.PictureCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
-import com.progressterra.ipbandroidview.core.voice.Voice
+import com.progressterra.ipbandroidview.dto.Voice
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.*
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase

@@ -22,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.core.Picture
+import com.progressterra.ipbandroidview.dto.Picture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.dto
 
-data class MainCardItem(
+data class GoodsCard(
     val id: String,
     val imageUrl: String,
     val price: String,

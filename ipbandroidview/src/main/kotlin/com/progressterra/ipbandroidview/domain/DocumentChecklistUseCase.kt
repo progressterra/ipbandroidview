@@ -2,11 +2,11 @@ package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.yesno.YesNo
+import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ui.checklist.Check
 
 interface DocumentChecklistUseCase {
@@ -18,7 +18,7 @@ interface DocumentChecklistUseCase {
         scrmRepository: SCRMRepository,
         manageResources: ManageResources,
         private val repo: ChecklistRepository,
-    ) : DocumentChecklistUseCase, AbstractUseCaseWithToken(scrmRepository, provideLocation) {
+    ) : DocumentChecklistUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
 
@@ -26,36 +26,31 @@ interface DocumentChecklistUseCase {
             id: String
         ): Result<List<Check>> = runCatching {
             val responseChecklist = withToken { repo.checklistForDoc(it, id) }.getOrThrow()
+            var currentCategory = ""
+            var categorizedChecks = 0
+            var categoryNumber = 0
             buildList {
-                responseChecklist?.map { check ->
-                    check.idUnique?.let { id ->
-                        val yesNo =
-                            if (check.answerCheckList?.yesNo == true) YesNo.YES else if (check.answerCheckList?.yesNo == false) YesNo.NO else YesNo.NONE
-                        add(
-                            CheckDTO(
-                                id = id,
-                                name = check.shortDescription ?: noData,
-                                description = check.description ?: noData,
-                                category = check.parameter?.internalName ?: noData,
-                                categoryNumber = check.parameter?.indexName?.toInt()!!,
-                                dateAdded = check.dateAdded?.parseToDate()!!,
-                                yesNo = yesNo,
-                                comment = check.answerCheckList?.comments ?: ""
-                            )
-                        )
+                responseChecklist?.mapIndexed { index, check ->
+                    val yesNo =
+                        if (check.answerCheckList?.yesNo == true) YesNo.YES else if (check.answerCheckList?.yesNo == false) YesNo.NO else YesNo.NONE
+                    if (check.parameter?.internalName != currentCategory) {
+                        currentCategory = check.parameter?.internalName!!
+                        categoryNumber++
+                        categorizedChecks = index
                     }
+                    add(
+                        Check(
+                            id = check.idUnique!!,
+                            name = check.shortDescription ?: noData,
+                            description = check.description ?: noData,
+                            category = currentCategory,
+                            categoryNumber = categoryNumber,
+                            ordinal = index + 1 - categorizedChecks,
+                            yesNo = yesNo,
+                            comment = check.answerCheckList?.comments ?: ""
+                        )
+                    )
                 }
-            }.sortedBy { it.dateAdded }.mapIndexed { index, checkDTO ->
-                Check(
-                    id = checkDTO.id,
-                    name = checkDTO.name,
-                    description = checkDTO.description,
-                    category = checkDTO.category,
-                    categoryNumber = checkDTO.categoryNumber,
-                    ordinal = index + 1,
-                    yesNo = checkDTO.yesNo,
-                    comment = checkDTO.comment
-                )
             }
         }
     }

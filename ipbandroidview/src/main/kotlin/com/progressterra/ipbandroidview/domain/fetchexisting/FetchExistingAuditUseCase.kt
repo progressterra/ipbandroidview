@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.domain.fetchexisting
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.domain.AbstractUseCaseWithToken
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.AbstractUseCase
+import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface FetchExistingAuditUseCase {
 
@@ -13,7 +13,7 @@ interface FetchExistingAuditUseCase {
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         private val repo: ChecklistRepository
-    ) : AbstractUseCaseWithToken(scrmRepository, provideLocation), FetchExistingAuditUseCase {
+    ) : AbstractUseCase(scrmRepository, provideLocation), FetchExistingAuditUseCase {
 
         override suspend fun fetchExistingAudit(
             idPlace: String,

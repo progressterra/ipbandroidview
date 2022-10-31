@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.core.Checklist
+import com.progressterra.ipbandroidview.dto.Checklist
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase

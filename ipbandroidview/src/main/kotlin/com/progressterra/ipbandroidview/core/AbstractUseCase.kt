@@ -1,13 +1,11 @@
-package com.progressterra.ipbandroidview.domain
+package com.progressterra.ipbandroidview.core
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataCreateAccessToken
 import com.progressterra.ipbandroidapi.user.UserData
-import com.progressterra.ipbandroidview.data.ProvideLocation
 
-abstract class AbstractUseCaseWithToken(
-    private val sCRMRepository: SCRMRepository,
-    private val provideLocation: ProvideLocation
+abstract class AbstractUseCase(
+    private val sCRMRepository: SCRMRepository, private val provideLocation: ProvideLocation
 ) {
 
     protected suspend fun <T> withToken(block: suspend (accessToken: String) -> Result<T>): Result<T> {

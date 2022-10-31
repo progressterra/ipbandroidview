@@ -5,9 +5,10 @@ import com.progressterra.ipbandroidapi.api.checklist.model.DRAnswerChekListItemE
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.data.ProvideLocation
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ext.toBoolean
 import com.progressterra.ipbandroidview.ext.toYesNo
 import com.progressterra.ipbandroidview.ui.checklist.Check
@@ -27,7 +28,7 @@ interface UpdateAnswerUseCase {
         private val fileExplorer: FileExplorer,
         private val repo: ChecklistRepository,
         private val mediaDataRepository: IPBMediaDataRepository,
-    ) : AbstractUseCaseWithToken(scrmRepository, provideLocation),
+    ) : AbstractUseCase(scrmRepository, provideLocation),
         UpdateAnswerUseCase {
 
         private val noData = manageResources.string(R.string.no_data)

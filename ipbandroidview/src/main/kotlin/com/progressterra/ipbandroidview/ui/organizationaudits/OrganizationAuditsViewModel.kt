@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.organizationaudits
 import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.core.Checklist
+import com.progressterra.ipbandroidview.dto.Checklist
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.startactivity.StartActivity
 import com.progressterra.ipbandroidview.domain.ChecklistUseCase

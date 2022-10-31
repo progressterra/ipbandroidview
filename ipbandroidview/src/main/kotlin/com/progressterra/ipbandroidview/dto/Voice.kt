@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.core.voice
+package com.progressterra.ipbandroidview.dto
 
 import com.progressterra.ipbandroidview.core.AttachedMedia
 
