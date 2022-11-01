@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.dto.GoodsCard
 
 interface GoodsPageUseCase {
 
-    suspend fun goodsPage(idCategory: String, pageNumber: Int): Result<List<GoodsCard>>
+    suspend fun goodsPage(idCategory: String, pageNumber: Int): Result<Pair<Int, List<GoodsCard>>>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -25,14 +25,14 @@ interface GoodsPageUseCase {
 
         override suspend fun goodsPage(
             idCategory: String, pageNumber: Int
-        ): Result<List<GoodsCard>> = runCatching {
+        ): Result<Pair<Int, List<GoodsCard>>> = runCatching {
             Log.d("PAGING", "category $idCategory, page $pageNumber")
             val favorites = withToken {
                 favoriteRepository.getClientEntityByType(
                     it, TypeOfEntity.PRODUCT
                 )
             }.getOrThrow()
-            withToken {
+            val result = withToken {
                 eCommerceRepo.getProductsByCategory(
                     it,
                     DomainConstants.MAIN_DEFAULT_CATEGORY_ID,
@@ -41,7 +41,8 @@ interface GoodsPageUseCase {
                     0,
                     0
                 )
-            }.getOrThrow()?.listProducts!!.map { mapper.map(it, favorites) }
+            }.getOrThrow()
+            result?.numberCurrentPage!! to result.listProducts!!.map { mapper.map(it, favorites) }
         }
     }
 }

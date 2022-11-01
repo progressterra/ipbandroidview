@@ -17,9 +17,9 @@ class RecommendedGoodsSource(
             goodsPageUseCase.goodsPage(DomainConstants.MAIN_DEFAULT_CATEGORY_ID, nextPage)
                 .onSuccess {
                     return LoadResult.Page(
-                        data = it,
+                        data = it.second,
                         prevKey = if (nextPage == 1) null else nextPage - 1,
-                        nextKey = nextPage + 1
+                        nextKey = it.first + 1
                     )
                 }
         return LoadResult.Error(response.exceptionOrNull()!!)
