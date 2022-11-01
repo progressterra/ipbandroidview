@@ -20,7 +20,7 @@ fun YesNo.toBoolean(): Boolean? = when (this) {
 }
 
 fun List<Check>.replaceById(check: Check): List<Check> =
-    this.toMutableList().apply { add(this.indexOfFirst { it.id == check.id }, check) }
+    this.toMutableList().apply { this[indexOfFirst { it.id == check.id }] = check }
 
 fun <T : AttachedMedia<T>> List<T>.formPatch(): List<T> =
     this.filter { (it.local && !it.toRemove) || (!it.local && it.toRemove) }
@@ -28,9 +28,8 @@ fun <T : AttachedMedia<T>> List<T>.formPatch(): List<T> =
 fun <T : AttachedMedia<T>> List<T>.markToRemove(item: T): List<T> =
     this.filter { it.id != item.id }.toMutableList().apply { add(item.markToRemove()) }
 
-fun <T : AttachedMedia<T>> List<T>.markLastToRemove(): List<T> =
-    this.toMutableList().apply {
-        val temp = last().markToRemove()
-        removeLast()
-        add(temp)
-    }
+fun <T : AttachedMedia<T>> List<T>.markLastToRemove(): List<T> = this.toMutableList().apply {
+    val temp = last().markToRemove()
+    removeLast()
+    add(temp)
+}
