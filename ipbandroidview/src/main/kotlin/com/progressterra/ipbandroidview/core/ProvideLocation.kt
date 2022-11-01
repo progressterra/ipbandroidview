@@ -5,7 +5,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.Tasks
 
-
 interface ProvideLocation {
 
     suspend fun location(): Result<Location>

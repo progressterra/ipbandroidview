@@ -20,7 +20,7 @@ fun YesNo.toBoolean(): Boolean? = when (this) {
 }
 
 fun List<Check>.replaceById(check: Check): List<Check> =
-    this.filter { it.id != check.id }.toMutableList().apply { add(check) }
+    this.toMutableList().apply { add(this.indexOfFirst { it.id == check.id }, check) }
 
 fun <T : AttachedMedia<T>> List<T>.formPatch(): List<T> =
     this.filter { (it.local && !it.toRemove) || (!it.local && it.toRemove) }
