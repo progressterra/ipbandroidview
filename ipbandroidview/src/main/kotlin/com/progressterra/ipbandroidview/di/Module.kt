@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.core.SplitName
 import com.progressterra.ipbandroidview.core.permission.ManagePermission
 import com.progressterra.ipbandroidview.core.permission.PermissionCache
@@ -15,9 +16,10 @@ import com.progressterra.ipbandroidview.core.startactivity.StartActivity
 import com.progressterra.ipbandroidview.core.startactivity.StartActivityCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
-import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
+import com.progressterra.ipbandroidview.domain.mapper.GoodsCardMapper
+import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import com.progressterra.ipbandroidview.domain.recommendedgoods.RecommendedGoodsSource
 import org.koin.android.ext.koin.androidContext
@@ -59,6 +61,12 @@ val iPBAndroidViewModule = module {
     single {
         RecommendedGoodsSource(get())
     }
+
+    single<PriceMapper> {
+        PriceMapper.Russia()
+    }
+
+    single<GoodsCardMapper> { GoodsCardMapper.Base(get(), get()) }
 
     single {
         PermissionCache.Base()
