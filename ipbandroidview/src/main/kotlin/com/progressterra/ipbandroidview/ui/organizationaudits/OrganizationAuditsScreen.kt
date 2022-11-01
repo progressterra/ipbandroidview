@@ -26,7 +26,7 @@ fun OrganizationAuditsScreen(
 ) {
     Scaffold(topBar = {
         ThemedTopAppBar(
-            onBack = { interactor.back() }, title = stringResource(id = R.string.audits)
+            onBack = { interactor.back() }, title = stringResource(id = R.string.organization)
         )
     }) { padding ->
         StateBox(

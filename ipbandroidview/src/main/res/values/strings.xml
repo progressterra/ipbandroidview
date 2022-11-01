@@ -71,4 +71,5 @@
     <string name="favorite_button">Кнопка \"Добавить в избранное\"</string>
     <string name="search">Поиск</string>
     <string name="sign_up">Регистрация</string>
+    <string name="organization">Заведение</string>
 </resources>
