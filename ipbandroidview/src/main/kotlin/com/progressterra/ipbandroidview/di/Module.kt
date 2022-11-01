@@ -19,6 +19,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
+import com.progressterra.ipbandroidview.domain.recommendedgoods.RecommendedGoodsSource
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.binds
@@ -53,6 +54,10 @@ val iPBAndroidViewModule = module {
 
     factory {
         LocationServices.getFusedLocationProviderClient(androidContext())
+    }
+
+    single {
+        RecommendedGoodsSource(get())
     }
 
     single {

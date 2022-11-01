@@ -12,7 +12,7 @@ fun StateBox(modifier: Modifier = Modifier, state: ScreenState, onRefresh: () ->
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         when (state) {
             ScreenState.ERROR -> ThemedRefreshButton(onClick = onRefresh)
-            ScreenState.LOADING -> ThemedProgressBar()
+            ScreenState.LOADING -> ThemedLoadingIndicator()
             ScreenState.SUCCESS -> content()
         }
     }

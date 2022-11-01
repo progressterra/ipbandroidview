@@ -18,6 +18,8 @@ import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.domain.UpdatePersonalInfoUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.domain.recommendedgoods.GoodsPageUseCase
+import com.progressterra.ipbandroidview.domain.recommendedgoods.RecommendedGoodsUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -94,5 +96,13 @@ val useCasesModule = module {
 
     single<CheckMediaDetailsUseCase> {
         CheckMediaDetailsUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<GoodsPageUseCase> {
+        GoodsPageUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<RecommendedGoodsUseCase> {
+        RecommendedGoodsUseCase.Base(get())
     }
 }

@@ -18,15 +18,13 @@ import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.FavoriteButton
 import com.progressterra.ipbandroidview.components.SimpleImage
 import com.progressterra.ipbandroidview.components.utils.niceClickable
+import com.progressterra.ipbandroidview.dto.GoodsCard
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun StoreItemCard(
-    modifier: Modifier = Modifier,
-    state: StoreItemState,
-    onClick: () -> Unit,
-    onFavorite: () -> Unit
+    modifier: Modifier = Modifier, state: GoodsCard, onClick: () -> Unit, onFavorite: () -> Unit
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -91,14 +89,14 @@ fun StoreItemCard(
 private fun StoreItemCardPreview() {
     AppTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            StoreItemCard(state = StoreItemState(
+            StoreItemCard(state = GoodsCard(
                 id = "",
                 imageUri = "",
                 price = "3 000 ₽",
                 name = "Some cool item with pretty long name that contains many symbols",
                 favorite = false
             ), onClick = { }) {}
-            StoreItemCard(state = StoreItemState(
+            StoreItemCard(state = GoodsCard(
                 id = "",
                 imageUri = "",
                 price = "3 000 ₽",

@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun ThemedProgressBar(
+fun ThemedLoadingIndicator(
     modifier: Modifier = Modifier, visible: Boolean = true
 ) {
     AnimatedVisibility(modifier = modifier, visible = visible, enter = fadeIn(), exit = fadeOut()) {
@@ -20,8 +20,8 @@ fun ThemedProgressBar(
 
 @Preview
 @Composable
-private fun ThemedProgressBarPreview() {
+private fun ThemedLoadingIndicatorPreview() {
     AppTheme {
-        ThemedProgressBar()
+        ThemedLoadingIndicator()
     }
 }
