@@ -26,7 +26,7 @@ interface GoodsPageUseCase {
         override suspend fun goodsPage(
             idCategory: String, pageNumber: Int
         ): Result<List<GoodsCard>> = runCatching {
-            Log.d("PAGING", "page $idCategory")
+            Log.d("PAGING", "category $idCategory, page $pageNumber")
             val favorites = withToken {
                 favoriteRepository.getClientEntityByType(
                     it, TypeOfEntity.PRODUCT
