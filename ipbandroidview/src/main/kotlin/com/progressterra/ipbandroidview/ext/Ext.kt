@@ -26,7 +26,7 @@ fun <T : AttachedMedia<T>> List<T>.formPatch(): List<T> =
     this.filter { (it.local && !it.toRemove) || (!it.local && it.toRemove) }
 
 fun <T : AttachedMedia<T>> List<T>.markToRemove(item: T): List<T> =
-    this.filter { it.id != item.id }.toMutableList().apply { add(item.markToRemove()) }
+    this.toMutableList().apply { this[indexOfFirst { it.id != item.id }] = item.markToRemove() }
 
 fun <T : AttachedMedia<T>> List<T>.markLastToRemove(): List<T> = this.toMutableList().apply {
     val temp = last().markToRemove()
