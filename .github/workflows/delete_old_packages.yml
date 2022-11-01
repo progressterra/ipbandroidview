@@ -1,0 +1,8 @@
+name: Delete old packages
+uses: smartsquaregmbh/delete-old-packages@v0.5.0
+with:
+  names: |
+    com.progressterra.ipbandroidviewtest
+    com.progressterra.ipbandroidview.ipbandroidview
+    com.progressterra.ipbandroidview.ipbandroidviewtest
+    com.progressterra.ipbandroidview.ipbandroidviewripcurl
