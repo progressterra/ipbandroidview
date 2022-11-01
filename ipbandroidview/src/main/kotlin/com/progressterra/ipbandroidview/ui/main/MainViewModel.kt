@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.recommendedgoods.RecommendedGoodsUseCase
 import org.orbitmvi.orbit.Container
@@ -31,7 +33,12 @@ class MainViewModel(
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         recommendedGoodsUseCase.recommendedGoods().onSuccess { flow ->
-            reduce { state.copy(items = flow, screenState = ScreenState.SUCCESS) }
+            reduce {
+                state.copy(
+                    items = flow.cachedIn(viewModelScope),
+                    screenState = ScreenState.SUCCESS
+                )
+            }
         }
     }
 
