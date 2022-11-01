@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.main
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -33,6 +34,7 @@ class MainViewModel(
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         recommendedGoodsUseCase.recommendedGoods().onSuccess { flow ->
+            Log.d("PAGING", "flow success $flow")
             reduce {
                 state.copy(
                     items = flow.cachedIn(viewModelScope),

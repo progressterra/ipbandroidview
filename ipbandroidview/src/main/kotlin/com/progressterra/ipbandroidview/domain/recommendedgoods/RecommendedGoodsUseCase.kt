@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain.recommendedgoods
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -16,6 +17,7 @@ interface RecommendedGoodsUseCase {
     ) : RecommendedGoodsUseCase {
 
         override fun recommendedGoods(): Result<Flow<PagingData<GoodsCard>>> = runCatching {
+            Log.d("PAGING", "usecase")
             Pager(PagingConfig(DomainConstants.PAGE_SIZE)) {
                 source
             }.flow

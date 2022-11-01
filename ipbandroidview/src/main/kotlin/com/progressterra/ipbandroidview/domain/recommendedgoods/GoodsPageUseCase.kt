@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain.recommendedgoods
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeOfEntity
@@ -25,6 +26,7 @@ interface GoodsPageUseCase {
         override suspend fun goodsPage(
             idCategory: String, pageNumber: Int
         ): Result<List<GoodsCard>> = runCatching {
+            Log.d("PAGING", "page $idCategory")
             val favorites = withToken {
                 favoriteRepository.getClientEntityByType(
                     it, TypeOfEntity.PRODUCT

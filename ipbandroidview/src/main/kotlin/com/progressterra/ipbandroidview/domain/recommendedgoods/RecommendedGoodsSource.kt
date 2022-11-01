@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain.recommendedgoods
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.progressterra.ipbandroidview.domain.DomainConstants
@@ -10,7 +11,7 @@ class RecommendedGoodsSource(
 ) : PagingSource<Int, GoodsCard>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GoodsCard> {
-
+        Log.d("PAGING", "load ${params.key}")
         val nextPage = params.key ?: 1
         val response =
             goodsPageUseCase.goodsPage(DomainConstants.MAIN_DEFAULT_CATEGORY_ID, nextPage)
