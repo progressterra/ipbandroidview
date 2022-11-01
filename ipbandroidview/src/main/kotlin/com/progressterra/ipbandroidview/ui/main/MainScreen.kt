@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -35,28 +34,31 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
             onSearch = { interactor.search() },
             onFilters = {})
     }) { padding ->
-        Column(modifier = Modifier.padding(padding)) {
-            StateBox(state = state.screenState, onRefresh = { interactor.refresh() }) {
-                val lazyItems: LazyPagingItems<GoodsCard> = state.items.collectAsLazyPagingItems()
-                LazyVerticalGrid(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(AppTheme.colors.background),
-                    columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
-                    contentPadding = PaddingValues(8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(lazyItems) { card ->
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            card?.let {
-                                StoreItemCard(modifier = Modifier.align(Alignment.Center),
-                                    state = card,
-                                    onClick = { interactor.card(card.id) },
-                                    onFavorite = { interactor.favorite(card.id) })
-                            }
-
+        StateBox(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding),
+            state = state.screenState,
+            onRefresh = { interactor.refresh() }) {
+            val lazyItems: LazyPagingItems<GoodsCard> = state.items.collectAsLazyPagingItems()
+            LazyVerticalGrid(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppTheme.colors.background),
+                columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
+                contentPadding = PaddingValues(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(lazyItems) { card ->
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        card?.let {
+                            StoreItemCard(modifier = Modifier.align(Alignment.Center),
+                                state = card,
+                                onClick = { interactor.card(card.id) },
+                                onFavorite = { interactor.favorite(card.id) })
                         }
+
                     }
                 }
             }

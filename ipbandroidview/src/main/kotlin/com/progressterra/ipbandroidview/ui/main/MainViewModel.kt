@@ -31,7 +31,7 @@ class MainViewModel(
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         recommendedGoodsUseCase.recommendedGoods().onSuccess { flow ->
-            reduce { state.copy(items = flow) }
+            reduce { state.copy(items = flow, screenState = ScreenState.SUCCESS) }
         }
     }
 
