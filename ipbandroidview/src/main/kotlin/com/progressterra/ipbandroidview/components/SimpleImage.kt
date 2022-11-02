@@ -6,8 +6,8 @@ import androidx.compose.ui.graphics.Color
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
-import com.skydoves.landscapist.coil.CoilImage
 import com.skydoves.landscapist.components.rememberImageComponent
+import com.skydoves.landscapist.fresco.FrescoImage
 import com.skydoves.landscapist.placeholder.shimmer.ShimmerPlugin
 
 @Composable
@@ -17,9 +17,9 @@ fun SimpleImage(
     options: ImageOptions,
     backgroundColor: Color
 ) {
-    CoilImage(
+    FrescoImage(
         modifier = modifier,
-        imageModel = { url },
+        imageUrl = url,
         imageOptions = options,
         component = rememberImageComponent {
             +ShimmerPlugin(
