@@ -44,7 +44,7 @@ interface GoodsPageUseCase {
                     0
                 )
             }.getOrThrow()
-            Log.d("PAGING", "result $result")
+            Log.d("PAGING", "result")
             result?.numberCurrentPage!! to result.listProducts!!.map { mapper.map(it, favorites) }
         }
     }
