@@ -25,7 +25,7 @@ interface GoodsCardMapper {
             )
 
         data class ImageData(
-            @SerializedName("listInfoImage") val list: List<Item>
+            @SerializedName("datalist") val list: List<Item>
         ) {
 
             data class Item(
