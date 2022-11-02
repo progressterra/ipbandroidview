@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.OrganizationCard
-import com.progressterra.ipbandroidview.components.ThemedTopAppBar
+import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 

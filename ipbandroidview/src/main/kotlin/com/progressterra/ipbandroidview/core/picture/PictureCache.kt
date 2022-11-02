@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.core.picture
 
 import android.content.Intent
-import android.graphics.Bitmap
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel

@@ -45,6 +45,7 @@ interface AudioManager {
             }
         }
 
-        override fun progress(): Float = mediaPlayer.currentPosition.toFloat() / mediaPlayer.duration.toFloat()
+        override fun progress(): Float =
+            mediaPlayer.currentPosition.toFloat() / mediaPlayer.duration.toFloat()
     }
 }

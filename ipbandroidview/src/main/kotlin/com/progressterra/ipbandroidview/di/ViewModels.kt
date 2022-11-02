@@ -56,7 +56,19 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        ChecklistViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get(), get())
+        ChecklistViewModel(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
     }
 
     viewModel {

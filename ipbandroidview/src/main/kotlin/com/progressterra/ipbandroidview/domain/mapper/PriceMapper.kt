@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.domain.mapper
 
 import com.progressterra.ipbandroidview.core.Mapper
-import java.util.Currency
 
 interface PriceMapper : Mapper<Double, String> {
 

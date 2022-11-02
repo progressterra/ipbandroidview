@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.components.storeitem
+package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,8 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.progressterra.ipbandroidview.components.FavoriteButton
-import com.progressterra.ipbandroidview.components.SimpleImage
 import com.progressterra.ipbandroidview.components.utils.niceClickable
 import com.progressterra.ipbandroidview.dto.GoodsCard
 import com.progressterra.ipbandroidview.theme.AppTheme

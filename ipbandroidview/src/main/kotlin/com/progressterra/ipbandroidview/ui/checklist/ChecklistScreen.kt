@@ -45,7 +45,7 @@ import com.progressterra.ipbandroidview.components.CheckCard
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedNotebook
-import com.progressterra.ipbandroidview.components.ThemedTopAppBar
+import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.VoiceInput
 import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar

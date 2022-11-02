@@ -72,7 +72,8 @@ interface CheckMediaDetailsUseCase {
         ) {
 
             data class Item(
-                @SerializedName("URL") val url: String, @SerializedName("SizeType") val sizeType: Int
+                @SerializedName("URL") val url: String,
+                @SerializedName("SizeType") val sizeType: Int
             )
         }
     }

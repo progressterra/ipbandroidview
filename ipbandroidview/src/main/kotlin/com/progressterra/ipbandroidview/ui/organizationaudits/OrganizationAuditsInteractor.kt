@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.OpenDetails
 import com.progressterra.ipbandroidview.actions.Refresh
 
-interface OrganizationAuditsInteractor: Refresh, Back, OpenDetails<OrganizationAudit> {
+interface OrganizationAuditsInteractor : Refresh, Back, OpenDetails<OrganizationAudit> {
 
     fun onMapClick()
 

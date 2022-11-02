@@ -18,7 +18,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.storeitem.StoreItemCard
+import com.progressterra.ipbandroidview.components.StoreItemCard
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.components.utils.items
 import com.progressterra.ipbandroidview.dto.GoodsCard

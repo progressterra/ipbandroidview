@@ -33,7 +33,7 @@ import com.progressterra.ipbandroidview.components.LocationButton
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedTextButton
 import com.progressterra.ipbandroidview.components.ThemedTextField
-import com.progressterra.ipbandroidview.components.ThemedTopAppBar
+import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private const val moveAnimationDuration = 1000

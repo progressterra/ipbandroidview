@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.components
+package com.progressterra.ipbandroidview.components.topbar
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon

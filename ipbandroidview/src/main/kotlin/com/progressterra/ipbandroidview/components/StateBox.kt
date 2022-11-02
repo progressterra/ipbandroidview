@@ -8,7 +8,12 @@ import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.core.ScreenState
 
 @Composable
-fun StateBox(modifier: Modifier = Modifier, state: ScreenState, onRefresh: () -> Unit, content: @Composable (BoxScope.() -> Unit)) {
+fun StateBox(
+    modifier: Modifier = Modifier,
+    state: ScreenState,
+    onRefresh: () -> Unit,
+    content: @Composable (BoxScope.() -> Unit)
+) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         when (state) {
             ScreenState.ERROR -> ThemedRefreshButton(onClick = onRefresh)

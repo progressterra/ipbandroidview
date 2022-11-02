@@ -28,8 +28,8 @@ import com.progressterra.ipbandroidview.components.CategoryDivider
 import com.progressterra.ipbandroidview.components.DocumentCard
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedButton
-import com.progressterra.ipbandroidview.components.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
+import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -86,14 +86,15 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                 }
             }
             val density = LocalDensity.current
-            ThemedButton(modifier = Modifier
-                .zIndex(1f)
-                .align(Alignment.BottomCenter)
-                .padding(start = 24.dp, end = 24.dp, bottom = 24.dp)
-                .fillMaxWidth()
-                .onGloballyPositioned {
-                    spacerSize = with(density) { it.size.height.toDp() }
-                },
+            ThemedButton(
+                modifier = Modifier
+                    .zIndex(1f)
+                    .align(Alignment.BottomCenter)
+                    .padding(start = 24.dp, end = 24.dp, bottom = 24.dp)
+                    .fillMaxWidth()
+                    .onGloballyPositioned {
+                        spacerSize = with(density) { it.size.height.toDp() }
+                    },
                 onClick = { interactor.openOrganizations() },
                 text = stringResource(id = R.string.create_audit)
             )

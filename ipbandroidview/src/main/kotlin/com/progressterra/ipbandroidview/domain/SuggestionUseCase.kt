@@ -15,10 +15,9 @@ interface SuggestionUseCase {
         private val filter: SuggestionFilter
     ) : SuggestionUseCase {
 
-        override suspend fun suggestions(keyword: String): Result<List<Suggestion>> = runCatching{
+        override suspend fun suggestions(keyword: String): Result<List<Suggestion>> = runCatching {
             val suggestionsResult = repo.getSuggestionsAddressFromDadata(
-                keyword,
-                3
+                keyword, 3
             ).getOrThrow()
             suggestionsResult.filter { filter.filter(it) }.map { mapper.map(it) }
         }

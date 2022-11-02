@@ -13,7 +13,7 @@ interface GuessLocationUseCase {
         private val mapper: AddressGuesserMapper
     ) : GuessLocationUseCase {
 
-        override suspend fun guessLocation(latLng: LatLng): Result<String> =runCatching {
+        override suspend fun guessLocation(latLng: LatLng): Result<String> = runCatching {
             val suggestionsResult = repo.getSuggestionsAddressFromLocation(
                 latLng.latitude.toFloat(), latLng.longitude.toFloat(), 3
             ).getOrThrow()
