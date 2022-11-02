@@ -190,9 +190,8 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     .padding(padding)
             ) {
                 var spacerSize by remember { mutableStateOf(0.dp) }
-                val groupedChecks by remember {
-                    mutableStateOf(state.checklist.checks.groupBy { it.categoryNumber }
-                        .toSortedMap())
+                val groupedChecks by remember(state.checklist.checks) {
+                    mutableStateOf(state.checklist.checks.groupBy { it.categoryNumber })
                 }
                 LazyColumn(
                     modifier = Modifier
