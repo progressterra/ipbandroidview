@@ -34,6 +34,7 @@ interface GoodsPageUseCase {
             }.getOrThrow()
             Log.d("PAGING", "favorites $favorites")
             val result = withToken {
+                Log.d("PAGING", "token")
                 eCommerceRepo.getProductsByCategory(
                     it,
                     DomainConstants.MAIN_DEFAULT_CATEGORY_ID,

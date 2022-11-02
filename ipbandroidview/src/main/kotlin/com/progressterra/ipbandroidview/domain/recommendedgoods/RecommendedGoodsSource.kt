@@ -20,7 +20,7 @@ class RecommendedGoodsSource(
                     return LoadResult.Page(
                         data = it.second,
                         prevKey = if (nextPage == 1) null else nextPage - 1,
-                        nextKey = it.first + 1
+                        nextKey = if (it.second.isEmpty()) null else it.first + 1
                     )
                 }
         return LoadResult.Error(response.exceptionOrNull()!!)
