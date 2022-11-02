@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.DRAnswerChekListItemEntity
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
@@ -37,6 +38,7 @@ interface UpdateAnswerUseCase {
             check: Check,
             checkDetails: CurrentCheckMedia
         ): Result<Check> = runCatching {
+            Log.d("CHECK", "income $check")
             checkDetails.voices.forEach { voice ->
                 if (voice.local)
                     withToken { token ->
@@ -95,7 +97,7 @@ interface UpdateAnswerUseCase {
                     )
                 )
             }.getOrThrow()
-            Check(
+            val output = Check(
                 id = result?.idUnique!!,
                 name = result.shortDescription ?: noData,
                 description = result.description ?: noData,
@@ -105,6 +107,8 @@ interface UpdateAnswerUseCase {
                 result.answerCheckList?.yesNo.toYesNo(),
                 result.answerCheckList?.comments ?: "",
             )
+            Log.d("CHECK", "output $output")
+            output
         }
     }
 }
