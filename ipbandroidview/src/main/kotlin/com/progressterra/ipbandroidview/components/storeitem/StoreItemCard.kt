@@ -13,6 +13,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.FavoriteButton
@@ -33,7 +34,7 @@ fun StoreItemCard(
             .niceClickable(onClick = onClick)
     ) {
         val (favoriteButton, image, price, name) = createRefs()
-        FavoriteButton(modifier = Modifier.constrainAs(favoriteButton) {
+        FavoriteButton(modifier = Modifier.zIndex(1f).constrainAs(favoriteButton) {
             end.linkTo(image.end)
             top.linkTo(image.top)
         }, favorite = state.favorite, onClick = onFavorite)
@@ -46,6 +47,7 @@ fun StoreItemCard(
                     )
                 )
                 .constrainAs(image) {
+                    height = Dimension.value(236.dp)
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
                 }, url = state.imageUri, options = ImageOptions(
