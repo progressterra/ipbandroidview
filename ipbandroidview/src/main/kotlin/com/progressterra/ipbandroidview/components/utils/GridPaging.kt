@@ -5,7 +5,6 @@ import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.runtime.Composable
 import androidx.paging.compose.LazyPagingItems
 
-//TODO: PAGING COMPOSE UPDATE
 fun <T : Any> LazyGridScope.items(
     items: LazyPagingItems<T>,
     key: ((item: T) -> Any),

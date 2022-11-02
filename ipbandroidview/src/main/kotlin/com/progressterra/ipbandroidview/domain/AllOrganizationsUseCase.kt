@@ -8,8 +8,6 @@ import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ui.organizations.Organization
 
-//TODO warnings
-
 interface AllOrganizationsUseCase {
 
     suspend fun allOrganizations(): Result<List<Organization>>

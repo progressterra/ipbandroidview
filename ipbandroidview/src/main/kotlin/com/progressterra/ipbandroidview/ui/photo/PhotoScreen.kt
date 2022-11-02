@@ -15,18 +15,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.SimpleImage
-import com.progressterra.ipbandroidview.components.topbar.TransparentTopAppBar
 import com.progressterra.ipbandroidview.components.TrashIcon
+import com.progressterra.ipbandroidview.components.topbar.TransparentTopAppBar
+import com.progressterra.ipbandroidview.dto.Picture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
-@Suppress("unused")
 @Composable
 fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.black), contentAlignment = Alignment.Center
+            .background(AppTheme.colors.black),
+        contentAlignment = Alignment.Center
     ) {
         TransparentTopAppBar(modifier = Modifier.align(Alignment.TopCenter), onBack = {
             IconButton(onClick = { interactor.back() }) {
@@ -37,10 +38,9 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
                 )
             }
         }, actions = {
-            if (state.enabled)
-                IconButton(onClick = { interactor.remove() }) {
-                    TrashIcon(enabled = true)
-                }
+            if (state.enabled) IconButton(onClick = { interactor.remove() }) {
+                TrashIcon(enabled = true)
+            }
         })
         state.picture?.let {
             SimpleImage(
@@ -57,6 +57,12 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
 @Composable
 private fun PhotoViewerPreview() {
     AppTheme {
-        //TODO preview
+        PhotoScreen(
+            state = PhotoState(
+                Picture(
+                    id = "", local = true, toRemove = false, thumbnail = "", fullSize = ""
+                )
+            ), interactor = PhotoInteractor.Empty()
+        )
     }
 }

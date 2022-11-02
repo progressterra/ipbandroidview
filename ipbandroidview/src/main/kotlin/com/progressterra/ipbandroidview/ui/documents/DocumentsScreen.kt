@@ -46,6 +46,13 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
             state = state.screenState,
             onRefresh = { interactor.refresh() }) {
             var spacerSize by remember { mutableStateOf(0.dp) }
+            val unfinishedDocs by remember(state.documents) {
+                mutableStateOf(state.documents.filter { it.finishDate == null })
+            }
+            val finishedGroupedDocs by remember(state.documents) {
+                mutableStateOf(state.documents.filter { it.finishDate != null }
+                    .groupBy { it.finishDate!! })
+            }
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -53,7 +60,8 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         top = 8.dp, start = 8.dp, end = 8.dp
                     ), verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.documents.filter { it.finishDate == null }) {
+
+                items(unfinishedDocs) {
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
                         name = it.name,
@@ -63,7 +71,7 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         backgroundColor = AppTheme.colors.secondary
                     )
                 }
-                state.documents.filter { it.finishDate != null }.groupBy { it.finishDate!! }
+                finishedGroupedDocs
                     .forEach {
                         item {
                             CategoryDivider(
