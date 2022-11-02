@@ -8,6 +8,6 @@ interface PriceMapper : Mapper<Double, String> {
     class Russia : PriceMapper {
 
         override fun map(data: Double): String =
-            "${data.toInt()} ${Currency.getInstance("RUB").symbol}"
+            "${data.toInt()} ₽"
     }
 }

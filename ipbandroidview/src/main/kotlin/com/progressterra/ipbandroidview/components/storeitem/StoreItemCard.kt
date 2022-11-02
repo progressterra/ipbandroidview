@@ -51,7 +51,7 @@ fun StoreItemCard(
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
                 }, url = state.imageUri, options = ImageOptions(
-                contentScale = ContentScale.FillWidth
+                contentScale = ContentScale.FillBounds
             ), backgroundColor = AppTheme.colors.surfaces
         )
         val margin = 8.dp
