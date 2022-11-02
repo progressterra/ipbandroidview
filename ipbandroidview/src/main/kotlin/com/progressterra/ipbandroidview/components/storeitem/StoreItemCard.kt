@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.progressterra.ipbandroidview.components.ExactLinesText
 import com.progressterra.ipbandroidview.components.FavoriteButton
 import com.progressterra.ipbandroidview.components.SimpleImage
 import com.progressterra.ipbandroidview.components.utils.niceClickable
@@ -55,7 +56,7 @@ fun StoreItemCard(
             ), backgroundColor = AppTheme.colors.surfaces
         )
         val margin = 8.dp
-        Text(
+        ExactLinesText(
             modifier = Modifier.constrainAs(price) {
                 width = Dimension.fillToConstraints
                 top.linkTo(image.bottom, 4.dp)
@@ -64,9 +65,9 @@ fun StoreItemCard(
             },
             text = state.price,
             color = AppTheme.colors.black,
-            maxLines = 1,
+            lines = 2,
             style = AppTheme.typography.title,
-            textAlign = TextAlign.Center
+            align = TextAlign.Center
         )
         Text(
             modifier = Modifier.constrainAs(name) {
