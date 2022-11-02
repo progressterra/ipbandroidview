@@ -16,7 +16,7 @@ class RecommendedGoodsSource(
         val response =
             goodsPageUseCase.goodsPage(DomainConstants.MAIN_DEFAULT_CATEGORY_ID, nextPage)
                 .onSuccess {
-                    Log.d("PAGING", "success load")
+                    Log.d("PAGING", "success load ${it.first} to ${it.second}")
                     return LoadResult.Page(
                         data = it.second,
                         prevKey = if (nextPage == 1) null else nextPage - 1,
