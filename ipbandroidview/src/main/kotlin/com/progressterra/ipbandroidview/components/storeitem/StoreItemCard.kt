@@ -6,6 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -16,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.progressterra.ipbandroidview.components.ExactLinesText
 import com.progressterra.ipbandroidview.components.FavoriteButton
 import com.progressterra.ipbandroidview.components.SimpleImage
 import com.progressterra.ipbandroidview.components.utils.niceClickable
@@ -35,10 +38,14 @@ fun StoreItemCard(
             .niceClickable(onClick = onClick)
     ) {
         val (favoriteButton, image, price, name) = createRefs()
-        FavoriteButton(modifier = Modifier.zIndex(1f).constrainAs(favoriteButton) {
-            end.linkTo(image.end)
-            top.linkTo(image.top)
-        }, favorite = state.favorite, onClick = onFavorite)
+        FavoriteButton(
+            modifier = Modifier
+                .zIndex(1f)
+                .constrainAs(favoriteButton) {
+                    end.linkTo(image.end)
+                    top.linkTo(image.top)
+                }, favorite = state.favorite, onClick = onFavorite
+        )
         SimpleImage(
             Modifier
                 .clip(
@@ -56,7 +63,7 @@ fun StoreItemCard(
             ), backgroundColor = AppTheme.colors.surfaces
         )
         val margin = 8.dp
-        ExactLinesText(
+        Text(
             modifier = Modifier.constrainAs(price) {
                 width = Dimension.fillToConstraints
                 top.linkTo(image.bottom, 4.dp)
@@ -65,10 +72,12 @@ fun StoreItemCard(
             },
             text = state.price,
             color = AppTheme.colors.black,
-            lines = 2,
+            maxLines = 1,
             style = AppTheme.typography.title,
-            align = TextAlign.Center
+            textAlign = TextAlign.Center
         )
+        val lines = 2
+        var nameText by remember(state.name) { mutableStateOf(state.name) }
         Text(
             modifier = Modifier.constrainAs(name) {
                 width = Dimension.fillToConstraints
@@ -77,12 +86,17 @@ fun StoreItemCard(
                 end.linkTo(image.end, margin)
                 bottom.linkTo(parent.bottom, margin)
             },
-            text = state.name,
-            maxLines = 2,
+            text = nameText,
+            maxLines = lines,
             color = AppTheme.colors.gray1,
             style = AppTheme.typography.secondaryText,
             textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis
+            overflow = TextOverflow.Ellipsis,
+            onTextLayout = { textLayoutResult ->
+                if ((textLayoutResult.lineCount) < lines) {
+                    nameText = state.name + "\n ".repeat(lines - textLayoutResult.lineCount)
+                }
+            },
         )
     }
 }

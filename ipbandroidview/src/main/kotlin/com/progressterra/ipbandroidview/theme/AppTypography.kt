@@ -41,5 +41,5 @@ data class AppTypography(
         fontSize = 10.sp,
         fontWeight = FontWeight.Medium,
         lineHeight = 12.sp
-    ),
+    )
 )
