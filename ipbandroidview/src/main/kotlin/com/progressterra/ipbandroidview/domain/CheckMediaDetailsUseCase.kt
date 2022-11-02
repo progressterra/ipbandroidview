@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.domain
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
-import com.progressterra.ipbandroidapi.api.ipbmediadata.model.ImageData
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCaseSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
