@@ -16,6 +16,7 @@ class RecommendedGoodsSource(
         val response =
             goodsPageUseCase.goodsPage(DomainConstants.MAIN_DEFAULT_CATEGORY_ID, nextPage)
                 .onSuccess {
+                    Log.d("PAGING", "success load")
                     return LoadResult.Page(
                         data = it.second,
                         prevKey = if (nextPage == 1) null else nextPage - 1,
@@ -25,10 +26,5 @@ class RecommendedGoodsSource(
         return LoadResult.Error(response.exceptionOrNull()!!)
     }
 
-    override fun getRefreshKey(state: PagingState<Int, GoodsCard>): Int? {
-        return state.anchorPosition?.let {
-            state.closestPageToPosition(it)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
-        }
-    }
+    override fun getRefreshKey(state: PagingState<Int, GoodsCard>): Int? = state.anchorPosition
 }

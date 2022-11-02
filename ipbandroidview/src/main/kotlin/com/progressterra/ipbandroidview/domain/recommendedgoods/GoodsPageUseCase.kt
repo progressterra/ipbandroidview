@@ -32,6 +32,7 @@ interface GoodsPageUseCase {
                     it, TypeOfEntity.PRODUCT
                 )
             }.getOrThrow()
+            Log.d("PAGING", "favorites $favorites")
             val result = withToken {
                 eCommerceRepo.getProductsByCategory(
                     it,
@@ -42,6 +43,7 @@ interface GoodsPageUseCase {
                     0
                 )
             }.getOrThrow()
+            Log.d("PAGING", "favorites $result")
             result?.numberCurrentPage!! to result.listProducts!!.map { mapper.map(it, favorites) }
         }
     }
