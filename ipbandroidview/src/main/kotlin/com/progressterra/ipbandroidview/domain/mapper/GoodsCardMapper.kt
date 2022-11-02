@@ -16,9 +16,9 @@ interface GoodsCardMapper {
         override fun map(data: RGGoodsInventoryExt, favoriteIds: List<String>): GoodsCard =
             GoodsCard(
                 id = data.idUnique!!,
-                imageUri = gson.fromJson(
+                images = gson.fromJson(
                     data.imageDataJSON!!, ImageData::class.java
-                ).list.first().url,
+                ).list.map { it.url },
                 price = priceMapper.map(data.currentPrice!!),
                 name = data.name!!,
                 favorite = favoriteIds.contains(data.idUnique!!)

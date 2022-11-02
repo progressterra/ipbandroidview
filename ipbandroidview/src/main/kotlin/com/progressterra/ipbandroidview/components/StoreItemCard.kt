@@ -56,7 +56,7 @@ fun StoreItemCard(
                     height = Dimension.value(236.dp)
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
-                }, url = state.imageUri, options = ImageOptions(
+                }, url = state.images.first(), options = ImageOptions(
                 contentScale = ContentScale.FillBounds
             ), backgroundColor = AppTheme.colors.surfaces
         )
@@ -106,14 +106,14 @@ private fun StoreItemCardPreview() {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             StoreItemCard(state = GoodsCard(
                 id = "",
-                imageUri = "",
+                images = emptyList(),
                 price = "3 000 ₽",
                 name = "Some cool item with pretty long name that contains many symbols",
                 favorite = false
             ), onClick = { }) {}
             StoreItemCard(state = GoodsCard(
                 id = "",
-                imageUri = "",
+                images = emptyList(),
                 price = "3 000 ₽",
                 name = "Some cool item",
                 favorite = true

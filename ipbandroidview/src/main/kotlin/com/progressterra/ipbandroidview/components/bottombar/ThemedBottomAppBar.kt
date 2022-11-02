@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.utils.Border
-import com.progressterra.ipbandroidview.components.utils.border
+import com.progressterra.ipbandroidview.components.utils.SideBorder
+import com.progressterra.ipbandroidview.components.utils.sideBorder
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -21,7 +21,7 @@ fun ThemedBottomAppBar(
         modifier = modifier
             .fillMaxWidth()
             .background(AppTheme.colors.surfaces)
-            .border(top = Border(1.dp, AppTheme.colors.gray2))
+            .sideBorder(top = SideBorder(1.dp, AppTheme.colors.gray2))
             .padding(top = 1.dp),
         backgroundColor = AppTheme.colors.surfaces,
         elevation = 0.dp

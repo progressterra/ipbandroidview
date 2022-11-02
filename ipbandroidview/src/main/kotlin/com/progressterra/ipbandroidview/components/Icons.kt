@@ -199,3 +199,47 @@ private fun BackIconPreview() {
         }
     }
 }
+
+@Composable
+fun RulerIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_ruler),
+        contentDescription = null,
+        tint = AppTheme.colors.primary
+    )
+}
+
+
+@Preview
+@Composable
+private fun RulerIconPreview() {
+    AppTheme {
+        Column {
+            BackIcon()
+            BackIcon()
+        }
+    }
+}
+
+@Composable
+fun MapIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_map),
+        contentDescription = null,
+        tint = AppTheme.colors.primary
+    )
+}
+
+
+@Preview
+@Composable
+private fun MapIconPreview() {
+    AppTheme {
+        Column {
+            BackIcon()
+            BackIcon()
+        }
+    }
+}

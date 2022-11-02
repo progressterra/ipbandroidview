@@ -8,14 +8,14 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 
-data class Border(val strokeWidth: Dp, val color: Color)
+data class SideBorder(val strokeWidth: Dp, val color: Color)
 
 @Stable
-fun Modifier.border(
-    start: Border? = null,
-    top: Border? = null,
-    end: Border? = null,
-    bottom: Border? = null,
+fun Modifier.sideBorder(
+    start: SideBorder? = null,
+    top: SideBorder? = null,
+    end: SideBorder? = null,
+    bottom: SideBorder? = null,
 ) =
     drawBehind {
         start?.let {
@@ -33,7 +33,7 @@ fun Modifier.border(
     }
 
 private fun DrawScope.drawTopBorder(
-    border: Border,
+    border: SideBorder,
     shareStart: Boolean = true,
     shareEnd: Boolean = true
 ) {
@@ -53,7 +53,7 @@ private fun DrawScope.drawTopBorder(
 }
 
 private fun DrawScope.drawBottomBorder(
-    border: Border,
+    border: SideBorder,
     shareStart: Boolean,
     shareEnd: Boolean
 ) {
@@ -74,7 +74,7 @@ private fun DrawScope.drawBottomBorder(
 }
 
 private fun DrawScope.drawStartBorder(
-    border: Border,
+    border: SideBorder,
     shareTop: Boolean = true,
     shareBottom: Boolean = true
 ) {
@@ -94,7 +94,7 @@ private fun DrawScope.drawStartBorder(
 }
 
 private fun DrawScope.drawEndBorder(
-    border: Border,
+    border: SideBorder,
     shareTop: Boolean = true,
     shareBottom: Boolean = true
 ) {

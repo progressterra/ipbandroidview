@@ -74,13 +74,29 @@ private fun MainScreenPreview() {
                     PagingData.from(
                         listOf(
                             GoodsCard(
-                                id = "", imageUri = "", price = "3 500 P", "SOME COOL ITEM", true
+                                id = "",
+                                images = emptyList(),
+                                price = "3 500 P",
+                                "SOME COOL ITEM",
+                                true
                             ), GoodsCard(
-                                id = "", imageUri = "", price = "3 500 P", "SOME COOL ITEM", true
+                                id = "",
+                                images = emptyList(),
+                                price = "3 500 P",
+                                "SOME COOL ITEM",
+                                true
                             ), GoodsCard(
-                                id = "", imageUri = "", price = "3 500 P", "SOME COOL ITEM", true
+                                id = "",
+                                images = emptyList(),
+                                price = "3 500 P",
+                                "SOME COOL ITEM",
+                                true
                             ), GoodsCard(
-                                id = "", imageUri = "", price = "3 500 P", "SOME COOL ITEM", true
+                                id = "",
+                                images = emptyList(),
+                                price = "3 500 P",
+                                "SOME COOL ITEM",
+                                true
                             )
                         )
                     )
