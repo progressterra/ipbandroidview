@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.domain.mapper
 
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.iecommerce.model.RGGoodsInventoryExt
-import com.progressterra.ipbandroidapi.api.ipbmediadata.model.ImageData
 import com.progressterra.ipbandroidview.dto.GoodsCard
 
 interface GoodsCardMapper {
@@ -23,5 +23,14 @@ interface GoodsCardMapper {
                 name = data.name!!,
                 favorite = favoriteIds.contains(data.idUnique!!)
             )
+
+        data class ImageData(
+            @SerializedName("listInfoImage") val list: List<Item>
+        ) {
+
+            data class Item(
+                @SerializedName("URL") val url: String
+            )
+        }
     }
 }
