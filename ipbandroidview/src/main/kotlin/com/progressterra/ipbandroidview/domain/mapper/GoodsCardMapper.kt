@@ -18,7 +18,7 @@ interface GoodsCardMapper {
                 id = data.idUnique!!,
                 imageUri = gson.fromJson(
                     data.imageDataJSON!!, ImageData::class.java
-                ).list.first { it.sizeType == 2 }.url,
+                ).list.first().url,
                 price = priceMapper.map(data.currentPrice!!),
                 name = data.name!!,
                 favorite = favoriteIds.contains(data.idUnique!!)
