@@ -34,10 +34,9 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
             onSearch = { interactor.search() },
             onFilters = {})
     }) { padding ->
-        StateBox(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
+        StateBox(modifier = Modifier
+            .fillMaxSize()
+            .padding(padding),
             state = state.screenState,
             onRefresh = { interactor.refresh() }) {
             val lazyItems: LazyPagingItems<GoodsCard> = state.items.collectAsLazyPagingItems()
@@ -50,7 +49,7 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(lazyItems) { card ->
+                items(lazyItems, key = { item -> item.id }) { card ->
                     Box(modifier = Modifier.fillMaxSize()) {
                         card?.let {
                             StoreItemCard(modifier = Modifier.align(Alignment.Center),
@@ -58,7 +57,6 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
                                 onClick = { interactor.card(card.id) },
                                 onFavorite = { interactor.favorite(card.id) })
                         }
-
                     }
                 }
             }
