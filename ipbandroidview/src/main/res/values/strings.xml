@@ -73,4 +73,6 @@
     <string name="sign_up">Регистрация</string>
     <string name="organization">Заведение</string>
     <string name="table">Таблица</string>
+    <string name="color">Цвет:</string>
+    <string name="size">Размер:</string>
 </resources>

@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.OpenDetails
 import com.progressterra.ipbandroidview.actions.Refresh
 import com.progressterra.ipbandroidview.actions.Remove
-import com.progressterra.ipbandroidview.dto.Picture
+import com.progressterra.ipbandroidview.dto.CheckPicture
 
 interface ChecklistInteractor : Back, Refresh, Remove, OpenDetails<Check> {
 
@@ -22,7 +22,7 @@ interface ChecklistInteractor : Back, Refresh, Remove, OpenDetails<Check> {
 
     fun applyCheck()
 
-    fun openImage(picture: Picture)
+    fun openImage(picture: CheckPicture)
 
     fun onCamera()
 
@@ -50,7 +50,7 @@ interface ChecklistInteractor : Back, Refresh, Remove, OpenDetails<Check> {
 
         override fun applyCheck() = Unit
 
-        override fun openImage(picture: Picture) = Unit
+        override fun openImage(picture: CheckPicture) = Unit
 
         override fun onCamera() = Unit
     }

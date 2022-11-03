@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.dto.Checklist
-import com.progressterra.ipbandroidview.dto.Picture
+import com.progressterra.ipbandroidview.dto.CheckPicture
 import com.progressterra.ipbandroidview.dto.Voice
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
@@ -302,7 +302,7 @@ class ChecklistViewModel(
     }
 
     @Suppress("unused")
-    fun removePhoto(picture: Picture) = intent {
+    fun removePhoto(picture: CheckPicture) = intent {
         reduce {
             state.copy(
                 currentCheckMedia =
@@ -314,7 +314,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun openImage(picture: Picture) = intent {
+    override fun openImage(picture: CheckPicture) = intent {
         postSideEffect(ChecklistEffect.OpenImage(picture, state.checklist.ongoing))
     }
 
@@ -330,7 +330,7 @@ class ChecklistViewModel(
                     state.copy(
                         currentCheckMedia = state.currentCheckMedia!!.copy(
                             pictures = state.currentCheckMedia!!.pictures.plus(
-                                Picture(
+                                CheckPicture(
                                     id = newPhotoId,
                                     local = true,
                                     toRemove = false,

@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCaseSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.dto.Picture
+import com.progressterra.ipbandroidview.dto.CheckPicture
 import com.progressterra.ipbandroidview.dto.Voice
 import com.progressterra.ipbandroidview.ui.checklist.Check
 import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
@@ -27,7 +27,7 @@ interface CheckMediaDetailsUseCase {
 
         override suspend fun checkDetails(check: Check): Result<CurrentCheckMedia> = runCatching {
             val voices = mutableListOf<Voice>()
-            val pictures = mutableListOf<Picture>()
+            val pictures = mutableListOf<CheckPicture>()
             withToken {
                 mediaDataRepository.attachedToEntity(
                     it,
@@ -37,7 +37,7 @@ interface CheckMediaDetailsUseCase {
                 if (item.contentType == 0) {
                     val sizes = gson.fromJson(item.dataJSON, ImageData::class.java).list
                     pictures.add(
-                        Picture(
+                        CheckPicture(
                             id = item.idUnique!!,
                             local = false,
                             toRemove = false,

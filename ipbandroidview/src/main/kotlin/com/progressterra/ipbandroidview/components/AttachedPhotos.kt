@@ -22,21 +22,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.dto.Picture
+import com.progressterra.ipbandroidview.dto.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun AttachedPhoto(
     modifier: Modifier = Modifier,
-    pictures: List<Picture>,
-    onPhotoSelect: (picture: Picture) -> Unit,
+    pictures: List<CheckPicture>,
+    onPhotoSelect: (picture: CheckPicture) -> Unit,
     onCamera: () -> Unit,
     enabled: Boolean
 ) {
 
     @Composable
-    fun Item(picture: Picture) {
+    fun Item(picture: CheckPicture) {
         SimpleImage(
             modifier = Modifier
                 .size(48.dp)

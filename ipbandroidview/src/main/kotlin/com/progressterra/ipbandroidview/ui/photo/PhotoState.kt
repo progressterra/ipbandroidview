@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.ui.photo
 
-import com.progressterra.ipbandroidview.dto.Picture
+import com.progressterra.ipbandroidview.dto.CheckPicture
 
 data class PhotoState(
-    val picture: Picture? = null,
+    val picture: CheckPicture? = null,
     val enabled: Boolean = false
 )

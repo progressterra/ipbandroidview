@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.photo
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.dto.Picture
+import com.progressterra.ipbandroidview.dto.CheckPicture
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -16,7 +16,7 @@ class PhotoViewModel : ViewModel(),
 
     @Suppress("unused")
     fun setPhoto(
-        picture: Picture,
+        picture: CheckPicture,
         enabled: Boolean
     ) = intent {
         reduce {

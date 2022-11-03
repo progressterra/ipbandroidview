@@ -6,9 +6,10 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class Roundings(
+    val tinyRounding: Dp = 6.dp,
     val smallRounding: Dp = 8.dp,
     val mediumRounding: Dp = 12.dp,
     val largeRounding: Dp = 20.dp,
-    val buttonRounding: Dp = 14.dp,
+    val buttonRounding: Dp = 14.dp
 )
 

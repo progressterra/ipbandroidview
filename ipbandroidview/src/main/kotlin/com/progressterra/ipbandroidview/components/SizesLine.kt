@@ -17,16 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
-import com.progressterra.ipbandroidview.dto.size.GoodsSizeState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SizesLine(
     modifier: Modifier = Modifier,
+    currentSize: GoodsSize,
     sizes: List<GoodsSize>,
     onSize: (GoodsSize) -> Unit,
     onTable: () -> Unit
@@ -39,22 +40,23 @@ fun SizesLine(
                 .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
                 .border(
                     width = 1.dp,
-                    color = if (state.state == GoodsSizeState.SELECTED) AppTheme.colors.primary else Color.Transparent,
+                    color = if (state == currentSize) AppTheme.colors.primary else Color.Transparent,
                     RoundedCornerShape(AppTheme.roundings.smallRounding)
                 )
-                .niceClickable({ onSize(state) }),
+                .niceClickable({ onSize(state) })
+                .padding(vertical = 4.dp, horizontal = 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
                 text = state.primary,
-                color = if (state.state == GoodsSizeState.DISABLED) AppTheme.colors.gray3 else AppTheme.colors.black,
+                color = if (state.enabled) AppTheme.colors.black else AppTheme.colors.gray3,
                 style = AppTheme.typography.title
             )
             state.secondary?.let {
                 Text(
                     text = state.secondary,
-                    color = if (state.state == GoodsSizeState.DISABLED) AppTheme.colors.gray3 else AppTheme.colors.gray2,
+                    color = if (state.enabled) AppTheme.colors.gray2 else AppTheme.colors.gray3,
                     style = AppTheme.typography.tertiaryText
                 )
             }
@@ -64,7 +66,8 @@ fun SizesLine(
         modifier = modifier
             .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
             .background(AppTheme.colors.surfaces)
-            .padding(12.dp)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -89,5 +92,40 @@ fun SizesLine(
                 }
             }
         }
+        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(
+                text = stringResource(id = R.string.size),
+                color = AppTheme.colors.gray2,
+                style = AppTheme.typography.tertiaryText
+            )
+            Text(
+                text = currentSize.primary,
+                color = AppTheme.colors.gray1,
+                style = AppTheme.typography.tertiaryText
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun SizesLinePreview() {
+    AppTheme {
+        val current = GoodsSize(
+            primary = "M", secondary = "36", enabled = true
+        )
+        SizesLine(sizes = listOf(
+            current,
+            GoodsSize(
+                primary = "L", secondary = "38", enabled = true
+            ),
+            GoodsSize(
+                primary = "XL", secondary = "55", enabled = false
+            ),
+            GoodsSize(
+                primary = "XXL", secondary = "77", enabled = true
+            ),
+        ), onSize = {}, onTable = {}, currentSize = current
+        )
     }
 }

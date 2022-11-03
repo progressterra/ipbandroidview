@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.annotation.StringRes
-import com.progressterra.ipbandroidview.dto.Picture
+import com.progressterra.ipbandroidview.dto.CheckPicture
 
 sealed class ChecklistEffect {
 
@@ -13,5 +13,5 @@ sealed class ChecklistEffect {
     object RefreshAudits : ChecklistEffect()
 
     @Suppress("unused")
-    class OpenImage(val picture: Picture, val enabled: Boolean) : ChecklistEffect()
+    class OpenImage(val picture: CheckPicture, val enabled: Boolean) : ChecklistEffect()
 }
