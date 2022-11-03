@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -56,7 +55,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
         ) {
             val (buttons, map, address, background, suggestions, fab) = createRefs()
             Box(modifier = Modifier
-                .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+                .clip(AppTheme.shapes.medium)
                 .background(AppTheme.colors.surfaces)
                 .constrainAs(background) {
                     height = Dimension.fillToConstraints

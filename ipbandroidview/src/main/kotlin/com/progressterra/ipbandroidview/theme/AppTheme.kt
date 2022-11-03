@@ -15,18 +15,24 @@ object AppTheme {
     val typography
         @Composable @ReadOnlyComposable get() = LocalTypography.current
 
-    val roundings
-        @Composable @ReadOnlyComposable get() = LocalRoundings.current
+    val dimensions
+        @Composable @ReadOnlyComposable get() = LocalDimensions.current
 
     val customization
         @Composable @ReadOnlyComposable get() = LocalCustomization.current
+
+    val shapes
+        @Composable @ReadOnlyComposable get() = LocalShapes.current
+
 }
 
 val LocalCustomization = staticCompositionLocalOf {
     Customization()
 }
 
-val LocalRoundings = staticCompositionLocalOf { Roundings() }
+val LocalDimensions = staticCompositionLocalOf { Dimensions() }
+
+val LocalShapes = staticCompositionLocalOf { Shapes() }
 
 val LocalTypography = staticCompositionLocalOf { AppTypography() }
 
@@ -36,7 +42,7 @@ val LocalColors = staticCompositionLocalOf { AppColors() }
 fun AppTheme(
     colors: AppColors = AppTheme.colors,
     typography: AppTypography = AppTheme.typography,
-    dimensions: Roundings = AppTheme.roundings,
+    dimensions: Dimensions = AppTheme.dimensions,
     customization: Customization = AppTheme.customization,
     content: @Composable () -> Unit
 ) {
@@ -45,7 +51,7 @@ fun AppTheme(
         backgroundColor = AppTheme.colors.primary.copy(alpha = 0.4f)
     )
     CompositionLocalProvider(
-        LocalRoundings provides dimensions,
+        LocalDimensions provides dimensions,
         LocalTypography provides typography,
         LocalColors provides colors,
         LocalCustomization provides customization,

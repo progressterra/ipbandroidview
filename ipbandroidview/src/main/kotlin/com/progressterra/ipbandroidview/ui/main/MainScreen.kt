@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.StoreItemCard
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.components.utils.items
-import com.progressterra.ipbandroidview.dto.GoodsCard
+import com.progressterra.ipbandroidview.dto.Goods
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.flow.flowOf
 
@@ -39,7 +39,7 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
             .padding(padding),
             state = state.screenState,
             onRefresh = { interactor.refresh() }) {
-            val lazyItems: LazyPagingItems<GoodsCard> = state.items.collectAsLazyPagingItems()
+            val lazyItems: LazyPagingItems<Goods> = state.items.collectAsLazyPagingItems()
             LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxSize()
@@ -73,30 +73,45 @@ private fun MainScreenPreview() {
                 items = flowOf(
                     PagingData.from(
                         listOf(
-                            GoodsCard(
+                            Goods(
                                 id = "",
-                                images = emptyList(),
-                                price = "3 500 P",
-                                "SOME COOL ITEM",
-                                true
-                            ), GoodsCard(
+                                name = "SOME cool 1",
+                                description = "",
+                                price = "3550 USD",
+                                favorite = false,
+                                images = listOf(),
+                                parameters = listOf(),
+                                countInCart = ""
+
+                            ), Goods(
                                 id = "",
-                                images = emptyList(),
-                                price = "3 500 P",
-                                "SOME COOL ITEM",
-                                true
-                            ), GoodsCard(
+                                name = "cool 2",
+                                description = "",
+                                price = "3550 USD",
+                                favorite = false,
+                                images = listOf(),
+                                parameters = listOf(),
+                                countInCart = ""
+
+                            ), Goods(
                                 id = "",
-                                images = emptyList(),
-                                price = "3 500 P",
-                                "SOME COOL ITEM",
-                                true
-                            ), GoodsCard(
+                                name = "cool 3",
+                                description = "",
+                                price = "3550 USD",
+                                favorite = false,
+                                images = listOf(),
+                                parameters = listOf(),
+                                countInCart = ""
+
+                            ), Goods(
                                 id = "",
-                                images = emptyList(),
-                                price = "3 500 P",
-                                "SOME COOL ITEM",
-                                true
+                                name = "COME SOOL",
+                                description = "",
+                                price = "3550 USD",
+                                favorite = false,
+                                images = listOf(),
+                                parameters = listOf(),
+                                countInCart = ""
                             )
                         )
                     )

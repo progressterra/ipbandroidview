@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -32,7 +31,7 @@ fun OrganizationPresentation(
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+            .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -41,7 +40,7 @@ fun OrganizationPresentation(
             modifier = Modifier
                 .height(188.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(AppTheme.roundings.smallRounding)),
+                .clip(AppTheme.shapes.small),
             url = imageUrl,
             options = ImageOptions(contentScale = ContentScale.FillBounds),
             backgroundColor = AppTheme.colors.surfaces

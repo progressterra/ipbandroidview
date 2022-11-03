@@ -216,8 +216,8 @@ fun RulerIcon(modifier: Modifier = Modifier) {
 private fun RulerIconPreview() {
     AppTheme {
         Column {
-            BackIcon()
-            BackIcon()
+            RulerIcon()
+            RulerIcon()
         }
     }
 }
@@ -238,8 +238,52 @@ fun MapIcon(modifier: Modifier = Modifier) {
 private fun MapIconPreview() {
     AppTheme {
         Column {
-            BackIcon()
-            BackIcon()
+            MapIcon()
+            MapIcon()
+        }
+    }
+}
+
+@Composable
+fun LocationIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        tint = AppTheme.colors.surfaces,
+        painter = painterResource(id = R.drawable.ic_location),
+        contentDescription = null
+    )
+}
+
+
+@Preview
+@Composable
+private fun LocationIconPreview() {
+    AppTheme {
+        Column {
+            LocationIcon()
+            LocationIcon()
+        }
+    }
+}
+
+@Composable
+fun RefreshIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        tint = AppTheme.colors.surfaces,
+        painter = painterResource(id = R.drawable.ic_refresh),
+        contentDescription = null
+    )
+}
+
+
+@Preview
+@Composable
+private fun RefreshIconPreview() {
+    AppTheme {
+        Column {
+            RefreshIcon()
+            RefreshIcon()
         }
     }
 }

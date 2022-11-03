@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -36,7 +35,7 @@ fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsI
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+                    .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
                     .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)

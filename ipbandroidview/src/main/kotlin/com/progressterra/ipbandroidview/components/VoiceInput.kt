@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
@@ -50,7 +49,7 @@ fun VoiceInput(
                 Box(modifier = Modifier.padding(8.dp)) {
                     Row(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
+                            .clip(AppTheme.shapes.small)
                             .height(TextFieldDefaults.MinHeight)
                             .fillMaxWidth()
                             .background(AppTheme.colors.background)
@@ -89,7 +88,7 @@ fun VoiceInput(
             Box(modifier = modifier.padding(8.dp)) {
                 Row(
                     modifier = Modifier
-                        .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
+                        .clip(AppTheme.shapes.small)
                         .background(AppTheme.colors.background)
                         .padding(12.dp)
                         .fillMaxWidth(),

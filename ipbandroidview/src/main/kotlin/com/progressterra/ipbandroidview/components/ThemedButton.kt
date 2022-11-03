@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -24,7 +23,7 @@ fun ThemedButton(
     Button(
         modifier = modifier,
         onClick = onClick,
-        shape = RoundedCornerShape(AppTheme.roundings.buttonRounding),
+        shape = AppTheme.shapes.button,
         enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
             backgroundColor = if (enabled) tint else AppTheme.colors.gray3,

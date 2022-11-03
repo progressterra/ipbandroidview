@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -37,11 +36,11 @@ fun SizesLine(
     fun Item(state: GoodsSize) {
         Column(
             modifier = Modifier
-                .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
+                .clip(AppTheme.shapes.small)
                 .border(
                     width = 1.dp,
                     color = if (state == currentSize) AppTheme.colors.primary else Color.Transparent,
-                    RoundedCornerShape(AppTheme.roundings.smallRounding)
+                    AppTheme.shapes.small
                 )
                 .niceClickable({ onSize(state) })
                 .padding(vertical = 4.dp, horizontal = 6.dp),
@@ -64,7 +63,7 @@ fun SizesLine(
     }
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+            .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)

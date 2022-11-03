@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,18 +39,18 @@ fun ColorsLine(
         Box(
             modifier = Modifier
                 .size(width = 56.dp, height = 64.dp)
-                .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
+                .clip(AppTheme.shapes.small)
                 .border(
                     width = 1.dp,
                     color = if (state == currentColor) AppTheme.colors.primary else Color.Transparent,
-                    RoundedCornerShape(AppTheme.roundings.smallRounding)
+                    AppTheme.shapes.small
                 )
                 .niceClickable({ onColor(state) })
                 .padding(2.dp),
             contentAlignment = Alignment.Center
         ) {
             SimpleImage(
-                modifier = Modifier.clip(RoundedCornerShape(AppTheme.roundings.tinyRounding)),
+                modifier = Modifier.clip(AppTheme.shapes.tiny),
                 url = state.image,
                 options = ImageOptions(contentScale = ContentScale.FillBounds),
                 backgroundColor = AppTheme.colors.surfaces
@@ -60,7 +59,7 @@ fun ColorsLine(
     }
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+            .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)

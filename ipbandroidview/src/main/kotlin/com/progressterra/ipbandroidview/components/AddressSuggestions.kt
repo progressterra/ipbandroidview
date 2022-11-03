@@ -8,7 +8,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,7 +33,7 @@ fun AddressSuggestions(
         exit = shrinkVertically()
     ) {
         Card(
-            elevation = 4.dp, shape = RoundedCornerShape(AppTheme.roundings.smallRounding)
+            elevation = 4.dp, shape = AppTheme.shapes.small
         ) {
             LazyColumn {
                 items(suggestions) {

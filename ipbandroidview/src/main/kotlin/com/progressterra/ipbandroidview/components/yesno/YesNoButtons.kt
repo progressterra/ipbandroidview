@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
@@ -40,7 +39,7 @@ fun YesNoButton(
         onClick: () -> Unit
     ) {
         Row(modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.roundings.buttonRounding))
+            .clip(AppTheme.shapes.button)
             .background(if (active) activeColor else baseColor)
             .clickable(
                 enabled = enabled,

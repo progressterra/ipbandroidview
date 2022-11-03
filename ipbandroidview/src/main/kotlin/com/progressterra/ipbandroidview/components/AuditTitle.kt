@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +22,7 @@ fun AuditTitle(
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+            .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp)

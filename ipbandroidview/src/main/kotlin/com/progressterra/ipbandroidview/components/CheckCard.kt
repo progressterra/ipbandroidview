@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
@@ -35,7 +34,7 @@ fun CheckCard(
     name: String = ""
 ) {
     Row(modifier = modifier
-        .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+        .clip(AppTheme.shapes.medium)
         .background(if (yesNo == YesNo.YES) successColor else if (yesNo == YesNo.NO) failedColor else AppTheme.colors.surfaces)
         .clickable(
             interactionSource = remember { MutableInteractionSource() },

@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,17 +21,17 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.dto.GoodsCard
+import com.progressterra.ipbandroidview.dto.Goods
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun StoreItemCard(
-    modifier: Modifier = Modifier, state: GoodsCard, onClick: () -> Unit, onFavorite: () -> Unit
+    modifier: Modifier = Modifier, state: Goods, onClick: () -> Unit, onFavorite: () -> Unit
 ) {
     ConstraintLayout(
         modifier = modifier
-            .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+            .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .niceClickable(onClick = onClick)
     ) {
@@ -47,10 +47,7 @@ fun StoreItemCard(
         SimpleImage(
             Modifier
                 .clip(
-                    RoundedCornerShape(
-                        bottomStart = AppTheme.roundings.smallRounding,
-                        bottomEnd = AppTheme.roundings.smallRounding
-                    )
+                    AppTheme.shapes.small.copy(topStart = CornerSize(0), topEnd = CornerSize(0))
                 )
                 .constrainAs(image) {
                     height = Dimension.value(236.dp)
@@ -104,19 +101,25 @@ fun StoreItemCard(
 private fun StoreItemCardPreview() {
     AppTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            StoreItemCard(state = GoodsCard(
+            StoreItemCard(state = Goods(
                 id = "",
                 images = emptyList(),
                 price = "3 000 ₽",
                 name = "Some cool item with pretty long name that contains many symbols",
-                favorite = false
+                favorite = false,
+                description = "",
+                parameters = emptyList(),
+                countInCart = "0"
             ), onClick = { }) {}
-            StoreItemCard(state = GoodsCard(
+            StoreItemCard(state = Goods(
                 id = "",
                 images = emptyList(),
                 price = "3 000 ₽",
                 name = "Some cool item",
-                favorite = true
+                favorite = true,
+                description = "",
+                parameters = emptyList(),
+                countInCart = "0"
             ), onClick = { }) {}
         }
 

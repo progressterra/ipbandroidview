@@ -4,13 +4,13 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.progressterra.ipbandroidview.domain.DomainConstants
-import com.progressterra.ipbandroidview.dto.GoodsCard
+import com.progressterra.ipbandroidview.dto.Goods
 
 class RecommendedGoodsSource(
     private val goodsPageUseCase: GoodsPageUseCase
-) : PagingSource<Int, GoodsCard>() {
+) : PagingSource<Int, Goods>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GoodsCard> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Goods> {
         Log.d("PAGING", "load ${params.key}")
         val nextPage = params.key ?: 1
         val response =
@@ -26,5 +26,5 @@ class RecommendedGoodsSource(
         return LoadResult.Error(response.exceptionOrNull()!!)
     }
 
-    override fun getRefreshKey(state: PagingState<Int, GoodsCard>): Int? = state.anchorPosition
+    override fun getRefreshKey(state: PagingState<Int, Goods>): Int? = state.anchorPosition
 }

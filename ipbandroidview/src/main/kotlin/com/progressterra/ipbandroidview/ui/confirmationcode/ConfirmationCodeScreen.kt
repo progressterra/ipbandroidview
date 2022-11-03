@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,8 +21,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.BottomHolder
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedTextButton
-import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.VerificationCodeInput
+import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -46,7 +45,7 @@ fun ConfirmationCodeScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(AppTheme.roundings.mediumRounding))
+                    .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
                     .padding(16.dp)
             ) {

@@ -9,11 +9,11 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.DomainConstants
 import com.progressterra.ipbandroidview.domain.mapper.GoodsCardMapper
-import com.progressterra.ipbandroidview.dto.GoodsCard
+import com.progressterra.ipbandroidview.dto.Goods
 
 interface GoodsPageUseCase {
 
-    suspend fun goodsPage(idCategory: String, pageNumber: Int): Result<Pair<Int, List<GoodsCard>>>
+    suspend fun goodsPage(idCategory: String, pageNumber: Int): Result<Pair<Int, List<Goods>>>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -25,7 +25,7 @@ interface GoodsPageUseCase {
 
         override suspend fun goodsPage(
             idCategory: String, pageNumber: Int
-        ): Result<Pair<Int, List<GoodsCard>>> = runCatching {
+        ): Result<Pair<Int, List<Goods>>> = runCatching {
             Log.d("PAGING", "category $idCategory, page $pageNumber")
             val favorites = withToken {
                 favoriteRepository.getClientEntityByType(

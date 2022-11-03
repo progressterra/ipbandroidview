@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
 
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 33
 
         versionCode commitsCount()
@@ -95,6 +95,7 @@ dependencies {
     api "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
     api "com.google.accompanist:accompanist-swiperefresh:0.27.0"
     api "com.google.accompanist:accompanist-pager:0.27.0"
+    api "com.google.accompanist:accompanist-pager-indicators:0.27.0"
 
     //Testing
     api "org.orbit-mvi:orbit-test:4.4.0"

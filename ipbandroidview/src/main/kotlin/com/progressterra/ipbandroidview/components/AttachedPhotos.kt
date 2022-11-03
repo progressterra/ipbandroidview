@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -40,7 +39,7 @@ fun AttachedPhoto(
         SimpleImage(
             modifier = Modifier
                 .size(48.dp)
-                .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
+                .clip(AppTheme.shapes.small)
                 .niceClickable(onClick = { onPhotoSelect(picture) }),
             url = picture.thumbnail,
             options = ImageOptions(contentScale = ContentScale.FillBounds),
@@ -51,7 +50,7 @@ fun AttachedPhoto(
     if (pictures.isEmpty()) {
         Row(
             modifier = modifier
-                .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
+                .clip(AppTheme.shapes.small)
                 .fillMaxWidth()
                 .height(TextFieldDefaults.MinHeight)
                 .background(AppTheme.colors.background)
@@ -77,7 +76,7 @@ fun AttachedPhoto(
                     Box(
                         modifier = Modifier
                             .size(48.dp)
-                            .clip(RoundedCornerShape(AppTheme.roundings.smallRounding))
+                            .clip(AppTheme.shapes.small)
                             .background(AppTheme.colors.background)
                             .niceClickable(onClick = onCamera),
                         contentAlignment = Alignment.Center
