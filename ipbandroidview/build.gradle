@@ -104,21 +104,21 @@ dependencies {
     //Appyx, navigation library
     api "com.bumble.appyx:core:1.0.0"
 
-    //Google Firebase platform*/
+    //Google Firebase platform
     api platform("com.google.firebase:firebase-bom:30.5.0")
     api "com.google.firebase:firebase-analytics-ktx"
     api "com.google.firebase:firebase-messaging-ktx"
 
-    //Google services*/
+    //Google services
     api "com.google.android.gms:play-services-location:21.0.0"
     api "com.google.maps.android:maps-compose:2.7.2"
     api "com.google.android.gms:play-services-maps:18.1.0"
 
-    //iProBonusAndroidAPI*/
+    //iProBonusAndroidAPI
     releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.41"
     debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.41"
 
-    //Compose-written calendar dialog*/
+    //Compose-written calendar dialog
     api "com.squaredem:composecalendar:1.0.4"
 
     //Landscapist, image library with coil implementation
