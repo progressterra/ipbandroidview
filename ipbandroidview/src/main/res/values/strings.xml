@@ -66,4 +66,6 @@
     <string name="description">Описание</string>
     <string name="parameters">Параметры</string>
     <string name="delivery">Доставка</string>
+    <string name="image_missing">Изображение отсутствует!</string>
+    <string name="in_cart">В корзину</string>
 </resources>

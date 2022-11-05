@@ -22,6 +22,8 @@ import com.progressterra.ipbandroidview.components.StoreItemCard
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.components.utils.items
 import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.dto.GoodsColor
+import com.progressterra.ipbandroidview.dto.size.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.flow.flowOf
 
@@ -81,8 +83,11 @@ private fun MainScreenPreview() {
                                 favorite = false,
                                 images = listOf(),
                                 parameters = listOf(),
-                                countInCart = ""
-
+                                countInCart = 0,
+                                image = "",
+                                color = GoodsColor("", ""),
+                                sizes = emptyList(),
+                                size = GoodsSize(false, "", "")
                             ), Goods(
                                 id = "",
                                 name = "cool 2",
@@ -91,8 +96,11 @@ private fun MainScreenPreview() {
                                 favorite = false,
                                 images = listOf(),
                                 parameters = listOf(),
-                                countInCart = ""
-
+                                countInCart = 0,
+                                image = "",
+                                color = GoodsColor("", ""),
+                                sizes = emptyList(),
+                                size = GoodsSize(false, "", "")
                             ), Goods(
                                 id = "",
                                 name = "cool 3",
@@ -101,8 +109,11 @@ private fun MainScreenPreview() {
                                 favorite = false,
                                 images = listOf(),
                                 parameters = listOf(),
-                                countInCart = ""
-
+                                countInCart = 0,
+                                image = "",
+                                color = GoodsColor("", ""),
+                                sizes = emptyList(),
+                                size = GoodsSize(false, "", "")
                             ), Goods(
                                 id = "",
                                 name = "COME SOOL",
@@ -111,7 +122,11 @@ private fun MainScreenPreview() {
                                 favorite = false,
                                 images = listOf(),
                                 parameters = listOf(),
-                                countInCart = ""
+                                countInCart = 0,
+                                image = "",
+                                color = GoodsColor("", ""),
+                                sizes = emptyList(),
+                                size = GoodsSize(false, "", "")
                             )
                         )
                     )

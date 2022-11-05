@@ -15,6 +15,7 @@ import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,14 +28,18 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.dto.Goods
 import com.progressterra.ipbandroidview.dto.GoodsParameters
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
+@Immutable
+data class GoodsDetailsState(
+    val name: String, val description: String, val parameters: List<GoodsParameters>
+)
+
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun GoodsDetailsPager(modifier: Modifier = Modifier, goods: Goods) {
+fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
 
     @Composable
     fun HorizontalTabs(
@@ -94,7 +99,7 @@ fun GoodsDetailsPager(modifier: Modifier = Modifier, goods: Goods) {
     ) {
         val pagerState = rememberPagerState()
         HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(modifier = modifier.fillMaxWidth(), count = 3) {
+        HorizontalPager(modifier = modifier, count = 3) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -104,7 +109,7 @@ fun GoodsDetailsPager(modifier: Modifier = Modifier, goods: Goods) {
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
             ) {
                 val text = when (it) {
-                    0 -> goods.name
+                    0 -> state.name
                     1 -> stringResource(id = R.string.parameters)
                     else -> stringResource(id = R.string.delivery)
                 }
@@ -113,7 +118,7 @@ fun GoodsDetailsPager(modifier: Modifier = Modifier, goods: Goods) {
                 )
                 when (it) {
                     0 -> Text(
-                        text = goods.description,
+                        text = state.description,
                         color = AppTheme.colors.gray1,
                         style = AppTheme.typography.secondaryText
                     )
@@ -121,7 +126,7 @@ fun GoodsDetailsPager(modifier: Modifier = Modifier, goods: Goods) {
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
                     ) {
-                        items(goods.parameters) {
+                        items(state.parameters) {
                             Row {
                                 Text(
                                     modifier = Modifier.width(104.dp),
@@ -147,31 +152,22 @@ fun GoodsDetailsPager(modifier: Modifier = Modifier, goods: Goods) {
 
 @Preview
 @Composable
-fun GoodsDetailsPagerPreview() {
+private fun GoodsDetailsPagerPreview() {
     AppTheme {
-        GoodsDetailsPager(
-            goods = Goods(
-                id = "",
+        GoodsDetails(
+            state = GoodsDetailsState(
                 name = "SUPER COOL GOOD",
                 description = "Гидрокостюм Dawn Patrol с молнией на груди отличается функциональностью и отличным теплосбережением, красивым ...",
-                price = "",
-                favorite = false,
-                images = listOf(),
+
                 parameters = listOf(
                     GoodsParameters(
-                        title = "Цвет",
-                        description = "BEZHEVIY"
-                    ),
-                    GoodsParameters(
-                        title = "Цвет",
-                        description = "MaGenta"
-                    ),
-                    GoodsParameters(
-                        title = "Цвет",
-                        description = "CMYK"
+                        title = "Цвет", description = "BEZHEVIY"
+                    ), GoodsParameters(
+                        title = "Цвет", description = "MaGenta"
+                    ), GoodsParameters(
+                        title = "Цвет", description = "CMYK"
                     )
-                ),
-                countInCart = "0"
+                )
             )
         )
     }

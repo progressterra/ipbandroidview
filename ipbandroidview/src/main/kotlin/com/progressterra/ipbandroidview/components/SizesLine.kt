@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -20,60 +21,64 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
+import com.progressterra.ipbandroidview.dto.Size
+import com.progressterra.ipbandroidview.dto.Sizes
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
+
+interface SizesLineState : Size, Sizes
 
 @Composable
 fun SizesLine(
     modifier: Modifier = Modifier,
-    currentSize: GoodsSize,
-    sizes: List<GoodsSize>,
+    state: SizesLineState,
     onSize: (GoodsSize) -> Unit,
     onTable: () -> Unit
 ) {
 
     @Composable
-    fun Item(state: GoodsSize) {
+    fun Item(size: GoodsSize) {
         Column(
             modifier = Modifier
                 .clip(AppTheme.shapes.small)
                 .border(
                     width = 1.dp,
-                    color = if (state == currentSize) AppTheme.colors.primary else Color.Transparent,
+                    color = if (size == state.size) AppTheme.colors.primary else Color.Transparent,
                     AppTheme.shapes.small
                 )
-                .niceClickable({ onSize(state) })
+                .niceClickable({ onSize(size) })
                 .padding(vertical = 4.dp, horizontal = 6.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                text = state.primary,
-                color = if (state.enabled) AppTheme.colors.black else AppTheme.colors.gray3,
+                text = size.primary,
+                color = if (size.available) AppTheme.colors.black else AppTheme.colors.gray3,
                 style = AppTheme.typography.title
             )
-            state.secondary?.let {
+            size.secondary?.let {
                 Text(
-                    text = state.secondary,
-                    color = if (state.enabled) AppTheme.colors.gray2 else AppTheme.colors.gray3,
+                    text = size.secondary,
+                    color = if (size.available) AppTheme.colors.gray2 else AppTheme.colors.gray3,
                     style = AppTheme.typography.tertiaryText
                 )
             }
         }
     }
+
     Column(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .padding(12.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+            .padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Row(
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                items(sizes) {
+                items(state.sizes) {
                     Item(it)
                 }
             }
@@ -98,7 +103,7 @@ fun SizesLine(
                 style = AppTheme.typography.tertiaryText
             )
             Text(
-                text = currentSize.primary,
+                text = state.size.primary,
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.tertiaryText
             )
@@ -106,25 +111,31 @@ fun SizesLine(
     }
 }
 
+private class SizesLineStatePreview(
+    override val size: GoodsSize,
+    override val sizes: List<GoodsSize>
+) : SizesLineState
+
 @Preview
 @Composable
-fun SizesLinePreview() {
+private fun SizesLinePreview() {
     AppTheme {
         val current = GoodsSize(
-            primary = "M", secondary = "36", enabled = true
+            primary = "M", secondary = "36", available = true
         )
-        SizesLine(sizes = listOf(
-            current,
-            GoodsSize(
-                primary = "L", secondary = "38", enabled = true
-            ),
-            GoodsSize(
-                primary = "XL", secondary = "55", enabled = false
-            ),
-            GoodsSize(
-                primary = "XXL", secondary = "77", enabled = true
-            ),
-        ), onSize = {}, onTable = {}, currentSize = current
-        )
+        SizesLine(state = SizesLineStatePreview(
+            sizes = listOf(
+                current,
+                GoodsSize(
+                    primary = "L", secondary = "38", available = true
+                ),
+                GoodsSize(
+                    primary = "XL", secondary = "55", available = false
+                ),
+                GoodsSize(
+                    primary = "XXL", secondary = "77", available = true
+                ),
+            ), size = current
+        ), onSize = {}, onTable = {})
     }
 }

@@ -7,7 +7,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.dto.GoodsColor
 import com.progressterra.ipbandroidview.dto.GoodsParameters
+import com.progressterra.ipbandroidview.dto.size.GoodsSize
 
 interface GoodsCardMapper {
 
@@ -27,27 +29,34 @@ interface GoodsCardMapper {
                     add(GoodsParameters(title = it.key, description = it.value ?: noData))
                 }
             }.filter { parametersToShow?.contains(it.title) ?: false }
+            val images = data.imageDataJSON?.let { image ->
+                gson.fromJson(
+                    image, ImageData::class.java
+                ).list
+            } ?: emptyList()
             return Goods(id = data.idUnique!!,
-                images = data.imageDataJSON?.let { image ->
-                    gson.fromJson(
-                        image, ImageData::class.java
-                    ).list.map { it.url }
-                } ?: emptyList(),
+                image = images.firstOrNull { it.sizeType == 2 }?.url ?: "",
+                images = images.filter { it.sizeType == 3 }.map { it.url },
                 price = data.currentPrice?.let { priceMapper.map(it) } ?: noData,
                 name = data.name ?: noData,
                 favorite = favoriteIds.contains(data.idUnique!!),
                 description = data.extendedDescription ?: noData,
                 parameters = parameters,
-                countInCart = data.countInCart?.toString() ?: noData
+                countInCart = data.countInCart ?: 0,
+                color = GoodsColor(image = "", name = data.colorName ?: noData),
+                size = GoodsSize(TODO(), TODO(), TODO()),
+                sizes = emptyList()
             )
         }
+        //TODO IMAGE COLOR
 
         data class ImageData(
-            @SerializedName("datalist") val list: List<Item>
+            @SerializedName("listInfoImage") val list: List<Item>
         ) {
 
             data class Item(
-                @SerializedName("URL") val url: String
+                @SerializedName("URL") val url: String,
+                @SerializedName("SizeType") val sizeType: Int
             )
         }
     }

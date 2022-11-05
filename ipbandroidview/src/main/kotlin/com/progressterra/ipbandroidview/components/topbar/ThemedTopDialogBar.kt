@@ -1,67 +1,35 @@
 package com.progressterra.ipbandroidview.components.topbar
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ThemedTopDialogBar(
+    modifier: Modifier = Modifier,
     title: String? = null,
     leftActions: (@Composable RowScope.() -> Unit)? = null,
     rightActions: (@Composable RowScope.() -> Unit)? = null
 ) {
-    TopAppBar(
-        backgroundColor = AppTheme.colors.surfaces,
-        elevation = 0.dp,
-        modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 16.dp)
-    ) {
-        Box {
-            leftActions?.let {
-                Row(
-                    Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    content = it
-                )
-            }
+    BasicTopAppBar(modifier = modifier,
+        leftActions = leftActions,
+        rightActions = rightActions,
+        title = {
             title?.let {
-                Row(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = it,
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.title,
-                        maxLines = 1,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-            rightActions?.let {
-                Row(
-                    Modifier.fillMaxSize(),
-                    horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically,
-                    content = it
+                Text(
+                    text = it,
+                    color = AppTheme.colors.black,
+                    style = AppTheme.typography.title,
+                    maxLines = 1,
+                    textAlign = TextAlign.Center
                 )
             }
         }
-    }
+    )
 }
 
 @Preview

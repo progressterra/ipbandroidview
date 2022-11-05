@@ -15,43 +15,44 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
+import com.progressterra.ipbandroidview.dto.Color
+import com.progressterra.ipbandroidview.dto.Colors
 import com.progressterra.ipbandroidview.dto.GoodsColor
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
+interface ColorsLineState : Color, Colors
+
 @Composable
 fun ColorsLine(
-    modifier: Modifier = Modifier,
-    currentColor: GoodsColor,
-    colors: List<GoodsColor>,
-    onColor: (GoodsColor) -> Unit
+    modifier: Modifier = Modifier, state: ColorsLineState, onColor: (GoodsColor) -> Unit
 ) {
 
     @Composable
-    fun Item(state: GoodsColor) {
+    fun Item(color: GoodsColor) {
         Box(
             modifier = Modifier
                 .size(width = 56.dp, height = 64.dp)
                 .clip(AppTheme.shapes.small)
                 .border(
                     width = 1.dp,
-                    color = if (state == currentColor) AppTheme.colors.primary else Color.Transparent,
+                    color = if (color == state.color) AppTheme.colors.primary else Transparent,
                     AppTheme.shapes.small
                 )
-                .niceClickable({ onColor(state) })
+                .niceClickable({ onColor(color) })
                 .padding(2.dp),
             contentAlignment = Alignment.Center
         ) {
             SimpleImage(
                 modifier = Modifier.clip(AppTheme.shapes.tiny),
-                url = state.image,
+                url = color.image,
                 options = ImageOptions(contentScale = ContentScale.FillBounds),
                 backgroundColor = AppTheme.colors.surfaces
             )
@@ -61,11 +62,10 @@ fun ColorsLine(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .padding(12.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+            .padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(colors) {
+            items(state.colors) {
                 Item(it)
             }
         }
@@ -76,7 +76,7 @@ fun ColorsLine(
                 style = AppTheme.typography.tertiaryText
             )
             Text(
-                text = currentColor.name,
+                text = state.color.name,
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.tertiaryText
             )
@@ -84,26 +84,34 @@ fun ColorsLine(
     }
 }
 
+private class ColorsLineStatePreview(
+    override val color: GoodsColor,
+    override val colors: List<GoodsColor>
+) : ColorsLineState
+
 @Preview
 @Composable
-fun PicturesLinePreview() {
+private fun ColorsLinePreview() {
     AppTheme {
         val current = GoodsColor(
             name = "M", image = ""
         )
         ColorsLine(
-            colors = listOf(
-                current,
-                GoodsColor(
-                    name = "L", image = ""
-                ),
-                GoodsColor(
-                    name = "XL", image = ""
-                ),
-                GoodsColor(
-                    name = "XXL", image = ""
-                ),
-            ), onColor = {}, currentColor = current
+            state = ColorsLineStatePreview(
+                color = current,
+                colors = listOf(
+                    current,
+                    GoodsColor(
+                        name = "L", image = ""
+                    ),
+                    GoodsColor(
+                        name = "XL", image = ""
+                    ),
+                    GoodsColor(
+                        name = "XXL", image = ""
+                    ),
+                )
+            ), onColor = {}
         )
     }
 }

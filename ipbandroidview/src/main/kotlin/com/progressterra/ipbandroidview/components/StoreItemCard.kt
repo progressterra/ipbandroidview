@@ -21,13 +21,21 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.dto.Favorite
+import com.progressterra.ipbandroidview.dto.Image
+import com.progressterra.ipbandroidview.dto.Name
+import com.progressterra.ipbandroidview.dto.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
+interface StoreItemCardState : Image, Favorite, Name, Price
+
 @Composable
 fun StoreItemCard(
-    modifier: Modifier = Modifier, state: Goods, onClick: () -> Unit, onFavorite: () -> Unit
+    modifier: Modifier = Modifier,
+    state: StoreItemCardState,
+    onClick: () -> Unit,
+    onFavorite: () -> Unit
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -53,7 +61,7 @@ fun StoreItemCard(
                     height = Dimension.value(236.dp)
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
-                }, url = state.images.first(), options = ImageOptions(
+                }, url = state.image, options = ImageOptions(
                 contentScale = ContentScale.FillBounds
             ), backgroundColor = AppTheme.colors.surfaces
         )
@@ -96,30 +104,29 @@ fun StoreItemCard(
     }
 }
 
+private class StoreItemCardStatePreview(
+    override val favorite: Boolean,
+    override val image: String,
+    override val name: String,
+    override val price: String
+) : StoreItemCardState
+
 @Preview
 @Composable
 private fun StoreItemCardPreview() {
     AppTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            StoreItemCard(state = Goods(
-                id = "",
-                images = emptyList(),
+            StoreItemCard(state = StoreItemCardStatePreview(
+                image = "",
                 price = "3 000 ₽",
                 name = "Some cool item with pretty long name that contains many symbols",
-                favorite = false,
-                description = "",
-                parameters = emptyList(),
-                countInCart = "0"
+                favorite = false
             ), onClick = { }) {}
-            StoreItemCard(state = Goods(
-                id = "",
-                images = emptyList(),
+            StoreItemCard(state = StoreItemCardStatePreview(
                 price = "3 000 ₽",
                 name = "Some cool item",
                 favorite = true,
-                description = "",
-                parameters = emptyList(),
-                countInCart = "0"
+                image = ""
             ), onClick = { }) {}
         }
 

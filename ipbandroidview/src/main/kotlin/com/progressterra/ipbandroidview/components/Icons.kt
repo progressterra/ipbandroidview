@@ -37,7 +37,6 @@ fun FavoriteCheckedIcon(modifier: Modifier = Modifier) {
     )
 }
 
-
 @Preview
 @Composable
 private fun FavoriteCheckedIconPreview() {
@@ -55,7 +54,6 @@ fun MicIcon(modifier: Modifier = Modifier, enabled: Boolean) {
         tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
     )
 }
-
 
 @Preview
 @Composable
@@ -78,7 +76,6 @@ fun CameraIcon(modifier: Modifier = Modifier, enabled: Boolean) {
     )
 }
 
-
 @Preview
 @Composable
 private fun CameraIconPreview() {
@@ -99,7 +96,6 @@ fun TrashIcon(modifier: Modifier = Modifier, enabled: Boolean) {
         tint = if (enabled) AppTheme.colors.error else AppTheme.colors.gray2
     )
 }
-
 
 @Preview
 @Composable
@@ -122,7 +118,6 @@ fun PlayPauseIcon(modifier: Modifier = Modifier, ongoing: Boolean) {
     )
 }
 
-
 @Preview
 @Composable
 private fun PlayPauseIconPreview() {
@@ -144,15 +139,12 @@ fun ForwardIcon(modifier: Modifier = Modifier) {
     )
 }
 
-
 @Preview
 @Composable
 private fun ForwardIconPreview() {
     AppTheme {
-        Column {
-            ForwardIcon()
-            ForwardIcon()
-        }
+        ForwardIcon()
+
     }
 }
 
@@ -166,15 +158,12 @@ fun SettingsIcon(modifier: Modifier = Modifier) {
     )
 }
 
-
 @Preview
 @Composable
 private fun SettingsIconPreview() {
     AppTheme {
-        Column {
-            SettingsIcon()
-            SettingsIcon()
-        }
+        SettingsIcon()
+
     }
 }
 
@@ -188,15 +177,12 @@ fun BackIcon(modifier: Modifier = Modifier) {
     )
 }
 
-
 @Preview
 @Composable
 private fun BackIconPreview() {
     AppTheme {
-        Column {
-            BackIcon()
-            BackIcon()
-        }
+        BackIcon()
+
     }
 }
 
@@ -210,15 +196,12 @@ fun RulerIcon(modifier: Modifier = Modifier) {
     )
 }
 
-
 @Preview
 @Composable
 private fun RulerIconPreview() {
     AppTheme {
-        Column {
-            RulerIcon()
-            RulerIcon()
-        }
+        RulerIcon()
+
     }
 }
 
@@ -232,15 +215,12 @@ fun MapIcon(modifier: Modifier = Modifier) {
     )
 }
 
-
 @Preview
 @Composable
 private fun MapIconPreview() {
     AppTheme {
-        Column {
-            MapIcon()
-            MapIcon()
-        }
+        MapIcon()
+
     }
 }
 
@@ -259,10 +239,8 @@ fun LocationIcon(modifier: Modifier = Modifier) {
 @Composable
 private fun LocationIconPreview() {
     AppTheme {
-        Column {
-            LocationIcon()
-            LocationIcon()
-        }
+        LocationIcon()
+
     }
 }
 
@@ -276,14 +254,49 @@ fun RefreshIcon(modifier: Modifier = Modifier) {
     )
 }
 
-
 @Preview
 @Composable
 private fun RefreshIconPreview() {
     AppTheme {
+        RefreshIcon()
+    }
+}
+
+@Composable
+fun AddItemIcon(modifier: Modifier = Modifier, available: Boolean) {
+    Icon(
+        modifier = modifier,
+        tint = if (available) AppTheme.colors.black else AppTheme.colors.gray2,
+        painter = painterResource(id = R.drawable.ic_add_item),
+        contentDescription = null
+    )
+}
+
+@Preview
+@Composable
+private fun AddItemIconPreview() {
+    AppTheme {
         Column {
-            RefreshIcon()
-            RefreshIcon()
+            AddItemIcon(available = true)
+            AddItemIcon(available = false)
         }
+    }
+}
+
+@Composable
+fun RemoveItemIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        tint = AppTheme.colors.black,
+        painter = painterResource(id = R.drawable.ic_remove_item),
+        contentDescription = null
+    )
+}
+
+@Preview
+@Composable
+private fun RemoveItemIconPreview() {
+    AppTheme {
+        RemoveItemIcon()
     }
 }

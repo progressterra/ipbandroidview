@@ -29,7 +29,7 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
             .background(AppTheme.colors.black),
         contentAlignment = Alignment.Center
     ) {
-        TransparentTopAppBar(modifier = Modifier.align(Alignment.TopCenter), onBack = {
+        TransparentTopAppBar(modifier = Modifier.align(Alignment.TopCenter), leftActions = {
             IconButton(onClick = { interactor.back() }) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_back),
@@ -37,7 +37,7 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
                     tint = AppTheme.colors.surfaces
                 )
             }
-        }, actions = {
+        }, rightActions = {
             if (state.enabled) IconButton(onClick = { interactor.remove() }) {
                 TrashIcon(enabled = true)
             }

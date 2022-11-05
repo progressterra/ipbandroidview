@@ -1,12 +1,23 @@
 package com.progressterra.ipbandroidview.dto
 
+import com.progressterra.ipbandroidview.components.ColorsLineState
+import com.progressterra.ipbandroidview.components.GalleryState
+import com.progressterra.ipbandroidview.components.SizesLineState
+import com.progressterra.ipbandroidview.components.StoreItemCardState
+import com.progressterra.ipbandroidview.dto.size.GoodsSize
+
 data class Goods(
-    val id: String,
-    val name: String,
+    override val id: String,
+    override val name: String,
     val description: String,
-    val price: String,
-    val favorite: Boolean,
-    val images: List<String>,
+    override val image: String,
+    override val images: List<String>,
+    override val price: String,
+    override val color: GoodsColor,
+    override val colors: List<GoodsColor>,
+    override val favorite: Boolean,
+    override val size: GoodsSize,
+    override val sizes: List<GoodsSize>,
     val parameters: List<GoodsParameters>,
-    val countInCart: String
-)
+    val countInCart: Int
+) : StoreItemCardState, SizesLineState, GalleryState, ColorsLineState, Id

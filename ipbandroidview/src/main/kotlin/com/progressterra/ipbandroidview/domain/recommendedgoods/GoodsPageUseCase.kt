@@ -43,6 +43,9 @@ interface GoodsPageUseCase {
                     0
                 )
             }.getOrThrow()
+            val colors = withToken {  buildList {
+
+            } }
             Log.d("PAGING", "result")
             result?.numberCurrentPage!! to result.listProducts!!.map { mapper.map(it, favorites) }
         }
