@@ -1,12 +1,11 @@
-package com.progressterra.ipbandroidview.domain.recommendedgoods
+package com.progressterra.ipbandroidview.domain
 
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.progressterra.ipbandroidview.domain.DomainConstants
 import com.progressterra.ipbandroidview.dto.Goods
 
-class RecommendedGoodsSource(
+class GoodsSource(
     private val goodsPageUseCase: GoodsPageUseCase
 ) : PagingSource<Int, Goods>() {
 
@@ -27,4 +26,6 @@ class RecommendedGoodsSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, Goods>): Int? = state.anchorPosition
+
+
 }

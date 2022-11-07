@@ -21,10 +21,10 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.dto.Favorite
-import com.progressterra.ipbandroidview.dto.Image
-import com.progressterra.ipbandroidview.dto.Name
-import com.progressterra.ipbandroidview.dto.Price
+import com.progressterra.ipbandroidview.dto.component.Favorite
+import com.progressterra.ipbandroidview.dto.component.Image
+import com.progressterra.ipbandroidview.dto.component.Name
+import com.progressterra.ipbandroidview.dto.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
@@ -55,7 +55,7 @@ fun StoreItemCard(
         SimpleImage(
             Modifier
                 .clip(
-                    AppTheme.shapes.small.copy(topStart = CornerSize(0), topEnd = CornerSize(0))
+                    AppTheme.shapes.small
                 )
                 .constrainAs(image) {
                     height = Dimension.value(236.dp)

@@ -87,7 +87,8 @@ private fun MainScreenPreview() {
                                 image = "",
                                 color = GoodsColor("", ""),
                                 sizes = emptyList(),
-                                size = GoodsSize(false, "", "")
+                                size = GoodsSize(false, "", ""),
+                                colors = emptyList()
                             ), Goods(
                                 id = "",
                                 name = "cool 2",
@@ -100,7 +101,8 @@ private fun MainScreenPreview() {
                                 image = "",
                                 color = GoodsColor("", ""),
                                 sizes = emptyList(),
-                                size = GoodsSize(false, "", "")
+                                size = GoodsSize(false, "", ""),
+                                colors = emptyList()
                             ), Goods(
                                 id = "",
                                 name = "cool 3",
@@ -113,7 +115,8 @@ private fun MainScreenPreview() {
                                 image = "",
                                 color = GoodsColor("", ""),
                                 sizes = emptyList(),
-                                size = GoodsSize(false, "", "")
+                                size = GoodsSize(false, "", ""),
+                                colors = emptyList()
                             ), Goods(
                                 id = "",
                                 name = "COME SOOL",
@@ -126,7 +129,8 @@ private fun MainScreenPreview() {
                                 image = "",
                                 color = GoodsColor("", ""),
                                 sizes = emptyList(),
-                                size = GoodsSize(false, "", "")
+                                size = GoodsSize(false, "", ""),
+                                colors = emptyList()
                             )
                         )
                     )

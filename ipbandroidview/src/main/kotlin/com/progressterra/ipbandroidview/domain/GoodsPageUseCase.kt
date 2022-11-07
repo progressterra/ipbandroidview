@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.recommendedgoods
+package com.progressterra.ipbandroidview.domain
 
 import android.util.Log
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
@@ -7,8 +7,7 @@ import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeOfEntity
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.domain.DomainConstants
-import com.progressterra.ipbandroidview.domain.mapper.GoodsCardMapper
+import com.progressterra.ipbandroidview.domain.mapper.GoodsMapper
 import com.progressterra.ipbandroidview.dto.Goods
 
 interface GoodsPageUseCase {
@@ -18,7 +17,7 @@ interface GoodsPageUseCase {
     class Base(
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
-        private val mapper: GoodsCardMapper,
+        private val mapper: GoodsMapper,
         private val eCommerceRepo: IECommerceCoreRepository,
         private val favoriteRepository: IPBFavPromoRecRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), GoodsPageUseCase {
@@ -43,9 +42,6 @@ interface GoodsPageUseCase {
                     0
                 )
             }.getOrThrow()
-            val colors = withToken {  buildList {
-
-            } }
             Log.d("PAGING", "result")
             result?.numberCurrentPage!! to result.listProducts!!.map { mapper.map(it, favorites) }
         }

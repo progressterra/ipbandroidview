@@ -144,7 +144,6 @@ fun ForwardIcon(modifier: Modifier = Modifier) {
 private fun ForwardIconPreview() {
     AppTheme {
         ForwardIcon()
-
     }
 }
 

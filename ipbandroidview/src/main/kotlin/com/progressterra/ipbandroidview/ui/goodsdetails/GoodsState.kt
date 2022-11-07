@@ -26,7 +26,7 @@ data class GoodsState(
         ),
         bottomBarState = GoodsBottomBarState(goods.price, goods.countInCart),
         galleryState = goods,
-        colorsLineState = ColorsLineState(goods.color, emptyList()),
+        colorsLineState = goods,
         sizesState = goods,
         detailsState = GoodsDetailsState(
             name = goods.name,

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.fetchexisting
+package com.progressterra.ipbandroidview.domain
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository

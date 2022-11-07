@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.dto
+package com.progressterra.ipbandroidview.dto.component
 
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
 

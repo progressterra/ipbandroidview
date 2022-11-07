@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidview.components.ColorsLineState
 import com.progressterra.ipbandroidview.components.GalleryState
 import com.progressterra.ipbandroidview.components.SizesLineState
 import com.progressterra.ipbandroidview.components.StoreItemCardState
+import com.progressterra.ipbandroidview.dto.component.Id
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
 
 data class Goods(

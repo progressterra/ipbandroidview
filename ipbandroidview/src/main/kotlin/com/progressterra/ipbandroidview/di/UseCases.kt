@@ -17,9 +17,9 @@ import com.progressterra.ipbandroidview.domain.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.domain.UpdatePersonalInfoUseCase
-import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
-import com.progressterra.ipbandroidview.domain.recommendedgoods.GoodsPageUseCase
-import com.progressterra.ipbandroidview.domain.recommendedgoods.RecommendedGoodsUseCase
+import com.progressterra.ipbandroidview.domain.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.domain.GoodsPageUseCase
+import com.progressterra.ipbandroidview.domain.RecommendedGoodsUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {

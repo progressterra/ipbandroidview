@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.dto.Color
-import com.progressterra.ipbandroidview.dto.Colors
+import com.progressterra.ipbandroidview.dto.component.Color
+import com.progressterra.ipbandroidview.dto.component.Colors
 import com.progressterra.ipbandroidview.dto.GoodsColor
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions

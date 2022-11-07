@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
-import com.progressterra.ipbandroidview.domain.fetchexisting.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.domain.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.dto.Checklist
 import com.progressterra.ipbandroidview.dto.CheckPicture
 import com.progressterra.ipbandroidview.dto.Voice

@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.domain.mapper
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import com.progressterra.ipbandroidapi.api.iecommerce.model.RGGoodsInventoryExt
+import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
@@ -11,13 +11,13 @@ import com.progressterra.ipbandroidview.dto.GoodsColor
 import com.progressterra.ipbandroidview.dto.GoodsParameters
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
 
-interface GoodsCardMapper {
+interface GoodsMapper {
 
     fun map(data: RGGoodsInventoryExt, favoriteIds: List<String>): Goods
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
-    ) : GoodsCardMapper, AbstractMapper(gson) {
+    ) : GoodsMapper, AbstractMapper(gson) {
 
         private val noData = manageResources.string(R.string.no_data)
 
@@ -44,11 +44,12 @@ interface GoodsCardMapper {
                 parameters = parameters,
                 countInCart = data.countInCart ?: 0,
                 color = GoodsColor(image = "", name = data.colorName ?: noData),
-                size = GoodsSize(TODO(), TODO(), TODO()),
-                sizes = emptyList()
+                size = GoodsSize(true, "", null),
+                sizes = emptyList(),
+                colors = emptyList()
             )
         }
-        //TODO IMAGE COLOR
+        //TODO IMAGE COLOR, SIZE
 
         data class ImageData(
             @SerializedName("listInfoImage") val list: List<Item>

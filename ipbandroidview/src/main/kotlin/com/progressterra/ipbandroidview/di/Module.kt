@@ -20,10 +20,10 @@ import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
-import com.progressterra.ipbandroidview.domain.mapper.GoodsCardMapper
+import com.progressterra.ipbandroidview.domain.mapper.GoodsMapper
 import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
-import com.progressterra.ipbandroidview.domain.recommendedgoods.RecommendedGoodsSource
+import com.progressterra.ipbandroidview.domain.GoodsSource
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.binds
@@ -61,14 +61,14 @@ val iPBAndroidViewModule = module {
     }
 
     single {
-        RecommendedGoodsSource(get())
+        GoodsSource(get())
     }
 
     single<PriceMapper> {
         PriceMapper.Russia()
     }
 
-    single<GoodsCardMapper> { GoodsCardMapper.Base(get(), get(), get()) }
+    single<GoodsMapper> { GoodsMapper.Base(get(), get(), get()) }
 
     single {
         PermissionCache.Base()
