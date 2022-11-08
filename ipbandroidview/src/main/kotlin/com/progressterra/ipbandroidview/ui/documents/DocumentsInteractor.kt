@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.documents
 
-import com.progressterra.ipbandroidview.actions.OpenDetails
 import com.progressterra.ipbandroidview.actions.Refresh
 
 interface DocumentsInteractor : Refresh, OpenDetails<Document> {

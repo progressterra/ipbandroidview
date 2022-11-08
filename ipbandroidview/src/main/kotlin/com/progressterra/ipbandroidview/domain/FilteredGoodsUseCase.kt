@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.dto.Goods
 
 interface FilteredGoodsUseCase {
 
-    suspend fun goods(category: String, filters: List<Filter>): Result<List<Goods>>
+    suspend fun goods(id: String, keyword: String, filters: List<Filter>): Result<List<Goods>>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -29,7 +29,9 @@ interface FilteredGoodsUseCase {
     ) : FilteredGoodsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun goods(
-            category: String, filters: List<Filter>
+            id: String,
+            keyword: String,
+            filters: List<Filter>
         ): Result<List<Goods>> = runCatching {
             val favorites = withToken {
                 favoriteRepository.getClientEntityByType(
@@ -41,8 +43,9 @@ interface FilteredGoodsUseCase {
                     filterAndSortData = FilterAndSort(
                         listFields = filters.map { filterMapper.map(it) }, sort = SortData(
                             fieldName = "price", variantSort = TypeVariantSort.ASC
-                        )
-                    ), idCategory = category
+                        ),
+                        searchString = keyword
+                    ), idCategory = id
                 )
             ).getOrThrow()?.listProducts?.map {
                 goodsMapper.map(it, favorites)

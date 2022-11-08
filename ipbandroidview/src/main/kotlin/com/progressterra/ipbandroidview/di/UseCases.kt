@@ -9,17 +9,19 @@ import com.progressterra.ipbandroidview.domain.CurrentLocationMarkerUseCase
 import com.progressterra.ipbandroidview.domain.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.domain.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
+import com.progressterra.ipbandroidview.domain.GoodsPageUseCase
+import com.progressterra.ipbandroidview.domain.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.GuessLocationUseCase
+import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.domain.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.domain.UpdatePersonalInfoUseCase
-import com.progressterra.ipbandroidview.domain.FetchExistingAuditUseCase
-import com.progressterra.ipbandroidview.domain.GoodsPageUseCase
-import com.progressterra.ipbandroidview.domain.RecommendedGoodsUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -102,7 +104,20 @@ val useCasesModule = module {
         GoodsPageUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<RecommendedGoodsUseCase> {
-        RecommendedGoodsUseCase.Base(get())
+    single<GoodsUseCase> {
+        GoodsUseCase.Base(get())
     }
+
+    single<FilteredGoodsUseCase> {
+        FilteredGoodsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 }

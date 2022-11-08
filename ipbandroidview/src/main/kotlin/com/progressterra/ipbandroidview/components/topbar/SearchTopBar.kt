@@ -21,10 +21,17 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.actions.Keyword
 import com.progressterra.ipbandroidview.components.BackIcon
 import com.progressterra.ipbandroidview.components.SettingsIcon
 import com.progressterra.ipbandroidview.components.ThemedTextField
+import com.progressterra.ipbandroidview.dto.Filter
+import com.progressterra.ipbandroidview.dto.component.Filters
 import com.progressterra.ipbandroidview.theme.AppTheme
+
+interface SearchBarState : Keyword, Filters
+
+//TODO filters counter
 
 @Composable
 fun SearchTopBar(
@@ -44,8 +51,9 @@ fun SearchTopBar(
             Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
+            val expanded = state.keyword.isNotBlank()
             AnimatedVisibility(
-                visible = state.expanded,
+                visible = expanded,
                 enter = expandHorizontally(),
                 exit = shrinkHorizontally()
             ) {
@@ -70,7 +78,7 @@ fun SearchTopBar(
                 action = onSearch
             )
             AnimatedVisibility(
-                visible = state.expanded,
+                visible = expanded,
                 enter = expandHorizontally(),
                 exit = shrinkHorizontally()
             ) {
@@ -82,23 +90,15 @@ fun SearchTopBar(
     }
 }
 
+private class SearchBarStatePreview(
+    override val keyword: String, override val filters: List<Filter>
+) : SearchBarState
+
 @Preview
 @Composable
 private fun SearchTopBarWithBackNavPreview0() {
     AppTheme {
-        SearchTopBar(state = SearchBarState("Some keyword", false),
-            onSearch = {},
-            onBack = {},
-            onKeyword = {},
-            onFilters = {})
-    }
-}
-
-@Preview
-@Composable
-private fun SearchTopBarWithBackNavPreview1() {
-    AppTheme {
-        SearchTopBar(state = SearchBarState("Some keyword", true),
+        SearchTopBar(state = SearchBarStatePreview("Some keyword", emptyList()),
             onSearch = {},
             onBack = {},
             onKeyword = {},

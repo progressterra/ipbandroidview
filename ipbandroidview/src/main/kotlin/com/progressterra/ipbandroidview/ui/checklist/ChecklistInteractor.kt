@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import com.progressterra.ipbandroidview.actions.Back
-import com.progressterra.ipbandroidview.actions.OpenDetails
 import com.progressterra.ipbandroidview.actions.Refresh
 import com.progressterra.ipbandroidview.actions.Remove
 import com.progressterra.ipbandroidview.dto.CheckPicture

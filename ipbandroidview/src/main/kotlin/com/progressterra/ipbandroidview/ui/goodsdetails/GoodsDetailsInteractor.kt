@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.dto.GoodsColor
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
 
-interface GoodsInteractor : Back {
+interface GoodsDetailsInteractor : Back {
 
     fun add()
 
@@ -18,7 +18,7 @@ interface GoodsInteractor : Back {
 
     fun sizeTable()
 
-    class Empty : GoodsInteractor {
+    class Empty : GoodsDetailsInteractor {
 
         override fun add() = Unit
 

@@ -1,22 +1,21 @@
 package com.progressterra.ipbandroidview.domain
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.dto.Goods
 import kotlinx.coroutines.flow.Flow
 
-interface RecommendedGoodsUseCase {
+interface GoodsUseCase {
 
-    fun recommendedGoods(): Result<Flow<PagingData<Goods>>>
+    fun goods(id: String): Result<Flow<PagingData<Goods>>>
 
     class Base(
         private val source: GoodsSource
-    ) : RecommendedGoodsUseCase {
+    ) : GoodsUseCase {
 
-        override fun recommendedGoods(): Result<Flow<PagingData<Goods>>> = runCatching {
-            Log.d("PAGING", "usecase")
+        override fun goods(id: String): Result<Flow<PagingData<Goods>>> = runCatching {
+            source.updateCategory(id)
             Pager(PagingConfig(DomainConstants.PAGE_SIZE)) {
                 source
             }.flow

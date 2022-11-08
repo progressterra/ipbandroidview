@@ -14,7 +14,7 @@ interface MainInteractor : Refresh, Back, Favorite {
 
     class Empty : MainInteractor {
 
-        override fun favorite(id: String) = Unit
+        override fun favorite(id: String, favorite: Boolean) = Unit
 
         override fun card(id: String) = Unit
 

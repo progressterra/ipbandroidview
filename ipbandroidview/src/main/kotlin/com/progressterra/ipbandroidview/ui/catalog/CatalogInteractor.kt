@@ -1,21 +1,25 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
-import com.progressterra.ipbandroidview.actions.Favorite
-import com.progressterra.ipbandroidview.actions.OpenDetails
-import com.progressterra.ipbandroidview.actions.Refresh
+import com.progressterra.ipbandroidview.ui.search.SearchInteractor
 
-interface CatalogInteractor : Favorite, OpenDetails<String>, Refresh {
+interface CatalogInteractor : SearchInteractor {
 
-    fun openCard(id: String)
+    fun goodsDetails(id: String)
+
+    fun category(id: String)
 
     class Empty : CatalogInteractor {
 
-        override fun openCard(id: String) = Unit
+        override fun search() = Unit
+
+        override fun favorite(id: String, favorite: Boolean) = Unit
+
+        override fun back() = Unit
 
         override fun refresh() = Unit
 
-        override fun favorite(id: String) = Unit
+        override fun goodsDetails(id: String) = Unit
 
-        override fun openDetails(key: String) = Unit
+        override fun category(id: String) = Unit
     }
 }

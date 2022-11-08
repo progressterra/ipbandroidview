@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBarState
 import com.progressterra.ipbandroidview.dto.Goods
 
 @Immutable
-data class GoodsState(
+data class GoodsDetailsState(
     val topBarState: GoodsTopAppBarState,
     val bottomBarState: GoodsBottomBarState,
     val galleryState: GalleryState,

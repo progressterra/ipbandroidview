@@ -1,57 +1,60 @@
-package com.progressterra.ipbandroidview.ui.catalog
+package com.progressterra.ipbandroidview.ui.subcatalog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.components.Category
 import com.progressterra.ipbandroidview.components.SearchBox
 import com.progressterra.ipbandroidview.components.StateBox
+import com.progressterra.ipbandroidview.components.SubCategory
 import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.dto.SubCategory
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun CatalogScreen(state: CatalogState, interactor: CatalogInteractor) {
+fun SubCatalogScreen(state: SubCatalogState, interactor: SubCatalogInteractor) {
     SearchBox(state = state,
         onRefresh = { interactor.refresh() },
         onFavorite = { id, favorite -> interactor.favorite(id, favorite) },
         onGoods = { interactor.goodsDetails(it) }) {
         StateBox(state = state.screenState, onRefresh = { interactor.refresh() }) {
-            LazyVerticalGrid(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(AppTheme.colors.background),
-                columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.categories) {
-                    Category(state = it, onClick = { interactor.category(it.id) })
+                items(state.currentCategory.subCategories) {
+                    SubCategory(state = it, onClick = { interactor.subCategory(it.id) })
                 }
             }
         }
     }
-
 }
 
 @Preview
 @Composable
-private fun CatalogScreenPreview() {
+private fun SubCatalogScreenPreview() {
     AppTheme {
-        CatalogScreen(
-            state = CatalogState(
-                categories = emptyList(),
-                keyword = "",
+        SubCatalogScreen(
+            state = SubCatalogState(
                 searchGoods = emptyList(),
-                screenState = ScreenState.SUCCESS
+                keyword = "",
+                screenState = ScreenState.SUCCESS,
+                currentCategory = SubCategory(
+                    id = "",
+                    name = "",
+                    subCategories = emptyList(),
+                    hasNext = false
+                ),
+                filters = emptyList()
             ),
-            interactor = CatalogInteractor.Empty()
+            interactor = SubCatalogInteractor.Empty()
         )
     }
 }

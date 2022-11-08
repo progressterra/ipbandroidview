@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.organizationaudits
 
 import com.progressterra.ipbandroidview.actions.Back
-import com.progressterra.ipbandroidview.actions.OpenDetails
 import com.progressterra.ipbandroidview.actions.Refresh
 
 interface OrganizationAuditsInteractor : Refresh, Back, OpenDetails<OrganizationAudit> {
