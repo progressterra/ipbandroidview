@@ -1,8 +1,9 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -11,8 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.ColorsLine
 import com.progressterra.ipbandroidview.components.Gallery
 import com.progressterra.ipbandroidview.components.SizesLine
@@ -37,46 +36,22 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
             onAdd = { interactor.add() },
             onRemove = { interactor.remove() })
     }) { padding ->
-        ConstraintLayout(
+        Column(
             modifier = Modifier
                 .background(AppTheme.colors.background)
                 .verticalScroll(rememberScrollState())
                 .padding(padding)
                 .padding(start = 8.dp, top = 8.dp, end = 8.dp)
         ) {
-            val (gallery, colors, sizes, details) = createRefs()
-            val margin = AppTheme.dimensions.medium
-            Gallery(modifier = Modifier
-                .constrainAs(gallery) {
-                    height = Dimension.value(300.dp)
-                    width = Dimension.fillToConstraints
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                }, state = state)
-            ColorsLine(modifier = Modifier.constrainAs(colors) {
-                width = Dimension.fillToConstraints
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                top.linkTo(gallery.bottom, margin)
-            }, state = state, onColor = { interactor.color(it) })
-            SizesLine(modifier = Modifier.constrainAs(sizes) {
-                width = Dimension.fillToConstraints
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                top.linkTo(colors.bottom, margin)
-            },
+            Gallery(modifier = Modifier.height(300.dp), state = state)
+            ColorsLine(state = state, onColor = { interactor.color(it) })
+            SizesLine(
                 state = state,
                 onSize = { interactor.size(it) },
                 onTable = { interactor.sizeTable() })
             GoodsDetails(
-                modifier = Modifier.constrainAs(details) {
-                    height = Dimension.value(300.dp)
-                    width = Dimension.fillToConstraints
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(sizes.bottom, margin)
-                }, state = state
+                modifier = Modifier.height(300.dp),
+                state = state
             )
         }
     }
