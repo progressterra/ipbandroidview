@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.DomainConstants
 import com.progressterra.ipbandroidview.domain.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.dto.Goods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -40,7 +41,7 @@ class MainViewModel(
         }
     }
 
-    override fun goodsDetails(id: String) = intent {
-        postSideEffect(MainEffect.OpenDetails(id))
+    override fun goodsDetails(goods: Goods) = intent {
+        postSideEffect(MainEffect.GoodsDetails(goods))
     }
 }

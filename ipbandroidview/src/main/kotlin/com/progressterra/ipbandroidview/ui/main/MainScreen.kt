@@ -37,7 +37,8 @@ fun MainScreen(
     searchInteractor: SearchInteractor
 ) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        SearchTopBar(state = searchState,
+        SearchTopBar(
+            state = searchState,
             onBack = { searchInteractor.back() },
             onKeyword = { searchInteractor.keyword(it) },
             onSearch = { searchInteractor.search() },
@@ -64,7 +65,7 @@ fun MainScreen(
                         card?.let {
                             StoreItemCard(modifier = Modifier.align(Alignment.Center),
                                 state = card,
-                                onClick = { mainInteractor.goodsDetails(card.id) },
+                                onClick = { mainInteractor.goodsDetails(card) },
                                 onFavorite = { mainInteractor.favorite(card.id, card.favorite) })
                         }
                     }

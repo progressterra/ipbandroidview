@@ -1,10 +1,11 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.annotation.StringRes
+import com.progressterra.ipbandroidview.dto.Goods
 
 sealed class MainEffect {
 
-    class OpenDetails(val id: String) : MainEffect()
+    class GoodsDetails(val goods: Goods) : MainEffect()
 
     @Suppress("unused")
     class Toast(@StringRes val message: Int) : MainEffect()
