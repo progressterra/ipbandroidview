@@ -14,7 +14,5 @@ data class SearchState(
     override val searchGoods: List<Goods> = emptyList()
 ) : SearchBoxState, SearchBarState {
 
-    override val full: Boolean get() = categoryId != null
-
     override val visible: Boolean get() = filters.isNotEmpty() && keyword.isNotBlank()
 }
