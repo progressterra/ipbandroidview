@@ -6,6 +6,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
@@ -31,7 +32,8 @@ fun SimpleImage(
                 modifier = Modifier.align(Alignment.Center),
                 text = stringResource(id = R.string.image_missing),
                 color = AppTheme.colors.error,
-                style = AppTheme.typography.text
+                style = AppTheme.typography.text,
+                textAlign = TextAlign.Center
             )
         },
         previewPlaceholder = R.drawable.dummy_200x400
