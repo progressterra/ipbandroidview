@@ -41,12 +41,16 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                 .fillMaxSize()
                 .background(AppTheme.colors.background)
                 .padding(padding)
-                .padding(start = 8.dp, top = 8.dp, end = 8.dp),
+                .padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            item { Gallery(modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(1f), state = state) }
+            item {
+                Gallery(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f), state = state
+                )
+            }
             item {
                 ColorsLine(
                     modifier = Modifier.fillMaxWidth(),

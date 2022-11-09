@@ -60,11 +60,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                     val selected = pagerState.currentPage == index
                     val backgroundColor =
                         if (selected) AppTheme.colors.background else AppTheme.colors.surfaces
-                    Tab(modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(AppTheme.shapes.small)
-                        .background(backgroundColor)
-                        .padding(AppTheme.dimensions.large),
+                    Tab(modifier = Modifier,
                         selected = selected,
                         onClick = {
                             scope.launch {
@@ -76,7 +72,11 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                         val style =
                             if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
                         Text(
-                            modifier = Modifier,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(AppTheme.shapes.small)
+                                .background(backgroundColor)
+                                .padding(AppTheme.dimensions.large),
                             text = text,
                             color = textColor,
                             style = style,
