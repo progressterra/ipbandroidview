@@ -35,7 +35,6 @@ fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
             SimpleImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(1f)
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces),
                 url = state.images[it],
