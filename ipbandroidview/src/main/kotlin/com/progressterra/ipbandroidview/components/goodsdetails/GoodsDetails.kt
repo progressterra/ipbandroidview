@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -97,7 +96,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
     ) {
         val pagerState = rememberPagerState()
         HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(modifier = Modifier.height(200.dp), count = 3, state = pagerState) {
+        HorizontalPager(count = 3, state = pagerState) {
             Column(
                 modifier = Modifier
                     .clip(AppTheme.shapes.medium)

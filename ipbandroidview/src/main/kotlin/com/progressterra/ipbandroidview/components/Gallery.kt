@@ -2,8 +2,6 @@ package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -27,14 +25,13 @@ interface GalleryState : Images
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
-    BoxWithConstraints(modifier = modifier) {
+    Box(modifier = modifier) {
         val pagerState = rememberPagerState()
         HorizontalPager(
             count = state.images.size, state = pagerState
         ) {
             SimpleImage(
                 modifier = Modifier
-                    .size(maxWidth)
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces),
                 url = state.images[it],

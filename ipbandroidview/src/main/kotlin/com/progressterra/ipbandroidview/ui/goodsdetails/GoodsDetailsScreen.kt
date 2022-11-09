@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
@@ -37,20 +37,29 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
             onAdd = { interactor.add() },
             onRemove = { interactor.remove() })
     }) { padding ->
-        Column(
-            modifier = Modifier
-                .background(AppTheme.colors.background)
-                .verticalScroll(rememberScrollState())
-                .padding(padding)
-                .padding(start = 8.dp, top = 8.dp, end = 8.dp)
-        ) {
-            Gallery(state = state)
-            ColorsLine(state = state, onColor = { interactor.color(it) })
-            SizesLine(
-                state = state,
-                onSize = { interactor.size(it) },
-                onTable = { interactor.sizeTable() })
-            GoodsDetails(state = state)
+        BoxWithConstraints {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(AppTheme.colors.background)
+                    .verticalScroll(rememberScrollState())
+                    .padding(padding)
+                    .padding(start = 8.dp, top = 8.dp, end = 8.dp)
+            ) {
+                Gallery(modifier = Modifier.size(this@BoxWithConstraints.maxWidth), state = state)
+                ColorsLine(state = state, onColor = { interactor.color(it) })
+                SizesLine(
+                    state = state,
+                    onSize = { interactor.size(it) },
+                    onTable = { interactor.sizeTable() })
+                GoodsDetails(
+                    modifier = Modifier.size(
+                        width = this@BoxWithConstraints.maxWidth,
+                        height = 200.dp
+                    ),
+                    state = state
+                )
+            }
         }
     }
 }
