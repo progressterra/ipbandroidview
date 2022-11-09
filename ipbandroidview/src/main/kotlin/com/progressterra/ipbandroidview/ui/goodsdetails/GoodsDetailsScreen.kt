@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.goodsdetails
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,7 +26,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+    Scaffold(modifier = Modifier, topBar = {
         GoodsTopAppBar(
             onBack = { interactor.back() },
             onFavorite = { interactor.favorite() },
@@ -41,14 +40,16 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
         BoxWithConstraints {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
                     .background(AppTheme.colors.background)
                     .verticalScroll(rememberScrollState())
                     .padding(padding)
                     .padding(start = 8.dp, top = 8.dp, end = 8.dp)
             ) {
                 Gallery(modifier = Modifier.size(this@BoxWithConstraints.maxWidth), state = state)
-                ColorsLine(modifier = Modifier.height(100.dp),state = state, onColor = { interactor.color(it) })
+                ColorsLine(
+                    modifier = Modifier.height(100.dp),
+                    state = state,
+                    onColor = { interactor.color(it) })
                 SizesLine(modifier = Modifier.height(100.dp),
                     state = state,
                     onSize = { interactor.size(it) },
