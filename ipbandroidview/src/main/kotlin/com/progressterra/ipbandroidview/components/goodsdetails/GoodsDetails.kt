@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.components.goodsdetails
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -56,23 +55,21 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                 indicator = {},
                 divider = {}) {
                 val scope = rememberCoroutineScope()
-                for (i in 0..2) {
-                    val selected = pagerState.currentPage == i
+                listOf(
+                    stringResource(id = R.string.description),
+                    stringResource(id = R.string.parameters),
+                    stringResource(id = R.string.delivery)
+                ).forEachIndexed { index, text ->
+                    val selected = pagerState.currentPage == index
                     val backgroundColor =
                         if (selected) AppTheme.colors.background else AppTheme.colors.surfaces
                     Tab(modifier = Modifier.clip(AppTheme.shapes.small),
                         selected = selected,
                         onClick = {
                             scope.launch {
-                                pagerState.animateScrollToPage(page = i)
-                                Log.d("SCROLL", "HorizontalTabs: $i")
+                                pagerState.animateScrollToPage(page = index)
                             }
                         }) {
-                        val text = when (i) {
-                            0 -> stringResource(id = R.string.description)
-                            1 -> stringResource(id = R.string.parameters)
-                            else -> stringResource(id = R.string.delivery)
-                        }
                         val textColor =
                             if (selected) AppTheme.colors.black else AppTheme.colors.gray1
                         val style =
@@ -87,7 +84,6 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                             style = style,
                             textAlign = TextAlign.Center
                         )
-
                     }
                 }
             }
@@ -100,7 +96,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
     ) {
         val pagerState = rememberPagerState()
         HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(count = 3) {
+        HorizontalPager(count = 3, state = pagerState) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
