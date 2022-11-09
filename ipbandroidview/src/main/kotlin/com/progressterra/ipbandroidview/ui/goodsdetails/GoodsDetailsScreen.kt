@@ -37,6 +37,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
     }) { padding ->
         LazyColumn(
             modifier = Modifier
+                .fillMaxSize()
                 .background(AppTheme.colors.error)
 
 //                .background(AppTheme.colors.background)
