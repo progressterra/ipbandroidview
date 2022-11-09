@@ -34,8 +34,7 @@ fun SubCatalogScreen(
     }) { padding ->
         SearchBox(
             modifier = Modifier
-                .padding(padding)
-                .padding(start = 8.dp, top = 8.dp, end = 8.dp),
+                .padding(padding),
             state = searchState,
             onRefresh = { searchInteractor.refresh() },
             onFavorite = { id, favorite -> searchInteractor.favorite(id, favorite) },
@@ -43,7 +42,8 @@ fun SubCatalogScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(AppTheme.colors.background),
+                    .background(AppTheme.colors.background)
+                    .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(subCatalogState.currentCategory?.subCategories ?: emptyList()) {

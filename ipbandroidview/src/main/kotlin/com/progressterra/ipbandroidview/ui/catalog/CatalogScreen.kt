@@ -36,8 +36,7 @@ fun CatalogScreen(
             onFilters = {})
     }) { padding ->
         SearchBox(modifier = Modifier
-            .padding(padding)
-            .padding(start = 8.dp, top = 8.dp, end = 8.dp),
+            .padding(padding),
             state = searchState,
             onRefresh = { searchInteractor.refresh() },
             onFavorite = { id, favorite -> searchInteractor.favorite(id, favorite) },
@@ -48,7 +47,8 @@ fun CatalogScreen(
                 LazyVerticalGrid(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(AppTheme.colors.background),
+                        .background(AppTheme.colors.background)
+                        .padding(8.dp),
                     columns = GridCells.Fixed(2),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
