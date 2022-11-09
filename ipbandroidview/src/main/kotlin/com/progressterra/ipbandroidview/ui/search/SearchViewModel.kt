@@ -30,6 +30,11 @@ class SearchViewModel(
         }
     }
 
+    @Suppress("unused")
+    fun setCategoryId(categoryId: String) = intent {
+        reduce { state.copy(categoryId = categoryId) }
+    }
+
     override fun favorite(goodsId: String, favorite: Boolean) = intent {
         modifyFavoriteUseCase.modifyFavorite(goodsId, favorite).onSuccess { refresh() }
     }
