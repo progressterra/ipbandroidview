@@ -49,10 +49,11 @@ fun SearchTopBar(
         Row(
             Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             if (full)
                 IconButton(onClick = onBack) { BackIcon() }
+
             ThemedTextField(
                 modifier = Modifier
                     .weight(1f)

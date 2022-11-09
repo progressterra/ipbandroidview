@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,7 +15,7 @@ fun StateBox(
     onRefresh: () -> Unit,
     content: @Composable (BoxScope.() -> Unit)
 ) {
-    Box(modifier = modifier, contentAlignment = Alignment.Center) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         when (state) {
             ScreenState.ERROR -> ThemedRefreshButton(onClick = onRefresh)
             ScreenState.LOADING -> ThemedLoadingIndicator()
