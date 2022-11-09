@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.di
 
 import com.progressterra.ipbandroidview.domain.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.domain.AllOrganizationsUseCase
+import com.progressterra.ipbandroidview.domain.CatalogUseCase
 import com.progressterra.ipbandroidview.domain.CheckMediaDetailsUseCase
 import com.progressterra.ipbandroidview.domain.ChecklistUseCase
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
@@ -120,4 +121,6 @@ val useCasesModule = module {
     }
 
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
+
+    single<CatalogUseCase> { CatalogUseCase.Base(get(), get(), get(), get()) }
 }
