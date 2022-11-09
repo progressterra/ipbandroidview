@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.ui.goods.GoodsViewModel
+import com.progressterra.ipbandroidview.ui.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.ui.main.MainViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
@@ -101,5 +102,9 @@ val viewModelsModule = module {
 
     viewModel {
         GoodsViewModel(get(), get())
+    }
+
+    viewModel {
+        GoodsDetailsViewModel()
     }
 }
