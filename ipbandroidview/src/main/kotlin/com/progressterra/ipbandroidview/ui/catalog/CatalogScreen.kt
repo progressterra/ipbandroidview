@@ -35,7 +35,10 @@ fun CatalogScreen(
             onSearch = { searchInteractor.search() },
             onFilters = {})
     }) { padding ->
-        SearchBox(modifier = Modifier.padding(padding), state = searchState,
+        SearchBox(modifier = Modifier
+            .padding(padding)
+            .padding(start = 8.dp, top = 8.dp, end = 8.dp),
+            state = searchState,
             onRefresh = { searchInteractor.refresh() },
             onFavorite = { id, favorite -> searchInteractor.favorite(id, favorite) },
             onGoods = { searchInteractor.goodsDetails(it) }) {

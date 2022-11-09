@@ -45,7 +45,8 @@ fun GoodsScreen(
     }) { padding ->
         StateBox(modifier = Modifier
             .fillMaxSize()
-            .padding(padding),
+            .padding(padding)
+            .padding(start = 8.dp, top = 8.dp, end = 8.dp),
             state = goodsState.screenState,
             onRefresh = { goodsInteractor.refresh() }) {
             val lazyItems: LazyPagingItems<Goods> = goodsState.items.collectAsLazyPagingItems()
