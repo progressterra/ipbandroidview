@@ -20,8 +20,11 @@ interface CatalogUseCase {
     ) : AbstractUseCase(scrmRepository, provideLocation), CatalogUseCase {
 
         override suspend fun catalog(): Result<List<Category>> = runCatching {
-            withToken { repo.getCatalog(it) }.getOrThrow()?.map { mapper.map(it) }
-                .orIfNull { emptyList() }
+            withToken { repo.getCatalog(it) }.getOrThrow()?.first()?.childItems?.map {
+                mapper.map(
+                    it
+                )
+            }.orIfNull { emptyList() }
         }
     }
 }
