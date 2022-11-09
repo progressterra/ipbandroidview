@@ -5,10 +5,9 @@ import androidx.paging.PagingState
 import com.progressterra.ipbandroidview.dto.Goods
 
 class GoodsSource(
-    private val goodsPageUseCase: GoodsPageUseCase
+    private val goodsPageUseCase: GoodsPageUseCase,
+    private val categoryId: String
 ) : PagingSource<Int, Goods>() {
-
-    private lateinit var categoryId: String
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Goods> {
         val nextPage = params.key ?: 1
@@ -25,9 +24,4 @@ class GoodsSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, Goods>): Int? = state.anchorPosition
-
-    fun updateCategory(categoryId: String) {
-        invalidate()
-        this.categoryId = categoryId
-    }
 }

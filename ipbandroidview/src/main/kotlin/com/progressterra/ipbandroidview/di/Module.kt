@@ -20,13 +20,12 @@ import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
-import com.progressterra.ipbandroidview.domain.mapper.GoodsMapper
-import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
-import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
-import com.progressterra.ipbandroidview.domain.GoodsSource
 import com.progressterra.ipbandroidview.domain.mapper.CatalogMapper
 import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
+import com.progressterra.ipbandroidview.domain.mapper.GoodsMapper
+import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
 import com.progressterra.ipbandroidview.domain.mapper.SubCatalogMapper
+import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.binds
@@ -61,10 +60,6 @@ val iPBAndroidViewModule = module {
 
     factory {
         LocationServices.getFusedLocationProviderClient(androidContext())
-    }
-
-    single {
-        GoodsSource(get())
     }
 
     single<PriceMapper> {

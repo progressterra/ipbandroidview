@@ -10,14 +10,11 @@ interface GoodsUseCase {
 
     fun goods(categoryId: String): Result<Flow<PagingData<Goods>>>
 
-    class Base(
-        private val source: GoodsSource
-    ) : GoodsUseCase {
+    class Base(private val goodsPageUseCase: GoodsPageUseCase) : GoodsUseCase {
 
         override fun goods(categoryId: String): Result<Flow<PagingData<Goods>>> = runCatching {
-            source.updateCategory(categoryId)
             Pager(PagingConfig(DomainConstants.PAGE_SIZE)) {
-                source
+                GoodsSource(categoryId = categoryId, goodsPageUseCase = goodsPageUseCase)
             }.flow
         }
     }
