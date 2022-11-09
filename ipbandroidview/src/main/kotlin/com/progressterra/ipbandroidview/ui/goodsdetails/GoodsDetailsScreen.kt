@@ -45,7 +45,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                     .padding(padding)
                     .padding(start = 8.dp, top = 8.dp, end = 8.dp)
             ) {
-                Gallery(modifier = Modifier.size(this@BoxWithConstraints.maxWidth), state = state)
+                Gallery(modifier = Modifier.size(this@BoxWithConstraints.maxWidth, 300.dp), state = state)
                 ColorsLine(
                     modifier = Modifier.height(100.dp),
                     state = state,
