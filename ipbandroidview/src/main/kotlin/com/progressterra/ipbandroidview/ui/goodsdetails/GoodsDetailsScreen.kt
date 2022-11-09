@@ -40,6 +40,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
         BoxWithConstraints {
             Column(
                 modifier = Modifier
+                    .size(maxWidth, maxHeight)
                     .background(AppTheme.colors.background)
                     .verticalScroll(rememberScrollState())
                     .padding(padding)
