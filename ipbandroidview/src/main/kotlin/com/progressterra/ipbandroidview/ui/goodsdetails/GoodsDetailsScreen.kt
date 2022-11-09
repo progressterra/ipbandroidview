@@ -41,7 +41,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                 .padding(padding)
                 .padding(start = 8.dp, top = 8.dp, end = 8.dp)
         ) {
-            item { Gallery(modifier = Modifier.size(300.dp, 300.dp), state = state) }
+//            item { Gallery(modifier = Modifier.size(300.dp, 300.dp), state = state) }
 //            item {
 //                ColorsLine(
 //                    modifier = Modifier.height(100.dp),
@@ -54,15 +54,15 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
 //                    onSize = { interactor.size(it) },
 //                    onTable = { interactor.sizeTable() })
 //            }
-            item {
-                GoodsDetails(
-                    modifier = Modifier.size(
-                        width = 300.dp,
-                        height = 200.dp
-                    ),
-                    state = state
-                )
-            }
+//            item {
+//                GoodsDetails(
+//                    modifier = Modifier.size(
+//                        width = 300.dp,
+//                        height = 200.dp
+//                    ),
+//                    state = state
+//                )
+//            }
         }
 
     }
