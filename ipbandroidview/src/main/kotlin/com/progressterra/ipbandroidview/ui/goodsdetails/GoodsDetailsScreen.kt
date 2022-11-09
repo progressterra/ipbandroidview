@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -44,9 +43,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                 .padding(padding)
                 .padding(start = 8.dp, top = 8.dp, end = 8.dp)
         ) {
-            Gallery(
-                modifier = Modifier.aspectRatio(1f), state = state
-            )
+            Gallery(state = state)
             ColorsLine(modifier = Modifier.fillMaxWidth(),
                 state = state,
                 onColor = { interactor.color(it) })
