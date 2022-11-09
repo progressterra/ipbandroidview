@@ -5,12 +5,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
@@ -77,7 +78,6 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                             if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
                         Text(
                             modifier = Modifier
-                                .fillMaxWidth()
                                 .background(backgroundColor)
                                 .padding(AppTheme.dimensions.large),
                             text = text,
@@ -97,31 +97,34 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
     ) {
         val pagerState = rememberPagerState()
         HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(count = 3, state = pagerState) {
+        HorizontalPager(modifier = Modifier.height(200.dp), count = 3, state = pagerState) {
             Column(
                 modifier = Modifier
-                    .wrapContentHeight()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
+                    .verticalScroll(rememberScrollState())
                     .padding(AppTheme.dimensions.large),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
             ) {
-                val text = when (it) {
-                    0 -> state.name
-                    1 -> stringResource(id = R.string.parameters)
-                    else -> stringResource(id = R.string.delivery)
-                }
-                Text(
-                    text = text, color = AppTheme.colors.black, style = AppTheme.typography.title
-                )
-                when (it) {
-                    0 -> Text(
+                if (it == 0) {
+                    Text(
+                        text = state.name,
+                        color = AppTheme.colors.black,
+                        style = AppTheme.typography.title
+                    )
+                    Text(
                         text = state.description,
                         color = AppTheme.colors.gray1,
                         style = AppTheme.typography.secondaryText
                     )
-                    1 -> LazyColumn(
-                        modifier = Modifier.fillMaxWidth(),
+                }
+                if (it == 1) {
+                    Text(
+                        text = stringResource(id = R.string.parameters),
+                        color = AppTheme.colors.black,
+                        style = AppTheme.typography.title
+                    )
+                    LazyColumn(
                         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
                     ) {
                         items(state.parameters) {
@@ -140,7 +143,13 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                             }
                         }
                     }
-                    else -> {}
+                }
+                if (it == 2) {
+                    Text(
+                        text = stringResource(id = R.string.delivery),
+                        color = AppTheme.colors.black,
+                        style = AppTheme.typography.title
+                    )
                 }
             }
         }
