@@ -35,27 +35,25 @@ fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
     ) {
         Box {
             SimpleImage(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces),
                 url = state.images[it],
                 options = ImageOptions(contentScale = ContentScale.FillBounds),
                 backgroundColor = AppTheme.colors.surfaces
             )
-            Box(
+            HorizontalPagerIndicator(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .padding(8.dp)
                     .clip(CircleShape)
                     .background(AppTheme.colors.background)
-                    .padding(vertical = 4.dp, horizontal = 6.dp)
-            ) {
-                HorizontalPagerIndicator(
-                    pagerState = pagerState,
-                    activeColor = AppTheme.colors.primary,
-                    inactiveColor = AppTheme.colors.surfaces
-                )
-            }
+                    .padding(vertical = 4.dp, horizontal = 6.dp),
+                pagerState = pagerState,
+                activeColor = AppTheme.colors.primary,
+                inactiveColor = AppTheme.colors.surfaces
+            )
         }
     }
 }

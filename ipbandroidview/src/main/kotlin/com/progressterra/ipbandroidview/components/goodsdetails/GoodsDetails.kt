@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Tab
@@ -29,7 +30,6 @@ import com.progressterra.ipbandroidview.dto.component.Name
 import com.progressterra.ipbandroidview.dto.component.Parameters
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
-
 
 interface GoodsDetailsState : Name, Parameters, Description
 
@@ -60,7 +60,11 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                     val selected = pagerState.currentPage == index
                     val backgroundColor =
                         if (selected) AppTheme.colors.background else AppTheme.colors.surfaces
-                    Tab(modifier = Modifier.clip(AppTheme.shapes.small),
+                    Tab(modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(AppTheme.shapes.small)
+                        .background(backgroundColor)
+                        .padding(AppTheme.dimensions.large),
                         selected = selected,
                         onClick = {
                             scope.launch {
@@ -72,9 +76,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                         val style =
                             if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
                         Text(
-                            modifier = Modifier
-                                .background(backgroundColor)
-                                .padding(AppTheme.dimensions.large),
+                            modifier = Modifier,
                             text = text,
                             color = textColor,
                             style = style,
@@ -87,13 +89,14 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
     }
 
     val pagerState = rememberPagerState()
-    HorizontalPager(modifier = modifier, count = 3, state = pagerState) {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
-        ) {
-            HorizontalTabs(pagerState = pagerState)
+    Column(
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+    ) {
+        HorizontalTabs(pagerState = pagerState)
+        HorizontalPager(modifier = modifier, count = 3, state = pagerState) {
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
                     .padding(AppTheme.dimensions.large),
