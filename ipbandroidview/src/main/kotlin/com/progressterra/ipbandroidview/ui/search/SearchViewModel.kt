@@ -31,8 +31,9 @@ class SearchViewModel(
     }
 
     @Suppress("unused")
-    fun setCategoryId(categoryId: String) = intent {
+    fun searchInCategory(categoryId: String) = intent {
         reduce { state.copy(categoryId = categoryId) }
+        refresh()
     }
 
     override fun favorite(goodsId: String, favorite: Boolean) = intent {
@@ -57,7 +58,7 @@ class SearchViewModel(
     }
 
     override fun search() = intent {
-        refresh()
+        postSideEffect(SearchEffect.Search)
     }
 
     override fun goodsDetails(goodsId: String) = intent {
