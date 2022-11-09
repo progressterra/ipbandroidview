@@ -41,7 +41,8 @@ fun MainScreen(
             onBack = { searchInteractor.back() },
             onKeyword = { searchInteractor.keyword(it) },
             onSearch = { searchInteractor.search() },
-            onFilters = {})
+            onFilters = {}, full = false
+        )
     }) { padding ->
         StateBox(modifier = Modifier
             .fillMaxSize()

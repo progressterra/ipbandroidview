@@ -24,16 +24,16 @@ import com.progressterra.ipbandroidview.components.SettingsIcon
 import com.progressterra.ipbandroidview.components.ThemedTextField
 import com.progressterra.ipbandroidview.dto.Filter
 import com.progressterra.ipbandroidview.dto.component.Filters
-import com.progressterra.ipbandroidview.dto.component.Full
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-interface SearchBarState : Keyword, Filters, Full
+interface SearchBarState : Keyword, Filters
 
 //TODO filters counter
 
 @Composable
 fun SearchTopBar(
     state: SearchBarState,
+    full: Boolean = true,
     onBack: () -> Unit,
     onKeyword: (String) -> Unit,
     onSearch: () -> Unit,
@@ -49,7 +49,7 @@ fun SearchTopBar(
             Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (state.full)
+            if (full)
                 IconButton(onClick = onBack) { BackIcon() }
             ThemedTextField(
                 modifier = Modifier
@@ -67,7 +67,7 @@ fun SearchTopBar(
                 ),
                 action = onSearch
             )
-            if (state.full)
+            if (full)
                 IconButton(onClick = onFilters) { SettingsIcon() }
         }
     }
@@ -75,10 +75,7 @@ fun SearchTopBar(
 
 private class SearchBarStatePreview(
     override val keyword: String, override val filters: List<Filter>
-) : SearchBarState {
-
-    override val full: Boolean = true
-}
+) : SearchBarState
 
 @Preview
 @Composable
