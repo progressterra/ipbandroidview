@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.components.goodsdetails
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
@@ -55,7 +55,6 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                 backgroundColor = AppTheme.colors.surfaces,
                 indicator = {},
                 divider = {}) {
-                MaterialTheme.shapes
                 val scope = rememberCoroutineScope()
                 for (i in 0..2) {
                     val selected = pagerState.currentPage == i
@@ -66,6 +65,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                         onClick = {
                             scope.launch {
                                 pagerState.animateScrollToPage(page = i)
+                                Log.d("SCROLL", "HorizontalTabs: $i")
                             }
                         }) {
                         val text = when (i) {
@@ -93,12 +93,14 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
             }
         }
     }
+
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
     ) {
         val pagerState = rememberPagerState()
         HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(modifier = modifier, count = 3) {
+        HorizontalPager(count = 3) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
