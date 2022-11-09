@@ -63,7 +63,7 @@ fun GoodsScreen(
                         card?.let {
                             StoreItemCard(modifier = Modifier.align(Alignment.Center),
                                 state = card,
-                                onClick = { goodsInteractor.goodsDetails(card.id) },
+                                onClick = { goodsInteractor.goodsDetails(card) },
                                 onFavorite = { goodsInteractor.favorite(card.id, card.favorite) })
                         }
                     }

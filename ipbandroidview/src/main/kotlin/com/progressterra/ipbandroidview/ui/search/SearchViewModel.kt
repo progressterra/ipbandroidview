@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.dto.Goods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -61,7 +62,7 @@ class SearchViewModel(
         postSideEffect(SearchEffect.Search)
     }
 
-    override fun goodsDetails(goodsId: String) = intent {
-        postSideEffect(SearchEffect.GoodsDetails(goodsId))
+    override fun goodsDetails(goods: Goods) = intent {
+        postSideEffect(SearchEffect.GoodsDetails(goods))
     }
 }

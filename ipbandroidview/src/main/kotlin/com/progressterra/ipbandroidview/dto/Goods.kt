@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.dto
 
+import android.os.Parcelable
 import com.progressterra.ipbandroidview.components.ColorsLineState
 import com.progressterra.ipbandroidview.components.GalleryState
 import com.progressterra.ipbandroidview.components.SizesLineState
@@ -9,7 +10,9 @@ import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetailsStat
 import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBarState
 import com.progressterra.ipbandroidview.dto.component.Id
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Goods(
     override val id: String,
     override val name: String,
@@ -24,7 +27,7 @@ data class Goods(
     override val sizes: List<GoodsSize>,
     override val parameters: List<GoodsParameters>,
     override val inCartCounter: Int
-) : StoreItemCardState, Id, GoodsTopAppBarState,
+) : Parcelable, StoreItemCardState, Id, GoodsTopAppBarState,
     GoodsBottomBarState,
     GalleryState,
     ColorsLineState,

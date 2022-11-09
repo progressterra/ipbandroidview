@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.dto.Goods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -42,7 +43,7 @@ class GoodsViewModel(
         }
     }
 
-    override fun goodsDetails(goodsId: String) = intent {
-        postSideEffect(GoodsEffect.GoodsDetails(goodsId))
+    override fun goodsDetails(goods: Goods) = intent {
+        postSideEffect(GoodsEffect.GoodsDetails(goods))
     }
 }

@@ -3,10 +3,11 @@ package com.progressterra.ipbandroidview.ui.goods
 import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.Favorite
 import com.progressterra.ipbandroidview.actions.Refresh
+import com.progressterra.ipbandroidview.dto.Goods
 
 interface GoodsInteractor : Refresh, Back, Favorite {
 
-    fun goodsDetails(goodsId: String)
+    fun goodsDetails(goods: Goods)
 
     class Empty : GoodsInteractor {
 
@@ -16,6 +17,6 @@ interface GoodsInteractor : Refresh, Back, Favorite {
 
         override fun refresh() = Unit
 
-        override fun goodsDetails(goodsId: String) = Unit
+        override fun goodsDetails(goods: Goods) = Unit
     }
 }

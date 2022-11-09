@@ -4,12 +4,13 @@ import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.Favorite
 import com.progressterra.ipbandroidview.actions.Refresh
 import com.progressterra.ipbandroidview.actions.Search
+import com.progressterra.ipbandroidview.dto.Goods
 
 interface SearchInteractor : Back, Refresh, Search, Favorite {
 
     fun keyword(keyword: String)
 
-    fun goodsDetails(goodsId: String)
+    fun goodsDetails(goods: Goods)
 
     class Empty : SearchInteractor {
 
@@ -23,6 +24,6 @@ interface SearchInteractor : Back, Refresh, Search, Favorite {
 
         override fun keyword(keyword: String) = Unit
 
-        override fun goodsDetails(goodsId: String) = Unit
+        override fun goodsDetails(goods: Goods) = Unit
     }
 }

@@ -23,7 +23,7 @@ import com.progressterra.ipbandroidview.dto.size.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun GoodsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
+fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         GoodsTopAppBar(onBack = { interactor.back() },
             onFavorite = { interactor.favorite() },
@@ -65,7 +65,7 @@ private fun GoodsScreenPreview() {
         val current = GoodsSize(
             primary = "M", secondary = "36", available = true
         )
-        GoodsScreen(
+        GoodsDetailsScreen(
             state = GoodsDetailsScreenState(
                 Goods(
                     id = "",
