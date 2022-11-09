@@ -22,6 +22,7 @@ class GoodsViewModel(
     @Suppress("unused")
     fun setCategoryId(categoryId: String) = intent {
         reduce { state.copy(currentCategory = categoryId) }
+        refresh()
     }
 
     override fun back() = intent {

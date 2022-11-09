@@ -43,7 +43,7 @@ fun SearchTopBar(
         backgroundColor = AppTheme.colors.surfaces,
         elevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 10.dp)
+        contentPadding = PaddingValues(bottom = 10.dp)
     ) {
         Row(
             Modifier.fillMaxSize(),
