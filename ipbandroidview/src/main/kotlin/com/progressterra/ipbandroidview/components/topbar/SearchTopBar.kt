@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.components.topbar
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,11 +44,12 @@ fun SearchTopBar(
         backgroundColor = AppTheme.colors.surfaces,
         elevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(bottom = 10.dp)
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 10.dp)
     ) {
         Row(
             Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             if (full)
                 IconButton(onClick = onBack) { BackIcon() }
