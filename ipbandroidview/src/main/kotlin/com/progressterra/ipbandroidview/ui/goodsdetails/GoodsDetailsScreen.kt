@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+    Scaffold(topBar = {
         GoodsTopAppBar(
             onBack = { interactor.back() },
             onFavorite = { interactor.favorite() },
