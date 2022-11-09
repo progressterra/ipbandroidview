@@ -1,18 +1,22 @@
 package com.progressterra.ipbandroidview.di
 
+import com.progressterra.ipbandroidview.ui.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.documents.DocumentsViewModel
+import com.progressterra.ipbandroidview.ui.goods.GoodsViewModel
 import com.progressterra.ipbandroidview.ui.main.MainViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.ui.profile.ProfileViewModel
 import com.progressterra.ipbandroidview.ui.profiledetails.ProfileDetailsViewModel
+import com.progressterra.ipbandroidview.ui.search.SearchViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
+import com.progressterra.ipbandroidview.ui.subcatalog.SubCatalogViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -20,7 +24,7 @@ import org.koin.dsl.module
 val viewModelsModule = module {
 
     viewModel {
-        MainViewModel(get())
+        MainViewModel(get(), get())
     }
 
     viewModel {
@@ -81,5 +85,21 @@ val viewModelsModule = module {
 
     viewModel {
         ProfileDetailsViewModel(get())
+    }
+
+    viewModel {
+        CatalogViewModel(get())
+    }
+
+    viewModel {
+        SearchViewModel(get(), get())
+    }
+
+    viewModel {
+        SubCatalogViewModel()
+    }
+
+    viewModel {
+        GoodsViewModel(get(), get())
     }
 }

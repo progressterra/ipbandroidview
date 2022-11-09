@@ -7,10 +7,14 @@ import com.progressterra.ipbandroidview.dto.Filter
 import com.progressterra.ipbandroidview.dto.Goods
 
 data class SearchState(
-    val categoryId: String = "",
-    override val visible: Boolean = false,
+    val categoryId: String? = null,
     override val filters: List<Filter> = emptyList(),
     override val keyword: String = "",
     override val searchScreenState: ScreenState = ScreenState.LOADING,
     override val searchGoods: List<Goods> = emptyList()
-): SearchBoxState, SearchBarState
+): SearchBoxState, SearchBarState {
+
+    override fun full(): Boolean = categoryId != null
+
+    override fun visible(): Boolean = filters.isNotEmpty() && keyword.isNotBlank()
+}

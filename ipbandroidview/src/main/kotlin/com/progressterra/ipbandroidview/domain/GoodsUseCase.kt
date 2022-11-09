@@ -8,14 +8,14 @@ import kotlinx.coroutines.flow.Flow
 
 interface GoodsUseCase {
 
-    fun goods(id: String): Result<Flow<PagingData<Goods>>>
+    fun goods(categoryId: String): Result<Flow<PagingData<Goods>>>
 
     class Base(
         private val source: GoodsSource
     ) : GoodsUseCase {
 
-        override fun goods(id: String): Result<Flow<PagingData<Goods>>> = runCatching {
-            source.updateCategory(id)
+        override fun goods(categoryId: String): Result<Flow<PagingData<Goods>>> = runCatching {
+            source.updateCategory(categoryId)
             Pager(PagingConfig(DomainConstants.PAGE_SIZE)) {
                 source
             }.flow

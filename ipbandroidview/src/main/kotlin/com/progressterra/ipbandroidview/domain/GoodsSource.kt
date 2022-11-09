@@ -8,12 +8,12 @@ class GoodsSource(
     private val goodsPageUseCase: GoodsPageUseCase
 ) : PagingSource<Int, Goods>() {
 
-    private lateinit var id: String
+    private lateinit var categoryId: String
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Goods> {
         val nextPage = params.key ?: 1
         val response =
-            goodsPageUseCase.goodsPage(id, nextPage)
+            goodsPageUseCase.goodsPage(categoryId, nextPage)
                 .onSuccess {
                     return LoadResult.Page(
                         data = it.second,
@@ -26,8 +26,8 @@ class GoodsSource(
 
     override fun getRefreshKey(state: PagingState<Int, Goods>): Int? = state.anchorPosition
 
-    fun updateCategory(id: String) {
+    fun updateCategory(categoryId: String) {
         invalidate()
-        this.id = id
+        this.categoryId = categoryId
     }
 }

@@ -1,12 +1,14 @@
 package com.progressterra.ipbandroidview.ui.search
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
@@ -20,22 +22,25 @@ class SearchViewModel(
     override fun back() = intent {
         reduce {
             state.copy(
-                visible = false,
                 filters = emptyList(),
                 keyword = "",
-                searchScreenState = ScreenState.LOADING,
+                searchScreenState = ScreenState.SUCCESS,
                 searchGoods = emptyList()
             )
         }
     }
 
-    override fun favorite(id: String, favorite: Boolean) = intent {
-        modifyFavoriteUseCase.modifyFavorite(id, favorite).onSuccess { refresh() }
+    override fun favorite(goodsId: String, favorite: Boolean) = intent {
+        modifyFavoriteUseCase.modifyFavorite(goodsId, favorite).onSuccess { refresh() }
     }
 
     override fun refresh() = intent {
         reduce { state.copy(searchScreenState = ScreenState.LOADING) }
-        filteredGoodsUseCase.goods(state.categoryId, state.keyword, state.filters).onSuccess {
+        filteredGoodsUseCase.goods(
+            state.categoryId ?: Constants.EMPTY_ID,
+            state.keyword,
+            state.filters
+        ).onSuccess {
             reduce { state.copy(searchGoods = it, searchScreenState = ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.copy(searchScreenState = ScreenState.ERROR) }
@@ -48,5 +53,9 @@ class SearchViewModel(
 
     override fun search() = intent {
         refresh()
+    }
+
+    override fun goodsDetails(goodsId: String) = intent {
+        postSideEffect(SearchEffect.GoodsDetails(goodsId))
     }
 }

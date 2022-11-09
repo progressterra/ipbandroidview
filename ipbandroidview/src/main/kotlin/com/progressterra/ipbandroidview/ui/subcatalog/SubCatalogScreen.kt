@@ -10,28 +10,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.SearchBox
-import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.SubCategory
-import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.SubCategory
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.ui.search.SearchInteractor
+import com.progressterra.ipbandroidview.ui.search.SearchState
 
 @Composable
-fun SubCatalogScreen(state: SubCatalogState, interactor: SubCatalogInteractor) {
-    SearchBox(state = state,
-        onRefresh = { interactor.refresh() },
-        onFavorite = { id, favorite -> interactor.favorite(id, favorite) },
-        onGoods = { interactor.goodsDetails(it) }) {
-        StateBox(state = state.screenState, onRefresh = { interactor.refresh() }) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(AppTheme.colors.background),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(state.currentCategory.subCategories) {
-                    SubCategory(state = it, onClick = { interactor.subCategory(it.id) })
-                }
+fun SubCatalogScreen(
+    subCatalogState: SubCatalogState,
+    subCatalogInteractor: SubCatalogInteractor,
+    searchState: SearchState,
+    searchInteractor: SearchInteractor
+) {
+    SearchBox(state = searchState,
+        onRefresh = { searchInteractor.refresh() },
+        onFavorite = { id, favorite -> searchInteractor.favorite(id, favorite) },
+        onGoods = { searchInteractor.goodsDetails(it) }) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(AppTheme.colors.background),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(subCatalogState.currentCategory?.subCategories ?: emptyList()) {
+                SubCategory(state = it, onClick = { subCatalogInteractor.subCategory(it) })
             }
         }
     }
@@ -42,19 +44,12 @@ fun SubCatalogScreen(state: SubCatalogState, interactor: SubCatalogInteractor) {
 private fun SubCatalogScreenPreview() {
     AppTheme {
         SubCatalogScreen(
-            state = SubCatalogState(
-                searchGoods = emptyList(),
-                keyword = "",
-                screenState = ScreenState.SUCCESS,
-                currentCategory = SubCategory(
-                    id = "",
-                    name = "",
-                    subCategories = emptyList(),
-                    hasNext = false
-                ),
-                filters = emptyList()
+            subCatalogState = SubCatalogState(
+                currentCategory = null,
             ),
-            interactor = SubCatalogInteractor.Empty()
+            subCatalogInteractor = SubCatalogInteractor.Empty(),
+            searchState = SearchState(),
+            searchInteractor = SearchInteractor.Empty()
         )
     }
 }

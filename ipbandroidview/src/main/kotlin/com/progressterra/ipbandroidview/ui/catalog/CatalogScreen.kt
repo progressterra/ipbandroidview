@@ -15,14 +15,21 @@ import com.progressterra.ipbandroidview.components.SearchBox
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.ui.search.SearchInteractor
+import com.progressterra.ipbandroidview.ui.search.SearchState
 
 @Composable
-fun CatalogScreen(state: CatalogState, interactor: CatalogInteractor) {
-    SearchBox(state = state,
-        onRefresh = { interactor.refresh() },
-        onFavorite = { id, favorite -> interactor.favorite(id, favorite) },
-        onGoods = { interactor.goodsDetails(it) }) {
-        StateBox(state = state.screenState, onRefresh = { interactor.refresh() }) {
+fun CatalogScreen(
+    catalogState: CatalogState,
+    catalogInteractor: CatalogInteractor,
+    searchState: SearchState,
+    searchInteractor: SearchInteractor
+) {
+    SearchBox(state = searchState,
+        onRefresh = { searchInteractor.refresh() },
+        onFavorite = { id, favorite -> searchInteractor.favorite(id, favorite) },
+        onGoods = { searchInteractor.goodsDetails(it) }) {
+        StateBox(state = catalogState.screenState, onRefresh = { catalogInteractor.refresh() }) {
             LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxSize()
@@ -31,8 +38,8 @@ fun CatalogScreen(state: CatalogState, interactor: CatalogInteractor) {
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.categories) {
-                    Category(state = it, onClick = { interactor.category(it.id) })
+                items(catalogState.categories) {
+                    Category(state = it, onClick = { catalogInteractor.category(it) })
                 }
             }
         }
@@ -45,13 +52,13 @@ fun CatalogScreen(state: CatalogState, interactor: CatalogInteractor) {
 private fun CatalogScreenPreview() {
     AppTheme {
         CatalogScreen(
-            state = CatalogState(
+            catalogState = CatalogState(
                 categories = emptyList(),
-                keyword = "",
-                searchGoods = emptyList(),
                 screenState = ScreenState.SUCCESS
             ),
-            interactor = CatalogInteractor.Empty()
+            catalogInteractor = CatalogInteractor.Empty(),
+            searchState = SearchState(),
+            searchInteractor = SearchInteractor.Empty()
         )
     }
 }

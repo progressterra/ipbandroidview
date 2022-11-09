@@ -1,25 +1,17 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
-import com.progressterra.ipbandroidview.ui.search.SearchInteractor
+import com.progressterra.ipbandroidview.actions.Refresh
+import com.progressterra.ipbandroidview.dto.Category
 
-interface CatalogInteractor : SearchInteractor {
 
-    fun goodsDetails(id: String)
+interface CatalogInteractor : Refresh {
 
-    fun category(id: String)
+    fun category(category: Category)
 
     class Empty : CatalogInteractor {
 
-        override fun search() = Unit
-
-        override fun favorite(id: String, favorite: Boolean) = Unit
-
-        override fun back() = Unit
-
         override fun refresh() = Unit
 
-        override fun goodsDetails(id: String) = Unit
-
-        override fun category(id: String) = Unit
+        override fun category(category: Category) = Unit
     }
 }

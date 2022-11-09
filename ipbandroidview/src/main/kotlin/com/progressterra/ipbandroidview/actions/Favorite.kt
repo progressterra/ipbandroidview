@@ -2,5 +2,5 @@ package com.progressterra.ipbandroidview.actions
 
 interface Favorite {
 
-    fun favorite(id: String, favorite: Boolean)
+    fun favorite(goodsId: String, favorite: Boolean)
 }

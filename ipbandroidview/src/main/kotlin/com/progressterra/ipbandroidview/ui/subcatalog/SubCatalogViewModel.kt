@@ -15,10 +15,7 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
     override val container: Container<SubCatalogState, SubCatalogEffect> =
         container(SubCatalogState())
 
-    init {
-        refresh()
-    }
-
+    @Suppress("unused")
     fun setSubCategory(subCategory: SubCategory) = intent {
         reduce { state.copy(currentCategory = subCategory) }
     }
@@ -27,24 +24,10 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
         postSideEffect(SubCatalogEffect.Back)
     }
 
-    override fun favorite(id: String, favorite: Boolean) {
-
-    }
-
-    override fun refresh() {
-
-    }
-
-    override fun search() {
-
-    }
-
-    override fun goodsDetails(id: String) = intent {
-        postSideEffect(SubCatalogEffect.GoodsCard(id))
-    }
-
-    override fun subCategory(id: String) = intent {
-        postSideEffect(SubCatalogEffect.SubCatalog(id))
-
+    override fun subCategory(subCategory: SubCategory) = intent {
+        if (subCategory.hasNext)
+            postSideEffect(SubCatalogEffect.SubCatalog(subCategory))
+        else
+            postSideEffect(SubCatalogEffect.Goods(subCategory.id))
     }
 }

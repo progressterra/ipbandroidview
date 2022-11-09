@@ -1,11 +1,16 @@
 package com.progressterra.ipbandroidview.dto
 
 import com.progressterra.ipbandroidview.components.CategoryState
-import com.progressterra.ipbandroidview.components.SubCategoryState
+import kotlinx.parcelize.Parcelize
 
-data class Category(
-    override val id: String,
-    override val name: String,
-    override val image: String,
-    val subCategories: List<SubCategory>?
-) : CategoryState, SubCategoryState
+interface Category : CategoryState, SubCategory {
+
+    @Parcelize
+    data class Base(
+        override val id: String,
+        override val name: String,
+        override val image: String,
+        override val subCategories: List<SubCategory>,
+        override val hasNext: Boolean
+    ) : Category
+}

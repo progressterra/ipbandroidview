@@ -1,11 +1,8 @@
 package com.progressterra.ipbandroidview.components.topbar
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,9 +24,10 @@ import com.progressterra.ipbandroidview.components.SettingsIcon
 import com.progressterra.ipbandroidview.components.ThemedTextField
 import com.progressterra.ipbandroidview.dto.Filter
 import com.progressterra.ipbandroidview.dto.component.Filters
+import com.progressterra.ipbandroidview.dto.component.Full
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-interface SearchBarState : Keyword, Filters
+interface SearchBarState : Keyword, Filters, Full
 
 //TODO filters counter
 
@@ -51,16 +49,8 @@ fun SearchTopBar(
             Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            val expanded = state.keyword.isNotBlank()
-            AnimatedVisibility(
-                visible = expanded,
-                enter = expandHorizontally(),
-                exit = shrinkHorizontally()
-            ) {
-                IconButton(onClick = onBack) {
-                    BackIcon()
-                }
-            }
+            if (state.full())
+                IconButton(onClick = onBack) { BackIcon() }
             ThemedTextField(
                 modifier = Modifier
                     .weight(1f)
@@ -77,22 +67,18 @@ fun SearchTopBar(
                 ),
                 action = onSearch
             )
-            AnimatedVisibility(
-                visible = expanded,
-                enter = expandHorizontally(),
-                exit = shrinkHorizontally()
-            ) {
-                IconButton(onClick = onFilters) {
-                    SettingsIcon()
-                }
-            }
+            if (state.full())
+                IconButton(onClick = onFilters) { SettingsIcon() }
         }
     }
 }
 
 private class SearchBarStatePreview(
     override val keyword: String, override val filters: List<Filter>
-) : SearchBarState
+) : SearchBarState {
+
+    override fun full(): Boolean = true
+}
 
 @Preview
 @Composable

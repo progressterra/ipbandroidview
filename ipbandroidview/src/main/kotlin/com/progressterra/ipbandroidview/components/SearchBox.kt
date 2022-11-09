@@ -17,13 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.actions.Keyword
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.component.Screen
 import com.progressterra.ipbandroidview.dto.component.SearchGoods
+import com.progressterra.ipbandroidview.dto.component.Visible
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-interface SearchBoxState : SearchGoods, Keyword {
-
-    val visible: Boolean
+interface SearchBoxState : SearchGoods, Keyword, Visible {
 
     val searchScreenState: ScreenState
 }
@@ -39,7 +37,7 @@ fun SearchBox(
 ) {
     Box(modifier = modifier.fillMaxSize()) {
         AnimatedVisibility(
-            visible = state.keyword.isNotBlank(),
+            visible = state.visible(),
             enter = fadeIn(),
             exit = fadeOut()
         ) {
@@ -68,6 +66,12 @@ fun SearchBox(
                 }
             }
         }
-        content()
+        AnimatedVisibility(
+            visible = !state.visible(),
+            enter = fadeIn(),
+            exit = fadeOut()
+        ) {
+            content()
+        }
     }
 }

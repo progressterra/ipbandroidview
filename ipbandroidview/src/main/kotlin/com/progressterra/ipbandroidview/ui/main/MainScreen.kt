@@ -25,23 +25,30 @@ import com.progressterra.ipbandroidview.dto.Goods
 import com.progressterra.ipbandroidview.dto.GoodsColor
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.ui.search.SearchInteractor
+import com.progressterra.ipbandroidview.ui.search.SearchState
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
-fun MainScreen(state: MainState, interactor: MainInteractor) {
+fun MainScreen(
+    mainState: MainState,
+    mainInteractor: MainInteractor,
+    searchState: SearchState,
+    searchInteractor: SearchInteractor
+) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        SearchTopBar(state = state.searchBarState,
-            onBack = { interactor.back() },
-            onKeyword = { interactor.keyword(it) },
-            onSearch = { interactor.search() },
+        SearchTopBar(state = searchState,
+            onBack = { searchInteractor.back() },
+            onKeyword = { searchInteractor.keyword(it) },
+            onSearch = { searchInteractor.search() },
             onFilters = {})
     }) { padding ->
         StateBox(modifier = Modifier
             .fillMaxSize()
             .padding(padding),
-            state = state.screenState,
-            onRefresh = { interactor.refresh() }) {
-            val lazyItems: LazyPagingItems<Goods> = state.items.collectAsLazyPagingItems()
+            state = mainState.screenState,
+            onRefresh = { mainInteractor.refresh() }) {
+            val lazyItems: LazyPagingItems<Goods> = mainState.items.collectAsLazyPagingItems()
             LazyVerticalGrid(
                 modifier = Modifier
                     .fillMaxSize()
@@ -56,8 +63,8 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
                         card?.let {
                             StoreItemCard(modifier = Modifier.align(Alignment.Center),
                                 state = card,
-                                onClick = { interactor.card(card.id) },
-                                onFavorite = { interactor.favorite(card.id) })
+                                onClick = { mainInteractor.goodsDetails(card.id) },
+                                onFavorite = { mainInteractor.favorite(card.id, card.favorite) })
                         }
                     }
                 }
@@ -71,7 +78,7 @@ fun MainScreen(state: MainState, interactor: MainInteractor) {
 private fun MainScreenPreview() {
     AppTheme {
         MainScreen(
-            state = MainState(
+            mainState = MainState(
                 items = flowOf(
                     PagingData.from(
                         listOf(
@@ -135,7 +142,9 @@ private fun MainScreenPreview() {
                         )
                     )
                 )
-            ), interactor = MainInteractor.Empty()
+            ), mainInteractor = MainInteractor.Empty(),
+            searchState = SearchState(),
+            searchInteractor = SearchInteractor.Empty()
         )
     }
 }
