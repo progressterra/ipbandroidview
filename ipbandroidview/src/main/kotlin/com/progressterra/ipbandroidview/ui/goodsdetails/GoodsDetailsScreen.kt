@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -47,8 +48,8 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                     .padding(start = 8.dp, top = 8.dp, end = 8.dp)
             ) {
                 Gallery(modifier = Modifier.size(this@BoxWithConstraints.maxWidth), state = state)
-                ColorsLine(state = state, onColor = { interactor.color(it) })
-                SizesLine(
+                ColorsLine(modifier = Modifier.height(100.dp),state = state, onColor = { interactor.color(it) })
+                SizesLine(modifier = Modifier.height(100.dp),
                     state = state,
                     onSize = { interactor.size(it) },
                     onTable = { interactor.sizeTable() })
