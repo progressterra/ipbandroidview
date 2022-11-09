@@ -2,10 +2,10 @@ package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,6 +30,7 @@ fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
     Box(modifier = modifier) {
         val pagerState = rememberPagerState()
         HorizontalPager(
+            modifier = Modifier.wrapContentHeight(),
             count = state.images.size, state = pagerState
         ) {
             SimpleImage(

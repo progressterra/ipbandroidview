@@ -52,8 +52,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                     top.linkTo(parent.top)
-                }
-                .aspectRatio(1f), state = state)
+                }, state = state)
             ColorsLine(modifier = Modifier.constrainAs(colors) {
                 width = Dimension.fillToConstraints
                 start.linkTo(parent.start)
