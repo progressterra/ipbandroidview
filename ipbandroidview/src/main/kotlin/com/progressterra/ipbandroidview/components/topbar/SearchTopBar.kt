@@ -49,7 +49,7 @@ fun SearchTopBar(
             Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (state.full())
+            if (state.full)
                 IconButton(onClick = onBack) { BackIcon() }
             ThemedTextField(
                 modifier = Modifier
@@ -67,7 +67,7 @@ fun SearchTopBar(
                 ),
                 action = onSearch
             )
-            if (state.full())
+            if (state.full)
                 IconButton(onClick = onFilters) { SettingsIcon() }
         }
     }
@@ -77,7 +77,7 @@ private class SearchBarStatePreview(
     override val keyword: String, override val filters: List<Filter>
 ) : SearchBarState {
 
-    override fun full(): Boolean = true
+    override val full: Boolean = true
 }
 
 @Preview

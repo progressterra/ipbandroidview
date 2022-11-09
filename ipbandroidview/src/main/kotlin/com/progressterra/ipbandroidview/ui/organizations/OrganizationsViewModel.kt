@@ -32,7 +32,7 @@ class OrganizationsViewModel(
         }
     }
 
-    override fun openDetails(key: Organization) = intent {
-        postSideEffect(OrganizationsEffect.OpenOrganization(key))
+    override fun organizationDetails(organization: Organization) = intent {
+        postSideEffect(OrganizationsEffect.OpenOrganization(organization))
     }
 }

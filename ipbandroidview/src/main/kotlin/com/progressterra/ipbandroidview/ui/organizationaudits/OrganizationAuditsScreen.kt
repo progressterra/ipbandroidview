@@ -54,7 +54,7 @@ fun OrganizationAuditsScreen(
                         name = it.name,
                         lastTime = it.lastTime,
                         onClick = {
-                            interactor.openDetails(it)
+                            interactor.auditDetails(it)
                         }
                     )
                 }

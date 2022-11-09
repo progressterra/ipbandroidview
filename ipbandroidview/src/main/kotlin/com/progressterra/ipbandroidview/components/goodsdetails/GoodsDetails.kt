@@ -15,7 +15,6 @@ import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,13 +28,14 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.dto.GoodsParameters
+import com.progressterra.ipbandroidview.dto.component.Description
+import com.progressterra.ipbandroidview.dto.component.Name
+import com.progressterra.ipbandroidview.dto.component.Parameters
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
-@Immutable
-data class GoodsDetailsState(
-    val name: String, val description: String, val parameters: List<GoodsParameters>
-)
+
+interface GoodsDetailsState : Name, Parameters, Description
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -147,7 +147,24 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
             }
         }
     }
+}
 
+private class GoodsDetailsStatePreview : GoodsDetailsState {
+
+    override val description: String =
+        "Гидрокостюм Dawn Patrol с молнией на груди отличается функциональностью и отличным теплосбережением, красивым ..."
+
+    override val name: String = "SUPER COOL GOOD"
+
+    override val parameters: List<GoodsParameters> = listOf(
+        GoodsParameters(
+            title = "Цвет", description = "BEZHEVIY"
+        ), GoodsParameters(
+            title = "Цвет", description = "MaGenta"
+        ), GoodsParameters(
+            title = "Цвет", description = "CMYK"
+        )
+    )
 }
 
 @Preview
@@ -155,20 +172,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
 private fun GoodsDetailsPagerPreview() {
     AppTheme {
         GoodsDetails(
-            state = GoodsDetailsState(
-                name = "SUPER COOL GOOD",
-                description = "Гидрокостюм Dawn Patrol с молнией на груди отличается функциональностью и отличным теплосбережением, красивым ...",
-
-                parameters = listOf(
-                    GoodsParameters(
-                        title = "Цвет", description = "BEZHEVIY"
-                    ), GoodsParameters(
-                        title = "Цвет", description = "MaGenta"
-                    ), GoodsParameters(
-                        title = "Цвет", description = "CMYK"
-                    )
-                )
-            )
+            state = GoodsDetailsStatePreview()
         )
     }
 }

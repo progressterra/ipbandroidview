@@ -66,7 +66,7 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         modifier = Modifier.fillMaxWidth(),
                         name = it.name,
                         address = it.address,
-                        onClick = { interactor.openDetails(it) },
+                        onClick = { interactor.openDocument(it) },
                         stats = it.stats,
                         backgroundColor = AppTheme.colors.secondary
                     )
@@ -84,7 +84,7 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                                 modifier = Modifier.fillMaxWidth(),
                                 name = document.name,
                                 address = document.address,
-                                onClick = { interactor.openDetails(document) },
+                                onClick = { interactor.openDocument(document) },
                                 stats = document.stats
                             )
                         }

@@ -22,14 +22,15 @@ import com.progressterra.ipbandroidview.components.RemoveItemIcon
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.utils.SideBorder
 import com.progressterra.ipbandroidview.components.utils.sideBorder
+import com.progressterra.ipbandroidview.dto.component.InCartCounter
+import com.progressterra.ipbandroidview.dto.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 
 //TODO add preview
 
-data class GoodsBottomBarState(
-    val price: String, val count: Int
-)
+interface GoodsBottomBarState : InCartCounter, Price
+
 
 @Composable
 fun GoodsBottomBar(
@@ -54,7 +55,7 @@ fun GoodsBottomBar(
                 lineHeight = 27.6.sp
             )
         )
-        if (state.count >= 1)
+        if (state.inCartCounter >= 1)
             Row(
                 modifier = Modifier
                     .clip(AppTheme.shapes.button)
@@ -66,7 +67,7 @@ fun GoodsBottomBar(
                     RemoveItemIcon()
                 }
                 Text(
-                    text = state.count.toString(),
+                    text = state.inCartCounter.toString(),
                     color = AppTheme.colors.black,
                     style = AppTheme.typography.button
                 )

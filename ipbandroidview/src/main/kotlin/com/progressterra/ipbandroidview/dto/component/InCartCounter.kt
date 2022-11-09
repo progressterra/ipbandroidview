@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.dto.component
 
-interface Visible {
+interface InCartCounter {
 
-    val visible: Boolean
+    val inCartCounter: Int
 }

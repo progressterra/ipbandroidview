@@ -2,7 +2,9 @@ package com.progressterra.ipbandroidview.ui.documents
 
 import com.progressterra.ipbandroidview.actions.Refresh
 
-interface DocumentsInteractor : Refresh, OpenDetails<Document> {
+interface DocumentsInteractor : Refresh {
+
+    fun openDocument(document: Document)
 
     fun openOrganizations()
 
@@ -10,8 +12,8 @@ interface DocumentsInteractor : Refresh, OpenDetails<Document> {
 
         override fun refresh() = Unit
 
-        override fun openDetails(key: Document) = Unit
-
         override fun openOrganizations() = Unit
+
+        override fun openDocument(document: Document) = Unit
     }
 }

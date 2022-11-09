@@ -5,7 +5,9 @@ import com.progressterra.ipbandroidview.actions.Refresh
 import com.progressterra.ipbandroidview.actions.Remove
 import com.progressterra.ipbandroidview.dto.CheckPicture
 
-interface ChecklistInteractor : Back, Refresh, Remove, OpenDetails<Check> {
+interface ChecklistInteractor : Back, Refresh, Remove {
+
+    fun openCheck(check: Check)
 
     fun closeCheck()
 
@@ -27,11 +29,11 @@ interface ChecklistInteractor : Back, Refresh, Remove, OpenDetails<Check> {
 
     class Empty : ChecklistInteractor {
 
+        override fun openCheck(check: Check) = Unit
+
         override fun back() = Unit
 
         override fun refresh() = Unit
-
-        override fun openDetails(key: Check) = Unit
 
         override fun closeCheck() = Unit
 

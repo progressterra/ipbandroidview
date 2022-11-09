@@ -221,7 +221,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         items(checks) {
                             CheckCard(
                                 modifier = Modifier.fillMaxWidth(), onClick = {
-                                    interactor.openDetails(it)
+                                    interactor.openCheck(it)
                                     coroutineScope.launch { sheetState.show() }
                                 }, name = it.name, yesNo = it.yesNo
                             )

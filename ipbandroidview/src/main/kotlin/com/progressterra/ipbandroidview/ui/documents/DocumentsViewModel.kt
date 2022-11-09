@@ -34,19 +34,19 @@ class DocumentsViewModel(
     }
 
 
-    override fun openDetails(key: Document) = intent {
+    override fun openDocument(document: Document) = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        documentChecklistUseCase.documentChecklist(key.documentId).onSuccess {
+        documentChecklistUseCase.documentChecklist(document.documentId).onSuccess {
             postSideEffect(
                 DocumentsEffect.OpenChecklist(
                     Checklist(
-                        checklistId = key.checklistId,
-                        placeId = key.placeId,
-                        name = key.name,
+                        checklistId = document.checklistId,
+                        placeId = document.placeId,
+                        name = document.name,
                         checks = it,
-                        done = key.finishDate != null,
-                        ongoing = key.finishDate == null,
-                        documentId = key.documentId
+                        done = document.finishDate != null,
+                        ongoing = document.finishDate == null,
+                        documentId = document.documentId
                     )
                 )
             )

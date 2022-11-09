@@ -23,19 +23,17 @@ import com.progressterra.ipbandroidview.dto.size.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun GoodsScreen(state: GoodsDetailsState, interactor: GoodsDetailsInteractor) {
+fun GoodsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        GoodsTopAppBar(
-            onBack = { interactor.back() },
+        GoodsTopAppBar(onBack = { interactor.back() },
             onFavorite = { interactor.favorite() },
-            state = state.topBarState
+            state = state
         )
     }, bottomBar = {
-        GoodsBottomBar(state = state.bottomBarState,
+        GoodsBottomBar(state = state,
             onAdd = { interactor.add() },
             onRemove = { interactor.remove() })
     }) { padding ->
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -46,16 +44,16 @@ fun GoodsScreen(state: GoodsDetailsState, interactor: GoodsDetailsInteractor) {
             Gallery(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(1f), state = state.galleryState
+                    .aspectRatio(1f), state = state
             )
             ColorsLine(modifier = Modifier.fillMaxWidth(),
-                state = state.colorsLineState,
+                state = state,
                 onColor = { interactor.color(it) })
             SizesLine(modifier = Modifier.fillMaxWidth(),
-                state = state.sizesState,
+                state = state,
                 onSize = { interactor.size(it) },
                 onTable = { interactor.sizeTable() })
-            GoodsDetails(modifier = Modifier.fillMaxWidth(), state = state.detailsState)
+            GoodsDetails(modifier = Modifier.fillMaxWidth(), state = state)
         }
     }
 }
@@ -68,7 +66,7 @@ private fun GoodsScreenPreview() {
             primary = "M", secondary = "36", available = true
         )
         GoodsScreen(
-            state = GoodsDetailsState(
+            state = GoodsDetailsScreenState(
                 Goods(
                     id = "",
                     name = "YOOU COOL NAME BRO",
@@ -79,7 +77,7 @@ private fun GoodsScreenPreview() {
                     image = "",
                     images = listOf("", "", ""),
                     parameters = listOf(),
-                    countInCart = 0,
+                    inCartCounter = 0,
                     sizes = listOf(
                         current,
                         GoodsSize(

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.dto.component
 
-interface Visible {
+interface Description {
 
-    val visible: Boolean
+    val description: String
 }

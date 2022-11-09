@@ -3,7 +3,9 @@ package com.progressterra.ipbandroidview.ui.organizationaudits
 import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.Refresh
 
-interface OrganizationAuditsInteractor : Refresh, Back, OpenDetails<OrganizationAudit> {
+interface OrganizationAuditsInteractor : Refresh, Back {
+
+    fun auditDetails(audit: OrganizationAudit)
 
     fun onMapClick()
 
@@ -15,6 +17,6 @@ interface OrganizationAuditsInteractor : Refresh, Back, OpenDetails<Organization
 
         override fun refresh() = Unit
 
-        override fun openDetails(key: OrganizationAudit) = Unit
+        override fun auditDetails(audit: OrganizationAudit) = Unit
     }
 }

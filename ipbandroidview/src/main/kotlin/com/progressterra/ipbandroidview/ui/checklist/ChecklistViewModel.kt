@@ -17,11 +17,11 @@ import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.CheckMediaDetailsUseCase
 import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.domain.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
-import com.progressterra.ipbandroidview.domain.FetchExistingAuditUseCase
-import com.progressterra.ipbandroidview.dto.Checklist
 import com.progressterra.ipbandroidview.dto.CheckPicture
+import com.progressterra.ipbandroidview.dto.Checklist
 import com.progressterra.ipbandroidview.dto.Voice
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
@@ -87,8 +87,8 @@ class ChecklistViewModel(
         }
     }
 
-    override fun openDetails(key: Check) = intent {
-        reduce { state.copy(currentCheck = key) }
+    override fun openCheck(check: Check) = intent {
+        reduce { state.copy(currentCheck = check) }
         refresh()
     }
 

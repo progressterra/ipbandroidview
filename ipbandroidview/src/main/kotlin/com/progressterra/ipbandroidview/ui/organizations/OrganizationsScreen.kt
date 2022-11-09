@@ -51,7 +51,7 @@ fun OrganizationsScreen(
                         description = it.name,
                         warnings = it.warnings,
                         onClick = {
-                            interactor.openDetails(
+                            interactor.organizationDetails(
                                 it
                             )
                         })

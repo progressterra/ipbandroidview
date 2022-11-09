@@ -37,7 +37,7 @@ fun SearchBox(
 ) {
     Box(modifier = modifier.fillMaxSize()) {
         AnimatedVisibility(
-            visible = state.visible(),
+            visible = state.visible,
             enter = fadeIn(),
             exit = fadeOut()
         ) {
@@ -67,7 +67,7 @@ fun SearchBox(
             }
         }
         AnimatedVisibility(
-            visible = !state.visible(),
+            visible = !state.visible,
             enter = fadeIn(),
             exit = fadeOut()
         ) {

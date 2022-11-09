@@ -12,9 +12,9 @@ data class SearchState(
     override val keyword: String = "",
     override val searchScreenState: ScreenState = ScreenState.LOADING,
     override val searchGoods: List<Goods> = emptyList()
-): SearchBoxState, SearchBarState {
+) : SearchBoxState, SearchBarState {
 
-    override fun full(): Boolean = categoryId != null
+    override val full: Boolean get() = categoryId != null
 
-    override fun visible(): Boolean = filters.isNotEmpty() && keyword.isNotBlank()
+    override val visible: Boolean get() = filters.isNotEmpty() && keyword.isNotBlank()
 }

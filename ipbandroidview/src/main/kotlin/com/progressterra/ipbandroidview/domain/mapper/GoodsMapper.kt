@@ -42,7 +42,7 @@ interface GoodsMapper {
                 favorite = favoriteIds.contains(data.idUnique!!),
                 description = data.extendedDescription ?: noData,
                 parameters = parameters,
-                countInCart = data.countInCart ?: 0,
+                inCartCounter = data.countInCart ?: 0,
                 color = GoodsColor(image = "", name = data.colorName ?: noData),
                 size = GoodsSize(true, "", null),
                 sizes = emptyList(),
