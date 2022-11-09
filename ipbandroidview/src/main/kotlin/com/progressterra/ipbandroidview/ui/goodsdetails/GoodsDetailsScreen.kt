@@ -1,17 +1,16 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.ColorsLine
 import com.progressterra.ipbandroidview.components.Gallery
 import com.progressterra.ipbandroidview.components.SizesLine
@@ -36,23 +35,51 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
             onAdd = { interactor.add() },
             onRemove = { interactor.remove() })
     }) { padding ->
-        Column(
+        ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppTheme.colors.background)
-                .verticalScroll(rememberScrollState())
-                .padding(padding),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                .padding(padding)
+                .padding(start = 8.dp, top = 8.dp, end = 8.dp)
         ) {
-            Gallery(state = state)
-            ColorsLine(modifier = Modifier.fillMaxWidth(),
+            val (gallery, colors, sizes, details) = createRefs()
+            val margin = AppTheme.dimensions.medium
+            Gallery(modifier = Modifier
+                .constrainAs(gallery) {
+                    width = Dimension.fillToConstraints
+                    start.linkTo(parent.start)
+                    top.linkTo(parent.top)
+                    end.linkTo(parent.end)
+                }
+                .aspectRatio(1f), state = state)
+            ColorsLine(modifier = Modifier
+                .constrainAs(colors) {
+                    width = Dimension.fillToConstraints
+                    start.linkTo(parent.start)
+                    top.linkTo(gallery.bottom, margin)
+                    end.linkTo(parent.end)
+                },
                 state = state,
                 onColor = { interactor.color(it) })
-            SizesLine(modifier = Modifier.fillMaxWidth(),
+            SizesLine(modifier = Modifier
+                .constrainAs(sizes) {
+                    width = Dimension.fillToConstraints
+                    start.linkTo(parent.start)
+                    top.linkTo(colors.bottom, margin)
+                    end.linkTo(parent.end)
+                },
                 state = state,
                 onSize = { interactor.size(it) },
                 onTable = { interactor.sizeTable() })
-            GoodsDetails(state = state)
+            GoodsDetails(
+                modifier = Modifier
+                    .constrainAs(details) {
+                        width = Dimension.fillToConstraints
+                        start.linkTo(parent.start)
+                        top.linkTo(sizes.bottom, margin)
+                        end.linkTo(parent.end)
+                    }, state = state
+            )
         }
     }
 }
