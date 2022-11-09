@@ -59,7 +59,7 @@ fun GoodsScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(lazyItems, key = { item -> item.id }) { card ->
+                items(lazyItems) { card ->
                     Box(modifier = Modifier.fillMaxSize()) {
                         card?.let {
                             StoreItemCard(modifier = Modifier.align(Alignment.Center),

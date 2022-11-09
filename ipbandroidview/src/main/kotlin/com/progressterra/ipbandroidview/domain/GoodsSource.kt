@@ -23,5 +23,10 @@ class GoodsSource(
         return LoadResult.Error(response.exceptionOrNull()!!)
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Goods>): Int? = state.anchorPosition
+    override fun getRefreshKey(state: PagingState<Int, Goods>): Int? {
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
+        }
+    }
 }

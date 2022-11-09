@@ -1,6 +1,9 @@
 package com.progressterra.ipbandroidview.ui.goods
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
@@ -37,7 +40,12 @@ class GoodsViewModel(
         state.currentCategory?.let {
             reduce { state.copy(screenState = ScreenState.LOADING) }
             goodsUseCase.goods(it).onSuccess {
-                reduce { state.copy(items = it, screenState = ScreenState.SUCCESS) }
+                reduce {
+                    state.copy(
+                        items = it.flow.cachedIn(viewModelScope),
+                        screenState = ScreenState.SUCCESS
+                    )
+                }
             }.onFailure {
                 reduce { state.copy(screenState = ScreenState.ERROR) }
             }

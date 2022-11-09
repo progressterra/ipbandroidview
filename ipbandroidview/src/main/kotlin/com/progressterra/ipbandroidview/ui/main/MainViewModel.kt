@@ -32,10 +32,10 @@ class MainViewModel(
 
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        goodsUseCase.goods(DomainConstants.MAIN_DEFAULT_CATEGORY_ID).onSuccess { flow ->
+        goodsUseCase.goods(DomainConstants.MAIN_DEFAULT_CATEGORY_ID).onSuccess {
             reduce {
                 state.copy(
-                    items = flow.cachedIn(viewModelScope), screenState = ScreenState.SUCCESS
+                    items = it.flow.cachedIn(viewModelScope), screenState = ScreenState.SUCCESS
                 )
             }
         }

@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,7 +24,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
-    Scaffold(modifier = Modifier, topBar = {
+    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         GoodsTopAppBar(
             onBack = { interactor.back() },
             onFavorite = { interactor.favorite() },
@@ -41,18 +42,18 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                 .padding(start = 8.dp, top = 8.dp, end = 8.dp)
         ) {
             item { Gallery(modifier = Modifier.size(300.dp, 300.dp), state = state) }
-            item {
-                ColorsLine(
-                    modifier = Modifier.height(100.dp),
-                    state = state,
-                    onColor = { interactor.color(it) })
-            }
-            item {
-                SizesLine(modifier = Modifier.height(100.dp),
-                    state = state,
-                    onSize = { interactor.size(it) },
-                    onTable = { interactor.sizeTable() })
-            }
+//            item {
+//                ColorsLine(
+//                    modifier = Modifier.height(100.dp),
+//                    state = state,
+//                    onColor = { interactor.color(it) })
+//            }
+//            item {
+//                SizesLine(modifier = Modifier.height(100.dp),
+//                    state = state,
+//                    onSize = { interactor.size(it) },
+//                    onTable = { interactor.sizeTable() })
+//            }
             item {
                 GoodsDetails(
                     modifier = Modifier.size(

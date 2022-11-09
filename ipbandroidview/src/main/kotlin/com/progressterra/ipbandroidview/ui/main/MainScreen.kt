@@ -68,16 +68,16 @@ fun MainScreen(
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(lazyItems, key = { item -> item.id }) { card ->
+                    items(lazyItems) { goods ->
                         Box(modifier = Modifier.fillMaxSize()) {
-                            card?.let {
+                            goods?.let {
                                 StoreItemCard(modifier = Modifier.align(Alignment.Center),
-                                    state = card,
-                                    onClick = { mainInteractor.goodsDetails(card) },
+                                    state = goods,
+                                    onClick = { mainInteractor.goodsDetails(goods) },
                                     onFavorite = {
                                         mainInteractor.favorite(
-                                            card.id,
-                                            card.favorite
+                                            goods.id,
+                                            goods.favorite
                                         )
                                     })
                             }
