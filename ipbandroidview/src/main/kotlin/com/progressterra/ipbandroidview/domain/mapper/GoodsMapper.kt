@@ -52,7 +52,7 @@ interface GoodsMapper {
         //TODO IMAGE COLOR, SIZE
 
         data class ImageData(
-            @SerializedName("dataList") val list: List<Item>
+            @SerializedName("datalist") val list: List<Item>
         ) {
 
             data class Item(

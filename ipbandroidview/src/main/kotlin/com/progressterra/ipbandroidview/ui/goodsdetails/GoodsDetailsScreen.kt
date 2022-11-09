@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,7 +27,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
-        GoodsTopAppBar(onBack = { interactor.back() },
+        GoodsTopAppBar(
+            onBack = { interactor.back() },
             onFavorite = { interactor.favorite() },
             state = state
         )
@@ -38,6 +41,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppTheme.colors.background)
+                .verticalScroll(rememberScrollState())
                 .padding(padding),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
