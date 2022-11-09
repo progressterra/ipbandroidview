@@ -18,7 +18,6 @@ import com.progressterra.ipbandroidview.core.startactivity.StartActivity
 import com.progressterra.ipbandroidview.core.startactivity.StartActivityCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
-import com.progressterra.ipbandroidview.domain.CatalogUseCase
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.CatalogMapper
