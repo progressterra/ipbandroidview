@@ -7,10 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
@@ -90,18 +86,16 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
         }
     }
 
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
-    ) {
-        val pagerState = rememberPagerState()
-        HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(count = 3, state = pagerState) {
+    val pagerState = rememberPagerState()
+    HorizontalPager(modifier = modifier, count = 3, state = pagerState) {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+        ) {
+            HorizontalTabs(pagerState = pagerState)
             Column(
                 modifier = Modifier
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .verticalScroll(rememberScrollState())
                     .padding(AppTheme.dimensions.large),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
             ) {
@@ -123,23 +117,19 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )
-                    LazyColumn(
-                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
-                    ) {
-                        items(state.parameters) {
-                            Row {
-                                Text(
-                                    modifier = Modifier.width(104.dp),
-                                    text = it.title,
-                                    color = AppTheme.colors.gray2,
-                                    style = AppTheme.typography.secondaryText
-                                )
-                                Text(
-                                    text = it.description,
-                                    color = AppTheme.colors.black,
-                                    style = AppTheme.typography.secondaryText
-                                )
-                            }
+                    state.parameters.forEach {
+                        Row {
+                            Text(
+                                modifier = Modifier.width(104.dp),
+                                text = it.title,
+                                color = AppTheme.colors.gray2,
+                                style = AppTheme.typography.secondaryText
+                            )
+                            Text(
+                                text = it.description,
+                                color = AppTheme.colors.black,
+                                style = AppTheme.typography.secondaryText
+                            )
                         }
                     }
                 }

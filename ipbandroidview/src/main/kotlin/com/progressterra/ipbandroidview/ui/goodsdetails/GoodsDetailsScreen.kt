@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -17,6 +16,7 @@ import com.progressterra.ipbandroidview.components.ColorsLine
 import com.progressterra.ipbandroidview.components.Gallery
 import com.progressterra.ipbandroidview.components.SizesLine
 import com.progressterra.ipbandroidview.components.bottombar.GoodsBottomBar
+import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetails
 import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBar
 import com.progressterra.ipbandroidview.dto.Goods
 import com.progressterra.ipbandroidview.dto.GoodsColor
@@ -44,7 +44,9 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                 .padding(start = 8.dp, top = 8.dp, end = 8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            item { Gallery(modifier = Modifier.fillMaxWidth().aspectRatio(1f), state = state) }
+            item { Gallery(modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f), state = state) }
             item {
                 ColorsLine(
                     modifier = Modifier.fillMaxWidth(),
@@ -57,15 +59,12 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                     onSize = { interactor.size(it) },
                     onTable = { interactor.sizeTable() })
             }
-//            item {
-//                GoodsDetails(
-//                    modifier = Modifier.size(
-//                        width = 300.dp,
-//                        height = 200.dp
-//                    ),
-//                    state = state
-//                )
-//            }
+            item {
+                GoodsDetails(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state
+                )
+            }
         }
 
     }
