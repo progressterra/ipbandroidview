@@ -2,13 +2,11 @@ package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,27 +35,34 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
             onAdd = { interactor.add() },
             onRemove = { interactor.remove() })
     }) { padding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .background(AppTheme.colors.background)
-                .verticalScroll(rememberScrollState())
                 .padding(padding),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
-            Gallery(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f), state = state
-            )
-            ColorsLine(modifier = Modifier.fillMaxWidth(),
-                state = state,
-                onColor = { interactor.color(it) })
-            SizesLine(modifier = Modifier.fillMaxWidth(),
-                state = state,
-                onSize = { interactor.size(it) },
-                onTable = { interactor.sizeTable() })
-            GoodsDetails(modifier = Modifier.fillMaxWidth(), state = state)
+            item {
+                Gallery(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f), state = state
+                )
+            }
+            item {
+                ColorsLine(modifier = Modifier.fillMaxWidth(),
+                    state = state,
+                    onColor = { interactor.color(it) })
+            }
+            item {
+                SizesLine(modifier = Modifier.fillMaxWidth(),
+                    state = state,
+                    onSize = { interactor.size(it) },
+                    onTable = { interactor.sizeTable() })
+            }
+            item {
+                GoodsDetails(modifier = Modifier.fillMaxWidth(), state = state)
+            }
         }
     }
 }
