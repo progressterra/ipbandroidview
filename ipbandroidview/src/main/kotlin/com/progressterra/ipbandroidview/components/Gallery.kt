@@ -2,8 +2,10 @@ package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,43 +27,53 @@ interface GalleryState : Images
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
-    Box(modifier = modifier) {
-        val pagerState = rememberPagerState()
-        HorizontalPager(
-            count = state.images.size, state = pagerState
-        ) {
+    val pagerState = rememberPagerState()
+    HorizontalPager(
+        modifier = modifier,
+        count = state.images.size,
+        state = pagerState
+    ) {
+        Box {
             SimpleImage(
-                modifier = Modifier
+                modifier = Modifier.fillMaxSize()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces),
                 url = state.images[it],
                 options = ImageOptions(contentScale = ContentScale.FillBounds),
                 backgroundColor = AppTheme.colors.surfaces
             )
-        }
-        Box(
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(8.dp)
-                .clip(CircleShape)
-                .background(AppTheme.colors.background)
-                .padding(vertical = 4.dp, horizontal = 6.dp)
-        ) {
-            HorizontalPagerIndicator(
-                pagerState = pagerState,
-                activeColor = AppTheme.colors.primary,
-                inactiveColor = AppTheme.colors.surfaces
-            )
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(8.dp)
+                    .clip(CircleShape)
+                    .background(AppTheme.colors.background)
+                    .padding(vertical = 4.dp, horizontal = 6.dp)
+            ) {
+                HorizontalPagerIndicator(
+                    pagerState = pagerState,
+                    activeColor = AppTheme.colors.primary,
+                    inactiveColor = AppTheme.colors.surfaces
+                )
+            }
         }
     }
 }
 
-private class GalleryStatePreview(override val images: List<String> = emptyList()) : GalleryState
+private class GalleryStatePreview(override val images: List<String> = emptyList()) :
+    GalleryState
 
 @Preview
 @Composable
 private fun GalleryPreview() {
     AppTheme {
-        Gallery(modifier = Modifier.size(350.dp), state = GalleryStatePreview())
+        LazyColumn {
+            item {
+                Gallery(
+                    modifier = Modifier.size(350.dp),
+                    state = GalleryStatePreview(images = listOf("", "", ""))
+                )
+            }
+        }
     }
 }
