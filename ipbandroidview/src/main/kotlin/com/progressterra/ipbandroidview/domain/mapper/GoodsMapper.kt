@@ -35,8 +35,8 @@ interface GoodsMapper {
                 ).list
             } ?: emptyList()
             return Goods(id = data.idUnique!!,
-                image = images.firstOrNull { it.sizeType == 2 }?.url ?: "",
-                images = images.filter { it.sizeType == 3 }.map { it.url },
+                image = images.firstOrNull()?.url ?: "",
+                images = images.map { it.url },
                 price = data.currentPrice?.let { priceMapper.map(it) } ?: noData,
                 name = data.name ?: noData,
                 favorite = favoriteIds.contains(data.idUnique!!),
@@ -52,12 +52,11 @@ interface GoodsMapper {
         //TODO IMAGE COLOR, SIZE
 
         data class ImageData(
-            @SerializedName("listInfoImage") val list: List<Item>
+            @SerializedName("dataList") val list: List<Item>
         ) {
 
             data class Item(
-                @SerializedName("URL") val url: String,
-                @SerializedName("SizeType") val sizeType: Int
+                @SerializedName("URL") val url: String
             )
         }
     }

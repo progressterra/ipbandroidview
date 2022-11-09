@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.components
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,6 +28,7 @@ fun SimpleImage(
         },
         failure = {
             Text(
+                modifier = Modifier.align(Alignment.Center),
                 text = stringResource(id = R.string.image_missing),
                 color = AppTheme.colors.error,
                 style = AppTheme.typography.text
