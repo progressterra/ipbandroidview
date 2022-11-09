@@ -48,6 +48,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
             val margin = AppTheme.dimensions.medium
             Gallery(modifier = Modifier
                 .constrainAs(gallery) {
+                    height = Dimension.value(300.dp)
                     width = Dimension.fillToConstraints
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
@@ -70,6 +71,7 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                 onTable = { interactor.sizeTable() })
             GoodsDetails(
                 modifier = Modifier.constrainAs(details) {
+                    height = Dimension.value(300.dp)
                     width = Dimension.fillToConstraints
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
