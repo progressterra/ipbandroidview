@@ -37,9 +37,12 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
     }) { padding ->
         LazyColumn(
             modifier = Modifier
-                .background(AppTheme.colors.background)
+                .background(AppTheme.colors.error)
+
+//                .background(AppTheme.colors.background)
                 .padding(padding)
                 .padding(start = 8.dp, top = 8.dp, end = 8.dp)
+                .background(AppTheme.colors.primary)
         ) {
 //            item { Gallery(modifier = Modifier.size(300.dp, 300.dp), state = state) }
 //            item {
