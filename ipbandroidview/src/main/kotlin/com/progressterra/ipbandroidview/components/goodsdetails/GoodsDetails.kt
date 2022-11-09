@@ -94,7 +94,6 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
         }
     }
     Column(
-        modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
     ) {
         val pagerState = rememberPagerState()

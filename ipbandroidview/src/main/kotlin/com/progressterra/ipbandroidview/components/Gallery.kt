@@ -2,7 +2,8 @@ package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -33,7 +34,8 @@ fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
         ) {
             SimpleImage(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces),
                 url = state.images[it],

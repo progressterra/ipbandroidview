@@ -65,7 +65,6 @@ fun SizesLine(
             }
         }
     }
-
     Column(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
