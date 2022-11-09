@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.ColorsLine
 import com.progressterra.ipbandroidview.components.Gallery
+import com.progressterra.ipbandroidview.components.SizesLine
 import com.progressterra.ipbandroidview.components.bottombar.GoodsBottomBar
 import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBar
 import com.progressterra.ipbandroidview.dto.Goods
@@ -50,12 +51,12 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                     state = state,
                     onColor = { interactor.color(it) })
             }
-//            item {
-//                SizesLine(modifier = Modifier.height(100.dp),
-//                    state = state,
-//                    onSize = { interactor.size(it) },
-//                    onTable = { interactor.sizeTable() })
-//            }
+            item {
+                SizesLine(modifier = Modifier.fillMaxWidth(),
+                    state = state,
+                    onSize = { interactor.size(it) },
+                    onTable = { interactor.sizeTable() })
+            }
 //            item {
 //                GoodsDetails(
 //                    modifier = Modifier.size(
