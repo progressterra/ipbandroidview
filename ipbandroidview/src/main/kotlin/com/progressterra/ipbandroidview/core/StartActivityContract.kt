@@ -2,19 +2,25 @@ package com.progressterra.ipbandroidview.core
 
 import android.content.Intent
 
-interface StartActivity {
+interface StartActivityContract {
 
-    suspend fun start(intent: Intent)
+    interface Client {
 
-    interface Listener : StartActivity
+        fun start(intent: Intent)
+    }
 
-    interface Activity : StartActivity {
+    interface Listener {
+
+        fun start(intent: Intent)
+    }
+
+    interface Activity {
 
 
         fun setListener(listener: Listener)
     }
 
-    class Base : Activity {
+    class Base : Activity, Client {
 
         private lateinit var listener: Listener
 
@@ -22,7 +28,7 @@ interface StartActivity {
             this.listener = listener
         }
 
-        override suspend fun start(intent: Intent) = listener.start(intent)
+        override fun start(intent: Intent) = listener.start(intent)
 
     }
 }

@@ -4,10 +4,9 @@ import android.Manifest
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
-import com.progressterra.ipbandroidview.core.ManagePermission
+import com.progressterra.ipbandroidview.core.ManagePermissionContract
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
@@ -18,7 +17,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class CityViewModel(
-    private val managePermission: ManagePermission,
+    private val managePermissionContract: ManagePermissionContract.Client,
     private val guessLocationUseCase: GuessLocationUseCase,
     private val suggestionUseCase: SuggestionUseCase
 ) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
@@ -28,14 +27,14 @@ class CityViewModel(
 
 
     init {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch {
             delay(3000)
             checkPermission()
         }
     }
 
     private fun checkPermission() = intent {
-        val result = managePermission.checkPermission(locationPermission)
+        val result = managePermissionContract.checkPermission(locationPermission)
         reduce { state.copy(isPermissionGranted = result) }
     }
 

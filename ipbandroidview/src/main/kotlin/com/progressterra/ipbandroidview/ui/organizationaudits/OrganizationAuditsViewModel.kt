@@ -4,7 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.core.StartActivity
+import com.progressterra.ipbandroidview.core.StartActivityContract
 import com.progressterra.ipbandroidview.domain.usecase.ChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.model.Checklist
@@ -18,7 +18,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class OrganizationAuditsViewModel(
     private val organizationAuditsUseCase: OrganizationAuditsUseCase,
-    private val startActivity: StartActivity,
+    private val startActivityContract: StartActivityContract.Client,
     private val checklistUseCase: ChecklistUseCase
 ) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect>,
     OrganizationAuditsInteractor {
@@ -63,7 +63,7 @@ class OrganizationAuditsViewModel(
         val mapIntent =
             Intent(Intent.ACTION_VIEW, Uri.parse("geo:${state.latitude},${state.longitude}"))
         mapIntent.setPackage("com.google.android.apps.maps")
-        startActivity.start(mapIntent)
+        startActivityContract.start(mapIntent)
     }
 
     override fun back() = intent {

@@ -9,8 +9,8 @@ import com.progressterra.ipbandroidview.components.VoiceState
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.core.FileExplorer
-import com.progressterra.ipbandroidview.core.MakePhoto
-import com.progressterra.ipbandroidview.core.ManagePermission
+import com.progressterra.ipbandroidview.core.MakePhotoContract
+import com.progressterra.ipbandroidview.core.ManagePermissionContract
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
@@ -41,12 +41,12 @@ class ChecklistViewModel(
     private val updateAnswerUseCase: UpdateAnswerUseCase,
     private val fetchExistingAuditUseCase: FetchExistingAuditUseCase,
     private val documentChecklistUseCase: DocumentChecklistUseCase,
-    private val managePermission: ManagePermission,
+    private val managePermissionContract: ManagePermissionContract.Client,
     private val voiceManager: VoiceManager,
     private val audioManager: AudioManager,
     private val fileExplorer: FileExplorer,
     private val checkMediaDetailsUseCase: CheckMediaDetailsUseCase,
-    private val makePhoto: MakePhoto
+    private val makePhotoContract: MakePhotoContract.Client
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
     ChecklistInteractor {
 
@@ -241,7 +241,7 @@ class ChecklistViewModel(
                 )
             }
         } else {
-            if (managePermission.checkPermission(micPermission)) {
+            if (managePermissionContract.checkPermission(micPermission)) {
                 val newVoiceId = "TempVoice_${System.currentTimeMillis()}"
                 state.currentCheck?.let {
                     voiceManager.startRecording(fileExplorer.audioFile(newVoiceId))
@@ -261,7 +261,7 @@ class ChecklistViewModel(
                     }
                 }
             } else
-                managePermission.requestPermission(micPermission)
+                managePermissionContract.requestPermission(micPermission)
         }
     }
 
@@ -319,12 +319,12 @@ class ChecklistViewModel(
     }
 
     override fun onCamera() = intent {
-        if (managePermission.checkPermission(cameraPermission)) {
+        if (managePermissionContract.checkPermission(cameraPermission)) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val newPhotoId = "TempPhoto_${System.currentTimeMillis()}"
             val uri = fileExplorer.uriForFile(fileExplorer.pictureFile(newPhotoId))
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            if (makePhoto.makePhoto(intent)) reduce {
+            if (makePhotoContract.makePhoto(intent)) reduce {
                 state.copy(
                     currentCheckMedia = state.currentCheckMedia!!.copy(
                         pictures = state.currentCheckMedia!!.pictures.plus(
@@ -339,6 +339,6 @@ class ChecklistViewModel(
                     )
                 )
             }
-        } else managePermission.requestPermission(cameraPermission)
+        } else managePermissionContract.requestPermission(cameraPermission)
     }
 }
