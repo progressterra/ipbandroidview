@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.dto.Goods
 import com.progressterra.ipbandroidview.dto.GoodsColor
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
@@ -11,7 +12,9 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class GoodsDetailsViewModel : ViewModel(),
+class GoodsDetailsViewModel(
+    private val modifyFavoriteUseCase: ModifyFavoriteUseCase
+) : ViewModel(),
     ContainerHost<GoodsDetailsScreenState, GoodsDetailsEffect>, GoodsDetailsInteractor {
 
     override val container: Container<GoodsDetailsScreenState, GoodsDetailsEffect> =
@@ -19,7 +22,7 @@ class GoodsDetailsViewModel : ViewModel(),
 
     @Suppress("unused")
     fun setGoods(goods: Goods) = intent {
-        reduce { state.copy(goods = goods) }
+        reduce { GoodsDetailsScreenState(goods) }
     }
 
     override fun back() = intent {
@@ -27,26 +30,27 @@ class GoodsDetailsViewModel : ViewModel(),
     }
 
     override fun add() {
-        TODO("Not yet implemented")
+
     }
 
     override fun remove() {
-        TODO("Not yet implemented")
+
     }
 
-    override fun favorite() {
-        TODO("Not yet implemented")
+    override fun favorite() = intent {
+        modifyFavoriteUseCase.modifyFavorite(state.id, state.favorite)
+            .onSuccess { reduce { state.copy(favorite = !state.favorite) } }
     }
 
     override fun color(color: GoodsColor) {
-        TODO("Not yet implemented")
+
     }
 
     override fun size(size: GoodsSize) {
-        TODO("Not yet implemented")
+
     }
 
     override fun sizeTable() {
-        TODO("Not yet implemented")
+
     }
 }

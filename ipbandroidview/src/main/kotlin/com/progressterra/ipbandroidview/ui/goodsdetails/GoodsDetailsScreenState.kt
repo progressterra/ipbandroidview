@@ -9,28 +9,43 @@ import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBarState
 import com.progressterra.ipbandroidview.dto.Goods
 import com.progressterra.ipbandroidview.dto.GoodsColor
 import com.progressterra.ipbandroidview.dto.GoodsParameters
+import com.progressterra.ipbandroidview.dto.component.Id
 import com.progressterra.ipbandroidview.dto.size.GoodsSize
 
 
 data class GoodsDetailsScreenState(
-    private val goods: Goods? = null
+    override val color: GoodsColor = GoodsColor("", ""),
+    override val colors: List<GoodsColor> = emptyList(),
+    override val description: String = "",
+    override val favorite: Boolean = false,
+    override val images: List<String> = emptyList(),
+    override val inCartCounter: Int = 0,
+    override val name: String = "",
+    override val parameters: List<GoodsParameters> = emptyList(),
+    override val price: String = "",
+    override val size: GoodsSize = GoodsSize(false, "", null),
+    override val sizes: List<GoodsSize> = emptyList(),
+    override val id: String = ""
 ) :
     GoodsTopAppBarState,
     GoodsBottomBarState,
     GalleryState,
     ColorsLineState,
     SizesLineState,
-    GoodsDetailsState {
+    GoodsDetailsState, Id {
 
-    override val color: GoodsColor = goods?.color ?: GoodsColor("", "")
-    override val colors: List<GoodsColor> = goods?.colors ?: emptyList()
-    override val description: String = goods?.description ?: ""
-    override val favorite: Boolean = goods?.favorite ?: false
-    override val images: List<String> = goods?.images ?: emptyList()
-    override val inCartCounter: Int = goods?.inCartCounter ?: 0
-    override val name: String = goods?.name ?: ""
-    override val parameters: List<GoodsParameters> = goods?.parameters ?: emptyList()
-    override val price: String = goods?.price ?: ""
-    override val size: GoodsSize = goods?.size ?: GoodsSize(false, "", null)
-    override val sizes: List<GoodsSize> = goods?.sizes ?: emptyList()
+    constructor(goods: Goods) : this(
+        color = goods.color,
+        colors = goods.colors,
+        description = goods.description,
+        favorite = goods.favorite,
+        images = goods.images,
+        inCartCounter = goods.inCartCounter,
+        name = goods.name,
+        parameters = goods.parameters,
+        price = goods.price,
+        size = goods.size,
+        sizes = goods.sizes,
+        id = goods.id
+    )
 }
