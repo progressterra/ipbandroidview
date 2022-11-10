@@ -69,11 +69,16 @@ val iPBAndroidViewModule = module {
 
     single {
         ManagePermissionContract.Base()
-    }.binds(arrayOf(ManagePermissionContract::class, ManagePermissionContract.Activity::class))
+    }.binds(
+        arrayOf(
+            ManagePermissionContract.Client::class,
+            ManagePermissionContract.Activity::class
+        )
+    )
 
     single {
         StartActivityContract.Base()
-    }.binds(arrayOf(StartActivityContract::class, StartActivityContract.Activity::class))
+    }.binds(arrayOf(StartActivityContract.Client::class, StartActivityContract.Activity::class))
 
     single {
         MakePhotoContract.Base()
