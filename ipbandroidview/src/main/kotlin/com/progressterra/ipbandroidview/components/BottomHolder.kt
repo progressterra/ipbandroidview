@@ -17,7 +17,6 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun BottomHolder(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
-
     Column(
         modifier = modifier
             .clip(

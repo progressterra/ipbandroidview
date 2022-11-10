@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +19,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -30,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,6 +40,7 @@ import com.progressterra.ipbandroidview.components.CategoryDivider
 import com.progressterra.ipbandroidview.components.CheckCard
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedButton
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.ThemedNotebook
 import com.progressterra.ipbandroidview.components.VoiceInput
 import com.progressterra.ipbandroidview.components.VoiceState
@@ -176,7 +174,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
             }
         }, sheetBackgroundColor = AppTheme.colors.surfaces
     ) {
-        Scaffold(topBar = {
+        ThemedLayout(topBar = {
             ThemedTopAppBar(
                 onBack = { interactor.back() }, title = stringResource(id = R.string.audit)
             )
@@ -200,17 +198,19 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     }
                 }
             }
-        }, backgroundColor = Color.Transparent) { padding ->
+        }) { topPadding, bottomPadding ->
             val groupedChecks by remember(state.checklist.checks) {
                 mutableStateOf(state.checklist.checks.groupBy { it.categoryNumber })
             }
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding)
-                    .background(AppTheme.colors.background),
+                    .padding(
+                        start = AppTheme.dimensions.medium,
+                        top = topPadding + AppTheme.dimensions.medium,
+                        end = AppTheme.dimensions.medium
+                    ),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(8.dp)
             ) {
                 item {
                     AuditTitle(
@@ -238,6 +238,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                         )
                     }
                 }
+                item { Spacer(modifier = Modifier.size(bottomPadding)) }
             }
         }
     }
