@@ -19,6 +19,9 @@ class FavoritesViewModel(
 
     override val container: Container<FavoritesState, FavoritesEffect> = container(FavoritesState())
 
+    init {
+        refresh()
+    }
 
     override fun favorite(goodsId: String, favorite: Boolean) = intent {
         modifyFavoriteUseCase.modifyFavorite(goodsId, favorite).onSuccess { refresh() }
