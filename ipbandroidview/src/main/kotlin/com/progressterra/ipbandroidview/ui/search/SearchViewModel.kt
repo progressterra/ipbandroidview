@@ -21,14 +21,10 @@ class SearchViewModel(
     override val container: Container<SearchState, SearchEffect> = container(SearchState())
 
     override fun back() = intent {
-        reduce {
-            state.copy(
-                filters = emptyList(),
-                keyword = "",
-                searchScreenState = ScreenState.SUCCESS,
-                searchGoods = emptyList()
-            )
-        }
+        if (state.isEmpty())
+            postSideEffect(SearchEffect.Back)
+        else
+            reduce { state.clear() }
     }
 
     @Suppress("unused")

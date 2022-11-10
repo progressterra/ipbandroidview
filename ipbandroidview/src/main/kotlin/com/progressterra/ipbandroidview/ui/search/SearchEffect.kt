@@ -8,4 +8,6 @@ sealed class SearchEffect {
     class GoodsDetails(val goods: Goods) : SearchEffect()
 
     object Search : SearchEffect()
+
+    object Back : SearchEffect()
 }
