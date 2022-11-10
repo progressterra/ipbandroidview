@@ -21,7 +21,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
-import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -95,15 +94,13 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     start.linkTo(background.start, 12.dp)
                     end.linkTo(background.end, 12.dp)
                     bottom.linkTo(background.bottom, 12.dp)
-                }, cameraPositionState = cameraPositionState, uiSettings = MapUiSettings(
-                myLocationButtonEnabled = true,
-                mapToolbarEnabled = false,
-                zoomControlsEnabled = false,
-                compassEnabled = false
-            ), onMapClick = { interactor.onMapClick(it) }, onMyLocationButtonClick = {
-                interactor.onMyLocation()
-                false
-            }) {
+                },
+                cameraPositionState = cameraPositionState,
+                onMapClick = { interactor.onMapClick(it) },
+                onMyLocationButtonClick = {
+                    interactor.onMyLocation()
+                    false
+                }) {
                 state.mapMarker.latLng?.let {
                     Marker(
                         MarkerState(state.mapMarker.latLng),
