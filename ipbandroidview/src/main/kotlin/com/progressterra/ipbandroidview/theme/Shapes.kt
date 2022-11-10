@@ -7,9 +7,24 @@ import androidx.compose.ui.unit.dp
 
 @Immutable
 data class Shapes(
+    /**
+     * Rounded with 6 dp by default
+     */
     val tiny: CornerBasedShape = RoundedCornerShape(6.dp),
+    /**
+     * Rounded with 8 dp by default
+     */
     val small: CornerBasedShape = RoundedCornerShape(8.dp),
+    /**
+     * Rounded with 12 dp by default
+     */
     val medium: CornerBasedShape = RoundedCornerShape(12.dp),
+    /**
+     * Rounded with 20 dp by default
+     */
     val large: CornerBasedShape = RoundedCornerShape(20.dp),
+    /**
+     * Rounded with 14 dp by default
+     */
     val button: CornerBasedShape = RoundedCornerShape(14.dp)
 )

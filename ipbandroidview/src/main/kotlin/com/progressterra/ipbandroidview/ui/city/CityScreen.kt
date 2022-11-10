@@ -28,7 +28,6 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.AddressSuggestions
 import com.progressterra.ipbandroidview.components.BottomHolder
-import com.progressterra.ipbandroidview.components.LocationButton
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedTextButton
 import com.progressterra.ipbandroidview.components.ThemedTextField
@@ -53,7 +52,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     start = 8.dp, top = 8.dp, end = 8.dp
                 )
         ) {
-            val (buttons, map, address, background, suggestions, fab) = createRefs()
+            val (buttons, map, address, background, suggestions) = createRefs()
             Box(modifier = Modifier
                 .clip(AppTheme.shapes.medium)
                 .background(AppTheme.colors.surfaces)
@@ -87,19 +86,24 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     )
                 }
             }
-            GoogleMap(modifier = Modifier.constrainAs(map) {
-                height = Dimension.fillToConstraints
-                width = Dimension.fillToConstraints
-                top.linkTo(address.bottom, 12.dp)
-                start.linkTo(background.start, 12.dp)
-                end.linkTo(background.end, 12.dp)
-                bottom.linkTo(background.bottom, 12.dp)
-            }, cameraPositionState = cameraPositionState, uiSettings = MapUiSettings(
-                myLocationButtonEnabled = false,
+            GoogleMap(modifier = Modifier
+                .clip(AppTheme.shapes.small)
+                .constrainAs(map) {
+                    height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
+                    top.linkTo(address.bottom, 12.dp)
+                    start.linkTo(background.start, 12.dp)
+                    end.linkTo(background.end, 12.dp)
+                    bottom.linkTo(background.bottom, 12.dp)
+                }, cameraPositionState = cameraPositionState, uiSettings = MapUiSettings(
+                myLocationButtonEnabled = true,
                 mapToolbarEnabled = false,
                 zoomControlsEnabled = false,
                 compassEnabled = false
-            ), onMapClick = { interactor.onMapClick(it) }) {
+            ), onMapClick = { interactor.onMapClick(it) }, onMyLocationButtonClick = {
+                interactor.onMyLocation()
+                false
+            }) {
                 state.mapMarker.latLng?.let {
                     Marker(
                         MarkerState(state.mapMarker.latLng),
@@ -138,10 +142,6 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     text = stringResource(id = R.string.auth_skip)
                 )
             }
-            LocationButton(modifier = Modifier.constrainAs(fab) {
-                bottom.linkTo(map.bottom, 12.dp)
-                end.linkTo(map.end, 12.dp)
-            }, onClick = { interactor.onMyLocation() })
         }
     }
 }
