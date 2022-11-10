@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.documents
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,6 +26,7 @@ import com.progressterra.ipbandroidview.components.CategoryDivider
 import com.progressterra.ipbandroidview.components.DocumentCard
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedButton
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
@@ -35,17 +34,15 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
-    Scaffold(topBar = {
+    ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
-    }) { padding ->
+    }) { _, _ ->
         StateBox(
             modifier = Modifier
-                .fillMaxSize()
-                .background(AppTheme.colors.background)
-                .padding(padding),
+                .fillMaxSize(),
             state = state.screenState,
             onRefresh = { interactor.refresh() }) {
-            var spacerSize by remember { mutableStateOf(0.dp) }
+            var buttonSize by remember { mutableStateOf(0.dp) }
             val unfinishedDocs by remember(state.documents) {
                 mutableStateOf(state.documents.filter { it.finishDate == null })
             }
@@ -90,7 +87,7 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         }
                     }
                 item {
-                    Spacer(modifier = Modifier.size(spacerSize + 24.dp))
+                    Spacer(modifier = Modifier.size(buttonSize + 24.dp))
                 }
             }
             val density = LocalDensity.current
@@ -101,7 +98,7 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                     .padding(start = 24.dp, end = 24.dp, bottom = 24.dp)
                     .fillMaxWidth()
                     .onGloballyPositioned {
-                        spacerSize = with(density) { it.size.height.toDp() }
+                        buttonSize = with(density) { it.size.height.toDp() }
                     },
                 onClick = { interactor.openOrganizations() },
                 text = stringResource(id = R.string.create_audit)

@@ -6,39 +6,37 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.ThemedButton
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.ThemedTextField
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsInteractor) {
-    Scaffold(topBar = {
+    ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.information),
             onBack = { interactor.back() })
-    }) { padding ->
+    }) { _, _ ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppTheme.colors.background)
-                .padding(padding)
-                .padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+                .padding(AppTheme.dimensions.medium),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                    .padding(AppTheme.dimensions.large),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
             ) {
                 ThemedTextField(modifier = Modifier.fillMaxWidth(),
                     text = state.name,

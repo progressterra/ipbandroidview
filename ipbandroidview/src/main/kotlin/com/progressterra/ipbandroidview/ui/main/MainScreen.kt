@@ -1,24 +1,21 @@
 package com.progressterra.ipbandroidview.ui.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.components.SearchBox
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.StoreItemCard
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.components.utils.items
 import com.progressterra.ipbandroidview.model.Goods
@@ -36,7 +33,7 @@ fun MainScreen(
     searchState: SearchState,
     searchInteractor: SearchInteractor
 ) {
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+    ThemedLayout(topBar = {
         SearchTopBar(
             state = searchState,
             onBack = { searchInteractor.back() },
@@ -44,19 +41,13 @@ fun MainScreen(
             onSearch = { searchInteractor.search() },
             onFilters = {}, full = false
         )
-    }) { padding ->
+    }) { _, _ ->
         SearchBox(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .background(AppTheme.colors.background)
-                .padding(start = 8.dp, top = 8.dp, end = 8.dp),
             state = searchState,
             onRefresh = { searchInteractor.refresh() },
             onFavorite = { goodsId, favorite -> searchInteractor.favorite(goodsId, favorite) },
             onGoods = { searchInteractor.goodsDetails(it) }) {
-            StateBox(modifier = Modifier
-                .fillMaxSize(),
+            StateBox(
                 state = mainState.screenState,
                 onRefresh = { mainInteractor.refresh() }) {
                 val lazyItems: LazyPagingItems<Goods> = mainState.items.collectAsLazyPagingItems()
@@ -64,22 +55,21 @@ fun MainScreen(
                     modifier = Modifier
                         .fillMaxSize(),
                     columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                    contentPadding = PaddingValues(AppTheme.dimensions.medium)
                 ) {
                     items(lazyItems) { goods ->
-                        Box(modifier = Modifier.fillMaxSize()) {
-                            goods?.let {
-                                StoreItemCard(modifier = Modifier.align(Alignment.Center),
-                                    state = goods,
-                                    onClick = { mainInteractor.goodsDetails(goods) },
-                                    onFavorite = {
-                                        mainInteractor.favorite(
-                                            goods.id,
-                                            goods.favorite
-                                        )
-                                    })
-                            }
+                        goods?.let {
+                            StoreItemCard(modifier = Modifier.align(Alignment.Center),
+                                state = goods,
+                                onClick = { mainInteractor.goodsDetails(goods) },
+                                onFavorite = {
+                                    mainInteractor.favorite(
+                                        goods.id,
+                                        goods.favorite
+                                    )
+                                })
                         }
                     }
                 }

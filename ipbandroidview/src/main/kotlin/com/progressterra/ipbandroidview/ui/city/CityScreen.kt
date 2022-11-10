@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +29,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.AddressSuggestions
 import com.progressterra.ipbandroidview.components.BottomHolder
 import com.progressterra.ipbandroidview.components.ThemedButton
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.ThemedTextButton
 import com.progressterra.ipbandroidview.components.ThemedTextField
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
@@ -37,21 +37,32 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun CityScreen(state: CityState, interactor: CityInteractor) {
-    Scaffold(topBar = {
+    ThemedLayout(topBar = {
         ThemedTopAppBar(
             title = stringResource(id = R.string.verification_code),
             onBack = { interactor.back() })
-    }) { padding ->
+    }, bottomBar = {
+        BottomHolder {
+            ThemedButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { interactor.next() },
+                text = stringResource(id = R.string.ready),
+                enabled = state.isDataValid,
+            )
+            Spacer(modifier = Modifier.size(8.dp))
+            ThemedTextButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { interactor.skip() },
+                text = stringResource(id = R.string.auth_skip)
+            )
+        }
+    }) { _, _ ->
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppTheme.colors.background)
-                .padding(padding)
-                .padding(
-                    start = 8.dp, top = 8.dp, end = 8.dp
-                )
+                .padding(AppTheme.dimensions.medium)
         ) {
-            val (buttons, map, address, background, suggestions) = createRefs()
+            val (map, address, background, suggestions) = createRefs()
             val cameraPositionState = rememberCameraPositionState {
                 position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 10f)
             }
@@ -68,7 +79,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                    bottom.linkTo(buttons.top, 8.dp)
+                    bottom.linkTo(parent.bottom)
                 })
             ThemedTextField(modifier = Modifier.constrainAs(address) {
                 width = Dimension.fillToConstraints
@@ -105,27 +116,7 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 suggestions = state.suggestions,
                 isVisible = state.isAddressInFocus && state.suggestions.isNotEmpty(),
                 onSuggestion = { interactor.onSuggestion(it) })
-            BottomHolder(modifier = Modifier.constrainAs(
-                buttons
-            ) {
-                width = Dimension.fillToConstraints
-                bottom.linkTo(parent.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }) {
-                ThemedButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.next() },
-                    text = stringResource(id = R.string.ready),
-                    enabled = state.isDataValid,
-                )
-                Spacer(modifier = Modifier.size(8.dp))
-                ThemedTextButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.skip() },
-                    text = stringResource(id = R.string.auth_skip)
-                )
-            }
+
         }
     }
 }

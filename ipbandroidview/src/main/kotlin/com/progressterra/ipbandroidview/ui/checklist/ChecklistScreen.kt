@@ -55,7 +55,6 @@ import com.progressterra.ipbandroidview.model.Checklist
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
-@Suppress("unused")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
@@ -158,7 +157,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                             }
                         }
                         if (state.checklist.ongoing) {
-                            Spacer(modifier = Modifier.size(25.dp))
+                            Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
                             Row(Modifier.padding(horizontal = 8.dp)) {
                                 ThemedButton(
                                     modifier = Modifier.fillMaxWidth(), onClick = {

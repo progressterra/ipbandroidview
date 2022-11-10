@@ -1,18 +1,16 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.SearchBox
 import com.progressterra.ipbandroidview.components.SubCategory
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.ui.search.SearchInteractor
@@ -25,26 +23,23 @@ fun SubCatalogScreen(
     searchState: SearchState,
     searchInteractor: SearchInteractor
 ) {
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+    ThemedLayout(topBar = {
         SearchTopBar(state = searchState,
             onBack = { searchInteractor.back() },
             onKeyword = { searchInteractor.keyword(it) },
             onSearch = { searchInteractor.search() },
             onFilters = {})
-    }) { padding ->
+    }) { _, _ ->
         SearchBox(
-            modifier = Modifier
-                .padding(padding),
             state = searchState,
             onRefresh = { searchInteractor.refresh() },
             onFavorite = { id, favorite -> searchInteractor.favorite(id, favorite) },
             onGoods = { searchInteractor.goodsDetails(it) }) {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(AppTheme.colors.background)
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                contentPadding = PaddingValues(AppTheme.dimensions.medium)
             ) {
                 items(subCatalogState.currentCategory?.subCategories ?: emptyList()) {
                     SubCategory(state = it, onClick = { subCatalogInteractor.subCategory(it) })

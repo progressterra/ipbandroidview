@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.BottomHolder
 import com.progressterra.ipbandroidview.components.ThemedButton
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.ThemedMimicField
 import com.progressterra.ipbandroidview.components.ThemedTextButton
 import com.progressterra.ipbandroidview.components.ThemedTextField
@@ -28,25 +28,36 @@ import java.time.LocalDate
 
 @Composable
 fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
-    Scaffold(topBar = {
+    ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.sign_up))
-    }) { padding ->
+    }, bottomBar = {
+        BottomHolder {
+            ThemedButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { interactor.next() },
+                text = stringResource(id = R.string.next),
+                enabled = state.isDataValid,
+            )
+            Spacer(modifier = Modifier.size(8.dp))
+            ThemedTextButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { interactor.skip() },
+                text = stringResource(id = R.string.auth_skip)
+            )
+        }
+    }) { _, _ ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(AppTheme.colors.background)
-                .padding(padding)
-                .padding(
-                    start = 8.dp, top = 8.dp, end = 8.dp
-                ),
-            verticalArrangement = Arrangement.SpaceBetween,
+                .padding(AppTheme.dimensions.medium)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(12.dp)
+                    .padding(12.dp),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
             ) {
                 if (state.showCalendar) {
                     ComposeCalendar(onDone = {
@@ -60,38 +71,21 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                     text = state.name,
                     hint = stringResource(id = R.string.name_surname),
                     onChange = { interactor.editName(it) })
-                Spacer(modifier = Modifier.size(12.dp))
                 ThemedTextField(modifier = Modifier.fillMaxWidth(),
                     text = state.email,
                     hint = stringResource(id = R.string.email),
                     onChange = { interactor.editEmail(it) })
-                Spacer(modifier = Modifier.size(12.dp))
                 ThemedMimicField(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { interactor.openCalendar() },
                     text = state.birthday,
                     hint = stringResource(id = R.string.birthday),
                 )
-                Spacer(modifier = Modifier.size(12.dp))
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.phoneNumber,
                     hint = stringResource(id = R.string.phone_number),
                     enabled = false
-                )
-            }
-            BottomHolder {
-                ThemedButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.next() },
-                    text = stringResource(id = R.string.next),
-                    enabled = state.isDataValid,
-                )
-                Spacer(modifier = Modifier.size(8.dp))
-                ThemedTextButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.skip() },
-                    text = stringResource(id = R.string.auth_skip)
                 )
             }
         }
@@ -105,7 +99,6 @@ private fun SignUpScreenPreviewEmpty() {
         SignUpScreen(SignUpState(phoneNumber = "+7 (996) 697-76-76"), SignUpInteractor.Empty())
     }
 }
-
 
 @Preview
 @Composable

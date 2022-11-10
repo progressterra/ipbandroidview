@@ -1,21 +1,19 @@
 package com.progressterra.ipbandroidview.ui.organizationaudits
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.OrganizationCheckCard
 import com.progressterra.ipbandroidview.components.OrganizationPresentation
+import com.progressterra.ipbandroidview.components.StateBox
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -24,24 +22,20 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun OrganizationAuditsScreen(
     state: OrganizationAuditsState, interactor: OrganizationAuditsInteractor
 ) {
-    Scaffold(topBar = {
+    ThemedLayout(topBar = {
         ThemedTopAppBar(
             onBack = { interactor.back() }, title = stringResource(id = R.string.organization)
         )
-    }) { padding ->
+    }) { _, _ ->
         StateBox(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(AppTheme.colors.background)
-                .padding(padding),
             onRefresh = { interactor.refresh() },
             state = state.screenState
         ) {
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 8.dp, start = 8.dp, end = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                contentPadding = PaddingValues(AppTheme.dimensions.medium)
             ) {
                 item {
                     OrganizationPresentation(name = state.organizationName,

@@ -1,14 +1,12 @@
 package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.BottomHolder
 import com.progressterra.ipbandroidview.components.ThemedButton
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.ThemedTextButton
 import com.progressterra.ipbandroidview.components.VerificationCodeInput
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
@@ -29,18 +28,29 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ConfirmationCodeScreen(
     state: ConfirmationCodeState, interactor: ConfirmationCodeInteractor
 ) {
-    Scaffold(topBar = {
+    ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.verification_code),
             onBack = { interactor.back() })
-    }) { padding ->
+    }, bottomBar = {
+        BottomHolder {
+            ThemedButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { interactor.next() },
+                text = stringResource(id = R.string.next)
+            )
+            Spacer(modifier = Modifier.size(8.dp))
+            ThemedTextButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { interactor.resend() },
+                text = if (state.isTimer) state.timer else stringResource(id = R.string.resend),
+                enabled = !state.isTimer
+            )
+        }
+    }) { _, _ ->
         Column(
             Modifier
                 .fillMaxSize()
-                .background(AppTheme.colors.background)
-                .padding(padding)
-                .padding(
-                    start = 8.dp, top = 8.dp, end = 8.dp
-                ), verticalArrangement = Arrangement.SpaceBetween
+                .padding(AppTheme.dimensions.medium)
         ) {
             Column(
                 modifier = Modifier
@@ -60,20 +70,6 @@ fun ConfirmationCodeScreen(
                 VerificationCodeInput(modifier = Modifier.fillMaxWidth(),
                     code = state.code,
                     onCode = { interactor.editCode(it) })
-            }
-            BottomHolder {
-                ThemedButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.next() },
-                    text = stringResource(id = R.string.next)
-                )
-                Spacer(modifier = Modifier.size(8.dp))
-                ThemedTextButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.resend() },
-                    text = if (state.isTimer) state.timer else stringResource(id = R.string.resend),
-                    enabled = !state.isTimer
-                )
             }
         }
     }

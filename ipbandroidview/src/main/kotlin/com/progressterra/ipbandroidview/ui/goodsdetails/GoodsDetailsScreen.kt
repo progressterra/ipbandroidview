@@ -1,15 +1,13 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.ColorsLine
 import com.progressterra.ipbandroidview.components.Gallery
 import com.progressterra.ipbandroidview.components.SizesLine
+import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.bottombar.GoodsBottomBar
 import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetails
 import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBar
@@ -27,7 +26,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
-    Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
+    ThemedLayout(topBar = {
         GoodsTopAppBar(
             onBack = { interactor.back() },
             onFavorite = { interactor.favorite() },
@@ -37,14 +36,12 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
         GoodsBottomBar(state = state,
             onAdd = { interactor.add() },
             onRemove = { interactor.remove() })
-    }) { padding ->
+    }) { _, _ ->
         LazyColumn(
             modifier = Modifier
-                .fillMaxSize()
-                .background(AppTheme.colors.background)
-                .padding(padding)
-                .padding(start = 8.dp, top = 8.dp, end = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+            contentPadding = PaddingValues(AppTheme.dimensions.medium)
         ) {
             item {
                 Gallery(
