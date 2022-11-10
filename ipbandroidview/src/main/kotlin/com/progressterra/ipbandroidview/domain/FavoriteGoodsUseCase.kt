@@ -30,9 +30,8 @@ interface FavoriteGoodsUseCase {
             }.getOrThrow()
             buildList {
                 favoriteIds.map { favoriteId ->
-                    eIECommerceCoreRepository.getProductByNomenklatura(
-                        favoriteId,
-                        Constants.EMPTY_ID
+                    eIECommerceCoreRepository.getProductDetailByIDRG(
+                        favoriteId
                     ).getOrThrow()?.listProducts?.firstOrNull()?.let {
                         add(goodsMapper.map(it, true))
                     }
