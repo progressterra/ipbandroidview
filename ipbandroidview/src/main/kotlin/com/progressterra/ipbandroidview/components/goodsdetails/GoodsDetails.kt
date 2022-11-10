@@ -25,10 +25,10 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.dto.GoodsParameters
-import com.progressterra.ipbandroidview.dto.component.Description
-import com.progressterra.ipbandroidview.dto.component.Name
-import com.progressterra.ipbandroidview.dto.component.Parameters
+import com.progressterra.ipbandroidview.model.GoodsParameters
+import com.progressterra.ipbandroidview.model.component.Description
+import com.progressterra.ipbandroidview.model.component.Name
+import com.progressterra.ipbandroidview.model.component.Parameters
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 

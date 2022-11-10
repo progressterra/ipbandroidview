@@ -6,10 +6,10 @@ import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.dto.Goods
-import com.progressterra.ipbandroidview.dto.GoodsColor
-import com.progressterra.ipbandroidview.dto.GoodsParameters
-import com.progressterra.ipbandroidview.dto.size.GoodsSize
+import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.GoodsColor
+import com.progressterra.ipbandroidview.model.GoodsParameters
+import com.progressterra.ipbandroidview.model.GoodsSize
 
 interface GoodsMapper {
 

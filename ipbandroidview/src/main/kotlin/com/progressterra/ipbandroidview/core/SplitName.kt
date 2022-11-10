@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.core
 interface SplitName {
 
     /**
-     * @param full - is name, surname, patronymic or name and surname only
+     * @param full - is name, surname, patronymic if true or name and surname only if false
      */
     fun splitName(name: String, full: Boolean): List<String>
 

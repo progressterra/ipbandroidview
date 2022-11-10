@@ -55,7 +55,7 @@ import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
 import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.components.yesno.YesNoButton
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.Checklist
+import com.progressterra.ipbandroidview.model.Checklist
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 

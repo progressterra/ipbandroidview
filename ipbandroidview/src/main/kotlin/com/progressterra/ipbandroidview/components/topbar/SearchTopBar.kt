@@ -23,8 +23,8 @@ import com.progressterra.ipbandroidview.actions.Keyword
 import com.progressterra.ipbandroidview.components.BackIcon
 import com.progressterra.ipbandroidview.components.SettingsIcon
 import com.progressterra.ipbandroidview.components.ThemedTextField
-import com.progressterra.ipbandroidview.dto.Filter
-import com.progressterra.ipbandroidview.dto.component.Filters
+import com.progressterra.ipbandroidview.model.Filter
+import com.progressterra.ipbandroidview.model.component.Filters
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface SearchBarState : Keyword, Filters

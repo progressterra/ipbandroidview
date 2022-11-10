@@ -16,9 +16,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.dto.component.Id
-import com.progressterra.ipbandroidview.dto.component.Image
-import com.progressterra.ipbandroidview.dto.component.Name
+import com.progressterra.ipbandroidview.model.component.Id
+import com.progressterra.ipbandroidview.model.component.Image
+import com.progressterra.ipbandroidview.model.component.Name
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 

@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.signup
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.domain.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.domain.usecase.UpdatePersonalInfoUseCase
 import com.progressterra.ipbandroidview.ext.isEmail
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

@@ -9,24 +9,24 @@ import com.progressterra.ipbandroidview.components.VoiceState
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.core.FileExplorer
+import com.progressterra.ipbandroidview.core.MakePhoto
+import com.progressterra.ipbandroidview.core.ManagePermission
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.core.permission.ManagePermission
-import com.progressterra.ipbandroidview.core.picture.PictureCache
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
-import com.progressterra.ipbandroidview.domain.CheckMediaDetailsUseCase
-import com.progressterra.ipbandroidview.domain.CreateDocumentUseCase
-import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
-import com.progressterra.ipbandroidview.domain.FetchExistingAuditUseCase
-import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
-import com.progressterra.ipbandroidview.domain.UpdateAnswerUseCase
-import com.progressterra.ipbandroidview.dto.CheckPicture
-import com.progressterra.ipbandroidview.dto.Checklist
-import com.progressterra.ipbandroidview.dto.Voice
+import com.progressterra.ipbandroidview.domain.usecase.CheckMediaDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.CreateDocumentUseCase
+import com.progressterra.ipbandroidview.domain.usecase.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FinishDocumentUseCase
+import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
 import com.progressterra.ipbandroidview.ext.markToRemove
 import com.progressterra.ipbandroidview.ext.replaceById
+import com.progressterra.ipbandroidview.model.CheckPicture
+import com.progressterra.ipbandroidview.model.Checklist
+import com.progressterra.ipbandroidview.model.Voice
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -46,7 +46,7 @@ class ChecklistViewModel(
     private val audioManager: AudioManager,
     private val fileExplorer: FileExplorer,
     private val checkMediaDetailsUseCase: CheckMediaDetailsUseCase,
-    private val pictureCache: PictureCache.Client
+    private val makePhoto: MakePhoto
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
     ChecklistInteractor {
 
@@ -261,7 +261,7 @@ class ChecklistViewModel(
                     }
                 }
             } else
-                managePermission.requirePermission(micPermission)
+                managePermission.requestPermission(micPermission)
         }
     }
 
@@ -324,24 +324,21 @@ class ChecklistViewModel(
             val newPhotoId = "TempPhoto_${System.currentTimeMillis()}"
             val uri = fileExplorer.uriForFile(fileExplorer.pictureFile(newPhotoId))
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            pictureCache.intentChannel.send(intent)
-            if (pictureCache.thumbnailChannel.receive())
-                reduce {
-                    state.copy(
-                        currentCheckMedia = state.currentCheckMedia!!.copy(
-                            pictures = state.currentCheckMedia!!.pictures.plus(
-                                CheckPicture(
-                                    id = newPhotoId,
-                                    local = true,
-                                    toRemove = false,
-                                    thumbnail = uri.toString(),
-                                    fullSize = uri.toString()
-                                )
+            if (makePhoto.makePhoto(intent)) reduce {
+                state.copy(
+                    currentCheckMedia = state.currentCheckMedia!!.copy(
+                        pictures = state.currentCheckMedia!!.pictures.plus(
+                            CheckPicture(
+                                id = newPhotoId,
+                                local = true,
+                                toRemove = false,
+                                thumbnail = uri.toString(),
+                                fullSize = uri.toString()
                             )
                         )
                     )
-                }
-        } else
-            managePermission.requirePermission(cameraPermission)
+                )
+            }
+        } else managePermission.requestPermission(cameraPermission)
     }
 }

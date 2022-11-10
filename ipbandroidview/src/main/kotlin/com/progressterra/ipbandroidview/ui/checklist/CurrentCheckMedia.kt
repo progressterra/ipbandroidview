@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
-import com.progressterra.ipbandroidview.dto.CheckPicture
-import com.progressterra.ipbandroidview.dto.Voice
+import com.progressterra.ipbandroidview.model.CheckPicture
+import com.progressterra.ipbandroidview.model.Voice
 
 data class CurrentCheckMedia(
     val voices: List<Voice>,

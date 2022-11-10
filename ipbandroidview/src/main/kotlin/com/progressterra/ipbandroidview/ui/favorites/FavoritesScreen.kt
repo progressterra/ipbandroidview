@@ -19,9 +19,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.StoreItemCard
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
-import com.progressterra.ipbandroidview.dto.Goods
-import com.progressterra.ipbandroidview.dto.GoodsColor
-import com.progressterra.ipbandroidview.dto.size.GoodsSize
+import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.GoodsColor
+import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

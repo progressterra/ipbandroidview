@@ -22,8 +22,8 @@ import com.progressterra.ipbandroidview.components.RemoveItemIcon
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.utils.SideBorder
 import com.progressterra.ipbandroidview.components.utils.sideBorder
-import com.progressterra.ipbandroidview.dto.component.InCartCounter
-import com.progressterra.ipbandroidview.dto.component.Price
+import com.progressterra.ipbandroidview.model.component.InCartCounter
+import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 

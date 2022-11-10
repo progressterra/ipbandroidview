@@ -20,9 +20,9 @@ import com.progressterra.ipbandroidview.components.SizesLine
 import com.progressterra.ipbandroidview.components.bottombar.GoodsBottomBar
 import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetails
 import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBar
-import com.progressterra.ipbandroidview.dto.Goods
-import com.progressterra.ipbandroidview.dto.GoodsColor
-import com.progressterra.ipbandroidview.dto.size.GoodsSize
+import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.GoodsColor
+import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

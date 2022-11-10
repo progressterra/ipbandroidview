@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.documents
 
-import com.progressterra.ipbandroidview.dto.Checklist
+import com.progressterra.ipbandroidview.model.Checklist
 
 sealed class DocumentsEffect {
 

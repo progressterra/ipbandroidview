@@ -3,11 +3,10 @@ package com.progressterra.ipbandroidview.ui.goods
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.GoodsUseCase
-import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.domain.usecase.GoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.model.Goods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

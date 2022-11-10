@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.SimpleImage
 import com.progressterra.ipbandroidview.components.TrashIcon
 import com.progressterra.ipbandroidview.components.topbar.TransparentTopAppBar
-import com.progressterra.ipbandroidview.dto.CheckPicture
+import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 

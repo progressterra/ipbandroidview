@@ -21,9 +21,9 @@ import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.StoreItemCard
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.components.utils.items
-import com.progressterra.ipbandroidview.dto.Goods
-import com.progressterra.ipbandroidview.dto.GoodsColor
-import com.progressterra.ipbandroidview.dto.size.GoodsSize
+import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.GoodsColor
+import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.ui.search.SearchInteractor
 import com.progressterra.ipbandroidview.ui.search.SearchState

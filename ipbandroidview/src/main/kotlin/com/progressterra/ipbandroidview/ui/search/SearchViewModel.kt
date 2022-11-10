@@ -3,9 +3,9 @@ package com.progressterra.ipbandroidview.ui.search
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.FilteredGoodsUseCase
-import com.progressterra.ipbandroidview.domain.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.domain.usecase.FilteredGoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.model.Goods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

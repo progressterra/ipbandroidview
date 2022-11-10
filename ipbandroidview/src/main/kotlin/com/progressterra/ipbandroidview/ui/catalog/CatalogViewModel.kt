@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.catalog
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.CatalogUseCase
-import com.progressterra.ipbandroidview.dto.Category
+import com.progressterra.ipbandroidview.domain.usecase.CatalogUseCase
+import com.progressterra.ipbandroidview.model.Category
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

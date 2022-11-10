@@ -26,7 +26,7 @@ interface FileExplorer {
     ) : FileExplorer {
 
         private val voiceFolderPath by lazy {
-            "${context.getExternalFilesDir(Environment.DIRECTORY_RECORDINGS)}"
+            "${context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)}"
         }
         private val picturesFolderPath by lazy {
             "${context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)}"

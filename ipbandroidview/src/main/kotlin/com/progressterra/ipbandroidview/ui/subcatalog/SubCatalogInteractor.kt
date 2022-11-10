@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
 import com.progressterra.ipbandroidview.actions.Back
-import com.progressterra.ipbandroidview.dto.SubCategory
+import com.progressterra.ipbandroidview.model.SubCategory
 
 interface SubCatalogInteractor : Back {
 

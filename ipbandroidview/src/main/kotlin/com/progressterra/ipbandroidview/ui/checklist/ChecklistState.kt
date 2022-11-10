@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.components.VoiceState
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.Checklist
+import com.progressterra.ipbandroidview.model.Checklist
 
 @Immutable
 data class ChecklistState(

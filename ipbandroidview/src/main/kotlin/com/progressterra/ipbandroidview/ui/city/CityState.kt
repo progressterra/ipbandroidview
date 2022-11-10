@@ -4,9 +4,9 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class CityState(
+    val isPermissionGranted: Boolean = false,
     val isDataValid: Boolean = false,
     val address: String = "",
     val suggestions: List<Suggestion> = emptyList(),
-    val mapMarker: MapMarker = MapMarker(),
     val isAddressInFocus: Boolean = false
 )

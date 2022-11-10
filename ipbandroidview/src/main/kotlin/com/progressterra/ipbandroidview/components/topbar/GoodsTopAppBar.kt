@@ -12,9 +12,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.FavoriteButton
-import com.progressterra.ipbandroidview.dto.component.Favorite
-import com.progressterra.ipbandroidview.dto.component.Name
-import com.progressterra.ipbandroidview.dto.component.Price
+import com.progressterra.ipbandroidview.model.component.Favorite
+import com.progressterra.ipbandroidview.model.component.Name
+import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface GoodsTopAppBarState : Name, Favorite, Price

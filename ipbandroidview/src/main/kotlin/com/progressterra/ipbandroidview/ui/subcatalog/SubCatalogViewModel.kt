@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.dto.SubCategory
+import com.progressterra.ipbandroidview.model.SubCategory
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

@@ -58,7 +58,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        CityViewModel(get(), get(), get(), get())
+        CityViewModel(get(), get(), get())
     }
 
     viewModel {

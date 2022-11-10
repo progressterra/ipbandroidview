@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -21,10 +20,10 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.dto.component.Favorite
-import com.progressterra.ipbandroidview.dto.component.Image
-import com.progressterra.ipbandroidview.dto.component.Name
-import com.progressterra.ipbandroidview.dto.component.Price
+import com.progressterra.ipbandroidview.model.component.Favorite
+import com.progressterra.ipbandroidview.model.component.Image
+import com.progressterra.ipbandroidview.model.component.Name
+import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 

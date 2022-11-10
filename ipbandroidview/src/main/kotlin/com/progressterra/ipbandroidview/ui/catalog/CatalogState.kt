@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.catalog
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.Category
+import com.progressterra.ipbandroidview.model.Category
 
 @Immutable
 data class CatalogState(

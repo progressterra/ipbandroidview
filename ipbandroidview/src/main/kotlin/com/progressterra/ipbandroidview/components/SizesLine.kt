@@ -21,9 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
-import com.progressterra.ipbandroidview.dto.component.Size
-import com.progressterra.ipbandroidview.dto.component.Sizes
-import com.progressterra.ipbandroidview.dto.size.GoodsSize
+import com.progressterra.ipbandroidview.model.component.Size
+import com.progressterra.ipbandroidview.model.component.Sizes
+import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface SizesLineState : Size, Sizes

@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.goods
 
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.model.Goods
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 

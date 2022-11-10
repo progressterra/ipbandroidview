@@ -9,13 +9,9 @@ interface CityInteractor : Back, Next, Skip {
 
     fun editAddress(address: String)
 
-    fun onMyLocation()
-
     fun onMapClick(latLng: LatLng)
 
     fun onSuggestion(suggestion: Suggestion)
-
-    fun onAddressFocus(focused: Boolean)
 
     class Empty : CityInteractor {
 
@@ -27,12 +23,8 @@ interface CityInteractor : Back, Next, Skip {
 
         override fun editAddress(address: String) = Unit
 
-        override fun onMyLocation() = Unit
-
         override fun onMapClick(latLng: LatLng) = Unit
 
         override fun onSuggestion(suggestion: Suggestion) = Unit
-
-        override fun onAddressFocus(focused: Boolean) = Unit
     }
 }

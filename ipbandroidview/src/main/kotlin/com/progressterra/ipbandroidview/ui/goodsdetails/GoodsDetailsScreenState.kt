@@ -6,11 +6,11 @@ import com.progressterra.ipbandroidview.components.SizesLineState
 import com.progressterra.ipbandroidview.components.bottombar.GoodsBottomBarState
 import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetailsState
 import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBarState
-import com.progressterra.ipbandroidview.dto.Goods
-import com.progressterra.ipbandroidview.dto.GoodsColor
-import com.progressterra.ipbandroidview.dto.GoodsParameters
-import com.progressterra.ipbandroidview.dto.component.Id
-import com.progressterra.ipbandroidview.dto.size.GoodsSize
+import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.GoodsColor
+import com.progressterra.ipbandroidview.model.GoodsParameters
+import com.progressterra.ipbandroidview.model.component.Id
+import com.progressterra.ipbandroidview.model.GoodsSize
 
 
 data class GoodsDetailsScreenState(

@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import com.progressterra.ipbandroidview.actions.Back
-import com.progressterra.ipbandroidview.dto.GoodsColor
-import com.progressterra.ipbandroidview.dto.size.GoodsSize
+import com.progressterra.ipbandroidview.model.GoodsColor
+import com.progressterra.ipbandroidview.model.GoodsSize
 
 interface GoodsDetailsInteractor : Back {
 

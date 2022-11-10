@@ -2,7 +2,8 @@ package com.progressterra.ipbandroidview.domain
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.domain.usecase.GoodsPageUseCase
+import com.progressterra.ipbandroidview.model.Goods
 
 class GoodsSource(
     private val goodsPageUseCase: GoodsPageUseCase,

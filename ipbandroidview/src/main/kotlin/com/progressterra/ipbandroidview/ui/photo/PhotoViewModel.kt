@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.photo
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.dto.CheckPicture
+import com.progressterra.ipbandroidview.model.CheckPicture
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

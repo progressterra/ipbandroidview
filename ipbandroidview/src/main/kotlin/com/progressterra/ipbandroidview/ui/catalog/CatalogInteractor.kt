@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
 import com.progressterra.ipbandroidview.actions.Refresh
-import com.progressterra.ipbandroidview.dto.Category
+import com.progressterra.ipbandroidview.model.Category
 
 
 interface CatalogInteractor : Refresh {

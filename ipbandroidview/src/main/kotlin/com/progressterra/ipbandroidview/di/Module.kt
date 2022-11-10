@@ -8,14 +8,12 @@ import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.core.FileExplorer
+import com.progressterra.ipbandroidview.core.MakePhoto
+import com.progressterra.ipbandroidview.core.ManagePermission
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.core.SplitName
-import com.progressterra.ipbandroidview.core.permission.ManagePermission
-import com.progressterra.ipbandroidview.core.permission.PermissionCache
-import com.progressterra.ipbandroidview.core.picture.PictureCache
-import com.progressterra.ipbandroidview.core.startactivity.StartActivity
-import com.progressterra.ipbandroidview.core.startactivity.StartActivityCache
+import com.progressterra.ipbandroidview.core.StartActivity
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
@@ -70,16 +68,16 @@ val iPBAndroidViewModule = module {
     single<GoodsMapper> { GoodsMapper.Base(get(), get(), get()) }
 
     single {
-        PermissionCache.Base()
-    }.binds(arrayOf(PermissionCache::class, ManagePermission::class))
+        ManagePermission.Base()
+    }.binds(arrayOf(ManagePermission::class, ManagePermission.Activity::class))
 
     single {
-        StartActivityCache.Base()
-    }.binds(arrayOf(StartActivityCache::class, StartActivity::class))
+        StartActivity.Base()
+    }.binds(arrayOf(StartActivity::class, StartActivity.Activity::class))
 
     single {
-        PictureCache.Base()
-    }.binds(arrayOf(PictureCache.Client::class, PictureCache.Activity::class))
+        MakePhoto.Base()
+    }.binds(arrayOf(MakePhoto.Activity::class, MakePhoto::class))
 
     single<ProvideLocation> {
         ProvideLocation.Base(get())

@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.domain.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

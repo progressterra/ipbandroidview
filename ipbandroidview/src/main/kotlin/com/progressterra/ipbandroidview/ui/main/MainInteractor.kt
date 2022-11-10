@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.main
 
 import com.progressterra.ipbandroidview.actions.Favorite
 import com.progressterra.ipbandroidview.actions.Refresh
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.model.Goods
 
 interface MainInteractor : Refresh, Favorite {
 

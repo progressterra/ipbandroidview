@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.actions.Back
 import com.progressterra.ipbandroidview.actions.Favorite
 import com.progressterra.ipbandroidview.actions.Refresh
 import com.progressterra.ipbandroidview.actions.Search
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.model.Goods
 
 interface SearchInteractor : Back, Refresh, Search, Favorite {
 

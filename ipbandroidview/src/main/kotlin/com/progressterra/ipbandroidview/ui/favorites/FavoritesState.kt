@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.favorites
 
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.model.Goods
 
 data class FavoritesState(
     val items: List<Goods> = emptyList(),

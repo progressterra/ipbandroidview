@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.search
 
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.model.Goods
 
 sealed class SearchEffect {
 

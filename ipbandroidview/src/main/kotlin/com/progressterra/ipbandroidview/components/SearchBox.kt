@@ -17,9 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.actions.Keyword
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.Goods
-import com.progressterra.ipbandroidview.dto.component.SearchGoods
-import com.progressterra.ipbandroidview.dto.component.Visible
+import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.component.SearchGoods
+import com.progressterra.ipbandroidview.model.component.Visible
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface SearchBoxState : SearchGoods, Keyword, Visible {

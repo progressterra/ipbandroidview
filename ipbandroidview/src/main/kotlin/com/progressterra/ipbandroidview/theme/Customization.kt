@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.dto.DynamicImage
+import com.progressterra.ipbandroidview.model.DynamicImage
 
 @Immutable
 data class Customization(

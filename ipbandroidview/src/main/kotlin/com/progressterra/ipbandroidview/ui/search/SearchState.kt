@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidview.components.SearchBoxState
 import com.progressterra.ipbandroidview.components.topbar.SearchBarState
 import com.progressterra.ipbandroidview.core.IsEmpty
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.dto.Filter
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.model.Filter
+import com.progressterra.ipbandroidview.model.Goods
 
 data class SearchState(
     val categoryId: String? = null,

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.annotation.StringRes
-import com.progressterra.ipbandroidview.dto.Goods
+import com.progressterra.ipbandroidview.model.Goods
 
 sealed class MainEffect {
 

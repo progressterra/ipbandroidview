@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.organizations
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.AllOrganizationsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.AllOrganizationsUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
