@@ -32,7 +32,6 @@ fun ThemedLayout(
 ) {
     Box(
         modifier = modifier
-            .fillMaxSize()
             .background(backgroundColor)
     ) {
         val density = LocalDensity.current
@@ -49,12 +48,17 @@ fun ThemedLayout(
             topBar()
         }
         Box(
-            modifier = Modifier.padding(
-                top = if (topOverlap) 0.dp else topBarHeight,
-                bottom = if (bottomOverlap) 0.dp else bottomBarHeight
-            ), contentAlignment = Alignment.Center
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    top = if (topOverlap) 0.dp else topBarHeight,
+                    bottom = if (bottomOverlap) 0.dp else bottomBarHeight
+                ), contentAlignment = Alignment.Center
         ) {
-            content(topBarHeight, bottomBarHeight)
+            content(
+                if (topOverlap) topBarHeight else 0.dp,
+                if (bottomOverlap) bottomBarHeight else 0.dp
+            )
         }
         Box(
             modifier = Modifier
