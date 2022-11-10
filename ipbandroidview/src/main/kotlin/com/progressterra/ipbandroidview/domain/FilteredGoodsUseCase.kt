@@ -48,7 +48,7 @@ interface FilteredGoodsUseCase {
                     ), idCategory = id
                 )
             ).getOrThrow()?.listProducts?.map {
-                goodsMapper.map(it, favorites)
+                goodsMapper.map(it, favorites.contains(it.idUnique!!))
             } ?: emptyList()
         }
     }

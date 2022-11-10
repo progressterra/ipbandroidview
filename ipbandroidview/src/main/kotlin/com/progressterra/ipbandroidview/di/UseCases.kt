@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.domain.CurrentLocationMarkerUseCase
 import com.progressterra.ipbandroidview.domain.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.domain.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.domain.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.FinishDocumentUseCase
@@ -123,4 +124,6 @@ val useCasesModule = module {
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 
     single<CatalogUseCase> { CatalogUseCase.Base(get(), get(), get(), get()) }
+
+    single<FavoriteGoodsUseCase> { FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get()) }
 }

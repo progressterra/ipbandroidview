@@ -25,10 +25,9 @@ import com.progressterra.ipbandroidview.components.SettingsIcon
 import com.progressterra.ipbandroidview.components.ThemedTextField
 import com.progressterra.ipbandroidview.dto.Filter
 import com.progressterra.ipbandroidview.dto.component.Filters
-import com.progressterra.ipbandroidview.dto.component.Visible
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-interface SearchBarState : Keyword, Filters, Visible
+interface SearchBarState : Keyword, Filters
 
 //TODO filters counter
 
@@ -52,9 +51,8 @@ fun SearchTopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            if (full && state.visible)
+            if (full)
                 IconButton(onClick = onBack) { BackIcon() }
-
             ThemedTextField(
                 modifier = Modifier
                     .weight(1f)
@@ -78,8 +76,7 @@ fun SearchTopBar(
 }
 
 private class SearchBarStatePreview(
-    override val keyword: String, override val filters: List<Filter>,
-    override val visible: Boolean = true
+    override val keyword: String, override val filters: List<Filter>
 ) : SearchBarState
 
 @Preview

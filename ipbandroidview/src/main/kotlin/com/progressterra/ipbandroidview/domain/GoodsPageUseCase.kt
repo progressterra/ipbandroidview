@@ -21,6 +21,8 @@ interface GoodsPageUseCase {
         private val favoriteRepository: IPBFavPromoRecRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), GoodsPageUseCase {
 
+        //todo remove favorite checking from there
+
         override suspend fun goodsPage(
             id: String, pageNumber: Int
         ): Result<Pair<Int, List<Goods>>> = runCatching {
@@ -39,7 +41,9 @@ interface GoodsPageUseCase {
                     0
                 )
             }.getOrThrow()
-            result?.numberCurrentPage!! to result.listProducts!!.map { mapper.map(it, favorites) }
+            result?.numberCurrentPage!! to result.listProducts!!.map {
+                mapper.map(it, favorites.contains(it.idUnique!!))
+            }
         }
     }
 }

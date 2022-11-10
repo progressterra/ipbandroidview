@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.dto.size.GoodsSize
 
 interface GoodsMapper {
 
-    fun map(data: RGGoodsInventoryExt, favoriteIds: List<String>): Goods
+    fun map(data: RGGoodsInventoryExt, isFavorite: Boolean): Goods
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
@@ -21,7 +21,7 @@ interface GoodsMapper {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override fun map(data: RGGoodsInventoryExt, favoriteIds: List<String>): Goods {
+        override fun map(data: RGGoodsInventoryExt, isFavorite: Boolean): Goods {
             val parsedParameters = parse<Map<String, String?>>(data.additionalDataJSON)
             val parametersToShow = parsedParameters?.get("listVisible")?.split(",")
             val parameters: List<GoodsParameters> = buildList {
@@ -39,7 +39,7 @@ interface GoodsMapper {
                 images = images.map { it.url },
                 price = data.currentPrice?.let { priceMapper.map(it) } ?: noData,
                 name = data.name ?: noData,
-                favorite = favoriteIds.contains(data.idUnique!!),
+                favorite = isFavorite,
                 description = data.extendedDescription ?: noData,
                 parameters = parameters,
                 inCartCounter = data.countInCart ?: 0,
