@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,12 +27,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -86,7 +82,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                 })
             StateBox(modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 300.dp),
+                .height(300.dp),
                 state = state.screenState,
                 onRefresh = { interactor.refresh() }) {
                 if (state.currentCheck != null && state.currentCheckMedia != null) {
@@ -182,77 +178,63 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
             ThemedTopAppBar(
                 onBack = { interactor.back() }, title = stringResource(id = R.string.audit)
             )
+        }, bottomBar = {
+            if (!state.checklist.done) {
+                BottomHolder(Modifier.fillMaxWidth()) {
+                    Row {
+                        ThemedButton(
+                            modifier = Modifier.weight(1f),
+                            onClick = { interactor.startStopAudit() },
+                            text = stringResource(
+                                id = if (state.checklist.ongoing) R.string.end_audit else R.string.start_audit
+                            ),
+                            tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.secondary else AppTheme.colors.primary,
+                            textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces
+                        )
+                        if (state.checklist.ongoing) {
+                            Spacer(modifier = Modifier.size(8.dp))
+                            Stats(modifier = Modifier.weight(1f), stats = state.stats)
+                        }
+                    }
+                }
+            }
         }) { padding ->
-            Box(
+            val groupedChecks by remember(state.checklist.checks) {
+                mutableStateOf(state.checklist.checks.groupBy { it.categoryNumber })
+            }
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(AppTheme.colors.background)
                     .padding(padding)
+                    .background(AppTheme.colors.background)
+                    .padding(
+                        top = 8.dp, start = 8.dp, end = 8.dp
+                    ), verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                var spacerSize by remember { mutableStateOf(0.dp) }
-                val groupedChecks by remember(state.checklist.checks) {
-                    mutableStateOf(state.checklist.checks.groupBy { it.categoryNumber })
+                item {
+                    AuditTitle(
+                        modifier = Modifier.fillMaxWidth(),
+                        name = state.checklist.name,
+                        checkCounter = state.checklist.checks.size
+                    )
                 }
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(
-                            top = 8.dp, start = 8.dp, end = 8.dp
-                        ), verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
+                groupedChecks.forEach { (category, checks) ->
                     item {
-                        AuditTitle(
-                            modifier = Modifier.fillMaxWidth(),
-                            name = state.checklist.name,
-                            checkCounter = state.checklist.checks.size
+                        CategoryDivider(
+                            modifier = Modifier.fillMaxWidth(), title = "$category. ${
+                                checks.firstOrNull()?.category ?: stringResource(
+                                    id = R.string.no_data
+                                )
+                            }"
                         )
                     }
-                    groupedChecks.forEach { (category, checks) ->
-                        item {
-                            CategoryDivider(
-                                modifier = Modifier.fillMaxWidth(), title = "$category. ${
-                                    checks.firstOrNull()?.category ?: stringResource(
-                                        id = R.string.no_data
-                                    )
-                                }"
-                            )
-                        }
-//                            items(checks.sortedBy { it.ordinal }) {
-                        items(checks) {
-                            CheckCard(
-                                modifier = Modifier.fillMaxWidth(), onClick = {
-                                    interactor.openCheck(it)
-                                    coroutineScope.launch { sheetState.show() }
-                                }, name = it.name, yesNo = it.yesNo
-                            )
-                        }
-                    }
-                    item { Spacer(modifier = Modifier.size(spacerSize)) }
-                }
-                if (!state.checklist.done) {
-                    val density = LocalDensity.current
-                    BottomHolder(
-                        Modifier
-                            .fillMaxWidth()
-                            .align(Alignment.BottomCenter)
-                            .onGloballyPositioned {
-                                spacerSize = with(density) { it.size.height.toDp() }
-                            }) {
-                        Row {
-                            ThemedButton(
-                                modifier = Modifier.weight(1f),
-                                onClick = { interactor.startStopAudit() },
-                                text = stringResource(
-                                    id = if (state.checklist.ongoing) R.string.end_audit else R.string.start_audit
-                                ),
-                                tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.secondary else AppTheme.colors.primary,
-                                textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces
-                            )
-                            if (state.checklist.ongoing) {
-                                Spacer(modifier = Modifier.size(8.dp))
-                                Stats(modifier = Modifier.weight(1f), stats = state.stats)
-                            }
-                        }
+                    items(checks) {
+                        CheckCard(
+                            modifier = Modifier.fillMaxWidth(), onClick = {
+                                interactor.openCheck(it)
+                                coroutineScope.launch { sheetState.show() }
+                            }, name = it.name, yesNo = it.yesNo
+                        )
                     }
                 }
             }
