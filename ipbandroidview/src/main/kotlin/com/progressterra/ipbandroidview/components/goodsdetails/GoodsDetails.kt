@@ -125,21 +125,24 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )
-                    state.parameters.forEach {
-                        Row {
-                            Text(
-                                modifier = Modifier.width(104.dp),
-                                text = it.title,
-                                color = AppTheme.colors.gray2,
-                                style = AppTheme.typography.secondaryText
-                            )
-                            Text(
-                                text = it.description,
-                                color = AppTheme.colors.black,
-                                style = AppTheme.typography.secondaryText
-                            )
+                    Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)) {
+                        state.parameters.forEach {
+                            Row {
+                                Text(
+                                    modifier = Modifier.width(104.dp),
+                                    text = it.title,
+                                    color = AppTheme.colors.gray2,
+                                    style = AppTheme.typography.secondaryText
+                                )
+                                Text(
+                                    text = it.description,
+                                    color = AppTheme.colors.black,
+                                    style = AppTheme.typography.secondaryText
+                                )
+                            }
                         }
                     }
+
                 }
                 if (it == 2) {
                     Text(
