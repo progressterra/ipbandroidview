@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -49,7 +48,9 @@ fun MainScreen(
         SearchBox(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding),
+                .padding(padding)
+                .background(AppTheme.colors.background)
+                .padding(start = 8.dp, top = 8.dp, end = 8.dp),
             state = searchState,
             onRefresh = { searchInteractor.refresh() },
             onFavorite = { goodsId, favorite -> searchInteractor.favorite(goodsId, favorite) },
@@ -61,10 +62,8 @@ fun MainScreen(
                 val lazyItems: LazyPagingItems<Goods> = mainState.items.collectAsLazyPagingItems()
                 LazyVerticalGrid(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .background(AppTheme.colors.background),
+                        .fillMaxSize(),
                     columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
-                    contentPadding = PaddingValues(8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {

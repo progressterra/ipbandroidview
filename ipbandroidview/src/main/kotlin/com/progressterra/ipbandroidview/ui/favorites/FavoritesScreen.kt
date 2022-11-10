@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.favorites
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -27,8 +26,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun FavoritesScreen(
-    state: FavoritesState,
-    interactor: FavoritesInteractor
+    state: FavoritesState, interactor: FavoritesInteractor
 ) {
     Scaffold(modifier = Modifier.fillMaxSize(), topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.favorites))
@@ -36,15 +34,13 @@ fun FavoritesScreen(
         StateBox(modifier = Modifier
             .fillMaxSize()
             .padding(padding)
+            .background(AppTheme.colors.background)
             .padding(start = 8.dp, top = 8.dp, end = 8.dp),
             state = state.screenState,
             onRefresh = { interactor.refresh() }) {
             LazyVerticalGrid(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(AppTheme.colors.background),
+                modifier = Modifier.fillMaxSize(),
                 columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
-                contentPadding = PaddingValues(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -55,8 +51,7 @@ fun FavoritesScreen(
                             onClick = { interactor.goodsDetails(card) },
                             onFavorite = {
                                 interactor.favorite(
-                                    card.id,
-                                    card.favorite
+                                    card.id, card.favorite
                                 )
                             })
                     }
@@ -72,8 +67,7 @@ private fun MainScreenPreview() {
     AppTheme {
         FavoritesScreen(
             state = FavoritesState(
-                items =
-                listOf(
+                items = listOf(
                     Goods(
                         id = "",
                         name = "SOME cool 1",
