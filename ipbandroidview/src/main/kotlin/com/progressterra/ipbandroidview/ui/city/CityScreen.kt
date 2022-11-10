@@ -21,6 +21,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
+import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
@@ -85,22 +86,24 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                     )
                 }
             }
-            GoogleMap(modifier = Modifier
-                .clip(AppTheme.shapes.small)
-                .constrainAs(map) {
-                    height = Dimension.fillToConstraints
-                    width = Dimension.fillToConstraints
-                    top.linkTo(address.bottom, 12.dp)
-                    start.linkTo(background.start, 12.dp)
-                    end.linkTo(background.end, 12.dp)
-                    bottom.linkTo(background.bottom, 12.dp)
-                },
+            GoogleMap(
+                modifier = Modifier
+                    .clip(AppTheme.shapes.small)
+                    .constrainAs(map) {
+                        height = Dimension.fillToConstraints
+                        width = Dimension.fillToConstraints
+                        top.linkTo(address.bottom, 12.dp)
+                        start.linkTo(background.start, 12.dp)
+                        end.linkTo(background.end, 12.dp)
+                        bottom.linkTo(background.bottom, 12.dp)
+                    },
                 cameraPositionState = cameraPositionState,
                 onMapClick = { interactor.onMapClick(it) },
                 onMyLocationButtonClick = {
                     interactor.onMyLocation()
                     false
-                }) {
+                }, properties = MapProperties(isMyLocationEnabled = true)
+            ) {
                 state.mapMarker.latLng?.let {
                     Marker(
                         MarkerState(state.mapMarker.latLng),
