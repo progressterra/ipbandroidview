@@ -5,16 +5,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -62,8 +61,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                     val selected = pagerState.currentPage == index
                     val backgroundColor =
                         if (selected) AppTheme.colors.background else AppTheme.colors.surfaces
-                    Tab(modifier = Modifier,
-                        selected = selected,
+                    Tab(modifier = Modifier.clip(AppTheme.shapes.small), selected = selected,
                         onClick = {
                             scope.launch {
                                 pagerState.animateScrollToPage(page = index)
@@ -73,17 +71,21 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                             if (selected) AppTheme.colors.black else AppTheme.colors.gray1
                         val style =
                             if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
-                        Text(
+                        Box(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clip(AppTheme.shapes.small)
                                 .background(backgroundColor)
                                 .padding(AppTheme.dimensions.large),
-                            text = text,
-                            color = textColor,
-                            style = style,
-                            textAlign = TextAlign.Center
-                        )
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = text,
+                                color = textColor,
+                                style = style,
+                                textAlign = TextAlign.Center
+                            )
+                        }
                     }
                 }
             }
@@ -91,9 +93,11 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
     }
 
     val pagerState = rememberPagerState()
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+    ) {
         HorizontalTabs(pagerState = pagerState)
-        Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
         HorizontalPager(count = 3, state = pagerState) {
             Column(
                 modifier = Modifier
