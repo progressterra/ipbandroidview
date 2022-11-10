@@ -198,7 +198,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
                     }
                 }
             }
-        }) { topPadding, bottomPadding ->
+        }, bottomOverlap = true) { topPadding, bottomPadding ->
             val groupedChecks by remember(state.checklist.checks) {
                 mutableStateOf(state.checklist.checks.groupBy { it.categoryNumber })
             }
