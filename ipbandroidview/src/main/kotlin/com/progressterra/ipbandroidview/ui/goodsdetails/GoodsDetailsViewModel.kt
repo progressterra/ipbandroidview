@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.domain.usecase.FastAddToCartUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.model.Goods
 import com.progressterra.ipbandroidview.model.GoodsColor
@@ -12,8 +14,12 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+//TODO BY ID request all details
+
 class GoodsDetailsViewModel(
-    private val modifyFavoriteUseCase: ModifyFavoriteUseCase
+    private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
+    private val fastAddToCartUseCase: FastAddToCartUseCase,
+    private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase
 ) : ViewModel(),
     ContainerHost<GoodsDetailsScreenState, GoodsDetailsEffect>, GoodsDetailsInteractor {
 
@@ -29,7 +35,7 @@ class GoodsDetailsViewModel(
         postSideEffect(GoodsDetailsEffect.Back)
     }
 
-    override fun add() {
+    override fun add() = {
 
     }
 

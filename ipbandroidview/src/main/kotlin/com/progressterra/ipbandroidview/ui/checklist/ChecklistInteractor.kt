@@ -9,8 +9,6 @@ interface ChecklistInteractor : Back, Refresh, Remove {
 
     fun openCheck(check: Check)
 
-    fun closeCheck()
-
     fun startStopAudit()
 
     fun yesNo(yes: Boolean)
@@ -34,8 +32,6 @@ interface ChecklistInteractor : Back, Refresh, Remove {
         override fun back() = Unit
 
         override fun refresh() = Unit
-
-        override fun closeCheck() = Unit
 
         override fun startStopAudit() = Unit
 

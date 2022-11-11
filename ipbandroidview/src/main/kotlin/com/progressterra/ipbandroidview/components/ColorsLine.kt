@@ -53,7 +53,6 @@ fun ColorsLine(
             SimpleImage(
                 modifier = Modifier.clip(AppTheme.shapes.tiny),
                 url = color.image,
-                options = ImageOptions(contentScale = ContentScale.FillBounds),
                 backgroundColor = AppTheme.colors.surfaces
             )
         }

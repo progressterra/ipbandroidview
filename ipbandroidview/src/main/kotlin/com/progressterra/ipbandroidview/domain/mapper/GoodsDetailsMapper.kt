@@ -6,22 +6,22 @@ import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.model.Goods
 import com.progressterra.ipbandroidview.model.GoodsColor
+import com.progressterra.ipbandroidview.model.GoodsDetails
 import com.progressterra.ipbandroidview.model.GoodsParameters
 import com.progressterra.ipbandroidview.model.GoodsSize
 
-interface GoodsMapper {
+interface GoodsDetailsMapper {
 
-    fun map(data: RGGoodsInventoryExt, isFavorite: Boolean): Goods
+    fun map(data: RGGoodsInventoryExt, isFavorite: Boolean): GoodsDetails
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
-    ) : GoodsMapper, AbstractMapper(gson) {
+    ) : GoodsDetailsMapper, AbstractMapper(gson) {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override fun map(data: RGGoodsInventoryExt, isFavorite: Boolean): Goods {
+        override fun map(data: RGGoodsInventoryExt, isFavorite: Boolean): GoodsDetails {
             val parsedParameters = parse<Map<String, String?>>(data.additionalDataJSON)
             val parametersToShow = parsedParameters?.get("listVisible")?.split(",")
             val parameters: List<GoodsParameters> = buildList {
@@ -34,8 +34,7 @@ interface GoodsMapper {
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            return Goods(id = data.idUnique!!,
-                image = images.firstOrNull()?.url ?: "",
+            return GoodsDetails.Base(id = data.idUnique!!,
                 images = images.map { it.url },
                 price = data.currentPrice?.let { priceMapper.map(it) } ?: noData,
                 name = data.name ?: noData,

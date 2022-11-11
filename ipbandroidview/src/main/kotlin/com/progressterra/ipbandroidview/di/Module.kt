@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.CatalogMapper
 import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
-import com.progressterra.ipbandroidview.domain.mapper.GoodsMapper
+import com.progressterra.ipbandroidview.domain.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
 import com.progressterra.ipbandroidview.domain.mapper.SubCatalogMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
@@ -65,7 +65,7 @@ val iPBAndroidViewModule = module {
         PriceMapper.Russia()
     }
 
-    single<GoodsMapper> { GoodsMapper.Base(get(), get(), get()) }
+    single<GoodsDetailsMapper> { GoodsDetailsMapper.Base(get(), get(), get()) }
 
     single {
         ManagePermissionContract.Base()

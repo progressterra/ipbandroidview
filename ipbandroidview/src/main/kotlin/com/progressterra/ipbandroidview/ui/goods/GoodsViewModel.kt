@@ -31,8 +31,8 @@ class GoodsViewModel(
         postSideEffect(GoodsEffect.Back)
     }
 
-    override fun favorite(goodsId: String, favorite: Boolean) = intent {
-        modifyFavoriteUseCase.modifyFavorite(goodsId, favorite).onSuccess { refresh() }
+    override fun favoriteSpecific(item: Goods) = intent {
+        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess { refresh() }
     }
 
     override fun refresh() = intent {
@@ -51,7 +51,7 @@ class GoodsViewModel(
         }
     }
 
-    override fun goodsDetails(goods: Goods) = intent {
-        postSideEffect(GoodsEffect.GoodsDetails(goods))
+    override fun openDetails(item: Goods) = intent {
+        postSideEffect(GoodsEffect.GoodsDetails(item))
     }
 }

@@ -40,7 +40,6 @@ fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces),
                 url = state.images[it],
-                options = ImageOptions(contentScale = ContentScale.FillBounds),
                 backgroundColor = AppTheme.colors.surfaces
             )
             HorizontalPagerIndicator(

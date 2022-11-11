@@ -11,13 +11,13 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
-import com.progressterra.ipbandroidview.domain.mapper.GoodsMapper
+import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.model.Filter
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.StoreGoods
 
 interface FilteredGoodsUseCase {
 
-    suspend fun goods(id: String, keyword: String, filters: List<Filter>): Result<List<Goods>>
+    suspend fun goods(id: String, keyword: String, filters: List<Filter>): Result<List<StoreGoods>>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -25,14 +25,14 @@ interface FilteredGoodsUseCase {
         private val repo: ProductRepository,
         private val favoriteRepository: IPBFavPromoRecRepository,
         private val filterMapper: GoodsFilterMapper,
-        private val goodsMapper: GoodsMapper
+        private val storeGoodsMapper: StoreGoodsMapper
     ) : FilteredGoodsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun goods(
             id: String,
             keyword: String,
             filters: List<Filter>
-        ): Result<List<Goods>> = runCatching {
+        ): Result<List<StoreGoods>> = runCatching {
             val favorites = withToken {
                 favoriteRepository.getClientEntityByType(
                     it, TypeOfEntity.PRODUCT
@@ -48,7 +48,7 @@ interface FilteredGoodsUseCase {
                     ), idCategory = id
                 )
             ).getOrThrow()?.listProducts?.map {
-                goodsMapper.map(it, favorites.contains(it.idUnique!!))
+                storeGoodsMapper.map(it, favorites.contains(it.idUnique!!))
             } ?: emptyList()
         }
     }

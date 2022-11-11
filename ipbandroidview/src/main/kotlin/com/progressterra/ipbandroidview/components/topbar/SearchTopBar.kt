@@ -19,7 +19,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.actions.Keyword
+import com.progressterra.ipbandroidview.model.component.Keyword
 import com.progressterra.ipbandroidview.components.BackIcon
 import com.progressterra.ipbandroidview.components.SettingsIcon
 import com.progressterra.ipbandroidview.components.ThemedTextField
@@ -44,12 +44,12 @@ fun SearchTopBar(
         backgroundColor = AppTheme.colors.surfaces,
         elevation = 0.dp,
         modifier = Modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, bottom = 10.dp)
+        contentPadding = PaddingValues(bottom = 10.dp)
     ) {
         Row(
             Modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             if (full)
                 IconButton(onClick = onBack) { BackIcon() }

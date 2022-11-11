@@ -1,37 +1,31 @@
 package com.progressterra.ipbandroidview.domain.usecase
 
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
-import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
-import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeOfEntity
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.DomainConstants
-import com.progressterra.ipbandroidview.domain.mapper.GoodsMapper
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
+import com.progressterra.ipbandroidview.model.StoreGoods
 
 interface GoodsPageUseCase {
 
-    suspend fun goodsPage(id: String, pageNumber: Int): Result<Pair<Int, List<Goods>>>
+    suspend fun goodsPage(
+        id: String,
+        pageNumber: Int,
+        favorites: List<String>
+    ): Result<Pair<Int, List<StoreGoods>>>
 
     class Base(
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
-        private val mapper: GoodsMapper,
+        private val mapper: StoreGoodsMapper,
         private val eCommerceRepo: IECommerceCoreRepository,
-        private val favoriteRepository: IPBFavPromoRecRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), GoodsPageUseCase {
 
-        //todo remove favorite checking from there
-
         override suspend fun goodsPage(
-            id: String, pageNumber: Int
-        ): Result<Pair<Int, List<Goods>>> = runCatching {
-            val favorites = withToken {
-                favoriteRepository.getClientEntityByType(
-                    it, TypeOfEntity.PRODUCT
-                )
-            }.getOrThrow()
+            id: String, pageNumber: Int, favorites: List<String>
+        ): Result<Pair<Int, List<StoreGoods>>> = runCatching {
             val result = withToken {
                 eCommerceRepo.getProductsByCategory(
                     it,

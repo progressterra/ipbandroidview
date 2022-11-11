@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.components.StateBoxState
 import com.progressterra.ipbandroidview.components.VoiceState
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.core.ScreenState
@@ -13,5 +14,5 @@ data class ChecklistState(
     val voiceState: VoiceState,
     val checklist: Checklist,
     val stats: ChecklistStats,
-    val screenState: ScreenState
-)
+    override val screenState: ScreenState
+) : StateBoxState

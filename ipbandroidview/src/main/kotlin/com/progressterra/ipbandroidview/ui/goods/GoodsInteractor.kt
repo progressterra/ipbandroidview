@@ -1,22 +1,21 @@
 package com.progressterra.ipbandroidview.ui.goods
 
 import com.progressterra.ipbandroidview.actions.Back
-import com.progressterra.ipbandroidview.actions.Favorite
+import com.progressterra.ipbandroidview.actions.Details
+import com.progressterra.ipbandroidview.actions.FavoriteSpecific
 import com.progressterra.ipbandroidview.actions.Refresh
 import com.progressterra.ipbandroidview.model.Goods
 
-interface GoodsInteractor : Refresh, Back, Favorite {
-
-    fun goodsDetails(goods: Goods)
+interface GoodsInteractor : Refresh, Back, FavoriteSpecific<Goods>, Details<Goods> {
 
     class Empty : GoodsInteractor {
 
         override fun back() = Unit
 
-        override fun favorite(goodsId: String, favorite: Boolean) = Unit
+        override fun favoriteSpecific(item: Goods) = Unit
 
         override fun refresh() = Unit
 
-        override fun goodsDetails(goods: Goods) = Unit
+        override fun openDetails(item: Goods) = Unit
     }
 }

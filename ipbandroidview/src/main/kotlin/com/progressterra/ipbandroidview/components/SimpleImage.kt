@@ -16,7 +16,7 @@ import com.skydoves.landscapist.placeholder.shimmer.ShimmerPlugin
 
 @Composable
 fun SimpleImage(
-    modifier: Modifier = Modifier, url: String, options: ImageOptions, backgroundColor: Color
+    modifier: Modifier = Modifier, url: String, options: ImageOptions = ImageOptions(), backgroundColor: Color
 ) {
     FrescoImage(
         modifier = modifier,

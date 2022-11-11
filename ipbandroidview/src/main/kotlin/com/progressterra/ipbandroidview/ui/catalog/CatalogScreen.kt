@@ -36,7 +36,7 @@ fun CatalogScreen(
         SearchBox(
             state = searchState,
             onRefresh = { searchInteractor.refresh() },
-            onFavorite = { id, favorite -> searchInteractor.favorite(id, favorite) },
+            onFavorite = { searchInteractor.favorite(it) },
             onGoods = { searchInteractor.goodsDetails(it) }) {
             StateBox(
                 state = catalogState.screenState,
@@ -50,7 +50,7 @@ fun CatalogScreen(
                     contentPadding = PaddingValues(AppTheme.dimensions.medium)
                 ) {
                     items(catalogState.categories) {
-                        Category(state = it, onClick = { catalogInteractor.category(it) })
+                        Category(state = it, onClick = { catalogInteractor.openDetails(it) })
                     }
                 }
             }

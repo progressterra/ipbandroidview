@@ -42,7 +42,6 @@ fun AttachedPhoto(
                 .clip(AppTheme.shapes.small)
                 .niceClickable(onClick = { onPhotoSelect(picture) }),
             url = picture.thumbnail,
-            options = ImageOptions(contentScale = ContentScale.FillBounds),
             backgroundColor = AppTheme.colors.surfaces
         )
     }

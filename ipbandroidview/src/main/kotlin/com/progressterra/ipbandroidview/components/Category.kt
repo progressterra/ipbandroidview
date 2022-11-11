@@ -39,7 +39,6 @@ fun Category(modifier: Modifier = Modifier, state: CategoryState, onClick: () ->
                 .fillMaxWidth()
                 .height(104.dp),
             url = state.image,
-            options = ImageOptions(),
             backgroundColor = AppTheme.colors.surfaces
         )
         Box(

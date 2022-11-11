@@ -33,7 +33,7 @@ fun SubCatalogScreen(
         SearchBox(
             state = searchState,
             onRefresh = { searchInteractor.refresh() },
-            onFavorite = { id, favorite -> searchInteractor.favorite(id, favorite) },
+            onFavorite = { searchInteractor.favorite(it) },
             onGoods = { searchInteractor.goodsDetails(it) }) {
             LazyColumn(
                 modifier = Modifier

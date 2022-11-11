@@ -69,4 +69,6 @@
     <string name="image_missing">Изображение отсутствует!</string>
     <string name="in_cart">В корзину</string>
     <string name="favorites">Избранное</string>
+    <string name="cart">Корзина</string>
+    <string name="go_to_auth">Авторизоваться</string>
 </resources>

@@ -82,7 +82,7 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
             StateBox(modifier = Modifier
                 .fillMaxWidth()
                 .heightIn(min = 300.dp),
-                state = state.screenState,
+                state = state,
                 onRefresh = { interactor.refresh() }) {
                 if (state.currentCheck != null && state.currentCheckMedia != null) {
                     Column(

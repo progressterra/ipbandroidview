@@ -14,7 +14,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.components.SearchBox
 import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.StoreItemCard
+import com.progressterra.ipbandroidview.components.StoreCard
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.components.utils.items
@@ -45,7 +45,7 @@ fun MainScreen(
         SearchBox(
             state = searchState,
             onRefresh = { searchInteractor.refresh() },
-            onFavorite = { goodsId, favorite -> searchInteractor.favorite(goodsId, favorite) },
+            onFavorite = { searchInteractor.favorite(it) },
             onGoods = { searchInteractor.goodsDetails(it) }) {
             StateBox(
                 state = mainState.screenState,
@@ -61,13 +61,12 @@ fun MainScreen(
                 ) {
                     items(lazyItems) { goods ->
                         goods?.let {
-                            StoreItemCard(modifier = Modifier.align(Alignment.Center),
+                            StoreCard(modifier = Modifier.align(Alignment.Center),
                                 state = goods,
                                 onClick = { mainInteractor.goodsDetails(goods) },
                                 onFavorite = {
                                     mainInteractor.favorite(
-                                        goods.id,
-                                        goods.favorite
+                                        goods
                                     )
                                 })
                         }

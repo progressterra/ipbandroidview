@@ -1,3 +1,12 @@
 package com.progressterra.ipbandroidview.ui.cart
 
-sealed class CartEffect
+import com.progressterra.ipbandroidview.model.Goods
+
+sealed class CartEffect {
+
+    class GoodsDetails(val goods: Goods) : CartEffect()
+
+    object Auth : CartEffect()
+
+    object Next : CartEffect()
+}

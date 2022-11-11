@@ -14,7 +14,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.progressterra.ipbandroidview.actions.Keyword
+import com.progressterra.ipbandroidview.model.component.Keyword
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Goods
 import com.progressterra.ipbandroidview.model.component.SearchGoods
@@ -31,7 +31,7 @@ fun SearchBox(
     modifier: Modifier = Modifier,
     state: SearchBoxState,
     onRefresh: () -> Unit,
-    onFavorite: (String, Boolean) -> Unit,
+    onFavorite: (Goods) -> Unit,
     onGoods: (Goods) -> Unit,
     content: @Composable BoxScope.() -> Unit
 ) {
@@ -53,11 +53,11 @@ fun SearchBox(
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                     contentPadding = PaddingValues(AppTheme.dimensions.medium)
                 ) {
-                    items(state.searchGoods) { card ->
-                        StoreItemCard(modifier = Modifier.align(Alignment.Center),
-                            state = card,
-                            onClick = { onGoods(card) },
-                            onFavorite = { onFavorite(card.id, card.favorite) })
+                    items(state.searchGoods) { goods ->
+                        StoreCard(modifier = Modifier.align(Alignment.Center),
+                            state = goods,
+                            onClick = { onGoods(goods) },
+                            onFavorite = { onFavorite(goods) })
                     }
                 }
             }

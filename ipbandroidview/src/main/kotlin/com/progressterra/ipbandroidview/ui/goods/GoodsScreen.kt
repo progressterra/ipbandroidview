@@ -13,7 +13,7 @@ import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.StoreItemCard
+import com.progressterra.ipbandroidview.components.StoreCard
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.components.utils.items
@@ -40,7 +40,7 @@ fun GoodsScreen(
             onFilters = {})
     }) { _, _ ->
         StateBox(
-            state = goodsState.screenState,
+            state = goodsState,
             onRefresh = { goodsInteractor.refresh() }) {
             val lazyItems: LazyPagingItems<Goods> = goodsState.items.collectAsLazyPagingItems()
             LazyVerticalGrid(
@@ -50,12 +50,12 @@ fun GoodsScreen(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                 contentPadding = PaddingValues(AppTheme.dimensions.medium)
             ) {
-                items(lazyItems) { card ->
-                    card?.let {
-                        StoreItemCard(modifier = Modifier.align(Alignment.Center),
-                            state = card,
-                            onClick = { goodsInteractor.goodsDetails(card) },
-                            onFavorite = { goodsInteractor.favorite(card.id, card.favorite) })
+                items(lazyItems) { goods ->
+                    goods?.let {
+                        StoreCard(modifier = Modifier.align(Alignment.Center),
+                            state = goods,
+                            onClick = { goodsInteractor.openDetails(goods) },
+                            onFavorite = { goodsInteractor.favoriteSpecific(goods) })
                     }
                 }
             }

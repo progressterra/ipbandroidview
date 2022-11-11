@@ -42,7 +42,6 @@ fun OrganizationPresentation(
                 .fillMaxWidth()
                 .clip(AppTheme.shapes.small),
             url = imageUrl,
-            options = ImageOptions(contentScale = ContentScale.FillBounds),
             backgroundColor = AppTheme.colors.surfaces
         )
         Row(

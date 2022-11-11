@@ -21,11 +21,11 @@ class CatalogViewModel(
         refresh()
     }
 
-    override fun category(category: Category) = intent {
-        if (category.hasNext)
-            postSideEffect(CatalogEffect.SubCatalog(category))
+    override fun openDetails(item: Category) = intent {
+        if (item.hasNext)
+            postSideEffect(CatalogEffect.SubCatalog(item))
         else
-            postSideEffect(CatalogEffect.Goods(category.id))
+            postSideEffect(CatalogEffect.Goods(item.id))
     }
 
     override fun refresh() = intent {

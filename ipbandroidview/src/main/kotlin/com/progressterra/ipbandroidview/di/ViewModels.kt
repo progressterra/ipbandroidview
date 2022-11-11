@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.di
 
+import com.progressterra.ipbandroidview.ui.cart.CartViewModel
 import com.progressterra.ipbandroidview.ui.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
@@ -111,5 +112,9 @@ val viewModelsModule = module {
 
     viewModel {
         FavoritesViewModel(get(), get())
+    }
+
+    viewModel {
+        CartViewModel(get(), get())
     }
 }

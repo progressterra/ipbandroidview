@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.Goods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -23,8 +24,14 @@ class FavoritesViewModel(
         refresh()
     }
 
-    override fun favorite(goodsId: String, favorite: Boolean) = intent {
-        modifyFavoriteUseCase.modifyFavorite(goodsId, favorite).onSuccess { refresh() }
+    override fun favoriteSpecific(item: Goods) = intent {
+        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess {
+            val newGoods = item.copy(favorite = !item.favorite)
+            val newItems = state.items.replaceById(newGoods)
+            reduce {
+                state.copy(items = newItems)
+            }
+        }
     }
 
     override fun refresh() = intent {

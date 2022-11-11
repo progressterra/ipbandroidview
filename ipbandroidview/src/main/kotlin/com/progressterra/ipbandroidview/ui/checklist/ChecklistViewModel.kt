@@ -92,12 +92,6 @@ class ChecklistViewModel(
         refresh()
     }
 
-    override fun closeCheck() = intent {
-        audioManager.reset()
-        voiceManager.reset()
-        fileExplorer.reset()
-    }
-
     override fun refresh() = intent {
         state.currentCheck?.let { check ->
             reduce { state.copy(screenState = ScreenState.LOADING) }
@@ -193,7 +187,6 @@ class ChecklistViewModel(
                 }
             }
         }
-        postSideEffect(ChecklistEffect.RefreshAudits)
     }
 
 
@@ -298,7 +291,9 @@ class ChecklistViewModel(
         }.onFailure {
             postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
         }
-        postSideEffect(ChecklistEffect.RefreshAudits)
+        audioManager.reset()
+        voiceManager.reset()
+        fileExplorer.reset()
     }
 
     @Suppress("unused")

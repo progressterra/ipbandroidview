@@ -6,22 +6,22 @@ import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeOfEntity
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.domain.mapper.GoodsMapper
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
+import com.progressterra.ipbandroidview.model.StoreGoods
 
 interface FavoriteGoodsUseCase {
 
-    suspend fun favoriteGoods(): Result<List<Goods>>
+    suspend fun favoriteGoods(): Result<List<StoreGoods>>
 
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val favoriteRepository: IPBFavPromoRecRepository,
         private val eIECommerceCoreRepository: IECommerceCoreRepository,
-        private val goodsMapper: GoodsMapper
+        private val storeGoodsMapper: StoreGoodsMapper
     ) : AbstractUseCase(scrmRepository, provideLocation), FavoriteGoodsUseCase {
 
-        override suspend fun favoriteGoods(): Result<List<Goods>> = runCatching {
+        override suspend fun favoriteGoods(): Result<List<StoreGoods>> = runCatching {
             val favoriteIds = withToken { token ->
                 favoriteRepository.getClientEntityByType(
                     token, TypeOfEntity.PRODUCT
@@ -32,7 +32,7 @@ interface FavoriteGoodsUseCase {
                     eIECommerceCoreRepository.getProductDetailByIDRG(
                         favoriteId
                     ).getOrThrow()?.listProducts?.firstOrNull()?.let {
-                        add(goodsMapper.map(it, true))
+                        add(storeGoodsMapper.map(it, true))
                     }
                 }
             }

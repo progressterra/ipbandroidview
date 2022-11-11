@@ -26,7 +26,6 @@ fun BasicTopAppBar(
         modifier = modifier,
         backgroundColor = backgroundColor,
         elevation = 0.dp,
-        contentPadding = PaddingValues(horizontal = 16.dp)
     ) {
         Box {
             leftActions?.let {

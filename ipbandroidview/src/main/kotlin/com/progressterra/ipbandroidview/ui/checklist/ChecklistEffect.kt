@@ -10,8 +10,6 @@ sealed class ChecklistEffect {
     @Suppress("unused")
     class Toast(@StringRes val message: Int) : ChecklistEffect()
 
-    object RefreshAudits : ChecklistEffect()
-
     @Suppress("unused")
     class OpenImage(val picture: CheckPicture, val enabled: Boolean) : ChecklistEffect()
 }

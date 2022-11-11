@@ -1,16 +1,16 @@
 package com.progressterra.ipbandroidview.ui.favorites
 
-import com.progressterra.ipbandroidview.actions.Favorite
+import com.progressterra.ipbandroidview.actions.FavoriteSpecific
 import com.progressterra.ipbandroidview.actions.Refresh
 import com.progressterra.ipbandroidview.model.Goods
 
-interface FavoritesInteractor : Refresh, Favorite {
+interface FavoritesInteractor : Refresh, FavoriteSpecific<Goods> {
 
     fun goodsDetails(goods: Goods)
 
     class Empty : FavoritesInteractor {
 
-        override fun favorite(goodsId: String, favorite: Boolean) = Unit
+        override fun favoriteSpecific(item: Goods) = Unit
 
         override fun refresh() = Unit
 

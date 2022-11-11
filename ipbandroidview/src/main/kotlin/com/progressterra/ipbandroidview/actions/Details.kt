@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.actions
 
-interface Keyword {
+interface Details<T> {
 
-    val keyword: String
+    fun openDetails(item: T)
 }

@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.ext
 import androidx.core.util.PatternsCompat
 import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AttachedMedia
+import com.progressterra.ipbandroidview.model.component.Id
 import com.progressterra.ipbandroidview.ui.checklist.Check
 
 fun String.isEmail(): Boolean = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
@@ -19,8 +20,11 @@ fun YesNo.toBoolean(): Boolean? = when (this) {
     YesNo.NO -> false
 }
 
-fun List<Check>.replaceById(check: Check): List<Check> =
-    this.toMutableList().apply { this[indexOfFirst { check.id == it.id }] = check }
+fun <T : Id> List<T>.replaceById(item: T): List<T> =
+    this.toMutableList().apply { this[indexOfFirst { item.id == it.id }] = item }
+
+fun <T> List<T>.removeItem(item: T): List<T> =
+    this.toMutableList().apply { this.remove(item) }
 
 fun <T : AttachedMedia<T>> List<T>.formPatch(): List<T> =
     this.filter { (it.local && !it.toRemove) || (!it.local && it.toRemove) }

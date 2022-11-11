@@ -6,16 +6,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.model.component.Screen
+
+interface StateBoxState : Screen
 
 @Composable
 fun StateBox(
     modifier: Modifier = Modifier,
-    state: ScreenState,
+    state: StateBoxState,
     onRefresh: () -> Unit,
     content: @Composable (BoxScope.() -> Unit)
 ) {
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
-        when (state) {
+        when (state.screenState) {
             ScreenState.ERROR -> ThemedRefreshButton(onClick = onRefresh)
             ScreenState.LOADING -> ThemedLoadingIndicator()
             ScreenState.SUCCESS -> content()

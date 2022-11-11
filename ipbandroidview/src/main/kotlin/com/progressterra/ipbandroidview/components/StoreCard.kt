@@ -27,12 +27,12 @@ import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
-interface StoreItemCardState : Image, Favorite, Name, Price
+interface StoreCardState : Image, Favorite, Name, Price
 
 @Composable
-fun StoreItemCard(
+fun StoreCard(
     modifier: Modifier = Modifier,
-    state: StoreItemCardState,
+    state: StoreCardState,
     onClick: () -> Unit,
     onFavorite: () -> Unit
 ) {
@@ -60,9 +60,7 @@ fun StoreItemCard(
                     height = Dimension.value(236.dp)
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
-                }, url = state.image, options = ImageOptions(
-                contentScale = ContentScale.FillBounds
-            ), backgroundColor = AppTheme.colors.surfaces
+                }, url = state.image, backgroundColor = AppTheme.colors.surfaces
         )
         val margin = 8.dp
         Text(
@@ -103,25 +101,25 @@ fun StoreItemCard(
     }
 }
 
-private class StoreItemCardStatePreview(
+private class StoreCardStatePreview(
     override val favorite: Boolean,
     override val image: String,
     override val name: String,
     override val price: String
-) : StoreItemCardState
+) : StoreCardState
 
 @Preview
 @Composable
 private fun StoreItemCardPreview() {
     AppTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            StoreItemCard(state = StoreItemCardStatePreview(
+            StoreCard(state = StoreCardStatePreview(
                 image = "",
                 price = "3 000 ₽",
                 name = "Some cool item with pretty long name that contains many symbols",
                 favorite = false
             ), onClick = { }) {}
-            StoreItemCard(state = StoreItemCardStatePreview(
+            StoreCard(state = StoreCardStatePreview(
                 price = "3 000 ₽",
                 name = "Some cool item",
                 favorite = true,
