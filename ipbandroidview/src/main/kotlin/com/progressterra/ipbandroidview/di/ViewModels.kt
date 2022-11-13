@@ -55,7 +55,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        OrganizationAuditsViewModel(get(), get(), get())
+        OrganizationAuditsViewModel(get(), get())
     }
 
     viewModel {
