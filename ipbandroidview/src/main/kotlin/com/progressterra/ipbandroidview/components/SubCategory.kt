@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 interface SubCategoryState : Id, Name
 
 @Composable
-fun SubCategory(modifier: Modifier = Modifier, state: SubCategoryState, onClick: () -> Unit) {
+fun SubCategory(modifier: Modifier = Modifier, state: () -> SubCategoryState, onClick: () -> Unit) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -33,7 +33,7 @@ fun SubCategory(modifier: Modifier = Modifier, state: SubCategoryState, onClick:
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state.name,
+            text = state().name,
             color = AppTheme.colors.black,
             style = AppTheme.typography.text
         )
@@ -52,9 +52,11 @@ private fun SubCategoryPreview() {
     AppTheme {
         SubCategory(
             modifier = Modifier.width(300.dp),
-            state = SubCategoryStatePreview(
-                id = "", name = "Some category"
-            ), onClick = {}
+            state = {
+                SubCategoryStatePreview(
+                    id = "", name = "Some category"
+                )
+            }, onClick = {}
         )
     }
 }

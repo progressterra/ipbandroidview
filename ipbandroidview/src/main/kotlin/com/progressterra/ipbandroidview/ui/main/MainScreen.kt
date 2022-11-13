@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.components.SearchBox
@@ -18,39 +17,43 @@ import com.progressterra.ipbandroidview.components.StoreCard
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
 import com.progressterra.ipbandroidview.components.utils.items
-import com.progressterra.ipbandroidview.model.Goods
-import com.progressterra.ipbandroidview.model.GoodsColor
-import com.progressterra.ipbandroidview.model.GoodsSize
+import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.search.SearchInteractor
 import com.progressterra.ipbandroidview.ui.search.SearchState
-import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun MainScreen(
-    mainState: MainState,
-    mainInteractor: MainInteractor,
-    searchState: SearchState,
-    searchInteractor: SearchInteractor
+    mainState: () -> MainState,
+    searchState: () -> SearchState,
+    search: () -> Unit,
+    keyword: (String) -> Unit,
+    back: () -> Unit,
+    favoriteSpecific: (StoreGoods) -> Unit,
+    searchRefresh: () -> Unit,
+    openDetails: (StoreGoods) -> Unit,
+    filters: () -> Unit,
+    refresh: () -> Unit
 ) {
     ThemedLayout(topBar = {
         SearchTopBar(
             state = searchState,
-            onBack = { searchInteractor.back() },
-            onKeyword = { searchInteractor.keyword(it) },
-            onSearch = { searchInteractor.search() },
-            onFilters = {}, full = false
+            onBack = back,
+            onKeyword = { keyword(it) },
+            onSearch = search,
+            onFilters = filters, full = false
         )
     }) { _, _ ->
         SearchBox(
             state = searchState,
-            onRefresh = { searchInteractor.refresh() },
-            onFavorite = { searchInteractor.favorite(it) },
-            onGoods = { searchInteractor.goodsDetails(it) }) {
+            onRefresh = searchRefresh,
+            onFavorite = { favoriteSpecific(it) },
+            onGoods = { openDetails(it) }) {
             StateBox(
-                state = mainState.screenState,
-                onRefresh = { mainInteractor.refresh() }) {
-                val lazyItems: LazyPagingItems<Goods> = mainState.items.collectAsLazyPagingItems()
+                state = mainState()::screenState,
+                onRefresh = refresh
+            ) {
+                val lazyItems: LazyPagingItems<StoreGoods> =
+                    mainState().items.collectAsLazyPagingItems()
                 LazyVerticalGrid(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -62,12 +65,10 @@ fun MainScreen(
                     items(lazyItems) { goods ->
                         goods?.let {
                             StoreCard(modifier = Modifier.align(Alignment.Center),
-                                state = goods,
-                                onClick = { mainInteractor.goodsDetails(goods) },
+                                state = { goods },
+                                onClick = { openDetails(goods) },
                                 onFavorite = {
-                                    mainInteractor.favorite(
-                                        goods
-                                    )
+                                    favoriteSpecific(goods)
                                 })
                         }
                     }
@@ -81,74 +82,5 @@ fun MainScreen(
 @Composable
 private fun MainScreenPreview() {
     AppTheme {
-        MainScreen(
-            mainState = MainState(
-                items = flowOf(
-                    PagingData.from(
-                        listOf(
-                            Goods(
-                                id = "",
-                                name = "SOME cool 1",
-                                description = "",
-                                price = "3550 USD",
-                                favorite = false,
-                                images = listOf(),
-                                parameters = listOf(),
-                                inCartCounter = 0,
-                                image = "",
-                                color = GoodsColor("", ""),
-                                sizes = emptyList(),
-                                size = GoodsSize(false, "", ""),
-                                colors = emptyList()
-                            ), Goods(
-                                id = "",
-                                name = "cool 2",
-                                description = "",
-                                price = "3550 USD",
-                                favorite = false,
-                                images = listOf(),
-                                parameters = listOf(),
-                                inCartCounter = 0,
-                                image = "",
-                                color = GoodsColor("", ""),
-                                sizes = emptyList(),
-                                size = GoodsSize(false, "", ""),
-                                colors = emptyList()
-                            ), Goods(
-                                id = "",
-                                name = "cool 3",
-                                description = "",
-                                price = "3550 USD",
-                                favorite = false,
-                                images = listOf(),
-                                parameters = listOf(),
-                                inCartCounter = 0,
-                                image = "",
-                                color = GoodsColor("", ""),
-                                sizes = emptyList(),
-                                size = GoodsSize(false, "", ""),
-                                colors = emptyList()
-                            ), Goods(
-                                id = "",
-                                name = "COME SOOL",
-                                description = "",
-                                price = "3550 USD",
-                                favorite = false,
-                                images = listOf(),
-                                parameters = listOf(),
-                                inCartCounter = 0,
-                                image = "",
-                                color = GoodsColor("", ""),
-                                sizes = emptyList(),
-                                size = GoodsSize(false, "", ""),
-                                colors = emptyList()
-                            )
-                        )
-                    )
-                )
-            ), mainInteractor = MainInteractor.Empty(),
-            searchState = SearchState(),
-            searchInteractor = SearchInteractor.Empty()
-        )
     }
 }

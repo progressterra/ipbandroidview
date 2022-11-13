@@ -12,11 +12,11 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class ConfirmationCodeViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase
-) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect>,
-    ConfirmationCodeInteractor {
+) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect> {
 
     override val container: Container<ConfirmationCodeState, ConfirmationCodeEffect> = container(
         ConfirmationCodeState()
@@ -26,12 +26,11 @@ class ConfirmationCodeViewModel(
         startTimer()
     }
 
-    @Suppress("unused")
     fun setPhoneNumber(phoneNumber: String) = intent {
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
 
-    override fun resend() {
+    fun resend() {
         intent {
             startVerificationChannelUseCase.start(state.phoneNumber)
             reduce { state.copy(code = "") }
@@ -39,7 +38,7 @@ class ConfirmationCodeViewModel(
         startTimer()
     }
 
-    override fun next() = intent {
+    fun next() = intent {
         endVerificationChannelUseCase.end(state.phoneNumber, state.code).onSuccess {
             postSideEffect(ConfirmationCodeEffect.Next)
         }.onFailure {
@@ -47,7 +46,7 @@ class ConfirmationCodeViewModel(
         }
     }
 
-    override fun editCode(code: String) = intent {
+    fun editCode(code: String) = intent {
         if (code.length <= 4) reduce { state.copy(code = code) }
         if (code.length == 4) next()
     }
@@ -62,7 +61,7 @@ class ConfirmationCodeViewModel(
         reduce { state.copy(isTimer = false) }
     }
 
-    override fun back() = intent {
+    fun back() = intent {
         postSideEffect(ConfirmationCodeEffect.Back)
     }
 }

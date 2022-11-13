@@ -22,10 +22,10 @@ import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun ProfileScreen(state: ProfileState, interactor: ProfileInteractor) {
+fun ProfileScreen(state: () -> ProfileState, openDetails: () -> Unit) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            title = stringResource(id = R.string.profile)
+            title = { stringResource(id = R.string.profile) }
         )
     }) { _, _ ->
         Column(
@@ -43,17 +43,17 @@ fun ProfileScreen(state: ProfileState, interactor: ProfileInteractor) {
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
                     Text(
-                        text = state.name.ifBlank { stringResource(id = R.string.set_name) },
+                        text = state().name.ifBlank { stringResource(id = R.string.set_name) },
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )
                     Text(
-                        text = state.phone,
+                        text = state().phone,
                         color = AppTheme.colors.gray2,
                         style = AppTheme.typography.secondaryText
                     )
                 }
-                IconButton(onClick = { interactor.openDetails() }) {
+                IconButton(onClick = openDetails) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_edit),
                         contentDescription = stringResource(
@@ -70,6 +70,5 @@ fun ProfileScreen(state: ProfileState, interactor: ProfileInteractor) {
 @Composable
 private fun ProfileScreenPreview() {
     AppTheme {
-        ProfileScreen(ProfileState("+89994442345", "Канье Вест"), ProfileInteractor.Empty())
     }
 }

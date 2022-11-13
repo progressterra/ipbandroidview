@@ -26,24 +26,30 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ConfirmationCodeScreen(
-    state: ConfirmationCodeState, interactor: ConfirmationCodeInteractor
+    state: () -> ConfirmationCodeState,
+    resend: () -> Unit,
+    next: () -> Unit,
+    editCode: (String) -> Unit,
+    back: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.verification_code),
-            onBack = { interactor.back() })
+        ThemedTopAppBar(
+            title = { stringResource(id = R.string.verification_code) },
+            onBack = back
+        )
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.next() },
-                text = stringResource(id = R.string.next)
+                onClick = next,
+                text = { stringResource(id = R.string.next) }
             )
             Spacer(modifier = Modifier.size(8.dp))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.resend() },
-                text = if (state.isTimer) state.timer else stringResource(id = R.string.resend),
-                enabled = !state.isTimer
+                onClick = resend,
+                text = { if (state().isTimer) state().timer else stringResource(id = R.string.resend) },
+                enabled = { !state().isTimer }
             )
         }
     }) { _, _ ->
@@ -61,15 +67,15 @@ fun ConfirmationCodeScreen(
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "${stringResource(id = R.string.verification_code_message)}\n${state.phoneNumber}",
+                    text = "${stringResource(id = R.string.verification_code_message)}\n${state().phoneNumber}",
                     color = AppTheme.colors.gray1,
                     style = AppTheme.typography.text,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.size(16.dp))
                 VerificationCodeInput(modifier = Modifier.fillMaxWidth(),
-                    code = state.code,
-                    onCode = { interactor.editCode(it) })
+                    code = state()::code,
+                    onCode = { editCode(it) })
             }
         }
     }
@@ -79,10 +85,5 @@ fun ConfirmationCodeScreen(
 @Composable
 private fun ConfirmationCodeScreenPreview() {
     AppTheme {
-        ConfirmationCodeScreen(
-            ConfirmationCodeState(
-                phoneNumber = "+7 999 999 99 99", code = "123"
-            ), ConfirmationCodeInteractor.Empty()
-        )
     }
 }

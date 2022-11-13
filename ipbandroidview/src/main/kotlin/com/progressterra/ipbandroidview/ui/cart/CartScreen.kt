@@ -14,28 +14,37 @@ import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.bottombar.CartBottomBar
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.model.CartGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun CartScreen(state: CartState, interactor: CartInteractor) {
+fun CartScreen(
+    state: () -> CartState,
+    openDetails: (CartGoods) -> Unit,
+    favoriteSpecific: (CartGoods) -> Unit,
+    removeSpecific: (CartGoods) -> Unit,
+    next: () -> Unit,
+    refresh: () -> Unit,
+    auth: () -> Unit
+) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.cart))
+        ThemedTopAppBar(title = { stringResource(id = R.string.cart) })
     }, bottomBar = {
-        CartBottomBar(state = state, onNext = { interactor.next() }, onAuth = { interactor.auth() })
+        CartBottomBar(state = state, onNext = next, onAuth = auth)
     }) { _, _ ->
-        StateBox(state = state, onRefresh = { interactor.refresh() }) {
+        StateBox(state = state()::screenState, onRefresh = refresh) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                 contentPadding = PaddingValues(AppTheme.dimensions.medium)
             ) {
-                items(state.cart.listGoods) {
+                items(state().cart.listGoods) {
                     CartCard(
-                        state = it,
-                        onFavorite = { interactor.favoriteSpecific(it) },
-                        onDelete = { interactor.removeSpecific(it) }) {
-
-                    }
+                        state = { it },
+                        onFavorite = { favoriteSpecific(it) },
+                        onDelete = { removeSpecific(it) },
+                        onDetails = { openDetails(it) }
+                    )
                 }
             }
         }

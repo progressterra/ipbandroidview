@@ -17,12 +17,15 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.SimpleImage
 import com.progressterra.ipbandroidview.components.TrashIcon
 import com.progressterra.ipbandroidview.components.topbar.TransparentTopAppBar
-import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
 @Composable
-fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
+fun PhotoScreen(
+    state: () -> PhotoState,
+    back: () -> Unit,
+    remove: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -30,7 +33,7 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
         contentAlignment = Alignment.Center
     ) {
         TransparentTopAppBar(modifier = Modifier.align(Alignment.TopCenter), leftActions = {
-            IconButton(onClick = { interactor.back() }) {
+            IconButton(onClick = back) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_back),
                     contentDescription = stringResource(id = R.string.navigate_back),
@@ -38,14 +41,14 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
                 )
             }
         }, rightActions = {
-            if (state.enabled) IconButton(onClick = { interactor.remove() }) {
-                TrashIcon(enabled = true)
+            if (state().enabled) IconButton(onClick = remove) {
+                TrashIcon(enabled = { true })
             }
         })
-        state.picture?.let {
+        state().picture?.let {
             SimpleImage(
                 modifier = Modifier.fillMaxWidth(),
-                url = it.fullSize,
+                url = it::fullSize,
                 options = ImageOptions(contentScale = ContentScale.FillWidth),
                 backgroundColor = AppTheme.colors.black
             )
@@ -57,12 +60,5 @@ fun PhotoScreen(state: PhotoState, interactor: PhotoInteractor) {
 @Composable
 private fun PhotoViewerPreview() {
     AppTheme {
-        PhotoScreen(
-            state = PhotoState(
-                CheckPicture(
-                    id = "", local = true, toRemove = false, thumbnail = "", fullSize = ""
-                )
-            ), interactor = PhotoInteractor.Empty()
-        )
     }
 }

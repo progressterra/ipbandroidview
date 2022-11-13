@@ -9,8 +9,9 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class PhotoViewModel : ViewModel(),
-    ContainerHost<PhotoState, PhotoEffect>, PhotoInteractor {
+    ContainerHost<PhotoState, PhotoEffect> {
 
     override val container: Container<PhotoState, PhotoEffect> = container(PhotoState())
 
@@ -26,11 +27,11 @@ class PhotoViewModel : ViewModel(),
         }
     }
 
-    override fun back() = intent {
+    fun back() = intent {
         postSideEffect(PhotoEffect.Back)
     }
 
-    override fun remove() = intent {
+    fun remove() = intent {
         postSideEffect(PhotoEffect.Remove)
         postSideEffect(PhotoEffect.Back)
     }

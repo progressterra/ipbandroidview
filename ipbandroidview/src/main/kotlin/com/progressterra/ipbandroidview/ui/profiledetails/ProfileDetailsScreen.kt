@@ -19,10 +19,19 @@ import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsInteractor) {
+fun ProfileDetailsScreen(
+    state: () -> ProfileDetailsState,
+    confirmChange: () -> Unit,
+    editEmail: (String) -> Unit,
+    editName: (String) -> Unit,
+    back: () -> Unit,
+    logout: () -> Unit
+) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.information),
-            onBack = { interactor.back() })
+        ThemedTopAppBar(
+            title = { stringResource(id = R.string.information) },
+            onBack = back
+        )
     }) { _, _ ->
         Column(
             modifier = Modifier
@@ -39,31 +48,31 @@ fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsI
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
             ) {
                 ThemedTextField(modifier = Modifier.fillMaxWidth(),
-                    text = state.name,
-                    hint = stringResource(id = R.string.name_surname),
-                    onChange = { interactor.editName(it) })
+                    text = state()::name,
+                    hint = { stringResource(id = R.string.name_surname) },
+                    onChange = { editName(it) })
                 ThemedTextField(modifier = Modifier.fillMaxWidth(),
-                    text = state.email,
-                    hint = stringResource(id = R.string.email),
-                    onChange = { interactor.editEmail(it) })
+                    text = state()::email,
+                    hint = { stringResource(id = R.string.email) },
+                    onChange = { editEmail(it) })
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    text = state.phone,
-                    hint = stringResource(id = R.string.phone_number),
-                    enabled = false
+                    text = state()::phone,
+                    hint = { stringResource(id = R.string.phone_number) },
+                    enabled = { false }
                 )
             }
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.confirmChange() },
-                text = stringResource(id = R.string.confirm_change),
+                onClick = confirmChange,
+                text = { stringResource(id = R.string.confirm_change) },
             )
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.logout() },
-                text = stringResource(id = R.string.logout),
-                textColor = AppTheme.colors.error,
-                tint = AppTheme.colors.surfaces
+                onClick = logout,
+                text = { stringResource(id = R.string.logout) },
+                textColor = { AppTheme.colors.error },
+                tint = { AppTheme.colors.surfaces }
             )
         }
     }
@@ -73,8 +82,5 @@ fun ProfileDetailsScreen(state: ProfileDetailsState, interactor: ProfileDetailsI
 @Composable
 private fun ProfileScreenPreview() {
     AppTheme {
-        ProfileDetailsScreen(
-            ProfileDetailsState("+89994442345", "Канье Вест", ""), ProfileDetailsInteractor.Empty()
-        )
     }
 }

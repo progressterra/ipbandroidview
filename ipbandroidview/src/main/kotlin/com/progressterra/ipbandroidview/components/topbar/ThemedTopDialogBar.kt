@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ThemedTopDialogBar(
     modifier: Modifier = Modifier,
-    title: String? = null,
+    title: @Composable () -> String? = { null },
     leftActions: (@Composable RowScope.() -> Unit)? = null,
     rightActions: (@Composable RowScope.() -> Unit)? = null
 ) {
@@ -19,7 +19,7 @@ fun ThemedTopDialogBar(
         leftActions = leftActions,
         rightActions = rightActions,
         title = {
-            title?.let {
+            title()?.let {
                 Text(
                     text = it,
                     color = AppTheme.colors.black,
@@ -36,7 +36,7 @@ fun ThemedTopDialogBar(
 @Composable
 private fun TopDialogBarWithBackNavPreview0() {
     AppTheme {
-        ThemedTopDialogBar(title = "Some mock title")
+        ThemedTopDialogBar(title = { "Some mock title" })
     }
 }
 
@@ -44,7 +44,7 @@ private fun TopDialogBarWithBackNavPreview0() {
 @Composable
 private fun TopDialogBarWithBackNavPreview1() {
     AppTheme {
-        ThemedTopDialogBar(title = "Some mock title", rightActions = {
+        ThemedTopDialogBar(title = { "Some mock title" }, rightActions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.black,
@@ -60,7 +60,7 @@ private fun TopDialogBarWithBackNavPreview1() {
 @Composable
 private fun TopDialogBarWithBackNavPreview2() {
     AppTheme {
-        ThemedTopDialogBar(title = "Some mock title", leftActions = {
+        ThemedTopDialogBar(title = { "Some mock title" }, leftActions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.black,
@@ -76,7 +76,7 @@ private fun TopDialogBarWithBackNavPreview2() {
 @Composable
 private fun TopDialogBarWithBackNavPreview3() {
     AppTheme {
-        ThemedTopDialogBar(title = "Some mock title", leftActions = {
+        ThemedTopDialogBar(title = { "Some mock title" }, leftActions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.black,

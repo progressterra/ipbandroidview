@@ -24,29 +24,29 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ThemedNotebook(
     modifier: Modifier = Modifier,
-    text: String = "",
-    hint: String = "",
+    text: () -> String,
+    hint: @Composable () -> String,
     onChange: ((String) -> Unit)? = null,
     onFocusChange: ((Boolean) -> Unit)? = null,
-    enabled: Boolean = true,
+    enabled: () -> Boolean = { true },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
-    val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
+    val label: (@Composable () -> Unit)? = if (text().isNotEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
+                text = hint(), style = AppTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
-    val placeholder: (@Composable () -> Unit)? = if (text.isEmpty()) {
+    val placeholder: (@Composable () -> Unit)? = if (text().isEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.text, maxLines = 1
+                text = hint(), style = AppTheme.typography.text, maxLines = 1
             )
         }
     } else null
-    var localText by remember(text) {
-        mutableStateOf(text)
+    var localText by remember(text()) {
+        mutableStateOf(text())
     }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
@@ -75,7 +75,7 @@ fun ThemedNotebook(
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,
-        enabled = enabled,
+        enabled = enabled(),
         textStyle = AppTheme.typography.text,
         colors = TextFieldDefaults.textFieldColors(
             placeholderColor = AppTheme.colors.gray1,
@@ -102,9 +102,9 @@ fun ThemedNotebook(
 private fun ThemedNotebookPreviewEnabled() {
     AppTheme {
         ThemedNotebook(
-            text = "Some text long long text text long long text text long long text text long long text",
-            hint = "Your name",
-            enabled = true
+            text = { "Some text long long text text long long text text long long text text long long text" },
+            hint = { "Your name" },
+            enabled = { true }
         )
     }
 }
@@ -114,7 +114,7 @@ private fun ThemedNotebookPreviewEnabled() {
 private fun ThemedNotebookPreviewEmptyDisabled() {
     AppTheme {
         ThemedNotebook(
-            hint = "Your name", enabled = false
+            hint = { "Your name" }, enabled = { false }, text = { "" }
         )
     }
 }

@@ -16,22 +16,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun AttachedPhoto(
     modifier: Modifier = Modifier,
-    pictures: List<CheckPicture>,
-    onPhotoSelect: (picture: CheckPicture) -> Unit,
+    pictures: () -> List<CheckPicture>,
+    onPhotoSelect: (CheckPicture) -> Unit,
     onCamera: () -> Unit,
-    enabled: Boolean
+    enabled: () -> Boolean
 ) {
 
     @Composable
@@ -41,12 +39,12 @@ fun AttachedPhoto(
                 .size(48.dp)
                 .clip(AppTheme.shapes.small)
                 .niceClickable(onClick = { onPhotoSelect(picture) }),
-            url = picture.thumbnail,
+            url = { picture.thumbnail },
             backgroundColor = AppTheme.colors.surfaces
         )
     }
 
-    if (pictures.isEmpty()) {
+    if (pictures().isEmpty()) {
         Row(
             modifier = modifier
                 .clip(AppTheme.shapes.small)
@@ -55,7 +53,7 @@ fun AttachedPhoto(
                 .background(AppTheme.colors.background)
                 .niceClickable(
                     onClick = onCamera,
-                    enabled = enabled
+                    enabled = { enabled() }
                 )
                 .padding(horizontal = 12.dp, vertical = 14.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -64,13 +62,13 @@ fun AttachedPhoto(
             Text(
                 text = stringResource(id = R.string.add_photo),
                 style = AppTheme.typography.text,
-                color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
+                color = if (enabled()) AppTheme.colors.gray1 else AppTheme.colors.gray2
             )
-            CameraIcon(enabled = enabled)
+            CameraIcon(enabled = { enabled() })
         }
     } else {
         LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (enabled) {
+            if (enabled()) {
                 item {
                     Box(
                         modifier = Modifier
@@ -80,11 +78,11 @@ fun AttachedPhoto(
                             .niceClickable(onClick = onCamera),
                         contentAlignment = Alignment.Center
                     ) {
-                        CameraIcon(enabled = true)
+                        CameraIcon(enabled = { true })
                     }
                 }
             }
-            items(pictures) { item ->
+            items(pictures()) { item ->
                 Item(picture = item)
             }
         }

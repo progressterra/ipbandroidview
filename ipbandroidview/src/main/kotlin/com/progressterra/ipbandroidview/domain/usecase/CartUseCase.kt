@@ -2,8 +2,6 @@ package com.progressterra.ipbandroidview.domain.usecase
 
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
-import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
-import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeOfEntity
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
@@ -19,7 +17,7 @@ interface CartUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val cartRepo: CartRepository,
-        private val favoriteRepository: IPBFavPromoRecRepository,
+        private val favoriteIdsUseCase: FavoriteIdsUseCase,
         private val iECommerceCoreRepository: IECommerceCoreRepository,
         private val cartGoodsMapper: CartGoodsMapper,
         private val priceMapper: PriceMapper
@@ -28,11 +26,7 @@ interface CartUseCase {
         override suspend fun cart(): Result<Cart> = runCatching {
             val cart = withToken { cartRepo.getProductsInCart(it) }.getOrThrow()
             val favoriteIds = if (cart?.drSaleRow.isNullOrEmpty()) emptyList()
-            else withToken { token ->
-                favoriteRepository.getClientEntityByType(
-                    token, TypeOfEntity.PRODUCT
-                )
-            }.getOrThrow()
+            else favoriteIdsUseCase.favoriteIds().getOrThrow()
             val price = priceMapper.map(cart?.drSaleRow?.sumOf { it.endPrice ?: 0.0 } ?: 0.0)
             val goods = buildList {
                 cart?.drSaleRow?.map { saleRow ->
@@ -45,9 +39,8 @@ interface CartUseCase {
                     }
                 }
             }
-            Cart.Base(
-                price = price,
-                listGoods = goods
+            Cart(
+                price = price, listGoods = goods
             )
         }
     }

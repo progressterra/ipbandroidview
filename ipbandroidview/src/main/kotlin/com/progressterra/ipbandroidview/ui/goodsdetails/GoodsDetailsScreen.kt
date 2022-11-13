@@ -19,27 +19,36 @@ import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.bottombar.GoodsBottomBar
 import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetails
 import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBar
-import com.progressterra.ipbandroidview.model.Goods
 import com.progressterra.ipbandroidview.model.GoodsColor
 import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor) {
+fun GoodsDetailsScreen(
+    state: () -> GoodsDetailsScreenState,
+    add: () -> Unit,
+    remove: () -> Unit,
+    favorite: () -> Unit,
+    sizeTable: () -> Unit,
+    size: (GoodsSize) -> Unit,
+    back: () -> Unit,
+    color: (GoodsColor) -> Unit,
+) {
     ThemedLayout(topBar = {
         GoodsTopAppBar(
-            onBack = { interactor.back() },
-            onFavorite = { interactor.favorite() },
+            onBack = back,
+            onFavorite = favorite,
             state = state
         )
     }, bottomBar = {
-        GoodsBottomBar(state = state,
-            onAdd = { interactor.add() },
-            onRemove = { interactor.remove() })
+        GoodsBottomBar(
+            state = state,
+            onAdd = add,
+            onRemove = remove
+        )
     }) { _, _ ->
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
             contentPadding = PaddingValues(AppTheme.dimensions.medium)
         ) {
@@ -54,23 +63,24 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
                 ColorsLine(
                     modifier = Modifier.fillMaxWidth(),
                     state = state,
-                    onColor = { interactor.color(it) })
+                    onColor = color
+                )
             }
             item {
-                SizesLine(modifier = Modifier.fillMaxWidth(),
+                SizesLine(
+                    modifier = Modifier.fillMaxWidth(),
                     state = state,
-                    onSize = { interactor.size(it) },
-                    onTable = { interactor.sizeTable() })
+                    onSize = { size(it) },
+                    onTable = sizeTable
+                )
             }
             item {
                 GoodsDetails(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state
+                    modifier = Modifier.fillMaxWidth(), state = state
                 )
                 Spacer(modifier = Modifier.size(8.dp))
             }
         }
-
     }
 }
 
@@ -78,38 +88,5 @@ fun GoodsDetailsScreen(state: GoodsDetailsScreenState, interactor: GoodsDetailsI
 @Composable
 private fun GoodsScreenPreview() {
     AppTheme {
-        val current = GoodsSize(
-            primary = "M", secondary = "36", available = true
-        )
-        GoodsDetailsScreen(
-            state = GoodsDetailsScreenState(
-                Goods(
-                    id = "",
-                    name = "YOOU COOL NAME BRO",
-                    description = "IT IS SUCH A NICE ITEM IT IS NIIICE YOY YOY",
-                    price = "9999 USD",
-                    color = GoodsColor(image = "", name = ""),
-                    favorite = false,
-                    image = "",
-                    images = listOf("", "", ""),
-                    parameters = listOf(),
-                    inCartCounter = 0,
-                    sizes = listOf(
-                        current,
-                        GoodsSize(
-                            primary = "L", secondary = "38", available = true
-                        ),
-                        GoodsSize(
-                            primary = "XL", secondary = "55", available = false
-                        ),
-                        GoodsSize(
-                            primary = "XXL", secondary = "77", available = true
-                        ),
-                    ),
-                    size = current,
-                    colors = listOf(GoodsColor("", ""), GoodsColor("", ""), GoodsColor("", "")),
-                )
-            ), interactor = GoodsDetailsInteractor.Empty()
-        )
     }
 }

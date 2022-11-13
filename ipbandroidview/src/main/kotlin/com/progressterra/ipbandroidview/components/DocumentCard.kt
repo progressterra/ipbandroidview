@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,16 +27,16 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun DocumentCard(
     modifier: Modifier = Modifier,
-    name: String = "",
-    address: String = "",
-    stats: ChecklistStats,
+    name: () -> String,
+    address: () -> String,
+    stats: () -> ChecklistStats,
     onClick: () -> Unit,
-    backgroundColor: Color = AppTheme.colors.surfaces
+    ongoing: () -> Boolean
 ) {
     Row(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
-            .background(backgroundColor)
+            .background(if (ongoing()) AppTheme.colors.secondary else AppTheme.colors.surfaces)
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(),
@@ -49,7 +48,7 @@ fun DocumentCard(
     ) {
         Column(Modifier.weight(1f, false)) {
             Text(
-                text = name,
+                text = name(),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text,
                 maxLines = 3,
@@ -57,7 +56,7 @@ fun DocumentCard(
             )
             Spacer(modifier = Modifier.size(2.dp))
             Text(
-                text = address,
+                text = address(),
                 color = AppTheme.colors.gray2,
                 style = AppTheme.typography.tertiaryText,
                 maxLines = 1,
@@ -73,45 +72,18 @@ fun DocumentCard(
 
 @Preview
 @Composable
-private fun AuditCardPreviewEmpty() {
+private fun AuditCardPreview() {
     AppTheme {
         DocumentCard(
-            name = "Ирина проводит аудит: «Наличие необходимого минимума продовольственных запасов на складе»",
-            address = "пл Дружбы народов, 45, «Кофемания»",
+            name = { "Ирина проводит аудит: «Наличие необходимого минимума продовольственных запасов на складе»" },
+            address = { "пл Дружбы народов, 45, «Кофемания»" },
             onClick = {},
-            stats = ChecklistStats(
-                43, 15, 20, 8
-            )
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun AuditCardPreviewZero() {
-    AppTheme {
-        DocumentCard(
-            name = "Ирина проводит аудит: «Наличие необходимого минимума продовольственных запасов на складе»",
-            address = "пл Дружбы народов, 45, «Кофемания»",
-            onClick = {},
-            stats = ChecklistStats(
-                43, 15, 20, 8
-            )
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun AuditCardPreviewFull() {
-    AppTheme {
-        DocumentCard(
-            name = "Ирина проводит аудит: «Наличие необходимого минимума продовольственных запасов на складе»",
-            address = "пл Дружбы народов, 45, «Кофемания»",
-            onClick = {},
-            stats = ChecklistStats(
-                43, 15, 20, 8
-            )
+            stats = {
+                ChecklistStats(
+                    43, 15, 20, 8
+                )
+            },
+            ongoing = { false }
         )
     }
 }

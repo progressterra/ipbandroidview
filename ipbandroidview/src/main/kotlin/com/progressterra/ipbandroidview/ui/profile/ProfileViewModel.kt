@@ -9,8 +9,8 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect>,
-    ProfileInteractor {
+@Suppress("unused", "MemberVisibilityCanBePrivate")
+class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect> {
 
     override val container: Container<ProfileState, ProfileEffect> = container(ProfileState("", ""))
 
@@ -27,7 +27,7 @@ class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect>
         }
     }
 
-    override fun openDetails() = intent {
+    fun openDetails() = intent {
         postSideEffect(ProfileEffect.OpenDetails)
     }
 }

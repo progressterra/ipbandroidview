@@ -1,7 +1,13 @@
 package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +20,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun CategoryDivider(
-    modifier: Modifier = Modifier, title: String = ""
+    modifier: Modifier = Modifier, title: @Composable () -> String
 ) {
     BoxWithConstraints {
         val width = maxWidth
@@ -22,14 +28,14 @@ fun CategoryDivider(
             Box(modifier = Modifier.widthIn(max = width - 32.dp)) {
                 Text(
                     textAlign = TextAlign.Start,
-                    text = title,
+                    text = title(),
                     style = AppTheme.typography.actionBarLabels,
                     color = AppTheme.colors.gray2
                 )
             }
             Box(
                 modifier = Modifier
-                    .padding(start = if (title.isNotBlank()) 8.dp else 0.dp)
+                    .padding(start = if (title().isNotBlank()) 8.dp else 0.dp)
                     .background(AppTheme.colors.gray2)
                     .height(1.dp)
                     .weight(1f)
@@ -45,7 +51,7 @@ private fun CategoryDivider() {
         Surface(color = AppTheme.colors.surfaces) {
             CategoryDivider(
                 modifier = Modifier.fillMaxWidth(),
-                title = "Some text"
+                title = { "Some text" }
             )
         }
     }
@@ -57,7 +63,7 @@ private fun CategoryDividerEmpty() {
     AppTheme {
         Surface(color = AppTheme.colors.surfaces) {
             CategoryDivider(
-                title = ""
+                title = { "" }
             )
         }
     }
@@ -69,7 +75,7 @@ private fun CategoryDividerLong() {
     AppTheme {
         Surface(color = AppTheme.colors.surfaces) {
             CategoryDivider(
-                title = "Some very long text some very long text some very long text some very long text some very long text some very long text some very long text some very long text HAPPY END"
+                title = { "Some very long text some very long text some very long text some very long text some very long text some very long text some very long text some very long text HAPPY END" }
             )
         }
     }

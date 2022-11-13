@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun FavoriteButton(
     modifier: Modifier = Modifier,
-    favorite: Boolean,
+    favorite: () -> Boolean,
     onClick: () -> Unit
 ) {
     IconButton(
@@ -22,7 +22,7 @@ fun FavoriteButton(
         FavoriteUncheckedIcon()
         Column {
             AnimatedVisibility(
-                visible = favorite,
+                visible = favorite(),
                 enter = scaleIn(),
                 exit = scaleOut()
             ) {

@@ -6,7 +6,6 @@ import android.provider.MediaStore
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.VoiceState
-import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.MakePhotoContract
@@ -15,17 +14,18 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.usecase.CheckMediaDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.ChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.ext.createStats
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
 import com.progressterra.ipbandroidview.ext.markToRemove
 import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.CheckPicture
-import com.progressterra.ipbandroidview.model.Checklist
 import com.progressterra.ipbandroidview.model.Voice
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
@@ -35,87 +35,86 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class ChecklistViewModel(
     private val createDocumentUseCase: CreateDocumentUseCase,
     private val finishDocumentUseCase: FinishDocumentUseCase,
     private val updateAnswerUseCase: UpdateAnswerUseCase,
     private val fetchExistingAuditUseCase: FetchExistingAuditUseCase,
     private val documentChecklistUseCase: DocumentChecklistUseCase,
+    private val checklistUseCase: ChecklistUseCase,
     private val managePermissionContract: ManagePermissionContract.Client,
     private val voiceManager: VoiceManager,
     private val audioManager: AudioManager,
     private val fileExplorer: FileExplorer,
     private val checkMediaDetailsUseCase: CheckMediaDetailsUseCase,
     private val makePhotoContract: MakePhotoContract.Client
-) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>,
-    ChecklistInteractor {
+) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect> {
 
-    override val container: Container<ChecklistState, ChecklistEffect> = container(
-        ChecklistState(
-            checklist = Checklist(
-                checklistId = "",
-                placeId = "",
-                name = "",
-                done = false,
-                ongoing = false,
-                checks = emptyList(),
-                documentId = null
-            ),
-            stats = ChecklistStats(0, 0, 0, 0),
-            voiceState = VoiceState.Recorder(false),
-            currentCheck = null,
-            screenState = ScreenState.SUCCESS,
-            currentCheckMedia = null
-        )
-    )
+    override val container: Container<ChecklistState, ChecklistEffect> = container(ChecklistState())
 
     private val micPermission = Manifest.permission.RECORD_AUDIO
 
     private val cameraPermission = Manifest.permission.CAMERA
 
-    @Suppress("unused")
-    fun setDocument(checklist: Checklist) = intent {
+    fun setDocument(id: String, placeId: String, isDocument: Boolean) = intent {
         reduce {
-            ChecklistState(
-                currentCheck = null,
-                currentCheckMedia = null,
-                checklist = checklist,
-                stats = checklist.createStats(),
-                voiceState = VoiceState.Recorder(false),
-                screenState = ScreenState.SUCCESS,
-            )
+            ChecklistState(id = id, placeId = placeId, isDocument = isDocument)
         }
+        refreshChecklist()
     }
 
-    override fun openCheck(check: Check) = intent {
+    fun refreshChecklist() = intent {
+        reduce { state.copy(checklistScreenState = ScreenState.LOADING) }
+        if (state.isDocument)
+            fetchExistingAuditUseCase.fetchExistingAudit(state.placeId, state.id)
+                .onSuccess { documentId ->
+                    documentChecklistUseCase.documentChecklist(documentId).onSuccess { checks ->
+                        reduce {
+                            state.copy(checks = checks, checklistScreenState = ScreenState.SUCCESS)
+                        }
+                    }
+                }.onFailure {
+                    reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
+                }
+        else
+            checklistUseCase.details(state.id).onSuccess { checks ->
+                reduce { state.copy(checks = checks, checklistScreenState = ScreenState.SUCCESS) }
+            }.onFailure {
+                reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
+            }
+
+    }
+
+    fun openCheck(check: Check) = intent {
         reduce { state.copy(currentCheck = check) }
-        refresh()
+        refreshCheck()
     }
 
-    override fun refresh() = intent {
+    fun refreshCheck() = intent {
         state.currentCheck?.let { check ->
-            reduce { state.copy(screenState = ScreenState.LOADING) }
+            reduce { state.copy(checkScreenState = ScreenState.LOADING) }
             checkMediaDetailsUseCase.checkDetails(check).onSuccess {
                 reduce {
                     state.copy(
                         currentCheckMedia = it,
-                        screenState = ScreenState.SUCCESS
+                        checkScreenState = ScreenState.SUCCESS
                     )
                 }
                 if (it.voices.isNotEmpty()) {
                     reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
                 }
             }.onFailure {
-                reduce { state.copy(screenState = ScreenState.ERROR) }
+                reduce { state.copy(checkScreenState = ScreenState.ERROR) }
             }
         }
     }
 
-    override fun back() = intent {
+    fun back() = intent {
         postSideEffect(ChecklistEffect.Back)
     }
 
-    override fun yesNo(yes: Boolean) = intent {
+    fun yesNo(yes: Boolean) = intent {
         reduce {
             state.copy(
                 currentCheck = state.currentCheck?.copy(
@@ -125,7 +124,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun editCheckCommentary(comment: String) = intent {
+    fun editCheckCommentary(comment: String) = intent {
         reduce {
             state.copy(
                 currentCheck = state.currentCheck?.copy(comment = comment)
@@ -133,64 +132,29 @@ class ChecklistViewModel(
         }
     }
 
-    override fun startStopAudit() = intent {
-        if (state.checklist.ongoing)
-            state.checklist.documentId?.let { documentId ->
-                finishDocumentUseCase.finishDocument(documentId).onSuccess {
-                    reduce { state.copy(checklist = state.checklist.copy(ongoing = false)) }
-                    postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
-                }.onFailure {
-                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
-                }
+    fun startStopAudit() = intent {
+        if (state.ongoing)
+            finishDocumentUseCase.finishDocument(state.id).onSuccess {
+                reduce { state.copy(ongoing = false) }
+                postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
+            }.onFailure {
+                postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
             }
-        else {
-            fetchExistingAuditUseCase.fetchExistingAudit(
-                state.checklist.placeId,
-                state.checklist.checklistId
+        else
+            createDocumentUseCase.createDocument(
+                state.id,
+                state.placeId
             ).onSuccess {
                 reduce {
-                    state.copy(
-                        checklist = state.checklist.copy(
-                            documentId = it
-                        )
-                    )
+                    state.copy(id = it, ongoing = true)
                 }
+                postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
             }.onFailure {
-                createDocumentUseCase.createDocument(
-                    state.checklist.checklistId,
-                    state.checklist.placeId
-                ).onSuccess {
-                    reduce {
-                        state.copy(
-                            checklist = state.checklist.copy(
-                                documentId = it
-                            )
-                        )
-                    }
-                }.onFailure {
-                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
-                }
+                postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
             }
-            state.checklist.documentId?.let { id ->
-                documentChecklistUseCase.documentChecklist(id).onSuccess { checks ->
-                    reduce {
-                        state.copy(
-                            checklist = state.checklist.copy(
-                                checks = checks,
-                                ongoing = true
-                            )
-                        )
-                    }
-                    postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
-                }.onFailure {
-                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
-                }
-            }
-        }
     }
 
-
-    override fun startPausePlay() = intent {
+    fun startPausePlay() = intent {
         if (state.voiceState.ongoing) {
             audioManager.pause()
             reduce {
@@ -225,7 +189,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun startStopRecording() = intent {
+    fun startStopRecording() = intent {
         if (state.voiceState.ongoing) {
             voiceManager.stopRecording()
             reduce {
@@ -258,7 +222,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun remove() = intent {
+    fun remove() = intent {
         audioManager.reset()
         reduce {
             state.copy(
@@ -270,7 +234,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun applyCheck() = intent {
+    fun applyCheck() = intent {
         updateAnswerUseCase.update(
             check = state.currentCheck!!,
             checkDetails = state.currentCheckMedia!!.copy(
@@ -278,13 +242,11 @@ class ChecklistViewModel(
                 pictures = state.currentCheckMedia!!.pictures.formPatch()
             ),
         ).onSuccess {
-            val newChecklist = state.checklist.copy(
-                checks = state.checklist.checks.replaceById(it)
-            )
             reduce {
+                val newChecks = state.checks.replaceById(it)
                 state.copy(
-                    checklist = newChecklist,
-                    stats = newChecklist.createStats()
+                    checks = newChecks,
+                    stats = newChecks.createStats()
                 )
             }
             postSideEffect(ChecklistEffect.Toast(R.string.answer_done))
@@ -296,7 +258,6 @@ class ChecklistViewModel(
         fileExplorer.reset()
     }
 
-    @Suppress("unused")
     fun removePhoto(picture: CheckPicture) = intent {
         reduce {
             state.copy(
@@ -309,11 +270,11 @@ class ChecklistViewModel(
         }
     }
 
-    override fun openImage(picture: CheckPicture) = intent {
-        postSideEffect(ChecklistEffect.OpenImage(picture, state.checklist.ongoing))
+    fun openImage(picture: CheckPicture) = intent {
+        postSideEffect(ChecklistEffect.OpenImage(picture, state.ongoing))
     }
 
-    override fun onCamera() = intent {
+    fun onCamera() = intent {
         if (managePermissionContract.checkPermission(cameraPermission)) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val newPhotoId = "TempPhoto_${System.currentTimeMillis()}"

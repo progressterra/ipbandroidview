@@ -1,16 +1,12 @@
 package com.progressterra.ipbandroidview.components.yesno
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,43 +15,44 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.components.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun YesNoButton(
     modifier: Modifier = Modifier,
-    yesNo: YesNo,
+    yesNo: () -> YesNo,
     onClick: (Boolean) -> Unit,
-    enabled: Boolean = true
+    enabled: () -> Boolean
 ) {
 
     @Composable
     fun Button(
         modifier: Modifier,
-        text: String,
-        activeColor: Color,
-        baseColor: Color,
-        active: Boolean,
+        text: @Composable () -> String,
+        activeColor: @Composable () -> Color,
+        baseColor: @Composable () -> Color,
+        active: () -> Boolean,
         onClick: () -> Unit
     ) {
-        Row(modifier = modifier
-            .clip(AppTheme.shapes.button)
-            .background(if (active) activeColor else baseColor)
-            .clickable(
-                enabled = enabled,
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(bounded = true)
-            ) { onClick() }
-            .padding(
-                horizontal = 32.dp,
-                vertical = 15.dp
-            ),
+        Row(
+            modifier = modifier
+                .clip(AppTheme.shapes.button)
+                .background(if (active()) activeColor() else baseColor())
+                .niceClickable(
+                    enabled = { enabled() }, onClick = onClick
+                )
+                .padding(
+                    horizontal = 32.dp,
+                    vertical = 15.dp
+                ),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center) {
+            horizontalArrangement = Arrangement.Center
+        ) {
             Text(
-                text = text,
+                text = text(),
                 style = AppTheme.typography.button,
-                color = if (active) AppTheme.colors.surfaces else AppTheme.colors.gray2
+                color = if (active()) AppTheme.colors.surfaces else AppTheme.colors.gray2
             )
         }
     }
@@ -65,16 +62,16 @@ fun YesNoButton(
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Button(modifier = Modifier.weight(1f),
-            text = stringResource(id = R.string.yes),
-            activeColor = AppTheme.colors.primary,
-            active = yesNo == YesNo.YES,
-            baseColor = if (yesNo == YesNo.NO) AppTheme.colors.gray3 else Color(0xFFA0ECAC),
+            text = { stringResource(id = R.string.yes) },
+            activeColor = { AppTheme.colors.primary },
+            active = { yesNo() == YesNo.YES },
+            baseColor = { if (yesNo() == YesNo.NO) AppTheme.colors.gray3 else Color(0xFFA0ECAC) },
             onClick = { onClick(true) })
         Button(modifier = Modifier.weight(1f),
-            text = stringResource(id = R.string.no),
-            activeColor = AppTheme.colors.error,
-            active = yesNo == YesNo.NO,
-            baseColor = if (yesNo == YesNo.YES) AppTheme.colors.gray3 else Color(0xFFF5B5B5),
+            text = { stringResource(id = R.string.no) },
+            activeColor = { AppTheme.colors.error },
+            active = { yesNo() == YesNo.NO },
+            baseColor = { if (yesNo() == YesNo.YES) AppTheme.colors.gray3 else Color(0xFFF5B5B5) },
             onClick = { onClick(false) })
     }
 }
@@ -83,7 +80,7 @@ fun YesNoButton(
 @Composable
 private fun YesNoButtonPreview() {
     AppTheme {
-        YesNoButton(yesNo = YesNo.NONE, onClick = {})
+        YesNoButton(yesNo = { YesNo.NONE }, onClick = {}, enabled = { true })
     }
 }
 
@@ -91,7 +88,7 @@ private fun YesNoButtonPreview() {
 @Composable
 private fun YesNoButtonPreviewYes() {
     AppTheme {
-        YesNoButton(yesNo = YesNo.YES, onClick = {})
+        YesNoButton(yesNo = { YesNo.YES }, onClick = {}, enabled = { true })
     }
 }
 
@@ -101,8 +98,8 @@ private fun YesNoButtonPreviewNo() {
     AppTheme {
         YesNoButton(
             modifier = Modifier.fillMaxWidth(),
-            yesNo = YesNo.NO,
-            onClick = {})
+            yesNo = { YesNo.NO },
+            onClick = {}, enabled = { true })
     }
 }
 
@@ -112,9 +109,9 @@ private fun YesNoButtonPreviewDisabled() {
     AppTheme {
         YesNoButton(
             modifier = Modifier.fillMaxWidth(),
-            yesNo = YesNo.NO,
+            yesNo = { YesNo.NO },
             onClick = {},
-            enabled = false
+            enabled = { false }
         )
     }
 }

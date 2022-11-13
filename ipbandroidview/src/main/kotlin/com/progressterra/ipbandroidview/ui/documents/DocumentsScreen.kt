@@ -27,27 +27,31 @@ import com.progressterra.ipbandroidview.components.DocumentCard
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
-import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
+fun DocumentsScreen(
+    state: () -> DocumentsState,
+    refresh: () -> Unit,
+    openOrganizations: () -> Unit,
+    openDocument: (Document) -> Unit
+) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.audits))
+        ThemedTopAppBar(title = { stringResource(id = R.string.audits) })
     }) { _, _ ->
         StateBox(
             modifier = Modifier
                 .fillMaxSize(),
-            state = state.screenState,
-            onRefresh = { interactor.refresh() }) {
+            state = state()::screenState,
+            onRefresh = refresh
+        ) {
             var buttonSize by remember { mutableStateOf(0.dp) }
-            val unfinishedDocs by remember(state.documents) {
-                mutableStateOf(state.documents.filter { it.finishDate == null })
+            val unfinishedDocs by remember(state().documents) {
+                mutableStateOf(state().documents.filter { it.finishDate == null })
             }
-            val finishedGroupedDocs by remember(state.documents) {
-                mutableStateOf(state.documents.filter { it.finishDate != null }
+            val finishedGroupedDocs by remember(state().documents) {
+                mutableStateOf(state().documents.filter { it.finishDate != null }
                     .groupBy { it.finishDate!! })
             }
             LazyColumn(
@@ -61,11 +65,11 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                 items(unfinishedDocs) {
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
-                        name = it.name,
-                        address = it.address,
-                        onClick = { interactor.openDocument(it) },
-                        stats = it.stats,
-                        backgroundColor = AppTheme.colors.secondary
+                        name = it::name,
+                        address = it::address,
+                        onClick = { openDocument(it) },
+                        stats = it::stats,
+                        ongoing = { true }
                     )
                 }
                 finishedGroupedDocs
@@ -73,16 +77,17 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                         item {
                             CategoryDivider(
                                 modifier = Modifier.fillMaxWidth(),
-                                title = "${stringResource(id = R.string.completed_audits)} ${it.key}"
+                                title = { "${stringResource(id = R.string.completed_audits)} ${it.key}" }
                             )
                         }
                         items(it.value) { document ->
                             DocumentCard(
                                 modifier = Modifier.fillMaxWidth(),
-                                name = document.name,
-                                address = document.address,
-                                onClick = { interactor.openDocument(document) },
-                                stats = document.stats
+                                name = document::name,
+                                address = document::address,
+                                onClick = { openDocument(document) },
+                                stats = document::stats,
+                                ongoing = { false }
                             )
                         }
                     }
@@ -100,8 +105,8 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
                     .onGloballyPositioned {
                         buttonSize = with(density) { it.size.height.toDp() }
                     },
-                onClick = { interactor.openOrganizations() },
-                text = stringResource(id = R.string.create_audit)
+                onClick = openOrganizations,
+                text = { stringResource(id = R.string.create_audit) }
             )
         }
     }
@@ -111,48 +116,5 @@ fun DocumentsScreen(state: DocumentsState, interactor: DocumentsInteractor) {
 @Composable
 private fun DocumentsScreenPreview() {
     AppTheme {
-        DocumentsScreen(
-            state = DocumentsState(
-                screenState = ScreenState.SUCCESS, documents = listOf(
-                    Document(
-                        documentId = "",
-                        "",
-                        "",
-                        "Some audit 1",
-                        "Lenina 13",
-                        25,
-                        null,
-                        ChecklistStats(7, 3, 3, 1)
-                    ), Document(
-                        documentId = "",
-                        "",
-                        "",
-                        "Some audit 2",
-                        "Lenina 13",
-                        25,
-                        null,
-                        ChecklistStats(7, 3, 3, 1)
-                    ), Document(
-                        documentId = "",
-                        "",
-                        "",
-                        "Some audit 3",
-                        "Lenina 13",
-                        25,
-                        null,
-                        ChecklistStats(7, 3, 3, 1)
-                    ), Document(
-                        documentId = "",
-                        "",
-                        "",
-                        "Some audit 4",
-                        "Lenina 13",
-                        25,
-                        null,
-                        ChecklistStats(7, 3, 3, 1)
-                    )
-                )
-            ), interactor = DocumentsInteractor.Empty()
-        )
     }
 }

@@ -1,14 +1,12 @@
 package com.progressterra.ipbandroidview.ui.main
 
-import androidx.compose.runtime.Immutable
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.StoreGoods
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
-@Immutable
 data class MainState(
-    val items: Flow<PagingData<Goods>> = emptyFlow(),
+    val items: Flow<PagingData<StoreGoods>> = emptyFlow(),
     val screenState: ScreenState = ScreenState.LOADING
 )

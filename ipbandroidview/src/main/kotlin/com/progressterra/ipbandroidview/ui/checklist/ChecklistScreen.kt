@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -28,9 +27,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.AttachedPhoto
@@ -38,132 +35,151 @@ import com.progressterra.ipbandroidview.components.AuditTitle
 import com.progressterra.ipbandroidview.components.BottomHolder
 import com.progressterra.ipbandroidview.components.CategoryDivider
 import com.progressterra.ipbandroidview.components.CheckCard
+import com.progressterra.ipbandroidview.components.MarkIcon
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.ThemedNotebook
 import com.progressterra.ipbandroidview.components.VoiceInput
-import com.progressterra.ipbandroidview.components.VoiceState
-import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
-import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.components.yesno.YesNoButton
-import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Checklist
+import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
+fun ChecklistScreen(
+    state: () -> ChecklistState,
+    back: () -> Unit,
+    refreshCheck: () -> Unit,
+    refreshChecklist: () -> Unit,
+    openCheck: (Check) -> Unit,
+    applyCheck: () -> Unit,
+    startStopAudit: () -> Unit,
+    yesNo: (Boolean) -> Unit,
+    editCheckCommentary: (String) -> Unit,
+    startPausePlay: () -> Unit,
+    startStopRecording: () -> Unit,
+    remove: () -> Unit,
+    openImage: (CheckPicture) -> Unit,
+    onCamera: () -> Unit
+) {
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true
     )
     val coroutineScope = rememberCoroutineScope()
     ModalBottomSheetLayout(
         sheetState = sheetState, sheetShape = RoundedCornerShape(
-            topStart = 8.dp, topEnd = 8.dp
+            topStart = AppTheme.dimensions.small, topEnd = AppTheme.dimensions.small
         ), sheetContent = {
-            ThemedTopDialogBar(title = if (state.currentCheck == null) stringResource(id = R.string.loading) else "${
-                stringResource(id = R.string.question)
-            } ${state.currentCheck.categoryNumber}-${state.currentCheck.ordinal}",
+            ThemedTopDialogBar(title = {
+                if (state().currentCheck == null) stringResource(id = R.string.loading) else "${
+                    stringResource(id = R.string.question)
+                } ${state().currentCheck!!.categoryNumber}-${state().currentCheck!!.ordinal}"
+            },
                 rightActions = {
-                    IconButton(modifier = Modifier.size(24.dp),
+                    IconButton(
                         onClick = { coroutineScope.launch { sheetState.hide() } }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_mark),
-                            contentDescription = stringResource(R.string.close),
-                            tint = AppTheme.colors.gray1
-                        )
+                        MarkIcon()
                     }
                 })
-            StateBox(modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 300.dp),
-                state = state,
-                onRefresh = { interactor.refresh() }) {
-                if (state.currentCheck != null && state.currentCheckMedia != null) {
+            StateBox(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 300.dp),
+                state = state()::checkScreenState,
+                onRefresh = refreshCheck
+            ) {
+                if (state().currentCheck != null && state().currentCheckMedia != null) {
                     Column(
                         modifier = Modifier
                             .background(AppTheme.colors.background)
                             .padding(
-                                top = 8.dp, start = 8.dp, end = 8.dp
+                                top = AppTheme.dimensions.small,
+                                start = AppTheme.dimensions.small,
+                                end = AppTheme.dimensions.small
                             )
                     ) {
                         Column(
                             modifier = Modifier
                                 .clip(AppTheme.shapes.medium)
                                 .background(AppTheme.colors.surfaces)
-                                .padding(12.dp)
+                                .padding(AppTheme.dimensions.large)
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = state.currentCheck.description,
+                                text = state().currentCheck!!.description,
                                 color = AppTheme.colors.black,
                                 style = AppTheme.typography.text
                             )
                         }
-                        Spacer(modifier = Modifier.size(8.dp))
+                        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                         Column(
                             modifier = Modifier
                                 .clip(AppTheme.shapes.medium)
                                 .background(AppTheme.colors.surfaces)
                         ) {
-                            Box(modifier = Modifier.padding(12.dp)) {
+                            Box(modifier = Modifier.padding(AppTheme.dimensions.large)) {
                                 YesNoButton(
                                     modifier = Modifier.fillMaxWidth(),
-                                    yesNo = state.currentCheck.yesNo,
-                                    onClick = { interactor.yesNo(it) },
-                                    enabled = state.checklist.ongoing
+                                    yesNo = { state().currentCheck!!.yesNo },
+                                    onClick = yesNo,
+                                    enabled = state()::ongoing
                                 )
                             }
-                            Box(modifier = Modifier.padding(horizontal = 12.dp)) {
+                            Box(modifier = Modifier.padding(horizontal = AppTheme.dimensions.large)) {
                                 ThemedNotebook(
                                     modifier = Modifier.fillMaxWidth(),
-                                    text = state.currentCheck.comment,
-                                    hint = stringResource(
-                                        id = R.string.text_comment
-                                    ),
-                                    onChange = { interactor.editCheckCommentary(it) },
-                                    enabled = state.checklist.ongoing
+                                    text = { state().currentCheck!!.comment },
+                                    hint = {
+                                        stringResource(
+                                            id = R.string.text_comment
+                                        )
+                                    },
+                                    onChange = editCheckCommentary,
+                                    enabled = state()::ongoing
                                 )
                             }
                             Box(modifier = Modifier.padding(4.dp)) {
                                 VoiceInput(
                                     modifier = Modifier.fillMaxWidth(),
-                                    state = state.voiceState,
-                                    onStartRecording = { interactor.startStopRecording() },
-                                    onStopRecording = { interactor.startStopRecording() },
-                                    onStartPlay = { interactor.startPausePlay() },
-                                    onPausePlay = { interactor.startPausePlay() },
-                                    onRemove = {
-                                        interactor.remove()
-                                    },
-                                    enabled = state.checklist.ongoing
+                                    state = state()::voiceState,
+                                    onStartRecording = startStopRecording,
+                                    onStopRecording = startStopRecording,
+                                    onStartPlay = startPausePlay,
+                                    onPausePlay = startPausePlay,
+                                    onRemove = remove,
+                                    enabled = state()::ongoing
                                 )
                             }
                             Box(
                                 modifier = Modifier.padding(
-                                    top = 4.dp, start = 12.dp, end = 12.dp, bottom = 12.dp
+                                    top = 4.dp,
+                                    start = AppTheme.dimensions.large,
+                                    end = AppTheme.dimensions.large,
+                                    bottom = AppTheme.dimensions.large
                                 )
                             ) {
-                                AttachedPhoto(modifier = Modifier.fillMaxWidth(),
-                                    enabled = state.checklist.ongoing,
-                                    pictures = state.currentCheckMedia.pictures.filter { !it.toRemove },
-                                    onPhotoSelect = { interactor.openImage(it) },
-                                    onCamera = { interactor.onCamera() })
+                                AttachedPhoto(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    enabled = state()::ongoing,
+                                    pictures = { state().currentCheckMedia!!.pictures.filter { !it.toRemove } },
+                                    onPhotoSelect = openImage,
+                                    onCamera = onCamera
+                                )
                             }
                         }
-                        if (state.checklist.ongoing) {
+                        if (state().ongoing) {
                             Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
-                            Row(Modifier.padding(horizontal = 8.dp)) {
+                            Row(Modifier.padding(horizontal = AppTheme.dimensions.small)) {
                                 ThemedButton(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
-                                        interactor.applyCheck()
+                                        applyCheck()
                                         coroutineScope.launch { sheetState.hide() }
-                                    }, text = stringResource(id = R.string.ready)
+                                    }, text = { stringResource(id = R.string.ready) }
                                 )
                             }
                         }
@@ -173,138 +189,78 @@ fun ChecklistScreen(state: ChecklistState, interactor: ChecklistInteractor) {
             }
         }, sheetBackgroundColor = AppTheme.colors.surfaces
     ) {
-        ThemedLayout(topBar = {
-            ThemedTopAppBar(
-                onBack = { interactor.back() }, title = stringResource(id = R.string.audit)
-            )
-        }, bottomBar = {
-            if (!state.checklist.done) {
-                BottomHolder(Modifier.fillMaxWidth()) {
-                    Row {
-                        ThemedButton(
-                            modifier = Modifier.weight(1f),
-                            onClick = { interactor.startStopAudit() },
-                            text = stringResource(
-                                id = if (state.checklist.ongoing) R.string.end_audit else R.string.start_audit
-                            ),
-                            tint = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.secondary else AppTheme.colors.primary,
-                            textColor = if (state.stats.remaining >= 1 && state.checklist.ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces
-                        )
-                        if (state.checklist.ongoing) {
-                            Spacer(modifier = Modifier.size(8.dp))
-                            Stats(modifier = Modifier.weight(1f), stats = state.stats)
+        StateBox(state = state()::checklistScreenState, onRefresh = refreshChecklist) {
+            ThemedLayout(topBar = {
+                ThemedTopAppBar(
+                    onBack = back, title = { stringResource(id = R.string.audit) }
+                )
+            }, bottomBar = {
+                if (!state().done) {
+                    BottomHolder(Modifier.fillMaxWidth()) {
+                        Row {
+                            ThemedButton(
+                                modifier = Modifier.weight(1f),
+                                onClick = startStopAudit,
+                                text = {
+                                    stringResource(
+                                        id = if (state().ongoing) R.string.end_audit else R.string.start_audit
+                                    )
+                                },
+                                tint = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.secondary else AppTheme.colors.primary },
+                                textColor = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces }
+                            )
+                            if (state().ongoing) {
+                                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                                Stats(modifier = Modifier.weight(1f), stats = state()::stats)
+                            }
                         }
                     }
                 }
-            }
-        }, bottomOverlap = true) { topPadding, bottomPadding ->
-            val groupedChecks by remember(state.checklist.checks) {
-                mutableStateOf(state.checklist.checks.groupBy { it.categoryNumber })
-            }
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = AppTheme.dimensions.medium,
-                        top = topPadding + AppTheme.dimensions.medium,
-                        end = AppTheme.dimensions.medium
-                    ),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                item {
-                    AuditTitle(
-                        modifier = Modifier.fillMaxWidth(),
-                        name = state.checklist.name,
-                        checkCounter = state.checklist.checks.size
-                    )
+            }, bottomOverlap = true) { topPadding, bottomPadding ->
+                val groupedChecks by remember(state().checks) {
+                    mutableStateOf(state().checks.groupBy { it.categoryNumber })
                 }
-                groupedChecks.forEach { (category, checks) ->
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(
+                            start = AppTheme.dimensions.medium,
+                            top = topPadding + AppTheme.dimensions.medium,
+                            end = AppTheme.dimensions.medium
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                ) {
                     item {
-                        CategoryDivider(
-                            modifier = Modifier.fillMaxWidth(), title = "$category. ${
-                                checks.firstOrNull()?.category ?: stringResource(
-                                    id = R.string.no_data
-                                )
-                            }"
+                        AuditTitle(
+                            modifier = Modifier.fillMaxWidth(),
+                            name = state()::name,
+                            checkCounter = { state().checks.size }
                         )
                     }
-                    items(checks) {
-                        CheckCard(
-                            modifier = Modifier.fillMaxWidth(), onClick = {
-                                interactor.openCheck(it)
-                                coroutineScope.launch { sheetState.show() }
-                            }, name = it.name, yesNo = it.yesNo
-                        )
+                    groupedChecks.forEach { (category, checks) ->
+                        item {
+                            CategoryDivider(
+                                modifier = Modifier.fillMaxWidth(), title = {
+                                    "$category. ${
+                                        checks.firstOrNull()?.category ?: stringResource(
+                                            id = R.string.no_data
+                                        )
+                                    }"
+                                }
+                            )
+                        }
+                        items(checks) {
+                            CheckCard(
+                                modifier = Modifier.fillMaxWidth(), onClick = {
+                                    openCheck(it)
+                                    coroutineScope.launch { sheetState.show() }
+                                }, name = { it.name }, yesNo = { it.yesNo }
+                            )
+                        }
                     }
+                    item { Spacer(modifier = Modifier.size(bottomPadding)) }
                 }
-                item { Spacer(modifier = Modifier.size(bottomPadding)) }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun ChecklistScreenPreview() {
-    AppTheme {
-        ChecklistScreen(
-            state = ChecklistState(
-                checklist = Checklist(
-                    ongoing = true, name = "Some audit", checks = listOf(
-                        Check(
-                            yesNo = YesNo.YES,
-                            id = "",
-                            category = "category",
-                            name = "Some check 1\nWith more text",
-                            description = "",
-                            comment = "",
-                            ordinal = 1,
-                            categoryNumber = 1
-                        ), Check(
-                            yesNo = YesNo.YES,
-                            id = "",
-                            category = "category",
-                            name = "Some check 2",
-                            description = "",
-                            comment = "",
-                            ordinal = 2,
-                            categoryNumber = 1
-                        ), Check(
-                            yesNo = YesNo.YES,
-                            id = "",
-                            category = "category",
-                            name = "Some check 3",
-                            description = "",
-                            comment = "",
-                            ordinal = 3,
-                            categoryNumber = 1
-                        ), Check(
-                            yesNo = YesNo.YES,
-                            id = "",
-                            category = "AAAaa",
-                            name = "Some check 4",
-                            description = "",
-                            comment = "",
-                            ordinal = 4,
-                            categoryNumber = 2
-                        ), Check(
-                            yesNo = YesNo.YES,
-                            id = "",
-                            category = "AAAaa",
-                            name = "Some check 5\nWith more text",
-                            description = "",
-                            comment = "",
-                            ordinal = 5,
-                            categoryNumber = 2
-                        )
-                    ), done = false, checklistId = "", placeId = "", documentId = null
-                ),
-                stats = ChecklistStats(14, 12, 1, 1),
-                currentCheck = null,
-                currentCheckMedia = null,
-                voiceState = VoiceState.Recorder(false),
-                screenState = ScreenState.SUCCESS
-            ), interactor = ChecklistInteractor.Empty()
-        )
     }
 }

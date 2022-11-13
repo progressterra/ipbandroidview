@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,12 +27,13 @@ import com.progressterra.ipbandroidview.model.component.Sizes
 import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+@Immutable
 interface SizesLineState : Size, Sizes
 
 @Composable
 fun SizesLine(
     modifier: Modifier = Modifier,
-    state: SizesLineState,
+    state: () -> SizesLineState,
     onSize: (GoodsSize) -> Unit,
     onTable: () -> Unit
 ) {
@@ -43,7 +45,7 @@ fun SizesLine(
                 .clip(AppTheme.shapes.small)
                 .border(
                     width = 1.dp,
-                    color = if (size == state.size) AppTheme.colors.primary else Color.Transparent,
+                    color = if (size == state().size) AppTheme.colors.primary else Color.Transparent,
                     AppTheme.shapes.small
                 )
                 .niceClickable({ onSize(size) })
@@ -77,7 +79,7 @@ fun SizesLine(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                items(state.sizes) {
+                items(state().sizes) {
                     Item(it)
                 }
             }
@@ -102,7 +104,7 @@ fun SizesLine(
                 style = AppTheme.typography.tertiaryText
             )
             Text(
-                text = state.size.primary,
+                text = state().size.primary,
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.tertiaryText
             )
@@ -122,19 +124,21 @@ private fun SizesLinePreview() {
         val current = GoodsSize(
             primary = "M", secondary = "36", available = true
         )
-        SizesLine(state = SizesLineStatePreview(
-            sizes = listOf(
-                current,
-                GoodsSize(
-                    primary = "L", secondary = "38", available = true
-                ),
-                GoodsSize(
-                    primary = "XL", secondary = "55", available = false
-                ),
-                GoodsSize(
-                    primary = "XXL", secondary = "77", available = true
-                ),
-            ), size = current
-        ), onSize = {}, onTable = {})
+        SizesLine(state = {
+            SizesLineStatePreview(
+                sizes = listOf(
+                    current,
+                    GoodsSize(
+                        primary = "L", secondary = "38", available = true
+                    ),
+                    GoodsSize(
+                        primary = "XL", secondary = "55", available = false
+                    ),
+                    GoodsSize(
+                        primary = "XXL", secondary = "77", available = true
+                    ),
+                ), size = current
+            )
+        }, onSize = {}, onTable = {})
     }
 }

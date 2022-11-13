@@ -13,28 +13,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun OrganizationPresentation(
     modifier: Modifier = Modifier,
-    name: String,
-    address: String,
-    imageUrl: String,
+    name: () -> String,
+    address: () -> String,
+    imageUrl: () -> String,
     onMapClick: () -> Unit
 ) {
     Column(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .padding(12.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(AppTheme.dimensions.large),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
     ) {
         SimpleImage(
             modifier = Modifier
@@ -49,10 +47,14 @@ fun OrganizationPresentation(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(text = name, color = AppTheme.colors.black, style = AppTheme.typography.title)
+            Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
                 Text(
-                    text = address,
+                    text = name(),
+                    color = AppTheme.colors.black,
+                    style = AppTheme.typography.title
+                )
+                Text(
+                    text = address(),
                     color = AppTheme.colors.gray2,
                     style = AppTheme.typography.tertiaryText
                 )
@@ -62,7 +64,7 @@ fun OrganizationPresentation(
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
                 ) {
                     MapIcon()
                     Text(
@@ -80,9 +82,9 @@ fun OrganizationPresentation(
 @Composable
 private fun OrganizationPresentationPreview() {
     AppTheme {
-        OrganizationPresentation(name = "Кофемания",
-            address = "Ленина 13 б",
-            imageUrl = "",
+        OrganizationPresentation(name = { "Кофемания" },
+            address = { "Ленина 13 б" },
+            imageUrl = { "" },
             onMapClick = {})
     }
 }

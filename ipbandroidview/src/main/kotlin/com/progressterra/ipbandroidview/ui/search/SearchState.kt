@@ -1,18 +1,20 @@
 package com.progressterra.ipbandroidview.ui.search
 
+import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.components.SearchBoxState
 import com.progressterra.ipbandroidview.components.topbar.SearchBarState
 import com.progressterra.ipbandroidview.core.IsEmpty
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Filter
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.StoreGoods
 
+@Immutable
 data class SearchState(
     val categoryId: String? = null,
     override val filters: List<Filter> = emptyList(),
     override val keyword: String = "",
     override val searchScreenState: ScreenState = ScreenState.SUCCESS,
-    override val searchGoods: List<Goods> = emptyList()
+    override val searchGoods: List<StoreGoods> = emptyList()
 ) : SearchBoxState, SearchBarState, IsEmpty {
 
     override val visible: Boolean get() = filters.isNotEmpty() && keyword.isNotBlank()

@@ -14,43 +14,47 @@ import com.progressterra.ipbandroidview.components.SearchBox
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.search.SearchInteractor
 import com.progressterra.ipbandroidview.ui.search.SearchState
 
 @Composable
 fun CatalogScreen(
-    catalogState: CatalogState,
-    catalogInteractor: CatalogInteractor,
-    searchState: SearchState,
-    searchInteractor: SearchInteractor
+    catalogState: () -> CatalogState,
+    refresh: () -> Unit,
+    openCategory: (Category) -> Unit,
+    searchState: () -> SearchState,
+    back: () -> Unit,
+    openSearchGoods: (StoreGoods) -> Unit,
+    favoriteSpecific: (StoreGoods) -> Unit,
+    refreshSearch: () -> Unit,
+    search: () -> Unit,
+    keyword: (String) -> Unit
 ) {
     ThemedLayout(topBar = {
         SearchTopBar(state = searchState,
-            onBack = { searchInteractor.back() },
-            onKeyword = { searchInteractor.keyword(it) },
-            onSearch = { searchInteractor.search() },
+            onBack = back,
+            onKeyword = { keyword(it) },
+            onSearch = search,
             onFilters = {})
     }) { _, _ ->
-        SearchBox(
-            state = searchState,
-            onRefresh = { searchInteractor.refresh() },
-            onFavorite = { searchInteractor.favorite(it) },
-            onGoods = { searchInteractor.goodsDetails(it) }) {
+        SearchBox(state = searchState,
+            onRefresh = refreshSearch,
+            onFavorite = { favoriteSpecific(it) },
+            onGoods = { openSearchGoods(it) }) {
             StateBox(
-                state = catalogState.screenState,
-                onRefresh = { catalogInteractor.refresh() }) {
+                state = catalogState()::screenState, onRefresh = refresh
+            ) {
                 LazyVerticalGrid(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     columns = GridCells.Fixed(2),
                     verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                     contentPadding = PaddingValues(AppTheme.dimensions.medium)
                 ) {
-                    items(catalogState.categories) {
-                        Category(state = it, onClick = { catalogInteractor.openDetails(it) })
+                    items(catalogState().categories) {
+                        Category(state = { it }, onClick = { openCategory(it) })
                     }
                 }
             }
@@ -62,14 +66,5 @@ fun CatalogScreen(
 @Composable
 private fun CatalogScreenPreview() {
     AppTheme {
-        CatalogScreen(
-            catalogState = CatalogState(
-                categories = emptyList(),
-                screenState = ScreenState.SUCCESS
-            ),
-            catalogInteractor = CatalogInteractor.Empty(),
-            searchState = SearchState(),
-            searchInteractor = SearchInteractor.Empty()
-        )
     }
 }

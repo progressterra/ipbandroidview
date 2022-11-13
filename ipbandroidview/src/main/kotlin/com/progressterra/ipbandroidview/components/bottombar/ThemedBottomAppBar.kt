@@ -8,14 +8,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.SideBorder
 import com.progressterra.ipbandroidview.components.utils.sideBorder
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ThemedBottomAppBar(
-    modifier: Modifier = Modifier, items: List<BottomMenuItem>, activeIndex: Int
+    modifier: Modifier = Modifier,
+    items: () -> List<BottomMenuTabState>,
+    activeIndex: () -> Int,
+    onClick: (Int) -> Unit
 ) {
     BottomAppBar(
         modifier = modifier
@@ -26,10 +28,12 @@ fun ThemedBottomAppBar(
         backgroundColor = AppTheme.colors.surfaces,
         elevation = 0.dp
     ) {
-        items.forEachIndexed { index, item ->
+        items().forEachIndexed { index, item ->
             BottomMenuTab(
-                modifier = modifier.weight(1f), state = item, active = index == activeIndex
-            )
+                modifier = modifier.weight(1f),
+                state = { item },
+                active = { index == activeIndex() },
+                onClick = { onClick(index) })
         }
     }
 }
@@ -38,19 +42,5 @@ fun ThemedBottomAppBar(
 @Composable
 private fun BottomNavPreview() {
     AppTheme {
-        ThemedBottomAppBar(
-            items = listOf(
-                BottomMenuItem(iconId = R.drawable.ic_organization,
-                    count = 12,
-                    titleId = R.string.address,
-                    onClick = {}), BottomMenuItem(iconId = R.drawable.ic_audits,
-                    count = 0,
-                    titleId = R.string.address,
-                    onClick = {}), BottomMenuItem(iconId = R.drawable.ic_profile,
-                    count = 3,
-                    titleId = R.string.address,
-                    onClick = {})
-            ), activeIndex = 0
-        )
     }
 }

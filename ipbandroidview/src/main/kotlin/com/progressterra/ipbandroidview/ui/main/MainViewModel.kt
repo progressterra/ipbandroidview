@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.DomainConstants
 import com.progressterra.ipbandroidview.domain.usecase.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.StoreGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -15,10 +15,11 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class MainViewModel(
     private val goodsUseCase: GoodsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase
-) : ViewModel(), ContainerHost<MainState, MainEffect>, MainInteractor {
+) : ViewModel(), ContainerHost<MainState, MainEffect> {
 
     override val container: Container<MainState, MainEffect> = container(MainState())
 
@@ -26,11 +27,11 @@ class MainViewModel(
         refresh()
     }
 
-    override fun favorite(goodsId: String, favorite: Boolean) = intent {
-        modifyFavoriteUseCase.modifyFavorite(goodsId, favorite).onSuccess { refresh() }
+    fun favoriteSpecific(item: StoreGoods) = intent {
+        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess { refresh() }
     }
 
-    override fun refresh() = intent {
+    fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         goodsUseCase.goods(DomainConstants.MAIN_DEFAULT_CATEGORY_ID).onSuccess {
             reduce {
@@ -41,7 +42,7 @@ class MainViewModel(
         }
     }
 
-    override fun goodsDetails(goods: Goods) = intent {
-        postSideEffect(MainEffect.GoodsDetails(goods))
+    fun openDetails(item: StoreGoods) = intent {
+        postSideEffect(MainEffect.GoodsDetails(item.id))
     }
 }

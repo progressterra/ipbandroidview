@@ -1,8 +1,10 @@
 package com.progressterra.ipbandroidview.model
 
+import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.components.CategoryState
 import kotlinx.parcelize.Parcelize
 
+@Immutable
 interface Category : CategoryState, SubCategory {
 
     @Parcelize

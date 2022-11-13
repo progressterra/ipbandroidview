@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,7 +29,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -38,12 +36,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun VerificationCodeInput(
     modifier: Modifier = Modifier,
-    code: String = "",
+    code: () -> String,
     onCode: ((String) -> Unit)? = null,
-    digitsCount: Int = 4,
-    roundingCornerSize: Dp = 8.dp,
-    spaceBetweenDigits: Dp = 12.dp,
-    boxWidth: Dp = 56.dp
 ) {
 
     @Composable
@@ -57,15 +51,15 @@ fun VerificationCodeInput(
         ) {
             Text(
                 modifier = Modifier
-                    .width(boxWidth)
+                    .width(56.dp)
                     .background(
                         color = AppTheme.colors.background,
-                        shape = RoundedCornerShape(roundingCornerSize)
+                        shape = AppTheme.shapes.small
                     )
                     .border(
                         width = 1.dp,
                         color = if (active) AppTheme.colors.primary else Color.Transparent,
-                        shape = RoundedCornerShape(roundingCornerSize)
+                        shape = AppTheme.shapes.small
                     ),
                 text = digit,
                 color = AppTheme.colors.black,
@@ -76,7 +70,7 @@ fun VerificationCodeInput(
     }
 
     var localCode by remember(code) {
-        mutableStateOf(TextFieldValue(text = code, selection = TextRange(code.length)))
+        mutableStateOf(TextFieldValue(text = code(), selection = TextRange(code().length)))
     }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
@@ -100,12 +94,12 @@ fun VerificationCodeInput(
         }),
         decorationBox = {
             Row(horizontalArrangement = Arrangement.Center) {
-                repeat(digitsCount) { index ->
+                repeat(4) { index ->
                     Digit(
                         if (index >= localCode.text.length) "" else localCode.text[index].toString(),
                         (localCode.text.length == index) && focused
                     )
-                    if (index != digitsCount - 1) Spacer(modifier = Modifier.size(spaceBetweenDigits))
+                    if (index != 4 - 1) Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
                 }
             }
         })
@@ -115,6 +109,6 @@ fun VerificationCodeInput(
 @Composable
 private fun VerificationCodeInputPreview0() {
     AppTheme {
-        VerificationCodeInput()
+        VerificationCodeInput(code = { "" })
     }
 }

@@ -8,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 
 fun Modifier.niceClickable(
-    onClick: () -> Unit, enabled: Boolean = true
+    onClick: () -> Unit, enabled: () -> Boolean = { true }
 ) = composed {
     this.clickable(
         interactionSource = remember { MutableInteractionSource() },
         indication = rememberRipple(),
         onClick = onClick,
-        enabled = enabled
+        enabled = enabled()
     )
 }

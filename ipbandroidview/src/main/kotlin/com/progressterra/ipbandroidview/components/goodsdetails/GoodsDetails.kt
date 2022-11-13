@@ -12,6 +12,7 @@ import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,11 +33,12 @@ import com.progressterra.ipbandroidview.model.component.Parameters
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
+@Immutable
 interface GoodsDetailsState : Name, Parameters, Description
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
+fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetailsState) {
 
     @Composable
     fun HorizontalTabs(
@@ -109,12 +111,12 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
             ) {
                 if (it == 0) {
                     Text(
-                        text = state.name,
+                        text = state().name,
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )
                     Text(
-                        text = state.description,
+                        text = state().description,
                         color = AppTheme.colors.gray1,
                         style = AppTheme.typography.secondaryText
                     )
@@ -126,7 +128,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                         style = AppTheme.typography.title
                     )
                     Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)) {
-                        state.parameters.forEach {
+                        state().parameters.forEach {
                             Row {
                                 Text(
                                     modifier = Modifier.width(104.dp),
@@ -179,7 +181,7 @@ private class GoodsDetailsStatePreview : GoodsDetailsState {
 private fun GoodsDetailsPagerPreview() {
     AppTheme {
         GoodsDetails(
-            state = GoodsDetailsStatePreview()
+            state = { GoodsDetailsStatePreview() }
         )
     }
 }

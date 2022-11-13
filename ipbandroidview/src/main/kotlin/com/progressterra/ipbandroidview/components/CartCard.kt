@@ -28,7 +28,7 @@ interface CartCardState : InCartCounter, Name, Image, Favorite, Color, Size, Pri
 @Composable
 fun CartCard(
     modifier: Modifier = Modifier,
-    state: CartCardState,
+    state: () -> CartCardState,
     onFavorite: () -> Unit,
     onDelete: () -> Unit,
     onDetails: () -> Unit
@@ -44,26 +44,30 @@ fun CartCard(
     ) {
         SimpleImage(
             modifier = Modifier.size(width = 80.dp, height = 96.dp),
-            url = state.image,
+            url = state()::image,
             backgroundColor = AppTheme.colors.surfaces
         )
         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(text = state.name, color = AppTheme.colors.black, style = AppTheme.typography.text)
             Text(
-                text = "${state.color}, ${state.size}, ${state.inCartCounter} шт",
+                text = state().name,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text
             )
             Text(
-                text = state.price,
+                text = "${state().color}, ${state().size}, ${state().inCartCounter} шт",
+                color = AppTheme.colors.black,
+                style = AppTheme.typography.text
+            )
+            Text(
+                text = state().price,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text
             )
         }
         Column {
-            FavoriteButton(favorite = state.favorite, onClick = onFavorite)
+            FavoriteButton(favorite = state()::favorite, onClick = onFavorite)
             IconButton(onClick = onDelete) {
-                TrashIcon(enabled = false)
+                TrashIcon(enabled = { false })
             }
         }
     }

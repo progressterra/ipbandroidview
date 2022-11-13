@@ -26,7 +26,7 @@ interface ChecklistUseCase {
         override suspend fun details(id: String): Result<List<Check>> = runCatching {
             val result = withToken {
                 checklistRepository.checklistElements(
-                    it, id, FilterAndSort(emptyList(), null, "", false, 0, 100)
+                    it, id, FilterAndSort(emptyList(), null, "", false, 0, 300)
                 )
             }.getOrThrow()
             var currentCategory = ""

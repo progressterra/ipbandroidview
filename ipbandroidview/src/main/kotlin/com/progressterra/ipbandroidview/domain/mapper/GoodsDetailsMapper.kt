@@ -34,7 +34,7 @@ interface GoodsDetailsMapper {
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            return GoodsDetails.Base(id = data.idUnique!!,
+            return GoodsDetails.Base(
                 images = images.map { it.url },
                 price = data.currentPrice?.let { priceMapper.map(it) } ?: noData,
                 name = data.name ?: noData,

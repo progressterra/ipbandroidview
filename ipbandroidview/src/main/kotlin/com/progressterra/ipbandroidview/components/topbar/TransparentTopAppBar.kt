@@ -12,10 +12,10 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun TransparentTopAppBar(
     modifier: Modifier = Modifier,
-    title: String? = null,
+    title: @Composable () -> String? = { null },
     leftActions: (@Composable RowScope.() -> Unit)? = null,
     rightActions: (@Composable RowScope.() -> Unit)? = null,
-    contentColor: Color = AppTheme.colors.surfaces
+    contentColor: @Composable () -> Color = { AppTheme.colors.surfaces }
 ) {
     BasicTopAppBar(
         modifier = modifier,
@@ -23,10 +23,10 @@ fun TransparentTopAppBar(
         rightActions = rightActions,
         backgroundColor = Color.Transparent,
         title = {
-            title?.let {
+            title()?.let {
                 Text(
                     text = it,
-                    color = contentColor,
+                    color = contentColor(),
                     style = AppTheme.typography.title,
                     maxLines = 1,
                     textAlign = TextAlign.Center
@@ -40,7 +40,7 @@ fun TransparentTopAppBar(
 @Composable
 private fun TopAppBarWithBackNavPreview0() {
     AppTheme {
-        TransparentTopAppBar(title = "Some mock title", leftActions = {})
+        TransparentTopAppBar(title = { "Some mock title" }, leftActions = {})
     }
 }
 
@@ -48,7 +48,7 @@ private fun TopAppBarWithBackNavPreview0() {
 @Composable
 private fun TopAppBarWithBackNavPreview1() {
     AppTheme {
-        TransparentTopAppBar(title = "Some mock title")
+        TransparentTopAppBar(title = { "Some mock title" })
     }
 }
 
@@ -56,7 +56,7 @@ private fun TopAppBarWithBackNavPreview1() {
 @Composable
 private fun TopAppBarWithBackNavPreview3() {
     AppTheme {
-        TransparentTopAppBar(title = "Some mock title", leftActions = {
+        TransparentTopAppBar(title = { "Some mock title" }, leftActions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.surfaces,

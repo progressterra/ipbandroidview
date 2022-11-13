@@ -5,7 +5,9 @@ import com.progressterra.ipbandroidview.model.component.Id
 
 interface CartGoods : CartCardState, Id {
 
-    class Base(
+    fun reverseFavorite(): CartGoods
+
+    data class Base(
         override val id: String,
         override val color: GoodsColor,
         override val favorite: Boolean,
@@ -14,5 +16,8 @@ interface CartGoods : CartCardState, Id {
         override val name: String,
         override val price: String,
         override val size: GoodsSize
-    ) : CartGoods
+    ) : CartGoods {
+
+        override fun reverseFavorite(): CartGoods = this.copy(favorite = !favorite)
+    }
 }

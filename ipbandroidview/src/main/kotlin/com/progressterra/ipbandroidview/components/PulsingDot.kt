@@ -1,6 +1,10 @@
 package com.progressterra.ipbandroidview.components
 
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -9,12 +13,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.unit.Dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 
 @Composable
-fun PulsingDot(modifier: Modifier = Modifier, size: Dp) {
+fun PulsingDot(modifier: Modifier = Modifier) {
 
     val infiniteTransition = rememberInfiniteTransition()
 
@@ -24,7 +27,7 @@ fun PulsingDot(modifier: Modifier = Modifier, size: Dp) {
         scale: Float
     ) = Spacer(
         modifier
-            .size(size)
+            .size(AppTheme.dimensions.gigantic)
             .scale(scale)
             .background(color = AppTheme.colors.primary.copy(alpha = 0.5f), shape = CircleShape)
     )

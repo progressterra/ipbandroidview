@@ -38,7 +38,7 @@ interface AllDocumentsUseCase {
                         "",
                         false,
                         0,
-                        100
+                        300
                     )
                 )
             }.getOrThrow()

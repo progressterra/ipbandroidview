@@ -30,25 +30,27 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SignInScreen(
-    state: SignInState,
-    interactor: SignInInteractor,
+    state: () -> SignInState,
+    next: () -> Unit,
+    skip: () -> Unit,
+    editPhoneNumber: (String) -> Unit,
     settings: SignInSettings,
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.authorization))
+        ThemedTopAppBar(title = { stringResource(id = R.string.authorization) })
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.next() },
-                text = stringResource(id = R.string.auth_button)
+                onClick = next,
+                text = { stringResource(id = R.string.auth_button) }
             )
             if (settings.type == SignInScreenType.PASSABLE) {
                 Spacer(modifier = Modifier.size(8.dp))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.skip() },
-                    text = stringResource(id = R.string.auth_skip)
+                    onClick = skip,
+                    text = { stringResource(id = R.string.auth_skip) }
                 )
             }
         }
@@ -68,26 +70,27 @@ fun SignInScreen(
                 ) {
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        text = state.phoneNumber,
-                        hint = stringResource(id = R.string.phone_number),
-                        onChange = { interactor.editPhoneNumber(it) },
+                        text = state()::phoneNumber,
+                        hint = { stringResource(id = R.string.phone_number) },
+                        onChange = { editPhoneNumber(it) },
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                     )
                 }
                 //TODO url opener
+                val list = listOf(
+                    LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
+                    LinkTextData(text = stringResource(id = R.string.offer),
+                        tag = "offer",
+                        annotation = stringResource(id = R.string.offer_url),
+                        onClick = { Log.d("CLICK", "SignInScreen: $it") }),
+                    LinkTextData(text = stringResource(id = R.string.and)),
+                    LinkTextData(text = stringResource(id = R.string.privacy_policy),
+                        tag = "privacy policy",
+                        annotation = stringResource(id = R.string.privacy_policy_url),
+                        onClick = { Log.d("CLICK", "SignInScreen: $it") })
+                )
                 LinkText(
-                    linkTextData = listOf(
-                        LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
-                        LinkTextData(text = stringResource(id = R.string.offer),
-                            tag = "offer",
-                            annotation = stringResource(id = R.string.offer_url),
-                            onClick = { Log.d("CLICK", "SignInScreen: $it") }),
-                        LinkTextData(text = stringResource(id = R.string.and)),
-                        LinkTextData(text = stringResource(id = R.string.privacy_policy),
-                            tag = "privacy policy",
-                            annotation = stringResource(id = R.string.privacy_policy_url),
-                            onClick = { Log.d("CLICK", "SignInScreen: $it") })
-                    ), modifier = Modifier.padding(top = 8.dp)
+                    linkTextData = { list }, modifier = Modifier.padding(top = 8.dp)
                 )
             }
         }
@@ -98,23 +101,6 @@ fun SignInScreen(
 @Composable
 private fun SplashScreenPreview() {
     AppTheme {
-        SignInScreen(
-            SignInState("+7 (999) 999-99-99", true),
-            SignInInteractor.Empty(),
-            SignInSettings(SignInScreenType.PASSABLE)
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun SplashScreenPreviewWithOnlyAuth() {
-    AppTheme {
-        SignInScreen(
-            SignInState("+7 (999) 999-99-99", true),
-            SignInInteractor.Empty(),
-            SignInSettings(SignInScreenType.REQUIRING_AUTH)
-        )
     }
 }
 

@@ -11,9 +11,9 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class ProfileDetailsViewModel(private val updatePersonalInfoUseCase: UpdatePersonalInfoUseCase) :
-    ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEffect>,
-    ProfileDetailsInteractor {
+    ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEffect> {
 
     override val container: Container<ProfileDetailsState, ProfileDetailsEffect> =
         container(ProfileDetailsState("", "", ""))
@@ -32,7 +32,7 @@ class ProfileDetailsViewModel(private val updatePersonalInfoUseCase: UpdatePerso
         }
     }
 
-    override fun confirmChange() = intent {
+    fun confirmChange() = intent {
         updatePersonalInfoUseCase.update(state.name, state.email).onSuccess {
             postSideEffect(ProfileDetailsEffect.Toast(R.string.success_changed_personal))
             postSideEffect(ProfileDetailsEffect.UpdateUserInfo)
@@ -41,20 +41,20 @@ class ProfileDetailsViewModel(private val updatePersonalInfoUseCase: UpdatePerso
         }
     }
 
-    override fun editEmail(email: String) = intent {
+    fun editEmail(email: String) = intent {
         reduce { state.copy(email = email) }
     }
 
-    override fun editName(name: String) = intent {
+    fun editName(name: String) = intent {
         reduce { state.copy(name = name) }
     }
 
-    override fun logout() = intent {
+    fun logout() = intent {
         UserData.clearUser()
         postSideEffect(ProfileDetailsEffect.Logout)
     }
 
-    override fun back() = intent {
+    fun back() = intent {
         postSideEffect(ProfileDetailsEffect.Back)
     }
 }

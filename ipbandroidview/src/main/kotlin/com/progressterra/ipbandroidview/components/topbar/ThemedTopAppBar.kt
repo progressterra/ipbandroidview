@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ThemedTopAppBar(
     modifier: Modifier = Modifier,
-    title: String? = null,
+    title: @Composable () -> String? = { null },
     onBack: (() -> Unit)? = null,
     actions: (@Composable RowScope.() -> Unit)? = null,
 ) {
@@ -33,7 +33,7 @@ fun ThemedTopAppBar(
                 }
             }
         }, title = {
-            title?.let {
+            title()?.let {
                 Text(
                     text = it,
                     color = AppTheme.colors.black,
@@ -50,7 +50,7 @@ fun ThemedTopAppBar(
 @Composable
 private fun TopAppBarWithBackNavPreview0() {
     AppTheme {
-        ThemedTopAppBar(title = "Some mock title", onBack = {})
+        ThemedTopAppBar(title = { "Some mock title" }, onBack = {})
     }
 }
 
@@ -58,7 +58,7 @@ private fun TopAppBarWithBackNavPreview0() {
 @Composable
 private fun TopAppBarWithBackNavPreview1() {
     AppTheme {
-        ThemedTopAppBar(title = "Some mock title")
+        ThemedTopAppBar(title = { "Some mock title" })
     }
 }
 
@@ -66,7 +66,7 @@ private fun TopAppBarWithBackNavPreview1() {
 @Composable
 private fun TopAppBarWithBackNavPreview2() {
     AppTheme {
-        ThemedTopAppBar(title = "Some mock title", actions = {
+        ThemedTopAppBar(title = { "Some mock title" }, actions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.black,
@@ -82,7 +82,7 @@ private fun TopAppBarWithBackNavPreview2() {
 @Composable
 private fun TopAppBarWithBackNavPreview3() {
     AppTheme {
-        ThemedTopAppBar(title = "Some mock title", onBack = {}, actions = {
+        ThemedTopAppBar(title = { "Some mock title" }, onBack = {}, actions = {
             Text(
                 text = "SOS",
                 color = AppTheme.colors.black,

@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.ext.replaceById
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.StoreGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -13,10 +13,11 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class FavoritesViewModel(
     private val favoriteGoodsUseCase: FavoriteGoodsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase
-) : ViewModel(), ContainerHost<FavoritesState, FavoritesEffect>, FavoritesInteractor {
+) : ViewModel(), ContainerHost<FavoritesState, FavoritesEffect> {
 
     override val container: Container<FavoritesState, FavoritesEffect> = container(FavoritesState())
 
@@ -24,17 +25,14 @@ class FavoritesViewModel(
         refresh()
     }
 
-    override fun favoriteSpecific(item: Goods) = intent {
+    fun favoriteSpecific(item: StoreGoods) = intent {
         modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess {
-            val newGoods = item.copy(favorite = !item.favorite)
-            val newItems = state.items.replaceById(newGoods)
-            reduce {
-                state.copy(items = newItems)
-            }
+            val newList = state.items.replaceById(item.reverseFavorite())
+            reduce { state.copy(items = newList) }
         }
     }
 
-    override fun refresh() = intent {
+    fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         favoriteGoodsUseCase.favoriteGoods().onSuccess {
             reduce {
@@ -48,7 +46,7 @@ class FavoritesViewModel(
         }
     }
 
-    override fun goodsDetails(goods: Goods) = intent {
-        postSideEffect(FavoritesEffect.GoodsDetails(goods))
+    fun openDetails(item: StoreGoods) = intent {
+        postSideEffect(FavoritesEffect.GoodsDetails(item.id))
     }
 }

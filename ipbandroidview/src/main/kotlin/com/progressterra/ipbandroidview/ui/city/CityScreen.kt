@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -36,24 +35,33 @@ import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun CityScreen(state: CityState, interactor: CityInteractor) {
+fun CityScreen(
+    state: () -> CityState,
+    back: () -> Unit,
+    skip: () -> Unit,
+    next: () -> Unit,
+    editAddress: (String) -> Unit,
+    onMapClick: (LatLng) -> Unit,
+    onSuggestion: (Suggestion) -> Unit
+) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            title = stringResource(id = R.string.verification_code),
-            onBack = { interactor.back() })
+            title = { stringResource(id = R.string.verification_code) },
+            onBack = back
+        )
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.next() },
-                text = stringResource(id = R.string.ready),
-                enabled = state.isDataValid,
+                onClick = next,
+                text = { stringResource(id = R.string.ready) },
+                enabled = state()::isDataValid,
             )
             Spacer(modifier = Modifier.size(8.dp))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.skip() },
-                text = stringResource(id = R.string.auth_skip)
+                onClick = skip,
+                text = { stringResource(id = R.string.auth_skip) }
             )
         }
     }) { _, _ ->
@@ -69,7 +77,6 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
             var isAddressFocused by remember {
                 mutableStateOf(false)
             }
-            val scope = rememberCoroutineScope()
             Box(modifier = Modifier
                 .clip(AppTheme.shapes.medium)
                 .background(AppTheme.colors.surfaces)
@@ -88,9 +95,9 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 end.linkTo(background.end, 12.dp)
             },
                 onFocusChange = { isAddressFocused = it },
-                text = state.address,
-                hint = stringResource(id = R.string.address),
-                onChange = { interactor.editAddress(it) })
+                text = state()::address,
+                hint = { stringResource(id = R.string.address) },
+                onChange = { editAddress(it) })
             GoogleMap(
                 modifier = Modifier
                     .clip(AppTheme.shapes.small)
@@ -103,9 +110,9 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                         bottom.linkTo(background.bottom, 12.dp)
                     },
                 cameraPositionState = cameraPositionState,
-                onMapClick = { interactor.onMapClick(it) }, onMyLocationClick = {
-                    interactor.onMapClick(LatLng(it.latitude, it.longitude))
-                }, properties = MapProperties(isMyLocationEnabled = state.isPermissionGranted)
+                onMapClick = { onMapClick(it) }, onMyLocationClick = {
+                    onMapClick(LatLng(it.latitude, it.longitude))
+                }, properties = MapProperties(isMyLocationEnabled = state().isPermissionGranted)
             )
             AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {
                 width = Dimension.fillToConstraints
@@ -113,9 +120,9 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
                 start.linkTo(address.start)
                 end.linkTo(address.end)
             },
-                suggestions = state.suggestions,
-                isVisible = state.isAddressInFocus && state.suggestions.isNotEmpty(),
-                onSuggestion = { interactor.onSuggestion(it) })
+                suggestions = state()::suggestions,
+                isVisible = { state().isAddressInFocus && state().suggestions.isNotEmpty() },
+                onSuggestion = { onSuggestion(it) })
 
         }
     }
@@ -125,22 +132,5 @@ fun CityScreen(state: CityState, interactor: CityInteractor) {
 @Composable
 private fun CityScreenPreview() {
     AppTheme {
-        CityScreen(CityState(), CityInteractor.Empty())
-    }
-}
-
-@Preview
-@Composable
-private fun CityScreenExpandedSuggestionPreview() {
-    AppTheme {
-        CityScreen(
-            CityState(
-                suggestions = listOf(
-                    Suggestion("Some address 1", "Some city 1"),
-                    Suggestion("Some address 2", "Some city 2"),
-                    Suggestion("Some address 3", "Some city 3")
-                )
-            ), CityInteractor.Empty()
-        )
     }
 }

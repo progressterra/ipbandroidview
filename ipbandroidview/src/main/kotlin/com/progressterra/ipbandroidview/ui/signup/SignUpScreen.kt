@@ -27,22 +27,31 @@ import com.squaredem.composecalendar.ComposeCalendar
 import java.time.LocalDate
 
 @Composable
-fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
+fun SignUpScreen(
+    state: () -> SignUpState,
+    skip: () -> Unit,
+    next: () -> Unit,
+    editBirthday: (String, LocalDate) -> Unit,
+    editEmail: (String) -> Unit,
+    editName: (String) -> Unit,
+    openCalendar: () -> Unit,
+    closeCalendar: () -> Unit
+) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.sign_up))
+        ThemedTopAppBar(title = { stringResource(id = R.string.sign_up) })
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.next() },
-                text = stringResource(id = R.string.next),
-                enabled = state.isDataValid,
+                onClick = next,
+                text = { stringResource(id = R.string.next) },
+                enabled = state()::isDataValid,
             )
             Spacer(modifier = Modifier.size(8.dp))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.skip() },
-                text = stringResource(id = R.string.auth_skip)
+                onClick = skip,
+                text = { stringResource(id = R.string.auth_skip) }
             )
         }
     }) { _, _ ->
@@ -59,33 +68,33 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
                     .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
             ) {
-                if (state.showCalendar) {
+                if (state().showCalendar) {
                     ComposeCalendar(onDone = {
-                        interactor.editBirthday(
+                        editBirthday(
                             "${it.dayOfMonth}.${it.monthValue}.${it.year}", it
                         )
-                        interactor.closeCalendar()
-                    }, onDismiss = { interactor.closeCalendar() })
+                        closeCalendar()
+                    }, onDismiss = closeCalendar)
                 }
                 ThemedTextField(modifier = Modifier.fillMaxWidth(),
-                    text = state.name,
-                    hint = stringResource(id = R.string.name_surname),
-                    onChange = { interactor.editName(it) })
+                    text = state()::name,
+                    hint = { stringResource(id = R.string.name_surname) },
+                    onChange = { editName(it) })
                 ThemedTextField(modifier = Modifier.fillMaxWidth(),
-                    text = state.email,
-                    hint = stringResource(id = R.string.email),
-                    onChange = { interactor.editEmail(it) })
+                    text = state()::email,
+                    hint = { stringResource(id = R.string.email) },
+                    onChange = { editEmail(it) })
                 ThemedMimicField(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.openCalendar() },
-                    text = state.birthday,
-                    hint = stringResource(id = R.string.birthday),
+                    onClick = { openCalendar() },
+                    text = state()::birthday,
+                    hint = { stringResource(id = R.string.birthday) },
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    text = state.phoneNumber,
-                    hint = stringResource(id = R.string.phone_number),
-                    enabled = false
+                    text = state()::phoneNumber,
+                    hint = { stringResource(id = R.string.phone_number) },
+                    enabled = { false }
                 )
             }
         }
@@ -96,23 +105,5 @@ fun SignUpScreen(state: SignUpState, interactor: SignUpInteractor) {
 @Composable
 private fun SignUpScreenPreviewEmpty() {
     AppTheme {
-        SignUpScreen(SignUpState(phoneNumber = "+7 (996) 697-76-76"), SignUpInteractor.Empty())
-    }
-}
-
-@Preview
-@Composable
-private fun SignUpScreenPreviewFilled() {
-    AppTheme {
-        SignUpScreen(
-            SignUpState(
-                "+7 (996) 697-76-76",
-                "Даниил",
-                "lala@email.com",
-                "12.12.2012",
-                LocalDate.now(),
-                true
-            ), SignUpInteractor.Empty()
-        )
     }
 }

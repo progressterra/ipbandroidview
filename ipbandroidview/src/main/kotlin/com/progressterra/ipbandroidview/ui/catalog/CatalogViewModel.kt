@@ -11,9 +11,10 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class CatalogViewModel(
     private val catalogUseCase: CatalogUseCase
-) : ViewModel(), ContainerHost<CatalogState, CatalogEffect>, CatalogInteractor {
+) : ViewModel(), ContainerHost<CatalogState, CatalogEffect> {
 
     override val container: Container<CatalogState, CatalogEffect> = container(CatalogState())
 
@@ -21,14 +22,14 @@ class CatalogViewModel(
         refresh()
     }
 
-    override fun openDetails(item: Category) = intent {
+    fun openCategory(item: Category) = intent {
         if (item.hasNext)
             postSideEffect(CatalogEffect.SubCatalog(item))
         else
             postSideEffect(CatalogEffect.Goods(item.id))
     }
 
-    override fun refresh() = intent {
+    fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         catalogUseCase.catalog().onSuccess {
             reduce { state.copy(categories = it, screenState = ScreenState.SUCCESS) }

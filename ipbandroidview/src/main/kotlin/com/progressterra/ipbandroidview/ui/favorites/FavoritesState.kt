@@ -1,10 +1,11 @@
 package com.progressterra.ipbandroidview.ui.favorites
 
-import com.progressterra.ipbandroidview.components.StateBoxState
+import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.StoreGoods
 
+@Immutable
 data class FavoritesState(
-    val items: List<Goods> = emptyList(),
-    override val screenState: ScreenState = ScreenState.LOADING
-) : StateBoxState
+    val items: List<StoreGoods> = emptyList(),
+    val screenState: ScreenState = ScreenState.LOADING
+)

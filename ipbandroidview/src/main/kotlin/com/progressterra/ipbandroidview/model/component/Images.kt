@@ -1,5 +1,8 @@
 package com.progressterra.ipbandroidview.model.component
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 interface Images {
 
     val images: List<String>

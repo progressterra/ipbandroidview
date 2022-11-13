@@ -10,10 +10,10 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class OrganizationsViewModel(
     private val allOrganizationsUseCase: AllOrganizationsUseCase
-) : ViewModel(), ContainerHost<OrganizationsState, OrganizationsEffect>,
-    OrganizationsInteractor {
+) : ViewModel(), ContainerHost<OrganizationsState, OrganizationsEffect> {
 
     override val container: Container<OrganizationsState, OrganizationsEffect> = container(
         OrganizationsState()
@@ -23,7 +23,7 @@ class OrganizationsViewModel(
         refresh()
     }
 
-    override fun refresh() = intent {
+    fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allOrganizationsUseCase.allOrganizations().onSuccess {
             reduce { state.copy(organizations = it, screenState = ScreenState.SUCCESS) }
@@ -32,7 +32,7 @@ class OrganizationsViewModel(
         }
     }
 
-    override fun organizationDetails(organization: Organization) = intent {
+    fun organizationDetails(organization: Organization) = intent {
         postSideEffect(OrganizationsEffect.OpenOrganization(organization))
     }
 }

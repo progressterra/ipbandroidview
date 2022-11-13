@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ext
 
 import androidx.core.util.PatternsCompat
+import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AttachedMedia
 import com.progressterra.ipbandroidview.model.component.Id
@@ -36,4 +37,21 @@ fun <T : AttachedMedia<T>> List<T>.markLastToRemove(): List<T> = this.toMutableL
     val temp = last().markToRemove()
     removeLast()
     add(temp)
+}
+
+fun List<Check>.createStats(): ChecklistStats {
+    var successful = 0
+    var failed = 0
+    this.forEach {
+        if (it.yesNo == YesNo.YES)
+            successful++
+        else if (it.yesNo == YesNo.NO)
+            failed++
+    }
+    val total = this.size
+    val remaining = total - successful - failed
+    return ChecklistStats(
+        total = total, successful = successful, failed = failed,
+        remaining = remaining
+    )
 }

@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.StoreGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -14,28 +14,24 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class GoodsViewModel(
     private val goodsUseCase: GoodsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase
-) : ViewModel(), ContainerHost<GoodsState, GoodsEffect>, GoodsInteractor {
+) : ViewModel(), ContainerHost<GoodsState, GoodsEffect> {
 
     override val container: Container<GoodsState, GoodsEffect> = container(GoodsState())
 
-    @Suppress("unused")
     fun setCategoryId(categoryId: String) = intent {
         reduce { state.copy(currentCategory = categoryId) }
         refresh()
     }
 
-    override fun back() = intent {
-        postSideEffect(GoodsEffect.Back)
-    }
-
-    override fun favoriteSpecific(item: Goods) = intent {
+    fun favoriteSpecific(item: StoreGoods) = intent {
         modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess { refresh() }
     }
 
-    override fun refresh() = intent {
+    fun refresh() = intent {
         state.currentCategory?.let {
             reduce { state.copy(screenState = ScreenState.LOADING) }
             goodsUseCase.goods(it).onSuccess {
@@ -51,7 +47,11 @@ class GoodsViewModel(
         }
     }
 
-    override fun openDetails(item: Goods) = intent {
-        postSideEffect(GoodsEffect.GoodsDetails(item))
+    fun openDetails(item: StoreGoods) = intent {
+        postSideEffect(GoodsEffect.GoodsDetails(item.id))
+    }
+
+    fun filters() = intent {
+        postSideEffect(GoodsEffect.Filters)
     }
 }

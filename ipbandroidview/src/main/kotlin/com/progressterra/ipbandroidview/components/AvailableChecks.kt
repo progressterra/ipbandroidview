@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun AvailableChecks(
     modifier: Modifier = Modifier,
-    count: Int = 0,
+    count: () -> Int,
 ) {
     Row(
         modifier = modifier
@@ -35,6 +35,6 @@ fun AvailableChecks(
 @Composable
 private fun AvailableChecksPreviewFailed() {
     AppTheme {
-        AvailableChecks(count = 15)
+        AvailableChecks(count = { 15 })
     }
 }

@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.domain.usecase.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.ext.removeItem
 import com.progressterra.ipbandroidview.ext.replaceById
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.CartGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -15,31 +15,28 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class CartViewModel(
     private val cartUseCase: CartUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase
-) : ViewModel(), ContainerHost<CartState, CartEffect>, CartInteractor {
+) : ViewModel(), ContainerHost<CartState, CartEffect> {
 
     override val container: Container<CartState, CartEffect> = container(CartState())
 
-    override fun favoriteSpecific(item: Goods) = intent {
+    fun favoriteSpecific(item: CartGoods) = intent {
         modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess {
+            val newList = state.cart.listGoods.replaceById(item.reverseFavorite())
+            val newCart = state.cart.copy(listGoods = newList)
             reduce {
                 state.copy(
-                    cart = state.cart.copy(
-                        listGoods = state.cart.listGoods.replaceById(
-                            item.copy(
-                                favorite = !item.favorite
-                            )
-                        )
-                    )
+                    cart = newCart
                 )
             }
         }
     }
 
-    override fun refresh() = intent {
+    fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         cartUseCase.cart().onSuccess {
             reduce { state.copy(cart = it, screenState = ScreenState.SUCCESS) }
@@ -49,13 +46,14 @@ class CartViewModel(
         }
     }
 
-    override fun openDetails(item: Goods) = intent { postSideEffect(CartEffect.GoodsDetails(item)) }
+    fun openDetails(item: CartGoods) =
+        intent { postSideEffect(CartEffect.GoodsDetails(item.id)) }
 
-    override fun next() = intent {
+    fun next() = intent {
         postSideEffect(CartEffect.Next)
     }
 
-    override fun removeSpecific(item: Goods) = intent {
+    fun removeSpecific(item: CartGoods) = intent {
         fastRemoveFromCartUseCase.remove(item.id, item.inCartCounter).onSuccess {
             val newListGoods = state.cart.listGoods.removeItem(item)
             val newCart = state.cart.copy(listGoods = newListGoods)
@@ -65,7 +63,7 @@ class CartViewModel(
         }
     }
 
-    override fun auth() = intent {
+    fun auth() = intent {
         postSideEffect(CartEffect.Auth)
     }
 }

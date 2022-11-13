@@ -13,5 +13,7 @@ data class AppColors(
     val gray2: Color = Color(0xFF8D8D93),
     val gray3: Color = Color(0xE0EDEDFC),
     val background: Color = Color(0xFFF0F0FF),
-    val error: Color = Color(0xFFDF3636)
+    val error: Color = Color(0xFFDF3636),
+    val success: Color = Color(0xFFA0ECAC),
+    val failed: Color = Color(0xFFF5B5B5)
 )

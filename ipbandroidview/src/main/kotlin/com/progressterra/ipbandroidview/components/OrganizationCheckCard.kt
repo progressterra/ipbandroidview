@@ -21,8 +21,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun OrganizationCheckCard(
     modifier: Modifier = Modifier,
-    name: String = "",
-    lastTime: String = "",
+    name: () -> String,
+    lastTime: () -> String,
     onClick: () -> Unit
 ) {
     Row(
@@ -31,15 +31,15 @@ fun OrganizationCheckCard(
             .clip(AppTheme.shapes.medium)
             .niceClickable(onClick = onClick)
             .background(AppTheme.colors.surfaces)
-            .padding(12.dp),
+            .padding(AppTheme.dimensions.large),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            Text(text = name, color = AppTheme.colors.black, style = AppTheme.typography.text)
-            Spacer(modifier = Modifier.size(4.dp))
+            Text(text = name(), color = AppTheme.colors.black, style = AppTheme.typography.text)
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             Text(
-                text = lastTime,
+                text = lastTime(),
                 color = AppTheme.colors.gray2,
                 style = AppTheme.typography.secondaryText
             )
@@ -55,7 +55,7 @@ fun OrganizationCheckCard(
 @Composable
 private fun OrganizationCheckCardPreview() {
     AppTheme {
-        OrganizationCheckCard(name = "Name", lastTime = "Last time", onClick = {})
+        OrganizationCheckCard(name = { "Name" }, lastTime = { "Last time" }, onClick = {})
     }
 }
 
@@ -63,6 +63,6 @@ private fun OrganizationCheckCardPreview() {
 @Composable
 private fun OrganizationCheckCardPreviewWarning() {
     AppTheme {
-        OrganizationCheckCard(name = "Name", lastTime = "Last time", onClick = {})
+        OrganizationCheckCard(name = { "Name" }, lastTime = { "Last time" }, onClick = {})
     }
 }

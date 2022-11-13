@@ -10,13 +10,14 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class SignInViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase
-) : ViewModel(), ContainerHost<SignInState, SignInEffect>, SignInInteractor {
+) : ViewModel(), ContainerHost<SignInState, SignInEffect> {
 
     override val container: Container<SignInState, SignInEffect> = container(SignInState())
 
-    override fun next() = intent {
+    fun next() = intent {
         startVerificationChannelUseCase.start(state.phoneNumber.trim()).onSuccess {
             postSideEffect(SignInEffect.Next(state.phoneNumber))
         }.onFailure {
@@ -24,9 +25,9 @@ class SignInViewModel(
         }
     }
 
-    override fun skip() = intent { postSideEffect(SignInEffect.Skip) }
+    fun skip() = intent { postSideEffect(SignInEffect.Skip) }
 
-    override fun editPhoneNumber(phoneNumber: String) = intent {
+    fun editPhoneNumber(phoneNumber: String) = intent {
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
 }

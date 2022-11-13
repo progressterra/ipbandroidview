@@ -1,11 +1,9 @@
 package com.progressterra.ipbandroidview.ui.search
 
-import com.progressterra.ipbandroidview.model.Goods
-
 sealed class SearchEffect {
 
     @Suppress("unused")
-    class GoodsDetails(val goods: Goods) : SearchEffect()
+    class GoodsDetails(val goodsId: String) : SearchEffect()
 
     object Search : SearchEffect()
 

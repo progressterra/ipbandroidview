@@ -1,55 +1,44 @@
 package com.progressterra.ipbandroidview.components
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.components.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ThemedMimicField(
     modifier: Modifier = Modifier,
-    roundingCornerSize: Dp = 8.dp,
-    text: String,
-    hint: String,
+    text: () -> String,
+    hint: @Composable () -> String,
     onClick: () -> Unit
 ) {
-    val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
+    val label: (@Composable () -> Unit)? = if (text().isNotEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
+                text = hint(), style = AppTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
-    val placeholder: (@Composable () -> Unit)? = if (text.isEmpty()) {
+    val placeholder: (@Composable () -> Unit)? = if (text().isEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.text, maxLines = 1
+                text = hint(), style = AppTheme.typography.text, maxLines = 1
             )
         }
     } else null
     TextField(
         modifier = modifier
-            .clip(RoundedCornerShape(roundingCornerSize))
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = rememberRipple(),
-                onClick = onClick
-            ),
-        value = text,
+            .clip(AppTheme.shapes.small)
+            .niceClickable(onClick = onClick),
+        value = text(),
         onValueChange = {},
-        shape = RoundedCornerShape(roundingCornerSize),
+        shape = AppTheme.shapes.small,
         placeholder = placeholder,
         label = label,
         enabled = false,
@@ -80,7 +69,7 @@ fun ThemedMimicField(
 @Composable
 private fun ThemedMimicFieldPreviewEnabled() {
     AppTheme {
-        ThemedMimicField(text = "Some text", hint = "Your name", onClick = {})
+        ThemedMimicField(text = { "Some text" }, hint = { "Your name" }, onClick = {})
     }
 }
 
@@ -88,7 +77,7 @@ private fun ThemedMimicFieldPreviewEnabled() {
 @Composable
 private fun ThemedMimicFieldPreviewDisabled() {
     AppTheme {
-        ThemedMimicField(text = "Some text", hint = "Your name", onClick = {})
+        ThemedMimicField(text = { "Some text" }, hint = { "Your name" }, onClick = {})
     }
 }
 
@@ -96,6 +85,6 @@ private fun ThemedMimicFieldPreviewDisabled() {
 @Composable
 private fun ThemedMimicFieldPreviewEmptyDisabled() {
     AppTheme {
-        ThemedMimicField(text = "", hint = "Your name", onClick = {})
+        ThemedMimicField(text = { "" }, hint = { "Your name" }, onClick = {})
     }
 }

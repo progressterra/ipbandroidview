@@ -1,11 +1,13 @@
 package com.progressterra.ipbandroidview.model
 
 import android.os.Parcelable
+import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.components.SubCategoryState
 import com.progressterra.ipbandroidview.model.component.HasNext
 import com.progressterra.ipbandroidview.model.component.SubCategories
 import kotlinx.parcelize.Parcelize
 
+@Immutable
 interface SubCategory : Parcelable, SubCategories, HasNext, SubCategoryState {
 
     @Parcelize

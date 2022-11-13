@@ -15,19 +15,19 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ThemedButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: String,
-    enabled: Boolean = true,
-    textColor: Color = AppTheme.colors.surfaces,
-    tint: Color = AppTheme.colors.primary
+    text: @Composable () -> String,
+    enabled: () -> Boolean = { true },
+    textColor: @Composable () -> Color = { AppTheme.colors.surfaces },
+    tint: @Composable () -> Color = { AppTheme.colors.primary }
 ) {
     Button(
         modifier = modifier,
         onClick = onClick,
         shape = AppTheme.shapes.button,
-        enabled = enabled,
+        enabled = enabled(),
         colors = ButtonDefaults.textButtonColors(
-            backgroundColor = if (enabled) tint else AppTheme.colors.gray3,
-            contentColor = textColor,
+            backgroundColor = if (enabled()) tint() else AppTheme.colors.gray3,
+            contentColor = textColor(),
             disabledContentColor = AppTheme.colors.gray2
         ),
         contentPadding = PaddingValues(
@@ -35,7 +35,7 @@ fun ThemedButton(
             vertical = 15.dp
         )
     ) {
-        Text(text = text, style = AppTheme.typography.button)
+        Text(text = text(), style = AppTheme.typography.button)
     }
 }
 
@@ -43,7 +43,7 @@ fun ThemedButton(
 @Composable
 private fun ThemedButtonEnabledPreview() {
     AppTheme {
-        ThemedButton(onClick = {}, text = "Some button")
+        ThemedButton(onClick = {}, text = { "Some button" })
     }
 }
 
@@ -51,6 +51,6 @@ private fun ThemedButtonEnabledPreview() {
 @Composable
 private fun ThemedButtonDisabledPreview() {
     AppTheme {
-        ThemedButton(onClick = {}, text = "Some button", enabled = false)
+        ThemedButton(onClick = {}, text = { "Some button" }, enabled = { false })
     }
 }

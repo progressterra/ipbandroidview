@@ -9,13 +9,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ThemedLinearProgressIndicator(
     modifier: Modifier = Modifier,
-    progress: Float
+    progress: () -> Float
 ) {
     LinearProgressIndicator(
         modifier = modifier,
         color = AppTheme.colors.primary,
         backgroundColor = AppTheme.colors.surfaces,
-        progress = progress
+        progress = progress()
     )
 }
 
@@ -23,6 +23,6 @@ fun ThemedLinearProgressIndicator(
 @Composable
 private fun ThemedLinearProgressIndicatorPreview() {
     AppTheme {
-        ThemedLinearProgressIndicator(progress = 0.4f)
+        ThemedLinearProgressIndicator(progress = { 0.4f })
     }
 }

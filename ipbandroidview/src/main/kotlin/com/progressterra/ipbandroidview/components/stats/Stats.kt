@@ -15,15 +15,15 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
+fun Stats(modifier: Modifier = Modifier, stats: () -> ChecklistStats) {
 
     @Composable
-    fun Item(icon: Painter, title: String, tint: Color) {
+    fun Item(icon: Painter, title: () -> String, tint: Color) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Icon(tint = tint, painter = icon, contentDescription = title)
+            Icon(tint = tint, painter = icon, contentDescription = null)
             Spacer(modifier = Modifier.size(8.dp))
             Text(
-                text = title,
+                text = title(),
                 style = AppTheme.typography.text,
                 color = tint
             )
@@ -37,22 +37,22 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
     ) {
         Item(
             icon = painterResource(id = R.drawable.ic_sum),
-            title = stats.total.toString(),
+            title = { stats().total.toString() },
             tint = AppTheme.colors.gray1
         )
         Item(
             icon = painterResource(id = R.drawable.ic_plus),
-            title = stats.successful.toString(),
+            title = { stats().successful.toString() },
             tint = AppTheme.colors.primary
         )
         Item(
             icon = painterResource(id = R.drawable.ic_minus),
-            title = stats.failed.toString(),
+            title = { stats().failed.toString() },
             tint = AppTheme.colors.error
         )
         Item(
             icon = painterResource(id = R.drawable.ic_remaining),
-            title = stats.remaining.toString(),
+            title = { stats().remaining.toString() },
             tint = AppTheme.colors.gray2
         )
     }
@@ -62,6 +62,6 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
 @Composable
 private fun StatsPreview() {
     AppTheme {
-        Stats(stats = ChecklistStats(14, 10, 3, 1))
+        Stats(stats = { ChecklistStats(14, 10, 3, 1) })
     }
 }

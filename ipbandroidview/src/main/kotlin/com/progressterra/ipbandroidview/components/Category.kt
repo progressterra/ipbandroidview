@@ -20,12 +20,11 @@ import com.progressterra.ipbandroidview.model.component.Id
 import com.progressterra.ipbandroidview.model.component.Image
 import com.progressterra.ipbandroidview.model.component.Name
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.skydoves.landscapist.ImageOptions
 
 interface CategoryState : Id, Image, Name
 
 @Composable
-fun Category(modifier: Modifier = Modifier, state: CategoryState, onClick: () -> Unit) {
+fun Category(modifier: Modifier = Modifier, state: () -> CategoryState, onClick: () -> Unit) {
     Column(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
@@ -38,7 +37,7 @@ fun Category(modifier: Modifier = Modifier, state: CategoryState, onClick: () ->
                 .clip(AppTheme.shapes.small)
                 .fillMaxWidth()
                 .height(104.dp),
-            url = state.image,
+            url = { state().image },
             backgroundColor = AppTheme.colors.surfaces
         )
         Box(
@@ -48,7 +47,7 @@ fun Category(modifier: Modifier = Modifier, state: CategoryState, onClick: () ->
             contentAlignment = Alignment.TopCenter
         ) {
             Text(
-                text = state.name,
+                text = state().name,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title
             )
@@ -68,9 +67,11 @@ private fun CategoryPreview() {
     AppTheme {
         Category(
             modifier = Modifier.width(300.dp),
-            state = CategoryStatePreview(
-                id = "", image = "", name = "Some category"
-            ),
+            state = {
+                CategoryStatePreview(
+                    id = "", image = "", name = "Some category"
+                )
+            },
             onClick = {}
         )
     }

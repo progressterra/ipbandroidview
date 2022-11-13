@@ -1,8 +1,10 @@
 package com.progressterra.ipbandroidview.model.component
 
-import com.progressterra.ipbandroidview.model.Goods
+import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.model.StoreGoods
 
+@Immutable
 interface SearchGoods {
 
-    val searchGoods: List<Goods>
+    val searchGoods: List<StoreGoods>
 }

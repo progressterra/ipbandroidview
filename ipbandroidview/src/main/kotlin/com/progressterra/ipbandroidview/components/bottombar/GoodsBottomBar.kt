@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,12 +29,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 //TODO add preview
 
+@Immutable
 interface GoodsBottomBarState : InCartCounter, Price
 
 @Composable
 fun GoodsBottomBar(
     modifier: Modifier = Modifier,
-    state: GoodsBottomBarState,
+    state: () -> GoodsBottomBarState,
     onAdd: () -> Unit,
     onRemove: () -> Unit
 ) {
@@ -46,14 +48,14 @@ fun GoodsBottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state.price, style = TextStyle(
+            text = state().price, style = TextStyle(
                 color = AppTheme.colors.black,
                 fontSize = 23.sp,
                 fontWeight = FontWeight.SemiBold,
                 lineHeight = 27.6.sp
             )
         )
-        if (state.inCartCounter >= 1)
+        if (state().inCartCounter >= 1)
             Row(
                 modifier = Modifier
                     .clip(AppTheme.shapes.button)
@@ -65,16 +67,15 @@ fun GoodsBottomBar(
                     RemoveItemIcon()
                 }
                 Text(
-                    text = state.inCartCounter.toString(),
+                    text = state().inCartCounter.toString(),
                     color = AppTheme.colors.black,
                     style = AppTheme.typography.button
                 )
                 IconButton(onClick = onAdd) {
-                    //TODO available
-                    AddItemIcon(available = true)
+                    AddItemIcon(available = { true })
                 }
             }
         else
-            ThemedButton(onClick = onAdd, text = stringResource(id = R.string.in_cart))
+            ThemedButton(onClick = onAdd, text = { stringResource(id = R.string.in_cart) })
     }
 }

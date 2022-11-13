@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,15 +26,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun CheckCard(
     modifier: Modifier = Modifier,
-    successColor: Color = Color(0xFFA0ECAC),
-    failedColor: Color = Color(0xFFF5B5B5),
-    yesNo: YesNo,
+    yesNo: () -> YesNo,
     onClick: () -> Unit,
-    name: String = ""
+    name: () -> String
 ) {
     Row(modifier = modifier
         .clip(AppTheme.shapes.medium)
-        .background(if (yesNo == YesNo.YES) successColor else if (yesNo == YesNo.NO) failedColor else AppTheme.colors.surfaces)
+        .background(if (yesNo() == YesNo.YES) AppTheme.colors.success else if (yesNo() == YesNo.NO) AppTheme.colors.failed else AppTheme.colors.surfaces)
         .clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(bounded = true)
@@ -45,7 +42,7 @@ fun CheckCard(
         horizontalArrangement = Arrangement.SpaceBetween) {
         Text(
             modifier = Modifier.weight(1f, false),
-            text = name,
+            text = name(),
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = AppTheme.colors.black,
@@ -61,9 +58,9 @@ fun CheckCard(
 private fun CheckCardPreviewOngoing() {
     AppTheme {
         CheckCard(
-            name = "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам",
+            name = { "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам" },
             onClick = {},
-            yesNo = YesNo.YES
+            yesNo = { YesNo.YES }
         )
     }
 }

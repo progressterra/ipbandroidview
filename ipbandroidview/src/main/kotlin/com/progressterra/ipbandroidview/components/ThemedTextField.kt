@@ -24,35 +24,33 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val roundingCornerSize = 8.dp
 
-//TODO ime actions
-
 @Composable
 fun ThemedTextField(
     modifier: Modifier = Modifier,
-    text: String = "",
-    hint: String = "",
+    text: () -> String,
+    hint: @Composable () -> String,
     onChange: ((String) -> Unit)? = null,
     onFocusChange: ((Boolean) -> Unit)? = null,
-    enabled: Boolean = true,
+    enabled: () -> Boolean = { true },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     action: (() -> Unit)? = null
 ) {
-    val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
+    val label: (@Composable () -> Unit)? = if (text().isNotEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
+                text = hint(), style = AppTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
-    val placeholder: (@Composable () -> Unit)? = if (text.isEmpty()) {
+    val placeholder: (@Composable () -> Unit)? = if (text().isEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.text, maxLines = 1
+                text = hint(), style = AppTheme.typography.text, maxLines = 1
             )
         }
     } else null
-    var localText by remember(text) {
-        mutableStateOf(text)
+    var localText by remember(text()) {
+        mutableStateOf(text())
     }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
@@ -87,7 +85,7 @@ fun ThemedTextField(
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,
-        enabled = enabled,
+        enabled = enabled(),
         textStyle = AppTheme.typography.text,
         maxLines = 1,
         singleLine = true,
@@ -116,7 +114,7 @@ fun ThemedTextField(
 private fun ThemedTextFieldPreviewEnabled() {
     AppTheme {
         ThemedTextField(
-            text = "Some text", hint = "Your name", enabled = true
+            text = { "Some text" }, hint = { "Your name" }, enabled = { true }
         )
     }
 }
@@ -126,7 +124,7 @@ private fun ThemedTextFieldPreviewEnabled() {
 private fun ThemedTextFieldPreviewDisabled() {
     AppTheme {
         ThemedTextField(
-            text = "Some text", hint = "Your name", enabled = false
+            text = { "Some text" }, hint = { "Your name" }, enabled = { false }
         )
     }
 }
@@ -136,7 +134,7 @@ private fun ThemedTextFieldPreviewDisabled() {
 private fun ThemedTextFieldPreviewEmptyDisabled() {
     AppTheme {
         ThemedTextField(
-            hint = "Your name", enabled = false
+            hint = { "Your name" }, enabled = { false }, text = { "" }
         )
     }
 }

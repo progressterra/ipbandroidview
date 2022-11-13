@@ -1,11 +1,10 @@
 package com.progressterra.ipbandroidview.ui.goods
 
-import com.progressterra.ipbandroidview.model.Goods
-
 
 sealed class GoodsEffect {
 
-    object Back : GoodsEffect()
+    object Filters : GoodsEffect()
 
-    class GoodsDetails(val goods: Goods) : GoodsEffect()
+    @Suppress("unused")
+    class GoodsDetails(val goodsId: String) : GoodsEffect()
 }

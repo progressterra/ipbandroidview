@@ -14,9 +14,9 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.progressterra.ipbandroidview.model.component.Keyword
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Goods
+import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.component.Keyword
 import com.progressterra.ipbandroidview.model.component.SearchGoods
 import com.progressterra.ipbandroidview.model.component.Visible
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -29,20 +29,20 @@ interface SearchBoxState : SearchGoods, Keyword, Visible {
 @Composable
 fun SearchBox(
     modifier: Modifier = Modifier,
-    state: SearchBoxState,
+    state: () -> SearchBoxState,
     onRefresh: () -> Unit,
-    onFavorite: (Goods) -> Unit,
-    onGoods: (Goods) -> Unit,
+    onFavorite: (StoreGoods) -> Unit,
+    onGoods: (StoreGoods) -> Unit,
     content: @Composable BoxScope.() -> Unit
 ) {
     Box(modifier = modifier) {
         AnimatedVisibility(
-            visible = state.visible,
+            visible = state().visible,
             enter = fadeIn(),
             exit = fadeOut()
         ) {
             StateBox(
-                state = state.searchScreenState,
+                state = state()::searchScreenState,
                 onRefresh = onRefresh
             ) {
                 LazyVerticalGrid(
@@ -53,9 +53,9 @@ fun SearchBox(
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                     contentPadding = PaddingValues(AppTheme.dimensions.medium)
                 ) {
-                    items(state.searchGoods) { goods ->
+                    items(state().searchGoods) { goods ->
                         StoreCard(modifier = Modifier.align(Alignment.Center),
-                            state = goods,
+                            state = { goods },
                             onClick = { onGoods(goods) },
                             onFavorite = { onFavorite(goods) })
                     }
@@ -63,7 +63,7 @@ fun SearchBox(
             }
         }
         AnimatedVisibility(
-            visible = !state.visible,
+            visible = !state().visible,
             enter = fadeIn(),
             exit = fadeOut()
         ) {

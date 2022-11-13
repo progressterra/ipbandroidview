@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.model.Checklist
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.DocumentChecklistUseCase
@@ -12,10 +11,11 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 class DocumentsViewModel(
     private val allDocumentsUseCase: AllDocumentsUseCase,
     private val documentChecklistUseCase: DocumentChecklistUseCase
-) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect>, DocumentsInteractor {
+) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect> {
 
     override val container: Container<DocumentsState, DocumentsEffect> = container(DocumentsState())
 
@@ -23,7 +23,7 @@ class DocumentsViewModel(
         refresh()
     }
 
-    override fun refresh() = intent {
+    fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allDocumentsUseCase.allDocuments().onSuccess {
             reduce {
@@ -34,20 +34,14 @@ class DocumentsViewModel(
     }
 
 
-    override fun openDocument(document: Document) = intent {
+    fun openDocument(document: Document) = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         documentChecklistUseCase.documentChecklist(document.documentId).onSuccess {
             postSideEffect(
                 DocumentsEffect.OpenChecklist(
-                    Checklist(
-                        checklistId = document.checklistId,
-                        placeId = document.placeId,
-                        name = document.name,
-                        checks = it,
-                        done = document.finishDate != null,
-                        ongoing = document.finishDate == null,
-                        documentId = document.documentId
-                    )
+                    id = document.documentId,
+                    placeId = document.placeId,
+                    isDocument = true
                 )
             )
             reduce { state.copy(screenState = ScreenState.SUCCESS) }
@@ -56,7 +50,7 @@ class DocumentsViewModel(
         }
     }
 
-    override fun openOrganizations() = intent {
+    fun openOrganizations() = intent {
         postSideEffect(DocumentsEffect.OpenOrganizations)
     }
 }

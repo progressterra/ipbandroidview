@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,14 +24,13 @@ import com.progressterra.ipbandroidview.model.component.Image
 import com.progressterra.ipbandroidview.model.component.Name
 import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.skydoves.landscapist.ImageOptions
 
 interface StoreCardState : Image, Favorite, Name, Price
 
 @Composable
 fun StoreCard(
     modifier: Modifier = Modifier,
-    state: StoreCardState,
+    state: () -> StoreCardState,
     onClick: () -> Unit,
     onFavorite: () -> Unit
 ) {
@@ -49,7 +47,7 @@ fun StoreCard(
                 .constrainAs(favoriteButton) {
                     end.linkTo(image.end)
                     top.linkTo(image.top)
-                }, favorite = state.favorite, onClick = onFavorite
+                }, favorite = state()::favorite, onClick = onFavorite
         )
         SimpleImage(
             Modifier
@@ -60,7 +58,7 @@ fun StoreCard(
                     height = Dimension.value(236.dp)
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
-                }, url = state.image, backgroundColor = AppTheme.colors.surfaces
+                }, url = state()::image, backgroundColor = AppTheme.colors.surfaces
         )
         val margin = 8.dp
         Text(
@@ -70,14 +68,14 @@ fun StoreCard(
                 start.linkTo(image.start, margin)
                 end.linkTo(image.end, margin)
             },
-            text = state.price,
+            text = state().price,
             color = AppTheme.colors.black,
             maxLines = 1,
             style = AppTheme.typography.title,
             textAlign = TextAlign.Center
         )
         val lines = 2
-        var nameText by remember(state.name) { mutableStateOf(state.name) }
+        var nameText by remember(state().name) { mutableStateOf(state().name) }
         Text(
             modifier = Modifier.constrainAs(name) {
                 width = Dimension.fillToConstraints
@@ -94,7 +92,7 @@ fun StoreCard(
             overflow = TextOverflow.Ellipsis,
             onTextLayout = { textLayoutResult ->
                 if ((textLayoutResult.lineCount) < lines) {
-                    nameText = state.name + "\n ".repeat(lines - textLayoutResult.lineCount)
+                    nameText = state().name + "\n ".repeat(lines - textLayoutResult.lineCount)
                 }
             },
         )
@@ -113,18 +111,22 @@ private class StoreCardStatePreview(
 private fun StoreItemCardPreview() {
     AppTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            StoreCard(state = StoreCardStatePreview(
-                image = "",
-                price = "3 000 ₽",
-                name = "Some cool item with pretty long name that contains many symbols",
-                favorite = false
-            ), onClick = { }) {}
-            StoreCard(state = StoreCardStatePreview(
-                price = "3 000 ₽",
-                name = "Some cool item",
-                favorite = true,
-                image = ""
-            ), onClick = { }) {}
+            StoreCard(state = {
+                StoreCardStatePreview(
+                    image = "",
+                    price = "3 000 ₽",
+                    name = "Some cool item with pretty long name that contains many symbols",
+                    favorite = false
+                )
+            }, onClick = { }) {}
+            StoreCard(state = {
+                StoreCardStatePreview(
+                    price = "3 000 ₽",
+                    name = "Some cool item",
+                    favorite = true,
+                    image = ""
+                )
+            }, onClick = { }) {}
         }
 
     }

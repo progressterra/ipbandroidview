@@ -1,14 +1,12 @@
 package com.progressterra.ipbandroidview.ui.documents
 
-import com.progressterra.ipbandroidview.model.Checklist
-
+@Suppress("unused")
 sealed class DocumentsEffect {
 
-    @Suppress("unused")
-    class OpenChecklist(val checklist: Checklist) : DocumentsEffect()
-
-    @Suppress("unused")
     class UpdateCounter(val counter: Int) : DocumentsEffect()
+
+    class OpenChecklist(val id: String, val placeId: String, val isDocument: Boolean) :
+        DocumentsEffect()
 
     object OpenOrganizations : DocumentsEffect()
 }

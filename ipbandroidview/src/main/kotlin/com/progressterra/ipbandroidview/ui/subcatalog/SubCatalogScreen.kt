@@ -12,37 +12,46 @@ import com.progressterra.ipbandroidview.components.SearchBox
 import com.progressterra.ipbandroidview.components.SubCategory
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
+import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.SubCategory
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.search.SearchInteractor
 import com.progressterra.ipbandroidview.ui.search.SearchState
 
 @Composable
 fun SubCatalogScreen(
-    subCatalogState: SubCatalogState,
-    subCatalogInteractor: SubCatalogInteractor,
-    searchState: SearchState,
-    searchInteractor: SearchInteractor
+    subCatalogState: () -> SubCatalogState,
+    searchState: () -> SearchState,
+    back: () -> Unit,
+    subCategory: (SubCategory) -> Unit,
+    filters: () -> Unit,
+    favoriteSpecific: (StoreGoods) -> Unit,
+    searchRefresh: () -> Unit,
+    openDetails: (StoreGoods) -> Unit,
+    keyword: (String) -> Unit,
+    search: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        SearchTopBar(state = searchState,
-            onBack = { searchInteractor.back() },
-            onKeyword = { searchInteractor.keyword(it) },
-            onSearch = { searchInteractor.search() },
-            onFilters = {})
+        SearchTopBar(
+            state = searchState,
+            onBack = back,
+            onKeyword = { keyword(it) },
+            onSearch = search,
+            onFilters = filters
+        )
     }) { _, _ ->
         SearchBox(
             state = searchState,
-            onRefresh = { searchInteractor.refresh() },
-            onFavorite = { searchInteractor.favorite(it) },
-            onGoods = { searchInteractor.goodsDetails(it) }) {
+            onRefresh = searchRefresh,
+            onFavorite = { favoriteSpecific(it) },
+            onGoods = { openDetails(it) }) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                 contentPadding = PaddingValues(AppTheme.dimensions.medium)
             ) {
-                items(subCatalogState.currentCategory?.subCategories ?: emptyList()) {
-                    SubCategory(state = it, onClick = { subCatalogInteractor.subCategory(it) })
+                items(subCatalogState().currentCategory?.subCategories ?: emptyList()) {
+                    SubCategory(state = { it }, onClick = { subCategory(it) })
                 }
             }
         }
@@ -53,13 +62,5 @@ fun SubCatalogScreen(
 @Composable
 private fun SubCatalogScreenPreview() {
     AppTheme {
-        SubCatalogScreen(
-            subCatalogState = SubCatalogState(
-                currentCategory = null,
-            ),
-            subCatalogInteractor = SubCatalogInteractor.Empty(),
-            searchState = SearchState(),
-            searchInteractor = SearchInteractor.Empty()
-        )
     }
 }

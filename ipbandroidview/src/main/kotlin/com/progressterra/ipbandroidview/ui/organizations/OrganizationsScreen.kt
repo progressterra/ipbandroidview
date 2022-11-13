@@ -15,19 +15,20 @@ import com.progressterra.ipbandroidview.components.OrganizationCard
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
-import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrganizationsScreen(
-    state: OrganizationsState, interactor: OrganizationsInteractor
+    state: () -> OrganizationsState,
+    refresh: () -> Unit,
+    organizationDetails: (Organization) -> Unit
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.organizations))
+        ThemedTopAppBar(title = { stringResource(id = R.string.organizations) })
     }) { _, _ ->
         StateBox(
-            state = state.screenState,
-            onRefresh = { interactor.refresh() }
+            state = state()::screenState,
+            onRefresh = refresh
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -35,16 +36,12 @@ fun OrganizationsScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                 contentPadding = PaddingValues(AppTheme.dimensions.medium)
             ) {
-                items(state.organizations) {
+                items(state().organizations) {
                     OrganizationCard(modifier = Modifier.fillMaxWidth(),
-                        address = it.address,
-                        description = it.name,
-                        warnings = it.warnings,
-                        onClick = {
-                            interactor.organizationDetails(
-                                it
-                            )
-                        })
+                        address = it::address,
+                        description = it::name,
+                        onClick = { organizationDetails(it) }
+                    )
                 }
             }
         }
@@ -55,45 +52,5 @@ fun OrganizationsScreen(
 @Composable
 private fun AuditsScreenPreviewSuccess() {
     AppTheme {
-        OrganizationsScreen(
-            state = OrganizationsState(
-                screenState = ScreenState.SUCCESS,
-                organizations = listOf(
-                    Organization(
-                        "пл Дружбы народов, 45", "", 0, "«Кофемания»", "", 0.0, 0.0
-                    ), Organization(
-                        "пл Дружбы народов, 45", "", 1, "«KFC»", "", 0.0, 0.0
-                    ), Organization(
-                        "пл Дружбы народов, 45", "", 2, "«Кофемания»", "", 0.0, 0.0
-                    )
-                )
-            ), interactor = OrganizationsInteractor.Empty()
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun AuditsScreenPreviewLoading() {
-    AppTheme {
-        OrganizationsScreen(
-            state = OrganizationsState(
-                screenState = ScreenState.LOADING,
-                organizations = listOf()
-            ), interactor = OrganizationsInteractor.Empty()
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun AuditsScreenPreviewError() {
-    AppTheme {
-        OrganizationsScreen(
-            state = OrganizationsState(
-                screenState = ScreenState.ERROR,
-                organizations = listOf()
-            ), interactor = OrganizationsInteractor.Empty()
-        )
     }
 }

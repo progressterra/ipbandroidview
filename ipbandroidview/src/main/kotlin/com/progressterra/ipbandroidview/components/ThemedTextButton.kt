@@ -17,19 +17,19 @@ private val horizontalPadding = 32.dp
 fun ThemedTextButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: String,
-    enabled: Boolean = true
+    text: @Composable () -> String,
+    enabled: () -> Boolean = { true }
 ) {
     TextButton(
         modifier = modifier,
         onClick = onClick,
-        enabled = enabled,
+        enabled = enabled(),
         colors = ButtonDefaults.textButtonColors(
             contentColor = AppTheme.colors.primary, disabledContentColor = AppTheme.colors.gray2
         ),
         contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
     ) {
-        Text(text = text, style = AppTheme.typography.button)
+        Text(text = text(), style = AppTheme.typography.button)
     }
 }
 
@@ -37,7 +37,7 @@ fun ThemedTextButton(
 @Composable
 private fun ThemedTextButtonEnabledPreview() {
     AppTheme {
-        ThemedTextButton(onClick = {}, text = "Some button")
+        ThemedTextButton(onClick = {}, text = { "Some button" })
     }
 }
 
@@ -45,6 +45,6 @@ private fun ThemedTextButtonEnabledPreview() {
 @Composable
 private fun ThemedTextButtonDisabledPreview() {
     AppTheme {
-        ThemedTextButton(onClick = {}, text = "Some button", enabled = false)
+        ThemedTextButton(onClick = {}, text = { "Some button" }, enabled = { false })
     }
 }

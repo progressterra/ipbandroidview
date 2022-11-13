@@ -5,5 +5,5 @@ import com.progressterra.ipbandroidview.model.SubCategory
 
 @Immutable
 data class SubCatalogState(
-    val currentCategory: SubCategory? = null,
+    val currentCategory: SubCategory? = null
 )

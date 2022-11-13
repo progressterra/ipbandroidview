@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUse
 import com.progressterra.ipbandroidview.domain.usecase.FastAddToCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FavoriteGoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FavoriteIdsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FinishDocumentUseCase
@@ -106,12 +107,14 @@ val useCasesModule = module {
     }
 
     factory<GoodsPageUseCase> {
-        GoodsPageUseCase.Base(get(), get(), get(), get(), get())
+        GoodsPageUseCase.Base(get(), get(), get(), get())
     }
 
     factory<GoodsUseCase> {
-        GoodsUseCase.Base(get())
+        GoodsUseCase.Base(get(), get())
     }
+
+    factory<FavoriteIdsUseCase> { FavoriteIdsUseCase.Base(get(), get(), get()) }
 
     factory<FilteredGoodsUseCase> {
         FilteredGoodsUseCase.Base(

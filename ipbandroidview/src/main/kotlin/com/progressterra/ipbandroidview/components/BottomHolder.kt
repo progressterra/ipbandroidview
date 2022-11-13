@@ -35,11 +35,11 @@ private fun BottomHolderPreview() {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { },
-                text = "Some button 1",
+                text = { "Some button 1" },
             )
             Spacer(modifier = Modifier.size(8.dp))
             ThemedTextButton(
-                modifier = Modifier.fillMaxWidth(), onClick = { }, text = "Some button 2"
+                modifier = Modifier.fillMaxWidth(), onClick = { }, text = { "Some button 2" }
             )
         }
     }
