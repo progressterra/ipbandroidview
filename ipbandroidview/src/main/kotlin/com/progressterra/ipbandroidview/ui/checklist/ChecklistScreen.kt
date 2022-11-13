@@ -201,7 +201,7 @@ fun ChecklistScreen(
         }, bottomBar = {
             if (!(state().auditDocument.readOrCompleteOnly && !state().auditDocument.ongoing)) {
                 BottomHolder(Modifier.fillMaxWidth()) {
-                    Row {
+                    Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)) {
                         ThemedButton(
                             modifier = Modifier.weight(1f),
                             onClick = startStopAudit,
@@ -215,7 +215,6 @@ fun ChecklistScreen(
                             enabled = { state().checklistScreenState == ScreenState.SUCCESS }
                         )
                         if (state().auditDocument.ongoing) {
-                            Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
                             Stats(modifier = Modifier.weight(1f), stats = state()::stats)
                         }
                     }
@@ -234,7 +233,11 @@ fun ChecklistScreen(
                     modifier = Modifier
                         .fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
-                    contentPadding = PaddingValues(AppTheme.dimensions.medium)
+                    contentPadding = PaddingValues(
+                        start = AppTheme.dimensions.medium,
+                        top = AppTheme.dimensions.medium,
+                        end = AppTheme.dimensions.medium
+                    )
                 ) {
                     item {
                         AuditTitle(

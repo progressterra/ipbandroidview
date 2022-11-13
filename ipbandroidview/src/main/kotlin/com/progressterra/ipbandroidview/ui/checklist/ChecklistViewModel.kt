@@ -67,23 +67,29 @@ class ChecklistViewModel(
 
     fun refreshChecklist() = intent {
         reduce { state.copy(checklistScreenState = ScreenState.LOADING) }
-        if (state.auditDocument.ongoing)
-            documentChecklistUseCase.documentChecklist(state.auditDocument.id).onSuccess { checks ->
+        if (state.auditDocument.ongoing) documentChecklistUseCase.documentChecklist(state.auditDocument.id)
+            .onSuccess { checks ->
                 reduce {
                     state.copy(
                         checks = checks,
+                        stats = checks.createStats(),
                         checklistScreenState = ScreenState.SUCCESS
                     )
                 }
             }.onFailure {
                 reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
             }
-        else
-            checklistUseCase.details(state.auditDocument.id).onSuccess { checks ->
-                reduce { state.copy(checks = checks, checklistScreenState = ScreenState.SUCCESS) }
-            }.onFailure {
-                reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
+        else checklistUseCase.details(state.auditDocument.id).onSuccess { checks ->
+            reduce {
+                state.copy(
+                    checks = checks,
+                    stats = checks.createStats(),
+                    checklistScreenState = ScreenState.SUCCESS
+                )
             }
+        }.onFailure {
+            reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
+        }
     }
 
     fun openCheck(check: Check) = intent {
@@ -97,8 +103,7 @@ class ChecklistViewModel(
             checkMediaDetailsUseCase.checkDetails(check).onSuccess {
                 reduce {
                     state.copy(
-                        currentCheckMedia = it,
-                        checkScreenState = ScreenState.SUCCESS
+                        currentCheckMedia = it, checkScreenState = ScreenState.SUCCESS
                     )
                 }
                 if (it.voices.isNotEmpty()) {
@@ -133,8 +138,8 @@ class ChecklistViewModel(
     }
 
     fun startStopAudit() = intent {
-        if (state.auditDocument.ongoing)
-            finishDocumentUseCase.finishDocument(state.auditDocument.id).onSuccess {
+        if (state.auditDocument.ongoing) finishDocumentUseCase.finishDocument(state.auditDocument.id)
+            .onSuccess {
                 reduce {
                     state.copy(
                         auditDocument = state.auditDocument.copy(ongoing = false),
@@ -148,8 +153,7 @@ class ChecklistViewModel(
             }
         else {
             fetchExistingAuditUseCase.fetchExistingAudit(
-                state.auditDocument.placeId,
-                state.auditDocument.id
+                state.auditDocument.placeId, state.auditDocument.id
             ).onSuccess {
                 val newDoc = state.auditDocument.copy(id = it, ongoing = true)
                 reduce {
@@ -158,8 +162,7 @@ class ChecklistViewModel(
                 postSideEffect(ChecklistEffect.Toast(R.string.audit_ongoing))
             }.onFailure {
                 createDocumentUseCase.createDocument(
-                    state.auditDocument.id,
-                    state.auditDocument.placeId
+                    state.auditDocument.id, state.auditDocument.placeId
                 ).onSuccess {
                     val newDoc = state.auditDocument.copy(id = it, ongoing = true)
                     reduce {
@@ -228,17 +231,14 @@ class ChecklistViewModel(
                             currentCheckMedia = state.currentCheckMedia!!.copy(
                                 voices = state.currentCheckMedia!!.voices.plus(
                                     Voice(
-                                        id = newVoiceId,
-                                        local = true,
-                                        toRemove = false
+                                        id = newVoiceId, local = true, toRemove = false
                                     )
                                 )
                             )
                         )
                     }
                 }
-            } else
-                managePermissionContract.requestPermission(micPermission)
+            } else managePermissionContract.requestPermission(micPermission)
         }
     }
 
@@ -265,8 +265,7 @@ class ChecklistViewModel(
             reduce {
                 val newChecks = state.checks.replaceById(it)
                 state.copy(
-                    checks = newChecks,
-                    stats = newChecks.createStats()
+                    checks = newChecks, stats = newChecks.createStats()
                 )
             }
             postSideEffect(ChecklistEffect.Toast(R.string.answer_done))
@@ -281,10 +280,8 @@ class ChecklistViewModel(
     fun removePhoto(picture: CheckPicture) = intent {
         reduce {
             state.copy(
-                currentCheckMedia =
-                state.currentCheckMedia!!.copy(
-                    pictures =
-                    state.currentCheckMedia!!.pictures.markToRemove(picture)
+                currentCheckMedia = state.currentCheckMedia!!.copy(
+                    pictures = state.currentCheckMedia!!.pictures.markToRemove(picture)
                 )
             )
         }
