@@ -71,11 +71,24 @@ class ChecklistViewModel(
                 .onSuccess { documentId ->
                     documentChecklistUseCase.documentChecklist(documentId).onSuccess { checks ->
                         reduce {
-                            state.copy(checks = checks, checklistScreenState = ScreenState.SUCCESS)
+                            state.copy(
+                                id = documentId,
+                                checks = checks,
+                                checklistScreenState = ScreenState.SUCCESS
+                            )
                         }
                     }
                 }.onFailure {
-                    reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
+                    checklistUseCase.details(state.id).onSuccess { checks ->
+                        reduce {
+                            state.copy(
+                                checks = checks,
+                                checklistScreenState = ScreenState.SUCCESS
+                            )
+                        }
+                    }.onFailure {
+                        reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
+                    }
                 }
         else
             checklistUseCase.details(state.id).onSuccess { checks ->

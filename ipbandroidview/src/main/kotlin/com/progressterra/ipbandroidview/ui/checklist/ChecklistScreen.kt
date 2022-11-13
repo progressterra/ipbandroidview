@@ -96,7 +96,6 @@ fun ChecklistScreen(
                 if (state().currentCheck != null && state().currentCheckMedia != null) {
                     Column(
                         modifier = Modifier
-                            .background(AppTheme.colors.background)
                             .padding(
                                 top = AppTheme.dimensions.small,
                                 start = AppTheme.dimensions.small,
@@ -189,34 +188,34 @@ fun ChecklistScreen(
             }
         }, sheetBackgroundColor = AppTheme.colors.surfaces
     ) {
-        StateBox(state = state()::checklistScreenState, onRefresh = refreshChecklist) {
-            ThemedLayout(topBar = {
-                ThemedTopAppBar(
-                    onBack = back, title = { stringResource(id = R.string.audit) }
-                )
-            }, bottomBar = {
-                if (!state().done) {
-                    BottomHolder(Modifier.fillMaxWidth()) {
-                        Row {
-                            ThemedButton(
-                                modifier = Modifier.weight(1f),
-                                onClick = startStopAudit,
-                                text = {
-                                    stringResource(
-                                        id = if (state().ongoing) R.string.end_audit else R.string.start_audit
-                                    )
-                                },
-                                tint = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.secondary else AppTheme.colors.primary },
-                                textColor = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces }
-                            )
-                            if (state().ongoing) {
-                                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-                                Stats(modifier = Modifier.weight(1f), stats = state()::stats)
-                            }
+        ThemedLayout(topBar = {
+            ThemedTopAppBar(
+                onBack = back, title = { stringResource(id = R.string.audit) }
+            )
+        }, bottomBar = {
+            if (!state().done) {
+                BottomHolder(Modifier.fillMaxWidth()) {
+                    Row {
+                        ThemedButton(
+                            modifier = Modifier.weight(1f),
+                            onClick = startStopAudit,
+                            text = {
+                                stringResource(
+                                    id = if (state().ongoing) R.string.end_audit else R.string.start_audit
+                                )
+                            },
+                            tint = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.secondary else AppTheme.colors.primary },
+                            textColor = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces }
+                        )
+                        if (state().ongoing) {
+                            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                            Stats(modifier = Modifier.weight(1f), stats = state()::stats)
                         }
                     }
                 }
-            }, bottomOverlap = true) { topPadding, bottomPadding ->
+            }
+        }, bottomOverlap = true) { _, bottomPadding ->
+            StateBox(state = state()::checklistScreenState, onRefresh = refreshChecklist) {
                 val groupedChecks by remember(state().checks) {
                     mutableStateOf(state().checks.groupBy { it.categoryNumber })
                 }
@@ -225,7 +224,7 @@ fun ChecklistScreen(
                         .fillMaxSize()
                         .padding(
                             start = AppTheme.dimensions.medium,
-                            top = topPadding + AppTheme.dimensions.medium,
+                            top = AppTheme.dimensions.medium,
                             end = AppTheme.dimensions.medium
                         ),
                     verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
