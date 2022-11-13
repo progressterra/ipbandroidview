@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -101,9 +102,9 @@ fun ChecklistScreen(
                     Column(
                         modifier = Modifier
                             .padding(
-                                top = AppTheme.dimensions.small,
-                                start = AppTheme.dimensions.small,
-                                end = AppTheme.dimensions.small
+                                top = AppTheme.dimensions.medium,
+                                start = AppTheme.dimensions.medium,
+                                end = AppTheme.dimensions.medium
                             )
                     ) {
                         Column(
@@ -119,7 +120,7 @@ fun ChecklistScreen(
                                 style = AppTheme.typography.text
                             )
                         }
-                        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                        Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
                         Column(
                             modifier = Modifier
                                 .clip(AppTheme.shapes.medium)
@@ -177,7 +178,7 @@ fun ChecklistScreen(
                         }
                         if (state().auditDocument.ongoing) {
                             Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
-                            Row(Modifier.padding(horizontal = AppTheme.dimensions.small)) {
+                            Row(Modifier.padding(horizontal = AppTheme.dimensions.medium)) {
                                 ThemedButton(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
                                         applyCheck()
@@ -214,7 +215,7 @@ fun ChecklistScreen(
                             enabled = { state().checklistScreenState == ScreenState.SUCCESS }
                         )
                         if (state().auditDocument.ongoing) {
-                            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                            Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
                             Stats(modifier = Modifier.weight(1f), stats = state()::stats)
                         }
                     }
@@ -231,13 +232,9 @@ fun ChecklistScreen(
                 }
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(
-                            start = AppTheme.dimensions.medium,
-                            top = AppTheme.dimensions.medium,
-                            end = AppTheme.dimensions.medium
-                        ),
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                    contentPadding = PaddingValues(AppTheme.dimensions.medium)
                 ) {
                     item {
                         AuditTitle(

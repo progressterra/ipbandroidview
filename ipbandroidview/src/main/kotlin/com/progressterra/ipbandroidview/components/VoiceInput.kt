@@ -4,11 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
@@ -58,9 +56,7 @@ fun VoiceInput(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    if (state().ongoing) IconButton(
-                        modifier = Modifier.size(24.dp), onClick = onRemove, enabled = enabled()
-                    ) {
+                    if (state().ongoing) IconButton(onClick = onRemove, enabled = enabled()) {
                         TrashIcon(enabled = { enabled() })
                     }
                     else Text(
@@ -69,7 +65,6 @@ fun VoiceInput(
                         color = if (enabled()) AppTheme.colors.gray1 else AppTheme.colors.gray2
                     )
                     IconButton(
-                        modifier = Modifier.size(24.dp),
                         onClick = if (state().ongoing) onStopRecording else onStartRecording,
                         enabled = enabled()
                     ) {
@@ -84,25 +79,17 @@ fun VoiceInput(
             Row(
                 modifier = Modifier
                     .clip(AppTheme.shapes.small)
+                    .height(TextFieldDefaults.MinHeight)
                     .background(AppTheme.colors.background)
                     .padding(12.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                IconButton(
-                    modifier = Modifier.size(24.dp), onClick = onRemove, enabled = enabled()
-                ) {
-                    TrashIcon(enabled = enabled)
-                }
-                Spacer(modifier = Modifier.size(16.dp))
+                IconButton(onClick = onRemove, enabled = enabled()) { TrashIcon(enabled = enabled) }
                 ThemedLinearProgressIndicator(modifier = Modifier.weight(1f),
                     progress = { (state() as VoiceState.Player).progress })
-                Spacer(modifier = Modifier.size(16.dp))
-                IconButton(
-                    modifier = Modifier.size(24.dp),
-                    onClick = if (state().ongoing) onPausePlay else onStartPlay
-                ) {
+                IconButton(onClick = if (state().ongoing) onPausePlay else onStartPlay) {
                     PlayPauseIcon(ongoing = { state().ongoing })
                 }
             }
