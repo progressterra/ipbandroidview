@@ -39,8 +39,9 @@ class DocumentsViewModel(
         postSideEffect(
             DocumentsEffect.OpenChecklist(
                 AuditDocument(
-                    id = document.documentId,
+                    checklistId = document.checklistId,
                     placeId = document.placeId,
+                    documentId = document.documentId,
                     name = document.name,
                     readOrCompleteOnly = true,
                     ongoing = document.finishDate == null

@@ -7,8 +7,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Immutable
 data class AuditDocument(
-    val id: String = "",
+    val checklistId: String = "",
     val placeId: String = "",
+    val documentId: String? = null,
     val name: String = "",
     val ongoing: Boolean = false,
     val readOrCompleteOnly: Boolean = false

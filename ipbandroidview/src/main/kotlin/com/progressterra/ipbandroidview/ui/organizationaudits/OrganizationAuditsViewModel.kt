@@ -72,10 +72,11 @@ class OrganizationAuditsViewModel(
             OrganizationAuditsEffect.OpenChecklist(
                 AuditDocument(
                     placeId = state.id,
-                    id = audit.id,
+                    checklistId = audit.id,
                     readOrCompleteOnly = false,
                     name = audit.name,
-                    ongoing = false
+                    ongoing = false,
+                    documentId = null
                 )
             )
         )
