@@ -170,7 +170,7 @@ class ChecklistViewModel(
                 createDocumentUseCase.createDocument(
                     state.auditDocument.checklistId, state.auditDocument.placeId
                 ).onSuccess {
-                    val newDoc = state.auditDocument.copy(checklistId = it, ongoing = true)
+                    val newDoc = state.auditDocument.copy(documentId = it, ongoing = true)
                     reduce { state.copy(auditDocument = newDoc) }
                     postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
                 }.onFailure {
