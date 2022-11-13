@@ -34,7 +34,7 @@ fun SubCatalogScreen(
         SearchTopBar(
             state = searchState,
             onBack = back,
-            onKeyword = { keyword(it) },
+            onKeyword = keyword,
             onSearch = search,
             onFilters = filters
         )
@@ -42,8 +42,9 @@ fun SubCatalogScreen(
         SearchBox(
             state = searchState,
             onRefresh = searchRefresh,
-            onFavorite = { favoriteSpecific(it) },
-            onGoods = { openDetails(it) }) {
+            onFavorite = favoriteSpecific,
+            onGoods = openDetails
+        ) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize(),

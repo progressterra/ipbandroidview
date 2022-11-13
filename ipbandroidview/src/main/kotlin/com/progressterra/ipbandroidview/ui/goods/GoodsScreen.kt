@@ -38,7 +38,7 @@ fun GoodsScreen(
         SearchTopBar(
             state = searchState,
             onBack = back,
-            onKeyword = { keyword(it) },
+            onKeyword = keyword,
             onSearch = search,
             onFilters = filters
         )
@@ -46,8 +46,9 @@ fun GoodsScreen(
         SearchBox(
             state = searchState,
             onRefresh = searchRefresh,
-            onFavorite = { favoriteSpecific(it) },
-            onGoods = { openDetails(it) }) {
+            onFavorite = favoriteSpecific,
+            onGoods = openDetails
+        ) {
             StateBox(
                 state = goodsState()::screenState,
                 onRefresh = refresh

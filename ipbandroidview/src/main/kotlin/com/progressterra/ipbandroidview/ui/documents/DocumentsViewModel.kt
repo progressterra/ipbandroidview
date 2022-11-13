@@ -35,19 +35,13 @@ class DocumentsViewModel(
 
 
     fun openDocument(document: Document) = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
-        documentChecklistUseCase.documentChecklist(document.documentId).onSuccess {
-            postSideEffect(
-                DocumentsEffect.OpenChecklist(
-                    id = document.documentId,
-                    placeId = document.placeId,
-                    isDocument = true
-                )
+        postSideEffect(
+            DocumentsEffect.OpenChecklist(
+                id = document.documentId,
+                placeId = document.placeId,
+                isDocument = true
             )
-            reduce { state.copy(screenState = ScreenState.SUCCESS) }
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
-        }
+        )
     }
 
     fun openOrganizations() = intent {

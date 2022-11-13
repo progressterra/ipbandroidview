@@ -30,19 +30,22 @@ fun CatalogScreen(
     favoriteSpecific: (StoreGoods) -> Unit,
     refreshSearch: () -> Unit,
     search: () -> Unit,
-    keyword: (String) -> Unit
+    keyword: (String) -> Unit,
+    filters: () -> Unit
 ) {
     ThemedLayout(topBar = {
         SearchTopBar(state = searchState,
             onBack = back,
-            onKeyword = { keyword(it) },
+            onKeyword = keyword,
             onSearch = search,
-            onFilters = {})
+            onFilters = filters)
     }) { _, _ ->
-        SearchBox(state = searchState,
+        SearchBox(
+            state = searchState,
             onRefresh = refreshSearch,
-            onFavorite = { favoriteSpecific(it) },
-            onGoods = { openSearchGoods(it) }) {
+            onFavorite = favoriteSpecific,
+            onGoods = openSearchGoods
+        ) {
             StateBox(
                 state = catalogState()::screenState, onRefresh = refresh
             ) {

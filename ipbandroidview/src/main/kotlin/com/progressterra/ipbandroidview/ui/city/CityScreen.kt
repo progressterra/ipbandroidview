@@ -88,16 +88,18 @@ fun CityScreen(
                     end.linkTo(parent.end)
                     bottom.linkTo(parent.bottom)
                 })
-            ThemedTextField(modifier = Modifier.constrainAs(address) {
-                width = Dimension.fillToConstraints
-                top.linkTo(background.top, 12.dp)
-                start.linkTo(background.start, 12.dp)
-                end.linkTo(background.end, 12.dp)
-            },
+            ThemedTextField(
+                modifier = Modifier.constrainAs(address) {
+                    width = Dimension.fillToConstraints
+                    top.linkTo(background.top, 12.dp)
+                    start.linkTo(background.start, 12.dp)
+                    end.linkTo(background.end, 12.dp)
+                },
                 onFocusChange = { isAddressFocused = it },
                 text = state()::address,
                 hint = { stringResource(id = R.string.address) },
-                onChange = { editAddress(it) })
+                onChange = editAddress
+            )
             GoogleMap(
                 modifier = Modifier
                     .clip(AppTheme.shapes.small)
@@ -110,19 +112,21 @@ fun CityScreen(
                         bottom.linkTo(background.bottom, 12.dp)
                     },
                 cameraPositionState = cameraPositionState,
-                onMapClick = { onMapClick(it) }, onMyLocationClick = {
+                onMapClick = onMapClick, onMyLocationClick = {
                     onMapClick(LatLng(it.latitude, it.longitude))
                 }, properties = MapProperties(isMyLocationEnabled = state().isPermissionGranted)
             )
-            AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {
-                width = Dimension.fillToConstraints
-                top.linkTo(address.bottom, 4.dp)
-                start.linkTo(address.start)
-                end.linkTo(address.end)
-            },
+            AddressSuggestions(
+                modifier = Modifier.constrainAs(suggestions) {
+                    width = Dimension.fillToConstraints
+                    top.linkTo(address.bottom, 4.dp)
+                    start.linkTo(address.start)
+                    end.linkTo(address.end)
+                },
                 suggestions = state()::suggestions,
                 isVisible = { state().isAddressInFocus && state().suggestions.isNotEmpty() },
-                onSuggestion = { onSuggestion(it) })
+                onSuggestion = onSuggestion
+            )
 
         }
     }

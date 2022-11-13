@@ -76,17 +76,21 @@ fun SignUpScreen(
                         closeCalendar()
                     }, onDismiss = closeCalendar)
                 }
-                ThemedTextField(modifier = Modifier.fillMaxWidth(),
+                ThemedTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     text = state()::name,
                     hint = { stringResource(id = R.string.name_surname) },
-                    onChange = { editName(it) })
-                ThemedTextField(modifier = Modifier.fillMaxWidth(),
+                    onChange = editName
+                )
+                ThemedTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     text = state()::email,
                     hint = { stringResource(id = R.string.email) },
-                    onChange = { editEmail(it) })
+                    onChange = editEmail
+                )
                 ThemedMimicField(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { openCalendar() },
+                    onClick = openCalendar,
                     text = state()::birthday,
                     hint = { stringResource(id = R.string.birthday) },
                 )

@@ -72,7 +72,7 @@ fun SignInScreen(
                         modifier = Modifier.fillMaxWidth(),
                         text = state()::phoneNumber,
                         hint = { stringResource(id = R.string.phone_number) },
-                        onChange = { editPhoneNumber(it) },
+                        onChange = editPhoneNumber,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                     )
                 }

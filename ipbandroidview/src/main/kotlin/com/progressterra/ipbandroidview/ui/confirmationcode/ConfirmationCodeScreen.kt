@@ -73,9 +73,11 @@ fun ConfirmationCodeScreen(
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.size(16.dp))
-                VerificationCodeInput(modifier = Modifier.fillMaxWidth(),
+                VerificationCodeInput(
+                    modifier = Modifier.fillMaxWidth(),
                     code = state()::code,
-                    onCode = { editCode(it) })
+                    onCode = editCode
+                )
             }
         }
     }

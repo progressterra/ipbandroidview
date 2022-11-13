@@ -70,7 +70,7 @@ fun GoodsDetailsScreen(
                 SizesLine(
                     modifier = Modifier.fillMaxWidth(),
                     state = state,
-                    onSize = { size(it) },
+                    onSize = size,
                     onTable = sizeTable
                 )
             }

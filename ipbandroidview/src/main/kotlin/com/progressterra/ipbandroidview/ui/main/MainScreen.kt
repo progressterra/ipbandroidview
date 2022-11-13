@@ -38,7 +38,7 @@ fun MainScreen(
         SearchTopBar(
             state = searchState,
             onBack = back,
-            onKeyword = { keyword(it) },
+            onKeyword = keyword,
             onSearch = search,
             onFilters = filters, full = false
         )
@@ -46,8 +46,9 @@ fun MainScreen(
         SearchBox(
             state = searchState,
             onRefresh = searchRefresh,
-            onFavorite = { favoriteSpecific(it) },
-            onGoods = { openDetails(it) }) {
+            onFavorite = favoriteSpecific,
+            onGoods = openDetails
+        ) {
             StateBox(
                 state = mainState()::screenState,
                 onRefresh = refresh
@@ -67,9 +68,7 @@ fun MainScreen(
                             StoreCard(modifier = Modifier.align(Alignment.Center),
                                 state = { goods },
                                 onClick = { openDetails(goods) },
-                                onFavorite = {
-                                    favoriteSpecific(goods)
-                                })
+                                onFavorite = { favoriteSpecific(goods) })
                         }
                     }
                 }

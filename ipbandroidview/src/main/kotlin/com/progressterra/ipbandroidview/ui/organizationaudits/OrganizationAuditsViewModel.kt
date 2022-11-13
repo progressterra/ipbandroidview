@@ -18,8 +18,7 @@ import org.orbitmvi.orbit.viewmodel.container
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class OrganizationAuditsViewModel(
     private val organizationAuditsUseCase: OrganizationAuditsUseCase,
-    private val startActivityContract: StartActivityContract.Client,
-    private val checklistUseCase: ChecklistUseCase
+    private val startActivityContract: StartActivityContract.Client
 ) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect> {
 
     override val container: Container<OrganizationAuditsState, OrganizationAuditsEffect> =
@@ -69,18 +68,12 @@ class OrganizationAuditsViewModel(
     }
 
     fun auditDetails(audit: OrganizationAudit) = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
-        checklistUseCase.details(audit.id).onSuccess {
-            postSideEffect(
-                OrganizationAuditsEffect.OpenChecklist(
-                    placeId = state.id,
-                    id = audit.id,
-                    isDocument = false
-                )
+        postSideEffect(
+            OrganizationAuditsEffect.OpenChecklist(
+                placeId = state.id,
+                id = audit.id,
+                isDocument = false
             )
-            reduce { state.copy(screenState = ScreenState.SUCCESS) }
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
-        }
+        )
     }
 }
