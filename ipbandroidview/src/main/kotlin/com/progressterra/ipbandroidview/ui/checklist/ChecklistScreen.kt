@@ -161,7 +161,6 @@ fun ChecklistScreen(
                             }
                             Box(
                                 modifier = Modifier.padding(
-                                    top = 4.dp,
                                     start = AppTheme.dimensions.large,
                                     end = AppTheme.dimensions.large,
                                     bottom = AppTheme.dimensions.large
