@@ -39,7 +39,8 @@ class DocumentsViewModel(
             DocumentsEffect.OpenChecklist(
                 id = document.documentId,
                 placeId = document.placeId,
-                isDocument = true
+                isDocument = true,
+                name = document.name
             )
         )
     }
