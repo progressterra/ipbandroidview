@@ -199,7 +199,7 @@ fun ChecklistScreen(
                 onBack = back, title = { stringResource(id = R.string.audit) }
             )
         }, bottomBar = {
-            if (!state().auditDocument.ongoing && state().auditDocument.readOrCompleteOnly) {
+            if (!(state().auditDocument.readOrCompleteOnly && !state().auditDocument.ongoing)) {
                 BottomHolder(Modifier.fillMaxWidth()) {
                     Row {
                         ThemedButton(
