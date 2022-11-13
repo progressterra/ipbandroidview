@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.model.AuditDocument
 data class ChecklistState(
     val currentCheck: Check? = null,
     val currentCheckMedia: CurrentCheckMedia? = null,
-    val voiceState: VoiceState = VoiceState.Player(false, 0f),
+    val voiceState: VoiceState = VoiceState.Recorder(false),
     val stats: ChecklistStats = ChecklistStats(0, 0, 0, 0),
     val auditDocument: AuditDocument = AuditDocument(),
     val checks: List<Check> = emptyList(),
