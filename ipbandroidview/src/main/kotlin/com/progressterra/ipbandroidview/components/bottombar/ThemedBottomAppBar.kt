@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ThemedBottomAppBar(
     modifier: Modifier = Modifier,
     items: () -> List<BottomMenuTabState>,
-    activeIndex: () -> Int,
+    activeIndex: @Composable () -> Int,
     onClick: (Int) -> Unit
 ) {
     BottomAppBar(
