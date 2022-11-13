@@ -38,7 +38,7 @@ fun BottomMenuTab(
     modifier: Modifier = Modifier,
     state: () -> BottomMenuTabState,
     onClick: () -> Unit,
-    active: () -> Boolean
+    active: @Composable () -> Boolean
 ) {
     Column(modifier = modifier
         .clickable {
