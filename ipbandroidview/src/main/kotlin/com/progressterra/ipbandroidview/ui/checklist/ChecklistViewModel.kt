@@ -57,9 +57,9 @@ class ChecklistViewModel(
 
     private val cameraPermission = Manifest.permission.CAMERA
 
-    fun setDocument(id: String, placeId: String, isDocument: Boolean) = intent {
+    fun setDocument(id: String, placeId: String, isDocument: Boolean, name: String) = intent {
         reduce {
-            ChecklistState(id = id, placeId = placeId, isDocument = isDocument)
+            ChecklistState(id = id, placeId = placeId, isDocument = isDocument, name = name)
         }
         refreshChecklist()
     }

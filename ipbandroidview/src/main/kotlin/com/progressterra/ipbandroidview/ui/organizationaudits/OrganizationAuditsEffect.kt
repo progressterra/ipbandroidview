@@ -5,6 +5,10 @@ sealed class OrganizationAuditsEffect {
     object Back : OrganizationAuditsEffect()
 
     @Suppress("unused")
-    class OpenChecklist(val id: String, val placeId: String, val isDocument: Boolean) :
-        OrganizationAuditsEffect()
+    class OpenChecklist(
+        val id: String,
+        val placeId: String,
+        val isDocument: Boolean,
+        val name: String
+    ) : OrganizationAuditsEffect()
 }

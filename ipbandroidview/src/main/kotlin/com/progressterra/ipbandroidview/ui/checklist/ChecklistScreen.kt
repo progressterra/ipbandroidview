@@ -45,6 +45,7 @@ import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
 import com.progressterra.ipbandroidview.components.yesno.YesNoButton
+import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
@@ -205,7 +206,8 @@ fun ChecklistScreen(
                                 )
                             },
                             tint = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.secondary else AppTheme.colors.primary },
-                            textColor = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces }
+                            textColor = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces },
+                            enabled = { state().checklistScreenState == ScreenState.SUCCESS }
                         )
                         if (state().ongoing) {
                             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
