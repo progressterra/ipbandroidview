@@ -45,6 +45,7 @@ import com.progressterra.ipbandroidview.components.VoiceInput
 import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
+import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.components.yesno.YesNoButton
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.CheckPicture
@@ -83,7 +84,7 @@ fun ChecklistScreen(
             ThemedTopDialogBar(title = {
                 if (state().currentCheck == null) stringResource(id = R.string.loading) else "${
                     stringResource(id = R.string.question)
-                } ${state().currentCheck!!.categoryNumber}-${state().currentCheck!!.ordinal}"
+                } ${state().currentCheck?.categoryNumber ?: ""}-${state().currentCheck?.ordinal ?: ""}"
             },
                 rightActions = {
                     IconButton(
@@ -115,7 +116,7 @@ fun ChecklistScreen(
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = state().currentCheck!!.description,
+                                text = state().currentCheck?.description ?: "",
                                 color = AppTheme.colors.black,
                                 style = AppTheme.typography.text
                             )
@@ -129,7 +130,7 @@ fun ChecklistScreen(
                             Box(modifier = Modifier.padding(AppTheme.dimensions.large)) {
                                 YesNoButton(
                                     modifier = Modifier.fillMaxWidth(),
-                                    yesNo = { state().currentCheck!!.yesNo },
+                                    yesNo = { state().currentCheck?.yesNo ?: YesNo.NONE },
                                     onClick = yesNo,
                                     enabled = state().auditDocument::ongoing
                                 )
@@ -137,7 +138,7 @@ fun ChecklistScreen(
                             Box(modifier = Modifier.padding(horizontal = AppTheme.dimensions.large)) {
                                 ThemedNotebook(
                                     modifier = Modifier.fillMaxWidth(),
-                                    text = { state().currentCheck!!.comment },
+                                    text = { state().currentCheck?.comment ?: "" },
                                     hint = {
                                         stringResource(
                                             id = R.string.text_comment
@@ -169,7 +170,10 @@ fun ChecklistScreen(
                                 AttachedPhoto(
                                     modifier = Modifier.fillMaxWidth(),
                                     enabled = state().auditDocument::ongoing,
-                                    pictures = { state().currentCheckMedia!!.pictures.filter { !it.toRemove } },
+                                    pictures = {
+                                        state().currentCheckMedia?.pictures?.filter { !it.toRemove }
+                                            ?: emptyList()
+                                    },
                                     onPhotoSelect = openImage,
                                     onCamera = onCamera
                                 )
