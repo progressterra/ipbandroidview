@@ -18,9 +18,7 @@ fun StateBox(
     content: @Composable (BoxScope.() -> Unit)
 ) {
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background),
+        modifier = modifier.background(AppTheme.colors.background),
         contentAlignment = Alignment.Center
     ) {
         when (state()) {

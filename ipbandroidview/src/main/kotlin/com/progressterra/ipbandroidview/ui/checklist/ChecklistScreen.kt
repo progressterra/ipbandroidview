@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
@@ -73,9 +73,12 @@ fun ChecklistScreen(
     )
     val coroutineScope = rememberCoroutineScope()
     ModalBottomSheetLayout(
-        sheetState = sheetState, sheetShape = RoundedCornerShape(
-            topStart = AppTheme.dimensions.small, topEnd = AppTheme.dimensions.small
-        ), sheetContent = {
+        sheetState = sheetState,
+        sheetShape = AppTheme.shapes.medium.copy(
+            bottomEnd = CornerSize(0),
+            bottomStart = CornerSize(0)
+        ),
+        sheetContent = {
             ThemedTopDialogBar(title = {
                 if (state().currentCheck == null) stringResource(id = R.string.loading) else "${
                     stringResource(id = R.string.question)
@@ -127,7 +130,7 @@ fun ChecklistScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     yesNo = { state().currentCheck!!.yesNo },
                                     onClick = yesNo,
-                                    enabled = state()::ongoing
+                                    enabled = state().auditDocument::ongoing
                                 )
                             }
                             Box(modifier = Modifier.padding(horizontal = AppTheme.dimensions.large)) {
@@ -140,7 +143,7 @@ fun ChecklistScreen(
                                         )
                                     },
                                     onChange = editCheckCommentary,
-                                    enabled = state()::ongoing
+                                    enabled = state().auditDocument::ongoing
                                 )
                             }
                             Box(modifier = Modifier.padding(4.dp)) {
@@ -152,7 +155,7 @@ fun ChecklistScreen(
                                     onStartPlay = startPausePlay,
                                     onPausePlay = startPausePlay,
                                     onRemove = remove,
-                                    enabled = state()::ongoing
+                                    enabled = state().auditDocument::ongoing
                                 )
                             }
                             Box(
@@ -165,14 +168,14 @@ fun ChecklistScreen(
                             ) {
                                 AttachedPhoto(
                                     modifier = Modifier.fillMaxWidth(),
-                                    enabled = state()::ongoing,
+                                    enabled = state().auditDocument::ongoing,
                                     pictures = { state().currentCheckMedia!!.pictures.filter { !it.toRemove } },
                                     onPhotoSelect = openImage,
                                     onCamera = onCamera
                                 )
                             }
                         }
-                        if (state().ongoing) {
+                        if (state().auditDocument.ongoing) {
                             Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
                             Row(Modifier.padding(horizontal = AppTheme.dimensions.small)) {
                                 ThemedButton(
@@ -187,14 +190,15 @@ fun ChecklistScreen(
                     }
                 }
             }
-        }, sheetBackgroundColor = AppTheme.colors.surfaces
+        },
+        sheetBackgroundColor = AppTheme.colors.surfaces
     ) {
         ThemedLayout(topBar = {
             ThemedTopAppBar(
                 onBack = back, title = { stringResource(id = R.string.audit) }
             )
         }, bottomBar = {
-            if (!state().done) {
+            if (!state().auditDocument.ongoing && state().auditDocument.readOrCompleteOnly) {
                 BottomHolder(Modifier.fillMaxWidth()) {
                     Row {
                         ThemedButton(
@@ -202,14 +206,14 @@ fun ChecklistScreen(
                             onClick = startStopAudit,
                             text = {
                                 stringResource(
-                                    id = if (state().ongoing) R.string.end_audit else R.string.start_audit
+                                    id = if (state().auditDocument.ongoing) R.string.end_audit else R.string.start_audit
                                 )
                             },
-                            tint = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.secondary else AppTheme.colors.primary },
-                            textColor = { if (state().stats.remaining >= 1 && state().ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces },
+                            tint = { if (state().stats.remaining >= 1 && state().auditDocument.ongoing) AppTheme.colors.secondary else AppTheme.colors.primary },
+                            textColor = { if (state().stats.remaining >= 1 && state().auditDocument.ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces },
                             enabled = { state().checklistScreenState == ScreenState.SUCCESS }
                         )
-                        if (state().ongoing) {
+                        if (state().auditDocument.ongoing) {
                             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                             Stats(modifier = Modifier.weight(1f), stats = state()::stats)
                         }
@@ -217,7 +221,11 @@ fun ChecklistScreen(
                 }
             }
         }, bottomOverlap = true) { _, bottomPadding ->
-            StateBox(state = state()::checklistScreenState, onRefresh = refreshChecklist) {
+            StateBox(
+                modifier = Modifier.fillMaxSize(),
+                state = state()::checklistScreenState,
+                onRefresh = refreshChecklist
+            ) {
                 val groupedChecks by remember(state().checks) {
                     mutableStateOf(state().checks.groupBy { it.categoryNumber })
                 }
@@ -234,7 +242,7 @@ fun ChecklistScreen(
                     item {
                         AuditTitle(
                             modifier = Modifier.fillMaxWidth(),
-                            name = state()::name,
+                            name = { state().auditDocument.name },
                             checkCounter = { state().checks.size }
                         )
                     }

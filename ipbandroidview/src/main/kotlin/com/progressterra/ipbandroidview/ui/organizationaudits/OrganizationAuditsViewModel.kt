@@ -5,8 +5,8 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.StartActivityContract
-import com.progressterra.ipbandroidview.domain.usecase.ChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OrganizationAuditsUseCase
+import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.ui.organizations.Organization
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -70,10 +70,13 @@ class OrganizationAuditsViewModel(
     fun auditDetails(audit: OrganizationAudit) = intent {
         postSideEffect(
             OrganizationAuditsEffect.OpenChecklist(
-                placeId = state.id,
-                id = audit.id,
-                isDocument = false,
-                name = audit.name
+                AuditDocument(
+                    placeId = state.id,
+                    id = audit.id,
+                    readOrCompleteOnly = false,
+                    name = audit.name,
+                    ongoing = false
+                )
             )
         )
     }

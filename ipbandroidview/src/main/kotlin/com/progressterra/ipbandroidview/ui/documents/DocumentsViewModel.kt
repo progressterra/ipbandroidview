@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.model.AuditDocument
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -37,10 +38,13 @@ class DocumentsViewModel(
     fun openDocument(document: Document) = intent {
         postSideEffect(
             DocumentsEffect.OpenChecklist(
-                id = document.documentId,
-                placeId = document.placeId,
-                isDocument = true,
-                name = document.name
+                AuditDocument(
+                    id = document.documentId,
+                    placeId = document.placeId,
+                    name = document.name,
+                    readOrCompleteOnly = true,
+                    ongoing = document.finishDate == null
+                )
             )
         )
     }

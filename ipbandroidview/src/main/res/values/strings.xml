@@ -71,4 +71,5 @@
     <string name="favorites">Избранное</string>
     <string name="cart">Корзина</string>
     <string name="go_to_auth">Авторизоваться</string>
+    <string name="audit_ongoing">Аудит выполняется</string>
 </resources>
