@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.ui.checklist
 import android.Manifest
 import android.content.Intent
 import android.provider.MediaStore
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.VoiceState
@@ -282,16 +283,17 @@ class ChecklistViewModel(
     }
 
     fun removePhoto(picture: CheckPicture) = intent {
+        Log.d("PICTURE", "removeImage: $picture")
+
         reduce {
-            state.copy(
-                currentCheckMedia = state.currentCheckMedia!!.copy(
-                    pictures = state.currentCheckMedia!!.pictures.markToRemove(picture)
-                )
-            )
+            val newPictures = state.currentCheckMedia!!.pictures.markToRemove(picture)
+            val newCurrentCheckMedia = state.currentCheckMedia!!.copy(pictures = newPictures)
+            state.copy(currentCheckMedia = newCurrentCheckMedia)
         }
     }
 
     fun openImage(picture: CheckPicture) = intent {
+        Log.d("PICTURE", "openImage: $picture")
         postSideEffect(ChecklistEffect.OpenImage(picture, state.auditDocument.ongoing))
     }
 
