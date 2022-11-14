@@ -283,7 +283,6 @@ class ChecklistViewModel(
     }
 
     fun removePhoto(picture: CheckPicture) = intent {
-        Log.d("PICTURE", "removeImage: $picture")
 
         reduce {
             val newPictures = state.currentCheckMedia!!.pictures.markToRemove(picture)
@@ -293,7 +292,6 @@ class ChecklistViewModel(
     }
 
     fun openImage(picture: CheckPicture) = intent {
-        Log.d("PICTURE", "openImage: $picture")
         postSideEffect(ChecklistEffect.OpenImage(picture, state.auditDocument.ongoing))
     }
 

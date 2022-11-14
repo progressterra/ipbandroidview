@@ -38,7 +38,6 @@ interface UpdateAnswerUseCase {
             check: Check,
             checkDetails: CurrentCheckMedia
         ): Result<Check> = runCatching {
-            Log.d("CHECK", "income $check")
             checkDetails.voices.forEach { voice ->
                 if (voice.local)
                     withToken { token ->
@@ -97,7 +96,7 @@ interface UpdateAnswerUseCase {
                     )
                 )
             }.getOrThrow()
-            val output = Check(
+            Check(
                 id = result?.idUnique!!,
                 name = result.shortDescription ?: noData,
                 description = result.description ?: noData,
@@ -107,8 +106,6 @@ interface UpdateAnswerUseCase {
                 result.answerCheckList?.yesNo.toYesNo(),
                 result.answerCheckList?.comments ?: "",
             )
-            Log.d("CHECK", "output $output")
-            output
         }
     }
 }
