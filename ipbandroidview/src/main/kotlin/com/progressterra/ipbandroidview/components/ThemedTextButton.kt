@@ -7,17 +7,13 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
-
-private val verticalPadding = 15.dp
-private val horizontalPadding = 32.dp
 
 @Composable
 fun ThemedTextButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: @Composable () -> String,
+    text: () -> String,
     enabled: () -> Boolean = { true }
 ) {
     TextButton(
@@ -25,11 +21,39 @@ fun ThemedTextButton(
         onClick = onClick,
         enabled = enabled(),
         colors = ButtonDefaults.textButtonColors(
-            contentColor = AppTheme.colors.primary, disabledContentColor = AppTheme.colors.gray2
+            contentColor = AppTheme.colors.primary,
+            disabledContentColor = AppTheme.colors.gray2
         ),
-        contentPadding = PaddingValues(horizontal = horizontalPadding, vertical = verticalPadding)
+        contentPadding = PaddingValues(
+            horizontal = AppTheme.dimensions.buttonHorizontalPadding,
+            vertical = AppTheme.dimensions.buttonVerticalPadding
+        )
     ) {
         Text(text = text(), style = AppTheme.typography.button)
+    }
+}
+
+@Composable
+fun ThemedTextButton(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    text: String,
+    enabled: () -> Boolean = { true }
+) {
+    TextButton(
+        modifier = modifier,
+        onClick = onClick,
+        enabled = enabled(),
+        colors = ButtonDefaults.textButtonColors(
+            contentColor = AppTheme.colors.primary,
+            disabledContentColor = AppTheme.colors.gray2
+        ),
+        contentPadding = PaddingValues(
+            horizontal = AppTheme.dimensions.buttonHorizontalPadding,
+            vertical = AppTheme.dimensions.buttonVerticalPadding
+        )
+    ) {
+        Text(text = text, style = AppTheme.typography.button)
     }
 }
 

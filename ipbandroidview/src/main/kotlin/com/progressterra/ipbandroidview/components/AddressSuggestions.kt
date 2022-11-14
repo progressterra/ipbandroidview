@@ -7,11 +7,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -24,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.ui.city.Suggestion
+
+private val elevation = 4.dp
 
 @Composable
 fun AddressSuggestions(
@@ -39,22 +39,23 @@ fun AddressSuggestions(
         exit = shrinkVertically()
     ) {
         Card(
-            elevation = 4.dp, shape = AppTheme.shapes.small
+            elevation = elevation, shape = AppTheme.shapes.small
         ) {
             LazyColumn {
                 items(suggestions()) {
                     Column(modifier = Modifier
                         .clickable { onSuggestion(it) }
                         .padding(
-                            horizontal = 8.dp, vertical = 6.dp
+                            horizontal = AppTheme.dimensions.small,
+                            vertical = AppTheme.dimensions.smany
                         )
-                        .fillMaxWidth()) {
+                        .fillMaxWidth(),
+                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
                         Text(
                             text = it.address,
                             color = AppTheme.colors.black,
                             style = AppTheme.typography.secondaryText
                         )
-                        Spacer(modifier = Modifier.size(2.dp))
                         Text(
                             text = it.city,
                             color = AppTheme.colors.gray2,

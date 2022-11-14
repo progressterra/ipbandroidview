@@ -7,5 +7,5 @@ data class ConfirmationCodeState(
     val code: String = "",
     val phoneNumber: String = "",
     val timer: String = "",
-    val isTimer: Boolean = false
+    val canResend: Boolean = false
 )

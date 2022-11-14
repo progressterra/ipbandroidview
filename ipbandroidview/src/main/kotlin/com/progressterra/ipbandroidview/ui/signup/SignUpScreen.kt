@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.BottomHolder
 import com.progressterra.ipbandroidview.components.ThemedButton
@@ -44,29 +43,29 @@ fun SignUpScreen(
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = next,
-                text = { stringResource(id = R.string.next) },
+                text = stringResource(id = R.string.next),
                 enabled = state()::isDataValid,
             )
-            Spacer(modifier = Modifier.size(8.dp))
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = skip,
-                text = { stringResource(id = R.string.auth_skip) }
+                text = stringResource(id = R.string.auth_skip)
             )
         }
     }) { _, _ ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.medium)
+                .padding(AppTheme.dimensions.small)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(12.dp),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+                    .padding(AppTheme.dimensions.medium),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
             ) {
                 if (state().showCalendar) {
                     ComposeCalendar(onDone = {
@@ -79,25 +78,25 @@ fun SignUpScreen(
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state()::name,
-                    hint = { stringResource(id = R.string.name_surname) },
+                    hint = stringResource(id = R.string.name_surname),
                     onChange = editName
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state()::email,
-                    hint = { stringResource(id = R.string.email) },
+                    hint = stringResource(id = R.string.email),
                     onChange = editEmail
                 )
                 ThemedMimicField(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = openCalendar,
                     text = state()::birthday,
-                    hint = { stringResource(id = R.string.birthday) },
+                    hint = stringResource(id = R.string.birthday),
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state()::phoneNumber,
-                    hint = { stringResource(id = R.string.phone_number) },
+                    hint = stringResource(id = R.string.phone_number),
                     enabled = { false }
                 )
             }

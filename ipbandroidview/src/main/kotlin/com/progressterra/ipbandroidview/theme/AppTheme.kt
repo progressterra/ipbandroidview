@@ -26,9 +26,7 @@ object AppTheme {
 
 }
 
-val LocalCustomization = staticCompositionLocalOf {
-    Customization()
-}
+val LocalCustomization = staticCompositionLocalOf { Customization() }
 
 val LocalDimensions = staticCompositionLocalOf { Dimensions() }
 
@@ -36,11 +34,11 @@ val LocalShapes = staticCompositionLocalOf { Shapes() }
 
 val LocalTypography = staticCompositionLocalOf { AppTypography() }
 
-val LocalColors = staticCompositionLocalOf { AppColors() }
+val LocalColors = staticCompositionLocalOf { Colors() }
 
 @Composable
 fun AppTheme(
-    colors: AppColors = AppTheme.colors,
+    colors: Colors = AppTheme.colors,
     typography: AppTypography = AppTheme.typography,
     dimensions: Dimensions = AppTheme.dimensions,
     customization: Customization = AppTheme.customization,

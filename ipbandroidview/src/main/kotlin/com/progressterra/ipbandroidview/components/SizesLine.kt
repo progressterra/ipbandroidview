@@ -22,9 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.utils.niceClickable
+import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.model.component.Size
 import com.progressterra.ipbandroidview.model.component.Sizes
-import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
@@ -49,7 +49,10 @@ fun SizesLine(
                     AppTheme.shapes.small
                 )
                 .niceClickable({ onSize(size) })
-                .padding(vertical = 4.dp, horizontal = 6.dp),
+                .padding(
+                    vertical = AppTheme.dimensions.tiny,
+                    horizontal = AppTheme.dimensions.smany
+                ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
@@ -71,14 +74,15 @@ fun SizesLine(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
+            .padding(AppTheme.dimensions.medium),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
                 items(state().sizes) {
                     Item(it)
                 }
@@ -97,7 +101,7 @@ fun SizesLine(
                 }
             }
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
             Text(
                 text = stringResource(id = R.string.size),
                 color = AppTheme.colors.gray2,

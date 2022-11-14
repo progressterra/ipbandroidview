@@ -54,21 +54,21 @@ fun CityScreen(
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = next,
-                text = { stringResource(id = R.string.ready) },
+                text = stringResource(id = R.string.ready),
                 enabled = state()::isDataValid,
             )
-            Spacer(modifier = Modifier.size(8.dp))
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = skip,
-                text = { stringResource(id = R.string.auth_skip) }
+                text = stringResource(id = R.string.auth_skip)
             )
         }
     }) { _, _ ->
         ConstraintLayout(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.medium)
+                .padding(AppTheme.dimensions.small)
         ) {
             val (map, address, background, suggestions) = createRefs()
             val cameraPositionState = rememberCameraPositionState {
@@ -97,7 +97,7 @@ fun CityScreen(
                 },
                 onFocusChange = { isAddressFocused = it },
                 text = state()::address,
-                hint = { stringResource(id = R.string.address) },
+                hint = stringResource(id = R.string.address),
                 onChange = editAddress
             )
             GoogleMap(

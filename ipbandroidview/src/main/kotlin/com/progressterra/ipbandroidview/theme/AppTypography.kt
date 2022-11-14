@@ -41,5 +41,10 @@ data class AppTypography(
         fontSize = 10.sp,
         fontWeight = FontWeight.Medium,
         lineHeight = 12.sp
+    ),
+    val price: TextStyle = TextStyle(
+        fontSize = 23.sp,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 27.6.sp
     )
 )

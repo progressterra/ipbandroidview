@@ -35,8 +35,8 @@ fun CartScreen(
         StateBox(state = state()::screenState, onRefresh = refresh) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
-                contentPadding = PaddingValues(AppTheme.dimensions.medium)
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(state().cart.listGoods) {
                     CartCard(

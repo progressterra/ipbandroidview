@@ -33,6 +33,10 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val digitSize = 56.dp
+
+private val borderWidth = 1.dp
+
 @Composable
 fun VerificationCodeInput(
     modifier: Modifier = Modifier,
@@ -51,13 +55,13 @@ fun VerificationCodeInput(
         ) {
             Text(
                 modifier = Modifier
-                    .width(56.dp)
+                    .width(digitSize)
                     .background(
                         color = AppTheme.colors.background,
                         shape = AppTheme.shapes.small
                     )
                     .border(
-                        width = 1.dp,
+                        width = borderWidth,
                         color = if (active) AppTheme.colors.primary else Color.Transparent,
                         shape = AppTheme.shapes.small
                     ),
@@ -99,7 +103,7 @@ fun VerificationCodeInput(
                         if (index >= localCode.text.length) "" else localCode.text[index].toString(),
                         (localCode.text.length == index) && focused
                     )
-                    if (index != 4 - 1) Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
+                    if (index != 4 - 1) Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
                 }
             }
         })

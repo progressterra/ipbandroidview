@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -42,7 +41,7 @@ fun DocumentCard(
                 indication = rememberRipple(),
                 onClick = onClick
             )
-            .padding(12.dp),
+            .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -54,7 +53,7 @@ fun DocumentCard(
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.size(2.dp))
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.tiniest))
             Text(
                 text = address(),
                 color = AppTheme.colors.gray2,
@@ -62,10 +61,10 @@ fun DocumentCard(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.size(8.dp))
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             Stats(Modifier.fillMaxWidth(), stats)
         }
-        Spacer(modifier = Modifier.size(8.dp))
+        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
         ForwardIcon()
     }
 }

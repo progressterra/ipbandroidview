@@ -3,11 +3,9 @@ package com.progressterra.ipbandroidview.ui.checklist
 import android.Manifest
 import android.content.Intent
 import android.provider.MediaStore
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.VoiceState
-import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.MakePhotoContract
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
@@ -129,7 +127,7 @@ class ChecklistViewModel(
         reduce {
             state.copy(
                 currentCheck = state.currentCheck?.copy(
-                    yesNo = if (yes) YesNo.YES else YesNo.NO
+                    yesNo = yes
                 )
             )
         }

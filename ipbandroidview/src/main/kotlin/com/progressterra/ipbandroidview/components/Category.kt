@@ -23,6 +23,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface CategoryState : Id, Image, Name
 
+private val picHeight = 104.dp
+
 @Composable
 fun Category(modifier: Modifier = Modifier, state: () -> CategoryState, onClick: () -> Unit) {
     Column(
@@ -30,20 +32,24 @@ fun Category(modifier: Modifier = Modifier, state: () -> CategoryState, onClick:
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .niceClickable(onClick),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         SimpleImage(
             modifier = Modifier
                 .clip(AppTheme.shapes.small)
                 .fillMaxWidth()
-                .height(104.dp),
-            url = { state().image },
+                .height(picHeight),
+            url = state()::image,
             backgroundColor = AppTheme.colors.surfaces
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 8.dp, end = 8.dp, bottom = 8.dp),
+                .padding(
+                    start = AppTheme.dimensions.small,
+                    end = AppTheme.dimensions.small,
+                    bottom = AppTheme.dimensions.small
+                ),
             contentAlignment = Alignment.TopCenter
         ) {
             Text(

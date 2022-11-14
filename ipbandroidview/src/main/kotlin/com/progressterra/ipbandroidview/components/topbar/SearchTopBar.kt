@@ -30,13 +30,14 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Immutable
 interface SearchBarState : Keyword, Filters
 
-//TODO filters counter
+private val elevation = 0.dp
 
 @Composable
 fun SearchTopBar(
     modifier: Modifier = Modifier,
     state: () -> SearchBarState,
     full: Boolean = true,
+    showBack: Boolean = true,
     onBack: () -> Unit,
     onKeyword: (String) -> Unit,
     onSearch: () -> Unit,
@@ -44,16 +45,16 @@ fun SearchTopBar(
 ) {
     TopAppBar(
         backgroundColor = AppTheme.colors.surfaces,
-        elevation = 0.dp,
+        elevation = elevation,
         modifier = modifier,
-        contentPadding = PaddingValues(bottom = 10.dp)
+        contentPadding = PaddingValues(bottom = AppTheme.dimensions.small)
     ) {
         Row(
             Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            if (full)
+            if (full || showBack)
                 IconButton(onClick = onBack) { BackIcon() }
             ThemedTextField(
                 modifier = Modifier
@@ -64,8 +65,8 @@ fun SearchTopBar(
                         )
                     ),
                 text = state()::keyword,
-                hint = { stringResource(id = R.string.search) },
-                onChange = { onKeyword(it) },
+                hint = stringResource(id = R.string.search),
+                onChange = onKeyword,
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Search
                 ),

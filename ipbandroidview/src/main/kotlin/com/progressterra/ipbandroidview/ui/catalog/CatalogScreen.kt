@@ -52,9 +52,9 @@ fun CatalogScreen(
                 LazyVerticalGrid(
                     modifier = Modifier.fillMaxSize(),
                     columns = GridCells.Fixed(2),
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
-                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
-                    contentPadding = PaddingValues(AppTheme.dimensions.medium)
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                    contentPadding = PaddingValues(AppTheme.dimensions.small)
                 ) {
                     items(catalogState().categories) {
                         Category(state = { it }, onClick = { openCategory(it) })

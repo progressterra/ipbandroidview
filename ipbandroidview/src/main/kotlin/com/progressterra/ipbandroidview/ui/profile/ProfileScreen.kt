@@ -31,17 +31,17 @@ fun ProfileScreen(state: () -> ProfileState, openDetails: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.medium)
+                .padding(AppTheme.dimensions.small)
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.large),
+                    .padding(AppTheme.dimensions.medium),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
+                Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
                     Text(
                         text = state().name.ifBlank { stringResource(id = R.string.set_name) },
                         color = AppTheme.colors.black,

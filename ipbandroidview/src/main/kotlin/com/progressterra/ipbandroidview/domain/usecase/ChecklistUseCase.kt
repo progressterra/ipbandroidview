@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
@@ -44,7 +43,7 @@ interface ChecklistUseCase {
                             id = check.idUnique!!,
                             category = currentCategory,
                             name = check.shortDescription ?: noData,
-                            yesNo = YesNo.NONE,
+                            yesNo = null,
                             comment = "",
                             description = check.description ?: noData,
                             categoryNumber = categoryNumber,

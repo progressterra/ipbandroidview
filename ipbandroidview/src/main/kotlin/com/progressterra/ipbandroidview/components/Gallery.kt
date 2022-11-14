@@ -45,10 +45,10 @@ fun Gallery(modifier: Modifier = Modifier, state: () -> GalleryState) {
             HorizontalPagerIndicator(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(8.dp)
+                    .padding(AppTheme.dimensions.small)
                     .clip(CircleShape)
                     .background(AppTheme.colors.background)
-                    .padding(vertical = 4.dp, horizontal = 6.dp),
+                    .padding(vertical = AppTheme.dimensions.tiny, horizontal = AppTheme.dimensions.smany),
                 pagerState = pagerState,
                 activeColor = AppTheme.colors.primary,
                 inactiveColor = AppTheme.colors.surfaces

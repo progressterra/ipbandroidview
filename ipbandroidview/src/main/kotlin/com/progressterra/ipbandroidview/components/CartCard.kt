@@ -25,6 +25,10 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface CartCardState : InCartCounter, Name, Image, Favorite, Color, Size, Price
 
+private val picWidth = 80.dp
+
+private val picHeight = 96.dp
+
 @Composable
 fun CartCard(
     modifier: Modifier = Modifier,
@@ -39,15 +43,15 @@ fun CartCard(
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .niceClickable(onDetails)
-            .padding(AppTheme.dimensions.medium),
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+            .padding(AppTheme.dimensions.small),
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         SimpleImage(
-            modifier = Modifier.size(width = 80.dp, height = 96.dp),
+            modifier = Modifier.size(width = picWidth, height = picHeight),
             url = state()::image,
             backgroundColor = AppTheme.colors.surfaces
         )
-        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.smany)) {
             Text(
                 text = state().name,
                 color = AppTheme.colors.black,

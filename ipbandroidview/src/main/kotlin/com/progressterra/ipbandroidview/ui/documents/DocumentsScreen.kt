@@ -59,7 +59,7 @@ fun DocumentsScreen(
                     .fillMaxSize()
                     .padding(
                         top = 8.dp, start = 8.dp, end = 8.dp
-                    ), verticalArrangement = Arrangement.spacedBy(8.dp)
+                    ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
 
                 items(unfinishedDocs) {
@@ -106,7 +106,7 @@ fun DocumentsScreen(
                         buttonSize = with(density) { it.size.height.toDp() }
                     },
                 onClick = openOrganizations,
-                text = { stringResource(id = R.string.create_audit) }
+                text = stringResource(id = R.string.create_audit)
             )
         }
     }

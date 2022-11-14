@@ -8,17 +8,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ThemedButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: @Composable () -> String,
+    text: String,
     enabled: () -> Boolean = { true },
-    textColor: @Composable () -> Color = { AppTheme.colors.surfaces },
-    tint: @Composable () -> Color = { AppTheme.colors.primary }
+    textColor: Color = AppTheme.colors.surfaces,
+    tint: Color = AppTheme.colors.primary
 ) {
     Button(
         modifier = modifier,
@@ -26,16 +25,16 @@ fun ThemedButton(
         shape = AppTheme.shapes.button,
         enabled = enabled(),
         colors = ButtonDefaults.textButtonColors(
-            backgroundColor = if (enabled()) tint() else AppTheme.colors.gray3,
-            contentColor = textColor(),
+            backgroundColor = if (enabled()) tint else AppTheme.colors.gray3,
+            contentColor = textColor,
             disabledContentColor = AppTheme.colors.gray2
         ),
         contentPadding = PaddingValues(
-            horizontal = 32.dp,
-            vertical = 15.dp
+            horizontal = AppTheme.dimensions.buttonHorizontalPadding,
+            vertical = AppTheme.dimensions.buttonVerticalPadding
         )
     ) {
-        Text(text = text(), style = AppTheme.typography.button)
+        Text(text = text, style = AppTheme.typography.button)
     }
 }
 
@@ -43,7 +42,7 @@ fun ThemedButton(
 @Composable
 private fun ThemedButtonEnabledPreview() {
     AppTheme {
-        ThemedButton(onClick = {}, text = { "Some button" })
+        ThemedButton(onClick = {}, text = "Some button")
     }
 }
 
@@ -51,6 +50,6 @@ private fun ThemedButtonEnabledPreview() {
 @Composable
 private fun ThemedButtonDisabledPreview() {
     AppTheme {
-        ThemedButton(onClick = {}, text = { "Some button" }, enabled = { false })
+        ThemedButton(onClick = {}, text = "Some button", enabled = { false })
     }
 }

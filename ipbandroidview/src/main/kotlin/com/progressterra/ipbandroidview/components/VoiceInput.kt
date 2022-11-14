@@ -45,14 +45,14 @@ fun VoiceInput(
 ) {
     when (state()) {
         is VoiceState.Recorder -> Box(modifier = modifier) {
-            Box(modifier = Modifier.padding(8.dp)) {
+            Box(modifier = Modifier.padding(AppTheme.dimensions.small)) {
                 Row(
                     modifier = Modifier
                         .clip(AppTheme.shapes.small)
                         .height(TextFieldDefaults.MinHeight)
                         .fillMaxWidth()
                         .background(AppTheme.colors.background)
-                        .padding(horizontal = 12.dp, vertical = 14.dp),
+                        .padding(horizontal = AppTheme.dimensions.medium, vertical = 14.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
@@ -75,22 +75,22 @@ fun VoiceInput(
             }
             if (state().ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
         }
-        is VoiceState.Player -> Box(modifier = modifier.padding(8.dp)) {
+        is VoiceState.Player -> Box(modifier = modifier.padding(AppTheme.dimensions.small)) {
             Row(
                 modifier = Modifier
                     .clip(AppTheme.shapes.small)
                     .height(TextFieldDefaults.MinHeight)
                     .background(AppTheme.colors.background)
-                    .padding(12.dp)
+                    .padding(AppTheme.dimensions.medium)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
             ) {
                 IconButton(onClick = onRemove, enabled = enabled()) { TrashIcon(enabled = enabled) }
                 ThemedLinearProgressIndicator(modifier = Modifier.weight(1f),
                     progress = { (state() as VoiceState.Player).progress })
                 IconButton(onClick = if (state().ongoing) onPausePlay else onStartPlay) {
-                    PlayPauseIcon(ongoing = { state().ongoing })
+                    PlayPauseIcon(ongoing =  state()::ongoing )
                 }
             }
 

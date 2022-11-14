@@ -4,9 +4,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -26,8 +26,11 @@ import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val bottomMenuIconSize = 32.dp
+
 @Immutable
 data class BottomMenuTabState(
+    val id: Int,
     val count: Int = 0,
     @StringRes val titleId: Int,
     @DrawableRes val iconId: Int
@@ -37,45 +40,50 @@ data class BottomMenuTabState(
 fun BottomMenuTab(
     modifier: Modifier = Modifier,
     state: () -> BottomMenuTabState,
-    onClick: () -> Unit,
-    active: @Composable () -> Boolean
+    onClick: (Int) -> Unit,
+    active: @Composable () -> Int
 ) {
-    Column(modifier = modifier
-        .clickable {
-            onClick()
-        }
-        .padding(4.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(modifier = Modifier.size(32.dp)) {
-            if (state().count > 0) {
-                Box(
-                    modifier = Modifier
-                        .size(16.dp)
-                        .clip(CircleShape)
-                        .background(AppTheme.colors.secondary)
-                        .zIndex(1f)
-                        .align(Alignment.TopEnd),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = state().count.toString(),
-                        textAlign = TextAlign.Center,
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.actionBarLabels
-                    )
-                }
+
+    @Composable
+    fun Counter(modifier: Modifier = Modifier, count: () -> Int) {
+        if (count() > 0) {
+            Box(
+                modifier = modifier
+                    .size(AppTheme.dimensions.counterSize)
+                    .clip(CircleShape)
+                    .background(AppTheme.colors.secondary)
+                    .zIndex(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = state().count.toString(),
+                    textAlign = TextAlign.Center,
+                    color = AppTheme.colors.black,
+                    style = AppTheme.typography.actionBarLabels
+                )
             }
+        }
+    }
+
+    Column(modifier = modifier
+        .clickable { onClick(state().id) }
+        .padding(AppTheme.dimensions.tiny),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+    ) {
+        Box(modifier = Modifier.size(bottomMenuIconSize)) {
+            Counter(modifier = Modifier.align(Alignment.TopEnd), count = state()::count)
             Icon(
                 modifier = Modifier.align(Alignment.Center),
                 painter = painterResource(id = state().iconId),
                 contentDescription = null,
-                tint = if (active()) AppTheme.colors.primary else AppTheme.colors.gray2
+                tint = if (active() == state().id) AppTheme.colors.primary else AppTheme.colors.gray2
             )
         }
-        Spacer(modifier = Modifier.size(4.dp))
         Text(
             text = stringResource(id = state().titleId),
             style = AppTheme.typography.actionBarLabels,
-            color = if (active()) AppTheme.colors.primary else AppTheme.colors.gray2
+            color = if (active() == state().id) AppTheme.colors.primary else AppTheme.colors.gray2
         )
     }
 }
@@ -87,11 +95,12 @@ private fun BottomNavItemPreview0() {
         BottomMenuTab(
             state = {
                 BottomMenuTabState(
+                    id = 0,
                     iconId = R.drawable.ic_profile,
                     count = 3,
                     titleId = R.string.address,
                 )
-            }, active = { true }, onClick = {})
+            }, active = { 0 }, onClick = {})
     }
 }
 
@@ -102,10 +111,11 @@ private fun BottomNavItemPreview1() {
         BottomMenuTab(
             state = {
                 BottomMenuTabState(
+                    id = 0,
                     iconId = R.drawable.ic_audits,
                     count = 0,
                     titleId = R.string.address,
                 )
-            }, active = { false }, onClick = {})
+            }, active = { 1 }, onClick = {})
     }
 }

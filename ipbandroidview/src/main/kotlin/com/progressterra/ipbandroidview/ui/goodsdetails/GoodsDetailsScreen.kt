@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.ColorsLine
 import com.progressterra.ipbandroidview.components.Gallery
 import com.progressterra.ipbandroidview.components.SizesLine
@@ -49,8 +48,8 @@ fun GoodsDetailsScreen(
     }) { _, _ ->
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
-            contentPadding = PaddingValues(AppTheme.dimensions.medium)
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+            contentPadding = PaddingValues(AppTheme.dimensions.small)
         ) {
             item {
                 Gallery(
@@ -78,7 +77,7 @@ fun GoodsDetailsScreen(
                 GoodsDetails(
                     modifier = Modifier.fillMaxWidth(), state = state
                 )
-                Spacer(modifier = Modifier.size(8.dp))
+                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             }
         }
     }

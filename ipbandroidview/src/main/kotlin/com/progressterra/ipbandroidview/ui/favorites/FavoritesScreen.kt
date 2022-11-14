@@ -33,9 +33,9 @@ fun FavoritesScreen(
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
                 columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
-                contentPadding = PaddingValues(AppTheme.dimensions.medium)
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(state().items) { goods ->
                     StoreCard(modifier = Modifier.align(Alignment.Center),

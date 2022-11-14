@@ -10,11 +10,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val size = 64.dp
+
 @Composable
 fun ThemedRefreshButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     IconButton(
         modifier = modifier
-            .size(64.dp)
+            .size(size)
             .clip(AppTheme.shapes.button)
             .background(AppTheme.colors.primary), onClick = onClick
     ) {

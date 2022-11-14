@@ -16,7 +16,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.BottomHolder
 import com.progressterra.ipbandroidview.components.LinkText
@@ -43,14 +42,14 @@ fun SignInScreen(
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = next,
-                text = { stringResource(id = R.string.auth_button) }
+                text = stringResource(id = R.string.auth_button)
             )
             if (settings.type == SignInScreenType.PASSABLE) {
-                Spacer(modifier = Modifier.size(8.dp))
+                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = skip,
-                    text = { stringResource(id = R.string.auth_skip) }
+                    text = stringResource(id = R.string.auth_skip)
                 )
             }
         }
@@ -58,7 +57,7 @@ fun SignInScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.medium)
+                .padding(AppTheme.dimensions.small)
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
@@ -66,12 +65,12 @@ fun SignInScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .padding(12.dp)
+                        .padding(AppTheme.dimensions.medium)
                 ) {
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         text = state()::phoneNumber,
-                        hint = { stringResource(id = R.string.phone_number) },
+                        hint = stringResource(id = R.string.phone_number),
                         onChange = editPhoneNumber,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                     )
@@ -90,7 +89,8 @@ fun SignInScreen(
                         onClick = { Log.d("CLICK", "SignInScreen: $it") })
                 )
                 LinkText(
-                    linkTextData = { list }, modifier = Modifier.padding(top = 8.dp)
+                    linkTextData = { list },
+                    modifier = Modifier.padding(top = AppTheme.dimensions.small)
                 )
             }
         }

@@ -36,6 +36,8 @@ import kotlinx.coroutines.launch
 @Immutable
 interface GoodsDetailsState : Name, Parameters, Description
 
+private val detailsParamTitlesWidth = 104.dp
+
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetailsState) {
@@ -48,9 +50,10 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetailsState) 
             modifier = Modifier
                 .clip(AppTheme.shapes.medium)
                 .background(AppTheme.colors.surfaces)
-                .padding(6.dp)
+                .padding(AppTheme.dimensions.smany)
         ) {
-            TabRow(selectedTabIndex = pagerState.currentPage,
+            TabRow(
+                selectedTabIndex = pagerState.currentPage,
                 backgroundColor = AppTheme.colors.surfaces,
                 indicator = {},
                 divider = {}) {
@@ -78,7 +81,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetailsState) 
                                 .fillMaxWidth()
                                 .clip(AppTheme.shapes.small)
                                 .background(backgroundColor)
-                                .padding(AppTheme.dimensions.large),
+                                .padding(AppTheme.dimensions.medium),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
@@ -93,11 +96,10 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetailsState) 
             }
         }
     }
-
     val pagerState = rememberPagerState()
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         HorizontalTabs(pagerState = pagerState)
         HorizontalPager(count = 3, state = pagerState) {
@@ -106,8 +108,8 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetailsState) 
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.large),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+                    .padding(AppTheme.dimensions.medium),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
             ) {
                 if (it == 0) {
                     Text(
@@ -127,11 +129,11 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetailsState) 
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )
-                    Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
                         state().parameters.forEach {
                             Row {
                                 Text(
-                                    modifier = Modifier.width(104.dp),
+                                    modifier = Modifier.width(detailsParamTitlesWidth),
                                     text = it.title,
                                     color = AppTheme.colors.gray2,
                                     style = AppTheme.typography.secondaryText

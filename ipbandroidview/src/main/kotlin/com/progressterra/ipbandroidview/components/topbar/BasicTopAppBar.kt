@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val elevation = 0.dp
+
 @Composable
 fun BasicTopAppBar(
     modifier: Modifier = Modifier,
@@ -24,7 +26,7 @@ fun BasicTopAppBar(
     TopAppBar(
         modifier = modifier,
         backgroundColor = backgroundColor,
-        elevation = 0.dp,
+        elevation = elevation,
     ) {
         Box {
             leftActions?.let {

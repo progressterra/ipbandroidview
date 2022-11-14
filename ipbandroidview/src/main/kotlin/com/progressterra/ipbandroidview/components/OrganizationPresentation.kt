@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val picHeight = 188.dp
+
 @Composable
 fun OrganizationPresentation(
     modifier: Modifier = Modifier,
@@ -31,12 +33,12 @@ fun OrganizationPresentation(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.large),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+            .padding(AppTheme.dimensions.medium),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
     ) {
         SimpleImage(
             modifier = Modifier
-                .height(188.dp)
+                .height(picHeight)
                 .fillMaxWidth()
                 .clip(AppTheme.shapes.small),
             url = imageUrl,
@@ -47,7 +49,7 @@ fun OrganizationPresentation(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
+            Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
                 Text(
                     text = name(),
                     color = AppTheme.colors.black,
@@ -64,7 +66,7 @@ fun OrganizationPresentation(
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
                 ) {
                     MapIcon()
                     Text(

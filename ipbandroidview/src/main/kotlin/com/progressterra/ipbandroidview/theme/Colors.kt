@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 
 @Immutable
-data class AppColors(
+data class Colors(
     val primary: Color = Color(0xFF364BB9),
     val secondary: Color = Color(0xFFFFCA61),
     val surfaces: Color = Color.White,

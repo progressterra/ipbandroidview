@@ -18,6 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val lineWidth = 1.dp
+
+private val lineLengthIfDividerNotEmpty = 0.dp
+
+private val textRightMargin = 32.dp
+
 @Composable
 fun CategoryDivider(
     modifier: Modifier = Modifier, title: @Composable () -> String
@@ -25,7 +31,7 @@ fun CategoryDivider(
     BoxWithConstraints {
         val width = maxWidth
         Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-            Box(modifier = Modifier.widthIn(max = width - 32.dp)) {
+            Box(modifier = Modifier.widthIn(max = width - textRightMargin)) {
                 Text(
                     textAlign = TextAlign.Start,
                     text = title(),
@@ -35,9 +41,9 @@ fun CategoryDivider(
             }
             Box(
                 modifier = Modifier
-                    .padding(start = if (title().isNotBlank()) 8.dp else 0.dp)
+                    .padding(start = if (title().isNotBlank()) AppTheme.dimensions.small else lineLengthIfDividerNotEmpty)
                     .background(AppTheme.colors.gray2)
-                    .height(1.dp)
+                    .height(lineWidth)
                     .weight(1f)
             )
         }

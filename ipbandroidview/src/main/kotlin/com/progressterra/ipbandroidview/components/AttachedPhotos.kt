@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -23,6 +22,8 @@ import com.progressterra.ipbandroidview.components.utils.niceClickable
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val picSize = 48.dp
+
 @Composable
 fun AttachedPhoto(
     modifier: Modifier = Modifier,
@@ -36,7 +37,7 @@ fun AttachedPhoto(
     fun Item(picture: CheckPicture) {
         SimpleImage(
             modifier = Modifier
-                .size(48.dp)
+                .size(picSize)
                 .clip(AppTheme.shapes.small)
                 .niceClickable(onClick = { onPhotoSelect(picture) }),
             url = { picture.thumbnail },
@@ -54,8 +55,7 @@ fun AttachedPhoto(
                 .niceClickable(
                     onClick = onCamera,
                     enabled = { enabled() }
-                )
-                .padding(horizontal = 12.dp, vertical = 14.dp),
+                ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -67,12 +67,12 @@ fun AttachedPhoto(
             CameraIcon(enabled = { enabled() })
         }
     } else {
-        LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
             if (enabled()) {
                 item {
                     Box(
                         modifier = Modifier
-                            .size(48.dp)
+                            .size(picSize)
                             .clip(AppTheme.shapes.small)
                             .background(AppTheme.colors.background)
                             .niceClickable(onClick = onCamera),

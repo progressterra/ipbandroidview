@@ -27,6 +27,12 @@ import com.progressterra.ipbandroidview.model.component.Color
 import com.progressterra.ipbandroidview.model.component.Colors
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val picWidth = 56.dp
+
+private val picHeight = 64.dp
+
+private val borderWidth = 1.dp
+
 @Immutable
 interface ColorsLineState : Color, Colors
 
@@ -36,39 +42,41 @@ fun ColorsLine(
 ) {
 
     @Composable
-    fun Item(color: () -> GoodsColor) {
+    fun Item(color: GoodsColor) {
         Box(
             modifier = Modifier
-                .size(width = 56.dp, height = 64.dp)
+                .size(width = picWidth, height = picHeight)
                 .clip(AppTheme.shapes.small)
                 .border(
-                    width = 1.dp,
-                    color = if (color() == state().color) AppTheme.colors.primary else Transparent,
+                    width = borderWidth,
+                    color = if (color == state().color) AppTheme.colors.primary else Transparent,
                     AppTheme.shapes.small
                 )
-                .niceClickable({ onColor(color()) })
-                .padding(2.dp),
+                .niceClickable({ onColor(color) })
+                .padding(AppTheme.dimensions.tiniest),
             contentAlignment = Alignment.Center
         ) {
             SimpleImage(
                 modifier = Modifier.clip(AppTheme.shapes.tiny),
-                url = { color().image },
+                url = { color.image },
                 backgroundColor = AppTheme.colors.surfaces
             )
         }
     }
+
     Column(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .padding(12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
+            .padding(AppTheme.dimensions.medium),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
             items(state().colors) {
-                Item { it }
+                Item(it)
             }
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
             Text(
                 text = stringResource(id = R.string.color),
                 color = AppTheme.colors.gray2,

@@ -30,7 +30,7 @@ fun OrganizationCard(
             .clip(AppTheme.shapes.medium)
             .niceClickable(onClick = onClick)
             .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.large),
+            .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -42,7 +42,7 @@ fun OrganizationCard(
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.tiny))
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.tiniest))
             Text(
                 text = description(),
                 color = AppTheme.colors.gray2,

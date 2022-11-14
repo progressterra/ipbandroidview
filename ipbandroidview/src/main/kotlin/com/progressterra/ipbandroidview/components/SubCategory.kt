@@ -28,7 +28,7 @@ fun SubCategory(modifier: Modifier = Modifier, state: () -> SubCategoryState, on
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .niceClickable(onClick)
-            .padding(16.dp),
+            .padding(AppTheme.dimensions.large),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {

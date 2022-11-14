@@ -36,47 +36,47 @@ fun ProfileDetailsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.medium),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                .padding(AppTheme.dimensions.small),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.large),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+                    .padding(AppTheme.dimensions.medium),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
             ) {
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state()::name,
-                    hint = { stringResource(id = R.string.name_surname) },
+                    hint = stringResource(id = R.string.name_surname),
                     onChange = editName
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state()::email,
-                    hint = { stringResource(id = R.string.email) },
+                    hint = stringResource(id = R.string.email),
                     onChange = editEmail
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state()::phone,
-                    hint = { stringResource(id = R.string.phone_number) },
+                    hint = stringResource(id = R.string.phone_number),
                     enabled = { false }
                 )
             }
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = confirmChange,
-                text = { stringResource(id = R.string.confirm_change) },
+                text = stringResource(id = R.string.confirm_change),
             )
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = logout,
-                text = { stringResource(id = R.string.logout) },
-                textColor = { AppTheme.colors.error },
-                tint = { AppTheme.colors.surfaces }
+                text = stringResource(id = R.string.logout),
+                textColor = AppTheme.colors.error,
+                tint = AppTheme.colors.surfaces
             )
         }
     }

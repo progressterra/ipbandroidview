@@ -14,7 +14,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.BottomHolder
 import com.progressterra.ipbandroidview.components.ThemedButton
@@ -42,28 +41,28 @@ fun ConfirmationCodeScreen(
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = next,
-                text = { stringResource(id = R.string.next) }
+                text = stringResource(id = R.string.next)
             )
-            Spacer(modifier = Modifier.size(8.dp))
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = resend,
-                text = { if (state().isTimer) state().timer else stringResource(id = R.string.resend) },
-                enabled = { !state().isTimer }
+                text = state()::timer,
+                enabled = state()::canResend
             )
         }
     }) { _, _ ->
         Column(
             Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.medium)
+                .padding(AppTheme.dimensions.small)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(16.dp)
+                    .padding(AppTheme.dimensions.large)
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
@@ -72,7 +71,7 @@ fun ConfirmationCodeScreen(
                     style = AppTheme.typography.text,
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.size(16.dp))
+                Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
                 VerificationCodeInput(
                     modifier = Modifier.fillMaxWidth(),
                     code = state()::code,

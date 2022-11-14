@@ -27,6 +27,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface StoreCardState : Image, Favorite, Name, Price
 
+private val picHeight = 236.dp
+
 @Composable
 fun StoreCard(
     modifier: Modifier = Modifier,
@@ -55,18 +57,20 @@ fun StoreCard(
                     AppTheme.shapes.small
                 )
                 .constrainAs(image) {
-                    height = Dimension.value(236.dp)
+                    height = Dimension.value(picHeight)
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
                 }, url = state()::image, backgroundColor = AppTheme.colors.surfaces
         )
-        val margin = 8.dp
+        val large = 8.dp
+        val medium = 4.dp
+        val small = 2.dp
         Text(
             modifier = Modifier.constrainAs(price) {
                 width = Dimension.fillToConstraints
-                top.linkTo(image.bottom, 4.dp)
-                start.linkTo(image.start, margin)
-                end.linkTo(image.end, margin)
+                top.linkTo(image.bottom, medium)
+                start.linkTo(image.start, large)
+                end.linkTo(image.end, large)
             },
             text = state().price,
             color = AppTheme.colors.black,
@@ -79,10 +83,10 @@ fun StoreCard(
         Text(
             modifier = Modifier.constrainAs(name) {
                 width = Dimension.fillToConstraints
-                top.linkTo(price.bottom, 2.dp)
-                start.linkTo(image.start, margin)
-                end.linkTo(image.end, margin)
-                bottom.linkTo(parent.bottom, margin)
+                top.linkTo(price.bottom, small)
+                start.linkTo(image.start, large)
+                end.linkTo(image.end, large)
+                bottom.linkTo(parent.bottom, large)
             },
             text = nameText,
             maxLines = lines,
@@ -110,7 +114,7 @@ private class StoreCardStatePreview(
 @Composable
 private fun StoreItemCardPreview() {
     AppTheme {
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)) {
             StoreCard(state = {
                 StoreCardStatePreview(
                     image = "",

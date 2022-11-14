@@ -15,20 +15,20 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ThemedMimicField(
     modifier: Modifier = Modifier,
     text: () -> String,
-    hint: @Composable () -> String,
+    hint: String,
     onClick: () -> Unit
 ) {
     val label: (@Composable () -> Unit)? = if (text().isNotEmpty()) {
         {
             Text(
-                text = hint(), style = AppTheme.typography.actionBarLabels, maxLines = 1
+                text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
     val placeholder: (@Composable () -> Unit)? = if (text().isEmpty()) {
         {
             Text(
-                text = hint(), style = AppTheme.typography.text, maxLines = 1
+                text = hint, style = AppTheme.typography.text, maxLines = 1
             )
         }
     } else null
@@ -43,22 +43,37 @@ fun ThemedMimicField(
         label = label,
         enabled = false,
         textStyle = AppTheme.typography.text,
-        maxLines = 1,
         singleLine = true,
         colors = TextFieldDefaults.textFieldColors(
+            //Background
+            backgroundColor = AppTheme.colors.background,
+            //Placeholder
             placeholderColor = AppTheme.colors.gray1,
             disabledPlaceholderColor = AppTheme.colors.gray1,
-            backgroundColor = AppTheme.colors.background,
+            //Label always same color
             focusedLabelColor = AppTheme.colors.gray2,
             unfocusedLabelColor = AppTheme.colors.gray2,
             disabledLabelColor = AppTheme.colors.gray2,
+            errorLabelColor = AppTheme.colors.error,
+            //Text color depend on enable state
             textColor = AppTheme.colors.black,
             disabledTextColor = AppTheme.colors.black,
+            //Here is no indicator actually
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             errorIndicatorColor = Color.Transparent,
-            cursorColor = AppTheme.colors.primary
+            //Cursor
+            cursorColor = AppTheme.colors.primary,
+            errorCursorColor = AppTheme.colors.error,
+            //Leading icon
+            leadingIconColor = AppTheme.colors.gray2,
+            disabledLeadingIconColor = AppTheme.colors.gray2,
+            errorLeadingIconColor = AppTheme.colors.error,
+            //Leading icon
+            trailingIconColor = AppTheme.colors.gray2,
+            disabledTrailingIconColor = AppTheme.colors.gray2,
+            errorTrailingIconColor = AppTheme.colors.error
         )
     )
 }
@@ -69,7 +84,7 @@ fun ThemedMimicField(
 @Composable
 private fun ThemedMimicFieldPreviewEnabled() {
     AppTheme {
-        ThemedMimicField(text = { "Some text" }, hint = { "Your name" }, onClick = {})
+        ThemedMimicField(text = { "Some text" }, hint = "Your name", onClick = {})
     }
 }
 
@@ -77,7 +92,7 @@ private fun ThemedMimicFieldPreviewEnabled() {
 @Composable
 private fun ThemedMimicFieldPreviewDisabled() {
     AppTheme {
-        ThemedMimicField(text = { "Some text" }, hint = { "Your name" }, onClick = {})
+        ThemedMimicField(text = { "Some text" }, hint = "Your name", onClick = {})
     }
 }
 
@@ -85,6 +100,6 @@ private fun ThemedMimicFieldPreviewDisabled() {
 @Composable
 private fun ThemedMimicFieldPreviewEmptyDisabled() {
     AppTheme {
-        ThemedMimicField(text = { "" }, hint = { "Your name" }, onClick = {})
+        ThemedMimicField(text = { "" }, hint = "Your name", onClick = {})
     }
 }

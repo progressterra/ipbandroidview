@@ -11,16 +11,15 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.utils.SideBorder
 import com.progressterra.ipbandroidview.components.utils.sideBorder
 import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
+
+private val lineWidth = 0.5.dp
 
 @Immutable
 interface CartBottomBarState : Price {
@@ -39,22 +38,22 @@ fun CartBottomBar(
         modifier = modifier
             .fillMaxWidth()
             .background(AppTheme.colors.surfaces)
-            .sideBorder(top = SideBorder(0.5.dp, AppTheme.colors.gray2))
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 2.dp),
+            .sideBorder(top = SideBorder(lineWidth, AppTheme.colors.gray2))
+            .padding(
+                start = AppTheme.dimensions.large,
+                top = AppTheme.dimensions.large,
+                end = AppTheme.dimensions.large,
+                bottom = AppTheme.dimensions.tiniest
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state().price, style = TextStyle(
-                color = AppTheme.colors.black,
-                fontSize = 23.sp,
-                fontWeight = FontWeight.SemiBold,
-                lineHeight = 27.6.sp
-            )
+            text = state().price, style = AppTheme.typography.price, color = AppTheme.colors.black
         )
         if (state().userExist)
-            ThemedButton(onClick = onNext, text = { stringResource(id = R.string.in_cart) })
+            ThemedButton(onClick = onNext, text = stringResource(id = R.string.in_cart))
         else
-            ThemedButton(onClick = onAuth, text = { stringResource(id = R.string.go_to_auth) })
+            ThemedButton(onClick = onAuth, text = stringResource(id = R.string.go_to_auth))
     }
 }

@@ -17,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.components.yesno.YesNo
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 //TODO Colors to composable
@@ -26,18 +24,18 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun CheckCard(
     modifier: Modifier = Modifier,
-    yesNo: () -> YesNo,
+    yesNo: () -> Boolean?,
     onClick: () -> Unit,
     name: () -> String
 ) {
     Row(modifier = modifier
         .clip(AppTheme.shapes.medium)
-        .background(if (yesNo() == YesNo.YES) AppTheme.colors.success else if (yesNo() == YesNo.NO) AppTheme.colors.failed else AppTheme.colors.surfaces)
+        .background(if (yesNo() == true) AppTheme.colors.success else if (yesNo() == false) AppTheme.colors.failed else AppTheme.colors.surfaces)
         .clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = rememberRipple(bounded = true)
         ) { onClick() }
-        .padding(12.dp),
+        .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween) {
         Text(
@@ -48,7 +46,7 @@ fun CheckCard(
             color = AppTheme.colors.black,
             style = AppTheme.typography.text
         )
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
         ForwardIcon()
     }
 }
@@ -60,7 +58,7 @@ private fun CheckCardPreviewOngoing() {
         CheckCard(
             name = { "Наличие сопроводительных документов (ветеринарных справок \"Меркурий\", деклараций о соответствии), их соответствие маркировкам" },
             onClick = {},
-            yesNo = { YesNo.YES }
+            yesNo = { true }
         )
     }
 }

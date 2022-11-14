@@ -40,13 +40,12 @@ import com.progressterra.ipbandroidview.components.MarkIcon
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.ThemedNotebook
+import com.progressterra.ipbandroidview.components.ThemedTextField
 import com.progressterra.ipbandroidview.components.VoiceInput
+import com.progressterra.ipbandroidview.components.button.YesNoButton
 import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
-import com.progressterra.ipbandroidview.components.yesno.YesNo
-import com.progressterra.ipbandroidview.components.yesno.YesNoButton
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -103,16 +102,16 @@ fun ChecklistScreen(
                     Column(
                         modifier = Modifier
                             .padding(
-                                top = AppTheme.dimensions.medium,
-                                start = AppTheme.dimensions.medium,
-                                end = AppTheme.dimensions.medium
+                                top = AppTheme.dimensions.small,
+                                start = AppTheme.dimensions.small,
+                                end = AppTheme.dimensions.small
                             )
                     ) {
                         Column(
                             modifier = Modifier
                                 .clip(AppTheme.shapes.medium)
                                 .background(AppTheme.colors.surfaces)
-                                .padding(AppTheme.dimensions.large)
+                                .padding(AppTheme.dimensions.medium)
                                 .fillMaxWidth()
                         ) {
                             Text(
@@ -121,34 +120,34 @@ fun ChecklistScreen(
                                 style = AppTheme.typography.text
                             )
                         }
-                        Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
+                        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                         Column(
                             modifier = Modifier
                                 .clip(AppTheme.shapes.medium)
                                 .background(AppTheme.colors.surfaces)
                         ) {
-                            Box(modifier = Modifier.padding(AppTheme.dimensions.large)) {
+                            Box(modifier = Modifier.padding(AppTheme.dimensions.medium)) {
                                 YesNoButton(
                                     modifier = Modifier.fillMaxWidth(),
-                                    yesNo = { state().currentCheck?.yesNo ?: YesNo.NONE },
+                                    state = { state().currentCheck?.yesNo },
                                     onClick = yesNo,
                                     enabled = state().auditDocument::ongoing
                                 )
                             }
-                            Box(modifier = Modifier.padding(horizontal = AppTheme.dimensions.large)) {
-                                ThemedNotebook(
+                            Box(modifier = Modifier.padding(horizontal = AppTheme.dimensions.medium)) {
+                                ThemedTextField(
                                     modifier = Modifier.fillMaxWidth(),
                                     text = { state().currentCheck?.comment ?: "" },
-                                    hint = {
-                                        stringResource(
-                                            id = R.string.text_comment
-                                        )
-                                    },
+                                    hint =
+                                    stringResource(
+                                        id = R.string.text_comment
+                                    ),
                                     onChange = editCheckCommentary,
-                                    enabled = state().auditDocument::ongoing
+                                    enabled = state().auditDocument::ongoing,
+                                    singleLine = false
                                 )
                             }
-                            Box(modifier = Modifier.padding(4.dp)) {
+                            Box(modifier = Modifier.padding(AppTheme.dimensions.tiny)) {
                                 VoiceInput(
                                     modifier = Modifier.fillMaxWidth(),
                                     state = state()::voiceState,
@@ -162,9 +161,9 @@ fun ChecklistScreen(
                             }
                             Box(
                                 modifier = Modifier.padding(
-                                    start = AppTheme.dimensions.large,
-                                    end = AppTheme.dimensions.large,
-                                    bottom = AppTheme.dimensions.large
+                                    start = AppTheme.dimensions.medium,
+                                    end = AppTheme.dimensions.medium,
+                                    bottom = AppTheme.dimensions.medium
                                 )
                             ) {
                                 AttachedPhoto(
@@ -180,13 +179,13 @@ fun ChecklistScreen(
                             }
                         }
                         if (state().auditDocument.ongoing) {
-                            Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
-                            Row(Modifier.padding(horizontal = AppTheme.dimensions.medium)) {
+                            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                            Row(Modifier.padding(horizontal = AppTheme.dimensions.small)) {
                                 ThemedButton(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
                                         applyCheck()
                                         coroutineScope.launch { sheetState.hide() }
-                                    }, text = { stringResource(id = R.string.ready) }
+                                    }, text = stringResource(id = R.string.ready)
                                 )
                             }
                         }
@@ -204,19 +203,44 @@ fun ChecklistScreen(
         }, bottomBar = {
             if (!(state().auditDocument.readOrCompleteOnly && !state().auditDocument.ongoing)) {
                 BottomHolder(Modifier.fillMaxWidth()) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)) {
-                        ThemedButton(
-                            modifier = Modifier.weight(1f),
-                            onClick = startStopAudit,
-                            text = {
-                                stringResource(
-                                    id = if (state().auditDocument.ongoing) R.string.end_audit else R.string.start_audit
+                    Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
+                        if (state().auditDocument.ongoing)
+                            if (state().stats.remaining >= 1)
+                                ThemedButton(
+                                    modifier = Modifier.weight(1f),
+                                    onClick = startStopAudit,
+                                    text =
+                                    stringResource(
+                                        id = R.string.end_audit
+                                    ),
+                                    tint = AppTheme.colors.secondary,
+                                    textColor = AppTheme.colors.gray1,
+                                    enabled = { state().checklistScreenState == ScreenState.SUCCESS }
                                 )
-                            },
-                            tint = { if (state().stats.remaining >= 1 && state().auditDocument.ongoing) AppTheme.colors.secondary else AppTheme.colors.primary },
-                            textColor = { if (state().stats.remaining >= 1 && state().auditDocument.ongoing) AppTheme.colors.gray1 else AppTheme.colors.surfaces },
-                            enabled = { state().checklistScreenState == ScreenState.SUCCESS }
-                        )
+                            else
+                                ThemedButton(
+                                    modifier = Modifier.weight(1f),
+                                    onClick = startStopAudit,
+                                    text =
+                                    stringResource(
+                                        id = R.string.end_audit
+                                    ),
+                                    tint = AppTheme.colors.primary,
+                                    textColor = AppTheme.colors.surfaces,
+                                    enabled = { state().checklistScreenState == ScreenState.SUCCESS }
+                                )
+                        else
+                            ThemedButton(
+                                modifier = Modifier.weight(1f),
+                                onClick = startStopAudit,
+                                text =
+                                stringResource(
+                                    R.string.start_audit
+                                ),
+                                tint = AppTheme.colors.primary,
+                                textColor = AppTheme.colors.surfaces,
+                                enabled = { state().checklistScreenState == ScreenState.SUCCESS }
+                            )
                         if (state().auditDocument.ongoing) {
                             Stats(modifier = Modifier.weight(1f), stats = state()::stats)
                         }
@@ -235,18 +259,18 @@ fun ChecklistScreen(
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                     contentPadding = PaddingValues(
-                        start = AppTheme.dimensions.medium,
-                        top = AppTheme.dimensions.medium,
-                        end = AppTheme.dimensions.medium
+                        start = AppTheme.dimensions.small,
+                        top = AppTheme.dimensions.small,
+                        end = AppTheme.dimensions.small
                     )
                 ) {
                     item {
                         AuditTitle(
                             modifier = Modifier.fillMaxWidth(),
-                            name = { state().auditDocument.name },
-                            checkCounter = { state().checks.size }
+                            name = state().auditDocument::name,
+                            checkCounter = state().checks::size
                         )
                     }
                     groupedChecks.forEach { (category, checks) ->
@@ -254,9 +278,7 @@ fun ChecklistScreen(
                             CategoryDivider(
                                 modifier = Modifier.fillMaxWidth(), title = {
                                     "$category. ${
-                                        checks.firstOrNull()?.category ?: stringResource(
-                                            id = R.string.no_data
-                                        )
+                                        checks.firstOrNull()?.category ?: stringResource(id = R.string.no_data)
                                     }"
                                 }
                             )

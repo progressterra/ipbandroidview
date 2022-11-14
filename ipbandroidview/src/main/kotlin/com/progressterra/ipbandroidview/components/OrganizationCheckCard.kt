@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.components.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -31,20 +30,20 @@ fun OrganizationCheckCard(
             .clip(AppTheme.shapes.medium)
             .niceClickable(onClick = onClick)
             .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.large),
+            .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
             Text(text = name(), color = AppTheme.colors.black, style = AppTheme.typography.text)
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+            Spacer(modifier = Modifier.size(AppTheme.dimensions.tiny))
             Text(
                 text = lastTime(),
                 color = AppTheme.colors.gray2,
                 style = AppTheme.typography.secondaryText
             )
         }
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
         Row(verticalAlignment = Alignment.CenterVertically) {
             ForwardIcon()
         }

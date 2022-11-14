@@ -13,10 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.AddItemIcon
 import com.progressterra.ipbandroidview.components.RemoveItemIcon
@@ -27,7 +24,7 @@ import com.progressterra.ipbandroidview.model.component.InCartCounter
 import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-//TODO add preview
+private val lineWidth = 0.5.dp
 
 @Immutable
 interface GoodsBottomBarState : InCartCounter, Price
@@ -40,27 +37,28 @@ fun GoodsBottomBar(
     onRemove: () -> Unit
 ) {
     Row(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .background(AppTheme.colors.surfaces)
-            .sideBorder(top = SideBorder(0.5.dp, AppTheme.colors.gray2))
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 2.dp),
+            .sideBorder(top = SideBorder(lineWidth, AppTheme.colors.gray2))
+            .padding(
+                start = AppTheme.dimensions.large,
+                top = AppTheme.dimensions.large,
+                end = AppTheme.dimensions.large,
+                bottom = AppTheme.dimensions.tiniest
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state().price, style = TextStyle(
-                color = AppTheme.colors.black,
-                fontSize = 23.sp,
-                fontWeight = FontWeight.SemiBold,
-                lineHeight = 27.6.sp
-            )
+            text = state().price, style = AppTheme.typography.price, color = AppTheme.colors.black
         )
         if (state().inCartCounter >= 1)
             Row(
                 modifier = Modifier
                     .clip(AppTheme.shapes.button)
                     .background(AppTheme.colors.background),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(onClick = onRemove) {
@@ -76,6 +74,6 @@ fun GoodsBottomBar(
                 }
             }
         else
-            ThemedButton(onClick = onAdd, text = { stringResource(id = R.string.in_cart) })
+            ThemedButton(onClick = onAdd, text = stringResource(id = R.string.in_cart))
     }
 }

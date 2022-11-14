@@ -53,6 +53,6 @@ fun GoodsTopAppBar(
             )
         }
     }, rightActions = {
-        FavoriteButton(favorite = { state().favorite }, onClick = onFavorite)
+        FavoriteButton(favorite = state()::favorite, onClick = onFavorite)
     })
 }
