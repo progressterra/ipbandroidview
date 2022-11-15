@@ -4,9 +4,9 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.components.ColorsLineState
 import com.progressterra.ipbandroidview.components.GalleryState
 import com.progressterra.ipbandroidview.components.SizesLineState
-import com.progressterra.ipbandroidview.components.bar.GoodsBottomBarState
+import com.progressterra.ipbandroidview.components.GoodsBottomBarState
 import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetailsState
-import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBarState
+import com.progressterra.ipbandroidview.components.bar.GoodsTopAppBarState
 
 @Immutable
 interface GoodsDetails : GoodsTopAppBarState,

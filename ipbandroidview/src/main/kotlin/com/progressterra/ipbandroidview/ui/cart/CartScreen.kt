@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.CartCard
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.CartBottomBar
+import com.progressterra.ipbandroidview.components.CartBottomBar
 import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.model.CartGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
