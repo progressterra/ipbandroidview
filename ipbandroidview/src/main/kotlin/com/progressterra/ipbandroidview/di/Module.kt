@@ -18,6 +18,7 @@ import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
+import com.progressterra.ipbandroidview.domain.mapper.CartGoodsMapper
 import com.progressterra.ipbandroidview.domain.mapper.CatalogMapper
 import com.progressterra.ipbandroidview.domain.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
@@ -59,6 +60,11 @@ val iPBAndroidViewModule = module {
         AddressGuesserMapper.Base()
     }
 
+    factory<CartGoodsMapper> {
+        CartGoodsMapper.Base(
+            get(), get(), get()
+        )
+    }
 
     factory {
         LocationServices.getFusedLocationProviderClient(androidContext())
