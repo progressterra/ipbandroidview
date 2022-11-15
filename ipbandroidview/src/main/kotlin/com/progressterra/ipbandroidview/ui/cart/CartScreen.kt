@@ -30,7 +30,12 @@ fun CartScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = { stringResource(id = R.string.cart) })
     }, bottomBar = {
-        CartBottomBar(state = state, onNext = next, onAuth = auth)
+        CartBottomBar(
+            state = state,
+            onNext = next,
+            onAuth = auth,
+            screenState = state()::screenState
+        )
     }) { _, _ ->
         StateBox(state = state()::screenState, onRefresh = refresh) {
             LazyColumn(

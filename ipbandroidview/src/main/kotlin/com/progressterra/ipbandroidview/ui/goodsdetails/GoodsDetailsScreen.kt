@@ -43,7 +43,8 @@ fun GoodsDetailsScreen(
         GoodsBottomBar(
             state = state,
             onAdd = add,
-            onRemove = remove
+            onRemove = remove,
+            screenState = state()::screenState
         )
     }) { _, _ ->
         LazyColumn(
