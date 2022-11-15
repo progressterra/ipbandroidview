@@ -43,7 +43,7 @@ fun CartBottomBar(
                 start = AppTheme.dimensions.large,
                 top = AppTheme.dimensions.large,
                 end = AppTheme.dimensions.large,
-                bottom = AppTheme.dimensions.tiniest
+                bottom = AppTheme.dimensions.small
             ),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

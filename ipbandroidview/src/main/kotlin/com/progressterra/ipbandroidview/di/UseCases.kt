@@ -18,6 +18,7 @@ import com.progressterra.ipbandroidview.domain.usecase.FavoriteIdsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FinishDocumentUseCase
+import com.progressterra.ipbandroidview.domain.usecase.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GoodsPageUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
@@ -28,6 +29,7 @@ import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.ui.goodsdetails.GoodsDetailsViewModel
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -42,6 +44,8 @@ val useCasesModule = module {
             get()
         )
     }
+
+    factory<GoodsDetailsUseCase> { GoodsDetailsUseCase.Base(get(), get(), get()) }
 
     factory<ChecklistUseCase> { ChecklistUseCase.Base(get(), get(), get(), get()) }
 
