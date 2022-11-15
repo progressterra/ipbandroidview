@@ -29,14 +29,13 @@ import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdatePersonalInfoUseCase
-import com.progressterra.ipbandroidview.ui.goodsdetails.GoodsDetailsViewModel
 import org.koin.dsl.module
 
 val useCasesModule = module {
 
-    factory<AllDocumentsUseCase> { AllDocumentsUseCase.Base(get(), get(), get(), get()) }
+    single<AllDocumentsUseCase> { AllDocumentsUseCase.Base(get(), get(), get(), get()) }
 
-    factory<DocumentChecklistUseCase> {
+    single<DocumentChecklistUseCase> {
         DocumentChecklistUseCase.Base(
             get(),
             get(),
@@ -45,11 +44,11 @@ val useCasesModule = module {
         )
     }
 
-    factory<GoodsDetailsUseCase> { GoodsDetailsUseCase.Base(get(), get(), get()) }
+    single<GoodsDetailsUseCase> { GoodsDetailsUseCase.Base(get(), get(), get(), get(), get()) }
 
-    factory<ChecklistUseCase> { ChecklistUseCase.Base(get(), get(), get(), get()) }
+    single<ChecklistUseCase> { ChecklistUseCase.Base(get(), get(), get(), get()) }
 
-    factory<UpdateAnswerUseCase> {
+    single<UpdateAnswerUseCase> {
         UpdateAnswerUseCase.Base(
             get(),
             get(),
@@ -60,67 +59,67 @@ val useCasesModule = module {
         )
     }
 
-    factory<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get()) }
+    single<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get()) }
 
-    factory<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get()) }
+    single<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get()) }
 
-    factory<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get()) }
+    single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get()) }
 
-    factory<EndVerificationChannelUseCase> {
+    single<EndVerificationChannelUseCase> {
         EndVerificationChannelUseCase.Base(get())
     }
 
-    factory<StartVerificationChannelUseCase> {
+    single<StartVerificationChannelUseCase> {
         StartVerificationChannelUseCase.Base(get())
     }
 
-    factory<UpdatePersonalInfoUseCase> {
+    single<UpdatePersonalInfoUseCase> {
         UpdatePersonalInfoUseCase.Base(get(), get(), get())
     }
 
-    factory<UpdateFirebaseCloudMessagingTokenUseCase> {
+    single<UpdateFirebaseCloudMessagingTokenUseCase> {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(get(), get())
     }
 
-    factory<CurrentLocationMarkerUseCase> {
+    single<CurrentLocationMarkerUseCase> {
         CurrentLocationMarkerUseCase.Base(get())
     }
 
-    factory<CurrentLocationSuggestionsUseCase> {
+    single<CurrentLocationSuggestionsUseCase> {
         CurrentLocationSuggestionsUseCase.Base(get(), get(), get())
     }
 
-    factory<SuggestionUseCase> {
+    single<SuggestionUseCase> {
         SuggestionUseCase.Base(get(), get(), get())
     }
 
-    factory<GuessLocationUseCase> {
+    single<GuessLocationUseCase> {
         GuessLocationUseCase.Base(get(), get())
     }
 
-    factory<AllOrganizationsUseCase> {
+    single<AllOrganizationsUseCase> {
         AllOrganizationsUseCase.Base(get(), get(), get(), get())
     }
 
-    factory<OrganizationAuditsUseCase> {
+    single<OrganizationAuditsUseCase> {
         OrganizationAuditsUseCase.Base(get(), get(), get(), get())
     }
 
-    factory<CheckMediaDetailsUseCase> {
+    single<CheckMediaDetailsUseCase> {
         CheckMediaDetailsUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    factory<GoodsPageUseCase> {
+    single<GoodsPageUseCase> {
         GoodsPageUseCase.Base(get(), get(), get(), get())
     }
 
-    factory<GoodsUseCase> {
+    single<GoodsUseCase> {
         GoodsUseCase.Base(get(), get())
     }
 
-    factory<FavoriteIdsUseCase> { FavoriteIdsUseCase.Base(get(), get(), get()) }
+    single<FavoriteIdsUseCase> { FavoriteIdsUseCase.Base(get(), get(), get()) }
 
-    factory<FilteredGoodsUseCase> {
+    single<FilteredGoodsUseCase> {
         FilteredGoodsUseCase.Base(
             get(),
             get(),
@@ -131,15 +130,15 @@ val useCasesModule = module {
         )
     }
 
-    factory<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
+    single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 
-    factory<CatalogUseCase> { CatalogUseCase.Base(get(), get(), get(), get()) }
+    single<CatalogUseCase> { CatalogUseCase.Base(get(), get(), get(), get()) }
 
-    factory<FavoriteGoodsUseCase> { FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get()) }
+    single<FavoriteGoodsUseCase> { FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get()) }
 
-    factory<CartUseCase> { CartUseCase.Base(get(), get(), get(), get(), get(), get(), get()) }
+    single<CartUseCase> { CartUseCase.Base(get(), get(), get(), get(), get(), get(), get()) }
 
-    factory<FastAddToCartUseCase> { FastAddToCartUseCase.Base(get(), get(), get()) }
+    single<FastAddToCartUseCase> { FastAddToCartUseCase.Base(get(), get(), get()) }
 
-    factory<FastRemoveFromCartUseCase> { FastRemoveFromCartUseCase.Base(get(), get(), get()) }
+    single<FastRemoveFromCartUseCase> { FastRemoveFromCartUseCase.Base(get(), get(), get()) }
 }

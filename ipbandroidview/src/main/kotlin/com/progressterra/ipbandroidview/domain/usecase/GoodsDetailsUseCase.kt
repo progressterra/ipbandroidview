@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreReposit
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.domain.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.model.GoodsDetails
 
 interface GoodsDetailsUseCase {
@@ -13,11 +14,16 @@ interface GoodsDetailsUseCase {
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
-        private val ieCommerceCoreRepository: IECommerceCoreRepository
+        private val ieCommerceCoreRepository: IECommerceCoreRepository,
+        private val goodsDetailsMapper: GoodsDetailsMapper,
+        private val favoriteIdsUseCase: FavoriteIdsUseCase
     ) : AbstractUseCase(scrmRepository, provideLocation), GoodsDetailsUseCase {
 
-        override suspend fun goodsDetails(id: String): Result<GoodsDetails> {
-            TODO("Not yet implemented")
+        override suspend fun goodsDetails(id: String): Result<GoodsDetails> = runCatching {
+            val isFavorite = favoriteIdsUseCase.favoriteIds().getOrThrow().contains(id)
+            val goods = ieCommerceCoreRepository.getProductDetailByIDRG(id)
+                .getOrThrow()!!.listProducts!!.first()
+            goodsDetailsMapper.map(goods, isFavorite)
         }
     }
 }

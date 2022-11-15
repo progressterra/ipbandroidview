@@ -36,37 +36,37 @@ val iPBAndroidViewModule = module {
 
     includes(iPBAndroidAPIModule, useCasesModule, viewModelsModule)
 
-    factory<StoreGoodsMapper> { StoreGoodsMapper.Base(get(), get(), get()) }
+    single<StoreGoodsMapper> { StoreGoodsMapper.Base(get(), get(), get()) }
 
-    factory {
+    single {
         Gson()
     }
 
-    factory<SplitName> {
+    single<SplitName> {
         SplitName.Base()
     }
 
-    factory<ManageResources> {
+    single<ManageResources> {
         ManageResources.Base(androidContext())
     }
 
-    factory<SuggestionMapper> {
+    single<SuggestionMapper> {
         SuggestionMapper.Base()
     }
 
-    factory<SuggestionFilter> { SuggestionFilter.Base() }
+    single<SuggestionFilter> { SuggestionFilter.Base() }
 
-    factory<AddressGuesserMapper> {
+    single<AddressGuesserMapper> {
         AddressGuesserMapper.Base()
     }
 
-    factory<CartGoodsMapper> {
+    single<CartGoodsMapper> {
         CartGoodsMapper.Base(
             get(), get(), get()
         )
     }
 
-    factory {
+    single {
         LocationServices.getFusedLocationProviderClient(androidContext())
     }
 
@@ -124,9 +124,9 @@ val iPBAndroidViewModule = module {
         AudioManager.Base(get(), get())
     }
 
-    factory<GoodsFilterMapper> { GoodsFilterMapper.Base() }
+    single<GoodsFilterMapper> { GoodsFilterMapper.Base() }
 
-    factory<CatalogMapper> { CatalogMapper.Base(get(), get()) }
+    single<CatalogMapper> { CatalogMapper.Base(get(), get()) }
 
-    factory<SubCatalogMapper> { SubCatalogMapper.Base(get()) }
+    single<SubCatalogMapper> { SubCatalogMapper.Base(get()) }
 }
