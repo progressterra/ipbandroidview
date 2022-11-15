@@ -18,17 +18,12 @@ import org.orbitmvi.orbit.viewmodel.container
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 class MainViewModel(
     private val goodsUseCase: GoodsUseCase,
-    private val modifyFavoriteUseCase: ModifyFavoriteUseCase
 ) : ViewModel(), ContainerHost<MainState, MainEffect> {
 
     override val container: Container<MainState, MainEffect> = container(MainState())
 
     init {
         refresh()
-    }
-
-    fun favoriteSpecific(item: StoreGoods) = intent {
-        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess { refresh() }
     }
 
     fun refresh() = intent {
@@ -40,9 +35,5 @@ class MainViewModel(
                 )
             }
         }
-    }
-
-    fun openDetails(item: StoreGoods) = intent {
-        postSideEffect(MainEffect.GoodsDetails(item.id))
     }
 }

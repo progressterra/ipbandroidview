@@ -27,10 +27,6 @@ class GoodsViewModel(
         refresh()
     }
 
-    fun favoriteSpecific(item: StoreGoods) = intent {
-        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess { refresh() }
-    }
-
     fun refresh() = intent {
         state.currentCategory?.let {
             reduce { state.copy(screenState = ScreenState.LOADING) }
@@ -45,13 +41,5 @@ class GoodsViewModel(
                 reduce { state.copy(screenState = ScreenState.ERROR) }
             }
         }
-    }
-
-    fun openDetails(item: StoreGoods) = intent {
-        postSideEffect(GoodsEffect.GoodsDetails(item.id))
-    }
-
-    fun filters() = intent {
-        postSideEffect(GoodsEffect.Filters)
     }
 }

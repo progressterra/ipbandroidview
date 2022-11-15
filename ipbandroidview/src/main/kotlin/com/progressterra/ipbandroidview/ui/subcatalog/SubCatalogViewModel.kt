@@ -19,10 +19,6 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
         reduce { state.copy(currentCategory = subCategory) }
     }
 
-    fun back() = intent {
-        postSideEffect(SubCatalogEffect.Back)
-    }
-
     fun subCategory(subCategory: SubCategory) = intent {
         if (subCategory.hasNext)
             postSideEffect(SubCatalogEffect.SubCatalog(subCategory))
