@@ -19,9 +19,10 @@ import com.progressterra.ipbandroidview.core.voice.VoiceManager
 import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
 import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
 import com.progressterra.ipbandroidview.domain.mapper.CatalogMapper
-import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.domain.mapper.GoodsDetailsMapper
+import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
+import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.domain.mapper.SubCatalogMapper
 import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import org.koin.android.ext.koin.androidContext
@@ -33,6 +34,8 @@ import org.koin.dsl.module
 val iPBAndroidViewModule = module {
 
     includes(iPBAndroidAPIModule, useCasesModule, viewModelsModule)
+
+    factory<StoreGoodsMapper> { StoreGoodsMapper.Base(get(), get(), get()) }
 
     factory {
         Gson()
