@@ -44,8 +44,8 @@ import com.progressterra.ipbandroidview.components.ThemedTextField
 import com.progressterra.ipbandroidview.components.VoiceInput
 import com.progressterra.ipbandroidview.components.button.YesNoButton
 import com.progressterra.ipbandroidview.components.stats.Stats
-import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
-import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
+import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.components.bar.ThemedTopDialogBar
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch

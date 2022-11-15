@@ -1,16 +1,12 @@
-package com.progressterra.ipbandroidview.components.topbar
+package com.progressterra.ipbandroidview.components.bar
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -18,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.BackIcon
 import com.progressterra.ipbandroidview.components.SettingsIcon
@@ -31,8 +26,6 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Immutable
 interface SearchBarState : Keyword, Filters
 
-private val elevation = 0.dp
-
 @Composable
 fun SearchTopBar(
     modifier: Modifier = Modifier,
@@ -44,17 +37,12 @@ fun SearchTopBar(
     onSearch: () -> Unit,
     onFilters: () -> Unit
 ) {
-    TopAppBar(
-        backgroundColor = AppTheme.colors.surfaces,
-        elevation = elevation,
-        modifier = modifier.padding(bottom = AppTheme.dimensions.small)
+    BasicBar(
+        modifier = modifier
     ) {
         Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(PaddingValues(bottom = AppTheme.dimensions.small)),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            modifier = Modifier.padding(bottom = AppTheme.dimensions.small),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             if (full || showBack)
                 IconButton(onClick = onBack) { BackIcon() }

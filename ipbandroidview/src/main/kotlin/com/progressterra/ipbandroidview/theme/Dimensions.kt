@@ -41,6 +41,6 @@ data class Dimensions(
     /**
      * 16 dp by default
      */
-    val counterSize: Dp = 16.dp,
+    val counterSize: Dp = 16.dp
 )
 

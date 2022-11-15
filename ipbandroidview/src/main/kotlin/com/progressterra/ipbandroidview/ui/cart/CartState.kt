@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.cart
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.components.bottombar.CartBottomBarState
+import com.progressterra.ipbandroidview.components.bar.CartBottomBarState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Cart
 

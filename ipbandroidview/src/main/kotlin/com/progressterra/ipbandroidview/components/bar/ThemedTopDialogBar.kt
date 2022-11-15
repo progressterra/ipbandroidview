@@ -1,32 +1,28 @@
-package com.progressterra.ipbandroidview.components.topbar
+package com.progressterra.ipbandroidview.components.bar
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun TransparentTopAppBar(
+fun ThemedTopDialogBar(
     modifier: Modifier = Modifier,
     title: @Composable () -> String? = { null },
     leftActions: (@Composable RowScope.() -> Unit)? = null,
-    rightActions: (@Composable RowScope.() -> Unit)? = null,
-    contentColor: @Composable () -> Color = { AppTheme.colors.surfaces }
+    rightActions: (@Composable RowScope.() -> Unit)? = null
 ) {
-    BasicTopAppBar(
-        modifier = modifier,
+    BasicTopAppBar(modifier = modifier,
         leftActions = leftActions,
         rightActions = rightActions,
-        backgroundColor = Color.Transparent,
         title = {
             title()?.let {
                 Text(
                     text = it,
-                    color = contentColor(),
+                    color = AppTheme.colors.black,
                     style = AppTheme.typography.title,
                     maxLines = 1,
                     textAlign = TextAlign.Center
@@ -38,28 +34,52 @@ fun TransparentTopAppBar(
 
 @Preview
 @Composable
-private fun TopAppBarWithBackNavPreview0() {
+private fun TopDialogBarWithBackNavPreview0() {
     AppTheme {
-        TransparentTopAppBar(title = { "Some mock title" }, leftActions = {})
+        ThemedTopDialogBar(title = { "Some mock title" })
     }
 }
 
 @Preview
 @Composable
-private fun TopAppBarWithBackNavPreview1() {
+private fun TopDialogBarWithBackNavPreview1() {
     AppTheme {
-        TransparentTopAppBar(title = { "Some mock title" })
-    }
-}
-
-@Preview
-@Composable
-private fun TopAppBarWithBackNavPreview3() {
-    AppTheme {
-        TransparentTopAppBar(title = { "Some mock title" }, leftActions = {
+        ThemedTopDialogBar(title = { "Some mock title" }, rightActions = {
             Text(
                 text = "SOS",
-                color = AppTheme.colors.surfaces,
+                color = AppTheme.colors.black,
+                style = AppTheme.typography.title,
+                maxLines = 1,
+                textAlign = TextAlign.Center
+            )
+        })
+    }
+}
+
+@Preview
+@Composable
+private fun TopDialogBarWithBackNavPreview2() {
+    AppTheme {
+        ThemedTopDialogBar(title = { "Some mock title" }, leftActions = {
+            Text(
+                text = "SOS",
+                color = AppTheme.colors.black,
+                style = AppTheme.typography.title,
+                maxLines = 1,
+                textAlign = TextAlign.Center
+            )
+        })
+    }
+}
+
+@Preview
+@Composable
+private fun TopDialogBarWithBackNavPreview3() {
+    AppTheme {
+        ThemedTopDialogBar(title = { "Some mock title" }, leftActions = {
+            Text(
+                text = "SOS",
+                color = AppTheme.colors.black,
                 style = AppTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center
@@ -67,7 +87,7 @@ private fun TopAppBarWithBackNavPreview3() {
         }, rightActions = {
             Text(
                 text = "SOS",
-                color = AppTheme.colors.surfaces,
+                color = AppTheme.colors.black,
                 style = AppTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center

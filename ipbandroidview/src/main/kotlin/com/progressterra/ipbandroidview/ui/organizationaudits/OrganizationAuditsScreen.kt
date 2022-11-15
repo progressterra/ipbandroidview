@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.components.OrganizationCheckCard
 import com.progressterra.ipbandroidview.components.OrganizationPresentation
 import com.progressterra.ipbandroidview.components.StateBox
 import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

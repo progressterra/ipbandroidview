@@ -1,19 +1,15 @@
-package com.progressterra.ipbandroidview.components.topbar
+package com.progressterra.ipbandroidview.components.bar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.theme.AppTheme
-
-private val elevation = 0.dp
 
 @Composable
 fun BasicTopAppBar(
@@ -23,15 +19,13 @@ fun BasicTopAppBar(
     rightActions: (@Composable RowScope.() -> Unit)? = null,
     backgroundColor: Color = AppTheme.colors.surfaces
 ) {
-    TopAppBar(
-        modifier = modifier,
-        backgroundColor = backgroundColor,
-        elevation = elevation,
+    BasicBar(
+        modifier = modifier, backgroundColor = backgroundColor
     ) {
         Box {
             leftActions?.let {
                 Row(
-                    Modifier.fillMaxSize(),
+                    Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically,
                     content = it
@@ -39,7 +33,7 @@ fun BasicTopAppBar(
             }
             title?.let {
                 Row(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center,
                     content = it
@@ -47,7 +41,7 @@ fun BasicTopAppBar(
             }
             rightActions?.let {
                 Row(
-                    Modifier.fillMaxSize(),
+                    Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
                     verticalAlignment = Alignment.CenterVertically,
                     content = it

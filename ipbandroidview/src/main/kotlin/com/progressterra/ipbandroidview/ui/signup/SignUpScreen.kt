@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.ThemedMimicField
 import com.progressterra.ipbandroidview.components.ThemedTextButton
 import com.progressterra.ipbandroidview.components.ThemedTextField
-import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.squaredem.composecalendar.ComposeCalendar
 import java.time.LocalDate

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.components.bottombar
+package com.progressterra.ipbandroidview.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

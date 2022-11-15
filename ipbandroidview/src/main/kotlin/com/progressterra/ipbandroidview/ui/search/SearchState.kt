@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.search
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.components.SearchBoxState
-import com.progressterra.ipbandroidview.components.topbar.SearchBarState
+import com.progressterra.ipbandroidview.components.bar.SearchBarState
 import com.progressterra.ipbandroidview.core.IsEmpty
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Filter

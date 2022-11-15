@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.components.SearchBox
 import com.progressterra.ipbandroidview.components.SubCategory
 import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.topbar.SearchTopBar
+import com.progressterra.ipbandroidview.components.bar.SearchTopBar
 import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.model.SubCategory
 import com.progressterra.ipbandroidview.theme.AppTheme

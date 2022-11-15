@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.components.ColorsLine
 import com.progressterra.ipbandroidview.components.Gallery
 import com.progressterra.ipbandroidview.components.SizesLine
 import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bottombar.GoodsBottomBar
+import com.progressterra.ipbandroidview.components.bar.GoodsBottomBar
 import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetails
 import com.progressterra.ipbandroidview.components.topbar.GoodsTopAppBar
 import com.progressterra.ipbandroidview.model.GoodsColor

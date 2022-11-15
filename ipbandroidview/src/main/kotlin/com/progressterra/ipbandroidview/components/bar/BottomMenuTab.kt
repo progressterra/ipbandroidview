@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.components.bottombar
+package com.progressterra.ipbandroidview.components.bar
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
