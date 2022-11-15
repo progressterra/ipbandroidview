@@ -40,7 +40,7 @@ fun MainScreen(
             onBack = back,
             onKeyword = keyword,
             onSearch = search,
-            onFilters = filters, full = false
+            onFilters = filters, showFilter = false, showBack = false
         )
     }) { _, _ ->
         SearchBox(

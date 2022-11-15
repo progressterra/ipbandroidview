@@ -18,19 +18,20 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.BackIcon
 import com.progressterra.ipbandroidview.components.SettingsIcon
 import com.progressterra.ipbandroidview.components.ThemedTextField
+import com.progressterra.ipbandroidview.core.IsEmpty
 import com.progressterra.ipbandroidview.model.Filter
 import com.progressterra.ipbandroidview.model.component.Filters
 import com.progressterra.ipbandroidview.model.component.Keyword
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
-interface SearchBarState : Keyword, Filters
+interface SearchBarState : Keyword, Filters, IsEmpty
 
 @Composable
 fun SearchTopBar(
     modifier: Modifier = Modifier,
     state: () -> SearchBarState,
-    full: Boolean = true,
+    showFilter: Boolean = true,
     showBack: Boolean = true,
     onBack: () -> Unit,
     onKeyword: (String) -> Unit,
@@ -44,7 +45,7 @@ fun SearchTopBar(
             modifier = Modifier.padding(bottom = AppTheme.dimensions.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (full || showBack)
+            if (showBack || !state().isEmpty())
                 IconButton(onClick = onBack) { BackIcon() }
             ThemedTextField(
                 modifier = Modifier
@@ -62,7 +63,7 @@ fun SearchTopBar(
                 ),
                 action = onSearch
             )
-            if (full)
+            if (showFilter || !state().isEmpty())
                 IconButton(onClick = onFilters) { SettingsIcon() }
         }
     }
@@ -70,7 +71,10 @@ fun SearchTopBar(
 
 private class SearchBarStatePreview(
     override val keyword: String, override val filters: List<Filter>
-) : SearchBarState
+) : SearchBarState {
+
+    override fun isEmpty(): Boolean = false
+}
 
 @Preview
 @Composable

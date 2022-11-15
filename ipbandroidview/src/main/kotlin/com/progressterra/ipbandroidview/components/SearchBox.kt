@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.progressterra.ipbandroidview.core.IsEmpty
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.model.component.Keyword
@@ -21,7 +22,7 @@ import com.progressterra.ipbandroidview.model.component.SearchGoods
 import com.progressterra.ipbandroidview.model.component.Visible
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-interface SearchBoxState : SearchGoods, Keyword, Visible {
+interface SearchBoxState : SearchGoods, Keyword, IsEmpty {
 
     val searchScreenState: ScreenState
 }
@@ -37,7 +38,7 @@ fun SearchBox(
 ) {
     Box(modifier = modifier) {
         AnimatedVisibility(
-            visible = state().visible,
+            visible = !state().isEmpty(),
             enter = fadeIn(),
             exit = fadeOut()
         ) {
@@ -63,7 +64,7 @@ fun SearchBox(
             }
         }
         AnimatedVisibility(
-            visible = !state().visible,
+            visible = state().isEmpty(),
             enter = fadeIn(),
             exit = fadeOut()
         ) {

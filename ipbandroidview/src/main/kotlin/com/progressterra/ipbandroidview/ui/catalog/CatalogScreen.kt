@@ -34,11 +34,14 @@ fun CatalogScreen(
     filters: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        SearchTopBar(state = searchState,
+        SearchTopBar(
+            state = searchState,
             onBack = back,
             onKeyword = keyword,
             onSearch = search,
-            onFilters = filters)
+            onFilters = filters,
+            showBack = false
+        )
     }) { _, _ ->
         SearchBox(
             state = searchState,
