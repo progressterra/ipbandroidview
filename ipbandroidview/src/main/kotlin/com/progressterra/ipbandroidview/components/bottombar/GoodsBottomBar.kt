@@ -20,6 +20,7 @@ import com.progressterra.ipbandroidview.components.RemoveItemIcon
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.utils.SideBorder
 import com.progressterra.ipbandroidview.components.utils.sideBorder
+import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.component.InCartCounter
 import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -33,6 +34,7 @@ interface GoodsBottomBarState : InCartCounter, Price
 fun GoodsBottomBar(
     modifier: Modifier = Modifier,
     state: () -> GoodsBottomBarState,
+    screenState: () -> ScreenState,
     onAdd: () -> Unit,
     onRemove: () -> Unit
 ) {
@@ -74,6 +76,10 @@ fun GoodsBottomBar(
                 }
             }
         else
-            ThemedButton(onClick = onAdd, text = stringResource(id = R.string.in_cart))
+            ThemedButton(
+                onClick = onAdd,
+                enabled = screenState()::isSuccess,
+                text = stringResource(id = R.string.in_cart)
+            )
     }
 }

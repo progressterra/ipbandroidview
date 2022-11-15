@@ -46,7 +46,6 @@ import com.progressterra.ipbandroidview.components.button.YesNoButton
 import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.topbar.ThemedTopDialogBar
-import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
@@ -215,7 +214,7 @@ fun ChecklistScreen(
                                     ),
                                     tint = AppTheme.colors.secondary,
                                     textColor = AppTheme.colors.gray1,
-                                    enabled = { state().checklistScreenState == ScreenState.SUCCESS }
+                                    enabled = state().checklistScreenState::isSuccess
                                 )
                             else
                                 ThemedButton(
@@ -227,7 +226,7 @@ fun ChecklistScreen(
                                     ),
                                     tint = AppTheme.colors.primary,
                                     textColor = AppTheme.colors.surfaces,
-                                    enabled = { state().checklistScreenState == ScreenState.SUCCESS }
+                                    enabled = state().checklistScreenState::isSuccess
                                 )
                         else
                             ThemedButton(
@@ -239,7 +238,7 @@ fun ChecklistScreen(
                                 ),
                                 tint = AppTheme.colors.primary,
                                 textColor = AppTheme.colors.surfaces,
-                                enabled = { state().checklistScreenState == ScreenState.SUCCESS }
+                                enabled = state().checklistScreenState::isSuccess
                             )
                         if (state().auditDocument.ongoing) {
                             Stats(modifier = Modifier.weight(1f), stats = state()::stats)

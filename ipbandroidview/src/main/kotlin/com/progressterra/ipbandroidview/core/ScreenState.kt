@@ -6,5 +6,7 @@ import androidx.compose.runtime.Immutable
 enum class ScreenState {
     ERROR,
     LOADING,
-    SUCCESS
+    SUCCESS;
+
+    fun isSuccess(): Boolean = this == SUCCESS
 }

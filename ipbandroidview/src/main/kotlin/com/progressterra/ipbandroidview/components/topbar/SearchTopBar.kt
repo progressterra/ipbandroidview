@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
 import androidx.compose.material.TopAppBar
@@ -46,11 +47,12 @@ fun SearchTopBar(
     TopAppBar(
         backgroundColor = AppTheme.colors.surfaces,
         elevation = elevation,
-        modifier = modifier,
-        contentPadding = PaddingValues(bottom = AppTheme.dimensions.small)
+        modifier = modifier.padding(bottom = AppTheme.dimensions.small)
     ) {
         Row(
-            Modifier.fillMaxWidth(),
+            Modifier
+                .fillMaxWidth()
+                .padding(PaddingValues(bottom = AppTheme.dimensions.small)),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {

@@ -16,6 +16,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.utils.SideBorder
 import com.progressterra.ipbandroidview.components.utils.sideBorder
+import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.component.Price
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -30,6 +31,7 @@ interface CartBottomBarState : Price {
 @Composable
 fun CartBottomBar(
     modifier: Modifier = Modifier,
+    screenState: () -> ScreenState,
     state: () -> CartBottomBarState,
     onNext: () -> Unit,
     onAuth: () -> Unit
@@ -52,8 +54,16 @@ fun CartBottomBar(
             text = state().price, style = AppTheme.typography.price, color = AppTheme.colors.black
         )
         if (state().userExist)
-            ThemedButton(onClick = onNext, text = stringResource(id = R.string.in_cart))
+            ThemedButton(
+                onClick = onNext,
+                text = stringResource(id = R.string.in_cart),
+                enabled = screenState()::isSuccess
+            )
         else
-            ThemedButton(onClick = onAuth, text = stringResource(id = R.string.go_to_auth))
+            ThemedButton(
+                onClick = onAuth,
+                text = stringResource(id = R.string.go_to_auth),
+                enabled = screenState()::isSuccess
+            )
     }
 }
