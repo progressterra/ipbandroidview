@@ -14,7 +14,7 @@ interface CartGoods : CartCardState, Id {
         override val image: String,
         override val inCartCounter: Int,
         override val name: String,
-        override val price: String,
+        override val price: SimplePrice,
         override val size: GoodsSize
     ) : CartGoods {
 

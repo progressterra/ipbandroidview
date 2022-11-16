@@ -42,7 +42,8 @@ fun CityScreen(
     next: () -> Unit,
     editAddress: (String) -> Unit,
     onMapClick: (LatLng) -> Unit,
-    onSuggestion: (Suggestion) -> Unit
+    onSuggestion: (Suggestion) -> Unit,
+    settings: CitySettings
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
@@ -57,12 +58,14 @@ fun CityScreen(
                 text = stringResource(id = R.string.ready),
                 enabled = state()::isDataValid,
             )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-            ThemedTextButton(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = skip,
-                text = stringResource(id = R.string.auth_skip)
-            )
+            if (settings.passable) {
+                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                ThemedTextButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = skip,
+                    text = stringResource(id = R.string.auth_skip)
+                )
+            }
         }
     }) { _, _ ->
         ConstraintLayout(

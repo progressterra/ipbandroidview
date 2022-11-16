@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.store
 
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeOfEntity

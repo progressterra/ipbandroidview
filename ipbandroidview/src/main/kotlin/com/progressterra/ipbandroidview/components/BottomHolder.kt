@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -19,7 +19,7 @@ fun BottomHolder(modifier: Modifier = Modifier, content: @Composable ColumnScope
     Column(
         modifier = modifier
             .clip(
-                AppTheme.shapes.large.copy(bottomStart = CornerSize(0), bottomEnd = CornerSize(0))
+                AppTheme.shapes.large.copy(bottomStart = ZeroCornerSize, bottomEnd = ZeroCornerSize)
             )
             .background(AppTheme.colors.surfaces)
             .padding(AppTheme.dimensions.small), content = content

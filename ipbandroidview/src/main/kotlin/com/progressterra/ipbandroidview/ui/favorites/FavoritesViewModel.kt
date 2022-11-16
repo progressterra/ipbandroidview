@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.favorites
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.FavoriteGoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteGoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.StoreGoods
 import org.orbitmvi.orbit.Container

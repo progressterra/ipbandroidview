@@ -45,7 +45,7 @@ fun GoodsTopAppBar(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = state().price,
+                text = state().price.formattedPrice,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.tertiaryText,
                 maxLines = 1,

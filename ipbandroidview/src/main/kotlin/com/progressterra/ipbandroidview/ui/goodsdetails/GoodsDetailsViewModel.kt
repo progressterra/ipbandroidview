@@ -2,10 +2,10 @@ package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.FastAddToCartUseCase
-import com.progressterra.ipbandroidview.domain.usecase.FastRemoveFromCartUseCase
-import com.progressterra.ipbandroidview.domain.usecase.GoodsDetailsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.model.GoodsColor
 import com.progressterra.ipbandroidview.model.GoodsSize
 import org.orbitmvi.orbit.Container

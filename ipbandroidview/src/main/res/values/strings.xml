@@ -17,8 +17,8 @@
     <string name="name_surname">Имя и Фамилия</string>
     <string name="email">E-mail</string>
     <string name="birthday">Дата рождения</string>
-    <string name="offer_url" />
-    <string name="privacy_policy_url" />
+    <string name="offer_url">TODO</string>
+    <string name="privacy_policy_url">TODO</string>
     <string name="ready">Готово</string>
     <string name="address">Адрес</string>
     <string name="wrong_phone">Неправильный номер телефона!</string>
@@ -73,4 +73,22 @@
     <string name="go_to_auth">Авторизоваться</string>
     <string name="audit_ongoing">Аудит выполняется</string>
     <string name="use_bonuses">Использовать бонусы</string>
+    <string name="paid_with_bonuses">Скидка бонусами</string>
+    <string name="paid_with_promocode">Скидка по промокоду</string>
+    <string name="pay_with_card">Оплатить картой</string>
+    <string name="payment_0">Нажимая «Оплатить картой» вы соглашаетесь с условиями&#160;</string>
+    <string name="user_agreement">использования</string>
+    <string name="payment_agreement">оплаты</string>
+    <string name="user_agreement_url">labudaTODO</string>
+    <string name="payment_agreement_url">labudaTODO</string>
+    <string name="payment_1">&#160;сервиса&#160;</string>
+    <string name="service_name">iprobonus.com</string>
+    <string name="service_url">labudaTODO</string>
+    <string name="merchant_info">Информация о товаре и продавце</string>
+    <string name="merchant_info_url">TODO</string>
+    <string name="pay">Оплатить</string>
+    <string name="payment">Оплата</string>
+    <string name="online_card">Картой онлайн</string>
+    <string name="offline_card">Картой при получении</string>
+    <string name="receive_check">Получить чек на почту</string>
 </resources>

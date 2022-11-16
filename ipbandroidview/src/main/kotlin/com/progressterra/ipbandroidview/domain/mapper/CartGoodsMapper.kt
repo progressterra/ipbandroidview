@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.model.CartGoods
 import com.progressterra.ipbandroidview.model.GoodsColor
+import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.model.GoodsSize
 
 interface CartGoodsMapper {
@@ -29,7 +30,7 @@ interface CartGoodsMapper {
             return CartGoods.Base(
                 id = data.idUnique!!,
                 image = images.firstOrNull()?.url ?: "",
-                price = data.currentPrice?.let { priceMapper.map(it) } ?: noData,
+                price = data.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
                 name = data.name ?: noData,
                 favorite = isFavorite,
 

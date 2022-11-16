@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.components
 
 import androidx.compose.material.Switch
-import androidx.compose.material.SwitchColors
 import androidx.compose.material.SwitchDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,10 +11,11 @@ fun ThemedSwitch(
     modifier: Modifier = Modifier,
     onChange: (Boolean) -> Unit,
     checked: () -> Boolean,
-    enabled: () -> Boolean
+    enabled: () -> Boolean = { true }
 ) {
-    Switch(modifier = modifier,
-    checked = checked(),
+    Switch(
+        modifier = modifier,
+        checked = checked(),
         enabled = enabled(),
         onCheckedChange = onChange,
         colors = SwitchDefaults.colors(

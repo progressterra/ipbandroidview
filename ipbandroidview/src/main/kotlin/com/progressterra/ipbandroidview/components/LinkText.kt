@@ -20,9 +20,9 @@ data class LinkTextData(
 
 @Composable
 fun LinkText(
-    linkTextData: () -> List<LinkTextData>, modifier: Modifier = Modifier
+    linkTextData: List<LinkTextData>, modifier: Modifier = Modifier
 ) {
-    val annotatedString = createAnnotatedString { linkTextData() }
+    val annotatedString = createAnnotatedString(linkTextData)
 
     ClickableText(
         text = annotatedString,
@@ -30,7 +30,7 @@ fun LinkText(
             textAlign = TextAlign.Center, color = AppTheme.colors.gray2
         ),
         onClick = { offset ->
-            linkTextData().forEach { annotatedStringData ->
+            linkTextData.forEach { annotatedStringData ->
                 if (annotatedStringData.tag != null && annotatedStringData.annotation != null) {
                     annotatedString.getStringAnnotations(
                         tag = annotatedStringData.tag,
@@ -47,9 +47,9 @@ fun LinkText(
 }
 
 @Composable
-private fun createAnnotatedString(data: () -> List<LinkTextData>): AnnotatedString {
+private fun createAnnotatedString(data: List<LinkTextData>): AnnotatedString {
     return buildAnnotatedString {
-        data().forEach { linkTextData ->
+        data.forEach { linkTextData ->
             if (linkTextData.tag != null && linkTextData.annotation != null) {
                 pushStringAnnotation(
                     tag = linkTextData.tag,

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.store
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

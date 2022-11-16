@@ -63,7 +63,7 @@ fun CartCard(
                 style = AppTheme.typography.text
             )
             Text(
-                text = state().price,
+                text = state().price.formattedPrice,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text
             )

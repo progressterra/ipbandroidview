@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.domain
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.progressterra.ipbandroidview.domain.usecase.FavoriteIdsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.GoodsPageUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteIdsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
 import com.progressterra.ipbandroidview.model.StoreGoods
 
 class GoodsSource(

@@ -44,7 +44,7 @@ fun SignInScreen(
                 onClick = next,
                 text = stringResource(id = R.string.auth_button)
             )
-            if (settings.type == SignInScreenType.PASSABLE) {
+            if (settings.passable) {
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
@@ -76,20 +76,19 @@ fun SignInScreen(
                     )
                 }
                 //TODO url opener
-                val list = listOf(
-                    LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
-                    LinkTextData(text = stringResource(id = R.string.offer),
-                        tag = "offer",
-                        annotation = stringResource(id = R.string.offer_url),
-                        onClick = { Log.d("CLICK", "SignInScreen: $it") }),
-                    LinkTextData(text = stringResource(id = R.string.and)),
-                    LinkTextData(text = stringResource(id = R.string.privacy_policy),
-                        tag = "privacy policy",
-                        annotation = stringResource(id = R.string.privacy_policy_url),
-                        onClick = { Log.d("CLICK", "SignInScreen: $it") })
-                )
                 LinkText(
-                    linkTextData = { list },
+                    linkTextData = listOf(
+                        LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
+                        LinkTextData(text = stringResource(id = R.string.offer),
+                            tag = "offer",
+                            annotation = stringResource(id = R.string.offer_url),
+                            onClick = { Log.d("CLICK", "SignInScreen: $it") }),
+                        LinkTextData(text = stringResource(id = R.string.and)),
+                        LinkTextData(text = stringResource(id = R.string.privacy_policy),
+                            tag = "privacy policy",
+                            annotation = stringResource(id = R.string.privacy_policy_url),
+                            onClick = { Log.d("CLICK", "SignInScreen: $it") })
+                    ),
                     modifier = Modifier.padding(top = AppTheme.dimensions.small)
                 )
             }

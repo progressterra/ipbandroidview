@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.checklist
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName

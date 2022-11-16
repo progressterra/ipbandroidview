@@ -14,7 +14,7 @@ interface StoreGoods : StoreCardState,
         override val id: String,
         override val name: String,
         override val image: String,
-        override val price: String,
+        override val price: SimplePrice,
         override val favorite: Boolean
     ) : StoreGoods {
 

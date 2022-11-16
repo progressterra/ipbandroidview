@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.AllDocumentsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.model.AuditDocument
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

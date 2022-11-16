@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.ui.search
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.FilteredGoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.model.StoreGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

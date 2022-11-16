@@ -19,6 +19,7 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.components.utils.niceClickable
+import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.model.component.Favorite
 import com.progressterra.ipbandroidview.model.component.Image
 import com.progressterra.ipbandroidview.model.component.Name
@@ -72,7 +73,7 @@ fun StoreCard(
                 start.linkTo(image.start, large)
                 end.linkTo(image.end, large)
             },
-            text = state().price,
+            text = state().price.formattedPrice,
             color = AppTheme.colors.black,
             maxLines = 1,
             style = AppTheme.typography.title,
@@ -107,7 +108,7 @@ private class StoreCardStatePreview(
     override val favorite: Boolean,
     override val image: String,
     override val name: String,
-    override val price: String
+    override val price: SimplePrice
 ) : StoreCardState
 
 @Preview
@@ -118,14 +119,14 @@ private fun StoreItemCardPreview() {
             StoreCard(state = {
                 StoreCardStatePreview(
                     image = "",
-                    price = "3 000 ₽",
+                    price = SimplePrice("3 000 ₽", 0),
                     name = "Some cool item with pretty long name that contains many symbols",
                     favorite = false
                 )
             }, onClick = { }) {}
             StoreCard(state = {
                 StoreCardStatePreview(
-                    price = "3 000 ₽",
+                    price = SimplePrice("3 000 ₽", 0),
                     name = "Some cool item",
                     favorite = true,
                     image = ""

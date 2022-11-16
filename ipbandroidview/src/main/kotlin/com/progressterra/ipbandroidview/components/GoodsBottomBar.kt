@@ -15,9 +15,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.AddItemIcon
-import com.progressterra.ipbandroidview.components.RemoveItemIcon
-import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.utils.SideBorder
 import com.progressterra.ipbandroidview.components.utils.sideBorder
 import com.progressterra.ipbandroidview.core.ScreenState
@@ -53,7 +50,7 @@ fun GoodsBottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state().price, style = AppTheme.typography.price, color = AppTheme.colors.black
+            text = state().price.formattedPrice, style = AppTheme.typography.price, color = AppTheme.colors.black
         )
         if (state().inCartCounter >= 1)
             Row(

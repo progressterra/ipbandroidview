@@ -5,7 +5,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.StartActivityContract
-import com.progressterra.ipbandroidview.domain.usecase.OrganizationAuditsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.ui.organizations.Organization
 import org.orbitmvi.orbit.Container

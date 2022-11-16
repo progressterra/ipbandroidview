@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
@@ -42,10 +42,10 @@ import com.progressterra.ipbandroidview.components.ThemedButton
 import com.progressterra.ipbandroidview.components.ThemedLayout
 import com.progressterra.ipbandroidview.components.ThemedTextField
 import com.progressterra.ipbandroidview.components.VoiceInput
-import com.progressterra.ipbandroidview.components.button.YesNoButton
-import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
 import com.progressterra.ipbandroidview.components.bar.ThemedTopDialogBar
+import com.progressterra.ipbandroidview.components.button.YesNoButton
+import com.progressterra.ipbandroidview.components.stats.Stats
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
@@ -75,8 +75,8 @@ fun ChecklistScreen(
     ModalBottomSheetLayout(
         sheetState = sheetState,
         sheetShape = AppTheme.shapes.medium.copy(
-            bottomEnd = CornerSize(0),
-            bottomStart = CornerSize(0)
+            bottomEnd = ZeroCornerSize,
+            bottomStart = ZeroCornerSize
         ),
         sheetContent = {
             ThemedTopDialogBar(title = {

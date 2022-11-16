@@ -5,13 +5,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.DomainConstants
-import com.progressterra.ipbandroidview.domain.usecase.GoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 

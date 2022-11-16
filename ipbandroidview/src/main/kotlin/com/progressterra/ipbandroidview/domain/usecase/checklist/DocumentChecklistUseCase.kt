@@ -1,7 +1,6 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.checklist
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
-import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCase
@@ -9,30 +8,28 @@ import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ui.checklist.Check
 
-interface ChecklistUseCase {
+interface DocumentChecklistUseCase {
 
-    suspend fun details(id: String): Result<List<Check>>
+    suspend fun documentChecklist(id: String): Result<List<Check>>
 
     class Base(
         provideLocation: ProvideLocation,
-        manageResources: ManageResources,
         scrmRepository: SCRMRepository,
-        private val checklistRepository: ChecklistRepository
-    ) : AbstractUseCase(scrmRepository, provideLocation), ChecklistUseCase {
+        manageResources: ManageResources,
+        private val repo: ChecklistRepository,
+    ) : DocumentChecklistUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun details(id: String): Result<List<Check>> = runCatching {
-            val result = withToken {
-                checklistRepository.checklistElements(
-                    it, id, FilterAndSort(emptyList(), null, "", false, 0, 300)
-                )
-            }.getOrThrow()
+        override suspend fun documentChecklist(
+            id: String
+        ): Result<List<Check>> = runCatching {
+            val responseChecklist = withToken { repo.checklistForDoc(it, id) }.getOrThrow()
             var currentCategory = ""
             var categorizedChecks = 0
             var categoryNumber = 0
             buildList {
-                result?.mapIndexed { index, check ->
+                responseChecklist?.mapIndexed { index, check ->
                     if (check.parameter?.internalName != currentCategory) {
                         currentCategory = check.parameter?.internalName!!
                         categoryNumber++
@@ -41,13 +38,13 @@ interface ChecklistUseCase {
                     add(
                         Check(
                             id = check.idUnique!!,
-                            category = currentCategory,
                             name = check.shortDescription ?: noData,
-                            yesNo = null,
-                            comment = "",
                             description = check.description ?: noData,
+                            category = currentCategory,
                             categoryNumber = categoryNumber,
-                            ordinal = index + 1 - categorizedChecks
+                            ordinal = index + 1 - categorizedChecks,
+                            yesNo = check.answerCheckList?.yesNo,
+                            comment = check.answerCheckList?.comments ?: ""
                         )
                     )
                 }

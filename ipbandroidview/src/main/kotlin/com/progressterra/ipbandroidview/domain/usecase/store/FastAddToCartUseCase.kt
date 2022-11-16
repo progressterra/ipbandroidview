@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.store
 
 import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
