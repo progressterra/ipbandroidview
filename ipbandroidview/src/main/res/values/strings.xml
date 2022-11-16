@@ -72,4 +72,5 @@
     <string name="cart">Корзина</string>
     <string name="go_to_auth">Авторизоваться</string>
     <string name="audit_ongoing">Аудит выполняется</string>
+    <string name="use_bonuses">Использовать бонусы</string>
 </resources>

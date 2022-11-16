@@ -317,3 +317,13 @@ private fun MarkIconPreview() {
         MarkIcon()
     }
 }
+
+@Composable
+fun BonusesIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        tint = AppTheme.colors.primary,
+        painter = painterResource(R.drawable.ic_bonuses),
+        contentDescription = null
+    )
+}
