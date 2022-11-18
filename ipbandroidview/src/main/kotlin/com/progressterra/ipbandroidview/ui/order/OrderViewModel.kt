@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.order
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.components.PaymentType
+import com.progressterra.ipbandroidview.domain.usecase.store.UseBonusesUseCase
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -10,7 +11,10 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class OrderViewModel : ViewModel(), ContainerHost<OrderState, OrderEffect> {
+class OrderViewModel(
+    private val useBonusesUseCase: UseBonusesUseCase,
+    private val notUseBonusesUseCase: UseBonusesUseCase
+) : ViewModel(), ContainerHost<OrderState, OrderEffect> {
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
 
@@ -33,17 +37,14 @@ class OrderViewModel : ViewModel(), ContainerHost<OrderState, OrderEffect> {
 
     fun selectDeliveryMethod(method: DeliveryMethod) = intent {
         reduce { state.copy(selectedDeliveryMethod = method) }
-
     }
 
     fun selectPayment(payment: PaymentType) = intent {
         reduce { state.copy(currentPaymentMethod = payment) }
-
     }
 
     fun editApartment(apartment: String) = intent {
         reduce { state.copy(apartment = apartment) }
-
     }
 
     fun editAddress(address: String) = intent {
@@ -52,22 +53,18 @@ class OrderViewModel : ViewModel(), ContainerHost<OrderState, OrderEffect> {
 
     fun editComment(comment: String) = intent {
         reduce { state.copy(comment = comment) }
-
     }
 
     fun editEntryway(entryway: String) = intent {
         reduce { state.copy(entryway = entryway) }
-
     }
 
     fun changeUseBonuses(use: Boolean) = intent {
         reduce { state.copy(useBonuses = use) }
-
     }
 
     fun editPromoCode(code: String) = intent {
         reduce { state.copy(promoCode = code) }
-
     }
 
     fun applyPromoCode() = intent { }

@@ -1,19 +1,19 @@
 package com.progressterra.ipbandroidview.domain.usecase.store
 
-import com.progressterra.core.domain.IUseCase
-import com.progressterra.data.contracts.IRepository
-import com.progressterra.ipbandroidview.utils.SResult
-import com.progressterra.ipbandroidview.utils.extensions.toFailedResult
-import com.progressterra.ipbandroidview.utils.extensions.toSuccessResult
-import javax.inject.Inject
+import com.progressterra.ipbandroidapi.api.product.ProductRepository
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.core.AbstractUseCase
+import com.progressterra.ipbandroidview.core.ProvideLocation
 
-internal class GetSizeTableForItemUseCase @Inject constructor(
-    private val repo: IRepository.SizeTable
-) : IGetSizeTableForItemUseCase {
-    override suspend fun invoke(param: String): SResult<String> {
-        val result = repo.getSizeTableForItem(param)
-        return result.data?.toSuccessResult() ?: result.toFailedResult()
+interface SizeTableForItemUseCase {
+
+    suspend fun tableUrl(): Result<String>
+
+    class Base(
+        provideLocation: ProvideLocation,
+        scrmRepository: SCRMRepository,
+        private val productRepository: ProductRepository
+    ) : SizeTableForItemUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+
     }
 }
-
-interface IGetSizeTableForItemUseCase : IUseCase.InOut<String, SResult<String>>
