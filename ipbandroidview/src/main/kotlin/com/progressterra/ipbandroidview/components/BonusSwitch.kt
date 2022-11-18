@@ -27,7 +27,7 @@ fun BonusSwitch(
     modifier: Modifier = Modifier,
     state: () -> BonusSwitchState,
     onChange: (Boolean) -> Unit,
-    enabled: () -> Boolean
+    enabled: () -> Boolean = { true }
 ) {
     Column(
         modifier = modifier

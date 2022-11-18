@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Immutable
 interface PaymentMethodState {
 
-    val currentMethod: PaymentType?
+    val currentPaymentMethod: PaymentType?
 }
 
 @Immutable
@@ -48,7 +48,7 @@ fun PaymentMethod(
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
             ThemedRadioButton(
-                checked = { type == state().currentMethod },
+                checked = { type == state().currentPaymentMethod },
                 onClick = { select(type) }
             )
             Text(

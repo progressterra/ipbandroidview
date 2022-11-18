@@ -40,7 +40,7 @@ interface CartUseCase {
                 }
             }
             Cart(
-                price = price, listGoods = goods
+                listGoods = goods
             )
         }
     }

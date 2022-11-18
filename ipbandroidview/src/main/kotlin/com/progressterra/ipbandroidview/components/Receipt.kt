@@ -79,7 +79,10 @@ fun Receipt(
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title
             )
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)) {
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                userScrollEnabled = false
+            ) {
                 item {
                     Box(
                         modifier = Modifier

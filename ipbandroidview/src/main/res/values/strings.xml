@@ -91,4 +91,9 @@
     <string name="online_card">Картой онлайн</string>
     <string name="offline_card">Картой при получении</string>
     <string name="receive_check">Получить чек на почту</string>
+    <string name="entryway">Подъезд</string>
+    <string name="apartment">Квартира</string>
+    <string name="choose_pick_up">Выбрать пункт самовывоза</string>
+    <string name="goods">Товары</string>
+    <string name="order">Заказ</string>
 </resources>

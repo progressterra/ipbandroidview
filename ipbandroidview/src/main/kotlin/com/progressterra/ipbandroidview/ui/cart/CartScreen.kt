@@ -28,7 +28,7 @@ fun CartScreen(
     auth: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = { stringResource(id = R.string.cart) })
+        ThemedTopAppBar(title = stringResource(id = R.string.cart))
     }, bottomBar = {
         CartBottomBar(
             state = state,
