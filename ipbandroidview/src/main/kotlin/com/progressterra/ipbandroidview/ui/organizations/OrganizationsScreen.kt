@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.OrganizationCard
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.OrganizationCard
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -24,11 +24,11 @@ fun OrganizationsScreen(
     organizationDetails: (Organization) -> Unit
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = { stringResource(id = R.string.organizations) })
+        ThemedTopAppBar(title = stringResource(id = R.string.organizations))
     }) { _, _ ->
         StateBox(
             state = state()::screenState,
-            onRefresh = refresh
+            refresh = refresh
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -37,10 +37,10 @@ fun OrganizationsScreen(
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(state().organizations) {
-                    OrganizationCard(modifier = Modifier.fillMaxWidth(),
-                        address = it::address,
-                        description = it::name,
-                        onClick = { organizationDetails(it) }
+                    OrganizationCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = { it },
+                        openOrganization = organizationDetails
                     )
                 }
             }

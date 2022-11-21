@@ -6,8 +6,5 @@ sealed class OrganizationAuditsEffect {
 
     object Back : OrganizationAuditsEffect()
 
-    @Suppress("unused")
-    class OpenChecklist(
-        val auditDocument: AuditDocument
-    ) : OrganizationAuditsEffect()
+    class OpenChecklist(val auditDocument: AuditDocument) : OrganizationAuditsEffect()
 }

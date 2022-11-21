@@ -9,11 +9,11 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.components.Category
-import com.progressterra.ipbandroidview.components.SearchBox
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.SearchTopBar
+import com.progressterra.ipbandroidview.composable.component.CategorySearchBar
+import com.progressterra.ipbandroidview.composable.component.MainCategoryItem
+import com.progressterra.ipbandroidview.composable.component.SearchBox
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.model.Category
 import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -31,16 +31,17 @@ fun CatalogScreen(
     refreshSearch: () -> Unit,
     search: () -> Unit,
     keyword: (String) -> Unit,
-    filters: () -> Unit
+    filters: () -> Unit,
+    onClear: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        SearchTopBar(
+        CategorySearchBar(
             state = searchState,
             onBack = back,
             onKeyword = keyword,
             onSearch = search,
             onFilters = filters,
-            showBack = false
+            onClear = onClear
         )
     }) { _, _ ->
         SearchBox(
@@ -50,7 +51,7 @@ fun CatalogScreen(
             onGoods = openSearchGoods
         ) {
             StateBox(
-                state = catalogState()::screenState, onRefresh = refresh
+                state = catalogState()::screenState, refresh = refresh
             ) {
                 LazyVerticalGrid(
                     modifier = Modifier.fillMaxSize(),
@@ -60,7 +61,7 @@ fun CatalogScreen(
                     contentPadding = PaddingValues(AppTheme.dimensions.small)
                 ) {
                     items(catalogState().categories) {
-                        Category(state = { it }, onClick = { openCategory(it) })
+                        MainCategoryItem(state = { it }, openCategory = { openCategory(it) })
                     }
                 }
             }
@@ -72,5 +73,6 @@ fun CatalogScreen(
 @Composable
 private fun CatalogScreenPreview() {
     AppTheme {
+
     }
 }

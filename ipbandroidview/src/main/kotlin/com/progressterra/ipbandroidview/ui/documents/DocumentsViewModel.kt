@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.documents
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.model.AuditDocument
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -12,10 +11,8 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class DocumentsViewModel(
-    private val allDocumentsUseCase: AllDocumentsUseCase,
-    private val documentChecklistUseCase: DocumentChecklistUseCase
+    private val allDocumentsUseCase: AllDocumentsUseCase
 ) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect> {
 
     override val container: Container<DocumentsState, DocumentsEffect> = container(DocumentsState())

@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GoodsSize(
-    val available: Boolean,
-    val primary: String,
-    val secondary: String?
+    val available: Boolean = false,
+    val primary: String = "",
+    val secondary: String? = null
 ) : Parcelable

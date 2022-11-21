@@ -1,23 +1,12 @@
 package com.progressterra.ipbandroidview.model
 
-import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.components.StoreCardState
-import com.progressterra.ipbandroidview.model.component.Id
+data class StoreGoods(
+    override val id: String,
+    val name: String,
+    val image: String,
+    val price: SimplePrice,
+    val favorite: Boolean
+) : Id {
 
-@Immutable
-interface StoreGoods : StoreCardState,
-    Id {
-
-    fun reverseFavorite(): StoreGoods
-
-    data class Base(
-        override val id: String,
-        override val name: String,
-        override val image: String,
-        override val price: SimplePrice,
-        override val favorite: Boolean
-    ) : StoreGoods {
-
-        override fun reverseFavorite(): StoreGoods = this.copy(favorite = !favorite)
-    }
+    fun reverseFavorite(): StoreGoods = this.copy(favorite = !favorite)
 }

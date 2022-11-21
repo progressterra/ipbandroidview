@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.progressterra.ipbandroidview.components.SearchBox
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.StoreCard
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.SearchTopBar
-import com.progressterra.ipbandroidview.components.utils.items
+import com.progressterra.ipbandroidview.composable.component.CategorySearchBar
+import com.progressterra.ipbandroidview.composable.component.SearchBox
+import com.progressterra.ipbandroidview.composable.component.StoreCard
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
+import com.progressterra.ipbandroidview.composable.utils.items
 import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.ui.search.SearchState
@@ -32,15 +32,17 @@ fun MainScreen(
     searchRefresh: () -> Unit,
     openDetails: (StoreGoods) -> Unit,
     filters: () -> Unit,
-    refresh: () -> Unit
+    refresh: () -> Unit,
+    clear: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        SearchTopBar(
+        CategorySearchBar(
             state = searchState,
             onBack = back,
             onKeyword = keyword,
             onSearch = search,
-            onFilters = filters, showFilter = false, showBack = false
+            onFilters = filters,
+            onClear = clear
         )
     }) { _, _ ->
         SearchBox(
@@ -50,14 +52,12 @@ fun MainScreen(
             onGoods = openDetails
         ) {
             StateBox(
-                state = mainState()::screenState,
-                onRefresh = refresh
+                state = mainState()::screenState, refresh = refresh
             ) {
                 val lazyItems: LazyPagingItems<StoreGoods> =
                     mainState().items.collectAsLazyPagingItems()
                 LazyVerticalGrid(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
                     verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
@@ -80,6 +80,5 @@ fun MainScreen(
 @Preview
 @Composable
 private fun MainScreenPreview() {
-    AppTheme {
-    }
+    AppTheme {}
 }

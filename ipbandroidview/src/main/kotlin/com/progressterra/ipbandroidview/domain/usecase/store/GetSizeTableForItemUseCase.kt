@@ -15,5 +15,8 @@ interface SizeTableForItemUseCase {
         private val productRepository: ProductRepository
     ) : SizeTableForItemUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
+        override suspend fun tableUrl(): Result<String> {
+            TODO("Not yet implemented")
+        }
     }
 }

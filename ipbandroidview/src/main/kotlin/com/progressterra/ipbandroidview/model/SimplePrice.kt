@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.model
 
-import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.core.IsEmpty
 
-@Immutable
-data class SimplePrice(val formattedPrice: String = "", val price: Int = 0)
+data class SimplePrice(val formattedPrice: String = "", val price: Int = 0) : IsEmpty {
+
+    override fun isEmpty(): Boolean = formattedPrice == "" && price == 0
+}

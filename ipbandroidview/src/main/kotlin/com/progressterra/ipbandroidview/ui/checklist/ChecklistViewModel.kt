@@ -5,7 +5,7 @@ import android.content.Intent
 import android.provider.MediaStore
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.VoiceState
+import com.progressterra.ipbandroidview.composable.component.VoiceState
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.MakePhotoContract
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
@@ -35,7 +35,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class ChecklistViewModel(
     private val createDocumentUseCase: CreateDocumentUseCase,
     private val finishDocumentUseCase: FinishDocumentUseCase,

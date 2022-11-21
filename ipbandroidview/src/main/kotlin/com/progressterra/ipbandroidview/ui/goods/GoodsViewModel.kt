@@ -5,17 +5,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class GoodsViewModel(
-    private val goodsUseCase: GoodsUseCase,
-    private val modifyFavoriteUseCase: ModifyFavoriteUseCase
+    private val goodsUseCase: GoodsUseCase
 ) : ViewModel(), ContainerHost<GoodsState, GoodsEffect> {
 
     override val container: Container<GoodsState, GoodsEffect> = container(GoodsState())

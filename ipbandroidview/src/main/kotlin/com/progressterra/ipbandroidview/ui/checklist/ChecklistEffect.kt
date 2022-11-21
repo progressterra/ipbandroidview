@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.checklist
 import androidx.annotation.StringRes
 import com.progressterra.ipbandroidview.model.CheckPicture
 
-@Suppress("unused")
 sealed class ChecklistEffect {
 
     object Back : ChecklistEffect()

@@ -14,9 +14,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.SimpleImage
-import com.progressterra.ipbandroidview.components.TrashIcon
-import com.progressterra.ipbandroidview.components.bar.TransparentTopAppBar
+import com.progressterra.ipbandroidview.composable.component.TransparentTopAppBar
+import com.progressterra.ipbandroidview.composable.element.SimpleImage
+import com.progressterra.ipbandroidview.composable.element.TrashIcon
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 

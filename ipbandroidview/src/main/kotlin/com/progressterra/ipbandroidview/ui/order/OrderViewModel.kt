@@ -1,8 +1,9 @@
 package com.progressterra.ipbandroidview.ui.order
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.components.PaymentType
+import com.progressterra.ipbandroidview.composable.component.PaymentType
 import com.progressterra.ipbandroidview.domain.usecase.store.UseBonusesUseCase
+import com.progressterra.ipbandroidview.model.Cart
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -18,6 +19,11 @@ class OrderViewModel(
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
 
+    fun setCart(cart: Cart) = intent {
+        reduce {
+            state.copy(cart = cart)
+        }
+    }
 
     fun back() = intent {
         postSideEffect(OrderEffect.Back)
@@ -45,10 +51,6 @@ class OrderViewModel(
 
     fun editApartment(apartment: String) = intent {
         reduce { state.copy(apartment = apartment) }
-    }
-
-    fun editAddress(address: String) = intent {
-        reduce { state.copy(address = address) }
     }
 
     fun editComment(comment: String) = intent {

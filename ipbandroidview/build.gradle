@@ -92,10 +92,10 @@ dependencies {
     api 'io.insert-koin:koin-androidx-compose:3.3.0'
 
     //Accompanist, useful composables
-    api "com.google.accompanist:accompanist-systemuicontroller:0.27.0"
-    api "com.google.accompanist:accompanist-swiperefresh:0.27.0"
-    api "com.google.accompanist:accompanist-pager:0.27.0"
-    api "com.google.accompanist:accompanist-pager-indicators:0.27.0"
+    api "com.google.accompanist:accompanist-systemuicontroller:0.27.1"
+    api "com.google.accompanist:accompanist-swiperefresh:0.27.1"
+    api "com.google.accompanist:accompanist-pager:0.27.1"
+    api "com.google.accompanist:accompanist-pager-indicators:0.27.1"
 
     //Testing
     api "org.orbit-mvi:orbit-test:4.4.0"
@@ -106,7 +106,7 @@ dependencies {
     api "com.bumble.appyx:core:1.0.0"
 
     //Google Firebase platform
-    api platform("com.google.firebase:firebase-bom:31.0.3")
+    api platform("com.google.firebase:firebase-bom:31.1.0")
     api "com.google.firebase:firebase-analytics-ktx"
     api "com.google.firebase:firebase-messaging-ktx"
 

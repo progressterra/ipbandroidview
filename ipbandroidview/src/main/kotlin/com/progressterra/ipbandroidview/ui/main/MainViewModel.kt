@@ -12,7 +12,6 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class MainViewModel(
     private val goodsUseCase: GoodsUseCase,
 ) : ViewModel(), ContainerHost<MainState, MainEffect> {

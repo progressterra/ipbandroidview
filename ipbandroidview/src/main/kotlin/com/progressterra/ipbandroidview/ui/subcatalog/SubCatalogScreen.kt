@@ -8,12 +8,12 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.components.SearchBox
-import com.progressterra.ipbandroidview.components.SubCategory
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.SearchTopBar
+import com.progressterra.ipbandroidview.composable.component.CategorySearchBar
+import com.progressterra.ipbandroidview.composable.component.SearchBox
+import com.progressterra.ipbandroidview.composable.component.SubCategory
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.model.Category
 import com.progressterra.ipbandroidview.model.StoreGoods
-import com.progressterra.ipbandroidview.model.SubCategory
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.ui.search.SearchState
 
@@ -22,21 +22,23 @@ fun SubCatalogScreen(
     subCatalogState: () -> SubCatalogState,
     searchState: () -> SearchState,
     back: () -> Unit,
-    subCategory: (SubCategory) -> Unit,
+    subCategory: (Category) -> Unit,
     filters: () -> Unit,
     favoriteSpecific: (StoreGoods) -> Unit,
     searchRefresh: () -> Unit,
     openDetails: (StoreGoods) -> Unit,
     keyword: (String) -> Unit,
-    search: () -> Unit
+    search: () -> Unit,
+    onClear: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        SearchTopBar(
+        CategorySearchBar(
             state = searchState,
             onBack = back,
             onKeyword = keyword,
             onSearch = search,
-            onFilters = filters
+            onFilters = filters,
+            onClear = onClear
         )
     }) { _, _ ->
         SearchBox(
@@ -52,7 +54,7 @@ fun SubCatalogScreen(
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(subCatalogState().currentCategory?.subCategories ?: emptyList()) {
-                    SubCategory(state = { it }, onClick = { subCategory(it) })
+                    SubCategory(state = { it }, openCategory = subCategory)
                 }
             }
         }

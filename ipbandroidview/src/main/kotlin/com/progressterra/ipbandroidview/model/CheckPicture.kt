@@ -1,12 +1,10 @@
 package com.progressterra.ipbandroidview.model
 
 import android.os.Parcelable
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.core.AttachedMedia
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Immutable
 data class CheckPicture(
     override val id: String,
     override val local: Boolean,

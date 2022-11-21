@@ -9,7 +9,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect> {
 
     override val container: Container<ProfileState, ProfileEffect> = container(ProfileState("", ""))

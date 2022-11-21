@@ -13,7 +13,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class FavoritesViewModel(
     private val favoriteGoodsUseCase: FavoriteGoodsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase

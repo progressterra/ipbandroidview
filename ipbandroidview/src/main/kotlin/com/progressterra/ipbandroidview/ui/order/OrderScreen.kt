@@ -10,17 +10,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.BonusSwitch
-import com.progressterra.ipbandroidview.components.DeliveryPicker
-import com.progressterra.ipbandroidview.components.GoodsLine
-import com.progressterra.ipbandroidview.components.PaymentMethod
-import com.progressterra.ipbandroidview.components.PaymentType
-import com.progressterra.ipbandroidview.components.PromoCode
-import com.progressterra.ipbandroidview.components.Receipt
-import com.progressterra.ipbandroidview.components.ReceiveReceipt
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.BonusSwitch
+import com.progressterra.ipbandroidview.composable.component.DeliveryPicker
+import com.progressterra.ipbandroidview.composable.component.GoodsLine
+import com.progressterra.ipbandroidview.composable.component.PaymentMethod
+import com.progressterra.ipbandroidview.composable.component.PaymentType
+import com.progressterra.ipbandroidview.composable.component.PromoCode
+import com.progressterra.ipbandroidview.composable.component.Receipt
+import com.progressterra.ipbandroidview.composable.component.ReceiveReceipt
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -49,7 +49,7 @@ fun OrderScreen(
         ThemedTopAppBar(title = stringResource(R.string.order), onBack = back)
     }) { _, _ ->
         StateBox(
-            state = state()::screenState, onRefresh = refresh
+            state = state()::screenState, refresh = refresh
         ) {
             Column(
                 modifier = Modifier
@@ -62,7 +62,7 @@ fun OrderScreen(
                     ),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                GoodsLine(state = state, goodsDetails = goodsDetails)
+                GoodsLine(state = state()::cart, openGoodsDetails = goodsDetails)
                 DeliveryPicker(
                     state = state,
                     changeAddress = changeAddress,
@@ -72,7 +72,7 @@ fun OrderScreen(
                     editComment = editComment,
                     editEntryway = editEntryway
                 )
-                BonusSwitch(state = state, onChange = changeUseBonuses)
+                BonusSwitch(state = state, switchUseBonuses = changeUseBonuses)
                 PromoCode(
                     state = state,
                     editPromoCode = editPromoCode,

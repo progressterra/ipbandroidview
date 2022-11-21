@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.progressterra.ipbandroidview.components.SearchBox
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.StoreCard
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.SearchTopBar
-import com.progressterra.ipbandroidview.components.utils.items
+import com.progressterra.ipbandroidview.composable.component.CategorySearchBar
+import com.progressterra.ipbandroidview.composable.component.SearchBox
+import com.progressterra.ipbandroidview.composable.component.StoreCard
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
+import com.progressterra.ipbandroidview.composable.utils.items
 import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.ui.search.SearchState
@@ -32,15 +32,17 @@ fun GoodsScreen(
     favoriteSpecific: (StoreGoods) -> Unit,
     refresh: () -> Unit,
     openDetails: (StoreGoods) -> Unit,
-    filters: () -> Unit
+    filters: () -> Unit,
+    clear: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        SearchTopBar(
+        CategorySearchBar(
             state = searchState,
             onBack = back,
             onKeyword = keyword,
             onSearch = search,
-            onFilters = filters
+            onFilters = filters,
+            onClear = clear
         )
     }) { _, _ ->
         SearchBox(
@@ -51,7 +53,7 @@ fun GoodsScreen(
         ) {
             StateBox(
                 state = goodsState()::screenState,
-                onRefresh = refresh
+                refresh = refresh
             ) {
                 val lazyItems: LazyPagingItems<StoreGoods> =
                     goodsState().items.collectAsLazyPagingItems()

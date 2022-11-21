@@ -13,7 +13,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class SearchViewModel(
     private val filteredGoodsUseCase: FilteredGoodsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase
@@ -28,11 +27,6 @@ class SearchViewModel(
             reduce { state.clear() }
     }
 
-    fun searchInCategory(categoryId: String) = intent {
-        reduce { state.copy(categoryId = categoryId) }
-        refresh()
-    }
-
     fun favoriteSpecific(item: StoreGoods) = intent {
         modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess { refresh() }
     }
@@ -44,7 +38,12 @@ class SearchViewModel(
             state.keyword,
             state.filters
         ).onSuccess {
-            reduce { state.copy(searchGoods = it, searchScreenState = ScreenState.SUCCESS) }
+            reduce {
+                state.copy(
+                    searchGoods = it,
+                    searchScreenState = ScreenState.SUCCESS
+                )
+            }
         }.onFailure {
             reduce { state.copy(searchScreenState = ScreenState.ERROR) }
         }
@@ -55,10 +54,18 @@ class SearchViewModel(
     }
 
     fun search() = intent {
-        postSideEffect(SearchEffect.Search)
+        refresh()
     }
 
     fun openDetails(item: StoreGoods) = intent {
         postSideEffect(SearchEffect.GoodsDetails(item.id))
+    }
+
+    fun filters() = intent {
+        postSideEffect(SearchEffect.Filters)
+    }
+
+    fun clear() = intent {
+
     }
 }

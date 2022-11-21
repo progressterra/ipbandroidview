@@ -17,15 +17,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ProfileScreen(state: () -> ProfileState, openDetails: () -> Unit) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            title = { stringResource(id = R.string.profile) }
+            title = stringResource(id = R.string.profile)
         )
     }) { _, _ ->
         Column(

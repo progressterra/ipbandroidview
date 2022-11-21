@@ -6,11 +6,11 @@ import com.progressterra.ipbandroidapi.ext.orIfNull
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.CatalogMapper
-import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.model.MainCategory
 
 interface CatalogUseCase {
 
-    suspend fun catalog(): Result<List<Category>>
+    suspend fun catalog(): Result<List<MainCategory>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -19,7 +19,7 @@ interface CatalogUseCase {
         private val mapper: CatalogMapper
     ) : AbstractUseCase(scrmRepository, provideLocation), CatalogUseCase {
 
-        override suspend fun catalog(): Result<List<Category>> = runCatching {
+        override suspend fun catalog(): Result<List<MainCategory>> = runCatching {
             withToken { repo.getCatalog(it) }.getOrThrow()?.first()?.childItems?.map {
                 mapper.map(
                     it

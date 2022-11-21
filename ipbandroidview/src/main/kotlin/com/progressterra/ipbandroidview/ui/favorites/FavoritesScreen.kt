@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.StoreCard
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.StoreCard
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -27,9 +27,9 @@ fun FavoritesScreen(
     openDetails: (StoreGoods) -> Unit
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = { stringResource(id = R.string.favorites) })
+        ThemedTopAppBar(title = stringResource(id = R.string.favorites))
     }) { _, _ ->
-        StateBox(state = state()::screenState, onRefresh = refresh) {
+        StateBox(state = state()::screenState, refresh = refresh) {
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
                 columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),

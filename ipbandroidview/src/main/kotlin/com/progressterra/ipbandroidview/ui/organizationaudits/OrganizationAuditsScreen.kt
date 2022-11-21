@@ -10,11 +10,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.OrganizationCheckCard
-import com.progressterra.ipbandroidview.components.OrganizationPresentation
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.OrganizationCheckCard
+import com.progressterra.ipbandroidview.composable.component.OrganizationPresentation
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -27,11 +27,11 @@ fun OrganizationAuditsScreen(
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            onBack = back, title = { stringResource(id = R.string.organization) }
+            onBack = back, title = stringResource(id = R.string.organization)
         )
     }) { _, _ ->
         StateBox(
-            onRefresh = refresh,
+            refresh = refresh,
             state = state()::screenState
         ) {
             LazyColumn(

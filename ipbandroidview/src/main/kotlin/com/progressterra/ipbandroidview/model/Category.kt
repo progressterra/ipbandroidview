@@ -1,18 +1,14 @@
 package com.progressterra.ipbandroidview.model
 
+import android.os.Parcelable
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.components.CategoryState
 import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Immutable
-interface Category : CategoryState, SubCategory {
-
-    @Parcelize
-    data class Base(
-        override val id: String,
-        override val name: String,
-        override val image: String,
-        override val subCategories: List<SubCategory>,
-        override val hasNext: Boolean
-    ) : Category
-}
+open class Category(
+    val id: String,
+    val name: String,
+    val subCategories: List<Category>,
+    val hasNext: Boolean
+) : Parcelable

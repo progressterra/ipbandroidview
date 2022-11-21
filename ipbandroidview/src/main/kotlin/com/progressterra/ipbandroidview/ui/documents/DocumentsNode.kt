@@ -1,0 +1,42 @@
+package com.progressterra.ipbandroidview.ui.documents
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
+import com.bumble.appyx.core.modality.BuildContext
+import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.model.AuditDocument
+import org.koin.androidx.compose.getViewModel
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
+
+@Suppress("unused")
+class DocumentsNode(
+    buildContext: BuildContext,
+    private val onOrganizations: () -> Unit,
+    private val onChecklist: (AuditDocument) -> Unit,
+    private val updateDocumentsCounter: (Int) -> Unit
+) : Node(buildContext) {
+
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel: DocumentsViewModel = getViewModel()
+        viewModel.collectSideEffect {
+            when (it) {
+                is DocumentsEffect.OpenOrganizations -> onOrganizations()
+                is DocumentsEffect.OpenChecklist -> onChecklist(it.auditDocument)
+                is DocumentsEffect.UpdateCounter -> updateDocumentsCounter(it.counter)
+            }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
+        val state = viewModel.collectAsState()
+        DocumentsScreen(
+            state = state::value,
+            refresh = viewModel::refresh,
+            openOrganizations = viewModel::openOrganizations,
+            openDocument = viewModel::openDocument
+        )
+    }
+}

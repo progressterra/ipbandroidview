@@ -22,12 +22,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.CategoryDivider
-import com.progressterra.ipbandroidview.components.DocumentCard
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.ThemedButton
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.DocumentCard
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.Divider
+import com.progressterra.ipbandroidview.composable.element.StateBox
+import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -38,20 +38,20 @@ fun DocumentsScreen(
     openDocument: (Document) -> Unit
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = { stringResource(id = R.string.audits) })
+        ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) { _, _ ->
         StateBox(
             modifier = Modifier
                 .fillMaxSize(),
             state = state()::screenState,
-            onRefresh = refresh
+            refresh = refresh
         ) {
             var buttonSize by remember { mutableStateOf(0.dp) }
             val unfinishedDocs by remember(state().documents) {
-                mutableStateOf(state().documents.filter { it.finishDate == null })
+                mutableStateOf(state().documents.filter { !it.isFinished() })
             }
             val finishedGroupedDocs by remember(state().documents) {
-                mutableStateOf(state().documents.filter { it.finishDate != null }
+                mutableStateOf(state().documents.filter { it.isFinished() }
                     .groupBy { it.finishDate!! })
             }
             LazyColumn(
@@ -65,29 +65,23 @@ fun DocumentsScreen(
                 items(unfinishedDocs) {
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
-                        name = it::name,
-                        address = it::address,
-                        onClick = { openDocument(it) },
-                        stats = it::stats,
-                        ongoing = { true }
+                        state = { it },
+                        openDocument = openDocument
                     )
                 }
                 finishedGroupedDocs
                     .forEach {
                         item {
-                            CategoryDivider(
+                            Divider(
                                 modifier = Modifier.fillMaxWidth(),
-                                title = { "${stringResource(id = R.string.completed_audits)} ${it.key}" }
+                                title = "${stringResource(id = R.string.completed_audits)} ${it.key}"
                             )
                         }
                         items(it.value) { document ->
                             DocumentCard(
                                 modifier = Modifier.fillMaxWidth(),
-                                name = document::name,
-                                address = document::address,
-                                onClick = { openDocument(document) },
-                                stats = document::stats,
-                                ongoing = { false }
+                                state = { document },
+                                openDocument = openDocument
                             )
                         }
                     }

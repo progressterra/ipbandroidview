@@ -10,7 +10,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class OrganizationsViewModel(
     private val allOrganizationsUseCase: AllOrganizationsUseCase
 ) : ViewModel(), ContainerHost<OrganizationsState, OrganizationsEffect> {

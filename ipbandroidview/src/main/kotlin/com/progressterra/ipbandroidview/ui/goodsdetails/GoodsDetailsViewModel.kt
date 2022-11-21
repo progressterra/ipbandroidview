@@ -15,7 +15,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate", "UNUSED_PARAMETER")
 class GoodsDetailsViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val goodsDetailsUseCase: GoodsDetailsUseCase,
@@ -53,7 +52,7 @@ class GoodsDetailsViewModel(
     }
 
     fun favorite() = intent {
-        modifyFavoriteUseCase.modifyFavorite(state.id, state.favorite).onSuccess {
+        modifyFavoriteUseCase.modifyFavorite(state.id, state.goodsDetails.favorite).onSuccess {
             reduce { state.copy(goodsDetails = state.goodsDetails.reverseFavorite()) }
         }
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
+import com.progressterra.ipbandroidview.domain.usecase.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -16,11 +17,11 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class CityViewModel(
     private val managePermissionContract: ManagePermissionContract.Client,
     private val guessLocationUseCase: GuessLocationUseCase,
-    private val suggestionUseCase: SuggestionUseCase
+    private val suggestionUseCase: SuggestionUseCase,
+    private val saveUserAddressUseCase: SaveUserAddressUseCase
 ) : ViewModel(), ContainerHost<CityState, CityEffect> {
 
     override val container: Container<CityState, CityEffect> = container(CityState())
@@ -39,9 +40,12 @@ class CityViewModel(
         reduce { state.copy(isPermissionGranted = result) }
     }
 
-    fun skip() = intent { postSideEffect(CityEffect.Skip) }
+    fun skip() = intent { postSideEffect(CityEffect.Next) }
 
-    fun next() = intent { postSideEffect(CityEffect.Next) }
+    fun next() = intent {
+        saveUserAddressUseCase.saveAddress(address = state.address)
+        postSideEffect(CityEffect.Next)
+    }
 
     fun editAddress(address: String) = intent {
         reduce { state.copy(address = address) }

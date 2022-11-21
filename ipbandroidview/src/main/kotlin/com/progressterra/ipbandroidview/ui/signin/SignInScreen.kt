@@ -17,14 +17,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.BottomHolder
-import com.progressterra.ipbandroidview.components.LinkText
-import com.progressterra.ipbandroidview.components.LinkTextData
-import com.progressterra.ipbandroidview.components.ThemedButton
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.ThemedTextButton
-import com.progressterra.ipbandroidview.components.ThemedTextField
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.BottomHolder
+import com.progressterra.ipbandroidview.composable.element.LinkText
+import com.progressterra.ipbandroidview.composable.element.LinkTextData
+import com.progressterra.ipbandroidview.composable.element.ThemedButton
+import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
+import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -36,7 +36,7 @@ fun SignInScreen(
     settings: SignInSettings,
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = { stringResource(id = R.string.authorization) })
+        ThemedTopAppBar(title = stringResource(id = R.string.authorization))
     }, bottomBar = {
         BottomHolder {
             ThemedButton(

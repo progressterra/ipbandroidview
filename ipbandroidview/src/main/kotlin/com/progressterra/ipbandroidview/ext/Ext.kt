@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.ext
 
 import androidx.core.util.PatternsCompat
-import com.progressterra.ipbandroidview.components.stats.ChecklistStats
 import com.progressterra.ipbandroidview.core.AttachedMedia
-import com.progressterra.ipbandroidview.model.component.Id
+import com.progressterra.ipbandroidview.model.ChecklistStats
+import com.progressterra.ipbandroidview.model.Id
 import com.progressterra.ipbandroidview.ui.checklist.Check
 
 fun String.isEmail(): Boolean = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()

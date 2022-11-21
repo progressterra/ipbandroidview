@@ -1,12 +1,10 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.os.Parcelable
-import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.model.component.Id
+import com.progressterra.ipbandroidview.model.Id
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Immutable
 data class Check(
     override val id: String,
     val name: String,
@@ -16,4 +14,9 @@ data class Check(
     val ordinal: Int,
     val yesNo: Boolean?,
     val comment: String
-) : Parcelable, Id
+) : Parcelable, Id {
+
+    fun printCategory(): String = "$categoryNumber. $category"
+
+    fun printTitle(): String = "$categoryNumber-$ordinal"
+}

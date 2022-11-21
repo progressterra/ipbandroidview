@@ -11,7 +11,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class CatalogViewModel(
     private val catalogUseCase: CatalogUseCase
 ) : ViewModel(), ContainerHost<CatalogState, CatalogEffect> {

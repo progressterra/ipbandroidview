@@ -9,11 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.CartCard
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.CartBottomBar
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.CartBottomBar
+import com.progressterra.ipbandroidview.composable.component.CartCard
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.model.CartGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -31,13 +31,14 @@ fun CartScreen(
         ThemedTopAppBar(title = stringResource(id = R.string.cart))
     }, bottomBar = {
         CartBottomBar(
-            state = state,
             onNext = next,
             onAuth = auth,
-            screenState = state()::screenState
+            userExist = state()::userExist,
+            screenState = state()::screenState,
+            totalPrice = state().cart::totalPrice
         )
     }) { _, _ ->
-        StateBox(state = state()::screenState, onRefresh = refresh) {
+        StateBox(state = state()::screenState, refresh = refresh) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
@@ -46,9 +47,9 @@ fun CartScreen(
                 items(state().cart.listGoods) {
                     CartCard(
                         state = { it },
-                        onFavorite = { favoriteSpecific(it) },
-                        onDelete = { removeSpecific(it) },
-                        onDetails = { openDetails(it) }
+                        onFavorite = favoriteSpecific,
+                        onDelete = removeSpecific,
+                        onDetails = openDetails
                     )
                 }
             }

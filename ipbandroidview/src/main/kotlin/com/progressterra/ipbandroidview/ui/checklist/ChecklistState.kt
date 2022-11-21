@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.components.VoiceState
-import com.progressterra.ipbandroidview.components.stats.ChecklistStats
+import com.progressterra.ipbandroidview.composable.component.VoiceState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.AuditDocument
+import com.progressterra.ipbandroidview.model.ChecklistStats
 
 @Immutable
 data class ChecklistState(

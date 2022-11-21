@@ -9,13 +9,11 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class PhotoViewModel : ViewModel(),
     ContainerHost<PhotoState, PhotoEffect> {
 
     override val container: Container<PhotoState, PhotoEffect> = container(PhotoState())
 
-    @Suppress("unused")
     fun setPhoto(
         picture: CheckPicture,
         enabled: Boolean

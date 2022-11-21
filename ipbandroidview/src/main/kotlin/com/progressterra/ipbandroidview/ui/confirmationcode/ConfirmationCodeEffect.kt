@@ -8,6 +8,5 @@ sealed class ConfirmationCodeEffect {
 
     object Next : ConfirmationCodeEffect()
 
-    @Suppress("unused")
     class Toast(@StringRes val message: Int) : ConfirmationCodeEffect()
 }

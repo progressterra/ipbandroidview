@@ -1,12 +1,11 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
-import com.progressterra.ipbandroidview.model.SubCategory
+import com.progressterra.ipbandroidview.model.Category
 
 
 sealed class SubCatalogEffect {
 
-    class SubCatalog(val subCategory: SubCategory) : SubCatalogEffect()
+    class SubCatalog(val subCategory: Category) : SubCatalogEffect()
 
-    @Suppress("unused")
     class Goods(val categoryId: String) : SubCatalogEffect()
 }

@@ -16,7 +16,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.IconButton
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Text
@@ -31,21 +30,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.AttachedPhoto
-import com.progressterra.ipbandroidview.components.AuditTitle
-import com.progressterra.ipbandroidview.components.BottomHolder
-import com.progressterra.ipbandroidview.components.CategoryDivider
-import com.progressterra.ipbandroidview.components.CheckCard
-import com.progressterra.ipbandroidview.components.MarkIcon
-import com.progressterra.ipbandroidview.components.StateBox
-import com.progressterra.ipbandroidview.components.ThemedButton
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.ThemedTextField
-import com.progressterra.ipbandroidview.components.VoiceInput
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
-import com.progressterra.ipbandroidview.components.bar.ThemedTopDialogBar
-import com.progressterra.ipbandroidview.components.button.YesNoButton
-import com.progressterra.ipbandroidview.components.stats.Stats
+import com.progressterra.ipbandroidview.composable.component.CheckDialogBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.AttachedPhotos
+import com.progressterra.ipbandroidview.composable.component.AuditTitle
+import com.progressterra.ipbandroidview.composable.component.CheckCard
+import com.progressterra.ipbandroidview.composable.component.Stats
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.VoiceInput
+import com.progressterra.ipbandroidview.composable.component.YesNoButton
+import com.progressterra.ipbandroidview.composable.element.BottomHolder
+import com.progressterra.ipbandroidview.composable.element.Divider
+import com.progressterra.ipbandroidview.composable.element.StateBox
+import com.progressterra.ipbandroidview.composable.element.ThemedButton
+import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
@@ -73,38 +71,25 @@ fun ChecklistScreen(
     )
     val coroutineScope = rememberCoroutineScope()
     ModalBottomSheetLayout(
-        sheetState = sheetState,
-        sheetShape = AppTheme.shapes.medium.copy(
-            bottomEnd = ZeroCornerSize,
-            bottomStart = ZeroCornerSize
-        ),
-        sheetContent = {
-            ThemedTopDialogBar(title = {
-                if (state().currentCheck == null) stringResource(id = R.string.loading) else "${
-                    stringResource(id = R.string.question)
-                } ${state().currentCheck?.categoryNumber ?: ""}-${state().currentCheck?.ordinal ?: ""}"
-            },
-                rightActions = {
-                    IconButton(
-                        onClick = { coroutineScope.launch { sheetState.hide() } }) {
-                        MarkIcon()
-                    }
-                })
+        sheetState = sheetState, sheetShape = AppTheme.shapes.medium.copy(
+            bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize
+        ), sheetContent = {
+            CheckDialogBar(currentCheck = state()::currentCheck,
+                onMark = { coroutineScope.launch { sheetState.hide() } })
             StateBox(
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(min = 300.dp),
                 state = state()::checkScreenState,
-                onRefresh = refreshCheck
+                refresh = refreshCheck
             ) {
                 if (state().currentCheck != null && state().currentCheckMedia != null) {
                     Column(
-                        modifier = Modifier
-                            .padding(
-                                top = AppTheme.dimensions.small,
-                                start = AppTheme.dimensions.small,
-                                end = AppTheme.dimensions.small
-                            )
+                        modifier = Modifier.padding(
+                            top = AppTheme.dimensions.small,
+                            start = AppTheme.dimensions.small,
+                            end = AppTheme.dimensions.small
+                        )
                     ) {
                         Column(
                             modifier = Modifier
@@ -137,8 +122,7 @@ fun ChecklistScreen(
                                 ThemedTextField(
                                     modifier = Modifier.fillMaxWidth(),
                                     text = { state().currentCheck?.comment ?: "" },
-                                    hint =
-                                    stringResource(
+                                    hint = stringResource(
                                         id = R.string.text_comment
                                     ),
                                     onChange = editCheckCommentary,
@@ -165,7 +149,7 @@ fun ChecklistScreen(
                                     bottom = AppTheme.dimensions.medium
                                 )
                             ) {
-                                AttachedPhoto(
+                                AttachedPhotos(
                                     modifier = Modifier.fillMaxWidth(),
                                     enabled = state().auditDocument::ongoing,
                                     pictures = {
@@ -192,54 +176,46 @@ fun ChecklistScreen(
                     }
                 }
             }
-        },
-        sheetBackgroundColor = AppTheme.colors.surfaces
+        }, sheetBackgroundColor = AppTheme.colors.surfaces
     ) {
         ThemedLayout(topBar = {
             ThemedTopAppBar(
-                onBack = back, title = { stringResource(id = R.string.audit) }
+                onBack = back, title = stringResource(id = R.string.audit)
             )
         }, bottomBar = {
             if (!(state().auditDocument.readOrCompleteOnly && !state().auditDocument.ongoing)) {
                 BottomHolder(Modifier.fillMaxWidth()) {
                     Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-                        if (state().auditDocument.ongoing)
-                            if (state().stats.remaining >= 1)
-                                ThemedButton(
-                                    modifier = Modifier.weight(1f),
-                                    onClick = startStopAudit,
-                                    text =
-                                    stringResource(
-                                        id = R.string.end_audit
-                                    ),
-                                    tint = AppTheme.colors.secondary,
-                                    textColor = AppTheme.colors.gray1,
-                                    enabled = state().checklistScreenState::isSuccess
-                                )
-                            else
-                                ThemedButton(
-                                    modifier = Modifier.weight(1f),
-                                    onClick = startStopAudit,
-                                    text =
-                                    stringResource(
-                                        id = R.string.end_audit
-                                    ),
-                                    tint = AppTheme.colors.primary,
-                                    textColor = AppTheme.colors.surfaces,
-                                    enabled = state().checklistScreenState::isSuccess
-                                )
-                        else
-                            ThemedButton(
-                                modifier = Modifier.weight(1f),
-                                onClick = startStopAudit,
-                                text =
-                                stringResource(
-                                    R.string.start_audit
-                                ),
-                                tint = AppTheme.colors.primary,
-                                textColor = AppTheme.colors.surfaces,
-                                enabled = state().checklistScreenState::isSuccess
-                            )
+                        if (state().auditDocument.ongoing) if (state().stats.remaining >= 1) ThemedButton(
+                            modifier = Modifier.weight(1f),
+                            onClick = startStopAudit,
+                            text = stringResource(
+                                id = R.string.end_audit
+                            ),
+                            tint = AppTheme.colors.secondary,
+                            textColor = AppTheme.colors.gray1,
+                            enabled = state().checklistScreenState::isSuccess
+                        )
+                        else ThemedButton(
+                            modifier = Modifier.weight(1f),
+                            onClick = startStopAudit,
+                            text = stringResource(
+                                id = R.string.end_audit
+                            ),
+                            tint = AppTheme.colors.primary,
+                            textColor = AppTheme.colors.surfaces,
+                            enabled = state().checklistScreenState::isSuccess
+                        )
+                        else ThemedButton(
+                            modifier = Modifier.weight(1f),
+                            onClick = startStopAudit,
+                            text = stringResource(
+                                R.string.start_audit
+                            ),
+                            tint = AppTheme.colors.primary,
+                            textColor = AppTheme.colors.surfaces,
+                            enabled = state().checklistScreenState::isSuccess
+                        )
                         if (state().auditDocument.ongoing) {
                             Stats(modifier = Modifier.weight(1f), stats = state()::stats)
                         }
@@ -250,14 +226,13 @@ fun ChecklistScreen(
             StateBox(
                 modifier = Modifier.fillMaxSize(),
                 state = state()::checklistScreenState,
-                onRefresh = refreshChecklist
+                refresh = refreshChecklist
             ) {
                 val groupedChecks by remember(state().checks) {
                     mutableStateOf(state().checks.groupBy { it.categoryNumber })
                 }
                 LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                     contentPadding = PaddingValues(
                         start = AppTheme.dimensions.small,
@@ -272,23 +247,19 @@ fun ChecklistScreen(
                             checkCounter = state().checks::size
                         )
                     }
-                    groupedChecks.forEach { (category, checks) ->
+                    groupedChecks.forEach { (_, checks) ->
                         item {
-                            CategoryDivider(
-                                modifier = Modifier.fillMaxWidth(), title = {
-                                    "$category. ${
-                                        checks.firstOrNull()?.category ?: stringResource(id = R.string.no_data)
-                                    }"
-                                }
+                            Divider(
+                                modifier = Modifier.fillMaxWidth(),
+                                title = checks.firstOrNull()?.printCategory()
+                                    ?: stringResource(R.string.no_data)
                             )
                         }
                         items(checks) {
-                            CheckCard(
-                                modifier = Modifier.fillMaxWidth(), onClick = {
-                                    openCheck(it)
-                                    coroutineScope.launch { sheetState.show() }
-                                }, name = { it.name }, yesNo = { it.yesNo }
-                            )
+                            CheckCard(modifier = Modifier.fillMaxWidth(), onClick = {
+                                openCheck(it)
+                                coroutineScope.launch { sheetState.show() }
+                            }, state = { it })
                         }
                     }
                     item { Spacer(modifier = Modifier.size(bottomPadding)) }

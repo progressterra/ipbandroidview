@@ -13,7 +13,6 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import java.time.LocalDate
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class SignUpViewModel(
     private val updatePersonalInfoUseCase: UpdatePersonalInfoUseCase
 ) : ViewModel(), ContainerHost<SignUpState, SignUpEffect> {

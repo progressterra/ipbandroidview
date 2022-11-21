@@ -11,13 +11,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.components.ColorsLine
-import com.progressterra.ipbandroidview.components.Gallery
-import com.progressterra.ipbandroidview.components.SizesLine
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.GoodsBottomBar
-import com.progressterra.ipbandroidview.components.goodsdetails.GoodsDetails
-import com.progressterra.ipbandroidview.components.bar.GoodsTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ColorsLine
+import com.progressterra.ipbandroidview.composable.component.Gallery
+import com.progressterra.ipbandroidview.composable.component.GoodsBottomBar
+import com.progressterra.ipbandroidview.composable.component.GoodsDetails
+import com.progressterra.ipbandroidview.composable.component.GoodsTopAppBar
+import com.progressterra.ipbandroidview.composable.component.SizesLine
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.model.GoodsColor
 import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -37,11 +37,11 @@ fun GoodsDetailsScreen(
         GoodsTopAppBar(
             onBack = back,
             onFavorite = favorite,
-            state = state
+            state = state()::goodsDetails
         )
     }, bottomBar = {
         GoodsBottomBar(
-            state = state,
+            state = state()::goodsDetails,
             onAdd = add,
             onRemove = remove,
             screenState = state()::screenState
@@ -56,27 +56,27 @@ fun GoodsDetailsScreen(
                 Gallery(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1f), state = state
+                        .aspectRatio(1f), state = state()::goodsDetails
                 )
             }
             item {
                 ColorsLine(
                     modifier = Modifier.fillMaxWidth(),
-                    state = state,
-                    onColor = color
+                    state = state()::goodsDetails,
+                    chooseColor = color
                 )
             }
             item {
                 SizesLine(
                     modifier = Modifier.fillMaxWidth(),
-                    state = state,
+                    state = state()::goodsDetails,
                     onSize = size,
                     onTable = sizeTable
                 )
             }
             item {
                 GoodsDetails(
-                    modifier = Modifier.fillMaxWidth(), state = state
+                    modifier = Modifier.fillMaxWidth(), state = state()::goodsDetails
                 )
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             }

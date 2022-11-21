@@ -14,13 +14,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.components.BottomHolder
-import com.progressterra.ipbandroidview.components.ThemedButton
-import com.progressterra.ipbandroidview.components.ThemedLayout
-import com.progressterra.ipbandroidview.components.ThemedMimicField
-import com.progressterra.ipbandroidview.components.ThemedTextButton
-import com.progressterra.ipbandroidview.components.ThemedTextField
-import com.progressterra.ipbandroidview.components.bar.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.BottomHolder
+import com.progressterra.ipbandroidview.composable.element.ThemedButton
+import com.progressterra.ipbandroidview.composable.element.ThemedMimicField
+import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
+import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.squaredem.composecalendar.ComposeCalendar
 import java.time.LocalDate
@@ -37,7 +37,7 @@ fun SignUpScreen(
     closeCalendar: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = { stringResource(id = R.string.sign_up) })
+        ThemedTopAppBar(title = stringResource(id = R.string.sign_up))
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
