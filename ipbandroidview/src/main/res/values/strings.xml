@@ -96,4 +96,7 @@
     <string name="choose_pick_up">Выбрать пункт самовывоза</string>
     <string name="goods">Товары</string>
     <string name="order">Заказ</string>
+    <string name="will_burn">сгорит</string>
+    <string name="bonuses">бонусов</string>
+    <string name="to_bonuses_clarification">Узнать как потратить</string>
 </resources>

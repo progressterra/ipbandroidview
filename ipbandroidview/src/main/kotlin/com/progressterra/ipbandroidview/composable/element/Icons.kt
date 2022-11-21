@@ -148,6 +148,24 @@ private fun ForwardIconPreview() {
 }
 
 @Composable
+fun ForwardTinyIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_forward_tiny),
+        contentDescription = null,
+        tint = AppTheme.colors.gray2
+    )
+}
+
+@Preview
+@Composable
+private fun ForwardTinyIconPreview() {
+    AppTheme {
+        ForwardTinyIcon()
+    }
+}
+
+@Composable
 fun SettingsIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
@@ -319,23 +337,58 @@ private fun MarkIconPreview() {
 }
 
 @Composable
-fun BonusesIcon(modifier: Modifier = Modifier) {
+fun BonusesSmallIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         tint = AppTheme.colors.primary,
-        painter = painterResource(R.drawable.ic_bonuses),
+        painter = painterResource(R.drawable.ic_bonuses_small),
         contentDescription = null
     )
 }
 
 @Preview
 @Composable
-private fun BonusesIconPreview() {
+private fun BonusesSmallIconPreview() {
     AppTheme {
-        BonusesIcon()
+        BonusesSmallIcon()
     }
 }
 
+@Composable
+fun BonusesLargeIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        tint = AppTheme.colors.primary,
+        painter = painterResource(R.drawable.ic_bonuses_large),
+        contentDescription = null
+    )
+}
+
+@Preview
+@Composable
+private fun BonusesLargeIconPreview() {
+    AppTheme {
+        BonusesLargeIcon()
+    }
+}
+
+@Composable
+fun BonusesTinyIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        tint = AppTheme.colors.surfaces,
+        painter = painterResource(R.drawable.ic_bonuses_tiny),
+        contentDescription = null
+    )
+}
+
+@Preview
+@Composable
+private fun BonusesTinyIconPreview() {
+    AppTheme {
+        BonusesTinyIcon()
+    }
+}
 
 @Composable
 fun SearchIcon(modifier: Modifier = Modifier) {
@@ -369,5 +422,41 @@ fun Mark2Icon(modifier: Modifier = Modifier) {
 private fun Mark2IconPreview() {
     AppTheme {
         Mark2Icon()
+    }
+}
+
+@Composable
+fun DownIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        tint = AppTheme.colors.gray2,
+        painter = painterResource(R.drawable.ic_down),
+        contentDescription = null
+    )
+}
+
+@Preview
+@Composable
+private fun DownIconPreview() {
+    AppTheme {
+        DownIcon()
+    }
+}
+
+@Composable
+fun UpIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        tint = AppTheme.colors.gray2,
+        painter = painterResource(R.drawable.ic_up),
+        contentDescription = null
+    )
+}
+
+@Preview
+@Composable
+private fun UpIconPreview() {
+    AppTheme {
+        UpIcon()
     }
 }

@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.element.BonusesIcon
+import com.progressterra.ipbandroidview.composable.element.BonusesSmallIcon
 import com.progressterra.ipbandroidview.composable.element.ThemedSwitch
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -51,7 +51,7 @@ fun BonusSwitch(
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.text
             )
-            BonusesIcon()
+            BonusesSmallIcon()
             Spacer(modifier = Modifier.weight(1f))
             ThemedSwitch(onChange = switchUseBonuses, checked = state()::useBonuses)
         }
