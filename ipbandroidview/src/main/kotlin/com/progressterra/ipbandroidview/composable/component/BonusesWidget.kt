@@ -11,15 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.BonusesLargeIcon
-import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val paddingVertical = 32.dp
 
 @Composable
-fun BonusesWidget(modifier: Modifier, bonuses: () -> Int, bonusesValue: () -> SimplePrice) {
+fun BonusesWidget(
+    modifier: Modifier = Modifier, bonuses: () -> Int
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -38,7 +41,7 @@ fun BonusesWidget(modifier: Modifier, bonuses: () -> Int, bonusesValue: () -> Si
             BonusesLargeIcon()
         }
         Text(
-            text = "= ${bonusesValue().formattedPrice}",
+            text = "= ${bonuses()} ${stringResource(R.string.currency)}",
             color = AppTheme.colors.gray2,
             style = AppTheme.typography.text
         )

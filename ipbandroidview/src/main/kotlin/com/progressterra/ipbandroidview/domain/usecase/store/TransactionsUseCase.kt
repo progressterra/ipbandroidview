@@ -1,0 +1,37 @@
+package com.progressterra.ipbandroidview.domain.usecase.store
+
+import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.ext.format
+import com.progressterra.ipbandroidapi.ext.parseToDate
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.core.AbstractUseCase
+import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.model.Transaction
+
+interface TransactionsUseCase {
+
+    suspend fun transactions(): Result<List<Transaction>>
+
+    class Base(
+        sCRMRepository: SCRMRepository,
+        provideLocation: ProvideLocation,
+        manageResources: ManageResources,
+        private val bonusesRepository: IBonusRepository
+    ) : TransactionsUseCase, AbstractUseCase(sCRMRepository, provideLocation) {
+
+        private val noData = manageResources.string(R.string.no_data)
+
+        //TODO transaction type when + when -
+        override suspend fun transactions(): Result<List<Transaction>> = runCatching {
+            withToken { bonusesRepository.getTransactionsList(it) }.getOrThrow()?.map {
+                Transaction(
+                    date = it.dateEvent?.parseToDate()?.format("dd.MM.yyyy") ?: noData,
+                    name = it.typeBonusName ?: noData,
+                    delta = it.quantity?.toInt() ?: 0
+                )
+            } ?: emptyList()
+        }
+    }
+}

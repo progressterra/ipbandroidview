@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -8,13 +9,17 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.component.BonusesBadge
 import com.progressterra.ipbandroidview.composable.component.CategorySearchBar
 import com.progressterra.ipbandroidview.composable.component.SearchBox
 import com.progressterra.ipbandroidview.composable.component.StoreCard
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.composable.utils.items
 import com.progressterra.ipbandroidview.model.StoreGoods
@@ -33,17 +38,27 @@ fun MainScreen(
     openDetails: (StoreGoods) -> Unit,
     filters: () -> Unit,
     refresh: () -> Unit,
-    clear: () -> Unit
+    clear: () -> Unit,
+    bonuses: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        CategorySearchBar(
-            state = searchState,
-            onBack = back,
-            onKeyword = keyword,
-            onSearch = search,
-            onFilters = filters,
-            onClear = clear
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
+            if (mainState().userExist)
+                ThemedTopAppBar(title = stringResource(R.string.main), actions = {
+                    BonusesBadge(
+                        bonuses = mainState().bonuses::quantity,
+                        onClick = bonuses
+                    )
+                })
+            CategorySearchBar(
+                state = searchState,
+                onBack = back,
+                onKeyword = keyword,
+                onSearch = search,
+                onFilters = filters,
+                onClear = clear
+            )
+        }
     }) { _, _ ->
         SearchBox(
             state = searchState,

@@ -8,6 +8,7 @@ import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
+@Suppress("unused")
 class OrganizationsNode(
     private val onOrganization: (Organization) -> Unit,
     buildContext: BuildContext
@@ -25,7 +26,7 @@ class OrganizationsNode(
         OrganizationsScreen(
             state = state::value,
             refresh = viewModel::refresh,
-            viewModel::organizationDetails
+            organizationDetails = viewModel::organizationDetails
         )
     }
 }

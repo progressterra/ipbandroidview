@@ -16,6 +16,7 @@ import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
+@Suppress("unused")
 class ChecklistNode(
     buildContext: BuildContext,
     private val auditDocument: AuditDocument,

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.city
+package com.progressterra.ipbandroidview.ui.bonusesclarification
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,32 +9,26 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
-class CityNode(
+class BonusesClarificationNode(
     buildContext: BuildContext,
-    private val onNext: () -> Unit,
-    private val onBack: () -> Unit,
-    private val settings: CitySettings
+    private val onBack: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel: CityViewModel = getViewModel()
+        val viewModel: BonusesClarificationViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
-                CityEffect.Back -> onBack()
-                CityEffect.Next -> onNext()
+                is BonusesClarificationEffect.Back -> onBack()
             }
         }
         val state = viewModel.collectAsState()
-        CityScreen(
+        BonusesClarificationScreen(
             state = state::value,
             back = viewModel::back,
-            skip = viewModel::skip,
-            next = viewModel::next,
-            editAddress = viewModel::editAddress,
-            onMapClick = viewModel::onMapClick,
-            onSuggestion = viewModel::onSuggestion,
-            settings = settings
+            expandHowToObtain = viewModel::expandHowToObtain,
+            expandHowToSpend = viewModel::expandHowToSpend,
+            expandRatio = viewModel::expandRatio
         )
     }
 }

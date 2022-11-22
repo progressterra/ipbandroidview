@@ -1,34 +1,39 @@
 package com.progressterra.ipbandroidview.di
 
-import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.AllOrganizationsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.ChecklistUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CurrentLocationMarkerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CurrentLocationSuggestionsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteGoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteIdsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.domain.usecase.UserExistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.AllOrganizationsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.ChecklistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.CreateDocumentUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.CancelUseBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteGoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteIdsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.TransactionsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.UseBonusesUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -141,4 +146,24 @@ val useCasesModule = module {
     single<FastAddToCartUseCase> { FastAddToCartUseCase.Base(get(), get(), get()) }
 
     single<FastRemoveFromCartUseCase> { FastRemoveFromCartUseCase.Base(get(), get(), get()) }
+
+    single<UserExistUseCase> {
+        UserExistUseCase.Base()
+    }
+
+    single<AvailableBonusesUseCase> {
+        AvailableBonusesUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<TransactionsUseCase> {
+        TransactionsUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<CancelUseBonusesUseCase> {
+        CancelUseBonusesUseCase.Base(get(), get(), get())
+    }
+
+    single<UseBonusesUseCase> {
+        UseBonusesUseCase.Base(get(), get(), get())
+    }
 }

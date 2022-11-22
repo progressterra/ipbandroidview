@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ExpandableText(
     modifier: Modifier = Modifier,
-    text: () -> String,
+    text: String,
     expanded: () -> Boolean,
     expand: () -> Unit,
     content: @Composable ColumnScope.() -> Unit
@@ -40,7 +40,7 @@ fun ExpandableText(
                 ), horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = text(), style = AppTheme.typography.title, color = AppTheme.colors.black
+                text = text, style = AppTheme.typography.title, color = AppTheme.colors.black
             )
             if (expanded()) UpIcon()
             else DownIcon()
@@ -55,7 +55,9 @@ fun ExpandableText(
                         start = AppTheme.dimensions.medium,
                         bottom = AppTheme.dimensions.medium,
                         end = AppTheme.dimensions.medium
-                    ), content = content
+                    ),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                content = content
             )
         }
     }

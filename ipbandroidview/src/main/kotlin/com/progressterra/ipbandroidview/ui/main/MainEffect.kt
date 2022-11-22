@@ -5,4 +5,6 @@ import androidx.annotation.StringRes
 sealed class MainEffect {
 
     class Toast(@StringRes val message: Int) : MainEffect()
+
+    object Bonuses : MainEffect()
 }

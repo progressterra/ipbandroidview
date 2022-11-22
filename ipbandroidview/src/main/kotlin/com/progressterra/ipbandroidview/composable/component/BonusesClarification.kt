@@ -13,18 +13,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.ForwardTinyIcon
+import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun BonusesClarification(
     modifier: Modifier = Modifier,
     burningDate: () -> String,
-    burningQuantity: () -> Int
+    burningQuantity: () -> Int,
+    onClick: () -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
+            .niceClickable(onClick = onClick)
             .padding(AppTheme.dimensions.medium),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {

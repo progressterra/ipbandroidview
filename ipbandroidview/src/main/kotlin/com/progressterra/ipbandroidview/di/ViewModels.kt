@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.di
 
+import com.progressterra.ipbandroidview.ui.bonuses.BonusesViewModel
+import com.progressterra.ipbandroidview.ui.bonusesclarification.BonusesClarificationViewModel
 import com.progressterra.ipbandroidview.ui.cart.CartViewModel
 import com.progressterra.ipbandroidview.ui.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
@@ -10,6 +12,7 @@ import com.progressterra.ipbandroidview.ui.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.ui.goods.GoodsViewModel
 import com.progressterra.ipbandroidview.ui.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.ui.main.MainViewModel
+import com.progressterra.ipbandroidview.ui.order.OrderViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
@@ -23,15 +26,14 @@ import com.progressterra.ipbandroidview.ui.subcatalog.SubCatalogViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-
 val viewModelsModule = module {
 
     viewModel {
-        MainViewModel(get())
+        MainViewModel(get(), get(), get())
     }
 
     viewModel {
-        DocumentsViewModel(get(), get())
+        DocumentsViewModel(get())
     }
 
     viewModel {
@@ -59,7 +61,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        CityViewModel(get(), get(), get())
+        CityViewModel(get(), get(), get(), get())
     }
 
     viewModel {
@@ -104,7 +106,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        GoodsViewModel(get(), get())
+        GoodsViewModel(get())
     }
 
     viewModel {
@@ -117,5 +119,17 @@ val viewModelsModule = module {
 
     viewModel {
         CartViewModel(get(), get(), get())
+    }
+
+    viewModel {
+        BonusesViewModel(get(), get())
+    }
+
+    viewModel {
+        BonusesClarificationViewModel()
+    }
+
+    viewModel {
+        OrderViewModel(get(), get())
     }
 }

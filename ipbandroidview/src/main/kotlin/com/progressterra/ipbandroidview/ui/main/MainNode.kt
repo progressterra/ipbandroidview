@@ -12,10 +12,12 @@ import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
+@Suppress("unused")
 class MainNode(
     buildContext: BuildContext,
     private val onGoodsDetails: (String) -> Unit,
-    private val onFilters: () -> Unit
+    private val onFilters: () -> Unit,
+    private val onBonuses: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -27,6 +29,7 @@ class MainNode(
             when (it) {
                 is MainEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                     .show()
+                is MainEffect.Bonuses -> TODO()
             }
         }
         searchViewModel.collectSideEffect {
@@ -49,7 +52,8 @@ class MainNode(
             openDetails = searchViewModel::openDetails,
             keyword = searchViewModel::keyword,
             search = searchViewModel::search,
-            clear = searchViewModel::clear
+            clear = searchViewModel::clear,
+            bonuses = viewModel::bonuses
         )
     }
 }

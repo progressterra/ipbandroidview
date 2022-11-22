@@ -15,6 +15,7 @@ import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
+@Suppress("unused")
 class SubCatalogNode(
     buildContext: BuildContext,
     private val subCategory: Category,

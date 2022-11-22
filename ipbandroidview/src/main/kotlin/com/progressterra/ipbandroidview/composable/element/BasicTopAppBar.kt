@@ -20,7 +20,9 @@ fun BasicTopAppBar(
     backgroundColor: Color = AppTheme.colors.surfaces
 ) {
     BasicBar(
-        modifier = modifier, backgroundColor = backgroundColor, horizontalPadding = AppTheme.dimensions.large
+        modifier = modifier,
+        backgroundColor = backgroundColor,
+        horizontalPadding = AppTheme.dimensions.large
     ) {
         Box {
             leftActions?.let {
