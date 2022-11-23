@@ -19,8 +19,8 @@ interface AvailableDeliveryMethodsUseCase {
     ) : AvailableDeliveryMethodsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun availableDeliveryMethods(): Result<List<DeliveryMethod>> =
-            runCatching {
-                withToken { deliveryRepository.getDeliveryList(it) }.getOrThrow()!!.map {
+            withToken { token ->
+                deliveryRepository.getDeliveryList(token).getOrThrow()!!.map {
                     deliveryMethodMapper.map(it)
                 }
             }

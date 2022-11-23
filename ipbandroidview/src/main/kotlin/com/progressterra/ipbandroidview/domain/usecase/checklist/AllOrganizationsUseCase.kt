@@ -21,10 +21,8 @@ interface AllOrganizationsUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun allOrganizations(): Result<List<Organization>> = runCatching {
-            val places = withToken {
-                repo.availableChecklistsAndDocs(it)
-            }.getOrThrow()
+        override suspend fun allOrganizations(): Result<List<Organization>> = withToken { token ->
+            val places = repo.availableChecklistsAndDocs(token).getOrThrow()
             buildList {
                 places?.map { place ->
                     add(

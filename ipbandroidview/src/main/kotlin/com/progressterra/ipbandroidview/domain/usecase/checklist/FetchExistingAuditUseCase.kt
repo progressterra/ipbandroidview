@@ -18,8 +18,8 @@ interface FetchExistingAuditUseCase {
         override suspend fun fetchExistingAudit(
             idPlace: String,
             idChecklist: String
-        ): Result<String> = runCatching {
-            withToken { repo.activeDoc(it, idPlace, idChecklist) }.getOrThrow()?.idUnique!!
+        ): Result<String> = withToken { token ->
+            repo.activeDoc(token, idPlace, idChecklist).getOrThrow()?.idUnique!!
         }
     }
 }

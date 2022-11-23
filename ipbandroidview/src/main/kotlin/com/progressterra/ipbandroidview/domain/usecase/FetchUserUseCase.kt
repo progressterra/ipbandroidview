@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidapi.user.UserName
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.ext.needDetails
 
 interface FetchUserUseCase {
 
@@ -17,8 +16,8 @@ interface FetchUserUseCase {
         private val scrmRepository: SCRMRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), FetchUserUseCase {
 
-        override suspend fun fetch(): Result<Unit> = runCatching {
-            val info = withToken { scrmRepository.clientInfoByToken(it) }.getOrThrow()
+        override suspend fun fetch(): Result<Unit> = withToken { token ->
+            val info = scrmRepository.clientInfoByToken(token).getOrThrow()
             info?.client?.let {
                 UserData.userName = UserName(
                     name = it.name ?: "",

@@ -7,9 +7,9 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCaseSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.model.Voice
-import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
 
 interface CheckMediaDetailsUseCase {
@@ -25,15 +25,15 @@ interface CheckMediaDetailsUseCase {
     ) : AbstractUseCaseSaving(scrmRepository, provideLocation, fileExplorer),
         CheckMediaDetailsUseCase {
 
-        override suspend fun checkDetails(check: Check): Result<CurrentCheckMedia> = runCatching {
+        override suspend fun checkDetails(
+            check: Check
+        ): Result<CurrentCheckMedia> = withToken { token ->
             val voices = mutableListOf<Voice>()
             val pictures = mutableListOf<CheckPicture>()
-            withToken {
-                mediaDataRepository.attachedToEntity(
-                    it,
-                    check.id
-                )
-            }.getOrThrow()?.forEach { item ->
+            mediaDataRepository.attachedToEntity(
+                token,
+                check.id
+            ).getOrThrow()?.forEach { item ->
                 if (item.contentType == 0) {
                     val sizes = gson.fromJson(item.dataJSON, ImageData::class.java).list
                     pictures.add(
@@ -46,12 +46,12 @@ interface CheckMediaDetailsUseCase {
                         )
                     )
                 } else if (item.contentType == 6 && voices.size == 0) {
-                    saveAudio(withToken {
+                    saveAudio(
                         mediaDataRepository.downloadFile(
-                            it,
+                            token,
                             item.urlData!!
-                        )
-                    }.getOrThrow(), item.idUnique!!)
+                        ).getOrThrow(), item.idUnique!!
+                    )
                     voices.add(
                         Voice(
                             id = item.idUnique!!,

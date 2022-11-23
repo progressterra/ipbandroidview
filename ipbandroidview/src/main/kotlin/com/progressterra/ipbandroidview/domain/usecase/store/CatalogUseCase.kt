@@ -19,8 +19,8 @@ interface CatalogUseCase {
         private val mapper: CatalogMapper
     ) : AbstractUseCase(scrmRepository, provideLocation), CatalogUseCase {
 
-        override suspend fun catalog(): Result<List<MainCategory>> = runCatching {
-            withToken { repo.getCatalog(it) }.getOrThrow()?.first()?.childItems?.map {
+        override suspend fun catalog(): Result<List<MainCategory>> = withToken { token ->
+            repo.getCatalog(token).getOrThrow()?.first()?.childItems?.map {
                 mapper.map(
                     it
                 )

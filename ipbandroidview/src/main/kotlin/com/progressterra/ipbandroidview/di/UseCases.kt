@@ -55,7 +55,16 @@ val useCasesModule = module {
         )
     }
 
-    single<GoodsDetailsUseCase> { GoodsDetailsUseCase.Base(get(), get(), get(), get(), get()) }
+    single<GoodsDetailsUseCase> {
+        GoodsDetailsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
     single<ChecklistUseCase> { ChecklistUseCase.Base(get(), get(), get(), get()) }
 

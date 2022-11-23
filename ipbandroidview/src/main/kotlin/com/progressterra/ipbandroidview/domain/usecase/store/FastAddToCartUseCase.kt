@@ -17,17 +17,15 @@ interface FastAddToCartUseCase {
         private val repo: CartRepository
     ) : FastAddToCartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun add(goodsId: String, count: Int): Result<Unit> = runCatching {
-            withToken {
-                repo.fastAddToCart(
-                    it,
-                    ParamGoodsToECommers(
-                        idGoodsInventory = goodsId,
-                        count = 1,
-                        idSellerAmbassador = Constants.EMPTY_ID
-                    )
+        override suspend fun add(goodsId: String, count: Int): Result<Unit> = withToken { token ->
+            repo.fastAddToCart(
+                token,
+                ParamGoodsToECommers(
+                    idGoodsInventory = goodsId,
+                    count = 1,
+                    idSellerAmbassador = Constants.EMPTY_ID
                 )
-            }.onFailure { throw it }
+            ).onFailure { throw it }
         }
     }
 }

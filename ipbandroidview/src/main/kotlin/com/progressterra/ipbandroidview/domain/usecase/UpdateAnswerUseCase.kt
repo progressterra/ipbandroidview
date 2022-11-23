@@ -34,65 +34,55 @@ interface UpdateAnswerUseCase {
         override suspend fun update(
             check: Check,
             checkDetails: CurrentCheckMedia
-        ): Result<Check> = runCatching {
+        ): Result<Check> = withToken { token ->
             checkDetails.voices.forEach { voice ->
                 if (voice.local)
-                    withToken { token ->
-                        mediaDataRepository.attachToEntity(
-                            accessToken = token,
-                            idEntity = check.id,
-                            typeContent = 6,
-                            entityTypeName = "DrCheckListItem",
-                            alias = "",
-                            tag = 0,
-                            MultipartBody.Part.createFormData(
-                                name = "file",
-                                filename = fileExplorer.audioFile(voice.id).name,
-                                body = fileExplorer.audioFile(voice.id)
-                                    .asRequestBody("audio/*".toMediaTypeOrNull())
-                            )
+                    mediaDataRepository.attachToEntity(
+                        accessToken = token,
+                        idEntity = check.id,
+                        typeContent = 6,
+                        entityTypeName = "DrCheckListItem",
+                        alias = "",
+                        tag = 0,
+                        MultipartBody.Part.createFormData(
+                            name = "file",
+                            filename = fileExplorer.audioFile(voice.id).name,
+                            body = fileExplorer.audioFile(voice.id)
+                                .asRequestBody("audio/*".toMediaTypeOrNull())
                         )
-                    }
+                    ).onFailure { throw it }
                 if (!voice.local)
-                    withToken { token ->
-                        mediaDataRepository.deleteMediaData(token, voice.id)
-                    }
+                    mediaDataRepository.deleteMediaData(token, voice.id).onFailure { throw it }
             }
             checkDetails.pictures.forEach { picture ->
                 if (picture.local)
-                    withToken { token ->
-                        mediaDataRepository.attachToEntity(
-                            accessToken = token,
-                            idEntity = check.id,
-                            typeContent = 0,
-                            entityTypeName = "DrCheckListItem",
-                            alias = "",
-                            tag = 0,
-                            MultipartBody.Part.createFormData(
-                                name = "file",
-                                filename = fileExplorer.pictureFile(picture.id).name,
-                                body = fileExplorer.pictureFile(picture.id)
-                                    .asRequestBody("image/*".toMediaTypeOrNull())
-                            )
+                    mediaDataRepository.attachToEntity(
+                        accessToken = token,
+                        idEntity = check.id,
+                        typeContent = 0,
+                        entityTypeName = "DrCheckListItem",
+                        alias = "",
+                        tag = 0,
+                        MultipartBody.Part.createFormData(
+                            name = "file",
+                            filename = fileExplorer.pictureFile(picture.id).name,
+                            body = fileExplorer.pictureFile(picture.id)
+                                .asRequestBody("image/*".toMediaTypeOrNull())
                         )
-                    }
+                    ).onFailure { throw it }
                 if (!picture.local)
-                    withToken { token ->
-                        mediaDataRepository.deleteMediaData(token, picture.id)
-                    }
+                    mediaDataRepository.deleteMediaData(token, picture.id).onFailure { throw it }
             }
-            val result = withToken {
-                repo.createOrUpdateAnswer(
-                    it, DRAnswerChekListItemEntity(
-                        yesNo = check.yesNo,
-                        comments = check.comment,
-                        rangeValue = 0,
-                        specificMeaning = 0.0,
-                        specificFreeMeaning = "",
-                        iddrCheckListItem = check.id
-                    )
+            val result = repo.createOrUpdateAnswer(
+                token, DRAnswerChekListItemEntity(
+                    yesNo = check.yesNo,
+                    comments = check.comment,
+                    rangeValue = 0,
+                    specificMeaning = 0.0,
+                    specificFreeMeaning = "",
+                    iddrCheckListItem = check.id
                 )
-            }.getOrThrow()
+            ).getOrThrow()
             Check(
                 id = result?.idUnique!!,
                 name = result.shortDescription ?: noData,

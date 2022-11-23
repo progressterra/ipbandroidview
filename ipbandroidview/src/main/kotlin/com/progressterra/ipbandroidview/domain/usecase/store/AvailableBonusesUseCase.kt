@@ -23,8 +23,8 @@ interface AvailableBonusesUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun availableBonuses(): Result<BonusesInfo> = runCatching {
-            val response = withToken { bonusesRepository.getGeneralInfo(it) }.getOrThrow()
+        override suspend fun availableBonuses(): Result<BonusesInfo> = withToken { token ->
+            val response = bonusesRepository.getGeneralInfo(token).getOrThrow()
             BonusesInfo(
                 quantity = response?.currentQuantity?.toInt() ?: 0,
                 forBurningQuantity = response?.forBurningQuantity?.toInt() ?: 0,

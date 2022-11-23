@@ -8,7 +8,9 @@ abstract class AbstractUseCase(
     private val sCRMRepository: SCRMRepository, private val provideLocation: ProvideLocation
 ) {
 
-    protected suspend fun <T> withToken(block: suspend (accessToken: String) -> Result<T>): Result<T> {
+    protected suspend fun <T> withToken(
+        block: suspend (accessToken: String) -> T
+    ): Result<T> = runCatching {
         val locationResult = provideLocation.location()
         val result = sCRMRepository.accessToken(
             IncomeDataCreateAccessToken(
@@ -16,7 +18,7 @@ abstract class AbstractUseCase(
                 latitude = locationResult.getOrNull()?.latitude?.toFloat() ?: 0f,
                 longitude = locationResult.getOrNull()?.longitude?.toFloat() ?: 0f
             )
-        ).onFailure { return Result.failure(it) }
-        return block.invoke(result.getOrNull()!!)
+        ).getOrThrow()
+        block(result ?: "")
     }
 }

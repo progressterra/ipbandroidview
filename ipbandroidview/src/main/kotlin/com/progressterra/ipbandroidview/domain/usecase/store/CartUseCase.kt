@@ -23,22 +23,28 @@ interface CartUseCase {
         private val priceMapper: PriceMapper
     ) : CartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun cart(): Result<Cart> = runCatching {
-            val cart = withToken { cartRepo.getProductsInCart(it) }.getOrThrow()
+        override suspend fun cart(): Result<Cart> = withToken { token ->
+            val cart = cartRepo.getProductsInCart(token).getOrThrow()
             val favoriteIds = if (cart?.drSaleRow.isNullOrEmpty()) emptyList()
             else favoriteIdsUseCase.favoriteIds().getOrThrow()
             val price = priceMapper.map(cart?.drSaleRow?.sumOf { it.endPrice ?: 0.0 } ?: 0.0)
-            val goods = buildList {
+            val goods = buildSet {
                 cart?.drSaleRow?.map { saleRow ->
                     saleRow.idrgGoodsInventory?.let { id ->
                         iECommerceCoreRepository.getProductDetailByIDRG(
                             id
-                        ).getOrThrow()?.listProducts?.firstOrNull()?.let {
-                            add(cartGoodsMapper.map(it, favoriteIds.contains(id)))
+                        ).getOrThrow()?.listProducts?.firstOrNull()?.let { goodsDetails ->
+                            add(
+                                cartGoodsMapper.map(
+                                    goodsDetails,
+                                    favoriteIds.contains(id),
+                                    cart.drSaleRow?.count { it.idrfNomnclatura == goodsDetails.idrfNomenclatura }
+                                        ?: 0)
+                            )
                         }
                     }
                 }
-            }
+            }.toList()
             Cart(
                 listGoods = goods,
                 totalPrice = price

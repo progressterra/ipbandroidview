@@ -32,12 +32,10 @@ interface FilteredGoodsUseCase {
             id: String,
             keyword: String,
             filters: List<Filter>
-        ): Result<List<StoreGoods>> = runCatching {
-            val favorites = withToken {
-                favoriteRepository.getClientEntityByType(
-                    it, TypeOfEntity.PRODUCT
-                )
-            }.getOrThrow()
+        ): Result<List<StoreGoods>> = withToken { token ->
+            val favorites = favoriteRepository.getClientEntityByType(
+                token, TypeOfEntity.PRODUCT
+            ).getOrThrow()
             repo.itemsFiltered(
                 IncomeDataForFilterAndSort(
                     filterAndSortData = FilterAndSort(

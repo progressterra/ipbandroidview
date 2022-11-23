@@ -17,17 +17,16 @@ interface FastRemoveFromCartUseCase {
         private val repo: CartRepository
     ) : FastRemoveFromCartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun remove(goodsId: String, count: Int): Result<Unit> = runCatching {
-            withToken {
+        override suspend fun remove(goodsId: String, count: Int): Result<Unit> =
+            withToken { token ->
                 repo.removeProductFromCart(
                     ParamGoodsToECommers(
                         idGoodsInventory = goodsId,
                         count = 1,
                         idSellerAmbassador = Constants.EMPTY_ID
                     ),
-                    it
-                )
-            }.onFailure { throw it }
-        }
+                    token
+                ).onFailure { throw it }
+            }
     }
 }

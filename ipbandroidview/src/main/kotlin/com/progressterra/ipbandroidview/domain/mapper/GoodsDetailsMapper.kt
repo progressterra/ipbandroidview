@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.model.SimplePrice
 
 interface GoodsDetailsMapper {
 
-    fun map(data: RGGoodsInventoryExt, isFavorite: Boolean): GoodsDetails
+    fun map(data: RGGoodsInventoryExt, isFavorite: Boolean, count: Int): GoodsDetails
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
@@ -22,7 +22,7 @@ interface GoodsDetailsMapper {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override fun map(data: RGGoodsInventoryExt, isFavorite: Boolean): GoodsDetails {
+        override fun map(data: RGGoodsInventoryExt, isFavorite: Boolean, count: Int): GoodsDetails {
             val parsedParameters = parse<Map<String, String?>>(data.additionalDataJSON)
             val parametersToShow = parsedParameters?.get("listVisible")?.split(",")
             val parameters: List<GoodsParameters> = buildList {
@@ -42,7 +42,7 @@ interface GoodsDetailsMapper {
                 favorite = isFavorite,
                 description = data.extendedDescription ?: noData,
                 parameters = parameters,
-                inCartCounter = data.countInCart ?: 0,
+                inCartCounter = count,
                 color = GoodsColor(image = "", name = data.colorName ?: noData),
                 size = GoodsSize(true, "", null),
                 sizes = emptyList(),

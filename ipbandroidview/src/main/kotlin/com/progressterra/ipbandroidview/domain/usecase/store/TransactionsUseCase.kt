@@ -24,8 +24,8 @@ interface TransactionsUseCase {
         private val noData = manageResources.string(R.string.no_data)
 
         //TODO transaction type when + when -
-        override suspend fun transactions(): Result<List<Transaction>> = runCatching {
-            withToken { bonusesRepository.getTransactionsList(it) }.getOrThrow()?.map {
+        override suspend fun transactions(): Result<List<Transaction>> = withToken { token ->
+            bonusesRepository.getTransactionsList(token).getOrThrow()?.map {
                 Transaction(
                     date = it.dateEvent?.parseToDate()?.format("dd.MM.yyyy") ?: noData,
                     name = it.typeBonusName ?: noData,

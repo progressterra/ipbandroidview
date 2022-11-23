@@ -25,9 +25,8 @@ interface OrganizationAuditsUseCase {
 
         override suspend fun organizationsAudits(
             id: String
-        ): Result<List<OrganizationAudit>> = runCatching {
-            val availableChecks =
-                withToken { repo.availableChecklistsForPlace(it, id) }.getOrThrow()
+        ): Result<List<OrganizationAudit>> = withToken { token ->
+            val availableChecks = repo.availableChecklistsForPlace(token, id).getOrThrow()
             buildList {
                 availableChecks?.map { doc ->
                     doc.idUnique?.let {

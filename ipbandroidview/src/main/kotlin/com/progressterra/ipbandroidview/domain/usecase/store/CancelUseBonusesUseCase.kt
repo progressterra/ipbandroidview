@@ -15,8 +15,8 @@ interface CancelUseBonusesUseCase {
         private val repo: CartRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), CancelUseBonusesUseCase {
 
-        override suspend fun cancel(): Result<Unit> = runCatching {
-            withToken { repo.cancelBonusesImplementation(it) }.onFailure { throw it }
+        override suspend fun cancel(): Result<Unit> = withToken { token ->
+            repo.cancelBonusesImplementation(token).onFailure { throw it }
         }
     }
 }

@@ -17,8 +17,7 @@ interface StartVerificationChannelUseCase {
                     channelType = 0,
                     channelData = phoneNumber
                 )
-            )
-                .onFailure { throw it }
+            ).onFailure { throw it }
         }
     }
 }

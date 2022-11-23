@@ -28,20 +28,18 @@ interface AllDocumentsUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun allDocuments(): Result<List<Document>> = runCatching {
-            val documents = withToken {
-                repo.allDocuments(
-                    it,
-                    FilterAndSort(
-                        emptyList(),
-                        SortData("dateEnd", TypeVariantSort.DESC),
-                        "",
-                        false,
-                        0,
-                        300
-                    )
+        override suspend fun allDocuments(): Result<List<Document>> = withToken { token ->
+            val documents = repo.allDocuments(
+                token,
+                FilterAndSort(
+                    emptyList(),
+                    SortData("dateEnd", TypeVariantSort.DESC),
+                    "",
+                    false,
+                    0,
+                    300
                 )
-            }.getOrThrow()
+            ).getOrThrow()
             buildList {
                 documents?.map { doc ->
                     add(

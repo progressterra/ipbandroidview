@@ -17,12 +17,11 @@ interface CurrentLocationSuggestionsUseCase {
 
         override suspend fun currentLocation(): Result<List<Suggestion>> = runCatching {
             val locationResult = provideLocation.location().getOrThrow()
-            val suggestionsResult = repo.getSuggestionsAddressFromLocation(
+            repo.getSuggestionsAddressFromLocation(
                 locationResult.latitude.toFloat(),
                 locationResult.longitude.toFloat(),
                 3
-            ).getOrThrow()
-            suggestionsResult.map { mapper.map(it) }
+            ).getOrThrow().map { mapper.map(it) }
         }
     }
 }

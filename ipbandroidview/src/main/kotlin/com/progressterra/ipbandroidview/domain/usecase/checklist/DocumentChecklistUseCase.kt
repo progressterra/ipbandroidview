@@ -23,8 +23,8 @@ interface DocumentChecklistUseCase {
 
         override suspend fun documentChecklist(
             id: String
-        ): Result<List<Check>> = runCatching {
-            val responseChecklist = withToken { repo.checklistForDoc(it, id) }.getOrThrow()
+        ): Result<List<Check>> = withToken { token ->
+            val responseChecklist = repo.checklistForDoc(token, id).getOrThrow()
             var currentCategory = ""
             var categorizedChecks = 0
             var categoryNumber = 0

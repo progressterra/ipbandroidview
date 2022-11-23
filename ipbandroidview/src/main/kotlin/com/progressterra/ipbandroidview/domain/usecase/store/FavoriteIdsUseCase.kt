@@ -16,12 +16,10 @@ interface FavoriteIdsUseCase {
         private val ipbFavPromoRecRepository: IPBFavPromoRecRepository
     ) : FavoriteIdsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun favoriteIds(): Result<List<String>> = runCatching {
-            withToken {
-                ipbFavPromoRecRepository.getClientEntityByType(
-                    it, TypeOfEntity.PRODUCT
-                )
-            }.getOrThrow()
+        override suspend fun favoriteIds(): Result<List<String>> = withToken { token ->
+            ipbFavPromoRecRepository.getClientEntityByType(
+                token, TypeOfEntity.PRODUCT
+            ).getOrThrow()
         }
     }
 }

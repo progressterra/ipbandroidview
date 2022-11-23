@@ -15,9 +15,11 @@ interface UpdateFirebaseCloudMessagingTokenUseCase {
         provideLocation: ProvideLocation
     ) : UpdateFirebaseCloudMessagingTokenUseCase, AbstractUseCase(repo, provideLocation) {
 
-        override suspend fun update(firebaseCloudMessagingToken: String): Result<Unit> = withToken {
+        override suspend fun update(
+            firebaseCloudMessagingToken: String
+        ): Result<Unit> = withToken { token ->
             repo.setDeviceToken(
-                accessToken = it, request = IncomeDeviceParameters(
+                accessToken = token, request = IncomeDeviceParameters(
                     idDivice = UserData.deviceId,
                     deviceToken = firebaseCloudMessagingToken
                 )

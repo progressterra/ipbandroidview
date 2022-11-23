@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import java.util.*
+import java.util.Date
 
 interface CreateDocumentUseCase {
 
@@ -22,19 +22,17 @@ interface CreateDocumentUseCase {
         override suspend fun createDocument(
             idChecklist: String,
             idPlace: String
-        ): Result<String> = runCatching {
-            val result = withToken {
-                repo.createDoc(
-                    it, DHCheckPerformedEntityCreate(
-                        idChecklist,
-                        Constants.EMPTY_ID,
-                        idPlace,
-                        Date(System.currentTimeMillis()).format(),
-                        "",
-                        ""
-                    )
+        ): Result<String> = withToken { token ->
+            val result = repo.createDoc(
+                token, DHCheckPerformedEntityCreate(
+                    idChecklist,
+                    Constants.EMPTY_ID,
+                    idPlace,
+                    Date(System.currentTimeMillis()).format(),
+                    "",
+                    ""
                 )
-            }.getOrThrow()
+            ).getOrThrow()
             result?.idUnique!!
         }
     }

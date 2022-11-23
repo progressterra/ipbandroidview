@@ -16,14 +16,12 @@ interface UseBonusesUseCase {
         private val cartRepository: CartRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), UseBonusesUseCase {
 
-        override suspend fun use(sum: Int): Result<Unit> = runCatching {
-            withToken {
-                cartRepository.implementBonus(
-                    it, ParamImplementBonusV3(
-                        sumPaymentBonus = sum.toDouble()
-                    )
+        override suspend fun use(sum: Int): Result<Unit> = withToken { token ->
+            cartRepository.implementBonus(
+                token, ParamImplementBonusV3(
+                    sumPaymentBonus = sum.toDouble()
                 )
-            }.onFailure { throw it }
+            ).onFailure { throw it }
         }
     }
 }

@@ -25,17 +25,15 @@ interface GoodsPageUseCase {
 
         override suspend fun goodsPage(
             id: String, pageNumber: Int, favorites: List<String>
-        ): Result<Pair<Int, List<StoreGoods>>> = runCatching {
-            val result = withToken {
-                eCommerceRepo.getProductsByCategory(
-                    it,
-                    id,
-                    pageNumber,
-                    DomainConstants.PAGE_SIZE,
-                    0,
-                    0
-                )
-            }.getOrThrow()
+        ): Result<Pair<Int, List<StoreGoods>>> = withToken { token ->
+            val result = eCommerceRepo.getProductsByCategory(
+                token,
+                id,
+                pageNumber,
+                DomainConstants.PAGE_SIZE,
+                0,
+                0
+            ).getOrThrow()
             result?.numberCurrentPage!! to result.listProducts!!.map {
                 mapper.map(it, favorites.contains(it.idUnique!!))
             }

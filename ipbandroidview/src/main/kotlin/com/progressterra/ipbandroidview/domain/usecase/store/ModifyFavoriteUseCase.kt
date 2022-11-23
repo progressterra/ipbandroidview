@@ -16,23 +16,20 @@ interface ModifyFavoriteUseCase {
         private val favoriteRepository: IPBFavPromoRecRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), ModifyFavoriteUseCase {
 
-        override suspend fun modifyFavorite(id: String, favorite: Boolean): Result<Unit> =
-            runCatching {
-                if (favorite)
-                    withToken {
-                        favoriteRepository.removeFromFavorite(
-                            it,
-                            id
-                        )
-                    }.onFailure { throw it }
-                else
-                    withToken {
-                        favoriteRepository.addToFavorite(
-                            it,
-                            id,
-                            TypeOfEntity.PRODUCT
-                        )
-                    }.onFailure { throw it }
-            }
+        override suspend fun modifyFavorite(
+            id: String, favorite: Boolean
+        ): Result<Unit> = withToken { token ->
+            if (favorite)
+                favoriteRepository.removeFromFavorite(
+                    token,
+                    id
+                ).onFailure { throw it }
+            else
+                favoriteRepository.addToFavorite(
+                    token,
+                    id,
+                    TypeOfEntity.PRODUCT
+                ).onFailure { throw it }
+        }
     }
 }

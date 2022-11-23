@@ -21,12 +21,10 @@ interface FavoriteGoodsUseCase {
         private val storeGoodsMapper: StoreGoodsMapper
     ) : AbstractUseCase(scrmRepository, provideLocation), FavoriteGoodsUseCase {
 
-        override suspend fun favoriteGoods(): Result<List<StoreGoods>> = runCatching {
-            val favoriteIds = withToken { token ->
-                favoriteRepository.getClientEntityByType(
-                    token, TypeOfEntity.PRODUCT
-                )
-            }.getOrThrow()
+        override suspend fun favoriteGoods(): Result<List<StoreGoods>> = withToken { token ->
+            val favoriteIds = favoriteRepository.getClientEntityByType(
+                token, TypeOfEntity.PRODUCT
+            ).getOrThrow()
             buildList {
                 favoriteIds.map { favoriteId ->
                     eIECommerceCoreRepository.getProductDetailByIDRG(

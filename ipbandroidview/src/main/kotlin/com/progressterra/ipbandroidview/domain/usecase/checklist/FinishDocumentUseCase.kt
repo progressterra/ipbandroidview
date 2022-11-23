@@ -16,14 +16,14 @@ interface FinishDocumentUseCase {
         private val repo: ChecklistRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), FinishDocumentUseCase {
 
-        override suspend fun finishDocument(idChecklist: String): Result<Unit> = runCatching {
-            withToken {
-                repo.finishCheck(
-                    it,
-                    idChecklist,
-                    FinalCommentsInput("")
-                )
-            }.onFailure { throw it }
+        override suspend fun finishDocument(
+            idChecklist: String
+        ): Result<Unit> = withToken { token ->
+            repo.finishCheck(
+                token,
+                idChecklist,
+                FinalCommentsInput("")
+            ).onFailure { throw it }
         }
     }
 }

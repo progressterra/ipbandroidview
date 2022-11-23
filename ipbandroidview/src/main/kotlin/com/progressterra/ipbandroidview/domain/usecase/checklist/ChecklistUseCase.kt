@@ -22,12 +22,10 @@ interface ChecklistUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun details(id: String): Result<List<Check>> = runCatching {
-            val result = withToken {
-                checklistRepository.checklistElements(
-                    it, id, FilterAndSort(emptyList(), null, "", false, 0, 300)
-                )
-            }.getOrThrow()
+        override suspend fun details(id: String): Result<List<Check>> = withToken { token ->
+            val result = checklistRepository.checklistElements(
+                token, id, FilterAndSort(emptyList(), null, "", false, 0, 300)
+            ).getOrThrow()
             var currentCategory = ""
             var categorizedChecks = 0
             var categoryNumber = 0
