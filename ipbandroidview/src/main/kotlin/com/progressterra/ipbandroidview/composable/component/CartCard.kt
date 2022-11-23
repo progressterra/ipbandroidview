@@ -46,7 +46,9 @@ fun CartCard(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         SimpleImage(
-            modifier = Modifier.size(width = picWidth, height = picHeight),
+            modifier = Modifier
+                .size(width = picWidth, height = picHeight)
+                .clip(AppTheme.shapes.small),
             url = state()::image,
             backgroundColor = AppTheme.colors.surfaces
         )
