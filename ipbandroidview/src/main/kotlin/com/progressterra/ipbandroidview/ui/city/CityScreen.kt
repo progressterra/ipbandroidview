@@ -32,6 +32,7 @@ import com.progressterra.ipbandroidview.composable.element.BottomHolder
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
+import com.progressterra.ipbandroidview.model.Suggestion
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -47,7 +48,7 @@ fun CityScreen(
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            title = stringResource(id = R.string.verification_code),
+            title = stringResource(id = R.string.address),
             onBack = back
         )
     }, bottomBar = {
@@ -130,7 +131,6 @@ fun CityScreen(
                 isVisible = { state().isAddressInFocus && state().suggestions.isNotEmpty() },
                 onSuggestion = onSuggestion
             )
-
         }
     }
 }
