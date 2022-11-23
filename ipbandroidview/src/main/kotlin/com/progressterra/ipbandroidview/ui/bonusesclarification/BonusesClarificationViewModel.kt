@@ -24,11 +24,9 @@ class BonusesClarificationViewModel : ViewModel(),
 
     fun expandRatio() = intent {
         reduce { state.copy(ratioExpand = !state.ratioExpand) }
-
     }
 
     fun expandHowToObtain() = intent {
         reduce { state.copy(howToObtainExpand = !state.howToObtainExpand) }
-
     }
 }

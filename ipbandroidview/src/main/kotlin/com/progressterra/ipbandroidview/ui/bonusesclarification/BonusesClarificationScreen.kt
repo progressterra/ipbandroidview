@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
@@ -12,11 +13,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.ExpandableText
 import com.progressterra.ipbandroidview.theme.AppTheme
+
+private val imageHeight = 72.dp
+
+private val imageWidth = 264.dp
 
 @Composable
 fun BonusesClarificationScreen(
@@ -52,6 +59,7 @@ fun BonusesClarificationScreen(
                     color = AppTheme.colors.gray1
                 )
                 Image(
+                    modifier = Modifier.size(width = imageWidth, height = imageHeight),
                     painter = painterResource(R.drawable.bonuses_clarification),
                     contentDescription = null
                 )
@@ -84,5 +92,23 @@ fun BonusesClarificationScreen(
                 )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun BonusesClarificationScreenPreview() {
+    AppTheme {
+        BonusesClarificationScreen(
+            state = {
+                BonusesClarificationState(
+                    howToSpendExpand = true, ratioExpand = true, howToObtainExpand = false
+                )
+            },
+            back = {},
+            expandRatio = {},
+            expandHowToSpend = {},
+            expandHowToObtain = {}
+        )
     }
 }
