@@ -189,10 +189,6 @@ val useCasesModule = module {
         FetchUserBirthdayUseCase.Base()
     }
 
-    single<FetchUserUseCase> {
-        FetchUserUseCase.Base(get(), get())
-    }
-
     single<NeedDetailsUseCase> {
         NeedDetailsUseCase.Base()
     }
