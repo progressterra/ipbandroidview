@@ -87,21 +87,7 @@ fun GoodsLine(
 private fun GoodsLinePreview() {
     AppTheme {
         GoodsLine(state = {
-            Cart(
-                orderId = "", listGoods = listOf(), useBonuses = false, totalPrice = SimplePrice(
-                    formattedPrice = "",
-                    price = 0
-                ), discount = SimplePrice(
-                    formattedPrice = "",
-                    price = 0
-                ), bonuses = SimplePrice(
-                    formattedPrice = "",
-                    price = 0
-                ), deliveryPrice = SimplePrice(
-                    formattedPrice = "",
-                    price = 0
-                )
-            )
+            Cart()
         }, openGoodsDetails = {})
     }
 }

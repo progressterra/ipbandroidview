@@ -1,10 +1,10 @@
-package com.progressterra.ipbandroidview.ui.city
+package com.progressterra.ipbandroidview.ui.pickuppoint
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.model.Suggestion
 
 @Immutable
-data class CityState(
+data class PickUpPointState(
     val isPermissionGranted: Boolean = false,
     val isDataValid: Boolean = false,
     val address: String = "",

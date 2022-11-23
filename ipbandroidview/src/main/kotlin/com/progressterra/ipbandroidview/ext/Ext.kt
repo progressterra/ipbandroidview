@@ -1,10 +1,12 @@
 package com.progressterra.ipbandroidview.ext
 
 import androidx.core.util.PatternsCompat
+import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.core.AttachedMedia
+import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStats
 import com.progressterra.ipbandroidview.model.Id
-import com.progressterra.ipbandroidview.ui.checklist.Check
+import java.time.LocalDate
 
 fun String.isEmail(): Boolean = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
 
@@ -42,3 +44,10 @@ fun List<Check>.createStats(): ChecklistStats {
         remaining = remaining
     )
 }
+
+fun UserData.needDetails(): Boolean =
+    this.email.isBlank() || this.dateOfBirthday == 0L || this.userName.isEmpty()
+
+fun UserData.needAddress(): Boolean = this.address.isBlank()
+
+fun LocalDate.print(): String = "${this.dayOfMonth}.${this.monthValue}.${this.year}"

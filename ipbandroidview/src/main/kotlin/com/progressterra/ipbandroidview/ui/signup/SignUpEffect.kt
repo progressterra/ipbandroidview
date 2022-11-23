@@ -6,7 +6,9 @@ sealed class SignUpEffect {
 
     object Skip : SignUpEffect()
 
-    object Next : SignUpEffect()
+    object NeedAddress : SignUpEffect()
+
+    object SkipAddress : SignUpEffect()
 
     class Toast(@StringRes val message: Int) : SignUpEffect()
 }

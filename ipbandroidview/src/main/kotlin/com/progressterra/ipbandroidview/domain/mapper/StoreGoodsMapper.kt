@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.model.StoreGoods
 
 interface StoreGoodsMapper {
@@ -26,9 +27,9 @@ interface StoreGoodsMapper {
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            return StoreGoods.Base(id = data.idUnique!!,
+            return StoreGoods(id = data.idUnique!!,
                 image = images.firstOrNull()?.url ?: "",
-                price = data.currentPrice?.let { priceMapper.map(it) } ?: noData,
+                price = data.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
                 name = data.name ?: noData,
                 favorite = isFavorite
             )

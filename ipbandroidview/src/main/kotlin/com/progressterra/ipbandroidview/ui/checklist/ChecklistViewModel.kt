@@ -25,6 +25,7 @@ import com.progressterra.ipbandroidview.ext.markLastToRemove
 import com.progressterra.ipbandroidview.ext.markToRemove
 import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.AuditDocument
+import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.model.Voice
 import kotlinx.coroutines.delay

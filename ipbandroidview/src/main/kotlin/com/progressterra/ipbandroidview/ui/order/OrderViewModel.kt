@@ -66,7 +66,7 @@ class OrderViewModel(
     }
 
     fun editPromoCode(code: String) = intent {
-        reduce { state.copy(promoCode = code) }
+        reduce { state.copy(promoCodeName = code) }
     }
 
     fun applyPromoCode() = intent { }

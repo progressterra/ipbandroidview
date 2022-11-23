@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.checklist
+package com.progressterra.ipbandroidview.model
 
 import android.os.Parcelable
 import com.progressterra.ipbandroidview.model.Id

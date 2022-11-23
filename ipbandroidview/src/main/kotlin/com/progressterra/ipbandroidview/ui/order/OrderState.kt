@@ -23,8 +23,7 @@ data class OrderState(
     override val selectedDeliveryMethod: DeliveryMethod? = null,
     override val deliveryMethods: List<DeliveryMethod> = emptyList(),
     override val currentPaymentMethod: PaymentType? = null,
-    override val promoCodeValue: SimplePrice = SimplePrice(),
-    override val promoCode: String = "",
+    override val promoCode: SimplePrice = SimplePrice(),
     override val deliveryPrice: SimplePrice = SimplePrice(),
     override val paidWithBonuses: SimplePrice = SimplePrice(),
     override val goodsReceipts: List<GoodsReceipt> = emptyList(),
@@ -33,7 +32,8 @@ data class OrderState(
     override val email: String = UserData.email,
     override val availableBonuses: Int = 0,
     override val useBonuses: Boolean = false,
-    val screenState: ScreenState = ScreenState.LOADING
+    val screenState: ScreenState = ScreenState.LOADING,
+    override val promoCodeName: String = ""
 ) : DeliveryPickerState,
     BonusSwitchState,
     PromoCodeState,

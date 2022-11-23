@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.composable.component.VoiceState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.AuditDocument
+import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStats
 
 @Immutable

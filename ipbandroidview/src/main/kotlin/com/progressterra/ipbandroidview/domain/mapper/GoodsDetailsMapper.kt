@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.model.GoodsColor
 import com.progressterra.ipbandroidview.model.GoodsDetails
 import com.progressterra.ipbandroidview.model.GoodsParameters
 import com.progressterra.ipbandroidview.model.GoodsSize
+import com.progressterra.ipbandroidview.model.SimplePrice
 
 interface GoodsDetailsMapper {
 
@@ -34,9 +35,9 @@ interface GoodsDetailsMapper {
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            return GoodsDetails.Base(
+            return GoodsDetails(
                 images = images.map { it.url },
-                price = data.currentPrice?.let { priceMapper.map(it) } ?: noData,
+                price = data.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
                 name = data.name ?: noData,
                 favorite = isFavorite,
                 description = data.extendedDescription ?: noData,

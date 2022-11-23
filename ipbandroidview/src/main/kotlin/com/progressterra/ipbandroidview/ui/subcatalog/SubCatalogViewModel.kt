@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.model.SubCategory
+import com.progressterra.ipbandroidview.model.Category
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -15,11 +15,11 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
     override val container: Container<SubCatalogState, SubCatalogEffect> =
         container(SubCatalogState())
 
-    fun setSubCategory(subCategory: SubCategory) = intent {
+    fun setSubCategory(subCategory: Category) = intent {
         reduce { state.copy(currentCategory = subCategory) }
     }
 
-    fun subCategory(subCategory: SubCategory) = intent {
+    fun subCategory(subCategory: Category) = intent {
         if (subCategory.hasNext)
             postSideEffect(SubCatalogEffect.SubCatalog(subCategory))
         else

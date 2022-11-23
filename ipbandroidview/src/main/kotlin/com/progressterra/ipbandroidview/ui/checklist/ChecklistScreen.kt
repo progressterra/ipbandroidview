@@ -44,6 +44,7 @@ import com.progressterra.ipbandroidview.composable.element.Divider
 import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
+import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch

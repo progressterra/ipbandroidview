@@ -18,8 +18,9 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class ConfirmationCodeNode(
     buildContext: BuildContext,
     private val phoneNumber: String,
-    private val onNext: () -> Unit,
-    private val onBack: () -> Unit,
+    private val onDetails: () -> Unit,
+    private val onSkipDetails: () -> Unit,
+    private val onBack: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -28,11 +29,12 @@ class ConfirmationCodeNode(
         val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
-                is ConfirmationCodeEffect.Next -> onNext()
                 is ConfirmationCodeEffect.Toast -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
                 is ConfirmationCodeEffect.Back -> onBack()
+                is ConfirmationCodeEffect.SkipDetails -> onSkipDetails
+                is ConfirmationCodeEffect.NeedDetails -> onDetails()
             }
         }
         var alreadyLaunched by rememberSaveable(phoneNumber) {

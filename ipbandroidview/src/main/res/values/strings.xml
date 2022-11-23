@@ -112,4 +112,7 @@
     <string name="how_to_obtain_short">Как я могу получить бонусы?</string>
     <string name="how_to_obtain">Покупайте в магазине, делитель реферальной ссылкой и зарабатывайте бонусы!</string>
     <string name="main">Главная</string>
+    <string name="try_again">Повторите попытку</string>
+    <string name="pick_up_point">Пункт самовывоза</string>
+    <string name="choose">Выбрать</string>
 </resources>

@@ -6,7 +6,9 @@ sealed class ConfirmationCodeEffect {
 
     object Back : ConfirmationCodeEffect()
 
-    object Next : ConfirmationCodeEffect()
+    object NeedDetails : ConfirmationCodeEffect()
+
+    object SkipDetails : ConfirmationCodeEffect()
 
     class Toast(@StringRes val message: Int) : ConfirmationCodeEffect()
 }

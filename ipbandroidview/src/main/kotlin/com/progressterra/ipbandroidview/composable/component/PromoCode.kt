@@ -13,15 +13,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
 interface PromoCodeState {
 
-    val promoCodeValue: SimplePrice
+    val promoCode: SimplePrice
 
-    val promoCode: String
+    val promoCodeName: String
 }
 
 @Composable
@@ -41,14 +42,14 @@ fun PromoCode(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         ThemedTextField(
-            text = state()::promoCode,
+            text = state()::promoCodeName,
             hint = stringResource(R.string.email),
             onChange = editPromoCode,
             action = applyPromoCode
         )
-        if (state().promoCodeValue.price > 0)
+        if (state().promoCode.price > 0)
             Text(
-                text = "Скидка ${state().promoCodeValue.formattedPrice}",
+                text = "Скидка ${state().promoCode.formattedPrice}",
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.tertiaryText
             )

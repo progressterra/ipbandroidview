@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.ui.checklist.Check
+import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

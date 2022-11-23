@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.city
+package com.progressterra.ipbandroidview.model
 
 data class Suggestion(
     val address: String,

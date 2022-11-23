@@ -14,13 +14,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.BottomHolder
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.composable.element.ThemedMimicField
 import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
+import com.progressterra.ipbandroidview.ext.print
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.squaredem.composecalendar.ComposeCalendar
 import java.time.LocalDate
@@ -30,7 +32,8 @@ fun SignUpScreen(
     state: () -> SignUpState,
     skip: () -> Unit,
     next: () -> Unit,
-    editBirthday: (String, LocalDate) -> Unit,
+    refresh: () -> Unit,
+    editBirthday: (LocalDate) -> Unit,
     editEmail: (String) -> Unit,
     editName: (String) -> Unit,
     openCalendar: () -> Unit,
@@ -54,51 +57,54 @@ fun SignUpScreen(
             )
         }
     }) { _, _ ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(AppTheme.dimensions.small)
+        StateBox(
+            state = state()::screenState,
+            refresh = refresh
         ) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.medium),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                    .fillMaxSize()
+                    .padding(AppTheme.dimensions.small)
             ) {
-                if (state().showCalendar) {
-                    ComposeCalendar(onDone = {
-                        editBirthday(
-                            "${it.dayOfMonth}.${it.monthValue}.${it.year}", it
-                        )
-                        closeCalendar()
-                    }, onDismiss = closeCalendar)
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(AppTheme.shapes.medium)
+                        .background(AppTheme.colors.surfaces)
+                        .padding(AppTheme.dimensions.medium),
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                ) {
+                    if (state().showCalendar) {
+                        ComposeCalendar(onDone = {
+                            editBirthday(it)
+                            closeCalendar()
+                        }, onDismiss = closeCalendar)
+                    }
+                    ThemedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = state()::name,
+                        hint = stringResource(id = R.string.name_surname),
+                        onChange = editName
+                    )
+                    ThemedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = state()::email,
+                        hint = stringResource(id = R.string.email),
+                        onChange = editEmail
+                    )
+                    ThemedMimicField(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = openCalendar,
+                        text = state().birthday::print,
+                        hint = stringResource(id = R.string.birthday),
+                    )
+                    ThemedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = state()::phoneNumber,
+                        hint = stringResource(id = R.string.phone_number),
+                        enabled = { false }
+                    )
                 }
-                ThemedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = state()::name,
-                    hint = stringResource(id = R.string.name_surname),
-                    onChange = editName
-                )
-                ThemedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = state()::email,
-                    hint = stringResource(id = R.string.email),
-                    onChange = editEmail
-                )
-                ThemedMimicField(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = openCalendar,
-                    text = state()::birthday,
-                    hint = stringResource(id = R.string.birthday),
-                )
-                ThemedTextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = state()::phoneNumber,
-                    hint = stringResource(id = R.string.phone_number),
-                    enabled = { false }
-                )
             }
         }
     }

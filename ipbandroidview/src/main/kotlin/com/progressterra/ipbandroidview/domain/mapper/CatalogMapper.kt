@@ -16,7 +16,7 @@ interface CatalogMapper : Mapper<CatalogItem, MainCategory> {
 
         override fun map(data: CatalogItem): MainCategory {
             val hasNext = !data.childItems.isNullOrEmpty()
-            return MainCategory.Base(id = data.item?.idUnique!!,
+            return MainCategory(id = data.item?.idUnique!!,
                 name = data.item?.name ?: noData,
                 image = data.item?.urlImage ?: "",
                 subCategories = data.childItems?.map { subCatalogMapper.map(it) }

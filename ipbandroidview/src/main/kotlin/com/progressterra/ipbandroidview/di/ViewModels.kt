@@ -49,11 +49,11 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        SignUpViewModel(get())
+        SignUpViewModel(get(), get(), get(), get(), get(), get())
     }
 
     viewModel {
-        ConfirmationCodeViewModel(get(), get())
+        ConfirmationCodeViewModel(get(), get(), get(), get())
     }
 
     viewModel {

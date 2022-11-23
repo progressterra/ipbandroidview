@@ -12,7 +12,10 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class SignUpNode(
-    buildContext: BuildContext, private val onNext: () -> Unit, private val onSkip: () -> Unit
+    buildContext: BuildContext,
+    private val onAddress: () -> Unit,
+    private val onSkipAddress: (() -> Unit)? = null,
+    private val onSkip: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -21,7 +24,8 @@ class SignUpNode(
         val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
-                is SignUpEffect.Next -> onNext()
+                is SignUpEffect.NeedAddress -> onAddress()
+                is SignUpEffect.SkipAddress -> onSkipAddress?.invoke()
                 is SignUpEffect.Skip -> onSkip()
                 is SignUpEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                     .show()
@@ -36,7 +40,8 @@ class SignUpNode(
             editEmail = viewModel::editEmail,
             editName = viewModel::editName,
             openCalendar = viewModel::openCalendar,
-            closeCalendar = viewModel::closeCalendar
+            closeCalendar = viewModel::closeCalendar,
+            refresh = viewModel::refresh
         )
     }
 }

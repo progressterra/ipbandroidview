@@ -116,8 +116,8 @@ dependencies {
     api "com.google.android.gms:play-services-maps:18.1.0"
 
     //iProBonusAndroidAPI
-    releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.51"
-    debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.51"
+    releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.53"
+    debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.53"
 
     //Compose-written calendar dialog
     api "com.squaredem:composecalendar:1.0.4"

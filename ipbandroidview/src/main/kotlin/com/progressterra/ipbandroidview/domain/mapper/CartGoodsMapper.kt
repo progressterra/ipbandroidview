@@ -27,7 +27,7 @@ interface CartGoodsMapper {
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            return CartGoods.Base(
+            return CartGoods(
                 id = data.idUnique!!,
                 image = images.firstOrNull()?.url ?: "",
                 price = data.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),

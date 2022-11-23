@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.ui.checklist.Check
+import com.progressterra.ipbandroidview.model.Check
 
 interface ChecklistUseCase {
 

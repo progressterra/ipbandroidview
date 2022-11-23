@@ -1,9 +1,15 @@
 package com.progressterra.ipbandroidview.di
 
-import com.progressterra.ipbandroidview.domain.usecase.CurrentLocationMarkerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FetchUserBirthdayUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FetchUserEmailUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FetchUserNameUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FetchUserPhoneUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FetchUserUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
+import com.progressterra.ipbandroidview.domain.usecase.NeedAddressUseCase
+import com.progressterra.ipbandroidview.domain.usecase.NeedDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
@@ -86,10 +92,6 @@ val useCasesModule = module {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(get(), get())
     }
 
-    single<CurrentLocationMarkerUseCase> {
-        CurrentLocationMarkerUseCase.Base(get())
-    }
-
     single<CurrentLocationSuggestionsUseCase> {
         CurrentLocationSuggestionsUseCase.Base(get(), get(), get())
     }
@@ -165,5 +167,37 @@ val useCasesModule = module {
 
     single<UseBonusesUseCase> {
         UseBonusesUseCase.Base(get(), get(), get())
+    }
+
+    single<FetchUserUseCase> {
+        FetchUserUseCase.Base(get(), get())
+    }
+
+    single<FetchUserNameUseCase> {
+        FetchUserNameUseCase.Base()
+    }
+
+    single<FetchUserEmailUseCase> {
+        FetchUserEmailUseCase.Base()
+    }
+
+    single<FetchUserPhoneUseCase> {
+        FetchUserPhoneUseCase.Base()
+    }
+
+    single<FetchUserBirthdayUseCase> {
+        FetchUserBirthdayUseCase.Base()
+    }
+
+    single<FetchUserUseCase> {
+        FetchUserUseCase.Base(get(), get())
+    }
+
+    single<NeedDetailsUseCase> {
+        NeedDetailsUseCase.Base()
+    }
+
+    single<NeedAddressUseCase> {
+        NeedAddressUseCase.Base()
     }
 }

@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.element.ForwardIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.checklist.Check
+import com.progressterra.ipbandroidview.model.Check
 
 @Composable
 fun CheckCard(

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.city
+package com.progressterra.ipbandroidview.ui.pickuppoint
 
 import android.Manifest
 import androidx.lifecycle.ViewModel
@@ -18,14 +18,14 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class CityViewModel(
+class PickUpPointViewModel(
     private val managePermissionContract: ManagePermissionContract.Client,
     private val guessLocationUseCase: GuessLocationUseCase,
     private val suggestionUseCase: SuggestionUseCase,
     private val saveUserAddressUseCase: SaveUserAddressUseCase
-) : ViewModel(), ContainerHost<CityState, CityEffect> {
+) : ViewModel(), ContainerHost<PickUpPointState, PickUpPointEffect> {
 
-    override val container: Container<CityState, CityEffect> = container(CityState())
+    override val container: Container<PickUpPointState, PickUpPointEffect> = container(PickUpPointState())
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
@@ -41,11 +41,11 @@ class CityViewModel(
         reduce { state.copy(isPermissionGranted = result) }
     }
 
-    fun skip() = intent { postSideEffect(CityEffect.Next) }
+    fun skip() = intent { postSideEffect(PickUpPointEffect.Next) }
 
-    fun next() = intent {
+    fun choose() = intent {
         saveUserAddressUseCase.saveAddress(address = state.address)
-        postSideEffect(CityEffect.Next)
+        postSideEffect(PickUpPointEffect.Next)
     }
 
     fun editAddress(address: String) = intent {
@@ -66,6 +66,6 @@ class CityViewModel(
     }
 
     fun back() = intent {
-        postSideEffect(CityEffect.Back)
+        postSideEffect(PickUpPointEffect.Back)
     }
 }
