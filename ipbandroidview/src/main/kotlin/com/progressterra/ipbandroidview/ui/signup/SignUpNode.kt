@@ -14,7 +14,6 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class SignUpNode(
     buildContext: BuildContext,
     private val onAddress: () -> Unit,
-    private val onSkipAddress: (() -> Unit)? = null,
     private val onSkip: () -> Unit
 ) : Node(buildContext) {
 
@@ -25,7 +24,6 @@ class SignUpNode(
         viewModel.collectSideEffect {
             when (it) {
                 is SignUpEffect.NeedAddress -> onAddress()
-                is SignUpEffect.SkipAddress -> onSkipAddress?.invoke()
                 is SignUpEffect.Skip -> onSkip()
                 is SignUpEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                     .show()

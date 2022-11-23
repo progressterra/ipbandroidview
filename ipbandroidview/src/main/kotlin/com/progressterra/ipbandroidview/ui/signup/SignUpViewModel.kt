@@ -58,7 +58,7 @@ class SignUpViewModel(
                     if (it)
                         postSideEffect(SignUpEffect.NeedAddress)
                     else
-                        postSideEffect(SignUpEffect.SkipAddress)
+                        postSideEffect(SignUpEffect.Skip)
                 }.onFailure {
                     SignUpEffect.Toast(R.string.try_again)
                 }
