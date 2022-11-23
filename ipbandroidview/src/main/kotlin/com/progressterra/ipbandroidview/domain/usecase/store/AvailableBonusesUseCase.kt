@@ -26,7 +26,7 @@ interface AvailableBonusesUseCase {
             BonusesInfo(
                 quantity = response?.currentQuantity?.toInt() ?: 0,
                 forBurningQuantity = response?.forBurningQuantity?.toInt() ?: 0,
-                burningDate = response?.dateBurning ?: noData
+                burningDate = response?.dateBurning?.format("dd.MM") ?: noData
             )
         }
     }

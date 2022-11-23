@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.composable.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ fun BonusesClarification(
         modifier = modifier
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
+            .background(AppTheme.colors.surfaces)
             .niceClickable(onClick = onClick)
             .padding(AppTheme.dimensions.medium),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
@@ -37,7 +38,7 @@ fun ExpandableText(
                 .niceClickable(onClick = expand)
                 .padding(
                     horizontal = AppTheme.dimensions.medium, vertical = AppTheme.dimensions.large
-                ), horizontalArrangement = Arrangement.SpaceBetween
+                ), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = text, style = AppTheme.typography.title, color = AppTheme.colors.black
@@ -51,11 +52,7 @@ fun ExpandableText(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(
-                        start = AppTheme.dimensions.medium,
-                        bottom = AppTheme.dimensions.medium,
-                        end = AppTheme.dimensions.medium
-                    ),
+                    .padding(AppTheme.dimensions.medium),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                 content = content
             )
