@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.cart
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.domain.usecase.UserExistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
@@ -18,7 +19,8 @@ import org.orbitmvi.orbit.viewmodel.container
 class CartViewModel(
     private val cartUseCase: CartUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
-    private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase
+    private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase,
+    private val userExistUseCase: UserExistUseCase
 ) : ViewModel(), ContainerHost<CartState, CartEffect> {
 
     override val container: Container<CartState, CartEffect> = container(CartState())
@@ -38,11 +40,11 @@ class CartViewModel(
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         cartUseCase.cart().onSuccess {
-            reduce { state.copy(cart = it, screenState = ScreenState.SUCCESS) }
-
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
-        }
+            reduce { state.copy(cart = it) }
+            userExistUseCase.userExist().onSuccess {
+                reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
+            }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
+        }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
     fun openDetails(item: CartGoods) =

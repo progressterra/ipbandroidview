@@ -32,13 +32,10 @@ class MainViewModel(
         availableBonusesUseCase.availableBonuses().onSuccess {
             reduce { state.copy(bonuses = it) }
             goodsUseCase.goods(DomainConstants.MAIN_DEFAULT_CATEGORY_ID).onSuccess {
-                reduce {
-                    state.copy(
-                        items = it.flow.cachedIn(viewModelScope), screenState = ScreenState.SUCCESS
-                    )
-                }
-                val userExist = userExistUseCase.userExist()
-                reduce { state.copy(userExist = userExist) }
+                reduce { state.copy(items = it.flow.cachedIn(viewModelScope)) }
+                userExistUseCase.userExist().onSuccess {
+                    reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
+                }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
             }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
