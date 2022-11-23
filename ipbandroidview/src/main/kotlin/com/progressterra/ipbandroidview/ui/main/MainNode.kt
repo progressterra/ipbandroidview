@@ -29,7 +29,7 @@ class MainNode(
             when (it) {
                 is MainEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                     .show()
-                is MainEffect.Bonuses -> TODO()
+                is MainEffect.Bonuses -> onBonuses()
             }
         }
         searchViewModel.collectSideEffect {
