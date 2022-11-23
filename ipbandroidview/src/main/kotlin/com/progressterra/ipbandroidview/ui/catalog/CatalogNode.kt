@@ -17,7 +17,6 @@ class CatalogNode(
     private val onGoodsDetails: (String) -> Unit,
     private val onGoods: (String) -> Unit,
     private val onSubCatalog: (Category) -> Unit,
-    private val onBack: () -> Unit,
     private val onFilters: () -> Unit
 ) : Node(buildContext = buildContext) {
 
@@ -33,7 +32,7 @@ class CatalogNode(
         val searchViewModel: SearchViewModel = getViewModel()
         searchViewModel.collectSideEffect {
             when (it) {
-                is SearchEffect.Back -> onBack()
+                is SearchEffect.Back -> {}
                 is SearchEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
                 is SearchEffect.Filters -> onFilters()
             }
