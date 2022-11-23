@@ -16,11 +16,11 @@ class BonusesViewModel(
     private val transactionsUseCase: TransactionsUseCase
 ) : ViewModel(), ContainerHost<BonusesState, BonusesEffect> {
 
+    override val container: Container<BonusesState, BonusesEffect> = container(BonusesState())
+
     init {
         refresh()
     }
-
-    override val container: Container<BonusesState, BonusesEffect> = container(BonusesState())
 
     fun clarification() = intent {
         postSideEffect(BonusesEffect.Clarification)
