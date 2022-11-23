@@ -25,7 +25,7 @@ fun BasicTopAppBar(
         backgroundColor = backgroundColor,
         paddingValues = PaddingValues(horizontal = AppTheme.dimensions.large)
     ) {
-        Box {
+        Box(contentAlignment = Alignment.Center) {
             leftActions?.let {
                 Row(
                     Modifier.fillMaxWidth(),

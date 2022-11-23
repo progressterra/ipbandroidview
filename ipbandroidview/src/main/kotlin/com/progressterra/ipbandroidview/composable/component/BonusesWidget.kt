@@ -34,7 +34,7 @@ fun BonusesWidget(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = bonuses.toString(),
+                text = bonuses().toString(),
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.headLine
             )

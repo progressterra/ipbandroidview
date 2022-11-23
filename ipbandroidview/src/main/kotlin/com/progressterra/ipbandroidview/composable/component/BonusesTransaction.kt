@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.composable.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,7 @@ fun BonusesTransaction(modifier: Modifier = Modifier, state: () -> Transaction) 
         modifier = modifier
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
+            .background(AppTheme.colors.surfaces)
             .padding(vertical = AppTheme.dimensions.small, horizontal = AppTheme.dimensions.medium),
         horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Bottom
     ) {
@@ -44,7 +46,7 @@ fun BonusesTransaction(modifier: Modifier = Modifier, state: () -> Transaction) 
                 )
             else
                 Text(
-                    text = "-${state().delta}",
+                    text = state().delta.toString(),
                     style = AppTheme.typography.text,
                     color = AppTheme.colors.error
                 )
