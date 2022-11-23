@@ -60,14 +60,14 @@ fun CartCard(
                 style = AppTheme.typography.text
             )
             Text(
-                text = "${state().color}, ${state().size}, ${state().inCartCounter} шт",
-                color = AppTheme.colors.black,
+                text = "${state().color.name}, ${state().size.primary}, ${state().inCartCounter} шт",
+                color = AppTheme.colors.gray1,
                 style = AppTheme.typography.text
             )
             Text(
                 text = state().price.formattedPrice,
                 color = AppTheme.colors.black,
-                style = AppTheme.typography.text
+                style = AppTheme.typography.title
             )
         }
         Column {

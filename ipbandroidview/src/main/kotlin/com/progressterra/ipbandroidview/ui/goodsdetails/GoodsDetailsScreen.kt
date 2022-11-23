@@ -1,5 +1,8 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -41,6 +44,11 @@ fun GoodsDetailsScreen(
         )
     }, bottomBar = {
         GoodsBottomBar(
+            modifier = Modifier.animateContentSize(
+                animationSpec = tween(
+                    durationMillis = 500, easing = LinearEasing
+                )
+            ),
             state = state()::goodsDetails,
             onAdd = add,
             onRemove = remove,

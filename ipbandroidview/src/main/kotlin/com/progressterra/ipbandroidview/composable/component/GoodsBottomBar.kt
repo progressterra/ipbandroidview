@@ -40,12 +40,7 @@ fun GoodsBottomBar(
             .fillMaxWidth()
             .background(AppTheme.colors.surfaces)
             .sideBorder(top = SideBorder(lineWidth, AppTheme.colors.gray2))
-            .padding(
-                start = AppTheme.dimensions.large,
-                top = AppTheme.dimensions.large,
-                end = AppTheme.dimensions.large,
-                bottom = AppTheme.dimensions.small
-            ),
+            .padding(AppTheme.dimensions.large),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
