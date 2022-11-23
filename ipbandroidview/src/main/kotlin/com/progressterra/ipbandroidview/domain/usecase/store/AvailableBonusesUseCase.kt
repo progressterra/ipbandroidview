@@ -2,6 +2,8 @@ package com.progressterra.ipbandroidview.domain.usecase.store
 
 import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidapi.ext.format
+import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
@@ -26,7 +28,7 @@ interface AvailableBonusesUseCase {
             BonusesInfo(
                 quantity = response?.currentQuantity?.toInt() ?: 0,
                 forBurningQuantity = response?.forBurningQuantity?.toInt() ?: 0,
-                burningDate = response?.dateBurning?.format("dd.MM") ?: noData
+                burningDate = response?.dateBurning?.parseToDate()?.format("dd.MM") ?: noData
             )
         }
     }
