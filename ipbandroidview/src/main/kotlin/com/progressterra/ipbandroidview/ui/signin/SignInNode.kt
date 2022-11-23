@@ -14,6 +14,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class SignInNode(
     buildContext: BuildContext,
     private val onNext: (phoneNumber: String) -> Unit,
+    private val onSkip: (() -> Unit)? = null,
     private val settings: SignInSettings,
 ) : Node(buildContext) {
 
@@ -24,7 +25,7 @@ class SignInNode(
         viewModel.collectSideEffect {
             when (it) {
                 is SignInEffect.Next -> onNext(it.phoneNumber)
-                is SignInEffect.Skip -> {}
+                is SignInEffect.Skip -> onSkip?.invoke()
                 is SignInEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                     .show()
             }
