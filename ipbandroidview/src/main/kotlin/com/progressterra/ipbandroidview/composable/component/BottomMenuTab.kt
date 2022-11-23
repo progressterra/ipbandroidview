@@ -26,7 +26,9 @@ import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-private val bottomMenuIconSize = 32.dp
+private val bottomMenuItemSize = 32.dp
+
+private val bottomMenuIconSize = 24.dp
 
 @Immutable
 data class BottomMenuTabState(
@@ -71,10 +73,12 @@ fun BottomMenuTab(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
-        Box(modifier = Modifier.size(bottomMenuIconSize)) {
+        Box(modifier = Modifier.size(bottomMenuItemSize)) {
             Counter(modifier = Modifier.align(Alignment.TopEnd), count = state()::count)
             Icon(
-                modifier = Modifier.align(Alignment.Center),
+                modifier = Modifier
+                    .size(bottomMenuIconSize)
+                    .align(Alignment.Center),
                 painter = painterResource(id = state().iconId),
                 contentDescription = null,
                 tint = if (active() == state().id) AppTheme.colors.primary else AppTheme.colors.gray2

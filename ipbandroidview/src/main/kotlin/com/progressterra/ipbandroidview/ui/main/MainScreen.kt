@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.main
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -42,7 +43,10 @@ fun MainScreen(
     bonuses: () -> Unit
 ) {
     ThemedLayout(topBar = {
-        Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
+        Column(
+            modifier = Modifier.background(AppTheme.colors.surfaces),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+        ) {
             if (mainState().userExist)
                 ThemedTopAppBar(title = stringResource(R.string.main), actions = {
                     BonusesBadge(

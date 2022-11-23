@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,7 +28,7 @@ fun ThemedBottomAppBar(
             .padding(
                 top = lineWidth
             ),
-        horizontalPadding = AppTheme.dimensions.medium,
+        paddingValues = PaddingValues(horizontal = AppTheme.dimensions.medium),
         arrangement = Arrangement.SpaceEvenly
     ) {
         items.forEach { item ->

@@ -1,11 +1,14 @@
 package com.progressterra.ipbandroidview.composable.element
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -339,7 +342,7 @@ private fun MarkIconPreview() {
 @Composable
 fun BonusesSmallIcon(modifier: Modifier = Modifier) {
     Icon(
-        modifier = modifier,
+        modifier = modifier.size(20.dp),
         tint = AppTheme.colors.primary,
         painter = painterResource(R.drawable.ic_bonuses_small),
         contentDescription = null
@@ -357,7 +360,7 @@ private fun BonusesSmallIconPreview() {
 @Composable
 fun BonusesLargeIcon(modifier: Modifier = Modifier) {
     Icon(
-        modifier = modifier,
+        modifier = modifier.size(40.dp),
         tint = AppTheme.colors.primary,
         painter = painterResource(R.drawable.ic_bonuses_large),
         contentDescription = null
@@ -375,7 +378,7 @@ private fun BonusesLargeIconPreview() {
 @Composable
 fun BonusesTinyIcon(modifier: Modifier = Modifier) {
     Icon(
-        modifier = modifier,
+        modifier = modifier.size(16.dp),
         tint = AppTheme.colors.surfaces,
         painter = painterResource(R.drawable.ic_bonuses_tiny),
         contentDescription = null
@@ -413,7 +416,8 @@ fun Mark2Icon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(R.drawable.ic_mark_2),
-        contentDescription = null
+        contentDescription = null,
+        tint = Color.Unspecified
     )
 }
 

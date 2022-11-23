@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -34,7 +34,7 @@ interface CategorySearchBarState {
     val filters: List<Filter>
 }
 
-private val iconSize = 20.dp
+private val paddingBottom = 10.dp
 
 @Composable
 fun CategorySearchBar(
@@ -48,7 +48,12 @@ fun CategorySearchBar(
     onFilters: () -> Unit
 ) {
     BasicBar(
-        modifier = modifier, horizontalPadding = AppTheme.dimensions.large
+        modifier = modifier,
+        paddingValues = PaddingValues(
+            start = AppTheme.dimensions.large,
+            end = AppTheme.dimensions.large,
+            bottom = paddingBottom
+        )
     ) {
         if (state().keyword.isNotEmpty() || category != null)
             IconButton(onClick = onBack) { BackIcon() }
@@ -64,7 +69,7 @@ fun CategorySearchBar(
                     .weight(1f)
                     .animateContentSize(
                         animationSpec = tween(
-                            durationMillis = 300, easing = LinearOutSlowInEasing
+                            durationMillis = 500, easing = LinearEasing
                         )
                     ),
                 text = state()::keyword,
@@ -76,11 +81,11 @@ fun CategorySearchBar(
                 action = onSearch,
                 trailingIcon = {
                     if (state().keyword.isNotEmpty())
-                        IconButton(modifier = Modifier.size(iconSize), onClick = onClear) {
+                        IconButton(onClick = onClear) {
                             Mark2Icon()
                         }
                     else
-                        SearchIcon(modifier = Modifier.size(iconSize))
+                        SearchIcon()
                 }
             )
         if (state().keyword.isNotEmpty())
@@ -99,6 +104,18 @@ private class CategorySearchBarStatePreview(
 @Composable
 private fun CategorySearchBarPreview() {
     AppTheme {
+        CategorySearchBar(
+            state = {
+                CategorySearchBarStatePreview(
+                    keyword = "", expanded = false, filters = emptyList()
+                )
+            },
+            onBack = {},
+            onClear = {},
+            onKeyword = {},
+            onFilters = {},
+            onSearch = {}
+        )
     }
 }
 
@@ -106,6 +123,17 @@ private fun CategorySearchBarPreview() {
 @Composable
 private fun CategorySearchBarPreviewExpanded() {
     AppTheme {
-
+        CategorySearchBar(
+            state = {
+                CategorySearchBarStatePreview(
+                    keyword = "some keyword", expanded = true, filters = emptyList()
+                )
+            },
+            onBack = {},
+            onClear = {},
+            onKeyword = {},
+            onFilters = {},
+            onSearch = {}
+        )
     }
 }

@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.composable.element
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +23,7 @@ fun BasicTopAppBar(
     BasicBar(
         modifier = modifier,
         backgroundColor = backgroundColor,
-        horizontalPadding = AppTheme.dimensions.large
+        paddingValues = PaddingValues(horizontal = AppTheme.dimensions.large)
     ) {
         Box {
             leftActions?.let {
