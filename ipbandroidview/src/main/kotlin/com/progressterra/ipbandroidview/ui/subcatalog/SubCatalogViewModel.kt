@@ -39,6 +39,10 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
     }
 
     fun clear() = intent {
-        reduce { state.copy(keyword = "") }
+        reduce { state.copy(keyword = "", expanded = false) }
+    }
+
+    fun expand() = intent {
+        reduce { state.copy(expanded = true) }
     }
 }

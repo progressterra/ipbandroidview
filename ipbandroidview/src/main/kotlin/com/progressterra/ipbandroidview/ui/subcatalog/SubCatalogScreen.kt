@@ -21,6 +21,7 @@ fun SubCatalogScreen(
     subCategory: (Category) -> Unit,
     keyword: (String) -> Unit,
     search: () -> Unit,
+    onExpand: () -> Unit,
     onClear: () -> Unit
 ) {
     ThemedLayout(topBar = {
@@ -30,7 +31,8 @@ fun SubCatalogScreen(
             onBack = back,
             onKeyword = keyword,
             onSearch = search,
-            onClear = onClear
+            onClear = onClear,
+            onExpand = onExpand
         )
     }) { _, _ ->
         LazyColumn(

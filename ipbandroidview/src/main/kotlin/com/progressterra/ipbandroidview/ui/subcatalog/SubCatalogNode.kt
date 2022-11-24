@@ -27,7 +27,6 @@ class SubCatalogNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: SubCatalogViewModel = getViewModel()
-
         viewModel.collectSideEffect {
             when (it) {
                 is SubCatalogEffect.Goods -> onGoods(it.categoryId)
@@ -50,7 +49,8 @@ class SubCatalogNode(
             subCategory = viewModel::subCategory,
             keyword = viewModel::keyword,
             search = viewModel::search,
-            onClear = viewModel::clear
+            onClear = viewModel::clear,
+            onExpand = viewModel::expand
         )
     }
 }

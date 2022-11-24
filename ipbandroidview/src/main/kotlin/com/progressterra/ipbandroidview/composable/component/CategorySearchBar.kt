@@ -37,6 +37,7 @@ fun CategorySearchBar(
     modifier: Modifier = Modifier,
     state: () -> CategorySearchBarState,
     category: () -> String,
+    onExpand: () -> Unit,
     onBack: () -> Unit,
     onClear: () -> Unit,
     onKeyword: (String) -> Unit,
@@ -95,7 +96,7 @@ fun CategorySearchBar(
             enter = expandHorizontally(),
             exit = shrinkHorizontally()
         ) {
-            IconButton(onClick = onSearch) { SearchIcon() }
+            IconButton(onClick = onExpand) { SearchIcon() }
         }
     }
 }
@@ -118,7 +119,8 @@ private fun CategorySearchBarPreview() {
             onClear = {},
             onKeyword = {},
             onSearch = {},
-            category = { "Some category" }
+            category = { "Some category" },
+            onExpand = {}
         )
     }
 }
@@ -137,7 +139,8 @@ private fun CategorySearchBarPreviewExpanded() {
             onClear = {},
             onKeyword = {},
             onSearch = {},
-            category = { "Some category" }
+            category = { "Some category" },
+            onExpand = {}
         )
     }
 }
