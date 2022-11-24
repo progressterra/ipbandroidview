@@ -48,7 +48,7 @@ fun CartBottomBar(
         if (userExist())
             ThemedButton(
                 onClick = onNext,
-                text = stringResource(id = R.string.in_cart),
+                text = stringResource(id = R.string.checkout),
                 enabled = screenState()::isSuccess
             )
         else

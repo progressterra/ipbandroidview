@@ -115,4 +115,5 @@
     <string name="try_again">Повторите попытку</string>
     <string name="pick_up_point">Пункт самовывоза</string>
     <string name="choose">Выбрать</string>
+    <string name="checkout">Оформить</string>
 </resources>

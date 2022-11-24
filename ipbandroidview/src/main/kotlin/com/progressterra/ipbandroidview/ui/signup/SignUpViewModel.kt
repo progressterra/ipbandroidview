@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.signup
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.FetchUserBirthdayUseCase
@@ -29,7 +28,11 @@ class SignUpViewModel(
 ) : ViewModel(), ContainerHost<SignUpState, SignUpEffect> {
 
     override val container: Container<SignUpState, SignUpEffect> =
-        container(SignUpState(phoneNumber = UserData.phone))
+        container(SignUpState())
+
+    init {
+        refresh()
+    }
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
