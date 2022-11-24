@@ -38,13 +38,25 @@ class SignUpViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         var wasError = false
         fetchUserNameUseCase.fetch().onSuccess { reduce { state.copy(name = it) } }
-            .onFailure { wasError = true }
+            .onFailure {
+                wasError = true
+                it.printStackTrace()
+            }
         fetchUserEmailUseCase.fetch().onSuccess { reduce { state.copy(email = it) } }
-            .onFailure { wasError = true }
+            .onFailure {
+                wasError = true
+                it.printStackTrace()
+            }
         fetchUserBirthdayUseCase.fetch().onSuccess { reduce { state.copy(birthday = it) } }
-            .onFailure { wasError = true }
+            .onFailure {
+                wasError = true
+                it.printStackTrace()
+            }
         fetchUserPhoneUseCase.fetch().onSuccess { reduce { state.copy(phoneNumber = it) } }
-            .onFailure { wasError = true }
+            .onFailure {
+                wasError = true
+                it.printStackTrace()
+            }
         if (wasError)
             reduce { state.copy(screenState = ScreenState.ERROR) }
         else
