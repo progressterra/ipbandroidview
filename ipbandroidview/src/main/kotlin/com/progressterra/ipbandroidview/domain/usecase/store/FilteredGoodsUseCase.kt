@@ -40,9 +40,9 @@ interface FilteredGoodsUseCase {
                 IncomeDataForFilterAndSort(
                     filterAndSortData = FilterAndSort(
                         listFields = filters.map { filterMapper.map(it) }, sort = SortData(
-                            fieldName = "price", variantSort = TypeVariantSort.ASC
+                            fieldName = "name", variantSort = TypeVariantSort.ASC
                         ),
-                        searchString = keyword
+                        searchString = keyword.trim()
                     ), idCategory = id
                 )
             ).getOrThrow()?.listProducts?.map {

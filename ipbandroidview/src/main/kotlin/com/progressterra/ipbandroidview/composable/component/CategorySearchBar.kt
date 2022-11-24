@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.composable.component
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
@@ -19,9 +19,7 @@ import com.progressterra.ipbandroidview.composable.element.BackIcon
 import com.progressterra.ipbandroidview.composable.element.BasicBar
 import com.progressterra.ipbandroidview.composable.element.Mark2Icon
 import com.progressterra.ipbandroidview.composable.element.SearchIcon
-import com.progressterra.ipbandroidview.composable.element.SettingsIcon
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
-import com.progressterra.ipbandroidview.model.Filter
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
@@ -30,8 +28,6 @@ interface CategorySearchBarState {
     val keyword: String
 
     val expanded: Boolean
-
-    val filters: List<Filter>
 }
 
 private val paddingBottom = 10.dp
@@ -40,38 +36,45 @@ private val paddingBottom = 10.dp
 fun CategorySearchBar(
     modifier: Modifier = Modifier,
     state: () -> CategorySearchBarState,
-    category: (() -> String)? = null,
+    category: () -> String,
     onBack: () -> Unit,
     onClear: () -> Unit,
     onKeyword: (String) -> Unit,
-    onSearch: () -> Unit,
-    onFilters: () -> Unit
+    onSearch: () -> Unit
 ) {
     BasicBar(
-        modifier = modifier,
-        paddingValues = PaddingValues(
+        modifier = modifier, paddingValues = PaddingValues(
             start = AppTheme.dimensions.large,
             end = AppTheme.dimensions.large,
             bottom = paddingBottom
         )
     ) {
-        if (state().keyword.isNotEmpty() || category != null)
-            IconButton(onClick = onBack) { BackIcon() }
-        if (category != null && state().keyword.isEmpty())
+        AnimatedVisibility(
+            modifier = modifier,
+            visible = !state().expanded,
+            enter = expandHorizontally(),
+            exit = shrinkHorizontally()
+        ) { IconButton(onClick = onBack) { BackIcon() } }
+        AnimatedVisibility(
+            modifier = modifier,
+            visible = !state().expanded,
+            enter = expandHorizontally(),
+            exit = shrinkHorizontally()
+        ) {
             Text(
                 text = category(),
                 style = AppTheme.typography.title,
                 color = AppTheme.colors.black
             )
-        else
-            ThemedTextField(
-                modifier = Modifier
-                    .weight(1f)
-                    .animateContentSize(
-                        animationSpec = tween(
-                            durationMillis = 500, easing = LinearEasing
-                        )
-                    ),
+        }
+        AnimatedVisibility(
+            modifier = modifier,
+            visible = state().expanded,
+            enter = expandHorizontally(),
+            exit = shrinkHorizontally()
+        ) {
+            ThemedTextField(modifier = Modifier
+                .weight(1f),
                 text = state()::keyword,
                 hint = stringResource(id = R.string.search),
                 onChange = onKeyword,
@@ -80,24 +83,25 @@ fun CategorySearchBar(
                 ),
                 action = onSearch,
                 trailingIcon = {
-                    if (state().keyword.isNotEmpty())
-                        IconButton(onClick = onClear) {
-                            Mark2Icon()
-                        }
-                    else
-                        SearchIcon()
-                }
-            )
-        if (state().keyword.isNotEmpty())
+                    if (state().keyword.isNotEmpty()) IconButton(onClick = onClear) {
+                        Mark2Icon()
+                    }
+                    else SearchIcon()
+                })
+        }
+        AnimatedVisibility(
+            modifier = modifier,
+            visible = !state().expanded,
+            enter = expandHorizontally(),
+            exit = shrinkHorizontally()
+        ) {
             IconButton(onClick = onSearch) { SearchIcon() }
-        if (state().expanded)
-            IconButton(onClick = onFilters) { SettingsIcon() }
+        }
     }
 }
 
 private class CategorySearchBarStatePreview(
-    override val keyword: String, override val expanded: Boolean,
-    override val filters: List<Filter>
+    override val keyword: String, override val expanded: Boolean
 ) : CategorySearchBarState
 
 @Preview
@@ -107,14 +111,14 @@ private fun CategorySearchBarPreview() {
         CategorySearchBar(
             state = {
                 CategorySearchBarStatePreview(
-                    keyword = "", expanded = false, filters = emptyList()
+                    keyword = "", expanded = false
                 )
             },
             onBack = {},
             onClear = {},
             onKeyword = {},
-            onFilters = {},
-            onSearch = {}
+            onSearch = {},
+            category = { "Some category" }
         )
     }
 }
@@ -126,14 +130,14 @@ private fun CategorySearchBarPreviewExpanded() {
         CategorySearchBar(
             state = {
                 CategorySearchBarStatePreview(
-                    keyword = "some keyword", expanded = true, filters = emptyList()
+                    keyword = "some keyword", expanded = true
                 )
             },
             onBack = {},
             onClear = {},
             onKeyword = {},
-            onFilters = {},
-            onSearch = {}
+            onSearch = {},
+            category = { "Some category" }
         )
     }
 }

@@ -7,4 +7,6 @@ sealed class CatalogEffect {
     class SubCatalog(val subCategory: Category) : CatalogEffect()
 
     class Goods(val categoryId: String) : CatalogEffect()
+
+    class Search(val keyword: String) : CatalogEffect()
 }

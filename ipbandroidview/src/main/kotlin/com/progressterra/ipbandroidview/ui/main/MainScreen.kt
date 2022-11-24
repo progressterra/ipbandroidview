@@ -16,8 +16,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.BonusesBadge
-import com.progressterra.ipbandroidview.composable.component.CategorySearchBar
-import com.progressterra.ipbandroidview.composable.component.SearchBox
+import com.progressterra.ipbandroidview.composable.component.CatalogSearchBar
 import com.progressterra.ipbandroidview.composable.component.StoreCard
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
@@ -25,19 +24,14 @@ import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.composable.utils.items
 import com.progressterra.ipbandroidview.model.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.search.SearchState
 
 @Composable
 fun MainScreen(
-    mainState: () -> MainState,
-    searchState: () -> SearchState,
+    state: () -> MainState,
     search: () -> Unit,
     keyword: (String) -> Unit,
-    back: () -> Unit,
     favoriteSpecific: (StoreGoods) -> Unit,
-    searchRefresh: () -> Unit,
     openDetails: (StoreGoods) -> Unit,
-    filters: () -> Unit,
     refresh: () -> Unit,
     clear: () -> Unit,
     bonuses: () -> Unit
@@ -47,48 +41,39 @@ fun MainScreen(
             modifier = Modifier.background(AppTheme.colors.surfaces),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
         ) {
-            if (mainState().userExist)
+            if (state().userExist)
                 ThemedTopAppBar(title = stringResource(R.string.main), actions = {
                     BonusesBadge(
-                        bonuses = mainState().bonuses::quantity,
+                        bonuses = state().bonuses::quantity,
                         onClick = bonuses
                     )
                 })
-            CategorySearchBar(
-                state = searchState,
-                onBack = back,
+            CatalogSearchBar(
+                state = state,
                 onKeyword = keyword,
                 onSearch = search,
-                onFilters = filters,
                 onClear = clear
             )
         }
     }) { _, _ ->
-        SearchBox(
-            state = searchState,
-            onRefresh = searchRefresh,
-            onFavorite = favoriteSpecific,
-            onGoods = openDetails
+        StateBox(
+            state = state()::screenState, refresh = refresh
         ) {
-            StateBox(
-                state = mainState()::screenState, refresh = refresh
+            val lazyItems: LazyPagingItems<StoreGoods> =
+                state().items.collectAsLazyPagingItems()
+            LazyVerticalGrid(
+                modifier = Modifier.fillMaxSize(),
+                columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                val lazyItems: LazyPagingItems<StoreGoods> =
-                    mainState().items.collectAsLazyPagingItems()
-                LazyVerticalGrid(
-                    modifier = Modifier.fillMaxSize(),
-                    columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                    contentPadding = PaddingValues(AppTheme.dimensions.small)
-                ) {
-                    items(lazyItems) { goods ->
-                        goods?.let {
-                            StoreCard(modifier = Modifier.align(Alignment.Center),
-                                state = { goods },
-                                onClick = { openDetails(goods) },
-                                onFavorite = { favoriteSpecific(goods) })
-                        }
+                items(lazyItems) { goods ->
+                    goods?.let {
+                        StoreCard(modifier = Modifier.align(Alignment.Center),
+                            state = { goods },
+                            onClick = { openDetails(goods) },
+                            onFavorite = { favoriteSpecific(goods) })
                     }
                 }
             }

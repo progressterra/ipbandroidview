@@ -9,7 +9,6 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@Suppress("unused", "MemberVisibilityCanBePrivate")
 class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatalogEffect> {
 
     override val container: Container<SubCatalogState, SubCatalogEffect> =
@@ -19,10 +18,26 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
         reduce { state.copy(currentCategory = subCategory) }
     }
 
+    fun back() = intent {
+        postSideEffect(SubCatalogEffect.Back)
+    }
+
     fun subCategory(subCategory: Category) = intent {
         if (subCategory.hasNext)
             postSideEffect(SubCatalogEffect.SubCatalog(subCategory))
         else
             postSideEffect(SubCatalogEffect.Goods(subCategory.id))
+    }
+
+    fun keyword(keyword: String) = intent {
+        reduce { state.copy(keyword = keyword) }
+    }
+
+    fun search() = intent {
+        postSideEffect(SubCatalogEffect.Search(state.keyword))
+    }
+
+    fun clear() = intent {
+        reduce { state.copy(keyword = "") }
     }
 }

@@ -18,7 +18,6 @@ import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.ui.profile.ProfileViewModel
 import com.progressterra.ipbandroidview.ui.profiledetails.ProfileDetailsViewModel
-import com.progressterra.ipbandroidview.ui.search.SearchViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
@@ -29,7 +28,7 @@ import org.koin.dsl.module
 val viewModelsModule = module {
 
     viewModel {
-        MainViewModel(get(), get(), get())
+        MainViewModel(get(), get(), get(), get())
     }
 
     viewModel {
@@ -98,15 +97,11 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        SearchViewModel(get(), get())
-    }
-
-    viewModel {
         SubCatalogViewModel()
     }
 
     viewModel {
-        GoodsViewModel(get())
+        GoodsViewModel(get(), get(), get())
     }
 
     viewModel {
@@ -118,7 +113,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        CartViewModel(get(), get(), get())
+        CartViewModel(get(), get(), get(), get())
     }
 
     viewModel {

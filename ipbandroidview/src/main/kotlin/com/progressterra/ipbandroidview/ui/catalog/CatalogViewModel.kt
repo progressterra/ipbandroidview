@@ -22,10 +22,8 @@ class CatalogViewModel(
     }
 
     fun openCategory(item: Category) = intent {
-        if (item.hasNext)
-            postSideEffect(CatalogEffect.SubCatalog(item))
-        else
-            postSideEffect(CatalogEffect.Goods(item.id))
+        if (item.hasNext) postSideEffect(CatalogEffect.SubCatalog(item))
+        else postSideEffect(CatalogEffect.Goods(item.id))
     }
 
     fun refresh() = intent {
@@ -35,5 +33,17 @@ class CatalogViewModel(
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
         }
+    }
+
+    fun keyword(keyword: String) = intent {
+        reduce { state.copy(keyword = keyword) }
+    }
+
+    fun search() = intent {
+        postSideEffect(CatalogEffect.Search(state.keyword))
+    }
+
+    fun clear() = intent {
+        reduce { state.copy(keyword = "") }
     }
 }

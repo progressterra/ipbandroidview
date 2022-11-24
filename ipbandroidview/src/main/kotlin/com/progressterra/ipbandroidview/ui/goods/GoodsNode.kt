@@ -8,8 +8,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.ui.search.SearchEffect
-import com.progressterra.ipbandroidview.ui.search.SearchViewModel
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -18,6 +16,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class GoodsNode(
     buildContext: BuildContext,
     private val categoryId: String,
+    private val keyword: String? = null,
     private val onGoodsDetails: (String) -> Unit,
     private val onBack: () -> Unit,
     private val onFilters: () -> Unit
@@ -25,36 +24,32 @@ class GoodsNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val searchViewModel: SearchViewModel = getViewModel()
         val viewModel: GoodsViewModel = getViewModel()
-        searchViewModel.collectSideEffect {
+        viewModel.collectSideEffect {
             when (it) {
-                is SearchEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
-                is SearchEffect.Back -> onBack()
-                is SearchEffect.Filters -> onFilters()
+                is GoodsEffect.Back -> onBack()
+                is GoodsEffect.Filters -> onFilters()
+                is GoodsEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
             }
         }
-        var alreadyLaunched by rememberSaveable(categoryId) {
+        var alreadyLaunched by rememberSaveable(categoryId, keyword) {
             mutableStateOf(false)
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setCategoryId(categoryId)
+            viewModel.setup(categoryId, keyword)
         }
-        val searchState = searchViewModel.collectAsState()
         val state = viewModel.collectAsState()
         GoodsScreen(
-            goodsState = state::value,
-            searchState = searchState::value,
+            state = state::value,
             refresh = viewModel::refresh,
-            back = searchViewModel::back,
-            filters = searchViewModel::filters,
-            favoriteSpecific = searchViewModel::favoriteSpecific,
-            searchRefresh = searchViewModel::refresh,
-            openDetails = searchViewModel::openDetails,
-            keyword = searchViewModel::keyword,
-            search = searchViewModel::search,
-            clear = searchViewModel::clear
+            back = viewModel::back,
+            filters = viewModel::filters,
+            favoriteSpecific = viewModel::favoriteSpecific,
+            openDetails = viewModel::openDetails,
+            keyword = viewModel::keyword,
+            search = viewModel::search,
+            clear = viewModel::clear
         )
     }
 }
