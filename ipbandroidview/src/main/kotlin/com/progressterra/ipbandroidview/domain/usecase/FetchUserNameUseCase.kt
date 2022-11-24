@@ -9,7 +9,12 @@ interface FetchUserNameUseCase {
     class Base : FetchUserNameUseCase {
 
         override suspend fun fetch(): Result<String> = runCatching {
-            "${UserData.userName.name} ${UserData.userName.surname}"
+            buildString {
+                if (UserData.userName.name.isNotBlank())
+                    append("${UserData.userName.name} ")
+                if (UserData.userName.surname.isNotBlank())
+                    append(UserData.userName.surname)
+            }.trim()
         }
     }
 }
