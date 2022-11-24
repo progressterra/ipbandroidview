@@ -29,7 +29,7 @@ class ConfirmationCodeNode(
         val viewModel: ConfirmationCodeViewModel = getViewModel()
         val context = LocalContext.current
         viewModel.collectSideEffect {
-            Log.d("DET", "it")
+            Log.d("DET", "$it")
             when (it) {
                 is ConfirmationCodeEffect.Toast -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
