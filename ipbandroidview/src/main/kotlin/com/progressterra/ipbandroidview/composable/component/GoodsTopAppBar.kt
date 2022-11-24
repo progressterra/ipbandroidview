@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.element.BackIcon
 import com.progressterra.ipbandroidview.composable.element.BasicTopAppBar
 import com.progressterra.ipbandroidview.composable.element.FavoriteButton
 import com.progressterra.ipbandroidview.model.GoodsDetails
@@ -24,11 +25,7 @@ fun GoodsTopAppBar(
 ) {
     BasicTopAppBar(modifier = modifier, backgroundColor = AppTheme.colors.surfaces, leftActions = {
         IconButton(onClick = onBack) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_back),
-                contentDescription = null,
-                tint = AppTheme.colors.gray1
-            )
+            BackIcon()
         }
     }, title = {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {

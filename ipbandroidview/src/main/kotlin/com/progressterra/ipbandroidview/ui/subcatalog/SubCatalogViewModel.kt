@@ -35,6 +35,7 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
 
     fun search() = intent {
         postSideEffect(SubCatalogEffect.Search(state.keyword))
+        clear()
     }
 
     fun clear() = intent {

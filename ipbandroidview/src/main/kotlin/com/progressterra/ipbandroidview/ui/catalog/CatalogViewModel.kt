@@ -41,6 +41,7 @@ class CatalogViewModel(
 
     fun search() = intent {
         postSideEffect(CatalogEffect.Search(state.keyword))
+        clear()
     }
 
     fun clear() = intent {

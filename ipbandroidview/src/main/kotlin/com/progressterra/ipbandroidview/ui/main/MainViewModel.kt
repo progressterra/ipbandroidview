@@ -61,6 +61,7 @@ class MainViewModel(
 
     fun search() = intent {
         postSideEffect(MainEffect.Search(state.keyword))
+        clear()
     }
 
     fun clear() = intent {

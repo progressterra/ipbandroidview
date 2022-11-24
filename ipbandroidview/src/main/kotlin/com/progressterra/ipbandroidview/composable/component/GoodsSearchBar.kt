@@ -13,9 +13,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.element.BackIcon
 import com.progressterra.ipbandroidview.composable.element.BasicBar
 import com.progressterra.ipbandroidview.composable.element.Mark2Icon
 import com.progressterra.ipbandroidview.composable.element.SearchIcon
+import com.progressterra.ipbandroidview.composable.element.SettingsIcon
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -45,11 +47,7 @@ fun GoodsSearchBar(
         )
     ) {
         IconButton(onClick = onBack) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_back),
-                contentDescription = stringResource(id = R.string.navigate_back),
-                tint = AppTheme.colors.gray1
-            )
+            BackIcon()
         }
         ThemedTextField(modifier = Modifier
             .weight(1f),
@@ -67,11 +65,7 @@ fun GoodsSearchBar(
                 else SearchIcon()
             })
         IconButton(onClick = onFilters) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_back),
-                contentDescription = stringResource(id = R.string.navigate_back),
-                tint = AppTheme.colors.gray1
-            )
+            SettingsIcon()
         }
     }
 }

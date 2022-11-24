@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.element.BackIcon
 import com.progressterra.ipbandroidview.composable.element.BasicTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -26,11 +27,7 @@ fun ThemedTopAppBar(
         leftActions = {
             onBack?.let {
                 IconButton(onClick = it) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_back),
-                        contentDescription = stringResource(id = R.string.navigate_back),
-                        tint = AppTheme.colors.gray1
-                    )
+                    BackIcon()
                 }
             }
         }, title = {

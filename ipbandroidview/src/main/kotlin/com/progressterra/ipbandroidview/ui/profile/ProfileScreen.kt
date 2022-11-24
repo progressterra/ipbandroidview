@@ -53,6 +53,7 @@ fun ProfileScreen(state: () -> ProfileState, openDetails: () -> Unit) {
                         style = AppTheme.typography.secondaryText
                     )
                 }
+                //TODO replace all icons
                 IconButton(onClick = openDetails) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_edit),
