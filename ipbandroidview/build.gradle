@@ -103,7 +103,7 @@ dependencies {
     testApi "junit:junit:4.13.2"
 
     //Appyx, navigation library
-    api "com.bumble.appyx:core:1.0.0"
+    api "com.bumble.appyx:core:1.0.1"
 
     //Google Firebase platform
     api platform("com.google.firebase:firebase-bom:31.1.0")
