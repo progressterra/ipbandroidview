@@ -15,7 +15,6 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class MainNode(
     buildContext: BuildContext,
     private val onGoodsDetails: (String) -> Unit,
-    private val onFilters: () -> Unit,
     private val onBonuses: () -> Unit,
     private val onSearch: (String, String) -> Unit
 ) : Node(buildContext) {
