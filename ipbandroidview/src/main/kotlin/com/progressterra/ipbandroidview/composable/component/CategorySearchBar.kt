@@ -1,8 +1,5 @@
 package com.progressterra.ipbandroidview.composable.component
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandHorizontally
-import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
@@ -50,30 +47,17 @@ fun CategorySearchBar(
             bottom = paddingBottom
         )
     ) {
-        AnimatedVisibility(
-            modifier = modifier,
-            visible = !state().expanded,
-            enter = expandHorizontally(),
-            exit = shrinkHorizontally()
-        ) { IconButton(onClick = onBack) { BackIcon() } }
-        AnimatedVisibility(
-            modifier = modifier,
-            visible = !state().expanded,
-            enter = expandHorizontally(),
-            exit = shrinkHorizontally()
-        ) {
+        if (!state().expanded) {
+            IconButton(onClick = onBack) { BackIcon() }
+        }
+        if (!state().expanded) {
             Text(
                 text = category(),
                 style = AppTheme.typography.title,
                 color = AppTheme.colors.black
             )
         }
-        AnimatedVisibility(
-            modifier = modifier,
-            visible = state().expanded,
-            enter = expandHorizontally(),
-            exit = shrinkHorizontally()
-        ) {
+        if (state().expanded) {
             ThemedTextField(modifier = Modifier
                 .weight(1f),
                 text = state()::keyword,
@@ -90,14 +74,8 @@ fun CategorySearchBar(
                     else SearchIcon()
                 })
         }
-        AnimatedVisibility(
-            modifier = modifier,
-            visible = !state().expanded,
-            enter = expandHorizontally(),
-            exit = shrinkHorizontally()
-        ) {
+        if (!state().expanded)
             IconButton(onClick = onExpand) { SearchIcon() }
-        }
     }
 }
 
