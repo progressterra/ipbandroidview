@@ -12,10 +12,11 @@ import com.progressterra.ipbandroidview.composable.component.ReceiveReceiptState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Cart
 import com.progressterra.ipbandroidview.model.DeliveryMethod
+import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
 
 data class OrderState(
-    val cart: Cart = Cart(),
+    val goods: List<OrderGoods> = emptyList(),
     override val address: String = UserData.address,
     override val entryway: String = "",
     override val apartment: String = "",
@@ -33,14 +34,11 @@ data class OrderState(
     override val availableBonuses: Int = 0,
     override val useBonuses: Boolean = false,
     val screenState: ScreenState = ScreenState.LOADING,
-    override val promoCodeName: String = ""
+    override val promoCodeName: String = "",
+    override val totalPrice: SimplePrice = SimplePrice()
 ) : DeliveryPickerState,
     BonusSwitchState,
     PromoCodeState,
     PaymentMethodState,
     ReceiveReceiptState,
-    ReceiptState {
-
-    override val totalPrice: SimplePrice
-        get() = cart.totalPrice
-}
+    ReceiptState

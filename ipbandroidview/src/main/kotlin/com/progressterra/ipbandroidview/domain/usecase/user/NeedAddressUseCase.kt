@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.user
 
 import com.progressterra.ipbandroidapi.user.UserData
 import com.progressterra.ipbandroidview.ext.needAddress

@@ -13,6 +13,8 @@ import com.progressterra.ipbandroidview.ui.goods.GoodsViewModel
 import com.progressterra.ipbandroidview.ui.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.ui.main.MainViewModel
 import com.progressterra.ipbandroidview.ui.order.OrderViewModel
+import com.progressterra.ipbandroidview.ui.orderprocessing.OrderProcessingViewModel
+import com.progressterra.ipbandroidview.ui.orders.OrdersViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
@@ -125,6 +127,14 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        OrderViewModel(get(), get())
+        OrderViewModel(get(), get(), get())
+    }
+
+    viewModel {
+        OrdersViewModel(get())
+    }
+
+    viewModel {
+        OrderProcessingViewModel()
     }
 }

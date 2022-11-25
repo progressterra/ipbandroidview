@@ -2,9 +2,12 @@ package com.progressterra.ipbandroidview.ui.order
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.component.PaymentType
-import com.progressterra.ipbandroidview.domain.usecase.store.UseBonusesUseCase
+import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.model.Cart
 import com.progressterra.ipbandroidview.model.DeliveryMethod
+import com.progressterra.ipbandroidview.model.OrderGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -14,14 +17,24 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class OrderViewModel(
     private val useBonusesUseCase: UseBonusesUseCase,
-    private val notUseBonusesUseCase: UseBonusesUseCase
+    private val notUseBonusesUseCase: UseBonusesUseCase,
+    private val availableDeliveryUseCase: AvailableDeliveryUseCase
 ) : ViewModel(), ContainerHost<OrderState, OrderEffect> {
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
 
-    fun setCart(cart: Cart) = intent {
+    fun refresh() = intent {
+        reduce { state.copy(screenState = ScreenState.LOADING) }
+        availableDeliveryUseCase.deliveries().onSuccess {
+            reduce { state.copy(screenState = ScreenState.LOADING, deliveryMethods = it) }
+        }.onFailure {
+            reduce { state.copy(screenState = ScreenState.LOADING) }
+        }
+    }
+
+    fun setCart(goods: List<OrderGoods>) = intent {
         reduce {
-            state.copy(cart = cart)
+            state.copy(goods = goods)
         }
     }
 
@@ -62,28 +75,33 @@ class OrderViewModel(
     }
 
     fun changeUseBonuses(use: Boolean) = intent {
-        reduce { state.copy(useBonuses = use) }
+        if (use)
+            notUseBonusesUseCase.use(state.availableBonuses).onSuccess {
+                reduce { state.copy(useBonuses = !state.useBonuses) }
+            }
+        else
+            useBonusesUseCase.use(state.availableBonuses).onSuccess {
+                reduce { state.copy(useBonuses = !state.useBonuses) }
+            }
     }
 
     fun editPromoCode(code: String) = intent {
         reduce { state.copy(promoCodeName = code) }
     }
 
-    fun applyPromoCode() = intent { }
+    fun applyPromoCode() = intent {
+
+    }
 
     fun changeReceiveReceipt(receive: Boolean) = intent {
         reduce { state.copy(receiveReceipt = receive) }
-
     }
 
     fun editEmail(email: String) = intent {
         reduce { state.copy(email = email) }
-
     }
 
     fun payment() = intent { }
 
     fun openUrl(url: String) = intent { }
-
-    fun refresh() = intent { }
 }

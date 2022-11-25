@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase.store
+package com.progressterra.ipbandroidview.domain.usecase.bonus
 
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamImplementBonusV3

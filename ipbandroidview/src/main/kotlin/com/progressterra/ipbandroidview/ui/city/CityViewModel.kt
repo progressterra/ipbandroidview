@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.SaveUserAddressUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.model.Suggestion
 import kotlinx.coroutines.delay

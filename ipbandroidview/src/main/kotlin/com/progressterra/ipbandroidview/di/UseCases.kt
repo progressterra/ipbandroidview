@@ -2,20 +2,14 @@ package com.progressterra.ipbandroidview.di
 
 import com.progressterra.ipbandroidview.domain.usecase.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.FetchUserBirthdayUseCase
-import com.progressterra.ipbandroidview.domain.usecase.FetchUserEmailUseCase
-import com.progressterra.ipbandroidview.domain.usecase.FetchUserNameUseCase
-import com.progressterra.ipbandroidview.domain.usecase.FetchUserPhoneUseCase
-import com.progressterra.ipbandroidview.domain.usecase.FetchUserUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.NeedAddressUseCase
-import com.progressterra.ipbandroidview.domain.usecase.NeedDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateFirebaseCloudMessagingTokenUseCase
-import com.progressterra.ipbandroidview.domain.usecase.UpdatePersonalInfoUseCase
-import com.progressterra.ipbandroidview.domain.usecase.UserExistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.bonus.CancelUseBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllOrganizationsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
@@ -25,8 +19,9 @@ import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentCheckli
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.AvailableBonusesUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.CancelUseBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
+import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
+import com.progressterra.ipbandroidview.domain.usecase.order.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCase
@@ -38,8 +33,17 @@ import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.OrdersUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.TransactionsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.UseBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserBirthdayUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.NeedAddressUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -204,5 +208,19 @@ val useCasesModule = module {
 
     single<NeedAddressUseCase> {
         NeedAddressUseCase.Base()
+    }
+
+    single<ConfirmOrderUseCase> {
+        ConfirmOrderUseCase.Base(get(), get(), get())
+    }
+
+    single<CreateDeliveryOrderUseCase> {
+        CreateDeliveryOrderUseCase.Base(get(), get(), get())
+    }
+
+    single<AvailableDeliveryUseCase> { AvailableDeliveryUseCase.Base(get(), get(), get(), get()) }
+
+    single<OrdersUseCase> {
+        OrdersUseCase.Base(get(), get(), get(), get(), get(), get(), get())
     }
 }

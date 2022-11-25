@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.DomainConstants
-import com.progressterra.ipbandroidview.domain.usecase.UserExistUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.model.StoreGoods

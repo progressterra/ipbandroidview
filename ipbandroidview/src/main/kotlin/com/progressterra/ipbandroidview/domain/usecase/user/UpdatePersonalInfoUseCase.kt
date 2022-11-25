@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.user
 
 import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository

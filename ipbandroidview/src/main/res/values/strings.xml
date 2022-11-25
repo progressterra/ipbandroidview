@@ -116,4 +116,16 @@
     <string name="pick_up_point">Пункт самовывоза</string>
     <string name="choose">Выбрать</string>
     <string name="checkout">Оформить</string>
+    <string name="on_main">На главную</string>
+    <string name="repeat_payment">Повторить оплату</string>
+    <string name="success_payment">Заказ успешно оплачен</string>
+    <string name="failed_payment">Оплата не прошла</string>
+    <string name="order_confirmed">Заказ подтверджён</string>
+    <string name="order_canceled">Заказ отменён</string>
+    <string name="order_delivered">Заказ доставлен</string>
+    <string name="order_on_pick_point">Заказ в пункте выдачи</string>
+    <string name="order_sent_delivery_service">Заказ отправлен в доставку</string>
+    <string name="order_sent_to_warehouse">Заказ на складе</string>
+    <string name="order_confirm_from_call_center">Требуется подтверждение по телефону</string>
+    <string name="order_confirm_from_store">Требуется подтверждение из магазина</string>
 </resources>

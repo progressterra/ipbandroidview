@@ -7,22 +7,22 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 
-interface AvailableDeliveryMethodsUseCase {
 
-    suspend fun availableDeliveryMethods(): Result<List<DeliveryMethod>>
+interface AvailableDeliveryUseCase {
+
+    suspend fun deliveries(): Result<List<DeliveryMethod>>
 
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val deliveryRepository: IPBDeliveryRepository,
-        private val deliveryMethodMapper: DeliveryMethodMapper
-    ) : AvailableDeliveryMethodsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+        private val mapper: DeliveryMethodMapper
+    ) : AvailableDeliveryUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun availableDeliveryMethods(): Result<List<DeliveryMethod>> =
-            withToken { token ->
-                deliveryRepository.getDeliveryList(token).getOrThrow()!!.map {
-                    deliveryMethodMapper.map(it)
-                }
-            }
+        override suspend fun deliveries(): Result<List<DeliveryMethod>> = withToken { token ->
+            deliveryRepository.getDeliveryList(token).getOrThrow()?.map {
+                mapper.map(it)
+            } ?: emptyList()
+        }
     }
 }

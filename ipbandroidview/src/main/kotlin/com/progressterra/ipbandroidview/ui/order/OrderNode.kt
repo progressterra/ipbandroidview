@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.model.Cart
+import com.progressterra.ipbandroidview.model.OrderGoods
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -16,7 +16,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class OrderNode(
     buildContext: BuildContext,
-    private val cart: Cart,
+    private val goods: List<OrderGoods>,
     private val onBack: () -> Unit,
     private val onCity: () -> Unit,
     private val onGoodsDetails: (String) -> Unit,
@@ -34,12 +34,12 @@ class OrderNode(
                 is OrderEffect.PickUp -> onChoosePickUpPoint()
             }
         }
-        var alreadyLaunched by rememberSaveable(cart) {
+        var alreadyLaunched by rememberSaveable(goods) {
             mutableStateOf(false)
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setCart(cart)
+            viewModel.setCart(goods)
         }
         val state = viewModel.collectAsState()
         OrderScreen(

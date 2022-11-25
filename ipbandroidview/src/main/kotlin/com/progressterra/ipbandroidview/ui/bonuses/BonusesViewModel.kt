@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.bonuses
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.store.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.TransactionsUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

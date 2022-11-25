@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.FetchUserUseCase
-import com.progressterra.ipbandroidview.domain.usecase.NeedDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container

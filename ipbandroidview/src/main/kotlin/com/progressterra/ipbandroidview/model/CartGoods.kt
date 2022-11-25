@@ -12,4 +12,8 @@ data class CartGoods(
 ) : Id {
 
     fun reverseFavorite(): CartGoods = this.copy(favorite = !favorite)
+
+    fun toOrderGoods(): OrderGoods = OrderGoods(
+        id = this.id, inCartCounter = this.inCartCounter, image = this.image
+    )
 }

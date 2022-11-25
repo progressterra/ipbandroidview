@@ -11,16 +11,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.model.OrderDetails
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun GoodsLine(
+fun OrdersGoodsLine(
     modifier: Modifier = Modifier,
-    state: () -> List<OrderGoods>,
+    state: () -> OrderDetails,
     openGoodsDetails: (String) -> Unit
 ) {
 
@@ -32,13 +30,20 @@ fun GoodsLine(
             .padding(AppTheme.dimensions.medium),
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
-        Text(
-            text = stringResource(R.string.goods),
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.title
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
+            Text(
+                text = state().status,
+                color = AppTheme.colors.gray1,
+                style = AppTheme.typography.title
+            )
+            Text(
+                text = state().number,
+                color = AppTheme.colors.gray2,
+                style = AppTheme.typography.tertiaryText
+            )
+        }
         LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-            items(state()) {
+            items(state().goods) {
                 GoodsLineItem(state = { it }, openGoodsDetails = openGoodsDetails)
             }
         }
@@ -47,10 +52,10 @@ fun GoodsLine(
 
 @Preview
 @Composable
-private fun GoodsLinePreview() {
+private fun OrdersGoodsLinePreview() {
     AppTheme {
-        GoodsLine(state = {
-            emptyList()
+        OrdersGoodsLine(state = {
+            OrderDetails()
         }, openGoodsDetails = {})
     }
 }

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase.store
+package com.progressterra.ipbandroidview.domain.usecase.bonus
 
 import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository

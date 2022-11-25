@@ -62,7 +62,7 @@ fun OrderScreen(
                     ),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                GoodsLine(state = state()::cart, openGoodsDetails = goodsDetails)
+                GoodsLine(state = state()::goods, openGoodsDetails = goodsDetails)
                 DeliveryPicker(
                     state = state,
                     changeAddress = changeAddress,

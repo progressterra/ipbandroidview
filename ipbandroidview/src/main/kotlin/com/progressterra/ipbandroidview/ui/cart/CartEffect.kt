@@ -1,11 +1,12 @@
 package com.progressterra.ipbandroidview.ui.cart
 
+import com.progressterra.ipbandroidview.model.OrderGoods
+
 sealed class CartEffect {
 
-    @Suppress("unused")
     class GoodsDetails(val goodsId: String) : CartEffect()
 
     object Auth : CartEffect()
 
-    object Next : CartEffect()
+    class Next(val goods: List<OrderGoods>) : CartEffect()
 }

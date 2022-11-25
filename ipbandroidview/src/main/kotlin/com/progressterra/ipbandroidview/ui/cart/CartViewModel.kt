@@ -2,10 +2,10 @@ package com.progressterra.ipbandroidview.ui.cart
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.UserExistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
 import com.progressterra.ipbandroidview.ext.removeItem
 import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.CartGoods
@@ -51,7 +51,7 @@ class CartViewModel(
         intent { postSideEffect(CartEffect.GoodsDetails(item.id)) }
 
     fun next() = intent {
-        postSideEffect(CartEffect.Next)
+        postSideEffect(CartEffect.Next(state.cart.listGoods.map { it.toOrderGoods() }))
     }
 
     fun removeSpecific(item: CartGoods) = intent {
