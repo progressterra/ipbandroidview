@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.composable.component.PaymentType
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
-import com.progressterra.ipbandroidview.model.Cart
+import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 import com.progressterra.ipbandroidview.model.OrderGoods
 import org.orbitmvi.orbit.Container
@@ -18,7 +18,8 @@ import org.orbitmvi.orbit.viewmodel.container
 class OrderViewModel(
     private val useBonusesUseCase: UseBonusesUseCase,
     private val notUseBonusesUseCase: UseBonusesUseCase,
-    private val availableDeliveryUseCase: AvailableDeliveryUseCase
+    private val availableDeliveryUseCase: AvailableDeliveryUseCase,
+    private val confirmOrderUseCase: ConfirmOrderUseCase
 ) : ViewModel(), ContainerHost<OrderState, OrderEffect> {
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
@@ -75,14 +76,12 @@ class OrderViewModel(
     }
 
     fun changeUseBonuses(use: Boolean) = intent {
-        if (use)
-            notUseBonusesUseCase.use(state.availableBonuses).onSuccess {
-                reduce { state.copy(useBonuses = !state.useBonuses) }
-            }
-        else
-            useBonusesUseCase.use(state.availableBonuses).onSuccess {
-                reduce { state.copy(useBonuses = !state.useBonuses) }
-            }
+        if (use) notUseBonusesUseCase.use(state.availableBonuses).onSuccess {
+            reduce { state.copy(useBonuses = !state.useBonuses) }
+        }
+        else useBonusesUseCase.use(state.availableBonuses).onSuccess {
+            reduce { state.copy(useBonuses = !state.useBonuses) }
+        }
     }
 
     fun editPromoCode(code: String) = intent {
@@ -101,7 +100,11 @@ class OrderViewModel(
         reduce { state.copy(email = email) }
     }
 
-    fun payment() = intent { }
+    fun payment() = intent {
+        confirmOrderUseCase.confirm().onSuccess {
+            postSideEffect(OrderEffect.Next(it))
+        }
+    }
 
     fun openUrl(url: String) = intent { }
 }
