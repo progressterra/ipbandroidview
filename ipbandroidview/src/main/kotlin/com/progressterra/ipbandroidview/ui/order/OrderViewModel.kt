@@ -27,9 +27,9 @@ class OrderViewModel(
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         availableDeliveryUseCase.deliveries().onSuccess {
-            reduce { state.copy(screenState = ScreenState.LOADING, deliveryMethods = it) }
+            reduce { state.copy(screenState = ScreenState.SUCCESS, deliveryMethods = it) }
         }.onFailure {
-            reduce { state.copy(screenState = ScreenState.LOADING) }
+            reduce { state.copy(screenState = ScreenState.ERROR) }
         }
     }
 
