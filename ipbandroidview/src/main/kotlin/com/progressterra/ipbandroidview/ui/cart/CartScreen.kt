@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.CartBottomBar
 import com.progressterra.ipbandroidview.composable.component.CartCard
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.model.CartGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -30,13 +30,14 @@ fun CartScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.cart))
     }, bottomBar = {
-        CartBottomBar(
-            onNext = next,
-            onAuth = auth,
-            userExist = state()::userExist,
-            screenState = state()::screenState,
-            totalPrice = state().cart::totalPrice
-        )
+        if (state().cart.listGoods.isNotEmpty())
+            CartBottomBar(
+                onNext = next,
+                onAuth = auth,
+                userExist = state()::userExist,
+                screenState = state()::screenState,
+                totalPrice = state().cart::totalPrice
+            )
     }) { _, _ ->
         StateBox(state = state()::screenState, refresh = refresh) {
             LazyColumn(
