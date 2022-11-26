@@ -27,8 +27,13 @@ class GoodsDetailsViewModel(
         container(GoodsDetailsScreenState())
 
     fun setGoodsId(goodsId: String) = intent {
-        reduce { state.copy(id = goodsId, screenState = ScreenState.LOADING) }
-        goodsDetailsUseCase.goodsDetails(goodsId).onSuccess {
+        reduce { state.copy(id = goodsId) }
+        refresh()
+    }
+
+    fun refresh() = intent {
+        reduce { state.copy(screenState = ScreenState.LOADING) }
+        goodsDetailsUseCase.goodsDetails(state.id).onSuccess {
             reduce { state.copy(screenState = ScreenState.SUCCESS, goodsDetails = it) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }

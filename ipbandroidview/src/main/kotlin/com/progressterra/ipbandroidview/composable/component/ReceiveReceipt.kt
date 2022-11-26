@@ -36,7 +36,6 @@ fun ReceiveReceipt(
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .animateContentSize()
@@ -57,6 +56,7 @@ fun ReceiveReceipt(
         }
         if (state().receiveReceipt)
             ThemedTextField(
+                modifier = Modifier.fillMaxWidth(),
                 text = state()::email,
                 hint = stringResource(R.string.email),
                 onChange = email

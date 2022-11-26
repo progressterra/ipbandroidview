@@ -42,6 +42,7 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCas
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
 import org.koin.dsl.module
@@ -223,4 +224,6 @@ val useCasesModule = module {
     single<OrdersUseCase> {
         OrdersUseCase.Base(get(), get(), get(), get(), get(), get(), get())
     }
+
+    single<SaveUserAddressUseCase> { SaveUserAddressUseCase.Base() }
 }

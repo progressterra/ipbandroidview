@@ -128,4 +128,5 @@
     <string name="order_sent_to_warehouse">Заказ на складе</string>
     <string name="order_confirm_from_call_center">Требуется подтверждение по телефону</string>
     <string name="order_confirm_from_store">Требуется подтверждение из магазина</string>
+    <string name="promo_code">Промокод</string>
 </resources>

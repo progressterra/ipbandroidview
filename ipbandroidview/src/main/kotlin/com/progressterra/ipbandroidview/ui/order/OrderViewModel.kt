@@ -1,11 +1,13 @@
 package com.progressterra.ipbandroidview.ui.order
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.component.PaymentType
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseCase
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 import com.progressterra.ipbandroidview.model.OrderGoods
 import org.orbitmvi.orbit.Container
@@ -19,15 +21,23 @@ class OrderViewModel(
     private val useBonusesUseCase: UseBonusesUseCase,
     private val notUseBonusesUseCase: UseBonusesUseCase,
     private val availableDeliveryUseCase: AvailableDeliveryUseCase,
-    private val confirmOrderUseCase: ConfirmOrderUseCase
+    private val confirmOrderUseCase: ConfirmOrderUseCase,
+    private val fetchUserAddressUseCase: FetchUserAddressUseCase
 ) : ViewModel(), ContainerHost<OrderState, OrderEffect> {
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        availableDeliveryUseCase.deliveries().onSuccess {
-            reduce { state.copy(screenState = ScreenState.SUCCESS, deliveryMethods = it) }
+        availableDeliveryUseCase.deliveries().onSuccess { deliveryMethods ->
+            Log.d("DELIVERY", "delivery methods: $deliveryMethods")
+            reduce { state.copy(deliveryMethods = deliveryMethods) }
+            fetchUserAddressUseCase.fetch().onSuccess {
+                Log.d("DELIVERY", "address: $it")
+                reduce { state.copy(address = it, screenState = ScreenState.SUCCESS) }
+            }.onFailure {
+                reduce { state.copy(screenState = ScreenState.ERROR) }
+            }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
         }

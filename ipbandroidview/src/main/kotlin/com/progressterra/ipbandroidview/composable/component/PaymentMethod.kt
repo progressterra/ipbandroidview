@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
@@ -44,7 +45,7 @@ fun PaymentMethod(
         type: PaymentType
     ) {
         Row(
-            modifier = modifier.padding(AppTheme.dimensions.small),
+            modifier = modifier.padding(horizontal = AppTheme.dimensions.small),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
@@ -63,8 +64,9 @@ fun PaymentMethod(
     Column(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
+            .fillMaxWidth()
             .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
+            .padding(AppTheme.dimensions.medium)
     ) {
         Text(
             text = stringResource(R.string.payment),

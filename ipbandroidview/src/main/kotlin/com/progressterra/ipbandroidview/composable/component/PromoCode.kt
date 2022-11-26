@@ -34,7 +34,6 @@ fun PromoCode(
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .animateContentSize()
@@ -42,8 +41,9 @@ fun PromoCode(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         ThemedTextField(
+            modifier = Modifier.fillMaxWidth(),
             text = state()::promoCodeName,
-            hint = stringResource(R.string.email),
+            hint = stringResource(R.string.promo_code),
             onChange = editPromoCode,
             action = applyPromoCode
         )

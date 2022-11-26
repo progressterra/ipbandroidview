@@ -46,7 +46,8 @@ class GoodsDetailsNode(
             sizeTable = viewModel::sizeTable,
             size = viewModel::size,
             back = viewModel::back,
-            color = viewModel::color
+            color = viewModel::color,
+            refresh = viewModel::refresh
         )
     }
 }

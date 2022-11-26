@@ -21,6 +21,7 @@ import com.progressterra.ipbandroidview.composable.component.GoodsDetails
 import com.progressterra.ipbandroidview.composable.component.GoodsTopAppBar
 import com.progressterra.ipbandroidview.composable.component.SizesLine
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.model.GoodsColor
 import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -28,6 +29,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun GoodsDetailsScreen(
     state: () -> GoodsDetailsScreenState,
+    refresh: () -> Unit,
     add: () -> Unit,
     remove: () -> Unit,
     favorite: () -> Unit,
@@ -55,38 +57,43 @@ fun GoodsDetailsScreen(
             screenState = state()::screenState
         )
     }) { _, _ ->
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-            contentPadding = PaddingValues(AppTheme.dimensions.small)
+        StateBox(
+            state = state()::screenState,
+            refresh = refresh
         ) {
-            item {
-                Gallery(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f), state = state()::goodsDetails
-                )
-            }
-            item {
-                ColorsLine(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state()::goodsDetails,
-                    chooseColor = color
-                )
-            }
-            item {
-                SizesLine(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state()::goodsDetails,
-                    onSize = size,
-                    onTable = sizeTable
-                )
-            }
-            item {
-                GoodsDetails(
-                    modifier = Modifier.fillMaxWidth(), state = state()::goodsDetails
-                )
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                contentPadding = PaddingValues(AppTheme.dimensions.small)
+            ) {
+                item {
+                    Gallery(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(1f), state = state()::goodsDetails
+                    )
+                }
+                item {
+                    ColorsLine(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state()::goodsDetails,
+                        chooseColor = color
+                    )
+                }
+                item {
+                    SizesLine(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state()::goodsDetails,
+                        onSize = size,
+                        onTable = sizeTable
+                    )
+                }
+                item {
+                    GoodsDetails(
+                        modifier = Modifier.fillMaxWidth(), state = state()::goodsDetails
+                    )
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                }
             }
         }
     }
