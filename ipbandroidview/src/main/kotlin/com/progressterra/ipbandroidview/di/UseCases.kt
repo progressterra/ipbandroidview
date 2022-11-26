@@ -36,6 +36,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.OrdersUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.TransactionsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserBirthdayUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
@@ -229,4 +230,6 @@ val useCasesModule = module {
     single<SaveUserAddressUseCase> { SaveUserAddressUseCase.Base() }
 
     single<PaymentMethodsForDeliveryUseCase> { PaymentMethodsForDeliveryUseCase.Base() }
+
+    single<FetchUserAddressUseCase> { FetchUserAddressUseCase.Base() }
 }
