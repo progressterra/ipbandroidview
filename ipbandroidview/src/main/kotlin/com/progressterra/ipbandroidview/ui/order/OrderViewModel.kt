@@ -37,6 +37,7 @@ class OrderViewModel(
         reduce {
             state.copy(goods = goods)
         }
+        refresh()
     }
 
     fun back() = intent {
