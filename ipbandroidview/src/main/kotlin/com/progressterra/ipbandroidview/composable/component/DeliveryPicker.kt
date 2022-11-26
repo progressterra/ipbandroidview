@@ -78,11 +78,10 @@ fun DeliveryPicker(
             )
             ForwardIcon()
         }
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-            userScrollEnabled = false
+        Column(
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
-            items(state().deliveryMethods) {
+            state().deliveryMethods.forEach {
                 Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)) {
                     ThemedRadioButton(
                         checked = { it == state().selectedDeliveryMethod },

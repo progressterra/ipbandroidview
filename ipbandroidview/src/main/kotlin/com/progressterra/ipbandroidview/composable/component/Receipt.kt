@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -83,19 +81,16 @@ fun Receipt(
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title
             )
-            LazyColumn(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
-                userScrollEnabled = false
+            Column(
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
             ) {
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(AppTheme.colors.background)
-                            .height(dividerWidth)
-                    )
-                }
-                items(state().goodsReceipts) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(AppTheme.colors.background)
+                        .height(dividerWidth)
+                )
+                state().goodsReceipts.forEach {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -113,70 +108,62 @@ fun Receipt(
                     }
                 }
                 state().paidWithBonuses?.let {
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = stringResource(R.string.paid_with_bonuses),
-                                color = AppTheme.colors.gray2,
-                                style = AppTheme.typography.tertiaryText
-                            )
-                            Text(
-                                text = "-${it.formattedPrice}",
-                                color = AppTheme.colors.primary,
-                                style = AppTheme.typography.tertiaryText
-                            )
-                        }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = stringResource(R.string.paid_with_bonuses),
+                            color = AppTheme.colors.gray2,
+                            style = AppTheme.typography.tertiaryText
+                        )
+                        Text(
+                            text = "-${it.formattedPrice}",
+                            color = AppTheme.colors.primary,
+                            style = AppTheme.typography.tertiaryText
+                        )
                     }
                 }
                 state().promoCode?.let {
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = stringResource(R.string.paid_with_promocode),
-                                color = AppTheme.colors.gray2,
-                                style = AppTheme.typography.tertiaryText
-                            )
-                            Text(
-                                text = "-${it.formattedPrice}",
-                                color = AppTheme.colors.primary,
-                                style = AppTheme.typography.tertiaryText
-                            )
-                        }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = stringResource(R.string.paid_with_promocode),
+                            color = AppTheme.colors.gray2,
+                            style = AppTheme.typography.tertiaryText
+                        )
+                        Text(
+                            text = "-${it.formattedPrice}",
+                            color = AppTheme.colors.primary,
+                            style = AppTheme.typography.tertiaryText
+                        )
                     }
                 }
                 state().deliveryPrice?.let {
-                    item {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = stringResource(R.string.delivery),
-                                color = AppTheme.colors.gray2,
-                                style = AppTheme.typography.tertiaryText
-                            )
-                            Text(
-                                text = it.formattedPrice,
-                                color = AppTheme.colors.gray1,
-                                style = AppTheme.typography.tertiaryText
-                            )
-                        }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = stringResource(R.string.delivery),
+                            color = AppTheme.colors.gray2,
+                            style = AppTheme.typography.tertiaryText
+                        )
+                        Text(
+                            text = it.formattedPrice,
+                            color = AppTheme.colors.gray1,
+                            style = AppTheme.typography.tertiaryText
+                        )
                     }
                 }
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(AppTheme.colors.background)
-                            .height(dividerWidth)
-                    )
-                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(AppTheme.colors.background)
+                        .height(dividerWidth)
+                )
             }
         }
         Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
