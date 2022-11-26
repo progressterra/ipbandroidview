@@ -11,11 +11,11 @@ data class PickUpPointInfo(
     val fittingAvailable: Boolean,
     val sendingParcels: Boolean,
     val path: String,
-    val paymentType: PaymentType,
+    val deliveryPaymentType: DeliveryPaymentType,
     val nearMetroStation: String
 )
 
-enum class PaymentType {
+enum class DeliveryPaymentType {
     PAYMENT_NOT_AVAILABLE,
     CASH,
     CARD,

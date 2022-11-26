@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.composable.component.BonusSwitch
 import com.progressterra.ipbandroidview.composable.component.DeliveryPicker
 import com.progressterra.ipbandroidview.composable.component.GoodsLine
 import com.progressterra.ipbandroidview.composable.component.PaymentMethod
-import com.progressterra.ipbandroidview.composable.component.PaymentType
+import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.composable.component.PromoCode
 import com.progressterra.ipbandroidview.composable.component.Receipt
 import com.progressterra.ipbandroidview.composable.component.ReceiveReceipt

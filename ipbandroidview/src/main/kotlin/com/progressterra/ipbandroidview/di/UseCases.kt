@@ -20,6 +20,7 @@ import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAu
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
+import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsForDeliveryUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
@@ -226,4 +227,6 @@ val useCasesModule = module {
     }
 
     single<SaveUserAddressUseCase> { SaveUserAddressUseCase.Base() }
+
+    single<PaymentMethodsForDeliveryUseCase> { PaymentMethodsForDeliveryUseCase.Base() }
 }

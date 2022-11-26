@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.ipbdelivery.models.PaymentTypeEnum
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.Mapper
-import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.model.DeliveryPaymentType
 import com.progressterra.ipbandroidview.model.PickUpPointInfo
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.model.toAddressId
@@ -35,14 +35,14 @@ interface DeliveryMethodMapper :
                         sendingParcels = drrdCanTake ?: false,
                         path = drrdWhereIs ?: "",
                         nearMetroStation = drrdMetroStation ?: "",
-                        paymentType = drrfPaymentAvaliable?.let { payment ->
+                        deliveryPaymentType = drrfPaymentAvaliable?.let { payment ->
                             when (payment) {
-                                PaymentTypeEnum.ZERO -> PaymentType.PAYMENT_NOT_AVAILABLE
-                                PaymentTypeEnum.ONE -> PaymentType.CASH
-                                PaymentTypeEnum.TWO -> PaymentType.CARD
-                                PaymentTypeEnum.THREE -> PaymentType.ALL_PAYMENT_TYPE
+                                PaymentTypeEnum.ZERO -> DeliveryPaymentType.PAYMENT_NOT_AVAILABLE
+                                PaymentTypeEnum.ONE -> DeliveryPaymentType.CASH
+                                PaymentTypeEnum.TWO -> DeliveryPaymentType.CARD
+                                PaymentTypeEnum.THREE -> DeliveryPaymentType.ALL_PAYMENT_TYPE
                             }
-                        } ?: PaymentType.PAYMENT_NOT_AVAILABLE
+                        } ?: DeliveryPaymentType.PAYMENT_NOT_AVAILABLE
                     )
                 },
                 deliveryTypeText = data.rfDeliveryType ?: "",

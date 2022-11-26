@@ -5,12 +5,11 @@ import com.progressterra.ipbandroidview.composable.component.BonusSwitchState
 import com.progressterra.ipbandroidview.composable.component.DeliveryPickerState
 import com.progressterra.ipbandroidview.composable.component.GoodsReceipt
 import com.progressterra.ipbandroidview.composable.component.PaymentMethodState
-import com.progressterra.ipbandroidview.composable.component.PaymentType
+import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.composable.component.PromoCodeState
 import com.progressterra.ipbandroidview.composable.component.ReceiptState
 import com.progressterra.ipbandroidview.composable.component.ReceiveReceiptState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Cart
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
@@ -23,6 +22,7 @@ data class OrderState(
     override val comment: String = "",
     override val selectedDeliveryMethod: DeliveryMethod? = null,
     override val deliveryMethods: List<DeliveryMethod> = emptyList(),
+    override val paymentMethods: List<PaymentType> = emptyList(),
     override val currentPaymentMethod: PaymentType? = null,
     override val promoCode: SimplePrice = SimplePrice(),
     override val deliveryPrice: SimplePrice = SimplePrice(),

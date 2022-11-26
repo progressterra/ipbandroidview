@@ -1,14 +1,11 @@
 package com.progressterra.ipbandroidview.composable.component
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -18,18 +15,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.ThemedRadioButton
+import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
 interface PaymentMethodState {
 
     val currentPaymentMethod: PaymentType?
-}
 
-@Immutable
-enum class PaymentType(@StringRes val paymentName: Int) {
-    ONLINE_CARD(R.string.online_card),
-    OFFLINE_CARD(R.string.offline_card)
+    val paymentMethods: List<PaymentType>
 }
 
 @Composable
@@ -66,16 +60,18 @@ fun PaymentMethod(
             .clip(AppTheme.shapes.medium)
             .fillMaxWidth()
             .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium)
+            .padding(AppTheme.dimensions.medium),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         Text(
             text = stringResource(R.string.payment),
             color = AppTheme.colors.black,
             style = AppTheme.typography.title
         )
-        Spacer(Modifier.size(AppTheme.dimensions.small))
-        Item(type = PaymentType.ONLINE_CARD)
-        Spacer(Modifier.size(AppTheme.dimensions.tiny))
-        Item(type = PaymentType.OFFLINE_CARD)
+        Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
+            state().paymentMethods.forEach {
+                Item(type = it)
+            }
+        }
     }
 }

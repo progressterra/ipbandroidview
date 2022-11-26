@@ -2,10 +2,11 @@ package com.progressterra.ipbandroidview.ui.order
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.composable.component.PaymentType
+import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
+import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsForDeliveryUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseCase
 import com.progressterra.ipbandroidview.model.DeliveryMethod
@@ -22,7 +23,8 @@ class OrderViewModel(
     private val notUseBonusesUseCase: UseBonusesUseCase,
     private val availableDeliveryUseCase: AvailableDeliveryUseCase,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
-    private val fetchUserAddressUseCase: FetchUserAddressUseCase
+    private val fetchUserAddressUseCase: FetchUserAddressUseCase,
+    private val paymentMethodsForDeliveryUseCase: PaymentMethodsForDeliveryUseCase
 ) : ViewModel(), ContainerHost<OrderState, OrderEffect> {
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
@@ -68,6 +70,9 @@ class OrderViewModel(
 
     fun selectDeliveryMethod(method: DeliveryMethod) = intent {
         reduce { state.copy(selectedDeliveryMethod = method) }
+        paymentMethodsForDeliveryUseCase.methods(method).onSuccess {
+            reduce { state.copy(paymentMethods = it) }
+        }
     }
 
     fun selectPayment(payment: PaymentType) = intent {
