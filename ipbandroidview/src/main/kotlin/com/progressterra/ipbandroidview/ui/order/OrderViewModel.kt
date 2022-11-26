@@ -2,15 +2,16 @@ package com.progressterra.ipbandroidview.ui.order
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsForDeliveryUseCase
+import com.progressterra.ipbandroidview.domain.usecase.delivery.SetDeliveryAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseCase
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.model.PaymentType
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -24,7 +25,8 @@ class OrderViewModel(
     private val availableDeliveryUseCase: AvailableDeliveryUseCase,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
     private val fetchUserAddressUseCase: FetchUserAddressUseCase,
-    private val paymentMethodsForDeliveryUseCase: PaymentMethodsForDeliveryUseCase
+    private val paymentMethodsForDeliveryUseCase: PaymentMethodsForDeliveryUseCase,
+    private val setDeliveryAddressUseCase: SetDeliveryAddressUseCase
 ) : ViewModel(), ContainerHost<OrderState, OrderEffect> {
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
@@ -117,8 +119,12 @@ class OrderViewModel(
     }
 
     fun payment() = intent {
-        confirmOrderUseCase.confirm().onSuccess {
-            postSideEffect(OrderEffect.Next(it))
+        state.selectedDeliveryMethod?.let { deliveryMethod ->
+            setDeliveryAddressUseCase.setAddress(deliveryMethod, state.address).onSuccess {
+                confirmOrderUseCase.confirm().onSuccess {
+                    postSideEffect(OrderEffect.Next(it))
+                }
+            }
         }
     }
 

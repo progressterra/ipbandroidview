@@ -49,7 +49,7 @@ class CityViewModel(
     }
 
     fun editAddress(address: String) = intent {
-        reduce { state.copy(address = address) }
+        reduce { state.copy(address = address, isDataValid = address.isNotBlank()) }
         suggestionUseCase.suggestions(address).map {
             reduce { state.copy(suggestions = it) }
         }
@@ -57,7 +57,7 @@ class CityViewModel(
 
     fun onMapClick(latLng: LatLng) = intent {
         guessLocationUseCase.guessLocation(latLng).map {
-            reduce { state.copy(address = it) }
+            reduce { state.copy(address = it, isDataValid = it.isNotBlank()) }
         }
     }
 

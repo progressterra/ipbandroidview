@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.order
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -43,6 +44,9 @@ class OrderNode(
         if (!alreadyLaunched) {
             alreadyLaunched = true
             viewModel.setCart(goods)
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.collectAsState()
         OrderScreen(

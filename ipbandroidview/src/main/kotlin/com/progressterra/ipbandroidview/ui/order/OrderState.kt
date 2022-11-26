@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.model.SimplePrice
 
 data class OrderState(
     val goods: List<OrderGoods> = emptyList(),
-    override val address: String = UserData.address,
+    override val address: String = "",
     override val entryway: String = "",
     override val apartment: String = "",
     override val comment: String = "",
