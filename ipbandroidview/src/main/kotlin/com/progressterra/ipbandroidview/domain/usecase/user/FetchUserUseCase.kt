@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.domain.usecase.user
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.parseToDate
-import com.progressterra.ipbandroidapi.user.UserData
-import com.progressterra.ipbandroidapi.user.UserName
+import com.progressterra.ipbandroidview.data.UserData
+import com.progressterra.ipbandroidview.data.UserName
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 

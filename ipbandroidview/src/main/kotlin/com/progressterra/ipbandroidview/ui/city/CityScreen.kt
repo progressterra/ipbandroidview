@@ -25,14 +25,14 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.AddressSuggestions
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.BottomHolder
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
-import com.progressterra.ipbandroidview.model.Suggestion
+import com.progressterra.ipbandroidview.model.SuggestionUI
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -43,7 +43,7 @@ fun CityScreen(
     next: () -> Unit,
     editAddress: (String) -> Unit,
     onMapClick: (LatLng) -> Unit,
-    onSuggestion: (Suggestion) -> Unit,
+    onSuggestion: (SuggestionUI) -> Unit,
     settings: CitySettings
 ) {
     ThemedLayout(topBar = {
@@ -100,7 +100,7 @@ fun CityScreen(
                     end.linkTo(background.end, 12.dp)
                 },
                 onFocusChange = { isAddressFocused = it },
-                text = state()::address,
+                text = state().address::toString,
                 hint = stringResource(id = R.string.address),
                 onChange = editAddress
             )

@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.domain.usecase
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDeviceParameters
-import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 

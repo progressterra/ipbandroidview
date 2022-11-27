@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidapi.Constants
+import com.progressterra.ipbandroidview.data.Constants
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -29,7 +29,7 @@ class MainNode(
                     .show()
                 is MainEffect.Bonuses -> onBonuses()
                 is MainEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
-                is MainEffect.Search -> onSearch(Constants.EMPTY_ID, it.keyword)
+                is MainEffect.Search -> onSearch(Constants.DEFAULT_ID, it.keyword)
             }
         }
 

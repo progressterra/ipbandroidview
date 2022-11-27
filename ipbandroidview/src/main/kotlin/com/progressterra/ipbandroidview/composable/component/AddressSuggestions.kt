@@ -20,8 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.model.SuggestionUI
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.model.Suggestion
 
 private val elevation = 4.dp
 
@@ -29,8 +29,8 @@ private val elevation = 4.dp
 fun AddressSuggestions(
     modifier: Modifier = Modifier,
     isVisible: () -> Boolean,
-    suggestions: () -> List<Suggestion>,
-    onSuggestion: (Suggestion) -> Unit
+    suggestions: () -> List<SuggestionUI>,
+    onSuggestion: (SuggestionUI) -> Unit
 ) {
     AnimatedVisibility(
         modifier = modifier,
@@ -50,18 +50,12 @@ fun AddressSuggestions(
                             .padding(
                                 horizontal = AppTheme.dimensions.small,
                                 vertical = AppTheme.dimensions.smany
-                            ),
-                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+                            )
                     ) {
                         Text(
-                            text = it.address,
+                            text = it.previewOfSuggestion,
                             color = AppTheme.colors.black,
                             style = AppTheme.typography.secondaryText
-                        )
-                        Text(
-                            text = it.city,
-                            color = AppTheme.colors.gray2,
-                            style = AppTheme.typography.tertiaryText
                         )
                     }
                 }
@@ -84,11 +78,7 @@ private fun AddressSuggestionsPreview() {
             AddressSuggestions(
                 isVisible = { true },
                 suggestions = {
-                    listOf(
-                        Suggestion("Some address 1", "Some city 1"),
-                        Suggestion("Some address 2", "Some city 2"),
-                        Suggestion("Some address 3", "Some city 3")
-                    )
+                    emptyList()
                 },
                 onSuggestion = {}
             )

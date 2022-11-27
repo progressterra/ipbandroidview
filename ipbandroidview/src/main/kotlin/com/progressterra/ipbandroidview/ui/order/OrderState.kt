@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.order
 
-import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.composable.component.BonusSwitchState
 import com.progressterra.ipbandroidview.composable.component.DeliveryPickerState
 import com.progressterra.ipbandroidview.composable.component.GoodsReceipt

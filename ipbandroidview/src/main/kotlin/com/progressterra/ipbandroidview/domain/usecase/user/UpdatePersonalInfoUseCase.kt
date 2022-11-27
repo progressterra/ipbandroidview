@@ -1,15 +1,15 @@
 package com.progressterra.ipbandroidview.domain.usecase.user
 
-import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.ClientDataIncome
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
 import com.progressterra.ipbandroidapi.ext.format
-import com.progressterra.ipbandroidapi.user.UserData
-import com.progressterra.ipbandroidapi.user.UserName
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.core.SplitName
+import com.progressterra.ipbandroidview.data.Constants
+import com.progressterra.ipbandroidview.data.UserData
+import com.progressterra.ipbandroidview.data.UserName
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date
@@ -39,7 +39,7 @@ interface UpdatePersonalInfoUseCase {
                     name = nameList[0],
                     soname = nameList[1],
                     patronymic = "",
-                    dateOfBirth = Constants.EMPTY_DATE,
+                    dateOfBirth = Constants.DEFAULT_DATE,
                     comment = ""
                 )
             ).onFailure { throw it }

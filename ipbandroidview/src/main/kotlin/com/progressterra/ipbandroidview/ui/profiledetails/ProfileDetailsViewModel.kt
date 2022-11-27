@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.profiledetails
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
 import org.orbitmvi.orbit.Container

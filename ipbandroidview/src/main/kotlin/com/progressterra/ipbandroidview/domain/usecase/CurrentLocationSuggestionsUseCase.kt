@@ -1,27 +1,32 @@
 package com.progressterra.ipbandroidview.domain.usecase
 
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
+import com.progressterra.ipbandroidapi.api.suggestion.model.DadataSuggestionsFromLocationRequest
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
-import com.progressterra.ipbandroidview.model.Suggestion
+import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
+import com.progressterra.ipbandroidview.model.SuggestionUI
 
 interface CurrentLocationSuggestionsUseCase {
 
-    suspend fun currentLocation(): Result<List<Suggestion>>
+    suspend fun currentLocation(): Result<List<SuggestionUI>>
 
     class Base(
         private val provideLocation: ProvideLocation,
         private val repo: SuggestionRepository,
-        private val mapper: SuggestionMapper
+        private val mapper: AddressesMapper
     ) : CurrentLocationSuggestionsUseCase {
 
-        override suspend fun currentLocation(): Result<List<Suggestion>> = runCatching {
+        override suspend fun currentLocation(): Result<List<SuggestionUI>> = runCatching {
             val locationResult = provideLocation.location().getOrThrow()
-            repo.getSuggestionsAddressFromLocation(
-                locationResult.latitude.toFloat(),
-                locationResult.longitude.toFloat(),
-                3
-            ).getOrThrow().map { mapper.map(it) }
+            mapper.convertSuggestionsDtoToUIModels(
+                repo.getSuggestionsAddressFromLocation(
+                    DadataSuggestionsFromLocationRequest(
+                        latitude = locationResult.latitude.toFloat(),
+                        longitude = locationResult.longitude.toFloat(),
+                        count = 3
+                    )
+                ).getOrThrow()
+            )
         }
     }
 }

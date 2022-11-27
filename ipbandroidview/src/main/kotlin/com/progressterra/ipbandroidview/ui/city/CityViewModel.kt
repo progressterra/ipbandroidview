@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
+import com.progressterra.ipbandroidview.domain.usecase.ChooseSuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
-import com.progressterra.ipbandroidview.model.Suggestion
+import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
+import com.progressterra.ipbandroidview.model.SuggestionUI
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
@@ -22,7 +23,8 @@ class CityViewModel(
     private val managePermissionContract: ManagePermissionContract.Client,
     private val guessLocationUseCase: GuessLocationUseCase,
     private val suggestionUseCase: SuggestionUseCase,
-    private val saveUserAddressUseCase: SaveUserAddressUseCase
+    private val saveUserAddressUseCase: SaveUserAddressUseCase,
+    private val chooseSuggestionUseCase: ChooseSuggestionUseCase
 ) : ViewModel(), ContainerHost<CityState, CityEffect> {
 
     override val container: Container<CityState, CityEffect> = container(CityState())
@@ -44,25 +46,28 @@ class CityViewModel(
     fun skip() = intent { postSideEffect(CityEffect.Next) }
 
     fun next() = intent {
-        saveUserAddressUseCase.saveAddress(address = state.address)
-        postSideEffect(CityEffect.Next)
+        saveUserAddressUseCase.saveAddress(address = state.addressUI).onSuccess {
+            postSideEffect(CityEffect.Next)
+        }
     }
 
     fun editAddress(address: String) = intent {
-        reduce { state.copy(address = address, isDataValid = address.isNotBlank()) }
-        suggestionUseCase.suggestions(address).map {
-            reduce { state.copy(suggestions = it) }
+        reduce {
+            state.copy(address = address, isDataValid = address == state.addressUI.toString())
         }
+        suggestionUseCase.suggestions(address).map { reduce { state.copy(suggestions = it) } }
     }
 
     fun onMapClick(latLng: LatLng) = intent {
         guessLocationUseCase.guessLocation(latLng).map {
-            reduce { state.copy(address = it, isDataValid = it.isNotBlank()) }
+            reduce { state.copy(addressUI = it, address = it.toString(), isDataValid = true) }
         }
     }
 
-    fun onSuggestion(suggestion: Suggestion) = intent {
-        reduce { state.copy(address = "${suggestion.city}, ${suggestion.address}") }
+    fun onSuggestion(suggestion: SuggestionUI) = intent {
+        chooseSuggestionUseCase.choose(suggestion).onSuccess {
+            reduce { state.copy(addressUI = it, address = it.toString(), isDataValid = true) }
+        }
     }
 
     fun back() = intent {

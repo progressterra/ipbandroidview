@@ -16,8 +16,7 @@ import com.progressterra.ipbandroidview.core.SplitName
 import com.progressterra.ipbandroidview.core.StartActivityContract
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
-import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
-import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
+import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.domain.mapper.CartGoodsMapper
 import com.progressterra.ipbandroidview.domain.mapper.CatalogMapper
 import com.progressterra.ipbandroidview.domain.mapper.DeliveryMethodMapper
@@ -28,7 +27,6 @@ import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
 import com.progressterra.ipbandroidview.domain.mapper.StatusOrderMapper
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.domain.mapper.SubCatalogMapper
-import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.binds
@@ -51,16 +49,6 @@ val iPBAndroidViewModule = module {
 
     single<ManageResources> {
         ManageResources.Base(androidContext())
-    }
-
-    single<SuggestionMapper> {
-        SuggestionMapper.Base()
-    }
-
-    single<SuggestionFilter> { SuggestionFilter.Base() }
-
-    single<AddressGuesserMapper> {
-        AddressGuesserMapper.Base()
     }
 
     single<CartGoodsMapper> {
@@ -140,4 +128,6 @@ val iPBAndroidViewModule = module {
     single<StatusOrderMapper> { StatusOrderMapper.Base(get()) }
 
     single<DeliveryMethodMapper> { DeliveryMethodMapper.Base(get(), get()) }
+
+    single<AddressesMapper> { AddressesMapper.Base() }
 }

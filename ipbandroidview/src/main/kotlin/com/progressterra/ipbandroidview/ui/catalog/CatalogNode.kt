@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidapi.Constants
+import com.progressterra.ipbandroidview.data.Constants
 import com.progressterra.ipbandroidview.model.Category
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
@@ -25,7 +25,7 @@ class CatalogNode(
             when (it) {
                 is CatalogEffect.Goods -> onGoods(it.categoryId)
                 is CatalogEffect.SubCatalog -> onSubCatalog(it.subCategory)
-                is CatalogEffect.Search -> onSearch(Constants.EMPTY_ID, it.keyword)
+                is CatalogEffect.Search -> onSearch(Constants.DEFAULT_ID, it.keyword)
             }
         }
         val state = viewModel.collectAsState()

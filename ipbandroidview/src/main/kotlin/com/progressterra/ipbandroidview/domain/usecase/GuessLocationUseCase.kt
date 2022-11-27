@@ -2,22 +2,31 @@ package com.progressterra.ipbandroidview.domain.usecase
 
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
-import com.progressterra.ipbandroidview.domain.mapper.AddressGuesserMapper
+import com.progressterra.ipbandroidapi.api.suggestion.model.DadataSuggestionsFromLocationRequest
+import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
+import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
+import com.progressterra.ipbandroidview.model.AddressUI
 
 interface GuessLocationUseCase {
 
-    suspend fun guessLocation(latLng: LatLng): Result<String>
+    suspend fun guessLocation(latLng: LatLng): Result<AddressUI>
 
     class Base(
         private val repo: SuggestionRepository,
-        private val mapper: AddressGuesserMapper
+        private val addressesMapper: AddressesMapper
     ) : GuessLocationUseCase {
 
-        override suspend fun guessLocation(latLng: LatLng): Result<String> = runCatching {
+        override suspend fun guessLocation(latLng: LatLng): Result<AddressUI> = runCatching {
             val suggestionsResult = repo.getSuggestionsAddressFromLocation(
-                latLng.latitude.toFloat(), latLng.longitude.toFloat(), 3
+                DadataSuggestionsFromLocationRequest(
+                    latitude = latLng.latitude.toFloat(),
+                    longitude = latLng.longitude.toFloat(),
+                    count = 3
+                )
             ).getOrThrow()
-            mapper.map(suggestionsResult.first())
+            addressesMapper.convertSuggestionToAddressUIModel(
+                suggestionsResult?.first()?.suggestionExtendedInfo ?: SuggestionExtendedInfo()
+            )
         }
     }
 }

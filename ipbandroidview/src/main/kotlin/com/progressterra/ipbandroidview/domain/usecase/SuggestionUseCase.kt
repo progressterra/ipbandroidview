@@ -1,25 +1,26 @@
 package com.progressterra.ipbandroidview.domain.usecase
 
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
-import com.progressterra.ipbandroidview.domain.filter.SuggestionFilter
-import com.progressterra.ipbandroidview.domain.mapper.SuggestionMapper
-import com.progressterra.ipbandroidview.model.Suggestion
+import com.progressterra.ipbandroidapi.api.suggestion.model.DadataSuggestionsRequest
+import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
+import com.progressterra.ipbandroidview.model.SuggestionUI
 
 interface SuggestionUseCase {
 
-    suspend fun suggestions(keyword: String): Result<List<Suggestion>>
+    suspend fun suggestions(keyword: String): Result<List<SuggestionUI>>
 
     class Base(
-        private val mapper: SuggestionMapper,
+        private val mapper: AddressesMapper,
         private val repo: SuggestionRepository,
-        private val filter: SuggestionFilter
     ) : SuggestionUseCase {
 
-        override suspend fun suggestions(keyword: String): Result<List<Suggestion>> = runCatching {
+        override suspend fun suggestions(
+            keyword: String
+        ): Result<List<SuggestionUI>> = runCatching {
             val suggestionsResult = repo.getSuggestionsAddressFromDadata(
-                keyword, 3
+                DadataSuggestionsRequest(count = 3, query = keyword)
             ).getOrThrow()
-            suggestionsResult.filter { filter.filter(it) }.map { mapper.map(it) }
+            mapper.convertSuggestionsDtoToUIModels(suggestionsResult)
         }
     }
 }

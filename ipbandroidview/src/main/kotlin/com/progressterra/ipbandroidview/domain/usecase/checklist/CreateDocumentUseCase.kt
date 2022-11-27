@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.domain.usecase.checklist
 
-import com.progressterra.ipbandroidapi.Constants
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.DHCheckPerformedEntityCreate
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.data.Constants
 import java.util.Date
 
 interface CreateDocumentUseCase {
@@ -26,7 +26,7 @@ interface CreateDocumentUseCase {
             val result = repo.createDoc(
                 token, DHCheckPerformedEntityCreate(
                     idChecklist,
-                    Constants.EMPTY_ID,
+                    Constants.DEFAULT_ID,
                     idPlace,
                     Date(System.currentTimeMillis()).format(),
                     "",

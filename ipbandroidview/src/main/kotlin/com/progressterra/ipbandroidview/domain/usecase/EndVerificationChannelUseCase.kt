@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.domain.usecase
 import android.os.Build
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataForEndLogin
-import com.progressterra.ipbandroidapi.user.UserData
+import com.progressterra.ipbandroidview.data.UserData
 
 interface EndVerificationChannelUseCase {
 

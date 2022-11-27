@@ -2,11 +2,9 @@ package com.progressterra.ipbandroidview.ui.pickuppoint
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,12 +27,9 @@ import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.BottomHolder
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
-import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
-import com.progressterra.ipbandroidview.model.Suggestion
+import com.progressterra.ipbandroidview.model.SuggestionUI
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.city.CitySettings
-import com.progressterra.ipbandroidview.ui.city.CityState
 
 @Composable
 fun PickUpPointScreen(
@@ -43,7 +38,7 @@ fun PickUpPointScreen(
     choose: () -> Unit,
     editAddress: (String) -> Unit,
     onMapClick: (LatLng) -> Unit,
-    onSuggestion: (Suggestion) -> Unit,
+    onSuggestion: (SuggestionUI) -> Unit,
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(

@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.core.ManagePermissionContract
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
-import com.progressterra.ipbandroidview.model.Suggestion
+import com.progressterra.ipbandroidview.model.SuggestionUI
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
@@ -44,7 +44,6 @@ class PickUpPointViewModel(
     fun skip() = intent { postSideEffect(PickUpPointEffect.Next) }
 
     fun choose() = intent {
-        saveUserAddressUseCase.saveAddress(address = state.address)
         postSideEffect(PickUpPointEffect.Next)
     }
 
@@ -56,13 +55,13 @@ class PickUpPointViewModel(
     }
 
     fun onMapClick(latLng: LatLng) = intent {
-        guessLocationUseCase.guessLocation(latLng).map {
-            reduce { state.copy(address = it) }
-        }
+//        guessLocationUseCase.guessLocation(latLng).map {
+//            reduce { state.copy(address = it) }
+//        }
     }
 
-    fun onSuggestion(suggestion: Suggestion) = intent {
-        reduce { state.copy(address = "${suggestion.city}, ${suggestion.address}") }
+    fun onSuggestion(suggestion: SuggestionUI) = intent {
+//        reduce { state.copy(address = "${suggestion.city}, ${suggestion.address}") }
     }
 
     fun back() = intent {

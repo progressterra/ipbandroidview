@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.domain.usecase.store
 
-import com.progressterra.ipbandroidapi.Constants
+import com.progressterra.ipbandroidview.data.Constants
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamGoodsToECommers
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
@@ -23,7 +23,7 @@ interface FastAddToCartUseCase {
                 ParamGoodsToECommers(
                     idGoodsInventory = goodsId,
                     count = 1,
-                    idSellerAmbassador = Constants.EMPTY_ID
+                    idSellerAmbassador = Constants.DEFAULT_ID
                 )
             ).onFailure { throw it }
         }
