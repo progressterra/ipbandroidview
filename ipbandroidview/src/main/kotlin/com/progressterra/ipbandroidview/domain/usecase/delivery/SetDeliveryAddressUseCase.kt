@@ -5,11 +5,12 @@ import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamForAddAddress
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 
 interface SetDeliveryAddressUseCase {
 
-    suspend fun setAddress(deliveryMethod: DeliveryMethod, address: String): Result<Unit>
+    suspend fun setAddress(deliveryMethod: DeliveryMethod, address: AddressUI): Result<Unit>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -19,13 +20,13 @@ interface SetDeliveryAddressUseCase {
 
         override suspend fun setAddress(
             deliveryMethod: DeliveryMethod,
-            address: String
+            address: AddressUI
         ): Result<Unit> = withToken { token ->
             repo.setDeliveryAddress(
                 token, ParamForAddAddress(
                     accessToken = token,
                     idAddress = deliveryMethod.type.value,
-                    adressString = address
+                    adressString = address.toString()
                 )
             )
         }

@@ -38,7 +38,7 @@ class OrderViewModel(
             reduce { state.copy(deliveryMethods = deliveryMethods) }
             fetchUserAddressUseCase.fetch().onSuccess {
                 Log.d("DELIVERY", "address: $it")
-                reduce { state.copy(address = it, screenState = ScreenState.SUCCESS) }
+                reduce { state.copy(addressUI = it, screenState = ScreenState.SUCCESS) }
             }.onFailure {
                 reduce { state.copy(screenState = ScreenState.ERROR) }
             }
@@ -120,7 +120,7 @@ class OrderViewModel(
 
     fun payment() = intent {
         state.selectedDeliveryMethod?.let { deliveryMethod ->
-            setDeliveryAddressUseCase.setAddress(deliveryMethod, state.address).onSuccess {
+            setDeliveryAddressUseCase.setAddress(deliveryMethod, state.addressUI).onSuccess {
                 confirmOrderUseCase.confirm().onSuccess {
                     postSideEffect(OrderEffect.Next(it))
                 }

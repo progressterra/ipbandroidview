@@ -1,22 +1,23 @@
 package com.progressterra.ipbandroidview.ui.order
 
-import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.composable.component.BonusSwitchState
 import com.progressterra.ipbandroidview.composable.component.DeliveryPickerState
 import com.progressterra.ipbandroidview.composable.component.GoodsReceipt
 import com.progressterra.ipbandroidview.composable.component.PaymentMethodState
-import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.composable.component.PromoCodeState
 import com.progressterra.ipbandroidview.composable.component.ReceiptState
 import com.progressterra.ipbandroidview.composable.component.ReceiveReceiptState
 import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.data.UserData
+import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.DeliveryMethod
 import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.model.SimplePrice
 
 data class OrderState(
     val goods: List<OrderGoods> = emptyList(),
-    override val address: String = "",
+    override val addressUI: AddressUI = AddressUI(),
     override val entryway: String = "",
     override val apartment: String = "",
     override val comment: String = "",
