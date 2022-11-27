@@ -40,9 +40,11 @@ class OrderViewModel(
                 Log.d("DELIVERY", "address: $it")
                 reduce { state.copy(addressUI = it, screenState = ScreenState.SUCCESS) }
             }.onFailure {
+                Log.e("DELIVERY", "address: ", it)
                 reduce { state.copy(screenState = ScreenState.ERROR) }
             }
         }.onFailure {
+            Log.e("DELIVERY", "delivery method: ", it)
             reduce { state.copy(screenState = ScreenState.ERROR) }
         }
     }
