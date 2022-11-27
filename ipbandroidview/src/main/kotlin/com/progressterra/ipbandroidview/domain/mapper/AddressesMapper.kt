@@ -64,9 +64,7 @@ interface AddressesMapper {
                     suggestion.geoLon?.toDouble() ?: 0.0
                 } catch (e: Exception) {
                     0.0
-                },
-                isDefaultShippingAddress = null,
-                isDefaultBillingAddress = null
+                }
             )
         }
 
@@ -120,13 +118,8 @@ interface AddressesMapper {
             )
         }
 
-        override fun convertDtoToAddressUiModel(listOfAddressesResponse: DataAddress?): List<AddressUI> {
-            val defaultShippingAddressId =
-                listOfAddressesResponse?.defaultShippingAddress?.idUnique
-            val defaultBillingAddressId =
-                listOfAddressesResponse?.defaultBillingAddress?.idUnique
-
-            return listOfAddressesResponse?.listAddAddress?.map {
+        override fun convertDtoToAddressUiModel(listOfAddressesResponse: DataAddress?): List<AddressUI> =
+            listOfAddressesResponse?.listAddAddress?.map {
                 AddressUI(
                     idUnique = it.idUnique,
                     nameCity = it.nameCity,
@@ -136,8 +129,6 @@ interface AddressesMapper {
                     floor = it.floor.toString(),
                     nameStreet = it.nameStreet,
                     entrance = it.entrance.toString(),
-                    isDefaultShippingAddress = it.idUnique == defaultShippingAddressId,
-                    isDefaultBillingAddress = it.idUnique == defaultBillingAddressId,
                     idClient = it.idClient,
                     dateAdded = it.dateAdded,
                     dateVerification = it.dateVerification,
@@ -168,6 +159,5 @@ interface AddressesMapper {
                     longitude = it.longitude
                 )
             } ?: emptyList()
-        }
     }
 }
