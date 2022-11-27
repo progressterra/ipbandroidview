@@ -19,8 +19,8 @@ interface AddressesMapper {
 
     class Base : AddressesMapper {
 
-        override fun convertSuggestionToAddressUIModel(suggestion: SuggestionExtendedInfo): AddressUI {
-            return AddressUI(
+        override fun convertSuggestionToAddressUIModel(suggestion: SuggestionExtendedInfo): AddressUI =
+            AddressUI(
                 idUnique = "00000000-0000-0000-0000-000000000000",
                 idClient = "00000000-0000-0000-0000-000000000000",
                 dateAdded = "0001-01-01T00:00:00",
@@ -55,109 +55,99 @@ interface AddressesMapper {
                 apartment = suggestion.flat,
                 entrance = suggestion.entrance,
                 floor = suggestion.floor,
-                latitude = try {
-                    suggestion.geoLat?.toDouble() ?: 0.0
-                } catch (e: Exception) {
-                    0.0
-                },
-                longitude = try {
-                    suggestion.geoLon?.toDouble() ?: 0.0
-                } catch (e: Exception) {
-                    0.0
-                }
+                latitude = suggestion.geoLat?.toDouble() ?: 0.0,
+                longitude = suggestion.geoLon?.toDouble() ?: 0.0
             )
-        }
 
-        override fun convertSuggestionsDtoToUIModels(suggestions: List<Suggestion>?): List<SuggestionUI> {
-            return suggestions?.map {
-                SuggestionUI(
-                    suggestionExtendedInfo = it.suggestionExtendedInfo ?: SuggestionExtendedInfo(),
-                    previewOfSuggestion = it.previewOfSuggestion ?: ""
-                )
-            } ?: emptyList()
-        }
-
-        override fun convertAddressUiModelToDto(addressUI: AddressUI): RGAddress {
-            return RGAddress(
-                idUnique = addressUI.idUnique,
-                nameCity = addressUI.nameCity,
-                postalCode = addressUI.postalCode,
-                building = addressUI.building,
-                apartment = addressUI.apartment?.toInt(),
-                floor = addressUI.floor?.toInt(),
-                nameStreet = addressUI.nameStreet,
-                entrance = addressUI.entrance?.toInt(),
-                idClient = addressUI.idClient,
-                dateAdded = addressUI.dateAdded,
-                dateVerification = addressUI.dateVerification,
-                idManagerVerification = addressUI.idManagerVerification,
-                dateDeactivation = addressUI.dateDeactivation,
-                defaultBilling = addressUI.defaultBilling,
-                defaultShipping = addressUI.defaultShipping,
-                fiasIDCountry = addressUI.fiasIDCountry,
-                fiasIDRegion = addressUI.fiasIDRegion,
-                fiasIDCity = addressUI.fiasIDCity,
-                fiasIDArea = addressUI.fiasIDArea,
-                fiasIDDistrict = addressUI.fiasIDDistrict,
-                fiasIDHouse = addressUI.fiasIDHouse,
-                fiasIDStreet = addressUI.fiasIDStreet,
-                kladrCountry = addressUI.kladrCountry,
-                kladrRegion = addressUI.kladrRegion,
-                kladrCity = addressUI.kladrCity,
-                kladrArea = addressUI.kladrArea,
-                kladrDistrict = addressUI.kladrArea,
-                kladrStreet = addressUI.kladrStreet,
-                kladrHouse = addressUI.kladrHouse,
-                nameCountry = addressUI.nameCountry,
-                nameRegion = addressUI.nameRegion,
-                nameArea = addressUI.nameArea,
-                nameDistrict = addressUI.nameDistrict,
-                houseNUmber = addressUI.houseNUmber,
-                latitude = addressUI.latitude,
-                longitude = addressUI.longitude
+        override fun convertSuggestionsDtoToUIModels(
+            suggestions: List<Suggestion>?
+        ): List<SuggestionUI> = suggestions?.map {
+            SuggestionUI(
+                suggestionExtendedInfo = it.suggestionExtendedInfo ?: SuggestionExtendedInfo(),
+                previewOfSuggestion = it.previewOfSuggestion ?: ""
             )
-        }
+        } ?: emptyList()
 
-        override fun convertDtoToAddressUiModel(listOfAddressesResponse: DataAddress?): List<AddressUI> =
-            listOfAddressesResponse?.listAddAddress?.map {
-                AddressUI(
-                    idUnique = it.idUnique,
-                    nameCity = it.nameCity,
-                    postalCode = it.postalCode,
-                    building = it.building,
-                    apartment = it.apartment.toString(),
-                    floor = it.floor.toString(),
-                    nameStreet = it.nameStreet,
-                    entrance = it.entrance.toString(),
-                    idClient = it.idClient,
-                    dateAdded = it.dateAdded,
-                    dateVerification = it.dateVerification,
-                    idManagerVerification = it.idManagerVerification,
-                    dateDeactivation = it.dateDeactivation,
-                    defaultBilling = it.defaultBilling,
-                    defaultShipping = it.defaultShipping,
-                    fiasIDCountry = it.fiasIDCountry,
-                    fiasIDRegion = it.fiasIDRegion,
-                    fiasIDCity = it.fiasIDCity,
-                    fiasIDArea = it.fiasIDArea,
-                    fiasIDDistrict = it.fiasIDDistrict,
-                    fiasIDHouse = it.fiasIDHouse,
-                    fiasIDStreet = it.fiasIDStreet,
-                    kladrCountry = it.kladrCountry,
-                    kladrRegion = it.kladrRegion,
-                    kladrCity = it.kladrCity,
-                    kladrArea = it.kladrArea,
-                    kladrDistrict = it.kladrArea,
-                    kladrStreet = it.kladrStreet,
-                    kladrHouse = it.kladrHouse,
-                    nameCountry = it.nameCountry,
-                    nameRegion = it.nameRegion,
-                    nameArea = it.nameArea,
-                    nameDistrict = it.nameDistrict,
-                    houseNUmber = it.houseNUmber,
-                    latitude = it.latitude,
-                    longitude = it.longitude
-                )
-            } ?: emptyList()
+        override fun convertAddressUiModelToDto(addressUI: AddressUI): RGAddress = RGAddress(
+            idUnique = addressUI.idUnique,
+            nameCity = addressUI.nameCity,
+            postalCode = addressUI.postalCode,
+            building = addressUI.building,
+            apartment = addressUI.apartment?.toInt(),
+            floor = addressUI.floor?.toInt(),
+            nameStreet = addressUI.nameStreet,
+            entrance = addressUI.entrance?.toInt(),
+            idClient = addressUI.idClient,
+            dateAdded = addressUI.dateAdded,
+            dateVerification = addressUI.dateVerification,
+            idManagerVerification = addressUI.idManagerVerification,
+            dateDeactivation = addressUI.dateDeactivation,
+            defaultBilling = addressUI.defaultBilling,
+            defaultShipping = addressUI.defaultShipping,
+            fiasIDCountry = addressUI.fiasIDCountry,
+            fiasIDRegion = addressUI.fiasIDRegion,
+            fiasIDCity = addressUI.fiasIDCity,
+            fiasIDArea = addressUI.fiasIDArea,
+            fiasIDDistrict = addressUI.fiasIDDistrict,
+            fiasIDHouse = addressUI.fiasIDHouse,
+            fiasIDStreet = addressUI.fiasIDStreet,
+            kladrCountry = addressUI.kladrCountry,
+            kladrRegion = addressUI.kladrRegion,
+            kladrCity = addressUI.kladrCity,
+            kladrArea = addressUI.kladrArea,
+            kladrDistrict = addressUI.kladrArea,
+            kladrStreet = addressUI.kladrStreet,
+            kladrHouse = addressUI.kladrHouse,
+            nameCountry = addressUI.nameCountry,
+            nameRegion = addressUI.nameRegion,
+            nameArea = addressUI.nameArea,
+            nameDistrict = addressUI.nameDistrict,
+            houseNUmber = addressUI.houseNUmber,
+            latitude = addressUI.latitude,
+            longitude = addressUI.longitude
+        )
+
+        override fun convertDtoToAddressUiModel(
+            listOfAddressesResponse: DataAddress?
+        ): List<AddressUI> = listOfAddressesResponse?.listAddAddress?.map {
+            AddressUI(
+                idUnique = it.idUnique,
+                nameCity = it.nameCity,
+                postalCode = it.postalCode,
+                building = it.building,
+                apartment = it.apartment.toString(),
+                floor = it.floor.toString(),
+                nameStreet = it.nameStreet,
+                entrance = it.entrance.toString(),
+                idClient = it.idClient,
+                dateAdded = it.dateAdded,
+                dateVerification = it.dateVerification,
+                idManagerVerification = it.idManagerVerification,
+                dateDeactivation = it.dateDeactivation,
+                defaultBilling = it.defaultBilling,
+                defaultShipping = it.defaultShipping,
+                fiasIDCountry = it.fiasIDCountry,
+                fiasIDRegion = it.fiasIDRegion,
+                fiasIDCity = it.fiasIDCity,
+                fiasIDArea = it.fiasIDArea,
+                fiasIDDistrict = it.fiasIDDistrict,
+                fiasIDHouse = it.fiasIDHouse,
+                fiasIDStreet = it.fiasIDStreet,
+                kladrCountry = it.kladrCountry,
+                kladrRegion = it.kladrRegion,
+                kladrCity = it.kladrCity,
+                kladrArea = it.kladrArea,
+                kladrDistrict = it.kladrArea,
+                kladrStreet = it.kladrStreet,
+                kladrHouse = it.kladrHouse,
+                nameCountry = it.nameCountry,
+                nameRegion = it.nameRegion,
+                nameArea = it.nameArea,
+                nameDistrict = it.nameDistrict,
+                houseNUmber = it.houseNUmber,
+                latitude = it.latitude,
+                longitude = it.longitude
+            )
+        } ?: emptyList()
     }
 }
