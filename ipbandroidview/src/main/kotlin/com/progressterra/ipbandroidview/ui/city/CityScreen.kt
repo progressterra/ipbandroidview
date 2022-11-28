@@ -128,7 +128,7 @@ fun CityScreen(
                     end.linkTo(address.end)
                 },
                 suggestions = state()::suggestions,
-                isVisible = { state().isAddressInFocus && state().suggestions.isNotEmpty() },
+                isVisible = state().suggestions::isNotEmpty,
                 onSuggestion = onSuggestion
             )
         }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,6 +26,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val elevation = 4.dp
 
+private val height = 150.dp
+
 @Composable
 fun AddressSuggestions(
     modifier: Modifier = Modifier,
@@ -41,7 +44,7 @@ fun AddressSuggestions(
         Card(
             elevation = elevation, shape = AppTheme.shapes.small
         ) {
-            LazyColumn {
+            LazyColumn(modifier = Modifier.height(height)) {
                 items(suggestions()) {
                     Column(
                         modifier = Modifier

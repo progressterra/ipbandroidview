@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.city
 
 import android.Manifest
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
@@ -53,14 +54,17 @@ class CityViewModel(
 
     fun editAddress(address: String) = intent {
         reduce {
-            state.copy(address = address, isDataValid = address == state.addressUI.printAddress())
+            state.copy(address = address)
         }
-        suggestionUseCase.suggestions(address).map { reduce { state.copy(suggestions = it) } }
+        suggestionUseCase.suggestions(address).onSuccess {
+            Log.d("SUGGESTION", "suggestions: $it")
+            reduce { state.copy(suggestions = it) }
+        }
     }
 
     fun onMapClick(latLng: LatLng) = intent {
-        guessLocationUseCase.guessLocation(latLng).map {
-            reduce { state.copy(addressUI = it, address = it.printAddress(), isDataValid = true) }
+        guessLocationUseCase.guessLocation(latLng).onSuccess {
+            reduce { state.copy(addressUI = it, address = it.printAddress()) }
         }
     }
 
