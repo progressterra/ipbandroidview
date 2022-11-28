@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCas
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.model.SimplePrice
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -47,6 +48,7 @@ class OrderViewModel(
                                 screenState = ScreenState.SUCCESS
                             )
                         }
+                        recalculate()
                     }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
                 }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
             }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
@@ -58,6 +60,7 @@ class OrderViewModel(
             state.copy(goods = goods)
         }
         refresh()
+
     }
 
     fun back() = intent {
@@ -78,12 +81,13 @@ class OrderViewModel(
 
     fun selectDeliveryMethod(method: Delivery) = intent {
         reduce { state.copy(selectedDeliveryMethod = method) }
-        checkValidity()
+        recalculate()
+        checkPaymentAvailability()
     }
 
     fun selectPayment(payment: PaymentType) = intent {
         reduce { state.copy(selectedPaymentMethod = payment) }
-        checkValidity()
+        checkPaymentAvailability()
     }
 
     fun editComment(comment: String) = intent {
@@ -135,7 +139,18 @@ class OrderViewModel(
 
     fun openUrl(url: String) = intent { }
 
-    private fun checkValidity() = intent {
+    private fun checkPaymentAvailability() = intent {
         reduce { state.copy(paymentReady = state.selectedPaymentMethod != null && state.selectedDeliveryMethod != null) }
+    }
+
+    private fun recalculate() = intent {
+        var totalPrice = SimplePrice()
+        state.goods.forEach {
+            totalPrice += it.totalPrice
+        }
+        state.selectedDeliveryMethod?.price?.let {
+            totalPrice += it
+        }
+        reduce { state.copy(totalPrice = totalPrice) }
     }
 }
