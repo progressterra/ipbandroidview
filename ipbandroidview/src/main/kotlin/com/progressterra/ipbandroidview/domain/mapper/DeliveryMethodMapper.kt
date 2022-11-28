@@ -46,7 +46,7 @@ interface DeliveryMethodMapper :
                     )
                 },
                 deliveryTypeText = data.rfDeliveryType ?: "",
-                type = data.dhPickupPointInfo?.drrfType!!.toAddressId(),
+                type = data.dhPickupPointInfo?.drrfType.toAddressId(),
                 deliveryTime = data.rdDeliveryTime ?: noData,
                 price = data.rdPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
             )

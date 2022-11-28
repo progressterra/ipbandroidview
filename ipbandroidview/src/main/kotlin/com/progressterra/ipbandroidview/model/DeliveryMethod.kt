@@ -29,7 +29,7 @@ enum class DeliveryMethodAddressId(val value: String) {
     }
 }
 
-fun String.toAddressId(): DeliveryMethodAddressId =
+fun String?.toAddressId(): DeliveryMethodAddressId =
     when (this) {
         "Доставка до Пункта Выдачи Заказов (ПВЗ)" -> DeliveryMethodAddressId.PVZ
         "Доставка до постомата" -> DeliveryMethodAddressId.POSTAMAT
