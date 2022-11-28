@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.LinkText
 import com.progressterra.ipbandroidview.composable.element.LinkTextData
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
+import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -38,19 +39,9 @@ interface ReceiptState {
 
     val promoCode: SimplePrice?
 
-    val goodsReceipts: List<GoodsReceipt>
+    val goods: List<OrderGoods>
 
     val paymentReady: Boolean
-}
-
-@Immutable
-interface GoodsReceipt {
-
-    val name: String
-
-    val count: Int
-
-    val totalPrice: SimplePrice
 }
 
 @Composable
@@ -77,7 +68,7 @@ fun Receipt(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
             Text(
-                text = state().totalPrice.formattedPrice,
+                text = state().totalPrice.toString(),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title
             )
@@ -90,18 +81,18 @@ fun Receipt(
                         .background(AppTheme.colors.background)
                         .height(dividerWidth)
                 )
-                state().goodsReceipts.forEach {
+                state().goods.forEach {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "${it.name} x ${it.count}",
+                            text = "${it.name} x ${it.inCartCounter}",
                             color = AppTheme.colors.gray2,
                             style = AppTheme.typography.tertiaryText
                         )
                         Text(
-                            text = it.totalPrice.formattedPrice,
+                            text = it.totalPrice.toString(),
                             color = AppTheme.colors.gray1,
                             style = AppTheme.typography.tertiaryText
                         )
@@ -118,7 +109,7 @@ fun Receipt(
                             style = AppTheme.typography.tertiaryText
                         )
                         Text(
-                            text = "-${it.formattedPrice}",
+                            text = "-$it",
                             color = AppTheme.colors.primary,
                             style = AppTheme.typography.tertiaryText
                         )
@@ -135,7 +126,7 @@ fun Receipt(
                             style = AppTheme.typography.tertiaryText
                         )
                         Text(
-                            text = "-${it.formattedPrice}",
+                            text = "-$it",
                             color = AppTheme.colors.primary,
                             style = AppTheme.typography.tertiaryText
                         )
@@ -152,7 +143,7 @@ fun Receipt(
                             style = AppTheme.typography.tertiaryText
                         )
                         Text(
-                            text = it.formattedPrice,
+                            text = it.toString(),
                             color = AppTheme.colors.gray1,
                             style = AppTheme.typography.tertiaryText
                         )

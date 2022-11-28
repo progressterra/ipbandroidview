@@ -130,9 +130,7 @@ private fun SizesLinePreview() {
                 inCartCounter = 0,
                 name = "",
                 parameters = listOf(),
-                price = SimplePrice(
-                    formattedPrice = "", price = 0
-                ),
+                price = SimplePrice(0),
                 size = current,
                 sizes = listOf(current)
             )

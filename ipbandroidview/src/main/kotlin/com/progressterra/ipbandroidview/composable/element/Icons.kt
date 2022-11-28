@@ -344,7 +344,7 @@ fun BonusesSmallIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier.size(20.dp),
         tint = AppTheme.colors.primary,
-        painter = painterResource(R.drawable.ic_bonuses_small),
+        painter = painterResource(R.drawable.ic_logo),
         contentDescription = null
     )
 }
@@ -362,7 +362,7 @@ fun BonusesLargeIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier.size(40.dp),
         tint = AppTheme.colors.primary,
-        painter = painterResource(R.drawable.ic_bonuses_large),
+        painter = painterResource(R.drawable.ic_logo),
         contentDescription = null
     )
 }
@@ -380,7 +380,7 @@ fun BonusesTinyIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier.size(16.dp),
         tint = AppTheme.colors.surfaces,
-        painter = painterResource(R.drawable.ic_bonuses_tiny),
+        painter = painterResource(R.drawable.ic_logo),
         contentDescription = null
     )
 }

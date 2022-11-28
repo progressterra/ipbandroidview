@@ -41,7 +41,7 @@ fun CartBottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = totalPrice().formattedPrice,
+            text = totalPrice().toString(),
             style = AppTheme.typography.price,
             color = AppTheme.colors.black
         )
@@ -68,7 +68,7 @@ private fun CartBottomBarPreview() {
         CartBottomBar(
             userExist = { true },
             screenState = { ScreenState.LOADING },
-            totalPrice = { SimplePrice("3000$", 3000) },
+            totalPrice = { SimplePrice(3000) },
             onNext = {},
             onAuth = {}
         )
@@ -82,7 +82,7 @@ private fun CartBottomBarPreviewUnAuth() {
         CartBottomBar(
             userExist = { false },
             screenState = { ScreenState.LOADING },
-            totalPrice = { SimplePrice("3000$", 3000) },
+            totalPrice = { SimplePrice(3000) },
             onNext = {},
             onAuth = {}
         )

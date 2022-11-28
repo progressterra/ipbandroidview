@@ -127,7 +127,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        OrderViewModel(get(), get(), get(), get(), get(), get(), get())
+        OrderViewModel(get(), get(), get(), get(), get(), get(), get(), get())
     }
 
     viewModel {

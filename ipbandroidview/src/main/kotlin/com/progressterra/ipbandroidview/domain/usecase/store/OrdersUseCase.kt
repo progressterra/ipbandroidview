@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.ImageMapper
+import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
 import com.progressterra.ipbandroidview.domain.mapper.StatusOrderMapper
 import com.progressterra.ipbandroidview.model.OrderDetails
 import com.progressterra.ipbandroidview.model.OrderGoods
@@ -23,7 +24,8 @@ interface OrdersUseCase {
         private val purchasesRepository: PurchasesRepository,
         private val cartRepository: CartRepository,
         private val imageMapper: ImageMapper,
-        private val statusOrderMapper: StatusOrderMapper
+        private val statusOrderMapper: StatusOrderMapper,
+        private val priceMapper: PriceMapper
     ) : OrdersUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
@@ -36,11 +38,14 @@ interface OrdersUseCase {
                     id = details?.purchaseId!!,
                     number = details.number ?: noData,
                     goods = details.productsInfo?.map { product ->
+                        val count =
+                            details.productsInfo?.count { it.productId == product.productId } ?: 0
                         OrderGoods(
                             id = product.productId ?: noData,
-                            inCartCounter = details.productsInfo?.count { it.productId == product.productId }
-                                ?: 0,
-                            image = imageMapper.map(product.productImageDataJson ?: "")
+                            inCartCounter = count,
+                            image = imageMapper.map(product.productImageDataJson ?: ""),
+                            name = product.productName ?: noData,
+                            totalPrice = priceMapper.map(count * (product.price ?: 0.0))
                         )
                     } ?: emptyList()
                 )

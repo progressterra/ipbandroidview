@@ -45,7 +45,7 @@ fun GoodsBottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state().price.formattedPrice,
+            text = state().price.toString(),
             style = AppTheme.typography.price,
             color = AppTheme.colors.black
         )

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ext
 
 import androidx.core.util.PatternsCompat
-import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.core.AttachedMedia
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStats
@@ -44,7 +43,6 @@ fun List<Check>.createStats(): ChecklistStats {
         remaining = remaining
     )
 }
-
 
 
 fun LocalDate.print(): String = "${this.dayOfMonth}.${this.monthValue}.${this.year}"

@@ -49,7 +49,7 @@ fun PromoCode(
         )
         if (state().promoCode.price > 0)
             Text(
-                text = "Скидка ${state().promoCode.formattedPrice}",
+                text = "Скидка ${state().promoCode}",
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.tertiaryText
             )

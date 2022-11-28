@@ -1,15 +1,12 @@
 package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.BackIcon
 import com.progressterra.ipbandroidview.composable.element.BasicTopAppBar
 import com.progressterra.ipbandroidview.composable.element.FavoriteButton
@@ -37,7 +34,7 @@ fun GoodsTopAppBar(
                 textAlign = TextAlign.Center
             )
             Text(
-                text = state().price.formattedPrice,
+                text = state().price.toString(),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.tertiaryText,
                 maxLines = 1,

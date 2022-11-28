@@ -70,7 +70,7 @@ fun StoreCard(
                 start.linkTo(image.start, large)
                 end.linkTo(image.end, large)
             },
-            text = state().price.formattedPrice,
+            text = state().price.toString(),
             color = AppTheme.colors.black,
             maxLines = 1,
             style = AppTheme.typography.title,
@@ -110,7 +110,7 @@ private fun StoreItemCardPreview() {
                 StoreGoods(
                     id = "",
                     image = "",
-                    price = SimplePrice("3 000 ₽", 0),
+                    price = SimplePrice(0),
                     name = "Some cool item with pretty long name that contains many symbols",
                     favorite = false
                 )
@@ -118,7 +118,7 @@ private fun StoreItemCardPreview() {
             StoreCard(state = {
                 StoreGoods(
                     id = "",
-                    price = SimplePrice("3 000 ₽", 0),
+                    price = SimplePrice(0),
                     name = "Some cool item",
                     favorite = true,
                     image = ""

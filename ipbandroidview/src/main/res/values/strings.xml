@@ -14,7 +14,6 @@
     <string name="verification_code">Код подтверждения</string>
     <string name="verification_code_message">Код из смс на номер:</string>
     <string name="next">Далее</string>
-    <string name="resend">Повторить отправку</string>
     <string name="name_surname">Имя и Фамилия</string>
     <string name="email">E-mail</string>
     <string name="birthday">Дата рождения</string>
@@ -24,10 +23,8 @@
     <string name="address">Адрес</string>
     <string name="wrong_phone">Неправильный номер телефона!</string>
     <string name="invalid_data">Неправильные данные!</string>
-    <string name="result">Результат</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
-    <string name="icon">Иконка экрана</string>
     <string name="audits">Аудиты</string>
     <string name="no_data">Нет данных</string>
     <string name="completed_audits">Завершённые аудиты</string>
@@ -40,7 +37,6 @@
     <string name="start_audit">Начать аудит</string>
     <string name="end_audit">Завершить</string>
     <string name="voice_message">Голосовое сообщение</string>
-    <string name="close">Закрыть</string>
     <string name="text_comment">Текстовый комментарий</string>
     <string name="error_connection">Нет связи с сервером!</string>
     <string name="answer_done">Ответ засчитан</string>
@@ -48,7 +44,6 @@
     <string name="audit_started">Аудит начался</string>
     <string name="audit_ended">Аудит закончен</string>
     <string name="add_photo">Добавить фото</string>
-    <string name="question">Вопрос</string>
     <string name="loading">Загрузка…</string>
     <string name="profile">Профиль</string>
     <string name="edit_profile">Редактировать профиль</string>
@@ -76,7 +71,6 @@
     <string name="use_bonuses">Использовать бонусы</string>
     <string name="paid_with_bonuses">Скидка бонусами</string>
     <string name="paid_with_promocode">Скидка по промокоду</string>
-    <string name="pay_with_card">Оплатить картой</string>
     <string name="payment_0">Нажимая «Оплатить картой» вы соглашаетесь с условиями&#160;</string>
     <string name="user_agreement">использования</string>
     <string name="payment_agreement">оплаты</string>
@@ -90,10 +84,7 @@
     <string name="pay">Оплатить</string>
     <string name="payment">Оплата</string>
     <string name="online_card">Картой онлайн</string>
-    <string name="offline_card">Картой при получении</string>
     <string name="receive_check">Получить чек на почту</string>
-    <string name="entryway">Подъезд</string>
-    <string name="apartment">Квартира</string>
     <string name="choose_pick_up">Выбрать пункт самовывоза</string>
     <string name="goods">Товары</string>
     <string name="order">Заказ</string>
@@ -130,4 +121,5 @@
     <string name="order_confirm_from_store">Требуется подтверждение из магазина</string>
     <string name="promo_code">Промокод</string>
     <string name="cash">Наличные</string>
+    <string name="comment">Комментарий</string>
 </resources>

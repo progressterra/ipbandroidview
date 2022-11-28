@@ -4,8 +4,8 @@ import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @Immutable
+@Parcelize
 open class Category(
     val id: String,
     val name: String,

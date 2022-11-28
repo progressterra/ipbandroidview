@@ -10,18 +10,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.BonusSwitch
 import com.progressterra.ipbandroidview.composable.component.DeliveryPicker
 import com.progressterra.ipbandroidview.composable.component.GoodsLine
 import com.progressterra.ipbandroidview.composable.component.PaymentMethod
-import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.composable.component.PromoCode
 import com.progressterra.ipbandroidview.composable.component.Receipt
 import com.progressterra.ipbandroidview.composable.component.ReceiveReceipt
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.StateBox
-import com.progressterra.ipbandroidview.model.DeliveryMethod
+import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -31,11 +31,9 @@ fun OrderScreen(
     goodsDetails: (String) -> Unit,
     changeAddress: () -> Unit,
     selectPickUpPoint: () -> Unit,
-    selectDeliveryMethod: (DeliveryMethod) -> Unit,
+    selectDeliveryMethod: (Delivery) -> Unit,
     selectPayment: (PaymentType) -> Unit,
-    editApartment: (String) -> Unit,
     editComment: (String) -> Unit,
-    editEntryway: (String) -> Unit,
     changeUseBonuses: (Boolean) -> Unit,
     editPromoCode: (String) -> Unit,
     applyPromoCode: () -> Unit,
@@ -62,15 +60,13 @@ fun OrderScreen(
                     ),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                GoodsLine(state = state()::goods, openGoodsDetails = goodsDetails)
+                GoodsLine(state = state, openGoodsDetails = goodsDetails)
                 DeliveryPicker(
                     state = state,
                     changeAddress = changeAddress,
                     selectPickUpPoint = selectPickUpPoint,
                     selectDeliveryMethod = selectDeliveryMethod,
-                    editApartment = editApartment,
-                    editComment = editComment,
-                    editEntryway = editEntryway
+                    editComment = editComment
                 )
                 BonusSwitch(state = state, switchUseBonuses = changeUseBonuses)
                 PromoCode(

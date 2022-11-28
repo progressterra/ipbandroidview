@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -17,10 +18,16 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+@Immutable
+interface GoodsLineState {
+
+    val goods: List<OrderGoods>
+}
+
 @Composable
 fun GoodsLine(
     modifier: Modifier = Modifier,
-    state: () -> List<OrderGoods>,
+    state: () -> GoodsLineState,
     openGoodsDetails: (String) -> Unit
 ) {
 
@@ -38,19 +45,22 @@ fun GoodsLine(
             style = AppTheme.typography.title
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-            items(state()) {
+            items(state().goods) {
                 GoodsLineItem(state = { it }, openGoodsDetails = openGoodsDetails)
             }
         }
     }
 }
 
+private class GoodsLineStatePreview(override val goods: List<OrderGoods> = emptyList()) :
+    GoodsLineState
+
 @Preview
 @Composable
 private fun GoodsLinePreview() {
     AppTheme {
         GoodsLine(state = {
-            emptyList()
+            GoodsLineStatePreview()
         }, openGoodsDetails = {})
     }
 }

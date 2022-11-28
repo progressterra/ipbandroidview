@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAu
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
-import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsForDeliveryUseCase
+import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.SetDeliveryAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.CreateDeliveryOrderUseCase
@@ -226,12 +226,12 @@ val useCasesModule = module {
     single<AvailableDeliveryUseCase> { AvailableDeliveryUseCase.Base(get(), get(), get(), get()) }
 
     single<OrdersUseCase> {
-        OrdersUseCase.Base(get(), get(), get(), get(), get(), get(), get())
+        OrdersUseCase.Base(get(), get(), get(), get(), get(), get(), get(), get())
     }
 
     single<SaveUserAddressUseCase> { SaveUserAddressUseCase.Base(get(), get(), get(), get()) }
 
-    single<PaymentMethodsForDeliveryUseCase> { PaymentMethodsForDeliveryUseCase.Base() }
+    single<PaymentMethodsUseCase> { PaymentMethodsUseCase.Base() }
 
     single<FetchUserAddressUseCase> { FetchUserAddressUseCase.Base() }
 

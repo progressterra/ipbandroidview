@@ -6,11 +6,11 @@ import com.progressterra.ipbandroidapi.api.ipbdelivery.models.RGDeliveryParams
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.model.DeliveryMethod
+import com.progressterra.ipbandroidview.model.Delivery
 
 interface CreateDeliveryOrderUseCase {
 
-    suspend fun create(comment: String, deliveryMethod: DeliveryMethod): Result<Unit>
+    suspend fun create(comment: String, deliveryMethod: Delivery): Result<Unit>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -18,13 +18,13 @@ interface CreateDeliveryOrderUseCase {
         private val repository: IPBDeliveryRepository
     ) : CreateDeliveryOrderUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun create(comment: String, deliveryMethod: DeliveryMethod): Result<Unit> =
+        override suspend fun create(comment: String, deliveryMethod: Delivery): Result<Unit> =
             withToken { token ->
                 repository.createDeliveryOrder(
                     setDeliveryTypeRequest = RGDeliveryParams(
-                        rfMethodType = deliveryMethod.type.toServiceEnum(),
+                        rfMethodType = deliveryMethod.id.toServiceEnum(),
                         rfServiceType = DeliverySeriviceTypeEnum.ZERO,
-                        rdPickUpPoint = deliveryMethod.pickUpPointInfo?.pickupPointCode,
+                        rdPickUpPoint = (deliveryMethod as? Delivery.PickUpPointDelivery)?.currentPoint?.pickupPointCode,
                     ),
                     accessToken = token
                 )

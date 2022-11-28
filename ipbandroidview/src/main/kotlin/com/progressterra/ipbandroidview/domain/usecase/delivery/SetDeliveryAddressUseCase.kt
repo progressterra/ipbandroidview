@@ -6,11 +6,11 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.model.AddressUI
-import com.progressterra.ipbandroidview.model.DeliveryMethod
+import com.progressterra.ipbandroidview.model.Delivery
 
 interface SetDeliveryAddressUseCase {
 
-    suspend fun setAddress(deliveryMethod: DeliveryMethod, address: AddressUI): Result<Unit>
+    suspend fun setAddress(deliveryMethod: Delivery, address: AddressUI): Result<Unit>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -19,13 +19,13 @@ interface SetDeliveryAddressUseCase {
     ) : SetDeliveryAddressUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun setAddress(
-            deliveryMethod: DeliveryMethod,
+            deliveryMethod: Delivery,
             address: AddressUI
         ): Result<Unit> = withToken { token ->
             repo.setDeliveryAddress(
                 token, ParamForAddAddress(
                     accessToken = token,
-                    idAddress = deliveryMethod.type.value,
+                    idAddress = deliveryMethod.id.value,
                     adressString = address.toString()
                 )
             )

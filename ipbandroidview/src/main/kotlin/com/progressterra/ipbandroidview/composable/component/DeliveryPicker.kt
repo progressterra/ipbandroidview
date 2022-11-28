@@ -18,22 +18,16 @@ import com.progressterra.ipbandroidview.composable.element.ThemedRadioButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.AddressUI
-import com.progressterra.ipbandroidview.model.DeliveryMethod
+import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface DeliveryPickerState {
 
     val addressUI: AddressUI
 
-    val entryway: String
+    val selectedDeliveryMethod: Delivery?
 
-    val apartment: String
-
-    val comment: String
-
-    val selectedDeliveryMethod: DeliveryMethod?
-
-    val deliveryMethods: List<DeliveryMethod>
+    val deliveryMethods: List<Delivery>
 }
 
 @Composable
@@ -42,9 +36,7 @@ fun DeliveryPicker(
     state: () -> DeliveryPickerState,
     changeAddress: () -> Unit,
     selectPickUpPoint: () -> Unit,
-    selectDeliveryMethod: (DeliveryMethod) -> Unit,
-    editApartment: (String) -> Unit,
-    editEntryway: (String) -> Unit,
+    selectDeliveryMethod: (Delivery) -> Unit,
     editComment: (String) -> Unit
 ) {
     Column(
@@ -87,60 +79,42 @@ fun DeliveryPicker(
                         onClick = { selectDeliveryMethod(it) })
                     Column {
                         Text(
-                            text = "${it.deliveryTime}, ${it.price.formattedPrice}",
+                            text = "${it.date}, ${it.price}",
                             color = AppTheme.colors.black,
                             style = AppTheme.typography.text
                         )
                         Text(
-                            text = it.deliveryTypeText,
+                            text = it.type,
                             color = AppTheme.colors.black,
                             style = AppTheme.typography.text
                         )
                     }
                 }
-                if (it.addressNeeded && it == state().selectedDeliveryMethod)
-                    Column(
-                        modifier = modifier,
-                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
-                    ) {
-                        Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)) {
-                            ThemedTextField(
-                                modifier = Modifier.weight(1f),
-                                text = state()::entryway,
-                                hint = stringResource(R.string.entryway),
-                                onChange = editEntryway
-                            )
-                            ThemedTextField(
-                                modifier = Modifier.weight(1f),
-                                text = state()::apartment,
-                                hint = stringResource(R.string.apartment),
-                                onChange = editApartment
-                            )
-                        }
-                        ThemedTextField(
+                if (it == state().selectedDeliveryMethod)
+                    when (it) {
+                        is Delivery.CourierDelivery -> ThemedTextField(
                             modifier = Modifier.fillMaxWidth(),
-                            text = state()::comment,
-                            hint = stringResource(R.string.apartment),
+                            text = it::commentary,
+                            hint = stringResource(R.string.comment),
                             onChange = editComment
                         )
-                    }
-                if (!it.addressNeeded && it == state().selectedDeliveryMethod)
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(AppTheme.shapes.medium)
-                            .background(AppTheme.colors.background)
-                            .niceClickable(onClick = selectPickUpPoint)
-                            .padding(AppTheme.dimensions.large),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = stringResource(R.string.choose_pick_up),
-                            color = AppTheme.colors.black,
-                            style = AppTheme.typography.text
-                        )
-                        ForwardIcon()
+                        is Delivery.PickUpPointDelivery -> Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(AppTheme.shapes.medium)
+                                .background(AppTheme.colors.background)
+                                .niceClickable(onClick = selectPickUpPoint)
+                                .padding(AppTheme.dimensions.large),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = stringResource(R.string.choose_pick_up),
+                                color = AppTheme.colors.black,
+                                style = AppTheme.typography.text
+                            )
+                            ForwardIcon()
+                        }
                     }
             }
         }

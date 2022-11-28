@@ -7,8 +7,6 @@ interface PriceMapper : Mapper<Double, SimplePrice> {
 
     class Russia : PriceMapper {
 
-        override fun map(data: Double): SimplePrice = SimplePrice(
-            "${data.toInt()} ₽", data.toInt()
-        )
+        override fun map(data: Double): SimplePrice = SimplePrice(data.toInt())
     }
 }

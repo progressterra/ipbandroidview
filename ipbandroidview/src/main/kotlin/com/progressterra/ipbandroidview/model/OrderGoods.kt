@@ -6,6 +6,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class OrderGoods(
     val id: String,
+    val image: String,
+    val name: String,
     val inCartCounter: Int,
-    val image: String
+    val totalPrice: SimplePrice
 ) : Parcelable

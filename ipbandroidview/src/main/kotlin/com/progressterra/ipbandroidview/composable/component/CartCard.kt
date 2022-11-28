@@ -67,7 +67,7 @@ fun CartCard(
                 style = AppTheme.typography.text
             )
             Text(
-                text = state().price.formattedPrice,
+                text = state().price.toString(),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title
             )
@@ -93,7 +93,7 @@ private fun CartCardPreview() {
                 image = "",
                 inCartCounter = 30,
                 name = "YOOOY SO COOL ITEM",
-                price = SimplePrice("3000$", 3000),
+                price = SimplePrice(3000),
                 size = GoodsSize(true, "", null)
             )
         }, onFavorite = {}, onDelete = {}, onDetails = {})

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.city
 
 import android.Manifest
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
