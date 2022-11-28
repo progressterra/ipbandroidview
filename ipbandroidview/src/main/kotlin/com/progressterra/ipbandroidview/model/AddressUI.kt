@@ -115,8 +115,7 @@ data class AddressUI(
             latitude == null &&
             longitude == null
 
-
-    override fun toString(): String = buildString {
+    fun printAddress(): String = buildString {
         nameStreet?.let { append("$it, ") }
         houseNUmber?.let { append("д $it") }
         apartment?.let {
