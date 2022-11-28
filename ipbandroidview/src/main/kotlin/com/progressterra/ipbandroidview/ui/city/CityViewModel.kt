@@ -53,20 +53,20 @@ class CityViewModel(
 
     fun editAddress(address: String) = intent {
         reduce {
-            state.copy(address = address, isDataValid = address == state.addressUI.toString())
+            state.copy(address = address, isDataValid = address == state.addressUI.printAddress())
         }
         suggestionUseCase.suggestions(address).map { reduce { state.copy(suggestions = it) } }
     }
 
     fun onMapClick(latLng: LatLng) = intent {
         guessLocationUseCase.guessLocation(latLng).map {
-            reduce { state.copy(addressUI = it, address = it.toString(), isDataValid = true) }
+            reduce { state.copy(addressUI = it, address = it.printAddress(), isDataValid = true) }
         }
     }
 
     fun onSuggestion(suggestion: SuggestionUI) = intent {
         chooseSuggestionUseCase.choose(suggestion).onSuccess {
-            reduce { state.copy(addressUI = it, address = it.toString(), isDataValid = true) }
+            reduce { state.copy(addressUI = it, address = it.printAddress(), isDataValid = true) }
         }
     }
 
