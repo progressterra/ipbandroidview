@@ -116,13 +116,11 @@ data class AddressUI(
             longitude == 0.0
 
     fun printAddress(): String = buildString {
-        nameStreet?.let { append("$it, ") }
-        houseNUmber?.let { append("д $it") }
-        apartment?.let {
-            if (it != "0")
-                append(", кв $it")
-        }
-        floor?.let { append(", эт $it") }
-        entrance?.let { append(", п $it ") }
+        append("$nameStreet, ")
+        append("д $houseNUmber")
+        if (apartment != "0")
+            append(", кв $apartment")
+        append(", эт $floor")
+        append(", п $entrance ")
     }
 }
