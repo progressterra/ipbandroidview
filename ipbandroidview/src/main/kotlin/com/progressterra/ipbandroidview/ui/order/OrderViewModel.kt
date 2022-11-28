@@ -78,10 +78,12 @@ class OrderViewModel(
 
     fun selectDeliveryMethod(method: Delivery) = intent {
         reduce { state.copy(selectedDeliveryMethod = method) }
+        checkValidity()
     }
 
     fun selectPayment(payment: PaymentType) = intent {
         reduce { state.copy(selectedPaymentMethod = payment) }
+        checkValidity()
     }
 
     fun editComment(comment: String) = intent {
@@ -134,6 +136,6 @@ class OrderViewModel(
     fun openUrl(url: String) = intent { }
 
     private fun checkValidity() = intent {
-        val valid = state.selectedPaymentMethod != null && state.selectedDeliveryMethod != null
+        reduce { state.copy(paymentReady = state.selectedPaymentMethod != null && state.selectedDeliveryMethod != null) }
     }
 }
