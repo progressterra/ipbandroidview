@@ -116,7 +116,7 @@ data class AddressUI(
             longitude == 0.0
 
     fun printAddress(): String = buildString {
-        if (isEmpty())
+        if (this@AddressUI.isEmpty())
             append("Установите адрес")
         else {
             append("$nameStreet, ")
