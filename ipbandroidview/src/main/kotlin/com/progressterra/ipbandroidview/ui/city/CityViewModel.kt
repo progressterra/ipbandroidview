@@ -64,6 +64,7 @@ class CityViewModel(
 
     fun onMapClick(latLng: LatLng) = intent {
         guessLocationUseCase.guessLocation(latLng).onSuccess {
+            Log.d("SUGGESTION", "onMapClick: $it")
             reduce { state.copy(addressUI = it, address = it.printAddress()) }
         }
     }
