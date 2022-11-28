@@ -119,8 +119,10 @@ data class AddressUI(
         if (this@AddressUI.isEmpty())
             append("Установите адрес")
         else {
-            append("$nameStreet, ")
-            append("д $houseNUmber")
+            if (nameStreet.isNotBlank())
+                append(nameStreet)
+            if (houseNUmber.isNotBlank())
+                append(", д $houseNUmber")
             if (apartment != 0)
                 append(", кв $apartment")
         }

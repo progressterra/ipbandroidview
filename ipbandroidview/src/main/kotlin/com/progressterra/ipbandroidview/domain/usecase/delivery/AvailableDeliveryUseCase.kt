@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain.usecase.delivery
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.ipbdelivery.IPBDeliveryRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
@@ -20,6 +21,9 @@ interface AvailableDeliveryUseCase {
     ) : AvailableDeliveryUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun deliveries(): Result<List<DeliveryMethod>> = withToken { token ->
+            deliveryRepository.getDeliveryList(token).onFailure {
+                Log.e("Delivery list", "deliveries", it)
+            }
             deliveryRepository.getDeliveryList(token).getOrThrow()?.map {
                 mapper.map(it)
             } ?: emptyList()
