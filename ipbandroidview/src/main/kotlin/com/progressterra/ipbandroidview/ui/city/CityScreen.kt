@@ -8,10 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -78,9 +74,6 @@ fun CityScreen(
             val cameraPositionState = rememberCameraPositionState {
                 position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 10f)
             }
-            var isAddressFocused by remember {
-                mutableStateOf(false)
-            }
             Box(modifier = Modifier
                 .clip(AppTheme.shapes.medium)
                 .background(AppTheme.colors.surfaces)
@@ -99,7 +92,6 @@ fun CityScreen(
                     start.linkTo(background.start, 12.dp)
                     end.linkTo(background.end, 12.dp)
                 },
-                onFocusChange = { isAddressFocused = it },
                 text = state().address::toString,
                 hint = stringResource(id = R.string.address),
                 onChange = editAddress

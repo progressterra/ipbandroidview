@@ -70,6 +70,7 @@ class CityViewModel(
 
     fun onSuggestion(suggestion: SuggestionUI) = intent {
         chooseSuggestionUseCase.choose(suggestion).onSuccess {
+            Log.d("SUGGESTION", "onSuggestion: $it")
             reduce { state.copy(addressUI = it, address = it.printAddress(), isDataValid = true) }
         }
     }

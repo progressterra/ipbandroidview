@@ -10,6 +10,5 @@ data class CityState(
     val isDataValid: Boolean = false,
     val address: String = "",
     val addressUI: AddressUI = AddressUI(),
-    val suggestions: List<SuggestionUI> = emptyList(),
-    val isAddressInFocus: Boolean = false
+    val suggestions: List<SuggestionUI> = emptyList()
 )

@@ -29,7 +29,6 @@ fun ThemedTextField(
     text: () -> String,
     hint: String,
     onChange: ((String) -> Unit)? = null,
-    onFocusChange: ((Boolean) -> Unit)? = null,
     enabled: () -> Boolean = { true },
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     action: (() -> Unit)? = null,
@@ -57,7 +56,6 @@ fun ThemedTextField(
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     val focusManager = LocalFocusManager.current
-    onFocusChange?.invoke(focused)
     TextField(
         modifier = modifier
             .border(
