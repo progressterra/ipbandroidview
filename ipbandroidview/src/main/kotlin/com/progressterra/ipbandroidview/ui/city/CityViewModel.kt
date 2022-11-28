@@ -48,7 +48,10 @@ class CityViewModel(
 
     fun next() = intent {
         saveUserAddressUseCase.saveAddress(address = state.addressUI).onSuccess {
+            Log.d("SUGGESTION", "address saved")
             postSideEffect(CityEffect.Next)
+        }.onFailure {
+            Log.d("SUGGESTION", "address not saved: $it")
         }
     }
 
@@ -72,7 +75,13 @@ class CityViewModel(
     fun onSuggestion(suggestion: SuggestionUI) = intent {
         chooseSuggestionUseCase.choose(suggestion).onSuccess {
             Log.d("SUGGESTION", "onSuggestion: $it")
-            reduce { state.copy(addressUI = it, address = it.printAddress(), isDataValid = true) }
+            reduce {
+                state.copy(
+                    addressUI = it,
+                    address = suggestion.previewOfSuggestion,
+                    isDataValid = true
+                )
+            }
         }
     }
 
