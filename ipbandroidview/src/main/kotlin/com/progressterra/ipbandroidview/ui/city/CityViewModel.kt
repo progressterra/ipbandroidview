@@ -69,6 +69,9 @@ class CityViewModel(
         guessLocationUseCase.guessLocation(latLng).onSuccess {
             Log.d("SUGGESTION", "onMapClick: $it")
             reduce { state.copy(addressUI = it, address = it.printAddress()) }
+            suggestionUseCase.suggestions(it.printAddress()).onSuccess {
+                reduce { state.copy(suggestions = it) }
+            }
         }
     }
 
