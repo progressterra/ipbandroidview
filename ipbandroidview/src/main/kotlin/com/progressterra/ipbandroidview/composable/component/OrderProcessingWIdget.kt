@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -28,7 +29,8 @@ fun OrderProcessingWidget(
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .padding(vertical = verticalPadding, horizontal = AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = if (state().success) stringResource(R.string.success_payment) else stringResource(R.string.failed_payment),
