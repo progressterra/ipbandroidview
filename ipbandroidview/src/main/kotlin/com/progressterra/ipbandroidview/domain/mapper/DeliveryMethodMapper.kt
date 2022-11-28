@@ -34,7 +34,7 @@ interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
                                 id = DeliveryMethodId.POSTAMAT,
                                 price = it.rdPrice?.let { price -> priceMapper.map(price) }
                                     ?: SimplePrice(),
-                                type = it.dhPickupPointInfo?.drrfType!!
+                                type = it.dhPickupPointInfo?.drrfType ?: noData
                             )
                         )
                         "Доставка до Пункта Выдачи Заказов (ПВЗ)" -> add(
@@ -48,7 +48,7 @@ interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
                                 id = DeliveryMethodId.PVZ,
                                 price = it.rdPrice?.let { price -> priceMapper.map(price) }
                                     ?: SimplePrice(),
-                                type = it.dhPickupPointInfo?.drrfType!!
+                                type = it.dhPickupPointInfo?.drrfType ?: noData
                             )
                         )
                         else -> add(
@@ -57,7 +57,7 @@ interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
                                 date = it.rdDeliveryTime?.parseToDate()?.format("dd.MM") ?: noData,
                                 price = it.rdPrice?.let { price -> priceMapper.map(price) }
                                     ?: SimplePrice(),
-                                type = it.dhPickupPointInfo?.drrfType!!
+                                type = it.rfDeliveryType ?: noData
                             )
                         )
                     }
