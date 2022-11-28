@@ -27,17 +27,14 @@ sealed class Delivery {
 
     @Immutable
     data class PickUpPointDelivery(
+        override val date: String = "",
         val points: List<PickUpPointInfo>,
         val currentPoint: PickUpPointInfo
     ) : Delivery() {
 
-        override val price: SimplePrice
-            get() = TODO("Not yet implemented")
-
-        override val date: String
-            get() = TODO("Not yet implemented")
-
         override val type: String = currentPoint.type
+
+        override val price: SimplePrice = currentPoint.price
 
         override val available: Boolean = points.isNotEmpty()
 

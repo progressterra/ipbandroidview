@@ -20,37 +20,48 @@ interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
         private val noData = manageResources.string(R.string.no_data)
 
         override fun map(data: List<DeliveryMethod>): List<Delivery> = buildList {
+            var pickUpPointDeliveryDate: String? = null
             val pickPoints: List<PickUpPointInfo> = buildList {
                 data.forEach {
                     when (it.dhPickupPointInfo?.drrfType) {
-                        "Доставка до постомата" -> add(
-                            PickUpPointInfo(address = it.dhPickupPointInfo?.drrdAddress
-                                ?: "",
-                                workHour = it.dhPickupPointInfo?.drrdWorkHour ?: "",
-                                latitude = it.dhPickupPointInfo?.drrfLatitude ?: 0.0,
-                                longitude = it.dhPickupPointInfo?.drrfLongitude ?: 0.0,
-                                pickupPointCode = it.dhPickupPointInfo?.drrfPickupPointCode ?: "",
-                                path = it.dhPickupPointInfo?.drrdWhereIs ?: "",
-                                id = DeliveryMethodId.POSTAMAT,
-                                price = it.rdPrice?.let { price -> priceMapper.map(price) }
-                                    ?: SimplePrice(),
-                                type = it.dhPickupPointInfo?.drrfType ?: noData
+                        "Доставка до постомата" -> {
+                            pickUpPointDeliveryDate =
+                                it.rdDeliveryTime?.parseToDate()?.format("dd.MM") ?: noData
+                            add(
+                                PickUpPointInfo(address = it.dhPickupPointInfo?.drrdAddress
+                                    ?: "",
+                                    workHour = it.dhPickupPointInfo?.drrdWorkHour ?: "",
+                                    latitude = it.dhPickupPointInfo?.drrfLatitude ?: 0.0,
+                                    longitude = it.dhPickupPointInfo?.drrfLongitude ?: 0.0,
+                                    pickupPointCode = it.dhPickupPointInfo?.drrfPickupPointCode
+                                        ?: "",
+                                    path = it.dhPickupPointInfo?.drrdWhereIs ?: "",
+                                    id = DeliveryMethodId.POSTAMAT,
+                                    price = it.rdPrice?.let { price -> priceMapper.map(price) }
+                                        ?: SimplePrice(),
+                                    type = it.dhPickupPointInfo?.drrfType ?: noData
+                                )
                             )
-                        )
-                        "Доставка до Пункта Выдачи Заказов (ПВЗ)" -> add(
-                            PickUpPointInfo(address = it.dhPickupPointInfo?.drrdAddress
-                                ?: "",
-                                workHour = it.dhPickupPointInfo?.drrdWorkHour ?: "",
-                                latitude = it.dhPickupPointInfo?.drrfLatitude ?: 0.0,
-                                longitude = it.dhPickupPointInfo?.drrfLongitude ?: 0.0,
-                                pickupPointCode = it.dhPickupPointInfo?.drrfPickupPointCode ?: "",
-                                path = it.dhPickupPointInfo?.drrdWhereIs ?: "",
-                                id = DeliveryMethodId.PVZ,
-                                price = it.rdPrice?.let { price -> priceMapper.map(price) }
-                                    ?: SimplePrice(),
-                                type = it.dhPickupPointInfo?.drrfType ?: noData
+                        }
+                        "Доставка до Пункта Выдачи Заказов (ПВЗ)" -> {
+                            pickUpPointDeliveryDate =
+                                it.rdDeliveryTime?.parseToDate()?.format("dd.MM") ?: noData
+                            add(
+                                PickUpPointInfo(address = it.dhPickupPointInfo?.drrdAddress
+                                    ?: "",
+                                    workHour = it.dhPickupPointInfo?.drrdWorkHour ?: "",
+                                    latitude = it.dhPickupPointInfo?.drrfLatitude ?: 0.0,
+                                    longitude = it.dhPickupPointInfo?.drrfLongitude ?: 0.0,
+                                    pickupPointCode = it.dhPickupPointInfo?.drrfPickupPointCode
+                                        ?: "",
+                                    path = it.dhPickupPointInfo?.drrdWhereIs ?: "",
+                                    id = DeliveryMethodId.PVZ,
+                                    price = it.rdPrice?.let { price -> priceMapper.map(price) }
+                                        ?: SimplePrice(),
+                                    type = it.dhPickupPointInfo?.drrfType ?: noData
+                                )
                             )
-                        )
+                        }
                         else -> add(
                             Delivery.CourierDelivery(
                                 id = DeliveryMethodId.COURIER,
@@ -66,7 +77,8 @@ interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
             add(
                 Delivery.PickUpPointDelivery(
                     points = pickPoints,
-                    currentPoint = pickPoints.firstOrNull() ?: PickUpPointInfo()
+                    currentPoint = pickPoints.firstOrNull() ?: PickUpPointInfo(),
+                    date = pickUpPointDeliveryDate ?: noData
                 )
             )
         }
