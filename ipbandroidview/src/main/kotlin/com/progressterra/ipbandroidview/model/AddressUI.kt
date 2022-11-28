@@ -5,115 +5,115 @@ import com.progressterra.ipbandroidview.core.IsEmpty
 
 data class AddressUI(
     @SerializedName("idUnique")
-    val idUnique: String? = null,
+    val idUnique: String = "",
     @SerializedName("idClient")
-    val idClient: String? = null,
+    val idClient: String = "",
     @SerializedName("dateAdded")
-    val dateAdded: String? = null,
+    val dateAdded: String = "",
     @SerializedName("dateVerification")
-    val dateVerification: String? = null,
+    val dateVerification: String = "",
     @SerializedName("idManagerVerification")
-    val idManagerVerification: String? = null,
+    val idManagerVerification: String = "",
     @SerializedName("dateDeactivation")
-    val dateDeactivation: String? = null,
+    val dateDeactivation: String = "",
     @SerializedName("defaultShipping")
-    val defaultShipping: String? = null,
+    val defaultShipping: String = "",
     @SerializedName("defaultBilling")
-    val defaultBilling: String? = null,
+    val defaultBilling: String = "",
     @SerializedName("fiasIDCountry")
-    val fiasIDCountry: String? = null,
+    val fiasIDCountry: String = "",
     @SerializedName("fiasIDRegion")
-    val fiasIDRegion: String? = null,
+    val fiasIDRegion: String = "",
     @SerializedName("fiasIDCity")
-    val fiasIDCity: String? = null,
+    val fiasIDCity: String = "",
     @SerializedName("fiasIDArea")
-    val fiasIDArea: String? = null,
+    val fiasIDArea: String = "",
     @SerializedName("fiasIDDistrict")
-    val fiasIDDistrict: String? = null,
+    val fiasIDDistrict: String = "",
     @SerializedName("fiasIDStreet")
-    val fiasIDStreet: String? = null,
+    val fiasIDStreet: String = "",
     @SerializedName("fiasIDHouse")
-    val fiasIDHouse: String? = null,
+    val fiasIDHouse: String = "",
     @SerializedName("kladrCountry")
-    val kladrCountry: String? = null,
+    val kladrCountry: String = "",
     @SerializedName("kladrRegion")
-    val kladrRegion: String? = null,
+    val kladrRegion: String = "",
     @SerializedName("kladrCity")
-    val kladrCity: String? = null,
+    val kladrCity: String = "",
     @SerializedName("kladrArea")
-    val kladrArea: String? = null,
+    val kladrArea: String = "",
     @SerializedName("kladrDistrict")
-    val kladrDistrict: String? = null,
+    val kladrDistrict: String = "",
     @SerializedName("kladrStreet")
-    val kladrStreet: String? = null,
+    val kladrStreet: String = "",
     @SerializedName("kladrHouse")
-    val kladrHouse: String? = null,
+    val kladrHouse: String = "",
     @SerializedName("nameCountry")
-    val nameCountry: String? = null,
+    val nameCountry: String = "",
     @SerializedName("nameRegion")
-    val nameRegion: String? = null,
+    val nameRegion: String = "",
     @SerializedName("nameCity")
-    val nameCity: String? = null,
+    val nameCity: String = "",
     @SerializedName("nameStreet")
-    val nameStreet: String? = null,
+    val nameStreet: String = "",
     @SerializedName("nameArea")
-    val nameArea: String? = null,
+    val nameArea: String = "",
     @SerializedName("nameDistrict")
-    val nameDistrict: String? = null,
+    val nameDistrict: String = "",
     @SerializedName("postalCode")
-    val postalCode: String? = null,
+    val postalCode: String = "",
     @SerializedName("houseNUmber")
-    val houseNUmber: String? = null,
+    val houseNUmber: String = "",
     @SerializedName("building")
-    val building: String? = null,
+    val building: String = "",
     @SerializedName("apartment")
-    val apartment: String? = null,
+    val apartment: String = "",
     @SerializedName("entrance")
-    val entrance: String? = null,
+    val entrance: String = "",
     @SerializedName("floor")
-    val floor: String? = null,
+    val floor: String = "",
     @SerializedName("latitude")
-    val latitude: Double? = null,
+    val latitude: Double = 0.0,
     @SerializedName("longitude")
-    val longitude: Double? = null
+    val longitude: Double = 0.0
 ) : IsEmpty {
 
-    override fun isEmpty(): Boolean = idUnique == null &&
-            idClient == null &&
-            dateAdded == null &&
-            dateVerification == null &&
-            idManagerVerification == null &&
-            dateDeactivation == null &&
-            defaultShipping == null &&
-            defaultBilling == null &&
-            fiasIDCountry == null &&
-            fiasIDRegion == null &&
-            fiasIDCity == null &&
-            fiasIDArea == null &&
-            fiasIDDistrict == null &&
-            fiasIDStreet == null &&
-            fiasIDHouse == null &&
-            kladrCountry == null &&
-            kladrRegion == null &&
-            kladrCity == null &&
-            kladrArea == null &&
-            kladrDistrict == null &&
-            kladrStreet == null &&
-            kladrHouse == null &&
-            nameCountry == null &&
-            nameRegion == null &&
-            nameCity == null &&
-            nameStreet == null &&
-            nameArea == null &&
-            nameDistrict == null &&
-            postalCode == null &&
-            houseNUmber == null &&
-            building == null &&
-            apartment == null &&
-            entrance == null &&
-            floor == null &&
-            latitude == null &&
-            longitude == null
+    override fun isEmpty(): Boolean = idUnique == "" &&
+            idClient == "" &&
+            dateAdded == "" &&
+            dateVerification == "" &&
+            idManagerVerification == "" &&
+            dateDeactivation == "" &&
+            defaultShipping == "" &&
+            defaultBilling == "" &&
+            fiasIDCountry == "" &&
+            fiasIDRegion == "" &&
+            fiasIDCity == "" &&
+            fiasIDArea == "" &&
+            fiasIDDistrict == "" &&
+            fiasIDStreet == "" &&
+            fiasIDHouse == "" &&
+            kladrCountry == "" &&
+            kladrRegion == "" &&
+            kladrCity == "" &&
+            kladrArea == "" &&
+            kladrDistrict == "" &&
+            kladrStreet == "" &&
+            kladrHouse == "" &&
+            nameCountry == "" &&
+            nameRegion == "" &&
+            nameCity == "" &&
+            nameStreet == "" &&
+            nameArea == "" &&
+            nameDistrict == "" &&
+            postalCode == "" &&
+            houseNUmber == "" &&
+            building == "" &&
+            apartment == "" &&
+            entrance == "" &&
+            floor == "" &&
+            latitude == 0.0 &&
+            longitude == 0.0
 
     fun printAddress(): String = buildString {
         nameStreet?.let { append("$it, ") }
