@@ -78,10 +78,13 @@ fun Notifications(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 Image(
-                    modifier = Modifier.size(qrSize).clip(AppTheme.shapes.small).padding(AppTheme.dimensions.small),
+                    modifier = Modifier
+                        .size(qrSize)
+                        .clip(AppTheme.shapes.small)
+                        .padding(AppTheme.dimensions.small),
                     bitmap = notification.qr.asImageBitmap(),
                     contentDescription = null,
-                    contentScale = ContentScale.FillBounds
+                    contentScale = ContentScale.Fit
                 )
                 Text(
                     text = "У вас ${notification.bonusesAvailable} бонусов",
