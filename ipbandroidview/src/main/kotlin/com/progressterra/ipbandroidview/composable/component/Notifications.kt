@@ -32,7 +32,7 @@ interface NotificationsState {
     val notifications: List<Notification>
 }
 
-private val horizontalPadding: Dp = 32.dp
+private val horizontalPadding: Dp = 8.dp
 
 private val height = 130.dp
 
@@ -71,18 +71,18 @@ fun Notifications(
                     .fillMaxWidth()
                     .height(height)
                     .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.failed)
+                    .background(AppTheme.colors.surfaces)
                     .padding(AppTheme.dimensions.small),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 Image(
-                    modifier = Modifier.size(qrSize),
+                    modifier = Modifier.size(qrSize).clip(AppTheme.shapes.small).padding(AppTheme.dimensions.small),
                     bitmap = notification.qr.asImageBitmap(),
                     contentDescription = null
                 )
                 Text(
-                    text = "У вас ${notification.bonusesAvailable}бонусов",
+                    text = "У вас ${notification.bonusesAvailable} бонусов",
                     color = AppTheme.colors.black,
                     style = AppTheme.typography.title
                 )

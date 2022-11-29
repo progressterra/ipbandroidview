@@ -31,7 +31,7 @@ interface NotificationUseCase {
                     if (it > 0)
                         add(
                             Notification.BonusExpiring(
-                                amount = it.toString(),
+                                amount = it.toInt().toString(),
                                 date = bonusesResponse.dateBurning?.parseToDate()
                                     ?.format("dd.MM.yyyy") ?: noData
                             )
@@ -40,7 +40,8 @@ interface NotificationUseCase {
                 add(
                     Notification.Main(
                         qr = createQrUseCase(token),
-                        bonusesAvailable = bonusesResponse?.currentQuantity?.toString() ?: noData
+                        bonusesAvailable = bonusesResponse?.currentQuantity?.toInt()?.toString()
+                            ?: noData
                     )
                 )
             }
