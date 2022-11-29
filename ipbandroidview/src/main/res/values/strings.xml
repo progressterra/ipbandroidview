@@ -122,4 +122,5 @@
     <string name="promo_code">Промокод</string>
     <string name="cash">Наличные</string>
     <string name="comment">Комментарий</string>
+    <string name="your_orders">Ваши заказы</string>
 </resources>

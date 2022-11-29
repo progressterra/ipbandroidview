@@ -17,16 +17,26 @@ class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect>
         refresh()
     }
 
+    //TODO replace with usecases
+
     fun refresh() = intent {
         reduce {
             state.copy(
                 phone = UserData.phone,
-                name = "${UserData.userName.name} ${UserData.userName.surname}"
+                name = "${UserData.userName.name} ${UserData.userName.surname}".trim()
             )
         }
     }
 
     fun openDetails() = intent {
         postSideEffect(ProfileEffect.OpenDetails)
+    }
+
+    fun onFavorites() = intent {
+        postSideEffect(ProfileEffect.Favorites)
+    }
+
+    fun onOrders() = intent {
+        postSideEffect(ProfileEffect.Orders)
     }
 }

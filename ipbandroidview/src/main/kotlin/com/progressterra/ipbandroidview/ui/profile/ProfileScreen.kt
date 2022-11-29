@@ -11,18 +11,26 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.element.ForwardIcon
+import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun ProfileScreen(state: () -> ProfileState, openDetails: () -> Unit) {
+fun ProfileScreen(
+    state: () -> ProfileState,
+    openDetails: () -> Unit,
+    onOrders: () -> Unit,
+    onFavorites: () -> Unit
+) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
             title = stringResource(id = R.string.profile)
@@ -31,7 +39,8 @@ fun ProfileScreen(state: () -> ProfileState, openDetails: () -> Unit) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.small)
+                .padding(AppTheme.dimensions.small),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
             Row(
                 modifier = Modifier
@@ -39,7 +48,8 @@ fun ProfileScreen(state: () -> ProfileState, openDetails: () -> Unit) {
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
                     .padding(AppTheme.dimensions.medium),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
                     Text(
@@ -61,6 +71,44 @@ fun ProfileScreen(state: () -> ProfileState, openDetails: () -> Unit) {
                             id = R.string.edit_profile
                         ), tint = AppTheme.colors.gray2
                     )
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(AppTheme.shapes.medium)
+                    .background(AppTheme.colors.surfaces)
+                    .niceClickable(onOrders)
+                    .padding(AppTheme.dimensions.medium),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.your_orders),
+                    color = AppTheme.colors.black,
+                    style = AppTheme.typography.text
+                )
+                IconButton(onClick = openDetails) {
+                    ForwardIcon()
+                }
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(AppTheme.shapes.medium)
+                    .background(AppTheme.colors.surfaces)
+                    .niceClickable(onFavorites)
+                    .padding(AppTheme.dimensions.medium),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = stringResource(R.string.favorites),
+                    color = AppTheme.colors.black,
+                    style = AppTheme.typography.text
+                )
+                IconButton(onClick = openDetails) {
+                    ForwardIcon()
                 }
             }
         }

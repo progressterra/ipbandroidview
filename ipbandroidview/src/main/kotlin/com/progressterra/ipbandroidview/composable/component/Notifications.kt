@@ -79,9 +79,7 @@ fun Notifications(
             ) {
                 Image(
                     modifier = Modifier
-                        .size(qrSize)
-                        .clip(AppTheme.shapes.small)
-                        .padding(AppTheme.dimensions.small),
+                        .size(qrSize),
                     bitmap = notification.qr.asImageBitmap(),
                     contentDescription = null,
                     contentScale = ContentScale.Fit

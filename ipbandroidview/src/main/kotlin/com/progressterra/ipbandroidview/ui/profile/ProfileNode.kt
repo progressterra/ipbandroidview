@@ -11,7 +11,9 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class ProfileNode(
     buildContext: BuildContext,
-    private val onDetails: () -> Unit
+    private val onDetails: () -> Unit,
+    private val onFavorites: () -> Unit,
+    private val onOrders: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -20,12 +22,16 @@ class ProfileNode(
         viewModel.collectSideEffect {
             when (it) {
                 ProfileEffect.OpenDetails -> onDetails()
+                ProfileEffect.Favorites -> onFavorites()
+                ProfileEffect.Orders -> onOrders()
             }
         }
         val state = viewModel.collectAsState()
         ProfileScreen(
             state = state::value,
-            openDetails = viewModel::openDetails
+            openDetails = viewModel::openDetails,
+            onOrders = viewModel::onOrders,
+            onFavorites = viewModel::onFavorites
         )
     }
 }

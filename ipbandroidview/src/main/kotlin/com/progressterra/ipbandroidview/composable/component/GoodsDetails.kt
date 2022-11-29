@@ -31,6 +31,8 @@ import com.progressterra.ipbandroidview.model.GoodsParameters
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
+//TODO fix horizontal paddings for nicer effect
+
 private val detailsParamTitlesWidth = 104.dp
 
 @OptIn(ExperimentalPagerApi::class)
