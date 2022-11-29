@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -79,7 +80,8 @@ fun Notifications(
                 Image(
                     modifier = Modifier.size(qrSize).clip(AppTheme.shapes.small).padding(AppTheme.dimensions.small),
                     bitmap = notification.qr.asImageBitmap(),
-                    contentDescription = null
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds
                 )
                 Text(
                     text = "У вас ${notification.bonusesAvailable} бонусов",
