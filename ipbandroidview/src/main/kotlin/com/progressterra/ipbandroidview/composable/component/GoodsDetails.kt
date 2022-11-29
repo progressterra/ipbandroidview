@@ -97,7 +97,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
         modifier = modifier, verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(count = 3, state = pagerState) {
+        HorizontalPager(count = 3, state = pagerState, verticalAlignment = Alignment.Top) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
