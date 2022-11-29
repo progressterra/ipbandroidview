@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentCheckli
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.SendResultOnEmailUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.SetDeliveryAddressUseCase
@@ -244,4 +245,6 @@ val useCasesModule = module {
     single<CreateQrUseCase> { CreateQrUseCase.Base() }
 
     single<NotificationUseCase> { NotificationUseCase.Base(get(), get(), get(), get(), get()) }
+
+    single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get()) }
 }

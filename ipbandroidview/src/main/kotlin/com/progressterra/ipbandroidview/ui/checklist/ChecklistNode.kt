@@ -12,6 +12,7 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.model.CheckPicture
+import com.progressterra.ipbandroidview.model.ChecklistStatus
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -20,6 +21,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class ChecklistNode(
     buildContext: BuildContext,
     private val auditDocument: AuditDocument,
+    private val initialStatus: ChecklistStatus,
     private val onBack: () -> Unit,
     private val openImage: (CheckPicture, Boolean) -> Unit
 ) : Node(buildContext) {
@@ -36,12 +38,12 @@ class ChecklistNode(
                     .show()
             }
         }
-        var alreadyLaunched by rememberSaveable(auditDocument) {
+        var alreadyLaunched by rememberSaveable(auditDocument, initialStatus) {
             mutableStateOf(false)
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setDocument(auditDocument)
+            viewModel.setDocument(auditDocument, initialStatus)
         }
         val state = viewModel.collectAsState()
         ChecklistScreen(
@@ -59,6 +61,8 @@ class ChecklistNode(
             remove = viewModel::remove,
             openImage = viewModel::openImage,
             onCamera = viewModel::onCamera,
+            editEmail = viewModel::editEmail,
+            sendEmail = viewModel::sendOnEmail
         )
     }
 }

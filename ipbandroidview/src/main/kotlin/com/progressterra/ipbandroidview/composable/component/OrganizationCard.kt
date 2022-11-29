@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
@@ -14,10 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.composable.element.AuditsIcon
+import com.progressterra.ipbandroidview.composable.element.DocumentsIcon
 import com.progressterra.ipbandroidview.composable.element.ForwardIcon
+import com.progressterra.ipbandroidview.composable.element.SimpleImage
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.model.Organization
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.organizations.Organization
+
+private val imageHeight = 75.dp
+private val imageWidth = 150.dp
 
 @Composable
 fun OrganizationCard(
@@ -27,14 +34,25 @@ fun OrganizationCard(
 ) {
     Row(
         modifier = modifier
+            .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
             .niceClickable(onClick = { openOrganization(state()) })
             .background(AppTheme.colors.surfaces)
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
     ) {
-        Column(modifier = Modifier.weight(1f, false)) {
+        SimpleImage(
+            modifier = Modifier
+                .size(width = imageWidth, height = imageHeight)
+                .clip(AppTheme.shapes.small),
+            url = state()::imageUrl,
+            backgroundColor = AppTheme.colors.surfaces
+        )
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+        ) {
             Text(
                 text = state().address,
                 color = AppTheme.colors.black,
@@ -42,7 +60,6 @@ fun OrganizationCard(
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.tiniest))
             Text(
                 text = state().name,
                 color = AppTheme.colors.gray2,
@@ -50,6 +67,23 @@ fun OrganizationCard(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                AuditsIcon()
+                Text(
+                    text = state().audits,
+                    color = AppTheme.colors.gray2,
+                    style = AppTheme.typography.secondaryText
+                )
+                DocumentsIcon()
+                Text(
+                    text = state().documents,
+                    color = AppTheme.colors.gray2,
+                    style = AppTheme.typography.secondaryText
+                )
+            }
         }
         ForwardIcon()
     }
@@ -64,11 +98,12 @@ private fun OrganizationPreviewSmall() {
                 Organization(
                     address = "123 132 123",
                     id = "",
-                    warnings = 0,
                     name = "Somme coool name",
                     imageUrl = "",
                     latitude = 0.0,
-                    longitude = 0.0
+                    longitude = 0.0,
+                    audits = "30",
+                    documents = "155"
                 )
             },
             openOrganization = {}

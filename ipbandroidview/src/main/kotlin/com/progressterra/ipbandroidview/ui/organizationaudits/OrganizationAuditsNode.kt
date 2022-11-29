@@ -9,7 +9,8 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.model.AuditDocument
-import com.progressterra.ipbandroidview.ui.organizations.Organization
+import com.progressterra.ipbandroidview.model.ChecklistStatus
+import com.progressterra.ipbandroidview.model.Organization
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -18,7 +19,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class OrganizationAuditsNode(
     buildContext: BuildContext,
     private val organization: Organization,
-    private val onChecklist: (AuditDocument) -> Unit,
+    private val onChecklist: (AuditDocument, ChecklistStatus) -> Unit,
     private val onBack: () -> Unit
 ) : Node(buildContext) {
 
@@ -28,7 +29,10 @@ class OrganizationAuditsNode(
         viewModel.collectSideEffect {
             when (it) {
                 is OrganizationAuditsEffect.Back -> onBack()
-                is OrganizationAuditsEffect.OpenChecklist -> onChecklist(it.auditDocument)
+                is OrganizationAuditsEffect.OpenChecklist -> onChecklist(
+                    it.auditDocument,
+                    it.initialStatus
+                )
             }
         }
         var alreadyLaunched by rememberSaveable(organization) {

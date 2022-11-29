@@ -30,13 +30,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.CheckDialogBar
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.AttachedPhotos
 import com.progressterra.ipbandroidview.composable.component.AuditTitle
 import com.progressterra.ipbandroidview.composable.component.CheckCard
+import com.progressterra.ipbandroidview.composable.component.CheckDialogBar
 import com.progressterra.ipbandroidview.composable.component.Stats
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.VoiceInput
 import com.progressterra.ipbandroidview.composable.component.YesNoButton
 import com.progressterra.ipbandroidview.composable.element.BottomHolder
@@ -46,6 +46,7 @@ import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.CheckPicture
+import com.progressterra.ipbandroidview.model.ChecklistStatus
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -65,12 +66,15 @@ fun ChecklistScreen(
     startStopRecording: () -> Unit,
     remove: () -> Unit,
     openImage: (CheckPicture) -> Unit,
-    onCamera: () -> Unit
+    onCamera: () -> Unit,
+    editEmail: (String) -> Unit,
+    sendEmail: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true
     )
     val coroutineScope = rememberCoroutineScope()
+    val ongoing = { state().status == ChecklistStatus.ONGOING }
     ModalBottomSheetLayout(
         sheetState = sheetState, sheetShape = AppTheme.shapes.medium.copy(
             bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize
@@ -84,7 +88,9 @@ fun ChecklistScreen(
                 state = state()::checkScreenState,
                 refresh = refreshCheck
             ) {
-                if (state().currentCheck != null && state().currentCheckMedia != null) {
+                val currentCheck = state().currentCheck
+                val currentCheckMedia = state().currentCheckMedia
+                if (currentCheck != null && currentCheckMedia != null) {
                     Column(
                         modifier = Modifier.padding(
                             top = AppTheme.dimensions.small,
@@ -100,7 +106,7 @@ fun ChecklistScreen(
                                 .fillMaxWidth()
                         ) {
                             Text(
-                                text = state().currentCheck?.description ?: "",
+                                text = currentCheck.description,
                                 color = AppTheme.colors.black,
                                 style = AppTheme.typography.text
                             )
@@ -114,20 +120,18 @@ fun ChecklistScreen(
                             Box(modifier = Modifier.padding(AppTheme.dimensions.medium)) {
                                 YesNoButton(
                                     modifier = Modifier.fillMaxWidth(),
-                                    state = { state().currentCheck?.yesNo },
+                                    state = currentCheck::yesNo,
                                     onClick = yesNo,
-                                    enabled = state().auditDocument::ongoing
+                                    enabled = ongoing
                                 )
                             }
                             Box(modifier = Modifier.padding(horizontal = AppTheme.dimensions.medium)) {
                                 ThemedTextField(
                                     modifier = Modifier.fillMaxWidth(),
-                                    text = { state().currentCheck?.comment ?: "" },
-                                    hint = stringResource(
-                                        id = R.string.text_comment
-                                    ),
+                                    text = currentCheck::comment,
+                                    hint = stringResource(id = R.string.text_comment),
                                     onChange = editCheckCommentary,
-                                    enabled = state().auditDocument::ongoing,
+                                    enabled = ongoing,
                                     singleLine = false
                                 )
                             }
@@ -140,7 +144,7 @@ fun ChecklistScreen(
                                     onStartPlay = startPausePlay,
                                     onPausePlay = startPausePlay,
                                     onRemove = remove,
-                                    enabled = state().auditDocument::ongoing
+                                    enabled = ongoing
                                 )
                             }
                             Box(
@@ -152,17 +156,14 @@ fun ChecklistScreen(
                             ) {
                                 AttachedPhotos(
                                     modifier = Modifier.fillMaxWidth(),
-                                    enabled = state().auditDocument::ongoing,
-                                    pictures = {
-                                        state().currentCheckMedia?.pictures?.filter { !it.toRemove }
-                                            ?: emptyList()
-                                    },
+                                    enabled = ongoing,
+                                    pictures = { currentCheckMedia.pictures.filter { !it.toRemove } },
                                     onPhotoSelect = openImage,
                                     onCamera = onCamera
                                 )
                             }
                         }
-                        if (state().auditDocument.ongoing) {
+                        if (ongoing()) {
                             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                             Row(Modifier.padding(horizontal = AppTheme.dimensions.small)) {
                                 ThemedButton(
@@ -184,42 +185,54 @@ fun ChecklistScreen(
                 onBack = back, title = stringResource(id = R.string.audit)
             )
         }, bottomBar = {
-            if (!(state().auditDocument.readOrCompleteOnly && !state().auditDocument.ongoing)) {
-                BottomHolder(Modifier.fillMaxWidth()) {
+            BottomHolder {
+                Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
+
                     Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-                        if (state().auditDocument.ongoing) if (state().stats.remaining >= 1) ThemedButton(
-                            modifier = Modifier.weight(1f),
-                            onClick = startStopAudit,
-                            text = stringResource(
-                                id = R.string.end_audit
-                            ),
-                            tint = AppTheme.colors.secondary,
-                            textColor = AppTheme.colors.gray1,
-                            enabled = state().checklistScreenState::isSuccess
-                        )
-                        else ThemedButton(
-                            modifier = Modifier.weight(1f),
-                            onClick = startStopAudit,
-                            text = stringResource(
-                                id = R.string.end_audit
-                            ),
-                            tint = AppTheme.colors.primary,
-                            textColor = AppTheme.colors.surfaces,
-                            enabled = state().checklistScreenState::isSuccess
-                        )
-                        else ThemedButton(
-                            modifier = Modifier.weight(1f),
-                            onClick = startStopAudit,
-                            text = stringResource(
-                                R.string.start_audit
-                            ),
-                            tint = AppTheme.colors.primary,
-                            textColor = AppTheme.colors.surfaces,
-                            enabled = state().checklistScreenState::isSuccess
-                        )
-                        if (state().auditDocument.ongoing) {
-                            Stats(modifier = Modifier.weight(1f), stats = state()::stats)
+
+                        if (state().status == ChecklistStatus.ONGOING)
+                            if (state().stats.remaining >= 1)
+                                ThemedButton(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    onClick = startStopAudit,
+                                    text = stringResource(id = R.string.end_audit),
+                                    tint = AppTheme.colors.secondary,
+                                    textColor = AppTheme.colors.gray1,
+                                    enabled = state().checklistScreenState::isSuccess
+                                )
+                            else
+                                ThemedButton(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    onClick = startStopAudit,
+                                    text = stringResource(id = R.string.end_audit),
+                                    enabled = state().checklistScreenState::isSuccess
+                                )
+                        if (state().status == ChecklistStatus.CAN_BE_STARTED)
+                            ThemedButton(
+                                modifier = Modifier.fillMaxWidth(),
+                                onClick = startStopAudit,
+                                text = stringResource(R.string.start_audit),
+                                enabled = state().checklistScreenState::isSuccess
+                            )
+                        if (ongoing()) {
+                            Stats(modifier = Modifier.fillMaxWidth(), stats = state()::stats)
                         }
+                    }
+                    if (state().status != ChecklistStatus.READ_ONLY) {
+                        ThemedTextField(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = state()::email,
+                            onChange = editEmail,
+                            hint = stringResource(R.string.email),
+                            action = sendEmail,
+                            enabled = state().checklistScreenState::isSuccess
+                        )
+                        ThemedButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = sendEmail,
+                            text = stringResource(R.string.send_on_email),
+                            enabled = state().checklistScreenState::isSuccess
+                        )
                     }
                 }
             }

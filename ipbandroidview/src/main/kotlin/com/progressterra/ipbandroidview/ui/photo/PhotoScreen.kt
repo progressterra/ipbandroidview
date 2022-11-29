@@ -4,17 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.TransparentTopAppBar
+import com.progressterra.ipbandroidview.composable.element.BackIcon
 import com.progressterra.ipbandroidview.composable.element.SimpleImage
 import com.progressterra.ipbandroidview.composable.element.TrashIcon
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -34,11 +31,7 @@ fun PhotoScreen(
     ) {
         TransparentTopAppBar(modifier = Modifier.align(Alignment.TopCenter), leftActions = {
             IconButton(onClick = back) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_back),
-                    contentDescription = stringResource(id = R.string.navigate_back),
-                    tint = AppTheme.colors.surfaces
-                )
+                BackIcon()
             }
         }, rightActions = {
             if (state().enabled) IconButton(onClick = remove) {

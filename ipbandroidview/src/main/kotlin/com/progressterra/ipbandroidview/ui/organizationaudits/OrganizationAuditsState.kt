@@ -11,7 +11,6 @@ data class OrganizationAuditsState(
     val imageUrl: String = "",
     val audits: List<OrganizationAudit> = emptyList(),
     val screenState: ScreenState = ScreenState.LOADING,
-    val warnings: Int = 0,
     val latitude: Double = 0.0,
     val longitude: Double = 0.0
 )

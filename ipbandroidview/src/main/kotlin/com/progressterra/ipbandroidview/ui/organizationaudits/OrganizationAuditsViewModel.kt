@@ -7,7 +7,8 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.StartActivityContract
 import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.model.AuditDocument
-import com.progressterra.ipbandroidview.ui.organizations.Organization
+import com.progressterra.ipbandroidview.model.ChecklistStatus
+import com.progressterra.ipbandroidview.model.Organization
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -36,7 +37,6 @@ class OrganizationAuditsViewModel(
                 imageUrl = organization.imageUrl,
                 latitude = organization.latitude,
                 longitude = organization.longitude,
-                warnings = organization.warnings
             )
         }
         organizationAuditsUseCase.organizationsAudits(state.id).onSuccess {
@@ -72,11 +72,10 @@ class OrganizationAuditsViewModel(
                 AuditDocument(
                     placeId = state.id,
                     checklistId = audit.id,
-                    readOrCompleteOnly = false,
                     name = audit.name,
-                    ongoing = false,
                     documentId = null
-                )
+                ),
+                ChecklistStatus.CAN_BE_STARTED
             )
         )
     }

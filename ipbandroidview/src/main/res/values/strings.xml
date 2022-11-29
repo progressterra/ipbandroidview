@@ -123,4 +123,7 @@
     <string name="cash">Наличные</string>
     <string name="comment">Комментарий</string>
     <string name="your_orders">Ваши заказы</string>
+    <string name="email_sent">Отправлено!</string>
+    <string name="email_not_sent">Не удалось отправить!</string>
+    <string name="send_on_email">Отправить на E-mail</string>
 </resources>

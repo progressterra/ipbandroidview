@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidview.composable.component.CatalogSearchBarState
 import com.progressterra.ipbandroidview.composable.component.NotificationsState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.BonusesInfo

@@ -42,7 +42,7 @@ class SignUpViewModel(
                 wasError = true
                 it.printStackTrace()
             }
-        fetchUserEmailUseCase.fetch().onSuccess { reduce { state.copy(email = it) } }
+        fetchUserEmailUseCase().onSuccess { reduce { state.copy(email = it) } }
             .onFailure {
                 wasError = true
                 it.printStackTrace()

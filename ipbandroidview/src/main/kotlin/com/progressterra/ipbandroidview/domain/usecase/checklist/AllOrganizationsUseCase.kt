@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.ui.organizations.Organization
+import com.progressterra.ipbandroidview.model.Organization
 
 interface AllOrganizationsUseCase {
 
@@ -27,13 +27,15 @@ interface AllOrganizationsUseCase {
                 places?.map { place ->
                     add(
                         Organization(
-                            place.address ?: noData,
-                            place.idUnique!!,
-                            0,
-                            place.name ?: noData,
-                            place.imageURL ?: "",
-                            place.latitude ?: 0.0,
-                            place.longitude ?: 0.0
+                            address = place.address ?: noData,
+                            id = place.idUnique!!,
+                            name = place.name ?: noData,
+                            imageUrl = place.imageURL ?: "",
+                            audits = place.countAvailableRFCheck?.toString() ?: noData,
+                            documents = place.countDHCheckPerformedForExecution?.toString()
+                                ?: noData,
+                            latitude = place.latitude ?: 0.0,
+                            longitude = place.longitude ?: 0.0
                         )
                     )
                 }

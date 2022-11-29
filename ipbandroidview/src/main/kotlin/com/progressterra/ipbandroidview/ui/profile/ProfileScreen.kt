@@ -7,19 +7,18 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.element.EditIcon
 import com.progressterra.ipbandroidview.composable.element.ForwardIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -63,14 +62,8 @@ fun ProfileScreen(
                         style = AppTheme.typography.secondaryText
                     )
                 }
-                //TODO replace all icons
                 IconButton(onClick = openDetails) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_edit),
-                        contentDescription = stringResource(
-                            id = R.string.edit_profile
-                        ), tint = AppTheme.colors.gray2
-                    )
+                    EditIcon()
                 }
             }
             Row(

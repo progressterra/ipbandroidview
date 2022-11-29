@@ -35,7 +35,7 @@ class OrderViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        fetchUserEmailUseCase.fetch().onSuccess { email ->
+        fetchUserEmailUseCase().onSuccess { email ->
             reduce { state.copy(email = email) }
             availableDeliveryUseCase.deliveries().onSuccess { deliveryMethods ->
                 reduce { state.copy(deliveryMethods = deliveryMethods) }
@@ -91,13 +91,10 @@ class OrderViewModel(
     }
 
     fun editComment(comment: String) = intent {
-        if (state.selectedDeliveryMethod is Delivery.CourierDelivery) {
+        val selectedMethod = state.selectedDeliveryMethod
+        if (selectedMethod is Delivery.CourierDelivery) {
             reduce {
-                state.copy(
-                    selectedDeliveryMethod = (state.selectedDeliveryMethod as Delivery.CourierDelivery).copy(
-                        commentary = comment
-                    )
-                )
+                state.copy(selectedDeliveryMethod = selectedMethod.copy(commentary = comment))
             }
         }
     }

@@ -12,13 +12,15 @@ import com.progressterra.ipbandroidview.core.ManagePermissionContract
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.core.voice.AudioManager
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
+import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.ChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
-import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.SendResultOnEmailUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.ext.createStats
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
@@ -27,6 +29,7 @@ import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.CheckPicture
+import com.progressterra.ipbandroidview.model.ChecklistStatus
 import com.progressterra.ipbandroidview.model.Voice
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
@@ -48,7 +51,9 @@ class ChecklistViewModel(
     private val audioManager: AudioManager,
     private val fileExplorer: FileExplorer,
     private val checkMediaDetailsUseCase: CheckMediaDetailsUseCase,
-    private val makePhotoContract: MakePhotoContract.Client
+    private val makePhotoContract: MakePhotoContract.Client,
+    private val sendResultOnEmailUseCase: SendResultOnEmailUseCase,
+    private val fetchUserEmailUseCase: FetchUserEmailUseCase
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect> {
 
     override val container: Container<ChecklistState, ChecklistEffect> = container(ChecklistState())
@@ -57,18 +62,18 @@ class ChecklistViewModel(
 
     private val cameraPermission = Manifest.permission.CAMERA
 
-    fun setDocument(auditDocument: AuditDocument) = intent {
-        reduce {
-            ChecklistState(auditDocument = auditDocument)
-        }
+    fun setDocument(auditDocument: AuditDocument, initialStatus: ChecklistStatus) = intent {
+        reduce { ChecklistState(auditDocument = auditDocument, status = initialStatus) }
         refreshChecklist()
     }
 
+
     fun refreshChecklist() = intent {
         reduce { state.copy(checklistScreenState = ScreenState.LOADING) }
-        if (state.auditDocument.ongoing) {
-            state.auditDocument.documentId?.let {
-                documentChecklistUseCase.documentChecklist(it)
+        fetchUserEmailUseCase().onSuccess {
+            reduce { state.copy(email = it) }
+            if (state.status != ChecklistStatus.CAN_BE_STARTED)
+                documentChecklistUseCase.documentChecklist(state.auditDocument.documentId!!)
                     .onSuccess { checks ->
                         reduce {
                             state.copy(
@@ -77,23 +82,18 @@ class ChecklistViewModel(
                                 checklistScreenState = ScreenState.SUCCESS
                             )
                         }
-                    }.onFailure {
-                        reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
+                    }.onFailure { reduce { state.copy(checklistScreenState = ScreenState.ERROR) } }
+            else
+                checklistUseCase.details(state.auditDocument.checklistId).onSuccess { checks ->
+                    reduce {
+                        state.copy(
+                            checks = checks,
+                            stats = checks.createStats(),
+                            checklistScreenState = ScreenState.SUCCESS
+                        )
                     }
-            }
-        } else {
-            checklistUseCase.details(state.auditDocument.checklistId).onSuccess { checks ->
-                reduce {
-                    state.copy(
-                        checks = checks,
-                        stats = checks.createStats(),
-                        checklistScreenState = ScreenState.SUCCESS
-                    )
-                }
-            }.onFailure {
-                reduce { state.copy(checklistScreenState = ScreenState.ERROR) }
-            }
-        }
+                }.onFailure { reduce { state.copy(checklistScreenState = ScreenState.ERROR) } }
+        }.onFailure { reduce { state.copy(checklistScreenState = ScreenState.ERROR) } }
     }
 
     fun openCheck(check: Check) = intent {
@@ -106,16 +106,12 @@ class ChecklistViewModel(
             reduce { state.copy(checkScreenState = ScreenState.LOADING) }
             checkMediaDetailsUseCase.checkDetails(check).onSuccess {
                 reduce {
-                    state.copy(
-                        currentCheckMedia = it, checkScreenState = ScreenState.SUCCESS
-                    )
+                    state.copy(currentCheckMedia = it, checkScreenState = ScreenState.SUCCESS)
                 }
                 if (it.voices.isNotEmpty()) {
                     reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
                 }
-            }.onFailure {
-                reduce { state.copy(checkScreenState = ScreenState.ERROR) }
-            }
+            }.onFailure { reduce { state.copy(checkScreenState = ScreenState.ERROR) } }
         }
     }
 
@@ -124,53 +120,34 @@ class ChecklistViewModel(
     }
 
     fun yesNo(yes: Boolean) = intent {
-        reduce {
-            state.copy(
-                currentCheck = state.currentCheck?.copy(
-                    yesNo = yes
-                )
-            )
-        }
+        reduce { state.copy(currentCheck = state.currentCheck?.copy(yesNo = yes)) }
     }
 
     fun editCheckCommentary(comment: String) = intent {
-        reduce {
-            state.copy(
-                currentCheck = state.currentCheck?.copy(comment = comment)
-            )
-        }
+        reduce { state.copy(currentCheck = state.currentCheck?.copy(comment = comment)) }
     }
 
     fun startStopAudit() = intent {
-        if (state.auditDocument.ongoing) {
-            state.auditDocument.documentId?.let {
-                finishDocumentUseCase.finishDocument(it)
-                    .onSuccess {
-                        reduce {
-                            state.copy(
-                                auditDocument = state.auditDocument.copy(ongoing = false)
-                            )
-                        }
-                        postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
-                    }.onFailure {
-                        postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
-                    }
+        if (state.status == ChecklistStatus.ONGOING) {
+            finishDocumentUseCase.finishDocument(state.auditDocument.documentId!!).onSuccess {
+                reduce { state.copy(status = ChecklistStatus.READ_ONLY) }
+                postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
+            }.onFailure {
+                postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
             }
         } else {
             fetchExistingAuditUseCase.fetchExistingAudit(
                 state.auditDocument.placeId, state.auditDocument.checklistId
             ).onSuccess {
-                val newDoc = state.auditDocument.copy(documentId = it, ongoing = true)
-                reduce {
-                    state.copy(auditDocument = newDoc)
-                }
+                val newDoc = state.auditDocument.copy(documentId = it)
+                reduce { state.copy(auditDocument = newDoc, status = ChecklistStatus.ONGOING) }
                 postSideEffect(ChecklistEffect.Toast(R.string.audit_ongoing))
             }.onFailure {
                 createDocumentUseCase.createDocument(
                     state.auditDocument.checklistId, state.auditDocument.placeId
                 ).onSuccess {
-                    val newDoc = state.auditDocument.copy(documentId = it, ongoing = true)
-                    reduce { state.copy(auditDocument = newDoc) }
+                    val newDoc = state.auditDocument.copy(documentId = it)
+                    reduce { state.copy(auditDocument = newDoc, status = ChecklistStatus.ONGOING) }
                     postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
                 }.onFailure {
                     postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
@@ -192,20 +169,12 @@ class ChecklistViewModel(
             }
         } else {
             state.currentCheck?.let {
-                audioManager.play(
-                    state.currentCheckMedia?.voices?.last()?.id!!
-                )
+                audioManager.play(state.currentCheckMedia?.voices?.last()?.id!!)
             }
             var progress: Float
             do {
                 progress = audioManager.progress()
-                reduce {
-                    state.copy(
-                        voiceState = VoiceState.Player(
-                            true, progress
-                        )
-                    )
-                }
+                reduce { state.copy(voiceState = VoiceState.Player(true, progress)) }
                 if (progress >= 1f) {
                     voiceManager.reset()
                     reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
@@ -218,11 +187,7 @@ class ChecklistViewModel(
     fun startStopRecording() = intent {
         if (state.voiceState.ongoing) {
             voiceManager.stopRecording()
-            reduce {
-                state.copy(
-                    voiceState = VoiceState.Player(false, 0f)
-                )
-            }
+            reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
         } else {
             if (managePermissionContract.checkPermission(micPermission)) {
                 val newVoiceId = "TempVoice_${System.currentTimeMillis()}"
@@ -281,7 +246,6 @@ class ChecklistViewModel(
     }
 
     fun removePhoto(picture: CheckPicture) = intent {
-
         reduce {
             val newPictures = state.currentCheckMedia!!.pictures.markToRemove(picture)
             val newCurrentCheckMedia = state.currentCheckMedia!!.copy(pictures = newPictures)
@@ -290,7 +254,7 @@ class ChecklistViewModel(
     }
 
     fun openImage(picture: CheckPicture) = intent {
-        postSideEffect(ChecklistEffect.OpenImage(picture, state.auditDocument.ongoing))
+        postSideEffect(ChecklistEffect.OpenImage(picture, state.status == ChecklistStatus.ONGOING))
     }
 
     fun onCamera() = intent {
@@ -315,5 +279,19 @@ class ChecklistViewModel(
                 )
             }
         } else managePermissionContract.requestPermission(cameraPermission)
+    }
+
+    fun sendOnEmail() = intent {
+        state.auditDocument.documentId?.let {
+            sendResultOnEmailUseCase(it, state.email).onSuccess {
+                postSideEffect(ChecklistEffect.Toast(R.string.email_sent))
+            }.onFailure {
+                postSideEffect(ChecklistEffect.Toast(R.string.email_not_sent))
+            }
+        }
+    }
+
+    fun editEmail(email: String) = intent {
+        reduce { state.copy(email = email) }
     }
 }

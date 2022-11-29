@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.organizations
+package com.progressterra.ipbandroidview.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -7,7 +7,8 @@ import kotlinx.parcelize.Parcelize
 data class Organization(
     val address: String,
     val id: String,
-    val warnings: Int,
+    val audits: String,
+    val documents: String,
     val name: String,
     val imageUrl: String,
     val latitude: Double,

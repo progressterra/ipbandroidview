@@ -464,3 +464,117 @@ private fun UpIconPreview() {
         UpIcon()
     }
 }
+
+@Composable
+fun EditIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_edit),
+        contentDescription = null,
+        tint = AppTheme.colors.gray2
+    )
+}
+
+@Preview
+@Composable
+private fun EditIconPreview() {
+    AppTheme {
+        EditIcon()
+    }
+}
+
+@Composable
+fun SumIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_sum),
+        tint = AppTheme.colors.gray1,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+fun SumIconPreview() {
+    SumIcon()
+}
+
+@Composable
+fun SuccessIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_plus),
+        tint = AppTheme.colors.primary,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+fun SuccessIconPreview() {
+    SuccessIcon()
+}
+
+@Composable
+fun FailedIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_minus),
+        tint = AppTheme.colors.error,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+fun FailedIconPreview() {
+    FailedIcon()
+}
+
+@Composable
+fun RemainingIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_remaining),
+        tint = AppTheme.colors.gray2,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+fun RemainingIconPreview() {
+    RemainingIcon()
+}
+
+@Composable
+fun AuditsIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_audits),
+        tint = AppTheme.colors.gray2,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+fun AuditsIconPreview() {
+    AuditsIcon()
+}
+
+@Composable
+fun DocumentsIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_docs),
+        tint = AppTheme.colors.gray2,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+fun DocumentsIconPreview() {
+    DocumentsIcon()
+}
