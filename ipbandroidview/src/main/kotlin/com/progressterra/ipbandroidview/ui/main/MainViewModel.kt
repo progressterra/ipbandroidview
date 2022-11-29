@@ -5,10 +5,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.DomainConstants
-import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
 import com.progressterra.ipbandroidview.model.StoreGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -21,7 +22,8 @@ class MainViewModel(
     private val goodsUseCase: GoodsUseCase,
     private val availableBonusesUseCase: AvailableBonusesUseCase,
     private val userExistUseCase: UserExistUseCase,
-    private val modifyFavoriteUseCase: ModifyFavoriteUseCase
+    private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
+    private val notificationUseCase: NotificationUseCase
 ) : ViewModel(), ContainerHost<MainState, MainEffect> {
 
     override val container: Container<MainState, MainEffect> = container(MainState())
@@ -32,12 +34,15 @@ class MainViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        availableBonusesUseCase.availableBonuses().onSuccess {
-            reduce { state.copy(bonuses = it) }
-            goodsUseCase.goods(DomainConstants.MAIN_DEFAULT_CATEGORY_ID).onSuccess {
-                reduce { state.copy(items = it.flow.cachedIn(viewModelScope)) }
-                userExistUseCase.userExist().onSuccess {
-                    reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
+        notificationUseCase.invoke().onSuccess { notifications ->
+            reduce { state.copy(notifications = notifications) }
+            availableBonusesUseCase.availableBonuses().onSuccess { bonusesInfo ->
+                reduce { state.copy(bonuses = bonusesInfo) }
+                goodsUseCase.goods(DomainConstants.MAIN_DEFAULT_CATEGORY_ID).onSuccess { pager ->
+                    reduce { state.copy(items = pager.flow.cachedIn(viewModelScope)) }
+                    userExistUseCase.userExist().onSuccess {
+                        reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
+                    }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
                 }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
             }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
@@ -53,18 +58,5 @@ class MainViewModel(
 
     fun bonuses() = intent {
         postSideEffect(MainEffect.Bonuses)
-    }
-
-    fun keyword(keyword: String) = intent {
-        reduce { state.copy(keyword = keyword) }
-    }
-
-    fun search() = intent {
-        postSideEffect(MainEffect.Search(state.keyword))
-        clear()
-    }
-
-    fun clear() = intent {
-        reduce { state.copy(keyword = "") }
     }
 }

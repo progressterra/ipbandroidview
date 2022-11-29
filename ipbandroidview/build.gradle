@@ -129,4 +129,7 @@ dependencies {
     //TODO paging if there will be grid support then need to delete own solution
     api "androidx.paging:paging-compose:1.0.0-alpha17"
     api "androidx.paging:paging-runtime-ktx:3.1.1"
+
+    //QR
+    api "com.google.zxing:core:3.5.1"
 }

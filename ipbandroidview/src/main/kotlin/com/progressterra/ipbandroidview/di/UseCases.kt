@@ -1,9 +1,11 @@
 package com.progressterra.ipbandroidview.di
 
 import com.progressterra.ipbandroidview.domain.usecase.ChooseSuggestionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.CreateQrUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
+import com.progressterra.ipbandroidview.domain.usecase.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
@@ -238,4 +240,8 @@ val useCasesModule = module {
     single<SetDeliveryAddressUseCase> { SetDeliveryAddressUseCase.Base(get(), get(), get()) }
 
     single<ChooseSuggestionUseCase> { ChooseSuggestionUseCase.Base(get()) }
+
+    single<CreateQrUseCase> { CreateQrUseCase.Base() }
+
+    single<NotificationUseCase> { NotificationUseCase.Base(get(), get(), get(), get(), get()) }
 }

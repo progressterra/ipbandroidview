@@ -58,7 +58,7 @@ fun GoodsScreen(
                 if (lazyItems.itemCount > 0)
                     items(lazyItems) { goods ->
                         goods?.let {
-                            StoreCard(modifier = Modifier.align(Alignment.Center),
+                            StoreCard(
                                 state = { goods },
                                 onClick = { openDetails(goods) },
                                 onFavorite = { favoriteSpecific(goods) })
@@ -66,7 +66,7 @@ fun GoodsScreen(
                     }
                 if (state().items.isNotEmpty())
                     items(state().items) { goods ->
-                        StoreCard(modifier = Modifier.align(Alignment.Center),
+                        StoreCard(
                             state = { goods },
                             onClick = { openDetails(goods) },
                             onFavorite = { favoriteSpecific(goods) })

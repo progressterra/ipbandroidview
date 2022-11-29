@@ -29,7 +29,6 @@ class MainNode(
                     .show()
                 is MainEffect.Bonuses -> onBonuses()
                 is MainEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
-                is MainEffect.Search -> onSearch(Constants.DEFAULT_ID, it.keyword)
             }
         }
 
@@ -38,11 +37,7 @@ class MainNode(
             state = state::value,
             refresh = viewModel::refresh,
             favoriteSpecific = viewModel::favoriteSpecific,
-            openDetails = viewModel::openDetails,
-            keyword = viewModel::keyword,
-            search = viewModel::search,
-            clear = viewModel::clear,
-            bonuses = viewModel::bonuses
+            openDetails = viewModel::openDetails
         )
     }
 }

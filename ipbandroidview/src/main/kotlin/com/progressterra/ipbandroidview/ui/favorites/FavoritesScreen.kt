@@ -38,7 +38,7 @@ fun FavoritesScreen(
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(state().items) { goods ->
-                    StoreCard(modifier = Modifier.align(Alignment.Center),
+                    StoreCard(
                         state = { goods },
                         onClick = { openDetails(goods) },
                         onFavorite = { favoriteSpecific(goods) })
