@@ -19,7 +19,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class ConfirmationCodeNode(
     buildContext: BuildContext,
     private val phoneNumber: String,
-    private val onDetails: () -> Unit,
+    private val onDetails: (() -> Unit)?,
     private val onSkipDetails: () -> Unit,
     private val onBack: () -> Unit,
     private val settings: ConfirmationCodeSettings
@@ -37,7 +37,7 @@ class ConfirmationCodeNode(
                 }
                 is ConfirmationCodeEffect.Back -> onBack()
                 is ConfirmationCodeEffect.SkipDetails -> onSkipDetails()
-                is ConfirmationCodeEffect.NeedDetails -> onDetails()
+                is ConfirmationCodeEffect.NeedDetails -> onDetails?.invoke()
             }
         }
         var alreadyLaunched by rememberSaveable(phoneNumber) {
