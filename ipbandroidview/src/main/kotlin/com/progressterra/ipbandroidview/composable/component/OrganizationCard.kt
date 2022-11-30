@@ -23,8 +23,8 @@ import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.Organization
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-private val imageHeight = 75.dp
-private val imageWidth = 150.dp
+private val imageHeight = 60.dp
+private val imageWidth = 120.dp
 
 @Composable
 fun OrganizationCard(
@@ -57,7 +57,7 @@ fun OrganizationCard(
                 text = state().address,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text,
-                maxLines = 3,
+                maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
