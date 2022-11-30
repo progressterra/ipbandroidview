@@ -578,3 +578,13 @@ fun DocumentsIcon(modifier: Modifier = Modifier) {
 fun DocumentsIconPreview() {
     DocumentsIcon()
 }
+
+@Composable
+fun SendIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_send),
+        tint = AppTheme.colors.black,
+        contentDescription = null
+    )
+}

@@ -126,4 +126,7 @@
     <string name="email_sent">Отправлено!</string>
     <string name="email_not_sent">Не удалось отправить!</string>
     <string name="send_on_email">Отправить на E-mail</string>
+    <string name="support_info">Отвечаем в течении 24 часов</string>
+    <string name="request">Запрос</string>
+    <string name="support">Служба поддержки</string>
 </resources>
