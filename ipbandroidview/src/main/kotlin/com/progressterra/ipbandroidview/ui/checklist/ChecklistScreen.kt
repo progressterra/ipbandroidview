@@ -218,7 +218,7 @@ fun ChecklistScreen(
                             Stats(modifier = Modifier.fillMaxWidth(), stats = state()::stats)
                         }
                     }
-                    if (state().status != ChecklistStatus.READ_ONLY) {
+                    if (state().status != ChecklistStatus.CAN_BE_STARTED) {
                         ThemedTextField(
                             modifier = Modifier.fillMaxWidth(),
                             text = state()::email,
