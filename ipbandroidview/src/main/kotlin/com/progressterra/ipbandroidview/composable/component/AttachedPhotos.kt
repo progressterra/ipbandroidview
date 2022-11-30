@@ -72,7 +72,9 @@ fun AttachedPhotos(
                 style = AppTheme.typography.text,
                 color = if (enabled()) AppTheme.colors.gray1 else AppTheme.colors.gray2
             )
-            CameraIcon(enabled = enabled)
+            Box(modifier = Modifier.size(picSize), contentAlignment = Alignment.Center) {
+                CameraIcon(enabled = enabled)
+            }
         }
     } else {
         LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {

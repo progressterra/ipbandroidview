@@ -187,10 +187,10 @@ fun ChecklistScreen(
         }, bottomBar = {
             BottomHolder {
                 Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-                    if (state().status == ChecklistStatus.ONGOING)
+                    if (state().status == ChecklistStatus.ONGOING) {
                         if (state().stats.remaining >= 1)
                             ThemedButton(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.weight(1f),
                                 onClick = startStopAudit,
                                 text = stringResource(id = R.string.end_audit),
                                 tint = AppTheme.colors.secondary,
@@ -199,11 +199,13 @@ fun ChecklistScreen(
                             )
                         else
                             ThemedButton(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.weight(1f),
                                 onClick = startStopAudit,
                                 text = stringResource(id = R.string.end_audit),
                                 enabled = state().checklistScreenState::isSuccess
                             )
+                        Stats(modifier = Modifier.weight(1f), stats = state()::stats)
+                    }
                     if (state().status == ChecklistStatus.CAN_BE_STARTED)
                         ThemedButton(
                             modifier = Modifier.fillMaxWidth(),
@@ -211,9 +213,6 @@ fun ChecklistScreen(
                             text = stringResource(R.string.start_audit),
                             enabled = state().checklistScreenState::isSuccess
                         )
-                    if (ongoing()) {
-                        Stats(modifier = Modifier.fillMaxWidth(), stats = state()::stats)
-                    }
                 }
                 if (state().status == ChecklistStatus.READ_ONLY) {
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
