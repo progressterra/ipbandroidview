@@ -53,8 +53,8 @@ val viewModelsModule = module {
         SignUpViewModel(get(), get(), get(), get(), get(), get())
     }
 
-    viewModel {
-        ConfirmationCodeViewModel(get(), get(), get(), get())
+    viewModel { params ->
+        ConfirmationCodeViewModel(params.get(), get(), get(), get(), get())
     }
 
     viewModel {

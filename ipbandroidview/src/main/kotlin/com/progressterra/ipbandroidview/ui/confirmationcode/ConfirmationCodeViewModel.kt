@@ -16,6 +16,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ConfirmationCodeViewModel(
+    private val settings: ConfirmationCodeSettings,
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
@@ -48,7 +49,7 @@ class ConfirmationCodeViewModel(
             fetchUserUseCase.fetch().onSuccess {
                 needDetailsUseCase.needDetails().onSuccess {
                     reduce { state.copy(screenState = ScreenState.SUCCESS) }
-                    if (it)
+                    if (it && settings.checkUserDetails)
                         postSideEffect(ConfirmationCodeEffect.NeedDetails)
                     else
                         postSideEffect(ConfirmationCodeEffect.SkipDetails)

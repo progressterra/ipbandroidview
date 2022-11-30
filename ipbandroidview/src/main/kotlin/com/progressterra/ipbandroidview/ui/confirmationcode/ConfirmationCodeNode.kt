@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -20,12 +21,14 @@ class ConfirmationCodeNode(
     private val phoneNumber: String,
     private val onDetails: () -> Unit,
     private val onSkipDetails: () -> Unit,
-    private val onBack: () -> Unit
+    private val onBack: () -> Unit,
+    private val settings: ConfirmationCodeSettings
 ) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel: ConfirmationCodeViewModel = getViewModel()
+        val viewModel: ConfirmationCodeViewModel =
+            getViewModel(parameters = { parametersOf(settings) })
         val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
