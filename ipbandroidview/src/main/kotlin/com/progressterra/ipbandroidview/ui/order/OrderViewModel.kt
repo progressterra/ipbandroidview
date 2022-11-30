@@ -127,9 +127,7 @@ class OrderViewModel(
     fun payment() = intent {
         state.selectedDeliveryMethod?.let { deliveryMethod ->
             setDeliveryAddressUseCase.setAddress(deliveryMethod, state.addressUI).onSuccess {
-                confirmOrderUseCase.confirm().onSuccess {
-                    postSideEffect(OrderEffect.Next(it))
-                }
+                confirmOrderUseCase.confirm().onSuccess { postSideEffect(OrderEffect.Next(it)) }
             }
         }
     }
