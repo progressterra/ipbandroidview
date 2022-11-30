@@ -28,7 +28,8 @@ fun ProfileScreen(
     state: () -> ProfileState,
     openDetails: () -> Unit,
     onOrders: () -> Unit,
-    onFavorites: () -> Unit
+    onFavorites: () -> Unit,
+    settings: ProfileSettings
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
@@ -66,44 +67,46 @@ fun ProfileScreen(
                     EditIcon()
                 }
             }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.surfaces)
-                    .niceClickable(onOrders)
-                    .padding(AppTheme.dimensions.medium),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(R.string.your_orders),
-                    color = AppTheme.colors.black,
-                    style = AppTheme.typography.text
-                )
-                IconButton(onClick = openDetails) {
-                    ForwardIcon()
+            if (settings.showOrders)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(AppTheme.shapes.medium)
+                        .background(AppTheme.colors.surfaces)
+                        .niceClickable(onOrders)
+                        .padding(AppTheme.dimensions.medium),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.your_orders),
+                        color = AppTheme.colors.black,
+                        style = AppTheme.typography.text
+                    )
+                    IconButton(onClick = openDetails) {
+                        ForwardIcon()
+                    }
                 }
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.surfaces)
-                    .niceClickable(onFavorites)
-                    .padding(AppTheme.dimensions.medium),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = stringResource(R.string.favorites),
-                    color = AppTheme.colors.black,
-                    style = AppTheme.typography.text
-                )
-                IconButton(onClick = openDetails) {
-                    ForwardIcon()
+            if (settings.showFavorites)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(AppTheme.shapes.medium)
+                        .background(AppTheme.colors.surfaces)
+                        .niceClickable(onFavorites)
+                        .padding(AppTheme.dimensions.medium),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.favorites),
+                        color = AppTheme.colors.black,
+                        style = AppTheme.typography.text
+                    )
+                    IconButton(onClick = openDetails) {
+                        ForwardIcon()
+                    }
                 }
-            }
         }
     }
 }
