@@ -19,7 +19,7 @@ interface SendResultOnEmailUseCase {
             docId: String,
             email: String
         ): Result<Unit> = withToken { token ->
-            checklistRepository.sendOnEmail(token, docId, email).onFailure { throw it }
+            checklistRepository.sendOnEmail(token, docId, email.trim()).onFailure { throw it }
         }
     }
 }
