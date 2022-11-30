@@ -186,56 +186,55 @@ fun ChecklistScreen(
             )
         }, bottomBar = {
             BottomHolder {
-                Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-
-                    Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-
-                        if (state().status == ChecklistStatus.ONGOING)
-                            if (state().stats.remaining >= 1)
-                                ThemedButton(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    onClick = startStopAudit,
-                                    text = stringResource(id = R.string.end_audit),
-                                    tint = AppTheme.colors.secondary,
-                                    textColor = AppTheme.colors.gray1,
-                                    enabled = state().checklistScreenState::isSuccess
-                                )
-                            else
-                                ThemedButton(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    onClick = startStopAudit,
-                                    text = stringResource(id = R.string.end_audit),
-                                    enabled = state().checklistScreenState::isSuccess
-                                )
-                        if (state().status == ChecklistStatus.CAN_BE_STARTED)
+                Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
+                    if (state().status == ChecklistStatus.ONGOING)
+                        if (state().stats.remaining >= 1)
                             ThemedButton(
                                 modifier = Modifier.fillMaxWidth(),
                                 onClick = startStopAudit,
-                                text = stringResource(R.string.start_audit),
+                                text = stringResource(id = R.string.end_audit),
+                                tint = AppTheme.colors.secondary,
+                                textColor = AppTheme.colors.gray1,
                                 enabled = state().checklistScreenState::isSuccess
                             )
-                        if (ongoing()) {
-                            Stats(modifier = Modifier.fillMaxWidth(), stats = state()::stats)
-                        }
-                    }
-                    if (state().status != ChecklistStatus.CAN_BE_STARTED) {
-                        ThemedTextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = state()::email,
-                            onChange = editEmail,
-                            hint = stringResource(R.string.email),
-                            action = sendEmail,
-                            enabled = state().checklistScreenState::isSuccess
-                        )
+                        else
+                            ThemedButton(
+                                modifier = Modifier.fillMaxWidth(),
+                                onClick = startStopAudit,
+                                text = stringResource(id = R.string.end_audit),
+                                enabled = state().checklistScreenState::isSuccess
+                            )
+                    if (state().status == ChecklistStatus.CAN_BE_STARTED)
                         ThemedButton(
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = sendEmail,
-                            text = stringResource(R.string.send_on_email),
+                            onClick = startStopAudit,
+                            text = stringResource(R.string.start_audit),
                             enabled = state().checklistScreenState::isSuccess
                         )
+                    if (ongoing()) {
+                        Stats(modifier = Modifier.fillMaxWidth(), stats = state()::stats)
                     }
                 }
+                if (state().status == ChecklistStatus.READ_ONLY) {
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    ThemedTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = state()::email,
+                        onChange = editEmail,
+                        hint = stringResource(R.string.email),
+                        action = sendEmail,
+                        enabled = state().checklistScreenState::isSuccess
+                    )
+                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    ThemedButton(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = sendEmail,
+                        text = stringResource(R.string.send_on_email),
+                        enabled = state().checklistScreenState::isSuccess
+                    )
+                }
             }
+
         }, bottomOverlap = true) { _, bottomPadding ->
             StateBox(
                 modifier = Modifier.fillMaxSize(),
