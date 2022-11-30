@@ -36,6 +36,8 @@ sealed class VoiceState(
     class Player(ongoing: Boolean, val progress: Float) : VoiceState(ongoing)
 }
 
+private val verticalPadding = 14.dp
+
 @Composable
 fun VoiceInput(
     modifier: Modifier = Modifier,
@@ -56,7 +58,10 @@ fun VoiceInput(
                         .height(TextFieldDefaults.MinHeight)
                         .fillMaxWidth()
                         .background(AppTheme.colors.background)
-                        .padding(horizontal = AppTheme.dimensions.medium, vertical = 14.dp),
+                        .padding(
+                            horizontal = AppTheme.dimensions.medium,
+                            vertical = verticalPadding
+                        ),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {

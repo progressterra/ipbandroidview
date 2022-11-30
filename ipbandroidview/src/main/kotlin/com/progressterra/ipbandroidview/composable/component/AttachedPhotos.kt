@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -26,6 +27,8 @@ import com.progressterra.ipbandroidview.model.CheckPicture
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val picSize = 48.dp
+
+private val verticalPadding = 14.dp
 
 @Composable
 fun AttachedPhotos(
@@ -51,14 +54,16 @@ fun AttachedPhotos(
     if (pictures().isEmpty()) {
         Row(
             modifier = modifier
-                .clip(AppTheme.shapes.small)
                 .fillMaxWidth()
                 .height(TextFieldDefaults.MinHeight)
+                .clip(AppTheme.shapes.small)
                 .background(AppTheme.colors.background)
                 .niceClickable(
                     onClick = onCamera,
                     enabled = enabled
-                ),
+                )
+                .padding(horizontal = AppTheme.dimensions.medium, vertical = verticalPadding),
+
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
