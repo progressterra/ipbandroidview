@@ -285,6 +285,7 @@ class ChecklistViewModel(
         state.auditDocument.documentId?.let {
             sendResultOnEmailUseCase(it, state.email).onSuccess {
                 postSideEffect(ChecklistEffect.Toast(R.string.email_sent))
+                postSideEffect(ChecklistEffect.Back)
             }.onFailure {
                 postSideEffect(ChecklistEffect.Toast(R.string.email_not_sent))
             }
