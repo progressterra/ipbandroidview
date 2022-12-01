@@ -46,7 +46,7 @@ internal class PersonalRepository(
     ): SResult<ClientInfoResponse> =
         safeApiCall {
             val token = getAccessToken().dataOrFailed { return@safeApiCall it.toFailedResult() }
-            val response = clientApi.updateClientInfo(token, name, soname, "")
+            val response = clientApi.updateClientInfo(token, name, soname, "", "", 0)
 
             if (response.isSuccess()) {
                 response.toSuccessResult()

@@ -59,7 +59,7 @@ internal class AmbassadorRepository : BaseRepository(), IRepository.AmbassadorIn
         soname: String,
         patronymic: String
     ): ISResult<ClientInfo> = safeApiCall {
-        val response = ipbApi.updateClientInfo(accessToken, name, soname, patronymic)
+        val response = ipbApi.updateClientInfo(accessToken, name, soname, patronymic, "", 0)
         if (response.result?.status == 0) {
             SResult.Success(ClientInfo.convertToUiModel(response))
         } else {
