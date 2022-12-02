@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.model.Transaction
 
 interface TransactionsUseCase {
 
-    suspend fun transactions(): Result<List<Transaction>>
+    suspend operator fun invoke(): Result<List<Transaction>>
 
     class Base(
         sCRMRepository: SCRMRepository,
@@ -24,7 +24,7 @@ interface TransactionsUseCase {
         private val noData = manageResources.string(R.string.no_data)
 
         //TODO transaction type when + when -
-        override suspend fun transactions(): Result<List<Transaction>> = withToken { token ->
+        override suspend fun invoke(): Result<List<Transaction>> = withToken { token ->
             bonusesRepository.getTransactionsList(token).getOrThrow()?.map {
                 Transaction(
                     date = it.dateEvent?.parseToDate()?.format("dd.MM.yyyy") ?: noData,

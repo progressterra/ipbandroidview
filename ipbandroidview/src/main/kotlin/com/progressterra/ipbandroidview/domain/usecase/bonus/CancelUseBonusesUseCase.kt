@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface CancelUseBonusesUseCase {
 
-    suspend fun cancel(): Result<Unit>
+    suspend operator fun invoke(): Result<Unit>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -15,7 +15,7 @@ interface CancelUseBonusesUseCase {
         private val repo: CartRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), CancelUseBonusesUseCase {
 
-        override suspend fun cancel(): Result<Unit> = withToken { token ->
+        override suspend fun invoke(): Result<Unit> = withToken { token ->
             repo.cancelBonusesImplementation(token).onFailure { throw it }
         }
     }

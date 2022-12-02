@@ -14,8 +14,8 @@ class GoodsSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoreGoods> {
         val nextPage = params.key ?: 1
-        val response = favoriteIdsUseCase.favoriteIds().onSuccess { favorites ->
-            goodsPageUseCase.goodsPage(categoryId, nextPage, favorites)
+        val response = favoriteIdsUseCase().onSuccess { favorites ->
+            goodsPageUseCase(categoryId, nextPage, favorites)
                 .onSuccess {
                     return LoadResult.Page(
                         data = it.second,

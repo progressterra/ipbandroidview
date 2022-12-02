@@ -17,7 +17,7 @@ import okhttp3.RequestBody.Companion.asRequestBody
 
 interface UpdateAnswerUseCase {
 
-    suspend fun update(check: Check, checkDetails: CurrentCheckMedia): Result<Check>
+    suspend operator fun invoke(check: Check, checkDetails: CurrentCheckMedia): Result<Check>
 
     class Base(
         manageResources: ManageResources,
@@ -31,7 +31,7 @@ interface UpdateAnswerUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun update(
+        override suspend fun invoke(
             check: Check,
             checkDetails: CurrentCheckMedia
         ): Result<Check> = withToken { token ->

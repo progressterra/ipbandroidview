@@ -7,11 +7,11 @@ import java.time.ZoneId
 
 interface FetchUserBirthdayUseCase {
 
-    suspend fun fetch(): Result<LocalDate>
+    suspend operator fun invoke(): Result<LocalDate>
 
     class Base : FetchUserBirthdayUseCase {
 
-        override suspend fun fetch(): Result<LocalDate> = runCatching {
+        override suspend fun invoke(): Result<LocalDate> = runCatching {
             Instant.ofEpochMilli(UserData.dateOfBirthday).atZone(ZoneId.systemDefault())
                 .toLocalDate()
         }

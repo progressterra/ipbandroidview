@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.model.Delivery
 
 interface SetDeliveryAddressUseCase {
 
-    suspend fun setAddress(deliveryMethod: Delivery, address: AddressUI): Result<Unit>
+    suspend operator fun invoke(deliveryMethod: Delivery, address: AddressUI): Result<Unit>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -18,7 +18,7 @@ interface SetDeliveryAddressUseCase {
         private val repo: CartRepository
     ) : SetDeliveryAddressUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun setAddress(
+        override suspend fun invoke(
             deliveryMethod: Delivery,
             address: AddressUI
         ): Result<Unit> = withToken { token ->

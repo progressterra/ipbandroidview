@@ -31,7 +31,7 @@ class GoodsViewModel(
     }
 
     fun favoriteSpecific(item: StoreGoods) = intent {
-        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess { refresh() }
+        modifyFavoriteUseCase(item.id, item.favorite).onSuccess { refresh() }
     }
 
     fun openDetails(item: StoreGoods) = intent {
@@ -68,7 +68,7 @@ class GoodsViewModel(
 
     private fun refreshSearch() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        filteredGoodsUseCase.goods(
+        filteredGoodsUseCase(
             state.currentCategory,
             state.keyword,
             state.filters
@@ -87,7 +87,7 @@ class GoodsViewModel(
 
     private fun refreshCategory() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        goodsUseCase.goods(state.currentCategory).onSuccess {
+        goodsUseCase(state.currentCategory).onSuccess {
             reduce {
                 state.copy(
                     itemsFlow = it.flow.cachedIn(viewModelScope),

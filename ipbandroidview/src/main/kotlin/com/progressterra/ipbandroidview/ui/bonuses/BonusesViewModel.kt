@@ -32,9 +32,9 @@ class BonusesViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        availableBonusesUseCase.availableBonuses().onSuccess {
+        availableBonusesUseCase().onSuccess {
             reduce { state.copy(bonusesInfo = it) }
-            transactionsUseCase.transactions().onSuccess {
+            transactionsUseCase().onSuccess {
                 reduce { state.copy(transactions = it, screenState = ScreenState.SUCCESS) }
             }.onFailure {
                 reduce { state.copy(screenState = ScreenState.ERROR) }

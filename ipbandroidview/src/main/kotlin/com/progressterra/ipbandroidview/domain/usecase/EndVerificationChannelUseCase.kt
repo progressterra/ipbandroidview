@@ -7,13 +7,13 @@ import com.progressterra.ipbandroidview.data.UserData
 
 interface EndVerificationChannelUseCase {
 
-    suspend fun end(phoneNumber: String, code: String): Result<Unit>
+    suspend operator fun invoke(phoneNumber: String, code: String): Result<Unit>
 
     class Base(
         private val repo: SCRMRepository
     ) : EndVerificationChannelUseCase {
 
-        override suspend fun end(phoneNumber: String, code: String): Result<Unit> = runCatching {
+        override suspend fun invoke(phoneNumber: String, code: String): Result<Unit> = runCatching {
             val result = repo.verificationChannelEnd(
                 IncomeDataForEndLogin(
                     channelType = 0,

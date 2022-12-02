@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface FetchExistingAuditUseCase {
 
-    suspend fun fetchExistingAudit(idPlace: String, idChecklist: String): Result<String>
+    suspend operator fun invoke(idPlace: String, idChecklist: String): Result<String>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -15,7 +15,7 @@ interface FetchExistingAuditUseCase {
         private val repo: ChecklistRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), FetchExistingAuditUseCase {
 
-        override suspend fun fetchExistingAudit(
+        override suspend fun invoke(
             idPlace: String,
             idChecklist: String
         ): Result<String> = withToken { token ->

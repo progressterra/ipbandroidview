@@ -9,16 +9,17 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface FetchUserUseCase {
 
-    suspend fun fetch(): Result<Unit>
+    suspend operator fun invoke(): Result<Unit>
 
     class Base(
         provideLocation: ProvideLocation,
         private val scrmRepository: SCRMRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), FetchUserUseCase {
 
-        override suspend fun fetch(): Result<Unit> = withToken { token ->
+        override suspend fun invoke(): Result<Unit> = withToken { token ->
             val info = scrmRepository.clientInfoByToken(token).getOrThrow()
             info?.client?.let {
+                UserData.idUnique = it.idUnique!!
                 UserData.userName = UserName(
                     name = it.name ?: "",
                     surname = it.soname ?: "",

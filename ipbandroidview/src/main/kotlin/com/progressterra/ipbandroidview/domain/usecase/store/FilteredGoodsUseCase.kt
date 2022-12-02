@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.model.StoreGoods
 
 interface FilteredGoodsUseCase {
 
-    suspend fun goods(id: String, keyword: String, filters: List<Filter>): Result<List<StoreGoods>>
+    suspend operator fun invoke(id: String, keyword: String, filters: List<Filter>): Result<List<StoreGoods>>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -28,7 +28,7 @@ interface FilteredGoodsUseCase {
         private val storeGoodsMapper: StoreGoodsMapper
     ) : FilteredGoodsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun goods(
+        override suspend fun invoke(
             id: String,
             keyword: String,
             filters: List<Filter>

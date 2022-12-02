@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.model.Check
 
 interface ChecklistUseCase {
 
-    suspend fun details(id: String): Result<List<Check>>
+    suspend operator fun invoke(id: String): Result<List<Check>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -22,7 +22,7 @@ interface ChecklistUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun details(id: String): Result<List<Check>> = withToken { token ->
+        override suspend fun invoke(id: String): Result<List<Check>> = withToken { token ->
             val result = checklistRepository.checklistElements(
                 token, id, FilterAndSort(emptyList(), null, "", false, 0, 300)
             ).getOrThrow()

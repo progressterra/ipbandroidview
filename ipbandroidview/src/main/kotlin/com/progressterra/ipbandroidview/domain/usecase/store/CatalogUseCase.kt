@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.model.MainCategory
 
 interface CatalogUseCase {
 
-    suspend fun catalog(): Result<List<MainCategory>>
+    suspend operator fun invoke(): Result<List<MainCategory>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -19,7 +19,7 @@ interface CatalogUseCase {
         private val mapper: CatalogMapper
     ) : AbstractUseCase(scrmRepository, provideLocation), CatalogUseCase {
 
-        override suspend fun catalog(): Result<List<MainCategory>> = withToken { token ->
+        override suspend fun invoke(): Result<List<MainCategory>> = withToken { token ->
             repo.getCatalog(token).getOrThrow()?.first()?.childItems?.map {
                 mapper.map(
                     it

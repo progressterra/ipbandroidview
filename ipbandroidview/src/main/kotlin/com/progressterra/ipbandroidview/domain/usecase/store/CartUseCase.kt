@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.model.Cart
 
 interface CartUseCase {
 
-    suspend fun cart(): Result<Cart>
+    suspend operator fun invoke(): Result<Cart>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -23,10 +23,10 @@ interface CartUseCase {
         private val priceMapper: PriceMapper
     ) : CartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun cart(): Result<Cart> = withToken { token ->
+        override suspend fun invoke(): Result<Cart> = withToken { token ->
             val cart = cartRepo.getProductsInCart(token).getOrThrow()
             val favoriteIds = if (cart?.drSaleRow.isNullOrEmpty()) emptyList()
-            else favoriteIdsUseCase.favoriteIds().getOrThrow()
+            else favoriteIdsUseCase().getOrThrow()
             val price = priceMapper.map(cart?.drSaleRow?.sumOf { it.endPrice ?: 0.0 } ?: 0.0)
             val goods = buildSet {
                 cart?.drSaleRow?.map { saleRow ->

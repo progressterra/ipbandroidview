@@ -37,11 +37,11 @@ class OrderViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         fetchUserEmailUseCase().onSuccess { email ->
             reduce { state.copy(email = email) }
-            availableDeliveryUseCase.deliveries().onSuccess { deliveryMethods ->
+            availableDeliveryUseCase().onSuccess { deliveryMethods ->
                 reduce { state.copy(deliveryMethods = deliveryMethods) }
-                fetchUserAddressUseCase.fetch().onSuccess { address ->
+                fetchUserAddressUseCase().onSuccess { address ->
                     reduce { state.copy(addressUI = address) }
-                    paymentMethodsUseCase.methods().onSuccess { paymentMethods ->
+                    paymentMethodsUseCase().onSuccess { paymentMethods ->
                         reduce {
                             state.copy(
                                 paymentMethods = paymentMethods,
@@ -100,10 +100,10 @@ class OrderViewModel(
     }
 
     fun changeUseBonuses(use: Boolean) = intent {
-        if (use) notUseBonusesUseCase.use(state.availableBonuses).onSuccess {
+        if (use) notUseBonusesUseCase(state.availableBonuses).onSuccess {
             reduce { state.copy(useBonuses = !state.useBonuses) }
         }
-        else useBonusesUseCase.use(state.availableBonuses).onSuccess {
+        else useBonusesUseCase(state.availableBonuses).onSuccess {
             reduce { state.copy(useBonuses = !state.useBonuses) }
         }
     }
@@ -126,8 +126,8 @@ class OrderViewModel(
 
     fun payment() = intent {
         state.selectedDeliveryMethod?.let { deliveryMethod ->
-            setDeliveryAddressUseCase.setAddress(deliveryMethod, state.addressUI).onSuccess {
-                confirmOrderUseCase.confirm().onSuccess { postSideEffect(OrderEffect.Next(it)) }
+            setDeliveryAddressUseCase(deliveryMethod, state.addressUI).onSuccess {
+                confirmOrderUseCase().onSuccess { postSideEffect(OrderEffect.Next(it)) }
             }
         }
     }

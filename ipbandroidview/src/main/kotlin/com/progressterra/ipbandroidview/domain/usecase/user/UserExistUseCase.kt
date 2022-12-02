@@ -4,11 +4,11 @@ import com.progressterra.ipbandroidview.data.UserData
 
 interface UserExistUseCase {
 
-    suspend fun userExist(): Result<Boolean>
+    suspend operator fun invoke(): Result<Boolean>
 
     class Base : UserExistUseCase {
 
-        override suspend fun userExist(): Result<Boolean> = runCatching {
+        override suspend fun invoke(): Result<Boolean> = runCatching {
             UserData.clientExist
         }
     }

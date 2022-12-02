@@ -4,11 +4,11 @@ import com.progressterra.ipbandroidview.data.UserData
 
 interface NeedAddressUseCase {
 
-    suspend fun needAddress(): Result<Boolean>
+    suspend operator fun invoke(): Result<Boolean>
 
     class Base : NeedAddressUseCase {
 
-        override suspend fun needAddress(): Result<Boolean> = runCatching {
+        override suspend fun invoke(): Result<Boolean> = runCatching {
             UserData.needAddress()
         }
     }

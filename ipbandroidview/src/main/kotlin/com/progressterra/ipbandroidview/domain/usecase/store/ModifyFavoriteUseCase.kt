@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface ModifyFavoriteUseCase {
 
-    suspend fun modifyFavorite(id: String, favorite: Boolean): Result<Unit>
+    suspend operator fun invoke(id: String, favorite: Boolean): Result<Unit>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -16,7 +16,7 @@ interface ModifyFavoriteUseCase {
         private val favoriteRepository: IPBFavPromoRecRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), ModifyFavoriteUseCase {
 
-        override suspend fun modifyFavorite(
+        override suspend fun invoke(
             id: String, favorite: Boolean
         ): Result<Unit> = withToken { token ->
             if (favorite)

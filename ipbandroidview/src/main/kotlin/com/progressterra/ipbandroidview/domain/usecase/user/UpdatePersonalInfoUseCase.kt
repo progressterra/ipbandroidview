@@ -16,11 +16,11 @@ import java.util.Date
 
 interface UpdatePersonalInfoUseCase {
 
-    suspend fun update(
+    suspend operator fun invoke(
         name: String, email: String, birthdayDate: LocalDate
     ): Result<Unit>
 
-    suspend fun update(name: String, email: String): Result<Unit>
+    suspend operator fun invoke(name: String, email: String): Result<Unit>
 
     class Base(
         private val splitName: SplitName,
@@ -28,7 +28,7 @@ interface UpdatePersonalInfoUseCase {
         provideLocation: ProvideLocation
     ) : UpdatePersonalInfoUseCase, AbstractUseCase(repo, provideLocation) {
 
-        override suspend fun update(
+        override suspend fun invoke(
             name: String, email: String
         ): Result<Unit> = withToken { token ->
             val nameList = splitName.splitName(name, false)
@@ -50,7 +50,7 @@ interface UpdatePersonalInfoUseCase {
             UserData.email = email
         }
 
-        override suspend fun update(
+        override suspend fun invoke(
             name: String, email: String, birthdayDate: LocalDate
         ): Result<Unit> = withToken { token ->
             val nameList = splitName.splitName(name, false)

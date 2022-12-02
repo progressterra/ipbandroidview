@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.model.SuggestionUI
 
 interface CurrentLocationSuggestionsUseCase {
 
-    suspend fun currentLocation(): Result<List<SuggestionUI>>
+    suspend operator fun invoke(): Result<List<SuggestionUI>>
 
     class Base(
         private val provideLocation: ProvideLocation,
@@ -16,7 +16,7 @@ interface CurrentLocationSuggestionsUseCase {
         private val mapper: AddressesMapper
     ) : CurrentLocationSuggestionsUseCase {
 
-        override suspend fun currentLocation(): Result<List<SuggestionUI>> = runCatching {
+        override suspend fun invoke(): Result<List<SuggestionUI>> = runCatching {
             val locationResult = provideLocation.location().getOrThrow()
             mapper.convertSuggestionsDtoToUIModels(
                 repo.getSuggestionsAddressFromLocation(

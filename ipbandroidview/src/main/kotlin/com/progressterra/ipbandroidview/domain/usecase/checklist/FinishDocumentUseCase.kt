@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface FinishDocumentUseCase {
 
-    suspend fun finishDocument(idChecklist: String): Result<Unit>
+    suspend operator fun invoke(idChecklist: String): Result<Unit>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -16,7 +16,7 @@ interface FinishDocumentUseCase {
         private val repo: ChecklistRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), FinishDocumentUseCase {
 
-        override suspend fun finishDocument(
+        override suspend fun invoke(
             idChecklist: String
         ): Result<Unit> = withToken { token ->
             repo.finishCheck(

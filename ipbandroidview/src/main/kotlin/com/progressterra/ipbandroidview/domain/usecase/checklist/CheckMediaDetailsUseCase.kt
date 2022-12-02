@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
 
 interface CheckMediaDetailsUseCase {
 
-    suspend fun checkDetails(check: Check): Result<CurrentCheckMedia>
+    suspend operator fun invoke(check: Check): Result<CurrentCheckMedia>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -25,7 +25,7 @@ interface CheckMediaDetailsUseCase {
     ) : AbstractUseCaseSaving(scrmRepository, provideLocation, fileExplorer),
         CheckMediaDetailsUseCase {
 
-        override suspend fun checkDetails(
+        override suspend fun invoke(
             check: Check
         ): Result<CurrentCheckMedia> = withToken { token ->
             val voices = mutableListOf<Voice>()

@@ -6,13 +6,13 @@ import com.progressterra.ipbandroidview.model.SuggestionUI
 
 interface ChooseSuggestionUseCase {
 
-    suspend fun choose(suggestionUI: SuggestionUI): Result<AddressUI>
+    suspend operator fun invoke(suggestionUI: SuggestionUI): Result<AddressUI>
 
     class Base(
         private val addressesMapper: AddressesMapper
     ) : ChooseSuggestionUseCase {
 
-        override suspend fun choose(suggestionUI: SuggestionUI): Result<AddressUI> = runCatching {
+        override suspend fun invoke(suggestionUI: SuggestionUI): Result<AddressUI> = runCatching {
             addressesMapper.convertSuggestionToAddressUIModel(suggestionUI.suggestionExtendedInfo)
         }
     }

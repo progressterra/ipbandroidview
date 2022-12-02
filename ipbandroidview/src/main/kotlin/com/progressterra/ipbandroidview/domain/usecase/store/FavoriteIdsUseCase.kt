@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface FavoriteIdsUseCase {
 
-    suspend fun favoriteIds(): Result<List<String>>
+    suspend operator fun invoke(): Result<List<String>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -16,7 +16,7 @@ interface FavoriteIdsUseCase {
         private val ipbFavPromoRecRepository: IPBFavPromoRecRepository
     ) : FavoriteIdsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun favoriteIds(): Result<List<String>> = withToken { token ->
+        override suspend fun invoke(): Result<List<String>> = withToken { token ->
             ipbFavPromoRecRepository.getClientEntityByType(
                 token, TypeOfEntity.PRODUCT
             ).getOrThrow()

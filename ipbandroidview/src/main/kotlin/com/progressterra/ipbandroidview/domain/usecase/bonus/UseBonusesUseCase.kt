@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface UseBonusesUseCase {
 
-    suspend fun use(sum: Int): Result<Unit>
+    suspend operator fun invoke(sum: Int): Result<Unit>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -16,7 +16,7 @@ interface UseBonusesUseCase {
         private val cartRepository: CartRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), UseBonusesUseCase {
 
-        override suspend fun use(sum: Int): Result<Unit> = withToken { token ->
+        override suspend fun invoke(sum: Int): Result<Unit> = withToken { token ->
             cartRepository.implementBonus(
                 token, ParamImplementBonusV3(
                     sumPaymentBonus = sum.toDouble()

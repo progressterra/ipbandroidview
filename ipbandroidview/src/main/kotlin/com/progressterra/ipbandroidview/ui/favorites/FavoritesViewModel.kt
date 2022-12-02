@@ -25,7 +25,7 @@ class FavoritesViewModel(
     }
 
     fun favoriteSpecific(item: StoreGoods) = intent {
-        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess {
+        modifyFavoriteUseCase(item.id, item.favorite).onSuccess {
             val newList = state.items.replaceById(item.reverseFavorite())
             reduce { state.copy(items = newList) }
         }
@@ -33,7 +33,7 @@ class FavoritesViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        favoriteGoodsUseCase.favoriteGoods().onSuccess {
+        favoriteGoodsUseCase().onSuccess {
             reduce {
                 state.copy(
                     items = it,

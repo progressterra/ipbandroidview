@@ -73,7 +73,7 @@ class ChecklistViewModel(
         fetchUserEmailUseCase().onSuccess {
             reduce { state.copy(email = it) }
             if (state.status != ChecklistStatus.CAN_BE_STARTED)
-                documentChecklistUseCase.documentChecklist(state.auditDocument.documentId!!)
+                documentChecklistUseCase(state.auditDocument.documentId!!)
                     .onSuccess { checks ->
                         reduce {
                             state.copy(
@@ -84,7 +84,7 @@ class ChecklistViewModel(
                         }
                     }.onFailure { reduce { state.copy(checklistScreenState = ScreenState.ERROR) } }
             else
-                checklistUseCase.details(state.auditDocument.checklistId).onSuccess { checks ->
+                checklistUseCase(state.auditDocument.checklistId).onSuccess { checks ->
                     reduce {
                         state.copy(
                             checks = checks,
@@ -104,7 +104,7 @@ class ChecklistViewModel(
     fun refreshCheck() = intent {
         state.currentCheck?.let { check ->
             reduce { state.copy(checkScreenState = ScreenState.LOADING) }
-            checkMediaDetailsUseCase.checkDetails(check).onSuccess {
+            checkMediaDetailsUseCase(check).onSuccess {
                 reduce {
                     state.copy(currentCheckMedia = it, checkScreenState = ScreenState.SUCCESS)
                 }
@@ -129,21 +129,21 @@ class ChecklistViewModel(
 
     fun startStopAudit() = intent {
         if (state.status == ChecklistStatus.ONGOING) {
-            finishDocumentUseCase.finishDocument(state.auditDocument.documentId!!).onSuccess {
+            finishDocumentUseCase(state.auditDocument.documentId!!).onSuccess {
                 reduce { state.copy(status = ChecklistStatus.READ_ONLY) }
                 postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
             }.onFailure {
                 postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
             }
         } else {
-            fetchExistingAuditUseCase.fetchExistingAudit(
+            fetchExistingAuditUseCase(
                 state.auditDocument.placeId, state.auditDocument.checklistId
             ).onSuccess {
                 val newDoc = state.auditDocument.copy(documentId = it)
                 reduce { state.copy(auditDocument = newDoc, status = ChecklistStatus.ONGOING) }
                 postSideEffect(ChecklistEffect.Toast(R.string.audit_ongoing))
             }.onFailure {
-                createDocumentUseCase.createDocument(
+                createDocumentUseCase(
                     state.auditDocument.checklistId, state.auditDocument.placeId
                 ).onSuccess {
                     val newDoc = state.auditDocument.copy(documentId = it)
@@ -223,7 +223,7 @@ class ChecklistViewModel(
     }
 
     fun applyCheck() = intent {
-        updateAnswerUseCase.update(
+        updateAnswerUseCase(
             check = state.currentCheck!!,
             checkDetails = state.currentCheckMedia!!.copy(
                 voices = state.currentCheckMedia!!.voices.formPatch(),

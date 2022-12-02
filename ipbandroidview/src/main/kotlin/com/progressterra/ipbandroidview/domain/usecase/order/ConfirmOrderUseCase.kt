@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.model.OrderResult
 
 interface ConfirmOrderUseCase {
 
-    suspend fun confirm(): Result<OrderResult>
+    suspend operator fun invoke(): Result<OrderResult>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -17,7 +17,7 @@ interface ConfirmOrderUseCase {
     ) : ConfirmOrderUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         //TODO replace
-        override suspend fun confirm(): Result<OrderResult> = withToken { token ->
+        override suspend fun invoke(): Result<OrderResult> = withToken { token ->
             try {
                 cartRepository.confirmOrder(token).onFailure { throw it }
                 OrderResult(success = true, additionalInfo = "Заказ успешно создан!")

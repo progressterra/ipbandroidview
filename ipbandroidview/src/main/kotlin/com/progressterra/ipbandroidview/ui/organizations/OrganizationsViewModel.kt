@@ -25,7 +25,7 @@ class OrganizationsViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        allOrganizationsUseCase.allOrganizations().onSuccess {
+        allOrganizationsUseCase().onSuccess {
             reduce { state.copy(organizations = it, screenState = ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }

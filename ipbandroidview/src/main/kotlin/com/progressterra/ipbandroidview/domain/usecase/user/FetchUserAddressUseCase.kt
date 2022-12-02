@@ -5,10 +5,10 @@ import com.progressterra.ipbandroidview.model.AddressUI
 
 interface FetchUserAddressUseCase {
 
-    suspend fun fetch(): Result<AddressUI>
+    suspend operator fun invoke(): Result<AddressUI>
 
     class Base : FetchUserAddressUseCase {
 
-        override suspend fun fetch(): Result<AddressUI> = runCatching { UserData.address }
+        override suspend fun invoke(): Result<AddressUI> = runCatching { UserData.address }
     }
 }

@@ -4,11 +4,11 @@ import com.progressterra.ipbandroidview.model.PaymentType
 
 interface PaymentMethodsUseCase {
 
-    fun methods(): Result<List<PaymentType>>
+    suspend operator fun invoke(): Result<List<PaymentType>>
 
     class Base : PaymentMethodsUseCase {
 
-        override fun methods(): Result<List<PaymentType>> = runCatching {
+        override suspend fun invoke(): Result<List<PaymentType>> = runCatching {
             listOf(PaymentType.CASH)
         }
     }

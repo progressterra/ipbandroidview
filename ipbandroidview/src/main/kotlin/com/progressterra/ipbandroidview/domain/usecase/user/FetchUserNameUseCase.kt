@@ -4,11 +4,11 @@ import com.progressterra.ipbandroidview.data.UserData
 
 interface FetchUserNameUseCase {
 
-    suspend fun fetch(): Result<String>
+    suspend operator fun invoke(): Result<String>
 
     class Base : FetchUserNameUseCase {
 
-        override suspend fun fetch(): Result<String> = runCatching {
+        override suspend fun invoke(): Result<String> = runCatching {
             buildString {
                 if (UserData.userName.name.isNotBlank())
                     append("${UserData.userName.name} ")

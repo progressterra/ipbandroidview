@@ -2,14 +2,15 @@ package com.progressterra.ipbandroidview.domain.usecase.user
 
 import com.progressterra.ipbandroidview.data.UserData
 
-interface FetchUserPhoneUseCase {
+
+interface FetchUserIdUseCase {
 
     suspend operator fun invoke(): Result<String>
 
-    class Base : FetchUserPhoneUseCase {
+    class Base : FetchUserIdUseCase {
 
         override suspend fun invoke(): Result<String> = runCatching {
-            UserData.phone
+            UserData.idUnique
         }
     }
 }

@@ -4,13 +4,13 @@ import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreReposit
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.domain.DomainConstants
+import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.model.StoreGoods
 
 interface GoodsPageUseCase {
 
-    suspend fun goodsPage(
+    suspend operator fun invoke(
         id: String,
         pageNumber: Int,
         favorites: List<String>
@@ -23,14 +23,14 @@ interface GoodsPageUseCase {
         private val eCommerceRepo: IECommerceCoreRepository,
     ) : AbstractUseCase(scrmRepository, provideLocation), GoodsPageUseCase {
 
-        override suspend fun goodsPage(
+        override suspend fun invoke(
             id: String, pageNumber: Int, favorites: List<String>
         ): Result<Pair<Int, List<StoreGoods>>> = withToken { token ->
             val result = eCommerceRepo.getProductsByCategory(
                 token,
                 id,
                 pageNumber,
-                DomainConstants.PAGE_SIZE,
+                AppSettings.PAGE_SIZE,
                 0,
                 0
             ).getOrThrow()

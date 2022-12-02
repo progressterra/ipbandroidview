@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.DomainConstants
+import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.usecase.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
@@ -34,13 +34,13 @@ class MainViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        notificationUseCase.invoke().onSuccess { notifications ->
+        notificationUseCase().onSuccess { notifications ->
             reduce { state.copy(notifications = notifications) }
-            availableBonusesUseCase.availableBonuses().onSuccess { bonusesInfo ->
+            availableBonusesUseCase().onSuccess { bonusesInfo ->
                 reduce { state.copy(bonuses = bonusesInfo) }
-                goodsUseCase.goods(DomainConstants.MAIN_DEFAULT_CATEGORY_ID).onSuccess { pager ->
+                goodsUseCase(AppSettings.MAIN_DEFAULT_CATEGORY_ID).onSuccess { pager ->
                     reduce { state.copy(items = pager.flow.cachedIn(viewModelScope)) }
-                    userExistUseCase.userExist().onSuccess {
+                    userExistUseCase().onSuccess {
                         reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
                     }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
                 }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
@@ -49,7 +49,7 @@ class MainViewModel(
     }
 
     fun favoriteSpecific(item: StoreGoods) = intent {
-        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess { refresh() }
+        modifyFavoriteUseCase(item.id, item.favorite).onSuccess { refresh() }
     }
 
     fun openDetails(item: StoreGoods) = intent {

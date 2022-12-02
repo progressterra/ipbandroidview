@@ -37,7 +37,7 @@ class ConfirmationCodeViewModel(
 
     fun resend() {
         intent {
-            startVerificationChannelUseCase.start(state.phoneNumber)
+            startVerificationChannelUseCase(state.phoneNumber)
             reduce { state.copy(code = "") }
         }
         startTimer()
@@ -45,9 +45,9 @@ class ConfirmationCodeViewModel(
 
     fun next() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        endVerificationChannelUseCase.end(state.phoneNumber, state.code).onSuccess {
-            fetchUserUseCase.fetch().onSuccess {
-                needDetailsUseCase.needDetails().onSuccess {
+        endVerificationChannelUseCase(state.phoneNumber, state.code).onSuccess {
+            fetchUserUseCase().onSuccess {
+                needDetailsUseCase().onSuccess {
                     reduce { state.copy(screenState = ScreenState.SUCCESS) }
                     if (it && settings.checkUserDetails)
                         postSideEffect(ConfirmationCodeEffect.NeedDetails)

@@ -37,7 +37,7 @@ class SignUpViewModel(
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         var wasError = false
-        fetchUserNameUseCase.fetch().onSuccess { reduce { state.copy(name = it) } }
+        fetchUserNameUseCase().onSuccess { reduce { state.copy(name = it) } }
             .onFailure {
                 wasError = true
                 it.printStackTrace()
@@ -47,12 +47,12 @@ class SignUpViewModel(
                 wasError = true
                 it.printStackTrace()
             }
-        fetchUserBirthdayUseCase.fetch().onSuccess { reduce { state.copy(birthday = it) } }
+        fetchUserBirthdayUseCase().onSuccess { reduce { state.copy(birthday = it) } }
             .onFailure {
                 wasError = true
                 it.printStackTrace()
             }
-        fetchUserPhoneUseCase.fetch().onSuccess { reduce { state.copy(phoneNumber = it) } }
+        fetchUserPhoneUseCase().onSuccess { reduce { state.copy(phoneNumber = it) } }
             .onFailure {
                 wasError = true
                 it.printStackTrace()
@@ -68,8 +68,8 @@ class SignUpViewModel(
     fun next() = intent {
         if (state.isDataValid) {
             reduce { state.copy(screenState = ScreenState.LOADING) }
-            updatePersonalInfoUseCase.update(state.name, state.email, state.birthday).onSuccess {
-                needAddressUseCase.needAddress().onSuccess {
+            updatePersonalInfoUseCase(state.name, state.email, state.birthday).onSuccess {
+                needAddressUseCase().onSuccess {
                     if (it)
                         postSideEffect(SignUpEffect.NeedAddress)
                     else

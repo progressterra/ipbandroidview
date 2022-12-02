@@ -46,7 +46,7 @@ class CityViewModel(
     fun skip() = intent { postSideEffect(CityEffect.Next) }
 
     fun next() = intent {
-        saveUserAddressUseCase.saveAddress(address = state.addressUI).onSuccess {
+        saveUserAddressUseCase(address = state.addressUI).onSuccess {
             postSideEffect(CityEffect.Next)
         }
     }
@@ -55,22 +55,22 @@ class CityViewModel(
         reduce {
             state.copy(address = address)
         }
-        suggestionUseCase.suggestions(address).onSuccess {
+        suggestionUseCase(address).onSuccess {
             reduce { state.copy(suggestions = it) }
         }
     }
 
     fun onMapClick(latLng: LatLng) = intent {
-        guessLocationUseCase.guessLocation(latLng).onSuccess {
+        guessLocationUseCase(latLng).onSuccess {
             reduce { state.copy(addressUI = it, address = it.printAddress()) }
-            suggestionUseCase.suggestions(it.printAddress()).onSuccess {
+            suggestionUseCase(it.printAddress()).onSuccess {
                 reduce { state.copy(suggestions = it) }
             }
         }
     }
 
     fun onSuggestion(suggestion: SuggestionUI) = intent {
-        chooseSuggestionUseCase.choose(suggestion).onSuccess {
+        chooseSuggestionUseCase(suggestion).onSuccess {
             reduce {
                 state.copy(
                     addressUI = it,

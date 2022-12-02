@@ -24,7 +24,7 @@ class DocumentsViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        allDocumentsUseCase.allDocuments().onSuccess {
+        allDocumentsUseCase().onSuccess {
             reduce { state.copy(documents = it, screenState = ScreenState.SUCCESS) }
             postSideEffect(DocumentsEffect.UpdateCounter(it.filter { doc -> doc.finishDate == null }.size))
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }

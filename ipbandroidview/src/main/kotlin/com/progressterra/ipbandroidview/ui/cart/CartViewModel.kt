@@ -26,7 +26,7 @@ class CartViewModel(
     override val container: Container<CartState, CartEffect> = container(CartState())
 
     fun favoriteSpecific(item: CartGoods) = intent {
-        modifyFavoriteUseCase.modifyFavorite(item.id, item.favorite).onSuccess {
+        modifyFavoriteUseCase(item.id, item.favorite).onSuccess {
             val newList = state.cart.listGoods.replaceById(item.reverseFavorite())
             val newCart = state.cart.copy(listGoods = newList)
             reduce {
@@ -39,9 +39,9 @@ class CartViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        cartUseCase.cart().onSuccess {
+        cartUseCase().onSuccess {
             reduce { state.copy(cart = it) }
-            userExistUseCase.userExist().onSuccess {
+            userExistUseCase().onSuccess {
                 reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
             }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
@@ -55,7 +55,7 @@ class CartViewModel(
     }
 
     fun removeSpecific(item: CartGoods) = intent {
-        fastRemoveFromCartUseCase.remove(item.id, item.inCartCounter).onSuccess {
+        fastRemoveFromCartUseCase(item.id, item.inCartCounter).onSuccess {
             val newListGoods = state.cart.listGoods.removeItem(item)
             val newCart = state.cart.copy(listGoods = newListGoods)
             reduce {

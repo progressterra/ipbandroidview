@@ -8,14 +8,14 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface UpdateFirebaseCloudMessagingTokenUseCase {
 
-    suspend fun update(firebaseCloudMessagingToken: String): Result<Unit>
+    suspend operator fun invoke(firebaseCloudMessagingToken: String): Result<Unit>
 
     class Base(
         private val repo: SCRMRepository,
         provideLocation: ProvideLocation
     ) : UpdateFirebaseCloudMessagingTokenUseCase, AbstractUseCase(repo, provideLocation) {
 
-        override suspend fun update(
+        override suspend fun invoke(
             firebaseCloudMessagingToken: String
         ): Result<Unit> = withToken { token ->
             repo.setDeviceToken(

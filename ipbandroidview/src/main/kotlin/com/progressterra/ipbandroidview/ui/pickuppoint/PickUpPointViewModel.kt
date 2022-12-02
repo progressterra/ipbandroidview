@@ -49,7 +49,7 @@ class PickUpPointViewModel(
 
     fun editAddress(address: String) = intent {
         reduce { state.copy(address = address) }
-        suggestionUseCase.suggestions(address).map {
+        suggestionUseCase(address).map {
             reduce { state.copy(suggestions = it) }
         }
     }

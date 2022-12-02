@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.model.AddressUI
 @Suppress("unused")
 object UserData : KotprefModel() {
 
+    var idUnique by stringPref()
     var deviceId by stringPref()
     var clientExist by booleanPref()
     var phone by stringPref()
@@ -16,6 +17,7 @@ object UserData : KotprefModel() {
     var dateOfBirthday by longPref()
 
     fun clearUser() {
+        idUnique = ""
         deviceId = ""
         clientExist = false
         phone = ""

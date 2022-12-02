@@ -9,14 +9,14 @@ import com.progressterra.ipbandroidview.model.AddressUI
 
 interface GuessLocationUseCase {
 
-    suspend fun guessLocation(latLng: LatLng): Result<AddressUI>
+    suspend operator fun invoke(latLng: LatLng): Result<AddressUI>
 
     class Base(
         private val repo: SuggestionRepository,
         private val addressesMapper: AddressesMapper
     ) : GuessLocationUseCase {
 
-        override suspend fun guessLocation(latLng: LatLng): Result<AddressUI> = runCatching {
+        override suspend fun invoke(latLng: LatLng): Result<AddressUI> = runCatching {
             val suggestionsResult = repo.getSuggestionsAddressFromLocation(
                 DadataSuggestionsFromLocationRequest(
                     latitude = latLng.latitude.toFloat(),

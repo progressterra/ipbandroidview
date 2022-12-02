@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface FastRemoveFromCartUseCase {
 
-    suspend fun remove(goodsId: String, count: Int = 1): Result<Unit>
+    suspend operator fun invoke(goodsId: String, count: Int = 1): Result<Unit>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -17,7 +17,7 @@ interface FastRemoveFromCartUseCase {
         private val repo: CartRepository
     ) : FastRemoveFromCartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun remove(goodsId: String, count: Int): Result<Unit> =
+        override suspend fun invoke(goodsId: String, count: Int): Result<Unit> =
             withToken { token ->
                 repo.removeProductFromCart(
                     ParamGoodsToECommers(

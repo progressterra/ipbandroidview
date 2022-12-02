@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.model.AddressUI
 
 interface SaveUserAddressUseCase {
 
-    suspend fun saveAddress(address: AddressUI): Result<Unit>
+    suspend operator fun invoke(address: AddressUI): Result<Unit>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -19,7 +19,7 @@ interface SaveUserAddressUseCase {
         private val addressesMapper: AddressesMapper
     ) : SaveUserAddressUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun saveAddress(address: AddressUI): Result<Unit> = withToken { token ->
+        override suspend fun invoke(address: AddressUI): Result<Unit> = withToken { token ->
             addressRepository.uploadClientAddress(
                 token,
                 addressesMapper.convertAddressUiModelToDto(address)

@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.model.Check
 
 interface DocumentChecklistUseCase {
 
-    suspend fun documentChecklist(id: String): Result<List<Check>>
+    suspend operator fun invoke(id: String): Result<List<Check>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -21,7 +21,7 @@ interface DocumentChecklistUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun documentChecklist(
+        override suspend fun invoke(
             id: String
         ): Result<List<Check>> = withToken { token ->
             val responseChecklist = repo.checklistForDoc(token, id).getOrThrow()

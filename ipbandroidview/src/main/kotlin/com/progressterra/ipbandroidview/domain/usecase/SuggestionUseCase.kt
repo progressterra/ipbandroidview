@@ -7,14 +7,14 @@ import com.progressterra.ipbandroidview.model.SuggestionUI
 
 interface SuggestionUseCase {
 
-    suspend fun suggestions(keyword: String): Result<List<SuggestionUI>>
+    suspend operator fun invoke(keyword: String): Result<List<SuggestionUI>>
 
     class Base(
         private val mapper: AddressesMapper,
         private val repo: SuggestionRepository,
     ) : SuggestionUseCase {
 
-        override suspend fun suggestions(
+        override suspend fun invoke(
             keyword: String
         ): Result<List<SuggestionUI>> = runCatching {
             val suggestionsResult = repo.getSuggestionsAddressFromDadata(

@@ -44,5 +44,8 @@ fun List<Check>.createStats(): ChecklistStats {
     )
 }
 
-
 fun LocalDate.print(): String = "${this.dayOfMonth}.${this.monthValue}.${this.year}"
+
+fun <T> Result<T>.throwOnFailure() {
+    this.onFailure { throw it }
+}

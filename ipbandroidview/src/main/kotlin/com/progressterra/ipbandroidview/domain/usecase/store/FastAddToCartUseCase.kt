@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 
 interface FastAddToCartUseCase {
 
-    suspend fun add(goodsId: String, count: Int = 1): Result<Unit>
+    suspend operator fun invoke(goodsId: String, count: Int = 1): Result<Unit>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -17,7 +17,7 @@ interface FastAddToCartUseCase {
         private val repo: CartRepository
     ) : FastAddToCartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun add(goodsId: String, count: Int): Result<Unit> = withToken { token ->
+        override suspend fun invoke(goodsId: String, count: Int): Result<Unit> = withToken { token ->
             repo.fastAddToCart(
                 token,
                 ParamGoodsToECommers(

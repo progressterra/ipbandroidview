@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.ui.documents.Document
 
 interface AllDocumentsUseCase {
 
-    suspend fun allDocuments(): Result<List<Document>>
+    suspend operator fun invoke(): Result<List<Document>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -28,7 +28,7 @@ interface AllDocumentsUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun allDocuments(): Result<List<Document>> = withToken { token ->
+        override suspend fun invoke(): Result<List<Document>> = withToken { token ->
             val documents = repo.allDocuments(
                 token,
                 FilterAndSort(

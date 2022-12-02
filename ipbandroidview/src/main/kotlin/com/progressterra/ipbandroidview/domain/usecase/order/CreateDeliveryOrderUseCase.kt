@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.model.Delivery
 
 interface CreateDeliveryOrderUseCase {
 
-    suspend fun create(comment: String, deliveryMethod: Delivery): Result<Unit>
+    suspend operator fun invoke(comment: String, deliveryMethod: Delivery): Result<Unit>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -18,7 +18,7 @@ interface CreateDeliveryOrderUseCase {
         private val repository: IPBDeliveryRepository
     ) : CreateDeliveryOrderUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun create(comment: String, deliveryMethod: Delivery): Result<Unit> =
+        override suspend fun invoke(comment: String, deliveryMethod: Delivery): Result<Unit> =
             withToken { token ->
                 repository.createDeliveryOrder(
                     setDeliveryTypeRequest = RGDeliveryParams(

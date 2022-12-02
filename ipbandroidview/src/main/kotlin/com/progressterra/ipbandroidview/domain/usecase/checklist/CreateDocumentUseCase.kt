@@ -11,7 +11,7 @@ import java.util.Date
 
 interface CreateDocumentUseCase {
 
-    suspend fun createDocument(idChecklist: String, idPlace: String): Result<String>
+    suspend operator fun invoke(idChecklist: String, idPlace: String): Result<String>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -19,7 +19,7 @@ interface CreateDocumentUseCase {
         private val repo: ChecklistRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), CreateDocumentUseCase {
 
-        override suspend fun createDocument(
+        override suspend fun invoke(
             idChecklist: String,
             idPlace: String
         ): Result<String> = withToken { token ->

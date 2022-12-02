@@ -28,7 +28,7 @@ class CatalogViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        catalogUseCase.catalog().onSuccess {
+        catalogUseCase().onSuccess {
             reduce { state.copy(categories = it, screenState = ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }

@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.model.OrderGoods
 
 interface OrdersUseCase {
 
-    suspend fun orders(): Result<List<OrderDetails>>
+    suspend operator fun invoke(): Result<List<OrderDetails>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -30,7 +30,7 @@ interface OrdersUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun orders(): Result<List<OrderDetails>> = withToken { token ->
+        override suspend fun invoke(): Result<List<OrderDetails>> = withToken { token ->
             purchasesRepository.getShopList(token).getOrThrow()?.map { purchase ->
                 purchasesRepository.getPurchaseDetails(purchase.purchaseId!!).getOrThrow()
             }?.map { details ->

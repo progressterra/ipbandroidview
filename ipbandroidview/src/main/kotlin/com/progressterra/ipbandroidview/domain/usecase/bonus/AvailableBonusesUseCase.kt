@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.model.BonusesInfo
 
 interface AvailableBonusesUseCase {
 
-    suspend fun availableBonuses(): Result<BonusesInfo>
+    suspend operator fun invoke(): Result<BonusesInfo>
 
     class Base(
         sCRMRepository: SCRMRepository,
@@ -23,7 +23,7 @@ interface AvailableBonusesUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun availableBonuses(): Result<BonusesInfo> = withToken { token ->
+        override suspend fun invoke(): Result<BonusesInfo> = withToken { token ->
             val response = bonusesRepository.getGeneralInfo(token).getOrThrow()
             BonusesInfo(
                 quantity = response?.currentQuantity?.toInt() ?: 0,

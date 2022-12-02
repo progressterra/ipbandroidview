@@ -33,7 +33,7 @@ class GoodsDetailsViewModel(
 
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        goodsDetailsUseCase.goodsDetails(state.id).onSuccess {
+        goodsDetailsUseCase(state.id).onSuccess {
             reduce { state.copy(screenState = ScreenState.SUCCESS, goodsDetails = it) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
@@ -45,19 +45,19 @@ class GoodsDetailsViewModel(
     }
 
     fun add() = intent {
-        fastAddToCartUseCase.add(state.id).onSuccess {
+        fastAddToCartUseCase(state.id).onSuccess {
             reduce { state.copy(goodsDetails = state.goodsDetails.addOne()) }
         }
     }
 
     fun remove() = intent {
-        fastRemoveFromCartUseCase.remove(state.id).onSuccess {
+        fastRemoveFromCartUseCase(state.id).onSuccess {
             reduce { state.copy(goodsDetails = state.goodsDetails.removeOne()) }
         }
     }
 
     fun favorite() = intent {
-        modifyFavoriteUseCase.modifyFavorite(state.id, state.goodsDetails.favorite).onSuccess {
+        modifyFavoriteUseCase(state.id, state.goodsDetails.favorite).onSuccess {
             reduce { state.copy(goodsDetails = state.goodsDetails.reverseFavorite()) }
         }
     }

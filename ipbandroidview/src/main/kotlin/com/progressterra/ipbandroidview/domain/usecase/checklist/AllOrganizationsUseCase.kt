@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.model.Organization
 
 interface AllOrganizationsUseCase {
 
-    suspend fun allOrganizations(): Result<List<Organization>>
+    suspend operator fun invoke(): Result<List<Organization>>
 
     class Base(
         private val repo: ChecklistRepository,
@@ -21,7 +21,7 @@ interface AllOrganizationsUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override suspend fun allOrganizations(): Result<List<Organization>> = withToken { token ->
+        override suspend fun invoke(): Result<List<Organization>> = withToken { token ->
             val places = repo.availableChecklistsAndDocs(token).getOrThrow()
             buildList {
                 places?.map { place ->
