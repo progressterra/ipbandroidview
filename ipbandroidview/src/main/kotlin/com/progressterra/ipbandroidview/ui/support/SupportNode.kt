@@ -29,7 +29,8 @@ class SupportNode(
             state = state::value,
             back = viewModel::back,
             editMessage = viewModel::editMessage,
-            send = viewModel::sendMessage
+            send = viewModel::sendMessage,
+            refresh = viewModel::refresh
         )
     }
 }

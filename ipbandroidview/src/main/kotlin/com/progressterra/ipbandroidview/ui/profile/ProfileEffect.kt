@@ -7,4 +7,6 @@ sealed class ProfileEffect {
     object Orders : ProfileEffect()
 
     object Favorites : ProfileEffect()
+
+    object Support: ProfileEffect()
 }

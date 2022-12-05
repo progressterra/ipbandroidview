@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidview.composable.component.ChatInput
 import com.progressterra.ipbandroidview.composable.component.ChatMessage
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.model.Message
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -25,6 +26,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun SupportScreen(
     state: () -> SupportState,
     back: () -> Unit,
+    refresh: () -> Unit,
     editMessage: (String) -> Unit,
     send: () -> Unit
 ) {
@@ -44,20 +46,25 @@ fun SupportScreen(
             )
         }
     ) { _, _ ->
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(AppTheme.dimensions.small),
-            verticalArrangement = Arrangement.spacedBy(
-                AppTheme.dimensions.small,
-                Alignment.Bottom
-            ),
-            reverseLayout = true
+        StateBox(
+            state = state()::screenState,
+            refresh = refresh
         ) {
-            items(state().messages) {
-                ChatMessage(
-                    modifier = Modifier.animateItemPlacement(),
-                    message = { it }
-                )
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(AppTheme.dimensions.small),
+                verticalArrangement = Arrangement.spacedBy(
+                    AppTheme.dimensions.small,
+                    Alignment.Bottom
+                ),
+                reverseLayout = true
+            ) {
+                items(state().messages) {
+                    ChatMessage(
+                        modifier = Modifier.animateItemPlacement(),
+                        message = { it }
+                    )
+                }
             }
         }
     }
@@ -102,7 +109,8 @@ private fun SupportScreenPreview() {
             },
             back = {},
             editMessage = {},
-            send = {}
+            send = {},
+            refresh = {}
         )
     }
 }

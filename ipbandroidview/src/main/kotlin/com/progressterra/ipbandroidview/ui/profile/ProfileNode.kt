@@ -13,6 +13,7 @@ class ProfileNode(
     buildContext: BuildContext,
     private val settings: ProfileSettings,
     private val onDetails: () -> Unit,
+    private val onSupport: (() -> Unit)?,
     private val onFavorites: (() -> Unit)?,
     private val onOrders: (() -> Unit)?
 ) : Node(buildContext) {
@@ -22,9 +23,10 @@ class ProfileNode(
         val viewModel: ProfileViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
-                ProfileEffect.OpenDetails -> onDetails()
-                ProfileEffect.Favorites -> onFavorites?.invoke()
-                ProfileEffect.Orders -> onOrders?.invoke()
+                is ProfileEffect.Support -> onSupport?.invoke()
+                is ProfileEffect.OpenDetails -> onDetails()
+                is ProfileEffect.Favorites -> onFavorites?.invoke()
+                is ProfileEffect.Orders -> onOrders?.invoke()
             }
         }
         val state = viewModel.collectAsState()
@@ -33,7 +35,8 @@ class ProfileNode(
             openDetails = viewModel::openDetails,
             onOrders = viewModel::onOrders,
             onFavorites = viewModel::onFavorites,
-            settings = settings
+            settings = settings,
+            onSupport = viewModel::onSupport
         )
     }
 }

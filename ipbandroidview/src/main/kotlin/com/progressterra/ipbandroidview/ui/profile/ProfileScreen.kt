@@ -29,6 +29,7 @@ fun ProfileScreen(
     openDetails: () -> Unit,
     onOrders: () -> Unit,
     onFavorites: () -> Unit,
+    onSupport: () -> Unit,
     settings: ProfileSettings
 ) {
     ThemedLayout(topBar = {
@@ -100,6 +101,26 @@ fun ProfileScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.favorites),
+                        color = AppTheme.colors.black,
+                        style = AppTheme.typography.text
+                    )
+                    IconButton(onClick = openDetails) {
+                        ForwardIcon()
+                    }
+                }
+            if (settings.showSupport)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(AppTheme.shapes.medium)
+                        .background(AppTheme.colors.surfaces)
+                        .niceClickable(onSupport)
+                        .padding(AppTheme.dimensions.medium),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.support),
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )

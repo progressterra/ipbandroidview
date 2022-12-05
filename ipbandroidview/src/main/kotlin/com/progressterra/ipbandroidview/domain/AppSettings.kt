@@ -6,5 +6,5 @@ object AppSettings {
 
     const val PAGE_SIZE = 8
 
-    const val idEnterprise = "50881abb-d4cd-4781-8259-b617f3cd23a2"
+    const val ID_ENTERPRISE = "50881abb-d4cd-4781-8259-b617f3cd23a2"
 }

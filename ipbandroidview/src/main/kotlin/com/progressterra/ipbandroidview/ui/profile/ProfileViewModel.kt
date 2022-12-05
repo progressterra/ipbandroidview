@@ -39,4 +39,8 @@ class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect>
     fun onOrders() = intent {
         postSideEffect(ProfileEffect.Orders)
     }
+
+    fun onSupport() = intent {
+        postSideEffect(ProfileEffect.Support)
+    }
 }
