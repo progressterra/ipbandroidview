@@ -30,6 +30,10 @@ class PickUpPointViewModel(
         }
     }
 
+    fun setPoints(points: List<PickUpPointInfo>) = intent {
+        reduce { state.copy(pickUpPoints = points) }
+    }
+
     private fun checkPermission() = intent {
         val result = managePermissionContract.checkPermission(locationPermission)
         reduce { state.copy(isPermissionGranted = result) }
