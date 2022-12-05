@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.data
 
 import com.google.gson.annotations.SerializedName
-import com.progressterra.ipbandroidapi.core.IsEmpty
+import com.progressterra.ipbandroidview.core.IsEmpty
 
 data class UserName(
 
