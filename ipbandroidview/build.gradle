@@ -70,9 +70,9 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 
     //Orbit, MVI library
-    api "org.orbit-mvi:orbit-core:4.4.0"
-    api "org.orbit-mvi:orbit-viewmodel:4.4.0"
-    api "org.orbit-mvi:orbit-compose:4.4.0"
+    api 'org.orbit-mvi:orbit-core:4.5.0'
+    api 'org.orbit-mvi:orbit-viewmodel:4.5.0'
+    api 'org.orbit-mvi:orbit-compose:4.5.0'
 
     //Activity
     api "androidx.activity:activity-ktx:1.6.1"
@@ -92,13 +92,13 @@ dependencies {
     api 'io.insert-koin:koin-androidx-compose:3.3.0'
 
     //Accompanist, useful composables
-    api "com.google.accompanist:accompanist-systemuicontroller:0.27.1"
-    api "com.google.accompanist:accompanist-swiperefresh:0.27.1"
-    api "com.google.accompanist:accompanist-pager:0.27.1"
-    api "com.google.accompanist:accompanist-pager-indicators:0.27.1"
+    api 'com.google.accompanist:accompanist-systemuicontroller:0.28.0'
+    api 'com.google.accompanist:accompanist-swiperefresh:0.28.0'
+    api 'com.google.accompanist:accompanist-pager:0.28.0'
+    api 'com.google.accompanist:accompanist-pager-indicators:0.28.0'
 
     //Testing
-    api "org.orbit-mvi:orbit-test:4.4.0"
+    api 'org.orbit-mvi:orbit-test:4.5.0'
     api "androidx.core:core-ktx:1.9.0"
     testApi "junit:junit:4.13.2"
 
