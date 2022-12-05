@@ -12,7 +12,6 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class PickUpPointNode(
     buildContext: BuildContext,
-    private val onNext: () -> Unit,
     private val onBack: () -> Unit,
 ) : Node(buildContext) {
 
