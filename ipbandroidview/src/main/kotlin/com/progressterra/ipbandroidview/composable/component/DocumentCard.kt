@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.composable.element.ForwardIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.ChecklistStats
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.ui.documents.Document
+import com.progressterra.ipbandroidview.model.Document
 
 @Composable
 fun DocumentCard(

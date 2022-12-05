@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.model.ChecklistStatus
+import com.progressterra.ipbandroidview.model.Document
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -25,8 +26,16 @@ class DocumentsViewModel(
     fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allDocumentsUseCase().onSuccess {
-            reduce { state.copy(documents = it, screenState = ScreenState.SUCCESS) }
-            postSideEffect(DocumentsEffect.UpdateCounter(it.filter { doc -> doc.finishDate == null }.size))
+            val finished = it.filter { doc -> doc.isFinished() }
+            val unfinished = it.filter { doc -> !doc.isFinished() }
+            reduce {
+                state.copy(
+                    documents = finished,
+                    archivedDocuments = unfinished,
+                    screenState = ScreenState.SUCCESS
+                )
+            }
+            postSideEffect(DocumentsEffect.UpdateCounter(unfinished.size))
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
@@ -45,7 +54,7 @@ class DocumentsViewModel(
         )
     }
 
-    fun openOrganizations() = intent {
-        postSideEffect(DocumentsEffect.OpenOrganizations)
+    fun openArchive() = intent {
+        postSideEffect(DocumentsEffect.Archive(state.archivedDocuments))
     }
 }

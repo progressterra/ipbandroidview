@@ -7,6 +7,7 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.model.ChecklistStatus
+import com.progressterra.ipbandroidview.model.Document
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -14,8 +15,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class DocumentsNode(
     buildContext: BuildContext,
-    private val onOrganizations: () -> Unit,
     private val onChecklist: (AuditDocument, ChecklistStatus) -> Unit,
+    private val onArchive: (List<Document>) -> Unit,
     private val updateDocumentsCounter: (Int) -> Unit
 ) : Node(buildContext) {
 
@@ -24,9 +25,9 @@ class DocumentsNode(
         val viewModel: DocumentsViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
-                is DocumentsEffect.OpenOrganizations -> onOrganizations()
                 is DocumentsEffect.OpenChecklist -> onChecklist(it.auditDocument, it.initialStatus)
                 is DocumentsEffect.UpdateCounter -> updateDocumentsCounter(it.counter)
+                is DocumentsEffect.Archive -> onArchive(it.archived)
             }
         }
         LaunchedEffect(Unit) {
@@ -36,8 +37,8 @@ class DocumentsNode(
         DocumentsScreen(
             state = state::value,
             refresh = viewModel::refresh,
-            openOrganizations = viewModel::openOrganizations,
-            openDocument = viewModel::openDocument
+            openArchive = viewModel::openArchive,
+            openDocument = viewModel::openDocument,
         )
     }
 }

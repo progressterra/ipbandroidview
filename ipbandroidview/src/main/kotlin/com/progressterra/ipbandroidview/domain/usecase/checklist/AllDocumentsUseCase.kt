@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.model.ChecklistStats
-import com.progressterra.ipbandroidview.ui.documents.Document
+import com.progressterra.ipbandroidview.model.Document
 
 interface AllDocumentsUseCase {
 

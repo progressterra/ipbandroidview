@@ -31,7 +31,7 @@
     <string name="organizations">Заведения</string>
     <string name="map">Карта</string>
     <string name="wrong_code">Неправильный код!</string>
-    <string name="create_audit">Провести аудит</string>
+    <string name="to_archive">Архив 🗃</string>
     <string name="questions">Вопросов</string>
     <string name="audit">Аудит</string>
     <string name="start_audit">Начать аудит</string>
@@ -131,4 +131,5 @@
     <string name="support">Служба поддержки</string>
     <string name="work_hour">График работы</string>
     <string name="how_to_go">Как добраться</string>
+    <string name="archive">Архив</string>
 </resources>

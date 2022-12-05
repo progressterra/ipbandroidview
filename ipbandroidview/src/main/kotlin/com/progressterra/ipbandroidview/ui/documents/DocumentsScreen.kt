@@ -25,16 +25,16 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.DocumentCard
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.element.Divider
 import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
+import com.progressterra.ipbandroidview.model.Document
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun DocumentsScreen(
     state: () -> DocumentsState,
     refresh: () -> Unit,
-    openOrganizations: () -> Unit,
+    openArchive: () -> Unit,
     openDocument: (Document) -> Unit
 ) {
     ThemedLayout(topBar = {
@@ -47,13 +47,6 @@ fun DocumentsScreen(
             refresh = refresh
         ) {
             var buttonSize by remember { mutableStateOf(0.dp) }
-            val unfinishedDocs by remember(state().documents) {
-                mutableStateOf(state().documents.filter { !it.isFinished() })
-            }
-            val finishedGroupedDocs by remember(state().documents) {
-                mutableStateOf(state().documents.filter { it.isFinished() }
-                    .groupBy { it.finishDate!! })
-            }
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -61,30 +54,13 @@ fun DocumentsScreen(
                         top = 8.dp, start = 8.dp, end = 8.dp
                     ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-
-                items(unfinishedDocs) {
+                items(state().documents) {
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
                         state = { it },
                         openDocument = openDocument
                     )
                 }
-                finishedGroupedDocs
-                    .forEach {
-                        item {
-                            Divider(
-                                modifier = Modifier.fillMaxWidth(),
-                                title = "${stringResource(id = R.string.completed_audits)} ${it.key}"
-                            )
-                        }
-                        items(it.value) { document ->
-                            DocumentCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                state = { document },
-                                openDocument = openDocument
-                            )
-                        }
-                    }
                 item {
                     Spacer(modifier = Modifier.size(buttonSize + 24.dp))
                 }
@@ -99,8 +75,8 @@ fun DocumentsScreen(
                     .onGloballyPositioned {
                         buttonSize = with(density) { it.size.height.toDp() }
                     },
-                onClick = openOrganizations,
-                text = stringResource(id = R.string.create_audit)
+                onClick = openArchive,
+                text = stringResource(id = R.string.to_archive)
             )
         }
     }
