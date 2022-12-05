@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.ui.order.OrderViewModel
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -17,21 +18,23 @@ class PickUpPointNode(
 
     @Composable
     override fun View(modifier: Modifier) {
+        val parentViewModel: OrderViewModel = getViewModel()
         val viewModel: PickUpPointViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
-                PickUpPointEffect.Back -> onBack()
-                PickUpPointEffect.Next -> onNext()
+                is PickUpPointEffect.Back -> onBack()
+                is PickUpPointEffect.Next -> {
+                    parentViewModel.updatePickUpPoint(it.info)
+                    onBack()
+                }
             }
         }
         val state = viewModel.collectAsState()
         PickUpPointScreen(
             state = state::value,
             back = viewModel::back,
-            editAddress = viewModel::editAddress,
-            onMapClick = viewModel::onMapClick,
-            onSuggestion = viewModel::onSuggestion,
-            choose = viewModel::choose
+            choose = viewModel::choose,
+            next = viewModel::next,
         )
     }
 }

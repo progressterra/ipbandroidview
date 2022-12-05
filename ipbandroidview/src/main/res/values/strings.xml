@@ -129,4 +129,6 @@
     <string name="support_info">Отвечаем в течении 24 часов</string>
     <string name="request">Запрос</string>
     <string name="support">Служба поддержки</string>
+    <string name="work_hour">График работы</string>
+    <string name="how_to_go">Как добраться</string>
 </resources>

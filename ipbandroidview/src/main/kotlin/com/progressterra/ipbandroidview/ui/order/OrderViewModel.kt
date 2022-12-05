@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCas
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
 import com.progressterra.ipbandroidview.model.SimplePrice
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -76,7 +77,15 @@ class OrderViewModel(
     }
 
     fun selectPickUpPoint() = intent {
-        postSideEffect(OrderEffect.PickUp)
+        val pickUpPoints = state.deliveryMethods.first { it is Delivery.PickUpPointDelivery } as Delivery.PickUpPointDelivery
+        postSideEffect(OrderEffect.PickUp(pickUpPoints.points))
+    }
+
+    fun updatePickUpPoint(pickUpPointInfo: PickUpPointInfo) = intent {
+        val newDelivery = (state.selectedDeliveryMethod as Delivery.PickUpPointDelivery).copy(currentPoint = pickUpPointInfo)
+        reduce { state.copy(selectedDeliveryMethod = newDelivery) }
+        recalculate()
+        checkPaymentAvailability()
     }
 
     fun selectDeliveryMethod(method: Delivery) = intent {

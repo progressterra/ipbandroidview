@@ -11,6 +11,7 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.OrderResult
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -22,7 +23,7 @@ class OrderNode(
     private val onBack: () -> Unit,
     private val onCity: () -> Unit,
     private val onGoodsDetails: (String) -> Unit,
-    private val onChoosePickUpPoint: () -> Unit,
+    private val onChoosePickUpPoint: (List<PickUpPointInfo>) -> Unit,
     private val onNext: (OrderResult) -> Unit
 ) : Node(buildContext) {
 
@@ -34,7 +35,7 @@ class OrderNode(
                 is OrderEffect.Back -> onBack()
                 is OrderEffect.City -> onCity()
                 is OrderEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
-                is OrderEffect.PickUp -> onChoosePickUpPoint()
+                is OrderEffect.PickUp -> onChoosePickUpPoint(it.pickUpPoints)
                 is OrderEffect.Next -> onNext(it.orderResult)
             }
         }

@@ -3,12 +3,8 @@ package com.progressterra.ipbandroidview.ui.pickuppoint
 import android.Manifest
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
-import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
-import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
-import com.progressterra.ipbandroidview.model.SuggestionUI
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
@@ -19,13 +15,11 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class PickUpPointViewModel(
-    private val managePermissionContract: ManagePermissionContract.Client,
-    private val guessLocationUseCase: GuessLocationUseCase,
-    private val suggestionUseCase: SuggestionUseCase,
-    private val saveUserAddressUseCase: SaveUserAddressUseCase
+    private val managePermissionContract: ManagePermissionContract.Client
 ) : ViewModel(), ContainerHost<PickUpPointState, PickUpPointEffect> {
 
-    override val container: Container<PickUpPointState, PickUpPointEffect> = container(PickUpPointState())
+    override val container: Container<PickUpPointState, PickUpPointEffect> =
+        container(PickUpPointState())
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
@@ -41,27 +35,12 @@ class PickUpPointViewModel(
         reduce { state.copy(isPermissionGranted = result) }
     }
 
-    fun skip() = intent { postSideEffect(PickUpPointEffect.Next) }
-
-    fun choose() = intent {
-        postSideEffect(PickUpPointEffect.Next)
+    fun choose(pickUpPointInfo: PickUpPointInfo) = intent {
+        reduce { state.copy(currentPickUpPointInfo = pickUpPointInfo) }
     }
 
-    fun editAddress(address: String) = intent {
-        reduce { state.copy(address = address) }
-        suggestionUseCase(address).map {
-            reduce { state.copy(suggestions = it) }
-        }
-    }
-
-    fun onMapClick(latLng: LatLng) = intent {
-//        guessLocationUseCase.guessLocation(latLng).map {
-//            reduce { state.copy(address = it) }
-//        }
-    }
-
-    fun onSuggestion(suggestion: SuggestionUI) = intent {
-//        reduce { state.copy(address = "${suggestion.city}, ${suggestion.address}") }
+    fun next() = intent {
+        state.currentPickUpPointInfo?.let { postSideEffect(PickUpPointEffect.Next(it)) }
     }
 
     fun back() = intent {

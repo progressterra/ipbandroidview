@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.order
 
 import com.progressterra.ipbandroidview.model.OrderResult
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
 
 sealed class OrderEffect {
 
@@ -10,7 +11,7 @@ sealed class OrderEffect {
 
     object City : OrderEffect()
 
-    object PickUp : OrderEffect()
+    class PickUp(val pickUpPoints: List<PickUpPointInfo>) : OrderEffect()
 
     class GoodsDetails(val goodsId: String) : OrderEffect()
 }

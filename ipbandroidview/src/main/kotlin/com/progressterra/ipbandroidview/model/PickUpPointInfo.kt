@@ -1,5 +1,9 @@
 package com.progressterra.ipbandroidview.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class PickUpPointInfo(
     val id: DeliveryMethodId = DeliveryMethodId.EMPTY,
     val price: SimplePrice = SimplePrice(),
@@ -10,4 +14,4 @@ data class PickUpPointInfo(
     val longitude: Double = 0.0,
     val pickupPointCode: String = "",
     val path: String = ""
-)
+) : Parcelable
