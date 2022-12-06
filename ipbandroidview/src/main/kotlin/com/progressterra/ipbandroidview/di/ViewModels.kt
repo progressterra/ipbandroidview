@@ -19,6 +19,7 @@ import com.progressterra.ipbandroidview.ui.orders.OrdersViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
+import com.progressterra.ipbandroidview.ui.pickuppoint.PickUpPointViewModel
 import com.progressterra.ipbandroidview.ui.profile.ProfileViewModel
 import com.progressterra.ipbandroidview.ui.profiledetails.ProfileDetailsViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
@@ -143,5 +144,9 @@ val viewModelsModule = module {
 
     viewModel {
         OrderProcessingViewModel()
+    }
+
+    viewModel {
+        PickUpPointViewModel(get())
     }
 }
