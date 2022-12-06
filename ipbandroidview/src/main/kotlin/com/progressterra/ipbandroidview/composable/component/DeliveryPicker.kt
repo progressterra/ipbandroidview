@@ -19,6 +19,7 @@ import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.DeliveryType
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface DeliveryPickerState {
@@ -27,7 +28,7 @@ interface DeliveryPickerState {
 
     val selectedDeliveryMethod: Delivery?
 
-    val deliveryMethods: List<Delivery>
+    val deliveryMethods: Map<DeliveryType, Delivery>
 }
 
 @Composable
@@ -72,7 +73,7 @@ fun DeliveryPicker(
         Column(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
-            state().deliveryMethods.forEach {
+            state().deliveryMethods.values.forEach {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                     verticalAlignment = Alignment.CenterVertically

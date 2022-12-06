@@ -6,11 +6,12 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.DeliveryType
 
 
 interface AvailableDeliveryUseCase {
 
-    suspend operator fun invoke(): Result<List<Delivery>>
+    suspend operator fun invoke(): Result<Map<DeliveryType, Delivery>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -19,7 +20,7 @@ interface AvailableDeliveryUseCase {
         private val mapper: DeliveryMethodMapper
     ) : AvailableDeliveryUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun invoke(): Result<List<Delivery>> = withToken { token ->
+        override suspend fun invoke(): Result<Map<DeliveryType, Delivery>> = withToken { token ->
             mapper.map(deliveryRepository.getDeliveryList(token).getOrThrow() ?: emptyList())
         }
     }

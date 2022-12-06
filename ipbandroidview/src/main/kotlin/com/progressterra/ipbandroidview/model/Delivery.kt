@@ -2,6 +2,11 @@ package com.progressterra.ipbandroidview.model
 
 import androidx.compose.runtime.Immutable
 
+enum class DeliveryType {
+    COURIER,
+    PICK_UP_POINT
+}
+
 sealed class Delivery {
 
     abstract val id: DeliveryMethodId

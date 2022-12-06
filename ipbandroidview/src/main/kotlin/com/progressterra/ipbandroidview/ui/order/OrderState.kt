@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.DeliveryType
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.model.SimplePrice
@@ -19,7 +20,7 @@ data class OrderState(
     override val goods: List<OrderGoods> = emptyList(),
     override val addressUI: AddressUI = AddressUI(),
     override val selectedDeliveryMethod: Delivery? = null,
-    override val deliveryMethods: List<Delivery> = emptyList(),
+    override val deliveryMethods: Map<DeliveryType, Delivery> = emptyMap(),
     override val selectedPaymentMethod: PaymentType? = null,
     override val paymentMethods: List<PaymentType> = emptyList(),
     override val promoCode: SimplePrice? = SimplePrice(),

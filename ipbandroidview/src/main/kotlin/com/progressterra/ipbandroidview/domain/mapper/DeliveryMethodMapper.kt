@@ -8,10 +8,11 @@ import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.Mapper
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.DeliveryMethodId
+import com.progressterra.ipbandroidview.model.DeliveryType
 import com.progressterra.ipbandroidview.model.PickUpPointInfo
 import com.progressterra.ipbandroidview.model.SimplePrice
 
-interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
+interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, Map<DeliveryType, Delivery>> {
 
     class Base(
         private val priceMapper: PriceMapper, manageResources: ManageResources
@@ -19,7 +20,7 @@ interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override fun map(data: List<DeliveryMethod>): List<Delivery> = buildList {
+        override fun map(data: List<DeliveryMethod>): Map<DeliveryType, Delivery> = buildMap {
             var pickUpPointDeliveryDate: String? = null
             val pickPoints: List<PickUpPointInfo> = buildList {
                 data.forEach {
@@ -62,7 +63,8 @@ interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
                                 )
                             )
                         }
-                        else -> add(
+                        else -> put(
+                            DeliveryType.COURIER,
                             Delivery.CourierDelivery(
                                 id = DeliveryMethodId.COURIER,
                                 date = it.rdDeliveryTime?.parseToDate()?.format("dd.MM") ?: noData,
@@ -74,7 +76,8 @@ interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, List<Delivery>> {
                     }
                 }
             }
-            add(
+            put(
+                DeliveryType.PICK_UP_POINT,
                 Delivery.PickUpPointDelivery(
                     points = pickPoints,
                     currentPoint = pickPoints.firstOrNull() ?: PickUpPointInfo(),
