@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface CancelUseBonusesUseCase {
 
@@ -16,7 +17,7 @@ interface CancelUseBonusesUseCase {
     ) : AbstractUseCase(scrmRepository, provideLocation), CancelUseBonusesUseCase {
 
         override suspend fun invoke(): Result<Unit> = withToken { token ->
-            repo.cancelBonusesImplementation(token).onFailure { throw it }
+            repo.cancelBonusesImplementation(token).throwOnFailure()
         }
     }
 }

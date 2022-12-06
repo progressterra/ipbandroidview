@@ -17,12 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.BonusesSmallIcon
 import com.progressterra.ipbandroidview.composable.element.ThemedSwitch
+import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
 interface BonusSwitchState {
 
-    val availableBonuses: Int
+    val availableBonuses: BonusesInfo
 
     val useBonuses: Boolean
 }
@@ -47,7 +48,7 @@ fun BonusSwitch(
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = state().availableBonuses.toString(),
+                text = state().availableBonuses.quantity.toString(),
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.text
             )
@@ -59,7 +60,7 @@ fun BonusSwitch(
 }
 
 private class BonusSwitchStatePreview(
-    override val availableBonuses: Int = 300,
+    override val availableBonuses: BonusesInfo = BonusesInfo(quantity = 3000),
     override val useBonuses: Boolean = true
 ) : BonusSwitchState
 

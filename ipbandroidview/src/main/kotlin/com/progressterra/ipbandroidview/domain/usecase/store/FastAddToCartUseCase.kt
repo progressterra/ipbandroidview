@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamGoodsToECommers
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface FastAddToCartUseCase {
 
@@ -25,7 +26,7 @@ interface FastAddToCartUseCase {
                     count = 1,
                     idSellerAmbassador = Constants.DEFAULT_ID
                 )
-            ).onFailure { throw it }
+            ).throwOnFailure()
         }
     }
 }

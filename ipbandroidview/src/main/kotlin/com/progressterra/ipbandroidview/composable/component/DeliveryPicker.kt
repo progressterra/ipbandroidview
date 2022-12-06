@@ -73,7 +73,10 @@ fun DeliveryPicker(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
             state().deliveryMethods.forEach {
-                Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     ThemedRadioButton(
                         checked = { it == state().selectedDeliveryMethod },
                         onClick = { selectDeliveryMethod(it) })

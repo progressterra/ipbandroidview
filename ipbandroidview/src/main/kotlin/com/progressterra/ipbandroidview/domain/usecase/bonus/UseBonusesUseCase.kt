@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamImplementBonusV
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface UseBonusesUseCase {
 
@@ -21,7 +22,7 @@ interface UseBonusesUseCase {
                 token, ParamImplementBonusV3(
                     sumPaymentBonus = sum.toDouble()
                 )
-            ).onFailure { throw it }
+            ).throwOnFailure()
         }
     }
 }

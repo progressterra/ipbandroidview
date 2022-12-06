@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Immutable
 interface PromoCodeState {
 
-    val promoCode: SimplePrice
+    val promoCode: SimplePrice?
 
     val promoCodeName: String
 }
@@ -47,11 +47,13 @@ fun PromoCode(
             onChange = editPromoCode,
             action = applyPromoCode
         )
-        if (state().promoCode.price > 0)
+
+        state().promoCode?.let {
             Text(
                 text = "Скидка ${state().promoCode}",
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.tertiaryText
             )
+        }
     }
 }

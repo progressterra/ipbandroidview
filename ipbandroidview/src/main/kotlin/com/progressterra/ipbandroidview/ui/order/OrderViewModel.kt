@@ -1,7 +1,9 @@
 package com.progressterra.ipbandroidview.ui.order
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsUseCase
@@ -24,6 +26,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class OrderViewModel(
     private val useBonusesUseCase: UseBonusesUseCase,
     private val notUseBonusesUseCase: UseBonusesUseCase,
+    private val bonusesUseCase: AvailableBonusesUseCase,
     private val availableDeliveryUseCase: AvailableDeliveryUseCase,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
     private val fetchUserAddressUseCase: FetchUserAddressUseCase,
@@ -34,25 +37,32 @@ class OrderViewModel(
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
 
+    init {
+        refresh()
+    }
+
     fun refresh() = intent {
+        Log.d("ORDER", "refresh")
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        fetchUserEmailUseCase().onSuccess { email ->
+        bonusesUseCase().mapCatching { bonuses ->
+            reduce { state.copy(availableBonuses = bonuses) }
+            fetchUserEmailUseCase().getOrThrow()
+        }.mapCatching { email ->
             reduce { state.copy(email = email) }
-            availableDeliveryUseCase().onSuccess { deliveryMethods ->
-                reduce { state.copy(deliveryMethods = deliveryMethods) }
-                fetchUserAddressUseCase().onSuccess { address ->
-                    reduce { state.copy(addressUI = address) }
-                    paymentMethodsUseCase().onSuccess { paymentMethods ->
-                        reduce {
-                            state.copy(
-                                paymentMethods = paymentMethods,
-                                screenState = ScreenState.SUCCESS
-                            )
-                        }
-                        recalculate()
-                    }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
-                }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
-            }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
+            availableDeliveryUseCase().getOrThrow()
+        }.mapCatching { deliveryMethods ->
+            reduce { state.copy(deliveryMethods = deliveryMethods) }
+            fetchUserAddressUseCase().getOrThrow()
+        }.mapCatching { address ->
+            reduce { state.copy(addressUI = address) }
+            paymentMethodsUseCase().getOrThrow()
+        }.onSuccess { paymentMethods ->
+            reduce {
+                state.copy(
+                    paymentMethods = paymentMethods,
+                    screenState = ScreenState.SUCCESS
+                )
+            }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
@@ -60,8 +70,7 @@ class OrderViewModel(
         reduce {
             state.copy(goods = goods)
         }
-        refresh()
-
+        recalculate()
     }
 
     fun back() = intent {
@@ -77,12 +86,14 @@ class OrderViewModel(
     }
 
     fun selectPickUpPoint() = intent {
-        val pickUpPoints = state.deliveryMethods.first { it is Delivery.PickUpPointDelivery } as Delivery.PickUpPointDelivery
+        val pickUpPoints =
+            state.deliveryMethods.first { it is Delivery.PickUpPointDelivery } as Delivery.PickUpPointDelivery
         postSideEffect(OrderEffect.PickUp(pickUpPoints.points))
     }
 
     fun updatePickUpPoint(pickUpPointInfo: PickUpPointInfo) = intent {
-        val newDelivery = (state.selectedDeliveryMethod as Delivery.PickUpPointDelivery).copy(currentPoint = pickUpPointInfo)
+        val newDelivery =
+            (state.selectedDeliveryMethod as Delivery.PickUpPointDelivery).copy(currentPoint = pickUpPointInfo)
         reduce { state.copy(selectedDeliveryMethod = newDelivery) }
         recalculate()
         checkPaymentAvailability()
@@ -109,10 +120,10 @@ class OrderViewModel(
     }
 
     fun changeUseBonuses(use: Boolean) = intent {
-        if (use) notUseBonusesUseCase(state.availableBonuses).onSuccess {
+        if (use) notUseBonusesUseCase(state.availableBonuses.quantity).onSuccess {
             reduce { state.copy(useBonuses = !state.useBonuses) }
         }
-        else useBonusesUseCase(state.availableBonuses).onSuccess {
+        else useBonusesUseCase(state.availableBonuses.quantity).onSuccess {
             reduce { state.copy(useBonuses = !state.useBonuses) }
         }
     }

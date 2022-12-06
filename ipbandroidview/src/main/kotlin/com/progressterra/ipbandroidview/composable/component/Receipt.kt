@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.LinkText
 import com.progressterra.ipbandroidview.composable.element.LinkTextData
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
+import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -35,7 +36,9 @@ interface ReceiptState {
 
     val deliveryPrice: SimplePrice?
 
-    val paidWithBonuses: SimplePrice?
+    val useBonuses: Boolean
+
+    val availableBonuses: BonusesInfo
 
     val promoCode: SimplePrice?
 
@@ -98,7 +101,7 @@ fun Receipt(
                         )
                     }
                 }
-                state().paidWithBonuses?.let {
+                if (state().useBonuses) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -109,7 +112,7 @@ fun Receipt(
                             style = AppTheme.typography.tertiaryText
                         )
                         Text(
-                            text = "-$it",
+                            text = "-${state().availableBonuses.quantity}",
                             color = AppTheme.colors.primary,
                             style = AppTheme.typography.tertiaryText
                         )

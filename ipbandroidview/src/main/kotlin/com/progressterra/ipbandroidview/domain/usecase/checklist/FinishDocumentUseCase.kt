@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidapi.api.checklist.model.FinalCommentsInput
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface FinishDocumentUseCase {
 
@@ -23,7 +24,7 @@ interface FinishDocumentUseCase {
                 token,
                 idChecklist,
                 FinalCommentsInput("")
-            ).onFailure { throw it }
+            ).throwOnFailure()
         }
     }
 }

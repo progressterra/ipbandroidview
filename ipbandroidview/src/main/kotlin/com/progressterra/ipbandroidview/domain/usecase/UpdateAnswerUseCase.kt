@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -50,9 +51,9 @@ interface UpdateAnswerUseCase {
                             body = fileExplorer.audioFile(voice.id)
                                 .asRequestBody("audio/*".toMediaTypeOrNull())
                         )
-                    ).onFailure { throw it }
+                    ).throwOnFailure()
                 if (!voice.local)
-                    mediaDataRepository.deleteMediaData(token, voice.id).onFailure { throw it }
+                    mediaDataRepository.deleteMediaData(token, voice.id).throwOnFailure()
             }
             checkDetails.pictures.forEach { picture ->
                 if (picture.local)
@@ -69,9 +70,9 @@ interface UpdateAnswerUseCase {
                             body = fileExplorer.pictureFile(picture.id)
                                 .asRequestBody("image/*".toMediaTypeOrNull())
                         )
-                    ).onFailure { throw it }
+                    ).throwOnFailure()
                 if (!picture.local)
-                    mediaDataRepository.deleteMediaData(token, picture.id).onFailure { throw it }
+                    mediaDataRepository.deleteMediaData(token, picture.id).throwOnFailure()
             }
             val result = repo.createOrUpdateAnswer(
                 token, DRAnswerChekListItemEntity(

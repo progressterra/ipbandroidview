@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeOfEntity
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface ModifyFavoriteUseCase {
 
@@ -23,13 +24,13 @@ interface ModifyFavoriteUseCase {
                 favoriteRepository.removeFromFavorite(
                     token,
                     id
-                ).onFailure { throw it }
+                ).throwOnFailure()
             else
                 favoriteRepository.addToFavorite(
                     token,
                     id,
                     TypeOfEntity.PRODUCT
-                ).onFailure { throw it }
+                ).throwOnFailure()
         }
     }
 }

@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface SendResultOnEmailUseCase {
 
@@ -19,7 +20,7 @@ interface SendResultOnEmailUseCase {
             docId: String,
             email: String
         ): Result<Unit> = withToken { token ->
-            checklistRepository.sendOnEmail(token, docId, email.trim()).onFailure { throw it }
+            checklistRepository.sendOnEmail(token, docId, email.trim()).throwOnFailure()
         }
     }
 }

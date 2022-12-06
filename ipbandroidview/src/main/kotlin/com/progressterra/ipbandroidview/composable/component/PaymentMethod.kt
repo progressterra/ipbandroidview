@@ -39,7 +39,7 @@ fun PaymentMethod(
         type: PaymentType
     ) {
         Row(
-            modifier = modifier.padding(horizontal = AppTheme.dimensions.small),
+            modifier = modifier.padding(vertical = AppTheme.dimensions.small),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
@@ -57,8 +57,8 @@ fun PaymentMethod(
 
     Column(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
             .fillMaxWidth()
+            .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
             .padding(AppTheme.dimensions.medium),
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)

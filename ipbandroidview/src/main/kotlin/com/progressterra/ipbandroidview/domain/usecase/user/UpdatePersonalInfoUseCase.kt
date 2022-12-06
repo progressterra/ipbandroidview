@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.core.SplitName
 import com.progressterra.ipbandroidview.data.Constants
 import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.data.UserName
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Date
@@ -32,7 +33,7 @@ interface UpdatePersonalInfoUseCase {
             name: String, email: String
         ): Result<Unit> = withToken { token ->
             val nameList = splitName.splitName(name, false)
-            repo.setEmail(token, IncomeDataEmail(email)).onFailure { throw it }
+            repo.setEmail(token, IncomeDataEmail(email)).throwOnFailure()
             repo.setPersonalInfo(
                 token, ClientDataIncome(
                     sex = 0,
@@ -42,7 +43,7 @@ interface UpdatePersonalInfoUseCase {
                     dateOfBirth = Constants.DEFAULT_DATE,
                     comment = ""
                 )
-            ).onFailure { throw it }
+            ).throwOnFailure()
             UserData.userName = UserName(
                 name = nameList[0],
                 surname = nameList[1]
@@ -59,7 +60,7 @@ interface UpdatePersonalInfoUseCase {
                     ZoneId.systemDefault()
                 ).toInstant()
             )
-            repo.setEmail(token, IncomeDataEmail(email)).onFailure { throw it }
+            repo.setEmail(token, IncomeDataEmail(email)).throwOnFailure()
             repo.setPersonalInfo(
                 token, ClientDataIncome(
                     sex = 0,
@@ -69,7 +70,7 @@ interface UpdatePersonalInfoUseCase {
                     dateOfBirth = birthday.format(),
                     comment = ""
                 )
-            ).onFailure { throw it }
+            ).throwOnFailure()
             UserData.userName = UserName(
                 name = nameList[0],
                 surname = nameList[1]

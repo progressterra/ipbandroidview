@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.domain.usecase
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeChannelData
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface StartVerificationChannelUseCase {
 
@@ -17,7 +18,7 @@ interface StartVerificationChannelUseCase {
                     channelType = 0,
                     channelData = phoneNumber
                 )
-            ).onFailure { throw it }
+            ).throwOnFailure()
         }
     }
 }

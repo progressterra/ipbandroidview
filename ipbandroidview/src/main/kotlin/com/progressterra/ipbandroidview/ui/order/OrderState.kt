@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.composable.component.ReceiptState
 import com.progressterra.ipbandroidview.composable.component.ReceiveReceiptState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.AddressUI
+import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.PaymentType
@@ -21,12 +22,11 @@ data class OrderState(
     override val deliveryMethods: List<Delivery> = emptyList(),
     override val selectedPaymentMethod: PaymentType? = null,
     override val paymentMethods: List<PaymentType> = emptyList(),
-    override val promoCode: SimplePrice = SimplePrice(),
-    override val paidWithBonuses: SimplePrice = SimplePrice(),
+    override val promoCode: SimplePrice? = SimplePrice(),
     override val paymentReady: Boolean = false,
     override val receiveReceipt: Boolean = false,
     override val email: String = "",
-    override val availableBonuses: Int = 0,
+    override val availableBonuses: BonusesInfo = BonusesInfo(),
     override val useBonuses: Boolean = false,
     val screenState: ScreenState = ScreenState.LOADING,
     override val promoCodeName: String = "",
@@ -39,5 +39,5 @@ data class OrderState(
     ReceiveReceiptState,
     ReceiptState {
 
-    override val deliveryPrice: SimplePrice = selectedDeliveryMethod?.price ?: SimplePrice()
+    override val deliveryPrice: SimplePrice? = selectedDeliveryMethod?.price
 }
