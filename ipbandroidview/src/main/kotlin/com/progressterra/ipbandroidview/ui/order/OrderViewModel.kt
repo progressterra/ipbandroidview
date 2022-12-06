@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.order
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
@@ -43,7 +42,6 @@ class OrderViewModel(
     }
 
     fun refresh() = intent {
-        Log.d("ORDER", "refresh")
         reduce { state.copy(screenState = ScreenState.LOADING) }
         bonusesUseCase().mapCatching { bonuses ->
             reduce { state.copy(availableBonuses = bonuses) }
@@ -87,18 +85,17 @@ class OrderViewModel(
     }
 
     fun selectPickUpPoint() = intent {
-        val pickUpPoints = (state.deliveryMethods[DeliveryType.PICK_UP_POINT] as Delivery.PickUpPointDelivery).points
+        val pickUpPoints =
+            (state.deliveryMethods[DeliveryType.PICK_UP_POINT] as Delivery.PickUpPointDelivery).points
         postSideEffect(OrderEffect.PickUp(pickUpPoints))
     }
 
     fun updatePickUpPoint(pickUpPointInfo: PickUpPointInfo) = intent {
-        Log.d("ORDER", "updatePickUpPoint: $pickUpPointInfo")
         val newDelivery =
             (state.selectedDeliveryMethod as Delivery.PickUpPointDelivery).copy(currentPoint = pickUpPointInfo)
         val newDeliveries = state.deliveryMethods.toMutableMap()
         newDeliveries[DeliveryType.PICK_UP_POINT] = newDelivery
         reduce { state.copy(selectedDeliveryMethod = newDelivery, deliveryMethods = newDeliveries) }
-        Log.d("ORDER", "updatePickUpPoint: ${state.selectedDeliveryMethod}")
         recalculate()
         checkPaymentAvailability()
     }
