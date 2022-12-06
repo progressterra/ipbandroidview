@@ -82,7 +82,7 @@ fun Notifications(
                         .size(qrSize),
                     bitmap = notification.qr.asImageBitmap(),
                     contentDescription = null,
-                    contentScale = ContentScale.Fit
+                    contentScale = ContentScale.FillBounds
                 )
                 Text(
                     text = "У вас ${notification.bonusesAvailable} бонусов",

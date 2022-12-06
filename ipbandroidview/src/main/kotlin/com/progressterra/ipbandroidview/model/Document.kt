@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.model
 
 import android.os.Parcelable
-import com.progressterra.ipbandroidview.model.ChecklistStats
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

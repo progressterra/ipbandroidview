@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.domain.usecase.chat
 
 import com.progressterra.ipbandroidapi.api.message.IMessengerRepository
 import com.progressterra.ipbandroidapi.api.message.models.IncomeDataGetOrCreateDialog
-import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.AppSettings.ID_ENTERPRISE
 import com.progressterra.ipbandroidview.domain.mapper.MessageMapper
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserIdUseCase

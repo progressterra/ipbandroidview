@@ -24,7 +24,7 @@ fun OrdersScreen(
 ) {
     ThemedLayout(
         topBar = {
-            ThemedTopAppBar(title = stringResource(R.string.order), onBack = onBack)
+            ThemedTopAppBar(title = stringResource(R.string.your_orders), onBack = onBack)
         }
     ) { _, _ ->
         StateBox(
