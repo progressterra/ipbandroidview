@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -71,13 +73,25 @@ fun PickUpPointScreen(
                     .clip(AppTheme.shapes.small),
                 cameraPositionState = cameraPositionState,
                 onMyLocationClick = {
-                    cameraPositionState.move(CameraUpdateFactory.newLatLng(LatLng(it.latitude, it.longitude)))
+                    cameraPositionState.move(
+                        CameraUpdateFactory.newLatLng(
+                            LatLng(
+                                it.latitude,
+                                it.longitude
+                            )
+                        )
+                    )
                 },
                 properties = MapProperties(isMyLocationEnabled = state().isPermissionGranted)
             ) {
                 state().pickUpPoints.forEach { pickUpPoint ->
                     Marker(
-                        state = rememberMarkerState(position = LatLng(pickUpPoint.latitude, pickUpPoint.longitude)),
+                        state = rememberMarkerState(
+                            position = LatLng(
+                                pickUpPoint.latitude,
+                                pickUpPoint.longitude
+                            )
+                        ),
                         onClick = {
                             choose(pickUpPoint)
                             false
@@ -91,7 +105,9 @@ fun PickUpPointScreen(
                 enter = expandVertically(),
                 exit = shrinkVertically()
             ) {
-                Column {
+                Column(
+                    modifier = Modifier.verticalScroll(rememberScrollState())
+                ) {
                     Text(
                         text = state().currentPickUpPointInfo?.address ?: "",
                         color = AppTheme.colors.black,
