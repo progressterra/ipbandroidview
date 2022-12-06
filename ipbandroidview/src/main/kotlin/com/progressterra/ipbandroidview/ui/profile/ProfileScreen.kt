@@ -48,6 +48,7 @@ fun ProfileScreen(
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
+                    .niceClickable(openDetails)
                     .padding(AppTheme.dimensions.medium),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -84,7 +85,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = openDetails) {
+                    IconButton(onClick = onOrders) {
                         ForwardIcon()
                     }
                 }
@@ -104,7 +105,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = openDetails) {
+                    IconButton(onClick = onFavorites) {
                         ForwardIcon()
                     }
                 }
@@ -124,7 +125,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = openDetails) {
+                    IconButton(onClick = onSupport) {
                         ForwardIcon()
                     }
                 }
