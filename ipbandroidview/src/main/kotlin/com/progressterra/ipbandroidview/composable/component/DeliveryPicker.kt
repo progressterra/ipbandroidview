@@ -109,7 +109,7 @@ fun DeliveryPicker(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = stringResource(R.string.choose_pick_up),
+                                text = it.currentPoint.address,
                                 color = AppTheme.colors.black,
                                 style = AppTheme.typography.text
                             )

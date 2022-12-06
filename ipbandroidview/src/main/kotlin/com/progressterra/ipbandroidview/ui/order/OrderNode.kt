@@ -45,8 +45,6 @@ class OrderNode(
         if (!alreadyLaunched) {
             alreadyLaunched = true
             viewModel.setCart(goods)
-        }
-        LaunchedEffect(Unit) {
             viewModel.refresh()
         }
         val state = viewModel.collectAsState()

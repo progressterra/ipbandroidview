@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -58,7 +59,8 @@ fun PickUpPointScreen(
                 .padding(AppTheme.dimensions.small)
                 .clip(AppTheme.shapes.medium)
                 .background(AppTheme.colors.surfaces)
-                .padding(AppTheme.dimensions.medium)
+                .padding(AppTheme.dimensions.medium),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
             val cameraPositionState = rememberCameraPositionState {
                 position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 10f)
