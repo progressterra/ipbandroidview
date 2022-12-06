@@ -3,11 +3,9 @@ package com.progressterra.ipbandroidview.composable.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -18,13 +16,9 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.scale
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.progressterra.ipbandroidview.model.Notification
@@ -37,8 +31,6 @@ interface NotificationsState {
 
     val notifications: List<Notification>
 }
-
-private val horizontalPadding: Dp = 8.dp
 
 private val height = 130.dp
 
@@ -53,7 +45,7 @@ fun Notifications(
     HorizontalPager(
         modifier = modifier,
         count = state().notifications.size,
-        contentPadding = PaddingValues(horizontal = horizontalPadding)
+        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small)
     ) {
         when (val notification = state().notifications[it]) {
             is Notification.BonusExpiring -> Column(
@@ -78,24 +70,16 @@ fun Notifications(
                     .height(height)
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.small)
-                    .background(Color.Green),
+                    .padding(AppTheme.dimensions.small),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-//                val scaledBitmap = notification.qr
-//                with(LocalDensity.current) {
-//                    val qrSizePx = qrSize.roundToPx()
-//                    scaledBitmap.scale(qrSizePx, qrSizePx)
-//                }
-                Box(modifier = Modifier.size(qrSize)) {
-                    Image(
-                        modifier = Modifier.fillMaxSize(),
-                        bitmap = notification.qr.asImageBitmap(),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillBounds
-                    )
-                }
+                Image(
+                    modifier = Modifier.size(qrSize),
+                    bitmap = notification.qr.asImageBitmap(),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds
+                )
                 Text(
                     text = "У вас ${notification.bonusesAvailable} бонусов",
                     color = AppTheme.colors.black,
