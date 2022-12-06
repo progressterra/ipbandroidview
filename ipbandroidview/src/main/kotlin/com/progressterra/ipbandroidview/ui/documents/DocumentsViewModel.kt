@@ -30,8 +30,8 @@ class DocumentsViewModel(
             val unfinished = it.filter { doc -> !doc.isFinished() }
             reduce {
                 state.copy(
-                    documents = finished,
-                    archivedDocuments = unfinished,
+                    documents = unfinished,
+                    archivedDocuments = finished,
                     screenState = ScreenState.SUCCESS
                 )
             }
