@@ -16,12 +16,15 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
+import com.progressterra.ipbandroidview.composable.element.SimpleImage
 import com.progressterra.ipbandroidview.model.Notification
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -78,8 +81,7 @@ fun Notifications(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 Image(
-                    modifier = Modifier
-                        .size(qrSize),
+                    modifier = Modifier.size(qrSize).background(Color.Blue),
                     bitmap = notification.qr.asImageBitmap(),
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds

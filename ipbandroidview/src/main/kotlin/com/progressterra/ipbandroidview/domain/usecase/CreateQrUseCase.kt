@@ -13,7 +13,7 @@ interface CreateQrUseCase {
     class Base : CreateQrUseCase {
 
         override suspend fun invoke(content: String): Bitmap {
-            val qrSize = 2048
+            val qrSize = 1024
             val bits = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, qrSize, qrSize)
             val bitmap = Bitmap.createBitmap(qrSize, qrSize, Bitmap.Config.RGB_565)
             for (x in 0 until qrSize) {
