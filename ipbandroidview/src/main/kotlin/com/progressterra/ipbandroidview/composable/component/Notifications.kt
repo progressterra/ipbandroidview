@@ -3,9 +3,11 @@ package com.progressterra.ipbandroidview.composable.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -81,18 +83,19 @@ fun Notifications(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                val scaledBitmap = notification.qr
-                with(LocalDensity.current) {
-                    val qrSizePx = qrSize.roundToPx()
-                    scaledBitmap.scale(qrSizePx, qrSizePx)
+//                val scaledBitmap = notification.qr
+//                with(LocalDensity.current) {
+//                    val qrSizePx = qrSize.roundToPx()
+//                    scaledBitmap.scale(qrSizePx, qrSizePx)
+//                }
+                Box(modifier = Modifier.size(qrSize)) {
+                    Image(
+                        modifier = Modifier.fillMaxSize(),
+                        bitmap = notification.qr.asImageBitmap(),
+                        contentDescription = null,
+                        contentScale = ContentScale.FillBounds
+                    )
                 }
-                Image(
-                    modifier = Modifier
-                        .background(Color.Blue),
-                    bitmap = scaledBitmap.asImageBitmap(),
-                    contentDescription = null,
-                    contentScale = ContentScale.None
-                )
                 Text(
                     text = "У вас ${notification.bonusesAvailable} бонусов",
                     color = AppTheme.colors.black,
