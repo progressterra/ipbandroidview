@@ -17,14 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.scale
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.progressterra.ipbandroidview.composable.element.SimpleImage
 import com.progressterra.ipbandroidview.model.Notification
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -76,15 +76,22 @@ fun Notifications(
                     .height(height)
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.small),
+                    .padding(AppTheme.dimensions.small)
+                    .background(Color.Green),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
+                val scaledBitmap = notification.qr
+                with(LocalDensity.current) {
+                    val qrSizePx = qrSize.roundToPx()
+                    scaledBitmap.scale(qrSizePx, qrSizePx)
+                }
                 Image(
-                    modifier = Modifier.size(qrSize).background(Color.Blue),
-                    bitmap = notification.qr.asImageBitmap(),
+                    modifier = Modifier
+                        .background(Color.Blue),
+                    bitmap = scaledBitmap.asImageBitmap(),
                     contentDescription = null,
-                    contentScale = ContentScale.FillBounds
+                    contentScale = ContentScale.None
                 )
                 Text(
                     text = "У вас ${notification.bonusesAvailable} бонусов",
