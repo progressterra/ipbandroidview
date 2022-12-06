@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,9 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.DocumentCard
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.model.Document
@@ -41,18 +42,13 @@ fun DocumentsScreen(
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) { _, _ ->
         StateBox(
-            modifier = Modifier
-                .fillMaxSize(),
-            state = state()::screenState,
-            refresh = refresh
+            modifier = Modifier.fillMaxSize(), state = state()::screenState, refresh = refresh
         ) {
             var buttonSize by remember { mutableStateOf(0.dp) }
             LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        top = 8.dp, start = 8.dp, end = 8.dp
-                    ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(AppTheme.dimensions.small),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 items(state().documents) {
                     DocumentCard(
@@ -74,9 +70,7 @@ fun DocumentsScreen(
                     .fillMaxWidth()
                     .onGloballyPositioned {
                         buttonSize = with(density) { it.size.height.toDp() }
-                    },
-                onClick = openArchive,
-                text = stringResource(id = R.string.to_archive)
+                    }, onClick = openArchive, text = stringResource(id = R.string.to_archive)
             )
         }
     }
@@ -85,6 +79,5 @@ fun DocumentsScreen(
 @Preview
 @Composable
 private fun DocumentsScreenPreview() {
-    AppTheme {
-    }
+    AppTheme {}
 }

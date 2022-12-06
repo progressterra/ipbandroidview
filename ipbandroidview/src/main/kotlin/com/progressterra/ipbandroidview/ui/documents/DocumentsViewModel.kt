@@ -27,7 +27,7 @@ class DocumentsViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allDocumentsUseCase().onSuccess {
             val finished = it.filter { doc -> doc.isFinished() }
-            val unfinished = it.filter { doc -> !doc.isFinished() }
+            val unfinished = it.filter { doc -> !doc.isFinished() }.reversed()
             reduce {
                 state.copy(
                     documents = unfinished,

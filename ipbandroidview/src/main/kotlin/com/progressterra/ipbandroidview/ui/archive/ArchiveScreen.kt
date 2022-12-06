@@ -35,8 +35,7 @@ fun ArchiveScreen(
             modifier = Modifier
                 .fillMaxSize(),
             contentPadding = PaddingValues(AppTheme.dimensions.small),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-            reverseLayout = true
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
             finishedGroupedDocs.forEach {
                 item {
