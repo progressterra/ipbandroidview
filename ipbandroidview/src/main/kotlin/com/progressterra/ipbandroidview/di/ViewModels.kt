@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.ui.archive.ArchiveViewModel
+import com.progressterra.ipbandroidview.ui.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.ui.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.ui.goods.GoodsViewModel
 import com.progressterra.ipbandroidview.ui.goodsdetails.GoodsDetailsViewModel
@@ -35,6 +36,10 @@ val viewModelsModule = module {
 
     viewModel {
         ArchiveViewModel()
+    }
+
+    viewModel {
+        DocumentsViewModel(get())
     }
 
     viewModel {
