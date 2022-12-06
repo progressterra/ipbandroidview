@@ -23,7 +23,7 @@ data class OrderState(
     override val deliveryMethods: Map<DeliveryType, Delivery> = emptyMap(),
     override val selectedPaymentMethod: PaymentType? = null,
     override val paymentMethods: List<PaymentType> = emptyList(),
-    override val promoCode: SimplePrice? = SimplePrice(),
+    override val promoCode: SimplePrice? = null,
     override val paymentReady: Boolean = false,
     override val receiveReceipt: Boolean = false,
     override val email: String = "",
