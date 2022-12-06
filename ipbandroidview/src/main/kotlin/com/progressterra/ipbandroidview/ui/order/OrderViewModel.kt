@@ -92,11 +92,13 @@ class OrderViewModel(
     }
 
     fun updatePickUpPoint(pickUpPointInfo: PickUpPointInfo) = intent {
+        Log.d("ORDER", "updatePickUpPoint: $pickUpPointInfo")
         val newDelivery =
             (state.selectedDeliveryMethod as Delivery.PickUpPointDelivery).copy(currentPoint = pickUpPointInfo)
         val newDeliveries = state.deliveryMethods.toMutableMap()
         newDeliveries[DeliveryType.PICK_UP_POINT] = newDelivery
         reduce { state.copy(selectedDeliveryMethod = newDelivery, deliveryMethods = newDeliveries) }
+        Log.d("ORDER", "updatePickUpPoint: ${state.selectedDeliveryMethod}")
         recalculate()
         checkPaymentAvailability()
     }
