@@ -26,6 +26,7 @@ import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
 import com.progressterra.ipbandroidview.ui.subcatalog.SubCatalogViewModel
+import com.progressterra.ipbandroidview.ui.support.SupportViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -148,5 +149,9 @@ val viewModelsModule = module {
 
     viewModel {
         PickUpPointViewModel(get())
+    }
+
+    viewModel {
+        SupportViewModel(get(), get())
     }
 }
