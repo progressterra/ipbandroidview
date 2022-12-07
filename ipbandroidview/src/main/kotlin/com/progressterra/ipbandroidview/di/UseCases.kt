@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.domain.usecase.UpdateFirebaseCloudMessag
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.chat.FetchChatUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllOrganizationsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
@@ -247,4 +248,6 @@ val useCasesModule = module {
     single<NotificationUseCase> { NotificationUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get()) }
+
+    single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get(), get()) }
 }
