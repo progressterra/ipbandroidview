@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.composable.component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,9 +28,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun Gallery(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
     val pagerState = rememberPagerState()
-    Box {
+    Box(modifier = modifier.aspectRatio(1f)) {
         HorizontalPager(
-            modifier = modifier,
             count = state().images.size,
             state = pagerState,
             contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
@@ -51,8 +51,7 @@ fun Gallery(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
                 .clip(CircleShape)
                 .background(AppTheme.colors.background)
                 .padding(
-                    vertical = AppTheme.dimensions.tiny,
-                    horizontal = AppTheme.dimensions.smany
+                    vertical = AppTheme.dimensions.tiny, horizontal = AppTheme.dimensions.smany
                 ),
             pagerState = pagerState,
             activeColor = AppTheme.colors.primary,
@@ -67,12 +66,9 @@ private fun GalleryPreview() {
     AppTheme {
         LazyColumn {
             item {
-                Gallery(
-                    modifier = Modifier.size(350.dp),
-                    state = {
-                        GoodsDetails()
-                    }
-                )
+                Gallery(modifier = Modifier.size(350.dp), state = {
+                    GoodsDetails()
+                })
             }
         }
     }

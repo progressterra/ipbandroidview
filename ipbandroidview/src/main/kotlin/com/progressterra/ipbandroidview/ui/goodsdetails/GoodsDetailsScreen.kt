@@ -68,8 +68,7 @@ fun GoodsDetailsScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 Gallery(
-                    modifier = Modifier
-                        .aspectRatio(1f), state = state()::goodsDetails
+                    state = state()::goodsDetails
                 )
                 ColorsLine(
                     modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
