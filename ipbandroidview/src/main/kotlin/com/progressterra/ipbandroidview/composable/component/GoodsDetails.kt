@@ -105,7 +105,8 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
             count = 3,
             state = pagerState,
             verticalAlignment = Alignment.Top,
-            contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small)
+            contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
+            itemSpacing = AppTheme.dimensions.small
         ) {
             Column(
                 modifier = Modifier

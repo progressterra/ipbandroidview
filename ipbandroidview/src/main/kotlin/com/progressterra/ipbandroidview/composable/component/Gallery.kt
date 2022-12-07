@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -28,13 +27,14 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun Gallery(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
     val pagerState = rememberPagerState()
-    HorizontalPager(
-        modifier = modifier.fillMaxWidth(),
-        count = state().images.size,
-        state = pagerState,
-        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small)
-    ) {
-        Box {
+    Box {
+        HorizontalPager(
+            modifier = modifier,
+            count = state().images.size,
+            state = pagerState,
+            contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
+            itemSpacing = AppTheme.dimensions.small
+        ) {
             SimpleImage(
                 modifier = Modifier
                     .fillMaxSize()
@@ -43,21 +43,21 @@ fun Gallery(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
                 url = { state().images[it] },
                 backgroundColor = AppTheme.colors.surfaces
             )
-            HorizontalPagerIndicator(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(AppTheme.dimensions.small)
-                    .clip(CircleShape)
-                    .background(AppTheme.colors.background)
-                    .padding(
-                        vertical = AppTheme.dimensions.tiny,
-                        horizontal = AppTheme.dimensions.smany
-                    ),
-                pagerState = pagerState,
-                activeColor = AppTheme.colors.primary,
-                inactiveColor = AppTheme.colors.surfaces
-            )
         }
+        HorizontalPagerIndicator(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(AppTheme.dimensions.small)
+                .clip(CircleShape)
+                .background(AppTheme.colors.background)
+                .padding(
+                    vertical = AppTheme.dimensions.tiny,
+                    horizontal = AppTheme.dimensions.smany
+                ),
+            pagerState = pagerState,
+            activeColor = AppTheme.colors.primary,
+            inactiveColor = AppTheme.colors.surfaces
+        )
     }
 }
 

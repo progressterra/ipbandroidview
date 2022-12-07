@@ -5,14 +5,9 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -66,28 +61,30 @@ fun GoodsDetailsScreen(
             refresh = refresh
         ) {
             Column(
-                modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(vertical = AppTheme.dimensions.small)
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                    Gallery(
-                        modifier = Modifier
-                            .aspectRatio(1f), state = state()::goodsDetails
-                    )
-                    ColorsLine(
-                        modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-                        state = state()::goodsDetails,
-                        chooseColor = color
-                    )
-                    SizesLine(
-                        modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-                        state = state()::goodsDetails,
-                        onSize = size,
-                        onTable = sizeTable
-                    )
-                    GoodsDetails(
-                        modifier = Modifier, state = state()::goodsDetails
-                    )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                Gallery(
+                    modifier = Modifier
+                        .aspectRatio(1f), state = state()::goodsDetails
+                )
+                ColorsLine(
+                    modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
+                    state = state()::goodsDetails,
+                    chooseColor = color
+                )
+                SizesLine(
+                    modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
+                    state = state()::goodsDetails,
+                    onSize = size,
+                    onTable = sizeTable
+                )
+                GoodsDetails(
+                    modifier = Modifier, state = state()::goodsDetails
+                )
             }
         }
     }

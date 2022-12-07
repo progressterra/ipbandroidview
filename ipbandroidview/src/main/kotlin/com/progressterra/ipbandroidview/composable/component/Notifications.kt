@@ -45,7 +45,8 @@ fun Notifications(
     HorizontalPager(
         modifier = modifier,
         count = state().notifications.size,
-        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small)
+        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
+        itemSpacing = AppTheme.dimensions.small
     ) {
         when (val notification = state().notifications[it]) {
             is Notification.BonusExpiring -> Column(
