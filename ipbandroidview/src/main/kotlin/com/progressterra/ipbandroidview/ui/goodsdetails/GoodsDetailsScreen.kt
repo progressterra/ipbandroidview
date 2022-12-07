@@ -4,13 +4,17 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,39 +65,29 @@ fun GoodsDetailsScreen(
             state = state()::screenState,
             refresh = refresh
         ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                contentPadding = PaddingValues(AppTheme.dimensions.small)
+            Column(
+                modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                item {
                     Gallery(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .aspectRatio(1f), state = state()::goodsDetails
                     )
-                }
-                item {
                     ColorsLine(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
                         state = state()::goodsDetails,
                         chooseColor = color
                     )
-                }
-                item {
                     SizesLine(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
                         state = state()::goodsDetails,
                         onSize = size,
                         onTable = sizeTable
                     )
-                }
-                item {
                     GoodsDetails(
-                        modifier = Modifier.fillMaxWidth(), state = state()::goodsDetails
+                        modifier = Modifier, state = state()::goodsDetails
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-                }
             }
         }
     }

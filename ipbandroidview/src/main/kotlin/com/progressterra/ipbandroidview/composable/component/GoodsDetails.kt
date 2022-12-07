@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -45,6 +46,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
     ) {
         Box(
             modifier = Modifier
+                .padding(horizontal = AppTheme.dimensions.small)
                 .clip(AppTheme.shapes.medium)
                 .background(AppTheme.colors.surfaces)
                 .padding(AppTheme.dimensions.smany)
@@ -99,7 +101,12 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
         modifier = modifier, verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(count = 3, state = pagerState, verticalAlignment = Alignment.Top) {
+        HorizontalPager(
+            count = 3,
+            state = pagerState,
+            verticalAlignment = Alignment.Top,
+            contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small)
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

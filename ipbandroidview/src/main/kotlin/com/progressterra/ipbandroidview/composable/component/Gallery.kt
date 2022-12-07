@@ -2,7 +2,9 @@ package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,9 +29,10 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun Gallery(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
     val pagerState = rememberPagerState()
     HorizontalPager(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         count = state().images.size,
-        state = pagerState
+        state = pagerState,
+        contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small)
     ) {
         Box {
             SimpleImage(
