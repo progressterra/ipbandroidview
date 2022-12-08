@@ -45,6 +45,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.TransactionsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserBirthdayUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserIdUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
@@ -250,4 +251,6 @@ val useCasesModule = module {
     single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get()) }
 
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get(), get()) }
+
+    single<FetchUserIdUseCase> { FetchUserIdUseCase.Base() }
 }
