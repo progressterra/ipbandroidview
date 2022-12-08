@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUse
 import com.progressterra.ipbandroidview.domain.usecase.bonus.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.chat.FetchChatUseCase
+import com.progressterra.ipbandroidview.domain.usecase.chat.SendMessageUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllOrganizationsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
@@ -253,4 +254,6 @@ val useCasesModule = module {
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get(), get()) }
 
     single<FetchUserIdUseCase> { FetchUserIdUseCase.Base() }
+
+    single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get(), get()) }
 }
