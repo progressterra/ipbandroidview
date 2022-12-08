@@ -42,7 +42,8 @@ fun SupportScreen(
                 modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
                 editMessage = editMessage,
                 message = state()::message,
-                onSend = send
+                onSend = send,
+                enabled = state().screenState::isSuccess
             )
         }
     ) { _, _ ->

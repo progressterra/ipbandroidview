@@ -5,6 +5,8 @@ import com.progressterra.ipbandroidapi.api.message.models.IncomeMessagesTextData
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.data.UserData
+import com.progressterra.ipbandroidview.domain.exception.ChatIdNotObtainedException
 import com.progressterra.ipbandroidview.domain.mapper.MessageMapper
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserIdUseCase
 import com.progressterra.ipbandroidview.model.Message
@@ -25,10 +27,12 @@ interface SendMessageUseCase {
             dialogId: String, message: String
         ): Result<List<Message>> =
             withToken { token ->
+                if (UserData.supportChatId.isEmpty())
+                    throw ChatIdNotObtainedException()
                 val userId = fetchUserIdUseCase().getOrThrow()
                 iMessengerRepository.sendMessage(
                     IncomeMessagesTextData(
-                        idrgDialog = dialogId,
+                        idrgDialog = UserData.supportChatId,
                         accessToken = token,
                         contentText = message
                     )

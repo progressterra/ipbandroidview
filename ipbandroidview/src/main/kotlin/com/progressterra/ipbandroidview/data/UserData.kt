@@ -15,6 +15,7 @@ object UserData : KotprefModel() {
     var address by gsonPref(AddressUI())
     var userName by gsonPref(UserName())
     var dateOfBirthday by longPref()
+    var supportChatId by stringPref()
 
     fun clearUser() {
         idUnique = ""

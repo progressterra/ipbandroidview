@@ -22,7 +22,8 @@ fun ChatInput(
     modifier: Modifier = Modifier,
     editMessage: (String) -> Unit,
     message: () -> String,
-    onSend: () -> Unit
+    onSend: () -> Unit,
+    enabled: () -> Boolean
 ) {
     BottomHolder(modifier = modifier) {
         Text(
@@ -40,9 +41,11 @@ fun ChatInput(
                 text = message,
                 hint = stringResource(R.string.request),
                 onChange = editMessage,
-                action = onSend
+                action = onSend,
+                enabled = enabled
             )
             IconButton(
+                enabled = enabled(),
                 onClick = onSend
             ) {
                 SendIcon()
@@ -59,7 +62,8 @@ private fun ChatInputPreview() {
         ChatInput(
             editMessage = {},
             message = { "Some really cool message!!" },
-            onSend = {}
+            onSend = {},
+            enabled = { true }
         )
     }
 }
