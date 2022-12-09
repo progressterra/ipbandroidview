@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import com.progressterra.ipbandroidview.composable.BonusesSmallIcon
 import com.progressterra.ipbandroidview.model.bonuses.Transaction
 import com.progressterra.ipbandroidview.theme.AppTheme
 

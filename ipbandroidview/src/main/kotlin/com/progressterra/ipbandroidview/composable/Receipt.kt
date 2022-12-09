@@ -19,9 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.LinkText
-import com.progressterra.ipbandroidview.composable.LinkTextData
-import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo
 import com.progressterra.ipbandroidview.model.store.OrderGoods
 import com.progressterra.ipbandroidview.model.store.SimplePrice

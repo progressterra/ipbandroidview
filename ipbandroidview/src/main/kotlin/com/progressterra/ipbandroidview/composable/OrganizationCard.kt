@@ -15,10 +15,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.composable.AuditsIcon
-import com.progressterra.ipbandroidview.composable.DocumentsIcon
-import com.progressterra.ipbandroidview.composable.ForwardIcon
-import com.progressterra.ipbandroidview.composable.SimpleImage
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.checklist.Organization
 import com.progressterra.ipbandroidview.theme.AppTheme

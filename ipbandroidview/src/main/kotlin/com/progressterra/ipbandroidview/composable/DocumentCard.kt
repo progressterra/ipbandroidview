@@ -15,11 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.ForwardIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.checklist.ChecklistStats
-import com.progressterra.ipbandroidview.theme.AppTheme
 import com.progressterra.ipbandroidview.model.checklist.Document
+import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun DocumentCard(

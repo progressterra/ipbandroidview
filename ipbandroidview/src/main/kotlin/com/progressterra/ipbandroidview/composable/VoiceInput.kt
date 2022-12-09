@@ -19,11 +19,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.MicIcon
-import com.progressterra.ipbandroidview.composable.PlayPauseIcon
-import com.progressterra.ipbandroidview.composable.PulsingDot
-import com.progressterra.ipbandroidview.composable.ThemedLinearProgressIndicator
-import com.progressterra.ipbandroidview.composable.TrashIcon
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable

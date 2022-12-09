@@ -12,11 +12,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.BackIcon
-import com.progressterra.ipbandroidview.composable.BasicBar
-import com.progressterra.ipbandroidview.composable.Mark2Icon
-import com.progressterra.ipbandroidview.composable.SearchIcon
-import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable

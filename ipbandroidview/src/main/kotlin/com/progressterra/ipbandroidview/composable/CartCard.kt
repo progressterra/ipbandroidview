@@ -14,9 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.composable.FavoriteButton
-import com.progressterra.ipbandroidview.composable.SimpleImage
-import com.progressterra.ipbandroidview.composable.TrashIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.store.CartGoods
 import com.progressterra.ipbandroidview.model.store.GoodsColor
