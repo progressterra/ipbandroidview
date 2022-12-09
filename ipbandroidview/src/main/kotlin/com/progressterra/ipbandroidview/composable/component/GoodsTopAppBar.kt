@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.composable.element.BackIcon
 import com.progressterra.ipbandroidview.composable.element.BasicTopAppBar
 import com.progressterra.ipbandroidview.composable.element.FavoriteButton
-import com.progressterra.ipbandroidview.model.GoodsDetails
+import com.progressterra.ipbandroidview.model.store.GoodsDetails
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.GoodsDetails
+import com.progressterra.ipbandroidview.model.store.GoodsDetails
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val lineWidth = 0.5.dp

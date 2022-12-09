@@ -10,9 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.model.AuditDocument
-import com.progressterra.ipbandroidview.model.CheckPicture
-import com.progressterra.ipbandroidview.model.ChecklistStatus
+import com.progressterra.ipbandroidview.model.checklist.AuditDocument
+import com.progressterra.ipbandroidview.model.media.MultisizedImage
+import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -23,7 +23,7 @@ class ChecklistNode(
     private val auditDocument: AuditDocument,
     private val initialStatus: ChecklistStatus,
     private val onBack: () -> Unit,
-    private val openImage: (CheckPicture, Boolean) -> Unit
+    private val openImage: (MultisizedImage, Boolean) -> Unit
 ) : Node(buildContext) {
 
     @Composable

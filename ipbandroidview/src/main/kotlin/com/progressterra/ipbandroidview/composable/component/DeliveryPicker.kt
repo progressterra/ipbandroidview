@@ -17,9 +17,9 @@ import com.progressterra.ipbandroidview.composable.element.ForwardIcon
 import com.progressterra.ipbandroidview.composable.element.ThemedRadioButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.model.AddressUI
-import com.progressterra.ipbandroidview.model.Delivery
-import com.progressterra.ipbandroidview.model.DeliveryType
+import com.progressterra.ipbandroidview.model.address.AddressUI
+import com.progressterra.ipbandroidview.model.delivery.Delivery
+import com.progressterra.ipbandroidview.model.delivery.DeliveryType
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 interface DeliveryPickerState {

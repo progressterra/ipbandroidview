@@ -20,8 +20,8 @@ import com.progressterra.ipbandroidview.composable.component.ReceiveReceipt
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.StateBox
-import com.progressterra.ipbandroidview.model.Delivery
-import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.model.delivery.Delivery
+import com.progressterra.ipbandroidview.model.payment.PaymentType
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

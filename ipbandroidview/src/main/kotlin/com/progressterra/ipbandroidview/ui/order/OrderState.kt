@@ -8,13 +8,13 @@ import com.progressterra.ipbandroidview.composable.component.PromoCodeState
 import com.progressterra.ipbandroidview.composable.component.ReceiptState
 import com.progressterra.ipbandroidview.composable.component.ReceiveReceiptState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.AddressUI
-import com.progressterra.ipbandroidview.model.BonusesInfo
-import com.progressterra.ipbandroidview.model.Delivery
-import com.progressterra.ipbandroidview.model.DeliveryType
-import com.progressterra.ipbandroidview.model.OrderGoods
-import com.progressterra.ipbandroidview.model.PaymentType
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.model.address.AddressUI
+import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo
+import com.progressterra.ipbandroidview.model.delivery.Delivery
+import com.progressterra.ipbandroidview.model.delivery.DeliveryType
+import com.progressterra.ipbandroidview.model.store.OrderGoods
+import com.progressterra.ipbandroidview.model.payment.PaymentType
+import com.progressterra.ipbandroidview.model.store.SimplePrice
 
 data class OrderState(
     override val goods: List<OrderGoods> = emptyList(),

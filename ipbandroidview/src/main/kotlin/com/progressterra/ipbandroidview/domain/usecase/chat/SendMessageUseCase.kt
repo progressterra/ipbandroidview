@@ -36,7 +36,7 @@ interface SendMessageUseCase {
                         accessToken = token,
                         contentText = message
                     )
-                ).getOrThrow().orEmpty().map { messageMapper.map(it, userId) }
+                ).getOrThrow().orEmpty().map { messageMapper.map(it, userId) }.reversed()
             }
     }
 }

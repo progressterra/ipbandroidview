@@ -4,7 +4,7 @@ import android.Manifest
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
-import com.progressterra.ipbandroidview.model.PickUpPointInfo
+import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container

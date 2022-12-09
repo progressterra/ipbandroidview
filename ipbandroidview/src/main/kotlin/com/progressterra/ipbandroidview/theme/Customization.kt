@@ -1,12 +1,10 @@
 package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.model.DynamicImage
 
 @Immutable
 data class Customization(
-    val splashImage: DynamicImage = DynamicImage(),
-    val signInImage: DynamicImage = DynamicImage(),
+    val splashImage: String = "",
     val catalogStyle: CatalogStyle = CatalogStyle()
 ) {
 

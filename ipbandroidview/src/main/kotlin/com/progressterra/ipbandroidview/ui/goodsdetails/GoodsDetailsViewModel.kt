@@ -6,8 +6,8 @@ import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCas
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.model.GoodsColor
-import com.progressterra.ipbandroidview.model.GoodsSize
+import com.progressterra.ipbandroidview.model.store.GoodsColor
+import com.progressterra.ipbandroidview.model.store.GoodsSize
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

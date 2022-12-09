@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.model.store.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable

@@ -12,8 +12,8 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
-import com.progressterra.ipbandroidview.model.Filter
-import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.store.Filter
+import com.progressterra.ipbandroidview.model.store.StoreGoods
 
 interface FilteredGoodsUseCase {
 

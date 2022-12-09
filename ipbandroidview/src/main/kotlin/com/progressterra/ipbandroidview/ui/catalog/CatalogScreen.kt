@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.composable.component.CatalogSearchBar
 import com.progressterra.ipbandroidview.composable.component.MainCategoryItem
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.element.StateBox
-import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.model.store.Category
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

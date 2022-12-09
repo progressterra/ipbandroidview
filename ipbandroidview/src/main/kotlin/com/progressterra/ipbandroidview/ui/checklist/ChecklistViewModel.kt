@@ -26,11 +26,11 @@ import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
 import com.progressterra.ipbandroidview.ext.markToRemove
 import com.progressterra.ipbandroidview.ext.replaceById
-import com.progressterra.ipbandroidview.model.AuditDocument
-import com.progressterra.ipbandroidview.model.Check
-import com.progressterra.ipbandroidview.model.CheckPicture
-import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.model.Voice
+import com.progressterra.ipbandroidview.model.checklist.AuditDocument
+import com.progressterra.ipbandroidview.model.checklist.Check
+import com.progressterra.ipbandroidview.model.media.MultisizedImage
+import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
+import com.progressterra.ipbandroidview.model.media.Voice
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -245,7 +245,7 @@ class ChecklistViewModel(
         fileExplorer.reset()
     }
 
-    fun removePhoto(picture: CheckPicture) = intent {
+    fun removePhoto(picture: MultisizedImage) = intent {
         reduce {
             val newPictures = state.currentCheckMedia!!.pictures.markToRemove(picture)
             val newCurrentCheckMedia = state.currentCheckMedia!!.copy(pictures = newPictures)
@@ -253,7 +253,7 @@ class ChecklistViewModel(
         }
     }
 
-    fun openImage(picture: CheckPicture) = intent {
+    fun openImage(picture: MultisizedImage) = intent {
         postSideEffect(ChecklistEffect.OpenImage(picture, state.status == ChecklistStatus.ONGOING))
     }
 
@@ -267,7 +267,7 @@ class ChecklistViewModel(
                 state.copy(
                     currentCheckMedia = state.currentCheckMedia!!.copy(
                         pictures = state.currentCheckMedia!!.pictures.plus(
-                            CheckPicture(
+                            MultisizedImage(
                                 id = newPhotoId,
                                 local = true,
                                 toRemove = false,

@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.composable.component.DocumentCard
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.Divider
-import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.model.checklist.Document
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

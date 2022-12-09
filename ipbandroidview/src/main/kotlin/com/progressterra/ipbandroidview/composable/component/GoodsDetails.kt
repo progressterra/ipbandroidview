@@ -26,9 +26,9 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.GoodsColor
-import com.progressterra.ipbandroidview.model.GoodsDetails
-import com.progressterra.ipbandroidview.model.GoodsParameters
+import com.progressterra.ipbandroidview.model.store.GoodsColor
+import com.progressterra.ipbandroidview.model.store.GoodsDetails
+import com.progressterra.ipbandroidview.model.store.GoodsParameters
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 

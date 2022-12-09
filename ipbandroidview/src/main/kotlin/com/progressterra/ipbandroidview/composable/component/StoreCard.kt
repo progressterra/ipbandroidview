@@ -21,8 +21,8 @@ import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.composable.element.FavoriteButton
 import com.progressterra.ipbandroidview.composable.element.SimpleImage
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.store.SimplePrice
+import com.progressterra.ipbandroidview.model.store.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val picHeight = 236.dp

@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
-import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.store.StoreGoods
 
 interface GoodsPageUseCase {
 

@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.composable.element.DocumentsIcon
 import com.progressterra.ipbandroidview.composable.element.ForwardIcon
 import com.progressterra.ipbandroidview.composable.element.SimpleImage
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.model.Organization
+import com.progressterra.ipbandroidview.model.checklist.Organization
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val imageHeight = 60.dp

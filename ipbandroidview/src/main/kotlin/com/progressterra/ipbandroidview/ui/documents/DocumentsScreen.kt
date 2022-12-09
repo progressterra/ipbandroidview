@@ -28,7 +28,7 @@ import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.StateBox
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
-import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.model.checklist.Document
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

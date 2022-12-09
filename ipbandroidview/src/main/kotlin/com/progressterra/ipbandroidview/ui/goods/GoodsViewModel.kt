@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.store.StoreGoods
 import kotlinx.coroutines.flow.emptyFlow
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

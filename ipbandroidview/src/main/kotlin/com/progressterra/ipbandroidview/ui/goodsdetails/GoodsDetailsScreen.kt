@@ -5,7 +5,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -21,8 +20,8 @@ import com.progressterra.ipbandroidview.composable.component.GoodsTopAppBar
 import com.progressterra.ipbandroidview.composable.component.SizesLine
 import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.element.StateBox
-import com.progressterra.ipbandroidview.model.GoodsColor
-import com.progressterra.ipbandroidview.model.GoodsSize
+import com.progressterra.ipbandroidview.model.store.GoodsColor
+import com.progressterra.ipbandroidview.model.store.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

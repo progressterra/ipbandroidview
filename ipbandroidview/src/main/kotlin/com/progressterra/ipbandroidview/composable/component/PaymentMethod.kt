@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.ThemedRadioButton
-import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.model.payment.PaymentType
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable

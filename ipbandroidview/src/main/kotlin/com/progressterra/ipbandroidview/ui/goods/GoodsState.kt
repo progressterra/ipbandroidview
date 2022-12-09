@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.ui.goods
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.composable.component.GoodsSearchBarState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Filter
-import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.store.Filter
+import com.progressterra.ipbandroidview.model.store.StoreGoods
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 

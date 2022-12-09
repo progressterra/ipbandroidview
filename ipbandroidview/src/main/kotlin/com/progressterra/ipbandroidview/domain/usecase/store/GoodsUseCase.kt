@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.GoodsSource
-import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.store.StoreGoods
 
 interface GoodsUseCase {
 

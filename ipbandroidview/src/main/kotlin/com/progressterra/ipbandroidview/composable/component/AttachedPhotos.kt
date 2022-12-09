@@ -23,7 +23,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.CameraIcon
 import com.progressterra.ipbandroidview.composable.element.SimpleImage
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.model.CheckPicture
+import com.progressterra.ipbandroidview.model.media.MultisizedImage
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val picSize = 48.dp
@@ -33,14 +33,14 @@ private val verticalPadding = 14.dp
 @Composable
 fun AttachedPhotos(
     modifier: Modifier = Modifier,
-    pictures: () -> List<CheckPicture>,
-    onPhotoSelect: (CheckPicture) -> Unit,
+    pictures: () -> List<MultisizedImage>,
+    onPhotoSelect: (MultisizedImage) -> Unit,
     onCamera: () -> Unit,
     enabled: () -> Boolean
 ) {
 
     @Composable
-    fun Item(picture: CheckPicture) {
+    fun Item(picture: MultisizedImage) {
         SimpleImage(
             modifier = Modifier
                 .size(picSize)
@@ -105,21 +105,21 @@ private fun AttachedPhotosPreviewEnabled() {
     AppTheme {
         AttachedPhotos(pictures = {
             listOf(
-                CheckPicture(
+                MultisizedImage(
                     id = "",
                     local = false,
                     toRemove = false,
                     thumbnail = "",
                     fullSize = ""
                 ),
-                CheckPicture(
+                MultisizedImage(
                     id = "",
                     local = false,
                     toRemove = false,
                     thumbnail = "",
                     fullSize = ""
                 ),
-                CheckPicture(
+                MultisizedImage(
                     id = "",
                     local = false,
                     toRemove = false,
@@ -139,21 +139,21 @@ private fun AttachedPhotosPreviewDisabled() {
     AppTheme {
         AttachedPhotos(pictures = {
             listOf(
-                CheckPicture(
+                MultisizedImage(
                     id = "",
                     local = false,
                     toRemove = false,
                     thumbnail = "",
                     fullSize = ""
                 ),
-                CheckPicture(
+                MultisizedImage(
                     id = "",
                     local = false,
                     toRemove = false,
                     thumbnail = "",
                     fullSize = ""
                 ),
-                CheckPicture(
+                MultisizedImage(
                     id = "",
                     local = false,
                     toRemove = false,

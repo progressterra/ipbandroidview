@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.domain.usecase
 
 import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
-import com.progressterra.ipbandroidview.model.AddressUI
-import com.progressterra.ipbandroidview.model.SuggestionUI
+import com.progressterra.ipbandroidview.model.address.AddressUI
+import com.progressterra.ipbandroidview.model.address.SuggestionUI
 
 interface ChooseSuggestionUseCase {
 

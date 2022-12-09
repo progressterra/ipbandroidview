@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.model.CheckPicture
+import com.progressterra.ipbandroidview.model.media.MultisizedImage
 import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
@@ -17,7 +17,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class PhotoNode(
     buildContext: BuildContext,
-    private val picture: CheckPicture,
+    private val picture: MultisizedImage,
     private val enabled: Boolean,
     private val onBack: () -> Unit
 ) : Node(buildContext) {

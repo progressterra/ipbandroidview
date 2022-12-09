@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCa
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
 import com.progressterra.ipbandroidview.ext.removeItem
 import com.progressterra.ipbandroidview.ext.replaceById
-import com.progressterra.ipbandroidview.model.CartGoods
+import com.progressterra.ipbandroidview.model.store.CartGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

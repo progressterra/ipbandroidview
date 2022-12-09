@@ -22,9 +22,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.LinkText
 import com.progressterra.ipbandroidview.composable.element.LinkTextData
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
-import com.progressterra.ipbandroidview.model.BonusesInfo
-import com.progressterra.ipbandroidview.model.OrderGoods
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo
+import com.progressterra.ipbandroidview.model.store.OrderGoods
+import com.progressterra.ipbandroidview.model.store.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val dividerWidth = 1.dp

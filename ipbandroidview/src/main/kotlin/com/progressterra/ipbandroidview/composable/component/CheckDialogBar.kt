@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.element.BasicTopAppBar
 import com.progressterra.ipbandroidview.composable.element.MarkIcon
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.progressterra.ipbandroidview.model.Check
+import com.progressterra.ipbandroidview.model.checklist.Check
 
 @Composable
 fun CheckDialogBar(

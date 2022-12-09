@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.ui.documents
 
-import com.progressterra.ipbandroidview.model.AuditDocument
-import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.model.checklist.AuditDocument
+import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
+import com.progressterra.ipbandroidview.model.checklist.Document
 
 sealed class DocumentsEffect {
 

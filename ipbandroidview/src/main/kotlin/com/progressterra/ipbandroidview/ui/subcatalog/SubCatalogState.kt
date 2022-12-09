@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
 import com.progressterra.ipbandroidview.composable.component.CategorySearchBarState
-import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.model.store.Category
 
 data class SubCatalogState(
     val currentCategory: Category = Category(

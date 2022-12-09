@@ -24,7 +24,6 @@ class SupportViewModel(
     }
 
     fun refresh() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
         fetchChatUseCase().onSuccess {
             reduce { state.copy(messages = it, screenState = ScreenState.SUCCESS) }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
@@ -33,7 +32,6 @@ class SupportViewModel(
     fun editMessage(message: String) = intent { reduce { state.copy(message = message) } }
 
     fun sendMessage() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
         sendMessageUseCase(ID_ENTERPRISE, state.message).onSuccess {
             reduce { state.copy(messages = it, screenState = ScreenState.SUCCESS, message = "") }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }

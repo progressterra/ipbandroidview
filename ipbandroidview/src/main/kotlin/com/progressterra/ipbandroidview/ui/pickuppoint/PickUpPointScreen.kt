@@ -31,7 +31,7 @@ import com.progressterra.ipbandroidview.composable.component.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.element.BottomHolder
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
-import com.progressterra.ipbandroidview.model.PickUpPointInfo
+import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

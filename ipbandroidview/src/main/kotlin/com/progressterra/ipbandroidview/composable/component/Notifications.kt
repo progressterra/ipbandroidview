@@ -21,7 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.progressterra.ipbandroidview.model.Notification
+import com.progressterra.ipbandroidview.model.store.StoreNotification
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 //TODO remove all raw lists from composables
@@ -29,7 +29,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Immutable
 interface NotificationsState {
 
-    val notifications: List<Notification>
+    val notifications: List<StoreNotification>
 }
 
 private val height = 130.dp
@@ -49,7 +49,7 @@ fun Notifications(
         itemSpacing = AppTheme.dimensions.small
     ) {
         when (val notification = state().notifications[it]) {
-            is Notification.BonusExpiring -> Column(
+            is StoreNotification.BonusExpiring -> Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(height)
@@ -65,7 +65,7 @@ fun Notifications(
                 )
 
             }
-            is Notification.Main -> Row(
+            is StoreNotification.Main -> Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(height)

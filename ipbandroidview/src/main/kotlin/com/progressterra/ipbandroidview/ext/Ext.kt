@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ext
 
 import androidx.core.util.PatternsCompat
 import com.progressterra.ipbandroidview.core.AttachedMedia
-import com.progressterra.ipbandroidview.model.Check
-import com.progressterra.ipbandroidview.model.ChecklistStats
+import com.progressterra.ipbandroidview.model.checklist.Check
+import com.progressterra.ipbandroidview.model.checklist.ChecklistStats
 import com.progressterra.ipbandroidview.model.Id
 import java.time.LocalDate
 

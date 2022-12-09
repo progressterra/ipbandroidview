@@ -28,7 +28,7 @@ import com.progressterra.ipbandroidview.composable.element.BottomHolder
 import com.progressterra.ipbandroidview.composable.element.ThemedButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.element.ThemedTextField
-import com.progressterra.ipbandroidview.model.SuggestionUI
+import com.progressterra.ipbandroidview.model.address.SuggestionUI
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

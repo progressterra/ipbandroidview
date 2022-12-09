@@ -27,7 +27,7 @@ interface FetchChatUseCase {
             ).getOrThrow()?.idUnique!!
             UserData.supportChatId = chatId
             repo.messagesList(chatId, "0").getOrThrow().orEmpty()
-                .map { messageMapper.map(it, userId) }
+                .map { messageMapper.map(it, userId) }.reversed()
         }
     }
 }

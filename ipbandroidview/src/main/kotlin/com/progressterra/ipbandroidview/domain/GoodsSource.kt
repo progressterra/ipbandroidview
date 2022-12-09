@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteIdsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
-import com.progressterra.ipbandroidview.model.StoreGoods
+import com.progressterra.ipbandroidview.model.store.StoreGoods
 
 class GoodsSource(
     private val goodsPageUseCase: GoodsPageUseCase,

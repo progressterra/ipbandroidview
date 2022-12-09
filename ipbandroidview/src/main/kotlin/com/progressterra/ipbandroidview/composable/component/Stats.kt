@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.composable.element.FailedIcon
 import com.progressterra.ipbandroidview.composable.element.RemainingIcon
 import com.progressterra.ipbandroidview.composable.element.SuccessIcon
 import com.progressterra.ipbandroidview.composable.element.SumIcon
-import com.progressterra.ipbandroidview.model.ChecklistStats
+import com.progressterra.ipbandroidview.model.checklist.ChecklistStats
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
