@@ -21,13 +21,13 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.AddressSuggestions
-import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.element.BottomHolder
-import com.progressterra.ipbandroidview.composable.element.ThemedButton
-import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
-import com.progressterra.ipbandroidview.composable.element.ThemedTextField
+import com.progressterra.ipbandroidview.composable.AddressSuggestions
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.BottomHolder
+import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedTextButton
+import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.model.address.SuggestionUI
 import com.progressterra.ipbandroidview.theme.AppTheme
 

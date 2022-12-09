@@ -13,11 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ChatInput
-import com.progressterra.ipbandroidview.composable.component.ChatMessage
-import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.element.StateBox
+import com.progressterra.ipbandroidview.composable.ChatInput
+import com.progressterra.ipbandroidview.composable.ChatMessage
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.model.Message
 import com.progressterra.ipbandroidview.theme.AppTheme
 

@@ -15,12 +15,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.VerificationCodeInput
-import com.progressterra.ipbandroidview.composable.element.BottomHolder
-import com.progressterra.ipbandroidview.composable.element.ThemedButton
-import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.VerificationCodeInput
+import com.progressterra.ipbandroidview.composable.BottomHolder
+import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedTextButton
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

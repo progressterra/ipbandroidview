@@ -15,11 +15,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.Notifications
-import com.progressterra.ipbandroidview.composable.component.StoreCard
-import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.element.StateBox
+import com.progressterra.ipbandroidview.composable.Notifications
+import com.progressterra.ipbandroidview.composable.StoreCard
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.utils.items
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme

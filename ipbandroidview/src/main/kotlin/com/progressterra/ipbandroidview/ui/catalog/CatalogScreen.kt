@@ -9,10 +9,10 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.component.CatalogSearchBar
-import com.progressterra.ipbandroidview.composable.component.MainCategoryItem
-import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.element.StateBox
+import com.progressterra.ipbandroidview.composable.CatalogSearchBar
+import com.progressterra.ipbandroidview.composable.MainCategoryItem
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.model.store.Category
 import com.progressterra.ipbandroidview.theme.AppTheme
 

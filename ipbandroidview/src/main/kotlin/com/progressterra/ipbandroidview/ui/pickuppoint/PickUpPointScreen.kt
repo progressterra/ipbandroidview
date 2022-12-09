@@ -27,10 +27,10 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.element.BottomHolder
-import com.progressterra.ipbandroidview.composable.element.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.BottomHolder
+import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
 import com.progressterra.ipbandroidview.theme.AppTheme
 

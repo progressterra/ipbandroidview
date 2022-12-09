@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidview.composable.component.NotificationsState
+import com.progressterra.ipbandroidview.composable.NotificationsState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo
 import com.progressterra.ipbandroidview.model.store.StoreNotification

@@ -8,11 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.OrderProcessingWidget
-import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.element.BottomHolder
-import com.progressterra.ipbandroidview.composable.element.ThemedButton
+import com.progressterra.ipbandroidview.composable.OrderProcessingWidget
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.BottomHolder
+import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

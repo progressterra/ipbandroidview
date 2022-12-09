@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.ui.order
 
-import com.progressterra.ipbandroidview.composable.component.BonusSwitchState
-import com.progressterra.ipbandroidview.composable.component.DeliveryPickerState
-import com.progressterra.ipbandroidview.composable.component.GoodsLineState
-import com.progressterra.ipbandroidview.composable.component.PaymentMethodState
-import com.progressterra.ipbandroidview.composable.component.PromoCodeState
-import com.progressterra.ipbandroidview.composable.component.ReceiptState
-import com.progressterra.ipbandroidview.composable.component.ReceiveReceiptState
+import com.progressterra.ipbandroidview.composable.BonusSwitchState
+import com.progressterra.ipbandroidview.composable.DeliveryPickerState
+import com.progressterra.ipbandroidview.composable.GoodsLineState
+import com.progressterra.ipbandroidview.composable.PaymentMethodState
+import com.progressterra.ipbandroidview.composable.PromoCodeState
+import com.progressterra.ipbandroidview.composable.ReceiptState
+import com.progressterra.ipbandroidview.composable.ReceiveReceiptState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.address.AddressUI
 import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo

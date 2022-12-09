@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.goods
 
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidview.composable.component.GoodsSearchBarState
+import com.progressterra.ipbandroidview.composable.GoodsSearchBarState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.store.Filter
 import com.progressterra.ipbandroidview.model.store.StoreGoods

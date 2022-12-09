@@ -5,7 +5,7 @@ import android.content.Intent
 import android.provider.MediaStore
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.VoiceState
+import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.MakePhotoContract
 import com.progressterra.ipbandroidview.core.ManagePermissionContract

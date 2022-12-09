@@ -10,10 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.component.TransparentTopAppBar
-import com.progressterra.ipbandroidview.composable.element.BackIcon
-import com.progressterra.ipbandroidview.composable.element.SimpleImage
-import com.progressterra.ipbandroidview.composable.element.TrashIcon
+import com.progressterra.ipbandroidview.composable.TransparentTopAppBar
+import com.progressterra.ipbandroidview.composable.BackIcon
+import com.progressterra.ipbandroidview.composable.SimpleImage
+import com.progressterra.ipbandroidview.composable.TrashIcon
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 

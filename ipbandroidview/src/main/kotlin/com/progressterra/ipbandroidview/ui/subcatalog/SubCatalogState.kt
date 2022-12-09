@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
-import com.progressterra.ipbandroidview.composable.component.CategorySearchBarState
+import com.progressterra.ipbandroidview.composable.CategorySearchBarState
 import com.progressterra.ipbandroidview.model.store.Category
 
 data class SubCatalogState(

@@ -17,14 +17,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.ThemedLayout
-import com.progressterra.ipbandroidview.composable.element.BottomHolder
-import com.progressterra.ipbandroidview.composable.element.LinkText
-import com.progressterra.ipbandroidview.composable.element.LinkTextData
-import com.progressterra.ipbandroidview.composable.element.ThemedButton
-import com.progressterra.ipbandroidview.composable.element.ThemedTextButton
-import com.progressterra.ipbandroidview.composable.element.ThemedTextField
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.BottomHolder
+import com.progressterra.ipbandroidview.composable.LinkText
+import com.progressterra.ipbandroidview.composable.LinkTextData
+import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedTextButton
+import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
