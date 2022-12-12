@@ -258,5 +258,5 @@ val useCasesModule = module {
 
     single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get(), get()) }
 
-    single<InviteUseCase> { InviteUseCase.Base(get(), get(), get(), get()) }
+    single<InviteUseCase> { InviteUseCase.Test() }
 }

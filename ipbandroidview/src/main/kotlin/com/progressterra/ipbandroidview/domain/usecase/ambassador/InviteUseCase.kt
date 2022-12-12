@@ -29,4 +29,14 @@ interface InviteUseCase {
             )
         }
     }
+
+    class Test : InviteUseCase {
+
+        override suspend fun invoke(): Result<UserInvite> = Result.success(
+            UserInvite(
+                promoCode = "A00075",
+                text = "Используй промокод A00075 для получения бонусов в приложении RC Pro https://play.google.com/store/apps/details?id=com.progressterra.ripcurl"
+            )
+        )
+    }
 }
