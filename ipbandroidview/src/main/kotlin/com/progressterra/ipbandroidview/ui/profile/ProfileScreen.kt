@@ -30,6 +30,7 @@ fun ProfileScreen(
     onOrders: () -> Unit,
     onFavorites: () -> Unit,
     onSupport: () -> Unit,
+    onReferral: () -> Unit,
     settings: ProfileSettings
 ) {
     ThemedLayout(topBar = {
@@ -126,6 +127,26 @@ fun ProfileScreen(
                         style = AppTheme.typography.text
                     )
                     IconButton(onClick = onSupport) {
+                        ForwardIcon()
+                    }
+                }
+            if (settings.showReferral)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(AppTheme.shapes.medium)
+                        .background(AppTheme.colors.surfaces)
+                        .niceClickable(onReferral)
+                        .padding(AppTheme.dimensions.medium),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.referral_program),
+                        color = AppTheme.colors.black,
+                        style = AppTheme.typography.text
+                    )
+                    IconButton(onClick = onReferral) {
                         ForwardIcon()
                     }
                 }

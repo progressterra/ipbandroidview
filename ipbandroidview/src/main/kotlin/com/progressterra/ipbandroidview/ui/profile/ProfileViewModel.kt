@@ -43,4 +43,8 @@ class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect>
     fun onSupport() = intent {
         postSideEffect(ProfileEffect.Support)
     }
+
+    fun onReferral() = intent {
+        postSideEffect(ProfileEffect.Referral)
+    }
 }

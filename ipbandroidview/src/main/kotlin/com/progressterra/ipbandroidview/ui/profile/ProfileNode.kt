@@ -15,7 +15,8 @@ class ProfileNode(
     private val onDetails: () -> Unit,
     private val onSupport: (() -> Unit)?,
     private val onFavorites: (() -> Unit)?,
-    private val onOrders: (() -> Unit)?
+    private val onOrders: (() -> Unit)?,
+    private val onReferral: (() -> Unit)?
 ) : Node(buildContext) {
 
     @Composable
@@ -27,6 +28,7 @@ class ProfileNode(
                 is ProfileEffect.OpenDetails -> onDetails()
                 is ProfileEffect.Favorites -> onFavorites?.invoke()
                 is ProfileEffect.Orders -> onOrders?.invoke()
+                is ProfileEffect.Referral -> onReferral?.invoke()
             }
         }
         val state = viewModel.collectAsState()
@@ -36,7 +38,8 @@ class ProfileNode(
             onOrders = viewModel::onOrders,
             onFavorites = viewModel::onFavorites,
             settings = settings,
-            onSupport = viewModel::onSupport
+            onSupport = viewModel::onSupport,
+            onReferral = viewModel::onReferral
         )
     }
 }
