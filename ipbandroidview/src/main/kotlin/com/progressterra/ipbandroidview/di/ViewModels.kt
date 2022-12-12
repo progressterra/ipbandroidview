@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.ui.pickuppoint.PickUpPointViewModel
 import com.progressterra.ipbandroidview.ui.profile.ProfileViewModel
 import com.progressterra.ipbandroidview.ui.profiledetails.ProfileDetailsViewModel
+import com.progressterra.ipbandroidview.ui.referral.ReferralViewModel
 import com.progressterra.ipbandroidview.ui.signin.SignInViewModel
 import com.progressterra.ipbandroidview.ui.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.ui.splash.SplashViewModel
@@ -153,5 +154,9 @@ val viewModelsModule = module {
 
     viewModel {
         SupportViewModel(get(), get())
+    }
+
+    viewModel {
+        ReferralViewModel(get(), get(), get())
     }
 }

@@ -31,7 +31,7 @@ fun ReferralScreen(
         ) {
             Column(modifier = Modifier.fillMaxSize().padding(AppTheme.dimensions.small)) {
                 ReferralLink(
-                    promoCode = state()::promoCode,
+                    promoCode = state().userInvite::promoCode,
                     onCopy = onCopy,
                     onShare = onShare
                 )

@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.di
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build.VERSION
@@ -133,4 +135,8 @@ val iPBAndroidViewModule = module {
     single<AddressesMapper> { AddressesMapper.Base() }
 
     single<MessageMapper> { MessageMapper.Base(get()) }
+
+    single {
+        androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    }
 }

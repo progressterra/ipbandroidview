@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelU
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateFirebaseCloudMessagingTokenUseCase
+import com.progressterra.ipbandroidview.domain.usecase.ambassador.InviteUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
@@ -256,4 +257,6 @@ val useCasesModule = module {
     single<FetchUserIdUseCase> { FetchUserIdUseCase.Base() }
 
     single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get(), get()) }
+
+    single<InviteUseCase> { InviteUseCase.Base(get(), get(), get(), get()) }
 }
