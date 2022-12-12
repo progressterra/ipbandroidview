@@ -16,13 +16,14 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ReferralScreen(
     state: () -> ReferralState,
+    onBack: () -> Unit,
     onCopy: () -> Unit,
     onShare: () -> Unit,
     onRefresh: () -> Unit
 ) {
     ThemedLayout(
         topBar = {
-            ThemedTopAppBar(title = stringResource(R.string.referral_program))
+            ThemedTopAppBar(title = stringResource(R.string.referral_program), onBack = onBack)
         }
     ) { _, _ ->
         StateBox(

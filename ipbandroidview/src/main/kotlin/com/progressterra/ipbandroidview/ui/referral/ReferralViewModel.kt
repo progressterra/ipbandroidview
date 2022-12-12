@@ -49,4 +49,8 @@ class ReferralViewModel(
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity.start(shareIntent)
     }
+
+    fun back() = intent {
+        postSideEffect(ReferralEffect.Back)
+    }
 }

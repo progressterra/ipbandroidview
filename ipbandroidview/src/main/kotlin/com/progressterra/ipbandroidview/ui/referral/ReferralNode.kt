@@ -32,7 +32,8 @@ class ReferralNode(
             state = state::value,
             onCopy = viewModel::copy,
             onShare = viewModel::share,
-            onRefresh = viewModel::refresh
+            onRefresh = viewModel::refresh,
+            onBack = viewModel::back
         )
     }
 }
