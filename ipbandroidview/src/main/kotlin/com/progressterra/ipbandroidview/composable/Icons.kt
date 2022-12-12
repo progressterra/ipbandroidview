@@ -588,3 +588,41 @@ fun SendIcon(modifier: Modifier = Modifier) {
         contentDescription = null
     )
 }
+
+@Composable
+@Preview
+fun SendIconPreview() {
+    SendIcon()
+}
+
+@Composable
+fun ShareIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_share),
+        tint = AppTheme.colors.gray1,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+fun ShareIconPreview() {
+    ShareIcon()
+}
+
+@Composable
+fun CopyIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_copy),
+        tint = AppTheme.colors.gray2,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+fun CopyIconPreview() {
+    CopyIcon()
+}

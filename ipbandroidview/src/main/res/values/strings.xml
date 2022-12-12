@@ -132,4 +132,6 @@
     <string name="work_hour">График работы</string>
     <string name="how_to_go">Как добраться</string>
     <string name="archive">Архив</string>
+    <string name="your_promo_code">Ваш промокод</string>
+    <string name="referral_program">Реферальная программа</string>
 </resources>
