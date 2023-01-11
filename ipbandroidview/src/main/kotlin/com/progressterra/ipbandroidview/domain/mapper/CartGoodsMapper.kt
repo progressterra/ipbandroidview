@@ -6,14 +6,13 @@ import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.core.TripleMapper
 import com.progressterra.ipbandroidview.model.store.CartGoods
 import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsSize
 import com.progressterra.ipbandroidview.model.store.SimplePrice
 
-interface CartGoodsMapper {
-
-    fun map(data: RGGoodsInventoryExt, isFavorite: Boolean, count: Int): CartGoods
+interface CartGoodsMapper : TripleMapper<RGGoodsInventoryExt, Boolean, Int, CartGoods> {
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
@@ -21,20 +20,20 @@ interface CartGoodsMapper {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override fun map(data: RGGoodsInventoryExt, isFavorite: Boolean, count: Int): CartGoods {
-            val images = data.imageDataJSON?.let { image ->
+        override fun map(data1: RGGoodsInventoryExt, data2: Boolean, data3: Int): CartGoods {
+            val images = data1.imageDataJSON?.let { image ->
                 gson.fromJson(
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
             return CartGoods(
-                id = data.idUnique!!,
+                id = data1.idUnique!!,
                 image = images.firstOrNull()?.url ?: "",
-                price = data.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
-                name = data.name ?: noData,
-                favorite = isFavorite,
-                inCartCounter = count,
-                color = GoodsColor(image = "", name = data.colorName ?: noData),
+                price = data1.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
+                name = data1.name ?: noData,
+                favorite = data2,
+                inCartCounter = data3,
+                color = GoodsColor(image = "", name = data1.colorName ?: noData),
                 size = GoodsSize(true, "", null),
             )
         }

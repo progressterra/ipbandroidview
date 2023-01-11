@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.core
 
-interface Mapper<S, R> {
+interface Mapper<T, R> {
 
-    fun map(data: S): R
+    fun map(data: T): R
 }
