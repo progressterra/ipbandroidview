@@ -21,14 +21,13 @@ fun TestPartnerBlock(
 ) {
     BottomHolder(
         modifier = modifier
-            .padding(horizontal = AppTheme.dimensions.small)
+            .niceClickable(onClick = onPartnerClick)
             .height(blockHeight)
     ) {
         SimpleImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(AppTheme.shapes.small)
-                .niceClickable(onClick = onPartnerClick),
+                .clip(AppTheme.shapes.small),
             url = partner.miniImageUrl,
             backgroundColor = AppTheme.colors.surfaces
         )

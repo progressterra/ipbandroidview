@@ -30,9 +30,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 import de.charlex.compose.HtmlText
 
-private val logoSize: Dp = 32.dp
-
-private val bigMargin: Dp = 40.dp
+private val logoSize: Dp = 48.dp
 
 @Composable
 fun PartnerScreen(
@@ -46,7 +44,9 @@ fun PartnerScreen(
             val (header, logo, description, offers, website, phone) = createRefs()
             SimpleImage(
                 modifier = Modifier.constrainAs(header) {
-                    width = Dimension.matchParent
+                    width = Dimension.fillToConstraints
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
                 },
                 url = state.partner.headImageUrl,
                 options = ImageOptions(contentScale = ContentScale.Fit),
