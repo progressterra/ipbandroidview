@@ -1,0 +1,22 @@
+package com.progressterra.ipbandroidview.ui.partner
+
+import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.model.partner.Partner
+import org.orbitmvi.orbit.Container
+import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
+import org.orbitmvi.orbit.viewmodel.container
+
+class PartnerViewModel : ViewModel(), ContainerHost<PartnerState, PartnerEffect>,
+    PartnerInteractor {
+
+    override val container: Container<PartnerState, PartnerEffect> = container(PartnerState())
+
+    fun setPartner(partner: Partner) = intent {
+        reduce { state.copy(partner = partner) }
+    }
+
+    override fun onBack() = intent { postSideEffect(PartnerEffect.Back) }
+}

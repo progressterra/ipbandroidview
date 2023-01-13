@@ -12,15 +12,14 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun TestPartnerBlock(
     modifier: Modifier = Modifier,
     partner: Partner,
-    onPartnerClick: (Partner) -> Unit
+    onPartnerClick: () -> Unit
 ) {
     BottomHolder(modifier = modifier) {
-
         SimpleImage(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(AppTheme.shapes.small)
-                .niceClickable(onClick = { onPartnerClick(partner) }),
+                .niceClickable(onClick = onPartnerClick),
             url = partner.miniImageUrl,
             backgroundColor = AppTheme.colors.surfaces
         )

@@ -8,7 +8,11 @@ interface OrganizationsInteractor {
 
     fun onOrganizationDetails(organization: Organization)
 
+    fun onPartner()
+
     class Empty : OrganizationsInteractor {
+
+        override fun onPartner() = Unit
 
         override fun refresh() = Unit
 

@@ -31,6 +31,7 @@ import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsUs
 import com.progressterra.ipbandroidview.domain.usecase.delivery.SetDeliveryAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.CreateDeliveryOrderUseCase
+import com.progressterra.ipbandroidview.domain.usecase.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCase
@@ -259,4 +260,6 @@ val useCasesModule = module {
     single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<InviteUseCase> { InviteUseCase.Test() }
+
+    single<FetchPartnerUseCase> { FetchPartnerUseCase.Base(get(), get(), get(), get(), get()) }
 }

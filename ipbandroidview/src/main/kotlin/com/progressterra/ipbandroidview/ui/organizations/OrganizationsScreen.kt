@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrganizationCard
 import com.progressterra.ipbandroidview.composable.StateBox
+import com.progressterra.ipbandroidview.composable.TestPartnerBlock
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -24,6 +25,11 @@ fun OrganizationsScreen(
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.organizations))
+    }, bottomBar = {
+        TestPartnerBlock(
+            partner = state.partner,
+            onPartnerClick = interactor::onPartner
+        )
     }) { _, _ ->
         StateBox(
             state = state.screenState,

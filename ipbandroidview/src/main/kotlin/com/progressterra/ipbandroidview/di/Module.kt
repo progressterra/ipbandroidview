@@ -26,6 +26,8 @@ import com.progressterra.ipbandroidview.domain.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.domain.mapper.ImageMapper
 import com.progressterra.ipbandroidview.domain.mapper.MessageMapper
+import com.progressterra.ipbandroidview.domain.mapper.OfferMapper
+import com.progressterra.ipbandroidview.domain.mapper.PartnerMapper
 import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
 import com.progressterra.ipbandroidview.domain.mapper.StatusOrderMapper
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
@@ -139,4 +141,8 @@ val iPBAndroidViewModule = module {
     single {
         androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     }
+
+    single<OfferMapper> { OfferMapper.Base(get()) }
+
+    single<PartnerMapper> { PartnerMapper.Base(get()) }
 }

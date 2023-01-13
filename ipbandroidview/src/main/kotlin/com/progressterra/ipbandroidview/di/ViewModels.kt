@@ -18,6 +18,7 @@ import com.progressterra.ipbandroidview.ui.orderprocessing.OrderProcessingViewMo
 import com.progressterra.ipbandroidview.ui.orders.OrdersViewModel
 import com.progressterra.ipbandroidview.ui.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.ui.organizations.OrganizationsViewModel
+import com.progressterra.ipbandroidview.ui.partner.PartnerViewModel
 import com.progressterra.ipbandroidview.ui.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.ui.pickuppoint.PickUpPointViewModel
 import com.progressterra.ipbandroidview.ui.profile.ProfileViewModel
@@ -50,7 +51,7 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        OrganizationsViewModel(get())
+        OrganizationsViewModel(get(), get())
     }
 
     viewModel {
@@ -75,8 +76,6 @@ val viewModelsModule = module {
 
     viewModel {
         ChecklistViewModel(
-            get(),
-            get(),
             get(),
             get(),
             get(),
@@ -158,5 +157,9 @@ val viewModelsModule = module {
 
     viewModel {
         ReferralViewModel(get(), get(), get())
+    }
+
+    viewModel {
+        PartnerViewModel()
     }
 }
