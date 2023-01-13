@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.composable
 
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,7 +23,7 @@ fun TestPartnerBlock(
     ) {
         SimpleImage(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .clip(AppTheme.shapes.small)
                 .niceClickable(onClick = onPartnerClick),
             url = partner.miniImageUrl,

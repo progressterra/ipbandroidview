@@ -40,7 +40,7 @@ fun PartnerScreen(
         ConstraintLayout(
             modifier = Modifier.fillMaxSize()
         ) {
-            val (header, logo, description, offers, website, phone) = createRefs()
+            val (header, logo, description, website, phone) = createRefs()
             SimpleImage(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -108,7 +108,7 @@ fun PartnerScreen(
                 .constrainAs(phone) {
                     width = Dimension.fillToConstraints
                     end.linkTo(parent.end, smallMargin)
-                    top.linkTo(offers.bottom, smallMargin)
+                    top.linkTo(description.bottom, smallMargin)
                     start.linkTo(parent.start, smallMargin)
                 }) {
                 Text(
