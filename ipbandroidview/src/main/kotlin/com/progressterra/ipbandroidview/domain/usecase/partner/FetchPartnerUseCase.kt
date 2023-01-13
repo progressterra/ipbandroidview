@@ -29,21 +29,27 @@ interface FetchPartnerUseCase {
                 latitude = "",
                 longitude = "",
                 organizationId = PARTNER_ID
-            ).getOrThrow()
+            ).onFailure {
+                Log.e("PARTNER", "fetch fail", it)
+            }.getOrThrow()
             Log.d("PARTNER", "fetch org: $resultOrganization")
             val resultShop = repository.organizationShops(
                 accessToken = token,
                 latitude = "",
                 longitude = "",
                 organizationId = PARTNER_ID
-            ).getOrThrow()
+            ).onFailure {
+                Log.e("PARTNER", "fetch shops fail", it)
+            }.getOrThrow()
             Log.d("PARTNER", "fetch shop: $resultShop")
             val resultOffers = repository.offersByOrganization(
                 accessToken = token,
                 latitude = "",
                 longitude = "",
                 organizationId = PARTNER_ID
-            ).getOrThrow()?.map(offerMapper::map) ?: emptyList()
+            ).onFailure {
+                Log.e("PARTNER", "fetch oofers fail", it)
+            }.getOrThrow()?.map(offerMapper::map) ?: emptyList()
             Log.d("PARTNER", "fetch offers: $resultOffers")
             partnerMapper.map(resultOrganization!!, resultShop!!.first(), resultOffers)
         }
