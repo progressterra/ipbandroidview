@@ -18,16 +18,17 @@ interface FetchPartnerUseCase {
         private val repository: CollaborationRepository,
         private val partnerMapper: PartnerMapper,
         private val offerMapper: OfferMapper,
-        provideLocation: ProvideLocation,
+        private val provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository
     ) : FetchPartnerUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(): Result<Partner> = withToken { token ->
             Log.d("PARTNER", "fetch partner start")
+            val location = provideLocation.location().getOrThrow()
             val resultOrganization = repository.organizationById(
                 accessToken = token,
-                latitude = "",
-                longitude = "",
+                latitude = location.latitude.toString(),
+                longitude = location.longitude.toString(),
                 organizationId = PARTNER_ID
             ).onFailure {
                 Log.e("PARTNER", "fetch fail", it)
@@ -35,8 +36,8 @@ interface FetchPartnerUseCase {
             Log.d("PARTNER", "fetch org: $resultOrganization")
             val resultShop = repository.organizationShops(
                 accessToken = token,
-                latitude = "",
-                longitude = "",
+                latitude = location.latitude.toString(),
+                longitude = location.longitude.toString(),
                 organizationId = PARTNER_ID
             ).onFailure {
                 Log.e("PARTNER", "fetch shops fail", it)
@@ -44,8 +45,8 @@ interface FetchPartnerUseCase {
             Log.d("PARTNER", "fetch shop: $resultShop")
             val resultOffers = repository.offersByOrganization(
                 accessToken = token,
-                latitude = "",
-                longitude = "",
+                latitude = location.latitude.toString(),
+                longitude = location.longitude.toString(),
                 organizationId = PARTNER_ID
             ).onFailure {
                 Log.e("PARTNER", "fetch oofers fail", it)
