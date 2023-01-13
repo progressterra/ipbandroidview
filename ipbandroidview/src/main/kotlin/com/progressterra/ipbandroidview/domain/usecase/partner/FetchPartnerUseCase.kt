@@ -24,7 +24,9 @@ interface FetchPartnerUseCase {
 
         override suspend fun invoke(): Result<Partner> = withToken { token ->
             Log.d("PARTNER", "fetch partner start")
-            val location = provideLocation.location().getOrThrow()
+            val location = provideLocation.location().onFailure {
+                Log.e("PARTNER", "fetch fail", it)
+            }.getOrThrow()
             val resultOrganization = repository.organizationById(
                 accessToken = token,
                 latitude = location.latitude.toString(),
