@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.location.Location
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
-import com.google.android.gms.tasks.Tasks
+import kotlinx.coroutines.tasks.await
 
 interface ProvideLocation {
 
@@ -13,17 +13,11 @@ interface ProvideLocation {
     class Base(private val fusedLocationClient: FusedLocationProviderClient) : ProvideLocation {
 
         @SuppressLint("MissingPermission")
-        override suspend fun location(): Result<Location> = try {
-            Result.success(
-                Tasks.await(
-                    fusedLocationClient.getCurrentLocation(
-                        Priority.PRIORITY_HIGH_ACCURACY,
-                        null
-                    )
-                )
-            )
-        } catch (exception: Exception) {
-            Result.failure(exception)
+        override suspend fun location(): Result<Location> = runCatching {
+            fusedLocationClient.getCurrentLocation(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                null
+            ).await()
         }
     }
 }

@@ -26,11 +26,11 @@ interface FetchPartnerUseCase {
             Log.d("PARTNER", "fetch partner start")
             val location = provideLocation.location().onFailure {
                 Log.e("PARTNER", "fetch fail", it)
-            }.getOrThrow()
+            }.getOrNull()
             val resultOrganization = repository.organizationById(
                 accessToken = token,
-                latitude = location.latitude.toString(),
-                longitude = location.longitude.toString(),
+                latitude = location?.latitude?.toString() ?: "0.0",
+                longitude = location?.longitude?.toString() ?: "0.0",
                 organizationId = PARTNER_ID
             ).onFailure {
                 Log.e("PARTNER", "fetch fail", it)
@@ -38,8 +38,8 @@ interface FetchPartnerUseCase {
             Log.d("PARTNER", "fetch org: $resultOrganization")
             val resultShop = repository.organizationShops(
                 accessToken = token,
-                latitude = location.latitude.toString(),
-                longitude = location.longitude.toString(),
+                latitude = location?.latitude?.toString() ?: "0.0",
+                longitude = location?.longitude?.toString() ?: "0.0",
                 organizationId = PARTNER_ID
             ).onFailure {
                 Log.e("PARTNER", "fetch shops fail", it)
@@ -47,8 +47,8 @@ interface FetchPartnerUseCase {
             Log.d("PARTNER", "fetch shop: $resultShop")
             val resultOffers = repository.offersByOrganization(
                 accessToken = token,
-                latitude = location.latitude.toString(),
-                longitude = location.longitude.toString(),
+                latitude = location?.latitude?.toString() ?: "0.0",
+                longitude = location?.longitude?.toString() ?: "0.0",
                 organizationId = PARTNER_ID
             ).onFailure {
                 Log.e("PARTNER", "fetch oofers fail", it)
