@@ -40,7 +40,7 @@ fun PartnerScreen(
         ConstraintLayout(
             modifier = Modifier.fillMaxSize()
         ) {
-            val (header, logo, description, website, phone) = createRefs()
+            val (header, logo, description, website, phone, website2) = createRefs()
             SimpleImage(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -125,6 +125,22 @@ fun PartnerScreen(
                     width = Dimension.fillToConstraints
                     end.linkTo(parent.end, smallMargin)
                     top.linkTo(phone.bottom, smallMargin)
+                    start.linkTo(parent.start, smallMargin)
+                }) {
+                Text(
+                    text = "${stringResource(R.string.web_site)}: ${state.partner.webSite}",
+                    style = AppTheme.typography.title,
+                    color = AppTheme.colors.black
+                )
+            }
+            Row(modifier = Modifier
+                .clip(AppTheme.shapes.small)
+                .background(AppTheme.colors.surfaces)
+                .padding(AppTheme.dimensions.small)
+                .constrainAs(website2) {
+                    width = Dimension.fillToConstraints
+                    end.linkTo(parent.end, smallMargin)
+                    top.linkTo(website.bottom, smallMargin)
                     start.linkTo(parent.start, smallMargin)
                 }) {
                 Text(
