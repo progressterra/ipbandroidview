@@ -40,9 +40,11 @@ fun PartnerScreen(
         ThemedTopAppBar(title = stringResource(id = R.string.partner), onBack = interactor::onBack)
     }) { _, _ ->
         ConstraintLayout(
-            modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
-            val (header, logo, description, website, phone, website2) = createRefs()
+            val (header, logo, description, website, phone) = createRefs()
             SimpleImage(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -127,22 +129,6 @@ fun PartnerScreen(
                     width = Dimension.fillToConstraints
                     end.linkTo(parent.end, smallMargin)
                     top.linkTo(phone.bottom, smallMargin)
-                    start.linkTo(parent.start, smallMargin)
-                }) {
-                Text(
-                    text = "${stringResource(R.string.web_site)}: ${state.partner.webSite}",
-                    style = AppTheme.typography.title,
-                    color = AppTheme.colors.black
-                )
-            }
-            Row(modifier = Modifier
-                .clip(AppTheme.shapes.small)
-                .background(AppTheme.colors.surfaces)
-                .padding(AppTheme.dimensions.small)
-                .constrainAs(website2) {
-                    width = Dimension.fillToConstraints
-                    end.linkTo(parent.end, smallMargin)
-                    top.linkTo(website.bottom, smallMargin)
                     start.linkTo(parent.start, smallMargin)
                 }) {
                 Text(
