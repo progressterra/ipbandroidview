@@ -137,4 +137,5 @@
     <string name="success_copied">Приглашение успешно копировано!</string>
     <string name="refresh">Обновить</string>
     <string name="partner">Партнёр</string>
+    <string name="web_site">Веб-сайт</string>
 </resources>
