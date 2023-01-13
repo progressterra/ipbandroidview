@@ -29,10 +29,11 @@ fun OrganizationsScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.organizations))
     }, bottomBar = {
-        TestPartnerBlock(
-            partner = state.partner,
-            onPartnerClick = interactor::onPartner
-        )
+        if (state.screenState.isSuccess())
+            TestPartnerBlock(
+                partner = state.partner,
+                onPartnerClick = interactor::onPartner
+            )
     }) { _, _ ->
         StateBox(
             state = state.screenState,

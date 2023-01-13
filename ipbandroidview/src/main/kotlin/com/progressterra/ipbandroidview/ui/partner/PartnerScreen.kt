@@ -49,7 +49,7 @@ fun PartnerScreen(
                     width = Dimension.matchParent
                 },
                 url = state.partner.headImageUrl,
-                options = ImageOptions(contentScale = ContentScale.FillWidth),
+                options = ImageOptions(contentScale = ContentScale.Fit),
                 backgroundColor = AppTheme.colors.background
             )
             val smallMargin = AppTheme.dimensions.small
@@ -76,16 +76,23 @@ fun PartnerScreen(
                     color = AppTheme.colors.black
                 )
             }
-            HtmlText(
-                modifier = Modifier.constrainAs(description) {
-                    width = Dimension.fillToConstraints
-                    start.linkTo(parent.start, smallMargin)
-                    end.linkTo(parent.end, smallMargin)
-                },
-                text = state.partner.description,
-                style = AppTheme.typography.text,
-                color = AppTheme.colors.black
-            )
+            Row(
+                modifier = Modifier
+                    .clip(AppTheme.shapes.small)
+                    .background(AppTheme.colors.surfaces)
+                    .padding(AppTheme.dimensions.small)
+                    .constrainAs(description) {
+                        width = Dimension.fillToConstraints
+                        start.linkTo(parent.start, smallMargin)
+                        end.linkTo(parent.end, smallMargin)
+                    }
+            ) {
+                HtmlText(
+                    text = state.partner.description,
+                    style = AppTheme.typography.text,
+                    color = AppTheme.colors.black
+                )
+            }
             if (state.partner.offerList.isNotEmpty())
                 LazyRow(
                     modifier = Modifier.constrainAs(offers) {
@@ -96,23 +103,44 @@ fun PartnerScreen(
                         Offer(offerUI = it)
                     }
                 }
-            Text(
-                modifier = Modifier.constrainAs(phone) {
-                    start.linkTo(parent.start, smallMargin)
-                },
-                text = state.partner.phone,
-                style = AppTheme.typography.text,
-                color = AppTheme.colors.black
+            Row(
+                modifier = Modifier
+                    .clip(AppTheme.shapes.small)
+                    .background(AppTheme.colors.surfaces)
+                    .padding(AppTheme.dimensions.small)
+                    .constrainAs(phone) {
+                        start.linkTo(parent.start, smallMargin)
+                    }
+            ) {
+                Text(
+                    text = state.partner.phone,
+                    style = AppTheme.typography.title,
+                    color = AppTheme.colors.black
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .clip(AppTheme.shapes.small)
+                    .background(AppTheme.colors.surfaces)
+                    .padding(AppTheme.dimensions.small)
+                    .constrainAs(website) {
+                        start.linkTo(parent.start, smallMargin)
+                    }
+            ) {
+                Text(
+                    text = state.partner.webSite,
+                    style = AppTheme.typography.title,
+                    color = AppTheme.colors.black
+                )
+            }
+            createVerticalChain(
+                header,
+                description,
+                offers,
+                website,
+                phone,
+                chainStyle = ChainStyle.SpreadInside
             )
-            Text(
-                modifier = Modifier.constrainAs(website) {
-                    start.linkTo(parent.start, smallMargin)
-                },
-                text = state.partner.webSite,
-                style = AppTheme.typography.text,
-                color = AppTheme.colors.black
-            )
-            createVerticalChain(header, description, offers, website, phone, chainStyle = ChainStyle.SpreadInside)
         }
     }
 }
