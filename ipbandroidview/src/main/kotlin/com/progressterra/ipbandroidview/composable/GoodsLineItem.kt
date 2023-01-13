@@ -19,7 +19,7 @@ private val picHeight = 96.dp
 @Composable
 fun GoodsLineItem(
     modifier: Modifier = Modifier,
-    state: () -> OrderGoods,
+    state: OrderGoods,
     openGoodsDetails: (String) -> Unit
 ) {
     Box(modifier = modifier) {
@@ -27,8 +27,8 @@ fun GoodsLineItem(
             modifier = Modifier
                 .size(picWidth, picHeight)
                 .clip(AppTheme.shapes.small)
-                .niceClickable(onClick = { openGoodsDetails(state().id) }),
-            url = state()::image,
+                .niceClickable(onClick = { openGoodsDetails(state.id) }),
+            url = state.image,
             backgroundColor = AppTheme.colors.background
         )
         Box(
@@ -43,7 +43,7 @@ fun GoodsLineItem(
                     .padding(AppTheme.dimensions.tiny)
             ) {
                 Text(
-                    text = "x${state().inCartCounter}",
+                    text = "x${state.inCartCounter}",
                     color = AppTheme.colors.primary,
                     style = AppTheme.typography.actionBarLabels
                 )

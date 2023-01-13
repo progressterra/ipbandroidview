@@ -27,7 +27,7 @@ class CityNode(
         }
         val state = viewModel.collectAsState()
         CityScreen(
-            state = state::value,
+            state = state.value,
             back = viewModel::back,
             skip = viewModel::skip,
             next = viewModel::next,

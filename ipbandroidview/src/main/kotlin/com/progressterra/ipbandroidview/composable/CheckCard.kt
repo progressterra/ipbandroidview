@@ -20,13 +20,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun CheckCard(
     modifier: Modifier = Modifier,
-    state: () -> Check,
+    state: Check,
     onClick: () -> Unit
 ) {
     Row(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
-            .background(if (state().yesNo == true) AppTheme.colors.success else if (state().yesNo == false) AppTheme.colors.failed else AppTheme.colors.surfaces)
+            .background(if (state.yesNo == true) AppTheme.colors.success else if (state.yesNo == false) AppTheme.colors.failed else AppTheme.colors.surfaces)
             .niceClickable(onClick = onClick)
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
@@ -34,7 +34,7 @@ fun CheckCard(
     ) {
         Text(
             modifier = Modifier.weight(1f, false),
-            text = state().name,
+            text = state.name,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = AppTheme.colors.black,
@@ -50,18 +50,16 @@ fun CheckCard(
 private fun CheckCardPreviewOngoing() {
     AppTheme {
         CheckCard(
-            state = {
-                Check(
-                    id = "",
-                    name = "Some check",
-                    description = "",
-                    category = "",
-                    categoryNumber = 0,
-                    ordinal = 0,
-                    yesNo = null,
-                    comment = ""
-                )
-            },
+            state = Check(
+                id = "",
+                name = "Some check",
+                description = "",
+                category = "",
+                categoryNumber = 0,
+                ordinal = 0,
+                yesNo = null,
+                comment = ""
+            ),
             onClick = {}
         )
     }

@@ -10,16 +10,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.TransparentTopAppBar
 import com.progressterra.ipbandroidview.composable.BackIcon
 import com.progressterra.ipbandroidview.composable.SimpleImage
+import com.progressterra.ipbandroidview.composable.TransparentTopAppBar
 import com.progressterra.ipbandroidview.composable.TrashIcon
 import com.progressterra.ipbandroidview.theme.AppTheme
 import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun PhotoScreen(
-    state: () -> PhotoState,
+    state: PhotoState,
     back: () -> Unit,
     remove: () -> Unit
 ) {
@@ -34,14 +34,14 @@ fun PhotoScreen(
                 BackIcon()
             }
         }, rightActions = {
-            if (state().enabled) IconButton(onClick = remove) {
-                TrashIcon(enabled = { true })
+            if (state.enabled) IconButton(onClick = remove) {
+                TrashIcon(enabled = true)
             }
         })
-        state().picture?.let {
+        state.picture?.let {
             SimpleImage(
                 modifier = Modifier.fillMaxWidth(),
-                url = it::fullSize,
+                url = it.fullSize,
                 options = ImageOptions(contentScale = ContentScale.FillWidth),
                 backgroundColor = AppTheme.colors.black
             )

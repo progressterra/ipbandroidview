@@ -55,7 +55,7 @@ import com.progressterra.ipbandroidview.domain.usecase.user.NeedAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import org.koin.dsl.module
 
 val useCasesModule = module {
@@ -174,8 +174,8 @@ val useCasesModule = module {
 
     single<FastRemoveFromCartUseCase> { FastRemoveFromCartUseCase.Base(get(), get(), get()) }
 
-    single<UserExistUseCase> {
-        UserExistUseCase.Base()
+    single<UserExistsUseCase> {
+        UserExistsUseCase.Base()
     }
 
     single<AvailableBonusesUseCase> {

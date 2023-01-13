@@ -44,7 +44,7 @@ class OrganizationAuditsNode(
         }
         val state = viewModel.collectAsState()
         OrganizationAuditsScreen(
-            state = state::value,
+            state = state.value,
             onMapClick = viewModel::onMapClick,
             back = viewModel::back,
             refresh = viewModel::refresh,

@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.CatalogSearchBar
 import com.progressterra.ipbandroidview.composable.MainCategoryItem
-import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.StateBox
+import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.model.store.Category
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun CatalogScreen(
-    state: () -> CatalogState,
+    state: CatalogState,
     refresh: () -> Unit,
     openCategory: (Category) -> Unit,
     search: () -> Unit,
@@ -34,7 +34,7 @@ fun CatalogScreen(
         )
     }) { _, _ ->
         StateBox(
-            state = state()::screenState, refresh = refresh
+            state = state.screenState, refresh = refresh
         ) {
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
@@ -43,8 +43,10 @@ fun CatalogScreen(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                items(state().categories) {
-                    MainCategoryItem(state = { it }, openCategory = { openCategory(it) })
+                items(state.categories) {
+                    MainCategoryItem(
+                        state = it,
+                        openCategory = { category -> openCategory(category) })
                 }
             }
         }

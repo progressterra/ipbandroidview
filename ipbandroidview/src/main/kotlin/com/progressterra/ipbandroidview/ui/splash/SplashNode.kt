@@ -26,6 +26,6 @@ class SplashNode(
             }
         }
         val state = viewModel.collectAsState()
-        SplashScreen(state = state::value, settings = settings)
+        SplashScreen(state = state.value, settings = settings)
     }
 }

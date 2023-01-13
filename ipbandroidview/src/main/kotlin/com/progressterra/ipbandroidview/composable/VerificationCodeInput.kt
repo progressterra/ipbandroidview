@@ -40,7 +40,7 @@ private val borderWidth = 1.dp
 @Composable
 fun VerificationCodeInput(
     modifier: Modifier = Modifier,
-    code: () -> String,
+    code: String,
     editCode: (String) -> Unit
 ) {
 
@@ -74,7 +74,7 @@ fun VerificationCodeInput(
     }
 
     var localCode by remember(code) {
-        mutableStateOf(TextFieldValue(text = code(), selection = TextRange(code().length)))
+        mutableStateOf(TextFieldValue(text = code, selection = TextRange(code.length)))
     }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
@@ -113,6 +113,6 @@ fun VerificationCodeInput(
 @Composable
 private fun VerificationCodeInputPreview0() {
     AppTheme {
-        VerificationCodeInput(code = { "" }, editCode = {})
+        VerificationCodeInput(code = "", editCode = {})
     }
 }

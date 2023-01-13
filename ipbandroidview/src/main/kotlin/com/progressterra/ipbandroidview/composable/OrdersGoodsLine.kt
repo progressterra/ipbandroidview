@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun OrdersGoodsLine(
     modifier: Modifier = Modifier,
-    state: () -> OrderDetails,
+    state: OrderDetails,
     openGoodsDetails: (String) -> Unit
 ) {
 
@@ -32,19 +32,19 @@ fun OrdersGoodsLine(
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
             Text(
-                text = state().status,
+                text = state.status,
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.title
             )
             Text(
-                text = state().number,
+                text = state.number,
                 color = AppTheme.colors.gray2,
                 style = AppTheme.typography.tertiaryText
             )
         }
         LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-            items(state().goods) {
-                GoodsLineItem(state = { it }, openGoodsDetails = openGoodsDetails)
+            items(state.goods) {
+                GoodsLineItem(state = it, openGoodsDetails = openGoodsDetails)
             }
         }
     }
@@ -54,8 +54,6 @@ fun OrdersGoodsLine(
 @Composable
 private fun OrdersGoodsLinePreview() {
     AppTheme {
-        OrdersGoodsLine(state = {
-            OrderDetails()
-        }, openGoodsDetails = {})
+        OrdersGoodsLine(state = OrderDetails(), openGoodsDetails = {})
     }
 }

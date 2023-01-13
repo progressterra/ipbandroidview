@@ -28,7 +28,7 @@ class FavoritesNode(
         }
         val state = viewModel.collectAsState()
         FavoritesScreen(
-            state = state::value,
+            state = state.value,
             favoriteSpecific = viewModel::favoriteSpecific,
             refresh = viewModel::refresh,
             openDetails = viewModel::openDetails

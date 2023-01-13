@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.UserExistUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.removeItem
 import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.store.CartGoods
@@ -20,7 +20,7 @@ class CartViewModel(
     private val cartUseCase: CartUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase,
-    private val userExistUseCase: UserExistUseCase
+    private val userExistsUseCase: UserExistsUseCase
 ) : ViewModel(), ContainerHost<CartState, CartEffect> {
 
     override val container: Container<CartState, CartEffect> = container(CartState())
@@ -41,7 +41,7 @@ class CartViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         cartUseCase().onSuccess {
             reduce { state.copy(cart = it) }
-            userExistUseCase().onSuccess {
+            userExistsUseCase().onSuccess {
                 reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
             }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }

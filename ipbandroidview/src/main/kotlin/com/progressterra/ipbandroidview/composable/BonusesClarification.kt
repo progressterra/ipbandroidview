@@ -18,10 +18,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun BonusesClarification(
-    modifier: Modifier = Modifier,
-    burningDate: () -> String,
-    burningQuantity: () -> Int,
-    onClick: () -> Unit
+    modifier: Modifier = Modifier, burningDate: String, burningQuantity: Int, onClick: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -33,19 +30,15 @@ fun BonusesClarification(
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         Text(
-            text = "🔥",
-            style = AppTheme.typography.headLine,
-            color = AppTheme.colors.black
+            text = "🔥", style = AppTheme.typography.headLine, color = AppTheme.colors.black
         )
         Column(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
         ) {
             Text(
-                text = "${burningDate()} ${stringResource(R.string.will_burn)} ${burningQuantity()} ${
+                text = "$burningDate ${stringResource(R.string.will_burn)} $burningQuantity ${
                     stringResource(R.string.bonuses)
-                }",
-                style = AppTheme.typography.text,
-                color = AppTheme.colors.black
+                }", style = AppTheme.typography.text, color = AppTheme.colors.black
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,

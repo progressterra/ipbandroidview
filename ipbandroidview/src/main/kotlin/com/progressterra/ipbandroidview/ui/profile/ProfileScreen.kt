@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ProfileScreen(
-    state: () -> ProfileState,
+    state: ProfileState,
     openDetails: () -> Unit,
     onOrders: () -> Unit,
     onFavorites: () -> Unit,
@@ -56,12 +56,12 @@ fun ProfileScreen(
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
                     Text(
-                        text = state().name.ifBlank { stringResource(id = R.string.set_name) },
+                        text = state.name.ifBlank { stringResource(id = R.string.set_name) },
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )
                     Text(
-                        text = state().phone,
+                        text = state.phone,
                         color = AppTheme.colors.gray2,
                         style = AppTheme.typography.secondaryText
                     )

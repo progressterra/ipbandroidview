@@ -16,9 +16,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.ExpandableText
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.ExpandableText
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val imageHeight = 72.dp
@@ -27,7 +27,7 @@ private val imageWidth = 264.dp
 
 @Composable
 fun BonusesClarificationScreen(
-    state: () -> BonusesClarificationState,
+    state: BonusesClarificationState,
     back: () -> Unit,
     expandHowToSpend: () -> Unit,
     expandRatio: () -> Unit,
@@ -45,7 +45,7 @@ fun BonusesClarificationScreen(
         ) {
             ExpandableText(
                 text = stringResource(R.string.how_to_spend_short),
-                expanded = state()::howToSpendExpand,
+                expanded = state.howToSpendExpand,
                 expand = expandHowToSpend
             ) {
                 Text(
@@ -71,7 +71,7 @@ fun BonusesClarificationScreen(
             }
             ExpandableText(
                 text = stringResource(R.string.bonuses_ratio_short),
-                expanded = state()::ratioExpand,
+                expanded = state.ratioExpand,
                 expand = expandRatio
             ) {
                 Text(
@@ -82,7 +82,7 @@ fun BonusesClarificationScreen(
             }
             ExpandableText(
                 text = stringResource(R.string.how_to_obtain_short),
-                expanded = state()::howToObtainExpand,
+                expanded = state.howToObtainExpand,
                 expand = expandHowToObtain
             ) {
                 Text(
@@ -100,11 +100,9 @@ fun BonusesClarificationScreen(
 private fun BonusesClarificationScreenPreview() {
     AppTheme {
         BonusesClarificationScreen(
-            state = {
-                BonusesClarificationState(
-                    howToSpendExpand = true, ratioExpand = true, howToObtainExpand = false
-                )
-            },
+            state = BonusesClarificationState(
+                howToSpendExpand = true, ratioExpand = true, howToObtainExpand = false
+            ),
             back = {},
             expandRatio = {},
             expandHowToSpend = {},

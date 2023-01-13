@@ -16,8 +16,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun AuditTitle(
     modifier: Modifier = Modifier,
-    name: () -> String,
-    checkCounter: () -> Int
+    name: String,
+    checkCounter: Int
 ) {
     Column(
         modifier = modifier
@@ -27,12 +27,12 @@ fun AuditTitle(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         Text(
-            text = name(),
+            text = name,
             color = AppTheme.colors.black,
             style = AppTheme.typography.title
         )
         Text(
-            text = "${stringResource(id = R.string.questions)}: ${checkCounter()}",
+            text = "${stringResource(id = R.string.questions)}: $checkCounter",
             color = AppTheme.colors.gray2,
             style = AppTheme.typography.tertiaryText
         )
@@ -43,7 +43,8 @@ fun AuditTitle(
 @Composable
 private fun AuditTitlePreview() {
     AppTheme {
-        AuditTitle(name = { "Some cool audit" }, checkCounter = { 999 }
+        AuditTitle(
+            name = "Some cool audit", checkCounter = 999
         )
     }
 }

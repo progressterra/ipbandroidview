@@ -24,16 +24,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.DocumentCard
-import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.model.checklist.Document
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun DocumentsScreen(
-    state: () -> DocumentsState,
+    state: DocumentsState,
     refresh: () -> Unit,
     openArchive: () -> Unit,
     openDocument: (Document) -> Unit
@@ -42,7 +42,7 @@ fun DocumentsScreen(
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) { _, _ ->
         StateBox(
-            modifier = Modifier.fillMaxSize(), state = state()::screenState, refresh = refresh
+            modifier = Modifier.fillMaxSize(), state = state.screenState, refresh = refresh
         ) {
             var buttonSize by remember { mutableStateOf(0.dp) }
             LazyColumn(
@@ -50,10 +50,10 @@ fun DocumentsScreen(
                 contentPadding = PaddingValues(AppTheme.dimensions.small),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                items(state().documents) {
+                items(state.documents) {
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
-                        state = { it },
+                        state = it,
                         openDocument = openDocument
                     )
                 }

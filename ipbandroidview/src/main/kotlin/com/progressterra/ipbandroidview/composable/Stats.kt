@@ -13,17 +13,17 @@ import com.progressterra.ipbandroidview.model.checklist.ChecklistStats
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun Stats(modifier: Modifier = Modifier, stats: () -> ChecklistStats) {
+fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
 
     @Composable
-    fun Item(icon: @Composable () -> Unit, title: () -> String, tint: Color) {
+    fun Item(icon: @Composable () -> Unit, title: String, tint: Color) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
             icon()
             Text(
-                text = title(),
+                text = title,
                 style = AppTheme.typography.text,
                 color = tint
             )
@@ -37,22 +37,22 @@ fun Stats(modifier: Modifier = Modifier, stats: () -> ChecklistStats) {
     ) {
         Item(
             icon = { SumIcon() },
-            title = stats().total::toString,
+            title = stats.total.toString(),
             tint = AppTheme.colors.gray1
         )
         Item(
             icon = { SuccessIcon() },
-            title = stats().successful::toString,
+            title = stats.successful.toString(),
             tint = AppTheme.colors.primary
         )
         Item(
             icon = { FailedIcon() },
-            title = stats().failed::toString,
+            title = stats.failed.toString(),
             tint = AppTheme.colors.error
         )
         Item(
             icon = { RemainingIcon() },
-            title = stats().remaining::toString,
+            title = stats.remaining.toString(),
             tint = AppTheme.colors.gray2
         )
     }
@@ -62,6 +62,6 @@ fun Stats(modifier: Modifier = Modifier, stats: () -> ChecklistStats) {
 @Composable
 private fun StatsPreview() {
     AppTheme {
-        Stats(stats = { ChecklistStats(14, 10, 3, 1) })
+        Stats(stats = ChecklistStats(14, 10, 3, 1))
     }
 }

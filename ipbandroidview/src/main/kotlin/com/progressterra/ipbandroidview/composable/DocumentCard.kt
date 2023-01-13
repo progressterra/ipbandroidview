@@ -23,21 +23,21 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun DocumentCard(
     modifier: Modifier = Modifier,
-    state: () -> Document,
+    state: Document,
     openDocument: (Document) -> Unit
 ) {
     Row(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
-            .background(if (state().isFinished()) AppTheme.colors.surfaces else AppTheme.colors.secondary)
-            .niceClickable(onClick = { openDocument(state()) })
+            .background(if (state.isFinished()) AppTheme.colors.surfaces else AppTheme.colors.secondary)
+            .niceClickable(onClick = { openDocument(state) })
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column(Modifier.weight(1f, false)) {
             Text(
-                text = state().name,
+                text = state.name,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text,
                 maxLines = 3,
@@ -45,14 +45,14 @@ fun DocumentCard(
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.tiniest))
             Text(
-                text = state().address,
+                text = state.address,
                 color = AppTheme.colors.gray2,
                 style = AppTheme.typography.tertiaryText,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-            Stats(Modifier.fillMaxWidth(), state()::stats)
+            Stats(Modifier.fillMaxWidth(), state.stats)
         }
         Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
         ForwardIcon()
@@ -64,23 +64,21 @@ fun DocumentCard(
 private fun AuditCardPreview() {
     AppTheme {
         DocumentCard(
-            state = {
-                Document(
-                    documentId = "",
-                    checklistId = "",
-                    placeId = "",
-                    name = "Some cool doc",
-                    address = "123 123 123",
-                    checkCounter = 10,
-                    finishDate = null,
-                    stats = ChecklistStats(
-                        total = 11,
-                        successful = 10,
-                        failed = 120,
-                        remaining = 10
-                    )
+            state = Document(
+                documentId = "",
+                checklistId = "",
+                placeId = "",
+                name = "Some cool doc",
+                address = "123 123 123",
+                checkCounter = 10,
+                finishDate = null,
+                stats = ChecklistStats(
+                    total = 11,
+                    successful = 10,
+                    failed = 120,
+                    remaining = 10
                 )
-            },
+            ),
             openDocument = {}
         )
     }

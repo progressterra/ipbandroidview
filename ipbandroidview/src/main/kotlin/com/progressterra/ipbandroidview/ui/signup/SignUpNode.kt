@@ -31,7 +31,7 @@ class SignUpNode(
         }
         val state = viewModel.collectAsState()
         SignUpScreen(
-            state = state::value,
+            state = state.value,
             skip = viewModel::skip,
             next = viewModel::next,
             editBirthday = viewModel::editBirthday,

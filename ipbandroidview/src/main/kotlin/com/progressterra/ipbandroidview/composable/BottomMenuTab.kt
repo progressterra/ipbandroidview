@@ -41,14 +41,14 @@ data class BottomMenuTabState(
 @Composable
 fun BottomMenuTab(
     modifier: Modifier = Modifier,
-    state: () -> BottomMenuTabState,
+    state: BottomMenuTabState,
     onClick: (Int) -> Unit,
-    active: @Composable () -> Int
+    active: Int
 ) {
 
     @Composable
-    fun Counter(modifier: Modifier = Modifier, count: () -> Int) {
-        if (count() > 0) {
+    fun Counter(modifier: Modifier = Modifier, count: Int) {
+        if (count > 0) {
             Box(
                 modifier = modifier
                     .size(AppTheme.dimensions.counterSize)
@@ -58,7 +58,7 @@ fun BottomMenuTab(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = state().count.toString(),
+                    text = state.count.toString(),
                     textAlign = TextAlign.Center,
                     color = AppTheme.colors.black,
                     style = AppTheme.typography.actionBarLabels
@@ -68,26 +68,26 @@ fun BottomMenuTab(
     }
 
     Column(modifier = modifier
-        .clickable { onClick(state().id) }
+        .clickable { onClick(state.id) }
         .padding(AppTheme.dimensions.tiny),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         Box(modifier = Modifier.size(bottomMenuItemSize)) {
-            Counter(modifier = Modifier.align(Alignment.TopEnd), count = state()::count)
+            Counter(modifier = Modifier.align(Alignment.TopEnd), count = state.count)
             Icon(
                 modifier = Modifier
                     .size(bottomMenuIconSize)
                     .align(Alignment.Center),
-                painter = painterResource(id = state().iconId),
+                painter = painterResource(id = state.iconId),
                 contentDescription = null,
-                tint = if (active() == state().id) AppTheme.colors.primary else AppTheme.colors.gray2
+                tint = if (active == state.id) AppTheme.colors.primary else AppTheme.colors.gray2
             )
         }
         Text(
-            text = stringResource(id = state().titleId),
+            text = stringResource(id = state.titleId),
             style = AppTheme.typography.actionBarLabels,
-            color = if (active() == state().id) AppTheme.colors.primary else AppTheme.colors.gray2
+            color = if (active == state.id) AppTheme.colors.primary else AppTheme.colors.gray2
         )
     }
 }
@@ -97,14 +97,12 @@ fun BottomMenuTab(
 private fun BottomNavItemPreview0() {
     AppTheme {
         BottomMenuTab(
-            state = {
-                BottomMenuTabState(
-                    id = 0,
-                    iconId = R.drawable.ic_profile,
-                    count = 3,
-                    titleId = R.string.address,
-                )
-            }, active = { 0 }, onClick = {})
+            state = BottomMenuTabState(
+                id = 0,
+                iconId = R.drawable.ic_profile,
+                count = 3,
+                titleId = R.string.address,
+            ), active = 0, onClick = {})
     }
 }
 
@@ -113,13 +111,11 @@ private fun BottomNavItemPreview0() {
 private fun BottomNavItemPreview1() {
     AppTheme {
         BottomMenuTab(
-            state = {
-                BottomMenuTabState(
-                    id = 0,
-                    iconId = R.drawable.ic_audits,
-                    count = 0,
-                    titleId = R.string.address,
-                )
-            }, active = { 1 }, onClick = {})
+            state = BottomMenuTabState(
+                id = 0,
+                iconId = R.drawable.ic_audits,
+                count = 0,
+                titleId = R.string.address,
+            ), active = 1, onClick = {})
     }
 }

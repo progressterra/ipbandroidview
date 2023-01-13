@@ -31,7 +31,7 @@ interface DeliveryPickerState {
 @Composable
 fun DeliveryPicker(
     modifier: Modifier = Modifier,
-    state: () -> DeliveryPickerState,
+    state: DeliveryPickerState,
     changeAddress: () -> Unit,
     selectPickUpPoint: () -> Unit,
     selectDeliveryMethod: (Delivery) -> Unit,
@@ -61,7 +61,7 @@ fun DeliveryPicker(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = state().addressUI.printAddress(),
+                text = state.addressUI.printAddress(),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text
             )
@@ -70,13 +70,13 @@ fun DeliveryPicker(
         Column(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
-            state().deliveryMethods.values.forEach {
+            state.deliveryMethods.values.forEach {
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     ThemedRadioButton(
-                        checked = { it == state().selectedDeliveryMethod },
+                        checked = it == state.selectedDeliveryMethod,
                         onClick = { selectDeliveryMethod(it) })
                     Column {
                         Text(
@@ -91,11 +91,11 @@ fun DeliveryPicker(
                         )
                     }
                 }
-                if (it == state().selectedDeliveryMethod)
+                if (it == state.selectedDeliveryMethod)
                     when (it) {
                         is Delivery.CourierDelivery -> ThemedTextField(
                             modifier = Modifier.fillMaxWidth(),
-                            text = it::commentary,
+                            text = it.commentary,
                             hint = stringResource(R.string.comment),
                             onChange = editComment
                         )

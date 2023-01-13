@@ -28,7 +28,7 @@ private val picHeight = 96.dp
 @Composable
 fun CartCard(
     modifier: Modifier = Modifier,
-    state: () -> CartGoods,
+    state: CartGoods,
     onFavorite: (CartGoods) -> Unit,
     onDelete: (CartGoods) -> Unit,
     onDetails: (CartGoods) -> Unit
@@ -38,7 +38,7 @@ fun CartCard(
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .niceClickable(onClick = { onDetails(state()) })
+            .niceClickable(onClick = { onDetails(state) })
             .padding(AppTheme.dimensions.small),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
@@ -46,7 +46,7 @@ fun CartCard(
             modifier = Modifier
                 .size(width = picWidth, height = picHeight)
                 .clip(AppTheme.shapes.small),
-            url = state()::image,
+            url = state.image,
             backgroundColor = AppTheme.colors.surfaces
         )
         Column(
@@ -54,25 +54,25 @@ fun CartCard(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.smany)
         ) {
             Text(
-                text = state().name,
+                text = state.name,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text
             )
             Text(
-                text = "${state().color.name}, ${state().size.primary}, ${state().inCartCounter} шт",
+                text = "${state.color.name}, ${state.size.primary}, ${state.inCartCounter} шт",
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.text
             )
             Text(
-                text = state().price.toString(),
+                text = state.price.toString(),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title
             )
         }
         Column {
-            FavoriteButton(favorite = state()::favorite, onClick = { onFavorite(state()) })
-            IconButton(onClick = { onDelete(state()) }) {
-                TrashIcon(enabled = { false })
+            FavoriteButton(favorite = state.favorite, onClick = { onFavorite(state) })
+            IconButton(onClick = { onDelete(state) }) {
+                TrashIcon(enabled = false)
             }
         }
     }
@@ -82,17 +82,15 @@ fun CartCard(
 @Composable
 private fun CartCardPreview() {
     AppTheme {
-        CartCard(state = {
-            CartGoods(
-                id = "",
-                color = GoodsColor("", "GREEN"),
-                favorite = true,
-                image = "",
-                inCartCounter = 30,
-                name = "YOOOY SO COOL ITEM",
-                price = SimplePrice(3000),
-                size = GoodsSize(true, "", null)
-            )
-        }, onFavorite = {}, onDelete = {}, onDetails = {})
+        CartCard(state = CartGoods(
+            id = "",
+            color = GoodsColor("", "GREEN"),
+            favorite = true,
+            image = "",
+            inCartCounter = 30,
+            name = "YOOOY SO COOL ITEM",
+            price = SimplePrice(3000),
+            size = GoodsSize(true, "", null)
+        ), onFavorite = {}, onDelete = {}, onDetails = {})
     }
 }

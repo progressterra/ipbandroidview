@@ -47,7 +47,7 @@ class OrderNode(
         }
         val state = viewModel.collectAsState()
         OrderScreen(
-            state = state::value,
+            state = state.value,
             back = viewModel::back,
             goodsDetails = viewModel::goodsDetails,
             changeAddress = viewModel::changeAddress,

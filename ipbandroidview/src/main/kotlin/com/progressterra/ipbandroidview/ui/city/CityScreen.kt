@@ -22,18 +22,18 @@ import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.AddressSuggestions
-import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.ThemedTextField
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.model.address.SuggestionUI
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun CityScreen(
-    state: () -> CityState,
+    state: CityState,
     back: () -> Unit,
     skip: () -> Unit,
     next: () -> Unit,
@@ -53,7 +53,7 @@ fun CityScreen(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = next,
                 text = stringResource(id = R.string.ready),
-                enabled = state()::isDataValid,
+                enabled = state.isDataValid,
             )
             if (settings.passable) {
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
@@ -92,7 +92,7 @@ fun CityScreen(
                     start.linkTo(background.start, 12.dp)
                     end.linkTo(background.end, 12.dp)
                 },
-                text = state().address::toString,
+                text = state.address,
                 hint = stringResource(id = R.string.address),
                 onChange = editAddress
             )
@@ -110,7 +110,7 @@ fun CityScreen(
                 cameraPositionState = cameraPositionState,
                 onMapClick = onMapClick, onMyLocationClick = {
                     onMapClick(LatLng(it.latitude, it.longitude))
-                }, properties = MapProperties(isMyLocationEnabled = state().isPermissionGranted)
+                }, properties = MapProperties(isMyLocationEnabled = state.isPermissionGranted)
             )
             AddressSuggestions(
                 modifier = Modifier.constrainAs(suggestions) {
@@ -119,8 +119,8 @@ fun CityScreen(
                     start.linkTo(address.start)
                     end.linkTo(address.end)
                 },
-                suggestions = state()::suggestions,
-                isVisible = state().suggestions::isNotEmpty,
+                suggestions = state.suggestions,
+                isVisible = state.suggestions.isNotEmpty(),
                 onSuggestion = onSuggestion
             )
         }

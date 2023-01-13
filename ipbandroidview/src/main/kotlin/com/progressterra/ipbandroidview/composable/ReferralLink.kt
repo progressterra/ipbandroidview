@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ReferralLink(
     modifier: Modifier = Modifier,
-    promoCode: () -> String,
+    promoCode: String,
     onCopy: () -> Unit,
     onShare: () -> Unit
 ) {
@@ -38,7 +38,7 @@ fun ReferralLink(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.smany)
             ) {
                 Text(
-                    text = promoCode(),
+                    text = promoCode,
                     color = AppTheme.colors.black,
                     style = AppTheme.typography.headLine
                 )

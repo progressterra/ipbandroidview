@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun CartScreen(
-    state: () -> CartState,
+    state: CartState,
     openDetails: (CartGoods) -> Unit,
     favoriteSpecific: (CartGoods) -> Unit,
     removeSpecific: (CartGoods) -> Unit,
@@ -30,24 +30,23 @@ fun CartScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.cart))
     }, bottomBar = {
-        if (state().cart.listGoods.isNotEmpty())
+        if (state.cart.listGoods.isNotEmpty())
             CartBottomBar(
                 onNext = next,
                 onAuth = auth,
-                userExist = state()::userExist,
-                screenState = state()::screenState,
-                totalPrice = state().cart::totalPrice
+                userExist = state.userExist,
+                totalPrice = state.cart.totalPrice
             )
     }) { _, _ ->
-        StateBox(state = state()::screenState, refresh = refresh) {
+        StateBox(state = state.screenState, refresh = refresh) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                items(state().cart.listGoods) {
+                items(state.cart.listGoods) {
                     CartCard(
-                        state = { it },
+                        state = it,
                         onFavorite = favoriteSpecific,
                         onDelete = removeSpecific,
                         onDetails = openDetails

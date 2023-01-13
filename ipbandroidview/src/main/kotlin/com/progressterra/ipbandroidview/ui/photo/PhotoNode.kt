@@ -41,7 +41,7 @@ class PhotoNode(
         }
         val state = viewModel.collectAsState()
         PhotoScreen(
-            state = state::value,
+            state = state.value,
             back = viewModel::back,
             remove = viewModel::remove
         )

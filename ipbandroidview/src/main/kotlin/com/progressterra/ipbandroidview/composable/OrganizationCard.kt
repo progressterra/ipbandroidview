@@ -25,14 +25,14 @@ private val imageWidth = 120.dp
 @Composable
 fun OrganizationCard(
     modifier: Modifier = Modifier,
-    state: () -> Organization,
+    state: Organization,
     openOrganization: (Organization) -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
-            .niceClickable(onClick = { openOrganization(state()) })
+            .niceClickable(onClick = { openOrganization(state) })
             .background(AppTheme.colors.surfaces)
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
@@ -42,7 +42,7 @@ fun OrganizationCard(
             modifier = Modifier
                 .size(width = imageWidth, height = imageHeight)
                 .clip(AppTheme.shapes.small),
-            url = state()::imageUrl,
+            url = state.imageUrl,
             backgroundColor = AppTheme.colors.surfaces
         )
         Column(
@@ -50,14 +50,14 @@ fun OrganizationCard(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
         ) {
             Text(
-                text = state().address,
+                text = state.address,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = state().name,
+                text = state.name,
                 color = AppTheme.colors.gray2,
                 style = AppTheme.typography.secondaryText,
                 maxLines = 1,
@@ -69,13 +69,13 @@ fun OrganizationCard(
             ) {
                 AuditsIcon()
                 Text(
-                    text = state().audits,
+                    text = state.audits,
                     color = AppTheme.colors.gray2,
                     style = AppTheme.typography.secondaryText
                 )
                 DocumentsIcon()
                 Text(
-                    text = state().documents,
+                    text = state.documents,
                     color = AppTheme.colors.gray2,
                     style = AppTheme.typography.secondaryText
                 )
@@ -90,18 +90,16 @@ fun OrganizationCard(
 private fun OrganizationPreviewSmall() {
     AppTheme {
         OrganizationCard(
-            state = {
-                Organization(
-                    address = "123 132 123",
-                    id = "",
-                    name = "Somme coool name",
-                    imageUrl = "",
-                    latitude = 0.0,
-                    longitude = 0.0,
-                    audits = "30",
-                    documents = "155"
-                )
-            },
+            state = Organization(
+                address = "123 132 123",
+                id = "",
+                name = "Somme coool name",
+                imageUrl = "",
+                latitude = 0.0,
+                longitude = 0.0,
+                audits = "30",
+                documents = "155"
+            ),
             openOrganization = {}
         )
     }

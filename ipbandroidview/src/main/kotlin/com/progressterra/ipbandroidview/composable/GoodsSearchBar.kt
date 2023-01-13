@@ -24,7 +24,7 @@ private val paddingBottom = 10.dp
 @Composable
 fun GoodsSearchBar(
     modifier: Modifier = Modifier,
-    state: () -> GoodsSearchBarState,
+    state: GoodsSearchBarState,
     onBack: () -> Unit,
     onFilters: () -> Unit,
     onClear: () -> Unit,
@@ -43,7 +43,7 @@ fun GoodsSearchBar(
         }
         ThemedTextField(modifier = Modifier
             .weight(1f),
-            text = state()::keyword,
+            text = state.keyword,
             hint = stringResource(id = R.string.search),
             onChange = onKeyword,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -51,7 +51,7 @@ fun GoodsSearchBar(
             ),
             action = onSearch,
             trailingIcon = {
-                if (state().keyword.isNotEmpty()) IconButton(onClick = onClear) {
+                if (state.keyword.isNotEmpty()) IconButton(onClick = onClear) {
                     Mark2Icon()
                 }
                 else SearchIcon()
@@ -71,11 +71,7 @@ private class GoodsSearchBarStatePreview(
 private fun GoodsSearchBarPreview() {
     AppTheme {
         GoodsSearchBar(
-            state = {
-                GoodsSearchBarStatePreview(
-                    keyword = ""
-                )
-            },
+            state = GoodsSearchBarStatePreview(keyword = ""),
             onClear = {},
             onKeyword = {},
             onSearch = {},
@@ -90,11 +86,7 @@ private fun GoodsSearchBarPreview() {
 private fun GoodsSearchBarPreviewExpanded() {
     AppTheme {
         GoodsSearchBar(
-            state = {
-                GoodsSearchBarStatePreview(
-                    keyword = "some keyword"
-                )
-            },
+            state = GoodsSearchBarStatePreview(keyword = "some keyword"),
             onClear = {},
             onKeyword = {},
             onSearch = {},

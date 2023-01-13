@@ -28,9 +28,7 @@ interface BonusSwitchState {
 
 @Composable
 fun BonusSwitch(
-    modifier: Modifier = Modifier,
-    state: () -> BonusSwitchState,
-    switchUseBonuses: (Boolean) -> Unit
+    modifier: Modifier = Modifier, state: BonusSwitchState, switchUseBonuses: (Boolean) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -46,13 +44,13 @@ fun BonusSwitch(
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = state().availableBonuses.quantity.toString(),
+                text = state.availableBonuses.quantity.toString(),
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.text
             )
             BonusesSmallIcon()
             Spacer(modifier = Modifier.weight(1f))
-            ThemedSwitch(onChange = switchUseBonuses, checked = state()::useBonuses)
+            ThemedSwitch(onChange = switchUseBonuses, checked = state.useBonuses)
         }
     }
 }
@@ -66,8 +64,6 @@ private class BonusSwitchStatePreview(
 @Composable
 fun BonusSwitchPreview() {
     AppTheme {
-        BonusSwitch(
-            state = { BonusSwitchStatePreview() }, switchUseBonuses = {}
-        )
+        BonusSwitch(state = BonusSwitchStatePreview(), switchUseBonuses = {})
     }
 }

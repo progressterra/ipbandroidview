@@ -27,8 +27,8 @@ private val paddingBottom = 10.dp
 @Composable
 fun CategorySearchBar(
     modifier: Modifier = Modifier,
-    state: () -> CategorySearchBarState,
-    category: () -> String,
+    state: CategorySearchBarState,
+    category: String,
     onExpand: () -> Unit,
     onBack: () -> Unit,
     onClear: () -> Unit,
@@ -42,20 +42,20 @@ fun CategorySearchBar(
             bottom = paddingBottom
         )
     ) {
-        if (!state().expanded) {
+        if (!state.expanded) {
             IconButton(onClick = onBack) { BackIcon() }
         }
-        if (!state().expanded) {
+        if (!state.expanded) {
             Text(
-                text = category(),
+                text = category,
                 style = AppTheme.typography.title,
                 color = AppTheme.colors.black
             )
         }
-        if (state().expanded) {
+        if (state.expanded) {
             ThemedTextField(modifier = Modifier
                 .weight(1f),
-                text = state()::keyword,
+                text = state.keyword,
                 hint = stringResource(id = R.string.search),
                 onChange = onKeyword,
                 keyboardOptions = KeyboardOptions.Default.copy(
@@ -63,13 +63,13 @@ fun CategorySearchBar(
                 ),
                 action = onSearch,
                 trailingIcon = {
-                    if (state().keyword.isNotEmpty()) IconButton(onClick = onClear) {
+                    if (state.keyword.isNotEmpty()) IconButton(onClick = onClear) {
                         Mark2Icon()
                     }
                     else SearchIcon()
                 })
         }
-        if (!state().expanded)
+        if (!state.expanded)
             IconButton(onClick = onExpand) { SearchIcon() }
     }
 }
@@ -83,16 +83,12 @@ private class CategorySearchBarStatePreview(
 private fun CategorySearchBarPreview() {
     AppTheme {
         CategorySearchBar(
-            state = {
-                CategorySearchBarStatePreview(
-                    keyword = "", expanded = false
-                )
-            },
+            state = CategorySearchBarStatePreview(keyword = "", expanded = false),
             onBack = {},
             onClear = {},
             onKeyword = {},
             onSearch = {},
-            category = { "Some category" },
+            category = "Some category",
             onExpand = {}
         )
     }
@@ -103,16 +99,12 @@ private fun CategorySearchBarPreview() {
 private fun CategorySearchBarPreviewExpanded() {
     AppTheme {
         CategorySearchBar(
-            state = {
-                CategorySearchBarStatePreview(
-                    keyword = "some keyword", expanded = true
-                )
-            },
+            state = CategorySearchBarStatePreview(keyword = "some keyword", expanded = true),
             onBack = {},
             onClear = {},
             onKeyword = {},
             onSearch = {},
-            category = { "Some category" },
+            category = "Some category",
             onExpand = {}
         )
     }

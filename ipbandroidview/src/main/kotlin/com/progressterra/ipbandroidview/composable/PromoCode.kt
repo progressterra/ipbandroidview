@@ -27,7 +27,7 @@ interface PromoCodeState {
 @Composable
 fun PromoCode(
     modifier: Modifier = Modifier,
-    state: () -> PromoCodeState,
+    state: PromoCodeState,
     editPromoCode: (String) -> Unit,
     applyPromoCode: () -> Unit
 ) {
@@ -41,15 +41,15 @@ fun PromoCode(
     ) {
         ThemedTextField(
             modifier = Modifier.fillMaxWidth(),
-            text = state()::promoCodeName,
+            text = state.promoCodeName,
             hint = stringResource(R.string.promo_code),
             onChange = editPromoCode,
             action = applyPromoCode
         )
 
-        state().promoCode?.let {
+        state.promoCode?.let {
             Text(
-                text = "Скидка ${state().promoCode}",
+                text = "Скидка ${state.promoCode}",
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.tertiaryText
             )

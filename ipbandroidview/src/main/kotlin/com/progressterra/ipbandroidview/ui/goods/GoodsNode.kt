@@ -41,7 +41,7 @@ class GoodsNode(
         }
         val state = viewModel.collectAsState()
         GoodsScreen(
-            state = state::value,
+            state = state.value,
             refresh = viewModel::refresh,
             back = viewModel::back,
             filters = viewModel::filters,

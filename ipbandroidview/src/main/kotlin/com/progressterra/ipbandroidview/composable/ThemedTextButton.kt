@@ -13,37 +13,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ThemedTextButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: () -> String,
-    enabled: () -> Boolean = { true }
-) {
-    TextButton(
-        modifier = modifier,
-        onClick = onClick,
-        enabled = enabled(),
-        colors = ButtonDefaults.textButtonColors(
-            contentColor = AppTheme.colors.primary,
-            disabledContentColor = AppTheme.colors.gray2
-        ),
-        contentPadding = PaddingValues(
-            horizontal = AppTheme.dimensions.buttonHorizontalPadding,
-            vertical = AppTheme.dimensions.buttonVerticalPadding
-        )
-    ) {
-        Text(text = text(), style = AppTheme.typography.button)
-    }
-}
-
-@Composable
-fun ThemedTextButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
     text: String,
-    enabled: () -> Boolean = { true }
+    enabled: Boolean = true
 ) {
     TextButton(
         modifier = modifier,
         onClick = onClick,
-        enabled = enabled(),
+        enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
             contentColor = AppTheme.colors.primary,
             disabledContentColor = AppTheme.colors.gray2
@@ -61,7 +37,7 @@ fun ThemedTextButton(
 @Composable
 private fun ThemedTextButtonEnabledPreview() {
     AppTheme {
-        ThemedTextButton(onClick = {}, text = { "Some button" })
+        ThemedTextButton(onClick = {}, text = "Some button")
     }
 }
 
@@ -69,6 +45,6 @@ private fun ThemedTextButtonEnabledPreview() {
 @Composable
 private fun ThemedTextButtonDisabledPreview() {
     AppTheme {
-        ThemedTextButton(onClick = {}, text = { "Some button" }, enabled = { false })
+        ThemedTextButton(onClick = {}, text = "Some button", enabled = false)
     }
 }

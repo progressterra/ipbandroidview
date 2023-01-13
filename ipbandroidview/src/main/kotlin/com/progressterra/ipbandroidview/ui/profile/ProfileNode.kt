@@ -33,7 +33,7 @@ class ProfileNode(
         }
         val state = viewModel.collectAsState()
         ProfileScreen(
-            state = state::value,
+            state = state.value,
             openDetails = viewModel::openDetails,
             onOrders = viewModel::onOrders,
             onFavorites = viewModel::onFavorites,

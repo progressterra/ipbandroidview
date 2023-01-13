@@ -27,16 +27,16 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun PickUpPointScreen(
-    state: () -> PickUpPointState,
+    state: PickUpPointState,
     back: () -> Unit,
     choose: (PickUpPointInfo) -> Unit,
     next: () -> Unit
@@ -51,7 +51,7 @@ fun PickUpPointScreen(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = next,
                 text = stringResource(id = R.string.choose),
-                enabled = { state().currentPickUpPointInfo != null },
+                enabled = state.currentPickUpPointInfo != null,
             )
         }
     }) { _, _ ->
@@ -82,9 +82,9 @@ fun PickUpPointScreen(
                         )
                     )
                 },
-                properties = MapProperties(isMyLocationEnabled = state().isPermissionGranted)
+                properties = MapProperties(isMyLocationEnabled = state.isPermissionGranted)
             ) {
-                state().pickUpPoints.forEach { pickUpPoint ->
+                state.pickUpPoints.forEach { pickUpPoint ->
                     Marker(
                         state = rememberMarkerState(
                             position = LatLng(
@@ -101,7 +101,7 @@ fun PickUpPointScreen(
             }
             AnimatedVisibility(
                 modifier = Modifier.weight(1f),
-                visible = state().currentPickUpPointInfo != null,
+                visible = state.currentPickUpPointInfo != null,
                 enter = expandVertically(),
                 exit = shrinkVertically()
             ) {
@@ -109,13 +109,13 @@ fun PickUpPointScreen(
                     modifier = Modifier.verticalScroll(rememberScrollState())
                 ) {
                     Text(
-                        text = state().currentPickUpPointInfo?.address ?: "",
+                        text = state.currentPickUpPointInfo?.address ?: "",
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.tiniest))
                     Text(
-                        text = state().currentPickUpPointInfo?.pickupPointCode ?: "",
+                        text = state.currentPickUpPointInfo?.pickupPointCode ?: "",
                         color = AppTheme.colors.gray2,
                         style = AppTheme.typography.tertiaryText
                     )
@@ -127,7 +127,7 @@ fun PickUpPointScreen(
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.tiny))
                     Text(
-                        text = state().currentPickUpPointInfo?.workHour ?: "",
+                        text = state.currentPickUpPointInfo?.workHour ?: "",
                         color = AppTheme.colors.gray2,
                         style = AppTheme.typography.tertiaryText
                     )
@@ -139,7 +139,7 @@ fun PickUpPointScreen(
                     )
                     Spacer(modifier = Modifier.size(AppTheme.dimensions.tiny))
                     Text(
-                        text = state().currentPickUpPointInfo?.path ?: "",
+                        text = state.currentPickUpPointInfo?.path ?: "",
                         color = AppTheme.colors.gray2,
                         style = AppTheme.typography.tertiaryText
                     )

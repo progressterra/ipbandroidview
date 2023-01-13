@@ -27,7 +27,7 @@ interface GoodsLineState {
 @Composable
 fun GoodsLine(
     modifier: Modifier = Modifier,
-    state: () -> GoodsLineState,
+    state: GoodsLineState,
     openGoodsDetails: (String) -> Unit
 ) {
 
@@ -45,8 +45,8 @@ fun GoodsLine(
             style = AppTheme.typography.title
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-            items(state().goods) {
-                GoodsLineItem(state = { it }, openGoodsDetails = openGoodsDetails)
+            items(state.goods) {
+                GoodsLineItem(state = it, openGoodsDetails = openGoodsDetails)
             }
         }
     }
@@ -59,8 +59,6 @@ private class GoodsLineStatePreview(override val goods: List<OrderGoods> = empty
 @Composable
 private fun GoodsLinePreview() {
     AppTheme {
-        GoodsLine(state = {
-            GoodsLineStatePreview()
-        }, openGoodsDetails = {})
+        GoodsLine(state = GoodsLineStatePreview(), openGoodsDetails = {})
     }
 }

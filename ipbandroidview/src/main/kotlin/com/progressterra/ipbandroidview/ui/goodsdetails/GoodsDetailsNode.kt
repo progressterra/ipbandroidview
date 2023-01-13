@@ -39,7 +39,7 @@ class GoodsDetailsNode(
         }
         val state = viewModel.collectAsState()
         GoodsDetailsScreen(
-            state = state::value,
+            state = state.value,
             add = viewModel::add,
             remove = viewModel::remove,
             favorite = viewModel::favorite,

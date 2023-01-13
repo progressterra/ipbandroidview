@@ -135,4 +135,5 @@
     <string name="your_promo_code">Ваш промокод</string>
     <string name="referral_program">Реферальная программа</string>
     <string name="success_copied">Приглашение успешно копировано!</string>
+    <string name="refresh">Обновить</string>
 </resources>

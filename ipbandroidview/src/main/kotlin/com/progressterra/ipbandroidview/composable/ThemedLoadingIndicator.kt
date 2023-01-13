@@ -11,11 +11,11 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ThemedLoadingIndicator(
-    modifier: Modifier = Modifier, visible: () -> Boolean = { true }
+    modifier: Modifier = Modifier, visible: Boolean = true
 ) {
     AnimatedVisibility(
         modifier = modifier,
-        visible = visible(),
+        visible = visible,
         enter = fadeIn(),
         exit = fadeOut()
     ) {

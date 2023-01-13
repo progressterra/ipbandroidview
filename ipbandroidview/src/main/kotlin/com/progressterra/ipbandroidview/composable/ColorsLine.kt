@@ -35,7 +35,7 @@ private val borderWidth = 1.dp
 @Composable
 fun ColorsLine(
     modifier: Modifier = Modifier,
-    state: () -> GoodsDetails,
+    state: GoodsDetails,
     chooseColor: (GoodsColor) -> Unit
 ) {
 
@@ -47,7 +47,7 @@ fun ColorsLine(
                 .clip(AppTheme.shapes.small)
                 .border(
                     width = borderWidth,
-                    color = if (color == state().color) AppTheme.colors.primary else Transparent,
+                    color = if (color == state.color) AppTheme.colors.primary else Transparent,
                     AppTheme.shapes.small
                 )
                 .niceClickable(onClick = { chooseColor(color) })
@@ -56,7 +56,7 @@ fun ColorsLine(
         ) {
             SimpleImage(
                 modifier = Modifier.clip(AppTheme.shapes.tiny),
-                url = { color.image },
+                url = color.image,
                 backgroundColor = AppTheme.colors.surfaces
             )
         }
@@ -71,7 +71,7 @@ fun ColorsLine(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-            items(state().colors) {
+            items(state.colors) {
                 Item(it)
             }
         }
@@ -82,7 +82,7 @@ fun ColorsLine(
                 style = AppTheme.typography.tertiaryText
             )
             Text(
-                text = state().color.name,
+                text = state.color.name,
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.tertiaryText
             )
@@ -98,23 +98,21 @@ private fun ColorsLinePreview() {
             name = "M", image = ""
         )
         ColorsLine(
-            state = {
-                GoodsDetails(
-                    color = current,
-                    colors = listOf(
-                        current,
-                        GoodsColor(
-                            name = "L", image = ""
-                        ),
-                        GoodsColor(
-                            name = "XL", image = ""
-                        ),
-                        GoodsColor(
-                            name = "XXL", image = ""
-                        ),
-                    )
+            state = GoodsDetails(
+                color = current,
+                colors = listOf(
+                    current,
+                    GoodsColor(
+                        name = "L", image = ""
+                    ),
+                    GoodsColor(
+                        name = "XL", image = ""
+                    ),
+                    GoodsColor(
+                        name = "XXL", image = ""
+                    ),
                 )
-            }, chooseColor = {}
+            ), chooseColor = {}
         )
     }
 }

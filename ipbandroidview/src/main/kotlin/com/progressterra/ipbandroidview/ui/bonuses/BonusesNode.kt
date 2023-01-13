@@ -26,7 +26,7 @@ class BonusesNode(
         }
         val state = viewModel.collectAsState()
         BonusesScreen(
-            state = state::value,
+            state = state.value,
             clarification = viewModel::clarification,
             back = viewModel::back,
             refresh = viewModel::refresh

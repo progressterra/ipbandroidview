@@ -15,7 +15,7 @@ fun ThemedButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
-    enabled: () -> Boolean = { true },
+    enabled: Boolean = true,
     textColor: Color = AppTheme.colors.surfaces,
     tint: Color = AppTheme.colors.primary
 ) {
@@ -23,9 +23,9 @@ fun ThemedButton(
         modifier = modifier,
         onClick = onClick,
         shape = AppTheme.shapes.button,
-        enabled = enabled(),
+        enabled = enabled,
         colors = ButtonDefaults.textButtonColors(
-            backgroundColor = if (enabled()) tint else AppTheme.colors.gray3,
+            backgroundColor = if (enabled) tint else AppTheme.colors.gray3,
             contentColor = textColor,
             disabledContentColor = AppTheme.colors.gray2
         ),
@@ -50,6 +50,6 @@ private fun ThemedButtonEnabledPreview() {
 @Composable
 private fun ThemedButtonDisabledPreview() {
     AppTheme {
-        ThemedButton(onClick = {}, text = "Some button", enabled = { false })
+        ThemedButton(onClick = {}, text = "Some button", enabled = false)
     }
 }

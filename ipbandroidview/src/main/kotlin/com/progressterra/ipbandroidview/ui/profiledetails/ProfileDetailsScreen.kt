@@ -12,15 +12,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextField
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ProfileDetailsScreen(
-    state: () -> ProfileDetailsState,
+    state: ProfileDetailsState,
     confirmChange: () -> Unit,
     editEmail: (String) -> Unit,
     editName: (String) -> Unit,
@@ -49,21 +49,21 @@ fun ProfileDetailsScreen(
             ) {
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    text = state()::name,
+                    text = state.name,
                     hint = stringResource(id = R.string.name_surname),
                     onChange = editName
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    text = state()::email,
+                    text = state.email,
                     hint = stringResource(id = R.string.email),
                     onChange = editEmail
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
-                    text = state()::phone,
+                    text = state.phone,
                     hint = stringResource(id = R.string.phone_number),
-                    enabled = { false }
+                    enabled = false
                 )
             }
             ThemedButton(

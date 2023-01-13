@@ -22,7 +22,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ExpandableText(
     modifier: Modifier = Modifier,
     text: String,
-    expanded: () -> Boolean,
+    expanded: Boolean,
     expand: () -> Unit,
     content: @Composable ColumnScope.() -> Unit
 ) {
@@ -38,16 +38,18 @@ fun ExpandableText(
                 .niceClickable(onClick = expand)
                 .padding(
                     horizontal = AppTheme.dimensions.medium, vertical = AppTheme.dimensions.large
-                ), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically
+                ),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = text, style = AppTheme.typography.title, color = AppTheme.colors.black
             )
-            if (expanded()) UpIcon()
+            if (expanded) UpIcon()
             else DownIcon()
         }
         AnimatedVisibility(
-            visible = expanded(), enter = expandVertically(), exit = shrinkVertically()
+            visible = expanded, enter = expandVertically(), exit = shrinkVertically()
         ) {
             Column(
                 modifier = Modifier

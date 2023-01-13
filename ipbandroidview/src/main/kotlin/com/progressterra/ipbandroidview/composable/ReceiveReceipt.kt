@@ -28,7 +28,7 @@ interface ReceiveReceiptState {
 @Composable
 fun ReceiveReceipt(
     modifier: Modifier = Modifier,
-    state: () -> ReceiveReceiptState,
+    state: ReceiveReceiptState,
     check: (Boolean) -> Unit,
     email: (String) -> Unit
 ) {
@@ -50,12 +50,12 @@ fun ReceiveReceipt(
                 style = AppTheme.typography.title,
                 color = AppTheme.colors.black
             )
-            ThemedSwitch(onChange = check, checked = state()::receiveReceipt)
+            ThemedSwitch(onChange = check, checked = state.receiveReceipt)
         }
-        if (state().receiveReceipt)
+        if (state.receiveReceipt)
             ThemedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                text = state()::email,
+                text = state.email,
                 hint = stringResource(R.string.email),
                 onChange = email
             )

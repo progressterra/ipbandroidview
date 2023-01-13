@@ -38,7 +38,7 @@ private val detailsParamTitlesWidth = 104.dp
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
+fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
 
     @Composable
     fun HorizontalTabs(
@@ -118,12 +118,12 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
             ) {
                 if (it == 0) {
                     Text(
-                        text = state().name,
+                        text = state.name,
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.title
                     )
                     Text(
-                        text = state().description,
+                        text = state.description,
                         color = AppTheme.colors.gray1,
                         style = AppTheme.typography.secondaryText
                     )
@@ -135,7 +135,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
                         style = AppTheme.typography.title
                     )
                     Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-                        state().parameters.forEach {
+                        state.parameters.forEach {
                             Row {
                                 Text(
                                     modifier = Modifier.width(detailsParamTitlesWidth),
@@ -169,8 +169,8 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
 @Composable
 private fun GoodsDetailsPagerPreview() {
     AppTheme {
-        GoodsDetails(state = {
-            GoodsDetails(
+        GoodsDetails(
+            state = GoodsDetails(
                 color = GoodsColor(image = "", name = ""),
                 colors = listOf(),
                 description = "Гидрокостюм Dawn Patrol с молнией на груди отличается функциональностью и отличным теплосбережением, красивым ...",
@@ -188,6 +188,6 @@ private fun GoodsDetailsPagerPreview() {
                     )
                 )
             )
-        })
+        )
     }
 }

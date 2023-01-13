@@ -30,7 +30,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun SizesLine(
     modifier: Modifier = Modifier,
-    state: () -> GoodsDetails,
+    state: GoodsDetails,
     onSize: (GoodsSize) -> Unit,
     onTable: () -> Unit
 ) {
@@ -42,7 +42,7 @@ fun SizesLine(
                 .clip(AppTheme.shapes.small)
                 .border(
                     width = 1.dp,
-                    color = if (size == state().size) AppTheme.colors.primary else Color.Transparent,
+                    color = if (size == state.size) AppTheme.colors.primary else Color.Transparent,
                     AppTheme.shapes.small
                 )
                 .niceClickable({ onSize(size) })
@@ -79,7 +79,7 @@ fun SizesLine(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-                items(state().sizes) {
+                items(state.sizes) {
                     Item(it)
                 }
             }
@@ -104,7 +104,7 @@ fun SizesLine(
                 style = AppTheme.typography.tertiaryText
             )
             Text(
-                text = state().size.primary,
+                text = state.size.primary,
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.tertiaryText
             )
@@ -119,8 +119,7 @@ private fun SizesLinePreview() {
         val current = GoodsSize(
             primary = "M", secondary = "36", available = true
         )
-        SizesLine(state = {
-            GoodsDetails(
+        SizesLine(state = GoodsDetails(
                 color = GoodsColor(image = "", name = ""),
                 colors = listOf(),
                 description = "",
@@ -132,7 +131,6 @@ private fun SizesLinePreview() {
                 price = SimplePrice(0),
                 size = current,
                 sizes = listOf(current)
-            )
-        }, onSize = {}, onTable = {})
+            ), onSize = {}, onTable = {})
     }
 }

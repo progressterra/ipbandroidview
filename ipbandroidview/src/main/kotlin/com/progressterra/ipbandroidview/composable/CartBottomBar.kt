@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
-import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.store.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -24,9 +23,8 @@ private val lineWidth = 0.5.dp
 @Composable
 fun CartBottomBar(
     modifier: Modifier = Modifier,
-    userExist: () -> Boolean,
-    screenState: () -> ScreenState,
-    totalPrice: () -> SimplePrice,
+    userExist: Boolean,
+    totalPrice: SimplePrice,
     onNext: () -> Unit,
     onAuth: () -> Unit
 ) {
@@ -40,22 +38,16 @@ fun CartBottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = totalPrice().toString(),
+            text = totalPrice.toString(),
             style = AppTheme.typography.price,
             color = AppTheme.colors.black
         )
-        if (userExist())
-            ThemedButton(
-                onClick = onNext,
-                text = stringResource(id = R.string.checkout),
-                enabled = screenState()::isSuccess
-            )
-        else
-            ThemedButton(
-                onClick = onAuth,
-                text = stringResource(id = R.string.go_to_auth),
-                enabled = screenState()::isSuccess
-            )
+        if (userExist) ThemedButton(
+            onClick = onNext, text = stringResource(id = R.string.checkout)
+        )
+        else ThemedButton(
+            onClick = onAuth, text = stringResource(id = R.string.go_to_auth)
+        )
     }
 }
 
@@ -64,13 +56,10 @@ fun CartBottomBar(
 @Composable
 private fun CartBottomBarPreview() {
     AppTheme {
-        CartBottomBar(
-            userExist = { true },
-            screenState = { ScreenState.LOADING },
-            totalPrice = { SimplePrice(3000) },
+        CartBottomBar(userExist = true,
+            totalPrice = SimplePrice(3000),
             onNext = {},
-            onAuth = {}
-        )
+            onAuth = {})
     }
 }
 
@@ -78,12 +67,9 @@ private fun CartBottomBarPreview() {
 @Composable
 private fun CartBottomBarPreviewUnAuth() {
     AppTheme {
-        CartBottomBar(
-            userExist = { false },
-            screenState = { ScreenState.LOADING },
-            totalPrice = { SimplePrice(3000) },
+        CartBottomBar(userExist = false,
+            totalPrice = SimplePrice(3000),
             onNext = {},
-            onAuth = {}
-        )
+            onAuth = {})
     }
 }

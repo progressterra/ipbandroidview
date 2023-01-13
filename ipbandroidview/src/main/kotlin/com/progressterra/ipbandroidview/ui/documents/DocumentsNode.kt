@@ -35,7 +35,7 @@ class DocumentsNode(
         }
         val state = viewModel.collectAsState()
         DocumentsScreen(
-            state = state::value,
+            state = state.value,
             refresh = viewModel::refresh,
             openArchive = viewModel::openArchive,
             openDocument = viewModel::openDocument,

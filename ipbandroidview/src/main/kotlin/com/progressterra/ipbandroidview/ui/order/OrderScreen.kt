@@ -26,7 +26,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrderScreen(
-    state: () -> OrderState,
+    state: OrderState,
     back: () -> Unit,
     goodsDetails: (String) -> Unit,
     changeAddress: () -> Unit,
@@ -47,7 +47,7 @@ fun OrderScreen(
         ThemedTopAppBar(title = stringResource(R.string.order), onBack = back)
     }) { _, _ ->
         StateBox(
-            state = state()::screenState, refresh = refresh
+            state = state.screenState, refresh = refresh
         ) {
             Column(
                 modifier = Modifier

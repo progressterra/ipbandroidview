@@ -24,9 +24,9 @@ private val picHeight = 188.dp
 @Composable
 fun OrganizationPresentation(
     modifier: Modifier = Modifier,
-    name: () -> String,
-    address: () -> String,
-    imageUrl: () -> String,
+    name: String,
+    address: String,
+    imageUrl: String,
     onMapClick: () -> Unit
 ) {
     Column(
@@ -51,12 +51,10 @@ fun OrganizationPresentation(
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
                 Text(
-                    text = name(),
-                    color = AppTheme.colors.black,
-                    style = AppTheme.typography.title
+                    text = name, color = AppTheme.colors.black, style = AppTheme.typography.title
                 )
                 Text(
-                    text = address(),
+                    text = address,
                     color = AppTheme.colors.gray2,
                     style = AppTheme.typography.tertiaryText
                 )
@@ -84,9 +82,10 @@ fun OrganizationPresentation(
 @Composable
 private fun OrganizationPresentationPreview() {
     AppTheme {
-        OrganizationPresentation(name = { "Кофемания" },
-            address = { "Ленина 13 б" },
-            imageUrl = { "" },
+        OrganizationPresentation(
+            name = "Кофемания",
+            address = "Ленина б",
+            imageUrl = "",
             onMapClick = {})
     }
 }

@@ -44,7 +44,7 @@ class SubCatalogNode(
         }
         val state = viewModel.collectAsState()
         SubCatalogScreen(
-            state = state::value,
+            state = state.value,
             back = viewModel::back,
             subCategory = viewModel::subCategory,
             keyword = viewModel::keyword,

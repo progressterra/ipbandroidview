@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun CheckDialogBar(
     modifier: Modifier = Modifier,
-    currentCheck: () -> Check?,
+    currentCheck: Check?,
     onMark: () -> Unit
 ) {
     BasicTopAppBar(modifier = modifier,
@@ -26,9 +26,8 @@ fun CheckDialogBar(
             }
         },
         title = {
-            val check = currentCheck()
             Text(
-                text = check?.printTitle() ?: stringResource(R.string.loading),
+                text = currentCheck?.printTitle() ?: stringResource(R.string.loading),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title,
                 maxLines = 1,
@@ -42,6 +41,6 @@ fun CheckDialogBar(
 @Composable
 private fun CheckDialogBarWithBackNavPreview0() {
     AppTheme {
-        CheckDialogBar(currentCheck = { null }, onMark = {})
+        CheckDialogBar(currentCheck = null, onMark = {})
     }
 }

@@ -15,17 +15,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.VerificationCodeInput
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextButton
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.VerificationCodeInput
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ConfirmationCodeScreen(
-    state: () -> ConfirmationCodeState,
+    state: ConfirmationCodeState,
     resend: () -> Unit,
     next: () -> Unit,
     editCode: (String) -> Unit,
@@ -47,8 +47,8 @@ fun ConfirmationCodeScreen(
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = resend,
-                text = state()::timer,
-                enabled = state()::canResend
+                text = state.timer,
+                enabled = state.canResend
             )
         }
     }) { _, _ ->
@@ -66,7 +66,7 @@ fun ConfirmationCodeScreen(
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "${stringResource(id = R.string.verification_code_message)}\n${state().phoneNumber}",
+                    text = "${stringResource(id = R.string.verification_code_message)}\n${state.phoneNumber}",
                     color = AppTheme.colors.gray1,
                     style = AppTheme.typography.text,
                     textAlign = TextAlign.Center
@@ -74,7 +74,7 @@ fun ConfirmationCodeScreen(
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
                 VerificationCodeInput(
                     modifier = Modifier.fillMaxWidth(),
-                    code = state()::code,
+                    code = state.code,
                     editCode = editCode
                 )
             }

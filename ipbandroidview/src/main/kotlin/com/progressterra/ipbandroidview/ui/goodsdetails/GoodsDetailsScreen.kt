@@ -18,15 +18,15 @@ import com.progressterra.ipbandroidview.composable.GoodsBottomBar
 import com.progressterra.ipbandroidview.composable.GoodsDetails
 import com.progressterra.ipbandroidview.composable.GoodsTopAppBar
 import com.progressterra.ipbandroidview.composable.SizesLine
-import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.StateBox
+import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun GoodsDetailsScreen(
-    state: () -> GoodsDetailsScreenState,
+    state: GoodsDetailsScreenState,
     refresh: () -> Unit,
     add: () -> Unit,
     remove: () -> Unit,
@@ -40,7 +40,7 @@ fun GoodsDetailsScreen(
         GoodsTopAppBar(
             onBack = back,
             onFavorite = favorite,
-            state = state()::goodsDetails
+            state = state.goodsDetails
         )
     }, bottomBar = {
         GoodsBottomBar(
@@ -49,14 +49,14 @@ fun GoodsDetailsScreen(
                     durationMillis = 500, easing = LinearEasing
                 )
             ),
-            state = state()::goodsDetails,
+            state = state.goodsDetails,
             onAdd = add,
             onRemove = remove,
-            screenState = state()::screenState
+            screenState = state.screenState
         )
     }) { _, _ ->
         StateBox(
-            state = state()::screenState,
+            state = state.screenState,
             refresh = refresh
         ) {
             Column(
@@ -67,21 +67,21 @@ fun GoodsDetailsScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 Gallery(
-                    state = state()::goodsDetails
+                    state = state.goodsDetails
                 )
                 ColorsLine(
                     modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-                    state = state()::goodsDetails,
+                    state = state.goodsDetails,
                     chooseColor = color
                 )
                 SizesLine(
                     modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-                    state = state()::goodsDetails,
+                    state = state.goodsDetails,
                     onSize = size,
                     onTable = sizeTable
                 )
                 GoodsDetails(
-                    modifier = Modifier, state = state()::goodsDetails
+                    modifier = Modifier, state = state.goodsDetails
                 )
             }
         }

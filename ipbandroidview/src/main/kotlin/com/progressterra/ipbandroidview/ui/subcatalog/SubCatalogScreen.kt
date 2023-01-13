@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SubCatalogScreen(
-    state: () -> SubCatalogState,
+    state: SubCatalogState,
     back: () -> Unit,
     subCategory: (Category) -> Unit,
     keyword: (String) -> Unit,
@@ -26,7 +26,7 @@ fun SubCatalogScreen(
 ) {
     ThemedLayout(topBar = {
         CategorySearchBar(
-            category = state().currentCategory::name,
+            category = state.currentCategory.name,
             state = state,
             onBack = back,
             onKeyword = keyword,
@@ -41,8 +41,8 @@ fun SubCatalogScreen(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
             contentPadding = PaddingValues(AppTheme.dimensions.small)
         ) {
-            items(state().currentCategory.subCategories) {
-                SubCategory(state = { it }, openCategory = subCategory)
+            items(state.currentCategory.subCategories) {
+                SubCategory(state = it, openCategory = subCategory)
             }
         }
     }

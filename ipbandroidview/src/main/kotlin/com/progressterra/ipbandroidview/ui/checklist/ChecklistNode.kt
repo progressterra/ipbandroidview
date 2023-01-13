@@ -47,7 +47,7 @@ class ChecklistNode(
         }
         val state = viewModel.collectAsState()
         ChecklistScreen(
-            state = state::value,
+            state = state.value,
             back = viewModel::back,
             refreshCheck = viewModel::refreshCheck,
             refreshChecklist = viewModel::refreshChecklist,

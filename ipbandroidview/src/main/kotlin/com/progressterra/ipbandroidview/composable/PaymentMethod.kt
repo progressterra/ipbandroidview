@@ -29,7 +29,7 @@ interface PaymentMethodState {
 fun PaymentMethod(
     modifier: Modifier = Modifier,
     select: (PaymentType) -> Unit,
-    state: () -> PaymentMethodState
+    state: PaymentMethodState
 ) {
 
     @Composable
@@ -43,7 +43,7 @@ fun PaymentMethod(
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
             ThemedRadioButton(
-                checked = { type == state().selectedPaymentMethod },
+                checked = type == state.selectedPaymentMethod,
                 onClick = { select(type) }
             )
             Text(
@@ -68,7 +68,7 @@ fun PaymentMethod(
             style = AppTheme.typography.title
         )
         Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
-            state().paymentMethods.forEach {
+            state.paymentMethods.forEach {
                 Item(type = it)
             }
         }

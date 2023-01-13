@@ -36,15 +36,15 @@ private val verticalPadding = 14.dp
 @Composable
 fun VoiceInput(
     modifier: Modifier = Modifier,
-    state: () -> VoiceState,
+    state: VoiceState,
     onStartPlay: () -> Unit,
     onPausePlay: () -> Unit,
     onStartRecording: () -> Unit,
     onStopRecording: () -> Unit,
     onRemove: () -> Unit,
-    enabled: () -> Boolean
+    enabled: Boolean
 ) {
-    when (state()) {
+    when (state) {
         is VoiceState.Recorder -> Box(modifier = modifier) {
             Box(modifier = Modifier.padding(AppTheme.dimensions.small)) {
                 Row(
@@ -60,24 +60,24 @@ fun VoiceInput(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    if (state().ongoing) IconButton(onClick = onRemove, enabled = enabled()) {
-                        TrashIcon(enabled = { enabled() })
+                    if (state.ongoing) IconButton(onClick = onRemove, enabled = enabled) {
+                        TrashIcon(enabled = enabled)
                     }
                     else Text(
                         text = stringResource(id = R.string.voice_message),
                         style = AppTheme.typography.text,
-                        color = if (enabled()) AppTheme.colors.gray1 else AppTheme.colors.gray2
+                        color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
                     )
                     IconButton(
-                        onClick = if (state().ongoing) onStopRecording else onStartRecording,
-                        enabled = enabled()
+                        onClick = if (state.ongoing) onStopRecording else onStartRecording,
+                        enabled = enabled
                     ) {
-                        MicIcon(enabled = { enabled() })
+                        MicIcon(enabled = enabled)
                     }
                 }
 
             }
-            if (state().ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
+            if (state.ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
         }
         is VoiceState.Player -> Box(modifier = modifier.padding(AppTheme.dimensions.small)) {
             Row(
@@ -92,12 +92,14 @@ fun VoiceInput(
             ) {
                 IconButton(
                     onClick = onRemove,
-                    enabled = enabled()
+                    enabled = enabled
                 ) { TrashIcon(enabled = enabled) }
-                ThemedLinearProgressIndicator(modifier = Modifier.weight(1f),
-                    progress = { (state() as VoiceState.Player).progress })
-                IconButton(onClick = if (state().ongoing) onPausePlay else onStartPlay) {
-                    PlayPauseIcon(ongoing = state()::ongoing)
+                ThemedLinearProgressIndicator(
+                    modifier = Modifier.weight(1f),
+                    progress = state.progress
+                )
+                IconButton(onClick = if (state.ongoing) onPausePlay else onStartPlay) {
+                    PlayPauseIcon(ongoing = state.ongoing)
                 }
             }
 
@@ -109,13 +111,15 @@ fun VoiceInput(
 @Composable
 private fun VoiceInputPreviewIdle() {
     AppTheme {
-        VoiceInput(state = { VoiceState.Recorder(false) },
+        VoiceInput(
+            state = VoiceState.Recorder(false),
             onStartPlay = {},
             onPausePlay = {},
             onStartRecording = {},
             onStopRecording = {},
             onRemove = {},
-            enabled = { true })
+            enabled = true
+        )
     }
 }
 
@@ -123,13 +127,15 @@ private fun VoiceInputPreviewIdle() {
 @Composable
 private fun VoiceInputPreviewRecord() {
     AppTheme {
-        VoiceInput(state = { VoiceState.Recorder(true) },
+        VoiceInput(
+            state = VoiceState.Recorder(true),
             onStartPlay = {},
             onPausePlay = {},
             onStartRecording = {},
             onStopRecording = {},
             onRemove = {},
-            enabled = { true })
+            enabled = true
+        )
     }
 }
 
@@ -138,13 +144,15 @@ private fun VoiceInputPreviewRecord() {
 @Composable
 private fun VoiceInputPreviewPlay() {
     AppTheme {
-        VoiceInput(state = { VoiceState.Player(true, 0.5f) },
+        VoiceInput(
+            state = VoiceState.Player(true, 0.5f),
             onStartPlay = {},
             onPausePlay = {},
             onStartRecording = {},
             onStopRecording = {},
             onRemove = {},
-            enabled = { true })
+            enabled = true
+        )
     }
 }
 
@@ -152,12 +160,14 @@ private fun VoiceInputPreviewPlay() {
 @Composable
 private fun VoiceInputPreviewPause() {
     AppTheme {
-        VoiceInput(state = { VoiceState.Player(false, 0.3f) },
+        VoiceInput(
+            state = VoiceState.Player(false, 0.3f),
             onStartPlay = {},
             onPausePlay = {},
             onStartRecording = {},
             onStopRecording = {},
             onRemove = {},
-            enabled = { true })
+            enabled = true
+        )
     }
 }

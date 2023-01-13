@@ -29,7 +29,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SignInScreen(
-    state: () -> SignInState,
+    state: SignInState,
     next: () -> Unit,
     skip: () -> Unit,
     editPhoneNumber: (String) -> Unit,
@@ -69,7 +69,7 @@ fun SignInScreen(
                 ) {
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        text = state()::phoneNumber,
+                        text = state.phoneNumber,
                         hint = stringResource(id = R.string.phone_number),
                         onChange = editPhoneNumber,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)

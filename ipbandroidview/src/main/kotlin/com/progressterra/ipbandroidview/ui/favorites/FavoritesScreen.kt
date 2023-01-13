@@ -11,16 +11,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.StoreCard
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun FavoritesScreen(
-    state: () -> FavoritesState,
+    state: FavoritesState,
     favoriteSpecific: (StoreGoods) -> Unit,
     refresh: () -> Unit,
     openDetails: (StoreGoods) -> Unit
@@ -28,7 +28,7 @@ fun FavoritesScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.favorites))
     }) { _, _ ->
-        StateBox(state = state()::screenState, refresh = refresh) {
+        StateBox(state = state.screenState, refresh = refresh) {
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
                 columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
@@ -36,9 +36,9 @@ fun FavoritesScreen(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                items(state().items) { goods ->
+                items(state.items) { goods ->
                     StoreCard(
-                        state = { goods },
+                        state = goods,
                         onClick = { openDetails(goods) },
                         onFavorite = { favoriteSpecific(goods) })
                 }

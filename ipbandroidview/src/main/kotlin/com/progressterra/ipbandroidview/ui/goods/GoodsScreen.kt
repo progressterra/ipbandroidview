@@ -12,16 +12,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.composable.GoodsSearchBar
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.StoreCard
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.utils.items
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun GoodsScreen(
-    state: () -> GoodsState,
+    state: GoodsState,
     search: () -> Unit,
     keyword: (String) -> Unit,
     back: () -> Unit,
@@ -42,11 +42,11 @@ fun GoodsScreen(
         )
     }) { _, _ ->
         StateBox(
-            state = state()::screenState,
+            state = state.screenState,
             refresh = refresh
         ) {
             val lazyItems: LazyPagingItems<StoreGoods> =
-                state().itemsFlow.collectAsLazyPagingItems()
+                state.itemsFlow.collectAsLazyPagingItems()
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
                 columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
@@ -58,15 +58,15 @@ fun GoodsScreen(
                     items(lazyItems) { goods ->
                         goods?.let {
                             StoreCard(
-                                state = { goods },
+                                state = goods,
                                 onClick = { openDetails(goods) },
                                 onFavorite = { favoriteSpecific(goods) })
                         }
                     }
-                if (state().items.isNotEmpty())
-                    items(state().items) { goods ->
+                if (state.items.isNotEmpty())
+                    items(state.items) { goods ->
                         StoreCard(
-                            state = { goods },
+                            state = goods,
                             onClick = { openDetails(goods) },
                             onFavorite = { favoriteSpecific(goods) })
                     }

@@ -49,12 +49,12 @@ private fun FavoriteCheckedIconPreview() {
 }
 
 @Composable
-fun MicIcon(modifier: Modifier = Modifier, enabled: () -> Boolean) {
+fun MicIcon(modifier: Modifier = Modifier, enabled: Boolean) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_mic),
         contentDescription = null,
-        tint = if (enabled()) AppTheme.colors.primary else AppTheme.colors.gray2
+        tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
     )
 }
 
@@ -63,19 +63,19 @@ fun MicIcon(modifier: Modifier = Modifier, enabled: () -> Boolean) {
 private fun MicIconPreview() {
     AppTheme {
         Column {
-            MicIcon(enabled = { true })
-            MicIcon(enabled = { false })
+            MicIcon(enabled = true)
+            MicIcon(enabled = false)
         }
     }
 }
 
 @Composable
-fun CameraIcon(modifier: Modifier = Modifier, enabled: () -> Boolean) {
+fun CameraIcon(modifier: Modifier = Modifier, enabled: Boolean) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_camera),
         contentDescription = null,
-        tint = if (enabled()) AppTheme.colors.primary else AppTheme.colors.gray2
+        tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
     )
 }
 
@@ -84,19 +84,19 @@ fun CameraIcon(modifier: Modifier = Modifier, enabled: () -> Boolean) {
 private fun CameraIconPreview() {
     AppTheme {
         Column {
-            CameraIcon(enabled = { true })
-            CameraIcon(enabled = { false })
+            CameraIcon(enabled = true)
+            CameraIcon(enabled = false)
         }
     }
 }
 
 @Composable
-fun TrashIcon(modifier: Modifier = Modifier, enabled: () -> Boolean) {
+fun TrashIcon(modifier: Modifier = Modifier, enabled: Boolean) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_trash),
         contentDescription = null,
-        tint = if (enabled()) AppTheme.colors.error else AppTheme.colors.gray2
+        tint = if (enabled) AppTheme.colors.error else AppTheme.colors.gray2
     )
 }
 
@@ -105,17 +105,17 @@ fun TrashIcon(modifier: Modifier = Modifier, enabled: () -> Boolean) {
 private fun TrashIconPreview() {
     AppTheme {
         Column {
-            TrashIcon(enabled = { true })
-            TrashIcon(enabled = { false })
+            TrashIcon(enabled = true)
+            TrashIcon(enabled = false)
         }
     }
 }
 
 @Composable
-fun PlayPauseIcon(modifier: Modifier = Modifier, ongoing: () -> Boolean) {
+fun PlayPauseIcon(modifier: Modifier = Modifier, ongoing: Boolean) {
     Icon(
         modifier = modifier,
-        painter = painterResource(id = if (ongoing()) R.drawable.ic_pause else R.drawable.ic_play),
+        painter = painterResource(id = if (ongoing) R.drawable.ic_pause else R.drawable.ic_play),
         contentDescription = null,
         tint = AppTheme.colors.primary
     )
@@ -126,8 +126,8 @@ fun PlayPauseIcon(modifier: Modifier = Modifier, ongoing: () -> Boolean) {
 private fun PlayPauseIconPreview() {
     AppTheme {
         Column {
-            PlayPauseIcon(ongoing = { true })
-            PlayPauseIcon(ongoing = { false })
+            PlayPauseIcon(ongoing = true)
+            PlayPauseIcon(ongoing = false)
         }
     }
 }
@@ -283,10 +283,10 @@ private fun RefreshIconPreview() {
 }
 
 @Composable
-fun AddItemIcon(modifier: Modifier = Modifier, available: () -> Boolean) {
+fun AddItemIcon(modifier: Modifier = Modifier, available: Boolean) {
     Icon(
         modifier = modifier,
-        tint = if (available()) AppTheme.colors.black else AppTheme.colors.gray2,
+        tint = if (available) AppTheme.colors.black else AppTheme.colors.gray2,
         painter = painterResource(id = R.drawable.ic_add_item),
         contentDescription = null
     )
@@ -297,8 +297,8 @@ fun AddItemIcon(modifier: Modifier = Modifier, available: () -> Boolean) {
 private fun AddItemIconPreview() {
     AppTheme {
         Column {
-            AddItemIcon(available = { true })
-            AddItemIcon(available = { false })
+            AddItemIcon(available = true)
+            AddItemIcon(available = false)
         }
     }
 }

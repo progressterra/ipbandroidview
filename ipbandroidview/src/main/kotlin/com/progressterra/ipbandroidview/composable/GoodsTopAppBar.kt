@@ -15,7 +15,7 @@ fun GoodsTopAppBar(
     modifier: Modifier = Modifier,
     onBack: () -> Unit,
     onFavorite: () -> Unit,
-    state: () -> GoodsDetails,
+    state: GoodsDetails,
 ) {
     BasicTopAppBar(modifier = modifier, backgroundColor = AppTheme.colors.surfaces, leftActions = {
         IconButton(onClick = onBack) {
@@ -24,14 +24,14 @@ fun GoodsTopAppBar(
     }, title = {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = state().name,
+                text = state.name,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
             Text(
-                text = state().price.toString(),
+                text = state.price.toString(),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.tertiaryText,
                 maxLines = 1,
@@ -39,6 +39,6 @@ fun GoodsTopAppBar(
             )
         }
     }, rightActions = {
-        FavoriteButton(favorite = state()::favorite, onClick = onFavorite)
+        FavoriteButton(favorite = state.favorite, onClick = onFavorite)
     })
 }

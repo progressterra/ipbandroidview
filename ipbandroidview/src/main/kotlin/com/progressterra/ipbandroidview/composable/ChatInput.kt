@@ -18,9 +18,9 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ChatInput(
     modifier: Modifier = Modifier,
     editMessage: (String) -> Unit,
-    message: () -> String,
+    message: String,
     onSend: () -> Unit,
-    enabled: () -> Boolean
+    enabled: Boolean
 ) {
     BottomHolder(modifier = modifier) {
         Text(
@@ -42,7 +42,7 @@ fun ChatInput(
                 enabled = enabled
             )
             IconButton(
-                enabled = enabled(),
+                enabled = enabled,
                 onClick = onSend
             ) {
                 SendIcon()
@@ -58,9 +58,9 @@ private fun ChatInputPreview() {
     AppTheme {
         ChatInput(
             editMessage = {},
-            message = { "Some really cool message!!" },
+            message = "Some really cool message!!",
             onSend = {},
-            enabled = { true }
+            enabled = true
         )
     }
 }

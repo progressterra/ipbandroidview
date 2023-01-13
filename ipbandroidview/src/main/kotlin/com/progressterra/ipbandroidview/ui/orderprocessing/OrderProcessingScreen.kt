@@ -8,22 +8,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.OrderProcessingWidget
+import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.BottomHolder
-import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrderProcessingScreen(
-    state: () -> OrderProcessingState, onNext: () -> Unit, onBack: () -> Unit
+    state: OrderProcessingState, onNext: () -> Unit, onBack: () -> Unit
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(R.string.order), onBack = onBack)
     }, bottomBar = {
         BottomHolder {
-            if (state().orderResult.success) ThemedButton(
+            if (state.orderResult.success) ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = onNext,
                 text = stringResource(R.string.on_main)
@@ -41,7 +41,7 @@ fun OrderProcessingScreen(
                 .padding(AppTheme.dimensions.small)
         ) {
             OrderProcessingWidget(
-                modifier = Modifier.fillMaxWidth(), state = state()::orderResult
+                modifier = Modifier.fillMaxWidth(), state = state.orderResult
             )
         }
     }

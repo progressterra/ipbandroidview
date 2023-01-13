@@ -27,8 +27,8 @@ private val lineWidth = 0.5.dp
 @Composable
 fun GoodsBottomBar(
     modifier: Modifier = Modifier,
-    state: () -> GoodsDetails,
-    screenState: () -> ScreenState,
+    state: GoodsDetails,
+    screenState: ScreenState,
     onAdd: () -> Unit,
     onRemove: () -> Unit
 ) {
@@ -42,11 +42,11 @@ fun GoodsBottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state().price.toString(),
+            text = state.price.toString(),
             style = AppTheme.typography.price,
             color = AppTheme.colors.black
         )
-        if (state().inCartCounter >= 1)
+        if (state.inCartCounter >= 1)
             Row(
                 modifier = Modifier
                     .clip(AppTheme.shapes.button)
@@ -58,18 +58,18 @@ fun GoodsBottomBar(
                     RemoveItemIcon()
                 }
                 Text(
-                    text = state().inCartCounter.toString(),
+                    text = state.inCartCounter.toString(),
                     color = AppTheme.colors.black,
                     style = AppTheme.typography.button
                 )
                 IconButton(onClick = onAdd) {
-                    AddItemIcon(available = { true })
+                    AddItemIcon(available = true)
                 }
             }
         else
             ThemedButton(
                 onClick = onAdd,
-                enabled = screenState()::isSuccess,
+                enabled = screenState.isSuccess(),
                 text = stringResource(id = R.string.in_cart)
             )
     }
@@ -80,8 +80,8 @@ fun GoodsBottomBar(
 fun GoodsBottomBarPreview() {
     AppTheme {
         GoodsBottomBar(
-            state = { GoodsDetails() },
-            screenState = { ScreenState.SUCCESS },
+            state = GoodsDetails(),
+            screenState = ScreenState.SUCCESS,
             onRemove = {}, onAdd = {}
         )
     }

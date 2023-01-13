@@ -10,14 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrdersGoodsLine
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrdersScreen(
-    state: () -> OrdersState,
+    state: OrdersState,
     onBack: () -> Unit,
     openGoodsDetails: (String) -> Unit,
     refresh: () -> Unit
@@ -28,7 +28,7 @@ fun OrdersScreen(
         }
     ) { _, _ ->
         StateBox(
-            state = state()::screenState,
+            state = state.screenState,
             refresh = refresh
         ) {
             LazyColumn(
@@ -36,9 +36,9 @@ fun OrdersScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                items(state().orders) {
+                items(state.orders) {
                     OrdersGoodsLine(
-                        state = { it },
+                        state = it,
                         openGoodsDetails = openGoodsDetails
                     )
                 }

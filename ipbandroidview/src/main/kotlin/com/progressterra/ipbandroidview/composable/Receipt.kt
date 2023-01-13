@@ -47,7 +47,7 @@ interface ReceiptState {
 @Composable
 fun Receipt(
     modifier: Modifier = Modifier,
-    state: () -> ReceiptState,
+    state: ReceiptState,
     payment: () -> Unit,
     openUrl: (String) -> Unit
 ) {
@@ -68,7 +68,7 @@ fun Receipt(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
         ) {
             Text(
-                text = state().totalPrice.toString(),
+                text = state.totalPrice.toString(),
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title
             )
@@ -81,7 +81,7 @@ fun Receipt(
                         .background(AppTheme.colors.background)
                         .height(dividerWidth)
                 )
-                state().goods.forEach {
+                state.goods.forEach {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -98,7 +98,7 @@ fun Receipt(
                         )
                     }
                 }
-                if (state().useBonuses) {
+                if (state.useBonuses) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -109,13 +109,13 @@ fun Receipt(
                             style = AppTheme.typography.tertiaryText
                         )
                         Text(
-                            text = "-${state().availableBonuses.quantity}",
+                            text = "-${state.availableBonuses.quantity}",
                             color = AppTheme.colors.primary,
                             style = AppTheme.typography.tertiaryText
                         )
                     }
                 }
-                state().promoCode?.let {
+                state.promoCode?.let {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -132,7 +132,7 @@ fun Receipt(
                         )
                     }
                 }
-                state().deliveryPrice?.let {
+                state.deliveryPrice?.let {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -162,7 +162,7 @@ fun Receipt(
             modifier = Modifier.fillMaxWidth(),
             onClick = payment,
             text = stringResource(R.string.pay),
-            enabled = state()::paymentReady
+            enabled = state.paymentReady
         )
         Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
         LinkText(

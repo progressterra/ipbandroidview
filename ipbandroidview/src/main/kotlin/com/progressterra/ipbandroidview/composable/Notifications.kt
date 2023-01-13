@@ -40,15 +40,15 @@ private val qrSize = 114.dp
 @Composable
 fun Notifications(
     modifier: Modifier = Modifier,
-    state: () -> NotificationsState
+    state: NotificationsState
 ) {
     HorizontalPager(
         modifier = modifier,
-        count = state().notifications.size,
+        count = state.notifications.size,
         contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
         itemSpacing = AppTheme.dimensions.small
     ) {
-        when (val notification = state().notifications[it]) {
+        when (val notification = state.notifications[it]) {
             is StoreNotification.BonusExpiring -> Column(
                 modifier = Modifier
                     .fillMaxWidth()

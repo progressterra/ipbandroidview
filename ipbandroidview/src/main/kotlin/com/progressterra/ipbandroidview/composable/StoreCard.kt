@@ -28,7 +28,7 @@ private val picHeight = 236.dp
 @Composable
 fun StoreCard(
     modifier: Modifier = Modifier,
-    state: () -> StoreGoods,
+    state: StoreGoods,
     onClick: () -> Unit,
     onFavorite: () -> Unit
 ) {
@@ -45,7 +45,7 @@ fun StoreCard(
                 .constrainAs(favoriteButton) {
                     end.linkTo(image.end)
                     top.linkTo(image.top)
-                }, favorite = state()::favorite, onClick = onFavorite
+                }, favorite = state.favorite, onClick = onFavorite
         )
         SimpleImage(
             Modifier
@@ -56,7 +56,7 @@ fun StoreCard(
                     height = Dimension.value(picHeight)
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
-                }, url = state()::image, backgroundColor = AppTheme.colors.surfaces
+                }, url = state.image, backgroundColor = AppTheme.colors.surfaces
         )
         val large = 8.dp
         val medium = 4.dp
@@ -68,14 +68,14 @@ fun StoreCard(
                 start.linkTo(image.start, large)
                 end.linkTo(image.end, large)
             },
-            text = state().price.toString(),
+            text = state.price.toString(),
             color = AppTheme.colors.black,
             maxLines = 1,
             style = AppTheme.typography.title,
             textAlign = TextAlign.Center
         )
         val lines = 2
-        var nameText by remember(state().name) { mutableStateOf(state().name) }
+        var nameText by remember(state.name) { mutableStateOf(state.name) }
         Text(
             modifier = Modifier.constrainAs(name) {
                 width = Dimension.fillToConstraints
@@ -92,7 +92,7 @@ fun StoreCard(
             overflow = TextOverflow.Ellipsis,
             onTextLayout = { textLayoutResult ->
                 if ((textLayoutResult.lineCount) < lines) {
-                    nameText = state().name + "\n ".repeat(lines - textLayoutResult.lineCount)
+                    nameText = state.name + "\n ".repeat(lines - textLayoutResult.lineCount)
                 }
             },
         )
@@ -104,24 +104,20 @@ fun StoreCard(
 private fun StoreItemCardPreview() {
     AppTheme {
         Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)) {
-            StoreCard(state = {
-                StoreGoods(
-                    id = "",
-                    image = "",
-                    price = SimplePrice(0),
-                    name = "Some cool item with pretty long name that contains many symbols",
-                    favorite = false
-                )
-            }, onClick = {}, onFavorite = {})
-            StoreCard(state = {
-                StoreGoods(
-                    id = "",
-                    price = SimplePrice(0),
-                    name = "Some cool item",
-                    favorite = true,
-                    image = ""
-                )
-            }, onClick = {}, onFavorite = {})
+            StoreCard(state = StoreGoods(
+                id = "",
+                image = "",
+                price = SimplePrice(0),
+                name = "Some cool item with pretty long name that contains many symbols",
+                favorite = false
+            ), onClick = {}, onFavorite = {})
+            StoreCard(state = StoreGoods(
+                id = "",
+                price = SimplePrice(0),
+                name = "Some cool item",
+                favorite = true,
+                image = ""
+            ), onClick = {}, onFavorite = {})
         }
     }
 }

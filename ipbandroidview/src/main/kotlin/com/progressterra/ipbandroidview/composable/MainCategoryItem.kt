@@ -25,14 +25,14 @@ private val picHeight = 104.dp
 @Composable
 fun MainCategoryItem(
     modifier: Modifier = Modifier,
-    state: () -> MainCategory,
+    state: MainCategory,
     openCategory: (Category) -> Unit
 ) {
     Column(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .niceClickable(onClick = { openCategory(state()) }),
+            .niceClickable(onClick = { openCategory(state) }),
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         SimpleImage(
@@ -40,7 +40,7 @@ fun MainCategoryItem(
                 .clip(AppTheme.shapes.small)
                 .fillMaxWidth()
                 .height(picHeight),
-            url = state()::image,
+            url = state.image,
             backgroundColor = AppTheme.colors.surfaces
         )
         Box(
@@ -54,7 +54,7 @@ fun MainCategoryItem(
             contentAlignment = Alignment.TopCenter
         ) {
             Text(
-                text = state().name,
+                text = state.name,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.title
             )
@@ -68,11 +68,9 @@ private fun CategoryPreview() {
     AppTheme {
         MainCategoryItem(
             modifier = Modifier.width(300.dp),
-            state = {
-                MainCategory(
-                    id = "", name = "", image = "", subCategories = listOf(), hasNext = false
-                )
-            },
+            state = MainCategory(
+                id = "", name = "", image = "", subCategories = listOf(), hasNext = false
+            ),
             openCategory = {}
         )
     }

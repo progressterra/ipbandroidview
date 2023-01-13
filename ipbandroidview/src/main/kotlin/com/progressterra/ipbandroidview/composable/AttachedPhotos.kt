@@ -31,10 +31,10 @@ private val verticalPadding = 14.dp
 @Composable
 fun AttachedPhotos(
     modifier: Modifier = Modifier,
-    pictures: () -> List<MultisizedImage>,
+    pictures: List<MultisizedImage>,
     onPhotoSelect: (MultisizedImage) -> Unit,
     onCamera: () -> Unit,
-    enabled: () -> Boolean
+    enabled: Boolean
 ) {
 
     @Composable
@@ -44,22 +44,19 @@ fun AttachedPhotos(
                 .size(picSize)
                 .clip(AppTheme.shapes.small)
                 .niceClickable(onClick = { onPhotoSelect(picture) }),
-            url = { picture.thumbnail },
+            url = picture.thumbnail,
             backgroundColor = AppTheme.colors.surfaces
         )
     }
 
-    if (pictures().isEmpty()) {
+    if (pictures.isEmpty()) {
         Row(
             modifier = modifier
                 .fillMaxWidth()
                 .height(TextFieldDefaults.MinHeight)
                 .clip(AppTheme.shapes.small)
                 .background(AppTheme.colors.background)
-                .niceClickable(
-                    onClick = onCamera,
-                    enabled = enabled
-                )
+                .niceClickable(onClick = onCamera, enabled = enabled)
                 .padding(horizontal = AppTheme.dimensions.medium, vertical = verticalPadding),
 
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -68,7 +65,7 @@ fun AttachedPhotos(
             Text(
                 text = stringResource(id = R.string.add_photo),
                 style = AppTheme.typography.text,
-                color = if (enabled()) AppTheme.colors.gray1 else AppTheme.colors.gray2
+                color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
             )
             Box(modifier = Modifier.size(picSize), contentAlignment = Alignment.Center) {
                 CameraIcon(enabled = enabled)
@@ -76,7 +73,7 @@ fun AttachedPhotos(
         }
     } else {
         LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-            if (enabled()) {
+            if (enabled) {
                 item {
                     Box(
                         modifier = Modifier
@@ -86,11 +83,11 @@ fun AttachedPhotos(
                             .niceClickable(onClick = onCamera),
                         contentAlignment = Alignment.Center
                     ) {
-                        CameraIcon(enabled = { true })
+                        CameraIcon(enabled = true)
                     }
                 }
             }
-            items(pictures()) { item ->
+            items(pictures) { item ->
                 Item(picture = item)
             }
         }
@@ -101,32 +98,30 @@ fun AttachedPhotos(
 @Composable
 private fun AttachedPhotosPreviewEnabled() {
     AppTheme {
-        AttachedPhotos(pictures = {
-            listOf(
-                MultisizedImage(
-                    id = "",
-                    local = false,
-                    toRemove = false,
-                    thumbnail = "",
-                    fullSize = ""
-                ),
-                MultisizedImage(
-                    id = "",
-                    local = false,
-                    toRemove = false,
-                    thumbnail = "",
-                    fullSize = ""
-                ),
-                MultisizedImage(
-                    id = "",
-                    local = false,
-                    toRemove = false,
-                    thumbnail = "",
-                    fullSize = ""
-                )
+        AttachedPhotos(pictures =
+        listOf(
+            MultisizedImage(
+                id = "",
+                local = false,
+                toRemove = false,
+                thumbnail = "",
+                fullSize = ""
+            ),
+            MultisizedImage(
+                id = "",
+                local = false,
+                toRemove = false,
+                thumbnail = "",
+                fullSize = ""
+            ),
+            MultisizedImage(
+                id = "",
+                local = false,
+                toRemove = false,
+                thumbnail = "",
+                fullSize = ""
             )
-        }, onPhotoSelect = {}, onCamera = {}, enabled = { true }
-
+        ), onPhotoSelect = {}, onCamera = {}, enabled = true
         )
     }
 }
@@ -135,31 +130,29 @@ private fun AttachedPhotosPreviewEnabled() {
 @Composable
 private fun AttachedPhotosPreviewDisabled() {
     AppTheme {
-        AttachedPhotos(pictures = {
-            listOf(
-                MultisizedImage(
-                    id = "",
-                    local = false,
-                    toRemove = false,
-                    thumbnail = "",
-                    fullSize = ""
-                ),
-                MultisizedImage(
-                    id = "",
-                    local = false,
-                    toRemove = false,
-                    thumbnail = "",
-                    fullSize = ""
-                ),
-                MultisizedImage(
-                    id = "",
-                    local = false,
-                    toRemove = false,
-                    thumbnail = "",
-                    fullSize = ""
-                )
+        AttachedPhotos(pictures = listOf(
+            MultisizedImage(
+                id = "",
+                local = false,
+                toRemove = false,
+                thumbnail = "",
+                fullSize = ""
+            ),
+            MultisizedImage(
+                id = "",
+                local = false,
+                toRemove = false,
+                thumbnail = "",
+                fullSize = ""
+            ),
+            MultisizedImage(
+                id = "",
+                local = false,
+                toRemove = false,
+                thumbnail = "",
+                fullSize = ""
             )
-        }, onPhotoSelect = {}, onCamera = {}, enabled = { false }
+        ), onPhotoSelect = {}, onCamera = {}, enabled = false
         )
     }
 }

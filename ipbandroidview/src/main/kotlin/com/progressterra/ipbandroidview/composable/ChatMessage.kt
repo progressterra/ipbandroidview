@@ -23,15 +23,15 @@ private val emptyPadding: Dp = 0.dp
 @Composable
 fun ChatMessage(
     modifier: Modifier = Modifier,
-    message: () -> Message
+    message: Message
 ) {
     val paddingValues = PaddingValues(
-        start = if (message().user) edgePadding else emptyPadding,
-        end = if (message().user) emptyPadding else edgePadding
+        start = if (message.user) edgePadding else emptyPadding,
+        end = if (message.user) emptyPadding else edgePadding
     )
     Row(
         modifier = modifier.fillMaxWidth().padding(paddingValues),
-        horizontalArrangement = if (message().user) Arrangement.End else Arrangement.Start
+        horizontalArrangement = if (message.user) Arrangement.End else Arrangement.Start
     ) {
         Column(
             modifier = modifier
@@ -41,12 +41,12 @@ fun ChatMessage(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
         ) {
             Text(
-                text = message().content,
+                text = message.content,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text
             )
             Text(
-                text = message().date,
+                text = message.date,
                 color = AppTheme.colors.gray2,
                 style = AppTheme.typography.tertiaryText
             )

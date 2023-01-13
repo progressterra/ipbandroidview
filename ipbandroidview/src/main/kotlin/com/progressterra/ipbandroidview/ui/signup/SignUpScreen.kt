@@ -29,7 +29,7 @@ import java.time.LocalDate
 
 @Composable
 fun SignUpScreen(
-    state: () -> SignUpState,
+    state: SignUpState,
     skip: () -> Unit,
     next: () -> Unit,
     refresh: () -> Unit,
@@ -47,7 +47,7 @@ fun SignUpScreen(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = next,
                 text = stringResource(id = R.string.next),
-                enabled = state()::isDataValid,
+                enabled = state.isDataValid,
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             ThemedTextButton(
@@ -58,7 +58,7 @@ fun SignUpScreen(
         }
     }) { _, _ ->
         StateBox(
-            state = state()::screenState,
+            state = state.screenState,
             refresh = refresh
         ) {
             Column(
@@ -74,7 +74,7 @@ fun SignUpScreen(
                         .padding(AppTheme.dimensions.medium),
                     verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
                 ) {
-                    if (state().showCalendar) {
+                    if (state.showCalendar) {
                         ComposeCalendar(onDone = {
                             editBirthday(it)
                             closeCalendar()
@@ -82,27 +82,27 @@ fun SignUpScreen(
                     }
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        text = state()::name,
+                        text = state.name,
                         hint = stringResource(id = R.string.name_surname),
                         onChange = editName
                     )
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        text = state()::email,
+                        text = state.email,
                         hint = stringResource(id = R.string.email),
                         onChange = editEmail
                     )
                     ThemedMimicField(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = openCalendar,
-                        text = state().birthday::print,
+                        text = state.birthday.print(),
                         hint = stringResource(id = R.string.birthday),
                     )
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        text = state()::phoneNumber,
+                        text = state.phoneNumber,
                         hint = stringResource(id = R.string.phone_number),
-                        enabled = { false }
+                        enabled = false
                     )
                 }
             }

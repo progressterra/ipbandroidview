@@ -10,13 +10,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun ThemedSwitch(
     modifier: Modifier = Modifier,
     onChange: (Boolean) -> Unit,
-    checked: () -> Boolean,
-    enabled: () -> Boolean = { true }
+    checked: Boolean,
+    enabled: Boolean = true
 ) {
     Switch(
         modifier = modifier,
-        checked = checked(),
-        enabled = enabled(),
+        checked = checked,
+        enabled = enabled,
         onCheckedChange = onChange,
         colors = SwitchDefaults.colors(
             checkedThumbColor = AppTheme.colors.primary,

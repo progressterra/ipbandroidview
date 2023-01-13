@@ -30,7 +30,7 @@ class CatalogNode(
         }
         val state = viewModel.collectAsState()
         CatalogScreen(
-            state = state::value,
+            state = state.value,
             refresh = viewModel::refresh,
             openCategory = viewModel::openCategory,
             search = viewModel::search,

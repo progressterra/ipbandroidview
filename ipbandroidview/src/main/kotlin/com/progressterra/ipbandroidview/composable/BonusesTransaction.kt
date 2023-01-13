@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.model.bonuses.Transaction
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun BonusesTransaction(modifier: Modifier = Modifier, state: () -> Transaction) {
+fun BonusesTransaction(modifier: Modifier = Modifier, state: Transaction) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -26,26 +26,26 @@ fun BonusesTransaction(modifier: Modifier = Modifier, state: () -> Transaction) 
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
             Text(
-                text = state().date,
+                text = state.date,
                 style = AppTheme.typography.actionBarLabels,
                 color = AppTheme.colors.gray2
             )
             Text(
-                text = state().name,
+                text = state.name,
                 style = AppTheme.typography.text,
                 color = AppTheme.colors.gray1
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
-            if (state().delta >= 0)
+            if (state.delta >= 0)
                 Text(
-                    text = "+${state().delta}",
+                    text = "+${state.delta}",
                     style = AppTheme.typography.text,
                     color = AppTheme.colors.primary
                 )
             else
                 Text(
-                    text = state().delta.toString(),
+                    text = state.delta.toString(),
                     style = AppTheme.typography.text,
                     color = AppTheme.colors.error
                 )

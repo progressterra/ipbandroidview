@@ -14,18 +14,18 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ThemedMimicField(
     modifier: Modifier = Modifier,
-    text: () -> String,
+    text: String,
     hint: String,
     onClick: () -> Unit
 ) {
-    val label: (@Composable () -> Unit)? = if (text().isNotEmpty()) {
+    val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
             Text(
                 text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
-    val placeholder: (@Composable () -> Unit)? = if (text().isEmpty()) {
+    val placeholder: (@Composable () -> Unit)? = if (text.isEmpty()) {
         {
             Text(
                 text = hint, style = AppTheme.typography.text, maxLines = 1
@@ -36,7 +36,7 @@ fun ThemedMimicField(
         modifier = modifier
             .clip(AppTheme.shapes.small)
             .niceClickable(onClick = onClick),
-        value = text(),
+        value = text,
         onValueChange = {},
         shape = AppTheme.shapes.small,
         placeholder = placeholder,
@@ -84,7 +84,7 @@ fun ThemedMimicField(
 @Composable
 private fun ThemedMimicFieldPreviewEnabled() {
     AppTheme {
-        ThemedMimicField(text = { "Some text" }, hint = "Your name", onClick = {})
+        ThemedMimicField(text = "Some text", hint = "Your name", onClick = {})
     }
 }
 
@@ -92,7 +92,7 @@ private fun ThemedMimicFieldPreviewEnabled() {
 @Composable
 private fun ThemedMimicFieldPreviewDisabled() {
     AppTheme {
-        ThemedMimicField(text = { "Some text" }, hint = "Your name", onClick = {})
+        ThemedMimicField(text = "Some text", hint = "Your name", onClick = {})
     }
 }
 
@@ -100,6 +100,6 @@ private fun ThemedMimicFieldPreviewDisabled() {
 @Composable
 private fun ThemedMimicFieldPreviewEmptyDisabled() {
     AppTheme {
-        ThemedMimicField(text = { "" }, hint = "Your name", onClick = {})
+        ThemedMimicField(text = "", hint = "Your name", onClick = {})
     }
 }

@@ -20,9 +20,9 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun YesNoButton(
     modifier: Modifier = Modifier,
-    state: () -> Boolean?,
+    state: Boolean?,
     onClick: (Boolean) -> Unit,
-    enabled: () -> Boolean
+    enabled: Boolean
 ) {
 
     @Composable
@@ -33,14 +33,14 @@ fun YesNoButton(
         activeColor: Color,
         alternateColor: Color
     ) {
-        val background = when (state()) {
+        val background = when (state) {
             null -> AppTheme.colors.gray3
             else -> alternateColor
         }
         Row(
             modifier = modifier
                 .clip(AppTheme.shapes.button)
-                .background(if (state() == role) activeColor else background)
+                .background(if (state == role) activeColor else background)
                 .niceClickable(
                     enabled = enabled, onClick = { onClick(role) }
                 )
@@ -54,7 +54,7 @@ fun YesNoButton(
             Text(
                 text = text,
                 style = AppTheme.typography.button,
-                color = if (state() == role) AppTheme.colors.surfaces else AppTheme.colors.gray2
+                color = if (state == role) AppTheme.colors.surfaces else AppTheme.colors.gray2
             )
         }
     }
@@ -83,7 +83,7 @@ fun YesNoButton(
 @Composable
 private fun YesNoButtonPreview() {
     AppTheme {
-        YesNoButton(state = { null }, onClick = {}, enabled = { true })
+        YesNoButton(state = null, onClick = {}, enabled = true)
     }
 }
 
@@ -91,7 +91,7 @@ private fun YesNoButtonPreview() {
 @Composable
 private fun YesNoButtonPreviewYes() {
     AppTheme {
-        YesNoButton(state = { true }, onClick = {}, enabled = { true })
+        YesNoButton(state = true, onClick = {}, enabled = true)
     }
 }
 
@@ -101,8 +101,9 @@ private fun YesNoButtonPreviewNo() {
     AppTheme {
         YesNoButton(
             modifier = Modifier.fillMaxWidth(),
-            state = { false },
-            onClick = {}, enabled = { true })
+            state = false,
+            onClick = {}, enabled = true
+        )
     }
 }
 
@@ -112,9 +113,9 @@ private fun YesNoButtonPreviewDisabled() {
     AppTheme {
         YesNoButton(
             modifier = Modifier.fillMaxWidth(),
-            state = { false },
+            state = false,
             onClick = {},
-            enabled = { false }
+            enabled = false
         )
     }
 }

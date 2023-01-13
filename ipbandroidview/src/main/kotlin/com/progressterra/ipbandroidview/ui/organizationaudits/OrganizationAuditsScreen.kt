@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrganizationAuditsScreen(
-    state: () -> OrganizationAuditsState,
+    state: OrganizationAuditsState,
     onMapClick: () -> Unit,
     back: () -> Unit,
     refresh: () -> Unit,
@@ -32,7 +32,7 @@ fun OrganizationAuditsScreen(
     }) { _, _ ->
         StateBox(
             refresh = refresh,
-            state = state()::screenState
+            state = state.screenState
         ) {
             LazyColumn(
                 modifier = Modifier
@@ -42,16 +42,16 @@ fun OrganizationAuditsScreen(
             ) {
                 item {
                     OrganizationPresentation(
-                        name = state()::organizationName,
-                        address = state()::organizationAddress,
-                        imageUrl = state()::imageUrl,
+                        name = state.organizationName,
+                        address = state.organizationAddress,
+                        imageUrl = state.imageUrl,
                         onMapClick = onMapClick
                     )
                 }
-                items(state().audits) {
+                items(state.audits) {
                     OrganizationCheckCard(
-                        name = it::name,
-                        lastTime = it::lastTime,
+                        name = it.name,
+                        lastTime = it.lastTime,
                         onClick = { auditDetails(it) }
                     )
                 }

@@ -31,13 +31,13 @@ private val height = 150.dp
 @Composable
 fun AddressSuggestions(
     modifier: Modifier = Modifier,
-    isVisible: () -> Boolean,
-    suggestions: () -> List<SuggestionUI>,
+    isVisible: Boolean,
+    suggestions: List<SuggestionUI>,
     onSuggestion: (SuggestionUI) -> Unit
 ) {
     AnimatedVisibility(
         modifier = modifier,
-        visible = isVisible(),
+        visible = isVisible,
         enter = expandVertically(),
         exit = shrinkVertically()
     ) {
@@ -45,7 +45,7 @@ fun AddressSuggestions(
             elevation = elevation, shape = AppTheme.shapes.small
         ) {
             LazyColumn(modifier = Modifier.heightIn(max = height)) {
-                items(suggestions()) {
+                items(suggestions) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -79,10 +79,8 @@ private fun AddressSuggestionsPreview() {
             verticalArrangement = Arrangement.Center
         ) {
             AddressSuggestions(
-                isVisible = { true },
-                suggestions = {
-                    emptyList()
-                },
+                isVisible = true,
+                suggestions = emptyList(),
                 onSuggestion = {}
             )
         }

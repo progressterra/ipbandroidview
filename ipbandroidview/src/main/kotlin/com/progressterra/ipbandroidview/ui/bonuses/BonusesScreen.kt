@@ -14,9 +14,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BonusesClarification
 import com.progressterra.ipbandroidview.composable.BonusesTransaction
 import com.progressterra.ipbandroidview.composable.BonusesWidget
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo
 import com.progressterra.ipbandroidview.model.bonuses.Transaction
@@ -24,7 +24,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun BonusesScreen(
-    state: () -> BonusesState,
+    state: BonusesState,
     clarification: () -> Unit,
     back: () -> Unit,
     refresh: () -> Unit
@@ -33,7 +33,7 @@ fun BonusesScreen(
         topBar = { ThemedTopAppBar(title = stringResource(R.string.bonuses_title), onBack = back) }
     ) { _, _ ->
         StateBox(
-            state = state()::screenState,
+            state = state.screenState,
             refresh = refresh
         ) {
             Column(
@@ -43,17 +43,17 @@ fun BonusesScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 BonusesWidget(
-                    bonuses = state().bonusesInfo::quantity
+                    bonuses = state.bonusesInfo.quantity
                 )
                 BonusesClarification(
-                    burningDate = state().bonusesInfo::burningDate,
-                    burningQuantity = state().bonusesInfo::forBurningQuantity,
+                    burningDate = state.bonusesInfo.burningDate,
+                    burningQuantity = state.bonusesInfo.forBurningQuantity,
                     onClick = clarification
                 )
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-                    items(state().transactions) {
+                    items(state.transactions) {
                         BonusesTransaction(
-                            state = { it }
+                            state = it
                         )
                     }
                 }
@@ -67,17 +67,15 @@ fun BonusesScreen(
 private fun BonusesScreenPreview() {
     AppTheme {
         BonusesScreen(
-            state = {
-                BonusesState(
-                    bonusesInfo = BonusesInfo(300, 150, "10.01"),
-                    transactions = listOf(
-                        Transaction("01.01", "Зачисление", 300),
-                        Transaction("03.01", "Зачисление", 300),
-                        Transaction("06.01", "Снятие", -600)
-                    ),
-                    screenState = ScreenState.SUCCESS
-                )
-            },
+            state = BonusesState(
+                bonusesInfo = BonusesInfo(300, 150, "10.01"),
+                transactions = listOf(
+                    Transaction("01.01", "Зачисление", 300),
+                    Transaction("03.01", "Зачисление", 300),
+                    Transaction("06.01", "Снятие", -600)
+                ),
+                screenState = ScreenState.SUCCESS
+            ),
             clarification = {},
             back = {},
             refresh = {}

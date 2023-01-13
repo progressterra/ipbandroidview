@@ -22,7 +22,7 @@ private val verticalPadding = 80.dp
 @Composable
 fun OrderProcessingWidget(
     modifier: Modifier,
-    state: () -> OrderResult
+    state: OrderResult
 ) {
     Column(
         modifier = modifier
@@ -33,13 +33,13 @@ fun OrderProcessingWidget(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = if (state().success) stringResource(R.string.success_payment) else stringResource(R.string.failed_payment),
-            color = if (state().success) AppTheme.colors.primary else AppTheme.colors.error,
+            text = if (state.success) stringResource(R.string.success_payment) else stringResource(R.string.failed_payment),
+            color = if (state.success) AppTheme.colors.primary else AppTheme.colors.error,
             style = AppTheme.typography.title
         )
         Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
         Text(
-            text = state().additionalInfo,
+            text = state.additionalInfo,
             color = AppTheme.colors.gray2,
             style = AppTheme.typography.secondaryText
         )

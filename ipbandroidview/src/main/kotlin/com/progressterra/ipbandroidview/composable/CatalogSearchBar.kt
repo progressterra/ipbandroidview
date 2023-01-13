@@ -24,7 +24,7 @@ private val paddingBottom = 10.dp
 @Composable
 fun CatalogSearchBar(
     modifier: Modifier = Modifier,
-    state: () -> CatalogSearchBarState,
+    state: CatalogSearchBarState,
     onClear: () -> Unit,
     onKeyword: (String) -> Unit,
     onSearch: () -> Unit
@@ -38,7 +38,7 @@ fun CatalogSearchBar(
     ) {
         ThemedTextField(modifier = Modifier
             .weight(1f),
-            text = state()::keyword,
+            text = state.keyword,
             hint = stringResource(id = R.string.search),
             onChange = onKeyword,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -46,7 +46,7 @@ fun CatalogSearchBar(
             ),
             action = onSearch,
             trailingIcon = {
-                if (state().keyword.isNotEmpty()) IconButton(onClick = onClear) {
+                if (state.keyword.isNotEmpty()) IconButton(onClick = onClear) {
                     Mark2Icon()
                 }
                 else SearchIcon()
@@ -63,11 +63,7 @@ private class CatalogSearchBarStatePreview(
 private fun CatalogSearchBarPreview() {
     AppTheme {
         CatalogSearchBar(
-            state = {
-                CatalogSearchBarStatePreview(
-                    keyword = ""
-                )
-            },
+            state = CatalogSearchBarStatePreview(keyword = ""),
             onClear = {},
             onKeyword = {},
             onSearch = {}
@@ -80,11 +76,7 @@ private fun CatalogSearchBarPreview() {
 private fun CatalogSearchBarPreviewExpanded() {
     AppTheme {
         CatalogSearchBar(
-            state = {
-                CatalogSearchBarStatePreview(
-                    keyword = "some keyword"
-                )
-            },
+            state = CatalogSearchBarStatePreview(keyword = "some keyword"),
             onClear = {},
             onKeyword = {},
             onSearch = {}

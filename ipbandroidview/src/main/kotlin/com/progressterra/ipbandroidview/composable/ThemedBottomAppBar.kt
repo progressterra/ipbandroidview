@@ -18,7 +18,7 @@ private val lineWidth = 1.dp
 fun ThemedBottomAppBar(
     modifier: Modifier = Modifier,
     items: List<BottomMenuTabState>,
-    activeIndex: @Composable () -> Int,
+    activeIndex: Int,
     onClick: (Int) -> Unit
 ) {
     BasicBar(
@@ -33,7 +33,7 @@ fun ThemedBottomAppBar(
         items.forEach { item ->
             BottomMenuTab(
                 modifier = modifier.weight(1f),
-                state = { item },
+                state = item,
                 active = activeIndex,
                 onClick = onClick
             )
@@ -65,7 +65,7 @@ private fun BottomNavPreview() {
                     titleId = R.string.audit,
                     iconId = R.drawable.ic_audits
                 )
-            ), activeIndex = { 1 },
+            ), activeIndex = 1,
             onClick = {}
         )
     }

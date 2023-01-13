@@ -25,11 +25,11 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Gallery(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
+fun Gallery(modifier: Modifier = Modifier, state: GoodsDetails) {
     val pagerState = rememberPagerState()
     Box(modifier = modifier.aspectRatio(1f)) {
         HorizontalPager(
-            count = state().images.size,
+            count = state.images.size,
             state = pagerState,
             contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
             itemSpacing = AppTheme.dimensions.small
@@ -39,7 +39,7 @@ fun Gallery(modifier: Modifier = Modifier, state: () -> GoodsDetails) {
                     .fillMaxSize()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces),
-                url = { state().images[it] },
+                url = state.images[it],
                 backgroundColor = AppTheme.colors.surfaces
             )
         }
@@ -65,9 +65,7 @@ private fun GalleryPreview() {
     AppTheme {
         LazyColumn {
             item {
-                Gallery(modifier = Modifier.size(350.dp), state = {
-                    GoodsDetails()
-                })
+                Gallery(modifier = Modifier.size(350.dp), state = GoodsDetails())
             }
         }
     }
