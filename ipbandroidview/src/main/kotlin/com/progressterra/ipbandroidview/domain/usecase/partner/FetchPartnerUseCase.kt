@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.domain.usecase.partner
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.collaboration.CollaborationRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
@@ -28,19 +29,19 @@ interface FetchPartnerUseCase {
                 latitude = location.latitude.toString(),
                 longitude = location.longitude.toString(),
                 organizationId = PARTNER_ID
-            ).getOrThrow()
+            ).onFailure { it.printStackTrace() }.getOrThrow()
             val resultShop = repository.organizationShops(
                 accessToken = token,
                 latitude = location.latitude.toString(),
                 longitude = location.longitude.toString(),
                 organizationId = PARTNER_ID
-            ).getOrThrow()
+            ).onFailure { it.printStackTrace() }.getOrThrow()
             val resultOffers = repository.offersByOrganization(
                 accessToken = token,
                 latitude = location.latitude.toString(),
                 longitude = location.longitude.toString(),
                 organizationId = PARTNER_ID
-            ).getOrThrow()?.map(offerMapper::map) ?: emptyList()
+            ).onFailure { it.printStackTrace() }.getOrThrow()?.map(offerMapper::map) ?: emptyList()
             partnerMapper.map(resultOrganization!!, resultShop!!.first(), resultOffers)
         }
     }
