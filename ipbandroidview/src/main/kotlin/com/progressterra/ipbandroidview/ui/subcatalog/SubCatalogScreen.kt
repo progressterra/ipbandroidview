@@ -11,28 +11,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.CategorySearchBar
 import com.progressterra.ipbandroidview.composable.SubCategory
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.model.store.Category
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SubCatalogScreen(
     state: SubCatalogState,
-    back: () -> Unit,
-    subCategory: (Category) -> Unit,
-    keyword: (String) -> Unit,
-    search: () -> Unit,
-    onExpand: () -> Unit,
-    onClear: () -> Unit
+    interactor: SubCatalogInteractor
 ) {
     ThemedLayout(topBar = {
         CategorySearchBar(
             category = state.currentCategory.name,
             state = state,
-            onBack = back,
-            onKeyword = keyword,
-            onSearch = search,
-            onClear = onClear,
-            onExpand = onExpand
+            onBack = interactor::onBack,
+            onKeyword = interactor::editKeyword,
+            onSearch = interactor::search,
+            onClear = interactor::clearSearch,
+            onExpand = interactor::expandSearch
         )
     }) { _, _ ->
         LazyColumn(
@@ -42,7 +36,7 @@ fun SubCatalogScreen(
             contentPadding = PaddingValues(AppTheme.dimensions.small)
         ) {
             items(state.currentCategory.subCategories) {
-                SubCategory(state = it, openCategory = subCategory)
+                SubCategory(state = it, openCategory = interactor::onSubCategory)
             }
         }
     }

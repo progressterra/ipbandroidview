@@ -18,7 +18,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class SupportViewModel(
     private val fetchChatUseCase: FetchChatUseCase,
     private val sendMessageUseCase: SendMessageUseCase
-) : ViewModel(), ContainerHost<SupportState, SupportEffect>, SupportScreenInteractor {
+) : ViewModel(), ContainerHost<SupportState, SupportEffect>, SupportInteractor {
 
     override val container: Container<SupportState, SupportEffect> = container(SupportState())
 

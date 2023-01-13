@@ -45,12 +45,7 @@ class SubCatalogNode(
         val state = viewModel.collectAsState()
         SubCatalogScreen(
             state = state.value,
-            back = viewModel::back,
-            subCategory = viewModel::subCategory,
-            keyword = viewModel::keyword,
-            search = viewModel::search,
-            onClear = viewModel::clear,
-            onExpand = viewModel::expand
+            interactor = viewModel
         )
     }
 }

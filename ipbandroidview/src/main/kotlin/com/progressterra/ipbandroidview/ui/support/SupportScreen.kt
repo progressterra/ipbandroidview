@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun SupportScreen(
     state: SupportState,
-    interactor: SupportScreenInteractor
+    interactor: SupportInteractor
 ) {
     ThemedLayout(
         topBar = {
@@ -103,7 +103,7 @@ private fun SupportScreenPreview() {
                     )
                 )
             ),
-            interactor = SupportScreenInteractor.Empty()
+            interactor = SupportInteractor.Empty()
         )
     }
 }

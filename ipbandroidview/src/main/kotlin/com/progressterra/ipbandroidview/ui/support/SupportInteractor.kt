@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.support
 
-interface SupportScreenInteractor {
+interface SupportInteractor {
 
     fun onBack()
 
@@ -10,7 +10,7 @@ interface SupportScreenInteractor {
 
     fun sendMessage()
 
-    class Empty : SupportScreenInteractor {
+    class Empty : SupportInteractor {
 
         override fun onBack() = Unit
 

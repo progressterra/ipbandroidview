@@ -4,12 +4,16 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.model.store.Category
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatalogEffect> {
+@OptIn(OrbitExperimental::class)
+class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatalogEffect>,
+    SubCatalogInteractor {
 
     override val container: Container<SubCatalogState, SubCatalogEffect> =
         container(SubCatalogState())
@@ -18,31 +22,31 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
         reduce { state.copy(currentCategory = subCategory) }
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(SubCatalogEffect.Back)
     }
 
-    fun subCategory(subCategory: Category) = intent {
-        if (subCategory.hasNext)
-            postSideEffect(SubCatalogEffect.SubCatalog(subCategory))
+    override fun onSubCategory(category: Category) = blockingIntent {
+        if (category.hasNext)
+            postSideEffect(SubCatalogEffect.SubCatalog(category))
         else
-            postSideEffect(SubCatalogEffect.Goods(subCategory.id))
+            postSideEffect(SubCatalogEffect.Goods(category.id))
     }
 
-    fun keyword(keyword: String) = intent {
+    override fun editKeyword(keyword: String) = intent {
         reduce { state.copy(keyword = keyword) }
     }
 
-    fun search() = intent {
+    override fun search() = intent {
         postSideEffect(SubCatalogEffect.Search(state.keyword))
-        clear()
+        clearSearch()
     }
 
-    fun clear() = intent {
+    override fun clearSearch() = intent {
         reduce { state.copy(keyword = "", expanded = false) }
     }
 
-    fun expand() = intent {
+    override fun expandSearch() = intent {
         reduce { state.copy(expanded = true) }
     }
 }
