@@ -11,13 +11,19 @@ import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.partner.Partner
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+private val blockHeight = 130.dp
+
 @Composable
 fun TestPartnerBlock(
     modifier: Modifier = Modifier,
     partner: Partner,
     onPartnerClick: () -> Unit
 ) {
-    BottomHolder(modifier = modifier.padding(AppTheme.dimensions.small).height(150.dp)) {
+    BottomHolder(
+        modifier = modifier
+            .padding(horizontal = AppTheme.dimensions.small)
+            .height(blockHeight)
+    ) {
         SimpleImage(
             modifier = Modifier
                 .fillMaxWidth()

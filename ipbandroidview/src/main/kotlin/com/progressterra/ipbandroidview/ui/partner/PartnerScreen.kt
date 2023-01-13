@@ -12,10 +12,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.R
@@ -25,6 +27,7 @@ import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.model.partner.Partner
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.skydoves.landscapist.ImageOptions
 import de.charlex.compose.HtmlText
 
 private val logoSize: Dp = 32.dp
@@ -44,9 +47,9 @@ fun PartnerScreen(
             SimpleImage(
                 modifier = Modifier.constrainAs(header) {
                     width = Dimension.matchParent
-                    top.linkTo(parent.top)
                 },
                 url = state.partner.headImageUrl,
+                options = ImageOptions(contentScale = ContentScale.FillWidth),
                 backgroundColor = AppTheme.colors.background
             )
             val smallMargin = AppTheme.dimensions.small
@@ -75,9 +78,9 @@ fun PartnerScreen(
             }
             HtmlText(
                 modifier = Modifier.constrainAs(description) {
+                    width = Dimension.fillToConstraints
                     start.linkTo(parent.start, smallMargin)
                     end.linkTo(parent.end, smallMargin)
-                    top.linkTo(header.bottom, bigMargin)
                 },
                 text = state.partner.description,
                 style = AppTheme.typography.text,
@@ -87,7 +90,6 @@ fun PartnerScreen(
                 LazyRow(
                     modifier = Modifier.constrainAs(offers) {
                         width = Dimension.matchParent
-                        top.linkTo(description.bottom)
                     }
                 ) {
                     items(state.partner.offerList) {
@@ -96,7 +98,6 @@ fun PartnerScreen(
                 }
             Text(
                 modifier = Modifier.constrainAs(phone) {
-                    top.linkTo(offers.bottom, smallMargin)
                     start.linkTo(parent.start, smallMargin)
                 },
                 text = state.partner.phone,
@@ -105,13 +106,13 @@ fun PartnerScreen(
             )
             Text(
                 modifier = Modifier.constrainAs(website) {
-                    top.linkTo(phone.bottom, smallMargin)
                     start.linkTo(parent.start, smallMargin)
                 },
                 text = state.partner.webSite,
                 style = AppTheme.typography.text,
                 color = AppTheme.colors.black
             )
+            createVerticalChain(header, description, offers, website, phone, chainStyle = ChainStyle.SpreadInside)
         }
     }
 }
