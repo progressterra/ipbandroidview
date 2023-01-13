@@ -2,9 +2,11 @@ package com.progressterra.ipbandroidview.ui.organizations
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -38,7 +40,6 @@ fun OrganizationsScreen(
             )
     }, bottomOverlap = true) { _, bottomPadding ->
         StateBox(
-            modifier = Modifier.padding(bottom = bottomPadding),
             state = state.screenState,
             refresh = interactor::refresh
         ) {
@@ -53,6 +54,9 @@ fun OrganizationsScreen(
                         state = it,
                         openOrganization = interactor::onOrganizationDetails
                     )
+                }
+                item {
+                    Spacer(Modifier.size(bottomPadding))
                 }
             }
         }

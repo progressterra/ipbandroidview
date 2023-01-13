@@ -3,7 +3,10 @@ package com.progressterra.ipbandroidview.ui.partner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
@@ -12,7 +15,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -27,7 +29,6 @@ import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.model.partner.Partner
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.skydoves.landscapist.ImageOptions
 import de.charlex.compose.HtmlText
 
 private val logoSize: Dp = 48.dp
@@ -43,13 +44,12 @@ fun PartnerScreen(
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (header, logo, description, offers, website, phone) = createRefs()
             SimpleImage(
-                modifier = Modifier.constrainAs(header) {
-                    width = Dimension.fillToConstraints
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .constrainAs(header) {
+                        top.linkTo(parent.top)
+                    },
                 url = state.partner.headImageUrl,
-                options = ImageOptions(contentScale = ContentScale.Fit),
                 backgroundColor = AppTheme.colors.background
             )
             val smallMargin = AppTheme.dimensions.small
@@ -83,6 +83,7 @@ fun PartnerScreen(
                     .padding(AppTheme.dimensions.small)
                     .constrainAs(description) {
                         width = Dimension.fillToConstraints
+                        top.linkTo(header.bottom)
                         start.linkTo(parent.start, smallMargin)
                         end.linkTo(parent.end, smallMargin)
                     }
@@ -134,12 +135,11 @@ fun PartnerScreen(
                 )
             }
             createVerticalChain(
-                header,
                 description,
                 offers,
                 website,
                 phone,
-                chainStyle = ChainStyle.SpreadInside
+                chainStyle = ChainStyle.Spread
             )
         }
     }

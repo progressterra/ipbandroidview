@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,14 +19,13 @@ fun TestPartnerBlock(
     onPartnerClick: () -> Unit
 ) {
     BottomHolder(
-        modifier = modifier
-            .niceClickable(onClick = onPartnerClick)
-            .height(blockHeight)
+        modifier = modifier.height(blockHeight)
     ) {
         SimpleImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .clip(AppTheme.shapes.small),
+                .clip(AppTheme.shapes.small)
+                .niceClickable(onClick = onPartnerClick),
             url = partner.miniImageUrl,
             backgroundColor = AppTheme.colors.surfaces
         )
