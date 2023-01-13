@@ -18,30 +18,33 @@ interface FetchPartnerUseCase {
         private val repository: CollaborationRepository,
         private val partnerMapper: PartnerMapper,
         private val offerMapper: OfferMapper,
-        private val provideLocation: ProvideLocation,
+        provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository
     ) : FetchPartnerUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(): Result<Partner> = withToken { token ->
-            val location = provideLocation.location().getOrThrow()
+            Log.d("PARTNER", "fetch partner start")
             val resultOrganization = repository.organizationById(
                 accessToken = token,
-                latitude = location.latitude.toString(),
-                longitude = location.longitude.toString(),
+                latitude = "",
+                longitude = "",
                 organizationId = PARTNER_ID
-            ).onFailure { it.printStackTrace() }.getOrThrow()
+            ).getOrThrow()
+            Log.d("PARTNER", "fetch org: $resultOrganization")
             val resultShop = repository.organizationShops(
                 accessToken = token,
-                latitude = location.latitude.toString(),
-                longitude = location.longitude.toString(),
+                latitude = "",
+                longitude = "",
                 organizationId = PARTNER_ID
-            ).onFailure { it.printStackTrace() }.getOrThrow()
+            ).getOrThrow()
+            Log.d("PARTNER", "fetch shop: $resultShop")
             val resultOffers = repository.offersByOrganization(
                 accessToken = token,
-                latitude = location.latitude.toString(),
-                longitude = location.longitude.toString(),
+                latitude = "",
+                longitude = "",
                 organizationId = PARTNER_ID
-            ).onFailure { it.printStackTrace() }.getOrThrow()?.map(offerMapper::map) ?: emptyList()
+            ).getOrThrow()?.map(offerMapper::map) ?: emptyList()
+            Log.d("PARTNER", "fetch offers: $resultOffers")
             partnerMapper.map(resultOrganization!!, resultShop!!.first(), resultOffers)
         }
     }
