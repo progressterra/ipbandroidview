@@ -12,12 +12,15 @@ import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUs
 import com.progressterra.ipbandroidview.ext.isEmail
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 import java.time.LocalDate
 
+@OptIn(OrbitExperimental::class)
 class SignUpViewModel(
     private val updatePersonalInfoUseCase: UpdatePersonalInfoUseCase,
     private val fetchUserEmailUseCase: FetchUserEmailUseCase,
@@ -25,7 +28,7 @@ class SignUpViewModel(
     private val fetchUserNameUseCase: FetchUserNameUseCase,
     private val fetchUserPhoneUseCase: FetchUserPhoneUseCase,
     private val needAddressUseCase: NeedAddressUseCase
-) : ViewModel(), ContainerHost<SignUpState, SignUpEffect> {
+) : ViewModel(), ContainerHost<SignUpState, SignUpEffect>, SignUpInteractor {
 
     override val container: Container<SignUpState, SignUpEffect> =
         container(SignUpState())
@@ -34,7 +37,7 @@ class SignUpViewModel(
         refresh()
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         var wasError = false
         fetchUserNameUseCase().onSuccess { reduce { state.copy(name = it) } }
@@ -63,9 +66,9 @@ class SignUpViewModel(
             reduce { state.copy(screenState = ScreenState.SUCCESS) }
     }
 
-    fun skip() = intent { postSideEffect(SignUpEffect.Skip) }
+    override fun onSkip() = intent { postSideEffect(SignUpEffect.Skip) }
 
-    fun next() = intent {
+    override fun onNext() = intent {
         if (state.isDataValid) {
             reduce { state.copy(screenState = ScreenState.LOADING) }
             updatePersonalInfoUseCase(state.name, state.email, state.birthday).onSuccess {
@@ -82,24 +85,24 @@ class SignUpViewModel(
         } else postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
     }
 
-    fun editBirthday(birthday: LocalDate) {
-        intent { reduce { state.copy(birthday = birthday) } }
+    override fun editBirthday(date: LocalDate) {
+        intent { reduce { state.copy(birthday = date) } }
         checkDataValidity()
     }
 
-    fun editEmail(email: String) {
-        intent { reduce { state.copy(email = email) } }
+    override fun editEmail(email: String) {
+        blockingIntent { reduce { state.copy(email = email) } }
         checkDataValidity()
     }
 
-    fun editName(name: String) {
-        intent { reduce { state.copy(name = name) } }
+    override fun editName(name: String) {
+        blockingIntent { reduce { state.copy(name = name) } }
         checkDataValidity()
     }
 
-    fun openCalendar() = intent { reduce { state.copy(showCalendar = true) } }
+    override fun openCalendar() = intent { reduce { state.copy(showCalendar = true) } }
 
-    fun closeCalendar() = intent { reduce { state.copy(showCalendar = false) } }
+    override fun closeCalendar() = intent { reduce { state.copy(showCalendar = false) } }
 
     private fun checkDataValidity() = intent {
         reduce { state.copy(isDataValid = state.name.isNotBlank() && state.email.isEmail()) }

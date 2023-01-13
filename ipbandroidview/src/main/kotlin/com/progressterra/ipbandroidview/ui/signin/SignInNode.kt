@@ -33,9 +33,7 @@ class SignInNode(
         val state = viewModel.collectAsState()
         SignInScreen(
             state = state.value,
-            next = viewModel::next,
-            skip = viewModel::skip,
-            editPhoneNumber = viewModel::editPhoneNumber,
+            interactor = viewModel,
             settings = settings
         )
     }

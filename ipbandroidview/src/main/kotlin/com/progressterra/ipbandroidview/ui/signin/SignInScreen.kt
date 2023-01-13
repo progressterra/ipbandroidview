@@ -17,23 +17,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.ThemedTextField
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun SignInScreen(
     state: SignInState,
-    next: () -> Unit,
-    skip: () -> Unit,
-    editPhoneNumber: (String) -> Unit,
-    settings: SignInSettings,
+    interactor: SignInInteractor,
+    settings: SignInSettings
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.authorization))
@@ -41,14 +39,14 @@ fun SignInScreen(
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = next,
+                onClick = interactor::onNext,
                 text = stringResource(id = R.string.auth_button)
             )
             if (settings.passable) {
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = skip,
+                    onClick = interactor::onSkip,
                     text = stringResource(id = R.string.auth_skip)
                 )
             }
@@ -71,7 +69,7 @@ fun SignInScreen(
                         modifier = Modifier.fillMaxWidth(),
                         text = state.phoneNumber,
                         hint = stringResource(id = R.string.phone_number),
-                        onChange = editPhoneNumber,
+                        onChange = interactor::editPhoneNumber,
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                     )
                 }
