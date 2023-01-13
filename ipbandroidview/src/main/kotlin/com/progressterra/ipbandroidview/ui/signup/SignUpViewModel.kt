@@ -85,18 +85,18 @@ class SignUpViewModel(
         } else postSideEffect(SignUpEffect.Toast(R.string.invalid_data))
     }
 
-    override fun editBirthday(date: LocalDate) {
-        intent { reduce { state.copy(birthday = date) } }
+    override fun editBirthday(date: LocalDate) = intent {
+        reduce { state.copy(birthday = date) }
         checkDataValidity()
     }
 
-    override fun editEmail(email: String) {
-        blockingIntent { reduce { state.copy(email = email) } }
+    override fun editEmail(email: String) = blockingIntent {
+        reduce { state.copy(email = email) }
         checkDataValidity()
     }
 
-    override fun editName(name: String) {
-        blockingIntent { reduce { state.copy(name = name) } }
+    override fun editName(name: String) = blockingIntent {
+        reduce { state.copy(name = name) }
         checkDataValidity()
     }
 

@@ -6,11 +6,14 @@ import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
 import com.progressterra.ipbandroidview.model.store.Category
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class CatalogViewModel(
     private val catalogUseCase: CatalogUseCase
 ) : ViewModel(), ContainerHost<CatalogState, CatalogEffect>, CatalogInteractor {
@@ -35,7 +38,7 @@ class CatalogViewModel(
         }
     }
 
-    override fun editKeyword(keyword: String) = intent {
+    override fun editKeyword(keyword: String) = blockingIntent {
         reduce { state.copy(keyword = keyword) }
     }
 

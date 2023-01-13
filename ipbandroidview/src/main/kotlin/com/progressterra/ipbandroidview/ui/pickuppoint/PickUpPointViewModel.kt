@@ -2,11 +2,9 @@ package com.progressterra.ipbandroidview.ui.pickuppoint
 
 import android.Manifest
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
 import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -24,10 +22,12 @@ class PickUpPointViewModel(
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
     init {
-        viewModelScope.launch {
-            delay(3000)
-            checkPermission()
-        }
+        initialCheckPermission()
+    }
+
+    private fun initialCheckPermission() = intent {
+        delay(3000)
+        checkPermission()
     }
 
     fun setPoints(points: List<PickUpPointInfo>) = intent {

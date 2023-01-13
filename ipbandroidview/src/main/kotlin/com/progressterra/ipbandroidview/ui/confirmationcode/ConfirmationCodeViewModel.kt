@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -24,7 +24,8 @@ class ConfirmationCodeViewModel(
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
     private val needDetailsUseCase: NeedDetailsUseCase
-) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect>, ConfirmationCodeInteractor {
+) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect>,
+    ConfirmationCodeInteractor {
 
     override val container: Container<ConfirmationCodeState, ConfirmationCodeEffect> = container(
         ConfirmationCodeState()
@@ -38,11 +39,9 @@ class ConfirmationCodeViewModel(
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
 
-    override fun resend() {
-        intent {
-            startVerificationChannelUseCase(state.phoneNumber)
-            reduce { state.copy(code = "") }
-        }
+    override fun resend() = intent {
+        startVerificationChannelUseCase(state.phoneNumber)
+        reduce { state.copy(code = "") }
         startTimer()
     }
 

@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.ui.city
 import android.Manifest
 import android.location.Location
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
 import com.progressterra.ipbandroidview.domain.usecase.ChooseSuggestionUseCase
@@ -12,7 +11,6 @@ import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.model.address.SuggestionUI
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -36,10 +34,12 @@ class CityViewModel(
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
     init {
-        viewModelScope.launch {
-            delay(3000)
-            checkPermission()
-        }
+        initialCheckPermission()
+    }
+
+    private fun initialCheckPermission() = intent {
+        delay(3000)
+        checkPermission()
     }
 
     private fun checkPermission() = intent {
