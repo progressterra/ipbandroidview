@@ -16,6 +16,9 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.TestPartnerBlock
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.model.checklist.Organization
+import com.progressterra.ipbandroidview.model.partner.Partner
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -56,5 +59,33 @@ fun OrganizationsScreen(
 @Composable
 private fun AuditsScreenPreviewSuccess() {
     AppTheme {
+        OrganizationsScreen(
+            state = OrganizationsState(
+                organizations = listOf(
+                    Organization(
+                        address = "Some address",
+                        id = "",
+                        audits = "1",
+                        documents = "2",
+                        name = "Some org",
+                        imageUrl = "",
+                        latitude = 0.0,
+                        longitude = 0.0
+                    ),
+                    Organization(
+                        address = "Some address 235",
+                        id = "",
+                        audits = "11",
+                        documents = "222",
+                        name = "Some org 2",
+                        imageUrl = "",
+                        latitude = 0.0,
+                        longitude = 0.0
+                    )
+                ),
+                partner = Partner(),
+                screenState = ScreenState.SUCCESS
+            ), interactor = OrganizationsInteractor.Empty()
+        )
     }
 }

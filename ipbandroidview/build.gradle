@@ -132,4 +132,7 @@ dependencies {
 
     //QR
     api "com.google.zxing:core:3.5.1"
+
+    //HTML
+    implementation "de.charlex.compose:html-text:1.4.1"
 }

@@ -9,10 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -50,9 +47,6 @@ fun ThemedTextField(
             )
         }
     } else null
-    var localText by remember(text) {
-        mutableStateOf(text)
-    }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     val focusManager = LocalFocusManager.current
@@ -64,12 +58,9 @@ fun ThemedTextField(
                 shape = AppTheme.shapes.small
             )
             .clearFocusOnKeyboardDismiss(),
-        value = localText,
+        value = text,
         interactionSource = mutableInteractionSource,
-        onValueChange = {
-            localText = it
-            onChange?.invoke(it)
-        },
+        onValueChange = { onChange?.invoke(it) },
         keyboardActions = KeyboardActions {
             focusManager.clearFocus()
             action?.invoke()

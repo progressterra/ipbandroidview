@@ -15,18 +15,13 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -73,21 +68,17 @@ fun VerificationCodeInput(
         }
     }
 
-    var localCode by remember(code) {
-        mutableStateOf(TextFieldValue(text = code, selection = TextRange(code.length)))
-    }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     val focusManager = LocalFocusManager.current
     BasicTextField(modifier = modifier.clearFocusOnKeyboardDismiss(),
-        value = localCode,
+        value = code,
         singleLine = true,
         maxLines = 1,
         interactionSource = mutableInteractionSource,
         onValueChange = {
-            if (it.text.length <= 4) {
-                localCode = it
-                editCode(it.text)
+            if (it.length <= 4) {
+                editCode(it)
             }
         },
         keyboardOptions = KeyboardOptions(
@@ -100,8 +91,8 @@ fun VerificationCodeInput(
             Row(horizontalArrangement = Arrangement.Center) {
                 repeat(4) { index ->
                     Digit(
-                        if (index >= localCode.text.length) "" else localCode.text[index].toString(),
-                        (localCode.text.length == index) && focused
+                        if (index >= code.length) "" else code[index].toString(),
+                        (code.length == index) && focused
                     )
                     if (index != 4 - 1) Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
                 }
