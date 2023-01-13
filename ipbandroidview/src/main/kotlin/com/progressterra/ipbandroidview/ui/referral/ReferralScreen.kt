@@ -16,25 +16,27 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ReferralScreen(
     state: ReferralState,
-    onBack: () -> Unit,
-    onCopy: () -> Unit,
-    onShare: () -> Unit,
-    onRefresh: () -> Unit
+    interactor: ReferralInteractor
 ) {
     ThemedLayout(
         topBar = {
-            ThemedTopAppBar(title = stringResource(R.string.referral_program), onBack = onBack)
+            ThemedTopAppBar(
+                title = stringResource(R.string.referral_program),
+                onBack = interactor::onBack
+            )
         }
     ) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = onRefresh
+            refresh = interactor::refresh
         ) {
-            Column(modifier = Modifier.fillMaxSize().padding(AppTheme.dimensions.small)) {
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .padding(AppTheme.dimensions.small)) {
                 ReferralLink(
                     promoCode = state.userInvite.promoCode,
-                    onCopy = onCopy,
-                    onShare = onShare
+                    onCopy = interactor::copy,
+                    onShare = interactor::share
                 )
             }
         }

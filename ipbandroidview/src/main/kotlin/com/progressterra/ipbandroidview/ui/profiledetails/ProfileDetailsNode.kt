@@ -35,11 +35,7 @@ class ProfileDetailsNode(
         val state = viewModel.collectAsState()
         ProfileDetailsScreen(
             state = state.value,
-            confirmChange = viewModel::confirmChange,
-            editEmail = viewModel::editEmail,
-            editName = viewModel::editName,
-            back = viewModel::back,
-            logout = viewModel::logout
+            interactor = viewModel
         )
     }
 }

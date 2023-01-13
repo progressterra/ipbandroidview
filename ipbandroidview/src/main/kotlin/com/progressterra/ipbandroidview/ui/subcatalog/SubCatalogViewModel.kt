@@ -26,14 +26,14 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
         postSideEffect(SubCatalogEffect.Back)
     }
 
-    override fun onSubCategory(category: Category) = blockingIntent {
+    override fun onSubCategory(category: Category) = intent {
         if (category.hasNext)
             postSideEffect(SubCatalogEffect.SubCatalog(category))
         else
             postSideEffect(SubCatalogEffect.Goods(category.id))
     }
 
-    override fun editKeyword(keyword: String) = intent {
+    override fun editKeyword(keyword: String) = blockingIntent {
         reduce { state.copy(keyword = keyword) }
     }
 

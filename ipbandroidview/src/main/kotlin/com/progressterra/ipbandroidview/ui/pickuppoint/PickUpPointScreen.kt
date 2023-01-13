@@ -31,25 +31,22 @@ import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun PickUpPointScreen(
     state: PickUpPointState,
-    back: () -> Unit,
-    choose: (PickUpPointInfo) -> Unit,
-    next: () -> Unit
+    interactor: PickUpPointInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            title = stringResource(id = R.string.pick_up_point), onBack = back
+            title = stringResource(id = R.string.pick_up_point), onBack = interactor::onBack
         )
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = next,
+                onClick = interactor::onNext,
                 text = stringResource(id = R.string.choose),
                 enabled = state.currentPickUpPointInfo != null,
             )
@@ -93,7 +90,7 @@ fun PickUpPointScreen(
                             )
                         ),
                         onClick = {
-                            choose(pickUpPoint)
+                            interactor.choose(pickUpPoint)
                             false
                         }
                     )

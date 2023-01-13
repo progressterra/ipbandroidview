@@ -21,16 +21,12 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ProfileDetailsScreen(
     state: ProfileDetailsState,
-    confirmChange: () -> Unit,
-    editEmail: (String) -> Unit,
-    editName: (String) -> Unit,
-    back: () -> Unit,
-    logout: () -> Unit
+    interactor: ProfileDetailsInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
             title = stringResource(id = R.string.information),
-            onBack = back
+            onBack = interactor::onBack
         )
     }) { _, _ ->
         Column(
@@ -51,13 +47,13 @@ fun ProfileDetailsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.name,
                     hint = stringResource(id = R.string.name_surname),
-                    onChange = editName
+                    onChange = interactor::editName
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.email,
                     hint = stringResource(id = R.string.email),
-                    onChange = editEmail
+                    onChange = interactor::editEmail
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -68,12 +64,12 @@ fun ProfileDetailsScreen(
             }
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = confirmChange,
+                onClick = interactor::confirmChange,
                 text = stringResource(id = R.string.confirm_change),
             )
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = logout,
+                onClick = interactor::logout,
                 text = stringResource(id = R.string.logout),
                 textColor = AppTheme.colors.error,
                 tint = AppTheme.colors.surfaces

@@ -19,7 +19,7 @@ class ReferralViewModel(
     private val inviteUseCase: InviteUseCase,
     private val clipboardManager: ClipboardManager,
     private val startActivity: StartActivityContract.Client
-) : ViewModel(), ContainerHost<ReferralState, ReferralEffect> {
+) : ViewModel(), ContainerHost<ReferralState, ReferralEffect>, ReferralInteractor {
 
     override val container: Container<ReferralState, ReferralEffect> = container(ReferralState())
 
@@ -27,7 +27,7 @@ class ReferralViewModel(
         refresh()
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         inviteUseCase().onSuccess {
             reduce { state.copy(userInvite = it, screenState = ScreenState.SUCCESS) }
@@ -36,12 +36,12 @@ class ReferralViewModel(
         }
     }
 
-    fun copy() = intent {
+    override fun copy() = intent {
         clipboardManager.setPrimaryClip(ClipData.newPlainText("invite text", state.userInvite.text))
         postSideEffect(ReferralEffect.Toast(R.string.success_copied))
     }
 
-    fun share() = intent {
+    override fun share() = intent {
         val sendIntent = Intent()
         sendIntent.action = Intent.ACTION_SEND
         sendIntent.putExtra(Intent.EXTRA_TEXT, state.userInvite.text)
@@ -50,7 +50,7 @@ class ReferralViewModel(
         startActivity.start(shareIntent)
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(ReferralEffect.Back)
     }
 }

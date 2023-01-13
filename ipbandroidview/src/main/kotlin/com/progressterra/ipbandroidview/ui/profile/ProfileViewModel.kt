@@ -9,7 +9,8 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect> {
+class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect>,
+    ProfileInteractor {
 
     override val container: Container<ProfileState, ProfileEffect> = container(ProfileState("", ""))
 
@@ -28,23 +29,23 @@ class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEffect>
         }
     }
 
-    fun openDetails() = intent {
+    override fun openDetails() = intent {
         postSideEffect(ProfileEffect.OpenDetails)
     }
 
-    fun onFavorites() = intent {
+    override fun onFavorites() = intent {
         postSideEffect(ProfileEffect.Favorites)
     }
 
-    fun onOrders() = intent {
+    override fun onOrders() = intent {
         postSideEffect(ProfileEffect.Orders)
     }
 
-    fun onSupport() = intent {
+    override fun onSupport() = intent {
         postSideEffect(ProfileEffect.Support)
     }
 
-    fun onReferral() = intent {
+    override fun onReferral() = intent {
         postSideEffect(ProfileEffect.Referral)
     }
 }

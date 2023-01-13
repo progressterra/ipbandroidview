@@ -30,10 +30,7 @@ class ReferralNode(
         val state = viewModel.collectAsState()
         ReferralScreen(
             state = state.value,
-            onCopy = viewModel::copy,
-            onShare = viewModel::share,
-            onRefresh = viewModel::refresh,
-            onBack = viewModel::back
+            interactor = viewModel
         )
     }
 }

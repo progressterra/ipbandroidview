@@ -16,21 +16,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.EditIcon
 import com.progressterra.ipbandroidview.composable.ForwardIcon
+import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ProfileScreen(
     state: ProfileState,
-    openDetails: () -> Unit,
-    onOrders: () -> Unit,
-    onFavorites: () -> Unit,
-    onSupport: () -> Unit,
-    onReferral: () -> Unit,
+    interactor: ProfileInteractor,
     settings: ProfileSettings
 ) {
     ThemedLayout(topBar = {
@@ -49,7 +45,7 @@ fun ProfileScreen(
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .niceClickable(openDetails)
+                    .niceClickable(interactor::openDetails)
                     .padding(AppTheme.dimensions.medium),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -66,7 +62,7 @@ fun ProfileScreen(
                         style = AppTheme.typography.secondaryText
                     )
                 }
-                IconButton(onClick = openDetails) {
+                IconButton(onClick = interactor::openDetails) {
                     EditIcon()
                 }
             }
@@ -76,7 +72,7 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .niceClickable(onOrders)
+                        .niceClickable(interactor::onOrders)
                         .padding(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -86,7 +82,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = onOrders) {
+                    IconButton(onClick = interactor::onOrders) {
                         ForwardIcon()
                     }
                 }
@@ -96,7 +92,7 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .niceClickable(onFavorites)
+                        .niceClickable(interactor::onFavorites)
                         .padding(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -106,7 +102,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = onFavorites) {
+                    IconButton(onClick = interactor::onFavorites) {
                         ForwardIcon()
                     }
                 }
@@ -116,7 +112,7 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .niceClickable(onSupport)
+                        .niceClickable(interactor::onSupport)
                         .padding(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -126,7 +122,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = onSupport) {
+                    IconButton(onClick = interactor::onSupport) {
                         ForwardIcon()
                     }
                 }
@@ -136,7 +132,7 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .niceClickable(onReferral)
+                        .niceClickable(interactor::onReferral)
                         .padding(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -146,7 +142,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = onReferral) {
+                    IconButton(onClick = interactor::onReferral) {
                         ForwardIcon()
                     }
                 }

@@ -20,8 +20,7 @@ import com.skydoves.landscapist.ImageOptions
 @Composable
 fun PhotoScreen(
     state: PhotoState,
-    back: () -> Unit,
-    remove: () -> Unit
+    interactor: PhotoInteractor
 ) {
     Box(
         modifier = Modifier
@@ -30,11 +29,11 @@ fun PhotoScreen(
         contentAlignment = Alignment.Center
     ) {
         TransparentTopAppBar(modifier = Modifier.align(Alignment.TopCenter), leftActions = {
-            IconButton(onClick = back) {
+            IconButton(onClick = interactor::onBack) {
                 BackIcon()
             }
         }, rightActions = {
-            if (state.enabled) IconButton(onClick = remove) {
+            if (state.enabled) IconButton(onClick = interactor::remove) {
                 TrashIcon(enabled = true)
             }
         })

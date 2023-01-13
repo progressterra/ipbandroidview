@@ -44,9 +44,7 @@ class PickUpPointNode(
         val state = viewModel.collectAsState()
         PickUpPointScreen(
             state = state.value,
-            back = viewModel::back,
-            choose = viewModel::choose,
-            next = viewModel::next,
+            interactor = viewModel
         )
     }
 }

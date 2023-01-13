@@ -16,7 +16,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class PickUpPointViewModel(
     private val managePermissionContract: ManagePermissionContract.Client
-) : ViewModel(), ContainerHost<PickUpPointState, PickUpPointEffect> {
+) : ViewModel(), ContainerHost<PickUpPointState, PickUpPointEffect>, PickUpPointInteractor {
 
     override val container: Container<PickUpPointState, PickUpPointEffect> =
         container(PickUpPointState())
@@ -39,15 +39,15 @@ class PickUpPointViewModel(
         reduce { state.copy(isPermissionGranted = result) }
     }
 
-    fun choose(pickUpPointInfo: PickUpPointInfo) = intent {
-        reduce { state.copy(currentPickUpPointInfo = pickUpPointInfo) }
+    override fun choose(info: PickUpPointInfo) = intent {
+        reduce { state.copy(currentPickUpPointInfo = info) }
     }
 
-    fun next() = intent {
+    override fun onNext() = intent {
         state.currentPickUpPointInfo?.let { postSideEffect(PickUpPointEffect.Next(it)) }
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(PickUpPointEffect.Back)
     }
 }

@@ -10,7 +10,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class PhotoViewModel : ViewModel(),
-    ContainerHost<PhotoState, PhotoEffect> {
+    ContainerHost<PhotoState, PhotoEffect>, PhotoInteractor {
 
     override val container: Container<PhotoState, PhotoEffect> = container(PhotoState())
 
@@ -25,11 +25,11 @@ class PhotoViewModel : ViewModel(),
         }
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(PhotoEffect.Back)
     }
 
-    fun remove() = intent {
+    override fun remove() = intent {
         postSideEffect(PhotoEffect.Remove)
         postSideEffect(PhotoEffect.Back)
     }
