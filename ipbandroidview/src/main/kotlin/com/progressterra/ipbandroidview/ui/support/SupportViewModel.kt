@@ -7,15 +7,18 @@ import com.progressterra.ipbandroidview.domain.usecase.chat.FetchChatUseCase
 import com.progressterra.ipbandroidview.domain.usecase.chat.SendMessageUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class SupportViewModel(
     private val fetchChatUseCase: FetchChatUseCase,
     private val sendMessageUseCase: SendMessageUseCase
-) : ViewModel(), ContainerHost<SupportState, SupportEffect> {
+) : ViewModel(), ContainerHost<SupportState, SupportEffect>, SupportScreenInteractor {
 
     override val container: Container<SupportState, SupportEffect> = container(SupportState())
 
@@ -23,19 +26,19 @@ class SupportViewModel(
         refresh()
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         fetchChatUseCase().onSuccess {
             reduce { state.copy(messages = it, screenState = ScreenState.SUCCESS) }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    fun editMessage(message: String) = intent { reduce { state.copy(message = message) } }
+    override fun editMessage(message: String) = blockingIntent { reduce { state.copy(message = message) } }
 
-    fun sendMessage() = intent {
+    override fun sendMessage() = intent {
         sendMessageUseCase(ID_ENTERPRISE, state.message).onSuccess {
             reduce { state.copy(messages = it, screenState = ScreenState.SUCCESS, message = "") }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    fun back() = intent { postSideEffect(SupportEffect.Back) }
+    override fun onBack() = intent { postSideEffect(SupportEffect.Back) }
 }

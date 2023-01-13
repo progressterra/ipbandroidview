@@ -27,10 +27,7 @@ class SupportNode(
         val state = viewModel.collectAsState()
         SupportScreen(
             state = state.value,
-            back = viewModel::back,
-            editMessage = viewModel::editMessage,
-            send = viewModel::sendMessage,
-            refresh = viewModel::refresh
+            interactor = viewModel
         )
     }
 }

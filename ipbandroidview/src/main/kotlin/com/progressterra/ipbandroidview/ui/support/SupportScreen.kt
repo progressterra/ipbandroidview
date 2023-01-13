@@ -25,31 +25,28 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun SupportScreen(
     state: SupportState,
-    back: () -> Unit,
-    refresh: () -> Unit,
-    editMessage: (String) -> Unit,
-    send: () -> Unit
+    interactor: SupportScreenInteractor
 ) {
     ThemedLayout(
         topBar = {
             ThemedTopAppBar(
                 title = stringResource(R.string.support),
-                onBack = back
+                onBack = interactor::onBack
             )
         },
         bottomBar = {
             ChatInput(
                 modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-                editMessage = editMessage,
+                editMessage = interactor::editMessage,
                 message = state.message,
-                onSend = send,
+                onSend = interactor::sendMessage,
                 enabled = state.screenState.isSuccess()
             )
         }
     ) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = refresh
+            refresh = interactor::refresh
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -106,10 +103,7 @@ private fun SupportScreenPreview() {
                     )
                 )
             ),
-            back = {},
-            editMessage = {},
-            send = {},
-            refresh = {}
+            interactor = SupportScreenInteractor.Empty()
         )
     }
 }
