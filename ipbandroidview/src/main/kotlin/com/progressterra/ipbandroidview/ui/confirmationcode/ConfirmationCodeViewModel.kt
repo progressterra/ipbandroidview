@@ -10,18 +10,21 @@ import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelU
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class ConfirmationCodeViewModel(
     private val settings: ConfirmationCodeSettings,
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
     private val needDetailsUseCase: NeedDetailsUseCase
-) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect> {
+) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect>, ConfirmationCodeInteractor {
 
     override val container: Container<ConfirmationCodeState, ConfirmationCodeEffect> = container(
         ConfirmationCodeState()
@@ -35,7 +38,7 @@ class ConfirmationCodeViewModel(
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
 
-    fun resend() {
+    override fun resend() {
         intent {
             startVerificationChannelUseCase(state.phoneNumber)
             reduce { state.copy(code = "") }
@@ -43,7 +46,7 @@ class ConfirmationCodeViewModel(
         startTimer()
     }
 
-    fun next() = intent {
+    override fun onNext() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         endVerificationChannelUseCase(state.phoneNumber, state.code).onSuccess {
             fetchUserUseCase().onSuccess {
@@ -67,9 +70,9 @@ class ConfirmationCodeViewModel(
         }
     }
 
-    fun editCode(code: String) = intent {
+    override fun editCode(code: String) = blockingIntent {
         if (code.length <= 4) reduce { state.copy(code = code) }
-        if (code.length == 4) next()
+        if (code.length == 4) onNext()
     }
 
     private fun startTimer() = intent {
@@ -82,7 +85,7 @@ class ConfirmationCodeViewModel(
         reduce { state.copy(canResend = false) }
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(ConfirmationCodeEffect.Back)
     }
 }

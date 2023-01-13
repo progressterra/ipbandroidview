@@ -11,16 +11,19 @@ import com.progressterra.ipbandroidview.model.store.StoreGoods
 import kotlinx.coroutines.flow.emptyFlow
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class GoodsViewModel(
     private val goodsUseCase: GoodsUseCase,
     private val filteredGoodsUseCase: FilteredGoodsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase
-) : ViewModel(), ContainerHost<GoodsState, GoodsEffect> {
+) : ViewModel(), ContainerHost<GoodsState, GoodsEffect>, GoodsInteractor {
 
     override val container: Container<GoodsState, GoodsEffect> = container(GoodsState())
 
@@ -30,36 +33,36 @@ class GoodsViewModel(
         refresh()
     }
 
-    fun favoriteSpecific(item: StoreGoods) = intent {
-        modifyFavoriteUseCase(item.id, item.favorite).onSuccess { refresh() }
+    override fun favoriteSpecific(goods: StoreGoods) = intent {
+        modifyFavoriteUseCase(goods.id, goods.favorite).onSuccess { refresh() }
     }
 
-    fun openDetails(item: StoreGoods) = intent {
-        postSideEffect(GoodsEffect.GoodsDetails(item.id))
+    override fun openDetails(goods: StoreGoods) = intent {
+        postSideEffect(GoodsEffect.GoodsDetails(goods.id))
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(GoodsEffect.Back)
     }
 
-    fun filters() = intent {
+    override fun filters() = intent {
         postSideEffect(GoodsEffect.Filters)
     }
 
-    fun keyword(keyword: String) = intent {
+    override fun editKeyword(keyword: String) = blockingIntent {
         reduce { state.copy(keyword = keyword) }
     }
 
-    fun search() = intent {
+    override fun search() = intent {
         if (state.keyword.isNotBlank())
             refreshSearch()
     }
 
-    fun clear() = intent {
+    override fun clear() = intent {
         reduce { state.copy(keyword = "") }
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         if (state.keyword.isNotBlank())
             refreshSearch()
         else

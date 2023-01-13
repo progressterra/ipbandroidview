@@ -34,9 +34,7 @@ class MainNode(
         val state = viewModel.collectAsState()
         MainScreen(
             state = state.value,
-            refresh = viewModel::refresh,
-            favoriteSpecific = viewModel::favoriteSpecific,
-            openDetails = viewModel::openDetails
+            interactor = viewModel
         )
     }
 }

@@ -17,37 +17,21 @@ import com.progressterra.ipbandroidview.composable.PaymentMethod
 import com.progressterra.ipbandroidview.composable.PromoCode
 import com.progressterra.ipbandroidview.composable.Receipt
 import com.progressterra.ipbandroidview.composable.ReceiveReceipt
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.model.delivery.Delivery
-import com.progressterra.ipbandroidview.model.payment.PaymentType
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrderScreen(
     state: OrderState,
-    back: () -> Unit,
-    goodsDetails: (String) -> Unit,
-    changeAddress: () -> Unit,
-    selectPickUpPoint: () -> Unit,
-    selectDeliveryMethod: (Delivery) -> Unit,
-    selectPayment: (PaymentType) -> Unit,
-    editComment: (String) -> Unit,
-    changeUseBonuses: (Boolean) -> Unit,
-    editPromoCode: (String) -> Unit,
-    applyPromoCode: () -> Unit,
-    changeReceiveReceipt: (Boolean) -> Unit,
-    editEmail: (String) -> Unit,
-    payment: () -> Unit,
-    openUrl: (String) -> Unit,
-    refresh: () -> Unit
+    interactor: OrderInteractor
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(R.string.order), onBack = back)
+        ThemedTopAppBar(title = stringResource(R.string.order), onBack = interactor::onBack)
     }) { _, _ ->
         StateBox(
-            state = state.screenState, refresh = refresh
+            state = state.screenState, refresh = interactor::refresh
         ) {
             Column(
                 modifier = Modifier
@@ -60,23 +44,27 @@ fun OrderScreen(
                     ),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                GoodsLine(state = state, openGoodsDetails = goodsDetails)
+                GoodsLine(state = state, openGoodsDetails = interactor::onGoodsDetails)
                 DeliveryPicker(
                     state = state,
-                    changeAddress = changeAddress,
-                    selectPickUpPoint = selectPickUpPoint,
-                    selectDeliveryMethod = selectDeliveryMethod,
-                    editComment = editComment
+                    changeAddress = interactor::changeAddress,
+                    selectPickUpPoint = interactor::selectPickUpPoint,
+                    selectDeliveryMethod = interactor::selectDeliveryMethod,
+                    editComment = interactor::editComment
                 )
-                BonusSwitch(state = state, switchUseBonuses = changeUseBonuses)
+                BonusSwitch(state = state, switchUseBonuses = interactor::changeUseBonuses)
                 PromoCode(
                     state = state,
-                    editPromoCode = editPromoCode,
-                    applyPromoCode = applyPromoCode
+                    editPromoCode = interactor::editPromoCode,
+                    applyPromoCode = interactor::applyPromoCode
                 )
-                PaymentMethod(state = state, select = selectPayment)
-                ReceiveReceipt(state = state, check = changeReceiveReceipt, email = editEmail)
-                Receipt(state = state, payment = payment, openUrl = openUrl)
+                PaymentMethod(state = state, select = interactor::selectPayment)
+                ReceiveReceipt(
+                    state = state,
+                    check = interactor::changeReceiveReceipt,
+                    email = interactor::editEmail
+                )
+                Receipt(state = state, payment = interactor::payment, openUrl = interactor::openUrl)
             }
         }
     }

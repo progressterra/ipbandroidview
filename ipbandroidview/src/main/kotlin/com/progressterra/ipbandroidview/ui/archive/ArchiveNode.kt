@@ -41,7 +41,8 @@ class ArchiveNode(
         }
         val state = viewModel.collectAsState()
         ArchiveScreen(
-            state = state.value, openDocument = viewModel::openDocument, back = viewModel::back
+            state = state.value,
+            interactor = viewModel
         )
     }
 }

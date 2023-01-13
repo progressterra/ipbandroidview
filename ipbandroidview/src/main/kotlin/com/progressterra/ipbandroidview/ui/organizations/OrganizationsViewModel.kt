@@ -13,7 +13,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class OrganizationsViewModel(
     private val allOrganizationsUseCase: AllOrganizationsUseCase
-) : ViewModel(), ContainerHost<OrganizationsState, OrganizationsEffect> {
+) : ViewModel(), ContainerHost<OrganizationsState, OrganizationsEffect>, OrganizationsInteractor {
 
     override val container: Container<OrganizationsState, OrganizationsEffect> = container(
         OrganizationsState()
@@ -23,7 +23,7 @@ class OrganizationsViewModel(
         refresh()
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allOrganizationsUseCase().onSuccess {
             reduce { state.copy(organizations = it, screenState = ScreenState.SUCCESS) }
@@ -32,7 +32,7 @@ class OrganizationsViewModel(
         }
     }
 
-    fun organizationDetails(organization: Organization) = intent {
+    override fun onOrganizationDetails(organization: Organization) = intent {
         postSideEffect(OrganizationsEffect.OpenOrganization(organization))
     }
 }

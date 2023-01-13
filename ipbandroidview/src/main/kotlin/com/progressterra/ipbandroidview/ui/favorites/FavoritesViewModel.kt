@@ -16,7 +16,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class FavoritesViewModel(
     private val favoriteGoodsUseCase: FavoriteGoodsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase
-) : ViewModel(), ContainerHost<FavoritesState, FavoritesEffect> {
+) : ViewModel(), ContainerHost<FavoritesState, FavoritesEffect>, FavoritesInteractor {
 
     override val container: Container<FavoritesState, FavoritesEffect> = container(FavoritesState())
 
@@ -24,14 +24,14 @@ class FavoritesViewModel(
         refresh()
     }
 
-    fun favoriteSpecific(item: StoreGoods) = intent {
-        modifyFavoriteUseCase(item.id, item.favorite).onSuccess {
-            val newList = state.items.replaceById(item.reverseFavorite())
+    override fun favoriteSpecific(goods: StoreGoods) = intent {
+        modifyFavoriteUseCase(goods.id, goods.favorite).onSuccess {
+            val newList = state.items.replaceById(goods.reverseFavorite())
             reduce { state.copy(items = newList) }
         }
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         favoriteGoodsUseCase().onSuccess {
             reduce {
@@ -45,7 +45,7 @@ class FavoritesViewModel(
         }
     }
 
-    fun openDetails(item: StoreGoods) = intent {
-        postSideEffect(FavoritesEffect.GoodsDetails(item.id))
+    override fun openDetails(goods: StoreGoods) = intent {
+        postSideEffect(FavoritesEffect.GoodsDetails(goods.id))
     }
 }

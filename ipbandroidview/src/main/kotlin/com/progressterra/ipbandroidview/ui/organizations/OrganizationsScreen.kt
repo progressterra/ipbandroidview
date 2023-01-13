@@ -15,21 +15,19 @@ import com.progressterra.ipbandroidview.composable.OrganizationCard
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.model.checklist.Organization
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrganizationsScreen(
     state: OrganizationsState,
-    refresh: () -> Unit,
-    organizationDetails: (Organization) -> Unit
+    interactor: OrganizationsInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.organizations))
     }) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = refresh
+            refresh = interactor::refresh
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -40,7 +38,7 @@ fun OrganizationsScreen(
                     OrganizationCard(
                         modifier = Modifier.fillMaxWidth(),
                         state = it,
-                        openOrganization = organizationDetails
+                        openOrganization = interactor::onOrganizationDetails
                     )
                 }
             }

@@ -13,17 +13,17 @@ import org.orbitmvi.orbit.viewmodel.container
 class OrdersViewModel(
     private val ordersUseCase: OrdersUseCase
 ) : ViewModel(),
-    ContainerHost<OrdersState, OrdersEffect> {
+    ContainerHost<OrdersState, OrdersEffect>, OrdersInteractor {
 
     override val container: Container<OrdersState, OrdersEffect> =
         container(OrdersState())
 
-    fun openDetails(item: String) =
-        intent { postSideEffect(OrdersEffect.GoodsDetails(item)) }
+    override fun openGoodsDetails(goodsId: String) =
+        intent { postSideEffect(OrdersEffect.GoodsDetails(goodsId)) }
 
-    fun back() = intent { postSideEffect(OrdersEffect.Back) }
+    override fun onBack() = intent { postSideEffect(OrdersEffect.Back) }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         ordersUseCase().onSuccess {
             reduce { state.copy(screenState = ScreenState.SUCCESS, orders = it) }

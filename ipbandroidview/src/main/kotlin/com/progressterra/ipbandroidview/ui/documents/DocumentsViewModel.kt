@@ -15,7 +15,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class DocumentsViewModel(
     private val allDocumentsUseCase: AllDocumentsUseCase
-) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect> {
+) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect>, DocumentsInteractor {
 
     override val container: Container<DocumentsState, DocumentsEffect> = container(DocumentsState())
 
@@ -23,7 +23,7 @@ class DocumentsViewModel(
         refresh()
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allDocumentsUseCase().onSuccess {
             val finished = it.filter { doc -> doc.isFinished() }
@@ -40,7 +40,7 @@ class DocumentsViewModel(
     }
 
 
-    fun openDocument(document: Document) = intent {
+    override fun openDocument(document: Document) = intent {
         postSideEffect(
             DocumentsEffect.OpenChecklist(
                 AuditDocument(
@@ -54,7 +54,7 @@ class DocumentsViewModel(
         )
     }
 
-    fun openArchive() = intent {
+    override fun openArchive() = intent {
         postSideEffect(DocumentsEffect.Archive(state.archivedDocuments))
     }
 }

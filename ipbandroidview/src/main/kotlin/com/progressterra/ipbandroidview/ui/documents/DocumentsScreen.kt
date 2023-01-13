@@ -28,21 +28,18 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.model.checklist.Document
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun DocumentsScreen(
     state: DocumentsState,
-    refresh: () -> Unit,
-    openArchive: () -> Unit,
-    openDocument: (Document) -> Unit
+    interactor: DocumentsInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) { _, _ ->
         StateBox(
-            modifier = Modifier.fillMaxSize(), state = state.screenState, refresh = refresh
+            modifier = Modifier.fillMaxSize(), state = state.screenState, refresh = interactor::refresh
         ) {
             var buttonSize by remember { mutableStateOf(0.dp) }
             LazyColumn(
@@ -54,7 +51,7 @@ fun DocumentsScreen(
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
                         state = it,
-                        openDocument = openDocument
+                        openDocument = interactor::openDocument
                     )
                 }
                 item {
@@ -70,7 +67,7 @@ fun DocumentsScreen(
                     .fillMaxWidth()
                     .onGloballyPositioned {
                         buttonSize = with(density) { it.size.height.toDp() }
-                    }, onClick = openArchive, text = stringResource(id = R.string.to_archive)
+                    }, onClick = interactor::openArchive, text = stringResource(id = R.string.to_archive)
             )
         }
     }

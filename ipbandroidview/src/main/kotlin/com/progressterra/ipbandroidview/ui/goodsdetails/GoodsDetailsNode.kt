@@ -7,6 +7,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -18,7 +19,7 @@ class GoodsDetailsNode(
     private val onBack: () -> Unit,
     private val onAuth: () -> Unit,
     private val onNext: () -> Unit
-) : com.bumble.appyx.core.node.Node(buildContext) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
@@ -40,14 +41,7 @@ class GoodsDetailsNode(
         val state = viewModel.collectAsState()
         GoodsDetailsScreen(
             state = state.value,
-            add = viewModel::add,
-            remove = viewModel::remove,
-            favorite = viewModel::favorite,
-            sizeTable = viewModel::sizeTable,
-            size = viewModel::size,
-            back = viewModel::back,
-            color = viewModel::color,
-            refresh = viewModel::refresh
+            interactor = viewModel
         )
     }
 }

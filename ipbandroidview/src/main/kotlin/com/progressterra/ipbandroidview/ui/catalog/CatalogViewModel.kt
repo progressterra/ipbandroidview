@@ -13,7 +13,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class CatalogViewModel(
     private val catalogUseCase: CatalogUseCase
-) : ViewModel(), ContainerHost<CatalogState, CatalogEffect> {
+) : ViewModel(), ContainerHost<CatalogState, CatalogEffect>, CatalogInteractor {
 
     override val container: Container<CatalogState, CatalogEffect> = container(CatalogState())
 
@@ -21,12 +21,12 @@ class CatalogViewModel(
         refresh()
     }
 
-    fun openCategory(item: Category) = intent {
-        if (item.hasNext) postSideEffect(CatalogEffect.SubCatalog(item))
-        else postSideEffect(CatalogEffect.Goods(item.id))
+    override fun openCategory(category: Category) = intent {
+        if (category.hasNext) postSideEffect(CatalogEffect.SubCatalog(category))
+        else postSideEffect(CatalogEffect.Goods(category.id))
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         catalogUseCase().onSuccess {
             reduce { state.copy(categories = it, screenState = ScreenState.SUCCESS) }
@@ -35,16 +35,16 @@ class CatalogViewModel(
         }
     }
 
-    fun keyword(keyword: String) = intent {
+    override fun editKeyword(keyword: String) = intent {
         reduce { state.copy(keyword = keyword) }
     }
 
-    fun search() = intent {
+    override fun search() = intent {
         postSideEffect(CatalogEffect.Search(state.keyword))
         clear()
     }
 
-    fun clear() = intent {
+    override fun clear() = intent {
         reduce { state.copy(keyword = "") }
     }
 }

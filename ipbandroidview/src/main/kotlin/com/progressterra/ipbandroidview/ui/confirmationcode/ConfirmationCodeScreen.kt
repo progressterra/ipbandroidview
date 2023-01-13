@@ -26,27 +26,24 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun ConfirmationCodeScreen(
     state: ConfirmationCodeState,
-    resend: () -> Unit,
-    next: () -> Unit,
-    editCode: (String) -> Unit,
-    back: () -> Unit
+    interactor: ConfirmationCodeInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
             title = stringResource(id = R.string.verification_code),
-            onBack = back
+            onBack = interactor::onBack
         )
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = next,
+                onClick = interactor::onNext,
                 text = stringResource(id = R.string.next)
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = resend,
+                onClick = interactor::resend,
                 text = state.timer,
                 enabled = state.canResend
             )
@@ -75,7 +72,7 @@ fun ConfirmationCodeScreen(
                 VerificationCodeInput(
                     modifier = Modifier.fillMaxWidth(),
                     code = state.code,
-                    editCode = editCode
+                    editCode = interactor::editCode
                 )
             }
         }

@@ -28,30 +28,24 @@ import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.model.address.SuggestionUI
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun CityScreen(
     state: CityState,
-    back: () -> Unit,
-    skip: () -> Unit,
-    next: () -> Unit,
-    editAddress: (String) -> Unit,
-    onMapClick: (LatLng) -> Unit,
-    onSuggestion: (SuggestionUI) -> Unit,
+    interactor: CityInteractor,
     settings: CitySettings
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
             title = stringResource(id = R.string.address),
-            onBack = back
+            onBack = interactor::onBack
         )
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = next,
+                onClick = interactor::onNext,
                 text = stringResource(id = R.string.ready),
                 enabled = state.isDataValid,
             )
@@ -59,7 +53,7 @@ fun CityScreen(
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = skip,
+                    onClick = interactor::onSkip,
                     text = stringResource(id = R.string.auth_skip)
                 )
             }
@@ -94,7 +88,7 @@ fun CityScreen(
                 },
                 text = state.address,
                 hint = stringResource(id = R.string.address),
-                onChange = editAddress
+                onChange = interactor::editAddress
             )
             GoogleMap(
                 modifier = Modifier
@@ -108,9 +102,9 @@ fun CityScreen(
                         bottom.linkTo(background.bottom, 12.dp)
                     },
                 cameraPositionState = cameraPositionState,
-                onMapClick = onMapClick, onMyLocationClick = {
-                    onMapClick(LatLng(it.latitude, it.longitude))
-                }, properties = MapProperties(isMyLocationEnabled = state.isPermissionGranted)
+                onMapClick = interactor::mapClick,
+                onMyLocationClick = interactor::myLocationClick,
+                properties = MapProperties(isMyLocationEnabled = state.isPermissionGranted)
             )
             AddressSuggestions(
                 modifier = Modifier.constrainAs(suggestions) {
@@ -121,7 +115,7 @@ fun CityScreen(
                 },
                 suggestions = state.suggestions,
                 isVisible = state.suggestions.isNotEmpty(),
-                onSuggestion = onSuggestion
+                onSuggestion = interactor::onSuggestion
             )
         }
     }

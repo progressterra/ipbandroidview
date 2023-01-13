@@ -28,13 +28,10 @@ private val imageWidth = 264.dp
 @Composable
 fun BonusesClarificationScreen(
     state: BonusesClarificationState,
-    back: () -> Unit,
-    expandHowToSpend: () -> Unit,
-    expandRatio: () -> Unit,
-    expandHowToObtain: () -> Unit
+    interactor: BonusesClarificationInteractor
 ) {
     ThemedLayout(
-        topBar = { ThemedTopAppBar(title = stringResource(R.string.faq), onBack = back) }
+        topBar = { ThemedTopAppBar(title = stringResource(R.string.faq), onBack = interactor::onBack) }
     ) { _, _ ->
         Column(
             modifier = Modifier
@@ -46,7 +43,7 @@ fun BonusesClarificationScreen(
             ExpandableText(
                 text = stringResource(R.string.how_to_spend_short),
                 expanded = state.howToSpendExpand,
-                expand = expandHowToSpend
+                expand = interactor::expandHowToSpend
             ) {
                 Text(
                     text = "${stringResource(R.string.how_to_spend_0)} ${stringResource(R.string.app_name)}.",
@@ -72,7 +69,7 @@ fun BonusesClarificationScreen(
             ExpandableText(
                 text = stringResource(R.string.bonuses_ratio_short),
                 expanded = state.ratioExpand,
-                expand = expandRatio
+                expand = interactor::expandRatio
             ) {
                 Text(
                     text = stringResource(R.string.bonuses_ratio),
@@ -83,7 +80,7 @@ fun BonusesClarificationScreen(
             ExpandableText(
                 text = stringResource(R.string.how_to_obtain_short),
                 expanded = state.howToObtainExpand,
-                expand = expandHowToObtain
+                expand = interactor::expandHowToObtain
             ) {
                 Text(
                     text = stringResource(R.string.how_to_obtain),
@@ -103,10 +100,7 @@ private fun BonusesClarificationScreenPreview() {
             state = BonusesClarificationState(
                 howToSpendExpand = true, ratioExpand = true, howToObtainExpand = false
             ),
-            back = {},
-            expandRatio = {},
-            expandHowToSpend = {},
-            expandHowToObtain = {}
+            interactor = BonusesClarificationInteractor.Empty()
         )
     }
 }

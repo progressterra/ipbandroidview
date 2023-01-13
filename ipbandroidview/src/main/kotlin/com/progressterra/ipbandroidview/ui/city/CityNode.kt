@@ -28,12 +28,7 @@ class CityNode(
         val state = viewModel.collectAsState()
         CityScreen(
             state = state.value,
-            back = viewModel::back,
-            skip = viewModel::skip,
-            next = viewModel::next,
-            editAddress = viewModel::editAddress,
-            onMapClick = viewModel::onMapClick,
-            onSuggestion = viewModel::onSuggestion,
+            interactor = viewModel,
             settings = settings
         )
     }

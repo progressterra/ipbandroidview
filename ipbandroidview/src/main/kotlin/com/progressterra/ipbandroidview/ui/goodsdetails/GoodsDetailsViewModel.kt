@@ -21,7 +21,7 @@ class GoodsDetailsViewModel(
     private val fastAddToCartUseCase: FastAddToCartUseCase,
     private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase
 ) : ViewModel(),
-    ContainerHost<GoodsDetailsScreenState, GoodsDetailsEffect> {
+    ContainerHost<GoodsDetailsScreenState, GoodsDetailsEffect>, GoodsDetailsInteractor {
 
     override val container: Container<GoodsDetailsScreenState, GoodsDetailsEffect> =
         container(GoodsDetailsScreenState())
@@ -31,7 +31,7 @@ class GoodsDetailsViewModel(
         refresh()
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         goodsDetailsUseCase(state.id).onSuccess {
             reduce { state.copy(screenState = ScreenState.SUCCESS, goodsDetails = it) }
@@ -40,37 +40,37 @@ class GoodsDetailsViewModel(
         }
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(GoodsDetailsEffect.Back)
     }
 
-    fun add() = intent {
+    override fun add() = intent {
         fastAddToCartUseCase(state.id).onSuccess {
             reduce { state.copy(goodsDetails = state.goodsDetails.addOne()) }
         }
     }
 
-    fun remove() = intent {
+    override fun remove() = intent {
         fastRemoveFromCartUseCase(state.id).onSuccess {
             reduce { state.copy(goodsDetails = state.goodsDetails.removeOne()) }
         }
     }
 
-    fun favorite() = intent {
+    override fun favorite() = intent {
         modifyFavoriteUseCase(state.id, state.goodsDetails.favorite).onSuccess {
             reduce { state.copy(goodsDetails = state.goodsDetails.reverseFavorite()) }
         }
     }
 
-    fun color(color: GoodsColor) {
+    override fun chooseColor(color: GoodsColor) {
 
     }
 
-    fun size(size: GoodsSize) {
+    override fun size(size: GoodsSize) {
 
     }
 
-    fun sizeTable() {
+    override fun sizeTable() {
 
     }
 }

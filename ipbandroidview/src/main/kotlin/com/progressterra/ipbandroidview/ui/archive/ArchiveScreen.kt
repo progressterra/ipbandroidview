@@ -18,15 +18,15 @@ import com.progressterra.ipbandroidview.composable.DocumentCard
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.Divider
-import com.progressterra.ipbandroidview.model.checklist.Document
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ArchiveScreen(
-    state: ArchiveState, back: () -> Unit, openDocument: (Document) -> Unit
+    state: ArchiveState,
+    interactor: ArchiveInteractor
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.archive), onBack = back)
+        ThemedTopAppBar(title = stringResource(id = R.string.archive), onBack = interactor::onBack)
     }) { _, _ ->
         val finishedGroupedDocs by remember(state.documents) {
             mutableStateOf(state.documents.groupBy { it.finishDate!! })
@@ -48,7 +48,7 @@ fun ArchiveScreen(
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
                         state = document,
-                        openDocument = openDocument
+                        openDocument = interactor::openDocument
                     )
                 }
             }

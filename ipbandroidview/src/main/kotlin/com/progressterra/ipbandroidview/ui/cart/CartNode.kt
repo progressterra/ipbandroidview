@@ -33,13 +33,8 @@ class CartNode(
         }
         val state = viewModel.collectAsState()
         CartScreen(
-            state = state::value,
-            openDetails = viewModel::openDetails,
-            favoriteSpecific = viewModel::favoriteSpecific,
-            removeSpecific = viewModel::removeSpecific,
-            next = viewModel::next,
-            auth = viewModel::auth,
-            refresh = viewModel::refresh
+            state = state.value,
+            interactor = viewModel
         )
     }
 }

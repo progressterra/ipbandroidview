@@ -19,7 +19,8 @@ import org.orbitmvi.orbit.viewmodel.container
 class OrganizationAuditsViewModel(
     private val organizationAuditsUseCase: OrganizationAuditsUseCase,
     private val startActivityContract: StartActivityContract.Client
-) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect> {
+) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect>,
+    OrganizationAuditsInteractor {
 
     override val container: Container<OrganizationAuditsState, OrganizationAuditsEffect> =
         container(
@@ -46,7 +47,7 @@ class OrganizationAuditsViewModel(
         }
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         organizationAuditsUseCase(state.id).onSuccess {
             reduce { state.copy(audits = it, screenState = ScreenState.SUCCESS) }
@@ -55,18 +56,18 @@ class OrganizationAuditsViewModel(
         }
     }
 
-    fun onMapClick() = intent {
+    override fun mapClick() = intent {
         val mapIntent =
             Intent(Intent.ACTION_VIEW, Uri.parse("geo:${state.latitude},${state.longitude}"))
         mapIntent.setPackage("com.google.android.apps.maps")
         startActivityContract.start(mapIntent)
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(OrganizationAuditsEffect.Back)
     }
 
-    fun auditDetails(audit: OrganizationAudit) = intent {
+    override fun onAuditDetails(audit: OrganizationAudit) = intent {
         postSideEffect(
             OrganizationAuditsEffect.OpenChecklist(
                 AuditDocument(

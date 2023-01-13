@@ -18,18 +18,19 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun OrdersScreen(
     state: OrdersState,
-    onBack: () -> Unit,
-    openGoodsDetails: (String) -> Unit,
-    refresh: () -> Unit
+    interactor: OrdersInteractor
 ) {
     ThemedLayout(
         topBar = {
-            ThemedTopAppBar(title = stringResource(R.string.your_orders), onBack = onBack)
+            ThemedTopAppBar(
+                title = stringResource(R.string.your_orders),
+                onBack = interactor::onBack
+            )
         }
     ) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = refresh
+            refresh = interactor::refresh
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -39,7 +40,7 @@ fun OrdersScreen(
                 items(state.orders) {
                     OrdersGoodsLine(
                         state = it,
-                        openGoodsDetails = openGoodsDetails
+                        openGoodsDetails = interactor::openGoodsDetails
                     )
                 }
             }

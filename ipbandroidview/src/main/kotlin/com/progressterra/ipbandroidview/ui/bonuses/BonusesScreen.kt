@@ -25,16 +25,14 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun BonusesScreen(
     state: BonusesState,
-    clarification: () -> Unit,
-    back: () -> Unit,
-    refresh: () -> Unit
+    interactor: BonusesInteractor
 ) {
     ThemedLayout(
-        topBar = { ThemedTopAppBar(title = stringResource(R.string.bonuses_title), onBack = back) }
+        topBar = { ThemedTopAppBar(title = stringResource(R.string.bonuses_title), onBack = interactor::onBack) }
     ) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = refresh
+            refresh = interactor::refresh
         ) {
             Column(
                 modifier = Modifier
@@ -48,7 +46,7 @@ fun BonusesScreen(
                 BonusesClarification(
                     burningDate = state.bonusesInfo.burningDate,
                     burningQuantity = state.bonusesInfo.forBurningQuantity,
-                    onClick = clarification
+                    onClick = interactor::onClarification
                 )
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
                     items(state.transactions) {
@@ -76,9 +74,7 @@ private fun BonusesScreenPreview() {
                 ),
                 screenState = ScreenState.SUCCESS
             ),
-            clarification = {},
-            back = {},
-            refresh = {}
+            interactor = BonusesInteractor.Empty()
         )
     }
 }

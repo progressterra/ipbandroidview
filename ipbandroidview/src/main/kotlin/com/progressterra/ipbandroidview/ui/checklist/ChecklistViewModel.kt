@@ -19,8 +19,6 @@ import com.progressterra.ipbandroidview.domain.usecase.checklist.CreateDocumentU
 import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.SendResultOnEmailUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.ext.createStats
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
@@ -34,11 +32,14 @@ import com.progressterra.ipbandroidview.model.media.Voice
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class ChecklistViewModel(
     private val createDocumentUseCase: CreateDocumentUseCase,
     private val finishDocumentUseCase: FinishDocumentUseCase,
@@ -51,10 +52,8 @@ class ChecklistViewModel(
     private val audioManager: AudioManager,
     private val fileExplorer: FileExplorer,
     private val checkMediaDetailsUseCase: CheckMediaDetailsUseCase,
-    private val makePhotoContract: MakePhotoContract.Client,
-    private val sendResultOnEmailUseCase: SendResultOnEmailUseCase,
-    private val fetchUserEmailUseCase: FetchUserEmailUseCase
-) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect> {
+    private val makePhotoContract: MakePhotoContract.Client
+) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>, ChecklistInteractor {
 
     override val container: Container<ChecklistState, ChecklistEffect> = container(ChecklistState())
 
@@ -68,10 +67,8 @@ class ChecklistViewModel(
     }
 
 
-    fun refreshChecklist() = intent {
+    override fun refreshChecklist() = intent {
         reduce { state.copy(checklistScreenState = ScreenState.LOADING) }
-        fetchUserEmailUseCase().onSuccess {
-            reduce { state.copy(email = it) }
             if (state.status != ChecklistStatus.CAN_BE_STARTED)
                 documentChecklistUseCase(state.auditDocument.documentId!!)
                     .onSuccess { checks ->
@@ -93,15 +90,14 @@ class ChecklistViewModel(
                         )
                     }
                 }.onFailure { reduce { state.copy(checklistScreenState = ScreenState.ERROR) } }
-        }.onFailure { reduce { state.copy(checklistScreenState = ScreenState.ERROR) } }
     }
 
-    fun openCheck(check: Check) = intent {
+    override fun openCheck(check: Check) = intent {
         reduce { state.copy(currentCheck = check) }
         refreshCheck()
     }
 
-    fun refreshCheck() = intent {
+    override fun refreshCheck() = intent {
         state.currentCheck?.let { check ->
             reduce { state.copy(checkScreenState = ScreenState.LOADING) }
             checkMediaDetailsUseCase(check).onSuccess {
@@ -115,19 +111,19 @@ class ChecklistViewModel(
         }
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(ChecklistEffect.Back)
     }
 
-    fun yesNo(yes: Boolean) = intent {
-        reduce { state.copy(currentCheck = state.currentCheck?.copy(yesNo = yes)) }
+    override fun yesNo(yesNo: Boolean) = intent {
+        reduce { state.copy(currentCheck = state.currentCheck?.copy(yesNo = yesNo)) }
     }
 
-    fun editCheckCommentary(comment: String) = intent {
-        reduce { state.copy(currentCheck = state.currentCheck?.copy(comment = comment)) }
+    override fun editCheckCommentary(commentary: String) = blockingIntent {
+        reduce { state.copy(currentCheck = state.currentCheck?.copy(comment = commentary)) }
     }
 
-    fun startStopAudit() = intent {
+    override fun startStopAudit() = intent {
         if (state.status == ChecklistStatus.ONGOING) {
             finishDocumentUseCase(state.auditDocument.documentId!!).onSuccess {
                 reduce { state.copy(status = ChecklistStatus.READ_ONLY) }
@@ -157,7 +153,7 @@ class ChecklistViewModel(
         }
     }
 
-    fun startPausePlay() = intent {
+    override fun startPausePlay() = intent {
         if (state.voiceState.ongoing) {
             audioManager.pause()
             reduce {
@@ -184,7 +180,7 @@ class ChecklistViewModel(
         }
     }
 
-    fun startStopRecording() = intent {
+    override fun startStopRecording() = intent {
         if (state.voiceState.ongoing) {
             voiceManager.stopRecording()
             reduce { state.copy(voiceState = VoiceState.Player(false, 0f)) }
@@ -210,7 +206,7 @@ class ChecklistViewModel(
         }
     }
 
-    fun remove() = intent {
+    override fun remove() = intent {
         audioManager.reset()
         reduce {
             state.copy(
@@ -222,7 +218,7 @@ class ChecklistViewModel(
         }
     }
 
-    fun applyCheck() = intent {
+    override fun applyCheck() = intent {
         updateAnswerUseCase(
             check = state.currentCheck!!,
             checkDetails = state.currentCheckMedia!!.copy(
@@ -253,11 +249,11 @@ class ChecklistViewModel(
         }
     }
 
-    fun openImage(picture: MultisizedImage) = intent {
-        postSideEffect(ChecklistEffect.OpenImage(picture, state.status == ChecklistStatus.ONGOING))
+    override fun openImage(image: MultisizedImage) = intent {
+        postSideEffect(ChecklistEffect.OpenImage(image, state.status == ChecklistStatus.ONGOING))
     }
 
-    fun onCamera() = intent {
+    override fun onCamera() = intent {
         if (managePermissionContract.checkPermission(cameraPermission)) {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val newPhotoId = "TempPhoto_${System.currentTimeMillis()}"
@@ -279,20 +275,5 @@ class ChecklistViewModel(
                 )
             }
         } else managePermissionContract.requestPermission(cameraPermission)
-    }
-
-    fun sendOnEmail() = intent {
-        state.auditDocument.documentId?.let {
-            sendResultOnEmailUseCase(it, state.email).onSuccess {
-                postSideEffect(ChecklistEffect.Toast(R.string.email_sent))
-                postSideEffect(ChecklistEffect.Back)
-            }.onFailure {
-                postSideEffect(ChecklistEffect.Toast(R.string.email_not_sent))
-            }
-        }
-    }
-
-    fun editEmail(email: String) = intent {
-        reduce { state.copy(email = email) }
     }
 }

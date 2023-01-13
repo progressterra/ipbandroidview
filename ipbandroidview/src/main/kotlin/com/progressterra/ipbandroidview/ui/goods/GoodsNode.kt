@@ -42,14 +42,7 @@ class GoodsNode(
         val state = viewModel.collectAsState()
         GoodsScreen(
             state = state.value,
-            refresh = viewModel::refresh,
-            back = viewModel::back,
-            filters = viewModel::filters,
-            favoriteSpecific = viewModel::favoriteSpecific,
-            openDetails = viewModel::openDetails,
-            keyword = viewModel::keyword,
-            search = viewModel::search,
-            clear = viewModel::clear
+            interactor = viewModel
         )
     }
 }

@@ -21,13 +21,13 @@ class CartViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase,
     private val userExistsUseCase: UserExistsUseCase
-) : ViewModel(), ContainerHost<CartState, CartEffect> {
+) : ViewModel(), ContainerHost<CartState, CartEffect>, CartInteractor {
 
     override val container: Container<CartState, CartEffect> = container(CartState())
 
-    fun favoriteSpecific(item: CartGoods) = intent {
-        modifyFavoriteUseCase(item.id, item.favorite).onSuccess {
-            val newList = state.cart.listGoods.replaceById(item.reverseFavorite())
+    override fun favoriteSpecific(goods: CartGoods) = intent {
+        modifyFavoriteUseCase(goods.id, goods.favorite).onSuccess {
+            val newList = state.cart.listGoods.replaceById(goods.reverseFavorite())
             val newCart = state.cart.copy(listGoods = newList)
             reduce {
                 state.copy(
@@ -37,7 +37,7 @@ class CartViewModel(
         }
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         cartUseCase().onSuccess {
             reduce { state.copy(cart = it) }
@@ -47,16 +47,16 @@ class CartViewModel(
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    fun openDetails(item: CartGoods) =
-        intent { postSideEffect(CartEffect.GoodsDetails(item.id)) }
+    override fun openDetails(goods: CartGoods) =
+        intent { postSideEffect(CartEffect.GoodsDetails(goods.id)) }
 
-    fun next() = intent {
+    override fun onNext() = intent {
         postSideEffect(CartEffect.Next(state.cart.listGoods.map { it.toOrderGoods() }))
     }
 
-    fun removeSpecific(item: CartGoods) = intent {
-        fastRemoveFromCartUseCase(item.id, item.inCartCounter).onSuccess {
-            val newListGoods = state.cart.listGoods.removeItem(item)
+    override fun removeSpecific(goods: CartGoods) = intent {
+        fastRemoveFromCartUseCase(goods.id, goods.inCartCounter).onSuccess {
+            val newListGoods = state.cart.listGoods.removeItem(goods)
             val newCart = state.cart.copy(listGoods = newListGoods)
             reduce {
                 state.copy(cart = newCart)
@@ -64,7 +64,7 @@ class CartViewModel(
         }
     }
 
-    fun auth() = intent {
+    override fun onAuth() = intent {
         postSideEffect(CartEffect.Auth)
     }
 }

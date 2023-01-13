@@ -25,10 +25,7 @@ class BonusesClarificationNode(
         val state = viewModel.collectAsState()
         BonusesClarificationScreen(
             state = state.value,
-            back = viewModel::back,
-            expandHowToObtain = viewModel::expandHowToObtain,
-            expandHowToSpend = viewModel::expandHowToSpend,
-            expandRatio = viewModel::expandRatio
+            interactor = viewModel
         )
     }
 }

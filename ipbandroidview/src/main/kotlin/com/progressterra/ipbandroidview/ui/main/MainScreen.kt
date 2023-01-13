@@ -27,9 +27,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun MainScreen(
     state: MainState,
-    favoriteSpecific: (StoreGoods) -> Unit,
-    openDetails: (StoreGoods) -> Unit,
-    refresh: () -> Unit
+    interactor: MainInteractor
 ) {
     ThemedLayout(topBar = {
         Column(
@@ -41,7 +39,7 @@ fun MainScreen(
         }
     }) { _, _ ->
         StateBox(
-            state = state.screenState, refresh = refresh
+            state = state.screenState, refresh = interactor::refresh
         ) {
             Column(Modifier.padding(top = AppTheme.dimensions.small)) {
                 Notifications(
@@ -60,8 +58,8 @@ fun MainScreen(
                         goods?.let {
                             StoreCard(
                                 state = goods,
-                                onClick = { openDetails(goods) },
-                                onFavorite = { favoriteSpecific(goods) })
+                                onClick = { interactor.openDetails(goods) },
+                                onFavorite = { interactor.favoriteSpecific(goods) })
                         }
                     }
                 }

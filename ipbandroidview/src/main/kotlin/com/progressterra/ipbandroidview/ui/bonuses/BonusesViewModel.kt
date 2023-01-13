@@ -14,7 +14,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class BonusesViewModel(
     private val availableBonusesUseCase: AvailableBonusesUseCase,
     private val transactionsUseCase: TransactionsUseCase
-) : ViewModel(), ContainerHost<BonusesState, BonusesEffect> {
+) : ViewModel(), ContainerHost<BonusesState, BonusesEffect>, BonusesInteractor {
 
     override val container: Container<BonusesState, BonusesEffect> = container(BonusesState())
 
@@ -22,15 +22,15 @@ class BonusesViewModel(
         refresh()
     }
 
-    fun clarification() = intent {
+    override fun onClarification() = intent {
         postSideEffect(BonusesEffect.Clarification)
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(BonusesEffect.Back)
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         availableBonusesUseCase().onSuccess {
             reduce { state.copy(bonusesInfo = it) }

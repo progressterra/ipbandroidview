@@ -17,20 +17,21 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun OrderProcessingScreen(
-    state: OrderProcessingState, onNext: () -> Unit, onBack: () -> Unit
+    state: OrderProcessingState,
+    interactor: OrderProcessingInteractor
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(R.string.order), onBack = onBack)
+        ThemedTopAppBar(title = stringResource(R.string.order), onBack = interactor::onBack)
     }, bottomBar = {
         BottomHolder {
             if (state.orderResult.success) ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onNext,
+                onClick = interactor::onNext,
                 text = stringResource(R.string.on_main)
             )
             else ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onBack,
+                onClick = interactor::onBack,
                 text = stringResource(R.string.repeat_payment)
             )
         }

@@ -12,17 +12,20 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseC
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.model.delivery.Delivery
 import com.progressterra.ipbandroidview.model.delivery.DeliveryType
-import com.progressterra.ipbandroidview.model.store.OrderGoods
-import com.progressterra.ipbandroidview.model.payment.PaymentType
 import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
+import com.progressterra.ipbandroidview.model.payment.PaymentType
+import com.progressterra.ipbandroidview.model.store.OrderGoods
 import com.progressterra.ipbandroidview.model.store.SimplePrice
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class OrderViewModel(
     private val useBonusesUseCase: UseBonusesUseCase,
     private val notUseBonusesUseCase: UseBonusesUseCase,
@@ -33,7 +36,7 @@ class OrderViewModel(
     private val fetchUserEmailUseCase: FetchUserEmailUseCase,
     private val paymentMethodsUseCase: PaymentMethodsUseCase,
     private val setDeliveryAddressUseCase: SetDeliveryAddressUseCase
-) : ViewModel(), ContainerHost<OrderState, OrderEffect> {
+) : ViewModel(), ContainerHost<OrderState, OrderEffect>, OrderInteractor {
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
 
@@ -41,7 +44,7 @@ class OrderViewModel(
         refresh()
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         bonusesUseCase().mapCatching { bonuses ->
             reduce { state.copy(availableBonuses = bonuses) }
@@ -72,19 +75,19 @@ class OrderViewModel(
         recalculate()
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(OrderEffect.Back)
     }
 
-    fun goodsDetails(goodsId: String) = intent {
+    override fun onGoodsDetails(goodsId: String) = intent {
         postSideEffect(OrderEffect.GoodsDetails(goodsId))
     }
 
-    fun changeAddress() = intent {
+    override fun changeAddress() = intent {
         postSideEffect(OrderEffect.City)
     }
 
-    fun selectPickUpPoint() = intent {
+    override fun selectPickUpPoint() = intent {
         val pickUpPoints =
             (state.deliveryMethods[DeliveryType.PICK_UP_POINT] as Delivery.PickUpPointDelivery).points
         postSideEffect(OrderEffect.PickUp(pickUpPoints))
@@ -100,18 +103,18 @@ class OrderViewModel(
         checkPaymentAvailability()
     }
 
-    fun selectDeliveryMethod(method: Delivery) = intent {
-        reduce { state.copy(selectedDeliveryMethod = method) }
+    override fun selectDeliveryMethod(delivery: Delivery) = intent {
+        reduce { state.copy(selectedDeliveryMethod = delivery) }
         recalculate()
         checkPaymentAvailability()
     }
 
-    fun selectPayment(payment: PaymentType) = intent {
-        reduce { state.copy(selectedPaymentMethod = payment) }
+    override fun selectPayment(paymentType: PaymentType) = intent {
+        reduce { state.copy(selectedPaymentMethod = paymentType) }
         checkPaymentAvailability()
     }
 
-    fun editComment(comment: String) = intent {
+    override fun editComment(comment: String) = blockingIntent {
         val selectedMethod = state.selectedDeliveryMethod
         if (selectedMethod is Delivery.CourierDelivery) {
             reduce {
@@ -120,8 +123,8 @@ class OrderViewModel(
         }
     }
 
-    fun changeUseBonuses(use: Boolean) = intent {
-        if (use) notUseBonusesUseCase(state.availableBonuses.quantity).onSuccess {
+    override fun changeUseBonuses(useBonuses: Boolean) = intent {
+        if (useBonuses) notUseBonusesUseCase(state.availableBonuses.quantity).onSuccess {
             reduce { state.copy(useBonuses = !state.useBonuses) }
         }
         else useBonusesUseCase(state.availableBonuses.quantity).onSuccess {
@@ -129,23 +132,23 @@ class OrderViewModel(
         }
     }
 
-    fun editPromoCode(code: String) = intent {
-        reduce { state.copy(promoCodeName = code) }
+    override fun editPromoCode(promoCode: String) = blockingIntent {
+        reduce { state.copy(promoCodeName = promoCode) }
     }
 
-    fun applyPromoCode() = intent {
-
+    override fun applyPromoCode() = intent {
+        //TODO
     }
 
-    fun changeReceiveReceipt(receive: Boolean) = intent {
-        reduce { state.copy(receiveReceipt = receive) }
+    override fun changeReceiveReceipt(receiveReceive: Boolean) = intent {
+        reduce { state.copy(receiveReceipt = receiveReceive) }
     }
 
-    fun editEmail(email: String) = intent {
+    override fun editEmail(email: String) = blockingIntent {
         reduce { state.copy(email = email) }
     }
 
-    fun payment() = intent {
+    override fun payment() = intent {
         state.selectedDeliveryMethod?.let { deliveryMethod ->
             setDeliveryAddressUseCase(deliveryMethod, state.addressUI).onSuccess {
                 confirmOrderUseCase().onSuccess { postSideEffect(OrderEffect.Next(it)) }
@@ -153,7 +156,7 @@ class OrderViewModel(
         }
     }
 
-    fun openUrl(url: String) = intent { }
+    override fun openUrl(url: String) = intent { }
 
     private fun checkPaymentAvailability() = intent {
         reduce { state.copy(paymentReady = state.selectedPaymentMethod != null && state.selectedDeliveryMethod != null) }

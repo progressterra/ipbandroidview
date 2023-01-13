@@ -10,14 +10,14 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class OrderProcessingViewModel : ViewModel(),
-    ContainerHost<OrderProcessingState, OrderProcessingEffect> {
+    ContainerHost<OrderProcessingState, OrderProcessingEffect>, OrderProcessingInteractor {
 
     override val container: Container<OrderProcessingState, OrderProcessingEffect> =
         container(OrderProcessingState())
 
     fun setOrderResult(result: OrderResult) = intent { reduce { state.copy(orderResult = result) } }
 
-    fun next() = intent { postSideEffect(OrderProcessingEffect.Next) }
+    override fun onNext() = intent { postSideEffect(OrderProcessingEffect.Next) }
 
-    fun back() = intent { postSideEffect(OrderProcessingEffect.Back) }
+    override fun onBack() = intent { postSideEffect(OrderProcessingEffect.Back) }
 }

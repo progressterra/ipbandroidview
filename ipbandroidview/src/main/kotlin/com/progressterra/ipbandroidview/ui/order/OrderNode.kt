@@ -48,21 +48,7 @@ class OrderNode(
         val state = viewModel.collectAsState()
         OrderScreen(
             state = state.value,
-            back = viewModel::back,
-            goodsDetails = viewModel::goodsDetails,
-            changeAddress = viewModel::changeAddress,
-            selectPickUpPoint = viewModel::selectPickUpPoint,
-            selectDeliveryMethod = viewModel::selectDeliveryMethod,
-            selectPayment = viewModel::selectPayment,
-            editComment = viewModel::editComment,
-            changeUseBonuses = viewModel::changeUseBonuses,
-            editPromoCode = viewModel::editPromoCode,
-            applyPromoCode = viewModel::applyPromoCode,
-            changeReceiveReceipt = viewModel::changeReceiveReceipt,
-            editEmail = viewModel::editEmail,
-            payment = viewModel::payment,
-            openUrl = viewModel::openUrl,
-            refresh = viewModel::refresh
+            interactor = viewModel
         )
     }
 }

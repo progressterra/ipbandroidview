@@ -26,8 +26,7 @@ class OrganizationsNode(
         val state = viewModel.collectAsState()
         OrganizationsScreen(
             state = state.value,
-            refresh = viewModel::refresh,
-            organizationDetails = viewModel::organizationDetails
+            interactor = viewModel
         )
     }
 }

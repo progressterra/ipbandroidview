@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.city
 
 import android.Manifest
+import android.location.Location
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
@@ -14,18 +15,21 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class CityViewModel(
     private val managePermissionContract: ManagePermissionContract.Client,
     private val guessLocationUseCase: GuessLocationUseCase,
     private val suggestionUseCase: SuggestionUseCase,
     private val saveUserAddressUseCase: SaveUserAddressUseCase,
     private val chooseSuggestionUseCase: ChooseSuggestionUseCase
-) : ViewModel(), ContainerHost<CityState, CityEffect> {
+) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
 
     override val container: Container<CityState, CityEffect> = container(CityState())
 
@@ -43,24 +47,24 @@ class CityViewModel(
         reduce { state.copy(isPermissionGranted = result) }
     }
 
-    fun skip() = intent { postSideEffect(CityEffect.Next) }
+    override fun onSkip() = intent { postSideEffect(CityEffect.Next) }
 
-    fun next() = intent {
+    override fun onNext() = intent {
         saveUserAddressUseCase(address = state.addressUI).onSuccess {
             postSideEffect(CityEffect.Next)
         }
     }
 
-    fun editAddress(address: String) = intent {
-        reduce {
-            state.copy(address = address)
-        }
-        suggestionUseCase(address).onSuccess {
-            reduce { state.copy(suggestions = it) }
-        }
+    override fun editAddress(address: String) = blockingIntent {
+        reduce { state.copy(address = address) }
+        updateSuggestions(address)
     }
 
-    fun onMapClick(latLng: LatLng) = intent {
+    private fun updateSuggestions(address: String) = intent {
+        suggestionUseCase(address).onSuccess { reduce { state.copy(suggestions = it) } }
+    }
+
+    override fun mapClick(latLng: LatLng) = intent {
         guessLocationUseCase(latLng).onSuccess {
             reduce { state.copy(addressUI = it, address = it.printAddress()) }
             suggestionUseCase(it.printAddress()).onSuccess {
@@ -69,7 +73,11 @@ class CityViewModel(
         }
     }
 
-    fun onSuggestion(suggestion: SuggestionUI) = intent {
+    override fun myLocationClick(location: Location) = intent {
+        mapClick(LatLng(location.latitude, location.longitude))
+    }
+
+    override fun onSuggestion(suggestion: SuggestionUI) = intent {
         chooseSuggestionUseCase(suggestion).onSuccess {
             reduce {
                 state.copy(
@@ -81,7 +89,7 @@ class CityViewModel(
         }
     }
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(CityEffect.Back)
     }
 }

@@ -30,8 +30,7 @@ class OrderProcessingNode(
         val state = viewModel.collectAsState()
         OrderProcessingScreen(
             state = state.value,
-            onNext = viewModel::next,
-            onBack = viewModel::back
+            interactor = viewModel
         )
     }
 }

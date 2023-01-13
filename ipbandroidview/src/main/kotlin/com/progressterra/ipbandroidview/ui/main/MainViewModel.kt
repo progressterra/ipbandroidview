@@ -24,7 +24,7 @@ class MainViewModel(
     private val userExistsUseCase: UserExistsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val notificationUseCase: NotificationUseCase
-) : ViewModel(), ContainerHost<MainState, MainEffect> {
+) : ViewModel(), ContainerHost<MainState, MainEffect>, MainInteractor {
 
     override val container: Container<MainState, MainEffect> = container(MainState())
 
@@ -32,7 +32,7 @@ class MainViewModel(
         refresh()
     }
 
-    fun refresh() = intent {
+    override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         notificationUseCase().onSuccess { notifications ->
             reduce { state.copy(notifications = notifications) }
@@ -48,15 +48,11 @@ class MainViewModel(
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    fun favoriteSpecific(item: StoreGoods) = intent {
-        modifyFavoriteUseCase(item.id, item.favorite).onSuccess { refresh() }
+    override fun favoriteSpecific(goods: StoreGoods) = intent {
+        modifyFavoriteUseCase(goods.id, goods.favorite).onSuccess { refresh() }
     }
 
-    fun openDetails(item: StoreGoods) = intent {
-        postSideEffect(MainEffect.GoodsDetails(item.id))
-    }
-
-    fun bonuses() = intent {
-        postSideEffect(MainEffect.Bonuses)
+    override fun openDetails(goods: StoreGoods) = intent {
+        postSideEffect(MainEffect.GoodsDetails(goods.id))
     }
 }

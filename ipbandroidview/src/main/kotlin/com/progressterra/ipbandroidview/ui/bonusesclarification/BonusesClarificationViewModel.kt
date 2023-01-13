@@ -9,24 +9,24 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class BonusesClarificationViewModel : ViewModel(),
-    ContainerHost<BonusesClarificationState, BonusesClarificationEffect> {
+    ContainerHost<BonusesClarificationState, BonusesClarificationEffect>, BonusesClarificationInteractor {
 
     override val container: Container<BonusesClarificationState, BonusesClarificationEffect> =
         container(BonusesClarificationState())
 
-    fun back() = intent {
+    override fun onBack() = intent {
         postSideEffect(BonusesClarificationEffect.Back)
     }
 
-    fun expandHowToSpend() = intent {
+    override fun expandHowToSpend() = intent {
         reduce { state.copy(howToSpendExpand = !state.howToSpendExpand) }
     }
 
-    fun expandRatio() = intent {
+    override fun expandRatio() = intent {
         reduce { state.copy(ratioExpand = !state.ratioExpand) }
     }
 
-    fun expandHowToObtain() = intent {
+    override fun expandHowToObtain() = intent {
         reduce { state.copy(howToObtainExpand = !state.howToObtainExpand) }
     }
 }

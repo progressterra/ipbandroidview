@@ -20,18 +20,15 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun OrganizationAuditsScreen(
     state: OrganizationAuditsState,
-    onMapClick: () -> Unit,
-    back: () -> Unit,
-    refresh: () -> Unit,
-    auditDetails: (OrganizationAudit) -> Unit
+    interactor: OrganizationAuditsInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            onBack = back, title = stringResource(id = R.string.organization)
+            onBack = interactor::onBack, title = stringResource(id = R.string.organization)
         )
     }) { _, _ ->
         StateBox(
-            refresh = refresh,
+            refresh = interactor::refresh,
             state = state.screenState
         ) {
             LazyColumn(
@@ -45,14 +42,14 @@ fun OrganizationAuditsScreen(
                         name = state.organizationName,
                         address = state.organizationAddress,
                         imageUrl = state.imageUrl,
-                        onMapClick = onMapClick
+                        onMapClick = interactor::mapClick
                     )
                 }
                 items(state.audits) {
                     OrganizationCheckCard(
                         name = it.name,
                         lastTime = it.lastTime,
-                        onClick = { auditDetails(it) }
+                        onClick = { interactor.onAuditDetails(it) }
                     )
                 }
             }

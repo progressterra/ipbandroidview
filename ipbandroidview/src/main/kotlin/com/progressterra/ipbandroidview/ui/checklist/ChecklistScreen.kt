@@ -44,8 +44,6 @@ import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.VoiceInput
 import com.progressterra.ipbandroidview.composable.YesNoButton
-import com.progressterra.ipbandroidview.model.checklist.Check
-import com.progressterra.ipbandroidview.model.media.MultisizedImage
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -53,21 +51,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun ChecklistScreen(
     state: ChecklistState,
-    back: () -> Unit,
-    refreshCheck: () -> Unit,
-    refreshChecklist: () -> Unit,
-    openCheck: (Check) -> Unit,
-    applyCheck: () -> Unit,
-    startStopAudit: () -> Unit,
-    yesNo: (Boolean) -> Unit,
-    editCheckCommentary: (String) -> Unit,
-    startPausePlay: () -> Unit,
-    startStopRecording: () -> Unit,
-    remove: () -> Unit,
-    openImage: (MultisizedImage) -> Unit,
-    onCamera: () -> Unit,
-    editEmail: (String) -> Unit,
-    sendEmail: () -> Unit
+    interactor: ChecklistInteractor
 ) {
     val sheetState = rememberModalBottomSheetState(
         initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true
@@ -84,7 +68,7 @@ fun ChecklistScreen(
                     .fillMaxWidth()
                     .heightIn(min = 300.dp),
                 state = state.checkScreenState,
-                refresh = refreshCheck
+                refresh = interactor::refreshCheck
             ) {
                 val currentCheck = state.currentCheck
                 val currentCheckMedia = state.currentCheckMedia
@@ -119,7 +103,7 @@ fun ChecklistScreen(
                                 YesNoButton(
                                     modifier = Modifier.fillMaxWidth(),
                                     state = currentCheck.yesNo,
-                                    onClick = yesNo,
+                                    onClick = interactor::yesNo,
                                     enabled = state.status.isOngoing()
                                 )
                             }
@@ -128,7 +112,7 @@ fun ChecklistScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     text = currentCheck.comment,
                                     hint = stringResource(id = R.string.text_comment),
-                                    onChange = editCheckCommentary,
+                                    onChange = interactor::editCheckCommentary,
                                     enabled = state.status.isOngoing(),
                                     singleLine = false
                                 )
@@ -137,11 +121,11 @@ fun ChecklistScreen(
                                 VoiceInput(
                                     modifier = Modifier.fillMaxWidth(),
                                     state = state.voiceState,
-                                    onStartRecording = startStopRecording,
-                                    onStopRecording = startStopRecording,
-                                    onStartPlay = startPausePlay,
-                                    onPausePlay = startPausePlay,
-                                    onRemove = remove,
+                                    onStartRecording = interactor::startStopRecording,
+                                    onStopRecording = interactor::startStopRecording,
+                                    onStartPlay = interactor::startPausePlay,
+                                    onPausePlay = interactor::startPausePlay,
+                                    onRemove = interactor::remove,
                                     enabled = state.status.isOngoing()
                                 )
                             }
@@ -156,8 +140,8 @@ fun ChecklistScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     enabled = state.status.isOngoing(),
                                     pictures = currentCheckMedia.pictures.filter { !it.toRemove },
-                                    onPhotoSelect = openImage,
-                                    onCamera = onCamera
+                                    onPhotoSelect = interactor::openImage,
+                                    onCamera = interactor::onCamera
                                 )
                             }
                         }
@@ -166,7 +150,7 @@ fun ChecklistScreen(
                             Row(Modifier.padding(horizontal = AppTheme.dimensions.small)) {
                                 ThemedButton(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
-                                        applyCheck()
+                                        interactor.applyCheck()
                                         coroutineScope.launch { sheetState.hide() }
                                     }, text = stringResource(id = R.string.ready)
                                 )
@@ -180,7 +164,7 @@ fun ChecklistScreen(
     ) {
         ThemedLayout(topBar = {
             ThemedTopAppBar(
-                onBack = back, title = stringResource(id = R.string.audit)
+                onBack = interactor::onBack, title = stringResource(id = R.string.audit)
             )
         }, bottomBar = {
             BottomHolder {
@@ -189,7 +173,7 @@ fun ChecklistScreen(
                         if (state.stats.remaining >= 1)
                             ThemedButton(
                                 modifier = Modifier.weight(1f),
-                                onClick = startStopAudit,
+                                onClick = interactor::startStopAudit,
                                 text = stringResource(id = R.string.end_audit),
                                 tint = AppTheme.colors.secondary,
                                 textColor = AppTheme.colors.gray1,
@@ -198,7 +182,7 @@ fun ChecklistScreen(
                         else
                             ThemedButton(
                                 modifier = Modifier.weight(1f),
-                                onClick = startStopAudit,
+                                onClick = interactor::startStopAudit,
                                 text = stringResource(id = R.string.end_audit),
                                 enabled = state.checklistScreenState.isSuccess()
                             )
@@ -207,36 +191,17 @@ fun ChecklistScreen(
                     if (state.status.isCanBeStarted())
                         ThemedButton(
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = startStopAudit,
+                            onClick = interactor::startStopAudit,
                             text = stringResource(R.string.start_audit),
                             enabled = state.checklistScreenState.isSuccess()
                         )
                 }
-                if (state.status.isReadOnly()) {
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-                    ThemedTextField(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = state.email,
-                        onChange = editEmail,
-                        hint = stringResource(R.string.email),
-                        action = sendEmail,
-                        enabled = state.checklistScreenState.isSuccess()
-                    )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-                    ThemedButton(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = sendEmail,
-                        text = stringResource(R.string.send_on_email),
-                        enabled = state.checklistScreenState.isSuccess()
-                    )
-                }
             }
-
         }, bottomOverlap = true) { _, bottomPadding ->
             StateBox(
                 modifier = Modifier.fillMaxSize(),
                 state = state.checklistScreenState,
-                refresh = refreshChecklist
+                refresh = interactor::refreshChecklist
             ) {
                 val groupedChecks by remember(state.checks) {
                     mutableStateOf(state.checks.groupBy { it.categoryNumber })
@@ -267,7 +232,7 @@ fun ChecklistScreen(
                         }
                         items(checks) {
                             CheckCard(modifier = Modifier.fillMaxWidth(), onClick = {
-                                openCheck(it)
+                                interactor.openCheck(it)
                                 coroutineScope.launch { sheetState.show() }
                             }, state = it)
                         }

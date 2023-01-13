@@ -31,9 +31,7 @@ class OrdersNode(
         val state = viewModel.collectAsState()
         OrdersScreen(
             state = state.value,
-            onBack = viewModel::back,
-            openGoodsDetails = viewModel::openDetails,
-            refresh = viewModel::refresh
+            interactor = viewModel
         )
     }
 }

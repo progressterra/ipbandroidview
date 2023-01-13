@@ -50,10 +50,7 @@ class ConfirmationCodeNode(
         val state = viewModel.collectAsState()
         ConfirmationCodeScreen(
             state = state.value,
-            resend = viewModel::resend,
-            next = viewModel::next,
-            editCode = viewModel::editCode,
-            back = viewModel::back
+            interactor = viewModel
         )
     }
 }

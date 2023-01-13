@@ -20,26 +20,17 @@ import com.progressterra.ipbandroidview.composable.GoodsTopAppBar
 import com.progressterra.ipbandroidview.composable.SizesLine
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.model.store.GoodsColor
-import com.progressterra.ipbandroidview.model.store.GoodsSize
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun GoodsDetailsScreen(
     state: GoodsDetailsScreenState,
-    refresh: () -> Unit,
-    add: () -> Unit,
-    remove: () -> Unit,
-    favorite: () -> Unit,
-    sizeTable: () -> Unit,
-    size: (GoodsSize) -> Unit,
-    back: () -> Unit,
-    color: (GoodsColor) -> Unit,
+    interactor: GoodsDetailsInteractor
 ) {
     ThemedLayout(topBar = {
         GoodsTopAppBar(
-            onBack = back,
-            onFavorite = favorite,
+            onBack = interactor::onBack,
+            onFavorite = interactor::favorite,
             state = state.goodsDetails
         )
     }, bottomBar = {
@@ -50,14 +41,14 @@ fun GoodsDetailsScreen(
                 )
             ),
             state = state.goodsDetails,
-            onAdd = add,
-            onRemove = remove,
+            onAdd = interactor::add,
+            onRemove = interactor::remove,
             screenState = state.screenState
         )
     }) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = refresh
+            refresh = interactor::refresh
         ) {
             Column(
                 modifier = Modifier
@@ -72,13 +63,13 @@ fun GoodsDetailsScreen(
                 ColorsLine(
                     modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
                     state = state.goodsDetails,
-                    chooseColor = color
+                    chooseColor = interactor::chooseColor
                 )
                 SizesLine(
                     modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
                     state = state.goodsDetails,
-                    onSize = size,
-                    onTable = sizeTable
+                    onSize = interactor::size,
+                    onTable = interactor::sizeTable
                 )
                 GoodsDetails(
                     modifier = Modifier, state = state.goodsDetails

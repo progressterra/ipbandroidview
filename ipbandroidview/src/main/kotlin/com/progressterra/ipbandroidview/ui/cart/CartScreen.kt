@@ -14,31 +14,25 @@ import com.progressterra.ipbandroidview.composable.CartCard
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.model.store.CartGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun CartScreen(
     state: CartState,
-    openDetails: (CartGoods) -> Unit,
-    favoriteSpecific: (CartGoods) -> Unit,
-    removeSpecific: (CartGoods) -> Unit,
-    next: () -> Unit,
-    refresh: () -> Unit,
-    auth: () -> Unit
+    interactor: CartInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.cart))
     }, bottomBar = {
         if (state.cart.listGoods.isNotEmpty())
             CartBottomBar(
-                onNext = next,
-                onAuth = auth,
+                onNext = interactor::onNext,
+                onAuth = interactor::onAuth,
                 userExist = state.userExist,
                 totalPrice = state.cart.totalPrice
             )
     }) { _, _ ->
-        StateBox(state = state.screenState, refresh = refresh) {
+        StateBox(state = state.screenState, refresh = interactor::refresh) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
@@ -47,9 +41,9 @@ fun CartScreen(
                 items(state.cart.listGoods) {
                     CartCard(
                         state = it,
-                        onFavorite = favoriteSpecific,
-                        onDelete = removeSpecific,
-                        onDetails = openDetails
+                        onFavorite = interactor::favoriteSpecific,
+                        onDelete = interactor::removeSpecific,
+                        onDetails = interactor::openDetails
                     )
                 }
             }

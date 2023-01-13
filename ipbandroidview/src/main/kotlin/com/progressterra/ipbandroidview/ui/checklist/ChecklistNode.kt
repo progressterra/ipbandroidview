@@ -48,21 +48,7 @@ class ChecklistNode(
         val state = viewModel.collectAsState()
         ChecklistScreen(
             state = state.value,
-            back = viewModel::back,
-            refreshCheck = viewModel::refreshCheck,
-            refreshChecklist = viewModel::refreshChecklist,
-            openCheck = viewModel::openCheck,
-            applyCheck = viewModel::applyCheck,
-            startStopAudit = viewModel::startStopAudit,
-            yesNo = viewModel::yesNo,
-            editCheckCommentary = viewModel::editCheckCommentary,
-            startPausePlay = viewModel::startPausePlay,
-            startStopRecording = viewModel::startStopRecording,
-            remove = viewModel::remove,
-            openImage = viewModel::openImage,
-            onCamera = viewModel::onCamera,
-            editEmail = viewModel::editEmail,
-            sendEmail = viewModel::sendOnEmail
+            interactor = viewModel
         )
     }
 }

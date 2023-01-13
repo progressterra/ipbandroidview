@@ -22,28 +22,21 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun GoodsScreen(
     state: GoodsState,
-    search: () -> Unit,
-    keyword: (String) -> Unit,
-    back: () -> Unit,
-    favoriteSpecific: (StoreGoods) -> Unit,
-    refresh: () -> Unit,
-    openDetails: (StoreGoods) -> Unit,
-    filters: () -> Unit,
-    clear: () -> Unit
+    interactor: GoodsInteractor
 ) {
     ThemedLayout(topBar = {
         GoodsSearchBar(
             state = state,
-            onBack = back,
-            onKeyword = keyword,
-            onSearch = search,
-            onFilters = filters,
-            onClear = clear
+            onBack = interactor::onBack,
+            onKeyword = interactor::editKeyword,
+            onSearch = interactor::search,
+            onFilters = interactor::filters,
+            onClear = interactor::clear
         )
     }) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = refresh
+            refresh = interactor::refresh
         ) {
             val lazyItems: LazyPagingItems<StoreGoods> =
                 state.itemsFlow.collectAsLazyPagingItems()
@@ -59,16 +52,16 @@ fun GoodsScreen(
                         goods?.let {
                             StoreCard(
                                 state = goods,
-                                onClick = { openDetails(goods) },
-                                onFavorite = { favoriteSpecific(goods) })
+                                onClick = { interactor.openDetails(goods) },
+                                onFavorite = { interactor.favoriteSpecific(goods) })
                         }
                     }
                 if (state.items.isNotEmpty())
                     items(state.items) { goods ->
                         StoreCard(
                             state = goods,
-                            onClick = { openDetails(goods) },
-                            onFavorite = { favoriteSpecific(goods) })
+                            onClick = { interactor.openDetails(goods) },
+                            onFavorite = { interactor.favoriteSpecific(goods) })
                     }
             }
         }
