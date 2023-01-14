@@ -23,8 +23,7 @@ interface PartnerMapper : TripleMapper<RGEnterpriseData, RFShop, List<OfferUI>, 
                 webSite = data1.websiteURL ?: noData,
                 phone = data2.contacts ?: noData,
                 headImageUrl = data1.headImageURL ?: noData,
-                logoImageUrl = data1.logoImageURL ?: noData,
-                miniImageUrl = data1.miniImageURL ?: noData
+                logoImageUrl = data1.logoImageURL ?: noData
             )
     }
 }
