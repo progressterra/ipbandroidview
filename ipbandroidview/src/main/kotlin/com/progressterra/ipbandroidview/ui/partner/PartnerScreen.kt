@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
@@ -21,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.Offer
 import com.progressterra.ipbandroidview.composable.SimpleImage
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
@@ -44,7 +47,7 @@ fun PartnerScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            val (header, logo, description, website, phone) = createRefs()
+            val (header, logo, description, offers, website, phone) = createRefs()
             SimpleImage(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -95,16 +98,17 @@ fun PartnerScreen(
                     color = AppTheme.colors.black
                 )
             }
-//            if (state.partner.offerList.isNotEmpty())
-//                LazyRow(
-//                    modifier = Modifier.constrainAs(offers) {
-//                        width = Dimension.matchParent
-//                    }
-//                ) {
-//                    items(state.partner.offerList) {
-//                        Offer(offerUI = it)
-//                    }
-//                }
+            if (state.partner.offerList.isNotEmpty())
+                LazyRow(
+                    modifier = Modifier.constrainAs(offers) {
+                        width = Dimension.matchParent
+                        top.linkTo(description.bottom, smallMargin)
+                    }
+                ) {
+                    items(state.partner.offerList) {
+                        Offer(offerUI = it)
+                    }
+                }
             Row(modifier = Modifier
                 .clip(AppTheme.shapes.small)
                 .background(AppTheme.colors.surfaces)
@@ -112,7 +116,7 @@ fun PartnerScreen(
                 .constrainAs(phone) {
                     width = Dimension.fillToConstraints
                     end.linkTo(parent.end, smallMargin)
-                    top.linkTo(description.bottom, smallMargin)
+                    top.linkTo(offers.bottom, smallMargin)
                     start.linkTo(parent.start, smallMargin)
                 }) {
                 Text(
