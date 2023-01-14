@@ -3,6 +3,8 @@ package com.progressterra.ipbandroidview.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -10,16 +12,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.model.partner.OfferUI
 import com.progressterra.ipbandroidview.theme.AppTheme
-import com.skydoves.landscapist.ImageOptions
 import de.charlex.compose.HtmlText
 
-private val cardWidth = 200.dp
+private val cardWidth = 300.dp
 
-private val cardHeight = 400.dp
+private val cardHeight = 450.dp
 
 @Composable
 fun Offer(
@@ -34,10 +34,11 @@ fun Offer(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         SimpleImage(
-            modifier = Modifier.size(cardWidth),
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1.33f),
             url = offerUI.imageUrl,
-            backgroundColor = AppTheme.colors.surfaces,
-            options = ImageOptions(contentScale = ContentScale.FillBounds)
+            backgroundColor = AppTheme.colors.surfaces
         )
         Text(
             text = offerUI.headDescription,
