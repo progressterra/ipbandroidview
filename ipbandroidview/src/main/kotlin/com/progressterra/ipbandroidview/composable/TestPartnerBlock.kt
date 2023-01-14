@@ -26,7 +26,7 @@ fun TestPartnerBlock(
                 .fillMaxSize()
                 .clip(AppTheme.shapes.small)
                 .niceClickable(onClick = onPartnerClick),
-            url = partner.miniImageUrl,
+            url = partner.headImageUrl,
             backgroundColor = AppTheme.colors.surfaces
         )
     }

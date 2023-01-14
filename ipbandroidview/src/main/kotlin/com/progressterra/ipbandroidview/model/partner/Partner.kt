@@ -16,8 +16,7 @@ data class Partner(
     val webSite: String = "",
     val phone: String = "",
     val headImageUrl: String = "",
-    val logoImageUrl: String = "",
-    val miniImageUrl: String = ""
+    val logoImageUrl: String = ""
 ) : Id, IsEmpty, Parcelable {
 
     override fun isEmpty(): Boolean = this == Partner()

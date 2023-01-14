@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.partner
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -103,7 +104,9 @@ fun PartnerScreen(
                     modifier = Modifier.constrainAs(offers) {
                         width = Dimension.matchParent
                         top.linkTo(description.bottom, smallMargin)
-                    }
+                    },
+                    contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
                 ) {
                     items(state.partner.offerList) {
                         Offer(offerUI = it)
@@ -158,9 +161,7 @@ private fun PartnerScreenPreview() {
                     webSite = "www.qwertyuqwertyui.com",
                     phone = "89966977656",
                     headImageUrl = "",
-                    logoImageUrl = "",
-                    miniImageUrl = ""
-
+                    logoImageUrl = ""
                 )
             ), interactor = PartnerInteractor.Empty()
         )
