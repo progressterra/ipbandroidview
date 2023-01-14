@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -18,7 +19,7 @@ import de.charlex.compose.HtmlText
 
 private val cardWidth = 200.dp
 
-private val cardHeight = 500.dp
+private val cardHeight = 400.dp
 
 @Composable
 fun Offer(
@@ -29,7 +30,8 @@ fun Offer(
         modifier = modifier
             .clip(AppTheme.shapes.small)
             .background(AppTheme.colors.surfaces)
-            .size(height = cardHeight, width = cardWidth)
+            .size(height = cardHeight, width = cardWidth),
+        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         SimpleImage(
             modifier = Modifier.size(cardWidth),
