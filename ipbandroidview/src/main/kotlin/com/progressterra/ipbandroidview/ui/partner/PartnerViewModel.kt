@@ -15,11 +15,14 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class PartnerViewModel(
     private val startActivityUseCase: StartActivityUseCase
-) : ViewModel(), ContainerHost<PartnerState, PartnerEffect>, PartnerInteractor {
+) : ViewModel(), ContainerHost<PartnerState, PartnerEffect>,
+    PartnerInteractor {
 
     override val container: Container<PartnerState, PartnerEffect> = container(PartnerState())
 
-    fun setPartner(partner: Partner) = intent { reduce { state.copy(partner = partner) } }
+    fun setPartner(partner: Partner) = intent {
+        reduce { state.copy(partner = partner) }
+    }
 
     override fun onBack() = intent { postSideEffect(PartnerEffect.Back) }
 
