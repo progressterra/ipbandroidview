@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.partner.Partner
 import com.progressterra.ipbandroidview.theme.AppTheme
+import com.skydoves.landscapist.ImageOptions
 
 
 @Composable
@@ -24,7 +26,8 @@ fun TestPartnerBlock(
                 .clip(AppTheme.shapes.small)
                 .niceClickable(onClick = onPartnerClick),
             url = partner.headImageUrl,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = AppTheme.colors.surfaces,
+            options = ImageOptions(contentScale = ContentScale.FillBounds)
         )
     }
 }
