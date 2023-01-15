@@ -19,9 +19,7 @@ class PartnerViewModel(
 
     override val container: Container<PartnerState, PartnerEffect> = container(PartnerState())
 
-    fun setPartner(partner: Partner) = intent {
-        reduce { state.copy(partner = partner) }
-    }
+    fun setPartner(partner: Partner) = intent { reduce { state.copy(partner = partner) } }
 
     override fun onBack() = intent { postSideEffect(PartnerEffect.Back) }
 
