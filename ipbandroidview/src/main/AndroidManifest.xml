@@ -23,5 +23,9 @@
         <intent>
             <action android:name="android.media.action.IMAGE_CAPTURE" />
         </intent>
+        <!--Phone dial-->
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+        </intent>
     </queries>
 </manifest>

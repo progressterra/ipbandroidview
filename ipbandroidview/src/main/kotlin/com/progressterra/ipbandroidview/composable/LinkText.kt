@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -20,13 +21,15 @@ data class LinkTextData(
 
 @Composable
 fun LinkText(
-    linkTextData: List<LinkTextData>, modifier: Modifier = Modifier
+    linkTextData: List<LinkTextData>,
+    modifier: Modifier = Modifier,
+    style: TextStyle = AppTheme.typography.tertiaryText
 ) {
     val annotatedString = createAnnotatedString(linkTextData)
 
     ClickableText(
         text = annotatedString,
-        style = AppTheme.typography.tertiaryText.copy(
+        style = style.copy(
             textAlign = TextAlign.Center, color = AppTheme.colors.gray2
         ),
         onClick = { offset ->

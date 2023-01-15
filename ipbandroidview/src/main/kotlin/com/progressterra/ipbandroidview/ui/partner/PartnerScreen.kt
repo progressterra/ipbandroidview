@@ -139,7 +139,8 @@ fun PartnerScreen(
                             annotation = state.partner.phone,
                             onClick = interactor::openPhone
                         )
-                    )
+                    ),
+                    style = AppTheme.typography.text
                 )
             }
             Column(
@@ -167,7 +168,8 @@ fun PartnerScreen(
                             annotation = state.partner.webSite,
                             onClick = interactor::openWebsite
                         )
-                    )
+                    ),
+                    style = AppTheme.typography.text
                 )
             }
         }
