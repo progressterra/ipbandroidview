@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.partner
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.LinkText
+import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.composable.Offer
 import com.progressterra.ipbandroidview.composable.SimpleImage
 import com.progressterra.ipbandroidview.composable.ThemedLayout
@@ -99,49 +102,72 @@ fun PartnerScreen(
                     color = AppTheme.colors.black
                 )
             }
-            if (state.partner.offerList.isNotEmpty())
-                LazyRow(
-                    modifier = Modifier.constrainAs(offers) {
-                        width = Dimension.matchParent
-                        top.linkTo(description.bottom, smallMargin)
-                    },
-                    contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
-                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
-                ) {
-                    items(state.partner.offerList) {
-                        Offer(offerUI = it)
-                    }
+            if (state.partner.offerList.isNotEmpty()) LazyRow(
+                modifier = Modifier.constrainAs(offers) {
+                    width = Dimension.matchParent
+                    top.linkTo(description.bottom, smallMargin)
+                },
+                contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
+                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            ) {
+                items(state.partner.offerList) {
+                    Offer(offerUI = it)
                 }
-            Row(modifier = Modifier
-                .clip(AppTheme.shapes.small)
-                .background(AppTheme.colors.surfaces)
-                .padding(AppTheme.dimensions.small)
-                .constrainAs(phone) {
-                    width = Dimension.fillToConstraints
-                    end.linkTo(parent.end, smallMargin)
-                    top.linkTo(offers.bottom, smallMargin)
-                    start.linkTo(parent.start, smallMargin)
-                }) {
+            }
+            Column(
+                modifier = Modifier
+                    .clip(AppTheme.shapes.small)
+                    .background(AppTheme.colors.surfaces)
+                    .padding(AppTheme.dimensions.small)
+                    .constrainAs(phone) {
+                        width = Dimension.fillToConstraints
+                        end.linkTo(parent.end, smallMargin)
+                        top.linkTo(offers.bottom, smallMargin)
+                        start.linkTo(parent.start, smallMargin)
+                    }, verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+            ) {
                 Text(
-                    text = "${stringResource(R.string.phone_number)}: ${state.partner.phone}",
+                    text = stringResource(R.string.phone_number),
                     style = AppTheme.typography.title,
                     color = AppTheme.colors.black
                 )
+                LinkText(
+                    linkTextData = listOf(
+                        LinkTextData(
+                            text = state.partner.phone,
+                            tag = "company phone",
+                            annotation = state.partner.phone,
+                            onClick = interactor::openPhone
+                        )
+                    )
+                )
             }
-            Row(modifier = Modifier
-                .clip(AppTheme.shapes.small)
-                .background(AppTheme.colors.surfaces)
-                .padding(AppTheme.dimensions.small)
-                .constrainAs(website) {
-                    width = Dimension.fillToConstraints
-                    end.linkTo(parent.end, smallMargin)
-                    top.linkTo(phone.bottom, smallMargin)
-                    start.linkTo(parent.start, smallMargin)
-                }) {
+            Column(
+                modifier = Modifier
+                    .clip(AppTheme.shapes.small)
+                    .background(AppTheme.colors.surfaces)
+                    .padding(AppTheme.dimensions.small)
+                    .constrainAs(website) {
+                        width = Dimension.fillToConstraints
+                        end.linkTo(parent.end, smallMargin)
+                        top.linkTo(phone.bottom, smallMargin)
+                        start.linkTo(parent.start, smallMargin)
+                    }, verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+            ) {
                 Text(
-                    text = "${stringResource(R.string.web_site)}: ${state.partner.webSite}",
+                    text = stringResource(R.string.web_site),
                     style = AppTheme.typography.title,
                     color = AppTheme.colors.black
+                )
+                LinkText(
+                    linkTextData = listOf(
+                        LinkTextData(
+                            text = state.partner.webSite,
+                            tag = "company website",
+                            annotation = state.partner.webSite,
+                            onClick = interactor::openWebsite
+                        )
+                    )
                 )
             }
         }

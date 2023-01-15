@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidview.domain.usecase.CurrentLocationSuggestion
 import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.NotificationUseCase
+import com.progressterra.ipbandroidview.domain.usecase.StartActivityUseCase
 import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
@@ -262,4 +263,8 @@ val useCasesModule = module {
     single<InviteUseCase> { InviteUseCase.Test() }
 
     single<FetchPartnerUseCase> { FetchPartnerUseCase.Base(get(), get(), get(), get(), get()) }
+
+    single<StartActivityUseCase> {
+        StartActivityUseCase.Base(get())
+    }
 }
