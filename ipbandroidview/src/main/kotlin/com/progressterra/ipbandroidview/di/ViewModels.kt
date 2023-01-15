@@ -160,6 +160,6 @@ val viewModelsModule = module {
     }
 
     viewModel {
-        PartnerViewModel()
+        PartnerViewModel(get())
     }
 }
