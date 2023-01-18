@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.suggestion
 
 import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.model.address.AddressUI

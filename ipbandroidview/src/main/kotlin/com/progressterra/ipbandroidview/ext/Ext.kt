@@ -12,8 +12,7 @@ fun String.isEmail(): Boolean = PatternsCompat.EMAIL_ADDRESS.matcher(this).match
 fun <T : Id> List<T>.replaceById(item: T): List<T> =
     this.toMutableList().apply { this[indexOfFirst { item.id == it.id }] = item }
 
-fun <T> List<T>.removeItem(item: T): List<T> =
-    this.toMutableList().apply { this.remove(item) }
+fun <T> List<T>.removeItem(item: T): List<T> = this.toMutableList().apply { this.remove(item) }
 
 fun <T : AttachedMedia<T>> List<T>.formPatch(): List<T> =
     this.filter { (it.local && !it.toRemove) || (!it.local && it.toRemove) }
@@ -31,16 +30,13 @@ fun List<Check>.createStats(): ChecklistStats {
     var successful = 0
     var failed = 0
     this.forEach {
-        if (it.yesNo == true)
-            successful++
-        else if (it.yesNo == false)
-            failed++
+        if (it.yesNo == true) successful++
+        else if (it.yesNo == false) failed++
     }
     val total = this.size
     val remaining = total - successful - failed
     return ChecklistStats(
-        total = total, successful = successful, failed = failed,
-        remaining = remaining
+        total = total, successful = successful, failed = failed, remaining = remaining
     )
 }
 

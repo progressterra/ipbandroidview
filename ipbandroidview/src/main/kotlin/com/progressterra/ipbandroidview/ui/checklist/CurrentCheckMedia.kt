@@ -1,6 +1,9 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.ext.formPatch
+import com.progressterra.ipbandroidview.ext.markLastToRemove
+import com.progressterra.ipbandroidview.ext.markToRemove
 import com.progressterra.ipbandroidview.model.media.MultisizedImage
 import com.progressterra.ipbandroidview.model.media.Voice
 
@@ -8,4 +11,19 @@ import com.progressterra.ipbandroidview.model.media.Voice
 data class CurrentCheckMedia(
     val voices: List<Voice>,
     val pictures: List<MultisizedImage>
-)
+) {
+    fun createPatched() = copy(
+        voices = voices.formPatch(), pictures = pictures.formPatch()
+    )
+
+    fun removeImage(image: MultisizedImage): CurrentCheckMedia =
+        copy(pictures = pictures.markToRemove(image))
+
+    fun addImage(image: MultisizedImage): CurrentCheckMedia =
+        copy(pictures = pictures.plus(image))
+
+    fun removeRecord(): CurrentCheckMedia = copy(voices = voices.markLastToRemove())
+
+    fun addVoice(voice: Voice): CurrentCheckMedia =
+        copy(voices = voices.plus(voice))
+}

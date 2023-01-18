@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
 import kotlinx.coroutines.delay

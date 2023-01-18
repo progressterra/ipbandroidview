@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.location
 
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository

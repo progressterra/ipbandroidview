@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.domain.usecase
+package com.progressterra.ipbandroidview.domain.usecase.qr
 
 import android.graphics.Bitmap
 import android.graphics.Color

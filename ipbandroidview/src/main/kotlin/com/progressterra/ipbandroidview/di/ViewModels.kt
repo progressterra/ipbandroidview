@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.di
 
+import com.progressterra.ipbandroidview.ui.archive.ArchiveViewModel
 import com.progressterra.ipbandroidview.ui.bonuses.BonusesViewModel
 import com.progressterra.ipbandroidview.ui.bonusesclarification.BonusesClarificationViewModel
 import com.progressterra.ipbandroidview.ui.cart.CartViewModel
@@ -7,7 +8,6 @@ import com.progressterra.ipbandroidview.ui.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import com.progressterra.ipbandroidview.ui.city.CityViewModel
 import com.progressterra.ipbandroidview.ui.confirmationcode.ConfirmationCodeViewModel
-import com.progressterra.ipbandroidview.ui.archive.ArchiveViewModel
 import com.progressterra.ipbandroidview.ui.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.ui.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.ui.goods.GoodsViewModel
@@ -76,6 +76,9 @@ val viewModelsModule = module {
 
     viewModel {
         ChecklistViewModel(
+            get(),
+            get(),
+            get(),
             get(),
             get(),
             get(),

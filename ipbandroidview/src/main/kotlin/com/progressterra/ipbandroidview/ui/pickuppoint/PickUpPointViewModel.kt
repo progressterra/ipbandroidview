@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.pickuppoint
 
 import android.Manifest
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.core.ManagePermissionContract
+import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
@@ -13,7 +13,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class PickUpPointViewModel(
-    private val managePermissionContract: ManagePermissionContract.Client
+    private val checkPermissionUseCase: CheckPermissionUseCase
 ) : ViewModel(), ContainerHost<PickUpPointState, PickUpPointEffect>, PickUpPointInteractor {
 
     override val container: Container<PickUpPointState, PickUpPointEffect> =
@@ -35,7 +35,7 @@ class PickUpPointViewModel(
     }
 
     private fun checkPermission() = intent {
-        val result = managePermissionContract.checkPermission(locationPermission)
+        val result = checkPermissionUseCase(locationPermission).isSuccess
         reduce { state.copy(isPermissionGranted = result) }
     }
 

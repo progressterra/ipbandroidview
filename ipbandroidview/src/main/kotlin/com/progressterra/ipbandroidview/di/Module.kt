@@ -9,6 +9,7 @@ import android.os.Build.VERSION_CODES
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
+import com.progressterra.ipbandroidview.core.CreateId
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.MakePhotoContract
 import com.progressterra.ipbandroidview.core.ManagePermissionContract
@@ -44,31 +45,17 @@ val iPBAndroidViewModule = module {
 
     single<StoreGoodsMapper> { StoreGoodsMapper.Base(get(), get(), get()) }
 
-    single {
-        Gson()
-    }
+    single { Gson() }
 
-    single<SplitName> {
-        SplitName.Base()
-    }
+    single<SplitName> { SplitName.Base() }
 
-    single<ManageResources> {
-        ManageResources.Base(androidContext())
-    }
+    single<ManageResources> { ManageResources.Base(androidContext()) }
 
-    single<CartGoodsMapper> {
-        CartGoodsMapper.Base(
-            get(), get(), get()
-        )
-    }
+    single<CartGoodsMapper> { CartGoodsMapper.Base(get(), get(), get()) }
 
-    single {
-        LocationServices.getFusedLocationProviderClient(androidContext())
-    }
+    single { LocationServices.getFusedLocationProviderClient(androidContext()) }
 
-    single<PriceMapper> {
-        PriceMapper.Russia()
-    }
+    single<PriceMapper> { PriceMapper.Russia() }
 
     single<GoodsDetailsMapper> { GoodsDetailsMapper.Base(get(), get(), get()) }
 
@@ -89,20 +76,13 @@ val iPBAndroidViewModule = module {
         MakePhotoContract.Base()
     }.binds(arrayOf(MakePhotoContract.Activity::class, MakePhotoContract.Client::class))
 
-    single<ProvideLocation> {
-        ProvideLocation.Base(get())
-    }
+    single<ProvideLocation> { ProvideLocation.Base(get()) }
 
     single<FileExplorer> {
-        FileExplorer.Base(
-            androidContext(),
-            get(qualifier = StringQualifier("authority"))
-        )
+        FileExplorer.Base(androidContext(), get(qualifier = StringQualifier("authority")))
     }
 
-    single {
-        MediaPlayer()
-    }
+    single { MediaPlayer() }
 
     @Suppress("DEPRECATION")
     single {
@@ -112,13 +92,9 @@ val iPBAndroidViewModule = module {
             MediaRecorder()
     }
 
-    single<VoiceManager> {
-        VoiceManager.Base(get())
-    }
+    single<VoiceManager> { VoiceManager.Base(get()) }
 
-    single<AudioManager> {
-        AudioManager.Base(get(), get())
-    }
+    single<AudioManager> { AudioManager.Base(get()) }
 
     single<GoodsFilterMapper> { GoodsFilterMapper.Base() }
 
@@ -126,9 +102,7 @@ val iPBAndroidViewModule = module {
 
     single<SubCatalogMapper> { SubCatalogMapper.Base(get()) }
 
-    single<ImageMapper> {
-        ImageMapper.Base(get())
-    }
+    single<ImageMapper> { ImageMapper.Base(get()) }
 
     single<StatusOrderMapper> { StatusOrderMapper.Base(get()) }
 
@@ -138,11 +112,11 @@ val iPBAndroidViewModule = module {
 
     single<MessageMapper> { MessageMapper.Base(get()) }
 
-    single {
-        androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    }
+    single { androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
 
     single<OfferMapper> { OfferMapper.Base(get()) }
 
     single<PartnerMapper> { PartnerMapper.Base(get()) }
+
+    single<CreateId> { CreateId.Base() }
 }

@@ -3,10 +3,14 @@ package com.progressterra.ipbandroidview.ui.checklist
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.ext.createStats
+import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.checklist.AuditDocument
 import com.progressterra.ipbandroidview.model.checklist.Check
-import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
 import com.progressterra.ipbandroidview.model.checklist.ChecklistStats
+import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
+import com.progressterra.ipbandroidview.model.media.MultisizedImage
+import com.progressterra.ipbandroidview.model.media.Voice
 
 @Immutable
 data class ChecklistState(
@@ -20,4 +24,64 @@ data class ChecklistState(
     val checklistScreenState: ScreenState = ScreenState.LOADING,
     val status: ChecklistStatus = ChecklistStatus.READ_ONLY,
     val email: String = ""
-)
+) {
+
+    fun updateCheck(check: Check): ChecklistState {
+        val newChecks = checks.replaceById(check)
+        return copy(
+            checks = newChecks, stats = newChecks.createStats()
+        )
+    }
+
+    fun updateChecks(checks: List<Check>): ChecklistState = copy(
+        checks = checks,
+        stats = checks.createStats()
+    )
+
+    fun updateCurrentCheck(check: Check): ChecklistState = copy(currentCheck = check)
+
+    fun removeImage(image: MultisizedImage): ChecklistState = copy(
+        currentCheckMedia = currentCheckMedia!!.removeImage(image)
+    )
+
+    fun addImage(image: MultisizedImage): ChecklistState = copy(
+        currentCheckMedia = currentCheckMedia!!.addImage(image)
+    )
+
+    fun removeRecord(): ChecklistState = copy(
+        voiceState = VoiceState.Recorder(false),
+        currentCheckMedia = currentCheckMedia!!.removeRecord()
+    )
+
+    fun updateVoiceState(voiceState: VoiceState): ChecklistState = copy(voiceState = voiceState)
+
+    fun addVoice(voice: Voice): ChecklistState = copy(
+        currentCheckMedia = currentCheckMedia!!.addVoice(voice)
+    )
+
+    fun updateChecklistScreenState(state: ScreenState): ChecklistState =
+        copy(checklistScreenState = state)
+
+    fun updateCheckScreenState(state: ScreenState): ChecklistState = copy(checkScreenState = state)
+
+    fun updateCurrentCheckMedia(currentCheckMedia: CurrentCheckMedia): ChecklistState = copy(
+        currentCheckMedia = currentCheckMedia
+    )
+
+    fun updateCurrentCheckCommentary(comment: String): ChecklistState {
+        val newCurrentCheck = currentCheck!!.updateComment(comment)
+        return copy(currentCheck = newCurrentCheck)
+    }
+
+    fun updateCurrentCheckYesNo(yesNo: Boolean): ChecklistState {
+        val newCurrentCheck = currentCheck!!.updateYesNo(yesNo)
+        return copy(currentCheck = newCurrentCheck)
+    }
+
+    fun updateAuditDocumentId(documentId: String): ChecklistState {
+        val newAuditDocument = auditDocument.updateDocumentId(documentId)
+        return copy(auditDocument = newAuditDocument)
+    }
+
+    fun updateStatus(status: ChecklistStatus): ChecklistState = copy(status = status)
+}

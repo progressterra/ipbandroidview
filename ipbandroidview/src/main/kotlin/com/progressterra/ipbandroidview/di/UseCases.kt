@@ -1,15 +1,16 @@
 package com.progressterra.ipbandroidview.di
 
-import com.progressterra.ipbandroidview.domain.usecase.ChooseSuggestionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.CreateQrUseCase
-import com.progressterra.ipbandroidview.domain.usecase.CurrentLocationSuggestionsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.NotificationUseCase
+import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.suggestion.ChooseSuggestionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.qr.CreateQrUseCase
+import com.progressterra.ipbandroidview.domain.usecase.suggestion.CurrentLocationSuggestionsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.usecase.location.GuessLocationUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.StartActivityUseCase
-import com.progressterra.ipbandroidview.domain.usecase.StartVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.domain.usecase.suggestion.SuggestionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ambassador.InviteUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
@@ -30,6 +31,13 @@ import com.progressterra.ipbandroidview.domain.usecase.checklist.SendResultOnEma
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.SetDeliveryAddressUseCase
+import com.progressterra.ipbandroidview.domain.usecase.AskPermissionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.media.AudioProgressUseCase
+import com.progressterra.ipbandroidview.domain.usecase.media.MakePhotoUseCase
+import com.progressterra.ipbandroidview.domain.usecase.media.PauseAudioUseCase
+import com.progressterra.ipbandroidview.domain.usecase.media.StartAudioUseCase
+import com.progressterra.ipbandroidview.domain.usecase.media.StartRecordingUseCase
+import com.progressterra.ipbandroidview.domain.usecase.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.partner.FetchPartnerUseCase
@@ -264,7 +272,21 @@ val useCasesModule = module {
 
     single<FetchPartnerUseCase> { FetchPartnerUseCase.Base(get(), get(), get(), get(), get()) }
 
-    single<StartActivityUseCase> {
-        StartActivityUseCase.Base(get())
-    }
+    single<StartActivityUseCase> { StartActivityUseCase.Base(get()) }
+
+    single<AskPermissionUseCase> { AskPermissionUseCase.Base(get()) }
+
+    single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
+
+    single<MakePhotoUseCase> { MakePhotoUseCase.Base(get(), get(), get()) }
+
+    single<StartAudioUseCase> { StartAudioUseCase.Base(get(), get()) }
+
+    single<PauseAudioUseCase> { PauseAudioUseCase.Base(get()) }
+
+    single<CheckPermissionUseCase> { CheckPermissionUseCase.Base(get()) }
+
+    single<StopRecordingUseCase> { StopRecordingUseCase.Base(get()) }
+
+    single<StartRecordingUseCase> { StartRecordingUseCase.Base(get(), get(), get()) }
 }

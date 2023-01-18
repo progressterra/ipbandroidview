@@ -4,10 +4,10 @@ import android.Manifest
 import android.location.Location
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
-import com.progressterra.ipbandroidview.core.ManagePermissionContract
-import com.progressterra.ipbandroidview.domain.usecase.ChooseSuggestionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.GuessLocationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.SuggestionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.location.GuessLocationUseCase
+import com.progressterra.ipbandroidview.domain.usecase.suggestion.ChooseSuggestionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.suggestion.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.model.address.SuggestionUI
 import kotlinx.coroutines.delay
@@ -22,11 +22,11 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class CityViewModel(
-    private val managePermissionContract: ManagePermissionContract.Client,
     private val guessLocationUseCase: GuessLocationUseCase,
     private val suggestionUseCase: SuggestionUseCase,
     private val saveUserAddressUseCase: SaveUserAddressUseCase,
-    private val chooseSuggestionUseCase: ChooseSuggestionUseCase
+    private val chooseSuggestionUseCase: ChooseSuggestionUseCase,
+    private val checkPermissionUseCase: CheckPermissionUseCase
 ) : ViewModel(), ContainerHost<CityState, CityEffect>, CityInteractor {
 
     override val container: Container<CityState, CityEffect> = container(CityState())
@@ -43,7 +43,7 @@ class CityViewModel(
     }
 
     private fun checkPermission() = intent {
-        val result = managePermissionContract.checkPermission(locationPermission)
+        val result = checkPermissionUseCase(locationPermission).isSuccess
         reduce { state.copy(isPermissionGranted = result) }
     }
 
@@ -81,9 +81,7 @@ class CityViewModel(
         chooseSuggestionUseCase(suggestion).onSuccess {
             reduce {
                 state.copy(
-                    addressUI = it,
-                    address = suggestion.previewOfSuggestion,
-                    isDataValid = true
+                    addressUI = it, address = suggestion.previewOfSuggestion, isDataValid = true
                 )
             }
         }

@@ -9,4 +9,7 @@ data class AuditDocument(
     val placeId: String = "",
     val documentId: String? = null,
     val name: String = ""
-) : Parcelable
+) : Parcelable {
+
+    fun updateDocumentId(documentId: String) = copy(documentId = documentId)
+}
