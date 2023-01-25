@@ -49,6 +49,13 @@ fun OrganizationsScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
+                item {
+                    TestPartnerBlock2(
+                        modifier = Modifier.size(bannerWidth, bannerHeight),
+                        partner = state.partner,
+                        onPartnerClick = interactor::onPartner
+                    )
+                }
                 items(state.organizations) {
                     OrganizationCard(
                         modifier = Modifier
@@ -61,13 +68,6 @@ fun OrganizationsScreen(
                             },
                         state = it,
                         openOrganization = interactor::onOrganizationDetails
-                    )
-                }
-                item {
-                    TestPartnerBlock2(
-                        modifier = Modifier.size(bannerWidth, bannerHeight),
-                        partner = state.partner,
-                        onPartnerClick = interactor::onPartner
                     )
                 }
             }
