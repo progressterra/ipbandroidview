@@ -47,11 +47,7 @@ fun OrganizationsScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                contentPadding = PaddingValues(
-                    start = AppTheme.dimensions.small,
-                    end = AppTheme.dimensions.small,
-                    top = AppTheme.dimensions.small
-                )
+                contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(state.organizations) {
                     OrganizationCard(
