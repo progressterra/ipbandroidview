@@ -50,7 +50,8 @@ fun TestPartnerBlock2(
         SimpleImage(
             modifier = Modifier.fillMaxSize(),
             url = partner.headImageUrl,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = AppTheme.colors.surfaces,
+            options = ImageOptions(contentScale = ContentScale.FillBounds)
         )
     }
 }
