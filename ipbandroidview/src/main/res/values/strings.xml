@@ -17,8 +17,8 @@
     <string name="name_surname">Имя и Фамилия</string>
     <string name="email">E-mail</string>
     <string name="birthday">Дата рождения</string>
-    <string name="offer_url">TODO</string>
-    <string name="privacy_policy_url">TODO</string>
+    <string name="offer_url">PLACE YOUR URL</string>
+    <string name="privacy_policy_url">PLACE YOUR URL</string>
     <string name="ready">Готово</string>
     <string name="address">Адрес</string>
     <string name="wrong_phone">Неправильный номер телефона!</string>

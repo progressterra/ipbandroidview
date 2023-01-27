@@ -48,7 +48,6 @@ interface GoodsDetailsMapper : TripleMapper<RGGoodsInventoryExt, Boolean, Int, G
                 colors = emptyList()
             )
         }
-        //TODO IMAGE COLOR, SIZE
 
         data class ImageData(
             @SerializedName("datalist") val list: List<Item>

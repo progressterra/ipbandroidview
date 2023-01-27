@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.signin
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -14,7 +15,8 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class SignInViewModel(
-    private val startVerificationChannelUseCase: StartVerificationChannelUseCase
+    private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
+    private val openUrlUseCase: OpenUrlUseCase
 ) : ViewModel(), ContainerHost<SignInState, SignInEffect>, SignInInteractor {
 
     override val container: Container<SignInState, SignInEffect> = container(SignInState())
@@ -32,4 +34,6 @@ class SignInViewModel(
     override fun editPhoneNumber(phoneNumber: String) = blockingIntent {
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
+
+    override fun openUrl(url: String) = intent { openUrlUseCase(url) }
 }

@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.signin
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -73,19 +72,22 @@ fun SignInScreen(
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                     )
                 }
-                //TODO url opener
                 LinkText(
                     linkTextData = listOf(
                         LinkTextData(text = stringResource(id = R.string.auth_warning_0)),
-                        LinkTextData(text = stringResource(id = R.string.offer),
+                        LinkTextData(
+                            text = stringResource(id = R.string.offer),
                             tag = "offer",
                             annotation = stringResource(id = R.string.offer_url),
-                            onClick = { Log.d("CLICK", "SignInScreen: $it") }),
+                            onClick = interactor::openUrl
+                        ),
                         LinkTextData(text = stringResource(id = R.string.and)),
-                        LinkTextData(text = stringResource(id = R.string.privacy_policy),
+                        LinkTextData(
+                            text = stringResource(id = R.string.privacy_policy),
                             tag = "privacy policy",
                             annotation = stringResource(id = R.string.privacy_policy_url),
-                            onClick = { Log.d("CLICK", "SignInScreen: $it") })
+                            onClick = interactor::openUrl
+                        )
                     ),
                     modifier = Modifier.padding(top = AppTheme.dimensions.small)
                 )

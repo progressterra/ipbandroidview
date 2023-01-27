@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.order
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
@@ -35,7 +36,8 @@ class OrderViewModel(
     private val fetchUserAddressUseCase: FetchUserAddressUseCase,
     private val fetchUserEmailUseCase: FetchUserEmailUseCase,
     private val paymentMethodsUseCase: PaymentMethodsUseCase,
-    private val setDeliveryAddressUseCase: SetDeliveryAddressUseCase
+    private val setDeliveryAddressUseCase: SetDeliveryAddressUseCase,
+    private val openUrlUseCase: OpenUrlUseCase
 ) : ViewModel(), ContainerHost<OrderState, OrderEffect>, OrderInteractor {
 
     override val container: Container<OrderState, OrderEffect> = container(OrderState())
@@ -156,7 +158,7 @@ class OrderViewModel(
         }
     }
 
-    override fun openUrl(url: String) = intent { }
+    override fun openUrl(url: String) = intent { openUrlUseCase(url) }
 
     private fun checkPaymentAvailability() = intent {
         reduce { state.copy(paymentReady = state.selectedPaymentMethod != null && state.selectedDeliveryMethod != null) }
