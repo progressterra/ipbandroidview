@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -47,6 +46,8 @@ import com.progressterra.ipbandroidview.composable.YesNoButton
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
+private val minDialogHeight = 300.dp
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ChecklistScreen(
@@ -58,15 +59,13 @@ fun ChecklistScreen(
     )
     val coroutineScope = rememberCoroutineScope()
     ModalBottomSheetLayout(
-        sheetState = sheetState, sheetShape = AppTheme.shapes.medium.copy(
-            bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize
-        ), sheetContent = {
+        sheetState = sheetState, sheetShape = AppTheme.shapes.dialog, sheetContent = {
             CheckDialogBar(currentCheck = state.currentCheck,
                 onMark = { coroutineScope.launch { sheetState.hide() } })
             StateBox(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 300.dp),
+                    .heightIn(min = minDialogHeight),
                 state = state.checkScreenState,
                 refresh = interactor::refreshCheck
             ) {

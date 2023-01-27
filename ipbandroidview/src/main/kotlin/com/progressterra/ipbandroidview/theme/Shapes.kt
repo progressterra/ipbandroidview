@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.dp
 
@@ -26,5 +27,11 @@ data class Shapes(
     /**
      * Rounded with 14 dp by default
      */
-    val button: CornerBasedShape = RoundedCornerShape(14.dp)
+    val button: CornerBasedShape = RoundedCornerShape(14.dp),
+    /**
+     * Medium with 0 dp on bottom by default
+     */
+    val dialog: CornerBasedShape = medium.copy(
+        bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize
+    )
 )
