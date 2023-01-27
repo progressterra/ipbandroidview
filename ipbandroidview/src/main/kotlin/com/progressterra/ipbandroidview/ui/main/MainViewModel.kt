@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.AppSettings
-import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 import org.orbitmvi.orbit.Container
@@ -39,10 +39,14 @@ class MainViewModel(
             availableBonusesUseCase().onSuccess { bonusesInfo ->
                 reduce { state.copy(bonuses = bonusesInfo) }
                 goodsUseCase(AppSettings.MAIN_DEFAULT_CATEGORY_ID).onSuccess { pager ->
-                    reduce { state.copy(items = pager.flow.cachedIn(viewModelScope)) }
-                    userExistsUseCase().onSuccess {
-                        reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
-                    }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
+                    val userExists = userExistsUseCase()
+                    reduce {
+                        state.copy(
+                            userExist = userExists,
+                            items = pager.flow.cachedIn(viewModelScope),
+                            screenState = ScreenState.SUCCESS
+                        )
+                    }
                 }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
             }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }

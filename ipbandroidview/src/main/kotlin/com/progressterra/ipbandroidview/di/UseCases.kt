@@ -7,7 +7,6 @@ import com.progressterra.ipbandroidview.domain.usecase.suggestion.CurrentLocatio
 import com.progressterra.ipbandroidview.domain.usecase.user.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.StartActivityUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.suggestion.SuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.UpdateAnswerUseCase
@@ -32,6 +31,11 @@ import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliver
 import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.SetDeliveryAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.AskPermissionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.CopyTextUseCase
+import com.progressterra.ipbandroidview.domain.usecase.OpenPhoneUseCase
+import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
+import com.progressterra.ipbandroidview.domain.usecase.ShareTextUseCase
+import com.progressterra.ipbandroidview.domain.usecase.location.OpenMapUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.PauseAudioUseCase
@@ -111,17 +115,11 @@ val useCasesModule = module {
 
     single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get()) }
 
-    single<EndVerificationChannelUseCase> {
-        EndVerificationChannelUseCase.Base(get())
-    }
+    single<EndVerificationChannelUseCase> { EndVerificationChannelUseCase.Base(get()) }
 
-    single<StartVerificationChannelUseCase> {
-        StartVerificationChannelUseCase.Base(get())
-    }
+    single<StartVerificationChannelUseCase> { StartVerificationChannelUseCase.Base(get()) }
 
-    single<UpdatePersonalInfoUseCase> {
-        UpdatePersonalInfoUseCase.Base(get(), get(), get())
-    }
+    single<UpdatePersonalInfoUseCase> { UpdatePersonalInfoUseCase.Base(get(), get(), get()) }
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(get(), get())
@@ -131,13 +129,9 @@ val useCasesModule = module {
         CurrentLocationSuggestionsUseCase.Base(get(), get(), get())
     }
 
-    single<SuggestionUseCase> {
-        SuggestionUseCase.Base(get(), get())
-    }
+    single<SuggestionUseCase> { SuggestionUseCase.Base(get(), get()) }
 
-    single<GuessLocationUseCase> {
-        GuessLocationUseCase.Base(get(), get())
-    }
+    single<GuessLocationUseCase> { GuessLocationUseCase.Base(get(), get()) }
 
     single<AllOrganizationsUseCase> {
         AllOrganizationsUseCase.Base(get(), get(), get(), get())
@@ -151,13 +145,9 @@ val useCasesModule = module {
         CheckMediaDetailsUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<GoodsPageUseCase> {
-        GoodsPageUseCase.Base(get(), get(), get(), get())
-    }
+    single<GoodsPageUseCase> { GoodsPageUseCase.Base(get(), get(), get(), get()) }
 
-    single<GoodsUseCase> {
-        GoodsUseCase.Base(get(), get())
-    }
+    single<GoodsUseCase> { GoodsUseCase.Base(get(), get()) }
 
     single<FavoriteIdsUseCase> { FavoriteIdsUseCase.Base(get(), get(), get()) }
 
@@ -184,61 +174,33 @@ val useCasesModule = module {
 
     single<FastRemoveFromCartUseCase> { FastRemoveFromCartUseCase.Base(get(), get(), get()) }
 
-    single<UserExistsUseCase> {
-        UserExistsUseCase.Base()
-    }
+    single<UserExistsUseCase> { UserExistsUseCase.Base() }
 
-    single<AvailableBonusesUseCase> {
-        AvailableBonusesUseCase.Base(get(), get(), get(), get())
-    }
+    single<AvailableBonusesUseCase> { AvailableBonusesUseCase.Base(get(), get(), get(), get()) }
 
-    single<TransactionsUseCase> {
-        TransactionsUseCase.Base(get(), get(), get(), get())
-    }
+    single<TransactionsUseCase> { TransactionsUseCase.Base(get(), get(), get(), get()) }
 
-    single<CancelUseBonusesUseCase> {
-        CancelUseBonusesUseCase.Base(get(), get(), get())
-    }
+    single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get()) }
 
-    single<UseBonusesUseCase> {
-        UseBonusesUseCase.Base(get(), get(), get())
-    }
+    single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get()) }
 
-    single<FetchUserUseCase> {
-        FetchUserUseCase.Base(get(), get())
-    }
+    single<FetchUserUseCase> { FetchUserUseCase.Base(get(), get()) }
 
-    single<FetchUserNameUseCase> {
-        FetchUserNameUseCase.Base()
-    }
+    single<FetchUserNameUseCase> { FetchUserNameUseCase.Base() }
 
-    single<FetchUserEmailUseCase> {
-        FetchUserEmailUseCase.Base()
-    }
+    single<FetchUserEmailUseCase> { FetchUserEmailUseCase.Base() }
 
-    single<FetchUserPhoneUseCase> {
-        FetchUserPhoneUseCase.Base()
-    }
+    single<FetchUserPhoneUseCase> { FetchUserPhoneUseCase.Base() }
 
-    single<FetchUserBirthdayUseCase> {
-        FetchUserBirthdayUseCase.Base()
-    }
+    single<FetchUserBirthdayUseCase> { FetchUserBirthdayUseCase.Base() }
 
-    single<NeedDetailsUseCase> {
-        NeedDetailsUseCase.Base()
-    }
+    single<NeedDetailsUseCase> { NeedDetailsUseCase.Base() }
 
-    single<NeedAddressUseCase> {
-        NeedAddressUseCase.Base()
-    }
+    single<NeedAddressUseCase> { NeedAddressUseCase.Base() }
 
-    single<ConfirmOrderUseCase> {
-        ConfirmOrderUseCase.Base(get(), get(), get())
-    }
+    single<ConfirmOrderUseCase> { ConfirmOrderUseCase.Base(get(), get(), get()) }
 
-    single<CreateDeliveryOrderUseCase> {
-        CreateDeliveryOrderUseCase.Base(get(), get(), get())
-    }
+    single<CreateDeliveryOrderUseCase> { CreateDeliveryOrderUseCase.Base(get(), get(), get()) }
 
     single<AvailableDeliveryUseCase> { AvailableDeliveryUseCase.Base(get(), get(), get(), get()) }
 
@@ -272,8 +234,6 @@ val useCasesModule = module {
 
     single<FetchPartnerUseCase> { FetchPartnerUseCase.Base(get(), get(), get(), get(), get()) }
 
-    single<StartActivityUseCase> { StartActivityUseCase.Base(get()) }
-
     single<AskPermissionUseCase> { AskPermissionUseCase.Base(get()) }
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
@@ -289,4 +249,14 @@ val useCasesModule = module {
     single<StopRecordingUseCase> { StopRecordingUseCase.Base(get()) }
 
     single<StartRecordingUseCase> { StartRecordingUseCase.Base(get(), get(), get()) }
+
+    single<OpenMapUseCase> { OpenMapUseCase.Base(get()) }
+
+    single<CopyTextUseCase> { CopyTextUseCase.Base(get()) }
+
+    single<OpenPhoneUseCase> { OpenPhoneUseCase.Base(get()) }
+
+    single<OpenUrlUseCase> { OpenUrlUseCase.Base(get()) }
+
+    single<ShareTextUseCase> { ShareTextUseCase.Base(get()) }
 }

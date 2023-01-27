@@ -24,8 +24,6 @@ import com.google.accompanist.pager.HorizontalPager
 import com.progressterra.ipbandroidview.model.store.StoreNotification
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-//TODO remove all raw lists from composables
-
 @Immutable
 interface NotificationsState {
 

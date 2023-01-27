@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.splash
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.data.UserData
+import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -9,7 +9,9 @@ import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
 
-class SplashViewModel : ViewModel(), ContainerHost<SplashState, SplashEffect> {
+class SplashViewModel(
+    private val clientExistsUseCase: UserExistsUseCase
+) : ViewModel(), ContainerHost<SplashState, SplashEffect> {
 
     override val container: Container<SplashState, SplashEffect> = container(SplashState())
 
@@ -18,7 +20,6 @@ class SplashViewModel : ViewModel(), ContainerHost<SplashState, SplashEffect> {
     }
 
     private fun splashInit() = intent {
-        delay(1000)
-        postSideEffect(if (UserData.clientExist) SplashEffect.OpenMain else SplashEffect.OpenAuth)
+        postSideEffect(if (clientExistsUseCase()) SplashEffect.OpenMain else SplashEffect.OpenAuth)
     }
 }

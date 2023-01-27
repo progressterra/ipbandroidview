@@ -39,31 +39,15 @@ class SignUpViewModel(
 
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        var wasError = false
-        fetchUserNameUseCase().onSuccess { reduce { state.copy(name = it) } }
-            .onFailure {
-                wasError = true
-                it.printStackTrace()
-            }
-        fetchUserEmailUseCase().onSuccess { reduce { state.copy(email = it) } }
-            .onFailure {
-                wasError = true
-                it.printStackTrace()
-            }
-        fetchUserBirthdayUseCase().onSuccess { reduce { state.copy(birthday = it) } }
-            .onFailure {
-                wasError = true
-                it.printStackTrace()
-            }
-        fetchUserPhoneUseCase().onSuccess { reduce { state.copy(phoneNumber = it) } }
-            .onFailure {
-                wasError = true
-                it.printStackTrace()
-            }
-        if (wasError)
+        val name = fetchUserNameUseCase()
+        val email = fetchUserEmailUseCase()
+        val phone = fetchUserPhoneUseCase()
+        reduce { state.copy(phoneNumber = phone, email = email, name = name) }
+        fetchUserBirthdayUseCase().onSuccess {
+            reduce { state.copy(birthday = it) }
+        }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
-        else
-            reduce { state.copy(screenState = ScreenState.SUCCESS) }
+        }
     }
 
     override fun onSkip() = intent { postSideEffect(SignUpEffect.Skip) }

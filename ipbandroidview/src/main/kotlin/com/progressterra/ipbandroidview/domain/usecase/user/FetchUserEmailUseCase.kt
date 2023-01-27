@@ -4,12 +4,10 @@ import com.progressterra.ipbandroidview.data.UserData
 
 interface FetchUserEmailUseCase {
 
-    suspend operator fun invoke(): Result<String>
+    suspend operator fun invoke(): String
 
     class Base : FetchUserEmailUseCase {
 
-        override suspend fun invoke(): Result<String> = runCatching {
-            UserData.email
-        }
+        override suspend fun invoke(): String = UserData.email
     }
 }

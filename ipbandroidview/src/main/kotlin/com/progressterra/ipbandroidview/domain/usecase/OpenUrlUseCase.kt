@@ -1,17 +1,20 @@
 package com.progressterra.ipbandroidview.domain.usecase
 
 import android.content.Intent
+import android.net.Uri
 import com.progressterra.ipbandroidview.core.StartActivityContract
 
-interface StartActivityUseCase {
+interface OpenUrlUseCase {
 
-    suspend operator fun invoke(intent: Intent)
+    suspend operator fun invoke(url: String)
 
     class Base(
         private val startActivityContract: StartActivityContract.Client
-    ) : StartActivityUseCase {
+    ) : OpenUrlUseCase {
 
-        override suspend fun invoke(intent: Intent) {
+        override suspend fun invoke(url: String) {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse(url)
             startActivityContract.start(intent)
         }
     }

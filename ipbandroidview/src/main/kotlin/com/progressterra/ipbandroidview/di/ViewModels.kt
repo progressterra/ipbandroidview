@@ -34,45 +34,25 @@ import org.koin.dsl.module
 
 val viewModelsModule = module {
 
-    viewModel {
-        MainViewModel(get(), get(), get(), get(), get())
-    }
+    viewModel { MainViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel {
-        ArchiveViewModel()
-    }
+    viewModel { ArchiveViewModel() }
 
-    viewModel {
-        DocumentsViewModel(get())
-    }
+    viewModel { DocumentsViewModel(get()) }
 
-    viewModel {
-        SplashViewModel()
-    }
+    viewModel { SplashViewModel(get()) }
 
-    viewModel {
-        OrganizationsViewModel(get(), get())
-    }
+    viewModel { OrganizationsViewModel(get(), get()) }
 
-    viewModel {
-        SignInViewModel(get())
-    }
+    viewModel { SignInViewModel(get()) }
 
-    viewModel {
-        SignUpViewModel(get(), get(), get(), get(), get(), get())
-    }
+    viewModel { SignUpViewModel(get(), get(), get(), get(), get(), get()) }
 
-    viewModel { params ->
-        ConfirmationCodeViewModel(params.get(), get(), get(), get(), get())
-    }
+    viewModel { params -> ConfirmationCodeViewModel(params.get(), get(), get(), get(), get()) }
 
-    viewModel {
-        OrganizationAuditsViewModel(get(), get())
-    }
+    viewModel { OrganizationAuditsViewModel(get(), get()) }
 
-    viewModel {
-        CityViewModel(get(), get(), get(), get(), get())
-    }
+    viewModel { CityViewModel(get(), get(), get(), get(), get()) }
 
     viewModel {
         ChecklistViewModel(
@@ -94,75 +74,39 @@ val viewModelsModule = module {
         )
     }
 
-    viewModel {
-        PhotoViewModel()
-    }
+    viewModel { PhotoViewModel() }
 
-    viewModel {
-        ProfileViewModel()
-    }
+    viewModel { ProfileViewModel(get(), get()) }
 
-    viewModel {
-        ProfileDetailsViewModel(get())
-    }
+    viewModel { ProfileDetailsViewModel(get(), get(), get(), get()) }
 
-    viewModel {
-        CatalogViewModel(get())
-    }
+    viewModel { CatalogViewModel(get()) }
 
-    viewModel {
-        SubCatalogViewModel()
-    }
+    viewModel { SubCatalogViewModel() }
 
-    viewModel {
-        GoodsViewModel(get(), get(), get())
-    }
+    viewModel { GoodsViewModel(get(), get(), get()) }
 
-    viewModel {
-        GoodsDetailsViewModel(get(), get(), get(), get())
-    }
+    viewModel { GoodsDetailsViewModel(get(), get(), get(), get()) }
 
-    viewModel {
-        FavoritesViewModel(get(), get())
-    }
+    viewModel { FavoritesViewModel(get(), get()) }
 
-    viewModel {
-        CartViewModel(get(), get(), get(), get())
-    }
+    viewModel { CartViewModel(get(), get(), get(), get()) }
 
-    viewModel {
-        BonusesViewModel(get(), get())
-    }
+    viewModel { BonusesViewModel(get(), get()) }
 
-    viewModel {
-        BonusesClarificationViewModel()
-    }
+    viewModel { BonusesClarificationViewModel() }
 
-    viewModel {
-        OrderViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get())
-    }
+    viewModel { OrderViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
 
-    viewModel {
-        OrdersViewModel(get())
-    }
+    viewModel { OrdersViewModel(get()) }
 
-    viewModel {
-        OrderProcessingViewModel()
-    }
+    viewModel { OrderProcessingViewModel() }
 
-    viewModel {
-        PickUpPointViewModel(get())
-    }
+    viewModel { PickUpPointViewModel(get()) }
 
-    viewModel {
-        SupportViewModel(get(), get())
-    }
+    viewModel { SupportViewModel(get(), get()) }
 
-    viewModel {
-        ReferralViewModel(get(), get(), get())
-    }
+    viewModel { ReferralViewModel(get(), get(), get()) }
 
-    viewModel {
-        PartnerViewModel(get())
-    }
+    viewModel { PartnerViewModel(get(), get()) }
 }

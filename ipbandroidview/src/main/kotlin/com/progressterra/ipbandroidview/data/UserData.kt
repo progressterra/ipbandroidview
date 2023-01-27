@@ -26,6 +26,7 @@ object UserData : KotprefModel() {
         userName = UserName()
         dateOfBirthday = 0L
         address = AddressUI()
+        supportChatId = ""
     }
 
     fun needDetails(): Boolean =

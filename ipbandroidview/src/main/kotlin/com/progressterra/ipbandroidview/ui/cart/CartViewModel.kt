@@ -29,21 +29,15 @@ class CartViewModel(
         modifyFavoriteUseCase(goods.id, goods.favorite).onSuccess {
             val newList = state.cart.listGoods.replaceById(goods.reverseFavorite())
             val newCart = state.cart.copy(listGoods = newList)
-            reduce {
-                state.copy(
-                    cart = newCart
-                )
-            }
+            reduce { state.copy(cart = newCart) }
         }
     }
 
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         cartUseCase().onSuccess {
-            reduce { state.copy(cart = it) }
-            userExistsUseCase().onSuccess {
-                reduce { state.copy(userExist = it, screenState = ScreenState.SUCCESS) }
-            }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
+            val userExists = userExistsUseCase()
+            reduce { state.copy(cart = it, userExist = userExists, screenState = ScreenState.SUCCESS) }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 

@@ -17,7 +17,6 @@ interface ConfirmOrderUseCase {
         private val cartRepository: CartRepository
     ) : ConfirmOrderUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        //TODO replace
         override suspend fun invoke(): Result<OrderResult> = withToken { token ->
             try {
                 cartRepository.confirmOrder(token).throwOnFailure()

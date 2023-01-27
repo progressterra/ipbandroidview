@@ -78,8 +78,6 @@ fun ThemedMimicField(
     )
 }
 
-//TODO other colors
-
 @Preview(showBackground = true)
 @Composable
 private fun ThemedMimicFieldPreviewEnabled() {

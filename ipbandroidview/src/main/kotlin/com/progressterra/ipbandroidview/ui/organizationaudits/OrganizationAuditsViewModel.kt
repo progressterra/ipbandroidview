@@ -1,11 +1,9 @@
 package com.progressterra.ipbandroidview.ui.organizationaudits
 
-import android.content.Intent
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.core.StartActivityContract
 import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.location.OpenMapUseCase
 import com.progressterra.ipbandroidview.model.checklist.AuditDocument
 import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
 import com.progressterra.ipbandroidview.model.checklist.Organization
@@ -18,7 +16,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class OrganizationAuditsViewModel(
     private val organizationAuditsUseCase: OrganizationAuditsUseCase,
-    private val startActivityContract: StartActivityContract.Client
+    private val openMapUseCase: OpenMapUseCase
 ) : ViewModel(), ContainerHost<OrganizationAuditsState, OrganizationAuditsEffect>,
     OrganizationAuditsInteractor {
 
@@ -56,12 +54,7 @@ class OrganizationAuditsViewModel(
         }
     }
 
-    override fun mapClick() = intent {
-        val mapIntent =
-            Intent(Intent.ACTION_VIEW, Uri.parse("geo:${state.latitude},${state.longitude}"))
-        mapIntent.setPackage("com.google.android.apps.maps")
-        startActivityContract.start(mapIntent)
-    }
+    override fun mapClick() = intent { openMapUseCase(state.latitude, state.longitude) }
 
     override fun onBack() = intent {
         postSideEffect(OrganizationAuditsEffect.Back)

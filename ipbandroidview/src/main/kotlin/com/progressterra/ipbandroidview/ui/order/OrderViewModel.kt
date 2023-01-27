@@ -48,7 +48,7 @@ class OrderViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         bonusesUseCase().mapCatching { bonuses ->
             reduce { state.copy(availableBonuses = bonuses) }
-            fetchUserEmailUseCase().getOrThrow()
+            fetchUserEmailUseCase()
         }.mapCatching { email ->
             reduce { state.copy(email = email) }
             availableDeliveryUseCase().getOrThrow()
