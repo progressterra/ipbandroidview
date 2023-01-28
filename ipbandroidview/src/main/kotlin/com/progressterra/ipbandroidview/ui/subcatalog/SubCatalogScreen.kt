@@ -22,11 +22,11 @@ fun SubCatalogScreen(
         CategorySearchBar(
             category = state.currentCategory.name,
             state = state,
-            onBack = interactor::onBack,
-            onKeyword = interactor::editKeyword,
-            onSearch = interactor::search,
-            onClear = interactor::clearSearch,
-            onExpand = interactor::expandSearch
+            onBack = { interactor.onBack() },
+            onKeyword = { interactor.editKeyword(it) },
+            onSearch = { interactor.search() },
+            onClear = { interactor.clearSearch() },
+            onExpand = { interactor.expandSearch() }
         )
     }) { _, _ ->
         LazyColumn(
@@ -35,8 +35,8 @@ fun SubCatalogScreen(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
             contentPadding = PaddingValues(AppTheme.dimensions.small)
         ) {
-            items(state.currentCategory.subCategories) {
-                SubCategory(state = it, openCategory = interactor::onSubCategory)
+            items(state.currentCategory.subCategories) { category ->
+                SubCategory(state = category, openCategory = { interactor.onSubCategory(it) })
             }
         }
     }

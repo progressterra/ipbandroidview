@@ -31,7 +31,7 @@ fun BonusesClarificationScreen(
     interactor: BonusesClarificationInteractor
 ) {
     ThemedLayout(
-        topBar = { ThemedTopAppBar(title = stringResource(R.string.faq), onBack = interactor::onBack) }
+        topBar = { ThemedTopAppBar(title = stringResource(R.string.faq), onBack = { interactor.onBack() }) }
     ) { _, _ ->
         Column(
             modifier = Modifier
@@ -43,7 +43,7 @@ fun BonusesClarificationScreen(
             ExpandableText(
                 text = stringResource(R.string.how_to_spend_short),
                 expanded = state.howToSpendExpand,
-                expand = interactor::expandHowToSpend
+                expand = { interactor.expandHowToSpend() }
             ) {
                 Text(
                     text = "${stringResource(R.string.how_to_spend_0)} ${stringResource(R.string.app_name)}.",
@@ -69,7 +69,7 @@ fun BonusesClarificationScreen(
             ExpandableText(
                 text = stringResource(R.string.bonuses_ratio_short),
                 expanded = state.ratioExpand,
-                expand = interactor::expandRatio
+                expand = { interactor.expandRatio() }
             ) {
                 Text(
                     text = stringResource(R.string.bonuses_ratio),
@@ -80,7 +80,7 @@ fun BonusesClarificationScreen(
             ExpandableText(
                 text = stringResource(R.string.how_to_obtain_short),
                 expanded = state.howToObtainExpand,
-                expand = interactor::expandHowToObtain
+                expand = { interactor.expandHowToObtain() }
             ) {
                 Text(
                     text = stringResource(R.string.how_to_obtain),

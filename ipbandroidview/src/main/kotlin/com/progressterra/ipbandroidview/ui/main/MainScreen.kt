@@ -39,7 +39,7 @@ fun MainScreen(
         }
     }) { _, _ ->
         StateBox(
-            state = state.screenState, refresh = interactor::refresh
+            state = state.screenState, refresh = { interactor.refresh() }
         ) {
             Column(Modifier.padding(top = AppTheme.dimensions.small)) {
                 Notifications(

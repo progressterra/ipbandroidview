@@ -45,7 +45,7 @@ fun ProfileScreen(
                     .fillMaxWidth()
                     .clip(AppTheme.shapes.medium)
                     .background(AppTheme.colors.surfaces)
-                    .niceClickable(interactor::openDetails)
+                    .niceClickable { interactor.openDetails() }
                     .padding(AppTheme.dimensions.medium),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
@@ -62,7 +62,7 @@ fun ProfileScreen(
                         style = AppTheme.typography.secondaryText
                     )
                 }
-                IconButton(onClick = interactor::openDetails) {
+                IconButton(onClick = { interactor.openDetails() }) {
                     EditIcon()
                 }
             }
@@ -72,7 +72,7 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .niceClickable(interactor::onOrders)
+                        .niceClickable { interactor.onOrders() }
                         .padding(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -82,7 +82,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = interactor::onOrders) {
+                    IconButton(onClick = { interactor.onOrders() }) {
                         ForwardIcon()
                     }
                 }
@@ -92,7 +92,7 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .niceClickable(interactor::onFavorites)
+                        .niceClickable { interactor.onFavorites() }
                         .padding(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -102,7 +102,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = interactor::onFavorites) {
+                    IconButton(onClick = { interactor.onFavorites() }) {
                         ForwardIcon()
                     }
                 }
@@ -112,7 +112,7 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .niceClickable(interactor::onSupport)
+                        .niceClickable { interactor.onSupport() }
                         .padding(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -122,7 +122,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = interactor::onSupport) {
+                    IconButton(onClick = { interactor.onSupport() }) {
                         ForwardIcon()
                     }
                 }
@@ -132,7 +132,7 @@ fun ProfileScreen(
                         .fillMaxWidth()
                         .clip(AppTheme.shapes.medium)
                         .background(AppTheme.colors.surfaces)
-                        .niceClickable(interactor::onReferral)
+                        .niceClickable { interactor.onReferral() }
                         .padding(AppTheme.dimensions.medium),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
@@ -142,7 +142,7 @@ fun ProfileScreen(
                         color = AppTheme.colors.black,
                         style = AppTheme.typography.text
                     )
-                    IconButton(onClick = interactor::onReferral) {
+                    IconButton(onClick = { interactor.onReferral() }) {
                         ForwardIcon()
                     }
                 }

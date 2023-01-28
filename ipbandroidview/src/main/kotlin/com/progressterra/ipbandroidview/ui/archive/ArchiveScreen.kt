@@ -14,10 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.Divider
 import com.progressterra.ipbandroidview.composable.DocumentCard
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.Divider
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -26,7 +26,9 @@ fun ArchiveScreen(
     interactor: ArchiveInteractor
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.archive), onBack = interactor::onBack)
+        ThemedTopAppBar(
+            title = stringResource(id = R.string.archive),
+            onBack = { interactor.onBack() })
     }) { _, _ ->
         val finishedGroupedDocs by remember(state.documents) {
             mutableStateOf(state.documents.groupBy { it.finishDate!! })
@@ -48,7 +50,7 @@ fun ArchiveScreen(
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
                         state = document,
-                        openDocument = interactor::openDocument
+                        openDocument = { interactor.openDocument(document) }
                     )
                 }
             }

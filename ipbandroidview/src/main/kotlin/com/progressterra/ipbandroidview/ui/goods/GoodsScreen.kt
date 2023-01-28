@@ -27,16 +27,16 @@ fun GoodsScreen(
     ThemedLayout(topBar = {
         GoodsSearchBar(
             state = state,
-            onBack = interactor::onBack,
-            onKeyword = interactor::editKeyword,
-            onSearch = interactor::search,
-            onFilters = interactor::filters,
-            onClear = interactor::clear
+            onBack = { interactor.onBack() },
+            onKeyword = { interactor.editKeyword(it) },
+            onSearch = { interactor.search() },
+            onFilters = { interactor.filters() },
+            onClear = { interactor.clear() }
         )
     }) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = interactor::refresh
+            refresh = { interactor.refresh() }
         ) {
             val lazyItems: LazyPagingItems<StoreGoods> =
                 state.itemsFlow.collectAsLazyPagingItems()

@@ -39,7 +39,7 @@ fun OrganizationsScreen(
     }) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = interactor::refresh
+            refresh = { interactor.refresh() }
         ) {
             var bannerWidth by remember { mutableStateOf(0.dp) }
             var bannerHeight by remember { mutableStateOf(0.dp) }
@@ -53,7 +53,7 @@ fun OrganizationsScreen(
                     TestPartnerBlock2(
                         modifier = Modifier.size(bannerWidth, bannerHeight),
                         partner = state.partner,
-                        onPartnerClick = interactor::onPartner
+                        onPartnerClick = { interactor.onPartner() }
                     )
                 }
                 items(state.organizations) {
@@ -67,7 +67,7 @@ fun OrganizationsScreen(
                                 }
                             },
                         state = it,
-                        openOrganization = interactor::onOrganizationDetails
+                        openOrganization = { interactor.onOrganizationDetails(it) }
                     )
                 }
             }

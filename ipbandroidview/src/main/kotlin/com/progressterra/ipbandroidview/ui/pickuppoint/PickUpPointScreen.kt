@@ -40,13 +40,13 @@ fun PickUpPointScreen(
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            title = stringResource(id = R.string.pick_up_point), onBack = interactor::onBack
+            title = stringResource(id = R.string.pick_up_point), onBack = { interactor.onBack() }
         )
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::onNext,
+                onClick = { interactor.onNext() },
                 text = stringResource(id = R.string.choose),
                 enabled = state.currentPickUpPointInfo != null,
             )

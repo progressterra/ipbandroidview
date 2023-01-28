@@ -44,7 +44,7 @@ val viewModelsModule = module {
 
     viewModel { OrganizationsViewModel(get(), get()) }
 
-    viewModel { SignInViewModel(get()) }
+    viewModel { SignInViewModel(get(), get()) }
 
     viewModel { SignUpViewModel(get(), get(), get(), get(), get(), get()) }
 
@@ -96,7 +96,20 @@ val viewModelsModule = module {
 
     viewModel { BonusesClarificationViewModel() }
 
-    viewModel { OrderViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel {
+        OrderViewModel(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
     viewModel { OrdersViewModel(get()) }
 

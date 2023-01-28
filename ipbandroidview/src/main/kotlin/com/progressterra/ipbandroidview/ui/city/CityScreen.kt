@@ -39,13 +39,13 @@ fun CityScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(
             title = stringResource(id = R.string.address),
-            onBack = interactor::onBack
+            onBack = { interactor.onBack() }
         )
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::onNext,
+                onClick = { interactor.onNext() },
                 text = stringResource(id = R.string.ready),
                 enabled = state.isDataValid,
             )
@@ -53,7 +53,7 @@ fun CityScreen(
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = interactor::onSkip,
+                    onClick = { interactor.onSkip() },
                     text = stringResource(id = R.string.auth_skip)
                 )
             }
@@ -88,7 +88,7 @@ fun CityScreen(
                 },
                 text = state.address,
                 hint = stringResource(id = R.string.address),
-                onChange = interactor::editAddress
+                onChange = { interactor.editAddress(it) }
             )
             GoogleMap(
                 modifier = Modifier
@@ -102,8 +102,8 @@ fun CityScreen(
                         bottom.linkTo(background.bottom, 12.dp)
                     },
                 cameraPositionState = cameraPositionState,
-                onMapClick = interactor::mapClick,
-                onMyLocationClick = interactor::myLocationClick,
+                onMapClick = { interactor.mapClick(it) },
+                onMyLocationClick = { interactor.myLocationClick(it) },
                 properties = MapProperties(isMyLocationEnabled = state.isPermissionGranted)
             )
             AddressSuggestions(
@@ -115,7 +115,7 @@ fun CityScreen(
                 },
                 suggestions = state.suggestions,
                 isVisible = state.suggestions.isNotEmpty(),
-                onSuggestion = interactor::onSuggestion
+                onSuggestion = { interactor.onSuggestion(it) }
             )
         }
     }

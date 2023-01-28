@@ -24,11 +24,11 @@ fun OrganizationAuditsScreen(
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(
-            onBack = interactor::onBack, title = stringResource(id = R.string.organization)
+            onBack = { interactor.onBack() }, title = stringResource(id = R.string.organization)
         )
     }) { _, _ ->
         StateBox(
-            refresh = interactor::refresh,
+            refresh = { interactor.refresh() },
             state = state.screenState
         ) {
             LazyColumn(
@@ -42,7 +42,7 @@ fun OrganizationAuditsScreen(
                         name = state.organizationName,
                         address = state.organizationAddress,
                         imageUrl = state.imageUrl,
-                        onMapClick = interactor::mapClick
+                        onMapClick = { interactor.mapClick() }
                     )
                 }
                 items(state.audits) {

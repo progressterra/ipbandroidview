@@ -45,7 +45,7 @@ fun SizesLine(
                     color = if (size == state.size) AppTheme.colors.primary else Color.Transparent,
                     AppTheme.shapes.small
                 )
-                .niceClickable({ onSize(size) })
+                .niceClickable { onSize(size) }
                 .padding(
                     vertical = AppTheme.dimensions.tiny, horizontal = AppTheme.dimensions.smany
                 ),

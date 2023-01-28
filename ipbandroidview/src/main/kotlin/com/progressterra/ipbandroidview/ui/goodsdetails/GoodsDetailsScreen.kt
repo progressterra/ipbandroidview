@@ -29,8 +29,8 @@ fun GoodsDetailsScreen(
 ) {
     ThemedLayout(topBar = {
         GoodsTopAppBar(
-            onBack = interactor::onBack,
-            onFavorite = interactor::favorite,
+            onBack = { interactor.onBack() },
+            onFavorite = { interactor.favorite() },
             state = state.goodsDetails
         )
     }, bottomBar = {
@@ -41,14 +41,14 @@ fun GoodsDetailsScreen(
                 )
             ),
             state = state.goodsDetails,
-            onAdd = interactor::add,
-            onRemove = interactor::remove,
+            onAdd = { interactor.add() },
+            onRemove = { interactor.remove() },
             screenState = state.screenState
         )
     }) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = interactor::refresh
+            refresh = { interactor.refresh() }
         ) {
             Column(
                 modifier = Modifier
@@ -63,13 +63,13 @@ fun GoodsDetailsScreen(
                 ColorsLine(
                     modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
                     state = state.goodsDetails,
-                    chooseColor = interactor::chooseColor
+                    chooseColor = { interactor.chooseColor(it) }
                 )
                 SizesLine(
                     modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
                     state = state.goodsDetails,
-                    onSize = interactor::size,
-                    onTable = interactor::sizeTable
+                    onSize = { interactor.size(it) },
+                    onTable = { interactor.sizeTable() }
                 )
                 GoodsDetails(
                     modifier = Modifier, state = state.goodsDetails

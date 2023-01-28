@@ -24,13 +24,13 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun DocumentCard(
     modifier: Modifier = Modifier,
     state: Document,
-    openDocument: (Document) -> Unit
+    openDocument: () -> Unit
 ) {
     Row(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(if (state.isFinished()) AppTheme.colors.surfaces else AppTheme.colors.secondary)
-            .niceClickable(onClick = { openDocument(state) })
+            .niceClickable(onClick = openDocument)
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

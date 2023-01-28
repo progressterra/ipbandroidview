@@ -11,9 +11,9 @@ import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.CartBottomBar
 import com.progressterra.ipbandroidview.composable.CartCard
+import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -26,24 +26,24 @@ fun CartScreen(
     }, bottomBar = {
         if (state.cart.listGoods.isNotEmpty())
             CartBottomBar(
-                onNext = interactor::onNext,
-                onAuth = interactor::onAuth,
+                onNext = { interactor.onNext() },
+                onAuth = { interactor.onAuth() },
                 userExist = state.userExist,
                 totalPrice = state.cart.totalPrice
             )
     }) { _, _ ->
-        StateBox(state = state.screenState, refresh = interactor::refresh) {
+        StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                items(state.cart.listGoods) {
+                items(state.cart.listGoods) { cartGoods ->
                     CartCard(
-                        state = it,
-                        onFavorite = interactor::favoriteSpecific,
-                        onDelete = interactor::removeSpecific,
-                        onDetails = interactor::openDetails
+                        state = cartGoods,
+                        onFavorite = { interactor.favoriteSpecific(cartGoods) },
+                        onDelete = { interactor.removeSpecific(cartGoods) },
+                        onDetails = { interactor.openDetails(cartGoods) }
                     )
                 }
             }

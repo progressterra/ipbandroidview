@@ -38,14 +38,14 @@ fun SignInScreen(
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::onNext,
+                onClick = { interactor.onNext() },
                 text = stringResource(id = R.string.auth_button)
             )
             if (settings.passable) {
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                 ThemedTextButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = interactor::onSkip,
+                    onClick = { interactor.onSkip() },
                     text = stringResource(id = R.string.auth_skip)
                 )
             }
@@ -68,7 +68,7 @@ fun SignInScreen(
                         modifier = Modifier.fillMaxWidth(),
                         text = state.phoneNumber,
                         hint = stringResource(id = R.string.phone_number),
-                        onChange = interactor::editPhoneNumber,
+                        onChange = { interactor.editPhoneNumber(it) },
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
                     )
                 }
@@ -79,14 +79,14 @@ fun SignInScreen(
                             text = stringResource(id = R.string.offer),
                             tag = "offer",
                             annotation = stringResource(id = R.string.offer_url),
-                            onClick = interactor::openUrl
+                            onClick = { interactor.openUrl(it) }
                         ),
                         LinkTextData(text = stringResource(id = R.string.and)),
                         LinkTextData(
                             text = stringResource(id = R.string.privacy_policy),
                             tag = "privacy policy",
                             annotation = stringResource(id = R.string.privacy_policy_url),
-                            onClick = interactor::openUrl
+                            onClick = { interactor.openUrl(it) }
                         )
                     ),
                     modifier = Modifier.padding(top = AppTheme.dimensions.small)

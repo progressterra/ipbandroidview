@@ -26,13 +26,13 @@ private val imageWidth = 120.dp
 fun OrganizationCard(
     modifier: Modifier = Modifier,
     state: Organization,
-    openOrganization: (Organization) -> Unit
+    openOrganization: () -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
-            .niceClickable(onClick = { openOrganization(state) })
+            .niceClickable(onClick = openOrganization)
             .background(AppTheme.colors.surfaces)
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,

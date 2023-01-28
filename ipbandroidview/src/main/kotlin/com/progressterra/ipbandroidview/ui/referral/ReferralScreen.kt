@@ -22,21 +22,21 @@ fun ReferralScreen(
         topBar = {
             ThemedTopAppBar(
                 title = stringResource(R.string.referral_program),
-                onBack = interactor::onBack
+                onBack = { interactor.onBack() }
             )
         }
     ) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = interactor::refresh
+            refresh = { interactor.refresh() }
         ) {
             Column(modifier = Modifier
                 .fillMaxSize()
                 .padding(AppTheme.dimensions.small)) {
                 ReferralLink(
                     promoCode = state.userInvite.promoCode,
-                    onCopy = interactor::copy,
-                    onShare = interactor::share
+                    onCopy = { interactor.copy() },
+                    onShare = { interactor.share() }
                 )
             }
         }

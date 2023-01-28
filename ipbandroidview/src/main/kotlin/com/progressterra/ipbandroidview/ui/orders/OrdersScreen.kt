@@ -24,23 +24,23 @@ fun OrdersScreen(
         topBar = {
             ThemedTopAppBar(
                 title = stringResource(R.string.your_orders),
-                onBack = interactor::onBack
+                onBack = { interactor.onBack() }
             )
         }
     ) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = interactor::refresh
+            refresh = { interactor.refresh() }
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                items(state.orders) {
+                items(state.orders) {details ->
                     OrdersGoodsLine(
-                        state = it,
-                        openGoodsDetails = interactor::openGoodsDetails
+                        state = details,
+                        openGoodsDetails = { interactor.openGoodsDetails(it) }
                     )
                 }
             }

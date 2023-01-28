@@ -26,7 +26,7 @@ fun ProfileDetailsScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(
             title = stringResource(id = R.string.information),
-            onBack = interactor::onBack
+            onBack = { interactor.onBack() }
         )
     }) { _, _ ->
         Column(
@@ -47,13 +47,13 @@ fun ProfileDetailsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.name,
                     hint = stringResource(id = R.string.name_surname),
-                    onChange = interactor::editName
+                    onChange = { interactor.editName(it) }
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.email,
                     hint = stringResource(id = R.string.email),
-                    onChange = interactor::editEmail
+                    onChange = { interactor.editEmail(it) }
                 )
                 ThemedTextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -64,12 +64,12 @@ fun ProfileDetailsScreen(
             }
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::confirmChange,
+                onClick = { interactor.confirmChange() },
                 text = stringResource(id = R.string.confirm_change),
             )
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::logout,
+                onClick = { interactor.logout() },
                 text = stringResource(id = R.string.logout),
                 textColor = AppTheme.colors.error,
                 tint = AppTheme.colors.surfaces

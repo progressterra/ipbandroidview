@@ -37,21 +37,21 @@ fun SignUpScreen(
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::onNext,
+                onClick = { interactor.onNext() },
                 text = stringResource(id = R.string.next),
                 enabled = state.isDataValid,
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::onSkip,
+                onClick = { interactor.onSkip() },
                 text = stringResource(id = R.string.auth_skip)
             )
         }
     }) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = interactor::refresh
+            refresh = { interactor.refresh() }
         ) {
             Column(
                 modifier = Modifier
@@ -70,23 +70,23 @@ fun SignUpScreen(
                         ComposeCalendar(onDone = {
                             interactor.editBirthday(it)
                             interactor.closeCalendar()
-                        }, onDismiss = interactor::closeCalendar)
+                        }, onDismiss = { interactor.closeCalendar() })
                     }
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         text = state.name,
                         hint = stringResource(id = R.string.name_surname),
-                        onChange = interactor::editName
+                        onChange = { interactor.editName(it) }
                     )
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         text = state.email,
                         hint = stringResource(id = R.string.email),
-                        onChange = interactor::editEmail
+                        onChange = { interactor.editEmail(it) }
                     )
                     ThemedMimicField(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = interactor::openCalendar,
+                        onClick = { interactor.openCalendar() },
                         text = state.birthday.print(),
                         hint = stringResource(id = R.string.birthday),
                     )

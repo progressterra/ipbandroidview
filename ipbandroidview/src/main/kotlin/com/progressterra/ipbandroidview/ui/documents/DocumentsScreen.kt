@@ -39,7 +39,7 @@ fun DocumentsScreen(
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) { _, _ ->
         StateBox(
-            modifier = Modifier.fillMaxSize(), state = state.screenState, refresh = interactor::refresh
+            modifier = Modifier.fillMaxSize(), state = state.screenState, refresh = { interactor.refresh() }
         ) {
             var buttonSize by remember { mutableStateOf(0.dp) }
             LazyColumn(
@@ -51,7 +51,7 @@ fun DocumentsScreen(
                     DocumentCard(
                         modifier = Modifier.fillMaxWidth(),
                         state = it,
-                        openDocument = interactor::openDocument
+                        openDocument = { interactor.openDocument(it) }
                     )
                 }
                 item {
@@ -67,7 +67,7 @@ fun DocumentsScreen(
                     .fillMaxWidth()
                     .onGloballyPositioned {
                         buttonSize = with(density) { it.size.height.toDp() }
-                    }, onClick = interactor::openArchive, text = stringResource(id = R.string.to_archive)
+                    }, onClick = { interactor.openArchive() }, text = stringResource(id = R.string.to_archive)
             )
         }
     }

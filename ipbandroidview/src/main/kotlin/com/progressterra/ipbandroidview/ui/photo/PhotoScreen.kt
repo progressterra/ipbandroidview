@@ -29,11 +29,11 @@ fun PhotoScreen(
         contentAlignment = Alignment.Center
     ) {
         TransparentTopAppBar(modifier = Modifier.align(Alignment.TopCenter), leftActions = {
-            IconButton(onClick = interactor::onBack) {
+            IconButton(onClick = { interactor.onBack() }) {
                 BackIcon()
             }
         }, rightActions = {
-            if (state.enabled) IconButton(onClick = interactor::remove) {
+            if (state.enabled) IconButton(onClick = { interactor.remove() }) {
                 TrashIcon(enabled = true)
             }
         })

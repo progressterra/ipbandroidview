@@ -7,8 +7,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 
+//TODO check if there redundant lambdas
 fun Modifier.niceClickable(
-    onClick: () -> Unit, enabled: Boolean = true
+    enabled: Boolean = true, onClick: () -> Unit
 ) = composed {
     this.clickable(
         interactionSource = remember { MutableInteractionSource() },

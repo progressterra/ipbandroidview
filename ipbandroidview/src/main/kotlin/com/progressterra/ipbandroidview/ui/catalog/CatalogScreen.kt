@@ -23,13 +23,13 @@ fun CatalogScreen(
     ThemedLayout(topBar = {
         CatalogSearchBar(
             state = state,
-            onKeyword = interactor::editKeyword,
-            onSearch = interactor::search,
-            onClear = interactor::clear
+            onKeyword = { interactor.editKeyword(it) },
+            onSearch = { interactor.search() },
+            onClear = { interactor.clear() }
         )
     }) { _, _ ->
         StateBox(
-            state = state.screenState, refresh = interactor::refresh
+            state = state.screenState, refresh = { interactor.refresh() }
         ) {
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
@@ -38,10 +38,10 @@ fun CatalogScreen(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                items(state.categories) {
+                items(state.categories) { category ->
                     MainCategoryItem(
-                        state = it,
-                        openCategory = interactor::openCategory
+                        state = category,
+                        openCategory = { interactor.openCategory(it) }
                     )
                 }
             }

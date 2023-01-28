@@ -67,7 +67,7 @@ fun ChecklistScreen(
                     .fillMaxWidth()
                     .heightIn(min = minDialogHeight),
                 state = state.checkScreenState,
-                refresh = interactor::refreshCheck
+                refresh = { interactor.refreshCheck() }
             ) {
                 val currentCheck = state.currentCheck
                 val currentCheckMedia = state.currentCheckMedia
@@ -102,7 +102,7 @@ fun ChecklistScreen(
                                 YesNoButton(
                                     modifier = Modifier.fillMaxWidth(),
                                     state = currentCheck.yesNo,
-                                    onClick = interactor::yesNo,
+                                    onClick = { interactor.yesNo(it) },
                                     enabled = state.status.isOngoing()
                                 )
                             }
@@ -111,7 +111,7 @@ fun ChecklistScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     text = currentCheck.comment,
                                     hint = stringResource(id = R.string.text_comment),
-                                    onChange = interactor::editCheckCommentary,
+                                    onChange = { interactor.editCheckCommentary(it) },
                                     enabled = state.status.isOngoing(),
                                     singleLine = false
                                 )
@@ -120,11 +120,11 @@ fun ChecklistScreen(
                                 VoiceInput(
                                     modifier = Modifier.fillMaxWidth(),
                                     state = state.voiceState,
-                                    onStartRecording = interactor::startStopRecording,
-                                    onStopRecording = interactor::startStopRecording,
-                                    onStartPlay = interactor::startPausePlay,
-                                    onPausePlay = interactor::startPausePlay,
-                                    onRemove = interactor::remove,
+                                    onStartRecording = { interactor.startStopRecording() },
+                                    onStopRecording = { interactor.startStopRecording() },
+                                    onStartPlay = { interactor.startPausePlay() },
+                                    onPausePlay = { interactor.startPausePlay() },
+                                    onRemove = { interactor.remove() },
                                     enabled = state.status.isOngoing()
                                 )
                             }
@@ -139,8 +139,8 @@ fun ChecklistScreen(
                                     modifier = Modifier.fillMaxWidth(),
                                     enabled = state.status.isOngoing(),
                                     pictures = currentCheckMedia.pictures.filter { !it.toRemove },
-                                    onPhotoSelect = interactor::openImage,
-                                    onCamera = interactor::onCamera
+                                    onPhotoSelect = { interactor.openImage(it) },
+                                    onCamera = { interactor.onCamera() }
                                 )
                             }
                         }
@@ -163,7 +163,7 @@ fun ChecklistScreen(
     ) {
         ThemedLayout(topBar = {
             ThemedTopAppBar(
-                onBack = interactor::onBack, title = stringResource(id = R.string.audit)
+                onBack = { interactor.onBack() }, title = stringResource(id = R.string.audit)
             )
         }, bottomBar = {
             BottomHolder {
@@ -172,7 +172,7 @@ fun ChecklistScreen(
                         if (state.stats.remaining >= 1)
                             ThemedButton(
                                 modifier = Modifier.weight(1f),
-                                onClick = interactor::startStopAudit,
+                                onClick = { interactor.startStopAudit() },
                                 text = stringResource(id = R.string.end_audit),
                                 tint = AppTheme.colors.secondary,
                                 textColor = AppTheme.colors.gray1,
@@ -181,7 +181,7 @@ fun ChecklistScreen(
                         else
                             ThemedButton(
                                 modifier = Modifier.weight(1f),
-                                onClick = interactor::startStopAudit,
+                                onClick = { interactor.startStopAudit() },
                                 text = stringResource(id = R.string.end_audit),
                                 enabled = state.checklistScreenState.isSuccess()
                             )
@@ -190,7 +190,7 @@ fun ChecklistScreen(
                     if (state.status.isCanBeStarted())
                         ThemedButton(
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = interactor::startStopAudit,
+                            onClick = { interactor.startStopAudit() },
                             text = stringResource(R.string.start_audit),
                             enabled = state.checklistScreenState.isSuccess()
                         )
@@ -200,7 +200,7 @@ fun ChecklistScreen(
             StateBox(
                 modifier = Modifier.fillMaxSize(),
                 state = state.checklistScreenState,
-                refresh = interactor::refreshChecklist
+                refresh = { interactor.refreshChecklist() }
             ) {
                 val groupedChecks by remember(state.checks) {
                     mutableStateOf(state.checks.groupBy { it.categoryNumber })

@@ -28,10 +28,10 @@ fun OrderScreen(
     interactor: OrderInteractor
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(R.string.order), onBack = interactor::onBack)
+        ThemedTopAppBar(title = stringResource(R.string.order), onBack = { interactor.onBack() })
     }) { _, _ ->
         StateBox(
-            state = state.screenState, refresh = interactor::refresh
+            state = state.screenState, refresh = { interactor.refresh() }
         ) {
             Column(
                 modifier = Modifier
@@ -44,27 +44,30 @@ fun OrderScreen(
                     ),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                GoodsLine(state = state, openGoodsDetails = interactor::onGoodsDetails)
+                GoodsLine(state = state, openGoodsDetails = { interactor.onGoodsDetails(it) })
                 DeliveryPicker(
                     state = state,
-                    changeAddress = interactor::changeAddress,
-                    selectPickUpPoint = interactor::selectPickUpPoint,
-                    selectDeliveryMethod = interactor::selectDeliveryMethod,
-                    editComment = interactor::editComment
+                    changeAddress = { interactor.changeAddress() },
+                    selectPickUpPoint = { interactor.selectPickUpPoint() },
+                    selectDeliveryMethod = { interactor.selectDeliveryMethod(it) },
+                    editComment = { interactor.editComment(it) }
                 )
-                BonusSwitch(state = state, switchUseBonuses = interactor::changeUseBonuses)
+                BonusSwitch(state = state, switchUseBonuses = { interactor.changeUseBonuses(it) })
                 PromoCode(
                     state = state,
-                    editPromoCode = interactor::editPromoCode,
-                    applyPromoCode = interactor::applyPromoCode
+                    editPromoCode = { interactor.editPromoCode(it) },
+                    applyPromoCode = { interactor.applyPromoCode() }
                 )
-                PaymentMethod(state = state, select = interactor::selectPayment)
+                PaymentMethod(state = state, select = { interactor.selectPayment(it) })
                 ReceiveReceipt(
                     state = state,
-                    check = interactor::changeReceiveReceipt,
-                    email = interactor::editEmail
+                    check = { interactor.changeReceiveReceipt(it) },
+                    email = { interactor.editEmail(it) }
                 )
-                Receipt(state = state, payment = interactor::payment, openUrl = interactor::openUrl)
+                Receipt(
+                    state = state,
+                    payment = { interactor.payment() },
+                    openUrl = { interactor.openUrl(it) })
             }
         }
     }

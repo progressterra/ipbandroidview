@@ -44,7 +44,7 @@ fun PartnerScreen(
     state: PartnerState, interactor: PartnerInteractor
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.partner), onBack = interactor::onBack)
+        ThemedTopAppBar(title = stringResource(id = R.string.partner), onBack = { interactor.onBack() })
     }) { _, _ ->
         ConstraintLayout(
             modifier = Modifier
@@ -137,7 +137,7 @@ fun PartnerScreen(
                             text = state.partner.phone,
                             tag = "company phone",
                             annotation = state.partner.phone,
-                            onClick = interactor::openPhone
+                            onClick = { interactor.openPhone(it) }
                         )
                     ),
                     style = AppTheme.typography.text
@@ -166,7 +166,7 @@ fun PartnerScreen(
                             text = state.partner.webSite,
                             tag = "company website",
                             annotation = state.partner.webSite,
-                            onClick = interactor::openWebsite
+                            onClick = { interactor.openWebsite(it) }
                         )
                     ),
                     style = AppTheme.typography.text

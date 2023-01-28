@@ -31,22 +31,22 @@ fun SupportScreen(
         topBar = {
             ThemedTopAppBar(
                 title = stringResource(R.string.support),
-                onBack = interactor::onBack
+                onBack = { interactor.onBack() }
             )
         },
         bottomBar = {
             ChatInput(
                 modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-                editMessage = interactor::editMessage,
+                editMessage = { interactor.editMessage(it) },
                 message = state.message,
-                onSend = interactor::sendMessage,
+                onSend = { interactor.sendMessage() },
                 enabled = state.screenState.isSuccess()
             )
         }
     ) { _, _ ->
         StateBox(
             state = state.screenState,
-            refresh = interactor::refresh
+            refresh = { interactor.refresh() }
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),

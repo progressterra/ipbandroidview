@@ -29,16 +29,16 @@ private val picHeight = 96.dp
 fun CartCard(
     modifier: Modifier = Modifier,
     state: CartGoods,
-    onFavorite: (CartGoods) -> Unit,
-    onDelete: (CartGoods) -> Unit,
-    onDetails: (CartGoods) -> Unit
+    onFavorite: () -> Unit,
+    onDelete: () -> Unit,
+    onDetails: () -> Unit
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .niceClickable(onClick = { onDetails(state) })
+            .niceClickable(onClick = onDetails)
             .padding(AppTheme.dimensions.small),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
@@ -70,8 +70,8 @@ fun CartCard(
             )
         }
         Column {
-            FavoriteButton(favorite = state.favorite, onClick = { onFavorite(state) })
-            IconButton(onClick = { onDelete(state) }) {
+            FavoriteButton(favorite = state.favorite, onClick = onFavorite)
+            IconButton(onClick = onDelete) {
                 TrashIcon(enabled = false)
             }
         }

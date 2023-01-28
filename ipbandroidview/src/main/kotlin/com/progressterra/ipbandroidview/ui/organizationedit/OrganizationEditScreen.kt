@@ -58,7 +58,7 @@ fun OrganizationEditScreen(
     ) {
         ThemedLayout(topBar = {
             ThemedTopAppBar(
-                onBack = interactor::onBack, title = stringResource(id = R.string.audit)
+                onBack = { interactor.onBack() }, title = stringResource(id = R.string.audit)
             )
         }) { _, _ ->
 

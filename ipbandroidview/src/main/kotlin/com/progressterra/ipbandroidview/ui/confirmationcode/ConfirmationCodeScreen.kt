@@ -31,19 +31,19 @@ fun ConfirmationCodeScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(
             title = stringResource(id = R.string.verification_code),
-            onBack = interactor::onBack
+            onBack = { interactor.onBack() }
         )
     }, bottomBar = {
         BottomHolder {
             ThemedButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::onNext,
+                onClick = { interactor.onNext() },
                 text = stringResource(id = R.string.next)
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = interactor::resend,
+                onClick = { interactor.resend() },
                 text = state.timer,
                 enabled = state.canResend
             )
@@ -72,7 +72,7 @@ fun ConfirmationCodeScreen(
                 VerificationCodeInput(
                     modifier = Modifier.fillMaxWidth(),
                     code = state.code,
-                    editCode = interactor::editCode
+                    editCode = { interactor.editCode(it) }
                 )
             }
         }

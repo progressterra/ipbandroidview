@@ -25,7 +25,7 @@ fun FavoritesScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.favorites))
     }) { _, _ ->
-        StateBox(state = state.screenState, refresh = interactor::refresh) {
+        StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
                 columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
