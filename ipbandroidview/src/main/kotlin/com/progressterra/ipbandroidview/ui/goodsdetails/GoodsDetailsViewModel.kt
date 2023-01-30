@@ -45,7 +45,7 @@ class GoodsDetailsViewModel(
             .onFailure {
                 isSuccess = false
             }
-        goodsColorsUseCase(state.id).onSuccess { reduce { state.copy() } }.onFailure {
+        goodsColorsUseCase(state.id).onSuccess { reduce { state.copy(colors = it) } }.onFailure {
             isSuccess = false
         }
         sizeTableUseCase(state.id).onSuccess { reduce { state.copy(sizeTable = it) } }.onFailure {
