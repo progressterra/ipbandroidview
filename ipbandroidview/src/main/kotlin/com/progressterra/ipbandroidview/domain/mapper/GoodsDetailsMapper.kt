@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsDetails
 import com.progressterra.ipbandroidview.model.store.GoodsParameters
 import com.progressterra.ipbandroidview.model.store.GoodsSize
@@ -18,9 +17,7 @@ interface GoodsDetailsMapper {
         goodsRaw: RGGoodsInventoryExt,
         isFavorite: Boolean,
         count: Int,
-        colors: List<GoodsColor>,
-        sizes: List<GoodsSize>,
-        sizeTableUrl: String
+        sizes: List<GoodsSize>
     ): GoodsDetails
 
     class Base(
@@ -33,9 +30,7 @@ interface GoodsDetailsMapper {
             goodsRaw: RGGoodsInventoryExt,
             isFavorite: Boolean,
             count: Int,
-            colors: List<GoodsColor>,
-            sizes: List<GoodsSize>,
-            sizeTableUrl: String
+            sizes: List<GoodsSize>
         ): GoodsDetails {
             val parsedParameters = parse<Map<String, String?>>(goodsRaw.additionalDataJSON)
             val parametersToShow = parsedParameters?.get("listVisible")?.split(",")
@@ -60,9 +55,7 @@ interface GoodsDetailsMapper {
                 inCartCounter = count,
                 color = additionalData?.color ?: "",
                 size = sizes.firstOrNull() ?: GoodsSize(),
-                sizes = sizes,
-                colors = colors,
-                sizeTableUrl = sizeTableUrl
+                sizes = sizes
             )
         }
 

@@ -47,12 +47,14 @@ import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteGoodsUseCas
 import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteIdsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsByColorUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsColorsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.OrdersUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.SizeTableUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.TransactionsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.suggestion.ChooseSuggestionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.suggestion.CurrentLocationSuggestionsUseCase
@@ -94,8 +96,7 @@ val useCasesModule = module {
             get(),
             get(),
             get(),
-            get(),
-             get()
+            get()
         )
     }
 
@@ -264,4 +265,8 @@ val useCasesModule = module {
     single<ShareTextUseCase> { ShareTextUseCase.Base(get()) }
 
     single<GoodsByColorUseCase> { GoodsByColorUseCase.Base(get()) }
+
+    single<GoodsColorsUseCase> { GoodsColorsUseCase.Base(get(), get(), get(), get()) }
+
+    single<SizeTableUseCase> { SizeTableUseCase.Base(get(), get(), get()) }
 }

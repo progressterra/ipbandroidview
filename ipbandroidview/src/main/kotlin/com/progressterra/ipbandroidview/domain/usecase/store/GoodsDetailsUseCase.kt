@@ -21,8 +21,7 @@ interface GoodsDetailsUseCase {
         private val cartRepository: CartRepository,
         private val goodsDetailsMapper: GoodsDetailsMapper,
         private val favoriteIdsUseCase: FavoriteIdsUseCase,
-        private val productRepository: ProductRepository,
-        private val colorMapper: GoodsColorMapper
+        private val productRepository: ProductRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), GoodsDetailsUseCase {
 
         override suspend fun invoke(id: String): Result<GoodsDetails> = withToken { token ->
@@ -30,16 +29,11 @@ interface GoodsDetailsUseCase {
             val count = cartRepository.getGoodsQuantity(token, id).getOrThrow()
             val goods = ieCommerceCoreRepository.getProductDetailByIDRG(id)
                 .getOrThrow()!!.listProducts!!.first()
-            val colors =
-                productRepository.colorsForItem(id).getOrThrow()!!.map { colorMapper.map(it) }
-            val sizeTableUrl = productRepository.sizeTableForItem(id).getOrThrow() ?: ""
             goodsDetailsMapper.map(
                 goods,
                 isFavorite,
                 count?.count ?: 0,
-                colors,
                 emptyList(),
-                sizeTableUrl
             )
         }
     }

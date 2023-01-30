@@ -170,7 +170,6 @@ private fun GoodsDetailsPagerPreview() {
         GoodsDetails(
             state = GoodsDetails(
                 color = "",
-                colors = listOf(),
                 description = "Гидрокостюм Dawn Patrol с молнией на груди отличается функциональностью и отличным теплосбережением, красивым ...",
                 favorite = false,
                 images = listOf(),

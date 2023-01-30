@@ -120,7 +120,6 @@ private fun SizesLinePreview() {
         )
         SizesLine(state = GoodsDetails(
             color = "",
-            colors = listOf(),
             description = "",
             favorite = false,
             images = listOf(),

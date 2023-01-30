@@ -25,7 +25,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.ext.fromHexToColor
 import com.progressterra.ipbandroidview.model.store.GoodsColor
-import com.progressterra.ipbandroidview.model.store.GoodsDetails
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val picWidth = 56.dp
@@ -37,38 +36,39 @@ private val borderWidth = 1.dp
 @Composable
 fun ColorsLine(
     modifier: Modifier = Modifier,
-    state: GoodsDetails,
+    colors: List<GoodsColor>,
+    color: String,
     chooseColor: (GoodsColor) -> Unit
 ) {
 
     @Composable
-    fun Item(color: GoodsColor) {
+    fun Item(itemColor: GoodsColor) {
         Box(
             modifier = Modifier
                 .size(width = picWidth, height = picHeight)
                 .clip(AppTheme.shapes.small)
                 .border(
                     width = borderWidth,
-                    color = if (color.name == state.color) AppTheme.colors.primary else Transparent,
+                    color = if (itemColor.name == color) AppTheme.colors.primary else Transparent,
                     AppTheme.shapes.small
                 )
-                .niceClickable(onClick = { chooseColor(color) })
+                .niceClickable(onClick = { chooseColor(itemColor) })
                 .padding(AppTheme.dimensions.tiniest),
             contentAlignment = Alignment.Center
         ) {
-            if (color.hex.isNotBlank())
+            if (itemColor.hex.isNotBlank())
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(AppTheme.shapes.tiny)
-                        .background(color.hex.fromHexToColor())
+                        .background(itemColor.hex.fromHexToColor())
                 )
             else
                 SimpleImage(
                     modifier = Modifier
                         .fillMaxSize()
                         .clip(AppTheme.shapes.tiny),
-                    url = color.image,
+                    url = itemColor.image,
                     backgroundColor = AppTheme.colors.surfaces
                 )
         }
@@ -83,7 +83,7 @@ fun ColorsLine(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-            items(state.colors) {
+            items(colors) {
                 Item(it)
             }
         }
@@ -94,7 +94,7 @@ fun ColorsLine(
                 style = AppTheme.typography.tertiaryText
             )
             Text(
-                text = state.color,
+                text = color,
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.tertiaryText
             )
@@ -110,20 +110,18 @@ private fun ColorsLinePreview() {
             name = "M", image = ""
         )
         ColorsLine(
-            state = GoodsDetails(
-                color = current.name,
-                colors = listOf(
-                    current,
-                    GoodsColor(
-                        name = "L", image = ""
-                    ),
-                    GoodsColor(
-                        name = "XL", image = ""
-                    ),
-                    GoodsColor(
-                        name = "XXL", image = ""
-                    ),
-                )
+            color = current.name,
+            colors = listOf(
+                current,
+                GoodsColor(
+                    name = "L", image = ""
+                ),
+                GoodsColor(
+                    name = "XL", image = ""
+                ),
+                GoodsColor(
+                    name = "XXL", image = ""
+                ),
             ), chooseColor = {}
         )
     }
