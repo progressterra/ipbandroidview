@@ -23,6 +23,7 @@ import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.domain.mapper.CartGoodsMapper
 import com.progressterra.ipbandroidview.domain.mapper.CatalogMapper
 import com.progressterra.ipbandroidview.domain.mapper.DeliveryMethodMapper
+import com.progressterra.ipbandroidview.domain.mapper.GoodsColorMapper
 import com.progressterra.ipbandroidview.domain.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.domain.mapper.ImageMapper
@@ -119,4 +120,6 @@ val iPBAndroidViewModule = module {
     single<PartnerMapper> { PartnerMapper.Base(get()) }
 
     single<CreateId> { CreateId.Base() }
+
+    single<GoodsColorMapper> { GoodsColorMapper.Base(get()) }
 }
