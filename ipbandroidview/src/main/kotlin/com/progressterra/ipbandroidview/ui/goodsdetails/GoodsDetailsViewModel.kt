@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsByColorUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
@@ -20,7 +21,8 @@ class GoodsDetailsViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val goodsDetailsUseCase: GoodsDetailsUseCase,
     private val fastAddToCartUseCase: FastAddToCartUseCase,
-    private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase
+    private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase,
+    private val goodsByColorUseCase: GoodsByColorUseCase
 ) : ViewModel(),
     ContainerHost<GoodsDetailsScreenState, GoodsDetailsEffect>, GoodsDetailsInteractor {
 
@@ -63,15 +65,14 @@ class GoodsDetailsViewModel(
         }
     }
 
-    override fun chooseColor(color: GoodsColor) {
-
+    override fun chooseColor(color: GoodsColor) = intent {
+        goodsByColorUseCase(state.id, color.name).onSuccess {
+            reduce { state.copy(id = it) }
+        }
+        refresh()
     }
 
-    override fun size(size: GoodsSize) {
-
-    }
-
-    override fun sizeTable() {
+    override fun chooseSize(size: GoodsSize) {
 
     }
 }

@@ -84,7 +84,7 @@ fun GoodsDetailsScreen(
                     SizesLine(
                         modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
                         state = state.goodsDetails,
-                        onSize = { interactor.size(it) },
+                        onSize = { interactor.chooseSize(it) },
                         onTable = { coroutineScope.launch { sheetState.show() } }
                     )
                     GoodsDetails(

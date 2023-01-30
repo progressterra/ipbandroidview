@@ -13,9 +13,7 @@ interface GoodsDetailsInteractor {
 
     fun favorite()
 
-    fun sizeTable()
-
-    fun size(size: GoodsSize)
+    fun chooseSize(size: GoodsSize)
 
     fun onBack()
 
@@ -31,9 +29,7 @@ interface GoodsDetailsInteractor {
 
         override fun favorite() = Unit
 
-        override fun sizeTable() = Unit
-
-        override fun size(size: GoodsSize) = Unit
+        override fun chooseSize(size: GoodsSize) = Unit
 
         override fun onBack() = Unit
 
