@@ -46,6 +46,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartU
 import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteIdsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.GoodsByColorUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
@@ -261,4 +262,6 @@ val useCasesModule = module {
     single<OpenUrlUseCase> { OpenUrlUseCase.Base(get()) }
 
     single<ShareTextUseCase> { ShareTextUseCase.Base(get()) }
+
+    single<GoodsByColorUseCase> { GoodsByColorUseCase.Base(get()) }
 }
