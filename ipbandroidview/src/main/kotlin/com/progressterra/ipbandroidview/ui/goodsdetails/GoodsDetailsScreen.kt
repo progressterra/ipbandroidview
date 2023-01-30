@@ -64,7 +64,7 @@ fun GoodsDetailsScreen(
             val coroutineScope = rememberCoroutineScope()
             ModalBottomSheetLayout(
                 sheetState = sheetState, sheetShape = AppTheme.shapes.dialog, sheetContent = {
-                    SizeTableBottomSheet(url = state.sizeTableUrl)
+                    SizeTableBottomSheet(url = state.goodsDetails.sizeTableUrl)
                 }) {
                 Column(
                     modifier = Modifier

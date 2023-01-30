@@ -14,7 +14,8 @@ data class GoodsDetails(
     val parameters: List<GoodsParameters> = emptyList(),
     val price: SimplePrice = SimplePrice(),
     val size: GoodsSize = GoodsSize(available = false, primary = "", secondary = null),
-    val sizes: List<GoodsSize> = emptyList()
+    val sizes: List<GoodsSize> = emptyList(),
+    val sizeTableUrl: String = ""
 ) {
 
     fun addOne(): GoodsDetails = this.copy(inCartCounter = inCartCounter + 1)

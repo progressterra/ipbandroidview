@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidview.model.store.GoodsDetails
 
 data class GoodsDetailsScreenState(
     val id: String = "",
-    val sizeTableUrl: String = "",
     val screenState: ScreenState = ScreenState.LOADING,
     val goodsDetails: GoodsDetails = GoodsDetails()
 )

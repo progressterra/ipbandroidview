@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GoodsColor(
-    val image: String,
-    val name: String
+    val image: String = "",
+    val hex: String = "",
+    val name: String = ""
 ) : Parcelable
