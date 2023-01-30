@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsDetails
 import com.progressterra.ipbandroidview.model.store.GoodsSize
 import com.progressterra.ipbandroidview.model.store.SimplePrice
@@ -120,17 +119,17 @@ private fun SizesLinePreview() {
             primary = "M", secondary = "36", available = true
         )
         SizesLine(state = GoodsDetails(
-                color = GoodsColor(image = "", name = ""),
-                colors = listOf(),
-                description = "",
-                favorite = false,
-                images = listOf(),
-                inCartCounter = 0,
-                name = "",
-                parameters = listOf(),
-                price = SimplePrice(0),
-                size = current,
-                sizes = listOf(current)
-            ), onSize = {}, onTable = {})
+            color = "",
+            colors = listOf(),
+            description = "",
+            favorite = false,
+            images = listOf(),
+            inCartCounter = 0,
+            name = "",
+            parameters = listOf(),
+            price = SimplePrice(0),
+            size = current,
+            sizes = listOf(current)
+        ), onSize = {}, onTable = {})
     }
 }

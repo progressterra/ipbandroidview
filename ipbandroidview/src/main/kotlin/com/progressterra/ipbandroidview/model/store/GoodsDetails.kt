@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class GoodsDetails(
-    val color: GoodsColor = GoodsColor(image = "", name = ""),
+    val color: String = "",
     val colors: List<GoodsColor> = emptyList(),
     val description: String = "",
     val favorite: Boolean = false,

@@ -49,7 +49,7 @@ fun ColorsLine(
                 .clip(AppTheme.shapes.small)
                 .border(
                     width = borderWidth,
-                    color = if (color == state.color) AppTheme.colors.primary else Transparent,
+                    color = if (color.name == state.color) AppTheme.colors.primary else Transparent,
                     AppTheme.shapes.small
                 )
                 .niceClickable(onClick = { chooseColor(color) })
@@ -94,7 +94,7 @@ fun ColorsLine(
                 style = AppTheme.typography.tertiaryText
             )
             Text(
-                text = state.color.name,
+                text = state.color,
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.tertiaryText
             )
@@ -111,7 +111,7 @@ private fun ColorsLinePreview() {
         )
         ColorsLine(
             state = GoodsDetails(
-                color = current,
+                color = current.name,
                 colors = listOf(
                     current,
                     GoodsColor(

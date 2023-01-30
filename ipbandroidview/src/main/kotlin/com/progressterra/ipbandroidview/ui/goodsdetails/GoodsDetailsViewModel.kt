@@ -66,10 +66,11 @@ class GoodsDetailsViewModel(
     }
 
     override fun chooseColor(color: GoodsColor) = intent {
-        goodsByColorUseCase(state.id, color.name).onSuccess {
-            reduce { state.copy(id = it) }
-        }
-        refresh()
+        if (color.name != state.goodsDetails.color)
+            goodsByColorUseCase(state.id, color.name).onSuccess {
+                reduce { state.copy(id = it) }
+                refresh()
+            }
     }
 
     override fun chooseSize(size: GoodsSize) {

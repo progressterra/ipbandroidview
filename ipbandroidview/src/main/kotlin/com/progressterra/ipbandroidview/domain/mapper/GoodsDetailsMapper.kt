@@ -49,6 +49,7 @@ interface GoodsDetailsMapper {
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
+            val additionalData = parse<AdditionalDataJSONGoods>(goodsRaw.additionalDataJSON)
             return GoodsDetails(
                 images = images.map { it.url },
                 price = goodsRaw.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
@@ -57,13 +58,23 @@ interface GoodsDetailsMapper {
                 description = goodsRaw.extendedDescription ?: noData,
                 parameters = parameters,
                 inCartCounter = count,
-                color = colors.firstOrNull() ?: GoodsColor(),
+                color = additionalData?.color ?: "",
                 size = sizes.firstOrNull() ?: GoodsSize(),
                 sizes = sizes,
                 colors = colors,
                 sizeTableUrl = sizeTableUrl
             )
         }
+
+        data class AdditionalDataJSONGoods(
+            @SerializedName("Цвет") val color: String? = null,
+            @SerializedName("Размер_Производителя") val size: String? = null,
+            @SerializedName("Серия") val series: String? = null,
+//            @SerializedName("Тип размера") var sizeType: SizeType? = null,
+            @SerializedName("Тип товара") var goodsType: String? = null,
+            @SerializedName("Текст поделиться") var shareText: String? = null,
+            @SerializedName("listCategories") val listCategories: String? = null
+        )
 
         data class ImageData(
             @SerializedName("datalist") val list: List<Item>
