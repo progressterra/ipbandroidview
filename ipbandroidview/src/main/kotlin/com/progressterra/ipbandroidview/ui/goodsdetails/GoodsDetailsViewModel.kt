@@ -6,6 +6,8 @@ import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCas
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.SizeTableForItemUseCase
+import com.progressterra.ipbandroidview.ext.toScreenState
 import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsSize
 import org.orbitmvi.orbit.Container
@@ -19,7 +21,8 @@ class GoodsDetailsViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val goodsDetailsUseCase: GoodsDetailsUseCase,
     private val fastAddToCartUseCase: FastAddToCartUseCase,
-    private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase
+    private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase,
+    private val sizeTableForItemUseCase: SizeTableForItemUseCase
 ) : ViewModel(),
     ContainerHost<GoodsDetailsScreenState, GoodsDetailsEffect>, GoodsDetailsInteractor {
 
@@ -33,11 +36,14 @@ class GoodsDetailsViewModel(
 
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
+        var isSuccess = true
         goodsDetailsUseCase(state.id).onSuccess {
-            reduce { state.copy(screenState = ScreenState.SUCCESS, goodsDetails = it) }
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
-        }
+            reduce { state.copy(goodsDetails = it) }
+        }.onFailure { isSuccess = false }
+        sizeTableForItemUseCase(state.id).onSuccess {
+            reduce { state.copy(sizeTableUrl = it) }
+        }.onFailure { isSuccess = false }
+        reduce { state.copy(screenState = isSuccess.toScreenState()) }
     }
 
     override fun onBack() = intent {

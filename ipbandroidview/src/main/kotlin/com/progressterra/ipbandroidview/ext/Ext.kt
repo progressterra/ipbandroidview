@@ -2,9 +2,10 @@ package com.progressterra.ipbandroidview.ext
 
 import androidx.core.util.PatternsCompat
 import com.progressterra.ipbandroidview.core.AttachedMedia
+import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.model.Id
 import com.progressterra.ipbandroidview.model.checklist.Check
 import com.progressterra.ipbandroidview.model.checklist.ChecklistStats
-import com.progressterra.ipbandroidview.model.Id
 import java.time.LocalDate
 
 fun String.isEmail(): Boolean = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
@@ -45,3 +46,5 @@ fun LocalDate.print(): String = "${this.dayOfMonth}.${this.monthValue}.${this.ye
 fun <T> Result<T>.throwOnFailure() {
     this.onFailure { throw it }
 }
+
+fun Boolean.toScreenState(): ScreenState = if (this) ScreenState.SUCCESS else ScreenState.ERROR

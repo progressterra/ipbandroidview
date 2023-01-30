@@ -86,7 +86,7 @@ val viewModelsModule = module {
 
     viewModel { GoodsViewModel(get(), get(), get()) }
 
-    viewModel { GoodsDetailsViewModel(get(), get(), get(), get()) }
+    viewModel { GoodsDetailsViewModel(get(), get(), get(), get(), get()) }
 
     viewModel { FavoritesViewModel(get(), get()) }
 

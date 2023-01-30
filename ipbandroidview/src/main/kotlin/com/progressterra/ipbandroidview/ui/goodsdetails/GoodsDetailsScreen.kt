@@ -9,7 +9,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.ColorsLine
@@ -17,11 +22,14 @@ import com.progressterra.ipbandroidview.composable.Gallery
 import com.progressterra.ipbandroidview.composable.GoodsBottomBar
 import com.progressterra.ipbandroidview.composable.GoodsDetails
 import com.progressterra.ipbandroidview.composable.GoodsTopAppBar
+import com.progressterra.ipbandroidview.composable.SizeTableBottomSheet
 import com.progressterra.ipbandroidview.composable.SizesLine
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.theme.AppTheme
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GoodsDetailsScreen(
     state: GoodsDetailsScreenState,
@@ -50,30 +58,39 @@ fun GoodsDetailsScreen(
             state = state.screenState,
             refresh = { interactor.refresh() }
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(vertical = AppTheme.dimensions.small)
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
-            ) {
-                Gallery(
-                    state = state.goodsDetails
-                )
-                ColorsLine(
-                    modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-                    state = state.goodsDetails,
-                    chooseColor = { interactor.chooseColor(it) }
-                )
-                SizesLine(
-                    modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-                    state = state.goodsDetails,
-                    onSize = { interactor.size(it) },
-                    onTable = { interactor.sizeTable() }
-                )
-                GoodsDetails(
-                    modifier = Modifier, state = state.goodsDetails
-                )
+            val sheetState = rememberModalBottomSheetState(
+                initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true
+            )
+            val coroutineScope = rememberCoroutineScope()
+            ModalBottomSheetLayout(
+                sheetState = sheetState, sheetShape = AppTheme.shapes.dialog, sheetContent = {
+                    SizeTableBottomSheet(url = state.sizeTableUrl)
+                }) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(vertical = AppTheme.dimensions.small)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                ) {
+                    Gallery(
+                        state = state.goodsDetails
+                    )
+                    ColorsLine(
+                        modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
+                        state = state.goodsDetails,
+                        chooseColor = { interactor.chooseColor(it) }
+                    )
+                    SizesLine(
+                        modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
+                        state = state.goodsDetails,
+                        onSize = { interactor.size(it) },
+                        onTable = { coroutineScope.launch { sheetState.show() } }
+                    )
+                    GoodsDetails(
+                        modifier = Modifier, state = state.goodsDetails
+                    )
+                }
             }
         }
     }
