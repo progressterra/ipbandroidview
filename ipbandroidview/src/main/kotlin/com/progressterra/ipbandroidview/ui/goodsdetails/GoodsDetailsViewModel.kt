@@ -39,7 +39,10 @@ class GoodsDetailsViewModel(
         var isSuccess = true
         goodsDetailsUseCase(state.id).onSuccess {
             reduce { state.copy(goodsDetails = it) }
-        }.onFailure { isSuccess = false }
+        }.onFailure {
+            isSuccess = false
+            it.printStackTrace()
+        }
         reduce { state.copy(screenState = isSuccess.toScreenState()) }
     }
 
