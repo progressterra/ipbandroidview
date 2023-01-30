@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -22,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.ext.fromHexToColor
 import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsDetails
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -54,11 +56,21 @@ fun ColorsLine(
                 .padding(AppTheme.dimensions.tiniest),
             contentAlignment = Alignment.Center
         ) {
-            SimpleImage(
-                modifier = Modifier.clip(AppTheme.shapes.tiny),
-                url = color.image,
-                backgroundColor = AppTheme.colors.surfaces
-            )
+            if (color.hex.isNotBlank())
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(AppTheme.shapes.tiny)
+                        .background(color.hex.fromHexToColor())
+                )
+            else
+                SimpleImage(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(AppTheme.shapes.tiny),
+                    url = color.image,
+                    backgroundColor = AppTheme.colors.surfaces
+                )
         }
     }
 
