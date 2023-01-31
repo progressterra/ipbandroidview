@@ -81,13 +81,8 @@ class GoodsDetailsViewModel(
             state.id,
             color.name
         ).onSuccess {
-            reduce { state.copy(id = it, screenState = ScreenState.LOADING) }
-            var isSuccess = true
-            goodsDetailsUseCase(state.id).onSuccess { reduce { state.copy(goodsDetails = it) } }
-                .onFailure {
-                    isSuccess = false
-                }
-            reduce { state.copy(screenState = isSuccess.toScreenState()) }
+            reduce { state.copy(id = it) }
+            refresh()
         }
     }
 
