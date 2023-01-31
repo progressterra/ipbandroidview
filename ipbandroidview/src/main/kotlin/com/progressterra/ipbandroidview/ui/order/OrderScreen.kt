@@ -53,11 +53,11 @@ fun OrderScreen(
                     editComment = { interactor.editComment(it) }
                 )
                 BonusSwitch(state = state, switchUseBonuses = { interactor.changeUseBonuses(it) })
-                PromoCode(
-                    state = state,
-                    editPromoCode = { interactor.editPromoCode(it) },
-                    applyPromoCode = { interactor.applyPromoCode() }
-                )
+//                PromoCode(
+//                    state = state,
+//                    editPromoCode = { interactor.editPromoCode(it) },
+//                    applyPromoCode = { interactor.applyPromoCode() }
+//                )
                 PaymentMethod(state = state, select = { interactor.selectPayment(it) })
                 ReceiveReceipt(
                     state = state,
