@@ -4,7 +4,6 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class GoodsDetails(
-    val color: String = "",
     val description: String = "",
     val favorite: Boolean = false,
     val images: List<String> = emptyList(),
@@ -12,8 +11,10 @@ data class GoodsDetails(
     val name: String = "",
     val parameters: List<GoodsParameters> = emptyList(),
     val price: SimplePrice = SimplePrice(),
-    val size: GoodsSize = GoodsSize(available = false, primary = "", secondary = null),
-    val sizes: List<GoodsSize> = emptyList()
+//    val size: GoodsSize = GoodsSize(available = false, primary = "", secondary = null),
+//    val sizes: List<GoodsSize> = emptyList(),
+//    val artikul: String = "",
+//    val idFeature: String = ""
 ) {
 
     fun addOne(): GoodsDetails = this.copy(inCartCounter = inCartCounter + 1)

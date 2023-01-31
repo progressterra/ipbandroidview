@@ -30,7 +30,6 @@ fun GoodsScreen(
             onBack = { interactor.onBack() },
             onKeyword = { interactor.editKeyword(it) },
             onSearch = { interactor.search() },
-            onFilters = { interactor.filters() },
             onClear = { interactor.clear() }
         )
     }) { _, _ ->

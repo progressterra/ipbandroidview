@@ -26,7 +26,6 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsDetails
 import com.progressterra.ipbandroidview.model.store.GoodsParameters
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -169,7 +168,6 @@ private fun GoodsDetailsPagerPreview() {
     AppTheme {
         GoodsDetails(
             state = GoodsDetails(
-                color = "",
                 description = "Гидрокостюм Dawn Patrol с молнией на груди отличается функциональностью и отличным теплосбережением, красивым ...",
                 favorite = false,
                 images = listOf(),

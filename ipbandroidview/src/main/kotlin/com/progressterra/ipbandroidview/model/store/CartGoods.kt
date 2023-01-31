@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.model.Id
 
 data class CartGoods(
     override val id: String,
-    val color: GoodsColor,
+    val color: String,
     val favorite: Boolean,
     val image: String,
     val inCartCounter: Int,

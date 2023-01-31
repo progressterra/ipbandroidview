@@ -16,8 +16,7 @@ interface GoodsDetailsMapper {
     fun map(
         goodsRaw: RGGoodsInventoryExt,
         isFavorite: Boolean,
-        count: Int,
-        sizes: List<GoodsSize>
+        count: Int
     ): GoodsDetails
 
     class Base(
@@ -29,8 +28,7 @@ interface GoodsDetailsMapper {
         override fun map(
             goodsRaw: RGGoodsInventoryExt,
             isFavorite: Boolean,
-            count: Int,
-            sizes: List<GoodsSize>
+            count: Int
         ): GoodsDetails {
             val parsedParameters = parse<Map<String, String?>>(goodsRaw.additionalDataJSON)
             val parametersToShow = parsedParameters?.get("listVisible")?.split(",")
@@ -44,7 +42,6 @@ interface GoodsDetailsMapper {
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            val additionalData = parse<AdditionalDataJSONGoods>(goodsRaw.additionalDataJSON)
             return GoodsDetails(
                 images = images.map { it.url },
                 price = goodsRaw.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
@@ -53,21 +50,22 @@ interface GoodsDetailsMapper {
                 description = goodsRaw.extendedDescription ?: noData,
                 parameters = parameters,
                 inCartCounter = count,
-                color = additionalData?.color ?: "",
-                size = sizes.firstOrNull() ?: GoodsSize(),
-                sizes = sizes
+//                size = sizes.firstOrNull() ?: GoodsSize(),
+//                sizes = sizes,
+//                artikul = goodsRaw.artikul!!,
+//                idFeature = goodsRaw.idFeature!!
             )
         }
 
-        data class AdditionalDataJSONGoods(
-            @SerializedName("Цвет") val color: String? = null,
-            @SerializedName("Размер_Производителя") val size: String? = null,
-            @SerializedName("Серия") val series: String? = null,
+//        data class AdditionalDataJSONGoods(
+//            @SerializedName("Цвет") val color: String? = null,
+//            @SerializedName("Размер_Производителя") val size: String? = null,
+//            @SerializedName("Серия") val series: String? = null,
 //            @SerializedName("Тип размера") var sizeType: SizeType? = null,
-            @SerializedName("Тип товара") var goodsType: String? = null,
-            @SerializedName("Текст поделиться") var shareText: String? = null,
-            @SerializedName("listCategories") val listCategories: String? = null
-        )
+//            @SerializedName("Тип товара") var goodsType: String? = null,
+//            @SerializedName("Текст поделиться") var shareText: String? = null,
+//            @SerializedName("listCategories") val listCategories: String? = null
+//        )
 
         data class ImageData(
             @SerializedName("datalist") val list: List<Item>

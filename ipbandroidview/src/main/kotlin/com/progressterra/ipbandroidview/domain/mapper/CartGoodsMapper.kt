@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.TripleMapper
 import com.progressterra.ipbandroidview.model.store.CartGoods
-import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsSize
 import com.progressterra.ipbandroidview.model.store.SimplePrice
 
@@ -33,7 +32,7 @@ interface CartGoodsMapper : TripleMapper<RGGoodsInventoryExt, Boolean, Int, Cart
                 name = data1.name ?: noData,
                 favorite = data2,
                 inCartCounter = data3,
-                color = GoodsColor(image = "", name = data1.colorName ?: noData),
+                color = data1.colorName ?: noData,
                 size = GoodsSize(true, "", null),
             )
         }

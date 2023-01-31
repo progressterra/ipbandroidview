@@ -21,12 +21,14 @@ interface GoodsSearchBarState {
 
 private val paddingBottom = 10.dp
 
+/**
+ * Filters may be here
+ */
 @Composable
 fun GoodsSearchBar(
     modifier: Modifier = Modifier,
     state: GoodsSearchBarState,
     onBack: () -> Unit,
-    onFilters: () -> Unit,
     onClear: () -> Unit,
     onKeyword: (String) -> Unit,
     onSearch: () -> Unit
@@ -56,9 +58,6 @@ fun GoodsSearchBar(
                 }
                 else SearchIcon()
             })
-        IconButton(onClick = onFilters) {
-            SettingsIcon()
-        }
     }
 }
 
@@ -75,8 +74,7 @@ private fun GoodsSearchBarPreview() {
             onClear = {},
             onKeyword = {},
             onSearch = {},
-            onBack = {},
-            onFilters = {}
+            onBack = {}
         )
     }
 }
@@ -90,8 +88,7 @@ private fun GoodsSearchBarPreviewExpanded() {
             onClear = {},
             onKeyword = {},
             onSearch = {},
-            onBack = {},
-            onFilters = {}
+            onBack = {}
         )
     }
 }

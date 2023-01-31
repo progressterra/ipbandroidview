@@ -16,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.store.CartGoods
-import com.progressterra.ipbandroidview.model.store.GoodsColor
 import com.progressterra.ipbandroidview.model.store.GoodsSize
 import com.progressterra.ipbandroidview.model.store.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -59,7 +58,7 @@ fun CartCard(
                 style = AppTheme.typography.text
             )
             Text(
-                text = "${state.color.name}, ${state.size.primary}, ${state.inCartCounter} шт",
+                text = "${state.color}, ${state.size.primary}, ${state.inCartCounter} шт",
                 color = AppTheme.colors.gray1,
                 style = AppTheme.typography.text
             )
@@ -84,7 +83,7 @@ private fun CartCardPreview() {
     AppTheme {
         CartCard(state = CartGoods(
             id = "",
-            color = GoodsColor("", "GREEN"),
+            color = "GREEN",
             favorite = true,
             image = "",
             inCartCounter = 30,
