@@ -174,7 +174,7 @@ fun SettingsIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_settings),
         contentDescription = null,
-        tint = AppTheme.colors.gray1
+        tint = AppTheme.colors.gray2
     )
 }
 
@@ -193,7 +193,7 @@ fun BackIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_back),
         contentDescription = null,
-        tint = AppTheme.colors.gray1
+        tint = AppTheme.colors.gray2
     )
 }
 
@@ -325,7 +325,7 @@ private fun RemoveItemIconPreview() {
 fun MarkIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.gray1,
+        tint = AppTheme.colors.gray2,
         painter = painterResource(id = R.drawable.ic_mark),
         contentDescription = null
     )
@@ -397,7 +397,7 @@ private fun BonusesTinyIconPreview() {
 fun SearchIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.gray1,
+        tint = AppTheme.colors.gray2,
         painter = painterResource(R.drawable.ic_search),
         contentDescription = null
     )
@@ -488,7 +488,7 @@ fun SumIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_sum),
-        tint = AppTheme.colors.gray1,
+        tint = AppTheme.colors.gray2,
         contentDescription = null
     )
 }
@@ -600,7 +600,7 @@ fun ShareIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_share),
-        tint = AppTheme.colors.gray1,
+        tint = AppTheme.colors.gray2,
         contentDescription = null
     )
 }
