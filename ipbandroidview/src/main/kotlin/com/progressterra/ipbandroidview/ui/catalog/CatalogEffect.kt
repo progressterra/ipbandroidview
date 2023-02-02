@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
-import com.progressterra.ipbandroidview.model.store.Category
+import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
 
 sealed class CatalogEffect {
 
-    class SubCatalog(val subCategory: Category) : CatalogEffect()
+    class SubCatalog(val subCategoryWithSubcategories: CategoryWithSubcategories) : CatalogEffect()
 
     class Goods(val categoryId: String) : CatalogEffect()
 

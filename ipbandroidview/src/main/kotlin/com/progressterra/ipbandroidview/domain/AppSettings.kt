@@ -2,7 +2,11 @@ package com.progressterra.ipbandroidview.domain
 
 object AppSettings {
 
-    const val MAIN_DEFAULT_CATEGORY_ID = "8ec860b8-d834-4205-9979-4f7d47852be4"
+    const val RECOMMEND_MAN = "ef1f4abf-5060-4f19-be1c-4a3f56beb89d"
+
+    const val RECOMMEND_WOMAN = "04d76bfe-3a6c-44fc-ab56-13b0fce61287"
+
+    const val RECOMMEND_KIDS = "14b92431-c657-492b-a5b3-68dfc506db50"
 
     const val PAGE_SIZE = 8
 

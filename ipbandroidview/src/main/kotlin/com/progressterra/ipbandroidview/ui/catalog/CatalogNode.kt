@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.data.Constants
-import com.progressterra.ipbandroidview.model.store.Category
+import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -14,7 +14,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class CatalogNode(
     buildContext: BuildContext,
     private val onGoods: (String) -> Unit,
-    private val onSubCatalog: (Category) -> Unit,
+    private val onSubCatalog: (CategoryWithSubcategories) -> Unit,
     private val onSearch: (String, String) -> Unit
 ) : Node(buildContext = buildContext) {
 
@@ -24,7 +24,7 @@ class CatalogNode(
         viewModel.collectSideEffect {
             when (it) {
                 is CatalogEffect.Goods -> onGoods(it.categoryId)
-                is CatalogEffect.SubCatalog -> onSubCatalog(it.subCategory)
+                is CatalogEffect.SubCatalog -> onSubCatalog(it.subCategoryWithSubcategories)
                 is CatalogEffect.Search -> onSearch(Constants.DEFAULT_ID, it.keyword)
             }
         }

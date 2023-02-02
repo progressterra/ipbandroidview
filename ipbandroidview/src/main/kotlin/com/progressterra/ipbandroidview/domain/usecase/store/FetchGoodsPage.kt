@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 
-interface GoodsPageUseCase {
+interface FetchGoodsPage {
 
     suspend operator fun invoke(
         id: String,
@@ -21,7 +21,7 @@ interface GoodsPageUseCase {
         provideLocation: ProvideLocation,
         private val mapper: StoreGoodsMapper,
         private val eCommerceRepo: IECommerceCoreRepository,
-    ) : AbstractUseCase(scrmRepository, provideLocation), GoodsPageUseCase {
+    ) : AbstractUseCase(scrmRepository, provideLocation), FetchGoodsPage {
 
         override suspend fun invoke(
             id: String, pageNumber: Int, favorites: List<String>

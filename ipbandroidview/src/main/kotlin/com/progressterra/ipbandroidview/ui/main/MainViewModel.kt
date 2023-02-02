@@ -1,15 +1,13 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.PromoGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
+import com.progressterra.ipbandroidview.ext.toScreenState
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -19,7 +17,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class MainViewModel(
-    private val goodsUseCase: GoodsUseCase,
+    private val promoGoodsUseCase: PromoGoodsUseCase,
     private val availableBonusesUseCase: AvailableBonusesUseCase,
     private val userExistsUseCase: UserExistsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
@@ -34,22 +32,18 @@ class MainViewModel(
 
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
+        var isSuccess = true
         notificationUseCase().onSuccess { notifications ->
             reduce { state.copy(notifications = notifications) }
-            availableBonusesUseCase().onSuccess { bonusesInfo ->
-                reduce { state.copy(bonuses = bonusesInfo) }
-                goodsUseCase(AppSettings.MAIN_DEFAULT_CATEGORY_ID).onSuccess { pager ->
-                    val userExists = userExistsUseCase()
-                    reduce {
-                        state.copy(
-                            userExist = userExists,
-                            items = pager.flow.cachedIn(viewModelScope),
-                            screenState = ScreenState.SUCCESS
-                        )
-                    }
-                }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
-            }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
-        }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
+        }.onFailure { isSuccess = false }
+        availableBonusesUseCase().onSuccess { bonusesInfo ->
+            reduce { state.copy(bonuses = bonusesInfo) }
+        }.onFailure { isSuccess = false }
+        promoGoodsUseCase().onSuccess {
+            reduce { state.copy(recommended = it) }
+        }.onFailure { isSuccess = false }
+        val userExist = userExistsUseCase()
+        reduce { state.copy(screenState = isSuccess.toScreenState(), userExist = userExist) }
     }
 
     override fun favoriteSpecific(goods: StoreGoods) = intent {

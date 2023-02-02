@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.model.store.Category
+import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -16,8 +16,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class SubCatalogNode(
     buildContext: BuildContext,
-    private val subCategory: Category,
-    private val onSubCategory: (Category) -> Unit,
+    private val subCategoryWithSubcategories: CategoryWithSubcategories,
+    private val onSubCategory: (CategoryWithSubcategories) -> Unit,
     private val onGoods: (String) -> Unit,
     private val onBack: () -> Unit,
     private val onSearch: (String, String) -> Unit
@@ -30,17 +30,17 @@ class SubCatalogNode(
         viewModel.collectSideEffect {
             when (it) {
                 is SubCatalogEffect.Goods -> onGoods(it.categoryId)
-                is SubCatalogEffect.SubCatalog -> onSubCategory(it.subCategory)
+                is SubCatalogEffect.SubCatalog -> onSubCategory(it.subCategoryWithSubcategories)
                 is SubCatalogEffect.Back -> onBack()
-                is SubCatalogEffect.Search -> onSearch(subCategory.id, it.keyword)
+                is SubCatalogEffect.Search -> onSearch(subCategoryWithSubcategories.id, it.keyword)
             }
         }
-        var alreadyLaunched by rememberSaveable(subCategory) {
+        var alreadyLaunched by rememberSaveable(subCategoryWithSubcategories) {
             mutableStateOf(false)
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setSubCategory(subCategory)
+            viewModel.setSubCategory(subCategoryWithSubcategories)
         }
         val state = viewModel.collectAsState()
         SubCatalogScreen(

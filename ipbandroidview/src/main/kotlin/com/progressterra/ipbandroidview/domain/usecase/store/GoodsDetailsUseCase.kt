@@ -18,11 +18,11 @@ interface GoodsDetailsUseCase {
         private val ieCommerceCoreRepository: IECommerceCoreRepository,
         private val cartRepository: CartRepository,
         private val goodsDetailsMapper: GoodsDetailsMapper,
-        private val favoriteIdsUseCase: FavoriteIdsUseCase
+        private val fetchFavoriteIds: FetchFavoriteIds
     ) : AbstractUseCase(scrmRepository, provideLocation), GoodsDetailsUseCase {
 
         override suspend fun invoke(id: String): Result<GoodsDetails> = withToken { token ->
-            val isFavorite = favoriteIdsUseCase().getOrThrow().contains(id)
+            val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
             val count = cartRepository.getGoodsQuantity(token, id).getOrThrow()
             val goods = ieCommerceCoreRepository.getProductDetailByIDRG(id)
                 .getOrThrow()!!.listProducts!!.first()

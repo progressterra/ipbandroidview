@@ -7,7 +7,7 @@ class MainCategory(
     val image: String,
     id: String,
     name: String,
-    subCategories: List<Category>,
+    subCategories: List<CategoryWithSubcategories>,
     hasNext: Boolean
-) : Category(id = id, name = name, subCategories = subCategories, hasNext = hasNext)
+) : CategoryWithSubcategories(id = id, name = name, subCategories = subCategories, hasNext = hasNext)
 

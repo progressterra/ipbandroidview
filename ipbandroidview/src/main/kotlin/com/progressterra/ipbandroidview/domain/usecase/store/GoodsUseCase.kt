@@ -11,18 +11,19 @@ interface GoodsUseCase {
     suspend operator fun invoke(categoryId: String): Result<Pager<Int, StoreGoods>>
 
     class Base(
-        private val goodsPageUseCase: GoodsPageUseCase,
-        private val favoriteIdsUseCase: FavoriteIdsUseCase
+        private val fetchGoodsPage: FetchGoodsPage,
+        private val fetchFavoriteIds: FetchFavoriteIds
     ) : GoodsUseCase {
 
-        override suspend fun invoke(categoryId: String): Result<Pager<Int, StoreGoods>> = runCatching {
-            Pager(PagingConfig(AppSettings.PAGE_SIZE)) {
-                GoodsSource(
-                    categoryId = categoryId,
-                    goodsPageUseCase = goodsPageUseCase,
-                    favoriteIdsUseCase = favoriteIdsUseCase
-                )
+        override suspend fun invoke(categoryId: String): Result<Pager<Int, StoreGoods>> =
+            runCatching {
+                Pager(PagingConfig(AppSettings.PAGE_SIZE)) {
+                    GoodsSource(
+                        categoryId = categoryId,
+                        fetchGoodsPage = fetchGoodsPage,
+                        fetchFavoriteIds = fetchFavoriteIds
+                    )
+                }
             }
-        }
     }
 }

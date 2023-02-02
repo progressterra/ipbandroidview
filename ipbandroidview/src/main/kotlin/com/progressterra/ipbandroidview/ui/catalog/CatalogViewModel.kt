@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.catalog
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
-import com.progressterra.ipbandroidview.model.store.Category
+import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -24,9 +24,9 @@ class CatalogViewModel(
         refresh()
     }
 
-    override fun openCategory(category: Category) = intent {
-        if (category.hasNext) postSideEffect(CatalogEffect.SubCatalog(category))
-        else postSideEffect(CatalogEffect.Goods(category.id))
+    override fun openCategory(categoryWithSubcategories: CategoryWithSubcategories) = intent {
+        if (categoryWithSubcategories.hasNext) postSideEffect(CatalogEffect.SubCatalog(categoryWithSubcategories))
+        else postSideEffect(CatalogEffect.Goods(categoryWithSubcategories.id))
     }
 
     override fun refresh() = intent {

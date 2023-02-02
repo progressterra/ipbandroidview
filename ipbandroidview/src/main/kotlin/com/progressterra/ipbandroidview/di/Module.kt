@@ -30,6 +30,7 @@ import com.progressterra.ipbandroidview.domain.mapper.MessageMapper
 import com.progressterra.ipbandroidview.domain.mapper.OfferMapper
 import com.progressterra.ipbandroidview.domain.mapper.PartnerMapper
 import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
+import com.progressterra.ipbandroidview.domain.mapper.PromoCategoryMapper
 import com.progressterra.ipbandroidview.domain.mapper.StatusOrderMapper
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.domain.mapper.SubCatalogMapper
@@ -119,4 +120,6 @@ val iPBAndroidViewModule = module {
     single<PartnerMapper> { PartnerMapper.Base(get()) }
 
     single<CreateId> { CreateId.Base() }
+
+    single<PromoCategoryMapper> { PromoCategoryMapper.Base(get()) }
 }

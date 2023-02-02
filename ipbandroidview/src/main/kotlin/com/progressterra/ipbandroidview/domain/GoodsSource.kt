@@ -2,20 +2,20 @@ package com.progressterra.ipbandroidview.domain
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteIdsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FetchFavoriteIds
+import com.progressterra.ipbandroidview.domain.usecase.store.FetchGoodsPage
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 
 class GoodsSource(
-    private val goodsPageUseCase: GoodsPageUseCase,
+    private val fetchGoodsPage: FetchGoodsPage,
     private val categoryId: String,
-    private val favoriteIdsUseCase: FavoriteIdsUseCase
+    private val fetchFavoriteIds: FetchFavoriteIds
 ) : PagingSource<Int, StoreGoods>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoreGoods> {
         val nextPage = params.key ?: 1
-        val response = favoriteIdsUseCase().onSuccess { favorites ->
-            goodsPageUseCase(categoryId, nextPage, favorites)
+        val response = fetchFavoriteIds().onSuccess { favorites ->
+            fetchGoodsPage(categoryId, nextPage, favorites)
                 .onSuccess {
                     return LoadResult.Page(
                         data = it.second,

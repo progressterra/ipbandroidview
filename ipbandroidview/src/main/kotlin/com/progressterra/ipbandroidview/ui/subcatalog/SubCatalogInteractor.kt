@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
-import com.progressterra.ipbandroidview.model.store.Category
+import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
 
 interface SubCatalogInteractor {
 
     fun onBack()
 
-    fun onSubCategory(category: Category)
+    fun onSubCategory(categoryWithSubcategories: CategoryWithSubcategories)
 
     fun editKeyword(keyword: String)
 
@@ -20,7 +20,7 @@ interface SubCatalogInteractor {
 
         override fun onBack() = Unit
 
-        override fun onSubCategory(category: Category) = Unit
+        override fun onSubCategory(categoryWithSubcategories: CategoryWithSubcategories) = Unit
 
         override fun editKeyword(keyword: String) = Unit
 

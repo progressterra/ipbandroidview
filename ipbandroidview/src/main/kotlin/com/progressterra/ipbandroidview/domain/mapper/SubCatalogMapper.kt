@@ -5,9 +5,9 @@ import com.progressterra.ipbandroidapi.ext.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.Mapper
-import com.progressterra.ipbandroidview.model.store.Category
+import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
 
-interface SubCatalogMapper : Mapper<CatalogItem, Category> {
+interface SubCatalogMapper : Mapper<CatalogItem, CategoryWithSubcategories> {
 
     class Base(
         manageResources: ManageResources
@@ -15,9 +15,9 @@ interface SubCatalogMapper : Mapper<CatalogItem, Category> {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override fun map(data: CatalogItem): Category {
+        override fun map(data: CatalogItem): CategoryWithSubcategories {
             val hasNext = !data.childItems.isNullOrEmpty()
-            return Category(
+            return CategoryWithSubcategories(
                 id = data.item?.idUnique!!,
                 name = data.item?.name ?: noData,
                 subCategories = data.childItems?.map { map(it) }.orIfNull { emptyList() },

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.model.store.Category
+import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -18,19 +18,19 @@ class SubCatalogViewModel : ViewModel(), ContainerHost<SubCatalogState, SubCatal
     override val container: Container<SubCatalogState, SubCatalogEffect> =
         container(SubCatalogState())
 
-    fun setSubCategory(subCategory: Category) = intent {
-        reduce { state.copy(currentCategory = subCategory) }
+    fun setSubCategory(subCategoryWithSubcategories: CategoryWithSubcategories) = intent {
+        reduce { state.copy(currentCategoryWithSubcategories = subCategoryWithSubcategories) }
     }
 
     override fun onBack() = intent {
         postSideEffect(SubCatalogEffect.Back)
     }
 
-    override fun onSubCategory(category: Category) = intent {
-        if (category.hasNext)
-            postSideEffect(SubCatalogEffect.SubCatalog(category))
+    override fun onSubCategory(categoryWithSubcategories: CategoryWithSubcategories) = intent {
+        if (categoryWithSubcategories.hasNext)
+            postSideEffect(SubCatalogEffect.SubCatalog(categoryWithSubcategories))
         else
-            postSideEffect(SubCatalogEffect.Goods(category.id))
+            postSideEffect(SubCatalogEffect.Goods(categoryWithSubcategories.id))
     }
 
     override fun editKeyword(keyword: String) = blockingIntent {

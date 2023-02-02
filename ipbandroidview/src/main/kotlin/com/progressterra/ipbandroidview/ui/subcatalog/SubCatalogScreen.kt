@@ -20,7 +20,7 @@ fun SubCatalogScreen(
 ) {
     ThemedLayout(topBar = {
         CategorySearchBar(
-            category = state.currentCategory.name,
+            category = state.currentCategoryWithSubcategories.name,
             state = state,
             onBack = { interactor.onBack() },
             onKeyword = { interactor.editKeyword(it) },
@@ -35,7 +35,7 @@ fun SubCatalogScreen(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
             contentPadding = PaddingValues(AppTheme.dimensions.small)
         ) {
-            items(state.currentCategory.subCategories) { category ->
+            items(state.currentCategoryWithSubcategories.subCategories) { category ->
                 SubCategory(state = category, openCategory = { interactor.onSubCategory(it) })
             }
         }

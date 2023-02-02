@@ -44,14 +44,15 @@ import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteGoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteIdsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.FetchFavoriteIds
+import com.progressterra.ipbandroidview.domain.usecase.store.FetchGoodsPage
 import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.GoodsPageUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.OrdersUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.PromoGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.SizeTableUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.TransactionsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.suggestion.ChooseSuggestionUseCase
@@ -146,11 +147,11 @@ val useCasesModule = module {
         CheckMediaDetailsUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<GoodsPageUseCase> { GoodsPageUseCase.Base(get(), get(), get(), get()) }
+    single<FetchGoodsPage> { FetchGoodsPage.Base(get(), get(), get(), get()) }
 
     single<GoodsUseCase> { GoodsUseCase.Base(get(), get()) }
 
-    single<FavoriteIdsUseCase> { FavoriteIdsUseCase.Base(get(), get(), get()) }
+    single<FetchFavoriteIds> { FetchFavoriteIds.Base(get(), get(), get()) }
 
     single<FilteredGoodsUseCase> {
         FilteredGoodsUseCase.Base(
@@ -262,4 +263,16 @@ val useCasesModule = module {
     single<ShareTextUseCase> { ShareTextUseCase.Base(get()) }
 
     single<SizeTableUseCase> { SizeTableUseCase.Base(get(), get(), get()) }
+
+    single<PromoGoodsUseCase> {
+        PromoGoodsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 }

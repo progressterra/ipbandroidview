@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
-import com.progressterra.ipbandroidview.model.store.Category
+import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
 
 interface CatalogInteractor {
 
     fun refresh()
 
-    fun openCategory(category: Category)
+    fun openCategory(categoryWithSubcategories: CategoryWithSubcategories)
 
     fun search()
 
@@ -18,7 +18,7 @@ interface CatalogInteractor {
 
         override fun refresh() = Unit
 
-        override fun openCategory(category: Category) = Unit
+        override fun openCategory(categoryWithSubcategories: CategoryWithSubcategories) = Unit
 
         override fun search() = Unit
 

@@ -17,7 +17,7 @@ interface CartUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val cartRepo: CartRepository,
-        private val favoriteIdsUseCase: FavoriteIdsUseCase,
+        private val fetchFavoriteIds: FetchFavoriteIds,
         private val iECommerceCoreRepository: IECommerceCoreRepository,
         private val cartGoodsMapper: CartGoodsMapper,
         private val priceMapper: PriceMapper
@@ -26,7 +26,7 @@ interface CartUseCase {
         override suspend fun invoke(): Result<Cart> = withToken { token ->
             val cart = cartRepo.getProductsInCart(token).getOrThrow()
             val favoriteIds = if (cart?.drSaleRow.isNullOrEmpty()) emptyList()
-            else favoriteIdsUseCase().getOrThrow()
+            else fetchFavoriteIds().getOrThrow()
             val price = priceMapper.map(cart?.drSaleRow?.sumOf { it.endPrice ?: 0.0 } ?: 0.0)
             val goods = buildSet {
                 cart?.drSaleRow?.map { saleRow ->
