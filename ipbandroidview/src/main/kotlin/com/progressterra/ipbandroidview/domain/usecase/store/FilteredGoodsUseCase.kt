@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.domain.usecase.store
 
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
-import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeOfEntity
+import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.product.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.product.models.IncomeDataForFilterAndSort
@@ -34,8 +34,8 @@ interface FilteredGoodsUseCase {
             filters: List<Filter>
         ): Result<List<StoreGoods>> = withToken { token ->
             val favorites = favoriteRepository.getClientEntityByType(
-                token, TypeOfEntity.PRODUCT
-            ).getOrThrow()
+                token, TypeEntities.ONE.ordinal
+            ).getOrThrow()!!
             repo.itemsFiltered(
                 IncomeDataForFilterAndSort(
                     filterAndSortData = FilterAndSort(
