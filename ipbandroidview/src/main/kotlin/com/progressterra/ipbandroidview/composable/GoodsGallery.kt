@@ -4,14 +4,18 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
+
+private val height = 200.dp
 
 @Composable
 fun GoodsGallery(
@@ -22,7 +26,7 @@ fun GoodsGallery(
     onFavorite: (StoreGoods) -> Unit
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.height(height),
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         Text(
