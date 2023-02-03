@@ -50,9 +50,10 @@ fun MainScreen(
                     GoodsGallery(
                         modifier = Modifier,
                         goods = pair.second,
-                        title = pair.first.name,
+                        category = pair.first,
                         onGoodsDetails = { interactor.openDetails(it) },
-                        onFavorite = { interactor.favoriteSpecific(it) }
+                        onFavorite = { interactor.favoriteSpecific(it) },
+                        onFullCategory = { interactor.onCategory(it) }
                     )
                 }
             }

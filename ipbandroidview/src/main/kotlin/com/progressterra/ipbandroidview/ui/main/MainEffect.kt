@@ -9,4 +9,6 @@ sealed class MainEffect {
     object Bonuses : MainEffect()
 
     class GoodsDetails(val goodsId: String) : MainEffect()
+
+    class Goods(val categoryId: String) : MainEffect()
 }

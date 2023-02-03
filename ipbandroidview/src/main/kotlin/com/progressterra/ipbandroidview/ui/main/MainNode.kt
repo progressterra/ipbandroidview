@@ -15,7 +15,8 @@ class MainNode(
     buildContext: BuildContext,
     private val onGoodsDetails: (String) -> Unit,
     private val onBonuses: () -> Unit,
-    private val onSearch: (String, String) -> Unit
+    private val onSearch: (String, String) -> Unit,
+    private val onGoods: (String) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -28,9 +29,9 @@ class MainNode(
                     .show()
                 is MainEffect.Bonuses -> onBonuses()
                 is MainEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
+                is MainEffect.Goods -> onGoods(it.categoryId)
             }
         }
-
         val state = viewModel.collectAsState()
         MainScreen(
             state = state.value,

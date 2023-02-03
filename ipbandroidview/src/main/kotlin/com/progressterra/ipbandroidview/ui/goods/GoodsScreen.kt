@@ -41,7 +41,7 @@ fun GoodsScreen(
                 state.itemsFlow.collectAsLazyPagingItems()
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
-                columns = GridCells.Fixed(AppTheme.customization.catalogStyle.columns),
+                columns = GridCells.Fixed(2),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)

@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.PromoGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
+import com.progressterra.ipbandroidview.model.store.Category
 import com.progressterra.ipbandroidview.model.store.StoreGoods
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -28,6 +29,10 @@ class MainViewModel(
 
     init {
         refresh()
+    }
+
+    override fun onCategory(category: Category) = intent {
+        postSideEffect(MainEffect.Goods(category.id))
     }
 
     override fun refresh() = intent {
