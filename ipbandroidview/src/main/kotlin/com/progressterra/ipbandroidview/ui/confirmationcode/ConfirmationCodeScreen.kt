@@ -44,7 +44,7 @@ fun ConfirmationCodeScreen(
             ThemedTextButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.resend() },
-                text = state.timer,
+                text = state.timer.ifBlank { stringResource(id = R.string.resend) },
                 enabled = state.canResend
             )
         }

@@ -75,13 +75,13 @@ class ConfirmationCodeViewModel(
     }
 
     private fun startTimer() = intent {
-        reduce { state.copy(canResend = true) }
+        reduce { state.copy(canResend = false) }
         for (i in 45 downTo 1) {
             delay(1000)
             if (i >= 10) reduce { state.copy(timer = "00:$i") }
             else reduce { state.copy(timer = "00:0$i") }
         }
-        reduce { state.copy(canResend = false) }
+        reduce { state.copy(canResend = true, timer = "") }
     }
 
     override fun onBack() = intent {
