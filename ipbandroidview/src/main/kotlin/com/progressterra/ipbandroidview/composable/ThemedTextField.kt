@@ -3,6 +3,8 @@ package com.progressterra.ipbandroidview.composable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
@@ -36,7 +38,7 @@ fun ThemedTextField(
     trailingIcon: @Composable (() -> Unit)? = null,
     prefix: String? = null
 ) {
-    val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
+    val label: (@Composable () -> Unit)? = if (text.isNotEmpty() || prefix != null) {
         {
             Text(
                 text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
@@ -115,30 +117,23 @@ fun ThemedTextField(
 
 @Preview
 @Composable
-private fun ThemedTextFieldPreviewEnabled() {
-    AppTheme {
-        ThemedTextField(
-            text = "Some text", hint = "Your name", enabled = true
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun ThemedTextFieldPreviewDisabled() {
-    AppTheme {
-        ThemedTextField(
-            text = "Some text", hint = "Your name", enabled = false
-        )
-    }
-}
-
-@Preview
-@Composable
 private fun ThemedTextFieldPreviewEmptyDisabled() {
     AppTheme {
-        ThemedTextField(
-            hint = "Your name", enabled = false, text = ""
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            ThemedTextField(
+                text = "Some text", hint = "Your name", enabled = true
+            )
+            ThemedTextField(
+                text = "Some text", hint = "Your name", enabled = false
+            )
+            ThemedTextField(
+                hint = "Your name", enabled = false, text = ""
+            )
+            ThemedTextField(
+                hint = "Your name", enabled = true, prefix = "+7", text = ""
+            )
+        }
     }
 }
