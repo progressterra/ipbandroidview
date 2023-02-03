@@ -13,8 +13,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.composable.utils.PrefixTransformation
 import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -31,7 +33,8 @@ fun ThemedTextField(
     action: (() -> Unit)? = null,
     singleLine: Boolean = true,
     leadingIcon: @Composable (() -> Unit)? = null,
-    trailingIcon: @Composable (() -> Unit)? = null
+    trailingIcon: @Composable (() -> Unit)? = null,
+    prefix: String? = null
 ) {
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
@@ -59,6 +62,8 @@ fun ThemedTextField(
             )
             .clearFocusOnKeyboardDismiss(),
         value = text,
+        visualTransformation = prefix?.let { PrefixTransformation(it) }
+            ?: VisualTransformation.None,
         interactionSource = mutableInteractionSource,
         onValueChange = { onChange?.invoke(it) },
         keyboardActions = KeyboardActions {

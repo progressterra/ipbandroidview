@@ -16,7 +16,7 @@ interface StartVerificationChannelUseCase {
             repo.verificationChannelBegin(
                 IncomeChannelData(
                     channelType = 0,
-                    channelData = phoneNumber
+                    channelData = "7${phoneNumber.trim()}"
                 )
             ).throwOnFailure()
         }
