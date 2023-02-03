@@ -27,23 +27,27 @@ interface PromoGoodsUseCase {
 
         override suspend fun invoke(): Result<List<Pair<Category, List<StoreGoods>>>> =
             withToken { token ->
+                val recommendedIds = listOf(
+                    AppSettings.RECOMMEND_MAN,
+                    AppSettings.RECOMMEND_WOMAN,
+                    AppSettings.RECOMMEND_KIDS
+                )
                 val favoriteIds = fetchFavoriteIds().getOrThrow()
-                val categories = listOf(
-                    promoRepository.getCategoryInfo(AppSettings.RECOMMEND_MAN).getOrThrow()!!,
-                    promoRepository.getCategoryInfo(AppSettings.RECOMMEND_WOMAN).getOrThrow()!!,
-                    promoRepository.getCategoryInfo(AppSettings.RECOMMEND_KIDS).getOrThrow()!!
-                ).map { mapper.map(it) }
-                val goods =
-                    categories.map { promoRepository.getIDKindOf(it.id).getOrThrow()!! }.map {
-                        iECommerceCoreRepository.getProductsByIds(token, it).getOrThrow()!!
-                    }.map {
-                        it.listProducts!!.map { product ->
-                            goodsMapper.map(
-                                product,
-                                favoriteIds.contains(product.idUnique!!)
-                            )
-                        }
+                val categories = recommendedIds.map {
+                    promoRepository.getCategoryInfo(it).getOrThrow()!!
+                }.map { mapper.map(it) }
+                val goods = List(categories.size) { index ->
+                    promoRepository.getIDKindOf(recommendedIds[index]).getOrThrow()!!
+                }.map {
+                    iECommerceCoreRepository.getProductsByIds(token, it).getOrThrow()!!
+                }.map {
+                    it.listProducts!!.map { product ->
+                        goodsMapper.map(
+                            product,
+                            favoriteIds.contains(product.idUnique!!)
+                        )
                     }
+                }
                 categories.mapIndexed { index, category -> category to goods[index] }
             }
     }
