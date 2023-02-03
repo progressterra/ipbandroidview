@@ -70,7 +70,7 @@ fun SignInScreen(
                         hint = stringResource(id = R.string.phone_number),
                         onChange = { interactor.editPhoneNumber(it) },
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone),
-                        prefix = "+7"
+                        prefix = "+"
                     )
                 }
                 LinkText(
