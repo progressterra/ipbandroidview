@@ -27,15 +27,12 @@ interface PromoGoodsUseCase {
 
         override suspend fun invoke(): Result<List<Pair<Category, List<StoreGoods>>>> =
             withToken { token ->
-                val categoryIds = listOf(
-                    AppSettings.RECOMMEND_MAN,
-                    AppSettings.RECOMMEND_WOMAN,
-                    AppSettings.RECOMMEND_KIDS
-                )
                 val favoriteIds = fetchFavoriteIds().getOrThrow()
-                val categories = categoryIds.map {
-                    promoRepository.getCategoryInfo(it).getOrThrow()!!
-                }.mapIndexed { index, item -> mapper.map(item, categoryIds[index]) }
+                val categories = listOf(
+                    promoRepository.getCategoryInfo(AppSettings.RECOMMEND_MAN).getOrThrow()!!,
+                    promoRepository.getCategoryInfo(AppSettings.RECOMMEND_WOMAN).getOrThrow()!!,
+                    promoRepository.getCategoryInfo(AppSettings.RECOMMEND_KIDS).getOrThrow()!!
+                ).map { mapper.map(it) }
                 val goods =
                     categories.map { promoRepository.getIDKindOf(it.id).getOrThrow()!! }.map {
                         iECommerceCoreRepository.getProductsByIds(token, it).getOrThrow()!!
