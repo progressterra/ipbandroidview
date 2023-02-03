@@ -16,7 +16,7 @@ interface PromoCategoryMapper : Mapper<RFKindOfEntity, Category> {
         private val noData = manageResources.string(R.string.no_data)
 
         override fun map(data: RFKindOfEntity): Category = SimpleCategory(
-            id = data.idUnique!!,
+            id = data.dataForDefaultLinkTo!!,
             name = data.title ?: noData
         )
     }
