@@ -66,7 +66,7 @@ fun SignInScreen(
                 ) {
                     ThemedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        text = state.phoneNumber,
+                        text = "+${state.phoneNumber}",
                         hint = stringResource(id = R.string.phone_number),
                         onChange = { interactor.editPhoneNumber(it) },
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
