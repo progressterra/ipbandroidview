@@ -62,7 +62,7 @@ dependencies {
 
     //Core
     api "androidx.core:core-ktx:1.9.0"
-    api "androidx.appcompat:appcompat:1.6.0"
+    api "androidx.appcompat:appcompat:1.6.1"
     api 'com.google.android.material:material:1.8.0'
 
     //Coroutines
@@ -127,7 +127,7 @@ dependencies {
     api 'com.github.skydoves:landscapist-placeholder:2.1.1'
 
     //TODO paging if there will be grid support then need to delete own solution
-    api "androidx.paging:paging-compose:1.0.0-alpha17"
+    api "androidx.paging:paging-compose:1.0.0-alpha18"
     api "androidx.paging:paging-runtime-ktx:3.1.1"
 
     //QR
