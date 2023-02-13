@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.runtime.Composable
@@ -34,11 +35,10 @@ val LocalShapes = staticCompositionLocalOf { Shapes() }
 
 val LocalTypography = staticCompositionLocalOf { AppTypography() }
 
-val LocalColors = staticCompositionLocalOf { Colors() }
+val LocalColors = staticCompositionLocalOf { lightColors }
 
 @Composable
 fun AppTheme(
-    colors: Colors = AppTheme.colors,
     typography: AppTypography = AppTheme.typography,
     dimensions: Dimensions = AppTheme.dimensions,
     customization: Customization = AppTheme.customization,
@@ -48,6 +48,7 @@ fun AppTheme(
         handleColor = AppTheme.colors.primary,
         backgroundColor = AppTheme.colors.primary.copy(alpha = 0.4f)
     )
+    val colors = if (isSystemInDarkTheme()) darkColors else lightColors
     CompositionLocalProvider(
         LocalDimensions provides dimensions,
         LocalTypography provides typography,
