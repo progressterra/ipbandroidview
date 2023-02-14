@@ -80,7 +80,7 @@ val iPBAndroidViewModule = module {
     single<ProvideLocation> { ProvideLocation.Base(get()) }
 
     single<FileExplorer> {
-        FileExplorer.Base(androidContext(), get(qualifier = StringQualifier("authority")))
+        FileExplorer.Haccp(androidContext(), get(qualifier = StringQualifier("authority")))
     }
 
     single { MediaPlayer() }

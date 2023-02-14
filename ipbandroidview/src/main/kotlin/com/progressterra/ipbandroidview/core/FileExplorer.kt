@@ -20,18 +20,13 @@ interface FileExplorer {
 
     fun reset()
 
-    class Base(
+    class Haccp(
         private val context: Context,
         private val authority: String
     ) : FileExplorer {
 
-        private val voiceFolderPath by lazy {
-            "${context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)}"
-        }
-        private val picturesFolderPath by lazy {
-            "${context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)}"
-        }
-
+        private val folder =
+            context.getExternalFilesDir("${Environment.DIRECTORY_DOCUMENTS}/HACCP")!!.path
 
         override fun uriForFile(file: File): Uri = FileProvider.getUriForFile(
             context,
@@ -39,11 +34,10 @@ interface FileExplorer {
             file
         )
 
-
         override fun inputStreamToVoices(inputStream: InputStream, id: String) {
             if (!exist(id))
                 inputStream.use { input ->
-                    val fos = FileOutputStream(File("$voiceFolderPath/$id.m4a"))
+                    val fos = FileOutputStream(File("$folder/$id.m4a"))
                     fos.use { output ->
                         val buffer = ByteArray(4 * 1024)
                         var read: Int
@@ -56,19 +50,19 @@ interface FileExplorer {
         }
 
         override fun audioFile(id: String): File =
-            File("$voiceFolderPath/$id.m4a")
+            File("$folder/$id.m4a")
 
 
-        override fun pictureFile(id: String): File = File("$picturesFolderPath/$id.jpg")
+        override fun pictureFile(id: String): File = File("$folder/$id.jpg")
 
         private fun exist(id: String): Boolean =
-            File("$voiceFolderPath/$id.m4a").exists() || File("$picturesFolderPath/$id.jpg").exists()
+            File("$folder/$id.m4a").exists() || File("$folder/$id.jpg").exists()
 
         override fun reset() {
-            File(voiceFolderPath).list()?.forEach {
+            File(folder).list()?.forEach {
                 File(it).delete()
             }
-            File(picturesFolderPath).list()?.forEach {
+            File(folder).list()?.forEach {
                 File(it).delete()
             }
         }
