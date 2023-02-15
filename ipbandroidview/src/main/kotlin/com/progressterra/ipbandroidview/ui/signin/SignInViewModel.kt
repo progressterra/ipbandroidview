@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.signin
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.component.AuthComponentInteractor
 import com.progressterra.ipbandroidview.composable.component.AuthComponentState
 import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
@@ -18,7 +19,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class SignInViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val openUrlUseCase: OpenUrlUseCase
-) : ViewModel(), ContainerHost<AuthComponentState, SignInEffect>, SignInInteractor {
+) : ViewModel(), ContainerHost<AuthComponentState, SignInEffect>, AuthComponentInteractor {
 
     override val container: Container<AuthComponentState, SignInEffect> = container(
         AuthComponentState(

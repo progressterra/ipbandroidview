@@ -1,5 +1,0 @@
-package com.progressterra.ipbandroidview.ui.signin
-
-import com.progressterra.ipbandroidview.composable.component.AuthComponentInteractor
-
-interface SignInInteractor : AuthComponentInteractor
