@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.model.partner.OfferUI
+import com.progressterra.ipbandroidview.model.OfferUI
 import com.progressterra.ipbandroidview.theme.AppTheme
 import de.charlex.compose.HtmlText
 

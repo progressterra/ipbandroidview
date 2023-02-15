@@ -5,8 +5,8 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.DeliveryMethodMapper
-import com.progressterra.ipbandroidview.model.delivery.Delivery
-import com.progressterra.ipbandroidview.model.delivery.DeliveryType
+import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.DeliveryType
 
 
 interface AvailableDeliveryUseCase {

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
-import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
+import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 
 sealed class SubCatalogEffect {
 

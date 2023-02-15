@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.ui.archive
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.model.checklist.AuditDocument
-import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
-import com.progressterra.ipbandroidview.model.checklist.Document
+import com.progressterra.ipbandroidview.model.AuditDocument
+import com.progressterra.ipbandroidview.model.ChecklistStatus
+import com.progressterra.ipbandroidview.model.Document
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

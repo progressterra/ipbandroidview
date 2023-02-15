@@ -16,8 +16,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
-import com.progressterra.ipbandroidview.model.store.MainCategory
+import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
+import com.progressterra.ipbandroidview.model.MainCategory
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val picHeight = 104.dp

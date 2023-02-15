@@ -14,7 +14,6 @@ import com.progressterra.ipbandroidview.composable.BonusSwitch
 import com.progressterra.ipbandroidview.composable.DeliveryPicker
 import com.progressterra.ipbandroidview.composable.GoodsLine
 import com.progressterra.ipbandroidview.composable.PaymentMethod
-import com.progressterra.ipbandroidview.composable.PromoCode
 import com.progressterra.ipbandroidview.composable.Receipt
 import com.progressterra.ipbandroidview.composable.ReceiveReceipt
 import com.progressterra.ipbandroidview.composable.StateBox
@@ -53,11 +52,6 @@ fun OrderScreen(
                     editComment = { interactor.editComment(it) }
                 )
                 BonusSwitch(state = state, switchUseBonuses = { interactor.changeUseBonuses(it) })
-//                PromoCode(
-//                    state = state,
-//                    editPromoCode = { interactor.editPromoCode(it) },
-//                    applyPromoCode = { interactor.applyPromoCode() }
-//                )
                 PaymentMethod(state = state, select = { interactor.selectPayment(it) })
                 ReceiveReceipt(
                     state = state,

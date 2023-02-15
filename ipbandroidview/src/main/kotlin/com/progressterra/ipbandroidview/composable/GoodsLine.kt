@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.store.OrderGoods
+import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable

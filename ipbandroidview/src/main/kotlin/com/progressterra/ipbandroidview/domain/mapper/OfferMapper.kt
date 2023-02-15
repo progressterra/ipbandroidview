@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidapi.api.collaboration.models.RGOffersExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.Mapper
-import com.progressterra.ipbandroidview.model.partner.OfferUI
+import com.progressterra.ipbandroidview.model.OfferUI
 
 interface OfferMapper : Mapper<RGOffersExt, OfferUI> {
 

@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.documents
 
-import com.progressterra.ipbandroidview.model.checklist.Document
+import com.progressterra.ipbandroidview.model.Document
 
 interface DocumentsInteractor {
 

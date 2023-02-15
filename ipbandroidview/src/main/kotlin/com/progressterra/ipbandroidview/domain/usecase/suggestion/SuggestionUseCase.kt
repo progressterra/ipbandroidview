@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.domain.usecase.suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
 import com.progressterra.ipbandroidapi.api.suggestion.model.DadataSuggestionsRequest
 import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
-import com.progressterra.ipbandroidview.model.address.SuggestionUI
+import com.progressterra.ipbandroidview.model.SuggestionUI
 
 interface SuggestionUseCase {
 

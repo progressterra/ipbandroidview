@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.ui.organizationedit
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.model.checklist.Document
-import com.progressterra.ipbandroidview.model.checklist.Employee
-import com.progressterra.ipbandroidview.model.checklist.Organization
+import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.model.Employee
+import com.progressterra.ipbandroidview.model.Organization
 
 @Immutable
 data class OrganizationEditState(

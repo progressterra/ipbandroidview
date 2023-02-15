@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.orderprocessing
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.model.store.OrderResult
+import com.progressterra.ipbandroidview.model.OrderResult
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

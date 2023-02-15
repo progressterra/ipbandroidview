@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.ui.city
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.model.address.AddressUI
-import com.progressterra.ipbandroidview.model.address.SuggestionUI
+import com.progressterra.ipbandroidview.model.AddressUI
+import com.progressterra.ipbandroidview.model.SuggestionUI
 
 @Immutable
 data class CityState(

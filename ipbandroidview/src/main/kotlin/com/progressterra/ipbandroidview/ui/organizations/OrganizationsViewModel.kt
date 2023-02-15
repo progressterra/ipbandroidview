@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllOrganizationsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.partner.FetchPartnerUseCase
-import com.progressterra.ipbandroidview.model.checklist.Organization
+import com.progressterra.ipbandroidview.model.Organization
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

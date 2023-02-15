@@ -11,12 +11,12 @@ import com.progressterra.ipbandroidview.domain.usecase.delivery.SetDeliveryAddre
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
-import com.progressterra.ipbandroidview.model.delivery.Delivery
-import com.progressterra.ipbandroidview.model.delivery.DeliveryType
-import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
-import com.progressterra.ipbandroidview.model.payment.PaymentType
-import com.progressterra.ipbandroidview.model.store.OrderGoods
-import com.progressterra.ipbandroidview.model.store.SimplePrice
+import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.DeliveryType
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
+import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.model.SimplePrice
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -132,14 +132,6 @@ class OrderViewModel(
         else useBonusesUseCase(state.availableBonuses.quantity).onSuccess {
             reduce { state.copy(useBonuses = !state.useBonuses) }
         }
-    }
-
-    override fun editPromoCode(promoCode: String) = blockingIntent {
-        reduce { state.copy(promoCodeName = promoCode) }
-    }
-
-    override fun applyPromoCode() = intent {
-        //TODO
     }
 
     override fun changeReceiveReceipt(receiveReceive: Boolean) = intent {

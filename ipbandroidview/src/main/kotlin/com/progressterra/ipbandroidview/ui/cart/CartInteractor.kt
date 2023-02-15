@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.cart
 
-import com.progressterra.ipbandroidview.model.store.CartGoods
+import com.progressterra.ipbandroidview.model.CartGoods
 
 interface CartInteractor {
 

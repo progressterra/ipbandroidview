@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo
+import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable

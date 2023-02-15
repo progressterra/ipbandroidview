@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
-import com.progressterra.ipbandroidview.model.store.GoodsSize
-
 interface GoodsDetailsInteractor {
 
     fun refresh()

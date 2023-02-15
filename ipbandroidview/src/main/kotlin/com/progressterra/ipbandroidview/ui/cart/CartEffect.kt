@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.cart
 
-import com.progressterra.ipbandroidview.model.store.OrderGoods
+import com.progressterra.ipbandroidview.model.OrderGoods
 
 sealed class CartEffect {
 

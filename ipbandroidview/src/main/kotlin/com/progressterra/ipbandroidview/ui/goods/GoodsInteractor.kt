@@ -1,8 +1,9 @@
 package com.progressterra.ipbandroidview.ui.goods
 
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
+import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
 
-interface GoodsInteractor {
+interface GoodsInteractor : StoreCardInteractor {
 
     fun search()
 
@@ -10,11 +11,7 @@ interface GoodsInteractor {
 
     fun onBack()
 
-    fun favoriteSpecific(goods: StoreGoods)
-
     fun refresh()
-
-    fun openDetails(goods: StoreGoods)
 
     fun filters()
 
@@ -28,14 +25,14 @@ interface GoodsInteractor {
 
         override fun onBack() = Unit
 
-        override fun favoriteSpecific(goods: StoreGoods) = Unit
-
         override fun refresh() = Unit
-
-        override fun openDetails(goods: StoreGoods) = Unit
 
         override fun filters() = Unit
 
         override fun clear() = Unit
+
+        override fun onClick(storeCard: StoreCardComponentState) = Unit
+
+        override fun favorite(storeCard: StoreCardComponentState) = Unit
     }
 }

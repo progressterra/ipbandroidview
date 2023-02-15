@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
 import com.progressterra.ipbandroidview.composable.CategorySearchBarState
-import com.progressterra.ipbandroidview.model.store.CategoryWithSubcategories
+import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 
 data class SubCatalogState(
     val currentCategoryWithSubcategories: CategoryWithSubcategories = CategoryWithSubcategories(

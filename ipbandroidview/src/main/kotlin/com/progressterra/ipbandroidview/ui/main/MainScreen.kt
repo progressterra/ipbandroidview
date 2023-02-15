@@ -51,8 +51,7 @@ fun MainScreen(
                         modifier = Modifier,
                         goods = pair.second,
                         category = pair.first,
-                        onGoodsDetails = { interactor.openDetails(it) },
-                        onFavorite = { interactor.favoriteSpecific(it) },
+                        storeCardInteractor = interactor,
                         onFullCategory = { interactor.onCategory(it) }
                     )
                 }

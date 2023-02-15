@@ -6,9 +6,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCas
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.SizeTableUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
-import com.progressterra.ipbandroidview.model.store.GoodsSize
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

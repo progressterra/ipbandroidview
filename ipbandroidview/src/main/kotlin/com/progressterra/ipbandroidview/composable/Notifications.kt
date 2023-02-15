@@ -21,7 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.progressterra.ipbandroidview.model.store.StoreNotification
+import com.progressterra.ipbandroidview.model.StoreNotification
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable

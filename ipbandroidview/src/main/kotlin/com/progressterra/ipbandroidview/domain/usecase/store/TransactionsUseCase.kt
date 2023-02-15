@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.model.bonuses.Transaction
+import com.progressterra.ipbandroidview.model.Transaction
 
 interface TransactionsUseCase {
 

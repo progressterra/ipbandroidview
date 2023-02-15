@@ -5,12 +5,12 @@ import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.ext.createStats
 import com.progressterra.ipbandroidview.ext.replaceById
-import com.progressterra.ipbandroidview.model.checklist.AuditDocument
-import com.progressterra.ipbandroidview.model.checklist.Check
-import com.progressterra.ipbandroidview.model.checklist.ChecklistStats
-import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
-import com.progressterra.ipbandroidview.model.media.MultisizedImage
-import com.progressterra.ipbandroidview.model.media.Voice
+import com.progressterra.ipbandroidview.model.AuditDocument
+import com.progressterra.ipbandroidview.model.Check
+import com.progressterra.ipbandroidview.model.ChecklistStats
+import com.progressterra.ipbandroidview.model.ChecklistStatus
+import com.progressterra.ipbandroidview.model.MultisizedImage
+import com.progressterra.ipbandroidview.model.Voice
 
 @Immutable
 data class ChecklistState(

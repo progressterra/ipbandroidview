@@ -6,11 +6,11 @@ import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.Mapper
-import com.progressterra.ipbandroidview.model.delivery.Delivery
-import com.progressterra.ipbandroidview.model.delivery.DeliveryMethodId
-import com.progressterra.ipbandroidview.model.delivery.DeliveryType
-import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
-import com.progressterra.ipbandroidview.model.store.SimplePrice
+import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.DeliveryMethodId
+import com.progressterra.ipbandroidview.model.DeliveryType
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
+import com.progressterra.ipbandroidview.model.SimplePrice
 
 interface DeliveryMethodMapper : Mapper<List<DeliveryMethod>, Map<DeliveryType, Delivery>> {
 

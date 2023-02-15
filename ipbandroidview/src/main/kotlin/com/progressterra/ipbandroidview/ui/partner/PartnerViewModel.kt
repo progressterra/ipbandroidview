@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.partner
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.domain.usecase.OpenPhoneUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
-import com.progressterra.ipbandroidview.model.partner.Partner
+import com.progressterra.ipbandroidview.model.Partner
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

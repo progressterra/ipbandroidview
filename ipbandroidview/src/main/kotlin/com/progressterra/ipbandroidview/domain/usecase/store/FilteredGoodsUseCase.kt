@@ -12,12 +12,12 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
-import com.progressterra.ipbandroidview.model.store.Filter
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.model.Filter
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface FilteredGoodsUseCase {
 
-    suspend operator fun invoke(id: String, keyword: String, filters: List<Filter>): Result<List<StoreGoods>>
+    suspend operator fun invoke(id: String, keyword: String, filters: List<Filter>): Result<List<StoreCardComponentState>>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -32,7 +32,7 @@ interface FilteredGoodsUseCase {
             id: String,
             keyword: String,
             filters: List<Filter>
-        ): Result<List<StoreGoods>> = withToken { token ->
+        ): Result<List<StoreCardComponentState>> = withToken { token ->
             val favorites = favoriteRepository.getClientEntityByType(
                 token, TypeEntities.ONE.ordinal
             ).getOrThrow()!!

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.order
 
-import com.progressterra.ipbandroidview.model.delivery.Delivery
-import com.progressterra.ipbandroidview.model.payment.PaymentType
+import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.PaymentType
 
 interface OrderInteractor {
 
@@ -20,10 +20,6 @@ interface OrderInteractor {
     fun editComment(comment: String)
 
     fun changeUseBonuses(useBonuses: Boolean)
-
-    fun editPromoCode(promoCode: String)
-
-    fun applyPromoCode()
 
     fun changeReceiveReceipt(receiveReceive: Boolean)
 
@@ -52,10 +48,6 @@ interface OrderInteractor {
         override fun editComment(comment: String) = Unit
 
         override fun changeUseBonuses(useBonuses: Boolean) = Unit
-
-        override fun editPromoCode(promoCode: String) = Unit
-
-        override fun applyPromoCode() = Unit
 
         override fun changeReceiveReceipt(receiveReceive: Boolean) = Unit
 

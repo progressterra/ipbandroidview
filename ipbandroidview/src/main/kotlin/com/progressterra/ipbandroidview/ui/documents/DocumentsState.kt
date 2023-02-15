@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.checklist.Document
+import com.progressterra.ipbandroidview.model.Document
 
 @Immutable
 data class DocumentsState(

@@ -4,8 +4,8 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.ext.formPatch
 import com.progressterra.ipbandroidview.ext.markLastToRemove
 import com.progressterra.ipbandroidview.ext.markToRemove
-import com.progressterra.ipbandroidview.model.media.MultisizedImage
-import com.progressterra.ipbandroidview.model.media.Voice
+import com.progressterra.ipbandroidview.model.MultisizedImage
+import com.progressterra.ipbandroidview.model.Voice
 
 @Immutable
 data class CurrentCheckMedia(

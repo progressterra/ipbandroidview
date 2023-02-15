@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.data
 
 import com.chibatching.kotpref.KotprefModel
 import com.chibatching.kotpref.gsonpref.gsonPref
-import com.progressterra.ipbandroidview.model.address.AddressUI
+import com.progressterra.ipbandroidview.model.AddressUI
 
 @Suppress("unused")
 object UserData : KotprefModel() {

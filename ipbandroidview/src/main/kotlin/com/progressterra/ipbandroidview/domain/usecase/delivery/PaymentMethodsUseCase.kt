@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.domain.usecase.delivery
 
-import com.progressterra.ipbandroidview.model.payment.PaymentType
+import com.progressterra.ipbandroidview.model.PaymentType
 
 interface PaymentMethodsUseCase {
 

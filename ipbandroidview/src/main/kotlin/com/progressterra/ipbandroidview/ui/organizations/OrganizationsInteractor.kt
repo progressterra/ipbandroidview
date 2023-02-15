@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
-import com.progressterra.ipbandroidview.model.checklist.Organization
+import com.progressterra.ipbandroidview.model.Organization
 
 interface OrganizationsInteractor {
 

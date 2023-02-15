@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.domain.mapper
 
 import com.progressterra.ipbandroidview.core.Mapper
-import com.progressterra.ipbandroidview.model.store.SimplePrice
+import com.progressterra.ipbandroidview.model.SimplePrice
 
 interface PriceMapper : Mapper<Double, SimplePrice> {
 

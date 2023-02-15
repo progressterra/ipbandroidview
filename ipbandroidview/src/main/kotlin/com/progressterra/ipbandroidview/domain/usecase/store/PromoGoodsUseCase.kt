@@ -8,12 +8,12 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.mapper.PromoCategoryMapper
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
-import com.progressterra.ipbandroidview.model.store.Category
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface PromoGoodsUseCase {
 
-    suspend operator fun invoke(): Result<List<Pair<Category, List<StoreGoods>>>>
+    suspend operator fun invoke(): Result<List<Pair<Category, List<StoreCardComponentState>>>>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -25,7 +25,7 @@ interface PromoGoodsUseCase {
         private val fetchFavoriteIds: FetchFavoriteIds
     ) : PromoGoodsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun invoke(): Result<List<Pair<Category, List<StoreGoods>>>> =
+        override suspend fun invoke(): Result<List<Pair<Category, List<StoreCardComponentState>>>> =
             withToken { token ->
                 val recommendedIds = listOf(
                     AppSettings.RECOMMEND_MAN,

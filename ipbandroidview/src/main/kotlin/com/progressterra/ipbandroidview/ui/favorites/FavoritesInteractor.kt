@@ -1,21 +1,18 @@
 package com.progressterra.ipbandroidview.ui.favorites
 
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
+import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
 
-interface FavoritesInteractor {
-
-    fun favoriteSpecific(goods: StoreGoods)
+interface FavoritesInteractor : StoreCardInteractor {
 
     fun refresh()
 
-    fun openDetails(goods: StoreGoods)
-
     class Empty : FavoritesInteractor {
 
-        override fun favoriteSpecific(goods: StoreGoods) = Unit
+        override fun onClick(storeCard: StoreCardComponentState) = Unit
+
+        override fun favorite(storeCard: StoreCardComponentState) = Unit
 
         override fun refresh() = Unit
-
-        override fun openDetails(goods: StoreGoods) = Unit
     }
 }

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.model.store.OrderGoods
+import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val picWidth = 80.dp

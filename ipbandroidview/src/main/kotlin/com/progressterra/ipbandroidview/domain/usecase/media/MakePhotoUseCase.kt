@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.core.CreateId
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.MakePhotoContract
 import com.progressterra.ipbandroidview.domain.exception.PhotoWasNotTakenException
-import com.progressterra.ipbandroidview.model.media.MultisizedImage
+import com.progressterra.ipbandroidview.model.MultisizedImage
 
 interface MakePhotoUseCase {
 

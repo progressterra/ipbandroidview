@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.usecase.qr.CreateQrUseCase
-import com.progressterra.ipbandroidview.model.store.StoreNotification
+import com.progressterra.ipbandroidview.model.StoreNotification
 
 interface NotificationUseCase {
 

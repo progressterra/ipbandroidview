@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
@@ -8,8 +9,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.PromoGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
-import com.progressterra.ipbandroidview.model.store.Category
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.model.Category
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -51,11 +51,11 @@ class MainViewModel(
         reduce { state.copy(screenState = isSuccess.toScreenState(), userExist = userExist) }
     }
 
-    override fun favoriteSpecific(goods: StoreGoods) = intent {
-        modifyFavoriteUseCase(goods.id, goods.favorite).onSuccess { refresh() }
+    override fun onClick(storeCard: StoreCardComponentState) = intent {
+        postSideEffect(MainEffect.GoodsDetails(storeCard.id))
     }
 
-    override fun openDetails(goods: StoreGoods) = intent {
-        postSideEffect(MainEffect.GoodsDetails(goods.id))
+    override fun favorite(storeCard: StoreCardComponentState) = intent {
+        modifyFavoriteUseCase(storeCard.id, storeCard.favorite).onSuccess { refresh() }
     }
 }

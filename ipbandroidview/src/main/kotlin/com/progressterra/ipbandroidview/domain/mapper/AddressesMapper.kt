@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidapi.api.address.models.DataAddress
 import com.progressterra.ipbandroidapi.api.address.models.RGAddress
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
-import com.progressterra.ipbandroidview.model.address.AddressUI
-import com.progressterra.ipbandroidview.model.address.SuggestionUI
+import com.progressterra.ipbandroidview.model.AddressUI
+import com.progressterra.ipbandroidview.model.SuggestionUI
 
 interface AddressesMapper {
 

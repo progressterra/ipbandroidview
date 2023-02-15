@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ext.throwOnFailure
-import com.progressterra.ipbandroidview.model.store.OrderResult
+import com.progressterra.ipbandroidview.model.OrderResult
 
 interface ConfirmOrderUseCase {
 

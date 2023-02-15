@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.pickuppoint
 
-import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
 
 interface PickUpPointInteractor {
 

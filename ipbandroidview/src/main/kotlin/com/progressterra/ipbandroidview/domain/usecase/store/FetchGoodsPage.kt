@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.AppSettings
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface FetchGoodsPage {
 
@@ -14,7 +14,7 @@ interface FetchGoodsPage {
         id: String,
         pageNumber: Int,
         favorites: List<String>
-    ): Result<Pair<Int, List<StoreGoods>>>
+    ): Result<Pair<Int, List<StoreCardComponentState>>>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -25,7 +25,7 @@ interface FetchGoodsPage {
 
         override suspend fun invoke(
             id: String, pageNumber: Int, favorites: List<String>
-        ): Result<Pair<Int, List<StoreGoods>>> = withToken { token ->
+        ): Result<Pair<Int, List<StoreCardComponentState>>> = withToken { token ->
             val result = eCommerceRepo.getProductsByCategory(
                 token,
                 id,

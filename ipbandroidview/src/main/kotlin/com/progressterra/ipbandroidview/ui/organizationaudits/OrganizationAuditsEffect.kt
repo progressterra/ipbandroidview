@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.organizationaudits
 
-import com.progressterra.ipbandroidview.model.checklist.AuditDocument
-import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
+import com.progressterra.ipbandroidview.model.AuditDocument
+import com.progressterra.ipbandroidview.model.ChecklistStatus
 
 sealed class OrganizationAuditsEffect {
 

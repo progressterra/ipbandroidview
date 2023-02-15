@@ -1,25 +1,22 @@
 package com.progressterra.ipbandroidview.ui.main
 
-import com.progressterra.ipbandroidview.model.store.Category
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
+import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
 
-interface MainInteractor {
+interface MainInteractor : StoreCardInteractor {
 
     fun onCategory(category: Category)
-
-    fun favoriteSpecific(goods: StoreGoods)
-
-    fun openDetails(goods: StoreGoods)
 
     fun refresh()
 
     class Empty : MainInteractor {
 
+        override fun onClick(storeCard: StoreCardComponentState) = Unit
+
+        override fun favorite(storeCard: StoreCardComponentState) = Unit
+
         override fun onCategory(category: Category) = Unit
-
-        override fun favoriteSpecific(goods: StoreGoods) = Unit
-
-        override fun openDetails(goods: StoreGoods) = Unit
 
         override fun refresh() = Unit
     }

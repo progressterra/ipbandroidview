@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import kotlinx.coroutines.flow.emptyFlow
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -33,14 +33,6 @@ class GoodsViewModel(
         refresh()
     }
 
-    override fun favoriteSpecific(goods: StoreGoods) = intent {
-        modifyFavoriteUseCase(goods.id, goods.favorite).onSuccess { refresh() }
-    }
-
-    override fun openDetails(goods: StoreGoods) = intent {
-        postSideEffect(GoodsEffect.GoodsDetails(goods.id))
-    }
-
     override fun onBack() = intent {
         postSideEffect(GoodsEffect.Back)
     }
@@ -60,6 +52,14 @@ class GoodsViewModel(
 
     override fun clear() = intent {
         reduce { state.copy(keyword = "") }
+    }
+
+    override fun onClick(storeCard: StoreCardComponentState) = intent {
+        postSideEffect(GoodsEffect.GoodsDetails(storeCard.id))
+    }
+
+    override fun favorite(storeCard: StoreCardComponentState) = intent {
+        modifyFavoriteUseCase(storeCard.id, storeCard.favorite).onSuccess { refresh() }
     }
 
     override fun refresh() = intent {

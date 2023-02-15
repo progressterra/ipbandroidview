@@ -2,17 +2,17 @@ package com.progressterra.ipbandroidview.domain
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.domain.usecase.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.domain.usecase.store.FetchGoodsPage
-import com.progressterra.ipbandroidview.model.store.StoreGoods
 
 class GoodsSource(
     private val fetchGoodsPage: FetchGoodsPage,
     private val categoryId: String,
     private val fetchFavoriteIds: FetchFavoriteIds
-) : PagingSource<Int, StoreGoods>() {
+) : PagingSource<Int, StoreCardComponentState>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoreGoods> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoreCardComponentState> {
         val nextPage = params.key ?: 1
         val response = fetchFavoriteIds().onSuccess { favorites ->
             fetchGoodsPage(categoryId, nextPage, favorites)
@@ -27,7 +27,7 @@ class GoodsSource(
         return LoadResult.Error(response.exceptionOrNull()!!)
     }
 
-    override fun getRefreshKey(state: PagingState<Int, StoreGoods>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, StoreCardComponentState>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)

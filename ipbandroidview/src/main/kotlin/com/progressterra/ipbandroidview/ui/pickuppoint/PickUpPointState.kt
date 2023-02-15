@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.pickuppoint
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
 
 @Immutable
 data class PickUpPointState(

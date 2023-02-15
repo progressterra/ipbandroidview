@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.checklist.Check
+import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

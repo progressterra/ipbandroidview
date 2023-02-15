@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.store.OrderResult
+import com.progressterra.ipbandroidview.model.OrderResult
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val verticalPadding = 80.dp

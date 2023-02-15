@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
-import com.progressterra.ipbandroidview.model.checklist.Check
-import com.progressterra.ipbandroidview.model.media.MultisizedImage
+import com.progressterra.ipbandroidview.model.Check
+import com.progressterra.ipbandroidview.model.MultisizedImage
 
 interface ChecklistInteractor {
 

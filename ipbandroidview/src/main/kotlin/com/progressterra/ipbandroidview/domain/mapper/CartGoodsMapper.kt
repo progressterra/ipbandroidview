@@ -7,9 +7,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.TripleMapper
-import com.progressterra.ipbandroidview.model.store.CartGoods
-import com.progressterra.ipbandroidview.model.store.GoodsSize
-import com.progressterra.ipbandroidview.model.store.SimplePrice
+import com.progressterra.ipbandroidview.model.CartGoods
+import com.progressterra.ipbandroidview.model.GoodsSize
+import com.progressterra.ipbandroidview.model.SimplePrice
 
 interface CartGoodsMapper : TripleMapper<RGGoodsInventoryExt, Boolean, Int, CartGoods> {
 

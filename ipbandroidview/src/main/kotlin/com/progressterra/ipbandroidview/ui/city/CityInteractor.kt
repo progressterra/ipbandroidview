@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.city
 
 import android.location.Location
 import com.google.android.gms.maps.model.LatLng
-import com.progressterra.ipbandroidview.model.address.SuggestionUI
+import com.progressterra.ipbandroidview.model.SuggestionUI
 
 interface CityInteractor {
 

@@ -13,31 +13,25 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.progressterra.ipbandroidview.composable.GoodsSearchBar
 import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.StoreCard
 import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponent
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.utils.items
-import com.progressterra.ipbandroidview.model.store.StoreGoods
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun GoodsScreen(
-    state: GoodsState,
-    interactor: GoodsInteractor
+    state: GoodsState, interactor: GoodsInteractor
 ) {
     ThemedLayout(topBar = {
-        GoodsSearchBar(
-            state = state,
+        GoodsSearchBar(state = state,
             onBack = { interactor.onBack() },
             onKeyword = { interactor.editKeyword(it) },
             onSearch = { interactor.search() },
-            onClear = { interactor.clear() }
-        )
+            onClear = { interactor.clear() })
     }) { _, _ ->
-        StateBox(
-            state = state.screenState,
-            refresh = { interactor.refresh() }
-        ) {
-            val lazyItems: LazyPagingItems<StoreGoods> =
+        StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
+            val lazyItems: LazyPagingItems<StoreCardComponentState> =
                 state.itemsFlow.collectAsLazyPagingItems()
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
@@ -46,22 +40,19 @@ fun GoodsScreen(
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
-                if (lazyItems.itemCount > 0)
-                    items(lazyItems) { goods ->
-                        goods?.let {
-                            StoreCard(
-                                state = goods,
-                                onClick = { interactor.openDetails(goods) },
-                                onFavorite = { interactor.favoriteSpecific(goods) })
-                        }
+                if (lazyItems.itemCount > 0) items(lazyItems) { goods ->
+                    goods?.let {
+                        StoreCardComponent(
+                            state = goods, interactor = interactor
+                        )
+
                     }
-                if (state.items.isNotEmpty())
-                    items(state.items) { goods ->
-                        StoreCard(
-                            state = goods,
-                            onClick = { interactor.openDetails(goods) },
-                            onFavorite = { interactor.favoriteSpecific(goods) })
-                    }
+                }
+                if (state.items.isNotEmpty()) items(state.items) { goods ->
+                    StoreCardComponent(
+                        state = goods, interactor = interactor
+                    )
+                }
             }
         }
     }

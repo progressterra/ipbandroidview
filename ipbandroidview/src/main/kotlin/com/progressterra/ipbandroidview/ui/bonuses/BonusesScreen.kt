@@ -18,8 +18,8 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo
-import com.progressterra.ipbandroidview.model.bonuses.Transaction
+import com.progressterra.ipbandroidview.model.BonusesInfo
+import com.progressterra.ipbandroidview.model.Transaction
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

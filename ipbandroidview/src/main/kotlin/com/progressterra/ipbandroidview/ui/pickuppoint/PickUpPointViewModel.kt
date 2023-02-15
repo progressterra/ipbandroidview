@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.pickuppoint
 import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.model.delivery.PickUpPointInfo
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

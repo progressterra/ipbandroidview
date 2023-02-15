@@ -12,15 +12,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.StoreCard
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponent
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun FavoritesScreen(
-    state: FavoritesState,
-    interactor: FavoritesInteractor
+    state: FavoritesState, interactor: FavoritesInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.favorites))
@@ -34,10 +33,9 @@ fun FavoritesScreen(
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(state.items) { goods ->
-                    StoreCard(
-                        state = goods,
-                        onClick = { interactor.openDetails(goods) },
-                        onFavorite = { interactor.favoriteSpecific(goods) })
+                    StoreCardComponent(
+                        state = goods, interactor = interactor
+                    )
                 }
             }
         }
@@ -47,6 +45,5 @@ fun FavoritesScreen(
 @Preview
 @Composable
 private fun MainScreenPreview() {
-    AppTheme {
-    }
+    AppTheme {}
 }

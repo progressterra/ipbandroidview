@@ -20,10 +20,10 @@ import com.progressterra.ipbandroidview.domain.usecase.media.PauseAudioUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.StopRecordingUseCase
-import com.progressterra.ipbandroidview.model.checklist.AuditDocument
-import com.progressterra.ipbandroidview.model.checklist.Check
-import com.progressterra.ipbandroidview.model.checklist.ChecklistStatus
-import com.progressterra.ipbandroidview.model.media.MultisizedImage
+import com.progressterra.ipbandroidview.model.AuditDocument
+import com.progressterra.ipbandroidview.model.Check
+import com.progressterra.ipbandroidview.model.ChecklistStatus
+import com.progressterra.ipbandroidview.model.MultisizedImage
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

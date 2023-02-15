@@ -13,10 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.model.store.Category
-import com.progressterra.ipbandroidview.model.store.SimpleCategory
-import com.progressterra.ipbandroidview.model.store.SimplePrice
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponent
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
+import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
+import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.model.SimpleCategory
+import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val height = 260.dp
@@ -24,10 +26,9 @@ private val height = 260.dp
 @Composable
 fun GoodsGallery(
     modifier: Modifier = Modifier,
-    goods: List<StoreGoods>,
+    goods: List<StoreCardComponentState>,
     category: Category,
-    onGoodsDetails: (StoreGoods) -> Unit,
-    onFavorite: (StoreGoods) -> Unit,
+    storeCardInteractor: StoreCardInteractor,
     onFullCategory: (Category) -> Unit
 ) {
     Column(
@@ -35,9 +36,7 @@ fun GoodsGallery(
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         Text(
-            text = category.name,
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.title
+            text = category.name, color = AppTheme.colors.black, style = AppTheme.typography.title
         )
         LazyRow(
             modifier = Modifier.height(height),
@@ -45,10 +44,8 @@ fun GoodsGallery(
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(goods) { item ->
-                StoreCard(
-                    state = item,
-                    onClick = { onGoodsDetails(item) },
-                    onFavorite = { onFavorite(item) }
+                StoreCardComponent(
+                    state = item, interactor = storeCardInteractor
                 )
             }
             item {
@@ -66,14 +63,13 @@ private fun GoodsGalleryPreview() {
     AppTheme {
         GoodsGallery(
             goods = listOf(
-                StoreGoods(
+                StoreCardComponentState(
                     id = "1",
                     name = "name",
                     image = "image",
                     price = SimplePrice(1000),
                     favorite = false
-                ),
-                StoreGoods(
+                ), StoreCardComponentState(
                     id = "2",
                     name = "name",
                     image = "image",
@@ -81,8 +77,7 @@ private fun GoodsGalleryPreview() {
                     favorite = false
                 )
             ),
-            onGoodsDetails = {},
-            onFavorite = {},
+            storeCardInteractor = StoreCardInteractor.Empty(),
             onFullCategory = {},
             category = SimpleCategory("name", "image")
         )

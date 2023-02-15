@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.photo
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.model.media.MultisizedImage
+import com.progressterra.ipbandroidview.model.MultisizedImage
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

@@ -4,17 +4,16 @@ import com.progressterra.ipbandroidview.composable.BonusSwitchState
 import com.progressterra.ipbandroidview.composable.DeliveryPickerState
 import com.progressterra.ipbandroidview.composable.GoodsLineState
 import com.progressterra.ipbandroidview.composable.PaymentMethodState
-import com.progressterra.ipbandroidview.composable.PromoCodeState
 import com.progressterra.ipbandroidview.composable.ReceiptState
 import com.progressterra.ipbandroidview.composable.ReceiveReceiptState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.address.AddressUI
-import com.progressterra.ipbandroidview.model.bonuses.BonusesInfo
-import com.progressterra.ipbandroidview.model.delivery.Delivery
-import com.progressterra.ipbandroidview.model.delivery.DeliveryType
-import com.progressterra.ipbandroidview.model.store.OrderGoods
-import com.progressterra.ipbandroidview.model.payment.PaymentType
-import com.progressterra.ipbandroidview.model.store.SimplePrice
+import com.progressterra.ipbandroidview.model.AddressUI
+import com.progressterra.ipbandroidview.model.BonusesInfo
+import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.model.DeliveryType
+import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.model.SimplePrice
 
 data class OrderState(
     override val goods: List<OrderGoods> = emptyList(),
@@ -30,11 +29,9 @@ data class OrderState(
     override val availableBonuses: BonusesInfo = BonusesInfo(),
     override val useBonuses: Boolean = false,
     val screenState: ScreenState = ScreenState.LOADING,
-    override val promoCodeName: String = "",
     override val totalPrice: SimplePrice = SimplePrice()
 ) : DeliveryPickerState,
     BonusSwitchState,
-    PromoCodeState,
     PaymentMethodState,
     GoodsLineState,
     ReceiveReceiptState,

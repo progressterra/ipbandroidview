@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.CartGoodsMapper
 import com.progressterra.ipbandroidview.domain.mapper.PriceMapper
-import com.progressterra.ipbandroidview.model.store.Cart
+import com.progressterra.ipbandroidview.model.Cart
 
 interface CartUseCase {
 

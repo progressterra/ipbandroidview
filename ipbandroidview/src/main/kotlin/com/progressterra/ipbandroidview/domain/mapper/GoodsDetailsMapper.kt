@@ -6,10 +6,9 @@ import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.model.store.GoodsDetails
-import com.progressterra.ipbandroidview.model.store.GoodsParameters
-import com.progressterra.ipbandroidview.model.store.GoodsSize
-import com.progressterra.ipbandroidview.model.store.SimplePrice
+import com.progressterra.ipbandroidview.model.GoodsDetails
+import com.progressterra.ipbandroidview.model.GoodsParameters
+import com.progressterra.ipbandroidview.model.SimplePrice
 
 interface GoodsDetailsMapper {
 

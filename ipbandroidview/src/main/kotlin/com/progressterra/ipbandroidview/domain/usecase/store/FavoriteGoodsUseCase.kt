@@ -7,11 +7,11 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.domain.mapper.StoreGoodsMapper
-import com.progressterra.ipbandroidview.model.store.StoreGoods
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface FavoriteGoodsUseCase {
 
-    suspend operator fun invoke(): Result<List<StoreGoods>>
+    suspend operator fun invoke(): Result<List<StoreCardComponentState>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -21,7 +21,7 @@ interface FavoriteGoodsUseCase {
         private val storeGoodsMapper: StoreGoodsMapper
     ) : AbstractUseCase(scrmRepository, provideLocation), FavoriteGoodsUseCase {
 
-        override suspend fun invoke(): Result<List<StoreGoods>> = withToken { token ->
+        override suspend fun invoke(): Result<List<StoreCardComponentState>> = withToken { token ->
             val favoriteIds = favoriteRepository.getClientEntityByType(
                 token, TypeEntities.ONE.ordinal
             ).getOrThrow()!!
