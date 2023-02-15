@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
+import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -31,7 +32,7 @@ fun BottomHolder(modifier: Modifier = Modifier, content: @Composable ColumnScope
 private fun BottomHolderPreview() {
     AppTheme {
         BottomHolder {
-            ThemedButton(
+            ButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { },
                 text = "Some button 1",

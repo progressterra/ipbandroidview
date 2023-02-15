@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.OrderProcessingWidget
-import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -24,12 +24,12 @@ fun OrderProcessingScreen(
         ThemedTopAppBar(title = stringResource(R.string.order), onBack = { interactor.onBack() })
     }, bottomBar = {
         BottomHolder {
-            if (state.orderResult.success) ThemedButton(
+            if (state.orderResult.success) ButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.onNext() },
                 text = stringResource(R.string.on_main)
             )
-            else ThemedButton(
+            else ButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.onBack() },
                 text = stringResource(R.string.repeat_payment)

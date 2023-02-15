@@ -16,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedMimicField
 import com.progressterra.ipbandroidview.composable.ThemedTextButton
@@ -91,7 +90,7 @@ fun SignUpComponent(
         ThemedTopAppBar(title = stringResource(id = R.string.sign_up))
     }, bottomBar = {
         BottomHolder {
-            ThemedButton(
+            ButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.onNext() },
                 text = stringResource(id = R.string.next),

@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
@@ -158,7 +159,7 @@ fun Receipt(
             }
         }
         Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
-        ThemedButton(
+        ButtonComponent(
             modifier = Modifier.fillMaxWidth(),
             onClick = payment,
             text = stringResource(R.string.pay),

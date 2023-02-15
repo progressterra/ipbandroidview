@@ -19,7 +19,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
-import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.ThemedTextField
@@ -75,7 +74,7 @@ fun AuthComponent(
         ThemedTopAppBar(title = stringResource(id = R.string.authorization))
     }, bottomBar = {
         BottomHolder {
-            ThemedButton(
+            ButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.onNext() },
                 text = stringResource(id = R.string.auth_button),

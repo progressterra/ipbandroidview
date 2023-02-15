@@ -16,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
-import com.progressterra.ipbandroidview.composable.ThemedButton
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextButton
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
@@ -70,7 +69,7 @@ fun ConfirmationCodeComponent(
             onBack = { interactor.onBack() })
     }, bottomBar = {
         BottomHolder {
-            ThemedButton(
+            ButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.onNext() },
                 text = stringResource(id = R.string.next)

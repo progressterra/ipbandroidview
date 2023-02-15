@@ -25,7 +25,7 @@ import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.DocumentCard
 import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -59,7 +59,7 @@ fun DocumentsScreen(
                 }
             }
             val density = LocalDensity.current
-            ThemedButton(
+            ButtonComponent(
                 modifier = Modifier
                     .zIndex(1f)
                     .align(Alignment.BottomCenter)

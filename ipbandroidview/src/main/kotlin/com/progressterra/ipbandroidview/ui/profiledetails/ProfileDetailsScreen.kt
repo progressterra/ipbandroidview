@@ -12,7 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
@@ -62,12 +62,12 @@ fun ProfileDetailsScreen(
                     enabled = false
                 )
             }
-            ThemedButton(
+            ButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.confirmChange() },
                 text = stringResource(id = R.string.confirm_change),
             )
-            ThemedButton(
+            ButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.logout() },
                 text = stringResource(id = R.string.logout),

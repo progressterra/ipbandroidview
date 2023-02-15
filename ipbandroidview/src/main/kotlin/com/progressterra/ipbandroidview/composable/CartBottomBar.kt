@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
 import com.progressterra.ipbandroidview.model.SimplePrice
@@ -42,10 +43,10 @@ fun CartBottomBar(
             style = AppTheme.typography.price,
             color = AppTheme.colors.black
         )
-        if (userExist) ThemedButton(
+        if (userExist) ButtonComponent(
             onClick = onNext, text = stringResource(id = R.string.checkout)
         )
-        else ThemedButton(
+        else ButtonComponent(
             onClick = onAuth, text = stringResource(id = R.string.go_to_auth)
         )
     }

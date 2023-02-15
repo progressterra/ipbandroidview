@@ -37,7 +37,7 @@ import com.progressterra.ipbandroidview.composable.CheckDialogBar
 import com.progressterra.ipbandroidview.composable.Divider
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.Stats
-import com.progressterra.ipbandroidview.composable.ThemedButton
+import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
@@ -147,7 +147,7 @@ fun ChecklistScreen(
                         if (state.status.isOngoing()) {
                             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
                             Row(Modifier.padding(horizontal = AppTheme.dimensions.small)) {
-                                ThemedButton(
+                                ButtonComponent(
                                     modifier = Modifier.fillMaxWidth(), onClick = {
                                         interactor.applyCheck()
                                         coroutineScope.launch { sheetState.hide() }
@@ -170,7 +170,7 @@ fun ChecklistScreen(
                 Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
                     if (state.status.isOngoing()) {
                         if (state.stats.remaining >= 1)
-                            ThemedButton(
+                            ButtonComponent(
                                 modifier = Modifier.weight(1f),
                                 onClick = { interactor.startStopAudit() },
                                 text = stringResource(id = R.string.end_audit),
@@ -179,7 +179,7 @@ fun ChecklistScreen(
                                 enabled = state.checklistScreenState.isSuccess()
                             )
                         else
-                            ThemedButton(
+                            ButtonComponent(
                                 modifier = Modifier.weight(1f),
                                 onClick = { interactor.startStopAudit() },
                                 text = stringResource(id = R.string.end_audit),
@@ -188,7 +188,7 @@ fun ChecklistScreen(
                         Stats(modifier = Modifier.weight(1f), stats = state.stats)
                     }
                     if (state.status.isCanBeStarted())
-                        ThemedButton(
+                        ButtonComponent(
                             modifier = Modifier.fillMaxWidth(),
                             onClick = { interactor.startStopAudit() },
                             text = stringResource(R.string.start_audit),

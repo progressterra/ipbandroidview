@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Button
@@ -10,8 +10,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+/**
+ * @param modifier - modifier for the button
+ * @param onClick - click listener for the button
+ * @param text - text for the button
+ * @param enabled - whether the button is enabled
+ * @param textColor - text color for the button
+ * @param tint - tint for the button
+ */
 @Composable
-fun ThemedButton(
+fun ButtonComponent(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
@@ -42,7 +50,7 @@ fun ThemedButton(
 @Composable
 private fun ThemedButtonEnabledPreview() {
     AppTheme {
-        ThemedButton(onClick = {}, text = "Some button")
+        ButtonComponent(onClick = {}, text = "Some button")
     }
 }
 
@@ -50,6 +58,6 @@ private fun ThemedButtonEnabledPreview() {
 @Composable
 private fun ThemedButtonDisabledPreview() {
     AppTheme {
-        ThemedButton(onClick = {}, text = "Some button", enabled = false)
+        ButtonComponent(onClick = {}, text = "Some button", enabled = false)
     }
 }
