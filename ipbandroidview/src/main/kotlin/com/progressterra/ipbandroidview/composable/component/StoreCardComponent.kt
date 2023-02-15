@@ -51,6 +51,11 @@ interface StoreCardInteractor {
     }
 }
 
+/**
+ * @param modifier - modifier for the whole card
+ * @param state - state of the card
+ * @param interactor - interactor for the card
+ */
 @Composable
 fun StoreCardComponent(
     modifier: Modifier = Modifier, state: StoreCardComponentState, interactor: StoreCardInteractor
@@ -139,7 +144,7 @@ private fun StoreItemCardPreview() {
                 modifier = Modifier.weight(1f), state = StoreCardComponentState(
                     id = "",
                     price = SimplePrice(0),
-                    name = "Some cool item\n lol",
+                    name = "Some cool item",
                     favorite = true,
                     image = ""
                 ), interactor = StoreCardInteractor.Empty()
