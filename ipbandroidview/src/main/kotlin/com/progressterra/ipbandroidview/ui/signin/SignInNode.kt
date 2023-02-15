@@ -15,7 +15,9 @@ class SignInNode(
     buildContext: BuildContext,
     private val onNext: (phoneNumber: String) -> Unit,
     private val onSkip: (() -> Unit)? = null,
-    private val settings: SignInSettings,
+    private val canBeSkipped: Boolean,
+    private val offerUrl: String,
+    private val policyUrl: String
 ) : Node(buildContext) {
 
     @Composable
@@ -34,7 +36,9 @@ class SignInNode(
         SignInScreen(
             state = state.value,
             interactor = viewModel,
-            settings = settings
+            canBeSkipped = canBeSkipped,
+            offerUrl = offerUrl,
+            policyUrl = policyUrl
         )
     }
 }

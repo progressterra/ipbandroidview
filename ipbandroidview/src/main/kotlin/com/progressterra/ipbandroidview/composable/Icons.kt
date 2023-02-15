@@ -495,7 +495,7 @@ fun SumIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun SumIconPreview() {
+private fun SumIconPreview() {
     SumIcon()
 }
 
@@ -511,7 +511,7 @@ fun SuccessIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun SuccessIconPreview() {
+private fun SuccessIconPreview() {
     SuccessIcon()
 }
 
@@ -527,7 +527,7 @@ fun FailedIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun FailedIconPreview() {
+private fun FailedIconPreview() {
     FailedIcon()
 }
 
@@ -559,7 +559,7 @@ fun AuditsIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun AuditsIconPreview() {
+private fun AuditsIconPreview() {
     AuditsIcon()
 }
 
@@ -575,7 +575,7 @@ fun DocumentsIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun DocumentsIconPreview() {
+private fun DocumentsIconPreview() {
     DocumentsIcon()
 }
 
@@ -591,7 +591,7 @@ fun SendIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun SendIconPreview() {
+private fun SendIconPreview() {
     SendIcon()
 }
 
@@ -607,7 +607,7 @@ fun ShareIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun ShareIconPreview() {
+private fun ShareIconPreview() {
     ShareIcon()
 }
 
@@ -623,6 +623,6 @@ fun CopyIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun CopyIconPreview() {
+private fun CopyIconPreview() {
     CopyIcon()
 }
