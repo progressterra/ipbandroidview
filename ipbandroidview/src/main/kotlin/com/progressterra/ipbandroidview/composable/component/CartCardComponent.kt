@@ -1,0 +1,138 @@
+package com.progressterra.ipbandroidview.composable.component
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.IconButton
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.composable.FavoriteButton
+import com.progressterra.ipbandroidview.composable.SimpleImage
+import com.progressterra.ipbandroidview.composable.TrashIcon
+import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.model.Favorite
+import com.progressterra.ipbandroidview.model.GoodsSize
+import com.progressterra.ipbandroidview.model.Id
+import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.theme.AppTheme
+
+private val picWidth = 80.dp
+
+private val picHeight = 96.dp
+
+data class CartCardComponentState(
+    override val id: String,
+    val color: String,
+    override val favorite: Boolean,
+    val image: String,
+    val inCartCounter: Int,
+    val name: String,
+    val price: SimplePrice,
+    val size: GoodsSize
+) : Id, Favorite<CartCardComponentState> {
+
+    override fun reverseFavorite(): CartCardComponentState = this.copy(favorite = !favorite)
+
+    fun toOrderGoods(): OrderGoods = OrderGoods(
+        id = this.id,
+        inCartCounter = this.inCartCounter,
+        image = this.image,
+        name = name,
+        totalPrice = price * inCartCounter
+    )
+}
+
+interface CartCardComponentInteractor {
+
+    fun favorite(cartCard: CartCardComponentState)
+    fun delete(cartCard: CartCardComponentState)
+    fun onDetails(cartCard: CartCardComponentState)
+
+    class Empty : CartCardComponentInteractor {
+        override fun favorite(cartCard: CartCardComponentState) = Unit
+        override fun delete(cartCard: CartCardComponentState) = Unit
+        override fun onDetails(cartCard: CartCardComponentState) = Unit
+    }
+}
+
+/**
+ * @param modifier - modifier for root layout
+ * @param state - state of component
+ * @param interactor - interactor of component
+ */
+@Composable
+fun CartCardComponent(
+    modifier: Modifier = Modifier,
+    state: CartCardComponentState,
+    interactor: CartCardComponentInteractor
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(AppTheme.shapes.medium)
+            .background(AppTheme.colors.surfaces)
+            .niceClickable(onClick = { interactor.onDetails(state) })
+            .padding(AppTheme.dimensions.small),
+        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+    ) {
+        SimpleImage(
+            modifier = Modifier
+                .size(width = picWidth, height = picHeight)
+                .clip(AppTheme.shapes.small),
+            url = state.image,
+            backgroundColor = AppTheme.colors.surfaces
+        )
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.smany)
+        ) {
+            Text(
+                text = state.name, color = AppTheme.colors.black, style = AppTheme.typography.text
+            )
+            Text(
+                text = "${state.color}, ${state.size.primary}, ${state.inCartCounter} шт",
+                color = AppTheme.colors.gray1,
+                style = AppTheme.typography.text
+            )
+            Text(
+                text = state.price.toString(),
+                color = AppTheme.colors.black,
+                style = AppTheme.typography.title
+            )
+        }
+        Column {
+            FavoriteButton(favorite = state.favorite, onClick = { interactor.favorite(state) })
+            IconButton(onClick = { interactor.delete(state) }) {
+                TrashIcon(enabled = false)
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun CartCardPreview() {
+    AppTheme {
+        CartCardComponent(
+            state = CartCardComponentState(
+                id = "",
+                color = "GREEN",
+                favorite = true,
+                image = "",
+                inCartCounter = 30,
+                name = "YOOOY SO COOL ITEM",
+                price = SimplePrice(3000),
+                size = GoodsSize(true, "", null)
+            ), interactor = CartCardComponentInteractor.Empty()
+        )
+    }
+}

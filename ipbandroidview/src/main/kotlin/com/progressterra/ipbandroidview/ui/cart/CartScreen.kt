@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.CartBottomBar
-import com.progressterra.ipbandroidview.composable.CartCard
+import com.progressterra.ipbandroidview.composable.component.CartCardComponent
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
@@ -39,11 +39,9 @@ fun CartScreen(
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(state.cart.listGoods) { cartGoods ->
-                    CartCard(
+                    CartCardComponent(
                         state = cartGoods,
-                        onFavorite = { interactor.favoriteSpecific(cartGoods) },
-                        onDelete = { interactor.removeSpecific(cartGoods) },
-                        onDetails = { interactor.openDetails(cartGoods) }
+                        interactor = interactor
                     )
                 }
             }

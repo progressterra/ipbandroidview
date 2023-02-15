@@ -1,14 +1,9 @@
 package com.progressterra.ipbandroidview.ui.cart
 
-import com.progressterra.ipbandroidview.model.CartGoods
+import com.progressterra.ipbandroidview.composable.component.CartCardComponentInteractor
+import com.progressterra.ipbandroidview.composable.component.CartCardComponentState
 
-interface CartInteractor {
-
-    fun openDetails(goods: CartGoods)
-
-    fun favoriteSpecific(goods: CartGoods)
-
-    fun removeSpecific(goods: CartGoods)
+interface CartInteractor : CartCardComponentInteractor {
 
     fun onNext()
 
@@ -18,11 +13,11 @@ interface CartInteractor {
 
     class Empty: CartInteractor {
 
-        override fun openDetails(goods: CartGoods) = Unit
+        override fun favorite(cartCard: CartCardComponentState) = Unit
 
-        override fun favoriteSpecific(goods: CartGoods) = Unit
+        override fun delete(cartCard: CartCardComponentState) = Unit
 
-        override fun removeSpecific(goods: CartGoods) = Unit
+        override fun onDetails(cartCard: CartCardComponentState) = Unit
 
         override fun onNext() = Unit
 

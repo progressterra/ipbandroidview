@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCa
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.removeItem
 import com.progressterra.ipbandroidview.ext.replaceById
-import com.progressterra.ipbandroidview.model.CartGoods
+import com.progressterra.ipbandroidview.composable.component.CartCardComponentState
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -25,9 +25,9 @@ class CartViewModel(
 
     override val container: Container<CartState, CartEffect> = container(CartState())
 
-    override fun favoriteSpecific(goods: CartGoods) = intent {
-        modifyFavoriteUseCase(goods.id, goods.favorite).onSuccess {
-            val newList = state.cart.listGoods.replaceById(goods.reverseFavorite())
+    override fun favorite(cartCard: CartCardComponentState) = intent {
+        modifyFavoriteUseCase(cartCard.id, cartCard.favorite).onSuccess {
+            val newList = state.cart.listGoods.replaceById(cartCard.reverseFavorite())
             val newCart = state.cart.copy(listGoods = newList)
             reduce { state.copy(cart = newCart) }
         }
@@ -41,16 +41,16 @@ class CartViewModel(
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    override fun openDetails(goods: CartGoods) =
-        intent { postSideEffect(CartEffect.GoodsDetails(goods.id)) }
+    override fun onDetails(cartCard: CartCardComponentState) =
+        intent { postSideEffect(CartEffect.GoodsDetails(cartCard.id)) }
 
     override fun onNext() = intent {
         postSideEffect(CartEffect.Next(state.cart.listGoods.map { it.toOrderGoods() }))
     }
 
-    override fun removeSpecific(goods: CartGoods) = intent {
-        fastRemoveFromCartUseCase(goods.id, goods.inCartCounter).onSuccess {
-            val newListGoods = state.cart.listGoods.removeItem(goods)
+    override fun delete(cartCard: CartCardComponentState) = intent {
+        fastRemoveFromCartUseCase(cartCard.id, cartCard.inCartCounter).onSuccess {
+            val newListGoods = state.cart.listGoods.removeItem(cartCard)
             val newCart = state.cart.copy(listGoods = newListGoods)
             reduce {
                 state.copy(cart = newCart)
