@@ -22,13 +22,13 @@ class ConfirmationCodeNode(
     private val onDetails: (() -> Unit)?,
     private val onSkipDetails: () -> Unit,
     private val onBack: () -> Unit,
-    private val settings: ConfirmationCodeSettings
+    private val checkUserDetails: Boolean
 ) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: ConfirmationCodeViewModel =
-            getViewModel(parameters = { parametersOf(settings) })
+            getViewModel(parameters = { parametersOf(checkUserDetails) })
         val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
@@ -49,8 +49,7 @@ class ConfirmationCodeNode(
         }
         val state = viewModel.collectAsState()
         ConfirmationCodeScreen(
-            state = state.value,
-            interactor = viewModel
+            state = state.value, interactor = viewModel
         )
     }
 }

@@ -2,11 +2,13 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeComponentInteractor
+import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.user.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -19,17 +21,18 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class ConfirmationCodeViewModel(
-    private val settings: ConfirmationCodeSettings,
+    private val checkUserDetails: Boolean,
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
     private val needDetailsUseCase: NeedDetailsUseCase
-) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect>,
-    ConfirmationCodeInteractor {
+) : ViewModel(), ContainerHost<ConfirmationCodeComponentState, ConfirmationCodeEffect>,
+    ConfirmationCodeComponentInteractor {
 
-    override val container: Container<ConfirmationCodeState, ConfirmationCodeEffect> = container(
-        ConfirmationCodeState()
-    )
+    override val container: Container<ConfirmationCodeComponentState, ConfirmationCodeEffect> =
+        container(
+            ConfirmationCodeComponentState()
+        )
 
     init {
         startTimer()
@@ -51,7 +54,7 @@ class ConfirmationCodeViewModel(
             fetchUserUseCase().onSuccess {
                 needDetailsUseCase().onSuccess {
                     reduce { state.copy(screenState = ScreenState.SUCCESS) }
-                    if (it && settings.checkUserDetails)
+                    if (it && checkUserDetails)
                         postSideEffect(ConfirmationCodeEffect.NeedDetails)
                     else
                         postSideEffect(ConfirmationCodeEffect.SkipDetails)
@@ -69,7 +72,7 @@ class ConfirmationCodeViewModel(
         }
     }
 
-    override fun editCode(code: String) = blockingIntent {
+    override fun codeChanged(code: String) = blockingIntent {
         if (code.length <= 4) reduce { state.copy(code = code) }
         if (code.length == 4) onNext()
     }
