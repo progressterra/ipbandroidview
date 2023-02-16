@@ -20,7 +20,6 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-//@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GoodsDetailsScreen(
     state: GoodsDetailsScreenState, interactor: GoodsDetailsInteractor
@@ -45,14 +44,6 @@ fun GoodsDetailsScreen(
         )
     }) { _, _ ->
         StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
-//            val sheetState = rememberModalBottomSheetState(
-//                initialValue = ModalBottomSheetValue.Hidden, skipHalfExpanded = true
-//            )
-//            val coroutineScope = rememberCoroutineScope()
-//            ModalBottomSheetLayout(
-//                sheetState = sheetState, sheetShape = AppTheme.shapes.dialog, sheetContent = {
-//                    SizeTableBottomSheet(url = state.sizeTable)
-//                }) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -63,19 +54,12 @@ fun GoodsDetailsScreen(
                 Gallery(
                     state = state.goodsDetails
                 )
-//                    SizesLine(
-//                        modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
-//                        state = state.goodsDetails,
-//                        onSize = { interactor.chooseSize(it) },
-//                        onTable = { coroutineScope.launch { sheetState.show() } }
-//                    )
                 GoodsDetails(
                     modifier = Modifier, state = state.goodsDetails
                 )
             }
         }
     }
-//    }
 }
 
 @Preview

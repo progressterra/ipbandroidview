@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,11 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.WebViewCompose
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun SizeTableBottomSheet(
+fun SizeTableComponent(
     modifier: Modifier = Modifier,
     url: String
 ) {
@@ -43,4 +45,12 @@ fun SizeTableBottomSheet(
         )
     }
     WebViewCompose(url = url)
+}
+
+@Composable
+@Preview
+private fun SizeTableComponentPreview() {
+    AppTheme {
+        SizeTableComponent(url = "https://www.google.com")
+    }
 }
