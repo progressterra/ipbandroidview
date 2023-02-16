@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,13 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.composable.ForwardIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-
 @Composable
-fun SubCategory(
+fun SubCategoryComponent(
     modifier: Modifier = Modifier,
     state: CategoryWithSubcategories,
     openCategory: (CategoryWithSubcategories) -> Unit
@@ -47,10 +47,13 @@ fun SubCategory(
 @Composable
 private fun SubCategoryPreview() {
     AppTheme {
-        SubCategory(
+        SubCategoryComponent(
             modifier = Modifier.width(300.dp),
             state = CategoryWithSubcategories(
-                    id = "", name = "Some cool category", subCategories = listOf(), hasNext = false
+                id = "",
+                name = "Some cool category",
+                subCategories = listOf(),
+                hasNext = false
             ), openCategory = {}
         )
     }

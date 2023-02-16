@@ -8,8 +8,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.CategorySearchBar
-import com.progressterra.ipbandroidview.composable.SubCategory
+import com.progressterra.ipbandroidview.composable.component.CategorySearchBar
+import com.progressterra.ipbandroidview.composable.component.SubCategoryComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -36,7 +36,7 @@ fun SubCatalogScreen(
             contentPadding = PaddingValues(AppTheme.dimensions.small)
         ) {
             items(state.currentCategoryWithSubcategories.subCategories) { category ->
-                SubCategory(state = category, openCategory = { interactor.onSubCategory(it) })
+                SubCategoryComponent(state = category, openCategory = { interactor.onSubCategory(it) })
             }
         }
     }

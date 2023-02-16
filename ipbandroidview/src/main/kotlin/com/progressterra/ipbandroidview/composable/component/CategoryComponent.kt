@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.composable.SimpleImage
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 import com.progressterra.ipbandroidview.model.MainCategory
@@ -23,7 +24,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 private val picHeight = 104.dp
 
 @Composable
-fun MainCategoryItem(
+fun CategoryComponent(
     modifier: Modifier = Modifier,
     state: MainCategory,
     openCategory: (CategoryWithSubcategories) -> Unit
@@ -66,7 +67,7 @@ fun MainCategoryItem(
 @Composable
 private fun CategoryPreview() {
     AppTheme {
-        MainCategoryItem(
+        CategoryComponent(
             modifier = Modifier.width(300.dp),
             state = MainCategory(
                 id = "", name = "", image = "", subCategories = listOf(), hasNext = false

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.composable.CatalogSearchBarState
+import com.progressterra.ipbandroidview.composable.component.CatalogSearchBarState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.MainCategory
 
