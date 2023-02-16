@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.model.OrderGoods
-import com.progressterra.ipbandroidview.model.OrderResult
+import com.progressterra.ipbandroidview.composable.component.OrderProcessingComponentState
 import com.progressterra.ipbandroidview.model.PickUpPointInfo
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
@@ -23,7 +23,7 @@ class OrderNode(
     private val onCity: () -> Unit,
     private val onGoodsDetails: (String) -> Unit,
     private val onChoosePickUpPoint: (List<PickUpPointInfo>) -> Unit,
-    private val onNext: (OrderResult) -> Unit
+    private val onNext: (OrderProcessingComponentState) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -35,7 +35,7 @@ class OrderNode(
                 is OrderEffect.City -> onCity()
                 is OrderEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
                 is OrderEffect.PickUp -> onChoosePickUpPoint(it.pickUpPoints)
-                is OrderEffect.Next -> onNext(it.orderResult)
+                is OrderEffect.Next -> onNext(it.orderProcessingComponentState)
             }
         }
         var alreadyLaunched by rememberSaveable(goods) {

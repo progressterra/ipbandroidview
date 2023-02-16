@@ -1,5 +1,6 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.component
 
+import android.os.Parcelable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,15 +15,25 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.OrderResult
 import com.progressterra.ipbandroidview.theme.AppTheme
+import kotlinx.parcelize.Parcelize
 
 private val verticalPadding = 80.dp
 
+@Parcelize
+data class OrderProcessingComponentState(
+    val success: Boolean = false,
+    val additionalInfo: String = ""
+) : Parcelable
+
+/**
+ * @param modifier - modifier for component
+ * @param state - state of component
+ */
 @Composable
-fun OrderProcessingWidget(
+fun OrderProcessingComponent(
     modifier: Modifier,
-    state: OrderResult
+    state: OrderProcessingComponentState
 ) {
     Column(
         modifier = modifier

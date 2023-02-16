@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.model.OrderResult
+import com.progressterra.ipbandroidview.composable.component.OrderProcessingComponentState
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -12,7 +12,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class OrderProcessingNode(
     buildContext: BuildContext,
-    private val orderResult: OrderResult,
+    private val orderProcessingComponentState: OrderProcessingComponentState,
     private val onBack: () -> Unit,
     private val onNext: () -> Unit
 ) : Node(buildContext) {
@@ -26,7 +26,7 @@ class OrderProcessingNode(
                 is OrderProcessingEffect.Next -> onNext()
             }
         }
-        viewModel.setOrderResult(orderResult)
+        viewModel.setOrderResult(orderProcessingComponentState)
         val state = viewModel.collectAsState()
         OrderProcessingScreen(
             state = state.value,

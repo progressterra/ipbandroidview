@@ -5,11 +5,11 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ext.throwOnFailure
-import com.progressterra.ipbandroidview.model.OrderResult
+import com.progressterra.ipbandroidview.composable.component.OrderProcessingComponentState
 
 interface ConfirmOrderUseCase {
 
-    suspend operator fun invoke(): Result<OrderResult>
+    suspend operator fun invoke(): Result<OrderProcessingComponentState>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -17,12 +17,12 @@ interface ConfirmOrderUseCase {
         private val cartRepository: CartRepository
     ) : ConfirmOrderUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun invoke(): Result<OrderResult> = withToken { token ->
+        override suspend fun invoke(): Result<OrderProcessingComponentState> = withToken { token ->
             try {
                 cartRepository.confirmOrder(token).throwOnFailure()
-                OrderResult(success = true, additionalInfo = "Заказ успешно создан!")
+                OrderProcessingComponentState(success = true, additionalInfo = "Заказ успешно создан!")
             } catch (e: Exception) {
-                OrderResult(success = false, additionalInfo = "Что-то пошло не так!")
+                OrderProcessingComponentState(success = false, additionalInfo = "Что-то пошло не так!")
             }
         }
     }
