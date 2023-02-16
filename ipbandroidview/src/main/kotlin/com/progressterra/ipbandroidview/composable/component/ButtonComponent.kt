@@ -10,6 +10,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+//TODO: make button stateful and with interactor, maybe with an id
+
+data class ButtonComponentState(
+    val id: String,
+    val enabled: Boolean
+)
+
 /**
  * @param modifier - modifier for the button
  * @param onClick - click listener for the button
