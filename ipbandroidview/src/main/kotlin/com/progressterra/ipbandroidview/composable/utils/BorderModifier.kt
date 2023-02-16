@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.composable.utils
 
-import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
@@ -10,7 +9,6 @@ import androidx.compose.ui.unit.Dp
 
 data class SideBorder(val strokeWidth: Dp, val color: Color)
 
-@Stable
 fun Modifier.sideBorder(
     start: SideBorder? = null,
     top: SideBorder? = null,
