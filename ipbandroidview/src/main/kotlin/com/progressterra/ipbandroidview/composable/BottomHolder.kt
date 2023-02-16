@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.component.ButtonComponent
+import com.progressterra.ipbandroidview.composable.component.ThemedTextButton
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

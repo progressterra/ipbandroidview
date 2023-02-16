@@ -20,7 +20,6 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.AddressSuggestions
-import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.core.ComponentEvent
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.SuggestionUI

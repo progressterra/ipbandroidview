@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.ButtonDefaults

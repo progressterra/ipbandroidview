@@ -20,8 +20,6 @@ import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.ThemedTextButton
-import com.progressterra.ipbandroidview.composable.ThemedTextField
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 

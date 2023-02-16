@@ -39,7 +39,7 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.Stats
 import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.ThemedTextField
+import com.progressterra.ipbandroidview.composable.component.ThemedTextField
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.VoiceInput
 import com.progressterra.ipbandroidview.composable.YesNoButton

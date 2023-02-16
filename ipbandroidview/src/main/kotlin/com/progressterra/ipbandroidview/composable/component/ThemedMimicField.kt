@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.composable.component
 
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
