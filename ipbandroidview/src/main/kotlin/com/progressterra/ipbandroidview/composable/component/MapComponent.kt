@@ -44,6 +44,11 @@ sealed class MapComponentEvent : ComponentEvent {
     data class SuggestionClicked(val suggestion: SuggestionUI) : MapComponentEvent()
 }
 
+/**
+ * @param modifier - modifier for the component
+ * @param state - state of the component
+ * @param onEvent - callback for events
+ */
 @Composable
 fun MapComponent(
     modifier: Modifier = Modifier, state: MapComponentState, onEvent: (MapComponentEvent) -> Unit
