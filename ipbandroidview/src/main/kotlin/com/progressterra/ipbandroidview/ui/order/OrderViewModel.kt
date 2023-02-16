@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.order
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.composable.component.ReceiptComponentEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
@@ -13,9 +14,9 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseC
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.DeliveryType
-import com.progressterra.ipbandroidview.model.PickUpPointInfo
-import com.progressterra.ipbandroidview.model.PaymentType
 import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.model.PickUpPointInfo
 import com.progressterra.ipbandroidview.model.SimplePrice
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -63,8 +64,7 @@ class OrderViewModel(
         }.onSuccess { paymentMethods ->
             reduce {
                 state.copy(
-                    paymentMethods = paymentMethods,
-                    screenState = ScreenState.SUCCESS
+                    paymentMethods = paymentMethods, screenState = ScreenState.SUCCESS
                 )
             }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
@@ -142,7 +142,12 @@ class OrderViewModel(
         reduce { state.copy(email = email) }
     }
 
-    override fun payment() = intent {
+    override fun handleEvent(event: ReceiptComponentEvent) = when (event) {
+        is ReceiptComponentEvent.OpenUrl -> openUrl(event.url)
+        is ReceiptComponentEvent.Payment -> payment()
+    }
+
+    private fun payment() = intent {
         state.selectedDeliveryMethod?.let { deliveryMethod ->
             setDeliveryAddressUseCase(deliveryMethod, state.addressUI).onSuccess {
                 confirmOrderUseCase().onSuccess { postSideEffect(OrderEffect.Next(it)) }
@@ -150,10 +155,13 @@ class OrderViewModel(
         }
     }
 
-    override fun openUrl(url: String) = intent { openUrlUseCase(url) }
+    private fun openUrl(url: String) = intent { openUrlUseCase(url) }
 
     private fun checkPaymentAvailability() = intent {
-        reduce { state.copy(paymentReady = state.selectedPaymentMethod != null && state.selectedDeliveryMethod != null) }
+        val newReceiptComponentState = state.receiptComponentState.copy(
+            paymentReady = state.selectedPaymentMethod != null && state.selectedDeliveryMethod != null
+        )
+        reduce { state.copy(receiptComponentState = newReceiptComponentState) }
     }
 
     private fun recalculate() = intent {
@@ -164,6 +172,7 @@ class OrderViewModel(
         state.selectedDeliveryMethod?.price?.let {
             totalPrice += it
         }
-        reduce { state.copy(totalPrice = totalPrice) }
+        val newReceiptComponentState = state.receiptComponentState.copy(totalPrice = totalPrice)
+        reduce { state.copy(receiptComponentState = newReceiptComponentState) }
     }
 }

@@ -14,11 +14,11 @@ import com.progressterra.ipbandroidview.composable.BonusSwitch
 import com.progressterra.ipbandroidview.composable.DeliveryPicker
 import com.progressterra.ipbandroidview.composable.GoodsLine
 import com.progressterra.ipbandroidview.composable.PaymentMethod
-import com.progressterra.ipbandroidview.composable.Receipt
 import com.progressterra.ipbandroidview.composable.ReceiveReceipt
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.ReceiptComponent
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -58,10 +58,10 @@ fun OrderScreen(
                     check = { interactor.changeReceiveReceipt(it) },
                     email = { interactor.editEmail(it) }
                 )
-                Receipt(
-                    state = state,
-                    payment = { interactor.payment() },
-                    openUrl = { interactor.openUrl(it) })
+                ReceiptComponent(
+                    state = state.receiptComponentState,
+                    onEvent = { interactor.handleEvent(it) }
+                )
             }
         }
     }

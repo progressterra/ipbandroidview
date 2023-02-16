@@ -1,9 +1,10 @@
 package com.progressterra.ipbandroidview.ui.order
 
+import com.progressterra.ipbandroidview.composable.component.ReceiptComponentEvent
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.PaymentType
 
-interface OrderInteractor {
+interface OrderInteractor : ReceiptComponentEventHandler {
 
     fun onBack()
 
@@ -25,13 +26,11 @@ interface OrderInteractor {
 
     fun editEmail(email: String)
 
-    fun payment()
-
-    fun openUrl(url: String)
-
     fun refresh()
 
     class Empty : OrderInteractor {
+
+        override fun handleEvent(event: ReceiptComponentEvent) = Unit
 
         override fun onBack() = Unit
 
@@ -52,10 +51,6 @@ interface OrderInteractor {
         override fun changeReceiveReceipt(receiveReceive: Boolean) = Unit
 
         override fun editEmail(email: String) = Unit
-
-        override fun payment() = Unit
-
-        override fun openUrl(url: String) = Unit
 
         override fun refresh() = Unit
     }
