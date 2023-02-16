@@ -12,6 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+/**
+ * @param modifier - modifier for the top app bar
+ * @param leftActions - actions on the left side of the top app bar
+ * @param title - title of the top app bar
+ * @param rightActions - actions on the right side of the top app bar
+ * @param backgroundColor - background color of the top app bar
+ */
 @Composable
 fun BasicTopAppBar(
     modifier: Modifier = Modifier,

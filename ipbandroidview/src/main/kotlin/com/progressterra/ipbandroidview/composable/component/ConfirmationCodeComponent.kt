@@ -74,7 +74,7 @@ fun ConfirmationCodeComponent(
                 text = stringResource(id = R.string.next)
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-            ThemedTextButton(modifier = Modifier.fillMaxWidth(),
+            TextButtonComponent(modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.resend() },
                 text = state.timer.ifBlank { stringResource(id = R.string.resend) },
                 enabled = state.canResend

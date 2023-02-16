@@ -11,6 +11,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+/**
+ * @param modifier - modifier for TextField
+ * @param text - text to display
+ * @param hint - hint to display
+ * @param onClick - callback on click
+ */
 @Composable
 fun ThemedMimicField(
     modifier: Modifier = Modifier,

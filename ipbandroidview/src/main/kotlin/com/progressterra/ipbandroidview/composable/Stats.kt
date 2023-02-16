@@ -63,5 +63,6 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
 private fun StatsPreview() {
     AppTheme {
         Stats(stats = ChecklistStats(14, 10, 3, 1))
+        Stats(stats = ChecklistStats(14, 10, 3, 3))
     }
 }

@@ -94,7 +94,7 @@ fun SignUpComponent(
                 enabled = state.isDataValid,
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-            ThemedTextButton(
+            TextButtonComponent(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = { interactor.onSkip() },
                 text = stringResource(id = R.string.auth_skip)
@@ -121,11 +121,11 @@ fun SignUpComponent(
                             interactor.calendarDismiss()
                         }, onDismiss = { interactor.calendarDismiss() })
                     }
-                    ThemedTextField(modifier = Modifier.fillMaxWidth(),
+                    TextFieldComponent(modifier = Modifier.fillMaxWidth(),
                         text = state.name,
                         hint = stringResource(id = R.string.name_surname),
                         onChange = { interactor.editName(it) })
-                    ThemedTextField(modifier = Modifier.fillMaxWidth(),
+                    TextFieldComponent(modifier = Modifier.fillMaxWidth(),
                         text = state.email,
                         hint = stringResource(id = R.string.email),
                         onChange = { interactor.editEmail(it) })
@@ -135,7 +135,7 @@ fun SignUpComponent(
                         text = state.birthday.print(),
                         hint = stringResource(id = R.string.birthday),
                     )
-                    ThemedTextField(
+                    TextFieldComponent(
                         modifier = Modifier.fillMaxWidth(),
                         text = state.phoneNumber,
                         hint = stringResource(id = R.string.phone_number),

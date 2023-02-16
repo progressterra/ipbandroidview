@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.ThemedTextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -43,19 +43,19 @@ fun ProfileDetailsScreen(
                     .padding(AppTheme.dimensions.medium),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
             ) {
-                ThemedTextField(
+                TextFieldComponent(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.name,
                     hint = stringResource(id = R.string.name_surname),
                     onChange = { interactor.editName(it) }
                 )
-                ThemedTextField(
+                TextFieldComponent(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.email,
                     hint = stringResource(id = R.string.email),
                     onChange = { interactor.editEmail(it) }
                 )
-                ThemedTextField(
+                TextFieldComponent(
                     modifier = Modifier.fillMaxWidth(),
                     text = state.phone,
                     hint = stringResource(id = R.string.phone_number),

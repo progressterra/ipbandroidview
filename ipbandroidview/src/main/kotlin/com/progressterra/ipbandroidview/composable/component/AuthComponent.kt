@@ -80,7 +80,7 @@ fun AuthComponent(
             )
             if (canBeSkipped) {
                 Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-                ThemedTextButton(
+                TextButtonComponent(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = { interactor.onSkip() },
                     text = stringResource(id = R.string.auth_skip)
@@ -101,7 +101,7 @@ fun AuthComponent(
                         .background(AppTheme.colors.surfaces)
                         .padding(AppTheme.dimensions.medium)
                 ) {
-                    ThemedTextField(
+                    TextFieldComponent(
                         modifier = Modifier.fillMaxWidth(),
                         text = state.phoneNumber,
                         hint = stringResource(id = R.string.phone_number),

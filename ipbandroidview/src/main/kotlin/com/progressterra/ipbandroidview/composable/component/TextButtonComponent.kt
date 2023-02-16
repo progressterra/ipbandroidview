@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
-fun ThemedTextButton(
+fun TextButtonComponent(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
@@ -37,7 +37,7 @@ fun ThemedTextButton(
 @Composable
 private fun ThemedTextButtonEnabledPreview() {
     AppTheme {
-        ThemedTextButton(onClick = {}, text = "Some button")
+        TextButtonComponent(onClick = {}, text = "Some button")
     }
 }
 
@@ -45,6 +45,6 @@ private fun ThemedTextButtonEnabledPreview() {
 @Composable
 private fun ThemedTextButtonDisabledPreview() {
     AppTheme {
-        ThemedTextButton(onClick = {}, text = "Some button", enabled = false)
+        TextButtonComponent(onClick = {}, text = "Some button", enabled = false)
     }
 }

@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
@@ -54,7 +54,7 @@ fun ReceiveReceipt(
             ThemedSwitch(onChange = check, checked = state.receiveReceipt)
         }
         if (state.receiveReceipt)
-            ThemedTextField(
+            TextFieldComponent(
                 modifier = Modifier.fillMaxWidth(),
                 text = state.email,
                 hint = stringResource(R.string.email),

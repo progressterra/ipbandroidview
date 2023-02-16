@@ -63,7 +63,7 @@ fun MapComponent(
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 10f)
         }
-        ThemedTextField(modifier = Modifier.constrainAs(address) {
+        TextFieldComponent(modifier = Modifier.constrainAs(address) {
             width = Dimension.fillToConstraints
             top.linkTo(parent.top, 12.dp)
             start.linkTo(parent.start, 12.dp)

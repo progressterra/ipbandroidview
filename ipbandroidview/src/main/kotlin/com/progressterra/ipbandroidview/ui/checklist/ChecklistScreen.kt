@@ -39,7 +39,7 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.Stats
 import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.ThemedTextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.VoiceInput
 import com.progressterra.ipbandroidview.composable.YesNoButton
@@ -107,7 +107,7 @@ fun ChecklistScreen(
                                 )
                             }
                             Box(modifier = Modifier.padding(horizontal = AppTheme.dimensions.medium)) {
-                                ThemedTextField(
+                                TextFieldComponent(
                                     modifier = Modifier.fillMaxWidth(),
                                     text = currentCheck.comment,
                                     hint = stringResource(id = R.string.text_comment),

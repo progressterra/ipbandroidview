@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -34,7 +34,7 @@ fun ChatInput(
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ThemedTextField(
+            TextFieldComponent(
                 modifier = Modifier.weight(1f),
                 text = message,
                 hint = stringResource(R.string.request),

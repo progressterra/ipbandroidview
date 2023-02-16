@@ -11,7 +11,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
@@ -37,7 +37,7 @@ fun CatalogSearchBar(
             bottom = paddingBottom
         )
     ) {
-        ThemedTextField(modifier = Modifier
+        TextFieldComponent(modifier = Modifier
             .weight(1f),
             text = state.keyword,
             hint = stringResource(id = R.string.search),

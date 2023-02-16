@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ThemedTextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.Delivery
@@ -94,7 +94,7 @@ fun DeliveryPicker(
                 }
                 if (it == state.selectedDeliveryMethod)
                     when (it) {
-                        is Delivery.CourierDelivery -> ThemedTextField(
+                        is Delivery.CourierDelivery -> TextFieldComponent(
                             modifier = Modifier.fillMaxWidth(),
                             text = it.commentary,
                             hint = stringResource(R.string.comment),

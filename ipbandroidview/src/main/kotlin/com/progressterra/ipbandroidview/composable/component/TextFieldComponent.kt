@@ -24,8 +24,21 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val borderWidth = 1.dp
 
+/**
+ * @param modifier - modifier for the TextField
+ * @param text - text to be displayed in the TextField
+ * @param hint - hint to be displayed in the TextField
+ * @param onChange - callback to be invoked when the text changes
+ * @param enabled - whether the TextField is enabled
+ * @param keyboardOptions - keyboard options for the TextField
+ * @param action - callback to be invoked when the keyboard action is performed
+ * @param singleLine - whether the TextField is single line
+ * @param leadingIcon - leading icon to be displayed in the TextField
+ * @param trailingIcon - trailing icon to be displayed in the TextField
+ * @param prefix - prefix to be displayed in the TextField
+ */
 @Composable
-fun ThemedTextField(
+fun TextFieldComponent(
     modifier: Modifier = Modifier,
     text: String,
     hint: String,
@@ -122,16 +135,25 @@ private fun ThemedTextFieldPreviewEmptyDisabled() {
         Column(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            ThemedTextField(
-                text = "Some text", hint = "Your name", enabled = true
+            TextFieldComponent(
+                text = "Some text",
+                hint = "Your name",
+                enabled = true,
+                action = { /* Some action */ },
+                onChange = { /* change state */ },
+                keyboardOptions = KeyboardOptions.Default,
+                singleLine = true,
+                leadingIcon = { /* Some icon */ },
+                trailingIcon = { /* Some icon */ },
+                prefix = "+7"
             )
-            ThemedTextField(
+            TextFieldComponent(
                 text = "Some text", hint = "Your name", enabled = false
             )
-            ThemedTextField(
+            TextFieldComponent(
                 hint = "Your name", enabled = false, text = ""
             )
-            ThemedTextField(
+            TextFieldComponent(
                 hint = "Your name", enabled = true, prefix = "+7", text = ""
             )
         }
