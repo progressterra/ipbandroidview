@@ -10,8 +10,4 @@ data class SuggestionUI(
 
     override fun isEmpty(): Boolean =
         suggestionExtendedInfo == SuggestionExtendedInfo() && previewOfSuggestion == ""
-
-    override fun toString(): String {
-        return previewOfSuggestion
-    }
 }

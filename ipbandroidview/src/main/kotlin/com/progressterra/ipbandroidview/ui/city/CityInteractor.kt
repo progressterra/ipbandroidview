@@ -1,24 +1,14 @@
 package com.progressterra.ipbandroidview.ui.city
 
-import android.location.Location
-import com.google.android.gms.maps.model.LatLng
-import com.progressterra.ipbandroidview.model.SuggestionUI
+import com.progressterra.ipbandroidview.composable.component.MapComponentEvent
 
-interface CityInteractor {
+interface CityInteractor : MapComponentEventHandler {
 
     fun onBack()
 
     fun onSkip()
 
     fun onNext()
-
-    fun editAddress(address: String)
-
-    fun mapClick(latLng: LatLng)
-
-    fun myLocationClick(location: Location)
-
-    fun onSuggestion(suggestion: SuggestionUI)
 
     class Empty : CityInteractor {
 
@@ -28,12 +18,6 @@ interface CityInteractor {
 
         override fun onNext() = Unit
 
-        override fun editAddress(address: String) = Unit
-
-        override fun mapClick(latLng: LatLng) = Unit
-
-        override fun myLocationClick(location: Location) = Unit
-
-        override fun onSuggestion(suggestion: SuggestionUI) = Unit
+        override fun handleEvent(event: MapComponentEvent) = Unit
     }
 }

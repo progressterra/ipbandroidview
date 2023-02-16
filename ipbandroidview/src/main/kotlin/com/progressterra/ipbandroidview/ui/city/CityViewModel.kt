@@ -4,6 +4,7 @@ import android.Manifest
 import android.location.Location
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
+import com.progressterra.ipbandroidview.composable.component.MapComponentEvent
 import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.suggestion.ChooseSuggestionUseCase
@@ -42,46 +43,65 @@ class CityViewModel(
         checkPermission()
     }
 
-    private fun checkPermission() = intent {
-        val result = checkPermissionUseCase(locationPermission).isSuccess
-        reduce { state.copy(isPermissionGranted = result) }
-    }
-
     override fun onSkip() = intent { postSideEffect(CityEffect.Next) }
 
     override fun onNext() = intent {
-        saveUserAddressUseCase(address = state.addressUI).onSuccess {
+        saveUserAddressUseCase(state.mapComponentState.addressUI).onSuccess {
             postSideEffect(CityEffect.Next)
         }
     }
 
-    override fun editAddress(address: String) = blockingIntent {
-        reduce { state.copy(address = address) }
+    private fun checkPermission() = intent {
+        val result = checkPermissionUseCase(locationPermission).isSuccess
+        val newMapState = state.mapComponentState.copy(isPermissionGranted = result)
+        reduce { state.copy(mapComponentState = newMapState) }
+    }
+
+    private fun editAddress(address: String) = blockingIntent {
+        val newMapState = state.mapComponentState.copy(address = address)
+        reduce { state.copy(mapComponentState = newMapState) }
         updateSuggestions(address)
     }
 
     private fun updateSuggestions(address: String) = intent {
-        suggestionUseCase(address).onSuccess { reduce { state.copy(suggestions = it) } }
+        suggestionUseCase(address).onSuccess {
+            val newMapState = state.mapComponentState.copy(suggestions = it)
+            reduce { state.copy(mapComponentState = newMapState) }
+        }
     }
 
-    override fun mapClick(latLng: LatLng) = intent {
-        guessLocationUseCase(latLng).onSuccess {
-            reduce { state.copy(addressUI = it, address = it.printAddress()) }
-            suggestionUseCase(it.printAddress()).onSuccess {
-                reduce { state.copy(suggestions = it) }
+    override fun handleEvent(event: MapComponentEvent) = when (event) {
+        is MapComponentEvent.AddressChanged -> editAddress(event.address)
+        is MapComponentEvent.LocationClicked -> clickLocation(event.location)
+        is MapComponentEvent.MapClicked -> clickMap(event.latLng)
+        is MapComponentEvent.SuggestionClicked -> clickSuggestion(event.suggestion)
+    }
+
+    private fun clickMap(latLng: LatLng) = intent {
+        guessLocationUseCase(latLng).onSuccess { addressUI ->
+            val newMapState = state.mapComponentState.copy(
+                addressUI = addressUI, address = addressUI.printAddress()
+            )
+            reduce { state.copy(mapComponentState = newMapState) }
+            suggestionUseCase(addressUI.printAddress()).onSuccess {
+                val newMapState2 = state.mapComponentState.copy(suggestions = it)
+                reduce { state.copy(mapComponentState = newMapState2) }
             }
         }
     }
 
-    override fun myLocationClick(location: Location) = intent {
-        mapClick(LatLng(location.latitude, location.longitude))
+    private fun clickLocation(location: Location) = intent {
+        clickMap(LatLng(location.latitude, location.longitude))
     }
 
-    override fun onSuggestion(suggestion: SuggestionUI) = intent {
+    private fun clickSuggestion(suggestion: SuggestionUI) = intent {
         chooseSuggestionUseCase(suggestion).onSuccess {
             reduce {
+                val newMapState = state.mapComponentState.copy(
+                    addressUI = it, address = suggestion.previewOfSuggestion
+                )
                 state.copy(
-                    addressUI = it, address = suggestion.previewOfSuggestion, isDataValid = true
+                    mapComponentState = newMapState, isDataValid = true
                 )
             }
         }

@@ -13,7 +13,7 @@ class CityNode(
     buildContext: BuildContext,
     private val onNext: () -> Unit,
     private val onBack: () -> Unit,
-    private val settings: CitySettings
+    private val canBeSkipped: Boolean
 ) : Node(buildContext) {
 
     @Composable
@@ -29,7 +29,7 @@ class CityNode(
         CityScreen(
             state = state.value,
             interactor = viewModel,
-            settings = settings
+            canBeSkipped = canBeSkipped
         )
     }
 }
