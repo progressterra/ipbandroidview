@@ -22,20 +22,16 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun ArchiveScreen(
-    state: ArchiveState,
-    interactor: ArchiveInteractor
+    state: ArchiveState, interactor: ArchiveInteractor
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(
-            title = stringResource(id = R.string.archive),
-            onBack = { interactor.onBack() })
+        ThemedTopAppBar(title = state.title, onBack = { interactor.onBack() })
     }) { _, _ ->
         val finishedGroupedDocs by remember(state.documents) {
             mutableStateOf(state.documents.groupBy { it.finishDate!! })
         }
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(AppTheme.dimensions.small),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
         ) {
@@ -47,11 +43,9 @@ fun ArchiveScreen(
                     )
                 }
                 items(it.value) { document ->
-                    DocumentCard(
-                        modifier = Modifier.fillMaxWidth(),
+                    DocumentCard(modifier = Modifier.fillMaxWidth(),
                         state = document,
-                        openDocument = { interactor.openDocument(document) }
-                    )
+                        openDocument = { interactor.openDocument(document) })
                 }
             }
         }

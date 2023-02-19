@@ -6,5 +6,7 @@ import com.progressterra.ipbandroidview.model.Document
 
 @Immutable
 data class ArchiveState(
-    val documents: List<Document> = emptyList(), val screenState: ScreenState = ScreenState.LOADING
+    val title: String = "",
+    val documents: List<Document> = emptyList(),
+    val screenState: ScreenState = ScreenState.LOADING
 )

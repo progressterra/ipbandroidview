@@ -18,6 +18,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class ArchiveNode(
     buildContext: BuildContext,
+    private val title: String,
     private val archived: List<Document>,
     private val onBack: () -> Unit,
     private val onChecklist: (AuditDocument, ChecklistStatus) -> Unit
@@ -32,12 +33,12 @@ class ArchiveNode(
                 is ArchiveEffect.OpenChecklist -> onChecklist(it.auditDocument, it.initialStatus)
             }
         }
-        var alreadyLaunched by rememberSaveable(archived) {
+        var alreadyLaunched by rememberSaveable(title, archived) {
             mutableStateOf(false)
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setDocuments(archived)
+            viewModel.setDocuments(title, archived)
         }
         val state = viewModel.collectAsState()
         ArchiveScreen(

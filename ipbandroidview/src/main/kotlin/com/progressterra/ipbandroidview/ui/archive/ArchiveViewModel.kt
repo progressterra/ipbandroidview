@@ -11,11 +11,13 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class ArchiveViewModel : ViewModel(), ContainerHost<ArchiveState, ArchiveEffect>, ArchiveInteractor {
+class ArchiveViewModel : ViewModel(), ContainerHost<ArchiveState, ArchiveEffect>,
+    ArchiveInteractor {
 
     override val container: Container<ArchiveState, ArchiveEffect> = container(ArchiveState())
 
-    fun setDocuments(docs: List<Document>) = intent { reduce { state.copy(documents = docs) } }
+    fun setDocuments(title: String, docs: List<Document>) =
+        intent { reduce { state.copy(title = title, documents = docs) } }
 
     override fun onBack() = intent { postSideEffect(ArchiveEffect.Back) }
 
