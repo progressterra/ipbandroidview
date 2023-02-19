@@ -27,8 +27,10 @@ fun ArchiveScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = state.title, onBack = { interactor.onBack() })
     }) { _, _ ->
+        val notEnded = stringResource(R.string.not_ended)
         val finishedGroupedDocs by remember(state.documents) {
-            mutableStateOf(state.documents.groupBy { it.finishDate!! })
+            mutableStateOf(state.documents.map { it.copy(finishDate = it.finishDate ?: notEnded) }
+                .groupBy { it.finishDate!! })
         }
         LazyColumn(
             modifier = Modifier.fillMaxSize(),

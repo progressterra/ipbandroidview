@@ -143,4 +143,5 @@
     <string name="ongoing">В работе</string>
     <string name="completed">Завершённые</string>
     <string name="archived">Архив аудитов</string>
+    <string name="not_ended">Незавершённые</string>
 </resources>
