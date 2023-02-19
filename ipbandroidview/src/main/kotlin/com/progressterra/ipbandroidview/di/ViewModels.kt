@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.ui.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.ui.goods.GoodsViewModel
 import com.progressterra.ipbandroidview.ui.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.ui.main.MainViewModel
+import com.progressterra.ipbandroidview.ui.mainhaccp.MainHaccpViewModel
 import com.progressterra.ipbandroidview.ui.order.OrderViewModel
 import com.progressterra.ipbandroidview.ui.orderprocessing.OrderProcessingViewModel
 import com.progressterra.ipbandroidview.ui.orders.OrdersViewModel
@@ -122,4 +123,6 @@ val viewModelsModule = module {
     viewModel { ReferralViewModel(get(), get(), get()) }
 
     viewModel { PartnerViewModel(get(), get()) }
+
+    viewModel { MainHaccpViewModel(get(), get(), get()) }
 }

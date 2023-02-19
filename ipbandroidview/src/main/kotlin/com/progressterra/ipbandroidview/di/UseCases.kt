@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentCheckli
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationAuditsUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationsOverviewUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.SendResultOnEmailUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
@@ -269,6 +270,15 @@ val useCasesModule = module {
             get(),
             get(),
             get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    single<OrganizationsOverviewUseCase> {
+        OrganizationsOverviewUseCase.Base(
             get(),
             get(),
             get(),
