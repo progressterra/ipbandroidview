@@ -38,7 +38,7 @@ val viewModelsModule = module {
 
     viewModel { ArchiveViewModel() }
 
-    viewModel { DocumentsViewModel(get()) }
+    viewModel { DocumentsViewModel(get(), get()) }
 
     viewModel { SplashViewModel(get()) }
 
