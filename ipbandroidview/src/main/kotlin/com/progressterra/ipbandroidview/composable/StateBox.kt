@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun StateBox(
     modifier: Modifier = Modifier,
     state: ScreenState,
-    refresh: () -> Unit,
+    refresh: (() -> Unit)? = null,
     content: @Composable (BoxScope.() -> Unit)
 ) {
     Box(
@@ -21,7 +21,7 @@ fun StateBox(
         contentAlignment = Alignment.Center
     ) {
         when (state) {
-            ScreenState.ERROR -> ThemedRefreshButton(onClick = refresh)
+            ScreenState.ERROR -> if (refresh != null) ThemedRefreshButton(onClick = refresh)
             ScreenState.LOADING -> ThemedLoadingIndicator()
             ScreenState.SUCCESS -> content()
         }

@@ -13,4 +13,11 @@ interface MainHaccpInteractor {
     fun handleEvent(event: PartnerBlockEvent)
 
     fun refresh()
+
+    class Empty : MainHaccpInteractor {
+        override fun onPartnerClick(partner: Partner) = Unit
+        override fun handleEvent(event: OrganizationsOverviewEvent) = Unit
+        override fun handleEvent(event: PartnerBlockEvent) = Unit
+        override fun refresh() = Unit
+    }
 }
