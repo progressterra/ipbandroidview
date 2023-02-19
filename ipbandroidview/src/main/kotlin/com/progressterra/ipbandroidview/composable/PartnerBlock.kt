@@ -32,7 +32,7 @@ fun PartnerBlock(
         horizontalArrangement = Arrangement.Center
     ) {
         SimpleImage(
-            modifier = Modifier.size(height, width),
+            modifier = Modifier.size(width, height),
             url = partner.headImageUrl,
             backgroundColor = AppTheme.colors.surfaces
         )

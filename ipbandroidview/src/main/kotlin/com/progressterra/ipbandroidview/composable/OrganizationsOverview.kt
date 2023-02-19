@@ -95,9 +95,8 @@ fun OrganizationsOverview(
         ScrollableTabRow(selectedTabIndex = pagerState.currentPage,
             backgroundColor = AppTheme.colors.surfaces,
             indicator = {},
-            divider = {
-                Spacer(modifier = Modifier.width(AppTheme.dimensions.large))
-            }) {
+            edgePadding = AppTheme.dimensions.large,
+            divider = {}) {
             val scope = rememberCoroutineScope()
             overviews.forEachIndexed { index, overview ->
                 val selected = pagerState.currentPage == index
@@ -136,41 +135,45 @@ fun OrganizationsOverview(
             }
         }
         HorizontalPager(
-            count = overviews.size, state = pagerState, itemSpacing = AppTheme.dimensions.large
+            count = overviews.size, state = pagerState
         ) {
-            RowItem(
-                modifier = Modifier.niceClickable {
-                    onEvent(
-                        OrganizationsOverviewEvent.Ongoing(
-                            overviews[it].ongoing
+            Column(
+                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+            ) {
+                RowItem(
+                    modifier = Modifier.niceClickable {
+                        onEvent(
+                            OrganizationsOverviewEvent.Ongoing(
+                                overviews[it].ongoing
+                            )
                         )
-                    )
-                },
-                title = stringResource(R.string.ongoing),
-                value = overviews[it].ongoing.size.toString()
-            )
-            RowItem(
-                modifier = Modifier.niceClickable {
-                    onEvent(
-                        OrganizationsOverviewEvent.Complete(
-                            overviews[it].completed
+                    },
+                    title = stringResource(R.string.ongoing),
+                    value = overviews[it].ongoing.size.toString()
+                )
+                RowItem(
+                    modifier = Modifier.niceClickable {
+                        onEvent(
+                            OrganizationsOverviewEvent.Complete(
+                                overviews[it].completed
+                            )
                         )
-                    )
-                },
-                title = stringResource(R.string.completed),
-                value = overviews[it].completed.size.toString()
-            )
-            RowItem(
-                modifier = Modifier.niceClickable {
-                    onEvent(
-                        OrganizationsOverviewEvent.Archived(
-                            overviews[it].archived
+                    },
+                    title = stringResource(R.string.completed),
+                    value = overviews[it].completed.size.toString()
+                )
+                RowItem(
+                    modifier = Modifier.niceClickable {
+                        onEvent(
+                            OrganizationsOverviewEvent.Archived(
+                                overviews[it].archived
+                            )
                         )
-                    )
-                },
-                title = stringResource(R.string.archived),
-                value = overviews[it].archived.size.toString()
-            )
+                    },
+                    title = stringResource(R.string.archived),
+                    value = overviews[it].archived.size.toString()
+                )
+            }
         }
     }
 }

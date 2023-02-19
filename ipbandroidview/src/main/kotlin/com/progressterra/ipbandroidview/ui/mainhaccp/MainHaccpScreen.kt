@@ -30,7 +30,7 @@ fun MainHaccpScreen(
             Column(
                 Modifier
                     .fillMaxSize()
-                    .padding(top = AppTheme.dimensions.small)
+                    .padding(AppTheme.dimensions.small)
             ) {
                 OrganizationsOverview(
                     overviews = state.overviews,
