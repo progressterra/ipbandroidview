@@ -4,14 +4,23 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrganizationCard
+import com.progressterra.ipbandroidview.composable.PartnerBlock2
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
@@ -28,15 +37,34 @@ fun OrganizationsScreen(
         ThemedTopAppBar(title = stringResource(id = R.string.organizations))
     }) { _, _ ->
         StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
+            var bannerWidth by remember { mutableStateOf(0.dp) }
+            var bannerHeight by remember { mutableStateOf(0.dp) }
+            val density = LocalDensity.current
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
+                item {
+                    PartnerBlock2(
+                        modifier = Modifier.size(bannerWidth, bannerHeight),
+                        partner = state.partner,
+                        onEvent = { interactor.handleEvent(it) }
+                    )
+                }
                 items(state.organizations) {
-                    OrganizationCard(modifier = Modifier.fillMaxWidth(),
+                    OrganizationCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .onGloballyPositioned {
+                                with(density) {
+                                    bannerWidth = it.size.width.toDp()
+                                    bannerHeight = it.size.height.toDp()
+                                }
+                            },
                         state = it,
-                        openOrganization = { interactor.onOrganizationDetails(it) })
+                        openOrganization = { interactor.onOrganizationDetails(it) }
+                    )
                 }
             }
         }

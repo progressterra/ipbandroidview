@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.composable.PartnerBlockEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllOrganizationsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.partner.FetchPartnerUseCase
@@ -23,6 +24,10 @@ class OrganizationsViewModel(
 
     init {
         refresh()
+    }
+
+    override fun handleEvent(event: PartnerBlockEvent) = intent {
+        postSideEffect(OrganizationsEffect.OpenPartner(state.partner))
     }
 
     override fun refresh() = intent {
