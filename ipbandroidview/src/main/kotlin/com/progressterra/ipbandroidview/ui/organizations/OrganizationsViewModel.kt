@@ -42,9 +42,4 @@ class OrganizationsViewModel(
     override fun onOrganizationDetails(organization: Organization) = intent {
         postSideEffect(OrganizationsEffect.OpenOrganization(organization))
     }
-
-    override fun onPartner() = intent {
-        if (!state.partner.isEmpty())
-            postSideEffect(OrganizationsEffect.OpenPartner(state.partner))
-    }
 }
