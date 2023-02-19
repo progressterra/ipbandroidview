@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.signin
 
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.AuthComponentInteractor
@@ -39,6 +40,11 @@ class SignInViewModel(
 
     override fun editPhoneNumber(phoneNumber: String) = blockingIntent {
         reduce { state.copy(phoneNumber = phoneNumber) }
+        checkPhoneNumber()
+    }
+
+    private fun checkPhoneNumber() = intent {
+        reduce { state.copy(isDataValid = state.phoneNumber.isDigitsOnly()) }
     }
 
     override fun onUrlClick(url: String) = intent { openUrlUseCase(url) }
