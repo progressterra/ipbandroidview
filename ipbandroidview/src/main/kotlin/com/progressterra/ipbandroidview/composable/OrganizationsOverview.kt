@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,8 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.ScrollableTabRow
-import androidx.compose.material.Tab
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
@@ -92,46 +93,44 @@ fun OrganizationsOverview(
             color = AppTheme.colors.black
         )
         val pagerState = rememberPagerState()
-        ScrollableTabRow(selectedTabIndex = pagerState.currentPage,
-            backgroundColor = AppTheme.colors.surfaces,
-            indicator = {},
-            divider = {}) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState()),
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+        ) {
             val scope = rememberCoroutineScope()
             overviews.forEachIndexed { index, overview ->
                 val selected = pagerState.currentPage == index
                 val backgroundColor =
                     if (selected) AppTheme.colors.background else AppTheme.colors.surfaces
-                Tab(modifier = Modifier
+
+                val textColor = if (selected) AppTheme.colors.black else AppTheme.colors.gray1
+                val style =
+                    if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
+                Box(modifier = Modifier
                     .clip(AppTheme.shapes.small)
                     .border(
                         width = borderWidth,
                         color = AppTheme.colors.background,
                         shape = AppTheme.shapes.small
-                    ), selected = selected, onClick = {
-                    scope.launch { pagerState.animateScrollToPage(page = index) }
-                }) {
-                    val textColor = if (selected) AppTheme.colors.black else AppTheme.colors.gray1
-                    val style =
-                        if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(AppTheme.shapes.small)
-                            .background(backgroundColor)
-                            .padding(
-                                vertical = AppTheme.dimensions.small,
-                                horizontal = tabHorizontalPadding
-                            ), contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = overview.name,
-                            color = textColor,
-                            style = style,
-                            textAlign = TextAlign.Center
-                        )
+                    )
+                    .background(backgroundColor)
+                    .niceClickable {
+                        scope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
                     }
+                    .padding(
+                        vertical = AppTheme.dimensions.small, horizontal = tabHorizontalPadding
+                    ), contentAlignment = Alignment.Center) {
+                    Text(
+                        text = overview.name,
+                        color = textColor,
+                        style = style,
+                        textAlign = TextAlign.Center
+                    )
                 }
-                if (index != overviews.lastIndex) Spacer(modifier = Modifier.width(AppTheme.dimensions.small))
             }
         }
         HorizontalPager(
@@ -175,5 +174,32 @@ fun OrganizationsOverview(
                 )
             }
         }
+    }
+}
+
+@Composable
+@Preview
+private fun OrganizationsOverviewPreview() {
+    AppTheme {
+        OrganizationsOverview(
+            overviews = listOf(
+                OrganizationOverview(
+                    name = "Organization 1",
+                    ongoing = listOf(),
+                    completed = listOf(),
+                    archived = listOf()
+                ), OrganizationOverview(
+                    name = "Organization 2",
+                    ongoing = listOf(),
+                    completed = listOf(),
+                    archived = listOf()
+                ), OrganizationOverview(
+                    name = "Organization 3",
+                    ongoing = listOf(),
+                    completed = listOf(),
+                    archived = listOf()
+                )
+            )
+        ) {}
     }
 }
