@@ -95,7 +95,6 @@ fun OrganizationsOverview(
         ScrollableTabRow(selectedTabIndex = pagerState.currentPage,
             backgroundColor = AppTheme.colors.surfaces,
             indicator = {},
-            edgePadding = AppTheme.dimensions.large,
             divider = {}) {
             val scope = rememberCoroutineScope()
             overviews.forEachIndexed { index, overview ->
@@ -132,6 +131,7 @@ fun OrganizationsOverview(
                         )
                     }
                 }
+                if (index != overviews.lastIndex) Spacer(modifier = Modifier.width(AppTheme.dimensions.small))
             }
         }
         HorizontalPager(
