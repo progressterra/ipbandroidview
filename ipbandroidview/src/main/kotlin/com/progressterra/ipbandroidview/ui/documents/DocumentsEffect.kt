@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.model.Document
 
 sealed class DocumentsEffect {
 
-    class Archive(val archived: List<Document>) : DocumentsEffect()
+    class Archive(val title: String, val archived: List<Document>) : DocumentsEffect()
 
     class UpdateCounter(val counter: Int) : DocumentsEffect()
 

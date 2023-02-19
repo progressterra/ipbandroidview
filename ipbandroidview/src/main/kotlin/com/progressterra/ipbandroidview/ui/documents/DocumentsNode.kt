@@ -16,7 +16,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class DocumentsNode(
     buildContext: BuildContext,
     private val onChecklist: (AuditDocument, ChecklistStatus) -> Unit,
-    private val onArchive: (List<Document>) -> Unit,
+    private val onArchive: (String, List<Document>) -> Unit,
     private val updateDocumentsCounter: (Int) -> Unit
 ) : Node(buildContext) {
 
@@ -27,7 +27,7 @@ class DocumentsNode(
             when (it) {
                 is DocumentsEffect.OpenChecklist -> onChecklist(it.auditDocument, it.initialStatus)
                 is DocumentsEffect.UpdateCounter -> updateDocumentsCounter(it.counter)
-                is DocumentsEffect.Archive -> onArchive(it.archived)
+                is DocumentsEffect.Archive -> onArchive(it.title, it.archived)
             }
         }
         LaunchedEffect(Unit) {
@@ -35,8 +35,7 @@ class DocumentsNode(
         }
         val state = viewModel.collectAsState()
         DocumentsScreen(
-            state = state.value,
-            interactor = viewModel
+            state = state.value, interactor = viewModel
         )
     }
 }

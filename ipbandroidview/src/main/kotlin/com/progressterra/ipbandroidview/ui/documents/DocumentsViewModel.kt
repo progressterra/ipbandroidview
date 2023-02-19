@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.model.AuditDocument
@@ -14,7 +16,8 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class DocumentsViewModel(
-    private val allDocumentsUseCase: AllDocumentsUseCase
+    private val allDocumentsUseCase: AllDocumentsUseCase,
+    private val manageResources: ManageResources
 ) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect>, DocumentsInteractor {
 
     override val container: Container<DocumentsState, DocumentsEffect> = container(DocumentsState())
@@ -48,13 +51,16 @@ class DocumentsViewModel(
                     placeId = document.placeId,
                     documentId = document.documentId,
                     name = document.name
-                ),
-                if (document.isFinished()) ChecklistStatus.READ_ONLY else ChecklistStatus.ONGOING
+                ), if (document.isFinished()) ChecklistStatus.READ_ONLY else ChecklistStatus.ONGOING
             )
         )
     }
 
     override fun openArchive() = intent {
-        postSideEffect(DocumentsEffect.Archive(state.archivedDocuments))
+        postSideEffect(
+            DocumentsEffect.Archive(
+                manageResources.string(R.string.archived), state.archivedDocuments
+            )
+        )
     }
 }
