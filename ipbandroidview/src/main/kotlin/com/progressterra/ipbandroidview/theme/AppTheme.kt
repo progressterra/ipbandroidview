@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.graphics.Color
 
 object AppTheme {
 
@@ -39,6 +40,7 @@ val LocalColors = staticCompositionLocalOf { lightColors }
 
 @Composable
 fun AppTheme(
+    accentColor: Color = Color(0xFF364BB9),
     typography: AppTypography = AppTheme.typography,
     dimensions: Dimensions = AppTheme.dimensions,
     customization: Customization = AppTheme.customization,
@@ -48,7 +50,7 @@ fun AppTheme(
         handleColor = AppTheme.colors.primary,
         backgroundColor = AppTheme.colors.primary.copy(alpha = 0.4f)
     )
-    val colors = if (isSystemInDarkTheme()) darkColors else lightColors
+    val colors = if (isSystemInDarkTheme()) darkColors.copy(primary = accentColor) else lightColors.copy(primary = accentColor)
     CompositionLocalProvider(
         LocalDimensions provides dimensions,
         LocalTypography provides typography,
