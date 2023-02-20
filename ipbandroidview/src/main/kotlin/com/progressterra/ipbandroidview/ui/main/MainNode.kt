@@ -16,7 +16,9 @@ class MainNode(
     private val onGoodsDetails: (String) -> Unit,
     private val onBonuses: () -> Unit,
     private val onSearch: (String, String) -> Unit,
-    private val onGoods: (String) -> Unit
+    private val onGoods: (String) -> Unit,
+    private val onInvite: () -> Unit,
+    private val onSpend: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -30,12 +32,13 @@ class MainNode(
                 is MainEffect.Bonuses -> onBonuses()
                 is MainEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
                 is MainEffect.Goods -> onGoods(it.categoryId)
+                is MainEffect.Invite -> onInvite()
+                is MainEffect.Spend -> onSpend()
             }
         }
         val state = viewModel.collectAsState()
         MainScreen(
-            state = state.value,
-            interactor = viewModel
+            state = state.value, interactor = viewModel
         )
     }
 }

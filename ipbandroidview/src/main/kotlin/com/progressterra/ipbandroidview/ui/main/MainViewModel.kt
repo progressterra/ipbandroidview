@@ -1,11 +1,12 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.composable.component.BonusesComponentEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.CreateQrUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.PromoGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
@@ -22,7 +23,7 @@ class MainViewModel(
     private val availableBonusesUseCase: AvailableBonusesUseCase,
     private val userExistsUseCase: UserExistsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
-    private val notificationUseCase: NotificationUseCase
+    private val createQrUseCase: CreateQrUseCase
 ) : ViewModel(), ContainerHost<MainState, MainEffect>, MainInteractor {
 
     override val container: Container<MainState, MainEffect> = container(MainState())
@@ -38,11 +39,11 @@ class MainViewModel(
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         var isSuccess = true
-        notificationUseCase().onSuccess { notifications ->
-            reduce { state.copy(notifications = notifications) }
+        createQrUseCase().onSuccess { qr ->
+            reduce { state.copy(qr = qr) }
         }.onFailure { isSuccess = false }
         availableBonusesUseCase().onSuccess { bonusesInfo ->
-            reduce { state.copy(bonuses = bonusesInfo) }
+            reduce { state.copy(bonusesComponentState = bonusesInfo) }
         }.onFailure { isSuccess = false }
         promoGoodsUseCase().onSuccess {
             reduce { state.copy(recommended = it) }
@@ -57,5 +58,13 @@ class MainViewModel(
 
     override fun favorite(storeCard: StoreCardComponentState) = intent {
         modifyFavoriteUseCase(storeCard.id, storeCard.favorite).onSuccess { refresh() }
+    }
+
+    override fun onBonusesEvent(id: String, event: BonusesComponentEvent) = intent {
+        when (event) {
+            is BonusesComponentEvent.OnClick -> postSideEffect(MainEffect.Bonuses)
+            is BonusesComponentEvent.SpendBonuses -> postSideEffect(MainEffect.Spend)
+            is BonusesComponentEvent.InviteFriends -> postSideEffect(MainEffect.Invite)
+        }
     }
 }

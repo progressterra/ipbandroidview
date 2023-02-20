@@ -8,6 +8,10 @@ sealed class MainEffect {
 
     object Bonuses : MainEffect()
 
+    object Invite : MainEffect()
+
+    object Spend : MainEffect()
+
     class GoodsDetails(val goodsId: String) : MainEffect()
 
     class Goods(val categoryId: String) : MainEffect()

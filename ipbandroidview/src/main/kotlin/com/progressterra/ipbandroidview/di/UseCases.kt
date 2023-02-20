@@ -39,9 +39,10 @@ import com.progressterra.ipbandroidview.domain.usecase.media.StopRecordingUseCas
 import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.order.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.domain.usecase.partner.FetchPartnerUseCase
-import com.progressterra.ipbandroidview.domain.usecase.qr.CreateQrUseCase
+import com.progressterra.ipbandroidview.domain.usecase.qr.CreateQr
 import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
+import com.progressterra.ipbandroidview.domain.usecase.store.CreateQrUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastAddToCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.FavoriteGoodsUseCase
@@ -51,7 +52,6 @@ import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCas
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.NotificationUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.OrdersUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.PromoGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.SizeTableUseCase
@@ -221,9 +221,9 @@ val useCasesModule = module {
 
     single<ChooseSuggestionUseCase> { ChooseSuggestionUseCase.Base(get()) }
 
-    single<CreateQrUseCase> { CreateQrUseCase.Base() }
+    single<CreateQr> { CreateQr.Base() }
 
-    single<NotificationUseCase> { NotificationUseCase.Base(get(), get(), get(), get(), get()) }
+    single<CreateQrUseCase> { CreateQrUseCase.Base(get(), get(), get()) }
 
     single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get()) }
 

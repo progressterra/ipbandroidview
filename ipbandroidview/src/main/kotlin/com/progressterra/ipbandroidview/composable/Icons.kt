@@ -496,7 +496,9 @@ fun SumIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun SumIconPreview() {
-    SumIcon()
+    AppTheme {
+        SumIcon()
+    }
 }
 
 @Composable
@@ -512,7 +514,9 @@ fun SuccessIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun SuccessIconPreview() {
-    SuccessIcon()
+    AppTheme {
+        SuccessIcon()
+    }
 }
 
 @Composable
@@ -528,7 +532,9 @@ fun FailedIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun FailedIconPreview() {
-    FailedIcon()
+    AppTheme {
+        FailedIcon()
+    }
 }
 
 @Composable
@@ -544,7 +550,9 @@ fun RemainingIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 fun RemainingIconPreview() {
-    RemainingIcon()
+    AppTheme {
+        RemainingIcon()
+    }
 }
 
 @Composable
@@ -560,7 +568,9 @@ fun AuditsIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun AuditsIconPreview() {
-    AuditsIcon()
+    AppTheme {
+        AuditsIcon()
+    }
 }
 
 @Composable
@@ -576,7 +586,9 @@ fun DocumentsIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun DocumentsIconPreview() {
-    DocumentsIcon()
+    AppTheme {
+        DocumentsIcon()
+    }
 }
 
 @Composable
@@ -592,7 +604,9 @@ fun SendIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun SendIconPreview() {
-    SendIcon()
+    AppTheme {
+        SendIcon()
+    }
 }
 
 @Composable
@@ -608,7 +622,9 @@ fun ShareIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun ShareIconPreview() {
-    ShareIcon()
+    AppTheme {
+        ShareIcon()
+    }
 }
 
 @Composable
@@ -624,5 +640,61 @@ fun CopyIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun CopyIconPreview() {
-    CopyIcon()
+    AppTheme {
+        CopyIcon()
+    }
+}
+
+@Composable
+fun PlusPeopleIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_pluspeople),
+        tint = AppTheme.colors.black,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+private fun PlusPeopleIconPreview() {
+    AppTheme {
+        PlusPeopleIcon()
+    }
+}
+
+@Composable
+fun ShoppingCartIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_shop_cart),
+        tint = AppTheme.colors.black,
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+private fun ShoppingCartIconPreview() {
+    AppTheme {
+        ShoppingCartIcon()
+    }
+}
+
+@Composable
+fun ArrowRightIcon(modifier: Modifier = Modifier) {
+    Icon(
+        modifier = modifier,
+        painter = painterResource(id = R.drawable.ic_arrow_right),
+        tint = Color(0xFFD9D9D9),
+        contentDescription = null
+    )
+}
+
+@Composable
+@Preview
+private fun ArrowRightIconPreview() {
+    AppTheme {
+        ArrowRightIcon()
+    }
 }

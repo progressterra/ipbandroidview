@@ -144,4 +144,7 @@
     <string name="completed">Завершённые</string>
     <string name="archived">Архив аудитов</string>
     <string name="not_ended">Незавершённые</string>
+    <string name="you_have">У вас</string>
+    <string name="spend">Потратить</string>
+    <string name="invite_friends">Пригласить друга</string>
 </resources>

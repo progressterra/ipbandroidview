@@ -6,11 +6,11 @@ import androidx.core.graphics.set
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 
-interface CreateQrUseCase {
+interface CreateQr {
 
     suspend operator fun invoke(content: String): Bitmap
 
-    class Base : CreateQrUseCase {
+    class Base : CreateQr {
 
         override suspend fun invoke(content: String): Bitmap {
             val qrSize = 1024

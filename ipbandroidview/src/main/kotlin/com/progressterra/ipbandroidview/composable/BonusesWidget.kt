@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -45,4 +46,10 @@ fun BonusesWidget(
             style = AppTheme.typography.text
         )
     }
+}
+
+@Preview
+@Composable
+fun BonusesWidgetPreview() {
+    BonusesWidget(bonuses = 100)
 }
