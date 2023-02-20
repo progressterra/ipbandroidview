@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.composable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.IconButton
@@ -32,7 +31,7 @@ fun GoodsGallery(
     onFullCategory: (Category) -> Unit
 ) {
     Column(
-        modifier = modifier.padding(AppTheme.dimensions.small),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
         Text(
