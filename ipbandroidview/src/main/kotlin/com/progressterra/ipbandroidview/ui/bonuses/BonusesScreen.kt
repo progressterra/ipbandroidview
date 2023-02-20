@@ -17,8 +17,8 @@ import com.progressterra.ipbandroidview.composable.BonusesWidget
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.BonusesComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.model.Transaction
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -28,7 +28,11 @@ fun BonusesScreen(
     interactor: BonusesInteractor
 ) {
     ThemedLayout(
-        topBar = { ThemedTopAppBar(title = stringResource(R.string.bonuses_title), onBack = { interactor.onBack() }) }
+        topBar = {
+            ThemedTopAppBar(
+                title = stringResource(R.string.bonuses_title),
+                onBack = { interactor.onBack() })
+        }
     ) { _, _ ->
         StateBox(
             state = state.screenState,
@@ -41,11 +45,11 @@ fun BonusesScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 BonusesWidget(
-                    bonuses = state.bonusesInfo.quantity
+                    bonuses = state.bonusesInfo.bonuses
                 )
                 BonusesClarification(
                     burningDate = state.bonusesInfo.burningDate,
-                    burningQuantity = state.bonusesInfo.forBurningQuantity,
+                    burningQuantity = state.bonusesInfo.burningQuantity,
                     onClick = { interactor.onClarification() }
                 )
                 LazyColumn(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
@@ -66,7 +70,7 @@ private fun BonusesScreenPreview() {
     AppTheme {
         BonusesScreen(
             state = BonusesState(
-                bonusesInfo = BonusesInfo(300, 150, "10.01"),
+                bonusesInfo = BonusesComponentState("100"),
                 transactions = listOf(
                     Transaction("01.01", "Зачисление", 300),
                     Transaction("03.01", "Зачисление", 300),

@@ -5,10 +5,10 @@ import com.progressterra.ipbandroidview.composable.DeliveryPickerState
 import com.progressterra.ipbandroidview.composable.GoodsLineState
 import com.progressterra.ipbandroidview.composable.PaymentMethodState
 import com.progressterra.ipbandroidview.composable.ReceiveReceiptState
+import com.progressterra.ipbandroidview.composable.component.BonusesComponentState
 import com.progressterra.ipbandroidview.composable.component.ReceiptComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.AddressUI
-import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.DeliveryType
 import com.progressterra.ipbandroidview.model.OrderGoods
@@ -23,7 +23,7 @@ data class OrderState(
     override val paymentMethods: List<PaymentType> = emptyList(),
     override val receiveReceipt: Boolean = false,
     override val email: String = "",
-    override val availableBonuses: BonusesInfo = BonusesInfo(),
+    override val availableBonuses: BonusesComponentState = BonusesComponentState(),
     override val useBonuses: Boolean = false,
     val screenState: ScreenState = ScreenState.LOADING,
     val receiptComponentState: ReceiptComponentState = ReceiptComponentState()

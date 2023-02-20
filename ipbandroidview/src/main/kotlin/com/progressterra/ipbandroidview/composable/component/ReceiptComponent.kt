@@ -23,7 +23,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.core.ComponentEvent
-import com.progressterra.ipbandroidview.model.BonusesInfo
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -35,7 +34,7 @@ data class ReceiptComponentState(
     val totalPrice: SimplePrice = SimplePrice(),
     val deliveryPrice: SimplePrice = SimplePrice(),
     val useBonuses: Boolean = false,
-    val availableBonuses: BonusesInfo = BonusesInfo(),
+    val availableBonuses: BonusesComponentState = BonusesComponentState(),
     val promoCode: SimplePrice = SimplePrice(),
     val goods: List<OrderGoods> = emptyList(),
     val paymentReady: Boolean = false
@@ -117,7 +116,7 @@ fun ReceiptComponent(
                             style = AppTheme.typography.tertiaryText
                         )
                         Text(
-                            text = "-${state.availableBonuses.quantity}",
+                            text = "-${state.availableBonuses.bonuses}",
                             color = AppTheme.colors.primary,
                             style = AppTheme.typography.tertiaryText
                         )
@@ -216,7 +215,7 @@ private fun ReceiptComponentPreview() {
             totalPrice = SimplePrice(1000),
             deliveryPrice = SimplePrice(100),
             useBonuses = true,
-            availableBonuses = BonusesInfo(100, 100),
+            availableBonuses = BonusesComponentState(),
             promoCode = SimplePrice(100),
             goods = listOf(
                 OrderGoods(

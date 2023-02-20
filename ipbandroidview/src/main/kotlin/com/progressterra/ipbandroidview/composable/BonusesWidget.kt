@@ -21,7 +21,7 @@ private val paddingVertical = 32.dp
 
 @Composable
 fun BonusesWidget(
-    modifier: Modifier = Modifier, bonuses: Int
+    modifier: Modifier = Modifier, bonuses: String
 ) {
     Column(
         modifier = modifier
@@ -34,7 +34,7 @@ fun BonusesWidget(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = bonuses.toString(),
+                text = bonuses,
                 color = AppTheme.colors.primary,
                 style = AppTheme.typography.headLine
             )
@@ -51,5 +51,5 @@ fun BonusesWidget(
 @Preview
 @Composable
 fun BonusesWidgetPreview() {
-    BonusesWidget(bonuses = 100)
+    BonusesWidget(bonuses = "10")
 }

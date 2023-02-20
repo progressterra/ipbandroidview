@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun BonusesClarification(
-    modifier: Modifier = Modifier, burningDate: String, burningQuantity: Int, onClick: () -> Unit
+    modifier: Modifier = Modifier, burningDate: String, burningQuantity: String, onClick: () -> Unit
 ) {
     Row(
         modifier = modifier

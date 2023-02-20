@@ -126,10 +126,10 @@ class OrderViewModel(
     }
 
     override fun changeUseBonuses(useBonuses: Boolean) = intent {
-        if (useBonuses) notUseBonusesUseCase(state.availableBonuses.quantity).onSuccess {
+        if (useBonuses) notUseBonusesUseCase(state.availableBonuses.bonuses.toInt()).onSuccess {
             reduce { state.copy(useBonuses = !state.useBonuses) }
         }
-        else useBonusesUseCase(state.availableBonuses.quantity).onSuccess {
+        else useBonusesUseCase(state.availableBonuses.bonuses.toInt()).onSuccess {
             reduce { state.copy(useBonuses = !state.useBonuses) }
         }
     }
