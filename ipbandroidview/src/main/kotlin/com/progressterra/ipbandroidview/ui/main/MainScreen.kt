@@ -18,6 +18,8 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.BonusesComponent
+import com.progressterra.ipbandroidview.composable.component.BonusesComponentState
+import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -36,7 +38,7 @@ fun MainScreen(
             Column(
                 Modifier
                     .fillMaxSize()
-                    .padding(top = AppTheme.dimensions.small)
+                    .padding(AppTheme.dimensions.small)
                     .verticalScroll(
                         rememberScrollState()
                     ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
@@ -60,5 +62,17 @@ fun MainScreen(
 @Preview
 @Composable
 private fun MainScreenPreview() {
-    AppTheme {}
+    AppTheme {
+        MainScreen(
+            state = MainState(
+                screenState = ScreenState.SUCCESS,
+                userExist = true,
+                bonusesComponentState = BonusesComponentState(
+                    bonuses = "4142", burningDate = "01.01.2021", burningQuantity = "100"
+                ),
+                qr = null,
+                recommended = emptyList()
+            ), interactor = MainInteractor.Empty()
+        )
+    }
 }
