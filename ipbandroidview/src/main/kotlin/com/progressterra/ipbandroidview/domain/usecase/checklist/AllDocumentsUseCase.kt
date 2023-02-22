@@ -32,12 +32,11 @@ interface AllDocumentsUseCase {
             val documents = repo.allDocuments(
                 token,
                 FilterAndSort(
-                    emptyList(),
-                    SortData("dateEnd", TypeVariantSort.DESC),
-                    "",
-                    false,
-                    0,
-                    300
+                    listFields = emptyList(),
+                    sort = SortData("dateEnd", TypeVariantSort.DESC),
+                    searchData = "",
+                    skip = 0,
+                    take = 300
                 )
             ).getOrThrow()
             buildList {

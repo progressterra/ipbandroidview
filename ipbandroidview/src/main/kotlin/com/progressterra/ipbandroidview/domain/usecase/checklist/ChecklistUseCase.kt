@@ -2,6 +2,8 @@ package com.progressterra.ipbandroidview.domain.usecase.checklist
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
+import com.progressterra.ipbandroidapi.api.checklist.model.SortData
+import com.progressterra.ipbandroidapi.api.checklist.model.TypeVariantSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCase
@@ -24,7 +26,13 @@ interface ChecklistUseCase {
 
         override suspend fun invoke(id: String): Result<List<Check>> = withToken { token ->
             val result = checklistRepository.checklistElements(
-                token, id, FilterAndSort(emptyList(), null, "", false, 0, 300)
+                token, id, FilterAndSort(
+                    listFields = emptyList(),
+                    sort = SortData("dateEnd", TypeVariantSort.DESC),
+                    searchData = "",
+                    skip = 0,
+                    take = 300
+                )
             ).getOrThrow()
             var currentCategory = ""
             var categorizedChecks = 0
