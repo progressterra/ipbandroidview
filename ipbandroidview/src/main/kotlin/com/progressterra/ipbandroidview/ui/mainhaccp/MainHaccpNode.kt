@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.mainhaccp
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -29,6 +30,9 @@ class MainHaccpNode(
             }
         }
         val state = viewModel.collectAsState()
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         MainHaccpScreen(
             state = state.value, interactor = viewModel
         )
