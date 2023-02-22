@@ -112,7 +112,7 @@ val useCasesModule = module {
         )
     }
 
-    single<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get()) }
+    single<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get(), get()) }
 
     single<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get()) }
 

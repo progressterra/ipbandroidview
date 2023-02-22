@@ -18,7 +18,7 @@ data class Colors(
     val failed: Color
 )
 
-val lightColors = Colors(
+val defaultLightColors = Colors(
     primary = Color(0xFF364BB9),
     secondary = Color(0xFFFFCA61),
     surfaces = Color.White,
@@ -32,7 +32,7 @@ val lightColors = Colors(
     failed = Color(0xFFF5B5B5)
 )
 
-val darkColors = Colors(
+val defaultDarkColors = Colors(
     primary = Color(0xFF364BB9),
     secondary = Color(0xFFFFCA61),
     surfaces = Color(0xFF343434),
