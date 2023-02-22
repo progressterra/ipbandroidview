@@ -34,9 +34,10 @@ interface AllDocumentsUseCase {
                 FilterAndSort(
                     listFields = emptyList(),
                     sort = SortData("dateEnd", TypeVariantSort.DESC),
-                    searchData = "",
+                    searchString = "",
                     skip = 0,
-                    take = 300
+                    take = 300,
+                    shownotmarkedasdeleted = false
                 )
             ).getOrThrow()
             buildList {
