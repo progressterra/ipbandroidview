@@ -2,8 +2,6 @@ package com.progressterra.ipbandroidview.domain.usecase.checklist
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.FilterAndSort
-import com.progressterra.ipbandroidapi.api.checklist.model.SortData
-import com.progressterra.ipbandroidapi.api.checklist.model.TypeVariantSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.parseToDate
@@ -52,7 +50,7 @@ interface OrganizationsOverviewUseCase {
             val documents = repo.allDocuments(
                 token, FilterAndSort(
                     listFields = emptyList(),
-                    sort = SortData("dateEnd", TypeVariantSort.DESC),
+                    sort = null,
                     searchString = "",
                     skip = 0,
                     take = 300,
