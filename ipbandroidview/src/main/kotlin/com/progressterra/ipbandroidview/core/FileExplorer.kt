@@ -2,8 +2,7 @@ package com.progressterra.ipbandroidview.core
 
 import android.content.Context
 import android.net.Uri
-import android.os.Environment
-import androidx.core.content.FileProvider
+import androidx.core.content.FileProvider.getUriForFile
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -25,10 +24,9 @@ interface FileExplorer {
         private val authority: String
     ) : FileExplorer {
 
-        private val folder =
-            context.getExternalFilesDir("${Environment.DIRECTORY_DOCUMENTS}/HACCP")!!.path
+        private val folder = context.getExternalFilesDir("HACCP")!!.path
 
-        override fun uriForFile(file: File): Uri = FileProvider.getUriForFile(
+        override fun uriForFile(file: File): Uri = getUriForFile(
             context,
             authority,
             file
@@ -51,7 +49,6 @@ interface FileExplorer {
 
         override fun audioFile(id: String): File =
             File("$folder/$id.m4a")
-
 
         override fun pictureFile(id: String): File = File("$folder/$id.jpg")
 
