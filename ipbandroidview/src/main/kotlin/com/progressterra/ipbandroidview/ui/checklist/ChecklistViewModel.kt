@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.Manifest
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
@@ -189,9 +190,13 @@ class ChecklistViewModel(
 
     override fun onCamera() = intent {
         checkPermissionUseCase(cameraPermission).onSuccess {
+            Log.d("Camera", "onCamera: permission granted")
             makePhotoUseCase().onSuccess {
                 reduce { state.addImage(it) }
-            }.onFailure { askPermissionUseCase(cameraPermission) }
+            }.onFailure {
+                Log.d("Camera", "onCamera: $it")
+                askPermissionUseCase(cameraPermission)
+            }
         }
     }
 }
