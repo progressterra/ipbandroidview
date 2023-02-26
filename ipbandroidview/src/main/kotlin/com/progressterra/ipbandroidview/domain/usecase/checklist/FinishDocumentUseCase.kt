@@ -25,7 +25,9 @@ interface FinishDocumentUseCase {
             repo.finishCheck(
                 token, idChecklist, FinalCommentsInput("")
             ).throwOnFailure()
-            repo.sendOnEmail(token, idChecklist, fetchUserEmailUseCase()).throwOnFailure()
+            val email = fetchUserEmailUseCase()
+            if (email.isNotBlank())
+                repo.sendOnEmail(token, idChecklist, fetchUserEmailUseCase()).throwOnFailure()
         }
     }
 }
