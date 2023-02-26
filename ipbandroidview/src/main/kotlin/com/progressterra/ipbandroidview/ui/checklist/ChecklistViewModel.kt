@@ -87,7 +87,7 @@ class ChecklistViewModel(
     fun setDocument(auditDocument: AuditDocument, initialStatus: ChecklistStatus) = intent {
         reduce {
             val newCurrentCheckState = state.currentCheckState.copy(status = initialStatus)
-            ChecklistState(auditDocument = auditDocument, currentCheckState = newCurrentCheckState)
+            state.copy(auditDocument = auditDocument, currentCheckState = newCurrentCheckState)
         }
         refreshChecklist()
     }
@@ -263,6 +263,10 @@ class ChecklistViewModel(
     override fun handleEvent(id: String, event: ButtonEvent) = intent {
         when (id) {
             "finish" -> {
+                reduce {
+                    val newFinish = state.finishButton.updateEnabled(false)
+                    state.copy(finishButton = newFinish)
+                }
                 finishDocumentUseCase(state.auditDocument.documentId!!).onSuccess {
                     reduce {
                         val newCurrentCheckState =
@@ -273,8 +277,16 @@ class ChecklistViewModel(
                 }.onFailure {
                     postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                 }
+                reduce {
+                    val newFinish = state.finishButton.updateEnabled(true)
+                    state.copy(finishButton = newFinish)
+                }
             }
             "start" -> {
+                reduce {
+                    val newStart = state.startButton.updateEnabled(false)
+                    state.copy(startButton = newStart)
+                }
                 fetchExistingAuditUseCase(
                     state.auditDocument.placeId, state.auditDocument.checklistId
                 ).onSuccess {
@@ -305,6 +317,10 @@ class ChecklistViewModel(
                     }.onFailure {
                         postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                     }
+                }
+                reduce {
+                    val newStart = state.startButton.updateEnabled(true)
+                    state.copy(startButton = newStart)
                 }
                 refreshChecklist()
             }
