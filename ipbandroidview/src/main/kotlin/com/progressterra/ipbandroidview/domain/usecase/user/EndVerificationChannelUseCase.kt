@@ -14,10 +14,13 @@ interface EndVerificationChannelUseCase {
     ) : EndVerificationChannelUseCase {
 
         override suspend fun invoke(phoneNumber: String, code: String): Result<Unit> = runCatching {
+            var formattedPhoneNumber = phoneNumber.trim()
+            if (formattedPhoneNumber.startsWith('8'))
+                formattedPhoneNumber = formattedPhoneNumber.replaceFirst('8', '7')
             val result = repo.verificationChannelEnd(
                 IncomeDataForEndLogin(
                     channelType = 0,
-                    channelData = phoneNumber,
+                    channelData = formattedPhoneNumber,
                     codeConfirm = code,
                     infoDevice = "SDK: ${Build.VERSION.SDK_INT} Model: ${Build.MODEL}"
                 )
