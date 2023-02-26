@@ -46,17 +46,14 @@ fun VoiceInput(
 ) {
     when (state) {
         is VoiceState.Recorder -> Box(modifier = modifier) {
-            Box(modifier = Modifier.padding(AppTheme.dimensions.small)) {
                 Row(
                     modifier = Modifier
+                        .padding(AppTheme.dimensions.small)
                         .clip(AppTheme.shapes.small)
                         .height(TextFieldDefaults.MinHeight)
                         .fillMaxWidth()
                         .background(AppTheme.colors.background)
-                        .padding(
-                            horizontal = AppTheme.dimensions.medium,
-                            vertical = verticalPadding
-                        ),
+                        .padding(vertical = verticalPadding),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
@@ -64,6 +61,7 @@ fun VoiceInput(
                         TrashIcon(enabled = enabled)
                     }
                     else Text(
+                        modifier = Modifier.padding(start = AppTheme.dimensions.medium),
                         text = stringResource(id = R.string.voice_message),
                         style = AppTheme.typography.text,
                         color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
@@ -74,8 +72,6 @@ fun VoiceInput(
                     ) {
                         MicIcon(enabled = enabled)
                     }
-                }
-
             }
             if (state.ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
         }
@@ -85,7 +81,7 @@ fun VoiceInput(
                     .clip(AppTheme.shapes.small)
                     .height(TextFieldDefaults.MinHeight)
                     .background(AppTheme.colors.background)
-                    .padding(AppTheme.dimensions.medium)
+                    .padding(vertical = AppTheme.dimensions.medium)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
