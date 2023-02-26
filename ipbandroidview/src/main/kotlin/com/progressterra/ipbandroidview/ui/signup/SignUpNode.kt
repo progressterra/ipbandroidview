@@ -31,8 +31,7 @@ class SignUpNode(
         }
         val state = viewModel.collectAsState()
         SignUpScreen(
-            state = state.value,
-            interactor = viewModel
+            state = state.value
         )
     }
 }

@@ -31,17 +31,17 @@ fun GoodsDetailsScreen(
             state = state.goodsDetails
         )
     }, bottomBar = {
-        GoodsBottomBar(
-            modifier = Modifier.animateContentSize(
-                animationSpec = tween(
-                    durationMillis = 500, easing = LinearEasing
-                )
-            ),
-            state = state.goodsDetails,
-            onAdd = { interactor.add() },
-            onRemove = { interactor.remove() },
-            screenState = state.screenState
-        )
+//        GoodsBottomBar(
+//            modifier = Modifier.animateContentSize(
+//                animationSpec = tween(
+//                    durationMillis = 500, easing = LinearEasing
+//                )
+//            ),
+//            state = state.goodsDetails,
+//            onAdd = { interactor.add() },
+//            onRemove = { interactor.remove() },
+//            screenState = state.screenState
+//        )
     }) { _, _ ->
         StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
             Column(

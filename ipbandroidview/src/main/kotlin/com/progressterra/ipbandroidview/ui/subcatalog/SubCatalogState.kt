@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.subcatalog
 
-import com.progressterra.ipbandroidview.composable.component.CategorySearchBarState
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 
 data class SubCatalogState(
@@ -9,7 +8,6 @@ data class SubCatalogState(
         name = "",
         subCategories = emptyList(),
         hasNext = false
-    ),
-    override val keyword: String = "",
-    override val expanded: Boolean = false
-) : CategorySearchBarState
+    ))
+//    override val keyword: String = "",
+//    override val expanded: Boolean = false

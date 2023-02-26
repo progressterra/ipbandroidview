@@ -37,7 +37,7 @@ class GoodsNode(
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setup(categoryId, keyword)
+//            viewModel.setup(categoryId, keyword)
         }
         val state = viewModel.collectAsState()
         GoodsScreen(

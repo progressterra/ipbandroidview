@@ -24,7 +24,6 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun OrderScreen(
     state: OrderState,
-    interactor: OrderInteractor
 ) {
 //    ThemedLayout(topBar = {
 //        ThemedTopAppBar(title = stringResource(R.string.order), onBack = { interactor.onBack() })

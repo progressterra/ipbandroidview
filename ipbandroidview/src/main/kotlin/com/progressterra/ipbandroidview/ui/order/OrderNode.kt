@@ -43,12 +43,12 @@ class OrderNode(
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setCart(goods)
+//            viewModel.setCart(goods)
         }
         val state = viewModel.collectAsState()
         OrderScreen(
-            state = state.value,
-            interactor = viewModel
+            state = state.value
+//            interactor = viewModel
         )
     }
 }

@@ -45,7 +45,7 @@ class SubCatalogNode(
         val state = viewModel.collectAsState()
         SubCatalogScreen(
             state = state.value,
-            interactor = viewModel
+//            interactor = viewModel
         )
     }
 }

@@ -23,8 +23,8 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
 fun BonusesScreen(
-    state: BonusesState,
-    interactor: BonusesInteractor
+//    state: BonusesState,
+//    interactor: BonusesInteractor
 ) {
 //    ThemedLayout(
 //        topBar = {

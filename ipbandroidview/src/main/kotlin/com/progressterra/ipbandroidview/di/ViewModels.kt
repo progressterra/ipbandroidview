@@ -45,11 +45,11 @@ val viewModelsModule = module {
 
     viewModel { OrganizationsViewModel(get(), get()) }
 
-    viewModel { SignInViewModel(get(), get()) }
+    viewModel { SignInViewModel(get(), get(), get()) }
 
     viewModel { SignUpViewModel(get(), get(), get(), get(), get(), get()) }
 
-    viewModel { params -> ConfirmationCodeViewModel(params.get(), get(), get(), get(), get()) }
+    viewModel { params -> ConfirmationCodeViewModel(params.get(), get(), get(), get(), get(), get()) }
 
     viewModel { OrganizationAuditsViewModel(get(), get()) }
 
@@ -57,6 +57,7 @@ val viewModelsModule = module {
 
     viewModel {
         ChecklistViewModel(
+            get(),
             get(),
             get(),
             get(),
@@ -79,7 +80,7 @@ val viewModelsModule = module {
 
     viewModel { ProfileViewModel(get(), get()) }
 
-    viewModel { ProfileDetailsViewModel(get(), get(), get(), get()) }
+    viewModel { ProfileDetailsViewModel(get(), get(), get(), get(), get()) }
 
     viewModel { CatalogViewModel(get()) }
 
@@ -118,7 +119,7 @@ val viewModelsModule = module {
 
     viewModel { PickUpPointViewModel(get()) }
 
-    viewModel { SupportViewModel(get(), get()) }
+    viewModel { SupportViewModel(get(), get(), get()) }
 
     viewModel { ReferralViewModel(get(), get(), get()) }
 

@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 @Composable
 fun SubCatalogScreen(
     state: SubCatalogState,
-    interactor: SubCatalogInteractor
+//    interactor: SubCatalogInteractor
 ) {
     ThemedLayout(topBar = {
 //        CategoryBar(
@@ -36,7 +36,9 @@ fun SubCatalogScreen(
             contentPadding = PaddingValues(AppTheme.dimensions.small)
         ) {
             items(state.currentCategoryWithSubcategories.subCategories) { category ->
-                SubCategoryComponent(state = category, openCategory = { interactor.onSubCategory(it) })
+                SubCategoryComponent(state = category, openCategory = {
+//                    interactor.onSubCategory(it)
+                })
             }
         }
     }
