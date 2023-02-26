@@ -26,7 +26,7 @@ interface EndVerificationChannelUseCase {
                 )
             ).getOrThrow()
             UserData.deviceId = result?.idDevice!!
-            UserData.phone = phoneNumber
+            UserData.phone = formattedPhoneNumber
             UserData.clientExist = true
         }
     }
