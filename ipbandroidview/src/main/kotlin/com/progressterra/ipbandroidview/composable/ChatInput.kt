@@ -10,18 +10,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
+import com.progressterra.ipbandroidview.composable.component.TextFieldComponentState
+import com.progressterra.ipbandroidview.composable.component.UseTextFieldComponent
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+data class ChatInputState(
+    val message: TextFieldComponentState = TextFieldComponentState(), val enabled: Boolean = false
+) {
+
+    fun updateMessage(newMessage: String) = copy(message = message.updateText(newMessage))
+
+    fun updateEnabled(enabled: Boolean) =
+        copy(enabled = enabled, message = message.updateEnabled(enabled))
+}
+
+sealed class ChatInputEvent {
+    object Send : ChatInputEvent()
+}
+
+interface UseChatInput : UseTextFieldComponent {
+
+    fun handleEvent(id: String, event: ChatInputEvent)
+}
+
+/**
+ * message - text field
+ */
 @Composable
 fun ChatInput(
     modifier: Modifier = Modifier,
-    editMessage: (String) -> Unit,
-    message: String,
-    onSend: () -> Unit,
-    enabled: Boolean
+    id: String,
+    state: ChatInputState,
+    useComponent: UseChatInput
 ) {
     BottomHolder(modifier = modifier) {
         Text(
@@ -36,32 +58,15 @@ fun ChatInput(
         ) {
             TextFieldComponent(
                 modifier = Modifier.weight(1f),
-                text = message,
-                hint = stringResource(R.string.request),
-                onChange = editMessage,
-                action = onSend,
-                enabled = enabled
+                state = state.message,
+                useComponent = useComponent,
+                id = "message"
             )
-            IconButton(
-                enabled = enabled,
-                onClick = onSend
-            ) {
+            IconButton(enabled = state.enabled,
+                onClick = { useComponent.handleEvent(id, ChatInputEvent.Send) }) {
                 SendIcon()
             }
         }
         Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-    }
-}
-
-@Composable
-@Preview
-private fun ChatInputPreview() {
-    AppTheme {
-        ChatInput(
-            editMessage = {},
-            message = "Some really cool message!!",
-            onSend = {},
-            enabled = true
-        )
     }
 }

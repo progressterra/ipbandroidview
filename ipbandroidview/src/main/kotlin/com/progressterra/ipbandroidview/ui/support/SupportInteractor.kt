@@ -1,23 +1,23 @@
 package com.progressterra.ipbandroidview.ui.support
 
-interface SupportInteractor {
+import com.progressterra.ipbandroidview.composable.ChatInputEvent
+import com.progressterra.ipbandroidview.composable.UseChatInput
+import com.progressterra.ipbandroidview.composable.component.TextFieldComponentEvent
+
+interface SupportInteractor : UseChatInput {
 
     fun onBack()
 
     fun refresh()
 
-    fun editMessage(message: String)
-
-    fun sendMessage()
-
     class Empty : SupportInteractor {
+
+        override fun handleEvent(id: String, event: ChatInputEvent) = Unit
+
+        override fun handleEvent(id: String, event: TextFieldComponentEvent) = Unit
 
         override fun onBack() = Unit
 
         override fun refresh() = Unit
-
-        override fun editMessage(message: String) = Unit
-
-        override fun sendMessage() = Unit
     }
 }
