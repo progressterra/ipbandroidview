@@ -35,6 +35,7 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStatus
 import com.progressterra.ipbandroidview.model.MultisizedImage
+import com.progressterra.ipbandroidview.model.Voice
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -68,7 +69,33 @@ data class CurrentCheckState(
     val status: ChecklistStatus = ChecklistStatus.READ_ONLY,
     val comment: TextFieldState = TextFieldState(),
     val ready: ButtonState = ButtonState()
-)
+) {
+
+    fun addVoice(voice: Voice) = copy(media = media.addVoice(voice))
+
+    fun updateCommentAvailable(available: Boolean) =
+        copy(comment = comment.updateEnabled(available))
+
+    fun updateComment(newComment: String) = copy(comment = comment.updateText(newComment))
+
+    fun updateStatus(status: ChecklistStatus) = copy(status = status)
+
+    fun updateCheck(check: Check) = copy(check = check)
+
+    fun updateMedia(media: CurrentCheckMedia) = copy(media = media)
+
+    fun updateYesNo(yesNo: Boolean) = copy(check = check.copy(yesNo = yesNo))
+
+    fun updateVoiceState(voiceState: VoiceState) = copy(voiceState = voiceState)
+
+    fun updateScreenState(screenState: ScreenState) = copy(screenState = screenState)
+
+    fun removeImage(image: MultisizedImage) = copy(media = media.removeImage(image))
+
+    fun removeRecord() = copy(voiceState = VoiceState.Recorder(false))
+
+    fun addImage(image: MultisizedImage) = copy(media = media.addImage(image))
+}
 
 private val minDialogHeight = 300.dp
 

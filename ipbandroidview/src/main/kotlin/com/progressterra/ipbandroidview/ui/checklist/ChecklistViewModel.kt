@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.Manifest
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
@@ -26,7 +25,7 @@ import com.progressterra.ipbandroidview.domain.usecase.media.PauseAudioUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.StopRecordingUseCase
-import com.progressterra.ipbandroidview.ext.replaceById
+import com.progressterra.ipbandroidview.ext.toScreenState
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStatus
@@ -75,8 +74,8 @@ class ChecklistViewModel(
                 ),
                 ready = ButtonState(
                     text = manageResources.string(R.string.ready)
-                ),
-            ),
+                )
+            )
         )
     )
 
@@ -85,257 +84,84 @@ class ChecklistViewModel(
     private val cameraPermission = Manifest.permission.CAMERA
 
     fun setDocument(auditDocument: AuditDocument, initialStatus: ChecklistStatus) = intent {
-        reduce {
-            val newCurrentCheckState = state.currentCheckState.copy(status = initialStatus)
-            state.copy(auditDocument = auditDocument, currentCheckState = newCurrentCheckState)
-        }
+        reduce { state.updateAuditDocument(auditDocument) }
+        updateStatus(initialStatus)
         refreshChecklist()
+    }
+
+    fun removePhoto(picture: MultisizedImage) = intent {
+        reduce { state.removeImage(picture) }
     }
 
     override fun refreshChecklist() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         var newChecks: List<Check> = emptyList()
-        var newState: ScreenState = ScreenState.ERROR
-        if (state.currentCheckState.status != ChecklistStatus.CAN_BE_STARTED) documentChecklistUseCase(
+        var isSuccess = true
+        if (!state.currentCheckState.status.isCanBeStarted()) documentChecklistUseCase(
             state.auditDocument.documentId!!
-        ).onSuccess { checks ->
-            newChecks = checks
-            newState = ScreenState.SUCCESS
-        }
-        else checklistUseCase(state.auditDocument.checklistId).onSuccess { checks ->
-            newChecks = checks
-            newState = ScreenState.SUCCESS
-        }
-        reduce { state.copy(checks = newChecks, screenState = newState) }
+        ).onSuccess { newChecks = it }.onFailure { isSuccess = false }
+        else checklistUseCase(state.auditDocument.checklistId).onSuccess { newChecks = it }
+            .onFailure { isSuccess = false }
+        reduce { state.updateChecks(newChecks).updateScreenState(isSuccess.toScreenState()) }
     }
 
     override fun openCheck(check: Check) = intent {
-        reduce {
-            val newCurrentCheckState = state.currentCheckState.copy(check = check)
-            state.copy(currentCheckState = newCurrentCheckState)
-        }
+        reduce { state.updateCurrentCheck(check) }
         refreshCheck()
-    }
-
-    private fun refreshCheck() = intent {
-        reduce {
-            val newCurrentCheckState =
-                state.currentCheckState.copy(screenState = ScreenState.LOADING)
-            state.copy(currentCheckState = newCurrentCheckState)
-
-        }
-        checkMediaDetailsUseCase(state.currentCheckState.check).onSuccess {
-            reduce {
-                val newCurrentCheckState = state.currentCheckState.copy(
-                    screenState = ScreenState.SUCCESS,
-                    media = it
-                )
-                state.copy(currentCheckState = newCurrentCheckState)
-            }
-            if (it.voices.isNotEmpty()) reduce {
-                val newCurrentCheckState = state.currentCheckState.copy(
-                    voiceState = VoiceState.Player(false, 0f)
-                )
-                state.copy(currentCheckState = newCurrentCheckState)
-            } else reduce {
-                val newCurrentCheckState = state.currentCheckState.copy(
-                    voiceState = VoiceState.Recorder(false)
-                )
-                state.copy(currentCheckState = newCurrentCheckState)
-            }
-        }.onFailure {
-            reduce {
-                val newCurrentCheckState =
-                    state.currentCheckState.copy(screenState = ScreenState.ERROR)
-                state.copy(currentCheckState = newCurrentCheckState)
-            }
-        }
     }
 
     override fun onBack() = intent { postSideEffect(ChecklistEffect.Back) }
 
-    private fun yesNo(yesNo: Boolean) =
-        intent {
-            reduce {
-                val newCurrentCheck = state.currentCheckState.check.copy(yesNo = yesNo)
-                val newCurrentCheckState = state.currentCheckState.copy(check = newCurrentCheck)
-                state.copy(currentCheckState = newCurrentCheckState)
-            }
-        }
-
-    private fun startPausePlay() = intent {
-        if (state.currentCheckState.voiceState.ongoing) {
-            pauseAudioUseCase()
-            reduce {
-                val newCurrentCheckState = state.currentCheckState.copy(
-                    voiceState = VoiceState.Player(
-                        false,
-                        (state.currentCheckState.voiceState as VoiceState.Player).progress
-                    )
-                )
-                state.copy(currentCheckState = newCurrentCheckState)
-            }
-        } else {
-            startAudioUseCase(state.currentCheckState.media.voices.last().id)
-            do {
-                val result = audioProgressUseCase().onSuccess { progress ->
-                    if (progress >= 1f) reduce {
-                        val newCurrentCheckState = state.currentCheckState.copy(
-                            voiceState = VoiceState.Player(false, 0f)
-                        )
-                        state.copy(currentCheckState = newCurrentCheckState)
-                    }
-                    else reduce {
-                        val newCurrentCheckState = state.currentCheckState.copy(
-                            voiceState = VoiceState.Player(true, progress)
-                        )
-                        state.copy(currentCheckState = newCurrentCheckState)
-                    }
-                }
-                if (result.isFailure) break
-                else delay(250)
-            } while (state.currentCheckState.voiceState.ongoing)
-        }
-    }
-
-    private fun startStopRecording() = intent {
-        if (state.currentCheckState.voiceState.ongoing) {
-            stopRecordingUseCase()
-            reduce {
-                val newCurrentCheckState = state.currentCheckState.copy(
-                    voiceState = VoiceState.Player(false, 0f)
-                )
-                state.copy(currentCheckState = newCurrentCheckState)
-            }
-        } else {
-            checkPermissionUseCase(micPermission).onSuccess {
-                startRecordingUseCase().onSuccess { voice ->
-                    reduce {
-                        val newCurrentCheckMedia = state.currentCheckState.media.addVoice(voice)
-                        val newCurrentCheckState = state.currentCheckState.copy(
-                            voiceState = VoiceState.Recorder(true),
-                            media = newCurrentCheckMedia
-                        )
-                        state.copy(currentCheckState = newCurrentCheckState)
-                    }
-                }
-            }.onFailure { askPermissionUseCase(micPermission) }
-        }
-    }
-
-    private fun removeRecord() = intent {
-        reduce {
-            val newCurrentCheckMedia = state.currentCheckState.media.removeRecord()
-            val newCurrentCheckState = state.currentCheckState.copy(media = newCurrentCheckMedia)
-            state.copy(currentCheckState = newCurrentCheckState)
-        }
-    }
-
-    fun removePhoto(picture: MultisizedImage) = intent {
-        reduce {
-            val newCurrentCheckMedia = state.currentCheckState.media.removeImage(picture)
-            val newCurrentCheckState = state.currentCheckState.copy(media = newCurrentCheckMedia)
-            state.copy(currentCheckState = newCurrentCheckState)
-        }
-    }
-
-    private fun openImage(image: MultisizedImage) = intent {
-        postSideEffect(ChecklistEffect.OpenImage(image, state.currentCheckState.status.isOngoing()))
-    }
-
-    private fun openCamera() = intent {
-        checkPermissionUseCase(cameraPermission).onSuccess {
-            Log.d("Camera", "onCamera: permission granted")
-            makePhotoUseCase().onSuccess {
-                reduce {
-                    val newCurrentCheckMedia = state.currentCheckState.media.addImage(it)
-                    val newCurrentCheckState =
-                        state.currentCheckState.copy(media = newCurrentCheckMedia)
-                    state.copy(currentCheckState = newCurrentCheckState)
-                }
-            }.onFailure {
-                Log.d("Camera", "onCamera: $it")
-                askPermissionUseCase(cameraPermission)
-            }
-        }
-    }
-
     override fun handleEvent(id: String, event: ButtonEvent) = intent {
         when (id) {
-            "finish" -> {
-                reduce {
-                    val newFinish = state.finishButton.updateEnabled(false)
-                    state.copy(finishButton = newFinish)
-                }
-                finishDocumentUseCase(state.auditDocument.documentId!!).onSuccess {
-                    reduce {
-                        val newCurrentCheckState =
-                            state.currentCheckState.copy(status = ChecklistStatus.READ_ONLY)
-                        state.copy(currentCheckState = newCurrentCheckState)
-                    }
-                    postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
-                }.onFailure {
-                    postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
-                }
-                reduce {
-                    val newFinish = state.finishButton.updateEnabled(true)
-                    state.copy(finishButton = newFinish)
-                }
-            }
-            "start" -> {
-                reduce {
-                    val newStart = state.startButton.updateEnabled(false)
-                    state.copy(startButton = newStart)
-                }
-                fetchExistingAuditUseCase(
-                    state.auditDocument.placeId, state.auditDocument.checklistId
-                ).onSuccess {
-                    reduce {
-                        val newCurrentCheckState =
-                            state.currentCheckState.copy(status = ChecklistStatus.ONGOING)
-                        val newAuditDocument = state.auditDocument.copy(documentId = it)
-                        state.copy(
-                            currentCheckState = newCurrentCheckState,
-                            auditDocument = newAuditDocument
-                        )
-                    }
-                    postSideEffect(ChecklistEffect.Toast(R.string.audit_ongoing))
-                }.onFailure {
-                    createDocumentUseCase(
-                        state.auditDocument.checklistId, state.auditDocument.placeId
-                    ).onSuccess {
-                        reduce {
-                            val newCurrentCheckState =
-                                state.currentCheckState.copy(status = ChecklistStatus.ONGOING)
-                            val newAuditDocument = state.auditDocument.copy(documentId = it)
-                            state.copy(
-                                currentCheckState = newCurrentCheckState,
-                                auditDocument = newAuditDocument
-                            )
-                        }
-                        postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
+            "finish" -> when (event) {
+                is ButtonEvent.Click -> {
+                    reduce { state.availabilityFinishButton(false) }
+                    finishDocumentUseCase(state.auditDocument.documentId!!).onSuccess {
+                        updateStatus(ChecklistStatus.READ_ONLY)
+                        postSideEffect(ChecklistEffect.Toast(R.string.audit_ended))
                     }.onFailure {
                         postSideEffect(ChecklistEffect.Toast(R.string.error_connection))
                     }
+                    reduce { state.availabilityFinishButton(true) }
                 }
-                reduce {
-                    val newStart = state.startButton.updateEnabled(true)
-                    state.copy(startButton = newStart)
-                }
-                refreshChecklist()
             }
-            "ready" -> {
-                updateAnswerUseCase(
-                    check = state.currentCheckState.check,
-                    checkDetails = state.currentCheckState.media.createPatched(),
-                ).onSuccess {
-                    reduce {
-                        val newChecks = state.checks.replaceById(it)
-                        state.copy(checks = newChecks)
+            "start" -> when (event) {
+                is ButtonEvent.Click -> {
+                    reduce { state.availabilityStartButton(false) }
+                    fetchExistingAuditUseCase(
+                        state.auditDocument.placeId, state.auditDocument.checklistId
+                    ).onSuccess {
+                        reduce { state.updateDocumentId(it) }
+                        updateStatus(ChecklistStatus.ONGOING)
+                        postSideEffect(ChecklistEffect.Toast(R.string.audit_ongoing))
+                    }.onFailure {
+                        createDocumentUseCase(
+                            state.auditDocument.checklistId, state.auditDocument.placeId
+                        ).onSuccess {
+                            reduce { state.updateDocumentId(it) }
+                            updateStatus(ChecklistStatus.ONGOING)
+                            postSideEffect(ChecklistEffect.Toast(R.string.audit_started))
+                        }
+                            .onFailure { postSideEffect(ChecklistEffect.Toast(R.string.error_connection)) }
                     }
-                    postSideEffect(ChecklistEffect.Toast(R.string.answer_done))
-                }.onFailure {
-                    postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
+                    reduce {
+                        state.availabilityStartButton(true)
+                    }
+                    refreshChecklist()
+                }
+            }
+            "ready" -> when (event) {
+                is ButtonEvent.Click -> {
+                    updateAnswerUseCase(
+                        check = state.currentCheckState.check,
+                        checkDetails = state.currentCheckState.media.createPatched(),
+                    ).onSuccess {
+                        reduce { state.updateCheck(it) }
+                        postSideEffect(ChecklistEffect.Toast(R.string.answer_done))
+                    }.onFailure {
+                        postSideEffect(ChecklistEffect.Toast(R.string.error_happend))
+                    }
                 }
             }
         }
@@ -344,13 +170,7 @@ class ChecklistViewModel(
     override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "commentary" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce {
-                    val newCommentState =
-                        state.currentCheckState.comment.copy(text = event.text)
-                    val newCurrentCheckState =
-                        state.currentCheckState.copy(comment = newCommentState)
-                    state.copy(currentCheckState = newCurrentCheckState)
-                }
+                is TextFieldEvent.TextChanged -> reduce { state.updateComment(event.text) }
                 is TextFieldEvent.Action -> Unit
             }
         }
@@ -359,14 +179,81 @@ class ChecklistViewModel(
     override fun handleEvent(id: String, event: CurrentCheckEvent) = intent {
         when (id) {
             "main" -> when (event) {
-                is CurrentCheckEvent.OpenCamera -> openCamera()
-                is CurrentCheckEvent.OpenImage -> openImage(event.image)
+                is CurrentCheckEvent.OpenCamera -> {
+                    checkPermissionUseCase(cameraPermission).onSuccess {
+                        makePhotoUseCase().onSuccess {
+                            reduce { state.addImage(it) }
+                        }.onFailure {
+                            askPermissionUseCase(cameraPermission)
+                        }
+                    }
+                }
+                is CurrentCheckEvent.OpenImage -> postSideEffect(
+                    ChecklistEffect.OpenImage(
+                        event.image,
+                        state.currentCheckState.status.isOngoing()
+                    )
+                )
                 is CurrentCheckEvent.Refresh -> refreshCheck()
-                is CurrentCheckEvent.RemoveVoice -> removeRecord()
-                is CurrentCheckEvent.StartPausePlay -> startPausePlay()
-                is CurrentCheckEvent.StartStopRecording -> startStopRecording()
-                is CurrentCheckEvent.YesNo -> yesNo(event.yesNo)
+                is CurrentCheckEvent.RemoveVoice -> reduce { state.removeRecord() }
+                is CurrentCheckEvent.StartPausePlay -> {
+                    if (state.currentCheckState.voiceState.ongoing) {
+                        pauseAudioUseCase()
+                        reduce {
+                            state.updateVoiceState(
+                                VoiceState.Player(
+                                    false,
+                                    (state.currentCheckState.voiceState as VoiceState.Player).progress
+                                )
+                            )
+                        }
+                    } else {
+                        startAudioUseCase(state.currentCheckState.media.voices.last().id)
+                        do {
+                            val result = audioProgressUseCase().onSuccess { progress ->
+                                if (progress >= 1f) reduce {
+                                    state.updateVoiceState(VoiceState.Player(false, 0f))
+                                }
+                                else reduce {
+                                    state.updateVoiceState(VoiceState.Player(true, progress))
+                                }
+                            }
+                            if (result.isFailure) break
+                            else delay(250)
+                        } while (state.currentCheckState.voiceState.ongoing)
+                    }
+                }
+                is CurrentCheckEvent.StartStopRecording -> {
+                    if (state.currentCheckState.voiceState.ongoing) {
+                        stopRecordingUseCase()
+                        reduce { state.updateVoiceState(VoiceState.Player(false, 0f)) }
+                    } else {
+                        checkPermissionUseCase(micPermission).onSuccess {
+                            startRecordingUseCase().onSuccess { voice ->
+                                reduce {
+                                    state.addVoice(voice)
+                                        .updateVoiceState(VoiceState.Recorder(true))
+                                }
+                            }
+                        }.onFailure { askPermissionUseCase(micPermission) }
+                    }
+                }
+                is CurrentCheckEvent.YesNo -> reduce { state.updateYesNo(event.yesNo) }
             }
         }
+    }
+
+    private fun updateStatus(status: ChecklistStatus) = intent {
+        reduce { state.updateStatus(status).updateCommentAvailability(status.isOngoing()) }
+    }
+
+    private fun refreshCheck() = intent {
+        reduce { state.updateCheckScreenState(ScreenState.LOADING) }
+        checkMediaDetailsUseCase(state.currentCheckState.check).onSuccess {
+            reduce { state.updateMedia(it).updateCheckScreenState(ScreenState.SUCCESS) }
+            if (it.voices.isNotEmpty()) reduce {
+                state.updateVoiceState(VoiceState.Player(false, 0f))
+            } else reduce { state.updateVoiceState(VoiceState.Recorder(false)) }
+        }.onFailure { reduce { state.updateCheckScreenState(ScreenState.ERROR) } }
     }
 }
