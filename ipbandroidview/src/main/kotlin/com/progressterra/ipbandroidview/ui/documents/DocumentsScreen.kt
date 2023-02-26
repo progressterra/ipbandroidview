@@ -25,22 +25,24 @@ import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.DocumentCard
 import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+/**
+ * archive - button
+ */
 @Composable
 fun DocumentsScreen(
-    state: DocumentsState,
-    interactor: DocumentsInteractor
+    state: DocumentsState, interactor: DocumentsInteractor
 ) {
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) { _, _ ->
-        StateBox(
-            modifier = Modifier.fillMaxSize(), state = state.screenState, refresh = { interactor.refresh() }
-        ) {
+        StateBox(modifier = Modifier.fillMaxSize(),
+            state = state.screenState,
+            refresh = { interactor.refresh() }) {
             var buttonSize by remember { mutableStateOf(0.dp) }
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -48,18 +50,16 @@ fun DocumentsScreen(
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
                 items(state.documents) {
-                    DocumentCard(
-                        modifier = Modifier.fillMaxWidth(),
+                    DocumentCard(modifier = Modifier.fillMaxWidth(),
                         state = it,
-                        openDocument = { interactor.openDocument(it) }
-                    )
+                        openDocument = { interactor.openDocument(it) })
                 }
                 item {
                     Spacer(modifier = Modifier.size(buttonSize + 24.dp))
                 }
             }
             val density = LocalDensity.current
-            ButtonComponent(
+            Button(
                 modifier = Modifier
                     .zIndex(1f)
                     .align(Alignment.BottomCenter)
@@ -67,7 +67,7 @@ fun DocumentsScreen(
                     .fillMaxWidth()
                     .onGloballyPositioned {
                         buttonSize = with(density) { it.size.height.toDp() }
-                    }, onClick = { interactor.openArchive() }, text = stringResource(id = R.string.to_archive)
+                    }, state = state.archiveButton, useComponent = interactor, id = "archive"
             )
         }
     }

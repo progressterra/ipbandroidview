@@ -2,6 +2,8 @@ package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.component.ButtonEvent
+import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
@@ -20,7 +22,13 @@ class DocumentsViewModel(
     private val manageResources: ManageResources
 ) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect>, DocumentsInteractor {
 
-    override val container: Container<DocumentsState, DocumentsEffect> = container(DocumentsState())
+    override val container: Container<DocumentsState, DocumentsEffect> = container(
+        DocumentsState(
+            archiveButton = ButtonState(
+                text = manageResources.string(R.string.to_archive)
+            )
+        )
+    )
 
     init {
         refresh()
@@ -56,11 +64,16 @@ class DocumentsViewModel(
         )
     }
 
-    override fun openArchive() = intent {
-        postSideEffect(
-            DocumentsEffect.Archive(
-                manageResources.string(R.string.archived), state.archivedDocuments
-            )
-        )
+    override fun handleEvent(id: String, event: ButtonEvent) = intent {
+        when (id) {
+            "archive" -> when (event) {
+                ButtonEvent.Click -> postSideEffect(
+                    DocumentsEffect.Archive(
+                        manageResources.string(R.string.archived),
+                        state.archivedDocuments
+                    )
+                )
+            }
+        }
     }
 }
