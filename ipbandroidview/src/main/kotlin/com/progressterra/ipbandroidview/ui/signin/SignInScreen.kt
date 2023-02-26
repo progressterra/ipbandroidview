@@ -5,26 +5,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.component.AuthComponent
-import com.progressterra.ipbandroidview.composable.component.AuthComponentInteractor
-import com.progressterra.ipbandroidview.composable.component.AuthComponentState
+import com.progressterra.ipbandroidview.composable.component.AuthState
+import com.progressterra.ipbandroidview.composable.component.UseAuth
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+/**
+ * main - auth
+ */
 @Composable
 fun SignInScreen(
-    state: AuthComponentState,
-    interactor: AuthComponentInteractor,
+    state: AuthState,
+    interactor: UseAuth,
     canBeSkipped: Boolean,
     offerUrl: String,
     policyUrl: String
 ) {
     AuthComponent(
         modifier = Modifier.fillMaxSize(),
+        id = "main",
         state = state,
-        interactor = interactor,
+        useComponent = interactor,
         canBeSkipped = canBeSkipped,
         offerUrl = offerUrl,
-        policyUrl = policyUrl,
-        prefix = "+"
+        policyUrl = policyUrl
     )
 }
 
