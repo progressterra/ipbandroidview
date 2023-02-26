@@ -2,9 +2,14 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeComponentInteractor
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeComponentState
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.composable.component.ButtonEvent
+import com.progressterra.ipbandroidview.composable.component.ButtonState
+import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeEvent
+import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeState
+import com.progressterra.ipbandroidview.composable.component.TextButtonEvent
+import com.progressterra.ipbandroidview.composable.component.TextButtonState
+import com.progressterra.ipbandroidview.composable.component.UseConfirmationCode
+import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.domain.usecase.user.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
@@ -25,14 +30,19 @@ class ConfirmationCodeViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
-    private val needDetailsUseCase: NeedDetailsUseCase
-) : ViewModel(), ContainerHost<ConfirmationCodeComponentState, ConfirmationCodeEffect>,
-    ConfirmationCodeComponentInteractor {
+    private val needDetailsUseCase: NeedDetailsUseCase,
+    private val manageResources: ManageResources
+) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect>, UseConfirmationCode {
 
-    override val container: Container<ConfirmationCodeComponentState, ConfirmationCodeEffect> =
-        container(
-            ConfirmationCodeComponentState()
+    override val container: Container<ConfirmationCodeState, ConfirmationCodeEffect> = container(
+        ConfirmationCodeState(
+            resendButton = TextButtonState(
+                text = manageResources.string(R.string.resend)
+            ), nextButton = ButtonState(
+                text = manageResources.string(R.string.next)
+            )
         )
+    )
 
     init {
         startTimer()
@@ -42,52 +52,100 @@ class ConfirmationCodeViewModel(
         reduce { state.copy(phoneNumber = phoneNumber) }
     }
 
-    override fun resend() = intent {
-        startVerificationChannelUseCase(state.phoneNumber)
-        reduce { state.copy(code = "") }
-        startTimer()
-    }
-
-    override fun onNext() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
+    private fun onNext() = intent {
+        reduce {
+            val newNextButton = state.nextButton.updateEnabled(false)
+            val newResendButton = state.resendButton.updateEnabled(false)
+            state.copy(
+                nextButton = newNextButton, resendButton = newResendButton
+            )
+        }
+        var isSuccess = true
         endVerificationChannelUseCase(state.phoneNumber, state.code).onSuccess {
             fetchUserUseCase().onSuccess {
                 needDetailsUseCase().onSuccess {
-                    reduce { state.copy(screenState = ScreenState.SUCCESS) }
-                    if (it && checkUserDetails)
-                        postSideEffect(ConfirmationCodeEffect.NeedDetails)
-                    else
-                        postSideEffect(ConfirmationCodeEffect.SkipDetails)
+                    if (it && checkUserDetails) postSideEffect(ConfirmationCodeEffect.NeedDetails)
+                    else postSideEffect(ConfirmationCodeEffect.SkipDetails)
                 }.onFailure {
-                    reduce { state.copy(screenState = ScreenState.ERROR) }
+                    isSuccess = false
                     postSideEffect(ConfirmationCodeEffect.Toast(R.string.try_again))
                 }
             }.onFailure {
-                reduce { state.copy(screenState = ScreenState.ERROR) }
+                isSuccess = false
                 postSideEffect(ConfirmationCodeEffect.Toast(R.string.try_again))
             }
         }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
+            isSuccess = false
             postSideEffect(ConfirmationCodeEffect.Toast(R.string.wrong_code))
         }
+        reduce {
+            val newNextButton = state.nextButton.updateEnabled(isSuccess)
+            val newResendButton = state.resendButton.updateEnabled(isSuccess)
+            state.copy(
+                nextButton = newNextButton, resendButton = newResendButton
+            )
+        }
+
     }
 
-    override fun codeChanged(code: String) = blockingIntent {
+    private fun codeChanged(code: String) = blockingIntent {
         if (code.length <= 4) reduce { state.copy(code = code) }
         if (code.length == 4) onNext()
     }
 
     private fun startTimer() = intent {
-        reduce { state.copy(canResend = false) }
+        reduce {
+            val newResendButton = state.resendButton.updateEnabled(false)
+            state.copy(resendButton = newResendButton)
+        }
         for (i in 45 downTo 1) {
             delay(1000)
-            if (i >= 10) reduce { state.copy(timer = "00:$i") }
-            else reduce { state.copy(timer = "00:0$i") }
+            if (i >= 10) reduce {
+                val newResendButton = state.resendButton.updateText("00:$i")
+                state.copy(resendButton = newResendButton)
+            }
+            else reduce {
+                val newResendButton = state.resendButton.updateText("00:0$i")
+                state.copy(resendButton = newResendButton)
+            }
         }
-        reduce { state.copy(canResend = true, timer = "") }
+        reduce {
+            val newResendButton = state.resendButton.updateEnabled(true)
+                .updateText(manageResources.string(R.string.resend))
+            state.copy(resendButton = newResendButton)
+        }
     }
 
-    override fun onBack() = intent {
+    private fun onBack() = intent {
         postSideEffect(ConfirmationCodeEffect.Back)
+    }
+
+    override fun handleEvent(
+        id: String, event: ConfirmationCodeEvent
+    ) {
+        when (id) {
+            "main" -> {
+                when (event) {
+                    is ConfirmationCodeEvent.CodeChanged -> codeChanged(event.code)
+                    is ConfirmationCodeEvent.Back -> onBack()
+                }
+            }
+        }
+    }
+
+    override fun handleEvent(id: String, event: ButtonEvent) = intent {
+        when (id) {
+            "next" -> onNext()
+        }
+    }
+
+    override fun handleEvent(id: String, event: TextButtonEvent) = intent {
+        when (id) {
+            "resend" -> {
+                startVerificationChannelUseCase(state.phoneNumber)
+                reduce { state.copy(code = "") }
+                startTimer()
+            }
+        }
     }
 }

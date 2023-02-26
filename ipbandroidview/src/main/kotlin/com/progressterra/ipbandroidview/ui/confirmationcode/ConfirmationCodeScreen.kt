@@ -2,19 +2,23 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeComponent
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeComponentInteractor
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeComponentState
+import com.progressterra.ipbandroidview.composable.component.ConfirmationCode
+import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeState
+import com.progressterra.ipbandroidview.composable.component.UseConfirmationCode
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+/**
+ * main - confirmation code
+ */
 @Composable
 fun ConfirmationCodeScreen(
-    state: ConfirmationCodeComponentState,
-    interactor: ConfirmationCodeComponentInteractor
+    state: ConfirmationCodeState,
+    interactor: UseConfirmationCode
 ) {
-    ConfirmationCodeComponent(
+    ConfirmationCode(
+        id = "main",
         state = state,
-        interactor = interactor
+        useComponent = interactor
     )
 }
 
