@@ -13,10 +13,14 @@ interface StartVerificationChannelUseCase {
     ) : StartVerificationChannelUseCase {
 
         override suspend fun invoke(phoneNumber: String): Result<Unit> = runCatching {
+            var formattedPhoneNumber = phoneNumber.trim()
+            if (formattedPhoneNumber.startsWith('8')) {
+                formattedPhoneNumber = formattedPhoneNumber.replaceFirst('8', '7')
+            }
             repo.verificationChannelBegin(
                 IncomeChannelData(
                     channelType = 0,
-                    channelData = phoneNumber.trim()
+                    channelData = formattedPhoneNumber
                 )
             ).throwOnFailure()
         }
