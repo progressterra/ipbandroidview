@@ -15,23 +15,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
+import com.progressterra.ipbandroidview.composable.component.TextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldState
+import com.progressterra.ipbandroidview.composable.component.UseTextField
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
-interface ReceiveReceiptState {
+data class ReceiveReceiptComponentState(
+    val receiveReceipt: Boolean = false,
+    val emailState: TextFieldState = TextFieldState()
+)
 
-    val receiveReceipt: Boolean
+interface UseReceiveReceiptComponent : UseTextField {
 
-    val email: String
+    fun handleEvent(id: String, event: ReceiveReceiptComponentEvent)
 }
 
+sealed class ReceiveReceiptComponentEvent {
+    data class ReceiveReceiptChanged(val receiveReceipt: Boolean) : ReceiveReceiptComponentEvent()
+}
+
+/**
+ * email - text field
+ */
 @Composable
-fun ReceiveReceipt(
+fun ReceiveReceiptComponent(
     modifier: Modifier = Modifier,
-    state: ReceiveReceiptState,
-    check: (Boolean) -> Unit,
-    email: (String) -> Unit
+    id: String,
+    state: ReceiveReceiptComponentState,
+    useComponent: UseReceiveReceiptComponent
 ) {
     Column(
         modifier = modifier
@@ -51,14 +63,17 @@ fun ReceiveReceipt(
                 style = AppTheme.typography.title,
                 color = AppTheme.colors.black
             )
-            ThemedSwitch(onChange = check, checked = state.receiveReceipt)
+            ThemedSwitch(onChange = {
+                useComponent.handleEvent(
+                    id, ReceiveReceiptComponentEvent.ReceiveReceiptChanged(it)
+                )
+            }, checked = state.receiveReceipt)
         }
-        if (state.receiveReceipt)
-            TextFieldComponent(
-                modifier = Modifier.fillMaxWidth(),
-                text = state.email,
-                hint = stringResource(R.string.email),
-                onChange = email
-            )
+        if (state.receiveReceipt) TextField(
+            modifier = Modifier.fillMaxWidth(),
+            id = "email",
+            state = state.emailState,
+            useComponent = useComponent
+        )
     }
 }

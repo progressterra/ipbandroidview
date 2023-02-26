@@ -11,27 +11,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
+import com.progressterra.ipbandroidview.composable.component.TextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldState
+import com.progressterra.ipbandroidview.composable.component.UseTextField
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
-interface PromoCodeState {
+data class PromoCodeComponentState(
 
-    val promoCode: SimplePrice
+    val promoCode: SimplePrice = SimplePrice(),
 
-    val promoCodeName: String
-}
+    val promoCodeState: TextFieldState = TextFieldState()
+)
 
+interface UsePromoCodeComponent : UseTextField
+
+/**
+ * code - text field
+ */
 @Composable
 fun PromoCodeComponent(
     modifier: Modifier = Modifier,
-    state: PromoCodeState,
-    editPromoCode: (String) -> Unit,
-    applyPromoCode: () -> Unit
+    state: PromoCodeComponentState,
+    useComponent: UsePromoCodeComponent
 ) {
     Column(
         modifier = modifier
@@ -41,14 +44,12 @@ fun PromoCodeComponent(
             .padding(AppTheme.dimensions.medium),
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {
-        TextFieldComponent(
+        TextField(
             modifier = Modifier.fillMaxWidth(),
-            text = state.promoCodeName,
-            hint = stringResource(R.string.promo_code),
-            onChange = editPromoCode,
-            action = applyPromoCode
+            id = "code",
+            state = state.promoCodeState,
+            useComponent = useComponent
         )
-
         if (!state.promoCode.isEmpty()) {
             Text(
                 text = "Скидка ${state.promoCode}",

@@ -24,7 +24,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 private val picHeight = 104.dp
 
 @Composable
-fun CategoryComponent(
+fun Category(
     modifier: Modifier = Modifier,
     state: MainCategory,
     openCategory: (CategoryWithSubcategories) -> Unit
@@ -67,7 +67,7 @@ fun CategoryComponent(
 @Composable
 private fun CategoryPreview() {
     AppTheme {
-        CategoryComponent(
+        Category(
             modifier = Modifier.width(300.dp),
             state = MainCategory(
                 id = "", name = "", image = "", subCategories = listOf(), hasNext = false

@@ -11,13 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponentState
-import com.progressterra.ipbandroidview.composable.component.UseTextFieldComponent
+import com.progressterra.ipbandroidview.composable.component.TextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldState
+import com.progressterra.ipbandroidview.composable.component.UseTextField
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 data class ChatInputState(
-    val message: TextFieldComponentState = TextFieldComponentState(), val enabled: Boolean = false
+    val message: TextFieldState = TextFieldState(), val enabled: Boolean = false
 ) {
 
     fun updateMessage(newMessage: String) = copy(message = message.updateText(newMessage))
@@ -30,7 +30,7 @@ sealed class ChatInputEvent {
     object Send : ChatInputEvent()
 }
 
-interface UseChatInput : UseTextFieldComponent {
+interface UseChatInput : UseTextField {
 
     fun handleEvent(id: String, event: ChatInputEvent)
 }
@@ -56,7 +56,7 @@ fun ChatInput(
             horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            TextFieldComponent(
+            TextField(
                 modifier = Modifier.weight(1f),
                 state = state.message,
                 useComponent = useComponent,

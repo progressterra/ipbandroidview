@@ -1,29 +1,24 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
+import com.progressterra.ipbandroidview.composable.component.CatalogBarComponentEvent
+import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.composable.component.UseCatalogBarComponent
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 
-interface CatalogInteractor {
+interface CatalogInteractor : UseCatalogBarComponent {
 
     fun refresh()
 
     fun openCategory(categoryWithSubcategories: CategoryWithSubcategories)
 
-    fun search()
-
-    fun editKeyword(keyword: String)
-
-    fun clear()
-
     class Empty : CatalogInteractor {
+
+        override fun handleEvent(id: String, event: CatalogBarComponentEvent) = Unit
+
+        override fun handleEvent(id: String, event: TextFieldEvent) = Unit
 
         override fun refresh() = Unit
 
         override fun openCategory(categoryWithSubcategories: CategoryWithSubcategories) = Unit
-
-        override fun search() = Unit
-
-        override fun editKeyword(keyword: String) = Unit
-
-        override fun clear() = Unit
     }
 }

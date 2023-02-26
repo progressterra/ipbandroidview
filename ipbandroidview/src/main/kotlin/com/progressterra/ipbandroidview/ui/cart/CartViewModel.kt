@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCa
 import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.removeItem
 import com.progressterra.ipbandroidview.ext.replaceById
-import com.progressterra.ipbandroidview.composable.component.CartCardComponentState
+import com.progressterra.ipbandroidview.composable.component.CartCardState
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -25,7 +25,7 @@ class CartViewModel(
 
     override val container: Container<CartState, CartEffect> = container(CartState())
 
-    override fun favorite(cartCard: CartCardComponentState) = intent {
+    override fun favorite(cartCard: CartCardState) = intent {
         modifyFavoriteUseCase(cartCard.id, cartCard.favorite).onSuccess {
             val newList = state.cart.listGoods.replaceById(cartCard.reverseFavorite())
             val newCart = state.cart.copy(listGoods = newList)
@@ -41,14 +41,14 @@ class CartViewModel(
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    override fun onDetails(cartCard: CartCardComponentState) =
+    override fun onDetails(cartCard: CartCardState) =
         intent { postSideEffect(CartEffect.GoodsDetails(cartCard.id)) }
 
     override fun onNext() = intent {
         postSideEffect(CartEffect.Next(state.cart.listGoods.map { it.toOrderGoods() }))
     }
 
-    override fun delete(cartCard: CartCardComponentState) = intent {
+    override fun delete(cartCard: CartCardState) = intent {
         fastRemoveFromCartUseCase(cartCard.id, cartCard.inCartCounter).onSuccess {
             val newListGoods = state.cart.listGoods.removeItem(cartCard)
             val newCart = state.cart.copy(listGoods = newListGoods)

@@ -44,7 +44,7 @@ sealed class AuthEvent {
     data class UrlClick(val url: String) : AuthEvent()
 }
 
-interface UseAuth : UseButton, UseTextButton, UseTextFieldComponent {
+interface UseAuth : UseButton, UseTextButton, UseTextField {
     fun handleEvent(id: String, event: AuthEvent)
 }
 
@@ -97,7 +97,7 @@ fun AuthComponent(
                         .background(AppTheme.colors.surfaces)
                         .padding(AppTheme.dimensions.medium)
                 ) {
-                    TextFieldComponent(
+                    TextField(
                         id = "phone",
                         modifier = Modifier.fillMaxWidth(),
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone),

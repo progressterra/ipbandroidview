@@ -29,7 +29,7 @@ private val picWidth = 80.dp
 
 private val picHeight = 96.dp
 
-data class CartCardComponentState(
+data class CartCardState(
     override val id: String,
     val color: String,
     override val favorite: Boolean,
@@ -38,9 +38,9 @@ data class CartCardComponentState(
     val name: String,
     val price: SimplePrice,
     val size: GoodsSize
-) : Id, Favorite<CartCardComponentState> {
+) : Id, Favorite<CartCardState> {
 
-    override fun reverseFavorite(): CartCardComponentState = this.copy(favorite = !favorite)
+    override fun reverseFavorite(): CartCardState = this.copy(favorite = !favorite)
 
     fun toOrderGoods(): OrderGoods = OrderGoods(
         id = this.id,
@@ -51,16 +51,16 @@ data class CartCardComponentState(
     )
 }
 
-interface CartCardComponentInteractor {
+interface CartCardInteractor {
 
-    fun favorite(cartCard: CartCardComponentState)
-    fun delete(cartCard: CartCardComponentState)
-    fun onDetails(cartCard: CartCardComponentState)
+    fun favorite(cartCard: CartCardState)
+    fun delete(cartCard: CartCardState)
+    fun onDetails(cartCard: CartCardState)
 
-    class Empty : CartCardComponentInteractor {
-        override fun favorite(cartCard: CartCardComponentState) = Unit
-        override fun delete(cartCard: CartCardComponentState) = Unit
-        override fun onDetails(cartCard: CartCardComponentState) = Unit
+    class Empty : CartCardInteractor {
+        override fun favorite(cartCard: CartCardState) = Unit
+        override fun delete(cartCard: CartCardState) = Unit
+        override fun onDetails(cartCard: CartCardState) = Unit
     }
 }
 
@@ -70,10 +70,10 @@ interface CartCardComponentInteractor {
  * @param interactor - interactor of component
  */
 @Composable
-fun CartCardComponent(
+fun CartCard(
     modifier: Modifier = Modifier,
-    state: CartCardComponentState,
-    interactor: CartCardComponentInteractor
+    state: CartCardState,
+    interactor: CartCardInteractor
 ) {
     Row(
         modifier = modifier
@@ -122,8 +122,8 @@ fun CartCardComponent(
 @Composable
 private fun CartCardPreview() {
     AppTheme {
-        CartCardComponent(
-            state = CartCardComponentState(
+        CartCard(
+            state = CartCardState(
                 id = "",
                 color = "GREEN",
                 favorite = true,
@@ -132,7 +132,7 @@ private fun CartCardPreview() {
                 name = "YOOOY SO COOL ITEM",
                 price = SimplePrice(3000),
                 size = GoodsSize(true, "", null)
-            ), interactor = CartCardComponentInteractor.Empty()
+            ), interactor = CartCardInteractor.Empty()
         )
     }
 }

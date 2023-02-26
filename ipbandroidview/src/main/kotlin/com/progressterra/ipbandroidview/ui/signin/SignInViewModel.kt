@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.composable.component.ButtonEvent
 import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.composable.component.TextButtonEvent
 import com.progressterra.ipbandroidview.composable.component.TextButtonState
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponentEvent
+import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.composable.component.UseAuth
 import com.progressterra.ipbandroidview.core.ManageResources
@@ -77,17 +77,17 @@ class SignInViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: TextFieldComponentEvent) = blockingIntent {
+    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "phone" -> when (event) {
-                is TextFieldComponentEvent.TextChanged -> {
+                is TextFieldEvent.TextChanged -> {
                     reduce {
                         val newNext =
                             state.next.updateEnabled(state.phone.text.isDigitsOnly())
                         state.copy(next = newNext).updatePhoneText(event.text)
                     }
                 }
-                is TextFieldComponentEvent.Action -> onNext()
+                is TextFieldEvent.Action -> onNext()
             }
         }
     }

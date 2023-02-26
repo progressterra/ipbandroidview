@@ -12,12 +12,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ButtonComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
+import com.progressterra.ipbandroidview.composable.component.Button
+import com.progressterra.ipbandroidview.composable.component.ButtonStyle
+import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+/**
+ * name, email, phone - text field
+ * confirm, logout - button
+ */
 @Composable
 fun ProfileDetailsScreen(
     state: ProfileDetailsState,
@@ -43,36 +48,37 @@ fun ProfileDetailsScreen(
                     .padding(AppTheme.dimensions.medium),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
             ) {
-                TextFieldComponent(
+                TextField(
                     modifier = Modifier.fillMaxWidth(),
-                    text = state.name,
-                    hint = stringResource(id = R.string.name_surname),
-                    onChange = { interactor.editName(it) }
+                    id = "name",
+                    state = state.name,
+                    useComponent = interactor
                 )
-                TextFieldComponent(
+                TextField(
                     modifier = Modifier.fillMaxWidth(),
-                    text = state.email,
-                    hint = stringResource(id = R.string.email),
-                    onChange = { interactor.editEmail(it) }
+                    id = "email",
+                    state = state.email,
+                    useComponent = interactor
                 )
-                TextFieldComponent(
+                TextField(
                     modifier = Modifier.fillMaxWidth(),
-                    text = state.phone,
-                    hint = stringResource(id = R.string.phone_number),
-                    enabled = false
+                    id = "phone",
+                    state = state.phone,
+                    useComponent = interactor
                 )
             }
-            ButtonComponent(
+            Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.confirmChange() },
-                text = stringResource(id = R.string.confirm_change),
+                id = "confirm",
+                state = state.confirm,
+                useComponent = interactor
             )
-            ButtonComponent(
+            Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.logout() },
-                text = stringResource(id = R.string.logout),
-                textColor = AppTheme.colors.error,
-                tint = AppTheme.colors.surfaces
+                id = "logout",
+                style = ButtonStyle.Error,
+                state = state.logout,
+                useComponent = interactor
             )
         }
     }

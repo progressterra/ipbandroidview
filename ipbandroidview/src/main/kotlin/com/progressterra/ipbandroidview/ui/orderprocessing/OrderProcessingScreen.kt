@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.ButtonComponent
+import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.composable.component.OrderProcessingComponent
 import com.progressterra.ipbandroidview.composable.component.OrderProcessingComponentState
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -24,18 +24,18 @@ fun OrderProcessingScreen(
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(R.string.order), onBack = { interactor.onBack() })
     }, bottomBar = {
-        BottomHolder {
-            if (state.success) ButtonComponent(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.onNext() },
-                text = stringResource(R.string.on_main)
-            )
-            else ButtonComponent(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.onBack() },
-                text = stringResource(R.string.repeat_payment)
-            )
-        }
+//        BottomHolder {
+//            if (state.success) Button(
+//                modifier = Modifier.fillMaxWidth(),
+//                onClick = { interactor.onNext() },
+//                text = stringResource(R.string.on_main)
+//            )
+//            else Button(
+//                modifier = Modifier.fillMaxWidth(),
+//                onClick = { interactor.onBack() },
+//                text = stringResource(R.string.repeat_payment)
+//            )
+//        }
     }) { _, _ ->
         Column(
             modifier = Modifier

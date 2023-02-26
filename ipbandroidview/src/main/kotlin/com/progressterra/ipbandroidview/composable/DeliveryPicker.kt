@@ -13,30 +13,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponent
+import com.progressterra.ipbandroidview.composable.component.TextField
+import com.progressterra.ipbandroidview.composable.component.UseTextField
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.DeliveryType
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-interface DeliveryPickerState {
+data class DeliveryPickerState(
+    val addressUI: AddressUI = AddressUI(),
+    val selectedDeliveryMethod: Delivery? = null,
+    val deliveryMethods: Map<DeliveryType, Delivery> = emptyMap(),
+)
 
-    val addressUI: AddressUI
+interface UseDeliveryPicker : UseTextField {
 
-    val selectedDeliveryMethod: Delivery?
-
-    val deliveryMethods: Map<DeliveryType, Delivery>
+    fun handleEvent(id: String, event: DeliveryPickerEvent)
 }
 
+sealed class DeliveryPickerEvent {
+    data class ChangeAddress(val addressUI: AddressUI) : DeliveryPickerEvent()
+    data class SelectDeliveryMethod(val delivery: Delivery) : DeliveryPickerEvent()
+
+    object SelectPickupPoint : DeliveryPickerEvent()
+}
+
+/**
+ * commentary - text field
+ */
 @Composable
 fun DeliveryPicker(
     modifier: Modifier = Modifier,
+    id: String,
     state: DeliveryPickerState,
-    changeAddress: () -> Unit,
-    selectPickUpPoint: () -> Unit,
-    selectDeliveryMethod: (Delivery) -> Unit,
-    editComment: (String) -> Unit
+    useComponent: UseDeliveryPicker
 ) {
     Column(
         modifier = modifier
@@ -51,16 +62,18 @@ fun DeliveryPicker(
             color = AppTheme.colors.black,
             style = AppTheme.typography.title
         )
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(AppTheme.shapes.medium)
-                .background(AppTheme.colors.background)
-                .niceClickable(onClick = changeAddress)
-                .padding(AppTheme.dimensions.large),
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .clip(AppTheme.shapes.medium)
+            .background(AppTheme.colors.background)
+            .niceClickable {
+                useComponent.handleEvent(
+                    id = id, event = DeliveryPickerEvent.ChangeAddress(state.addressUI)
+                )
+            }
+            .padding(AppTheme.dimensions.large),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+            verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = state.addressUI.printAddress(),
                 color = AppTheme.colors.black,
@@ -76,9 +89,11 @@ fun DeliveryPicker(
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    ThemedRadioButton(
-                        checked = it == state.selectedDeliveryMethod,
-                        onClick = { selectDeliveryMethod(it) })
+                    ThemedRadioButton(checked = it == state.selectedDeliveryMethod, onClick = {
+                        useComponent.handleEvent(
+                            id = id, event = DeliveryPickerEvent.SelectDeliveryMethod(it)
+                        )
+                    })
                     Column {
                         Text(
                             text = "${it.date}, ${it.price}",
@@ -92,32 +107,33 @@ fun DeliveryPicker(
                         )
                     }
                 }
-                if (it == state.selectedDeliveryMethod)
-                    when (it) {
-                        is Delivery.CourierDelivery -> TextFieldComponent(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = it.commentary,
-                            hint = stringResource(R.string.comment),
-                            onChange = editComment
-                        )
-                        is Delivery.PickUpPointDelivery -> Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(AppTheme.shapes.medium)
-                                .background(AppTheme.colors.background)
-                                .niceClickable(onClick = selectPickUpPoint)
-                                .padding(AppTheme.dimensions.large),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = it.currentPoint.address,
-                                color = AppTheme.colors.black,
-                                style = AppTheme.typography.text
+                if (it == state.selectedDeliveryMethod) when (it) {
+                    is Delivery.CourierDelivery -> TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        id = "commentary",
+                        state = it.commentary,
+                        useComponent = useComponent
+                    )
+                    is Delivery.PickUpPointDelivery -> Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(AppTheme.shapes.medium)
+                        .background(AppTheme.colors.background)
+                        .niceClickable {
+                            useComponent.handleEvent(
+                                id = id, event = DeliveryPickerEvent.SelectPickupPoint
                             )
-                            ForwardIcon()
                         }
+                        .padding(AppTheme.dimensions.large),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = it.currentPoint.address,
+                            color = AppTheme.colors.black,
+                            style = AppTheme.typography.text
+                        )
+                        ForwardIcon()
                     }
+                }
             }
         }
     }

@@ -549,7 +549,7 @@ fun RemainingIcon(modifier: Modifier = Modifier) {
 
 @Composable
 @Preview
-fun RemainingIconPreview() {
+private fun RemainingIconPreview() {
     AppTheme {
         RemainingIcon()
     }

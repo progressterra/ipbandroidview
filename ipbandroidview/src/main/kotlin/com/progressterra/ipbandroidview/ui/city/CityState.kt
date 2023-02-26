@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.ui.city
 
-import com.progressterra.ipbandroidview.composable.component.MapComponentState
+import com.progressterra.ipbandroidview.composable.component.MapState
 
 data class CityState(
     val isDataValid: Boolean = false,
-    val mapComponentState: MapComponentState = MapComponentState()
+    val mapState: MapState = MapState()
 )

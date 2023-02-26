@@ -19,10 +19,7 @@ import com.progressterra.ipbandroidview.theme.AppTheme
  */
 @Composable
 fun ThemedMimicField(
-    modifier: Modifier = Modifier,
-    text: String,
-    hint: String,
-    onClick: () -> Unit
+    modifier: Modifier = Modifier, text: String, hint: String, onClick: () -> Unit
 ) {
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {

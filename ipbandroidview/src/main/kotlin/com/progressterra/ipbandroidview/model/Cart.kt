@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.model
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.composable.component.CartCardComponentState
+import com.progressterra.ipbandroidview.composable.component.CartCardState
 
 @Immutable
 data class Cart(
-    val listGoods: List<CartCardComponentState> = emptyList(),
+    val listGoods: List<CartCardState> = emptyList(),
     val totalPrice: SimplePrice = SimplePrice()
 )

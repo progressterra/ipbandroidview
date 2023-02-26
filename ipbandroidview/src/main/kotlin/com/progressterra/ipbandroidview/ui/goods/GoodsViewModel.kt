@@ -3,11 +3,13 @@ package com.progressterra.ipbandroidview.ui.goods
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.progressterra.ipbandroidview.composable.component.GoodsBarComponentEvent
+import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
+import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import kotlinx.coroutines.flow.emptyFlow
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -27,31 +29,34 @@ class GoodsViewModel(
 
     override val container: Container<GoodsState, GoodsEffect> = container(GoodsState())
 
-    fun setup(categoryId: String, keyword: String?) = intent {
-        reduce { state.copy(currentCategory = categoryId) }
-        keyword?.let { reduce { state.copy(keyword = it) } }
+    fun setup(categoryId: String, keyword: String) = intent {
+        reduce {
+            val newKeywordState = state.goodsBarComponentState.keyword.copy(text = keyword)
+            val newGoodsBarState = state.goodsBarComponentState.copy(keyword = newKeywordState)
+            state.copy(goodsBarComponentState = newGoodsBarState, currentCategory = categoryId)
+        }
         refresh()
     }
 
-    override fun onBack() = intent {
+    private fun onBack() = intent {
         postSideEffect(GoodsEffect.Back)
     }
 
-    override fun filters() = intent {
+    private fun filters() = intent {
         postSideEffect(GoodsEffect.Filters)
     }
 
-    override fun editKeyword(keyword: String) = blockingIntent {
-        reduce { state.copy(keyword = keyword) }
-    }
-
-    override fun search() = intent {
-        if (state.keyword.isNotBlank())
+    private fun search() = intent {
+        if (state.goodsBarComponentState.keyword.text.isNotBlank())
             refreshSearch()
     }
 
-    override fun clear() = intent {
-        reduce { state.copy(keyword = "") }
+    private fun clear() = intent {
+        reduce {
+            val newKeywordState = state.goodsBarComponentState.keyword.copy(text = "")
+            val newGoodsBarState = state.goodsBarComponentState.copy(keyword = newKeywordState)
+            state.copy(goodsBarComponentState = newGoodsBarState)
+        }
     }
 
     override fun onClick(storeCard: StoreCardComponentState) = intent {
@@ -63,7 +68,7 @@ class GoodsViewModel(
     }
 
     override fun refresh() = intent {
-        if (state.keyword.isNotBlank())
+        if (state.goodsBarComponentState.keyword.text.isNotBlank())
             refreshSearch()
         else
             refreshCategory()
@@ -73,7 +78,7 @@ class GoodsViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         filteredGoodsUseCase(
             state.currentCategory,
-            state.keyword,
+            state.goodsBarComponentState.keyword.text,
             state.filters
         ).onSuccess {
             reduce {
@@ -100,6 +105,35 @@ class GoodsViewModel(
             }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
+        }
+    }
+
+    override fun handleEvent(id: String, event: GoodsBarComponentEvent) {
+        when (id) {
+            "main" -> {
+                when (event) {
+                    is GoodsBarComponentEvent.OnBack -> onBack()
+                    is GoodsBarComponentEvent.OnClear -> clear()
+                    is GoodsBarComponentEvent.OnSearch -> search()
+                }
+            }
+        }
+    }
+
+    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
+        when (id) {
+            "keyword" -> {
+                when (event) {
+                    is TextFieldEvent.TextChanged -> reduce {
+                        val newKeywordState =
+                            state.goodsBarComponentState.keyword.copy(text = event.text)
+                        val newGoodsBarState =
+                            state.goodsBarComponentState.copy(keyword = newKeywordState)
+                        state.copy(goodsBarComponentState = newGoodsBarState)
+                    }
+                    is TextFieldEvent.Action -> search()
+                }
+            }
         }
     }
 }

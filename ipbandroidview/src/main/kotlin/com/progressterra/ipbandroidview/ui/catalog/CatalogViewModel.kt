@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.composable.component.CatalogBarComponentEvent
+import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
@@ -25,7 +27,9 @@ class CatalogViewModel(
     }
 
     override fun openCategory(categoryWithSubcategories: CategoryWithSubcategories) = intent {
-        if (categoryWithSubcategories.hasNext) postSideEffect(CatalogEffect.SubCatalog(categoryWithSubcategories))
+        if (categoryWithSubcategories.hasNext) postSideEffect(
+            CatalogEffect.SubCatalog(categoryWithSubcategories)
+        )
         else postSideEffect(CatalogEffect.Goods(categoryWithSubcategories.id))
     }
 
@@ -38,16 +42,38 @@ class CatalogViewModel(
         }
     }
 
-    override fun editKeyword(keyword: String) = blockingIntent {
-        reduce { state.copy(keyword = keyword) }
+    override fun handleEvent(id: String, event: CatalogBarComponentEvent) = intent {
+        when (id) {
+            "main" -> when (event) {
+                is CatalogBarComponentEvent.OnClear -> clear()
+                is CatalogBarComponentEvent.OnSearch -> search()
+            }
+        }
     }
 
-    override fun search() = intent {
-        postSideEffect(CatalogEffect.Search(state.keyword))
-        clear()
+    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
+        when (id) {
+            "keyword" -> when (event) {
+                is TextFieldEvent.TextChanged -> reduce {
+                    val newKeywordState = state.catalogBarState.keywordState.copy(text = event.text)
+                    val newCatalogBarState =
+                        state.catalogBarState.copy(keywordState = newKeywordState)
+                    state.copy(catalogBarState = newCatalogBarState)
+                }
+                is TextFieldEvent.Action -> search()
+            }
+        }
     }
 
-    override fun clear() = intent {
-        reduce { state.copy(keyword = "") }
+    private fun search() = intent {
+        postSideEffect(CatalogEffect.Search(state.catalogBarState.keywordState.text))
+    }
+
+    private fun clear() = intent {
+        reduce {
+            val newKeywordState = state.catalogBarState.keywordState.copy(text = "")
+            val newCatalogBarState = state.catalogBarState.copy(keywordState = newKeywordState)
+            state.copy(catalogBarState = newCatalogBarState)
+        }
     }
 }

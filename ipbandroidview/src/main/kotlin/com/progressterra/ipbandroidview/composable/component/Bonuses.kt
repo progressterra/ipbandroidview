@@ -11,12 +11,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ArrowRightIcon
@@ -32,17 +32,23 @@ private val spacing3 = 3.dp
 
 private val buttonBackground = Color(0xFFD9D9D9)
 
-data class BonusesComponentState(
+@Immutable
+data class BonusesState(
     val bonuses: String = "", val burningDate: String = "", val burningQuantity: String = ""
 )
 
-sealed class BonusesComponentEvent {
+sealed class BonusesEvent {
 
-    object SpendBonuses : BonusesComponentEvent()
+    object SpendBonuses : BonusesEvent()
 
-    object InviteFriends : BonusesComponentEvent()
+    object InviteFriends : BonusesEvent()
 
-    object OnClick : BonusesComponentEvent()
+    object OnClick : BonusesEvent()
+}
+
+interface UseBonuses {
+
+    fun handleEvent(id: String, event: BonusesEvent)
 }
 
 @Composable
@@ -73,11 +79,11 @@ private fun BonusesButton(
 }
 
 @Composable
-fun BonusesComponent(
+fun Bonuses(
     modifier: Modifier = Modifier,
     id: String,
-    state: BonusesComponentState,
-    onEvent: (String, BonusesComponentEvent) -> Unit
+    state: BonusesState,
+    useComponent: UseBonuses
 ) {
     Column(
         modifier = modifier
@@ -108,26 +114,14 @@ fun BonusesComponent(
             ) {
                 BonusesButton(text = stringResource(R.string.spend),
                     icon = { PlusPeopleIcon() },
-                    onClick = { onEvent(id, BonusesComponentEvent.SpendBonuses) })
+                    onClick = { useComponent.handleEvent(id, BonusesEvent.SpendBonuses) })
                 BonusesButton(text = stringResource(R.string.invite_friends),
                     icon = { PlusPeopleIcon() },
-                    onClick = { onEvent(id, BonusesComponentEvent.InviteFriends) })
+                    onClick = { useComponent.handleEvent(id, BonusesEvent.InviteFriends) })
             }
-            IconButton(onClick = { onEvent(id, BonusesComponentEvent.OnClick) }) {
+            IconButton(onClick = { useComponent.handleEvent(id, BonusesEvent.OnClick) }) {
                 ArrowRightIcon()
             }
         }
-    }
-}
-
-@Composable
-@Preview
-private fun BonusesComponentPreview() {
-    AppTheme {
-        BonusesComponent(
-            id = "1", state = BonusesComponentState(
-                bonuses = "100", burningDate = "01.01.2021", burningQuantity = "10"
-            )
-        ) { _, _ -> }
     }
 }

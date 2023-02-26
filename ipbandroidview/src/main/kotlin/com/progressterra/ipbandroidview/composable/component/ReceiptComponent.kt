@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.LinkText
@@ -34,10 +33,11 @@ data class ReceiptComponentState(
     val totalPrice: SimplePrice = SimplePrice(),
     val deliveryPrice: SimplePrice = SimplePrice(),
     val useBonuses: Boolean = false,
-    val availableBonuses: BonusesComponentState = BonusesComponentState(),
+    val availableBonuses: BonusesState = BonusesState(),
     val promoCode: SimplePrice = SimplePrice(),
     val goods: List<OrderGoods> = emptyList(),
-    val paymentReady: Boolean = false
+    val paymentReady: Boolean = false,
+    val payButtonComponentState: ButtonState = ButtonState()
 )
 
 sealed class ReceiptComponentEvent : ComponentEvent {
@@ -47,16 +47,17 @@ sealed class ReceiptComponentEvent : ComponentEvent {
     data class OpenUrl(val url: String) : ReceiptComponentEvent()
 }
 
-/**
- * @param modifier - modifier for component
- * @param state - state of component
- * @param onEvent - callback for events
- */
+interface UseReceiptComponent : UseButton {
+
+    fun handleEvent(id: String, event: ReceiptComponentEvent)
+}
+
 @Composable
 fun ReceiptComponent(
     modifier: Modifier = Modifier,
+    id: String,
     state: ReceiptComponentState,
-    onEvent: (ReceiptComponentEvent) -> Unit
+    useComponent: UseReceiptComponent
 ) {
 
     Column(
@@ -165,11 +166,11 @@ fun ReceiptComponent(
             }
         }
         Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
-        ButtonComponent(
+        Button(
+            id = "pay",
             modifier = Modifier.fillMaxWidth(),
-            onClick = { onEvent(ReceiptComponentEvent.Payment) },
-            text = stringResource(R.string.pay),
-            enabled = state.paymentReady
+            state = state.payButtonComponentState,
+            useComponent = useComponent
         )
         Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
         LinkText(
@@ -178,17 +179,17 @@ fun ReceiptComponent(
                     text = stringResource(id = R.string.user_agreement),
                     tag = "user agreement",
                     annotation = stringResource(id = R.string.user_agreement_url),
-                    onClick = { onEvent(ReceiptComponentEvent.OpenUrl(it)) }
+                    onClick = { useComponent.handleEvent(id, ReceiptComponentEvent.OpenUrl(it)) }
                 ), LinkTextData(text = stringResource(id = R.string.and)), LinkTextData(
                     text = stringResource(id = R.string.payment_agreement),
                     tag = "payment agreement",
                     annotation = stringResource(id = R.string.payment_agreement_url),
-                    onClick = { onEvent(ReceiptComponentEvent.OpenUrl(it)) }
+                    onClick = { useComponent.handleEvent(id, ReceiptComponentEvent.OpenUrl(it)) }
                 ), LinkTextData(text = stringResource(id = R.string.payment_1)), LinkTextData(
                     text = stringResource(id = R.string.service_name),
                     tag = "service",
                     annotation = stringResource(id = R.string.service_url),
-                    onClick = { onEvent(ReceiptComponentEvent.OpenUrl(it)) }
+                    onClick = { useComponent.handleEvent(id, ReceiptComponentEvent.OpenUrl(it)) }
                 )
             )
         )
@@ -199,35 +200,10 @@ fun ReceiptComponent(
                     text = stringResource(id = R.string.merchant_info),
                     tag = "merchant_info",
                     annotation = stringResource(id = R.string.merchant_info_url),
-                    onClick = { onEvent(ReceiptComponentEvent.OpenUrl(it)) }
+                    onClick = { useComponent.handleEvent(id, ReceiptComponentEvent.OpenUrl(it)) }
                 )
             )
         )
         Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
     }
-}
-
-@Composable
-@Preview
-private fun ReceiptComponentPreview() {
-    ReceiptComponent(
-        state = ReceiptComponentState(
-            totalPrice = SimplePrice(1000),
-            deliveryPrice = SimplePrice(100),
-            useBonuses = true,
-            availableBonuses = BonusesComponentState(),
-            promoCode = SimplePrice(100),
-            goods = listOf(
-                OrderGoods(
-                    id = "1",
-                    name = "Товар 1",
-                    inCartCounter = 1,
-                    totalPrice = SimplePrice(1000),
-                    image = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-                )
-            ),
-            paymentReady = true
-        ),
-        onEvent = {}
-    )
 }

@@ -9,8 +9,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.component.CatalogSearchBar
-import com.progressterra.ipbandroidview.composable.component.CategoryComponent
+import com.progressterra.ipbandroidview.composable.component.CatalogBarComponent
+import com.progressterra.ipbandroidview.composable.component.Category
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -21,11 +21,10 @@ fun CatalogScreen(
     interactor: CatalogInteractor
 ) {
     ThemedLayout(topBar = {
-        CatalogSearchBar(
-            state = state,
-            onKeyword = { interactor.editKeyword(it) },
-            onSearch = { interactor.search() },
-            onClear = { interactor.clear() }
+        CatalogBarComponent(
+            state = state.catalogBarState,
+            id = "main",
+            useComponent = interactor
         )
     }) { _, _ ->
         StateBox(
@@ -39,7 +38,7 @@ fun CatalogScreen(
                 contentPadding = PaddingValues(AppTheme.dimensions.small)
             ) {
                 items(state.categories) { category ->
-                    CategoryComponent(
+                    Category(
                         state = category,
                         openCategory = { interactor.openCategory(it) }
                     )

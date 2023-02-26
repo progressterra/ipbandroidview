@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.progressterra.ipbandroidview.composable.component.GoodsSearchBar
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.composable.component.GoodsSearchBar
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.utils.items
@@ -24,11 +24,9 @@ fun GoodsScreen(
     state: GoodsState, interactor: GoodsInteractor
 ) {
     ThemedLayout(topBar = {
-        GoodsSearchBar(state = state,
-            onBack = { interactor.onBack() },
-            onKeyword = { interactor.editKeyword(it) },
-            onSearch = { interactor.search() },
-            onClear = { interactor.clear() })
+        GoodsSearchBar(
+            state = state.goodsBarComponentState, id = "main", useComponent = interactor
+        )
     }) { _, _ ->
         StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
             val lazyItems: LazyPagingItems<StoreCardComponentState> =

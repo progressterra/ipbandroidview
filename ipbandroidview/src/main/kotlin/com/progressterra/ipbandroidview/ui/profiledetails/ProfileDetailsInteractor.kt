@@ -1,27 +1,20 @@
 package com.progressterra.ipbandroidview.ui.profiledetails
 
-interface ProfileDetailsInteractor {
+import com.progressterra.ipbandroidview.composable.component.ButtonEvent
+import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.composable.component.UseButton
+import com.progressterra.ipbandroidview.composable.component.UseTextField
 
-    fun confirmChange()
-
-    fun editEmail(email: String)
-
-    fun editName(name: String)
+interface ProfileDetailsInteractor : UseTextField, UseButton {
 
     fun onBack()
 
-    fun logout()
-
     class Empty : ProfileDetailsInteractor {
 
-        override fun confirmChange() = Unit
+        override fun handleEvent(id: String, event: ButtonEvent) = Unit
 
-        override fun editEmail(email: String) = Unit
-
-        override fun editName(name: String) = Unit
+        override fun handleEvent(id: String, event: TextFieldEvent) = Unit
 
         override fun onBack() = Unit
-
-        override fun logout() = Unit
     }
 }

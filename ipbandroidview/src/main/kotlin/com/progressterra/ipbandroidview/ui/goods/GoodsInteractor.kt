@@ -1,35 +1,22 @@
 package com.progressterra.ipbandroidview.ui.goods
 
+import com.progressterra.ipbandroidview.composable.component.GoodsBarComponentEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
+import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.composable.component.UseGoodsBarComponent
 
-interface GoodsInteractor : StoreCardInteractor {
-
-    fun search()
-
-    fun editKeyword(keyword: String)
-
-    fun onBack()
+interface GoodsInteractor : StoreCardInteractor, UseGoodsBarComponent {
 
     fun refresh()
 
-    fun filters()
-
-    fun clear()
-
     class Empty : GoodsInteractor {
 
-        override fun search() = Unit
+        override fun handleEvent(id: String, event: GoodsBarComponentEvent) = Unit
 
-        override fun editKeyword(keyword: String) = Unit
-
-        override fun onBack() = Unit
+        override fun handleEvent(id: String, event: TextFieldEvent) = Unit
 
         override fun refresh() = Unit
-
-        override fun filters() = Unit
-
-        override fun clear() = Unit
 
         override fun onClick(storeCard: StoreCardComponentState) = Unit
 

@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.StateBox
@@ -25,83 +24,61 @@ import com.squaredem.composecalendar.ComposeCalendar
 import java.time.LocalDate
 
 data class SignUpComponentState(
-    val phoneNumber: String = "",
-    val name: String = "",
-    val email: String = "",
+    val phoneNumber: TextFieldState = TextFieldState(),
+    val name: TextFieldState = TextFieldState(),
+    val email: TextFieldState = TextFieldState(),
     val birthday: LocalDate = LocalDate.now(),
     val isDataValid: Boolean = false,
     val showCalendar: Boolean = false,
-    val screenState: ScreenState = ScreenState.LOADING
+    val screenState: ScreenState = ScreenState.LOADING,
+    val nextButtonState: ButtonState = ButtonState(),
+    val skipButtonState: TextButtonState = TextButtonState(),
 )
 
-interface SignUpComponentInteractor {
+sealed class SignUpComponentEvent {
 
-    fun onNext()
+    object Refresh : SignUpComponentEvent()
 
-    fun onSkip()
+    data class EditBirthday(val birthday: LocalDate) : SignUpComponentEvent()
 
-    fun refresh()
+    object CalendarDismiss : SignUpComponentEvent()
 
-    fun editName(name: String)
-
-    fun editEmail(email: String)
-
-    fun editBirthday(birthday: LocalDate)
-
-    fun calendarDismiss()
-
-    fun openCalendar()
-
-    class Empty : SignUpComponentInteractor {
-
-        override fun openCalendar() = Unit
-
-        override fun onNext() = Unit
-
-        override fun onSkip() = Unit
-
-        override fun refresh() = Unit
-
-        override fun editName(name: String) = Unit
-
-        override fun editEmail(email: String) = Unit
-
-        override fun editBirthday(birthday: LocalDate) = Unit
-
-        override fun calendarDismiss() = Unit
-    }
+    object CalendarShow : SignUpComponentEvent()
 }
 
-/**
- * @param modifier - modifier for the whole component
- * @param state - state of the component
- * @param interactor - interactor of the component
- */
+interface UseSignUpComponent : UseButton, UseTextButton, UseTextField {
+
+    fun handleEvent(id: String, event: SignUpComponentEvent)
+}
+
 @Composable
 fun SignUpComponent(
     modifier: Modifier = Modifier,
+    id: String,
     state: SignUpComponentState,
-    interactor: SignUpComponentInteractor
+    useComponent: UseSignUpComponent,
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.sign_up))
     }, bottomBar = {
         BottomHolder {
-            ButtonComponent(
+            Button(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.onNext() },
-                text = stringResource(id = R.string.next),
-                enabled = state.isDataValid,
+                id = "next",
+                state = state.nextButtonState,
+                useComponent = useComponent
             )
             Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-            TextButtonComponent(
+            TextButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.onSkip() },
-                text = stringResource(id = R.string.auth_skip)
+                id = "skip",
+                state = state.skipButtonState,
+                useComponent = useComponent
             )
         }
     }) { _, _ ->
-        StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
+        StateBox(state = state.screenState,
+            refresh = { useComponent.handleEvent(id, SignUpComponentEvent.Refresh) }) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -117,42 +94,44 @@ fun SignUpComponent(
                 ) {
                     if (state.showCalendar) {
                         ComposeCalendar(onDone = {
-                            interactor.editBirthday(it)
-                            interactor.calendarDismiss()
-                        }, onDismiss = { interactor.calendarDismiss() })
+                            useComponent.handleEvent(id, SignUpComponentEvent.EditBirthday(it))
+                            useComponent.handleEvent(id, SignUpComponentEvent.CalendarDismiss)
+                        }, onDismiss = {
+                            useComponent.handleEvent(
+                                id, SignUpComponentEvent.CalendarDismiss
+                            )
+                        })
                     }
-                    TextFieldComponent(modifier = Modifier.fillMaxWidth(),
-                        text = state.name,
-                        hint = stringResource(id = R.string.name_surname),
-                        onChange = { interactor.editName(it) })
-                    TextFieldComponent(modifier = Modifier.fillMaxWidth(),
-                        text = state.email,
-                        hint = stringResource(id = R.string.email),
-                        onChange = { interactor.editEmail(it) })
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        id = "name",
+                        state = state.name,
+                        useComponent = useComponent
+                    )
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        id = "email",
+                        state = state.email,
+                        useComponent = useComponent
+                    )
                     ThemedMimicField(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = { interactor.openCalendar() },
+                        onClick = {
+                            useComponent.handleEvent(
+                                id, SignUpComponentEvent.CalendarShow
+                            )
+                        },
                         text = state.birthday.print(),
                         hint = stringResource(id = R.string.birthday),
                     )
-                    TextFieldComponent(
+                    TextField(
                         modifier = Modifier.fillMaxWidth(),
-                        text = state.phoneNumber,
-                        hint = stringResource(id = R.string.phone_number),
-                        enabled = false
+                        id = "phone",
+                        state = state.phoneNumber,
+                        useComponent = useComponent
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-@Preview
-private fun SignUpComponentPreview() {
-    AppTheme {
-        SignUpComponent(
-            state = SignUpComponentState(), interactor = SignUpComponentInteractor.Empty()
-        )
     }
 }

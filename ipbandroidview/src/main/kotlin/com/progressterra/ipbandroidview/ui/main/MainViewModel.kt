@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.composable.component.BonusesComponentEvent
+import com.progressterra.ipbandroidview.composable.component.BonusesEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
@@ -43,7 +43,7 @@ class MainViewModel(
             reduce { state.copy(qr = qr) }
         }.onFailure { isSuccess = false }
         availableBonusesUseCase().onSuccess { bonusesInfo ->
-            reduce { state.copy(bonusesComponentState = bonusesInfo) }
+            reduce { state.copy(bonusesState = bonusesInfo) }
         }.onFailure { isSuccess = false }
         promoGoodsUseCase().onSuccess {
             reduce { state.copy(recommended = it) }
@@ -60,11 +60,11 @@ class MainViewModel(
         modifyFavoriteUseCase(storeCard.id, storeCard.favorite).onSuccess { refresh() }
     }
 
-    override fun onBonusesEvent(id: String, event: BonusesComponentEvent) = intent {
+    override fun onBonusesEvent(id: String, event: BonusesEvent) = intent {
         when (event) {
-            is BonusesComponentEvent.OnClick -> postSideEffect(MainEffect.Bonuses)
-            is BonusesComponentEvent.SpendBonuses -> postSideEffect(MainEffect.Spend)
-            is BonusesComponentEvent.InviteFriends -> postSideEffect(MainEffect.Invite)
+            is BonusesEvent.OnClick -> postSideEffect(MainEffect.Bonuses)
+            is BonusesEvent.SpendBonuses -> postSideEffect(MainEffect.Spend)
+            is BonusesEvent.InviteFriends -> postSideEffect(MainEffect.Invite)
         }
     }
 }

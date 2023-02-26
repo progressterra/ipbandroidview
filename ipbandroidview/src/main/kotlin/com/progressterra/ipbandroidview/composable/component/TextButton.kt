@@ -6,20 +6,37 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.theme.AppTheme
 
+data class TextButtonState(
+    val text: String = "",
+    val enabled: Boolean = true
+) {
+    fun updateText(text: String) = copy(text = text)
+    fun updateEnabled(enabled: Boolean) = copy(enabled = enabled)
+}
+
+sealed class TextButtonEvent {
+
+    object Click : TextButtonEvent()
+}
+
+interface UseTextButton {
+
+    fun handleEvent(id: String, event: TextButtonEvent)
+}
+
 @Composable
-fun TextButtonComponent(
+fun TextButton(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    text: String,
-    enabled: Boolean = true
+    id: String,
+    useComponent: UseTextButton,
+    state: TextButtonState
 ) {
     TextButton(
         modifier = modifier,
-        onClick = onClick,
-        enabled = enabled,
+        onClick = { useComponent.handleEvent(id, TextButtonEvent.Click) },
+        enabled = state.enabled,
         colors = ButtonDefaults.textButtonColors(
             contentColor = AppTheme.colors.primary,
             disabledContentColor = AppTheme.colors.gray2
@@ -29,22 +46,6 @@ fun TextButtonComponent(
             vertical = AppTheme.dimensions.buttonVerticalPadding
         )
     ) {
-        Text(text = text, style = AppTheme.typography.button)
-    }
-}
-
-@Preview
-@Composable
-private fun ThemedTextButtonEnabledPreview() {
-    AppTheme {
-        TextButtonComponent(onClick = {}, text = "Some button")
-    }
-}
-
-@Preview
-@Composable
-private fun ThemedTextButtonDisabledPreview() {
-    AppTheme {
-        TextButtonComponent(onClick = {}, text = "Some button", enabled = false)
+        Text(text = state.text, style = AppTheme.typography.button)
     }
 }

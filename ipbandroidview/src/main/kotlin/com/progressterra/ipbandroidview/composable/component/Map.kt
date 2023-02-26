@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -17,40 +15,52 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.AddressSuggestions
 import com.progressterra.ipbandroidview.core.ComponentEvent
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.SuggestionUI
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-data class MapComponentState(
+data class MapState(
     val isPermissionGranted: Boolean = false,
-    val address: String = "",
+    val addressState: TextFieldState = TextFieldState(),
     val addressUI: AddressUI = AddressUI(),
     val suggestions: List<SuggestionUI> = emptyList()
 )
 
-sealed class MapComponentEvent : ComponentEvent {
+sealed class MapEvent : ComponentEvent {
 
-    data class AddressChanged(val address: String) : MapComponentEvent()
+    data class AddressChanged(val address: String) : MapEvent()
 
-    data class MapClicked(val latLng: LatLng) : MapComponentEvent()
+    data class MapClicked(val latLng: LatLng) : MapEvent()
 
-    data class LocationClicked(val location: Location) : MapComponentEvent()
+    data class LocationClicked(val location: Location) : MapEvent()
 
-    data class SuggestionClicked(val suggestion: SuggestionUI) : MapComponentEvent()
+    data class SuggestionClicked(val suggestion: SuggestionUI) : MapEvent()
 }
 
-/**
- * @param modifier - modifier for the component
- * @param state - state of the component
- * @param onEvent - callback for events
- */
+interface UseMap : UseTextField {
+
+    fun handleEvent(id: String, event: MapEvent)
+
+    override fun handleEvent(id: String, event: TextFieldEvent) {
+        when (id) {
+            "address" -> when (event) {
+                is TextFieldEvent.TextChanged -> handleEvent(
+                    id, MapEvent.AddressChanged(event.text)
+                )
+                is TextFieldEvent.Action -> Unit
+            }
+        }
+    }
+}
+
 @Composable
-fun MapComponent(
-    modifier: Modifier = Modifier, state: MapComponentState, onEvent: (MapComponentEvent) -> Unit
+fun Map(
+    modifier: Modifier = Modifier,
+    id: String,
+    useComponent: UseMap,
+    state: MapState
 ) {
     ConstraintLayout(
         modifier = modifier
@@ -63,15 +73,14 @@ fun MapComponent(
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 10f)
         }
-        TextFieldComponent(modifier = Modifier.constrainAs(address) {
-            width = Dimension.fillToConstraints
-            top.linkTo(parent.top, 12.dp)
-            start.linkTo(parent.start, 12.dp)
-            end.linkTo(parent.end, 12.dp)
-        },
-            text = state.address,
-            hint = stringResource(id = R.string.address),
-            onChange = { onEvent(MapComponentEvent.AddressChanged(it)) })
+        TextField(
+            modifier = Modifier.constrainAs(address) {
+                width = Dimension.fillToConstraints
+                top.linkTo(parent.top, 12.dp)
+                start.linkTo(parent.start, 12.dp)
+                end.linkTo(parent.end, 12.dp)
+            }, id = "address", useComponent = useComponent, state = state.addressState
+        )
         GoogleMap(
             modifier = Modifier
                 .clip(AppTheme.shapes.small)
@@ -84,8 +93,13 @@ fun MapComponent(
                     bottom.linkTo(parent.bottom, 12.dp)
                 },
             cameraPositionState = cameraPositionState,
-            onMapClick = { onEvent(MapComponentEvent.MapClicked(it)) },
-            onMyLocationClick = { onEvent(MapComponentEvent.LocationClicked(it)) },
+            onMapClick = { useComponent.handleEvent(id, MapEvent.MapClicked(it)) },
+            onMyLocationClick = {
+                useComponent.handleEvent(
+                    id,
+                    MapEvent.LocationClicked(it)
+                )
+            },
             properties = MapProperties(isMyLocationEnabled = state.isPermissionGranted)
         )
         AddressSuggestions(modifier = Modifier.constrainAs(suggestions) {
@@ -96,23 +110,11 @@ fun MapComponent(
         },
             suggestions = state.suggestions,
             isVisible = state.suggestions.isNotEmpty(),
-            onSuggestion = { onEvent(MapComponentEvent.SuggestionClicked(it)) })
-    }
-}
-
-@Composable
-@Preview
-private fun MapComponentPreview() {
-    AppTheme {
-        MapComponent(
-            state = MapComponentState(
-                isPermissionGranted = true, address = "address", suggestions = listOf(
-                    SuggestionUI(
-                        suggestionExtendedInfo = SuggestionExtendedInfo(),
-                        previewOfSuggestion = "previewOfSuggestion"
-                    )
+            onSuggestion = {
+                useComponent.handleEvent(
+                    id,
+                    MapEvent.SuggestionClicked(it)
                 )
-            ), onEvent = { }
-        )
+            })
     }
 }

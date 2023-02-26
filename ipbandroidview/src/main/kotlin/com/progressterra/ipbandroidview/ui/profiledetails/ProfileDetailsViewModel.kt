@@ -2,6 +2,11 @@ package com.progressterra.ipbandroidview.ui.profiledetails
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.component.ButtonEvent
+import com.progressterra.ipbandroidview.composable.component.ButtonState
+import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.composable.component.TextFieldState
+import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
@@ -21,12 +26,32 @@ class ProfileDetailsViewModel(
     private val updatePersonalInfoUseCase: UpdatePersonalInfoUseCase,
     private val fetchUserNameUseCase: FetchUserNameUseCase,
     private val fetchUserPhoneUseCase: FetchUserPhoneUseCase,
-    private val fetchUserEmailUseCase: FetchUserEmailUseCase
+    private val fetchUserEmailUseCase: FetchUserEmailUseCase,
+    manageResources: ManageResources
 ) : ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEffect>,
     ProfileDetailsInteractor {
 
     override val container: Container<ProfileDetailsState, ProfileDetailsEffect> =
-        container(ProfileDetailsState())
+        container(
+            ProfileDetailsState(
+                name = TextFieldState(
+                    hint = manageResources.string(R.string.name_surname)
+                ),
+                email = TextFieldState(
+                    hint = manageResources.string(R.string.email)
+                ),
+                phone = TextFieldState(
+                    hint = manageResources.string(R.string.phone_number),
+                    enabled = false
+                ),
+                confirm = ButtonState(
+                    text = manageResources.string(R.string.confirm_change)
+                ),
+                logout = ButtonState(
+                    text = manageResources.string(R.string.logout)
+                )
+            )
+        )
 
     init {
         refresh()
@@ -36,23 +61,58 @@ class ProfileDetailsViewModel(
         val phone = fetchUserPhoneUseCase()
         val name = fetchUserNameUseCase()
         val email = fetchUserEmailUseCase()
-        reduce { state.copy(phone = phone, name = name, email = email) }
+        reduce {
+            state.updateEmail(email).updateName(name).updatePhone(phone)
+        }
     }
 
-    override fun confirmChange() = intent {
-        updatePersonalInfoUseCase(state.name, state.email).onSuccess {
+    private fun confirmChange() = intent {
+        reduce { state.updateTextFieldsEnabled(false) }
+        updatePersonalInfoUseCase(state.name.text, state.email.text).onSuccess {
             postSideEffect(ProfileDetailsEffect.Toast(R.string.success_changed_personal))
             postSideEffect(ProfileDetailsEffect.UpdateUserInfo)
         }.onFailure {
             postSideEffect(ProfileDetailsEffect.Toast(R.string.failed_changed_personal))
         }
+        reduce { state.updateTextFieldsEnabled(true) }
     }
 
-    override fun editEmail(email: String) = blockingIntent { reduce { state.copy(email = email) } }
+    override fun handleEvent(id: String, event: ButtonEvent) = intent {
+        when (id) {
+            "confirm" -> when (event) {
+                is ButtonEvent.Click -> confirmChange()
+            }
+            "logout" -> when (event) {
+                is ButtonEvent.Click -> logout()
+            }
+        }
+    }
 
-    override fun editName(name: String) = blockingIntent { reduce { state.copy(name = name) } }
+    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
+        when (id) {
+            "name" -> when (event) {
+                is TextFieldEvent.TextChanged -> reduce {
+                    state.updateName(event.text)
+                }
+                is TextFieldEvent.Action -> Unit
+            }
+            "email" -> when (event) {
+                is TextFieldEvent.TextChanged -> reduce {
+                    state.updateEmail(event.text)
+                }
+                is TextFieldEvent.Action -> Unit
+            }
+            "phone" -> when (event) {
+                is TextFieldEvent.TextChanged -> reduce {
+                    state.updatePhone(event.text)
+                }
+                is TextFieldEvent.Action -> Unit
+            }
+        }
+    }
 
-    override fun logout() = intent {
+    private fun logout() = intent {
+        //todo to useCase
         UserData.clearUser()
         postSideEffect(ProfileDetailsEffect.Logout)
     }

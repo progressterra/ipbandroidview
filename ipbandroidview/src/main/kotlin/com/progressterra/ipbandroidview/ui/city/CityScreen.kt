@@ -10,10 +10,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.TextButtonComponent
+import com.progressterra.ipbandroidview.composable.component.TextButton
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.ButtonComponent
-import com.progressterra.ipbandroidview.composable.component.MapComponent
+import com.progressterra.ipbandroidview.composable.component.Button
+import com.progressterra.ipbandroidview.composable.component.Map
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -24,24 +24,24 @@ fun CityScreen(
         ThemedTopAppBar(title = stringResource(id = R.string.address),
             onBack = { interactor.onBack() })
     }, bottomBar = {
-        BottomHolder {
-            ButtonComponent(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.onNext() },
-                text = stringResource(id = R.string.ready),
-                enabled = state.isDataValid
-            )
-            if (canBeSkipped) {
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-                TextButtonComponent(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { interactor.onSkip() },
-                    text = stringResource(id = R.string.auth_skip)
-                )
-            }
-        }
+//        BottomHolder {
+//            Button(
+//                modifier = Modifier.fillMaxWidth(),
+//                onClick = { interactor.onNext() },
+//                text = stringResource(id = R.string.ready),
+//                enabled = state.isDataValid
+//            )
+//            if (canBeSkipped) {
+//                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+//                TextButton(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    onClick = { interactor.onSkip() },
+//                    text = stringResource(id = R.string.auth_skip)
+//                )
+//            }
+//        }
     }) { _, _ ->
-        MapComponent(state = state.mapComponentState, onEvent = { })
+//        Map(state = state.mapState, onEvent = { })
     }
 }
 

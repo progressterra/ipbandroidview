@@ -17,8 +17,8 @@ import com.progressterra.ipbandroidview.composable.Qr
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.BonusesComponent
-import com.progressterra.ipbandroidview.composable.component.BonusesComponentState
+import com.progressterra.ipbandroidview.composable.component.Bonuses
+import com.progressterra.ipbandroidview.composable.component.BonusesState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -26,37 +26,37 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun MainScreen(
     state: MainState, interactor: MainInteractor
 ) {
-    ThemedLayout(topBar = {
-        Column(
-            modifier = Modifier.background(AppTheme.colors.surfaces),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
-        ) {
-            if (state.userExist) ThemedTopAppBar(title = stringResource(R.string.main))
-        }
-    }) { _, _ ->
-        StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(AppTheme.dimensions.small)
-                    .verticalScroll(
-                        rememberScrollState()
-                    ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
-            ) {
-                BonusesComponent(id = "bonuses",
-                    state = state.bonusesComponentState,
-                    onEvent = { id, event -> interactor.onBonusesEvent(id, event) })
-                state.qr?.let { Qr(qr = it) }
-                state.recommended.forEach { pair ->
-                    GoodsGallery(modifier = Modifier,
-                        goods = pair.second,
-                        category = pair.first,
-                        storeCardInteractor = interactor,
-                        onFullCategory = { interactor.onCategory(it) })
-                }
-            }
-        }
-    }
+//    ThemedLayout(topBar = {
+//        Column(
+//            modifier = Modifier.background(AppTheme.colors.surfaces),
+//            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+//        ) {
+//            if (state.userExist) ThemedTopAppBar(title = stringResource(R.string.main))
+//        }
+//    }) { _, _ ->
+//        StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
+//            Column(
+//                Modifier
+//                    .fillMaxSize()
+//                    .padding(AppTheme.dimensions.small)
+//                    .verticalScroll(
+//                        rememberScrollState()
+//                    ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+//            ) {
+//                Bonuses(id = "bonuses",
+//                    state = state.bonusesState,
+//                    onEvent = { id, event -> interactor.onBonusesEvent(id, event) })
+//                state.qr?.let { Qr(qr = it) }
+//                state.recommended.forEach { pair ->
+//                    GoodsGallery(modifier = Modifier,
+//                        goods = pair.second,
+//                        category = pair.first,
+//                        storeCardInteractor = interactor,
+//                        onFullCategory = { interactor.onCategory(it) })
+//                }
+//            }
+//        }
+//    }
 }
 
 @Preview
@@ -67,7 +67,7 @@ private fun MainScreenPreview() {
             state = MainState(
                 screenState = ScreenState.SUCCESS,
                 userExist = true,
-                bonusesComponentState = BonusesComponentState(
+                bonusesState = BonusesState(
                     bonuses = "4142", burningDate = "01.01.2021", burningQuantity = "100"
                 ),
                 qr = null,

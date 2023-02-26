@@ -28,7 +28,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
-import com.progressterra.ipbandroidview.composable.component.ButtonComponent
+import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.theme.AppTheme
@@ -43,14 +43,14 @@ fun PickUpPointScreen(
             title = stringResource(id = R.string.pick_up_point), onBack = { interactor.onBack() }
         )
     }, bottomBar = {
-        BottomHolder {
-            ButtonComponent(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { interactor.onNext() },
-                text = stringResource(id = R.string.choose),
-                enabled = state.currentPickUpPointInfo != null,
-            )
-        }
+//        BottomHolder {
+//            Button(
+//                modifier = Modifier.fillMaxWidth(),
+//                onClick = { interactor.onNext() },
+//                text = stringResource(id = R.string.choose),
+//                enabled = state.currentPickUpPointInfo != null,
+//            )
+//        }
     }) { _, _ ->
         Column(
             modifier = Modifier

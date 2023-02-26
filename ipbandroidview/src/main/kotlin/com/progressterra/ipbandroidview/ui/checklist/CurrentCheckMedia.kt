@@ -9,8 +9,8 @@ import com.progressterra.ipbandroidview.model.Voice
 
 @Immutable
 data class CurrentCheckMedia(
-    val voices: List<Voice>,
-    val pictures: List<MultisizedImage>
+    val voices: List<Voice> = emptyList(),
+    val pictures: List<MultisizedImage> = emptyList()
 ) {
     fun createPatched() = copy(
         voices = voices.formPatch(), pictures = pictures.formPatch()

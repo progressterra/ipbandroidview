@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.city
 
-import com.progressterra.ipbandroidview.composable.component.MapComponentEvent
+import com.progressterra.ipbandroidview.composable.component.MapEvent
 
 interface CityInteractor : MapComponentEventHandler {
 
@@ -18,6 +18,6 @@ interface CityInteractor : MapComponentEventHandler {
 
         override fun onNext() = Unit
 
-        override fun handleEvent(event: MapComponentEvent) = Unit
+        override fun handleEvent(event: MapEvent) = Unit
     }
 }

@@ -11,27 +11,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ButtonComponent
+import com.progressterra.ipbandroidview.composable.component.Button
+import com.progressterra.ipbandroidview.composable.component.ButtonState
+import com.progressterra.ipbandroidview.composable.component.UseButton
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
-import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.GoodsDetails
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val lineWidth = 0.5.dp
 
+data class GoodsBottomBarComponentState(
+    val inCartCounter: Int = 0,
+    val price: String = "",
+    val addButtonState: ButtonState = ButtonState()
+)
 
+interface UseGoodsBottomBar : UseButton {
+    fun handleEvent(id: String, event: GoodsBottomBarEvent)
+}
+
+sealed class GoodsBottomBarEvent {
+    object Add : GoodsBottomBarEvent()
+    object Remove : GoodsBottomBarEvent()
+}
+
+/**
+ * add - button component
+ */
 @Composable
 fun GoodsBottomBar(
     modifier: Modifier = Modifier,
-    state: GoodsDetails,
-    screenState: ScreenState,
-    onAdd: () -> Unit,
-    onRemove: () -> Unit
+    id: String,
+    state: GoodsBottomBarComponentState,
+    useComponent: UseGoodsBottomBar
 ) {
     Row(
         modifier = modifier
@@ -43,47 +56,29 @@ fun GoodsBottomBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state.price.toString(),
-            style = AppTheme.typography.price,
-            color = AppTheme.colors.black
+            text = state.price, style = AppTheme.typography.price, color = AppTheme.colors.black
         )
-        if (state.inCartCounter >= 1)
-            Row(
-                modifier = Modifier
-                    .clip(AppTheme.shapes.button)
-                    .background(AppTheme.colors.background),
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(onClick = onRemove) {
-                    RemoveItemIcon()
-                }
-                Text(
-                    text = state.inCartCounter.toString(),
-                    color = AppTheme.colors.black,
-                    style = AppTheme.typography.button
-                )
-                IconButton(onClick = onAdd) {
-                    AddItemIcon(available = true)
-                }
+        if (state.inCartCounter >= 1) Row(
+            modifier = Modifier
+                .clip(AppTheme.shapes.button)
+                .background(AppTheme.colors.background),
+            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = { useComponent.handleEvent(id, GoodsBottomBarEvent.Remove) }) {
+                RemoveItemIcon()
             }
-        else
-            ButtonComponent(
-                onClick = onAdd,
-                enabled = screenState.isSuccess(),
-                text = stringResource(id = R.string.in_cart)
+            Text(
+                text = state.inCartCounter.toString(),
+                color = AppTheme.colors.black,
+                style = AppTheme.typography.button
             )
-    }
-}
-
-@Preview
-@Composable
-fun GoodsBottomBarPreview() {
-    AppTheme {
-        GoodsBottomBar(
-            state = GoodsDetails(),
-            screenState = ScreenState.SUCCESS,
-            onRemove = {}, onAdd = {}
+            IconButton(onClick = { useComponent.handleEvent(id, GoodsBottomBarEvent.Add) }) {
+                AddItemIcon(available = true)
+            }
+        }
+        else Button(
+            state = state.addButtonState, useComponent = useComponent, id = "add"
         )
     }
 }

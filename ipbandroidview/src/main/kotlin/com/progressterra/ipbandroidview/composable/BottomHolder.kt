@@ -3,17 +3,11 @@ package com.progressterra.ipbandroidview.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.component.ButtonComponent
-import com.progressterra.ipbandroidview.composable.component.TextButtonComponent
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable
@@ -26,22 +20,4 @@ fun BottomHolder(modifier: Modifier = Modifier, content: @Composable ColumnScope
             .background(AppTheme.colors.surfaces)
             .padding(AppTheme.dimensions.small), content = content
     )
-}
-
-@Preview
-@Composable
-private fun BottomHolderPreview() {
-    AppTheme {
-        BottomHolder {
-            ButtonComponent(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { },
-                text = "Some button 1",
-            )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-            TextButtonComponent(
-                modifier = Modifier.fillMaxWidth(), onClick = { }, text = "Some button 2"
-            )
-        }
-    }
 }

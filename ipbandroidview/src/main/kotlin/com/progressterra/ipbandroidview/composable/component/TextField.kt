@@ -1,67 +1,76 @@
 package com.progressterra.ipbandroidview.composable.component
 
+import android.os.Parcelable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.composable.utils.PrefixTransformation
 import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.theme.AppTheme
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+@Immutable
+data class TextFieldState(
+    val text: String = "", val hint: String = "", val enabled: Boolean = true
+) : Parcelable {
+
+    fun updateText(text: String): TextFieldState = this.copy(text = text)
+
+    fun updateEnabled(enabled: Boolean): TextFieldState = this.copy(enabled = enabled)
+
+    fun updateHint(hint: String): TextFieldState = this.copy(hint = hint)
+}
+
+sealed class TextFieldEvent {
+
+    data class TextChanged(val text: String) : TextFieldEvent()
+
+    object Action : TextFieldEvent()
+}
+
+interface UseTextField {
+
+    fun handleEvent(id: String, event: TextFieldEvent)
+}
 
 private val borderWidth = 1.dp
 
-/**
- * @param modifier - modifier for the TextField
- * @param text - text to be displayed in the TextField
- * @param hint - hint to be displayed in the TextField
- * @param onChange - callback to be invoked when the text changes
- * @param enabled - whether the TextField is enabled
- * @param keyboardOptions - keyboard options for the TextField
- * @param action - callback to be invoked when the keyboard action is performed
- * @param singleLine - whether the TextField is single line
- * @param leadingIcon - leading icon to be displayed in the TextField
- * @param trailingIcon - trailing icon to be displayed in the TextField
- * @param prefix - prefix to be displayed in the TextField
- */
 @Composable
-fun TextFieldComponent(
+fun TextField(
     modifier: Modifier = Modifier,
-    text: String,
-    hint: String,
-    onChange: ((String) -> Unit)? = null,
-    enabled: Boolean = true,
+    id: String,
+    state: TextFieldState,
+    useComponent: UseTextField,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    action: (() -> Unit)? = null,
     singleLine: Boolean = true,
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
-    prefix: String? = null
 ) {
-    val label: (@Composable () -> Unit)? = if (text.isNotEmpty() || prefix != null) {
+    val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
+                text = state.hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
-    val placeholder: (@Composable () -> Unit)? = if (text.isEmpty()) {
+    val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.text, maxLines = 1
+                text = state.hint, style = AppTheme.typography.text, maxLines = 1
             )
         }
     } else null
@@ -76,20 +85,21 @@ fun TextFieldComponent(
                 shape = AppTheme.shapes.small
             )
             .clearFocusOnKeyboardDismiss(),
-        value = text,
-        visualTransformation = prefix?.let { PrefixTransformation(it) }
-            ?: VisualTransformation.None,
+        value = state.text,
+        visualTransformation = visualTransformation,
         interactionSource = mutableInteractionSource,
-        onValueChange = { onChange?.invoke(it) },
+        onValueChange = { text ->
+            useComponent.handleEvent(id, TextFieldEvent.TextChanged(text))
+        },
         keyboardActions = KeyboardActions {
             focusManager.clearFocus()
-            action?.invoke()
+            useComponent.handleEvent(id, TextFieldEvent.Action)
         },
         shape = AppTheme.shapes.small,
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,
-        enabled = enabled,
+        enabled = state.enabled,
         textStyle = AppTheme.typography.text,
         singleLine = singleLine,
         leadingIcon = leadingIcon,
@@ -126,36 +136,4 @@ fun TextFieldComponent(
             errorTrailingIconColor = AppTheme.colors.error
         )
     )
-}
-
-@Preview
-@Composable
-private fun ThemedTextFieldPreviewEmptyDisabled() {
-    AppTheme {
-        Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            TextFieldComponent(
-                text = "Some text",
-                hint = "Your name",
-                enabled = true,
-                action = { /* Some action */ },
-                onChange = { /* change state */ },
-                keyboardOptions = KeyboardOptions.Default,
-                singleLine = true,
-                leadingIcon = { /* Some icon */ },
-                trailingIcon = { /* Some icon */ },
-                prefix = "+7"
-            )
-            TextFieldComponent(
-                text = "Some text", hint = "Your name", enabled = false
-            )
-            TextFieldComponent(
-                hint = "Your name", enabled = false, text = ""
-            )
-            TextFieldComponent(
-                hint = "Your name", enabled = true, prefix = "+7", text = ""
-            )
-        }
-    }
 }

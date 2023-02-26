@@ -7,33 +7,41 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BackIcon
 import com.progressterra.ipbandroidview.composable.BasicBar
 import com.progressterra.ipbandroidview.composable.Mark2Icon
 import com.progressterra.ipbandroidview.composable.SearchIcon
 import com.progressterra.ipbandroidview.theme.AppTheme
 
-//TODO: embed this in a single component
+data class CatalogBarComponentState(
+    val keywordState: TextFieldState = TextFieldState()
+)
 
-@Immutable
-interface CatalogSearchBarState {
+sealed class CatalogBarComponentEvent {
 
-    val keyword: String
+    object OnClear : CatalogBarComponentEvent()
+
+    object OnSearch : CatalogBarComponentEvent()
+}
+
+interface UseCatalogBarComponent : UseTextField {
+
+    fun handleEvent(id: String, event: CatalogBarComponentEvent)
 }
 
 private val paddingBottom = 10.dp
 
+/**
+ * keyword - TextFieldComponent
+ */
 @Composable
-fun CatalogSearchBar(
+fun CatalogBarComponent(
     modifier: Modifier = Modifier,
-    state: CatalogSearchBarState,
-    onClear: () -> Unit,
-    onKeyword: (String) -> Unit,
-    onSearch: () -> Unit
+    id: String,
+    state: CatalogBarComponentState,
+    useComponent: UseCatalogBarComponent
 ) {
     BasicBar(
         modifier = modifier, paddingValues = PaddingValues(
@@ -42,41 +50,59 @@ fun CatalogSearchBar(
             bottom = paddingBottom
         )
     ) {
-        TextFieldComponent(modifier = Modifier.weight(1f),
-            text = state.keyword,
-            hint = stringResource(id = R.string.search),
-            onChange = onKeyword,
+        TextField(modifier = Modifier.weight(1f),
+            id = "keyword",
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Search
             ),
-            action = onSearch,
+            state = state.keywordState,
+            useComponent = useComponent,
             trailingIcon = {
-                if (state.keyword.isNotEmpty()) IconButton(onClick = onClear) {
+                if (state.keywordState.text.isNotEmpty()) IconButton(onClick = {
+                    useComponent.handleEvent(
+                        id, CatalogBarComponentEvent.OnClear
+                    )
+                }) {
                     Mark2Icon()
                 }
-                else SearchIcon()
+                else IconButton(onClick = {
+                    useComponent.handleEvent(
+                        id, CatalogBarComponentEvent.OnSearch
+                    )
+                }) {
+                    SearchIcon()
+                }
             })
     }
 }
 
 @Immutable
-interface CategorySearchBarState {
-
-    val keyword: String
-
+data class CategoryBarState(
+    val keywordState: TextFieldState = TextFieldState(),
+    val category: String,
     val expanded: Boolean
+)
+
+sealed class CategoryBarEvent {
+
+    object OnBack : CategoryBarEvent()
+
+    object OnExpand : CategoryBarEvent()
+
+    object OnClear : CategoryBarEvent()
+}
+
+interface UseCategoryBarComponent : UseTextField {
+
+    fun handleEvent(id: String, event: CategoryBarEvent)
 }
 
 @Composable
-fun CategorySearchBar(
+fun CategoryBar(
     modifier: Modifier = Modifier,
-    state: CategorySearchBarState,
-    category: String,
-    onExpand: () -> Unit,
-    onBack: () -> Unit,
-    onClear: () -> Unit,
-    onKeyword: (String) -> Unit,
-    onSearch: () -> Unit
+    id: String,
+    state: CategoryBarState,
+    useComponent: UseCategoryBarComponent
 ) {
     BasicBar(
         modifier = modifier, paddingValues = PaddingValues(
@@ -86,37 +112,64 @@ fun CategorySearchBar(
         )
     ) {
         if (!state.expanded) {
-            IconButton(onClick = onBack) { BackIcon() }
+            IconButton(onClick = { useComponent.handleEvent(id, CategoryBarEvent.OnBack) }) {
+                BackIcon()
+            }
         }
         if (!state.expanded) {
             Text(
-                text = category, style = AppTheme.typography.title, color = AppTheme.colors.black
+                text = state.category,
+                style = AppTheme.typography.title,
+                color = AppTheme.colors.black
             )
         }
         if (state.expanded) {
-            TextFieldComponent(modifier = Modifier.weight(1f),
-                text = state.keyword,
-                hint = stringResource(id = R.string.search),
-                onChange = onKeyword,
+            TextField(
+                modifier = Modifier.weight(1f),
+                id = "keyword",
+                state = state.keywordState,
                 keyboardOptions = KeyboardOptions.Default.copy(
                     imeAction = ImeAction.Search
                 ),
-                action = onSearch,
                 trailingIcon = {
-                    if (state.keyword.isNotEmpty()) IconButton(onClick = onClear) {
+                    if (state.keywordState.text.isNotEmpty()) IconButton(onClick = {
+                        useComponent.handleEvent(
+                            id, CategoryBarEvent.OnClear
+                        )
+                    }) {
                         Mark2Icon()
                     }
                     else SearchIcon()
-                })
+                },
+                useComponent = useComponent
+            )
         }
-        if (!state.expanded) IconButton(onClick = onExpand) { SearchIcon() }
+        if (!state.expanded) IconButton(onClick = {
+            useComponent.handleEvent(
+                id, CategoryBarEvent.OnExpand
+            )
+        }) {
+            SearchIcon()
+        }
     }
 }
 
-@Immutable
-interface GoodsSearchBarState {
+data class GoodsBarComponentState(
+    val keyword: TextFieldState = TextFieldState()
+)
 
-    val keyword: String
+interface UseGoodsBarComponent : UseTextField {
+
+    fun handleEvent(id: String, event: GoodsBarComponentEvent)
+}
+
+sealed class GoodsBarComponentEvent {
+
+    object OnBack : GoodsBarComponentEvent()
+
+    object OnClear : GoodsBarComponentEvent()
+
+    object OnSearch : GoodsBarComponentEvent()
 }
 
 /**
@@ -125,11 +178,9 @@ interface GoodsSearchBarState {
 @Composable
 fun GoodsSearchBar(
     modifier: Modifier = Modifier,
-    state: GoodsSearchBarState,
-    onBack: () -> Unit,
-    onClear: () -> Unit,
-    onKeyword: (String) -> Unit,
-    onSearch: () -> Unit
+    id: String,
+    state: GoodsBarComponentState,
+    useComponent: UseGoodsBarComponent,
 ) {
     BasicBar(
         modifier = modifier, paddingValues = PaddingValues(
@@ -138,22 +189,31 @@ fun GoodsSearchBar(
             bottom = paddingBottom
         )
     ) {
-        IconButton(onClick = onBack) {
+        IconButton(onClick = { useComponent.handleEvent(id, GoodsBarComponentEvent.OnBack) }) {
             BackIcon()
         }
-        TextFieldComponent(modifier = Modifier.weight(1f),
-            text = state.keyword,
-            hint = stringResource(id = R.string.search),
-            onChange = onKeyword,
+        TextField(modifier = Modifier.weight(1f),
+            id = "keyword",
+            state = state.keyword,
+            useComponent = useComponent,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Search
             ),
-            action = onSearch,
             trailingIcon = {
-                if (state.keyword.isNotEmpty()) IconButton(onClick = onClear) {
+                if (state.keyword.text.isNotEmpty()) IconButton(onClick = {
+                    useComponent.handleEvent(
+                        id, GoodsBarComponentEvent.OnClear
+                    )
+                }) {
                     Mark2Icon()
                 }
-                else SearchIcon()
+                else IconButton(onClick = {
+                    useComponent.handleEvent(
+                        id, GoodsBarComponentEvent.OnSearch
+                    )
+                }) {
+                    SearchIcon()
+                }
             })
     }
 }

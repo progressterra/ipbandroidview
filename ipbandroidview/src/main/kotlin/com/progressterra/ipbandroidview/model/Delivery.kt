@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.model
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.composable.component.TextFieldState
 
 sealed class Delivery {
 
@@ -19,7 +20,7 @@ sealed class Delivery {
         override val date: String = "",
         override val price: SimplePrice = SimplePrice(),
         override val type: String = "",
-        val commentary: String = ""
+        val commentary: TextFieldState = TextFieldState()
     ) : Delivery() {
 
         override val available: Boolean = true

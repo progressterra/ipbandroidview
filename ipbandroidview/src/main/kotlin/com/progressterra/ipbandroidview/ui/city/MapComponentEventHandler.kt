@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.city
 
-import com.progressterra.ipbandroidview.composable.component.MapComponentEvent
+import com.progressterra.ipbandroidview.composable.component.MapEvent
 import com.progressterra.ipbandroidview.core.ComponentEventHandler
 
-interface MapComponentEventHandler : ComponentEventHandler<MapComponentEvent>
+interface MapComponentEventHandler : ComponentEventHandler<MapEvent>

@@ -50,6 +50,6 @@ fun BonusesWidget(
 
 @Preview
 @Composable
-fun BonusesWidgetPreview() {
+private fun BonusesWidgetPreview() {
     BonusesWidget(bonuses = "10")
 }

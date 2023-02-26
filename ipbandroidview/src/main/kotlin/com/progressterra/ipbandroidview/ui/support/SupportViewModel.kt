@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ChatInputEvent
 import com.progressterra.ipbandroidview.composable.ChatInputState
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponentEvent
-import com.progressterra.ipbandroidview.composable.component.TextFieldComponentState
+import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.AppSettings.ID_ENTERPRISE
@@ -30,7 +30,7 @@ class SupportViewModel(
     override val container: Container<SupportState, SupportEffect> = container(
         SupportState(
             chatInput = ChatInputState(
-                message = TextFieldComponentState(
+                message = TextFieldState(
                     hint = manageResources.string(R.string.request)
                 )
             )
@@ -79,14 +79,14 @@ class SupportViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: TextFieldComponentEvent) = blockingIntent {
+    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "message" -> when (event) {
-                is TextFieldComponentEvent.TextChanged -> reduce {
+                is TextFieldEvent.TextChanged -> reduce {
                     val newChatInput = state.chatInput.updateMessage(event.text)
                     state.copy(chatInput = newChatInput)
                 }
-                is TextFieldComponentEvent.Action -> sendMessage()
+                is TextFieldEvent.Action -> sendMessage()
             }
         }
     }
