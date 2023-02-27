@@ -108,6 +108,7 @@ class ChecklistViewModel(
     override fun openCheck(check: Check) = intent {
         reduce { state.updateCurrentCheck(check) }
         refreshCheck()
+        onYesNoUpdate()
     }
 
     override fun onBack() = intent { postSideEffect(ChecklistEffect.Back) }
@@ -238,13 +239,20 @@ class ChecklistViewModel(
                         }.onFailure { askPermissionUseCase(micPermission) }
                     }
                 }
-                is CurrentCheckEvent.YesNo -> reduce { state.updateYesNo(event.yesNo) }
+                is CurrentCheckEvent.YesNo -> {
+                    reduce { state.updateYesNo(event.yesNo) }
+                    onYesNoUpdate()
+                }
             }
         }
     }
 
     private fun updateStatus(status: ChecklistStatus) = intent {
         reduce { state.updateStatus(status).updateCommentAvailability(status.isOngoing()) }
+    }
+
+    private fun onYesNoUpdate() = intent {
+        reduce { state.updateReadyAvailable(state.currentCheckState.check.yesNo != null) }
     }
 
     private fun refreshCheck() = intent {

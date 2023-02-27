@@ -71,6 +71,9 @@ data class CurrentCheckState(
     val ready: ButtonState = ButtonState()
 ) {
 
+    fun updateReadyAvailable(available: Boolean) =
+        copy(ready = ready.updateEnabled(available))
+
     fun addVoice(voice: Voice) = copy(media = media.addVoice(voice))
 
     fun updateCommentAvailable(available: Boolean) =

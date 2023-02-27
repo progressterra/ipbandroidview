@@ -21,6 +21,9 @@ data class ChecklistState(
     val finishButton: ButtonState = ButtonState()
 ) {
 
+    fun updateReadyAvailable(available: Boolean) =
+        copy(currentCheckState = currentCheckState.updateReadyAvailable(available))
+
     fun addVoice(voice: Voice) = copy(currentCheckState = currentCheckState.addVoice(voice))
 
     fun updateDocumentId(documentId: String) =
