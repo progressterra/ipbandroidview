@@ -182,6 +182,7 @@ class ChecklistViewModel(
         when (id) {
             "main" -> when (event) {
                 is CurrentCheckEvent.OpenCamera -> {
+                    Log.d("camera", "event happened")
                     checkPermissionUseCase(cameraPermission).onSuccess {
                         Log.d("camera", "handleEvent: $it")
                         makePhotoUseCase().onSuccess {
