@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.Manifest
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
@@ -182,15 +181,10 @@ class ChecklistViewModel(
         when (id) {
             "main" -> when (event) {
                 is CurrentCheckEvent.OpenCamera -> {
-                    Log.d("camera", "event happened")
                     checkPermissionUseCase(cameraPermission).onSuccess {
-                        Log.d("camera", "handleEvent: $it")
-                        makePhotoUseCase().onSuccess {
-                            reduce { state.addImage(it) }
-                        }.onFailure {
-                            Log.d("camera", "handleEvent: $it")
-                            askPermissionUseCase(cameraPermission)
-                        }
+                        makePhotoUseCase().onSuccess { reduce { state.addImage(it) } }
+                    }.onFailure {
+                        askPermissionUseCase(cameraPermission)
                     }
                 }
                 is CurrentCheckEvent.OpenImage -> postSideEffect(
