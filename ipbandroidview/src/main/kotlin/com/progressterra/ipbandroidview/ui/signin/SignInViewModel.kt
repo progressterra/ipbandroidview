@@ -38,7 +38,8 @@ class SignInViewModel(
                 hint = manageResources.string(R.string.phone_number),
             ),
             next = ButtonState(
-                text = manageResources.string(R.string.auth_button)
+                text = manageResources.string(R.string.auth_button),
+                enabled = false
             ),
             skip = TextButtonState(
                 text = manageResources.string(R.string.auth_skip)
@@ -82,7 +83,7 @@ class SignInViewModel(
         when (id) {
             "phone" -> when (event) {
                 is TextFieldEvent.TextChanged -> {
-                    if (event.text.length > 11) {
+                    if (event.text.length <= 11) {
                         reduce { state.updatePhoneText(event.text) }
                         validatePhone()
                     }
