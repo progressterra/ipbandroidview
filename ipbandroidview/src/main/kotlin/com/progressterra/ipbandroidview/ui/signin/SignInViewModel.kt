@@ -81,14 +81,16 @@ class SignInViewModel(
         when (id) {
             "phone" -> when (event) {
                 is TextFieldEvent.TextChanged -> {
-                    reduce {
-                        val newNext =
-                            state.next.updateEnabled(state.phone.text.isDigitsOnly())
-                        state.copy(next = newNext).updatePhoneText(event.text)
-                    }
+                    reduce { state.updatePhoneText(event.text) }
+                    validatePhone()
                 }
                 is TextFieldEvent.Action -> onNext()
             }
         }
+    }
+
+    private fun validatePhone() = intent {
+        val dataValid = state.phone.text.isDigitsOnly() || state.phone.text.length == 11
+        state.updateNextEnabled(dataValid)
     }
 }
