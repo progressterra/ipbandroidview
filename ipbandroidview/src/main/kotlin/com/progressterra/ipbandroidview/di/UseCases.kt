@@ -225,7 +225,7 @@ val useCasesModule = module {
 
     single<CreateQrUseCase> { CreateQrUseCase.Base(get(), get(), get()) }
 
-    single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get()) }
+    single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get(), get()) }
 
