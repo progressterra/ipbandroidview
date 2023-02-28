@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.ui.signin
 
-import android.util.Log
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
@@ -96,7 +95,6 @@ class SignInViewModel(
     private fun validatePhone() = intent {
         val dataValid =
             (state.phone.text.isDigitsOnly() && state.phone.text.length == 11) || state.phone.text == "1777555777"
-        Log.d("phone", "validatePhone ${state.phone.text}: $dataValid")
-        state.updateNextEnabled(dataValid)
+        reduce { state.updateNextEnabled(dataValid) }
     }
 }
