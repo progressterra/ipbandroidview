@@ -27,11 +27,11 @@ data class TextFieldState(
     val text: String = "", val hint: String = "", val enabled: Boolean = true
 ) : Parcelable {
 
-    fun updateText(text: String): TextFieldState = this.copy(text = text)
+    fun updateText(text: String): TextFieldState = copy(text = text)
 
-    fun updateEnabled(enabled: Boolean): TextFieldState = this.copy(enabled = enabled)
+    fun updateEnabled(enabled: Boolean): TextFieldState = copy(enabled = enabled)
 
-    fun updateHint(hint: String): TextFieldState = this.copy(hint = hint)
+    fun updateHint(hint: String): TextFieldState = copy(hint = hint)
 }
 
 sealed class TextFieldEvent {

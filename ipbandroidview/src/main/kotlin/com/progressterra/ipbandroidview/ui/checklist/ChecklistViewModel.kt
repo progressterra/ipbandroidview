@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.domain.exception.NoEmailException
 import com.progressterra.ipbandroidview.domain.usecase.AskPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
@@ -18,6 +19,7 @@ import com.progressterra.ipbandroidview.domain.usecase.checklist.CreateDocumentU
 import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
+import com.progressterra.ipbandroidview.domain.usecase.checklist.SendResultOnEmailUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.media.MakePhotoUseCase
@@ -57,6 +59,7 @@ class ChecklistViewModel(
     private val makePhotoUseCase: MakePhotoUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
+    private val sendResultOnEmailUseCase: SendResultOnEmailUseCase,
     manageResources: ManageResources
 ) : ViewModel(), ContainerHost<ChecklistState, ChecklistEffect>, ChecklistInteractor {
 
@@ -75,6 +78,9 @@ class ChecklistViewModel(
                 ready = ButtonState(
                     text = manageResources.string(R.string.ready)
                 )
+            ),
+            sendButton = ButtonState(
+                text = manageResources.string(R.string.send_on_email)
             )
         )
     )
@@ -97,7 +103,7 @@ class ChecklistViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         var newChecks: List<Check> = emptyList()
         var isSuccess = true
-        if (!state.currentCheckState.status.isCanBeStarted()) documentChecklistUseCase(
+        if (!state.status.isCanBeStarted()) documentChecklistUseCase(
             state.auditDocument.documentId!!
         ).onSuccess { newChecks = it }.onFailure { isSuccess = false }
         else checklistUseCase(state.auditDocument.checklistId).onSuccess { newChecks = it }
@@ -165,6 +171,19 @@ class ChecklistViewModel(
                     }
                 }
             }
+            "send" -> when (event) {
+                is ButtonEvent.Click -> {
+                    sendResultOnEmailUseCase(state.auditDocument.documentId!!).onSuccess {
+                        postSideEffect(ChecklistEffect.Toast(R.string.email_sent))
+                    }.onFailure {
+                        if (it is NoEmailException) {
+                            postSideEffect(ChecklistEffect.Toast(R.string.no_email))
+                            postSideEffect(ChecklistEffect.AddEmail)
+                        } else
+                            postSideEffect(ChecklistEffect.Toast(R.string.email_not_sent))
+                    }
+                }
+            }
         }
     }
 
@@ -190,7 +209,7 @@ class ChecklistViewModel(
                 is CurrentCheckEvent.OpenImage -> postSideEffect(
                     ChecklistEffect.OpenImage(
                         event.image,
-                        state.currentCheckState.status.isOngoing()
+                        state.status.isOngoing()
                     )
                 )
                 is CurrentCheckEvent.Refresh -> refreshCheck()
