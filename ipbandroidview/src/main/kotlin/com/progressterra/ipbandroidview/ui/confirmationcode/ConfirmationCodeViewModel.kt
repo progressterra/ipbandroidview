@@ -11,8 +11,6 @@ import com.progressterra.ipbandroidview.composable.component.TextButtonState
 import com.progressterra.ipbandroidview.composable.component.UseConfirmationCode
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.domain.usecase.user.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
@@ -26,11 +24,8 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class ConfirmationCodeViewModel(
-    private val checkUserDetails: Boolean,
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase,
-    private val fetchUserUseCase: FetchUserUseCase,
-    private val needDetailsUseCase: NeedDetailsUseCase,
     private val manageResources: ManageResources
 ) : ViewModel(), ContainerHost<ConfirmationCodeState, ConfirmationCodeEffect>, UseConfirmationCode {
 
@@ -44,7 +39,8 @@ class ConfirmationCodeViewModel(
         )
     )
 
-    init {
+    fun refresh() = intent {
+        reduce { state.copy(code = "") }
         startTimer()
     }
 
@@ -62,18 +58,7 @@ class ConfirmationCodeViewModel(
         }
         var isSuccess = true
         endVerificationChannelUseCase(state.phoneNumber, state.code).onSuccess {
-            fetchUserUseCase().onSuccess {
-                needDetailsUseCase().onSuccess {
-                    if (it && checkUserDetails) postSideEffect(ConfirmationCodeEffect.NeedDetails)
-                    else postSideEffect(ConfirmationCodeEffect.SkipDetails)
-                }.onFailure {
-                    isSuccess = false
-                    postSideEffect(ConfirmationCodeEffect.Toast(R.string.try_again))
-                }
-            }.onFailure {
-                isSuccess = false
-                postSideEffect(ConfirmationCodeEffect.Toast(R.string.try_again))
-            }
+            postSideEffect(ConfirmationCodeEffect.Next)
         }.onFailure {
             isSuccess = false
             postSideEffect(ConfirmationCodeEffect.Toast(R.string.wrong_code))

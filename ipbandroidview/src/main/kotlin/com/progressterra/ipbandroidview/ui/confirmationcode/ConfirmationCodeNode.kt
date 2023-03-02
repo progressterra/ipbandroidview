@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -11,7 +12,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.koin.core.parameter.parametersOf
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -19,16 +19,13 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class ConfirmationCodeNode(
     buildContext: BuildContext,
     private val phoneNumber: String,
-    private val onDetails: (() -> Unit)?,
-    private val onSkipDetails: () -> Unit,
-    private val onBack: () -> Unit,
-    private val checkUserDetails: Boolean
+    private val onNext: () -> Unit,
+    private val onBack: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel: ConfirmationCodeViewModel =
-            getViewModel(parameters = { parametersOf(checkUserDetails) })
+        val viewModel: ConfirmationCodeViewModel = getViewModel()
         val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
@@ -36,8 +33,7 @@ class ConfirmationCodeNode(
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
                 is ConfirmationCodeEffect.Back -> onBack()
-                is ConfirmationCodeEffect.SkipDetails -> onSkipDetails()
-                is ConfirmationCodeEffect.NeedDetails -> onDetails?.invoke()
+                is ConfirmationCodeEffect.Next -> onNext()
             }
         }
         var alreadyLaunched by rememberSaveable(phoneNumber) {
@@ -46,6 +42,9 @@ class ConfirmationCodeNode(
         if (!alreadyLaunched) {
             alreadyLaunched = true
             viewModel.setPhoneNumber(phoneNumber)
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.collectAsState()
         ConfirmationCodeScreen(
