@@ -67,6 +67,7 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserIdUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.LogoutUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
@@ -284,5 +285,9 @@ val useCasesModule = module {
             get(),
             get()
         )
+    }
+
+    single<LogoutUseCase> {
+        LogoutUseCase.Base()
     }
 }

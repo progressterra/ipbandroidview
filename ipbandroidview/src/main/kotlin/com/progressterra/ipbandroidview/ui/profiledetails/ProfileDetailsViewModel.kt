@@ -7,10 +7,10 @@ import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
+import com.progressterra.ipbandroidview.domain.usecase.user.LogoutUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -27,6 +27,7 @@ class ProfileDetailsViewModel(
     private val fetchUserNameUseCase: FetchUserNameUseCase,
     private val fetchUserPhoneUseCase: FetchUserPhoneUseCase,
     private val fetchUserEmailUseCase: FetchUserEmailUseCase,
+    private val logoutUseCase: LogoutUseCase,
     manageResources: ManageResources
 ) : ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEffect>,
     ProfileDetailsInteractor {
@@ -112,9 +113,9 @@ class ProfileDetailsViewModel(
     }
 
     private fun logout() = intent {
-        //todo to useCase
-        UserData.clearUser()
-        postSideEffect(ProfileDetailsEffect.Logout)
+        logoutUseCase().onSuccess {
+            postSideEffect(ProfileDetailsEffect.Logout)
+        }
     }
 
     override fun onBack() = intent { postSideEffect(ProfileDetailsEffect.Back) }
