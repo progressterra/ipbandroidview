@@ -28,7 +28,7 @@ fun OrganizationCheckCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
-            .niceClickable(onClick = onClick)
+            .niceClickable { onClick() }
             .background(AppTheme.colors.surfaces)
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,

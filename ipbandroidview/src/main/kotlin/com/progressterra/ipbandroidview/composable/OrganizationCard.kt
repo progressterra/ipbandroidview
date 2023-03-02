@@ -32,7 +32,7 @@ fun OrganizationCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
-            .niceClickable(onClick = openOrganization)
+            .niceClickable { openOrganization() }
             .background(AppTheme.colors.surfaces)
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,

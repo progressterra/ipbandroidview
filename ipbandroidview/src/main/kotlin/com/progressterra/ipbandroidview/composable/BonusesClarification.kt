@@ -25,7 +25,7 @@ fun BonusesClarification(
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .niceClickable(onClick = onClick)
+            .niceClickable { onClick() }
             .padding(AppTheme.dimensions.medium),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {

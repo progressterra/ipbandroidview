@@ -49,7 +49,7 @@ fun AddressSuggestions(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .niceClickable(onClick = { onSuggestion(it) })
+                            .niceClickable { onSuggestion(it) }
                             .padding(
                                 horizontal = AppTheme.dimensions.small,
                                 vertical = AppTheme.dimensions.smany

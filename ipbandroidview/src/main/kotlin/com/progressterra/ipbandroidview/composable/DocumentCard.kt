@@ -30,7 +30,7 @@ fun DocumentCard(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(if (state.isFinished()) AppTheme.colors.surfaces else AppTheme.colors.secondary)
-            .niceClickable(onClick = openDocument)
+            .niceClickable { openDocument() }
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

@@ -43,7 +43,7 @@ fun AttachedPhotos(
             modifier = Modifier
                 .size(picSize)
                 .clip(AppTheme.shapes.small)
-                .niceClickable(onClick = { onPhotoSelect(picture) }),
+                .niceClickable { onPhotoSelect(picture) },
             url = picture.thumbnail,
             backgroundColor = AppTheme.colors.surfaces
         )
@@ -56,7 +56,7 @@ fun AttachedPhotos(
                 .height(TextFieldDefaults.MinHeight)
                 .clip(AppTheme.shapes.small)
                 .background(AppTheme.colors.background)
-                .niceClickable(onClick = onCamera, enabled = enabled)
+                .niceClickable(enabled) { onCamera() }
                 .padding(horizontal = AppTheme.dimensions.medium, vertical = verticalPadding),
 
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -80,7 +80,7 @@ fun AttachedPhotos(
                             .size(picSize)
                             .clip(AppTheme.shapes.small)
                             .background(AppTheme.colors.background)
-                            .niceClickable(onClick = onCamera),
+                            .niceClickable { onCamera() },
                         contentAlignment = Alignment.Center
                     ) {
                         CameraIcon(enabled = true)

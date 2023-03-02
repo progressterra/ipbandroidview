@@ -27,7 +27,7 @@ fun CheckCard(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(if (state.yesNo == true) AppTheme.colors.success else if (state.yesNo == false) AppTheme.colors.failed else AppTheme.colors.surfaces)
-            .niceClickable(onClick = onClick)
+            .niceClickable { onClick() }
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

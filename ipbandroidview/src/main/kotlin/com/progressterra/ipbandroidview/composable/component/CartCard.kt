@@ -80,7 +80,7 @@ fun CartCard(
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .niceClickable(onClick = { interactor.onDetails(state) })
+            .niceClickable { interactor.onDetails(state) }
             .padding(AppTheme.dimensions.small),
         horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
     ) {

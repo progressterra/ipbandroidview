@@ -41,9 +41,7 @@ fun YesNoButton(
             modifier = modifier
                 .clip(AppTheme.shapes.button)
                 .background(if (state == role) activeColor else background)
-                .niceClickable(
-                    enabled = enabled, onClick = { onClick(role) }
-                )
+                .niceClickable(enabled) { onClick(role) }
                 .padding(
                     horizontal = AppTheme.dimensions.buttonHorizontalPadding,
                     vertical = AppTheme.dimensions.buttonVerticalPadding

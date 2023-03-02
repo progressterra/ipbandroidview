@@ -27,7 +27,7 @@ fun GoodsLineItem(
             modifier = Modifier
                 .size(picWidth, picHeight)
                 .clip(AppTheme.shapes.small)
-                .niceClickable(onClick = { openGoodsDetails(state.id) }),
+                .niceClickable { openGoodsDetails(state.id) },
             url = state.image,
             backgroundColor = AppTheme.colors.background
         )

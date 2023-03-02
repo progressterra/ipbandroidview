@@ -61,7 +61,7 @@ private fun BonusesButton(
                 AppTheme.shapes.medium
             )
             .background(buttonBackground)
-            .niceClickable(onClick = onClick)
+            .niceClickable { onClick() }
             .padding(
                 horizontal = AppTheme.dimensions.medium, vertical = AppTheme.dimensions.large
             ),

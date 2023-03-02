@@ -38,7 +38,7 @@ fun ThemedMimicField(
     TextField(
         modifier = modifier
             .clip(AppTheme.shapes.small)
-            .niceClickable(onClick = onClick),
+            .niceClickable { onClick() },
         value = text,
         onValueChange = {},
         shape = AppTheme.shapes.small,

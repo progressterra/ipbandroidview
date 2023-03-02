@@ -29,7 +29,7 @@ fun SubCategoryComponent(
             .fillMaxWidth()
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .niceClickable(onClick = { openCategory(state) })
+            .niceClickable { openCategory(state) }
             .padding(AppTheme.dimensions.large),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically

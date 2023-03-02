@@ -35,7 +35,7 @@ fun ExpandableText(
             modifier = Modifier
                 .clip(AppTheme.shapes.medium)
                 .fillMaxWidth()
-                .niceClickable(onClick = expand)
+                .niceClickable { expand() }
                 .padding(
                     horizontal = AppTheme.dimensions.medium, vertical = AppTheme.dimensions.large
                 ),

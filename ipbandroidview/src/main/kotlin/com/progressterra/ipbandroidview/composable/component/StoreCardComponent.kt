@@ -65,7 +65,7 @@ fun StoreCardComponent(
             .aspectRatio(aspectRatio, matchHeightConstraintsFirst = true)
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .niceClickable(onClick = { interactor.onClick(state) })
+            .niceClickable { interactor.onClick(state) }
     ) {
         val (favoriteButton, image, price, name) = createRefs()
         SimpleImage(

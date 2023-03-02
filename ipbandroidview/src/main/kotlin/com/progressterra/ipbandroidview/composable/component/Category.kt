@@ -33,7 +33,7 @@ fun Category(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
             .background(AppTheme.colors.surfaces)
-            .niceClickable(onClick = { openCategory(state) }),
+            .niceClickable { openCategory(state) },
         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
     ) {
         SimpleImage(
