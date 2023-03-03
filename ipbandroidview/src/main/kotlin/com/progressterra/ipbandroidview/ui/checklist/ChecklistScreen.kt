@@ -31,12 +31,13 @@ import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.composable.component.ButtonStyle
 import com.progressterra.ipbandroidview.ext.createStats
+import com.progressterra.ipbandroidview.model.ChecklistStatus
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
 /**
  * commentary - text field
- * finish, start, ready - buttons
+ * finish, start, ready, send - buttons
  * main - current check
  */
 @OptIn(ExperimentalMaterialApi::class)
@@ -58,28 +59,37 @@ fun ChecklistScreen(
                 onBack = { interactor.onBack() }, title = stringResource(id = R.string.audit)
             )
         }, bottomBar = {
-            if (state.currentCheckState.status.isCanBeStarted() || state.currentCheckState.status.isOngoing())
-                BottomHolder {
-                    Row(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
-                        if (state.currentCheckState.status.isOngoing()) {
-                            val stats by remember(state.checks) { mutableStateOf(state.checks.createStats()) }
-                            Button(
-                                modifier = Modifier.weight(1f),
-                                id = "finish",
-                                state = state.finishButton,
-                                style = if (stats.remaining >= 1) ButtonStyle.Secondary else ButtonStyle.Primary,
-                                useComponent = interactor
-                            )
-                            Stats(modifier = Modifier.weight(1f), stats = stats)
-                        }
-                        if (state.currentCheckState.status.isCanBeStarted()) Button(
-                            modifier = Modifier.fillMaxWidth(),
-                            id = "start",
-                            state = state.startButton,
+            BottomHolder {
+                when (state.status) {
+                    ChecklistStatus.READ_ONLY -> Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        id = "send",
+                        state = state.sendButton,
+                        useComponent = interactor
+                    )
+                    ChecklistStatus.CAN_BE_STARTED -> Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        id = "start",
+                        state = state.startButton,
+                        useComponent = interactor
+                    )
+                    ChecklistStatus.ONGOING -> Row(
+                        horizontalArrangement = Arrangement.spacedBy(
+                            AppTheme.dimensions.small
+                        )
+                    ) {
+                        val stats by remember(state.checks) { mutableStateOf(state.checks.createStats()) }
+                        Button(
+                            modifier = Modifier.weight(1f),
+                            id = "finish",
+                            state = state.finishButton,
+                            style = if (stats.remaining >= 1) ButtonStyle.Secondary else ButtonStyle.Primary,
                             useComponent = interactor
                         )
+                        Stats(modifier = Modifier.weight(1f), stats = stats)
                     }
                 }
+            }
         }, bottomOverlap = true) { _, bottomPadding ->
             StateBox(modifier = Modifier.fillMaxSize(),
                 state = state.screenState,

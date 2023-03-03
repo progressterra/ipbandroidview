@@ -19,9 +19,9 @@ data class ButtonState(
     val enabled: Boolean = true
 ) {
 
-    fun updateText(text: String): ButtonState = this.copy(text = text)
+    fun updateText(text: String): ButtonState = copy(text = text)
 
-    fun updateEnabled(enabled: Boolean): ButtonState = this.copy(enabled = enabled)
+    fun updateEnabled(enabled: Boolean): ButtonState = copy(enabled = enabled)
 }
 
 sealed class ButtonEvent {

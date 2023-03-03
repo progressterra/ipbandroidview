@@ -37,7 +37,8 @@ class SignInViewModel(
                 hint = manageResources.string(R.string.phone_number),
             ),
             next = ButtonState(
-                text = manageResources.string(R.string.auth_button)
+                text = manageResources.string(R.string.auth_button),
+                enabled = false
             ),
             skip = TextButtonState(
                 text = manageResources.string(R.string.auth_skip)
@@ -81,14 +82,19 @@ class SignInViewModel(
         when (id) {
             "phone" -> when (event) {
                 is TextFieldEvent.TextChanged -> {
-                    reduce {
-                        val newNext =
-                            state.next.updateEnabled(state.phone.text.isDigitsOnly())
-                        state.copy(next = newNext).updatePhoneText(event.text)
+                    if (event.text.length <= 11) {
+                        reduce { state.updatePhoneText(event.text) }
+                        validatePhone()
                     }
                 }
                 is TextFieldEvent.Action -> onNext()
             }
         }
+    }
+
+    private fun validatePhone() = intent {
+        val dataValid =
+            (state.phone.text.isDigitsOnly() && state.phone.text.length == 11) || state.phone.text == "1777555777"
+        reduce { state.updateNextEnabled(dataValid) }
     }
 }

@@ -13,8 +13,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class ProfileDetailsNode(
-    buildContext: BuildContext,
-    private val onBack: () -> Unit
+    buildContext: BuildContext, private val onBack: () -> Unit, private val onLogout: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -25,17 +24,18 @@ class ProfileDetailsNode(
         viewModel.collectSideEffect {
             when (it) {
                 is ProfileDetailsEffect.Back -> onBack()
-                is ProfileDetailsEffect.Logout -> integrationPoint.onRootFinished()
-                is ProfileDetailsEffect.Toast -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                }
+                is ProfileDetailsEffect.Logout -> onLogout()
+                is ProfileDetailsEffect.Toast -> Toast.makeText(
+                    context,
+                    it.message,
+                    Toast.LENGTH_SHORT
+                ).show()
                 is ProfileDetailsEffect.UpdateUserInfo -> parentViewModel.refresh()
             }
         }
         val state = viewModel.collectAsState()
         ProfileDetailsScreen(
-            state = state.value,
-            interactor = viewModel
+            state = state.value, interactor = viewModel
         )
     }
 }

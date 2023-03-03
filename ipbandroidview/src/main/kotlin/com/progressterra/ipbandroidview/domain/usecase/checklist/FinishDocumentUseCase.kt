@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidapi.api.checklist.model.FinalCommentsInput
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface FinishDocumentUseCase {
@@ -15,8 +14,7 @@ interface FinishDocumentUseCase {
     class Base(
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
-        private val repo: ChecklistRepository,
-        private val fetchUserEmailUseCase: FetchUserEmailUseCase
+        private val repo: ChecklistRepository
     ) : AbstractUseCase(scrmRepository, provideLocation), FinishDocumentUseCase {
 
         override suspend fun invoke(
@@ -25,9 +23,6 @@ interface FinishDocumentUseCase {
             repo.finishCheck(
                 token, idChecklist, FinalCommentsInput("")
             ).throwOnFailure()
-            val email = fetchUserEmailUseCase()
-            if (email.isNotBlank())
-                repo.sendOnEmail(token, idChecklist, fetchUserEmailUseCase()).throwOnFailure()
         }
     }
 }

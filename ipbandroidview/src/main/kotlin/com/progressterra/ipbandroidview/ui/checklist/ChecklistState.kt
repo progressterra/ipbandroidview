@@ -18,7 +18,9 @@ data class ChecklistState(
     val screenState: ScreenState = ScreenState.LOADING,
     val currentCheckState: CurrentCheckState = CurrentCheckState(),
     val startButton: ButtonState = ButtonState(),
-    val finishButton: ButtonState = ButtonState()
+    val finishButton: ButtonState = ButtonState(),
+    val sendButton: ButtonState = ButtonState(),
+    val status: ChecklistStatus = ChecklistStatus.READ_ONLY
 ) {
 
     fun updateReadyAvailable(available: Boolean) =
@@ -35,7 +37,8 @@ data class ChecklistState(
     fun availabilityFinishButton(availability: Boolean) =
         copy(finishButton = finishButton.updateEnabled(availability))
 
-    fun updateCurrentCheck(check: Check) = copy(currentCheckState = currentCheckState.updateCheck(check))
+    fun updateCurrentCheck(check: Check) =
+        copy(currentCheckState = currentCheckState.updateCheck(check))
 
     fun updateYesNo(yesNo: Boolean) = copy(currentCheckState = currentCheckState.updateYesNo(yesNo))
 
@@ -54,7 +57,7 @@ data class ChecklistState(
     fun updateAuditDocument(auditDocument: AuditDocument) = copy(auditDocument = auditDocument)
 
     fun updateStatus(status: ChecklistStatus) =
-        copy(currentCheckState = currentCheckState.updateStatus(status))
+        copy(currentCheckState = currentCheckState.updateStatus(status), status = status)
 
     fun updateScreenState(screenState: ScreenState) = copy(screenState = screenState)
 

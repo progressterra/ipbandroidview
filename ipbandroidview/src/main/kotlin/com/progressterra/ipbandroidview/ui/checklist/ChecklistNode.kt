@@ -23,7 +23,8 @@ class ChecklistNode(
     private val auditDocument: AuditDocument,
     private val initialStatus: ChecklistStatus,
     private val onBack: () -> Unit,
-    private val openImage: (MultisizedImage, Boolean) -> Unit
+    private val openImage: (MultisizedImage, Boolean) -> Unit,
+    private val onAddEmail: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -36,6 +37,7 @@ class ChecklistNode(
                 is ChecklistEffect.OpenImage -> openImage(it.picture, it.enabled)
                 is ChecklistEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                     .show()
+                is ChecklistEffect.AddEmail -> onAddEmail()
             }
         }
         var alreadyLaunched by rememberSaveable(auditDocument, initialStatus) {

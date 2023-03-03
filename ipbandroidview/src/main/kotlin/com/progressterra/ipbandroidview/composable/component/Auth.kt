@@ -32,9 +32,15 @@ data class AuthState(
     val phone: TextFieldState = TextFieldState()
 ) {
 
+    fun updateNextEnabled(
+        enabled: Boolean
+    ) = copy(
+        next = next.updateEnabled(enabled)
+    )
+
     fun updatePhoneText(
         text: String
-    ): AuthState = this.copy(
+    ) = copy(
         phone = phone.updateText(text)
     )
 }

@@ -113,7 +113,7 @@ val useCasesModule = module {
         )
     }
 
-    single<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get(), get()) }
+    single<FinishDocumentUseCase> { FinishDocumentUseCase.Base(get(), get(), get()) }
 
     single<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get()) }
 
@@ -226,7 +226,7 @@ val useCasesModule = module {
 
     single<CreateQrUseCase> { CreateQrUseCase.Base(get(), get(), get()) }
 
-    single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get()) }
+    single<SendResultOnEmailUseCase> { SendResultOnEmailUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get(), get()) }
 
