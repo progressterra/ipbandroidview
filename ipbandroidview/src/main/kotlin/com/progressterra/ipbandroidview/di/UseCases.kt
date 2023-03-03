@@ -66,7 +66,6 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCas
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserIdUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.LogoutUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedAddressUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.NeedDetailsUseCase
@@ -119,7 +118,7 @@ val useCasesModule = module {
 
     single<FetchExistingAuditUseCase> { FetchExistingAuditUseCase.Base(get(), get(), get()) }
 
-    single<EndVerificationChannelUseCase> { EndVerificationChannelUseCase.Base(get()) }
+    single<EndVerificationChannelUseCase> { EndVerificationChannelUseCase.Base(get(), get()) }
 
     single<StartVerificationChannelUseCase> { StartVerificationChannelUseCase.Base(get()) }
 
@@ -188,8 +187,6 @@ val useCasesModule = module {
 
     single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get()) }
 
-    single<FetchUserUseCase> { FetchUserUseCase.Base(get(), get()) }
-
     single<FetchUserNameUseCase> { FetchUserNameUseCase.Base() }
 
     single<FetchUserEmailUseCase> { FetchUserEmailUseCase.Base() }
@@ -242,7 +239,7 @@ val useCasesModule = module {
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
 
-    single<MakePhotoUseCase> { MakePhotoUseCase.Base(get(), get(), get()) }
+    single<MakePhotoUseCase> { MakePhotoUseCase.Base(get(), get(), get(), get()) }
 
     single<StartAudioUseCase> { StartAudioUseCase.Base(get(), get()) }
 

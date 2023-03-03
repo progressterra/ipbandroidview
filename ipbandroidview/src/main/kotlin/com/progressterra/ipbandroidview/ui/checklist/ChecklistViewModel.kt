@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.exception.NoEmailException
+import com.progressterra.ipbandroidview.domain.exception.NoPermissionException
 import com.progressterra.ipbandroidview.domain.usecase.AskPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
@@ -199,18 +200,14 @@ class ChecklistViewModel(
     override fun handleEvent(id: String, event: CurrentCheckEvent) = intent {
         when (id) {
             "main" -> when (event) {
-                is CurrentCheckEvent.OpenCamera -> {
-                    checkPermissionUseCase(cameraPermission).onSuccess {
-                        makePhotoUseCase().onSuccess { reduce { state.addImage(it) } }
-                    }.onFailure {
+                is CurrentCheckEvent.OpenCamera -> makePhotoUseCase().onSuccess {
+                    reduce { state.addImage(it) }
+                }.onFailure {
+                    if (it is NoPermissionException)
                         askPermissionUseCase(cameraPermission)
-                    }
                 }
                 is CurrentCheckEvent.OpenImage -> postSideEffect(
-                    ChecklistEffect.OpenImage(
-                        event.image,
-                        state.status.isOngoing()
-                    )
+                    ChecklistEffect.OpenImage(event.image, state.status.isOngoing())
                 )
                 is CurrentCheckEvent.Refresh -> refreshCheck()
                 is CurrentCheckEvent.RemoveVoice -> reduce { state.removeRecord() }

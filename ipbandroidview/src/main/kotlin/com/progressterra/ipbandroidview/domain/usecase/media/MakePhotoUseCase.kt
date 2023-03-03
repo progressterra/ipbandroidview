@@ -1,11 +1,14 @@
 package com.progressterra.ipbandroidview.domain.usecase.media
 
+import android.Manifest
 import android.content.Intent
 import android.provider.MediaStore
 import com.progressterra.ipbandroidview.core.CreateId
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.MakePhotoContract
 import com.progressterra.ipbandroidview.domain.exception.PhotoWasNotTakenException
+import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.ext.throwOnFailure
 import com.progressterra.ipbandroidview.model.MultisizedImage
 
 interface MakePhotoUseCase {
@@ -15,10 +18,12 @@ interface MakePhotoUseCase {
     class Base(
         private val makePhotoContract: MakePhotoContract.Client,
         private val fileExplorer: FileExplorer,
-        private val createId: CreateId
+        private val createId: CreateId,
+        private val checkPermissionUseCase: CheckPermissionUseCase
     ) : MakePhotoUseCase {
 
         override suspend fun invoke(): Result<MultisizedImage> = runCatching {
+            checkPermissionUseCase(Manifest.permission.CAMERA).throwOnFailure()
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             val newPhotoId = createId()
             val uri = fileExplorer.uriForFile(fileExplorer.pictureFile(newPhotoId))
