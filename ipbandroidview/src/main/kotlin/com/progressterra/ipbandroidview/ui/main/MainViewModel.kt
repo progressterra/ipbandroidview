@@ -60,11 +60,13 @@ class MainViewModel(
         modifyFavoriteUseCase(storeCard.id, storeCard.favorite).onSuccess { refresh() }
     }
 
-    override fun onBonusesEvent(id: String, event: BonusesEvent) = intent {
-        when (event) {
-            is BonusesEvent.OnClick -> postSideEffect(MainEffect.Bonuses)
-            is BonusesEvent.SpendBonuses -> postSideEffect(MainEffect.Spend)
-            is BonusesEvent.InviteFriends -> postSideEffect(MainEffect.Invite)
+    override fun handleEvent(id: String, event: BonusesEvent) = intent {
+        when (id) {
+            "main" -> when (event) {
+                is BonusesEvent.OnClick -> postSideEffect(MainEffect.Bonuses)
+                is BonusesEvent.SpendBonuses -> postSideEffect(MainEffect.Spend)
+                is BonusesEvent.InviteFriends -> postSideEffect(MainEffect.Invite)
+            }
         }
     }
 }

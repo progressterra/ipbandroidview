@@ -26,37 +26,39 @@ import com.progressterra.ipbandroidview.theme.AppTheme
 fun MainScreen(
     state: MainState, interactor: MainInteractor
 ) {
-//    ThemedLayout(topBar = {
-//        Column(
-//            modifier = Modifier.background(AppTheme.colors.surfaces),
-//            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
-//        ) {
-//            if (state.userExist) ThemedTopAppBar(title = stringResource(R.string.main))
-//        }
-//    }) { _, _ ->
-//        StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
-//            Column(
-//                Modifier
-//                    .fillMaxSize()
-//                    .padding(AppTheme.dimensions.small)
-//                    .verticalScroll(
-//                        rememberScrollState()
-//                    ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
-//            ) {
-//                Bonuses(id = "bonuses",
-//                    state = state.bonusesState,
-//                    onEvent = { id, event -> interactor.onBonusesEvent(id, event) })
-//                state.qr?.let { Qr(qr = it) }
-//                state.recommended.forEach { pair ->
-//                    GoodsGallery(modifier = Modifier,
-//                        goods = pair.second,
-//                        category = pair.first,
-//                        storeCardInteractor = interactor,
-//                        onFullCategory = { interactor.onCategory(it) })
-//                }
-//            }
-//        }
-//    }
+    ThemedLayout(topBar = {
+        Column(
+            modifier = Modifier.background(AppTheme.colors.surfaces),
+            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+        ) {
+            if (state.userExist) ThemedTopAppBar(title = stringResource(R.string.main))
+        }
+    }) { _, _ ->
+        StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .padding(AppTheme.dimensions.small)
+                    .verticalScroll(
+                        rememberScrollState()
+                    ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            ) {
+                Bonuses(
+                    id = "main",
+                    state = state.bonusesState,
+                    useComponent = interactor
+                )
+                state.qr?.let { Qr(qr = it) }
+                state.recommended.forEach { pair ->
+                    GoodsGallery(modifier = Modifier,
+                        goods = pair.second,
+                        category = pair.first,
+                        storeCardInteractor = interactor,
+                        onFullCategory = { interactor.onCategory(it) })
+                }
+            }
+        }
+    }
 }
 
 @Preview
