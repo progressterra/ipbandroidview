@@ -8,7 +8,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 
-object AppTheme {
+object IpbTheme {
 
     val colors
         @Composable @ReadOnlyComposable get() = LocalColors.current
@@ -23,16 +23,12 @@ object AppTheme {
         @Composable @ReadOnlyComposable get() = LocalShapes.current
 }
 
-val LocalDimensions = staticCompositionLocalOf { Dimensions() }
+val LocalIpbTypography = staticCompositionLocalOf { IpbTypography() }
 
-val LocalShapes = staticCompositionLocalOf { Shapes() }
-
-val LocalTypography = staticCompositionLocalOf { AppTypography() }
-
-val LocalColors = staticCompositionLocalOf { defaultLightColors }
+val LocalIpbColors = staticCompositionLocalOf { defaultLightColors }
 
 @Composable
-fun AppTheme(
+fun IpbTheme(
     lightColors: Colors = defaultLightColors,
     darkColors: Colors = defaultDarkColors,
     typography: AppTypography = AppTheme.typography,
