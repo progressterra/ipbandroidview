@@ -1,15 +1,12 @@
 package com.progressterra.ipbandroidview.ext
 
 import androidx.compose.ui.graphics.Color
-import androidx.core.util.PatternsCompat
 import com.progressterra.ipbandroidview.core.AttachedMedia
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Id
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStats
+import com.progressterra.ipbandroidview.model.Id
 import java.time.LocalDate
-
-fun String.isEmail(): Boolean = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
 
 fun <T : Id> List<T>.replaceById(item: T): List<T> =
     this.toMutableList().apply { this[indexOfFirst { item.id == it.id }] = item }
