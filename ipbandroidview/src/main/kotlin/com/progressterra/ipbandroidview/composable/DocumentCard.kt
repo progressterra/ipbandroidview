@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.model.ChecklistStats
 import com.progressterra.ipbandroidview.model.Document
 import com.progressterra.ipbandroidview.theme.AppTheme

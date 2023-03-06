@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
+import com.progressterra.ipbandroidview.shared.ui.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.parcelize.Parcelize
 

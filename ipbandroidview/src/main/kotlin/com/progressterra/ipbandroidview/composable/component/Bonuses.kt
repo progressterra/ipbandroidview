@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ArrowRightIcon
 import com.progressterra.ipbandroidview.composable.PlusPeopleIcon
-import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val spacing1 = 22.dp

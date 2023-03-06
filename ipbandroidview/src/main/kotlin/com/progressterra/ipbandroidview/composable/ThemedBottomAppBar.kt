@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.utils.SideBorder
-import com.progressterra.ipbandroidview.composable.utils.sideBorder
+import com.progressterra.ipbandroidview.shared.ui.SideBorder
+import com.progressterra.ipbandroidview.shared.ui.sideBorder
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val lineWidth = 1.dp

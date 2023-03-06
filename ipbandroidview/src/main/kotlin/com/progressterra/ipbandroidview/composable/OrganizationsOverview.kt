@@ -26,7 +26,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.model.Document
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch

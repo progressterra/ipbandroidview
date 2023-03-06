@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.composable.component.UseButton
-import com.progressterra.ipbandroidview.composable.utils.SideBorder
-import com.progressterra.ipbandroidview.composable.utils.sideBorder
 import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.shared.ui.SideBorder
+import com.progressterra.ipbandroidview.shared.ui.sideBorder
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val lineWidth = 0.5.dp
