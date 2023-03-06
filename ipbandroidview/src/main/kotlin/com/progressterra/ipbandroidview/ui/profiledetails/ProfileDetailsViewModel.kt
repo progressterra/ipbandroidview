@@ -12,8 +12,8 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.LogoutUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
-import com.progressterra.ipbandroidview.shared.isEmail
-import com.progressterra.ipbandroidview.shared.isNameAndSurname
+import com.progressterra.ipbandroidview.ext.isEmail
+import com.progressterra.ipbandroidview.ext.isNameAndSurname
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental

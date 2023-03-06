@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui
+package com.progressterra.ipbandroidview.composable.utils
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind

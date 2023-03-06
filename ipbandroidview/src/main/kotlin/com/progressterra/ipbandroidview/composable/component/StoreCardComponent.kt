@@ -21,7 +21,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.composable.FavoriteButton
 import com.progressterra.ipbandroidview.composable.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.Favorite
 import com.progressterra.ipbandroidview.model.Id
 import com.progressterra.ipbandroidview.model.SimplePrice

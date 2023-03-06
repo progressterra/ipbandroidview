@@ -21,7 +21,8 @@ import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.shared.ui.PhoneVisualTransformation
+import com.progressterra.ipbandroidview.composable.utils.PhoneVisualTransformation
+import com.progressterra.ipbandroidview.composable.utils.RUSSIAN_PHONE_MASK
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
@@ -52,8 +53,6 @@ sealed class AuthEvent {
 interface UseAuth : UseButton, UseTextButton, UseTextField {
     fun handleEvent(id: String, event: AuthEvent)
 }
-
-const val PHONE_MASK = "+# (###) ###-##-##"
 
 /**
  * phone - text field
@@ -110,7 +109,7 @@ fun AuthComponent(
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone),
                         state = state.phone,
                         useComponent = useComponent,
-                        visualTransformation = PhoneVisualTransformation(PHONE_MASK)
+                        visualTransformation = PhoneVisualTransformation(RUSSIAN_PHONE_MASK)
                     )
                 }
                 LinkText(

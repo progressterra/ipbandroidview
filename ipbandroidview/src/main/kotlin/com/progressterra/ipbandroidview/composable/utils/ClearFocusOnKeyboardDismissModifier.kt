@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui
+package com.progressterra.ipbandroidview.composable.utils
 
 import android.graphics.Rect
 import android.view.View
