@@ -150,4 +150,5 @@
     <string name="no_email">Добавьте e-mail!</string>
     <string name="email_why">Заполнить для получения отчётов</string>
     <string name="name_why">Имя и фамилия (полностью)</string>
+    <string name="version">Версия</string>
 </resources>

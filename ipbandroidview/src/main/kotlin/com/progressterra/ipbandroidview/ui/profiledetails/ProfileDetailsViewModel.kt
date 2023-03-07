@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.domain.usecase.FetchVersionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
@@ -30,6 +31,7 @@ class ProfileDetailsViewModel(
     private val fetchUserPhoneUseCase: FetchUserPhoneUseCase,
     private val fetchUserEmailUseCase: FetchUserEmailUseCase,
     private val logoutUseCase: LogoutUseCase,
+    private val fetchVersionUseCase: FetchVersionUseCase,
     manageResources: ManageResources
 ) : ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEffect>,
     ProfileDetailsInteractor {
@@ -65,8 +67,9 @@ class ProfileDetailsViewModel(
         val phone = fetchUserPhoneUseCase()
         val name = fetchUserNameUseCase()
         val email = fetchUserEmailUseCase()
+        val version = fetchVersionUseCase()
         reduce {
-            state.updateEmail(email).updateName(name).updatePhone(phone)
+            state.updateEmail(email).updateName(name).updatePhone(phone).updateVersion(version)
         }
     }
 

@@ -93,6 +93,11 @@ fun ProfileDetailsScreen(
                 state = state.logout,
                 useComponent = interactor
             )
+            Text(
+                text = "${stringResource(R.string.version)} ${state.version}",
+                color = AppTheme.colors.gray2,
+                style = AppTheme.typography.secondaryText
+            )
         }
     }
 }

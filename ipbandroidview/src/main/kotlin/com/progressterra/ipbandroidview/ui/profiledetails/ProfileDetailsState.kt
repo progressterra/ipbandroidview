@@ -8,7 +8,8 @@ data class ProfileDetailsState(
     val name: TextFieldState = TextFieldState(),
     val email: TextFieldState = TextFieldState(),
     val confirm: ButtonState = ButtonState(),
-    val logout: ButtonState = ButtonState()
+    val logout: ButtonState = ButtonState(),
+    val version: String = ""
 ) {
 
     fun updatePhone(newPhone: String) = copy(phone = phone.updateText(newPhone))
@@ -23,4 +24,6 @@ data class ProfileDetailsState(
     fun updateName(newName: String) = copy(name = name.updateText(newName))
 
     fun updateEmail(newEmail: String) = copy(email = email.updateText(newEmail))
+
+    fun updateVersion(newVersion: String) = copy(version = newVersion)
 }
