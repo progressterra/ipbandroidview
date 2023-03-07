@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -48,11 +49,21 @@ fun ProfileDetailsScreen(
                     .padding(AppTheme.dimensions.medium),
                 verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
             ) {
+                Text(
+                    text = stringResource(R.string.name_why),
+                    color = AppTheme.colors.gray2,
+                    style = AppTheme.typography.secondaryText
+                )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
                     id = "name",
                     state = state.name,
                     useComponent = interactor
+                )
+                Text(
+                    text = stringResource(R.string.email_why),
+                    color = AppTheme.colors.gray2,
+                    style = AppTheme.typography.secondaryText
                 )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
