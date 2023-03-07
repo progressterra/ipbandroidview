@@ -16,8 +16,10 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.Button
+import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.composable.component.ButtonStyle
 import com.progressterra.ipbandroidview.composable.component.TextField
+import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 /**
@@ -99,5 +101,26 @@ fun ProfileDetailsScreen(
 @Composable
 private fun ProfileScreenPreview() {
     AppTheme {
+        ProfileDetailsScreen(
+            state = ProfileDetailsState(
+                name = TextFieldState(
+                    text = "John Doe"
+                ),
+                email = TextFieldState(
+                    text = "dilanilka42@gmail.com"
+                ),
+                phone = TextFieldState(
+                    text = "+380 99 999 99 99",
+                    enabled = false
+                ),
+                confirm = ButtonState(
+                    text = "Confirm"
+                ),
+                logout = ButtonState(
+                    text = "Logout"
+                )
+            ),
+            interactor = ProfileDetailsInteractor.Empty()
+        )
     }
 }
