@@ -14,10 +14,11 @@ data class ProfileDetailsState(
     fun updatePhone(newPhone: String) = copy(phone = phone.updateText(newPhone))
 
     fun updateTextFieldsEnabled(enabled: Boolean) = copy(
-        phone = phone.updateEnabled(enabled),
         name = name.updateEnabled(enabled),
         email = email.updateEnabled(enabled)
     )
+
+    fun updateConfirmEnabled(enabled: Boolean) = copy(confirm = confirm.updateEnabled(enabled))
 
     fun updateName(newName: String) = copy(name = name.updateText(newName))
 

@@ -12,6 +12,8 @@ import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.LogoutUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.ext.isEmail
+import com.progressterra.ipbandroidview.ext.isNameAndSurname
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -92,24 +94,29 @@ class ProfileDetailsViewModel(
     override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "name" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce {
-                    state.updateName(event.text)
+                is TextFieldEvent.TextChanged -> {
+                    reduce { state.updateName(event.text) }
+                    validateInputs()
                 }
                 is TextFieldEvent.Action -> Unit
             }
             "email" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce {
-                    state.updateEmail(event.text)
+                is TextFieldEvent.TextChanged -> {
+                    reduce { state.updateEmail(event.text) }
+                    validateInputs()
                 }
                 is TextFieldEvent.Action -> Unit
             }
             "phone" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce {
-                    state.updatePhone(event.text)
-                }
+                is TextFieldEvent.TextChanged -> Unit
                 is TextFieldEvent.Action -> Unit
             }
         }
+    }
+
+    private fun validateInputs() = intent {
+        val valid = state.email.text.isEmail() && state.name.text.isNameAndSurname()
+        reduce { state.updateConfirmEnabled(valid) }
     }
 
     private fun logout() = intent {
