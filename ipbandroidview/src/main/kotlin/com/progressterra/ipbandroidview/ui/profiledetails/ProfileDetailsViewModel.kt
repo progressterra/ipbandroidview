@@ -119,7 +119,8 @@ class ProfileDetailsViewModel(
     }
 
     private fun validateInputs() = intent {
-        val valid = state.email.text.trim().isEmail() && state.name.text.trim().isNameAndSurname()
+        val valid = (state.email.text.trim()
+            .isEmail() || state.email.text.isEmpty()) && state.name.text.trim().isNameAndSurname()
         reduce { state.updateConfirmEnabled(valid) }
     }
 
