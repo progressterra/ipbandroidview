@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.ui.graphics.Color
+import com.progressterra.ipbandroidview.ext.fromHexToColor
 
 data class IpbColors(
     val background: Color,
@@ -27,4 +28,32 @@ data class IpbColors(
     val iconsPressed: Color,
     val textPressed: Color,
     val textDisabled: Color
-)
+) {
+
+    constructor(map: Map<String, String>) : this(
+        background = map["background"]!!.fromHexToColor(),
+        onBackground = map["onBackground"]!!.fromHexToColor(),
+        primary = map["primary"]!!.fromHexToColor(),
+        secondary = map["secondary"]!!.fromHexToColor(),
+        tertiary = map["tertiary"]!!.fromHexToColor(),
+        surface = map["surface"]!!.fromHexToColor(),
+        onSurface = map["onSurface"]!!.fromHexToColor(),
+        error = map["error"]!!.fromHexToColor(),
+        success = map["success"]!!.fromHexToColor(),
+        info = map["info"]!!.fromHexToColor(),
+        warning = map["warning"]!!.fromHexToColor(),
+        iconPrimary = map["iconPrimary"]!!.fromHexToColor(),
+        iconSecondary = map["iconSecondary"]!!.fromHexToColor(),
+        textPrimary = map["textPrimary"]!!.fromHexToColor(),
+        textSecondary = map["textSecondary"]!!.fromHexToColor(),
+        textButtonPrimary = map["textButtonPrimary"]!!.fromHexToColor(),
+        textButtonSecondary = map["textButtonSecondary"]!!.fromHexToColor(),
+        primaryPressed = map["primaryPressed"]!!.fromHexToColor(),
+        secondaryPressed = map["secondaryPressed"]!!.fromHexToColor(),
+        primaryDisabled = map["primaryDisabled"]!!.fromHexToColor(),
+        secondaryDisabled = map["secondaryDisabled"]!!.fromHexToColor(),
+        iconsPressed = map["iconsPressed"]!!.fromHexToColor(),
+        textPressed = map["textPressed"]!!.fromHexToColor(),
+        textDisabled = map["textDisabled"]!!.fromHexToColor()
+    )
+}
