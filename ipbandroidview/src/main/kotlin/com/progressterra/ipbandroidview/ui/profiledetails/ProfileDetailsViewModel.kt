@@ -48,7 +48,8 @@ class ProfileDetailsViewModel(
                     enabled = false
                 ),
                 confirm = ButtonState(
-                    text = manageResources.string(R.string.confirm_change)
+                    text = manageResources.string(R.string.confirm_change),
+                    enabled = false
                 ),
                 logout = ButtonState(
                     text = manageResources.string(R.string.logout)
@@ -115,7 +116,7 @@ class ProfileDetailsViewModel(
     }
 
     private fun validateInputs() = intent {
-        val valid = state.email.text.isEmail() && state.name.text.isNameAndSurname()
+        val valid = state.email.text.trim().isEmail() && state.name.text.trim().isNameAndSurname()
         reduce { state.updateConfirmEnabled(valid) }
     }
 
