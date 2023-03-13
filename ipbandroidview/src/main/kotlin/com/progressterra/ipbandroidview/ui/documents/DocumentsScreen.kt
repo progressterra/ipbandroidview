@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -40,8 +39,6 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 import kotlinx.coroutines.launch
 
-private val borderWidth = 1.dp
-
 private val tabHorizontalPadding = 32.dp
 
 @OptIn(ExperimentalPagerApi::class)
@@ -51,16 +48,10 @@ private fun Tab(
 ) {
     val scope = rememberCoroutineScope()
     val backgroundColor = if (selected) AppTheme.colors.primary else AppTheme.colors.surfaces
-
-    val textColor = if (selected) AppTheme.colors.black else AppTheme.colors.gray1
+    val textColor = if (selected) AppTheme.colors.surfaces else AppTheme.colors.gray1
     val style = if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
     Box(modifier = modifier
         .clip(AppTheme.shapes.small)
-        .border(
-            width = borderWidth,
-            color = AppTheme.colors.background,
-            shape = AppTheme.shapes.small
-        )
         .background(backgroundColor)
         .niceClickable {
             scope.launch {
@@ -96,7 +87,8 @@ fun DocumentsScreen(
                         .fillMaxWidth()
                         .padding(horizontal = AppTheme.dimensions.small)
                         .horizontalScroll(rememberScrollState()),
-                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Tab(
                         modifier = Modifier.weight(1f),
@@ -142,8 +134,7 @@ private fun DocumentsScreenPreview() {
                 documents = listOf(),
                 archivedDocuments = listOf(),
                 screenState = ScreenState.SUCCESS
-            ),
-            interactor = DocumentsInteractor.Empty()
+            ), interactor = DocumentsInteractor.Empty()
         )
     }
 }

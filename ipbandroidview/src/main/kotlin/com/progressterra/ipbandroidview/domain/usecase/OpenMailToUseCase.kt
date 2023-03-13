@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.domain.usecase
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import com.progressterra.ipbandroidview.core.StartActivityContract
 
 interface OpenMailToUseCase {
@@ -18,6 +19,7 @@ interface OpenMailToUseCase {
             intent.putExtra(Intent.EXTRA_EMAIL, address)
             intent.putExtra(Intent.EXTRA_SUBJECT, subject)
             startActivityContract.start(intent)
+            Log.d("MAIL", "invoke: $address $subject")
         }
     }
 }
