@@ -93,13 +93,11 @@ dependencies {
 
     //Accompanist, useful composables
     api 'com.google.accompanist:accompanist-systemuicontroller:0.28.0'
-    api 'com.google.accompanist:accompanist-swiperefresh:0.28.0'
     api 'com.google.accompanist:accompanist-pager:0.28.0'
     api 'com.google.accompanist:accompanist-pager-indicators:0.28.0'
 
     //Testing
     api 'org.orbit-mvi:orbit-test:4.6.1'
-    api "androidx.core:core-ktx:1.9.0"
     testApi "junit:junit:4.13.2"
 
     //Appyx, navigation library
@@ -118,6 +116,10 @@ dependencies {
     //iProBonusAndroidAPI
     releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.85"
     debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.85"
+
+    //Kotpref
+    api "com.chibatching.kotpref:kotpref:2.13.2"
+    api "com.chibatching.kotpref:gson-support:2.13.2"
 
     //Compose-written calendar dialog
     api "com.squaredem:composecalendar:1.0.4"
