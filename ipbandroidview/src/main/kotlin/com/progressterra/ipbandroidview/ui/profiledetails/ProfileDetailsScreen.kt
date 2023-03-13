@@ -1,19 +1,26 @@
 package com.progressterra.ipbandroidview.ui.profiledetails
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.composable.LinkText
+import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.Button
@@ -22,6 +29,8 @@ import com.progressterra.ipbandroidview.composable.component.ButtonStyle
 import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.theme.AppTheme
+
+private val logoSize = 32.dp
 
 /**
  * name, email, phone - text field
@@ -95,9 +104,31 @@ fun ProfileDetailsScreen(
                 state = state.logout,
                 useComponent = interactor
             )
+            Spacer(Modifier.weight(1f))
+            Image(
+                modifier = Modifier.size(logoSize),
+                painter = painterResource(id = R.drawable.ptlogo),
+                contentDescription = null
+            )
             Text(
-                text = "${stringResource(R.string.version)} ${state.version}",
+                text = stringResource(R.string.created_by),
                 color = AppTheme.colors.gray2,
+                style = AppTheme.typography.secondaryText
+            )
+            Text(
+                text = "${stringResource(R.string.version)}${state.version}",
+                color = AppTheme.colors.gray2,
+                style = AppTheme.typography.secondaryText
+            )
+            LinkText(
+                linkTextData = listOf(
+                    LinkTextData(text = stringResource(id = R.string.feedback)), LinkTextData(
+                        text = "info@progressterra.com",
+                        tag = "mail to info",
+                        annotation = "info@progressterra.com",
+                        onClick = { interactor.mailToInfo(it) }
+                    )
+                ),
                 style = AppTheme.typography.secondaryText
             )
         }

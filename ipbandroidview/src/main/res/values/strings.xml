@@ -150,5 +150,7 @@
     <string name="no_email">Добавьте e-mail!</string>
     <string name="email_why">Заполнить для получения отчётов</string>
     <string name="name_why">Имя и фамилия (полностью)</string>
-    <string name="version">Версия</string>
+    <string name="version">Версия приложения: </string>
+    <string name="created_by">Создано в компании ООО \"Прогресс Терра" на платформе iProbonus</string>
+    <string name="feedback">Обратная связь: </string>
 </resources>

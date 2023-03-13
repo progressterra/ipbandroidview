@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidview.domain.usecase.AskPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CopyTextUseCase
 import com.progressterra.ipbandroidview.domain.usecase.FetchVersionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.OpenMailToUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OpenPhoneUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ShareTextUseCase
@@ -241,6 +242,8 @@ val useCasesModule = module {
     single<StartRecordingUseCase> { StartRecordingUseCase.Base(get(), get(), get()) }
 
     single<OpenMapUseCase> { OpenMapUseCase.Base(get()) }
+
+    single<OpenMailToUseCase> { OpenMailToUseCase.Base(get()) }
 
     single<CopyTextUseCase> { CopyTextUseCase.Base(get()) }
 

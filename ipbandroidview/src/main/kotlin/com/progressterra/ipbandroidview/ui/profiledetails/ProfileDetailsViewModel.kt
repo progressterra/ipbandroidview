@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.domain.usecase.FetchVersionUseCase
+import com.progressterra.ipbandroidview.domain.usecase.OpenMailToUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
@@ -32,6 +33,7 @@ class ProfileDetailsViewModel(
     private val fetchUserEmailUseCase: FetchUserEmailUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val fetchVersionUseCase: FetchVersionUseCase,
+    private val openMailToUseCase: OpenMailToUseCase,
     manageResources: ManageResources
 ) : ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEffect>,
     ProfileDetailsInteractor {
@@ -93,6 +95,10 @@ class ProfileDetailsViewModel(
                 is ButtonEvent.Click -> logout()
             }
         }
+    }
+
+    override fun mailToInfo(address: String) = intent {
+        openMailToUseCase(address, "")
     }
 
     override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {

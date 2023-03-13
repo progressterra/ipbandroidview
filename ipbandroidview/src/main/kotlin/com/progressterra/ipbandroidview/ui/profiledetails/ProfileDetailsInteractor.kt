@@ -9,7 +9,11 @@ interface ProfileDetailsInteractor : UseTextField, UseButton {
 
     fun onBack()
 
+    fun mailToInfo(address: String)
+
     class Empty : ProfileDetailsInteractor {
+
+        override fun mailToInfo(address: String) = Unit
 
         override fun handleEvent(id: String, event: ButtonEvent) = Unit
 
