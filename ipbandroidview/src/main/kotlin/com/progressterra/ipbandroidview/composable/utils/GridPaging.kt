@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui
+package com.progressterra.ipbandroidview.composable.utils
 
 import androidx.compose.foundation.lazy.grid.LazyGridItemScope
 import androidx.compose.foundation.lazy.grid.LazyGridScope

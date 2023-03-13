@@ -1,10 +1,12 @@
-package com.progressterra.ipbandroidview.shared.ui
+package com.progressterra.ipbandroidview.composable.utils
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
+
+const val RUSSIAN_PHONE_MASK = "+# (###) ###-##-##"
 
 class PhoneVisualTransformation(private val mask: String) : VisualTransformation {
 

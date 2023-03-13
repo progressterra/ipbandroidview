@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui
+package com.progressterra.ipbandroidview.composable.utils
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

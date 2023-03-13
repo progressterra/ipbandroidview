@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.component.GoodsSearchBar
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
-import com.progressterra.ipbandroidview.shared.ui.items
+import com.progressterra.ipbandroidview.composable.utils.items
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Composable

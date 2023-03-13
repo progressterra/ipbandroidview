@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview
 
-import com.progressterra.ipbandroidview.shared.isEmail
+import com.progressterra.ipbandroidview.ext.isEmail
 import org.junit.Assert
 import org.junit.Test
 

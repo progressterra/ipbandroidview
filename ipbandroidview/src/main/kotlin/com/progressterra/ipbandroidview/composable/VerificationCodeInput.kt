@@ -25,7 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.shared.ui.clearFocusOnKeyboardDismiss
+import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 private val digitSize = 56.dp

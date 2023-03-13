@@ -19,9 +19,15 @@ object AppTheme {
     val dimensions
         @Composable @ReadOnlyComposable get() = LocalDimensions.current
 
+    val customization
+        @Composable @ReadOnlyComposable get() = LocalCustomization.current
+
     val shapes
         @Composable @ReadOnlyComposable get() = LocalShapes.current
+
 }
+
+val LocalCustomization = staticCompositionLocalOf { Customization() }
 
 val LocalDimensions = staticCompositionLocalOf { Dimensions() }
 
@@ -37,6 +43,7 @@ fun AppTheme(
     darkColors: Colors = defaultDarkColors,
     typography: AppTypography = AppTheme.typography,
     dimensions: Dimensions = AppTheme.dimensions,
+    customization: Customization = AppTheme.customization,
     content: @Composable () -> Unit
 ) {
     val customCursorColors = TextSelectionColors(
@@ -48,6 +55,7 @@ fun AppTheme(
         LocalDimensions provides dimensions,
         LocalTypography provides typography,
         LocalColors provides colors,
+        LocalCustomization provides customization,
         LocalTextSelectionColors provides customCursorColors
     ) {
         SystemUiSetup()

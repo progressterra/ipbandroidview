@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.di
 import com.progressterra.ipbandroidview.domain.usecase.AskPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.CopyTextUseCase
+import com.progressterra.ipbandroidview.domain.usecase.FetchVersionUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OpenPhoneUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ShareTextUseCase
@@ -81,21 +82,13 @@ val useCasesModule = module {
 
     single<DocumentChecklistUseCase> {
         DocumentChecklistUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get()
+            get(), get(), get(), get()
         )
     }
 
     single<GoodsDetailsUseCase> {
         GoodsDetailsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
+            get(), get(), get(), get(), get(), get()
         )
     }
 
@@ -103,11 +96,12 @@ val useCasesModule = module {
 
     single<UpdateAnswerUseCase> {
         UpdateAnswerUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
+            get(), get(), get(), get(), get(), get()
+        )
+    }
+
+    single<FetchVersionUseCase> {
+        FetchVersionUseCase.Base(
             get()
         )
     }
@@ -156,12 +150,7 @@ val useCasesModule = module {
 
     single<FilteredGoodsUseCase> {
         FilteredGoodsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
+            get(), get(), get(), get(), get(), get()
         )
     }
 
@@ -265,22 +254,13 @@ val useCasesModule = module {
 
     single<PromoGoodsUseCase> {
         PromoGoodsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
+            get(), get(), get(), get(), get(), get(), get()
         )
     }
 
     single<OrganizationsOverviewUseCase> {
         OrganizationsOverviewUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get()
+            get(), get(), get(), get()
         )
     }
 
