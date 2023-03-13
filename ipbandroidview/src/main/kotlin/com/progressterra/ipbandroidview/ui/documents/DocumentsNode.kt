@@ -7,7 +7,6 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.model.Document
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -16,7 +15,6 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class DocumentsNode(
     buildContext: BuildContext,
     private val onChecklist: (AuditDocument, ChecklistStatus) -> Unit,
-    private val onArchive: (String, List<Document>) -> Unit,
     private val updateDocumentsCounter: (Int) -> Unit
 ) : Node(buildContext) {
 
@@ -27,7 +25,6 @@ class DocumentsNode(
             when (it) {
                 is DocumentsEffect.OpenChecklist -> onChecklist(it.auditDocument, it.initialStatus)
                 is DocumentsEffect.UpdateCounter -> updateDocumentsCounter(it.counter)
-                is DocumentsEffect.Archive -> onArchive(it.title, it.archived)
             }
         }
         LaunchedEffect(Unit) {

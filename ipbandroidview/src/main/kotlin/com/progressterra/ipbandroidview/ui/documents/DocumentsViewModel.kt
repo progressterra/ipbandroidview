@@ -1,9 +1,6 @@
 package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ButtonEvent
-import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
@@ -18,8 +15,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class DocumentsViewModel(
-    private val allDocumentsUseCase: AllDocumentsUseCase,
-    private val manageResources: ManageResources
+    private val allDocumentsUseCase: AllDocumentsUseCase
 ) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect>, DocumentsInteractor {
 
     override val container: Container<DocumentsState, DocumentsEffect> = container(
@@ -34,7 +30,8 @@ class DocumentsViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allDocumentsUseCase().onSuccess {
             val finished = it.filter { doc -> doc.isFinished() && !doc.isRecentlyFinished }
-            val unfinished = it.filter { doc -> !doc.isFinished() || doc.isRecentlyFinished }.reversed()
+            val unfinished =
+                it.filter { doc -> !doc.isFinished() || doc.isRecentlyFinished }.reversed()
             reduce {
                 state.copy(
                     documents = unfinished,
@@ -58,18 +55,5 @@ class DocumentsViewModel(
                 ), if (document.isFinished()) ChecklistStatus.READ_ONLY else ChecklistStatus.ONGOING
             )
         )
-    }
-
-    override fun handleEvent(id: String, event: ButtonEvent) = intent {
-        when (id) {
-            "archive" -> when (event) {
-                ButtonEvent.Click -> postSideEffect(
-                    DocumentsEffect.Archive(
-                        manageResources.string(R.string.archived),
-                        state.archivedDocuments
-                    )
-                )
-            }
-        }
     }
 }
