@@ -16,7 +16,7 @@ interface OpenMailToUseCase {
         override suspend fun invoke(address: String, subject: String) {
             val intent = Intent(Intent.ACTION_SENDTO)
             intent.data = Uri.parse("mailto:")
-            intent.putExtra(Intent.EXTRA_EMAIL, address)
+            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(address))
             intent.putExtra(Intent.EXTRA_SUBJECT, subject)
             startActivityContract.start(intent)
             Log.d("MAIL", "invoke: $address $subject")
