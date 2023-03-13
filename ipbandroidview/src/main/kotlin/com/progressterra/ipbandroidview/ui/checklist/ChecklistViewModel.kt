@@ -272,7 +272,11 @@ class ChecklistViewModel(
     private fun refreshCheck() = intent {
         reduce { state.updateCheckScreenState(ScreenState.LOADING) }
         checkMediaDetailsUseCase(state.currentCheckState.check).onSuccess {
-            reduce { state.updateMedia(it).updateCheckScreenState(ScreenState.SUCCESS) }
+            reduce {
+                state.updateMedia(it)
+                    .updateComment("")
+                    .updateCheckScreenState(ScreenState.SUCCESS)
+            }
             if (it.voices.isNotEmpty()) reduce {
                 state.updateVoiceState(VoiceState.Player(false, 0f))
             } else reduce { state.updateVoiceState(VoiceState.Recorder(false)) }
