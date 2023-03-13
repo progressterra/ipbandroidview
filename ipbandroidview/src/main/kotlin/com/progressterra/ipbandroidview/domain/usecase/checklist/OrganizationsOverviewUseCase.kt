@@ -70,7 +70,7 @@ interface OrganizationsOverviewUseCase {
                             successful = doc.countDRPositiveAnswer ?: 0,
                             failed = doc.countDRNegativeAnswer ?: 0,
                             remaining = tryOrNull { doc.countDR!! - doc.countDRPositiveAnswer!! - doc.countDRNegativeAnswer!! }
-                                ?: 0)))
+                                ?: 0), isRecentlyFinished = false))
                 }
             }
             val archived = allDocs.filter { it.finishDate != null }

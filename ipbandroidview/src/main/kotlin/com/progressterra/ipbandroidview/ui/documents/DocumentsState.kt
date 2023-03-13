@@ -9,6 +9,5 @@ import com.progressterra.ipbandroidview.model.Document
 data class DocumentsState(
     val documents: List<Document> = emptyList(),
     val archivedDocuments: List<Document> = emptyList(),
-    val screenState: ScreenState = ScreenState.LOADING,
-    val archiveButton: ButtonState = ButtonState()
+    val screenState: ScreenState = ScreenState.LOADING
 )

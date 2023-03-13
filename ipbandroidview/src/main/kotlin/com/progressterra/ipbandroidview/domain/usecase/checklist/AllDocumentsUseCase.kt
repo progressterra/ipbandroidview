@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.model.ChecklistStats
 import com.progressterra.ipbandroidview.model.Document
+import java.util.Date
 
 interface AllDocumentsUseCase {
 
@@ -38,6 +39,7 @@ interface AllDocumentsUseCase {
                     shownotmarkedasdeleted = false
                 )
             ).getOrThrow()
+            val today = Date()
             buildList {
                 documents?.map { doc ->
                     add(
@@ -55,7 +57,11 @@ interface AllDocumentsUseCase {
                                 failed = doc.countDRNegativeAnswer ?: 0,
                                 remaining = tryOrNull { doc.countDR!! - doc.countDRPositiveAnswer!! - doc.countDRNegativeAnswer!! }
                                     ?: 0
-                            )
+                            ),
+                            isRecentlyFinished = if (doc.dateEnd == null)
+                                false
+                            else
+                                System.currentTimeMillis() - doc.dateEnd!!.parseToDate()!!.time <= 24 * 60 * 60 * 1000
                         )
                     )
                 }

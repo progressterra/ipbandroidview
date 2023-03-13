@@ -77,7 +77,8 @@ private fun AuditCardPreview() {
                     successful = 10,
                     failed = 120,
                     remaining = 10
-                )
+                ),
+                isRecentlyFinished = true
             ),
             openDocument = {}
         )

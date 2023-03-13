@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.model
 
 import android.os.Parcelable
+import com.progressterra.ipbandroidapi.ext.parseToDate
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,6 +13,7 @@ data class Document(
     val address: String,
     val checkCounter: Int,
     val finishDate: String?,
+    val isRecentlyFinished: Boolean,
     val stats: ChecklistStats
 ) : Parcelable {
 

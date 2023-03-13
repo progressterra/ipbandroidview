@@ -23,11 +23,7 @@ class DocumentsViewModel(
 ) : ViewModel(), ContainerHost<DocumentsState, DocumentsEffect>, DocumentsInteractor {
 
     override val container: Container<DocumentsState, DocumentsEffect> = container(
-        DocumentsState(
-            archiveButton = ButtonState(
-                text = manageResources.string(R.string.to_archive)
-            )
-        )
+        DocumentsState()
     )
 
     init {
@@ -37,8 +33,8 @@ class DocumentsViewModel(
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         allDocumentsUseCase().onSuccess {
-            val finished = it.filter { doc -> doc.isFinished() }
-            val unfinished = it.filter { doc -> !doc.isFinished() }.reversed()
+            val finished = it.filter { doc -> doc.isFinished() && !doc.isRecentlyFinished }
+            val unfinished = it.filter { doc -> !doc.isFinished() || doc.isRecentlyFinished }.reversed()
             reduce {
                 state.copy(
                     documents = unfinished,
