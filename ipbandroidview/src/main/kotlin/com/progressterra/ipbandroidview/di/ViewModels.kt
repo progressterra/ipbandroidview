@@ -81,7 +81,7 @@ val viewModelsModule = module {
 
     viewModel { ProfileViewModel(get(), get()) }
 
-    viewModel { ProfileDetailsViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { ProfileDetailsViewModel(get(), get(), get(), get(), get(), get(), get()) }
 
     viewModel { CatalogViewModel(get()) }
 
