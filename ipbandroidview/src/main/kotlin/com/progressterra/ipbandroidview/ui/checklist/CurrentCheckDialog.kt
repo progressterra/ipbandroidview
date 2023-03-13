@@ -79,7 +79,8 @@ data class CurrentCheckState(
     fun updateCommentAvailable(available: Boolean) =
         copy(comment = comment.updateEnabled(available))
 
-    fun updateComment(newComment: String) = copy(comment = comment.updateText(newComment))
+    fun updateComment(newComment: String) =
+        copy(comment = comment.updateText(newComment), check = check.copy(comment = newComment))
 
     fun updateStatus(status: ChecklistStatus) = copy(status = status)
 
