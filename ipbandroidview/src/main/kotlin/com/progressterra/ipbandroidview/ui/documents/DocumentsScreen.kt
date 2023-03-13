@@ -5,6 +5,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -85,40 +86,42 @@ fun DocumentsScreen(
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
     }) { _, _ ->
         StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
-            val pagerState = rememberPagerState()
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
-            ) {
-                Tab(
-                    modifier = Modifier.weight(1f),
-                    selected = pagerState.currentPage == 0,
-                    pagerState = pagerState,
-                    index = 0,
-                    text = stringResource(R.string.ongoing)
-                )
-                Tab(
-                    modifier = Modifier.weight(1f),
-                    selected = pagerState.currentPage == 1,
-                    pagerState = pagerState,
-                    index = 1,
-                    text = stringResource(R.string.archived)
-                )
-            }
-            HorizontalPager(
-                count = 2, state = pagerState
-            ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(AppTheme.dimensions.small),
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            Column {
+                val pagerState = rememberPagerState()
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
                 ) {
-                    items(if (it == 0) state.documents else state.archivedDocuments) {
-                        DocumentCard(modifier = Modifier.fillMaxWidth(),
-                            state = it,
-                            openDocument = { interactor.openDocument(it) })
+                    Tab(
+                        modifier = Modifier.weight(1f),
+                        selected = pagerState.currentPage == 0,
+                        pagerState = pagerState,
+                        index = 0,
+                        text = stringResource(R.string.ongoing)
+                    )
+                    Tab(
+                        modifier = Modifier.weight(1f),
+                        selected = pagerState.currentPage == 1,
+                        pagerState = pagerState,
+                        index = 1,
+                        text = stringResource(R.string.archived)
+                    )
+                }
+                HorizontalPager(
+                    count = 2, state = pagerState
+                ) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(AppTheme.dimensions.small),
+                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                    ) {
+                        items(if (it == 0) state.documents else state.archivedDocuments) {
+                            DocumentCard(modifier = Modifier.fillMaxWidth(),
+                                state = it,
+                                openDocument = { interactor.openDocument(it) })
+                        }
                     }
                 }
             }

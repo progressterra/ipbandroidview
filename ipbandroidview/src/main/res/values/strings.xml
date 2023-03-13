@@ -151,6 +151,6 @@
     <string name="email_why">Заполнить для получения отчётов</string>
     <string name="name_why">Имя и фамилия (полностью)</string>
     <string name="version">Версия приложения:&#160;</string>
-    <string name="created_by">Создано в компании ООО \"Прогресс Терра" на платформе iProbonus</string>
+    <string name="created_by">Создано в компании ООО \"Прогресс Терра\" на платформе iProbonus</string>
     <string name="feedback">Обратная связь:&#160;</string>
 </resources>
