@@ -50,14 +50,14 @@ fun OrganizationCard(
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
         ) {
             Text(
-                text = state.address,
+                text = state.name,
                 color = AppTheme.colors.black,
                 style = AppTheme.typography.text,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                text = state.name,
+                text = state.address,
                 color = AppTheme.colors.gray2,
                 style = AppTheme.typography.secondaryText,
                 maxLines = 1,
