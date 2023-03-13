@@ -274,7 +274,7 @@ class ChecklistViewModel(
         checkMediaDetailsUseCase(state.currentCheckState.check).onSuccess {
             reduce {
                 state.updateMedia(it)
-                    .updateComment("")
+                    .updateComment(state.currentCheckState.check.comment)
                     .updateCheckScreenState(ScreenState.SUCCESS)
             }
             if (it.voices.isNotEmpty()) reduce {
