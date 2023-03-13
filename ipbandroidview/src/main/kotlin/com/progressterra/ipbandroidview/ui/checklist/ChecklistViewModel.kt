@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import android.Manifest
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
@@ -271,6 +272,7 @@ class ChecklistViewModel(
 
     private fun refreshCheck() = intent {
         reduce { state.updateCheckScreenState(ScreenState.LOADING) }
+        Log.d("CHECK", "refreshCheck: ${state.currentCheckState.check}")
         checkMediaDetailsUseCase(state.currentCheckState.check).onSuccess {
             reduce {
                 state.updateMedia(it)
