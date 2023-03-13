@@ -38,14 +38,12 @@ private val logoSize = 32.dp
  */
 @Composable
 fun ProfileDetailsScreen(
-    state: ProfileDetailsState,
-    interactor: ProfileDetailsInteractor
+    state: ProfileDetailsState, interactor: ProfileDetailsInteractor, showBack: Boolean
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(
-            title = stringResource(id = R.string.information),
-            onBack = { interactor.onBack() }
-        )
+        ThemedTopAppBar(title = stringResource(id = R.string.information), onBack = if (showBack) {
+            { interactor.onBack() }
+        } else null)
     }) { _, _ ->
         Column(
             modifier = Modifier
@@ -122,14 +120,12 @@ fun ProfileDetailsScreen(
             )
             LinkText(
                 linkTextData = listOf(
-                    LinkTextData(text = stringResource(id = R.string.feedback)), LinkTextData(
-                        text = "info@progressterra.com",
+                    LinkTextData(text = stringResource(id = R.string.feedback)),
+                    LinkTextData(text = "info@progressterra.com",
                         tag = "mail to info",
                         annotation = "info@progressterra.com",
-                        onClick = { interactor.mailToInfo(it) }
-                    )
-                ),
-                style = AppTheme.typography.secondaryText
+                        onClick = { interactor.mailToInfo(it) })
+                ), style = AppTheme.typography.secondaryText
             )
         }
     }
@@ -143,22 +139,16 @@ private fun ProfileScreenPreview() {
             state = ProfileDetailsState(
                 name = TextFieldState(
                     text = "John Doe"
-                ),
-                email = TextFieldState(
+                ), email = TextFieldState(
                     text = "dilanilka42@gmail.com"
-                ),
-                phone = TextFieldState(
-                    text = "+380 99 999 99 99",
-                    enabled = false
-                ),
-                confirm = ButtonState(
+                ), phone = TextFieldState(
+                    text = "+380 99 999 99 99", enabled = false
+                ), confirm = ButtonState(
                     text = "Confirm"
-                ),
-                logout = ButtonState(
+                ), logout = ButtonState(
                     text = "Logout"
                 )
-            ),
-            interactor = ProfileDetailsInteractor.Empty()
+            ), interactor = ProfileDetailsInteractor.Empty(), showBack = true
         )
     }
 }
