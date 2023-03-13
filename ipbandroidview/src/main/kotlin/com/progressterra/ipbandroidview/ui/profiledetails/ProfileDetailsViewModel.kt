@@ -98,7 +98,7 @@ class ProfileDetailsViewModel(
     }
 
     override fun mailToInfo(address: String) = intent {
-        openMailToUseCase(address, "")
+        openMailToUseCase(address)
     }
 
     override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
