@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -48,7 +50,7 @@ private fun Tab(
     modifier: Modifier, selected: Boolean, pagerState: PagerState, index: Int, text: String
 ) {
     val scope = rememberCoroutineScope()
-    val backgroundColor = if (selected) AppTheme.colors.background else AppTheme.colors.surfaces
+    val backgroundColor = if (selected) AppTheme.colors.primary else AppTheme.colors.surfaces
 
     val textColor = if (selected) AppTheme.colors.black else AppTheme.colors.gray1
     val style = if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
@@ -88,9 +90,11 @@ fun DocumentsScreen(
         StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
             Column {
                 val pagerState = rememberPagerState()
+                Spacer(Modifier.height(AppTheme.dimensions.small))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .padding(horizontal = AppTheme.dimensions.small)
                         .horizontalScroll(rememberScrollState()),
                     horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
                 ) {
