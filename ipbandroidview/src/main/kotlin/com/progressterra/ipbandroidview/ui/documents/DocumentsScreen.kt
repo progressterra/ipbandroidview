@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,8 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
@@ -48,13 +47,18 @@ private val tabHorizontalPadding = 26.dp
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 private fun Tab(
-    modifier: Modifier, pagerState: PagerState, index: Int, text: String
+    modifier: Modifier = Modifier, pagerState: PagerState, index: Int, text: String
 ) {
     val scope = rememberCoroutineScope()
     val backgroundColor =
         if (pagerState.currentPage == index) AppTheme.colors.background else AppTheme.colors.surfaces
     Box(modifier = modifier
-        .clip(AppTheme.shapes.small)
+        .clip(
+            AppTheme.shapes.small.copy(
+                bottomStart = CornerSize(0),
+                bottomEnd = CornerSize(0)
+            )
+        )
         .background(backgroundColor)
         .niceClickable {
             scope.launch {
@@ -84,73 +88,20 @@ fun DocumentsScreen(
     val pagerState = rememberPagerState()
     ThemedLayout(topBar = {
         ThemedTopAppBar(title = stringResource(id = R.string.audits))
-        ConstraintLayout(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(44.dp)
-                .padding(horizontal = AppTheme.dimensions.small)
+                .background(AppTheme.colors.surfaces)
+                .padding(top = AppTheme.dimensions.small),
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            val (text1, text2, leftPanel, rightPanel, background) = createRefs()
-            val firstGuideLine = createGuidelineFromStart(0.25f)
-            val secondGuideLine = createGuidelineFromEnd(0.25f)
-            val textHeight = createGuidelineFromBottom(0.3f)
-            val midline = createGuidelineFromTop(0.5f)
-            val currentItem = if (pagerState.currentPage == 0) text1 else text2
-            Box(modifier = Modifier
-                .background(AppTheme.colors.surfaces)
-                .constrainAs(background) {
-                    width = Dimension.fillToConstraints
-                    height = Dimension.fillToConstraints
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    top.linkTo(midline)
-                })
-            Box(modifier = Modifier
-                .background(AppTheme.colors.surfaces)
-                .clip(
-                    AppTheme.shapes.small.copy(
-                        topStart = CornerSize(0.dp), bottomStart = CornerSize(0.dp)
-                    )
-                )
-                .constrainAs(leftPanel) {
-                    width = Dimension.fillToConstraints
-                    height = Dimension.fillToConstraints
-                    start.linkTo(parent.start)
-                    end.linkTo(currentItem.start)
-                    top.linkTo(midline)
-                })
-            Box(modifier = Modifier
-                .background(AppTheme.colors.surfaces)
-                .clip(
-                    AppTheme.shapes.small.copy(
-                        topEnd = CornerSize(0.dp), bottomEnd = CornerSize(0.dp)
-                    )
-                )
-                .constrainAs(rightPanel) {
-                    width = Dimension.fillToConstraints
-                    height = Dimension.fillToConstraints
-                    start.linkTo(currentItem.end)
-                    end.linkTo(parent.end)
-                    top.linkTo(midline)
-                })
+
             Tab(
-                modifier = Modifier.constrainAs(text1) {
-                    top.linkTo(textHeight)
-                    bottom.linkTo(textHeight)
-                    start.linkTo(firstGuideLine)
-                    end.linkTo(firstGuideLine)
-                },
                 text = stringResource(R.string.ongoing),
                 pagerState = pagerState,
                 index = 0
             )
             Tab(
-                modifier = Modifier.constrainAs(text2) {
-                    top.linkTo(textHeight)
-                    bottom.linkTo(textHeight)
-                    start.linkTo(secondGuideLine)
-                    end.linkTo(secondGuideLine)
-                },
                 text = stringResource(R.string.completed),
                 pagerState = pagerState,
                 index = 1
