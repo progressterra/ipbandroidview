@@ -55,8 +55,7 @@ private fun Tab(
     Box(modifier = modifier
         .clip(
             AppTheme.shapes.small.copy(
-                bottomStart = CornerSize(0),
-                bottomEnd = CornerSize(0)
+                bottomStart = CornerSize(0), bottomEnd = CornerSize(0)
             )
         )
         .background(backgroundColor)
@@ -98,14 +97,10 @@ fun DocumentsScreen(
                 verticalAlignment = Alignment.Bottom
             ) {
                 Tab(
-                    text = stringResource(R.string.ongoing),
-                    pagerState = pagerState,
-                    index = 0
+                    text = stringResource(R.string.ongoing), pagerState = pagerState, index = 0
                 )
                 Tab(
-                    text = stringResource(R.string.completed),
-                    pagerState = pagerState,
-                    index = 1
+                    text = stringResource(R.string.completed), pagerState = pagerState, index = 1
                 )
             }
         }
@@ -119,10 +114,15 @@ fun DocumentsScreen(
                     val notEnded = stringResource(R.string.not_ended)
                     val ended = stringResource(id = R.string.completed_audits)
                     val recentlyEnded = stringResource(id = R.string.recentley_ended)
-                    val groupedDocs by remember(state.documents) {
-                        mutableStateOf(state.documents.map {
-                            if (it.isFinished()) it.copy(finishDate = recentlyEnded)
-                            else it.copy(finishDate = notEnded)
+                    val groupedRecentlyEndedDocs by remember(state.documents) {
+                        mutableStateOf(state.documents.filter { it.isFinished() }.map {
+                            it.copy(finishDate = recentlyEnded)
+                        }.groupBy { it.finishDate!! })
+                    }
+
+                    val groupedNotEndedDocs by remember(state.documents) {
+                        mutableStateOf(state.documents.filter { !it.isFinished() }.map {
+                            it.copy(finishDate = notEnded)
                         }.groupBy { it.finishDate!! })
                     }
                     val groupedArchivedDocs by remember(state.archivedDocuments) {
@@ -135,8 +135,32 @@ fun DocumentsScreen(
                         contentPadding = PaddingValues(AppTheme.dimensions.small),
                         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
                     ) {
-                        val group = if (it == 0) groupedDocs else groupedArchivedDocs
-                        group.forEach {
+                        if (it == 0) {
+                            groupedNotEndedDocs.forEach {
+                                item {
+                                    Divider(
+                                        modifier = Modifier.fillMaxWidth(), title = it.key
+                                    )
+                                }
+                                items(it.value) { document ->
+                                    DocumentCard(modifier = Modifier.fillMaxWidth(),
+                                        state = document,
+                                        openDocument = { interactor.openDocument(document) })
+                                }
+                            }
+                            groupedRecentlyEndedDocs.forEach {
+                                item {
+                                    Divider(
+                                        modifier = Modifier.fillMaxWidth(), title = it.key
+                                    )
+                                }
+                                items(it.value) { document ->
+                                    DocumentCard(modifier = Modifier.fillMaxWidth(),
+                                        state = document,
+                                        openDocument = { interactor.openDocument(document) })
+                                }
+                            }
+                        } else groupedArchivedDocs.forEach {
                             item {
                                 Divider(
                                     modifier = Modifier.fillMaxWidth(), title = it.key
