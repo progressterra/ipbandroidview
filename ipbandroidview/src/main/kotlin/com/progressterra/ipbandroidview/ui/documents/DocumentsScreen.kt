@@ -119,11 +119,8 @@ fun DocumentsScreen(
                             it.copy(finishDate = recentlyEnded)
                         }.groupBy { it.finishDate!! })
                     }
-
-                    val groupedNotEndedDocs by remember(state.documents) {
-                        mutableStateOf(state.documents.filter { !it.isFinished() }.map {
-                            it.copy(finishDate = notEnded)
-                        }.groupBy { it.finishDate!! })
+                    val notEndedDocs by remember(state.documents) {
+                        mutableStateOf(state.documents.filter { !it.isFinished() })
                     }
                     val groupedArchivedDocs by remember(state.archivedDocuments) {
                         mutableStateOf(state.archivedDocuments.map {
@@ -136,13 +133,13 @@ fun DocumentsScreen(
                         verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
                     ) {
                         if (it == 0) {
-                            groupedNotEndedDocs.forEach {
+                            if (notEndedDocs.isNotEmpty()) {
                                 item {
                                     Divider(
-                                        modifier = Modifier.fillMaxWidth(), title = it.key
+                                        modifier = Modifier.fillMaxWidth(), title = notEnded
                                     )
                                 }
-                                items(it.value) { document ->
+                                items(notEndedDocs) { document ->
                                     DocumentCard(modifier = Modifier.fillMaxWidth(),
                                         state = document,
                                         openDocument = { interactor.openDocument(document) })
