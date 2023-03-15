@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.components.rememberImageComponent
 import com.skydoves.landscapist.fresco.FrescoImage
@@ -27,15 +27,15 @@ fun SimpleImage(
         imageOptions = options,
         component = rememberImageComponent {
             +ShimmerPlugin(
-                baseColor = backgroundColor, highlightColor = AppTheme.colors.primary
+                baseColor = backgroundColor, highlightColor = IpbTheme.colors.primary
             )
         },
         failure = {
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = stringResource(id = R.string.image_missing),
-                color = AppTheme.colors.error,
-                style = AppTheme.typography.text,
+                color = IpbTheme.colors.error,
+                style = IpbTheme.typography.text,
                 textAlign = TextAlign.Center
             )
         },

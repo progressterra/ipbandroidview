@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.MultisizedImage
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val picSize = 48.dp
 
@@ -42,10 +42,10 @@ fun AttachedPhotos(
         SimpleImage(
             modifier = Modifier
                 .size(picSize)
-                .clip(AppTheme.shapes.small)
+                .clip(IpbTheme.shapes.small)
                 .niceClickable { onPhotoSelect(picture) },
             url = picture.thumbnail,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = IpbTheme.colors.surfaces
         )
     }
 
@@ -54,32 +54,32 @@ fun AttachedPhotos(
             modifier = modifier
                 .fillMaxWidth()
                 .height(TextFieldDefaults.MinHeight)
-                .clip(AppTheme.shapes.small)
-                .background(AppTheme.colors.background)
+                .clip(IpbTheme.shapes.small)
+                .background(IpbTheme.colors.background)
                 .niceClickable(enabled) { onCamera() }
-                .padding(horizontal = AppTheme.dimensions.medium, vertical = verticalPadding),
+                .padding(horizontal = 12.dp, vertical = verticalPadding),
 
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = stringResource(id = R.string.add_photo),
-                style = AppTheme.typography.text,
-                color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
+                style = IpbTheme.typography.text,
+                color = if (enabled) IpbTheme.colors.gray1 else IpbTheme.colors.gray2
             )
             Box(modifier = Modifier.size(picSize), contentAlignment = Alignment.Center) {
                 CameraIcon(enabled = enabled)
             }
         }
     } else {
-        LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
+        LazyRow(modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             if (enabled) {
                 item {
                     Box(
                         modifier = Modifier
                             .size(picSize)
-                            .clip(AppTheme.shapes.small)
-                            .background(AppTheme.colors.background)
+                            .clip(IpbTheme.shapes.small)
+                            .background(IpbTheme.colors.background)
                             .niceClickable { onCamera() },
                         contentAlignment = Alignment.Center
                     ) {
@@ -97,7 +97,7 @@ fun AttachedPhotos(
 @Preview
 @Composable
 private fun AttachedPhotosPreviewEnabled() {
-    AppTheme {
+    IpbTheme {
         AttachedPhotos(pictures =
         listOf(
             MultisizedImage(
@@ -129,7 +129,7 @@ private fun AttachedPhotosPreviewEnabled() {
 @Preview
 @Composable
 private fun AttachedPhotosPreviewDisabled() {
-    AppTheme {
+    IpbTheme {
         AttachedPhotos(pictures = listOf(
             MultisizedImage(
                 id = "",

@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val size = 64.dp
 
@@ -17,8 +17,8 @@ fun ThemedRefreshButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     IconButton(
         modifier = modifier
             .size(size)
-            .clip(AppTheme.shapes.button)
-            .background(AppTheme.colors.primary), onClick = onClick
+            .clip(IpbTheme.shapes.button)
+            .background(IpbTheme.colors.primary), onClick = onClick
     ) {
         RefreshIcon()
     }
@@ -27,7 +27,7 @@ fun ThemedRefreshButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 @Preview
 @Composable
 private fun ThemedRefreshButtonPreview() {
-    AppTheme {
+    IpbTheme {
         ThemedRefreshButton(onClick = {})
     }
 }

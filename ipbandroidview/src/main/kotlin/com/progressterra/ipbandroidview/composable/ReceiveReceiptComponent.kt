@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.composable.component.UseTextField
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Immutable
 data class ReceiveReceiptComponentState(
@@ -47,11 +47,11 @@ fun ReceiveReceiptComponent(
 ) {
     Column(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
             .animateContentSize()
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -60,8 +60,8 @@ fun ReceiveReceiptComponent(
         ) {
             Text(
                 text = stringResource(R.string.receive_check),
-                style = AppTheme.typography.title,
-                color = AppTheme.colors.black
+                style = IpbTheme.typography.title,
+                color = IpbTheme.colors.black
             )
             ThemedSwitch(onChange = {
                 useComponent.handleEvent(

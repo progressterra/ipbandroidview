@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.WebViewCompose
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun SizeTableComponent(
@@ -25,21 +25,21 @@ fun SizeTableComponent(
     Column(
         modifier = modifier
             .padding(
-                top = AppTheme.dimensions.small,
-                start = AppTheme.dimensions.small,
-                end = AppTheme.dimensions.small
+                top = 8.dp,
+                start = 8.dp,
+                end = 8.dp
             )
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp)
             .fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(R.string.size_table),
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.title,
+            color = IpbTheme.colors.black,
+            style = IpbTheme.typography.title,
             maxLines = 1,
             textAlign = TextAlign.Center
         )
@@ -50,7 +50,7 @@ fun SizeTableComponent(
 @Composable
 @Preview
 private fun SizeTableComponentPreview() {
-    AppTheme {
+    IpbTheme {
         SizeTableComponent(url = "https://www.google.com")
     }
 }

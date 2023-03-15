@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun BonusesClarification(
@@ -23,31 +23,31 @@ fun BonusesClarification(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
             .niceClickable { onClick() }
-            .padding(AppTheme.dimensions.medium),
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            .padding(12.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = "🔥", style = AppTheme.typography.headLine, color = AppTheme.colors.black
+            text = "🔥", style = IpbTheme.typography.headLine, color = IpbTheme.colors.black
         )
         Column(
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
                 text = "$burningDate ${stringResource(R.string.will_burn)} $burningQuantity ${
                     stringResource(R.string.bonuses)
-                }", style = AppTheme.typography.text, color = AppTheme.colors.black
+                }", style = IpbTheme.typography.text, color = IpbTheme.colors.black
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+                horizontalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Text(
                     text = stringResource(R.string.to_bonuses_clarification),
-                    style = AppTheme.typography.tertiaryText,
-                    color = AppTheme.colors.gray2
+                    style = IpbTheme.typography.tertiaryText,
+                    color = IpbTheme.colors.gray2
                 )
                 ForwardTinyIcon()
             }

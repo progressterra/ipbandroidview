@@ -6,7 +6,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 enum class ButtonStyle {
     Primary,
@@ -52,27 +52,27 @@ fun Button(
     Button(
         modifier = modifier,
         onClick = { useComponent.handleEvent(id, ButtonEvent.Click) },
-        shape = AppTheme.shapes.button,
+        shape = IpbTheme.shapes.button,
         enabled = state.enabled,
         colors = ButtonDefaults.buttonColors(
             backgroundColor = when (style) {
-                ButtonStyle.Primary -> AppTheme.colors.primary
-                ButtonStyle.Secondary -> AppTheme.colors.secondary
-                ButtonStyle.Error -> AppTheme.colors.surfaces
+                ButtonStyle.Primary -> IpbTheme.colors.primary
+                ButtonStyle.Secondary -> IpbTheme.colors.secondary
+                ButtonStyle.Error -> IpbTheme.colors.surfaces
             },
             contentColor = when (style) {
-                ButtonStyle.Primary -> AppTheme.colors.surfaces
-                ButtonStyle.Secondary -> AppTheme.colors.gray1
-                ButtonStyle.Error -> AppTheme.colors.error
+                ButtonStyle.Primary -> IpbTheme.colors.surfaces
+                ButtonStyle.Secondary -> IpbTheme.colors.gray1
+                ButtonStyle.Error -> IpbTheme.colors.error
             },
-            disabledContentColor = AppTheme.colors.gray2,
-            disabledBackgroundColor = AppTheme.colors.gray3
+            disabledContentColor = IpbTheme.colors.gray2,
+            disabledBackgroundColor = IpbTheme.colors.gray3
         ),
         contentPadding = PaddingValues(
-            horizontal = AppTheme.dimensions.buttonHorizontalPadding,
-            vertical = AppTheme.dimensions.buttonVerticalPadding
+            horizontal = 32.dp,
+            vertical = 15.dp
         )
     ) {
-        Text(text = state.text, style = AppTheme.typography.button)
+        Text(text = state.text, style = IpbTheme.typography.button)
     }
 }

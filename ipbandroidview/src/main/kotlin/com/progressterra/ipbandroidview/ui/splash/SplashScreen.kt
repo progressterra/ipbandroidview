@@ -15,14 +15,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun SplashScreen(state: SplashState, settings: SplashSettings) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.surfaces),
+            .background(IpbTheme.colors.surfaces),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -39,7 +39,7 @@ fun SplashScreen(state: SplashState, settings: SplashSettings) {
 @Preview
 @Composable
 private fun SplashScreenPreview() {
-    AppTheme {
+    IpbTheme {
         SplashScreen(
             SplashState(
                 R.drawable.splash_logo,

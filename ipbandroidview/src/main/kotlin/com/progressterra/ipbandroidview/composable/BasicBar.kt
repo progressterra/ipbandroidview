@@ -13,14 +13,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val minHeight = 56.dp
 
 @Composable
 fun BasicBar(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = AppTheme.colors.surfaces,
+    backgroundColor: Color = IpbTheme.colors.surfaces,
     paddingValues: PaddingValues,
     arrangement: Arrangement.Horizontal = Arrangement.SpaceBetween,
     content: @Composable RowScope.() -> Unit

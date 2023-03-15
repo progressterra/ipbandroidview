@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -27,11 +26,9 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.BottomHolder
-import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun PickUpPointScreen(
@@ -55,11 +52,11 @@ fun PickUpPointScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.small)
-                .clip(AppTheme.shapes.medium)
-                .background(AppTheme.colors.surfaces)
-                .padding(AppTheme.dimensions.medium),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                .padding(8.dp)
+                .clip(IpbTheme.shapes.medium)
+                .background(IpbTheme.colors.surfaces)
+                .padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             val cameraPositionState = rememberCameraPositionState {
                 position = CameraPosition.fromLatLngZoom(LatLng(55.751244, 37.618423), 10f)
@@ -67,7 +64,7 @@ fun PickUpPointScreen(
             GoogleMap(
                 modifier = Modifier
                     .weight(1f)
-                    .clip(AppTheme.shapes.small),
+                    .clip(IpbTheme.shapes.small),
                 cameraPositionState = cameraPositionState,
                 onMyLocationClick = {
                     cameraPositionState.move(
@@ -107,38 +104,38 @@ fun PickUpPointScreen(
                 ) {
                     Text(
                         text = state.currentPickUpPointInfo?.address ?: "",
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.title
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.title
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.tiniest))
+                    Spacer(modifier = Modifier.size(2.dp))
                     Text(
                         text = state.currentPickUpPointInfo?.pickupPointCode ?: "",
-                        color = AppTheme.colors.gray2,
-                        style = AppTheme.typography.tertiaryText
+                        color = IpbTheme.colors.gray2,
+                        style = IpbTheme.typography.tertiaryText
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
+                    Spacer(modifier = Modifier.size(12.dp))
                     Text(
                         text = stringResource(R.string.work_hour),
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.text
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.text
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.tiny))
+                    Spacer(modifier = Modifier.size(4.dp))
                     Text(
                         text = state.currentPickUpPointInfo?.workHour ?: "",
-                        color = AppTheme.colors.gray2,
-                        style = AppTheme.typography.tertiaryText
+                        color = IpbTheme.colors.gray2,
+                        style = IpbTheme.typography.tertiaryText
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
+                    Spacer(modifier = Modifier.size(12.dp))
                     Text(
                         text = stringResource(R.string.how_to_go),
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.text
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.text
                     )
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.tiny))
+                    Spacer(modifier = Modifier.size(4.dp))
                     Text(
                         text = state.currentPickUpPointInfo?.path ?: "",
-                        color = AppTheme.colors.gray2,
-                        style = AppTheme.typography.tertiaryText
+                        color = IpbTheme.colors.gray2,
+                        style = IpbTheme.typography.tertiaryText
                     )
                 }
             }

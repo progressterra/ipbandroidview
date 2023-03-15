@@ -23,7 +23,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ArrowRightIcon
 import com.progressterra.ipbandroidview.composable.PlusPeopleIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val spacing1 = 22.dp
 
@@ -66,12 +66,12 @@ private fun BonusesButton(
     Column(
         modifier = modifier
             .clip(
-                AppTheme.shapes.medium
+                IpbTheme.shapes.medium
             )
             .background(buttonBackground)
             .niceClickable { onClick() }
             .padding(
-                horizontal = AppTheme.dimensions.medium, vertical = AppTheme.dimensions.large
+                horizontal = 12.dp, vertical = 16.dp
             ),
         verticalArrangement = Arrangement.spacedBy(spacing3),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -80,8 +80,8 @@ private fun BonusesButton(
         Text(
             modifier = modifier,
             text = text,
-            style = AppTheme.typography.tertiaryText,
-            color = AppTheme.colors.black
+            style = IpbTheme.typography.tertiaryText,
+            color = IpbTheme.colors.black
         )
     }
 }
@@ -96,20 +96,20 @@ fun ExtendedBonuses(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.large)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(16.dp)
     ) {
         Text(
             text = "${stringResource(R.string.you_have)} ${state.bonuses} ${stringResource(R.string.bonuses)}",
-            style = AppTheme.typography.title,
-            color = AppTheme.colors.black
+            style = IpbTheme.typography.title,
+            color = IpbTheme.colors.black
         )
         Spacer(modifier = Modifier.height(spacing1))
         Text(
             text = "${state.burningDate} ${stringResource(R.string.will_burn)} ${state.burningQuantity} ${
                 stringResource(R.string.bonuses)
-            }", style = AppTheme.typography.secondaryText, color = AppTheme.colors.error
+            }", style = IpbTheme.typography.secondaryText, color = IpbTheme.colors.error
         )
         Spacer(modifier = Modifier.height(spacing2))
         Row(
@@ -118,7 +118,7 @@ fun ExtendedBonuses(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 BonusesButton(text = stringResource(R.string.spend),
                     icon = { PlusPeopleIcon() },

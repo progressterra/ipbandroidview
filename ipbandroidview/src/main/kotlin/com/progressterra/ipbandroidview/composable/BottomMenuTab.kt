@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val bottomMenuItemSize = 32.dp
 
@@ -51,17 +51,17 @@ fun BottomMenuTab(
         if (count > 0) {
             Box(
                 modifier = modifier
-                    .size(AppTheme.dimensions.counterSize)
+                    .size(16.dp)
                     .clip(CircleShape)
-                    .background(AppTheme.colors.secondary)
+                    .background(IpbTheme.colors.secondary)
                     .zIndex(1f),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = state.count.toString(),
                     textAlign = TextAlign.Center,
-                    color = AppTheme.colors.black,
-                    style = AppTheme.typography.actionBarLabels
+                    color = IpbTheme.colors.black,
+                    style = IpbTheme.typography.actionBarLabels
                 )
             }
         }
@@ -69,9 +69,9 @@ fun BottomMenuTab(
 
     Column(modifier = modifier
         .clickable { onClick(state.id) }
-        .padding(AppTheme.dimensions.tiny),
+        .padding(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Box(modifier = Modifier.size(bottomMenuItemSize)) {
             Counter(modifier = Modifier.align(Alignment.TopEnd), count = state.count)
@@ -81,13 +81,13 @@ fun BottomMenuTab(
                     .align(Alignment.Center),
                 painter = painterResource(id = state.iconId),
                 contentDescription = null,
-                tint = if (active == state.id) AppTheme.colors.primary else AppTheme.colors.gray2
+                tint = if (active == state.id) IpbTheme.colors.primary else IpbTheme.colors.gray2
             )
         }
         Text(
             text = stringResource(id = state.titleId),
-            style = AppTheme.typography.actionBarLabels,
-            color = if (active == state.id) AppTheme.colors.primary else AppTheme.colors.gray2
+            style = IpbTheme.typography.actionBarLabels,
+            color = if (active == state.id) IpbTheme.colors.primary else IpbTheme.colors.gray2
         )
     }
 }
@@ -95,7 +95,7 @@ fun BottomMenuTab(
 @Preview(showBackground = true)
 @Composable
 private fun BottomNavItemPreview0() {
-    AppTheme {
+    IpbTheme {
         BottomMenuTab(
             state = BottomMenuTabState(
                 id = 0,
@@ -109,7 +109,7 @@ private fun BottomNavItemPreview0() {
 @Preview(showBackground = true)
 @Composable
 private fun BottomNavItemPreview1() {
-    AppTheme {
+    IpbTheme {
         BottomMenuTab(
             state = BottomMenuTabState(
                 id = 0,

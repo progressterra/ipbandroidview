@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.composable.component.GoodsSearchBar
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.utils.items
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun GoodsScreen(
@@ -34,9 +34,9 @@ fun GoodsScreen(
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
                 columns = GridCells.Fixed(2),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                contentPadding = PaddingValues(AppTheme.dimensions.small)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(8.dp)
             ) {
                 if (lazyItems.itemCount > 0) items(lazyItems) { goods ->
                     goods?.let {
@@ -59,7 +59,7 @@ fun GoodsScreen(
 @Preview
 @Composable
 private fun MainScreenPreview() {
-    AppTheme {
+    IpbTheme {
 
     }
 }

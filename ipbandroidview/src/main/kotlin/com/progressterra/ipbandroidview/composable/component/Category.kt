@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.composable.SimpleImage
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 import com.progressterra.ipbandroidview.model.MainCategory
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val picHeight = 104.dp
 
@@ -31,33 +31,33 @@ fun Category(
 ) {
     Column(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
             .niceClickable { openCategory(state) },
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         SimpleImage(
             modifier = Modifier
-                .clip(AppTheme.shapes.small)
+                .clip(IpbTheme.shapes.small)
                 .fillMaxWidth()
                 .height(picHeight),
             url = state.image,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = IpbTheme.colors.surfaces
         )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    start = AppTheme.dimensions.small,
-                    end = AppTheme.dimensions.small,
-                    bottom = AppTheme.dimensions.small
+                    start = 8.dp,
+                    end = 8.dp,
+                    bottom = 8.dp
                 ),
             contentAlignment = Alignment.TopCenter
         ) {
             Text(
                 text = state.name,
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.title
             )
         }
     }
@@ -66,7 +66,7 @@ fun Category(
 @Preview
 @Composable
 private fun CategoryPreview() {
-    AppTheme {
+    IpbTheme {
         Category(
             modifier = Modifier.width(300.dp),
             state = MainCategory(

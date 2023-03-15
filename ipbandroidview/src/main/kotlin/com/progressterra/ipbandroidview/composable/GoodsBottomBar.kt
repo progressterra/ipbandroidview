@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.composable.component.UseButton
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val lineWidth = 0.5.dp
 
@@ -49,20 +49,20 @@ fun GoodsBottomBar(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(AppTheme.colors.surfaces)
-            .sideBorder(top = SideBorder(lineWidth, AppTheme.colors.gray2))
-            .padding(AppTheme.dimensions.large),
+            .background(IpbTheme.colors.surfaces)
+            .sideBorder(top = SideBorder(lineWidth, IpbTheme.colors.gray2))
+            .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = state.price, style = AppTheme.typography.price, color = AppTheme.colors.black
+            text = state.price, style = IpbTheme.typography.price, color = IpbTheme.colors.black
         )
         if (state.inCartCounter >= 1) Row(
             modifier = Modifier
-                .clip(AppTheme.shapes.button)
-                .background(AppTheme.colors.background),
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny),
+                .clip(IpbTheme.shapes.button)
+                .background(IpbTheme.colors.background),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = { useComponent.handleEvent(id, GoodsBottomBarEvent.Remove) }) {
@@ -70,8 +70,8 @@ fun GoodsBottomBar(
             }
             Text(
                 text = state.inCartCounter.toString(),
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.button
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.button
             )
             IconButton(onClick = { useComponent.handleEvent(id, GoodsBottomBarEvent.Add) }) {
                 AddItemIcon(available = true)

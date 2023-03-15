@@ -14,7 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val pulsingCircle = 64.dp
 
@@ -31,7 +31,7 @@ fun PulsingDot(modifier: Modifier = Modifier) {
         modifier
             .size(pulsingCircle)
             .scale(scale)
-            .background(color = AppTheme.colors.primary.copy(alpha = 0.5f), shape = CircleShape)
+            .background(color = IpbTheme.colors.primary.copy(alpha = 0.5f), shape = CircleShape)
     )
 
     @Composable

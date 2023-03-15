@@ -18,7 +18,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -63,14 +63,14 @@ fun TextField(
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
             Text(
-                text = state.hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
+                text = state.hint, style = IpbTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
     val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
             Text(
-                text = state.hint, style = AppTheme.typography.text, maxLines = 1
+                text = state.hint, style = IpbTheme.typography.text, maxLines = 1
             )
         }
     } else null
@@ -81,8 +81,8 @@ fun TextField(
         modifier = modifier
             .border(
                 width = borderWidth,
-                color = if (focused) AppTheme.colors.primary else Color.Transparent,
-                shape = AppTheme.shapes.small
+                color = if (focused) IpbTheme.colors.primary else Color.Transparent,
+                shape = IpbTheme.shapes.small
             )
             .clearFocusOnKeyboardDismiss(),
         value = state.text,
@@ -95,45 +95,45 @@ fun TextField(
             focusManager.clearFocus()
             useComponent.handleEvent(id, TextFieldEvent.Action)
         },
-        shape = AppTheme.shapes.small,
+        shape = IpbTheme.shapes.small,
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,
         enabled = state.enabled,
-        textStyle = AppTheme.typography.text,
+        textStyle = IpbTheme.typography.text,
         singleLine = singleLine,
         leadingIcon = leadingIcon,
         trailingIcon = trailingIcon,
         colors = TextFieldDefaults.textFieldColors(
             //Background
-            backgroundColor = AppTheme.colors.background,
+            backgroundColor = IpbTheme.colors.background,
             //Placeholder
-            placeholderColor = AppTheme.colors.gray1,
-            disabledPlaceholderColor = AppTheme.colors.gray2,
+            placeholderColor = IpbTheme.colors.gray1,
+            disabledPlaceholderColor = IpbTheme.colors.gray2,
             //Label always same color
-            focusedLabelColor = AppTheme.colors.gray2,
-            unfocusedLabelColor = AppTheme.colors.gray2,
-            disabledLabelColor = AppTheme.colors.gray2,
-            errorLabelColor = AppTheme.colors.error,
+            focusedLabelColor = IpbTheme.colors.gray2,
+            unfocusedLabelColor = IpbTheme.colors.gray2,
+            disabledLabelColor = IpbTheme.colors.gray2,
+            errorLabelColor = IpbTheme.colors.error,
             //Text color depend on enable state
-            textColor = AppTheme.colors.black,
-            disabledTextColor = AppTheme.colors.gray2,
+            textColor = IpbTheme.colors.black,
+            disabledTextColor = IpbTheme.colors.gray2,
             //Here is no indicator actually
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             errorIndicatorColor = Color.Transparent,
             //Cursor
-            cursorColor = AppTheme.colors.primary,
-            errorCursorColor = AppTheme.colors.error,
+            cursorColor = IpbTheme.colors.primary,
+            errorCursorColor = IpbTheme.colors.error,
             //Leading icon
-            leadingIconColor = AppTheme.colors.gray2,
-            disabledLeadingIconColor = AppTheme.colors.gray2,
-            errorLeadingIconColor = AppTheme.colors.error,
+            leadingIconColor = IpbTheme.colors.gray2,
+            disabledLeadingIconColor = IpbTheme.colors.gray2,
+            errorLeadingIconColor = IpbTheme.colors.error,
             //Leading icon
-            trailingIconColor = AppTheme.colors.gray2,
-            disabledTrailingIconColor = AppTheme.colors.gray2,
-            errorTrailingIconColor = AppTheme.colors.error
+            trailingIconColor = IpbTheme.colors.gray2,
+            disabledTrailingIconColor = IpbTheme.colors.gray2,
+            errorTrailingIconColor = IpbTheme.colors.error
         )
     )
 }

@@ -2,9 +2,25 @@ package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-
-private fun String.toColor() = Color(android.graphics.Color.parseColor(this))
+import androidx.compose.ui.graphics.SolidColor
 
 class ColorUnit(
-    private vararg val colors: List<String>
-)
+    vararg hexes: String
+) {
+
+    init {
+        require(hexes.isNotEmpty()) { "ColorUnit must have at least 1 color" }
+    }
+
+    private val colors: List<Color> = hexes.map { it.toColor() }
+
+    private val brush: Brush = if (hexes.size == 1) {
+        SolidColor(colors.first())
+    } else {
+        Brush.verticalGradient(colors = colors)
+    }
+
+    fun asColor() = colors.first()
+
+    fun asBrush() = brush
+}

@@ -8,10 +8,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.component.CategoryBar
 import com.progressterra.ipbandroidview.composable.component.SubCategoryComponent
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun SubCatalogScreen(
@@ -32,8 +31,8 @@ fun SubCatalogScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-            contentPadding = PaddingValues(AppTheme.dimensions.small)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            contentPadding = PaddingValues(8.dp)
         ) {
             items(state.currentCategoryWithSubcategories.subCategories) { category ->
                 SubCategoryComponent(state = category, openCategory = {
@@ -47,6 +46,6 @@ fun SubCatalogScreen(
 @Preview
 @Composable
 private fun SubCatalogScreenPreview() {
-    AppTheme {
+    IpbTheme {
     }
 }

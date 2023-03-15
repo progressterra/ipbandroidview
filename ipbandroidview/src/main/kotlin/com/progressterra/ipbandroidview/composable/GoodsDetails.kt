@@ -28,7 +28,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.model.GoodsDetails
 import com.progressterra.ipbandroidview.model.GoodsParameters
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import kotlinx.coroutines.launch
 
 private val detailsParamTitlesWidth = 104.dp
@@ -43,13 +43,13 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
     ) {
         Box(
             modifier = Modifier
-                .padding(horizontal = AppTheme.dimensions.small)
-                .clip(AppTheme.shapes.medium)
-                .background(AppTheme.colors.surfaces)
-                .padding(AppTheme.dimensions.smany)
+                .padding(horizontal = 8.dp)
+                .clip(IpbTheme.shapes.medium)
+                .background(IpbTheme.colors.surfaces)
+                .padding(6.dp)
         ) {
             TabRow(selectedTabIndex = pagerState.currentPage,
-                backgroundColor = AppTheme.colors.surfaces,
+                backgroundColor = IpbTheme.colors.surfaces,
                 indicator = {},
                 divider = {}) {
                 val scope = rememberCoroutineScope()
@@ -60,8 +60,8 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
                 ).forEachIndexed { index, text ->
                     val selected = pagerState.currentPage == index
                     val backgroundColor =
-                        if (selected) AppTheme.colors.background else AppTheme.colors.surfaces
-                    Tab(modifier = Modifier.clip(AppTheme.shapes.small),
+                        if (selected) IpbTheme.colors.background else IpbTheme.colors.surfaces
+                    Tab(modifier = Modifier.clip(IpbTheme.shapes.small),
                         selected = selected,
                         onClick = {
                             scope.launch {
@@ -69,15 +69,15 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
                             }
                         }) {
                         val textColor =
-                            if (selected) AppTheme.colors.black else AppTheme.colors.gray1
+                            if (selected) IpbTheme.colors.black else IpbTheme.colors.gray1
                         val style =
-                            if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
+                            if (selected) IpbTheme.typography.text else IpbTheme.typography.secondaryText
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .clip(AppTheme.shapes.small)
+                                .clip(IpbTheme.shapes.small)
                                 .background(backgroundColor)
-                                .padding(AppTheme.dimensions.medium),
+                                .padding(12.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
@@ -95,55 +95,55 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
 
     val pagerState = rememberPagerState()
     Column(
-        modifier = modifier, verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+        modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         HorizontalTabs(pagerState = pagerState)
         HorizontalPager(
             count = 3,
             state = pagerState,
             verticalAlignment = Alignment.Top,
-            contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
-            itemSpacing = AppTheme.dimensions.small
+            contentPadding = PaddingValues(horizontal = 8.dp),
+            itemSpacing = 8.dp
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.medium),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                    .clip(IpbTheme.shapes.medium)
+                    .background(IpbTheme.colors.surfaces)
+                    .padding(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 if (it == 0) {
                     Text(
                         text = state.name,
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.title
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.title
                     )
                     Text(
                         text = state.description,
-                        color = AppTheme.colors.gray1,
-                        style = AppTheme.typography.secondaryText
+                        color = IpbTheme.colors.gray1,
+                        style = IpbTheme.typography.secondaryText
                     )
                 }
                 if (it == 1) {
                     Text(
                         text = stringResource(id = R.string.parameters),
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.title
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.title
                     )
-                    Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         state.parameters.forEach {
                             Row {
                                 Text(
                                     modifier = Modifier.width(detailsParamTitlesWidth),
                                     text = it.title,
-                                    color = AppTheme.colors.gray2,
-                                    style = AppTheme.typography.secondaryText
+                                    color = IpbTheme.colors.gray2,
+                                    style = IpbTheme.typography.secondaryText
                                 )
                                 Text(
                                     text = it.description,
-                                    color = AppTheme.colors.black,
-                                    style = AppTheme.typography.secondaryText
+                                    color = IpbTheme.colors.black,
+                                    style = IpbTheme.typography.secondaryText
                                 )
                             }
                         }
@@ -153,8 +153,8 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
                 if (it == 2) {
                     Text(
                         text = stringResource(id = R.string.delivery),
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.title
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.title
                     )
                 }
             }
@@ -165,7 +165,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
 @Preview
 @Composable
 private fun GoodsDetailsPagerPreview() {
-    AppTheme {
+    IpbTheme {
         GoodsDetails(
             state = GoodsDetails(
                 description = "Гидрокостюм Dawn Patrol с молнией на груди отличается функциональностью и отличным теплосбережением, красивым ...",

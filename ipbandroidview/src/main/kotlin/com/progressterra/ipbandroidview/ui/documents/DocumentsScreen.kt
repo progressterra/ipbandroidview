@@ -28,7 +28,7 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.Button
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 /**
  * archive - button
@@ -46,8 +46,8 @@ fun DocumentsScreen(
             var buttonSize by remember { mutableStateOf(0.dp) }
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(AppTheme.dimensions.small),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                contentPadding = PaddingValues(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(state.documents) {
                     DocumentCard(modifier = Modifier.fillMaxWidth(),
@@ -76,5 +76,5 @@ fun DocumentsScreen(
 @Preview
 @Composable
 private fun DocumentsScreenPreview() {
-    AppTheme {}
+    IpbTheme {}
 }

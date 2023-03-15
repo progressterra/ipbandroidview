@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.ChecklistStats
 import com.progressterra.ipbandroidview.model.Document
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun DocumentCard(
@@ -28,33 +28,33 @@ fun DocumentCard(
 ) {
     Row(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(if (state.isFinished()) AppTheme.colors.surfaces else AppTheme.colors.secondary)
+            .clip(IpbTheme.shapes.medium)
+            .background(if (state.isFinished()) IpbTheme.colors.surfaces else IpbTheme.colors.secondary)
             .niceClickable { openDocument() }
-            .padding(AppTheme.dimensions.medium),
+            .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column(Modifier.weight(1f, false)) {
             Text(
                 text = state.name,
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.text,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.text,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.tiniest))
+            Spacer(modifier = Modifier.size(2.dp))
             Text(
                 text = state.address,
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.tertiaryText,
+                color = IpbTheme.colors.gray2,
+                style = IpbTheme.typography.tertiaryText,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+            Spacer(modifier = Modifier.size(8.dp))
             Stats(Modifier.fillMaxWidth(), state.stats)
         }
-        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+        Spacer(modifier = Modifier.size(8.dp))
         ForwardIcon()
     }
 }
@@ -62,7 +62,7 @@ fun DocumentCard(
 @Preview
 @Composable
 private fun AuditCardPreview() {
-    AppTheme {
+    IpbTheme {
         DocumentCard(
             state = Document(
                 documentId = "",

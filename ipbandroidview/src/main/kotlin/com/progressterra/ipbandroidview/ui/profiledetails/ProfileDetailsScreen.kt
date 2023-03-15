@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.composable.component.ButtonState
 import com.progressterra.ipbandroidview.composable.component.ButtonStyle
 import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 /**
  * name, email, phone - text field
@@ -41,22 +41,22 @@ fun ProfileDetailsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.small),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                .padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.medium),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                    .clip(IpbTheme.shapes.medium)
+                    .background(IpbTheme.colors.surfaces)
+                    .padding(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
                     text = stringResource(R.string.name_why),
-                    color = AppTheme.colors.gray2,
-                    style = AppTheme.typography.secondaryText
+                    color = IpbTheme.colors.gray2,
+                    style = IpbTheme.typography.secondaryText
                 )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -66,8 +66,8 @@ fun ProfileDetailsScreen(
                 )
                 Text(
                     text = stringResource(R.string.email_why),
-                    color = AppTheme.colors.gray2,
-                    style = AppTheme.typography.secondaryText
+                    color = IpbTheme.colors.gray2,
+                    style = IpbTheme.typography.secondaryText
                 )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -97,8 +97,8 @@ fun ProfileDetailsScreen(
             )
             Text(
                 text = "${stringResource(R.string.version)} ${state.version}",
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.secondaryText
+                color = IpbTheme.colors.gray2,
+                style = IpbTheme.typography.secondaryText
             )
         }
     }
@@ -107,7 +107,7 @@ fun ProfileDetailsScreen(
 @Preview
 @Composable
 private fun ProfileScreenPreview() {
-    AppTheme {
+    IpbTheme {
         ProfileDetailsScreen(
             state = ProfileDetailsState(
                 name = TextFieldState(

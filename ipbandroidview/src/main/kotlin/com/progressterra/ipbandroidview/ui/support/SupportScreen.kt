@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.composable.ChatMessage
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -34,7 +34,7 @@ fun SupportScreen(
         },
         bottomBar = {
             ChatInput(
-                modifier = Modifier.padding(horizontal = AppTheme.dimensions.small),
+                modifier = Modifier.padding(horizontal = 8.dp),
                 state = state.chatInput,
                 id = "main",
                 useComponent = interactor
@@ -47,9 +47,9 @@ fun SupportScreen(
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(AppTheme.dimensions.small),
+                contentPadding = PaddingValues(8.dp),
                 verticalArrangement = Arrangement.spacedBy(
-                    AppTheme.dimensions.small,
+                    8.dp,
                     Alignment.Bottom
                 ),
                 reverseLayout = true

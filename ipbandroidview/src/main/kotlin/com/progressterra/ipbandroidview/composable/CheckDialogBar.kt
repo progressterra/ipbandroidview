@@ -9,7 +9,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.model.Check
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun CheckDialogBar(
@@ -28,8 +28,8 @@ fun CheckDialogBar(
         title = {
             Text(
                 text = currentCheck?.printTitle() ?: stringResource(R.string.loading),
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
@@ -40,7 +40,7 @@ fun CheckDialogBar(
 @Preview
 @Composable
 private fun CheckDialogBarWithBackNavPreview0() {
-    AppTheme {
+    IpbTheme {
         CheckDialogBar(currentCheck = null, onMark = {})
     }
 }

@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ThemedTopAppBar(
@@ -27,8 +27,8 @@ fun ThemedTopAppBar(
         }, title = {
             Text(
                 text = title,
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
@@ -39,7 +39,7 @@ fun ThemedTopAppBar(
 @Preview
 @Composable
 private fun TopAppBarWithBackNavPreview0() {
-    AppTheme {
+    IpbTheme {
         ThemedTopAppBar(title = "Some mock title", onBack = {})
     }
 }
@@ -47,7 +47,7 @@ private fun TopAppBarWithBackNavPreview0() {
 @Preview
 @Composable
 private fun TopAppBarWithBackNavPreview1() {
-    AppTheme {
+    IpbTheme {
         ThemedTopAppBar(title = "Some mock title")
     }
 }
@@ -55,12 +55,12 @@ private fun TopAppBarWithBackNavPreview1() {
 @Preview
 @Composable
 private fun TopAppBarWithBackNavPreview2() {
-    AppTheme {
+    IpbTheme {
         ThemedTopAppBar(title = "Some mock title", actions = {
             Text(
                 text = "SOS",
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
@@ -71,12 +71,12 @@ private fun TopAppBarWithBackNavPreview2() {
 @Preview
 @Composable
 private fun TopAppBarWithBackNavPreview3() {
-    AppTheme {
+    IpbTheme {
         ThemedTopAppBar(title = "Some mock title", onBack = {}, actions = {
             Text(
                 text = "SOS",
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )

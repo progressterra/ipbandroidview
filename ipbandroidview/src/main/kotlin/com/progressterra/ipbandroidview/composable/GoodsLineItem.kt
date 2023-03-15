@@ -11,7 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.OrderGoods
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val picWidth = 80.dp
 private val picHeight = 96.dp
@@ -26,26 +26,26 @@ fun GoodsLineItem(
         SimpleImage(
             modifier = Modifier
                 .size(picWidth, picHeight)
-                .clip(AppTheme.shapes.small)
+                .clip(IpbTheme.shapes.small)
                 .niceClickable { openGoodsDetails(state.id) },
             url = state.image,
-            backgroundColor = AppTheme.colors.background
+            backgroundColor = IpbTheme.colors.background
         )
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
-                .padding(AppTheme.dimensions.tiniest)
+                .padding(2.dp)
         ) {
             Box(
                 modifier = Modifier
                     .align(Alignment.Center)
-                    .clip(AppTheme.shapes.tiny)
-                    .padding(AppTheme.dimensions.tiny)
+                    .clip(IpbTheme.shapes.tiny)
+                    .padding(4.dp)
             ) {
                 Text(
                     text = "x${state.inCartCounter}",
-                    color = AppTheme.colors.primary,
-                    style = AppTheme.typography.actionBarLabels
+                    color = IpbTheme.colors.primary,
+                    style = IpbTheme.typography.actionBarLabels
                 )
             }
         }

@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.DeliveryType
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 data class DeliveryPickerState(
     val addressUI: AddressUI = AddressUI(),
@@ -52,41 +52,41 @@ fun DeliveryPicker(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
             text = stringResource(R.string.delivery),
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.title
+            color = IpbTheme.colors.black,
+            style = IpbTheme.typography.title
         )
         Row(modifier = Modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.background)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.background)
             .niceClickable {
                 useComponent.handleEvent(
                     id = id, event = DeliveryPickerEvent.ChangeAddress(state.addressUI)
                 )
             }
-            .padding(AppTheme.dimensions.large),
+            .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = state.addressUI.printAddress(),
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.text
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.text
             )
             ForwardIcon()
         }
         Column(
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             state.deliveryMethods.values.forEach {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     ThemedRadioButton(checked = it == state.selectedDeliveryMethod, onClick = {
@@ -97,13 +97,13 @@ fun DeliveryPicker(
                     Column {
                         Text(
                             text = "${it.date}, ${it.price}",
-                            color = AppTheme.colors.black,
-                            style = AppTheme.typography.text
+                            color = IpbTheme.colors.black,
+                            style = IpbTheme.typography.text
                         )
                         Text(
                             text = it.type,
-                            color = AppTheme.colors.black,
-                            style = AppTheme.typography.text
+                            color = IpbTheme.colors.black,
+                            style = IpbTheme.typography.text
                         )
                     }
                 }
@@ -116,20 +116,20 @@ fun DeliveryPicker(
                     )
                     is Delivery.PickUpPointDelivery -> Row(modifier = Modifier
                         .fillMaxWidth()
-                        .clip(AppTheme.shapes.medium)
-                        .background(AppTheme.colors.background)
+                        .clip(IpbTheme.shapes.medium)
+                        .background(IpbTheme.colors.background)
                         .niceClickable {
                             useComponent.handleEvent(
                                 id = id, event = DeliveryPickerEvent.SelectPickupPoint
                             )
                         }
-                        .padding(AppTheme.dimensions.large),
+                        .padding(16.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             text = it.currentPoint.address,
-                            color = AppTheme.colors.black,
-                            style = AppTheme.typography.text
+                            color = IpbTheme.colors.black,
+                            style = IpbTheme.typography.text
                         )
                         ForwardIcon()
                     }

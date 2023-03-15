@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.composable.BackIcon
 import com.progressterra.ipbandroidview.composable.SimpleImage
 import com.progressterra.ipbandroidview.composable.TransparentTopAppBar
 import com.progressterra.ipbandroidview.composable.TrashIcon
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import com.skydoves.landscapist.ImageOptions
 
 @Composable
@@ -25,7 +25,7 @@ fun PhotoScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.black),
+            .background(IpbTheme.colors.black),
         contentAlignment = Alignment.Center
     ) {
         TransparentTopAppBar(modifier = Modifier.align(Alignment.TopCenter), leftActions = {
@@ -42,7 +42,7 @@ fun PhotoScreen(
                 modifier = Modifier.fillMaxWidth(),
                 url = it.fullSize,
                 options = ImageOptions(contentScale = ContentScale.FillWidth),
-                backgroundColor = AppTheme.colors.black
+                backgroundColor = IpbTheme.colors.black
             )
         }
     }
@@ -51,6 +51,6 @@ fun PhotoScreen(
 @Preview
 @Composable
 private fun PhotoViewerPreview() {
-    AppTheme {
+    IpbTheme {
     }
 }

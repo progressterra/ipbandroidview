@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.composable.component.UseButton
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
 import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val lineWidth = 0.5.dp
 
@@ -40,16 +40,16 @@ fun CartBottomComponent(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(AppTheme.colors.surfaces)
-            .sideBorder(top = SideBorder(lineWidth, AppTheme.colors.gray2))
-            .padding(AppTheme.dimensions.large),
+            .background(IpbTheme.colors.surfaces)
+            .sideBorder(top = SideBorder(lineWidth, IpbTheme.colors.gray2))
+            .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = state.totalPrice.toString(),
-            style = AppTheme.typography.price,
-            color = AppTheme.colors.black
+            style = IpbTheme.typography.price,
+            color = IpbTheme.colors.black
         )
         if (state.userExist) Button(
             id = "next", state = state.nextButtonState, useComponent = useComponent

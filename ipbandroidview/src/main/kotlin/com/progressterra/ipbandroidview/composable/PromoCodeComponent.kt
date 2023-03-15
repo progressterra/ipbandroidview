@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.composable.component.UseTextField
 import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Immutable
 data class PromoCodeComponentState(
@@ -38,11 +38,11 @@ fun PromoCodeComponent(
 ) {
     Column(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
             .animateContentSize()
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
@@ -53,8 +53,8 @@ fun PromoCodeComponent(
         if (!state.promoCode.isEmpty()) {
             Text(
                 text = "Скидка ${state.promoCode}",
-                color = AppTheme.colors.primary,
-                style = AppTheme.typography.tertiaryText
+                color = IpbTheme.colors.primary,
+                style = IpbTheme.typography.tertiaryText
             )
         }
     }

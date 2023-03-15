@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.ExtendedBonusesState
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Immutable
 interface BonusSwitchState {
@@ -32,21 +32,21 @@ fun BonusSwitch(
 ) {
     Column(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Text(
             text = stringResource(R.string.use_bonuses),
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.title
+            color = IpbTheme.colors.black,
+            style = IpbTheme.typography.title
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = state.availableBonuses.bonuses,
-                color = AppTheme.colors.primary,
-                style = AppTheme.typography.text
+                color = IpbTheme.colors.primary,
+                style = IpbTheme.typography.text
             )
             BonusesSmallIcon()
             Spacer(modifier = Modifier.weight(1f))
@@ -63,7 +63,7 @@ private class BonusSwitchStatePreview(
 @Preview
 @Composable
 private fun BonusSwitchPreview() {
-    AppTheme {
+    IpbTheme {
         BonusSwitch(state = BonusSwitchStatePreview(), switchUseBonuses = {})
     }
 }

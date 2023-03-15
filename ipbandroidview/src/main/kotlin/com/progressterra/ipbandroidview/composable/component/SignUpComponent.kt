@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.ext.print
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import com.squaredem.composecalendar.ComposeCalendar
 import java.time.LocalDate
 
@@ -68,7 +68,7 @@ fun SignUpComponent(
                 state = state.nextButtonState,
                 useComponent = useComponent
             )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+            Spacer(modifier = Modifier.size(8.dp))
             TextButton(
                 modifier = Modifier.fillMaxWidth(),
                 id = "skip",
@@ -82,15 +82,15 @@ fun SignUpComponent(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(AppTheme.dimensions.small)
+                    .padding(8.dp)
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(AppTheme.shapes.medium)
-                        .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.medium),
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                        .clip(IpbTheme.shapes.medium)
+                        .background(IpbTheme.colors.surfaces)
+                        .padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     if (state.showCalendar) {
                         ComposeCalendar(onDone = {

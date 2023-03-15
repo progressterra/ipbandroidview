@@ -10,7 +10,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 data class LinkTextData(
     val text: String,
@@ -23,14 +23,14 @@ data class LinkTextData(
 fun LinkText(
     linkTextData: List<LinkTextData>,
     modifier: Modifier = Modifier,
-    style: TextStyle = AppTheme.typography.tertiaryText
+    style: TextStyle = IpbTheme.typography.tertiaryText
 ) {
     val annotatedString = createAnnotatedString(linkTextData)
 
     ClickableText(
         text = annotatedString,
         style = style.copy(
-            textAlign = TextAlign.Center, color = AppTheme.colors.gray2
+            textAlign = TextAlign.Center, color = IpbTheme.colors.gray2
         ),
         onClick = { offset ->
             linkTextData.forEach { annotatedStringData ->
@@ -60,7 +60,7 @@ private fun createAnnotatedString(data: List<LinkTextData>): AnnotatedString {
                 )
                 withStyle(
                     style = SpanStyle(
-                        color = AppTheme.colors.primary,
+                        color = IpbTheme.colors.primary,
                         textDecoration = TextDecoration.Underline,
                     ),
                 ) {

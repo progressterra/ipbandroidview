@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun OrganizationCheckCard(
@@ -27,23 +27,23 @@ fun OrganizationCheckCard(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
+            .clip(IpbTheme.shapes.medium)
             .niceClickable { onClick() }
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            Text(text = name, color = AppTheme.colors.black, style = AppTheme.typography.text)
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.tiny))
+            Text(text = name, color = IpbTheme.colors.black, style = IpbTheme.typography.text)
+            Spacer(modifier = Modifier.size(4.dp))
             Text(
                 text = lastTime,
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.secondaryText
+                color = IpbTheme.colors.gray2,
+                style = IpbTheme.typography.secondaryText
             )
         }
-        Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
+        Spacer(modifier = Modifier.size(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
             ForwardIcon()
         }
@@ -53,7 +53,7 @@ fun OrganizationCheckCard(
 @Preview
 @Composable
 private fun OrganizationCheckCardPreview() {
-    AppTheme {
+    IpbTheme {
         OrganizationCheckCard(name = "Name", lastTime = "Last time", onClick = {})
     }
 }
@@ -61,7 +61,7 @@ private fun OrganizationCheckCardPreview() {
 @Preview
 @Composable
 private fun OrganizationCheckCardPreviewWarning() {
-    AppTheme {
+    IpbTheme {
         OrganizationCheckCard(name = "Name", lastTime = "Last time", onClick = {})
     }
 }

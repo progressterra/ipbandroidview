@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun YesNoButton(
@@ -34,45 +34,45 @@ fun YesNoButton(
         alternateColor: Color
     ) {
         val background = when (state) {
-            null -> AppTheme.colors.gray3
+            null -> IpbTheme.colors.gray3
             else -> alternateColor
         }
         Row(
             modifier = modifier
-                .clip(AppTheme.shapes.button)
+                .clip(IpbTheme.shapes.button)
                 .background(if (state == role) activeColor else background)
                 .niceClickable(enabled) { onClick(role) }
                 .padding(
-                    horizontal = AppTheme.dimensions.buttonHorizontalPadding,
-                    vertical = AppTheme.dimensions.buttonVerticalPadding
+                    horizontal = 32.dp,
+                    vertical = 15.dp
                 ),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
                 text = text,
-                style = AppTheme.typography.button,
-                color = if (state == role) AppTheme.colors.surfaces else AppTheme.colors.gray2
+                style = IpbTheme.typography.button,
+                color = if (state == role) IpbTheme.colors.surfaces else IpbTheme.colors.gray2
             )
         }
     }
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         Button(
             modifier = Modifier.weight(1f),
             text = stringResource(id = R.string.yes),
             role = true,
-            activeColor = AppTheme.colors.primary,
-            alternateColor = AppTheme.colors.success
+            activeColor = IpbTheme.colors.primary,
+            alternateColor = IpbTheme.colors.success
         )
         Button(
             modifier = Modifier.weight(1f),
             text = stringResource(id = R.string.no),
             role = false,
-            activeColor = AppTheme.colors.error,
-            alternateColor = AppTheme.colors.failed
+            activeColor = IpbTheme.colors.error,
+            alternateColor = IpbTheme.colors.failed
         )
     }
 }
@@ -80,7 +80,7 @@ fun YesNoButton(
 @Preview(showBackground = true)
 @Composable
 private fun YesNoButtonPreview() {
-    AppTheme {
+    IpbTheme {
         YesNoButton(state = null, onClick = {}, enabled = true)
     }
 }
@@ -88,7 +88,7 @@ private fun YesNoButtonPreview() {
 @Preview(showBackground = true)
 @Composable
 private fun YesNoButtonPreviewYes() {
-    AppTheme {
+    IpbTheme {
         YesNoButton(state = true, onClick = {}, enabled = true)
     }
 }
@@ -96,7 +96,7 @@ private fun YesNoButtonPreviewYes() {
 @Preview(showBackground = true)
 @Composable
 private fun YesNoButtonPreviewNo() {
-    AppTheme {
+    IpbTheme {
         YesNoButton(
             modifier = Modifier.fillMaxWidth(),
             state = false,
@@ -108,7 +108,7 @@ private fun YesNoButtonPreviewNo() {
 @Preview(showBackground = true)
 @Composable
 private fun YesNoButtonPreviewDisabled() {
-    AppTheme {
+    IpbTheme {
         YesNoButton(
             modifier = Modifier.fillMaxWidth(),
             state = false,

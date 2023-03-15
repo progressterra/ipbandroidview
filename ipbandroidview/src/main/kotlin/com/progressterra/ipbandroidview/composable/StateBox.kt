@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun StateBox(
@@ -17,7 +17,7 @@ fun StateBox(
     content: @Composable (BoxScope.() -> Unit)
 ) {
     Box(
-        modifier = modifier.background(AppTheme.colors.background),
+        modifier = modifier.background(IpbTheme.colors.background),
         contentAlignment = Alignment.Center
     ) {
         when (state) {

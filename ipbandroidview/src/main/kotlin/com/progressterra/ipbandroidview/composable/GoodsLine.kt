@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.model.OrderGoods
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Immutable
 interface GoodsLineState {
@@ -34,17 +34,17 @@ fun GoodsLine(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
             text = stringResource(R.string.goods),
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.title
+            color = IpbTheme.colors.black,
+            style = IpbTheme.typography.title
         )
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             items(state.goods) {
                 GoodsLineItem(state = it, openGoodsDetails = openGoodsDetails)
             }
@@ -58,7 +58,7 @@ private class GoodsLineStatePreview(override val goods: List<OrderGoods> = empty
 @Preview
 @Composable
 private fun GoodsLinePreview() {
-    AppTheme {
+    IpbTheme {
         GoodsLine(state = GoodsLineStatePreview(), openGoodsDetails = {})
     }
 }

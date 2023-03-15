@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.composable.ReferralLink
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ReferralScreen(
@@ -32,7 +32,7 @@ fun ReferralScreen(
         ) {
             Column(modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.small)) {
+                .padding(8.dp)) {
                 ReferralLink(
                     promoCode = state.userInvite.promoCode,
                     onCopy = { interactor.copy() },

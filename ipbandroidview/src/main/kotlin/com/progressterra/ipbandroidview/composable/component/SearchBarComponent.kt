@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.composable.BackIcon
 import com.progressterra.ipbandroidview.composable.BasicBar
 import com.progressterra.ipbandroidview.composable.Mark2Icon
 import com.progressterra.ipbandroidview.composable.SearchIcon
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 data class CatalogBarComponentState(
     val keywordState: TextFieldState = TextFieldState()
@@ -45,8 +45,8 @@ fun CatalogBarComponent(
 ) {
     BasicBar(
         modifier = modifier, paddingValues = PaddingValues(
-            start = AppTheme.dimensions.large,
-            end = AppTheme.dimensions.large,
+            start = 16.dp,
+            end = 16.dp,
             bottom = paddingBottom
         )
     ) {
@@ -106,8 +106,8 @@ fun CategoryBar(
 ) {
     BasicBar(
         modifier = modifier, paddingValues = PaddingValues(
-            start = AppTheme.dimensions.large,
-            end = AppTheme.dimensions.large,
+            start = 16.dp,
+            end = 16.dp,
             bottom = paddingBottom
         )
     ) {
@@ -119,8 +119,8 @@ fun CategoryBar(
         if (!state.expanded) {
             Text(
                 text = state.category,
-                style = AppTheme.typography.title,
-                color = AppTheme.colors.black
+                style = IpbTheme.typography.title,
+                color = IpbTheme.colors.black
             )
         }
         if (state.expanded) {
@@ -184,8 +184,8 @@ fun GoodsSearchBar(
 ) {
     BasicBar(
         modifier = modifier, paddingValues = PaddingValues(
-            start = AppTheme.dimensions.large,
-            end = AppTheme.dimensions.large,
+            start = 16.dp,
+            end = 16.dp,
             bottom = paddingBottom
         )
     ) {

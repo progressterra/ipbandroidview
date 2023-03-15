@@ -23,7 +23,7 @@ import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.utils.PhoneVisualTransformation
 import com.progressterra.ipbandroidview.composable.utils.RUSSIAN_PHONE_MASK
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Immutable
 data class AuthState(
@@ -80,7 +80,7 @@ fun AuthComponent(
                 state = state.next
             )
             if (canBeSkipped) {
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                Spacer(modifier = Modifier.size(8.dp))
                 TextButton(
                     id = "skip",
                     modifier = Modifier.fillMaxWidth(),
@@ -93,15 +93,15 @@ fun AuthComponent(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.small)
+                .padding(8.dp)
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(AppTheme.shapes.medium)
-                        .background(AppTheme.colors.surfaces)
-                        .padding(AppTheme.dimensions.medium)
+                        .clip(IpbTheme.shapes.medium)
+                        .background(IpbTheme.colors.surfaces)
+                        .padding(12.dp)
                 ) {
                     TextField(
                         id = "phone",
@@ -124,7 +124,7 @@ fun AuthComponent(
                             tag = "privacy policy",
                             annotation = policyUrl,
                             onClick = { useComponent.handleEvent(id, AuthEvent.UrlClick(it)) }),
-                    ), modifier = Modifier.padding(top = AppTheme.dimensions.small)
+                    ), modifier = Modifier.padding(top = 8.dp)
                 )
             }
         }

@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.SuggestionUI
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val elevation = 4.dp
 
@@ -42,7 +42,7 @@ fun AddressSuggestions(
         exit = shrinkVertically()
     ) {
         Card(
-            elevation = elevation, shape = AppTheme.shapes.small
+            elevation = elevation, shape = IpbTheme.shapes.small
         ) {
             LazyColumn(modifier = Modifier.heightIn(max = height)) {
                 items(suggestions) {
@@ -51,14 +51,14 @@ fun AddressSuggestions(
                             .fillMaxWidth()
                             .niceClickable { onSuggestion(it) }
                             .padding(
-                                horizontal = AppTheme.dimensions.small,
-                                vertical = AppTheme.dimensions.smany
+                                horizontal = 8.dp,
+                                vertical = 6.dp
                             )
                     ) {
                         Text(
                             text = it.previewOfSuggestion,
-                            color = AppTheme.colors.black,
-                            style = AppTheme.typography.secondaryText
+                            color = IpbTheme.colors.black,
+                            style = IpbTheme.typography.secondaryText
                         )
                     }
                 }
@@ -70,7 +70,7 @@ fun AddressSuggestions(
 @Preview
 @Composable
 private fun AddressSuggestionsPreview() {
-    AppTheme {
+    IpbTheme {
         Column(
             Modifier
                 .background(Color.White)

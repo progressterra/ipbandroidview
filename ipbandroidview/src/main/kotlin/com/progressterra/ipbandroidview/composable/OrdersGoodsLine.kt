@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.model.OrderDetails
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun OrdersGoodsLine(
@@ -25,24 +25,24 @@ fun OrdersGoodsLine(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(
                 text = state.status,
-                color = AppTheme.colors.gray1,
-                style = AppTheme.typography.title
+                color = IpbTheme.colors.gray1,
+                style = IpbTheme.typography.title
             )
             Text(
                 text = state.number,
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.tertiaryText
+                color = IpbTheme.colors.gray2,
+                style = IpbTheme.typography.tertiaryText
             )
         }
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)) {
+        LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             items(state.goods) {
                 GoodsLineItem(state = it, openGoodsDetails = openGoodsDetails)
             }
@@ -53,7 +53,7 @@ fun OrdersGoodsLine(
 @Preview
 @Composable
 private fun OrdersGoodsLinePreview() {
-    AppTheme {
+    IpbTheme {
         OrdersGoodsLine(state = OrderDetails(), openGoodsDetails = {})
     }
 }

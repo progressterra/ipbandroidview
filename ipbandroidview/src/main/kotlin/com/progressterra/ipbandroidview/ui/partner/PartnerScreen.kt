@@ -32,7 +32,7 @@ import com.progressterra.ipbandroidview.composable.SimpleImage
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.model.Partner
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import de.charlex.compose.HtmlText
 
 private val logoSize: Dp = 48.dp
@@ -59,37 +59,37 @@ fun PartnerScreen(
                         top.linkTo(parent.top)
                     },
                 url = state.partner.headImageUrl,
-                backgroundColor = AppTheme.colors.background
+                backgroundColor = IpbTheme.colors.background
             )
-            val smallMargin = AppTheme.dimensions.small
+            val smallMargin = 8.dp
             Row(
                 modifier = Modifier
-                    .clip(AppTheme.shapes.small)
-                    .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.small)
+                    .clip(IpbTheme.shapes.small)
+                    .background(IpbTheme.colors.surfaces)
+                    .padding(8.dp)
                     .constrainAs(logo) {
                         start.linkTo(parent.start, smallMargin)
                         top.linkTo(header.bottom)
                         bottom.linkTo(header.bottom)
                     },
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 SimpleImage(
                     modifier = Modifier.size(logoSize),
                     url = state.partner.logoImageUrl,
-                    backgroundColor = AppTheme.colors.background
+                    backgroundColor = IpbTheme.colors.background
                 )
                 Text(
                     text = state.partner.title,
-                    style = AppTheme.typography.title,
-                    color = AppTheme.colors.black
+                    style = IpbTheme.typography.title,
+                    color = IpbTheme.colors.black
                 )
             }
             Row(modifier = Modifier
-                .clip(AppTheme.shapes.small)
-                .background(AppTheme.colors.surfaces)
-                .padding(AppTheme.dimensions.small)
+                .clip(IpbTheme.shapes.small)
+                .background(IpbTheme.colors.surfaces)
+                .padding(8.dp)
                 .constrainAs(description) {
                     width = Dimension.fillToConstraints
                     top.linkTo(header.bottom, bigMargin)
@@ -98,8 +98,8 @@ fun PartnerScreen(
                 }) {
                 HtmlText(
                     text = state.partner.description,
-                    style = AppTheme.typography.text,
-                    color = AppTheme.colors.black
+                    style = IpbTheme.typography.text,
+                    color = IpbTheme.colors.black
                 )
             }
             if (state.partner.offerList.isNotEmpty()) LazyRow(
@@ -107,8 +107,8 @@ fun PartnerScreen(
                     width = Dimension.matchParent
                     top.linkTo(description.bottom, smallMargin)
                 },
-                contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                contentPadding = PaddingValues(horizontal = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(state.partner.offerList) {
                     Offer(offerUI = it)
@@ -116,20 +116,20 @@ fun PartnerScreen(
             }
             Column(
                 modifier = Modifier
-                    .clip(AppTheme.shapes.small)
-                    .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.small)
+                    .clip(IpbTheme.shapes.small)
+                    .background(IpbTheme.colors.surfaces)
+                    .padding(8.dp)
                     .constrainAs(phone) {
                         width = Dimension.fillToConstraints
                         end.linkTo(parent.end, smallMargin)
                         top.linkTo(offers.bottom, smallMargin)
                         start.linkTo(parent.start, smallMargin)
-                    }, verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+                    }, verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Text(
                     text = stringResource(R.string.phone_number),
-                    style = AppTheme.typography.title,
-                    color = AppTheme.colors.black
+                    style = IpbTheme.typography.title,
+                    color = IpbTheme.colors.black
                 )
                 LinkText(
                     linkTextData = listOf(
@@ -140,25 +140,25 @@ fun PartnerScreen(
                             onClick = { interactor.openPhone(it) }
                         )
                     ),
-                    style = AppTheme.typography.text
+                    style = IpbTheme.typography.text
                 )
             }
             Column(
                 modifier = Modifier
-                    .clip(AppTheme.shapes.small)
-                    .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.small)
+                    .clip(IpbTheme.shapes.small)
+                    .background(IpbTheme.colors.surfaces)
+                    .padding(8.dp)
                     .constrainAs(website) {
                         width = Dimension.fillToConstraints
                         end.linkTo(parent.end, smallMargin)
                         top.linkTo(phone.bottom, smallMargin)
                         start.linkTo(parent.start, smallMargin)
-                    }, verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+                    }, verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 Text(
                     text = stringResource(R.string.web_site),
-                    style = AppTheme.typography.title,
-                    color = AppTheme.colors.black
+                    style = IpbTheme.typography.title,
+                    color = IpbTheme.colors.black
                 )
                 LinkText(
                     linkTextData = listOf(
@@ -169,7 +169,7 @@ fun PartnerScreen(
                             onClick = { interactor.openWebsite(it) }
                         )
                     ),
-                    style = AppTheme.typography.text
+                    style = IpbTheme.typography.text
                 )
             }
         }
@@ -179,7 +179,7 @@ fun PartnerScreen(
 @Preview
 @Composable
 private fun PartnerScreenPreview() {
-    AppTheme {
+    IpbTheme {
         PartnerScreen(
             state = PartnerState(
                 Partner(

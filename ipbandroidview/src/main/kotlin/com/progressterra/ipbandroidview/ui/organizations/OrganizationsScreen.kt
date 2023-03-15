@@ -27,7 +27,7 @@ import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Organization
 import com.progressterra.ipbandroidview.model.Partner
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun OrganizationsScreen(
@@ -42,8 +42,8 @@ fun OrganizationsScreen(
             val density = LocalDensity.current
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                contentPadding = PaddingValues(AppTheme.dimensions.small)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(8.dp)
             ) {
                 item {
                     PartnerBlock2(
@@ -74,7 +74,7 @@ fun OrganizationsScreen(
 @Preview
 @Composable
 private fun AuditsScreenPreviewSuccess() {
-    AppTheme {
+    IpbTheme {
         OrganizationsScreen(
             state = OrganizationsState(
                 organizations = listOf(

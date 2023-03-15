@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.composable.ForwardIcon
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ProfileScreen(
@@ -37,29 +37,29 @@ fun ProfileScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.small),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                .padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.surfaces)
+                    .clip(IpbTheme.shapes.medium)
+                    .background(IpbTheme.colors.surfaces)
                     .niceClickable { interactor.openDetails() }
-                    .padding(AppTheme.dimensions.medium),
+                    .padding(12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                     Text(
                         text = state.name.ifBlank { stringResource(id = R.string.set_name) },
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.title
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.title
                     )
                     Text(
                         text = state.phone,
-                        color = AppTheme.colors.gray2,
-                        style = AppTheme.typography.secondaryText
+                        color = IpbTheme.colors.gray2,
+                        style = IpbTheme.typography.secondaryText
                     )
                 }
                 IconButton(onClick = { interactor.openDetails() }) {
@@ -70,17 +70,17 @@ fun ProfileScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(AppTheme.shapes.medium)
-                        .background(AppTheme.colors.surfaces)
+                        .clip(IpbTheme.shapes.medium)
+                        .background(IpbTheme.colors.surfaces)
                         .niceClickable { interactor.onOrders() }
-                        .padding(AppTheme.dimensions.medium),
+                        .padding(12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = stringResource(R.string.your_orders),
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.text
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.text
                     )
                     IconButton(onClick = { interactor.onOrders() }) {
                         ForwardIcon()
@@ -90,17 +90,17 @@ fun ProfileScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(AppTheme.shapes.medium)
-                        .background(AppTheme.colors.surfaces)
+                        .clip(IpbTheme.shapes.medium)
+                        .background(IpbTheme.colors.surfaces)
                         .niceClickable { interactor.onFavorites() }
-                        .padding(AppTheme.dimensions.medium),
+                        .padding(12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = stringResource(R.string.favorites),
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.text
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.text
                     )
                     IconButton(onClick = { interactor.onFavorites() }) {
                         ForwardIcon()
@@ -110,17 +110,17 @@ fun ProfileScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(AppTheme.shapes.medium)
-                        .background(AppTheme.colors.surfaces)
+                        .clip(IpbTheme.shapes.medium)
+                        .background(IpbTheme.colors.surfaces)
                         .niceClickable { interactor.onSupport() }
-                        .padding(AppTheme.dimensions.medium),
+                        .padding(12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = stringResource(R.string.support),
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.text
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.text
                     )
                     IconButton(onClick = { interactor.onSupport() }) {
                         ForwardIcon()
@@ -130,17 +130,17 @@ fun ProfileScreen(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(AppTheme.shapes.medium)
-                        .background(AppTheme.colors.surfaces)
+                        .clip(IpbTheme.shapes.medium)
+                        .background(IpbTheme.colors.surfaces)
                         .niceClickable { interactor.onReferral() }
-                        .padding(AppTheme.dimensions.medium),
+                        .padding(12.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         text = stringResource(R.string.referral_program),
-                        color = AppTheme.colors.black,
-                        style = AppTheme.typography.text
+                        color = IpbTheme.colors.black,
+                        style = IpbTheme.typography.text
                     )
                     IconButton(onClick = { interactor.onReferral() }) {
                         ForwardIcon()
@@ -153,6 +153,6 @@ fun ProfileScreen(
 @Preview
 @Composable
 private fun ProfileScreenPreview() {
-    AppTheme {
+    IpbTheme {
     }
 }

@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.Favorite
 import com.progressterra.ipbandroidview.model.Id
 import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private const val aspectRatio = 0.5f
 
@@ -63,20 +63,20 @@ fun StoreCardComponent(
     ConstraintLayout(
         modifier = modifier
             .aspectRatio(aspectRatio, matchHeightConstraintsFirst = true)
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
             .niceClickable { interactor.onClick(state) }
     ) {
         val (favoriteButton, image, price, name) = createRefs()
         SimpleImage(
             Modifier
-                .clip(AppTheme.shapes.small)
+                .clip(IpbTheme.shapes.small)
                 .constrainAs(image) {
                     height = Dimension.fillToConstraints
                     width = Dimension.matchParent
                     top.linkTo(parent.top)
                     bottom.linkTo(price.top)
-                }, url = state.image, backgroundColor = AppTheme.colors.surfaces
+                }, url = state.image, backgroundColor = IpbTheme.colors.surfaces
         )
         val large = 8.dp
         val medium = 4.dp
@@ -89,9 +89,9 @@ fun StoreCardComponent(
                 end.linkTo(image.end, large)
             },
             text = state.price.toString(),
-            color = AppTheme.colors.black,
+            color = IpbTheme.colors.black,
             maxLines = 1,
-            style = AppTheme.typography.title,
+            style = IpbTheme.typography.title,
             textAlign = TextAlign.Center
         )
         val lines = 2
@@ -106,8 +106,8 @@ fun StoreCardComponent(
             },
             text = nameText,
             maxLines = lines,
-            color = AppTheme.colors.gray1,
-            style = AppTheme.typography.secondaryText,
+            color = IpbTheme.colors.gray1,
+            style = IpbTheme.typography.secondaryText,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             onTextLayout = { textLayoutResult ->
@@ -126,10 +126,10 @@ fun StoreCardComponent(
 @Preview
 @Composable
 private fun StoreItemCardPreview() {
-    AppTheme {
+    IpbTheme {
         Row(
             modifier = Modifier.height(200.dp),
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             StoreCardComponent(
                 modifier = Modifier.weight(1f), state = StoreCardComponentState(

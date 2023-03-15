@@ -8,13 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.composable.component.OrderProcessingComponent
 import com.progressterra.ipbandroidview.composable.component.OrderProcessingComponentState
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun OrderProcessingScreen(
@@ -40,7 +38,7 @@ fun OrderProcessingScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.small)
+                .padding(8.dp)
         ) {
             OrderProcessingComponent(
                 modifier = Modifier.fillMaxWidth(), state = state

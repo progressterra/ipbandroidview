@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.model.Message
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val edgePadding: Dp = 40.dp
 
@@ -35,20 +35,20 @@ fun ChatMessage(
     ) {
         Column(
             modifier = modifier
-                .clip(AppTheme.shapes.medium)
-                .background(AppTheme.colors.surfaces)
-                .padding(AppTheme.dimensions.medium),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+                .clip(IpbTheme.shapes.medium)
+                .background(IpbTheme.colors.surfaces)
+                .padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
                 text = message.content,
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.text
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.text
             )
             Text(
                 text = message.date,
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.tertiaryText
+                color = IpbTheme.colors.gray2,
+                style = IpbTheme.typography.tertiaryText
             )
         }
     }

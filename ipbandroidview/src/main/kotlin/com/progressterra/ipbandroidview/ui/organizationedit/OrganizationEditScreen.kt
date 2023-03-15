@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -31,30 +31,30 @@ fun OrganizationEditScreen(
     )
     val coroutineScope = rememberCoroutineScope()
     ModalBottomSheetLayout(
-        sheetState = sheetState, sheetShape = AppTheme.shapes.dialog, sheetContent = {
+        sheetState = sheetState, sheetShape = IpbTheme.shapes.dialog, sheetContent = {
 
             state.currentEmployee?.let {
                 Column(
                     modifier = Modifier.padding(
-                        top = AppTheme.dimensions.small,
-                        start = AppTheme.dimensions.small,
-                        end = AppTheme.dimensions.small,
+                        top = 8.dp,
+                        start = 8.dp,
+                        end = 8.dp,
                         bottom = 25.dp
                     )
                 ) {
                     Column(
                         modifier = Modifier
-                            .clip(AppTheme.shapes.medium)
-                            .background(AppTheme.colors.surfaces)
-                            .padding(AppTheme.dimensions.medium)
+                            .clip(IpbTheme.shapes.medium)
+                            .background(IpbTheme.colors.surfaces)
+                            .padding(12.dp)
                             .fillMaxWidth(),
-                        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
 
                     }
                 }
             }
-        }, sheetBackgroundColor = AppTheme.colors.surfaces
+        }, sheetBackgroundColor = IpbTheme.colors.surfaces
     ) {
         ThemedLayout(topBar = {
             ThemedTopAppBar(

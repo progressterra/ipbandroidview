@@ -36,7 +36,7 @@ import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStatus
 import com.progressterra.ipbandroidview.model.MultisizedImage
 import com.progressterra.ipbandroidview.model.Voice
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import kotlinx.coroutines.launch
 
 interface UseCurrentCheck : UseTextField, UseButton {
@@ -120,7 +120,7 @@ fun CurrentCheckDialog(
     ModalBottomSheetLayout(
         modifier = modifier,
         sheetState = sheetState,
-        sheetShape = AppTheme.shapes.dialog,
+        sheetShape = IpbTheme.shapes.dialog,
         sheetContent = {
             CheckDialogBar(currentCheck = state.check,
                 onMark = { scope.launch { sheetState.hide() } })
@@ -135,31 +135,31 @@ fun CurrentCheckDialog(
                 val currentCheckMedia = state.media
                 Column(
                     modifier = Modifier.padding(
-                        top = AppTheme.dimensions.small,
-                        start = AppTheme.dimensions.small,
-                        end = AppTheme.dimensions.small
+                        top = 8.dp,
+                        start = 8.dp,
+                        end = 8.dp
                     )
                 ) {
                     Column(
                         modifier = Modifier
-                            .clip(AppTheme.shapes.medium)
-                            .background(AppTheme.colors.surfaces)
-                            .padding(AppTheme.dimensions.medium)
+                            .clip(IpbTheme.shapes.medium)
+                            .background(IpbTheme.colors.surfaces)
+                            .padding(12.dp)
                             .fillMaxWidth()
                     ) {
                         Text(
                             text = currentCheck.description,
-                            color = AppTheme.colors.black,
-                            style = AppTheme.typography.text
+                            color = IpbTheme.colors.black,
+                            style = IpbTheme.typography.text
                         )
                     }
-                    Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+                    Spacer(modifier = Modifier.size(8.dp))
                     Column(
                         modifier = Modifier
-                            .clip(AppTheme.shapes.medium)
-                            .background(AppTheme.colors.surfaces)
+                            .clip(IpbTheme.shapes.medium)
+                            .background(IpbTheme.colors.surfaces)
                     ) {
-                        Box(modifier = Modifier.padding(AppTheme.dimensions.medium)) {
+                        Box(modifier = Modifier.padding(12.dp)) {
                             YesNoButton(
                                 modifier = Modifier.fillMaxWidth(),
                                 state = currentCheck.yesNo,
@@ -171,7 +171,7 @@ fun CurrentCheckDialog(
                                 enabled = state.status.isOngoing()
                             )
                         }
-                        Box(modifier = Modifier.padding(horizontal = AppTheme.dimensions.medium)) {
+                        Box(modifier = Modifier.padding(horizontal = 12.dp)) {
                             TextField(
                                 modifier = Modifier.fillMaxWidth(),
                                 id = "commentary",
@@ -180,7 +180,7 @@ fun CurrentCheckDialog(
                                 useComponent = useComponent
                             )
                         }
-                        Box(modifier = Modifier.padding(AppTheme.dimensions.tiny)) {
+                        Box(modifier = Modifier.padding(4.dp)) {
                             VoiceInput(
                                 modifier = Modifier.fillMaxWidth(),
                                 state = state.voiceState,
@@ -212,9 +212,9 @@ fun CurrentCheckDialog(
                         }
                         Box(
                             modifier = Modifier.padding(
-                                start = AppTheme.dimensions.medium,
-                                end = AppTheme.dimensions.medium,
-                                bottom = AppTheme.dimensions.medium
+                                start = 12.dp,
+                                end = 12.dp,
+                                bottom = 12.dp
                             )
                         ) {
                             AttachedPhotos(modifier = Modifier.fillMaxWidth(),
@@ -233,8 +233,8 @@ fun CurrentCheckDialog(
                         }
                     }
                     if (state.status.isOngoing()) {
-                        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
-                        Row(Modifier.padding(horizontal = AppTheme.dimensions.small)) {
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Row(Modifier.padding(horizontal = 8.dp)) {
                             Button(
                                 modifier = Modifier.fillMaxWidth(),
                                 state = state.ready,
@@ -252,7 +252,7 @@ fun CurrentCheckDialog(
                 }
             }
         },
-        sheetBackgroundColor = AppTheme.colors.surfaces,
+        sheetBackgroundColor = IpbTheme.colors.surfaces,
         content = content
     )
 }

@@ -10,7 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun FavoriteUncheckedIcon(modifier: Modifier = Modifier) {
@@ -18,14 +18,14 @@ fun FavoriteUncheckedIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(R.drawable.ic_favorite),
         contentDescription = null,
-        tint = AppTheme.colors.gray2
+        tint = IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun FavoriteUncheckedIconPreview() {
-    AppTheme {
+    IpbTheme {
         FavoriteUncheckedIcon()
     }
 }
@@ -36,14 +36,14 @@ fun FavoriteCheckedIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_favorite_selected),
         contentDescription = null,
-        tint = AppTheme.colors.primary
+        tint = IpbTheme.colors.primary
     )
 }
 
 @Preview
 @Composable
 private fun FavoriteCheckedIconPreview() {
-    AppTheme {
+    IpbTheme {
         FavoriteCheckedIcon()
     }
 }
@@ -54,14 +54,14 @@ fun MicIcon(modifier: Modifier = Modifier, enabled: Boolean) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_mic),
         contentDescription = null,
-        tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
+        tint = if (enabled) IpbTheme.colors.primary else IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun MicIconPreview() {
-    AppTheme {
+    IpbTheme {
         Column {
             MicIcon(enabled = true)
             MicIcon(enabled = false)
@@ -75,14 +75,14 @@ fun CameraIcon(modifier: Modifier = Modifier, enabled: Boolean) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_camera),
         contentDescription = null,
-        tint = if (enabled) AppTheme.colors.primary else AppTheme.colors.gray2
+        tint = if (enabled) IpbTheme.colors.primary else IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun CameraIconPreview() {
-    AppTheme {
+    IpbTheme {
         Column {
             CameraIcon(enabled = true)
             CameraIcon(enabled = false)
@@ -96,14 +96,14 @@ fun TrashIcon(modifier: Modifier = Modifier, enabled: Boolean) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_trash),
         contentDescription = null,
-        tint = if (enabled) AppTheme.colors.error else AppTheme.colors.gray2
+        tint = if (enabled) IpbTheme.colors.error else IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun TrashIconPreview() {
-    AppTheme {
+    IpbTheme {
         Column {
             TrashIcon(enabled = true)
             TrashIcon(enabled = false)
@@ -117,14 +117,14 @@ fun PlayPauseIcon(modifier: Modifier = Modifier, ongoing: Boolean) {
         modifier = modifier,
         painter = painterResource(id = if (ongoing) R.drawable.ic_pause else R.drawable.ic_play),
         contentDescription = null,
-        tint = AppTheme.colors.primary
+        tint = IpbTheme.colors.primary
     )
 }
 
 @Preview
 @Composable
 private fun PlayPauseIconPreview() {
-    AppTheme {
+    IpbTheme {
         Column {
             PlayPauseIcon(ongoing = true)
             PlayPauseIcon(ongoing = false)
@@ -138,14 +138,14 @@ fun ForwardIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_forward),
         contentDescription = null,
-        tint = AppTheme.colors.gray2
+        tint = IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun ForwardIconPreview() {
-    AppTheme {
+    IpbTheme {
         ForwardIcon()
     }
 }
@@ -156,14 +156,14 @@ fun ForwardTinyIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_forward_tiny),
         contentDescription = null,
-        tint = AppTheme.colors.gray2
+        tint = IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun ForwardTinyIconPreview() {
-    AppTheme {
+    IpbTheme {
         ForwardTinyIcon()
     }
 }
@@ -174,14 +174,14 @@ fun SettingsIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_settings),
         contentDescription = null,
-        tint = AppTheme.colors.gray2
+        tint = IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun SettingsIconPreview() {
-    AppTheme {
+    IpbTheme {
         SettingsIcon()
 
     }
@@ -193,14 +193,14 @@ fun BackIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_back),
         contentDescription = null,
-        tint = AppTheme.colors.gray2
+        tint = IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun BackIconPreview() {
-    AppTheme {
+    IpbTheme {
         BackIcon()
 
     }
@@ -212,14 +212,14 @@ fun RulerIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_ruler),
         contentDescription = null,
-        tint = AppTheme.colors.primary
+        tint = IpbTheme.colors.primary
     )
 }
 
 @Preview
 @Composable
 private fun RulerIconPreview() {
-    AppTheme {
+    IpbTheme {
         RulerIcon()
 
     }
@@ -231,14 +231,14 @@ fun MapIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_map),
         contentDescription = null,
-        tint = AppTheme.colors.primary
+        tint = IpbTheme.colors.primary
     )
 }
 
 @Preview
 @Composable
 private fun MapIconPreview() {
-    AppTheme {
+    IpbTheme {
         MapIcon()
 
     }
@@ -248,7 +248,7 @@ private fun MapIconPreview() {
 fun LocationIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.surfaces,
+        tint = IpbTheme.colors.surfaces,
         painter = painterResource(id = R.drawable.ic_location),
         contentDescription = null
     )
@@ -258,7 +258,7 @@ fun LocationIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun LocationIconPreview() {
-    AppTheme {
+    IpbTheme {
         LocationIcon()
 
     }
@@ -268,7 +268,7 @@ private fun LocationIconPreview() {
 fun RefreshIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.surfaces,
+        tint = IpbTheme.colors.surfaces,
         painter = painterResource(id = R.drawable.ic_refresh),
         contentDescription = null
     )
@@ -277,7 +277,7 @@ fun RefreshIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun RefreshIconPreview() {
-    AppTheme {
+    IpbTheme {
         RefreshIcon()
     }
 }
@@ -286,7 +286,7 @@ private fun RefreshIconPreview() {
 fun AddItemIcon(modifier: Modifier = Modifier, available: Boolean) {
     Icon(
         modifier = modifier,
-        tint = if (available) AppTheme.colors.black else AppTheme.colors.gray2,
+        tint = if (available) IpbTheme.colors.black else IpbTheme.colors.gray2,
         painter = painterResource(id = R.drawable.ic_add_item),
         contentDescription = null
     )
@@ -295,7 +295,7 @@ fun AddItemIcon(modifier: Modifier = Modifier, available: Boolean) {
 @Preview
 @Composable
 private fun AddItemIconPreview() {
-    AppTheme {
+    IpbTheme {
         Column {
             AddItemIcon(available = true)
             AddItemIcon(available = false)
@@ -307,7 +307,7 @@ private fun AddItemIconPreview() {
 fun RemoveItemIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.black,
+        tint = IpbTheme.colors.black,
         painter = painterResource(id = R.drawable.ic_remove_item),
         contentDescription = null
     )
@@ -316,7 +316,7 @@ fun RemoveItemIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun RemoveItemIconPreview() {
-    AppTheme {
+    IpbTheme {
         RemoveItemIcon()
     }
 }
@@ -325,7 +325,7 @@ private fun RemoveItemIconPreview() {
 fun MarkIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         painter = painterResource(id = R.drawable.ic_mark),
         contentDescription = null
     )
@@ -334,7 +334,7 @@ fun MarkIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun MarkIconPreview() {
-    AppTheme {
+    IpbTheme {
         MarkIcon()
     }
 }
@@ -343,7 +343,7 @@ private fun MarkIconPreview() {
 fun BonusesSmallIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier.size(20.dp),
-        tint = AppTheme.colors.primary,
+        tint = IpbTheme.colors.primary,
         painter = painterResource(R.drawable.ic_logo),
         contentDescription = null
     )
@@ -352,7 +352,7 @@ fun BonusesSmallIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun BonusesSmallIconPreview() {
-    AppTheme {
+    IpbTheme {
         BonusesSmallIcon()
     }
 }
@@ -361,7 +361,7 @@ private fun BonusesSmallIconPreview() {
 fun BonusesLargeIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier.size(40.dp),
-        tint = AppTheme.colors.primary,
+        tint = IpbTheme.colors.primary,
         painter = painterResource(R.drawable.ic_logo),
         contentDescription = null
     )
@@ -370,7 +370,7 @@ fun BonusesLargeIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun BonusesLargeIconPreview() {
-    AppTheme {
+    IpbTheme {
         BonusesLargeIcon()
     }
 }
@@ -379,7 +379,7 @@ private fun BonusesLargeIconPreview() {
 fun BonusesTinyIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier.size(16.dp),
-        tint = AppTheme.colors.surfaces,
+        tint = IpbTheme.colors.surfaces,
         painter = painterResource(R.drawable.ic_logo),
         contentDescription = null
     )
@@ -388,7 +388,7 @@ fun BonusesTinyIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun BonusesTinyIconPreview() {
-    AppTheme {
+    IpbTheme {
         BonusesTinyIcon()
     }
 }
@@ -397,7 +397,7 @@ private fun BonusesTinyIconPreview() {
 fun SearchIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         painter = painterResource(R.drawable.ic_search),
         contentDescription = null
     )
@@ -406,7 +406,7 @@ fun SearchIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun SearchIconPreview() {
-    AppTheme {
+    IpbTheme {
         SearchIcon()
     }
 }
@@ -424,7 +424,7 @@ fun Mark2Icon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun Mark2IconPreview() {
-    AppTheme {
+    IpbTheme {
         Mark2Icon()
     }
 }
@@ -433,7 +433,7 @@ private fun Mark2IconPreview() {
 fun DownIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         painter = painterResource(R.drawable.ic_down),
         contentDescription = null
     )
@@ -442,7 +442,7 @@ fun DownIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun DownIconPreview() {
-    AppTheme {
+    IpbTheme {
         DownIcon()
     }
 }
@@ -451,7 +451,7 @@ private fun DownIconPreview() {
 fun UpIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         painter = painterResource(R.drawable.ic_up),
         contentDescription = null
     )
@@ -460,7 +460,7 @@ fun UpIcon(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun UpIconPreview() {
-    AppTheme {
+    IpbTheme {
         UpIcon()
     }
 }
@@ -471,14 +471,14 @@ fun EditIcon(modifier: Modifier = Modifier) {
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_edit),
         contentDescription = null,
-        tint = AppTheme.colors.gray2
+        tint = IpbTheme.colors.gray2
     )
 }
 
 @Preview
 @Composable
 private fun EditIconPreview() {
-    AppTheme {
+    IpbTheme {
         EditIcon()
     }
 }
@@ -488,7 +488,7 @@ fun SumIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_sum),
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         contentDescription = null
     )
 }
@@ -496,7 +496,7 @@ fun SumIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun SumIconPreview() {
-    AppTheme {
+    IpbTheme {
         SumIcon()
     }
 }
@@ -506,7 +506,7 @@ fun SuccessIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_plus),
-        tint = AppTheme.colors.primary,
+        tint = IpbTheme.colors.primary,
         contentDescription = null
     )
 }
@@ -514,7 +514,7 @@ fun SuccessIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun SuccessIconPreview() {
-    AppTheme {
+    IpbTheme {
         SuccessIcon()
     }
 }
@@ -524,7 +524,7 @@ fun FailedIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_minus),
-        tint = AppTheme.colors.error,
+        tint = IpbTheme.colors.error,
         contentDescription = null
     )
 }
@@ -532,7 +532,7 @@ fun FailedIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun FailedIconPreview() {
-    AppTheme {
+    IpbTheme {
         FailedIcon()
     }
 }
@@ -542,7 +542,7 @@ fun RemainingIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_remaining),
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         contentDescription = null
     )
 }
@@ -550,7 +550,7 @@ fun RemainingIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun RemainingIconPreview() {
-    AppTheme {
+    IpbTheme {
         RemainingIcon()
     }
 }
@@ -560,7 +560,7 @@ fun AuditsIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_audits),
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         contentDescription = null
     )
 }
@@ -568,7 +568,7 @@ fun AuditsIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun AuditsIconPreview() {
-    AppTheme {
+    IpbTheme {
         AuditsIcon()
     }
 }
@@ -578,7 +578,7 @@ fun DocumentsIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_docs),
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         contentDescription = null
     )
 }
@@ -586,7 +586,7 @@ fun DocumentsIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun DocumentsIconPreview() {
-    AppTheme {
+    IpbTheme {
         DocumentsIcon()
     }
 }
@@ -596,7 +596,7 @@ fun SendIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_send),
-        tint = AppTheme.colors.black,
+        tint = IpbTheme.colors.black,
         contentDescription = null
     )
 }
@@ -604,7 +604,7 @@ fun SendIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun SendIconPreview() {
-    AppTheme {
+    IpbTheme {
         SendIcon()
     }
 }
@@ -614,7 +614,7 @@ fun ShareIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_share),
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         contentDescription = null
     )
 }
@@ -622,7 +622,7 @@ fun ShareIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun ShareIconPreview() {
-    AppTheme {
+    IpbTheme {
         ShareIcon()
     }
 }
@@ -632,7 +632,7 @@ fun CopyIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_copy),
-        tint = AppTheme.colors.gray2,
+        tint = IpbTheme.colors.gray2,
         contentDescription = null
     )
 }
@@ -640,7 +640,7 @@ fun CopyIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun CopyIconPreview() {
-    AppTheme {
+    IpbTheme {
         CopyIcon()
     }
 }
@@ -650,7 +650,7 @@ fun PlusPeopleIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_pluspeople),
-        tint = AppTheme.colors.black,
+        tint = IpbTheme.colors.black,
         contentDescription = null
     )
 }
@@ -658,7 +658,7 @@ fun PlusPeopleIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun PlusPeopleIconPreview() {
-    AppTheme {
+    IpbTheme {
         PlusPeopleIcon()
     }
 }
@@ -668,7 +668,7 @@ fun ShoppingCartIcon(modifier: Modifier = Modifier) {
     Icon(
         modifier = modifier,
         painter = painterResource(id = R.drawable.ic_shop_cart),
-        tint = AppTheme.colors.black,
+        tint = IpbTheme.colors.black,
         contentDescription = null
     )
 }
@@ -676,7 +676,7 @@ fun ShoppingCartIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun ShoppingCartIconPreview() {
-    AppTheme {
+    IpbTheme {
         ShoppingCartIcon()
     }
 }
@@ -694,7 +694,7 @@ fun ArrowRightIcon(modifier: Modifier = Modifier) {
 @Composable
 @Preview
 private fun ArrowRightIconPreview() {
-    AppTheme {
+    IpbTheme {
         ArrowRightIcon()
     }
 }

@@ -32,7 +32,7 @@ import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.composable.component.ButtonStyle
 import com.progressterra.ipbandroidview.ext.createStats
 import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import kotlinx.coroutines.launch
 
 /**
@@ -75,7 +75,7 @@ fun ChecklistScreen(
                     )
                     ChecklistStatus.ONGOING -> Row(
                         horizontalArrangement = Arrangement.spacedBy(
-                            AppTheme.dimensions.small
+                            8.dp
                         )
                     ) {
                         val stats by remember(state.checks) { mutableStateOf(state.checks.createStats()) }
@@ -99,11 +99,11 @@ fun ChecklistScreen(
                 }
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
                     contentPadding = PaddingValues(
-                        start = AppTheme.dimensions.small,
-                        top = AppTheme.dimensions.small,
-                        end = AppTheme.dimensions.small
+                        start = 8.dp,
+                        top = 8.dp,
+                        end = 8.dp
                     )
                 ) {
                     item {

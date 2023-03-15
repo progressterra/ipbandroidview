@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.composable.component.UseTextField
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 data class ChatInputState(
     val message: TextFieldState = TextFieldState(), val enabled: Boolean = false
@@ -48,12 +48,12 @@ fun ChatInput(
     BottomHolder(modifier = modifier) {
         Text(
             text = stringResource(R.string.support_info),
-            color = AppTheme.colors.gray2,
-            style = AppTheme.typography.tertiaryText
+            color = IpbTheme.colors.gray2,
+            style = IpbTheme.typography.tertiaryText
         )
-        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+        Spacer(modifier = Modifier.size(8.dp))
         Row(
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             TextField(
@@ -67,6 +67,6 @@ fun ChatInput(
                 SendIcon()
             }
         }
-        Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+        Spacer(modifier = Modifier.size(8.dp))
     }
 }

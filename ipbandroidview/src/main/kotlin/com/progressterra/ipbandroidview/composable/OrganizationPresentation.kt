@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val picHeight = 188.dp
 
@@ -31,32 +31,32 @@ fun OrganizationPresentation(
 ) {
     Column(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         SimpleImage(
             modifier = Modifier
                 .height(picHeight)
                 .fillMaxWidth()
-                .clip(AppTheme.shapes.small),
+                .clip(IpbTheme.shapes.small),
             url = imageUrl,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = IpbTheme.colors.surfaces
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(
-                    text = name, color = AppTheme.colors.black, style = AppTheme.typography.title
+                    text = name, color = IpbTheme.colors.black, style = IpbTheme.typography.title
                 )
                 Text(
                     text = address,
-                    color = AppTheme.colors.gray2,
-                    style = AppTheme.typography.tertiaryText
+                    color = IpbTheme.colors.gray2,
+                    style = IpbTheme.typography.tertiaryText
                 )
             }
             IconButton(
@@ -64,13 +64,13 @@ fun OrganizationPresentation(
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+                    verticalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
                     MapIcon()
                     Text(
                         text = stringResource(id = R.string.map),
-                        color = AppTheme.colors.primary,
-                        style = AppTheme.typography.tertiaryText
+                        color = IpbTheme.colors.primary,
+                        style = IpbTheme.typography.tertiaryText
                     )
                 }
             }
@@ -81,7 +81,7 @@ fun OrganizationPresentation(
 @Preview
 @Composable
 private fun OrganizationPresentationPreview() {
-    AppTheme {
+    IpbTheme {
         OrganizationPresentation(
             name = "Кофемания",
             address = "Ленина б",

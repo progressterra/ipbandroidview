@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ReferralLink(
@@ -26,28 +26,28 @@ fun ReferralLink(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.smany)
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Text(
                     text = promoCode,
-                    color = AppTheme.colors.black,
-                    style = AppTheme.typography.headLine
+                    color = IpbTheme.colors.black,
+                    style = IpbTheme.typography.headLine
                 )
                 IconButton(onClick = onCopy) { CopyIcon() }
             }
             Text(
                 text = stringResource(R.string.your_promo_code),
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.secondaryText
+                color = IpbTheme.colors.gray2,
+                style = IpbTheme.typography.secondaryText
             )
         }
         IconButton(onClick = onShare) { ShareIcon() }

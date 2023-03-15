@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ExpandableText(
@@ -28,22 +28,22 @@ fun ExpandableText(
 ) {
     Column(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
     ) {
         Row(
             modifier = Modifier
-                .clip(AppTheme.shapes.medium)
+                .clip(IpbTheme.shapes.medium)
                 .fillMaxWidth()
                 .niceClickable { expand() }
                 .padding(
-                    horizontal = AppTheme.dimensions.medium, vertical = AppTheme.dimensions.large
+                    horizontal = 12.dp, vertical = 16.dp
                 ),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = text, style = AppTheme.typography.title, color = AppTheme.colors.black
+                text = text, style = IpbTheme.typography.title, color = IpbTheme.colors.black
             )
             if (expanded) UpIcon()
             else DownIcon()
@@ -54,8 +54,8 @@ fun ExpandableText(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(AppTheme.dimensions.medium),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium),
+                    .padding(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
                 content = content
             )
         }

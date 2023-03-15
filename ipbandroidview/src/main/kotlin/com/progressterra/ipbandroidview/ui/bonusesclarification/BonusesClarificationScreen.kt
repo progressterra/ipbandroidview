@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ExpandableText
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val imageHeight = 72.dp
 
@@ -37,8 +37,8 @@ fun BonusesClarificationScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(AppTheme.dimensions.small),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                .padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             ExpandableText(
                 text = stringResource(R.string.how_to_spend_short),
@@ -47,13 +47,13 @@ fun BonusesClarificationScreen(
             ) {
                 Text(
                     text = "${stringResource(R.string.how_to_spend_0)} ${stringResource(R.string.app_name)}.",
-                    style = AppTheme.typography.text,
-                    color = AppTheme.colors.gray1
+                    style = IpbTheme.typography.text,
+                    color = IpbTheme.colors.gray1
                 )
                 Text(
                     text = stringResource(R.string.how_to_spend_1),
-                    style = AppTheme.typography.text,
-                    color = AppTheme.colors.gray1
+                    style = IpbTheme.typography.text,
+                    color = IpbTheme.colors.gray1
                 )
                 Image(
                     modifier = Modifier.size(width = imageWidth, height = imageHeight),
@@ -62,8 +62,8 @@ fun BonusesClarificationScreen(
                 )
                 Text(
                     text = stringResource(R.string.how_to_spend_2),
-                    style = AppTheme.typography.text,
-                    color = AppTheme.colors.gray1
+                    style = IpbTheme.typography.text,
+                    color = IpbTheme.colors.gray1
                 )
             }
             ExpandableText(
@@ -73,8 +73,8 @@ fun BonusesClarificationScreen(
             ) {
                 Text(
                     text = stringResource(R.string.bonuses_ratio),
-                    style = AppTheme.typography.text,
-                    color = AppTheme.colors.gray1
+                    style = IpbTheme.typography.text,
+                    color = IpbTheme.colors.gray1
                 )
             }
             ExpandableText(
@@ -84,8 +84,8 @@ fun BonusesClarificationScreen(
             ) {
                 Text(
                     text = stringResource(R.string.how_to_obtain),
-                    style = AppTheme.typography.text,
-                    color = AppTheme.colors.gray1
+                    style = IpbTheme.typography.text,
+                    color = IpbTheme.colors.gray1
                 )
             }
         }
@@ -95,7 +95,7 @@ fun BonusesClarificationScreen(
 @Preview
 @Composable
 private fun BonusesClarificationScreenPreview() {
-    AppTheme {
+    IpbTheme {
         BonusesClarificationScreen(
             state = BonusesClarificationState(
                 howToSpendExpand = true, ratioExpand = true, howToObtainExpand = false

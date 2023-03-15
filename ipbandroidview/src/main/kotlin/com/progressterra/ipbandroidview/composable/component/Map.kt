@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.composable.AddressSuggestions
 import com.progressterra.ipbandroidview.core.ComponentEvent
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.SuggestionUI
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 data class MapState(
     val isPermissionGranted: Boolean = false,
@@ -65,9 +65,9 @@ fun Map(
     ConstraintLayout(
         modifier = modifier
             .fillMaxSize()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp)
     ) {
         val (map, address, suggestions) = createRefs()
         val cameraPositionState = rememberCameraPositionState {
@@ -83,7 +83,7 @@ fun Map(
         )
         GoogleMap(
             modifier = Modifier
-                .clip(AppTheme.shapes.small)
+                .clip(IpbTheme.shapes.small)
                 .constrainAs(map) {
                     height = Dimension.fillToConstraints
                     width = Dimension.fillToConstraints

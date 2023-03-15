@@ -6,7 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 data class TextButtonState(
     val text: String = "",
@@ -38,14 +38,14 @@ fun TextButton(
         onClick = { useComponent.handleEvent(id, TextButtonEvent.Click) },
         enabled = state.enabled,
         colors = ButtonDefaults.textButtonColors(
-            contentColor = AppTheme.colors.primary,
-            disabledContentColor = AppTheme.colors.gray2
+            contentColor = IpbTheme.colors.primary,
+            disabledContentColor = IpbTheme.colors.gray2
         ),
         contentPadding = PaddingValues(
-            horizontal = AppTheme.dimensions.buttonHorizontalPadding,
-            vertical = AppTheme.dimensions.buttonVerticalPadding
+            horizontal = 32.dp,
+            vertical = 15.dp
         )
     ) {
-        Text(text = state.text, style = AppTheme.typography.button)
+        Text(text = state.text, style = IpbTheme.typography.button)
     }
 }

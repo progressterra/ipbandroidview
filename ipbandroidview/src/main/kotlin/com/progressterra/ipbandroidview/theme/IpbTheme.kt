@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.text.selection.LocalTextSelectionColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -18,12 +17,12 @@ object IpbTheme {
 
 val LocalTypography = staticCompositionLocalOf { IpbTypography() }
 
-val LocalColors = staticCompositionLocalOf { IpbColors() }
+val LocalColors = staticCompositionLocalOf { defaultIpbLightColors }
 
 @Composable
-fun AppTheme(
-    lightColors: IpbColors = defaultLightColors,
-    darkColors: IpbColors = defaultDarkColors,
+fun IpbTheme(
+    lightColors: IpbColors = defaultIpbLightColors,
+    darkColors: IpbColors = defaultIpbDarkColors,
     typography: IpbTypography = IpbTheme.typography,
     content: @Composable () -> Unit
 ) {

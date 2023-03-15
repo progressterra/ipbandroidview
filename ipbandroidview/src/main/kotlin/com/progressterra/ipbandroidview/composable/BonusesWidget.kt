@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val paddingVertical = 32.dp
 
@@ -26,24 +26,24 @@ fun BonusesWidget(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
             .padding(vertical = paddingVertical),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+        verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = bonuses,
-                color = AppTheme.colors.primary,
-                style = AppTheme.typography.headLine
+                color = IpbTheme.colors.primary,
+                style = IpbTheme.typography.headLine
             )
             BonusesLargeIcon()
         }
         Text(
             text = "= $bonuses ${stringResource(R.string.currency)}",
-            color = AppTheme.colors.gray2,
-            style = AppTheme.typography.text
+            color = IpbTheme.colors.gray2,
+            style = IpbTheme.typography.text
         )
     }
 }

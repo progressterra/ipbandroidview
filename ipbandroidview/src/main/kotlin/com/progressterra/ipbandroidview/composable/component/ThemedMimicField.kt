@@ -9,7 +9,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 /**
  * @param modifier - modifier for TextField
@@ -24,59 +24,59 @@ fun ThemedMimicField(
     val label: (@Composable () -> Unit)? = if (text.isNotEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.actionBarLabels, maxLines = 1
+                text = hint, style = IpbTheme.typography.actionBarLabels, maxLines = 1
             )
         }
     } else null
     val placeholder: (@Composable () -> Unit)? = if (text.isEmpty()) {
         {
             Text(
-                text = hint, style = AppTheme.typography.text, maxLines = 1
+                text = hint, style = IpbTheme.typography.text, maxLines = 1
             )
         }
     } else null
     TextField(
         modifier = modifier
-            .clip(AppTheme.shapes.small)
+            .clip(IpbTheme.shapes.small)
             .niceClickable { onClick() },
         value = text,
         onValueChange = {},
-        shape = AppTheme.shapes.small,
+        shape = IpbTheme.shapes.small,
         placeholder = placeholder,
         label = label,
         enabled = false,
-        textStyle = AppTheme.typography.text,
+        textStyle = IpbTheme.typography.text,
         singleLine = true,
         colors = TextFieldDefaults.textFieldColors(
             //Background
-            backgroundColor = AppTheme.colors.background,
+            backgroundColor = IpbTheme.colors.background,
             //Placeholder
-            placeholderColor = AppTheme.colors.gray1,
-            disabledPlaceholderColor = AppTheme.colors.gray1,
+            placeholderColor = IpbTheme.colors.gray1,
+            disabledPlaceholderColor = IpbTheme.colors.gray1,
             //Label always same color
-            focusedLabelColor = AppTheme.colors.gray2,
-            unfocusedLabelColor = AppTheme.colors.gray2,
-            disabledLabelColor = AppTheme.colors.gray2,
-            errorLabelColor = AppTheme.colors.error,
+            focusedLabelColor = IpbTheme.colors.gray2,
+            unfocusedLabelColor = IpbTheme.colors.gray2,
+            disabledLabelColor = IpbTheme.colors.gray2,
+            errorLabelColor = IpbTheme.colors.error,
             //Text color depend on enable state
-            textColor = AppTheme.colors.black,
-            disabledTextColor = AppTheme.colors.black,
+            textColor = IpbTheme.colors.black,
+            disabledTextColor = IpbTheme.colors.black,
             //Here is no indicator actually
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             errorIndicatorColor = Color.Transparent,
             //Cursor
-            cursorColor = AppTheme.colors.primary,
-            errorCursorColor = AppTheme.colors.error,
+            cursorColor = IpbTheme.colors.primary,
+            errorCursorColor = IpbTheme.colors.error,
             //Leading icon
-            leadingIconColor = AppTheme.colors.gray2,
-            disabledLeadingIconColor = AppTheme.colors.gray2,
-            errorLeadingIconColor = AppTheme.colors.error,
+            leadingIconColor = IpbTheme.colors.gray2,
+            disabledLeadingIconColor = IpbTheme.colors.gray2,
+            errorLeadingIconColor = IpbTheme.colors.error,
             //Leading icon
-            trailingIconColor = AppTheme.colors.gray2,
-            disabledTrailingIconColor = AppTheme.colors.gray2,
-            errorTrailingIconColor = AppTheme.colors.error
+            trailingIconColor = IpbTheme.colors.gray2,
+            disabledTrailingIconColor = IpbTheme.colors.gray2,
+            errorTrailingIconColor = IpbTheme.colors.error
         )
     )
 }
@@ -84,7 +84,7 @@ fun ThemedMimicField(
 @Preview(showBackground = true)
 @Composable
 private fun ThemedMimicFieldPreviewEnabled() {
-    AppTheme {
+    IpbTheme {
         ThemedMimicField(text = "Some text", hint = "Your name", onClick = {})
     }
 }
@@ -92,7 +92,7 @@ private fun ThemedMimicFieldPreviewEnabled() {
 @Preview(showBackground = true, backgroundColor = 0xFF888888)
 @Composable
 private fun ThemedMimicFieldPreviewDisabled() {
-    AppTheme {
+    IpbTheme {
         ThemedMimicField(text = "Some text", hint = "Your name", onClick = {})
     }
 }
@@ -100,7 +100,7 @@ private fun ThemedMimicFieldPreviewDisabled() {
 @Preview(showBackground = true, backgroundColor = 0xFF888888)
 @Composable
 private fun ThemedMimicFieldPreviewEmptyDisabled() {
-    AppTheme {
+    IpbTheme {
         ThemedMimicField(text = "", hint = "Your name", onClick = {})
     }
 }

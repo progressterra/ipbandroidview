@@ -4,7 +4,7 @@ import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ThemedLinearProgressIndicator(
@@ -13,8 +13,8 @@ fun ThemedLinearProgressIndicator(
 ) {
     LinearProgressIndicator(
         modifier = modifier,
-        color = AppTheme.colors.primary,
-        backgroundColor = AppTheme.colors.surfaces,
+        color = IpbTheme.colors.primary,
+        backgroundColor = IpbTheme.colors.surfaces,
         progress = progress
     )
 }
@@ -22,7 +22,7 @@ fun ThemedLinearProgressIndicator(
 @Preview
 @Composable
 private fun ThemedLinearProgressIndicatorPreview() {
-    AppTheme {
+    IpbTheme {
         ThemedLinearProgressIndicator(progress = 0.4f)
     }
 }

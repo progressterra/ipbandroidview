@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val lineWidth = 1.dp
 
@@ -23,11 +23,11 @@ fun ThemedBottomAppBar(
 ) {
     BasicBar(
         modifier = modifier
-            .sideBorder(top = SideBorder(lineWidth, AppTheme.colors.gray2))
+            .sideBorder(top = SideBorder(lineWidth, IpbTheme.colors.gray2))
             .padding(
                 top = lineWidth
             ),
-        paddingValues = PaddingValues(horizontal = AppTheme.dimensions.medium),
+        paddingValues = PaddingValues(horizontal = 12.dp),
         arrangement = Arrangement.SpaceEvenly
     ) {
         items.forEach { item ->
@@ -44,7 +44,7 @@ fun ThemedBottomAppBar(
 @Preview
 @Composable
 private fun BottomNavPreview() {
-    AppTheme {
+    IpbTheme {
         ThemedBottomAppBar(
             items = listOf(
                 BottomMenuTabState(

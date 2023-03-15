@@ -18,12 +18,12 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ThemedLayout(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = AppTheme.colors.background,
+    backgroundColor: Color = IpbTheme.colors.background,
     topBar: @Composable () -> Unit = {},
     topOverlap: Boolean = false,
     bottomBar: @Composable () -> Unit = {},

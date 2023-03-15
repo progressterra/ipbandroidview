@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.model.GoodsDetails
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun GoodsTopAppBar(
@@ -17,7 +17,7 @@ fun GoodsTopAppBar(
     onFavorite: () -> Unit,
     state: GoodsDetails,
 ) {
-    BasicTopAppBar(modifier = modifier, backgroundColor = AppTheme.colors.surfaces, leftActions = {
+    BasicTopAppBar(modifier = modifier, backgroundColor = IpbTheme.colors.surfaces, leftActions = {
         IconButton(onClick = onBack) {
             BackIcon()
         }
@@ -25,15 +25,15 @@ fun GoodsTopAppBar(
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = state.name,
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.text,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.text,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = state.price.toString(),
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.tertiaryText,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.tertiaryText,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )

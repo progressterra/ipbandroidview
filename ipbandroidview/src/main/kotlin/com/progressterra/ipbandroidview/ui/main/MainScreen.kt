@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.ExtendedBonuses
 import com.progressterra.ipbandroidview.composable.component.ExtendedBonusesState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun MainScreen(
@@ -28,8 +28,8 @@ fun MainScreen(
 ) {
     ThemedLayout(topBar = {
         Column(
-            modifier = Modifier.background(AppTheme.colors.surfaces),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)
+            modifier = Modifier.background(IpbTheme.colors.surfaces),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             if (state.userExist) ThemedTopAppBar(title = stringResource(R.string.main))
         }
@@ -38,10 +38,10 @@ fun MainScreen(
             Column(
                 Modifier
                     .fillMaxSize()
-                    .padding(AppTheme.dimensions.small)
+                    .padding(8.dp)
                     .verticalScroll(
                         rememberScrollState()
-                    ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                    ), verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 ExtendedBonuses(
                     id = "main",
@@ -64,7 +64,7 @@ fun MainScreen(
 @Preview
 @Composable
 private fun MainScreenPreview() {
-    AppTheme {
+    IpbTheme {
         MainScreen(
             state = MainState(
                 screenState = ScreenState.SUCCESS,

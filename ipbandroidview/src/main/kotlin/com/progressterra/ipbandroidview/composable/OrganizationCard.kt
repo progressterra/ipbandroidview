@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.Organization
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val imageHeight = 60.dp
 private val imageWidth = 120.dp
@@ -31,53 +31,53 @@ fun OrganizationCard(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
+            .clip(IpbTheme.shapes.medium)
             .niceClickable { openOrganization() }
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         SimpleImage(
             modifier = Modifier
                 .size(width = imageWidth, height = imageHeight)
-                .clip(AppTheme.shapes.small),
+                .clip(IpbTheme.shapes.small),
             url = state.imageUrl,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = IpbTheme.colors.surfaces
         )
         Column(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
                 text = state.address,
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.text,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.text,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = state.name,
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.secondaryText,
+                color = IpbTheme.colors.gray2,
+                style = IpbTheme.typography.secondaryText,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Row(
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AuditsIcon()
                 Text(
                     text = state.audits,
-                    color = AppTheme.colors.gray2,
-                    style = AppTheme.typography.secondaryText
+                    color = IpbTheme.colors.gray2,
+                    style = IpbTheme.typography.secondaryText
                 )
                 DocumentsIcon()
                 Text(
                     text = state.documents,
-                    color = AppTheme.colors.gray2,
-                    style = AppTheme.typography.secondaryText
+                    color = IpbTheme.colors.gray2,
+                    style = IpbTheme.typography.secondaryText
                 )
             }
         }
@@ -88,7 +88,7 @@ fun OrganizationCard(
 @Preview
 @Composable
 private fun OrganizationPreviewSmall() {
-    AppTheme {
+    IpbTheme {
         OrganizationCard(
             state = Organization(
                 address = "123 132 123",

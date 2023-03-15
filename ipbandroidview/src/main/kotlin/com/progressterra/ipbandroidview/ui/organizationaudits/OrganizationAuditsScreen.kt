@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.composable.OrganizationCheckCard
 import com.progressterra.ipbandroidview.composable.OrganizationPresentation
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun OrganizationAuditsScreen(
@@ -34,8 +34,8 @@ fun OrganizationAuditsScreen(
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                contentPadding = PaddingValues(AppTheme.dimensions.small)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(8.dp)
             ) {
                 item {
                     OrganizationPresentation(
@@ -60,6 +60,6 @@ fun OrganizationAuditsScreen(
 @Preview
 @Composable
 private fun OrganizationAuditsScreenPreview() {
-    AppTheme {
+    IpbTheme {
     }
 }

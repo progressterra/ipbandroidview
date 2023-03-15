@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.signup
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.component.SignUpComponentState
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun SignUpScreen(
@@ -18,6 +18,6 @@ fun SignUpScreen(
 @Preview
 @Composable
 private fun SignUpScreenPreviewEmpty() {
-    AppTheme {
+    IpbTheme {
     }
 }

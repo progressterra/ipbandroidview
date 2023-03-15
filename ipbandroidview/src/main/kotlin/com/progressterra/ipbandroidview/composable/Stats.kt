@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.model.ChecklistStats
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
@@ -19,12 +19,12 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
     fun Item(icon: @Composable () -> Unit, title: String, tint: Color) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             icon()
             Text(
                 text = title,
-                style = AppTheme.typography.text,
+                style = IpbTheme.typography.text,
                 color = tint
             )
         }
@@ -38,22 +38,22 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
         Item(
             icon = { SumIcon() },
             title = stats.total.toString(),
-            tint = AppTheme.colors.gray1
+            tint = IpbTheme.colors.gray1
         )
         Item(
             icon = { SuccessIcon() },
             title = stats.successful.toString(),
-            tint = AppTheme.colors.primary
+            tint = IpbTheme.colors.primary
         )
         Item(
             icon = { FailedIcon() },
             title = stats.failed.toString(),
-            tint = AppTheme.colors.error
+            tint = IpbTheme.colors.error
         )
         Item(
             icon = { RemainingIcon() },
             title = stats.remaining.toString(),
-            tint = AppTheme.colors.gray2
+            tint = IpbTheme.colors.gray2
         )
     }
 }
@@ -61,7 +61,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
 @Preview
 @Composable
 private fun StatsPreview() {
-    AppTheme {
+    IpbTheme {
         Stats(stats = ChecklistStats(14, 10, 3, 1))
         Stats(stats = ChecklistStats(14, 10, 3, 3))
     }

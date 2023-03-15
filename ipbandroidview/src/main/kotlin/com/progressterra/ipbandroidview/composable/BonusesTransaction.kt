@@ -12,42 +12,42 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import com.progressterra.ipbandroidview.model.Transaction
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun BonusesTransaction(modifier: Modifier = Modifier, state: Transaction) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(vertical = AppTheme.dimensions.small, horizontal = AppTheme.dimensions.medium),
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(vertical = 8.dp, horizontal = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Bottom
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiniest)) {
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(
                 text = state.date,
-                style = AppTheme.typography.actionBarLabels,
-                color = AppTheme.colors.gray2
+                style = IpbTheme.typography.actionBarLabels,
+                color = IpbTheme.colors.gray2
             )
             Text(
                 text = state.name,
-                style = AppTheme.typography.text,
-                color = AppTheme.colors.gray1
+                style = IpbTheme.typography.text,
+                color = IpbTheme.colors.gray1
             )
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             if (state.delta >= 0)
                 Text(
                     text = "+${state.delta}",
-                    style = AppTheme.typography.text,
-                    color = AppTheme.colors.primary
+                    style = IpbTheme.typography.text,
+                    color = IpbTheme.colors.primary
                 )
             else
                 Text(
                     text = state.delta.toString(),
-                    style = AppTheme.typography.text,
-                    color = AppTheme.colors.error
+                    style = IpbTheme.typography.text,
+                    color = IpbTheme.colors.error
                 )
             BonusesSmallIcon()
         }

@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Partner
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun MainHaccpScreen(
@@ -30,7 +30,7 @@ fun MainHaccpScreen(
             Column(
                 Modifier
                     .fillMaxSize()
-                    .padding(AppTheme.dimensions.small)
+                    .padding(8.dp)
             ) {
                 OrganizationsOverview(overviews = state.overviews,
                     onEvent = { interactor.handleEvent(it) })
@@ -42,7 +42,7 @@ fun MainHaccpScreen(
 @Preview
 @Composable
 private fun MainHaccpScreenPreview() {
-    AppTheme {
+    IpbTheme {
         MainHaccpScreen(
             state = MainHaccpState(
                 screenState = ScreenState.SUCCESS, partner = Partner(), overviews = listOf(

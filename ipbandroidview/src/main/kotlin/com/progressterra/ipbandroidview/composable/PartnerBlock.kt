@@ -13,7 +13,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.Partner
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val height = 41.dp
 
@@ -30,13 +30,13 @@ fun PartnerBlock(
     Row(modifier = modifier
         .fillMaxWidth()
         .niceClickable { onEvent(PartnerBlockEvent.PartnerClicked) }
-        .background(AppTheme.colors.surfaces)
-        .padding(vertical = AppTheme.dimensions.small),
+        .background(IpbTheme.colors.surfaces)
+        .padding(vertical = 8.dp),
         horizontalArrangement = Arrangement.Center) {
         SimpleImage(
             modifier = Modifier.size(width, height),
             url = partner.headImageUrl,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = IpbTheme.colors.surfaces
         )
     }
 }
@@ -46,13 +46,13 @@ fun PartnerBlock2(
     modifier: Modifier = Modifier, onEvent: (PartnerBlockEvent) -> Unit, partner: Partner
 ) {
     Row(modifier = modifier
-        .clip(AppTheme.shapes.medium)
+        .clip(IpbTheme.shapes.medium)
         .niceClickable { onEvent(PartnerBlockEvent.PartnerClicked) }
-        .background(AppTheme.colors.surfaces)) {
+        .background(IpbTheme.colors.surfaces)) {
         SimpleImage(
             modifier = Modifier.fillMaxSize(),
             url = partner.headImageUrl,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = IpbTheme.colors.surfaces
         )
     }
 }

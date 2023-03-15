@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun TransparentTopAppBar(
@@ -15,7 +15,7 @@ fun TransparentTopAppBar(
     title: String? = null,
     leftActions: (@Composable RowScope.() -> Unit)? = null,
     rightActions: (@Composable RowScope.() -> Unit)? = null,
-    contentColor: Color = AppTheme.colors.surfaces
+    contentColor: Color = IpbTheme.colors.surfaces
 ) {
     BasicTopAppBar(
         modifier = modifier,
@@ -27,7 +27,7 @@ fun TransparentTopAppBar(
                 Text(
                     text = it,
                     color = contentColor,
-                    style = AppTheme.typography.title,
+                    style = IpbTheme.typography.title,
                     maxLines = 1,
                     textAlign = TextAlign.Center
                 )
@@ -39,7 +39,7 @@ fun TransparentTopAppBar(
 @Preview
 @Composable
 private fun TopAppBarWithBackNavPreview0() {
-    AppTheme {
+    IpbTheme {
         TransparentTopAppBar(title = "Some mock title", leftActions = {})
     }
 }
@@ -47,7 +47,7 @@ private fun TopAppBarWithBackNavPreview0() {
 @Preview
 @Composable
 private fun TopAppBarWithBackNavPreview1() {
-    AppTheme {
+    IpbTheme {
         TransparentTopAppBar(title = "Some mock title")
     }
 }
@@ -55,20 +55,20 @@ private fun TopAppBarWithBackNavPreview1() {
 @Preview
 @Composable
 private fun TopAppBarWithBackNavPreview3() {
-    AppTheme {
+    IpbTheme {
         TransparentTopAppBar(title = "Some mock title", leftActions = {
             Text(
                 text = "SOS",
-                color = AppTheme.colors.surfaces,
-                style = AppTheme.typography.title,
+                color = IpbTheme.colors.surfaces,
+                style = IpbTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
         }, rightActions = {
             Text(
                 text = "SOS",
-                color = AppTheme.colors.surfaces,
-                style = AppTheme.typography.title,
+                color = IpbTheme.colors.surfaces,
+                style = IpbTheme.typography.title,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )

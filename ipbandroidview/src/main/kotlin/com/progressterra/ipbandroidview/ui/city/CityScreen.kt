@@ -1,20 +1,12 @@
 package com.progressterra.ipbandroidview.ui.city
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.component.TextButton
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.Button
-import com.progressterra.ipbandroidview.composable.component.Map
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun CityScreen(
@@ -48,5 +40,5 @@ fun CityScreen(
 @Preview
 @Composable
 private fun CityScreenPreview() {
-    AppTheme {}
+    IpbTheme {}
 }

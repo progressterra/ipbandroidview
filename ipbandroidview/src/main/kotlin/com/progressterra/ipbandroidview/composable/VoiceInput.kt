@@ -19,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Immutable
 sealed class VoiceState(
@@ -48,11 +48,11 @@ fun VoiceInput(
         is VoiceState.Recorder -> Box(modifier = modifier) {
                 Row(
                     modifier = Modifier
-                        .padding(AppTheme.dimensions.small)
-                        .clip(AppTheme.shapes.small)
+                        .padding(8.dp)
+                        .clip(IpbTheme.shapes.small)
                         .height(TextFieldDefaults.MinHeight)
                         .fillMaxWidth()
-                        .background(AppTheme.colors.background)
+                        .background(IpbTheme.colors.background)
                         .padding(vertical = verticalPadding),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -61,10 +61,10 @@ fun VoiceInput(
                         TrashIcon(enabled = enabled)
                     }
                     else Text(
-                        modifier = Modifier.padding(start = AppTheme.dimensions.medium),
+                        modifier = Modifier.padding(start = 12.dp),
                         text = stringResource(id = R.string.voice_message),
-                        style = AppTheme.typography.text,
-                        color = if (enabled) AppTheme.colors.gray1 else AppTheme.colors.gray2
+                        style = IpbTheme.typography.text,
+                        color = if (enabled) IpbTheme.colors.gray1 else IpbTheme.colors.gray2
                     )
                     IconButton(
                         onClick = if (state.ongoing) onStopRecording else onStartRecording,
@@ -75,16 +75,16 @@ fun VoiceInput(
             }
             if (state.ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
         }
-        is VoiceState.Player -> Box(modifier = modifier.padding(AppTheme.dimensions.small)) {
+        is VoiceState.Player -> Box(modifier = modifier.padding(8.dp)) {
             Row(
                 modifier = Modifier
-                    .clip(AppTheme.shapes.small)
+                    .clip(IpbTheme.shapes.small)
                     .height(TextFieldDefaults.MinHeight)
-                    .background(AppTheme.colors.background)
-                    .padding(vertical = AppTheme.dimensions.medium)
+                    .background(IpbTheme.colors.background)
+                    .padding(vertical = 12.dp)
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 IconButton(
                     onClick = onRemove,
@@ -106,7 +106,7 @@ fun VoiceInput(
 @Preview
 @Composable
 private fun VoiceInputPreviewIdle() {
-    AppTheme {
+    IpbTheme {
         VoiceInput(
             state = VoiceState.Recorder(false),
             onStartPlay = {},
@@ -122,7 +122,7 @@ private fun VoiceInputPreviewIdle() {
 @Preview
 @Composable
 private fun VoiceInputPreviewRecord() {
-    AppTheme {
+    IpbTheme {
         VoiceInput(
             state = VoiceState.Recorder(true),
             onStartPlay = {},
@@ -139,7 +139,7 @@ private fun VoiceInputPreviewRecord() {
 @Preview
 @Composable
 private fun VoiceInputPreviewPlay() {
-    AppTheme {
+    IpbTheme {
         VoiceInput(
             state = VoiceState.Player(true, 0.5f),
             onStartPlay = {},
@@ -155,7 +155,7 @@ private fun VoiceInputPreviewPlay() {
 @Preview
 @Composable
 private fun VoiceInputPreviewPause() {
-    AppTheme {
+    IpbTheme {
         VoiceInput(
             state = VoiceState.Player(false, 0.3f),
             onStartPlay = {},

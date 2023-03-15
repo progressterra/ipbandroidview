@@ -1,8 +1,5 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.Gallery
-import com.progressterra.ipbandroidview.composable.GoodsBottomBar
 import com.progressterra.ipbandroidview.composable.GoodsDetails
 import com.progressterra.ipbandroidview.composable.GoodsTopAppBar
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun GoodsDetailsScreen(
@@ -47,9 +43,9 @@ fun GoodsDetailsScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(vertical = AppTheme.dimensions.small)
+                    .padding(vertical = 8.dp)
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Gallery(
                     state = state.goodsDetails
@@ -65,5 +61,5 @@ fun GoodsDetailsScreen(
 @Preview
 @Composable
 private fun GoodsScreenPreview() {
-    AppTheme {}
+    IpbTheme {}
 }

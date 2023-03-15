@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
 import com.progressterra.ipbandroidview.model.Category
 import com.progressterra.ipbandroidview.model.SimpleCategory
 import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val height = 260.dp
 
@@ -32,14 +32,14 @@ fun GoodsGallery(
 ) {
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = category.name, color = AppTheme.colors.black, style = AppTheme.typography.title
+            text = category.name, color = IpbTheme.colors.black, style = IpbTheme.typography.title
         )
         LazyRow(
             modifier = Modifier.height(height),
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(goods) { item ->
@@ -59,7 +59,7 @@ fun GoodsGallery(
 @Preview
 @Composable
 private fun GoodsGalleryPreview() {
-    AppTheme {
+    IpbTheme {
         GoodsGallery(
             goods = listOf(
                 StoreCardComponentState(

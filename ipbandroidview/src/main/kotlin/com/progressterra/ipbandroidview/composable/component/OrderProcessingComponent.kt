@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import kotlinx.parcelize.Parcelize
 
 private val verticalPadding = 80.dp
@@ -38,22 +38,22 @@ fun OrderProcessingComponent(
 ) {
     Column(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(vertical = verticalPadding, horizontal = AppTheme.dimensions.medium),
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(vertical = verticalPadding, horizontal = 12.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = if (state.success) stringResource(R.string.success_payment) else stringResource(R.string.failed_payment),
-            color = if (state.success) AppTheme.colors.primary else AppTheme.colors.error,
-            style = AppTheme.typography.title
+            color = if (state.success) IpbTheme.colors.primary else IpbTheme.colors.error,
+            style = IpbTheme.typography.title
         )
-        Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
+        Spacer(modifier = Modifier.size(12.dp))
         Text(
             text = state.additionalInfo,
-            color = AppTheme.colors.gray2,
-            style = AppTheme.typography.secondaryText
+            color = IpbTheme.colors.gray2,
+            style = IpbTheme.typography.secondaryText
         )
     }
 }
@@ -61,7 +61,7 @@ fun OrderProcessingComponent(
 @Composable
 @Preview
 private fun OrderProcessingComponentPreview() {
-    AppTheme {
+    IpbTheme {
         OrderProcessingComponent(
             modifier = Modifier,
             state = OrderProcessingComponentState(

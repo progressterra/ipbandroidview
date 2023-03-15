@@ -7,7 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.component.AuthComponent
 import com.progressterra.ipbandroidview.composable.component.AuthState
 import com.progressterra.ipbandroidview.composable.component.UseAuth
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 /**
  * main - auth
@@ -34,7 +34,7 @@ fun SignInScreen(
 @Preview
 @Composable
 private fun SplashScreenPreview() {
-    AppTheme {
+    IpbTheme {
     }
 }
 

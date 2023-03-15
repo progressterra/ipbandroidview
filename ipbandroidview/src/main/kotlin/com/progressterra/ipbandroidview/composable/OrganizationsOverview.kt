@@ -28,7 +28,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.Document
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 import kotlinx.coroutines.launch
 
 data class OrganizationOverview(
@@ -51,14 +51,14 @@ fun RowItem(
     ) {
         Text(
             text = title,
-            style = AppTheme.typography.secondaryText,
-            color = AppTheme.colors.gray1,
+            style = IpbTheme.typography.secondaryText,
+            color = IpbTheme.colors.gray1,
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = value, style = AppTheme.typography.text, color = AppTheme.colors.black
+            text = value, style = IpbTheme.typography.text, color = IpbTheme.colors.black
         )
-        Spacer(modifier = Modifier.width(AppTheme.dimensions.large))
+        Spacer(modifier = Modifier.width(16.dp))
         ForwardIcon()
     }
 }
@@ -82,38 +82,38 @@ fun OrganizationsOverview(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
             text = stringResource(R.string.audits),
-            style = AppTheme.typography.text,
-            color = AppTheme.colors.black
+            style = IpbTheme.typography.text,
+            color = IpbTheme.colors.black
         )
         val pagerState = rememberPagerState()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             val scope = rememberCoroutineScope()
             overviews.forEachIndexed { index, overview ->
                 val selected = pagerState.currentPage == index
                 val backgroundColor =
-                    if (selected) AppTheme.colors.background else AppTheme.colors.surfaces
+                    if (selected) IpbTheme.colors.background else IpbTheme.colors.surfaces
 
-                val textColor = if (selected) AppTheme.colors.black else AppTheme.colors.gray1
+                val textColor = if (selected) IpbTheme.colors.black else IpbTheme.colors.gray1
                 val style =
-                    if (selected) AppTheme.typography.text else AppTheme.typography.secondaryText
+                    if (selected) IpbTheme.typography.text else IpbTheme.typography.secondaryText
                 Box(modifier = Modifier
-                    .clip(AppTheme.shapes.small)
+                    .clip(IpbTheme.shapes.small)
                     .border(
                         width = borderWidth,
-                        color = AppTheme.colors.background,
-                        shape = AppTheme.shapes.small
+                        color = IpbTheme.colors.background,
+                        shape = IpbTheme.shapes.small
                     )
                     .background(backgroundColor)
                     .niceClickable {
@@ -122,7 +122,7 @@ fun OrganizationsOverview(
                         }
                     }
                     .padding(
-                        vertical = AppTheme.dimensions.small, horizontal = tabHorizontalPadding
+                        vertical = 8.dp, horizontal = tabHorizontalPadding
                     ), contentAlignment = Alignment.Center) {
                     Text(
                         text = overview.name,
@@ -137,7 +137,7 @@ fun OrganizationsOverview(
             count = overviews.size, state = pagerState
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.large)
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 RowItem(
                     modifier = Modifier.niceClickable {
@@ -180,7 +180,7 @@ fun OrganizationsOverview(
 @Composable
 @Preview
 private fun OrganizationsOverviewPreview() {
-    AppTheme {
+    IpbTheme {
         OrganizationsOverview(
             overviews = listOf(
                 OrganizationOverview(

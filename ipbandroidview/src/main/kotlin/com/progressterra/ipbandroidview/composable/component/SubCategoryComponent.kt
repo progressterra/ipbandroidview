@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.ForwardIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun SubCategoryComponent(
@@ -27,17 +27,17 @@ fun SubCategoryComponent(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
             .niceClickable { openCategory(state) }
-            .padding(AppTheme.dimensions.large),
+            .padding(16.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = state.name,
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.text
+            color = IpbTheme.colors.black,
+            style = IpbTheme.typography.text
         )
         ForwardIcon()
     }
@@ -46,7 +46,7 @@ fun SubCategoryComponent(
 @Preview
 @Composable
 private fun SubCategoryPreview() {
-    AppTheme {
+    IpbTheme {
         SubCategoryComponent(
             modifier = Modifier.width(300.dp),
             state = CategoryWithSubcategories(

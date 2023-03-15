@@ -26,7 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val digitSize = 56.dp
 
@@ -52,17 +52,17 @@ fun VerificationCodeInput(
                 modifier = Modifier
                     .width(digitSize)
                     .background(
-                        color = AppTheme.colors.background,
-                        shape = AppTheme.shapes.small
+                        color = IpbTheme.colors.background,
+                        shape = IpbTheme.shapes.small
                     )
                     .border(
                         width = borderWidth,
-                        color = if (active) AppTheme.colors.primary else Color.Transparent,
-                        shape = AppTheme.shapes.small
+                        color = if (active) IpbTheme.colors.primary else Color.Transparent,
+                        shape = IpbTheme.shapes.small
                     ),
                 text = digit,
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.headLine,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.headLine,
                 textAlign = TextAlign.Center
             )
         }
@@ -94,7 +94,7 @@ fun VerificationCodeInput(
                         if (index >= code.length) "" else code[index].toString(),
                         (code.length == index) && focused
                     )
-                    if (index != 4 - 1) Spacer(modifier = Modifier.size(AppTheme.dimensions.medium))
+                    if (index != 4 - 1) Spacer(modifier = Modifier.size(12.dp))
                 }
             }
         })
@@ -103,7 +103,7 @@ fun VerificationCodeInput(
 @Preview
 @Composable
 private fun VerificationCodeInputPreview0() {
-    AppTheme {
+    IpbTheme {
         VerificationCodeInput(code = "", editCode = {})
     }
 }

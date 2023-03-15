@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.VerificationCodeInput
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 data class ConfirmationCodeState(
     val code: String = "",
@@ -61,7 +61,7 @@ fun ConfirmationCode(
                 state = state.nextButton,
                 useComponent = useComponent
             )
-            Spacer(modifier = Modifier.size(AppTheme.dimensions.small))
+            Spacer(modifier = Modifier.size(8.dp))
             TextButton(
                 modifier = Modifier.fillMaxWidth(),
                 id = "resend",
@@ -73,23 +73,23 @@ fun ConfirmationCode(
         Column(
             Modifier
                 .fillMaxSize()
-                .padding(AppTheme.dimensions.small)
+                .padding(8.dp)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.surfaces)
-                    .padding(AppTheme.dimensions.large)
+                    .clip(IpbTheme.shapes.medium)
+                    .background(IpbTheme.colors.surfaces)
+                    .padding(16.dp)
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = "${stringResource(id = R.string.verification_code_message)}\n${state.phoneNumber}",
-                    color = AppTheme.colors.gray1,
-                    style = AppTheme.typography.text,
+                    color = IpbTheme.colors.gray1,
+                    style = IpbTheme.typography.text,
                     textAlign = TextAlign.Center
                 )
-                Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
+                Spacer(modifier = Modifier.size(16.dp))
                 VerificationCodeInput(
                     modifier = Modifier.fillMaxWidth(),
                     code = state.code,

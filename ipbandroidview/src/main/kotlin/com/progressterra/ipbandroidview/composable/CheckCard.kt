@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.Check
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun CheckCard(
@@ -25,10 +25,10 @@ fun CheckCard(
 ) {
     Row(
         modifier = modifier
-            .clip(AppTheme.shapes.medium)
-            .background(if (state.yesNo == true) AppTheme.colors.success else if (state.yesNo == false) AppTheme.colors.failed else AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(if (state.yesNo == true) IpbTheme.colors.success else if (state.yesNo == false) IpbTheme.colors.failed else IpbTheme.colors.surfaces)
             .niceClickable { onClick() }
-            .padding(AppTheme.dimensions.medium),
+            .padding(12.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -37,10 +37,10 @@ fun CheckCard(
             text = state.name,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.text
+            color = IpbTheme.colors.black,
+            style = IpbTheme.typography.text
         )
-        Spacer(modifier = Modifier.size(AppTheme.dimensions.large))
+        Spacer(modifier = Modifier.size(16.dp))
         ForwardIcon()
     }
 }
@@ -48,7 +48,7 @@ fun CheckCard(
 @Preview(showBackground = true)
 @Composable
 private fun CheckCardPreviewOngoing() {
-    AppTheme {
+    IpbTheme {
         CheckCard(
             state = Check(
                 id = "",

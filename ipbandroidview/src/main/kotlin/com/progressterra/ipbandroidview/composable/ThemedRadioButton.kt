@@ -4,7 +4,7 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ThemedRadioButton(
@@ -19,7 +19,7 @@ fun ThemedRadioButton(
         enabled = enabled,
         onClick = onClick,
         colors = RadioButtonDefaults.colors(
-            selectedColor = AppTheme.colors.primary, unselectedColor = AppTheme.colors.gray1
+            selectedColor = IpbTheme.colors.primary, unselectedColor = IpbTheme.colors.gray1
         )
     )
 }

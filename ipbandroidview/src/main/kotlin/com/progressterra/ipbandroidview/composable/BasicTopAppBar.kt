@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 /**
  * @param modifier - modifier for the top app bar
@@ -25,12 +25,12 @@ fun BasicTopAppBar(
     leftActions: (@Composable RowScope.() -> Unit)? = null,
     title: (@Composable RowScope.() -> Unit)? = null,
     rightActions: (@Composable RowScope.() -> Unit)? = null,
-    backgroundColor: Color = AppTheme.colors.surfaces
+    backgroundColor: Color = IpbTheme.colors.surfaces
 ) {
     BasicBar(
         modifier = modifier,
         backgroundColor = backgroundColor,
-        paddingValues = PaddingValues(horizontal = AppTheme.dimensions.large)
+        paddingValues = PaddingValues(horizontal = 16.dp)
     ) {
         Box(contentAlignment = Alignment.Center) {
             leftActions?.let {

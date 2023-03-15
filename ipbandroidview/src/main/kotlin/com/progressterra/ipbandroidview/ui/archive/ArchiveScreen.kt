@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.composable.Divider
 import com.progressterra.ipbandroidview.composable.DocumentCard
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Composable
 fun ArchiveScreen(
@@ -37,8 +37,8 @@ fun ArchiveScreen(
         }
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(AppTheme.dimensions.small),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             finishedGroupedDocs.forEach {
                 item {
@@ -59,5 +59,5 @@ fun ArchiveScreen(
 @Preview
 @Composable
 private fun DocumentsScreenPreview() {
-    AppTheme {}
+    IpbTheme {}
 }

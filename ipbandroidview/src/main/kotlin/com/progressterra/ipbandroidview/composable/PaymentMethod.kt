@@ -15,7 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.model.PaymentType
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 @Immutable
 interface PaymentMethodState {
@@ -38,9 +38,9 @@ fun PaymentMethod(
         type: PaymentType
     ) {
         Row(
-            modifier = modifier.padding(vertical = AppTheme.dimensions.small),
+            modifier = modifier.padding(vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             ThemedRadioButton(
                 checked = type == state.selectedPaymentMethod,
@@ -48,8 +48,8 @@ fun PaymentMethod(
             )
             Text(
                 text = stringResource(type.paymentName),
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.text
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.text
             )
         }
     }
@@ -57,17 +57,17 @@ fun PaymentMethod(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.medium),
-        verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
             text = stringResource(R.string.payment),
-            color = AppTheme.colors.black,
-            style = AppTheme.typography.title
+            color = IpbTheme.colors.black,
+            style = IpbTheme.typography.title
         )
-        Column(verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.tiny)) {
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             state.paymentMethods.forEach {
                 Item(type = it)
             }

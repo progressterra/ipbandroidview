@@ -24,7 +24,7 @@ import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.core.ComponentEvent
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val dividerWidth = 1.dp
 
@@ -63,30 +63,30 @@ fun ReceiptComponent(
     Column(
         modifier = modifier
             .clip(
-                AppTheme.shapes.medium.copy(
+                IpbTheme.shapes.medium.copy(
                     bottomStart = ZeroCornerSize, bottomEnd = ZeroCornerSize
                 )
             )
-            .background(AppTheme.colors.surfaces)
-            .padding(AppTheme.dimensions.small),
+            .background(IpbTheme.colors.surfaces)
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
-            modifier = Modifier.padding(AppTheme.dimensions.tiny),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+            modifier = Modifier.padding(4.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
                 text = state.totalPrice.toString(),
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.title
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.medium)
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(AppTheme.colors.background)
+                        .background(IpbTheme.colors.background)
                         .height(dividerWidth)
                 )
                 state.goods.forEach {
@@ -96,13 +96,13 @@ fun ReceiptComponent(
                     ) {
                         Text(
                             text = "${it.name} x ${it.inCartCounter}",
-                            color = AppTheme.colors.gray2,
-                            style = AppTheme.typography.tertiaryText
+                            color = IpbTheme.colors.gray2,
+                            style = IpbTheme.typography.tertiaryText
                         )
                         Text(
                             text = it.totalPrice.toString(),
-                            color = AppTheme.colors.gray1,
-                            style = AppTheme.typography.tertiaryText
+                            color = IpbTheme.colors.gray1,
+                            style = IpbTheme.typography.tertiaryText
                         )
                     }
                 }
@@ -113,13 +113,13 @@ fun ReceiptComponent(
                     ) {
                         Text(
                             text = stringResource(R.string.paid_with_bonuses),
-                            color = AppTheme.colors.gray2,
-                            style = AppTheme.typography.tertiaryText
+                            color = IpbTheme.colors.gray2,
+                            style = IpbTheme.typography.tertiaryText
                         )
                         Text(
                             text = "-${state.availableBonuses.bonuses}",
-                            color = AppTheme.colors.primary,
-                            style = AppTheme.typography.tertiaryText
+                            color = IpbTheme.colors.primary,
+                            style = IpbTheme.typography.tertiaryText
                         )
                     }
                 }
@@ -130,13 +130,13 @@ fun ReceiptComponent(
                     ) {
                         Text(
                             text = stringResource(R.string.paid_with_promocode),
-                            color = AppTheme.colors.gray2,
-                            style = AppTheme.typography.tertiaryText
+                            color = IpbTheme.colors.gray2,
+                            style = IpbTheme.typography.tertiaryText
                         )
                         Text(
                             text = "-${state.promoCode}",
-                            color = AppTheme.colors.primary,
-                            style = AppTheme.typography.tertiaryText
+                            color = IpbTheme.colors.primary,
+                            style = IpbTheme.typography.tertiaryText
                         )
                     }
                 }
@@ -147,32 +147,32 @@ fun ReceiptComponent(
                     ) {
                         Text(
                             text = stringResource(R.string.delivery),
-                            color = AppTheme.colors.gray2,
-                            style = AppTheme.typography.tertiaryText
+                            color = IpbTheme.colors.gray2,
+                            style = IpbTheme.typography.tertiaryText
                         )
                         Text(
                             text = state.deliveryPrice.toString(),
-                            color = AppTheme.colors.gray1,
-                            style = AppTheme.typography.tertiaryText
+                            color = IpbTheme.colors.gray1,
+                            style = IpbTheme.typography.tertiaryText
                         )
                     }
                 }
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(AppTheme.colors.background)
+                        .background(IpbTheme.colors.background)
                         .height(dividerWidth)
                 )
             }
         }
-        Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
+        Spacer(modifier = Modifier.height(16.dp))
         Button(
             id = "pay",
             modifier = Modifier.fillMaxWidth(),
             state = state.payButtonComponentState,
             useComponent = useComponent
         )
-        Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
+        Spacer(modifier = Modifier.height(16.dp))
         LinkText(
             linkTextData = listOf(
                 LinkTextData(text = stringResource(id = R.string.payment_0)), LinkTextData(
@@ -193,7 +193,7 @@ fun ReceiptComponent(
                 )
             )
         )
-        Spacer(modifier = Modifier.height(AppTheme.dimensions.medium))
+        Spacer(modifier = Modifier.height(12.dp))
         LinkText(
             linkTextData = listOf(
                 LinkTextData(
@@ -204,6 +204,6 @@ fun ReceiptComponent(
                 )
             )
         )
-        Spacer(modifier = Modifier.height(AppTheme.dimensions.large))
+        Spacer(modifier = Modifier.height(16.dp))
     }
 }

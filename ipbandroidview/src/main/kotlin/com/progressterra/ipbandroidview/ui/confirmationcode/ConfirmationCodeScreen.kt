@@ -5,7 +5,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.component.ConfirmationCode
 import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeState
 import com.progressterra.ipbandroidview.composable.component.UseConfirmationCode
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 /**
  * main - confirmation code
@@ -25,6 +25,6 @@ fun ConfirmationCodeScreen(
 @Preview
 @Composable
 private fun ConfirmationCodeScreenPreview() {
-    AppTheme {
+    IpbTheme {
     }
 }

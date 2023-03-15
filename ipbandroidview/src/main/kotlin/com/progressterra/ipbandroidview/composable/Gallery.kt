@@ -20,7 +20,7 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.model.GoodsDetails
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 
 @OptIn(ExperimentalPagerApi::class)
@@ -31,30 +31,30 @@ fun Gallery(modifier: Modifier = Modifier, state: GoodsDetails) {
         HorizontalPager(
             count = state.images.size,
             state = pagerState,
-            contentPadding = PaddingValues(horizontal = AppTheme.dimensions.small),
-            itemSpacing = AppTheme.dimensions.small
+            contentPadding = PaddingValues(horizontal = 8.dp),
+            itemSpacing = 8.dp
         ) {
             SimpleImage(
                 modifier = Modifier
                     .fillMaxSize()
-                    .clip(AppTheme.shapes.medium)
-                    .background(AppTheme.colors.surfaces),
+                    .clip(IpbTheme.shapes.medium)
+                    .background(IpbTheme.colors.surfaces),
                 url = state.images[it],
-                backgroundColor = AppTheme.colors.surfaces
+                backgroundColor = IpbTheme.colors.surfaces
             )
         }
         HorizontalPagerIndicator(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(AppTheme.dimensions.small)
+                .padding(8.dp)
                 .clip(CircleShape)
-                .background(AppTheme.colors.background)
+                .background(IpbTheme.colors.background)
                 .padding(
-                    vertical = AppTheme.dimensions.tiny, horizontal = AppTheme.dimensions.smany
+                    vertical = 4.dp, horizontal = 6.dp
                 ),
             pagerState = pagerState,
-            activeColor = AppTheme.colors.primary,
-            inactiveColor = AppTheme.colors.surfaces
+            activeColor = IpbTheme.colors.primary,
+            inactiveColor = IpbTheme.colors.surfaces
         )
     }
 }
@@ -62,7 +62,7 @@ fun Gallery(modifier: Modifier = Modifier, state: GoodsDetails) {
 @Preview
 @Composable
 private fun GalleryPreview() {
-    AppTheme {
+    IpbTheme {
         LazyColumn {
             item {
                 Gallery(modifier = Modifier.size(350.dp), state = GoodsDetails())

@@ -23,7 +23,7 @@ import com.progressterra.ipbandroidview.model.GoodsSize
 import com.progressterra.ipbandroidview.model.Id
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.theme.IpbTheme
 
 private val picWidth = 80.dp
 
@@ -78,35 +78,35 @@ fun CartCard(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(AppTheme.shapes.medium)
-            .background(AppTheme.colors.surfaces)
+            .clip(IpbTheme.shapes.medium)
+            .background(IpbTheme.colors.surfaces)
             .niceClickable { interactor.onDetails(state) }
-            .padding(AppTheme.dimensions.small),
-        horizontalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         SimpleImage(
             modifier = Modifier
                 .size(width = picWidth, height = picHeight)
-                .clip(AppTheme.shapes.small),
+                .clip(IpbTheme.shapes.small),
             url = state.image,
-            backgroundColor = AppTheme.colors.surfaces
+            backgroundColor = IpbTheme.colors.surfaces
         )
         Column(
             modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.smany)
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Text(
-                text = state.name, color = AppTheme.colors.black, style = AppTheme.typography.text
+                text = state.name, color = IpbTheme.colors.black, style = IpbTheme.typography.text
             )
             Text(
                 text = "${state.color}, ${state.size.primary}, ${state.inCartCounter} шт",
-                color = AppTheme.colors.gray1,
-                style = AppTheme.typography.text
+                color = IpbTheme.colors.gray1,
+                style = IpbTheme.typography.text
             )
             Text(
                 text = state.price.toString(),
-                color = AppTheme.colors.black,
-                style = AppTheme.typography.title
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.title
             )
         }
         Column {
@@ -121,7 +121,7 @@ fun CartCard(
 @Preview
 @Composable
 private fun CartCardPreview() {
-    AppTheme {
+    IpbTheme {
         CartCard(
             state = CartCardState(
                 id = "",
