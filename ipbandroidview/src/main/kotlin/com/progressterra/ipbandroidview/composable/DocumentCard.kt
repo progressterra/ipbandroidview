@@ -31,7 +31,7 @@ fun DocumentCard(
     Row(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
-            .background(if (state.finishDate == stringResource(R.string.ongoing)) AppTheme.colors.secondary else AppTheme.colors.surfaces)
+            .background(if (state.finishDate == stringResource(R.string.not_ended)) AppTheme.colors.secondary else AppTheme.colors.surfaces)
             .niceClickable { openDocument() }
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
