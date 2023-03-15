@@ -87,25 +87,27 @@ fun DocumentsScreen(
 ) {
     val pagerState = rememberPagerState()
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.audits))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(AppTheme.colors.surfaces)
-                .padding(top = AppTheme.dimensions.small),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.Bottom
-        ) {
-            Tab(
-                text = stringResource(R.string.ongoing),
-                pagerState = pagerState,
-                index = 0
-            )
-            Tab(
-                text = stringResource(R.string.completed),
-                pagerState = pagerState,
-                index = 1
-            )
+        Column {
+            ThemedTopAppBar(title = stringResource(id = R.string.audits))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(AppTheme.colors.surfaces)
+                    .padding(top = AppTheme.dimensions.small),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.Bottom
+            ) {
+                Tab(
+                    text = stringResource(R.string.ongoing),
+                    pagerState = pagerState,
+                    index = 0
+                )
+                Tab(
+                    text = stringResource(R.string.completed),
+                    pagerState = pagerState,
+                    index = 1
+                )
+            }
         }
     }) { _, _ ->
         StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
