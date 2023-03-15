@@ -93,9 +93,9 @@ fun DocumentsScreen(
                 .fillMaxWidth()
                 .background(AppTheme.colors.surfaces)
                 .padding(top = AppTheme.dimensions.small),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Bottom
         ) {
-
             Tab(
                 text = stringResource(R.string.ongoing),
                 pagerState = pagerState,

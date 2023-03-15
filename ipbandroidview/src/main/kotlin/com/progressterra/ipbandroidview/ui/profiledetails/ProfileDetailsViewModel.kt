@@ -42,14 +42,17 @@ class ProfileDetailsViewModel(
         container(
             ProfileDetailsState(
                 name = TextFieldState(
-                    hint = manageResources.string(R.string.name_surname)
+                    hint = manageResources.string(R.string.name_surname),
+                    isLight = true
                 ),
                 email = TextFieldState(
-                    hint = manageResources.string(R.string.email)
+                    hint = manageResources.string(R.string.email),
+                    isLight = true
                 ),
                 phone = TextFieldState(
                     hint = manageResources.string(R.string.phone_number),
-                    enabled = false
+                    enabled = false,
+                    isLight = true
                 ),
                 confirm = ButtonState(
                     text = manageResources.string(R.string.confirm_change),

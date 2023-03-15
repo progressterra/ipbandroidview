@@ -24,7 +24,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Immutable
 data class TextFieldState(
-    val text: String = "", val hint: String = "", val enabled: Boolean = true
+    val text: String = "",
+    val hint: String = "",
+    val enabled: Boolean = true,
+    val isLight: Boolean = false
 ) : Parcelable {
 
     fun updateText(text: String): TextFieldState = copy(text = text)
@@ -60,7 +63,7 @@ fun TextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     trailingIcon: @Composable (() -> Unit)? = null,
 ) {
-    val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
+    val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty() && !state.isLight) {
         {
             Text(
                 text = state.hint, style = AppTheme.typography.actionBarLabels, maxLines = 1

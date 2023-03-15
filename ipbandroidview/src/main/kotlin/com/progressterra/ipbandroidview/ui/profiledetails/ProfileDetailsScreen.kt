@@ -77,6 +77,17 @@ fun ProfileDetailsScreen(
                     useComponent = interactor
                 )
                 Text(
+                    text = stringResource(R.string.phone_number),
+                    color = AppTheme.colors.gray2,
+                    style = AppTheme.typography.secondaryText
+                )
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    id = "phone",
+                    state = state.phone,
+                    useComponent = interactor
+                )
+                Text(
                     text = stringResource(R.string.email_why),
                     color = AppTheme.colors.gray2,
                     style = AppTheme.typography.secondaryText
@@ -85,12 +96,6 @@ fun ProfileDetailsScreen(
                     modifier = Modifier.fillMaxWidth(),
                     id = "email",
                     state = state.email,
-                    useComponent = interactor
-                )
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    id = "phone",
-                    state = state.phone,
                     useComponent = interactor
                 )
             }
