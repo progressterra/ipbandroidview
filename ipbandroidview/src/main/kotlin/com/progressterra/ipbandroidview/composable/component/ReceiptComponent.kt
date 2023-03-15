@@ -33,7 +33,7 @@ data class ReceiptComponentState(
     val totalPrice: SimplePrice = SimplePrice(),
     val deliveryPrice: SimplePrice = SimplePrice(),
     val useBonuses: Boolean = false,
-    val availableBonuses: BonusesState = BonusesState(),
+    val availableBonuses: ExtendedBonusesState = ExtendedBonusesState(),
     val promoCode: SimplePrice = SimplePrice(),
     val goods: List<OrderGoods> = emptyList(),
     val paymentReady: Boolean = false,

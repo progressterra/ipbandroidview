@@ -15,13 +15,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.BonusesState
+import com.progressterra.ipbandroidview.composable.component.ExtendedBonusesState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
 @Immutable
 interface BonusSwitchState {
 
-    val availableBonuses: BonusesState
+    val availableBonuses: ExtendedBonusesState
 
     val useBonuses: Boolean
 }
@@ -56,7 +56,7 @@ fun BonusSwitch(
 }
 
 private class BonusSwitchStatePreview(
-    override val availableBonuses: BonusesState = BonusesState("100"),
+    override val availableBonuses: ExtendedBonusesState = ExtendedBonusesState("100"),
     override val useBonuses: Boolean = true
 ) : BonusSwitchState
 

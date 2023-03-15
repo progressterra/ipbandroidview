@@ -17,8 +17,8 @@ import com.progressterra.ipbandroidview.composable.Qr
 import com.progressterra.ipbandroidview.composable.StateBox
 import com.progressterra.ipbandroidview.composable.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.Bonuses
-import com.progressterra.ipbandroidview.composable.component.BonusesState
+import com.progressterra.ipbandroidview.composable.component.ExtendedBonuses
+import com.progressterra.ipbandroidview.composable.component.ExtendedBonusesState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.theme.AppTheme
 
@@ -43,9 +43,9 @@ fun MainScreen(
                         rememberScrollState()
                     ), verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small)
             ) {
-                Bonuses(
+                ExtendedBonuses(
                     id = "main",
-                    state = state.bonusesState,
+                    state = state.extendedBonusesState,
                     useComponent = interactor
                 )
                 state.qr?.let { Qr(qr = it) }
@@ -69,7 +69,7 @@ private fun MainScreenPreview() {
             state = MainState(
                 screenState = ScreenState.SUCCESS,
                 userExist = true,
-                bonusesState = BonusesState(
+                extendedBonusesState = ExtendedBonusesState(
                     bonuses = "4142", burningDate = "01.01.2021", burningQuantity = "100"
                 ),
                 qr = null,

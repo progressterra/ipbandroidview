@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.ui.main
 
-import com.progressterra.ipbandroidview.composable.component.BonusesEvent
+import com.progressterra.ipbandroidview.composable.component.ExtendedBonusesEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
-import com.progressterra.ipbandroidview.composable.component.UseBonuses
+import com.progressterra.ipbandroidview.composable.component.UseExtendedBonuses
 import com.progressterra.ipbandroidview.model.Category
 
-interface MainInteractor : StoreCardInteractor, UseBonuses {
+interface MainInteractor : StoreCardInteractor, UseExtendedBonuses {
 
     fun onCategory(category: Category)
 
@@ -14,7 +14,7 @@ interface MainInteractor : StoreCardInteractor, UseBonuses {
 
     class Empty : MainInteractor {
 
-        override fun handleEvent(id: String, event: BonusesEvent) = Unit
+        override fun handleEvent(id: String, event: ExtendedBonusesEvent) = Unit
 
         override fun onClick(storeCard: StoreCardComponentState) = Unit
 
