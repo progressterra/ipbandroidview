@@ -13,10 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.ChecklistStats
 import com.progressterra.ipbandroidview.model.Document
@@ -31,7 +29,7 @@ fun DocumentCard(
     Row(
         modifier = modifier
             .clip(AppTheme.shapes.medium)
-            .background(if (state.finishDate == stringResource(R.string.not_ended)) AppTheme.colors.secondary else AppTheme.colors.surfaces)
+            .background(if (state.isFinished()) AppTheme.colors.surfaces else AppTheme.colors.secondary)
             .niceClickable { openDocument() }
             .padding(AppTheme.dimensions.medium),
         verticalAlignment = Alignment.CenterVertically,
