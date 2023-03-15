@@ -2,49 +2,43 @@ package com.progressterra.ipbandroidview.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Immutable
-data class AppTypography(
+data class IpbTypography(
     val headLine: TextStyle = TextStyle(
-        fontSize = 33.sp,
-        fontWeight = FontWeight.SemiBold,
-        lineHeight = 39.6.sp
+        fontSize = 33.sp, fontWeight = FontWeight.Bold, lineHeight = 39.6.sp
     ),
     val title: TextStyle = TextStyle(
-        fontSize = 20.sp,
-        fontWeight = FontWeight.Medium,
-        lineHeight = 24.sp
+        fontSize = 20.sp, fontWeight = FontWeight.Bold, lineHeight = 24.sp
     ),
     val text: TextStyle = TextStyle(
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        lineHeight = 20.4.sp
-    ),
-    val secondaryText: TextStyle = TextStyle(
-        fontSize = 15.sp,
-        fontWeight = FontWeight.Normal,
-        lineHeight = 18.sp
-    ),
-    val tertiaryText: TextStyle = TextStyle(
-        fontSize = 13.sp,
-        fontWeight = FontWeight.Normal,
-        lineHeight = 15.6.sp
+        fontSize = 17.sp, fontWeight = FontWeight.Normal, lineHeight = 20.4.sp
     ),
     val button: TextStyle = TextStyle(
-        fontSize = 17.sp,
-        fontWeight = FontWeight.SemiBold,
-        lineHeight = 20.4.sp
+        fontSize = 17.sp, fontWeight = FontWeight.Bold, lineHeight = 20.4.sp
     ),
-    val actionBarLabels: TextStyle = TextStyle(
+    val label: TextStyle = TextStyle(
         fontSize = 10.sp,
-        fontWeight = FontWeight.Medium,
-        lineHeight = 12.sp
+        fontWeight = FontWeight.Bold,
+        lineHeight = 12.sp,
+        letterSpacing = (-0.2).sp
     ),
-    val price: TextStyle = TextStyle(
-        fontSize = 23.sp,
-        fontWeight = FontWeight.SemiBold,
-        lineHeight = 27.6.sp
-    )
+    val secondaryText: TextStyle = TextStyle(
+        fontSize = 15.sp, fontWeight = FontWeight.Normal, lineHeight = 18.sp
+    ),
+    val secondaryItalic: TextStyle = secondaryText.copy(
+        fontStyle = FontStyle.Italic, fontWeight = FontWeight.Bold
+    ),
+    val secondaryBold: TextStyle = secondaryText.copy(
+        fontWeight = FontWeight.Bold
+    ),
+    val tertiaryText: TextStyle = TextStyle(
+        fontSize = 13.sp, fontWeight = FontWeight.Normal, lineHeight = 15.6.sp
+    ),
+    val tertiaryBold: TextStyle = tertiaryText.copy(
+        fontWeight = FontWeight.Bold
+    ),
 )

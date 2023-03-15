@@ -46,5 +46,3 @@ fun <T> Result<T>.throwOnFailure() {
 }
 
 fun Boolean.toScreenState(): ScreenState = if (this) ScreenState.SUCCESS else ScreenState.ERROR
-
-fun String.fromHexToColor(): Color = Color(android.graphics.Color.parseColor(this))
