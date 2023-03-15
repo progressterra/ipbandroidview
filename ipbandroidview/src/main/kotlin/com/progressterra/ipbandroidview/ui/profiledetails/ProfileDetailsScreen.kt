@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -49,6 +52,7 @@ fun ProfileDetailsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(AppTheme.dimensions.small),
             verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -103,11 +107,11 @@ fun ProfileDetailsScreen(
                 state = state.logout,
                 useComponent = interactor
             )
-            Spacer(Modifier.weight(1f))
-            Image(
-                modifier = Modifier.size(logoSize),
-                painter = painterResource(id = R.drawable.ptlogo),
-                contentDescription = null
+            Spacer(Modifier.height(64.dp))
+            Text(
+                text = "${stringResource(R.string.version)}${state.version}",
+                color = AppTheme.colors.gray2,
+                style = AppTheme.typography.secondaryText
             )
             Text(
                 text = stringResource(R.string.created_by),
@@ -115,14 +119,13 @@ fun ProfileDetailsScreen(
                 style = AppTheme.typography.secondaryText,
                 textAlign = TextAlign.Center
             )
-            Text(
-                text = "${stringResource(R.string.version)}${state.version}",
-                color = AppTheme.colors.gray2,
-                style = AppTheme.typography.secondaryText
+            Image(
+                modifier = Modifier.size(logoSize),
+                painter = painterResource(id = R.drawable.ptlogo),
+                contentDescription = null
             )
             LinkText(
                 linkTextData = listOf(
-                    LinkTextData(text = stringResource(id = R.string.feedback)),
                     LinkTextData(text = "info@progressterra.com",
                         tag = "mail to info",
                         annotation = "info@progressterra.com",

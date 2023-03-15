@@ -140,7 +140,7 @@
     <string name="web_site">Веб-сайт</string>
     <string name="size_table">Таблица размеров</string>
     <string name="resend">Отправить повторно</string>
-    <string name="ongoing">В работе</string>
+    <string name="ongoing">Текущие</string>
     <string name="completed">Завершённые</string>
     <string name="archived">Архив аудитов</string>
     <string name="not_ended">Незавершённые</string>
@@ -150,7 +150,8 @@
     <string name="no_email">Добавьте e-mail!</string>
     <string name="email_why">Заполнить для получения отчётов</string>
     <string name="name_why">Имя и фамилия (полностью)</string>
-    <string name="version">Версия приложения:&#160;</string>
-    <string name="created_by">Создано в компании ООО \"Прогресс Терра\" на платформе iProbonus</string>
+    <string name="version">Версия&#160;</string>
+    <string name="created_by">Создано на базе платформы iProBonus компании OOO \"ProgressTerra\"</string>
     <string name="feedback">Обратная связь:&#160;</string>
+    <string name="recentley_ended">Недавно завершённые</string>
 </resources>
