@@ -24,11 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.DocumentCard
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.StateBox
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.Button
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 /**
  * archive - button

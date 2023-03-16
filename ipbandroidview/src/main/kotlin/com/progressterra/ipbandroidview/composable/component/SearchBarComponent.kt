@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.composable.BackIcon
 import com.progressterra.ipbandroidview.composable.BasicBar
 import com.progressterra.ipbandroidview.composable.Mark2Icon
 import com.progressterra.ipbandroidview.composable.SearchIcon
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 data class CatalogBarComponentState(
     val keywordState: TextFieldState = TextFieldState()

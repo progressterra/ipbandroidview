@@ -14,12 +14,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.BottomHolder
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.StateBox
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.ext.print
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.squaredem.composecalendar.ComposeCalendar
 import java.time.LocalDate
 

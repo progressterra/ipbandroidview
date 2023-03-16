@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
 import com.progressterra.ipbandroidview.model.Category
 import com.progressterra.ipbandroidview.model.SimpleCategory
 import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 private val height = 260.dp
 

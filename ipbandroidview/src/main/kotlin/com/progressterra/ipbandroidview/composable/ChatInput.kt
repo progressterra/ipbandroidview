@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.composable.component.UseTextField
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 data class ChatInputState(
     val message: TextFieldState = TextFieldState(), val enabled: Boolean = false

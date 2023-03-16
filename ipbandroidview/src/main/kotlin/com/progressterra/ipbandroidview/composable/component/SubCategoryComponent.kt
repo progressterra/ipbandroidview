@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.ForwardIcon
 import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
 fun SubCategoryComponent(

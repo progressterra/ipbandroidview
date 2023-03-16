@@ -22,9 +22,10 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.core.ComponentEvent
+import com.progressterra.ipbandroidview.features.ProshkaBonusesState
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 private val dividerWidth = 1.dp
 
@@ -33,7 +34,7 @@ data class ReceiptComponentState(
     val totalPrice: SimplePrice = SimplePrice(),
     val deliveryPrice: SimplePrice = SimplePrice(),
     val useBonuses: Boolean = false,
-    val availableBonuses: ExtendedBonusesState = ExtendedBonusesState(),
+    val availableBonuses: ProshkaBonusesState = ProshkaBonusesState(),
     val promoCode: SimplePrice = SimplePrice(),
     val goods: List<OrderGoods> = emptyList(),
     val paymentReady: Boolean = false,

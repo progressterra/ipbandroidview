@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.model.ChecklistStats
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
 fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {

@@ -151,4 +151,7 @@
     <string name="email_why">Заполнить для получения отчётов</string>
     <string name="name_why">Имя и фамилия (полностью)</string>
     <string name="version">Версия</string>
+    <string name="can_withdraw">Можно вывести</string>
+    <string name="available_loan">Доступна рассрочка</string>
+    <string name="offers">Акции</string>
 </resources>

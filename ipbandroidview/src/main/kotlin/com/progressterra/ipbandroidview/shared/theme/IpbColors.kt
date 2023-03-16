@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.theme
+package com.progressterra.ipbandroidview.shared.theme
 
 import androidx.compose.runtime.Immutable
 
@@ -10,8 +10,7 @@ data class IpbColors(
     val secondary2: ColorUnit = ColorUnit("#CDCDD6"),
     val secondary3: ColorUnit = ColorUnit("#DCE8FF", "#FFFFFF"),
     val tertiary: ColorUnit = ColorUnit("#B5B5BC"),
-    val background1: ColorUnit = ColorUnit("#F2F5FF"),
-    val background2: ColorUnit = ColorUnit("#202128"),
+    val background: ColorUnit = ColorUnit("#F2F5FF"),
     val onBackground1: ColorUnit = ColorUnit("#2E8E6C"),
     val onBackground2: ColorUnit = ColorUnit("#1A1A20"),
     val surface1: ColorUnit = ColorUnit("#FFFFFF"),

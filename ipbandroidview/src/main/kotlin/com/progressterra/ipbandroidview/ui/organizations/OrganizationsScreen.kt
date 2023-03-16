@@ -21,13 +21,13 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrganizationCard
 import com.progressterra.ipbandroidview.composable.PartnerBlock2
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.StateBox
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Organization
 import com.progressterra.ipbandroidview.model.Partner
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
 fun OrganizationsScreen(

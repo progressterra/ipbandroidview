@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.theme
+package com.progressterra.ipbandroidview.shared.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

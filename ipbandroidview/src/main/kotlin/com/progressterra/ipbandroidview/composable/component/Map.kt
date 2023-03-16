@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.composable.AddressSuggestions
 import com.progressterra.ipbandroidview.core.ComponentEvent
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.SuggestionUI
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 data class MapState(
     val isPermissionGranted: Boolean = false,

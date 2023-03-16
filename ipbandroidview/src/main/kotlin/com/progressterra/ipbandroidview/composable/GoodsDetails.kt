@@ -28,7 +28,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.model.GoodsDetails
 import com.progressterra.ipbandroidview.model.GoodsParameters
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import kotlinx.coroutines.launch
 
 private val detailsParamTitlesWidth = 104.dp

@@ -28,11 +28,11 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.composable.Offer
-import com.progressterra.ipbandroidview.composable.SimpleImage
-import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.model.Partner
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import de.charlex.compose.HtmlText
 
 private val logoSize: Dp = 48.dp

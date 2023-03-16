@@ -7,7 +7,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
 fun ThemedLoadingIndicator(
@@ -19,7 +19,7 @@ fun ThemedLoadingIndicator(
         enter = fadeIn(),
         exit = fadeOut()
     ) {
-        CircularProgressIndicator(color = IpbTheme.colors.primary)
+        CircularProgressIndicator(color = IpbTheme.colors.secondary1.asColor())
     }
 }
 

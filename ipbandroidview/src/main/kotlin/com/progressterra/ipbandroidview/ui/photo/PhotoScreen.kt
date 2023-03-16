@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.BackIcon
-import com.progressterra.ipbandroidview.composable.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.composable.TransparentTopAppBar
 import com.progressterra.ipbandroidview.composable.TrashIcon
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.skydoves.landscapist.ImageOptions
 
 @Composable

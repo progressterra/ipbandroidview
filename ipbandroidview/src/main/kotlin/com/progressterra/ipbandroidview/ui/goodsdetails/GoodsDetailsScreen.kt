@@ -12,9 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.Gallery
 import com.progressterra.ipbandroidview.composable.GoodsDetails
 import com.progressterra.ipbandroidview.composable.GoodsTopAppBar
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.StateBox
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
 fun GoodsDetailsScreen(

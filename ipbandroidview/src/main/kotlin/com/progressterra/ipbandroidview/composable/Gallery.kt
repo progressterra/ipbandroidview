@@ -20,7 +20,8 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.progressterra.ipbandroidview.model.GoodsDetails
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 
 @OptIn(ExperimentalPagerApi::class)

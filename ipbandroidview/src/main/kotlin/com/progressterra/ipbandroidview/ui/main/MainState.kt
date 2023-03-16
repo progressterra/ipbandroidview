@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import android.graphics.Bitmap
-import com.progressterra.ipbandroidview.composable.component.ExtendedBonusesState
+import com.progressterra.ipbandroidview.features.ProshkaBonusesState
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Category
@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.model.Category
 data class MainState(
     val recommended: List<Pair<Category, List<StoreCardComponentState>>> = emptyList(),
     val screenState: ScreenState = ScreenState.LOADING,
-    val extendedBonusesState: ExtendedBonusesState = ExtendedBonusesState(),
+    val extendedBonusesState: ProshkaBonusesState = ProshkaBonusesState(),
     val userExist: Boolean = false,
     val qr: Bitmap? = null,
 )

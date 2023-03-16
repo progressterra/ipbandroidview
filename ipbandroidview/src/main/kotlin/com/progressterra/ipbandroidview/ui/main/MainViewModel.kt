@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.composable.component.ExtendedBonusesEvent
+import com.progressterra.ipbandroidview.features.ProshkaBonusesEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
@@ -60,12 +60,12 @@ class MainViewModel(
         modifyFavoriteUseCase(storeCard.id, storeCard.favorite).onSuccess { refresh() }
     }
 
-    override fun handleEvent(id: String, event: ExtendedBonusesEvent) = intent {
+    override fun handleEvent(id: String, event: ProshkaBonusesEvent) = intent {
         when (id) {
             "main" -> when (event) {
-                is ExtendedBonusesEvent.OnClick -> postSideEffect(MainEffect.Bonuses)
-                is ExtendedBonusesEvent.SpendBonuses -> postSideEffect(MainEffect.Spend)
-                is ExtendedBonusesEvent.InviteFriends -> postSideEffect(MainEffect.Invite)
+                is ProshkaBonusesEvent.OnClick -> postSideEffect(MainEffect.Bonuses)
+                is ProshkaBonusesEvent.SpendBonuses -> postSideEffect(MainEffect.Spend)
+                is ProshkaBonusesEvent.InviteFriends -> postSideEffect(MainEffect.Invite)
             }
         }
     }

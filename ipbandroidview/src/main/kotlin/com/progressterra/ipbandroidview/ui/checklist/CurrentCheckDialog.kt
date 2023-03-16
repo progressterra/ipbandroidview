@@ -20,7 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.AttachedPhotos
 import com.progressterra.ipbandroidview.composable.CheckDialogBar
-import com.progressterra.ipbandroidview.composable.StateBox
+import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.composable.VoiceInput
 import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.YesNoButton
@@ -36,7 +36,7 @@ import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStatus
 import com.progressterra.ipbandroidview.model.MultisizedImage
 import com.progressterra.ipbandroidview.model.Voice
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import kotlinx.coroutines.launch
 
 interface UseCurrentCheck : UseTextField, UseButton {

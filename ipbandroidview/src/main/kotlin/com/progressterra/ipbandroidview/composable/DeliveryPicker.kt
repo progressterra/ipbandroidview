@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.DeliveryType
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 data class DeliveryPickerState(
     val addressUI: AddressUI = AddressUI(),

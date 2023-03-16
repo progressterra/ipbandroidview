@@ -1,6 +1,5 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.shared.ui
 
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -8,7 +7,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.composable.ThemedLoadingIndicator
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.components.rememberImageComponent
 import com.skydoves.landscapist.fresco.FrescoImage
@@ -27,17 +27,19 @@ fun SimpleImage(
         imageOptions = options,
         component = rememberImageComponent {
             +ShimmerPlugin(
-                baseColor = backgroundColor, highlightColor = IpbTheme.colors.primary
+                baseColor = backgroundColor, highlightColor = IpbTheme.colors.secondary1.asColor()
             )
         },
         failure = {
-            Text(
+            BrushedText(
                 modifier = Modifier.align(Alignment.Center),
                 text = stringResource(id = R.string.image_missing),
-                color = IpbTheme.colors.error,
+                tint = IpbTheme.colors.error.asBrush(),
                 style = IpbTheme.typography.text,
                 textAlign = TextAlign.Center
             )
+        }, loading = {
+            ThemedLoadingIndicator(modifier = Modifier.align(Alignment.Center))
         },
         previewPlaceholder = R.drawable.dummy_200x400
     )

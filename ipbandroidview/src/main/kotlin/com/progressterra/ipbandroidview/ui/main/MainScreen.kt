@@ -14,13 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.GoodsGallery
 import com.progressterra.ipbandroidview.composable.Qr
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.StateBox
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.ExtendedBonuses
-import com.progressterra.ipbandroidview.composable.component.ExtendedBonusesState
+import com.progressterra.ipbandroidview.features.ProshkaBonuses
+import com.progressterra.ipbandroidview.features.ProshkaBonusesState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
 fun MainScreen(
@@ -43,7 +43,7 @@ fun MainScreen(
                         rememberScrollState()
                     ), verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                ExtendedBonuses(
+                ProshkaBonuses(
                     id = "main",
                     state = state.extendedBonusesState,
                     useComponent = interactor
@@ -69,7 +69,7 @@ private fun MainScreenPreview() {
             state = MainState(
                 screenState = ScreenState.SUCCESS,
                 userExist = true,
-                extendedBonusesState = ExtendedBonusesState(
+                extendedBonusesState = ProshkaBonusesState(
                     bonuses = "4142", burningDate = "01.01.2021", burningQuantity = "100"
                 ),
                 qr = null,

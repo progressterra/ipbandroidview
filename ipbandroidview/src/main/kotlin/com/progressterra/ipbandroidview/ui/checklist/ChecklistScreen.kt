@@ -24,15 +24,14 @@ import com.progressterra.ipbandroidview.composable.AuditTitle
 import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.composable.CheckCard
 import com.progressterra.ipbandroidview.composable.Divider
-import com.progressterra.ipbandroidview.composable.StateBox
+import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.composable.Stats
-import com.progressterra.ipbandroidview.composable.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.component.Button
 import com.progressterra.ipbandroidview.composable.component.ButtonStyle
 import com.progressterra.ipbandroidview.ext.createStats
 import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.theme.IpbTheme
 import kotlinx.coroutines.launch
 
 /**
