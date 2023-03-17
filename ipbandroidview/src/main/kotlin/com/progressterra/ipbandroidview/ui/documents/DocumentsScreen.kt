@@ -71,7 +71,8 @@ private fun Tab(
             text = text,
             textAlign = TextAlign.Center,
             color = AppTheme.colors.black,
-            style = AppTheme.typography.text
+            style = AppTheme.typography.text,
+            maxLines = 1
         )
     }
 }
