@@ -48,7 +48,7 @@ fun ProshkaGalleries(
             tint = IpbTheme.colors.textPrimary1.asBrush(),
         )
         LazyRow(
-            modifier = modifier,
+            modifier = Modifier,
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(horizontal = 20.dp)
         ) {

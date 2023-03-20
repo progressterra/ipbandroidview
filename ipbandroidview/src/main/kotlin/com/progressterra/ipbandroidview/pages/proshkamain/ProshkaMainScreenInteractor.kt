@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.pages.proshkamain
+package com.progressterra.ipbandroidview.pages.proshkamain
 
 import com.progressterra.ipbandroidview.features.UseProshkaBonuses
 import com.progressterra.ipbandroidview.shared.ui.UseStateBox
