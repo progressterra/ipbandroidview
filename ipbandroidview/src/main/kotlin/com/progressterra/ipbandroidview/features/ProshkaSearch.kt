@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
 @Immutable
 data class ProshkaSearchState(
+    val id: String = "",
     val text: String = "",
     val enabled: Boolean = true
 )
@@ -31,7 +32,6 @@ interface UseProshkaSearch {
 @Composable
 fun ProshkaSearch(
     modifier: Modifier = Modifier,
-    id: String = "",
     state: ProshkaSearchState,
     useComponent: UseProshkaSearch
 ) {
@@ -39,7 +39,7 @@ fun ProshkaSearch(
         modifier = modifier,
         value = state.text,
         enabled = state.enabled,
-        onValueChange = { useComponent.handleEvent(id, ProshkaSearchEvent.OnTextChanged(it)) },
+        onValueChange = { useComponent.handleEvent(state.id, ProshkaSearchEvent.OnTextChanged(it)) },
         placeholder = {
             BrushedText(
                 text = stringResource(R.string.search),

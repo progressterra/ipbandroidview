@@ -1,12 +1,9 @@
 package com.progressterra.ipbandroidview.features
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -22,7 +19,11 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.Counter
+import com.progressterra.ipbandroidview.shared.ui.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.CounterState
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.UseCounter
 
 @Immutable
 data class ProshkaStoreCardState(
@@ -32,7 +33,7 @@ data class ProshkaStoreCardState(
     val price: SimplePrice = SimplePrice(),
     val imageUrl: String = "",
     val loan: String = "",
-    val count: Int = 0
+    val counter: CounterState = CounterState()
 )
 
 sealed class ProshkaStoreCardEvent {
@@ -40,15 +41,15 @@ sealed class ProshkaStoreCardEvent {
     object Open : ProshkaStoreCardEvent()
 
     object AddToCart : ProshkaStoreCardEvent()
-
-    object RemoveFromCart : ProshkaStoreCardEvent()
 }
 
-interface UseProshkaStoreCard {
+interface UseProshkaStoreCard : UseCounter {
 
     fun handleEvent(id: String, event: ProshkaStoreCardEvent)
 
     class Empty : UseProshkaStoreCard {
+
+        override fun handleEvent(id: String, event: CounterEvent) = Unit
 
         override fun handleEvent(id: String, event: ProshkaStoreCardEvent) = Unit
     }
@@ -57,7 +58,6 @@ interface UseProshkaStoreCard {
 @Composable
 fun ProshkaStoreCard(
     modifier: Modifier = Modifier,
-    id: String = "default",
     state: ProshkaStoreCardState,
     useComponent: UseProshkaStoreCard
 ) {
@@ -66,7 +66,7 @@ fun ProshkaStoreCard(
             .clip(RoundedCornerShape(8.dp))
             .niceClickable {
                 useComponent.handleEvent(
-                    id, ProshkaStoreCardEvent.Open
+                    state.id, ProshkaStoreCardEvent.Open
                 )
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
@@ -102,9 +102,9 @@ fun ProshkaStoreCard(
                     tint = IpbTheme.colors.textPrimary1.asBrush(),
                 )
             }
-            if (state.count == 0) IconButton(onClick = {
+            if (state.counter.isEmpty()) IconButton(onClick = {
                 useComponent.handleEvent(
-                    id, ProshkaStoreCardEvent.AddToCart
+                    state.id, ProshkaStoreCardEvent.AddToCart
                 )
             }) {
                 BrushedIcon(
@@ -112,49 +112,10 @@ fun ProshkaStoreCard(
                     tint = IpbTheme.colors.iconPrimary1.asBrush()
                 )
             }
-            else Row(
-                horizontalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .background(IpbTheme.colors.onSurface1.asBrush())
-                        .clip(CircleShape)
-                        .niceClickable {
-                            useComponent.handleEvent(id, ProshkaStoreCardEvent.RemoveFromCart)
-                        },
-                ) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_subtraction,
-                        tint = IpbTheme.colors.iconPrimary1.asBrush()
-                    )
-                }
-                Box(
-                    modifier = Modifier
-                        .size(28.dp)
-                        .background(IpbTheme.colors.onSurface1.asBrush())
-                        .clip(CircleShape)
-                ) {
-                    BrushedText(
-                        text = state.count.toString(),
-                        style = IpbTheme.typography.tertiaryText,
-                        tint = IpbTheme.colors.textPrimary1.asBrush(),
-                    )
-                }
-                Box(
-                    modifier = Modifier
-                        .size(24.dp)
-                        .background(IpbTheme.colors.onSurface1.asBrush())
-                        .clip(CircleShape)
-                        .niceClickable {
-                            useComponent.handleEvent(id, ProshkaStoreCardEvent.AddToCart)
-                        },
-                ) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_add, tint = IpbTheme.colors.iconPrimary1.asBrush()
-                    )
-                }
-            }
+            else Counter(
+                state = state.counter,
+                useComponent = useComponent
+            )
         }
     }
 }

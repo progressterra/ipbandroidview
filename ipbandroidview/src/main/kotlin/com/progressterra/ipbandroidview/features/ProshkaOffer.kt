@@ -38,14 +38,13 @@ interface UseProshkaOffer {
 @Composable
 fun ProshkaOffer(
     modifier: Modifier = Modifier,
-    id: String = "default",
     state: ProshkaOfferState,
     useComponent: UseProshkaOffer = UseProshkaOffer.Empty()
 ) {
     Box(modifier = modifier
         .clip(RoundedCornerShape(8.dp))
         .niceClickable {
-            useComponent.handleEvent(id, ProshkaOfferEvent.Clicked)
+            useComponent.handleEvent(state.id, ProshkaOfferEvent.Clicked)
         }) {
         SimpleImage(
             url = state.image,

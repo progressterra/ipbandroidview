@@ -4,12 +4,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ThemedLoadingIndicator
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+
+@Immutable
+data class StateBoxState(
+    val state: ScreenState = ScreenState.LOADING,
+    val id: String = "default"
+)
 
 sealed class StateBoxEvent {
 
@@ -24,8 +31,7 @@ interface UseStateBox {
 @Composable
 fun StateBox(
     modifier: Modifier = Modifier,
-    id: String = "default",
-    state: ScreenState,
+    state: StateBoxState,
     useComponent: UseStateBox,
     content: @Composable (BoxScope.() -> Unit)
 ) {
@@ -33,10 +39,10 @@ fun StateBox(
         modifier = modifier,
         contentAlignment = Alignment.Center
     ) {
-        when (state) {
+        when (state.state) {
             ScreenState.ERROR -> IconButton(
                 modifier = modifier, onClick = {
-                    useComponent.handleEvent(id, StateBoxEvent.Refresh)
+                    useComponent.handleEvent(state.id, StateBoxEvent.Refresh)
                 }
             ) {
                 BrushedIcon(

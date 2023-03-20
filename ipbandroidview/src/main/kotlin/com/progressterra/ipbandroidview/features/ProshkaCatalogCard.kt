@@ -42,7 +42,6 @@ interface UseProshkaCatalogCard {
 @Composable
 fun ProshkaCatalogCard(
     modifier: Modifier = Modifier,
-    id: String = "default",
     state: ProshkaCatalogCardState,
     useComponent: UseProshkaCatalogCard
 ) {
@@ -51,7 +50,7 @@ fun ProshkaCatalogCard(
             .clip(RoundedCornerShape(8.dp))
             .niceClickable {
                 useComponent.handleEvent(
-                    id, ProshkaCatalogCardEvent.Open
+                    state.id, ProshkaCatalogCardEvent.Open
                 )
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {

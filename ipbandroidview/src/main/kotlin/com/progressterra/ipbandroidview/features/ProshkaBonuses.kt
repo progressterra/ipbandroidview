@@ -29,6 +29,7 @@ enum class ProshkaBonusesStyle {
 
 @Immutable
 data class ProshkaBonusesState(
+    val id: String = "default",
     val bonuses: String = "",
     val canWithdraw: String = "",
     val rate: String = "",
@@ -57,7 +58,6 @@ interface UseProshkaBonuses {
 @Composable
 fun ProshkaBonuses(
     modifier: Modifier = Modifier,
-    id: String = "default",
     state: ProshkaBonusesState,
     style: ProshkaBonusesStyle = ProshkaBonusesStyle.NEXT,
     useComponent: UseProshkaBonuses
@@ -65,7 +65,7 @@ fun ProshkaBonuses(
     Box(modifier = modifier.padding(horizontal = 20.dp)) {
         IconButton(
             modifier = Modifier.align(Alignment.TopEnd),
-            onClick = { useComponent.handleEvent(id, ProshkaBonusesEvent.Reverse) },
+            onClick = { useComponent.handleEvent(state.id, ProshkaBonusesEvent.Reverse) },
         ) {
             if (state.isReversed) {
                 BrushedIcon(
@@ -81,7 +81,7 @@ fun ProshkaBonuses(
         }
         IconButton(
             modifier = Modifier.align(Alignment.CenterEnd),
-            onClick = { useComponent.handleEvent(id, ProshkaBonusesEvent.Action) },
+            onClick = { useComponent.handleEvent(state.id, ProshkaBonusesEvent.Action) },
         ) {
             if (style == ProshkaBonusesStyle.NEXT) {
                 BrushedIcon(
