@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.composable.VoiceState
-import com.progressterra.ipbandroidview.composable.component.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.ButtonState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.model.AuditDocument

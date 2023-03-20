@@ -4,8 +4,8 @@ import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
-import com.progressterra.ipbandroidview.composable.component.ButtonEvent
-import com.progressterra.ipbandroidview.composable.component.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.ButtonState
 import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.component
+package com.progressterra.ipbandroidview.shared.ui
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Button
@@ -8,13 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
-enum class ButtonStyle {
-    Primary,
-    Secondary,
-    Error
-}
-
 data class ButtonState(
+    val id: String = "",
     val text: String = "",
     val enabled: Boolean = true
 ) {
@@ -43,12 +38,13 @@ interface UseButton {
  */
 @Composable
 fun Button(
-    id: String,
     modifier: Modifier = Modifier,
     state: ButtonState,
-    style: ButtonStyle = ButtonStyle.Primary,
     useComponent: UseButton
 ) {
+
+    
+
     Button(
         modifier = modifier,
         onClick = { useComponent.handleEvent(id, ButtonEvent.Click) },

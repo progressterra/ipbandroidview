@@ -19,6 +19,9 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.VerificationCodeInput
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.Button
+import com.progressterra.ipbandroidview.shared.ui.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.UseButton
 
 data class ConfirmationCodeState(
     val code: String = "",

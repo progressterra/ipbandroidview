@@ -26,6 +26,9 @@ import com.progressterra.ipbandroidview.features.ProshkaBonusesState
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.Button
+import com.progressterra.ipbandroidview.shared.ui.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.UseButton
 
 private val dividerWidth = 1.dp
 

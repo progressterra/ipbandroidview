@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.profiledetails
 
-import com.progressterra.ipbandroidview.composable.component.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.ButtonState
 import com.progressterra.ipbandroidview.composable.component.TextFieldState
 
 data class ProfileDetailsState(

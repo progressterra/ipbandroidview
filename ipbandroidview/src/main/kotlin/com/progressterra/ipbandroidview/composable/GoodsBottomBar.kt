@@ -12,9 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.composable.component.Button
-import com.progressterra.ipbandroidview.composable.component.ButtonState
-import com.progressterra.ipbandroidview.composable.component.UseButton
+import com.progressterra.ipbandroidview.shared.ui.Button
+import com.progressterra.ipbandroidview.shared.ui.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.UseButton
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme

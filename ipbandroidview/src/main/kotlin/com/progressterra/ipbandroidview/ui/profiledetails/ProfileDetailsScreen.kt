@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.component.Button
-import com.progressterra.ipbandroidview.composable.component.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.Button
+import com.progressterra.ipbandroidview.shared.ui.ButtonState
 import com.progressterra.ipbandroidview.composable.component.ButtonStyle
 import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.composable.component.TextFieldState

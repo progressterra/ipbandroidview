@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.documents
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.component.ButtonEvent
-import com.progressterra.ipbandroidview.composable.component.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.ButtonState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
