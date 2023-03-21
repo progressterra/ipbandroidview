@@ -43,7 +43,6 @@ fun ProshkaCatalogItems(
     ) {
         items(state.items) { item ->
             ProshkaCatalogCard(
-                id = item.id,
                 state = item,
                 useComponent = useComponent
             )

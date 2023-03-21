@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.TextField
 import com.progressterra.ipbandroidview.composable.component.UseTextField
-import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.Delivery
 import com.progressterra.ipbandroidview.model.DeliveryType

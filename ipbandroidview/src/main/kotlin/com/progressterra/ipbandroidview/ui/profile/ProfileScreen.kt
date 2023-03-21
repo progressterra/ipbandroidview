@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.composable.EditIcon
 import com.progressterra.ipbandroidview.composable.ForwardIcon
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable

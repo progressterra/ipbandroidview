@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.utils.niceClickable
 import com.progressterra.ipbandroidview.core.IsEmpty
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 

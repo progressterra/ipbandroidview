@@ -5,11 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.features.ProshkaSearch
 import com.progressterra.ipbandroidview.features.ProshkaSearchState
 import com.progressterra.ipbandroidview.features.UseProshkaSearch
 import com.progressterra.ipbandroidview.shared.ui.StateBox
+import com.progressterra.ipbandroidview.shared.ui.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.UseStateBox
 import com.progressterra.ipbandroidview.widgets.ProshkaCatalogItems
@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.widgets.UseProshkaCatalogItems
 
 @Immutable
 data class ProshkaCatalogState(
-    val screenState: ScreenState = ScreenState.LOADING,
+    val stateBox: StateBoxState = StateBoxState(),
     val search: ProshkaSearchState = ProshkaSearchState(),
     val items: ProshkaCatalogItemsState = ProshkaCatalogItemsState()
 )
@@ -38,7 +38,7 @@ fun ProshkaCatalogScreen(
         }
     ) { _, _ ->
         StateBox(
-            state = state.screenState, useComponent = interactor
+            state = state.stateBox, useComponent = interactor
         ) {
             ProshkaCatalogItems(
                 state = state.items,

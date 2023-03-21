@@ -56,7 +56,6 @@ fun ProshkaOffers(
         ) {
             items(state.items) { item ->
                 ProshkaOffer(
-                    id = item.id,
                     state = item,
                     useComponent = useComponent
                 )

@@ -1,11 +1,15 @@
 package com.progressterra.ipbandroidview.shared.ui
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 data class ButtonState(
@@ -42,33 +46,19 @@ fun Button(
     state: ButtonState,
     useComponent: UseButton
 ) {
-
-    
-
-    Button(
-        modifier = modifier,
-        onClick = { useComponent.handleEvent(id, ButtonEvent.Click) },
-        shape = IpbTheme.shapes.button,
-        enabled = state.enabled,
-        colors = ButtonDefaults.buttonColors(
-            backgroundColor = when (style) {
-                ButtonStyle.Primary -> IpbTheme.colors.primary
-                ButtonStyle.Secondary -> IpbTheme.colors.secondary
-                ButtonStyle.Error -> IpbTheme.colors.surfaces
-            },
-            contentColor = when (style) {
-                ButtonStyle.Primary -> IpbTheme.colors.surfaces
-                ButtonStyle.Secondary -> IpbTheme.colors.gray1
-                ButtonStyle.Error -> IpbTheme.colors.error
-            },
-            disabledContentColor = IpbTheme.colors.gray2,
-            disabledBackgroundColor = IpbTheme.colors.gray3
-        ),
-        contentPadding = PaddingValues(
-            horizontal = 32.dp,
-            vertical = 15.dp
-        )
+    Row(
+        modifier = modifier
+            .clip(RoundedCornerShape(14.dp))
+            .background(IpbTheme.colors.primary.asBrush())
+            .padding(horizontal = 32.dp, vertical = 15.dp)
+            .niceClickable { useComponent.handleEvent(state.id, ButtonEvent.Click) },
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = state.text, style = IpbTheme.typography.button)
+        BrushedText(
+            text = state.text,
+            style = IpbTheme.typography.button,
+            tint = IpbTheme.colors.textButton.asBrush()
+        )
     }
 }

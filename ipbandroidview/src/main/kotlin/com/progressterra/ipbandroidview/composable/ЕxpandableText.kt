@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import com.progressterra.ipbandroidview.composable.utils.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable

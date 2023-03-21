@@ -154,4 +154,5 @@
     <string name="can_withdraw">Можно вывести</string>
     <string name="available_loan">Доступна рассрочка</string>
     <string name="offers">Акции</string>
+    <string name="total_to_pay">Итого к оплате:</string>
 </resources>

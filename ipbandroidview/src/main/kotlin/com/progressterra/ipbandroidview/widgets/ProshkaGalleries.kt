@@ -16,6 +16,7 @@ import com.progressterra.ipbandroidview.features.ProshkaStoreCardState
 import com.progressterra.ipbandroidview.features.UseProshkaStoreCard
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.CounterEvent
 
 @Immutable
 data class ProshkaGalleriesState(
@@ -26,6 +27,8 @@ data class ProshkaGalleriesState(
 interface UseProshkaGalleries : UseProshkaStoreCard {
 
     class Empty : UseProshkaGalleries {
+
+        override fun handleEvent(id: String, event: CounterEvent) = Unit
 
         override fun handleEvent(id: String, event: ProshkaStoreCardEvent) = Unit
     }
@@ -54,7 +57,6 @@ fun ProshkaGalleries(
         ) {
             items(state.items) { item ->
                 ProshkaStoreCard(
-                    id = item.id,
                     state = item,
                     useComponent = useComponent
                 )
