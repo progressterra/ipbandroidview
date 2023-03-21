@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui
+package com.progressterra.ipbandroidview.features
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
 @Immutable
 data class ProshkaTopBarState(
@@ -36,7 +38,9 @@ sealed class ProshkaTopBarEvent {
 
 @Composable
 fun ProshkaTopBar(
-    modifier: Modifier = Modifier, state: ProshkaTopBarState, useComponent: UseProshkaTopBar
+    modifier: Modifier = Modifier,
+    state: ProshkaTopBarState,
+    useComponent: UseProshkaTopBar
 ) {
     Row(
         modifier = modifier
