@@ -35,12 +35,12 @@ fun OrganizationCheckCard(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {
-            Text(text = name, color = IpbTheme.colors.black, style = IpbTheme.typography.text)
+            Text(text = name, color = IpbTheme.colors.black, style = IpbTheme.typography.primary)
             Spacer(modifier = Modifier.size(4.dp))
             Text(
                 text = lastTime,
                 color = IpbTheme.colors.gray2,
-                style = IpbTheme.typography.secondaryText
+                style = IpbTheme.typography.secondary
             )
         }
         Spacer(modifier = Modifier.size(16.dp))

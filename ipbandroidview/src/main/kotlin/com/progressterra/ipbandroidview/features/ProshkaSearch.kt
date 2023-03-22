@@ -44,7 +44,7 @@ fun ProshkaSearch(
             BrushedText(
                 text = stringResource(R.string.search),
                 tint = IpbTheme.colors.textPrimary1.asBrush(),
-                style = IpbTheme.typography.secondaryText
+                style = IpbTheme.typography.secondary
             )
         },
         shape = CircleShape,
@@ -71,7 +71,7 @@ fun ProshkaSearch(
             disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor()
         ),
         singleLine = true,
-        textStyle = IpbTheme.typography.secondaryText,
+        textStyle = IpbTheme.typography.secondary,
         trailingIcon = {
             BrushedIcon(
                 tint = IpbTheme.colors.iconPrimary1.asBrush(),

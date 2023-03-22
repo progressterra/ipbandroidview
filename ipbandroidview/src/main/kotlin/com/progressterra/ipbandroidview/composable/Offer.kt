@@ -43,13 +43,13 @@ fun Offer(
         )
         Text(
             text = offerUI.headDescription,
-            style = IpbTheme.typography.text,
+            style = IpbTheme.typography.primary,
             color = IpbTheme.colors.black
         )
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             HtmlText(
                 text = offerUI.fullDescription,
-                style = IpbTheme.typography.secondaryText,
+                style = IpbTheme.typography.secondary,
                 color = IpbTheme.colors.black
             )
         }

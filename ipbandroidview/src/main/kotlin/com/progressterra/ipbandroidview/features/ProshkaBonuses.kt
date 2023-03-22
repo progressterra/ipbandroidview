@@ -116,7 +116,7 @@ fun ProshkaBonuses(
             Spacer(modifier = Modifier.height(14.dp))
             BrushedText(
                 text = state.rate,
-                style = IpbTheme.typography.secondaryText,
+                style = IpbTheme.typography.secondary,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
             Spacer(modifier = Modifier.height(30.dp))
@@ -124,7 +124,7 @@ fun ProshkaBonuses(
                 Row {
                     BrushedText(
                         text = "${stringResource(R.string.available_loan)} - ",
-                        style = IpbTheme.typography.secondaryText,
+                        style = IpbTheme.typography.secondary,
                         tint = IpbTheme.colors.textButton.asBrush()
                     )
                     BrushedText(
@@ -137,7 +137,7 @@ fun ProshkaBonuses(
                 Row {
                     BrushedText(
                         text = state.burningDate,
-                        style = IpbTheme.typography.secondaryText,
+                        style = IpbTheme.typography.secondary,
                         tint = IpbTheme.colors.textPrimary2.asBrush()
                     )
                     BrushedText(

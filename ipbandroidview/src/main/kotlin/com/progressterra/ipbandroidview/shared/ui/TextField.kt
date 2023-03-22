@@ -7,7 +7,7 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Text
+import androidx.compose.material.IconButton
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -26,6 +26,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Immutable
 data class TextFieldState(
+    val id: String = "",
     val text: String = "",
     val hint: String = "",
     val enabled: Boolean = true
@@ -57,14 +58,12 @@ private val borderWidth = 1.dp
 @Composable
 fun TextField(
     modifier: Modifier = Modifier,
-    id: String,
     state: TextFieldState,
     useComponent: UseTextField,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
-    leadingIcon: @Composable (() -> Unit)? = null,
-    trailingIcon: @Composable (() -> Unit)? = null,
+    actionIcon: Int? = null
 ) {
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
@@ -77,7 +76,7 @@ fun TextField(
     val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
             BrushedText(
-                text = state.hint, style = IpbTheme.typography.text,
+                text = state.hint, style = IpbTheme.typography.primary,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
         }
@@ -97,51 +96,66 @@ fun TextField(
         visualTransformation = visualTransformation,
         interactionSource = mutableInteractionSource,
         onValueChange = { text ->
-            useComponent.handleEvent(id, TextFieldEvent.TextChanged(text))
+            useComponent.handleEvent(state.id, TextFieldEvent.TextChanged(text))
         },
         keyboardActions = KeyboardActions {
             focusManager.clearFocus()
-            useComponent.handleEvent(id, TextFieldEvent.Action)
+            useComponent.handleEvent(state.id, TextFieldEvent.Action)
         },
         shape = RoundedCornerShape(8.dp),
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,
         enabled = state.enabled,
-        textStyle = IpbTheme.typography.text,
+        textStyle = IpbTheme.typography.primary,
         singleLine = singleLine,
-        leadingIcon = leadingIcon,
-        trailingIcon = trailingIcon,
+        trailingIcon = {
+            actionIcon?.let {
+                IconButton(
+                    onClick = {
+                        useComponent.handleEvent(
+                            state.id,
+                            TextFieldEvent.AdditionalAction
+                        )
+                    }
+                ) {
+                    BrushedIcon(
+                        resId = it,
+                        tint = if (focused) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary1.asBrush()
+                    )
+                }
+            }
+        },
         colors = TextFieldDefaults.textFieldColors(
             //Background
             backgroundColor = IpbTheme.colors.surface1.asColor(),
             //Placeholder
             placeholderColor = IpbTheme.colors.textSecondary.asColor(),
-            disabledPlaceholderColor = IpbTheme.colors.gray2,
+            disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor(),
             //Label always same color
             focusedLabelColor = IpbTheme.colors.textTertiary1.asColor(),
             unfocusedLabelColor = IpbTheme.colors.textTertiary1.asColor(),
             disabledLabelColor = IpbTheme.colors.textTertiary1.asColor(),
-            errorLabelColor = IpbTheme.colors.error,
+            errorLabelColor = IpbTheme.colors.error.asColor(),
             //Text color depend on enable state
-            textColor = IpbTheme.colors.black,
-            disabledTextColor = IpbTheme.colors.gray2,
+            textColor = IpbTheme.colors.textPrimary1.asColor(),
+            disabledTextColor = IpbTheme.colors.textDisabled.asColor(),
             //Here is no indicator actually
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
             errorIndicatorColor = Color.Transparent,
             //Cursor
-            cursorColor = IpbTheme.colors.primary,
-            errorCursorColor = IpbTheme.colors.error,
+            cursorColor = IpbTheme.colors.primary.asColor(),
+            errorCursorColor = IpbTheme.colors.error.asColor(),
             //Leading icon
-            leadingIconColor = IpbTheme.colors.gray2,
-            disabledLeadingIconColor = IpbTheme.colors.gray2,
-            errorLeadingIconColor = IpbTheme.colors.error,
+            leadingIconColor = if (focused) IpbTheme.colors.primary.asColor() else IpbTheme.colors.iconTertiary1.asColor(),
+            disabledLeadingIconColor = IpbTheme.colors.iconDisabled1.asColor(),
+            errorLeadingIconColor = IpbTheme.colors.error.asColor(),
             //Leading icon
-            trailingIconColor = IpbTheme.colors.gray2,
-            disabledTrailingIconColor = IpbTheme.colors.gray2,
-            errorTrailingIconColor = IpbTheme.colors.error
+            trailingIconColor = if (focused) IpbTheme.colors.primary.asColor() else IpbTheme.colors.iconTertiary1.asColor(),
+            disabledTrailingIconColor = IpbTheme.colors.iconDisabled1.asColor(),
+            errorTrailingIconColor = IpbTheme.colors.error.asColor()
         )
     )
 }

@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.shared.ui.Button
-import com.progressterra.ipbandroidview.shared.ui.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.composable.component.ButtonStyle
 import com.progressterra.ipbandroidview.shared.ui.TextField
 import com.progressterra.ipbandroidview.shared.ui.TextFieldState
@@ -56,7 +56,7 @@ fun ProfileDetailsScreen(
                 Text(
                     text = stringResource(R.string.name_why),
                     color = IpbTheme.colors.gray2,
-                    style = IpbTheme.typography.secondaryText
+                    style = IpbTheme.typography.secondary
                 )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -67,7 +67,7 @@ fun ProfileDetailsScreen(
                 Text(
                     text = stringResource(R.string.email_why),
                     color = IpbTheme.colors.gray2,
-                    style = IpbTheme.typography.secondaryText
+                    style = IpbTheme.typography.secondary
                 )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
@@ -98,7 +98,7 @@ fun ProfileDetailsScreen(
             Text(
                 text = "${stringResource(R.string.version)} ${state.version}",
                 color = IpbTheme.colors.gray2,
-                style = IpbTheme.typography.secondaryText
+                style = IpbTheme.typography.secondary
             )
         }
     }

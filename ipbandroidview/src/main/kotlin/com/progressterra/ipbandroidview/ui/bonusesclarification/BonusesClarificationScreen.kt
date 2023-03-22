@@ -47,12 +47,12 @@ fun BonusesClarificationScreen(
             ) {
                 Text(
                     text = "${stringResource(R.string.how_to_spend_0)} ${stringResource(R.string.app_name)}.",
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.gray1
                 )
                 Text(
                     text = stringResource(R.string.how_to_spend_1),
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.gray1
                 )
                 Image(
@@ -62,7 +62,7 @@ fun BonusesClarificationScreen(
                 )
                 Text(
                     text = stringResource(R.string.how_to_spend_2),
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.gray1
                 )
             }
@@ -73,7 +73,7 @@ fun BonusesClarificationScreen(
             ) {
                 Text(
                     text = stringResource(R.string.bonuses_ratio),
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.gray1
                 )
             }
@@ -84,7 +84,7 @@ fun BonusesClarificationScreen(
             ) {
                 Text(
                     text = stringResource(R.string.how_to_obtain),
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.gray1
                 )
             }

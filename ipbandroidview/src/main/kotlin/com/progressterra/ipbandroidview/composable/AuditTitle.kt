@@ -34,7 +34,7 @@ fun AuditTitle(
         Text(
             text = "${stringResource(id = R.string.questions)}: $checkCounter",
             color = IpbTheme.colors.gray2,
-            style = IpbTheme.typography.tertiaryText
+            style = IpbTheme.typography.tertiary
         )
     }
 }

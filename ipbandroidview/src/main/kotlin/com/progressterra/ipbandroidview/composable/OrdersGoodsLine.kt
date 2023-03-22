@@ -39,7 +39,7 @@ fun OrdersGoodsLine(
             Text(
                 text = state.number,
                 color = IpbTheme.colors.gray2,
-                style = IpbTheme.typography.tertiaryText
+                style = IpbTheme.typography.tertiary
             )
         }
         LazyRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

@@ -26,9 +26,9 @@ import com.progressterra.ipbandroidview.features.ProshkaBonusesState
 import com.progressterra.ipbandroidview.model.OrderGoods
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Button
-import com.progressterra.ipbandroidview.shared.ui.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.UseButton
+import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
 private val dividerWidth = 1.dp
 
@@ -101,12 +101,12 @@ fun ReceiptComponent(
                         Text(
                             text = "${it.name} x ${it.inCartCounter}",
                             color = IpbTheme.colors.gray2,
-                            style = IpbTheme.typography.tertiaryText
+                            style = IpbTheme.typography.tertiary
                         )
                         Text(
                             text = it.totalPrice.toString(),
                             color = IpbTheme.colors.gray1,
-                            style = IpbTheme.typography.tertiaryText
+                            style = IpbTheme.typography.tertiary
                         )
                     }
                 }
@@ -118,12 +118,12 @@ fun ReceiptComponent(
                         Text(
                             text = stringResource(R.string.paid_with_bonuses),
                             color = IpbTheme.colors.gray2,
-                            style = IpbTheme.typography.tertiaryText
+                            style = IpbTheme.typography.tertiary
                         )
                         Text(
                             text = "-${state.availableBonuses.bonuses}",
                             color = IpbTheme.colors.primary,
-                            style = IpbTheme.typography.tertiaryText
+                            style = IpbTheme.typography.tertiary
                         )
                     }
                 }
@@ -135,12 +135,12 @@ fun ReceiptComponent(
                         Text(
                             text = stringResource(R.string.paid_with_promocode),
                             color = IpbTheme.colors.gray2,
-                            style = IpbTheme.typography.tertiaryText
+                            style = IpbTheme.typography.tertiary
                         )
                         Text(
                             text = "-${state.promoCode}",
                             color = IpbTheme.colors.primary,
-                            style = IpbTheme.typography.tertiaryText
+                            style = IpbTheme.typography.tertiary
                         )
                     }
                 }
@@ -152,12 +152,12 @@ fun ReceiptComponent(
                         Text(
                             text = stringResource(R.string.delivery),
                             color = IpbTheme.colors.gray2,
-                            style = IpbTheme.typography.tertiaryText
+                            style = IpbTheme.typography.tertiary
                         )
                         Text(
                             text = state.deliveryPrice.toString(),
                             color = IpbTheme.colors.gray1,
-                            style = IpbTheme.typography.tertiaryText
+                            style = IpbTheme.typography.tertiary
                         )
                     }
                 }

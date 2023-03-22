@@ -79,12 +79,12 @@ fun ProshkaStoreCard(
         )
         BrushedText(
             text = state.name,
-            style = IpbTheme.typography.tertiaryText,
+            style = IpbTheme.typography.tertiary,
             tint = IpbTheme.colors.textPrimary1.asBrush(),
         )
         BrushedText(
             text = state.company,
-            style = IpbTheme.typography.tertiaryText,
+            style = IpbTheme.typography.tertiary,
             tint = IpbTheme.colors.textTertiary1.asBrush(),
         )
         Row(
@@ -93,12 +93,12 @@ fun ProshkaStoreCard(
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 BrushedText(
                     text = state.price.toString(),
-                    style = IpbTheme.typography.secondaryText,
+                    style = IpbTheme.typography.secondary,
                     tint = IpbTheme.colors.textPrimary2.asBrush(),
                 )
                 BrushedText(
                     text = state.loan,
-                    style = IpbTheme.typography.tertiaryText,
+                    style = IpbTheme.typography.tertiary,
                     tint = IpbTheme.colors.textPrimary1.asBrush(),
                 )
             }

@@ -55,7 +55,7 @@ fun ProshkaOffer(
                 .align(Alignment.BottomCenter)
                 .padding(8.dp),
             text = state.title,
-            style = IpbTheme.typography.text,
+            style = IpbTheme.typography.primary,
             tint = IpbTheme.colors.textButton.asBrush()
         )
     }

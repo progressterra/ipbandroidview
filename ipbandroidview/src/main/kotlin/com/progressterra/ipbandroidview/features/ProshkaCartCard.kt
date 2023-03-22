@@ -96,12 +96,12 @@ fun ProshkaCartCard(
         ) {
             BrushedText(
                 text = state.name,
-                style = IpbTheme.typography.tertiaryText,
+                style = IpbTheme.typography.tertiary,
                 tint = IpbTheme.colors.textPrimary1.asBrush(),
             )
             BrushedText(
                 text = state.company,
-                style = IpbTheme.typography.tertiaryText,
+                style = IpbTheme.typography.tertiary,
                 tint = IpbTheme.colors.textTertiary1.asBrush(),
             )
             state.properties.forEach {
@@ -109,7 +109,7 @@ fun ProshkaCartCard(
                     is ProshkaCartCardState.Property.Color -> Row(verticalAlignment = Alignment.CenterVertically) {
                         BrushedText(
                             text = "${it.name}: ",
-                            style = IpbTheme.typography.tertiaryText,
+                            style = IpbTheme.typography.tertiary,
                             tint = IpbTheme.colors.textSecondary.asBrush()
                         )
                         Box(
@@ -126,19 +126,19 @@ fun ProshkaCartCard(
                     }
                     is ProshkaCartCardState.Property.Size -> BrushedText(
                         text = "${it.name}: ${it.value}",
-                        style = IpbTheme.typography.tertiaryText,
+                        style = IpbTheme.typography.tertiary,
                         tint = IpbTheme.colors.textSecondary.asBrush()
                     )
                 }
             }
             BrushedText(
                 text = state.price.toString(),
-                style = IpbTheme.typography.secondaryText,
+                style = IpbTheme.typography.secondary,
                 tint = IpbTheme.colors.textPrimary2.asBrush(),
             )
             BrushedText(
                 text = state.loan,
-                style = IpbTheme.typography.tertiaryText,
+                style = IpbTheme.typography.tertiary,
                 tint = IpbTheme.colors.textPrimary1.asBrush(),
             )
             Counter(

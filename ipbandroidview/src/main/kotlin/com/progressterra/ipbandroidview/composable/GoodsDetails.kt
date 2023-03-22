@@ -71,7 +71,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
                         val textColor =
                             if (selected) IpbTheme.colors.black else IpbTheme.colors.gray1
                         val style =
-                            if (selected) IpbTheme.typography.text else IpbTheme.typography.secondaryText
+                            if (selected) IpbTheme.typography.primary else IpbTheme.typography.secondary
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -122,7 +122,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
                     Text(
                         text = state.description,
                         color = IpbTheme.colors.gray1,
-                        style = IpbTheme.typography.secondaryText
+                        style = IpbTheme.typography.secondary
                     )
                 }
                 if (it == 1) {
@@ -138,12 +138,12 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
                                     modifier = Modifier.width(detailsParamTitlesWidth),
                                     text = it.title,
                                     color = IpbTheme.colors.gray2,
-                                    style = IpbTheme.typography.secondaryText
+                                    style = IpbTheme.typography.secondary
                                 )
                                 Text(
                                     text = it.description,
                                     color = IpbTheme.colors.black,
-                                    style = IpbTheme.typography.secondaryText
+                                    style = IpbTheme.typography.secondary
                                 )
                             }
                         }

@@ -43,7 +43,7 @@ fun BonusesWidget(
         Text(
             text = "= $bonuses ${stringResource(R.string.currency)}",
             color = IpbTheme.colors.gray2,
-            style = IpbTheme.typography.text
+            style = IpbTheme.typography.primary
         )
     }
 }

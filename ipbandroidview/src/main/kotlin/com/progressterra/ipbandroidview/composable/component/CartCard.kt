@@ -96,12 +96,12 @@ fun CartCard(
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Text(
-                text = state.name, color = IpbTheme.colors.black, style = IpbTheme.typography.text
+                text = state.name, color = IpbTheme.colors.black, style = IpbTheme.typography.primary
             )
             Text(
                 text = "${state.color}, ${state.size.primary}, ${state.inCartCounter} шт",
                 color = IpbTheme.colors.gray1,
-                style = IpbTheme.typography.text
+                style = IpbTheme.typography.primary
             )
             Text(
                 text = state.price.toString(),

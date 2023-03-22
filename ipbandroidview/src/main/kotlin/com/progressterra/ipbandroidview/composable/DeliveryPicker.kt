@@ -77,7 +77,7 @@ fun DeliveryPicker(
             Text(
                 text = state.addressUI.printAddress(),
                 color = IpbTheme.colors.black,
-                style = IpbTheme.typography.text
+                style = IpbTheme.typography.primary
             )
             ForwardIcon()
         }
@@ -98,12 +98,12 @@ fun DeliveryPicker(
                         Text(
                             text = "${it.date}, ${it.price}",
                             color = IpbTheme.colors.black,
-                            style = IpbTheme.typography.text
+                            style = IpbTheme.typography.primary
                         )
                         Text(
                             text = it.type,
                             color = IpbTheme.colors.black,
-                            style = IpbTheme.typography.text
+                            style = IpbTheme.typography.primary
                         )
                     }
                 }
@@ -129,7 +129,7 @@ fun DeliveryPicker(
                         Text(
                             text = it.currentPoint.address,
                             color = IpbTheme.colors.black,
-                            style = IpbTheme.typography.text
+                            style = IpbTheme.typography.primary
                         )
                         ForwardIcon()
                     }

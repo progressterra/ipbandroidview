@@ -73,7 +73,7 @@ fun AuthProfile(
             )
             BrushedText(
                 text = stringResource(R.string.please_auth),
-                style = IpbTheme.typography.tertiaryText,
+                style = IpbTheme.typography.tertiary,
                 tint = IpbTheme.colors.textTertiary1.asBrush()
             )
         }

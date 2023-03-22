@@ -23,7 +23,7 @@ data class LinkTextData(
 fun LinkText(
     linkTextData: List<LinkTextData>,
     modifier: Modifier = Modifier,
-    style: TextStyle = IpbTheme.typography.tertiaryText
+    style: TextStyle = IpbTheme.typography.tertiary
 ) {
     val annotatedString = createAnnotatedString(linkTextData)
 

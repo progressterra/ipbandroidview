@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.component.AuthEvent
 import com.progressterra.ipbandroidview.composable.component.AuthState
-import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.composable.component.TextButtonEvent
 import com.progressterra.ipbandroidview.composable.component.TextButtonState
 import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent

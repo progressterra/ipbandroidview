@@ -47,7 +47,7 @@ fun ReferralLink(
             Text(
                 text = stringResource(R.string.your_promo_code),
                 color = IpbTheme.colors.gray2,
-                style = IpbTheme.typography.secondaryText
+                style = IpbTheme.typography.secondary
             )
         }
         IconButton(onClick = onShare) { ShareIcon() }

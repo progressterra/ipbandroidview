@@ -37,7 +37,7 @@ fun SubCategoryComponent(
         Text(
             text = state.name,
             color = IpbTheme.colors.black,
-            style = IpbTheme.typography.text
+            style = IpbTheme.typography.primary
         )
         ForwardIcon()
     }

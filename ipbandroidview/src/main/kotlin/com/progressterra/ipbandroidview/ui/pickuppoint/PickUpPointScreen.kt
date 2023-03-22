@@ -111,31 +111,31 @@ fun PickUpPointScreen(
                     Text(
                         text = state.currentPickUpPointInfo?.pickupPointCode ?: "",
                         color = IpbTheme.colors.gray2,
-                        style = IpbTheme.typography.tertiaryText
+                        style = IpbTheme.typography.tertiary
                     )
                     Spacer(modifier = Modifier.size(12.dp))
                     Text(
                         text = stringResource(R.string.work_hour),
                         color = IpbTheme.colors.black,
-                        style = IpbTheme.typography.text
+                        style = IpbTheme.typography.primary
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
                         text = state.currentPickUpPointInfo?.workHour ?: "",
                         color = IpbTheme.colors.gray2,
-                        style = IpbTheme.typography.tertiaryText
+                        style = IpbTheme.typography.tertiary
                     )
                     Spacer(modifier = Modifier.size(12.dp))
                     Text(
                         text = stringResource(R.string.how_to_go),
                         color = IpbTheme.colors.black,
-                        style = IpbTheme.typography.text
+                        style = IpbTheme.typography.primary
                     )
                     Spacer(modifier = Modifier.size(4.dp))
                     Text(
                         text = state.currentPickUpPointInfo?.path ?: "",
                         color = IpbTheme.colors.gray2,
-                        style = IpbTheme.typography.tertiaryText
+                        style = IpbTheme.typography.tertiary
                     )
                 }
             }

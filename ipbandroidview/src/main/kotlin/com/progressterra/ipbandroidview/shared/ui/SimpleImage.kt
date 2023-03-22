@@ -35,7 +35,7 @@ fun SimpleImage(
                 modifier = Modifier.align(Alignment.Center),
                 text = stringResource(id = R.string.image_missing),
                 tint = IpbTheme.colors.error.asBrush(),
-                style = IpbTheme.typography.text,
+                style = IpbTheme.typography.primary,
                 textAlign = TextAlign.Center
             )
         }, loading = {

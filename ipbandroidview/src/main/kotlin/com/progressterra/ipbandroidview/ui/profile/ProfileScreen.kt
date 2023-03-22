@@ -59,7 +59,7 @@ fun ProfileScreen(
                     Text(
                         text = state.phone,
                         color = IpbTheme.colors.gray2,
-                        style = IpbTheme.typography.secondaryText
+                        style = IpbTheme.typography.secondary
                     )
                 }
                 IconButton(onClick = { interactor.openDetails() }) {
@@ -80,7 +80,7 @@ fun ProfileScreen(
                     Text(
                         text = stringResource(R.string.your_orders),
                         color = IpbTheme.colors.black,
-                        style = IpbTheme.typography.text
+                        style = IpbTheme.typography.primary
                     )
                     IconButton(onClick = { interactor.onOrders() }) {
                         ForwardIcon()
@@ -100,7 +100,7 @@ fun ProfileScreen(
                     Text(
                         text = stringResource(R.string.favorites),
                         color = IpbTheme.colors.black,
-                        style = IpbTheme.typography.text
+                        style = IpbTheme.typography.primary
                     )
                     IconButton(onClick = { interactor.onFavorites() }) {
                         ForwardIcon()
@@ -120,7 +120,7 @@ fun ProfileScreen(
                     Text(
                         text = stringResource(R.string.support),
                         color = IpbTheme.colors.black,
-                        style = IpbTheme.typography.text
+                        style = IpbTheme.typography.primary
                     )
                     IconButton(onClick = { interactor.onSupport() }) {
                         ForwardIcon()
@@ -140,7 +140,7 @@ fun ProfileScreen(
                     Text(
                         text = stringResource(R.string.referral_program),
                         color = IpbTheme.colors.black,
-                        style = IpbTheme.typography.text
+                        style = IpbTheme.typography.primary
                     )
                     IconButton(onClick = { interactor.onReferral() }) {
                         ForwardIcon()

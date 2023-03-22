@@ -46,7 +46,7 @@ fun BonusSwitch(
             Text(
                 text = state.availableBonuses.bonuses,
                 color = IpbTheme.colors.primary,
-                style = IpbTheme.typography.text
+                style = IpbTheme.typography.primary
             )
             BonusesSmallIcon()
             Spacer(modifier = Modifier.weight(1f))

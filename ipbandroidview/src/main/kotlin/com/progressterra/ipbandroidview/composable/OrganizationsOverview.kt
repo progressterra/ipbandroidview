@@ -51,12 +51,12 @@ fun RowItem(
     ) {
         Text(
             text = title,
-            style = IpbTheme.typography.secondaryText,
+            style = IpbTheme.typography.secondary,
             color = IpbTheme.colors.gray1,
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = value, style = IpbTheme.typography.text, color = IpbTheme.colors.black
+            text = value, style = IpbTheme.typography.primary, color = IpbTheme.colors.black
         )
         Spacer(modifier = Modifier.width(16.dp))
         ForwardIcon()
@@ -89,7 +89,7 @@ fun OrganizationsOverview(
     ) {
         Text(
             text = stringResource(R.string.audits),
-            style = IpbTheme.typography.text,
+            style = IpbTheme.typography.primary,
             color = IpbTheme.colors.black
         )
         val pagerState = rememberPagerState()
@@ -107,7 +107,7 @@ fun OrganizationsOverview(
 
                 val textColor = if (selected) IpbTheme.colors.black else IpbTheme.colors.gray1
                 val style =
-                    if (selected) IpbTheme.typography.text else IpbTheme.typography.secondaryText
+                    if (selected) IpbTheme.typography.primary else IpbTheme.typography.secondary
                 Box(modifier = Modifier
                     .clip(IpbTheme.shapes.small)
                     .border(

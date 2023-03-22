@@ -10,9 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.shared.ui.Button
-import com.progressterra.ipbandroidview.shared.ui.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.UseButton
+import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 import com.progressterra.ipbandroidview.composable.utils.SideBorder
 import com.progressterra.ipbandroidview.composable.utils.sideBorder
 import com.progressterra.ipbandroidview.model.SimplePrice

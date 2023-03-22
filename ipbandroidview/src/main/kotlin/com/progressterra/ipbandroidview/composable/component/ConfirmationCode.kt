@@ -19,9 +19,9 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.VerificationCodeInput
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.Button
-import com.progressterra.ipbandroidview.shared.ui.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.UseButton
+import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
 data class ConfirmationCodeState(
     val code: String = "",
@@ -89,7 +89,7 @@ fun ConfirmationCode(
                     modifier = Modifier.fillMaxWidth(),
                     text = "${stringResource(id = R.string.verification_code_message)}\n${state.phoneNumber}",
                     color = IpbTheme.colors.gray1,
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.size(16.dp))

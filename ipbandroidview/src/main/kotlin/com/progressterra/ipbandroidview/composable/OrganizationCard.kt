@@ -53,14 +53,14 @@ fun OrganizationCard(
             Text(
                 text = state.address,
                 color = IpbTheme.colors.black,
-                style = IpbTheme.typography.text,
+                style = IpbTheme.typography.primary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = state.name,
                 color = IpbTheme.colors.gray2,
-                style = IpbTheme.typography.secondaryText,
+                style = IpbTheme.typography.secondary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -72,13 +72,13 @@ fun OrganizationCard(
                 Text(
                     text = state.audits,
                     color = IpbTheme.colors.gray2,
-                    style = IpbTheme.typography.secondaryText
+                    style = IpbTheme.typography.secondary
                 )
                 DocumentsIcon()
                 Text(
                     text = state.documents,
                     color = IpbTheme.colors.gray2,
-                    style = IpbTheme.typography.secondaryText
+                    style = IpbTheme.typography.secondary
                 )
             }
         }

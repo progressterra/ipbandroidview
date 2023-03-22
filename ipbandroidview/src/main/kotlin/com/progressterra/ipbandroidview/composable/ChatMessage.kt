@@ -43,12 +43,12 @@ fun ChatMessage(
             Text(
                 text = message.content,
                 color = IpbTheme.colors.black,
-                style = IpbTheme.typography.text
+                style = IpbTheme.typography.primary
             )
             Text(
                 text = message.date,
                 color = IpbTheme.colors.gray2,
-                style = IpbTheme.typography.tertiaryText
+                style = IpbTheme.typography.tertiary
             )
         }
     }

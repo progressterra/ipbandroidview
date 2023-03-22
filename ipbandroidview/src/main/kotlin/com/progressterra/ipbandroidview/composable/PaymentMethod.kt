@@ -49,7 +49,7 @@ fun PaymentMethod(
             Text(
                 text = stringResource(type.paymentName),
                 color = IpbTheme.colors.black,
-                style = IpbTheme.typography.text
+                style = IpbTheme.typography.primary
             )
         }
     }

@@ -57,7 +57,7 @@ fun OrganizationPresentation(
                 Text(
                     text = address,
                     color = IpbTheme.colors.gray2,
-                    style = IpbTheme.typography.tertiaryText
+                    style = IpbTheme.typography.tertiary
                 )
             }
             IconButton(
@@ -71,7 +71,7 @@ fun OrganizationPresentation(
                     Text(
                         text = stringResource(id = R.string.map),
                         color = IpbTheme.colors.primary,
-                        style = IpbTheme.typography.tertiaryText
+                        style = IpbTheme.typography.tertiary
                     )
                 }
             }

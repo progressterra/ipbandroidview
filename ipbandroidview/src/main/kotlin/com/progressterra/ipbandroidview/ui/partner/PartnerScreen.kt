@@ -98,7 +98,7 @@ fun PartnerScreen(
                 }) {
                 HtmlText(
                     text = state.partner.description,
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.black
                 )
             }
@@ -140,7 +140,7 @@ fun PartnerScreen(
                             onClick = { interactor.openPhone(it) }
                         )
                     ),
-                    style = IpbTheme.typography.text
+                    style = IpbTheme.typography.primary
                 )
             }
             Column(
@@ -169,7 +169,7 @@ fun PartnerScreen(
                             onClick = { interactor.openWebsite(it) }
                         )
                     ),
-                    style = IpbTheme.typography.text
+                    style = IpbTheme.typography.primary
                 )
             }
         }

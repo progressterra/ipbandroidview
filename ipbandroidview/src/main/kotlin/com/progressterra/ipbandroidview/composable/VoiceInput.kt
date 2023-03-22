@@ -63,7 +63,7 @@ fun VoiceInput(
                     else Text(
                         modifier = Modifier.padding(start = 12.dp),
                         text = stringResource(id = R.string.voice_message),
-                        style = IpbTheme.typography.text,
+                        style = IpbTheme.typography.primary,
                         color = if (enabled) IpbTheme.colors.gray1 else IpbTheme.colors.gray2
                     )
                     IconButton(

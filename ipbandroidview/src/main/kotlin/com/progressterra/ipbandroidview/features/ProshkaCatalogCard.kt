@@ -63,7 +63,7 @@ fun ProshkaCatalogCard(
         )
         BrushedText(
             text = state.name,
-            style = IpbTheme.typography.tertiaryText,
+            style = IpbTheme.typography.tertiary,
             tint = IpbTheme.colors.surface2.asBrush(),
             textAlign = TextAlign.Center
         )

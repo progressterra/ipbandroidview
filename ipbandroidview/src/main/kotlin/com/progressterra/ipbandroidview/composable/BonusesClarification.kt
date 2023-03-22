@@ -38,7 +38,7 @@ fun BonusesClarification(
             Text(
                 text = "$burningDate ${stringResource(R.string.will_burn)} $burningQuantity ${
                     stringResource(R.string.bonuses)
-                }", style = IpbTheme.typography.text, color = IpbTheme.colors.black
+                }", style = IpbTheme.typography.primary, color = IpbTheme.colors.black
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -46,7 +46,7 @@ fun BonusesClarification(
             ) {
                 Text(
                     text = stringResource(R.string.to_bonuses_clarification),
-                    style = IpbTheme.typography.tertiaryText,
+                    style = IpbTheme.typography.tertiary,
                     color = IpbTheme.colors.gray2
                 )
                 ForwardTinyIcon()

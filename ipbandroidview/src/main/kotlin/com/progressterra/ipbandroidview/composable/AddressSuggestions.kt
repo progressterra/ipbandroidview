@@ -58,7 +58,7 @@ fun AddressSuggestions(
                         Text(
                             text = it.previewOfSuggestion,
                             color = IpbTheme.colors.black,
-                            style = IpbTheme.typography.secondaryText
+                            style = IpbTheme.typography.secondary
                         )
                     }
                 }

@@ -32,7 +32,7 @@ fun BonusesTransaction(modifier: Modifier = Modifier, state: Transaction) {
             )
             Text(
                 text = state.name,
-                style = IpbTheme.typography.text,
+                style = IpbTheme.typography.primary,
                 color = IpbTheme.colors.gray1
             )
         }
@@ -40,13 +40,13 @@ fun BonusesTransaction(modifier: Modifier = Modifier, state: Transaction) {
             if (state.delta >= 0)
                 Text(
                     text = "+${state.delta}",
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.primary
                 )
             else
                 Text(
                     text = state.delta.toString(),
-                    style = IpbTheme.typography.text,
+                    style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.error
                 )
             BonusesSmallIcon()

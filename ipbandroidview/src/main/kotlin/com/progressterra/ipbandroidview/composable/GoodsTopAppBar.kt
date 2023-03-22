@@ -26,14 +26,14 @@ fun GoodsTopAppBar(
             Text(
                 text = state.name,
                 color = IpbTheme.colors.black,
-                style = IpbTheme.typography.text,
+                style = IpbTheme.typography.primary,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = state.price.toString(),
                 color = IpbTheme.colors.black,
-                style = IpbTheme.typography.tertiaryText,
+                style = IpbTheme.typography.tertiary,
                 maxLines = 1,
                 textAlign = TextAlign.Center
             )

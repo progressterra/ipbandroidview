@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeEvent
 import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeState
 import com.progressterra.ipbandroidview.composable.component.TextButtonEvent

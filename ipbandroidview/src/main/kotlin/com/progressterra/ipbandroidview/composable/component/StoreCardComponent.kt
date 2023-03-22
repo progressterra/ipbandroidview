@@ -107,7 +107,7 @@ fun StoreCardComponent(
             text = nameText,
             maxLines = lines,
             color = IpbTheme.colors.gray1,
-            style = IpbTheme.typography.secondaryText,
+            style = IpbTheme.typography.secondary,
             textAlign = TextAlign.Center,
             overflow = TextOverflow.Ellipsis,
             onTextLayout = { textLayoutResult ->

@@ -65,7 +65,7 @@ fun AttachedPhotos(
         ) {
             Text(
                 text = stringResource(id = R.string.add_photo),
-                style = IpbTheme.typography.text,
+                style = IpbTheme.typography.primary,
                 color = if (enabled) IpbTheme.colors.gray1 else IpbTheme.colors.gray2
             )
             Box(modifier = Modifier.size(picSize), contentAlignment = Alignment.Center) {

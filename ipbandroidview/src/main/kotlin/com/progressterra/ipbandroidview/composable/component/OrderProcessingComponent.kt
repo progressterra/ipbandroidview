@@ -53,7 +53,7 @@ fun OrderProcessingComponent(
         Text(
             text = state.additionalInfo,
             color = IpbTheme.colors.gray2,
-            style = IpbTheme.typography.secondaryText
+            style = IpbTheme.typography.secondary
         )
     }
 }

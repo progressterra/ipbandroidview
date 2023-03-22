@@ -39,7 +39,7 @@ fun DocumentCard(
             Text(
                 text = state.name,
                 color = IpbTheme.colors.black,
-                style = IpbTheme.typography.text,
+                style = IpbTheme.typography.primary,
                 maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
@@ -47,7 +47,7 @@ fun DocumentCard(
             Text(
                 text = state.address,
                 color = IpbTheme.colors.gray2,
-                style = IpbTheme.typography.tertiaryText,
+                style = IpbTheme.typography.tertiary,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

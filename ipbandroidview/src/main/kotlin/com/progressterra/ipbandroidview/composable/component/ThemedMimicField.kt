@@ -31,7 +31,7 @@ fun ThemedMimicField(
     val placeholder: (@Composable () -> Unit)? = if (text.isEmpty()) {
         {
             Text(
-                text = hint, style = IpbTheme.typography.text, maxLines = 1
+                text = hint, style = IpbTheme.typography.primary, maxLines = 1
             )
         }
     } else null
@@ -45,7 +45,7 @@ fun ThemedMimicField(
         placeholder = placeholder,
         label = label,
         enabled = false,
-        textStyle = IpbTheme.typography.text,
+        textStyle = IpbTheme.typography.primary,
         singleLine = true,
         colors = TextFieldDefaults.textFieldColors(
             //Background

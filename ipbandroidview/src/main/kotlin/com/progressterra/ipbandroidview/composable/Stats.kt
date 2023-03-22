@@ -24,7 +24,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
             icon()
             Text(
                 text = title,
-                style = IpbTheme.typography.text,
+                style = IpbTheme.typography.primary,
                 color = tint
             )
         }

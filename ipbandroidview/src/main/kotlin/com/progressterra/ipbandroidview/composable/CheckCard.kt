@@ -38,7 +38,7 @@ fun CheckCard(
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             color = IpbTheme.colors.black,
-            style = IpbTheme.typography.text
+            style = IpbTheme.typography.primary
         )
         Spacer(modifier = Modifier.size(16.dp))
         ForwardIcon()

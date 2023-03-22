@@ -16,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.Button
-import com.progressterra.ipbandroidview.shared.ui.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.UseButton
+import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
 @Immutable
 data class UnAuthProfileState(

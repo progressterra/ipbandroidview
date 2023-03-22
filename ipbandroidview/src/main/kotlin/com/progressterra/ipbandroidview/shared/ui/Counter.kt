@@ -72,7 +72,7 @@ fun Counter(
         ) {
             BrushedText(
                 text = state.count.toString(),
-                style = IpbTheme.typography.tertiaryText,
+                style = IpbTheme.typography.tertiary,
                 tint = IpbTheme.colors.textPrimary1.asBrush(),
             )
         }

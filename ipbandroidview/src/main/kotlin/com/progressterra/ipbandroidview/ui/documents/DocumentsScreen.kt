@@ -27,7 +27,7 @@ import com.progressterra.ipbandroidview.composable.DocumentCard
 import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.shared.ui.Button
+import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 /**

@@ -24,12 +24,12 @@ import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.composable.VoiceInput
 import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.composable.YesNoButton
-import com.progressterra.ipbandroidview.shared.ui.Button
-import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.TextField
 import com.progressterra.ipbandroidview.shared.ui.TextFieldState
-import com.progressterra.ipbandroidview.shared.ui.UseButton
+import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 import com.progressterra.ipbandroidview.shared.ui.UseTextField
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Check
@@ -150,7 +150,7 @@ fun CurrentCheckDialog(
                         Text(
                             text = currentCheck.description,
                             color = IpbTheme.colors.black,
-                            style = IpbTheme.typography.text
+                            style = IpbTheme.typography.primary
                         )
                     }
                     Spacer(modifier = Modifier.size(8.dp))
