@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.composable.component.GoodsBarComponentEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
-import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase

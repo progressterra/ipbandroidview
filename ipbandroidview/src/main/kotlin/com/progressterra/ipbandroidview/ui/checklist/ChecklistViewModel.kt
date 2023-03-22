@@ -6,8 +6,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.ButtonState
-import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
-import com.progressterra.ipbandroidview.composable.component.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.exception.NoEmailException

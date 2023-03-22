@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.catalog
 
 import com.progressterra.ipbandroidview.composable.component.CatalogBarComponentEvent
-import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.composable.component.UseCatalogBarComponent
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 

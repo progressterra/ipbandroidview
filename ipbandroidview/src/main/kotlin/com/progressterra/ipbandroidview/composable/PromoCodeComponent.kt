@@ -11,9 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import com.progressterra.ipbandroidview.composable.component.TextField
-import com.progressterra.ipbandroidview.composable.component.TextFieldState
-import com.progressterra.ipbandroidview.composable.component.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.TextField
+import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.UseTextField
 import com.progressterra.ipbandroidview.model.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 

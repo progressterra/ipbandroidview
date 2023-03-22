@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.ui.profiledetails
 
 import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
-import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.UseButton
-import com.progressterra.ipbandroidview.composable.component.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.UseTextField
 
 interface ProfileDetailsInteractor : UseTextField, UseButton {
 

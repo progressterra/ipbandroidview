@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.model
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.composable.component.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 
 sealed class Delivery {
 

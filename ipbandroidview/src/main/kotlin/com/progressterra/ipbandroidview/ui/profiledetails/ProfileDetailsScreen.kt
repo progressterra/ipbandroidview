@@ -19,8 +19,8 @@ import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.shared.ui.Button
 import com.progressterra.ipbandroidview.shared.ui.ButtonState
 import com.progressterra.ipbandroidview.composable.component.ButtonStyle
-import com.progressterra.ipbandroidview.composable.component.TextField
-import com.progressterra.ipbandroidview.composable.component.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.TextField
+import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 /**

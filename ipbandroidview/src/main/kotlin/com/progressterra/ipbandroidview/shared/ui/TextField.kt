@@ -1,9 +1,10 @@
-package com.progressterra.ipbandroidview.composable.component
+package com.progressterra.ipbandroidview.shared.ui
 
 import android.os.Parcelable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -24,7 +26,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Immutable
 data class TextFieldState(
-    val text: String = "", val hint: String = "", val enabled: Boolean = true
+    val text: String = "",
+    val hint: String = "",
+    val enabled: Boolean = true
 ) : Parcelable {
 
     fun updateText(text: String): TextFieldState = copy(text = text)
@@ -39,6 +43,8 @@ sealed class TextFieldEvent {
     data class TextChanged(val text: String) : TextFieldEvent()
 
     object Action : TextFieldEvent()
+
+    object AdditionalAction : TextFieldEvent()
 }
 
 interface UseTextField {
@@ -62,15 +68,17 @@ fun TextField(
 ) {
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
-            Text(
-                text = state.hint, style = IpbTheme.typography.actionBarLabels, maxLines = 1
+            BrushedText(
+                text = state.hint, style = IpbTheme.typography.label,
+                tint = IpbTheme.colors.textTertiary1.asBrush()
             )
         }
     } else null
     val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
-            Text(
-                text = state.hint, style = IpbTheme.typography.text, maxLines = 1
+            BrushedText(
+                text = state.hint, style = IpbTheme.typography.text,
+                tint = IpbTheme.colors.textSecondary.asBrush()
             )
         }
     } else null
@@ -81,8 +89,8 @@ fun TextField(
         modifier = modifier
             .border(
                 width = borderWidth,
-                color = if (focused) IpbTheme.colors.primary else Color.Transparent,
-                shape = IpbTheme.shapes.small
+                brush = if (focused) IpbTheme.colors.primary.asBrush() else SolidColor(Color.Transparent),
+                shape = RoundedCornerShape(8.dp)
             )
             .clearFocusOnKeyboardDismiss(),
         value = state.text,
@@ -95,7 +103,7 @@ fun TextField(
             focusManager.clearFocus()
             useComponent.handleEvent(id, TextFieldEvent.Action)
         },
-        shape = IpbTheme.shapes.small,
+        shape = RoundedCornerShape(8.dp),
         keyboardOptions = keyboardOptions,
         placeholder = placeholder,
         label = label,
@@ -106,14 +114,14 @@ fun TextField(
         trailingIcon = trailingIcon,
         colors = TextFieldDefaults.textFieldColors(
             //Background
-            backgroundColor = IpbTheme.colors.background,
+            backgroundColor = IpbTheme.colors.surface1.asColor(),
             //Placeholder
-            placeholderColor = IpbTheme.colors.gray1,
+            placeholderColor = IpbTheme.colors.textSecondary.asColor(),
             disabledPlaceholderColor = IpbTheme.colors.gray2,
             //Label always same color
-            focusedLabelColor = IpbTheme.colors.gray2,
-            unfocusedLabelColor = IpbTheme.colors.gray2,
-            disabledLabelColor = IpbTheme.colors.gray2,
+            focusedLabelColor = IpbTheme.colors.textTertiary1.asColor(),
+            unfocusedLabelColor = IpbTheme.colors.textTertiary1.asColor(),
+            disabledLabelColor = IpbTheme.colors.textTertiary1.asColor(),
             errorLabelColor = IpbTheme.colors.error,
             //Text color depend on enable state
             textColor = IpbTheme.colors.black,

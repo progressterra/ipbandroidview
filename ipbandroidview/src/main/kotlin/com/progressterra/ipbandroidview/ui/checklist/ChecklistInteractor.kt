@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
-import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.model.Check
 
 interface ChecklistInteractor : UseCurrentCheck {

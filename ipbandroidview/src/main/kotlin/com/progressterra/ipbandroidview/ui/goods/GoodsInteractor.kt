@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.goods
 import com.progressterra.ipbandroidview.composable.component.GoodsBarComponentEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
-import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.composable.component.UseGoodsBarComponent
 
 interface GoodsInteractor : StoreCardInteractor, UseGoodsBarComponent {

@@ -14,6 +14,9 @@ import com.progressterra.ipbandroidview.composable.BasicBar
 import com.progressterra.ipbandroidview.composable.Mark2Icon
 import com.progressterra.ipbandroidview.composable.SearchIcon
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.TextField
+import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.UseTextField
 
 data class CatalogBarComponentState(
     val keywordState: TextFieldState = TextFieldState()

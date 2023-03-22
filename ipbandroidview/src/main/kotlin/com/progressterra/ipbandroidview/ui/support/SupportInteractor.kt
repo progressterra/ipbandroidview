@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.support
 
 import com.progressterra.ipbandroidview.composable.ChatInputEvent
 import com.progressterra.ipbandroidview.composable.UseChatInput
-import com.progressterra.ipbandroidview.composable.component.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 
 interface SupportInteractor : UseChatInput {
 

@@ -26,7 +26,10 @@ import com.progressterra.ipbandroidview.composable.utils.RUSSIAN_PHONE_MASK
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.Button
 import com.progressterra.ipbandroidview.shared.ui.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.TextField
+import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.UseButton
+import com.progressterra.ipbandroidview.shared.ui.UseTextField
 
 @Immutable
 data class AuthState(

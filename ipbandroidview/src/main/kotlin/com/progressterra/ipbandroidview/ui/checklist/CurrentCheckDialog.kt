@@ -27,10 +27,10 @@ import com.progressterra.ipbandroidview.composable.YesNoButton
 import com.progressterra.ipbandroidview.shared.ui.Button
 import com.progressterra.ipbandroidview.shared.ui.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.ButtonState
-import com.progressterra.ipbandroidview.composable.component.TextField
-import com.progressterra.ipbandroidview.composable.component.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.TextField
+import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.UseButton
-import com.progressterra.ipbandroidview.composable.component.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.UseTextField
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStatus
