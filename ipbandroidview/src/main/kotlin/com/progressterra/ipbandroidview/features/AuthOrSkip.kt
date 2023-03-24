@@ -51,7 +51,7 @@ fun AuthOrSkipWelcome(
 fun AuthOrSkip(
     modifier: Modifier = Modifier,
     state: AuthOrSkipState,
-    useAuthOrSkip: UseAuthOrSkip
+    useComponent: UseAuthOrSkip
 ) {
     Column(
         modifier = modifier
@@ -63,12 +63,12 @@ fun AuthOrSkip(
         Button(
             modifier = Modifier.fillMaxWidth(),
             state = state.auth,
-            useComponent = useAuthOrSkip
+            useComponent = useComponent
         )
         Button(
             modifier = Modifier.fillMaxWidth(),
             state = state.skip,
-            useComponent = useAuthOrSkip
+            useComponent = useComponent
         )
     }
 }

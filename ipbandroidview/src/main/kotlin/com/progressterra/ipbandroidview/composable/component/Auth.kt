@@ -21,8 +21,8 @@ import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.utils.PhoneVisualTransformation
-import com.progressterra.ipbandroidview.composable.utils.RUSSIAN_PHONE_MASK
+import com.progressterra.ipbandroidview.shared.utils.MaskVisualTransformation
+import com.progressterra.ipbandroidview.shared.utils.RUSSIAN_PHONE_MASK
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
@@ -115,7 +115,7 @@ fun AuthComponent(
                         keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone),
                         state = state.phone,
                         useComponent = useComponent,
-                        visualTransformation = PhoneVisualTransformation(RUSSIAN_PHONE_MASK)
+                        visualTransformation = MaskVisualTransformation(RUSSIAN_PHONE_MASK)
                     )
                 }
                 LinkText(

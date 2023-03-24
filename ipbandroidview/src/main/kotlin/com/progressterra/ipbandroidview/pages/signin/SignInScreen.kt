@@ -66,7 +66,7 @@ fun SignInScreen(
             Spacer(Modifier.weight(1f))
             AuthOrSkip(
                 state = state.authOrSkipState,
-                useAuthOrSkip = interactor
+                useComponent = interactor
             )
         }
     }

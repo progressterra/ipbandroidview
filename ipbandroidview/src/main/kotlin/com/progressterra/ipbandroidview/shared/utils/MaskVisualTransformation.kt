@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.utils
+package com.progressterra.ipbandroidview.shared.utils
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
@@ -6,9 +6,8 @@ import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 
-const val RUSSIAN_PHONE_MASK = "+# (###) ###-##-##"
 
-class PhoneVisualTransformation(private val mask: String) : VisualTransformation {
+class MaskVisualTransformation(private val mask: String) : VisualTransformation {
 
     private val maskNumber = '#'
 
@@ -34,18 +33,6 @@ class PhoneVisualTransformation(private val mask: String) : VisualTransformation
         }
 
         return TransformedText(annotatedString, PhoneOffsetMapper(mask, maskNumber))
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other !is PhoneVisualTransformation) return false
-        if (mask != other.mask) return false
-        if (maskNumber != other.maskNumber) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return mask.hashCode()
     }
 }
 

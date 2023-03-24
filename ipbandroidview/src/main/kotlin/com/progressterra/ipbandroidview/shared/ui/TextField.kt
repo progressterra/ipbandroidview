@@ -26,10 +26,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Immutable
 data class TextFieldState(
-    val id: String = "",
-    val text: String = "",
-    val hint: String = "",
-    val enabled: Boolean = true
+    val id: String = "", val text: String = "", val hint: String = "", val enabled: Boolean = true
 ) : Parcelable {
 
     fun updateText(text: String): TextFieldState = copy(text = text)
@@ -68,7 +65,8 @@ fun TextField(
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
             BrushedText(
-                text = state.hint, style = IpbTheme.typography.label,
+                text = state.hint,
+                style = IpbTheme.typography.label,
                 tint = IpbTheme.colors.textTertiary1.asBrush()
             )
         }
@@ -76,7 +74,8 @@ fun TextField(
     val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
             BrushedText(
-                text = state.hint, style = IpbTheme.typography.primary,
+                text = state.hint,
+                style = IpbTheme.typography.primary,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
         }
@@ -109,19 +108,16 @@ fun TextField(
         enabled = state.enabled,
         textStyle = IpbTheme.typography.primary,
         singleLine = singleLine,
-        trailingIcon = {
-            actionIcon?.let {
-                IconButton(
-                    onClick = {
-                        useComponent.handleEvent(
-                            state.id,
-                            TextFieldEvent.AdditionalAction
-                        )
-                    }
-                ) {
+        trailingIcon = actionIcon?.let {
+            {
+                IconButton(onClick = {
+                    useComponent.handleEvent(
+                        state.id, TextFieldEvent.AdditionalAction
+                    )
+                }) {
                     BrushedIcon(
                         resId = it,
-                        tint = if (focused) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary1.asBrush()
+                        tint = if (focused) IpbTheme.colors.iconPrimary3.asBrush() else IpbTheme.colors.iconTertiary1.asBrush()
                     )
                 }
             }
