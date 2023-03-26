@@ -1,87 +1,120 @@
 package com.progressterra.ipbandroidview.features.confirmationcode
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.BottomHolder
-import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.composable.VerificationCodeInput
-import com.progressterra.ipbandroidview.composable.component.TextButton
+import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.theme.toBrush
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
-/**
- * resend - text button
- * next - button
- */
+@Composable
+private fun Digit(
+    digit: String, active: Boolean
+) {
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(8.dp))
+            .background(IpbTheme.colors.background.asBrush())
+            .border(
+                width = 1.dp,
+                brush = if (active) IpbTheme.colors.primary.asBrush() else Color.Transparent.toBrush(),
+                shape = RoundedCornerShape(8.dp)
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        if (!active && digit.isEmpty()) {
+            BrushedText(
+                text = ".",
+                style = IpbTheme.typography.headLine,
+                tint = IpbTheme.colors.textDisabled.asBrush()
+            )
+        }
+        BrushedText(
+            text = digit,
+            style = IpbTheme.typography.headLine,
+            tint = IpbTheme.colors.textPrimary1.asBrush()
+        )
+    }
+}
+
 @Composable
 fun ConfirmationCode(
     modifier: Modifier = Modifier,
-    id: String,
     state: ConfirmationCodeState,
     useComponent: UseConfirmationCode
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.verification_code),
-            onBack = { useComponent.handleEvent(id, ConfirmationCodeEvent.Back) })
-    }, bottomBar = {
-        BottomHolder {
-            Button(
-                id = "next",
-                modifier = Modifier.fillMaxWidth(),
-                state = state.nextButton,
-                useComponent = useComponent
-            )
-            Spacer(modifier = Modifier.size(8.dp))
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                id = "resend",
-                state = state.resendButton,
-                useComponent = useComponent
-            )
-        }
-    }) { _, _ ->
-        Column(
-            Modifier
-                .fillMaxSize()
-                .padding(8.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(IpbTheme.shapes.medium)
-                    .background(IpbTheme.colors.surfaces)
-                    .padding(16.dp)
-            ) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = "${stringResource(id = R.string.verification_code_message)}\n${state.phoneNumber}",
-                    color = IpbTheme.colors.gray1,
-                    style = IpbTheme.typography.primary,
-                    textAlign = TextAlign.Center
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(IpbTheme.colors.surface1.asBrush())
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        BrushedText(
+            modifier = Modifier.fillMaxWidth(),
+            text = "${stringResource(id = R.string.verification_code_message)}\n${state.phoneNumber}",
+            tint = IpbTheme.colors.textSecondary.asBrush(),
+            style = IpbTheme.typography.primary,
+            textAlign = TextAlign.Center
+        )
+        val mutableInteractionSource = remember { MutableInteractionSource() }
+        val focused = mutableInteractionSource.collectIsFocusedAsState().value
+        val focusManager = LocalFocusManager.current
+        BasicTextField(modifier = modifier.clearFocusOnKeyboardDismiss(),
+            value = state.code,
+            singleLine = true,
+            maxLines = 1,
+            interactionSource = mutableInteractionSource,
+            onValueChange = {
+                useComponent.handleEvent(
+                    state.id,
+                    ConfirmationCodeEvent.CodeChanged(it)
                 )
-                Spacer(modifier = Modifier.size(16.dp))
-                VerificationCodeInput(
-                    modifier = Modifier.fillMaxWidth(),
-                    code = state.code,
-                    editCode = {
-                        useComponent.handleEvent(
-                            id, ConfirmationCodeEvent.CodeChanged(it)
+            },
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(onDone = {
+                focusManager.clearFocus()
+            }),
+            decorationBox = {
+                Row(horizontalArrangement = Arrangement.Center) {
+                    repeat(4) { index ->
+                        Digit(
+                            if (index >= state.code.length) "" else state.code[index].toString(),
+                            (state.code.length == index) && focused
                         )
-                    })
-            }
-        }
+                        if (index != 4 - 1) Spacer(modifier = Modifier.size(12.dp))
+                    }
+                }
+            })
     }
 }
