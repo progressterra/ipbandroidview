@@ -157,4 +157,5 @@
     <string name="total_to_pay">Итого к оплате:</string>
     <string name="please_auth">Авторизуйтесь, чтобы заказывать товары и копить бонусы</string>
     <string name="sign_in_text">Нажимая кнопку «Авторизоваться», я соглашаюсь с офертой и политикой конфиденциальности</string>
+    <string name="bonuses_short">Б</string>
 </resources>

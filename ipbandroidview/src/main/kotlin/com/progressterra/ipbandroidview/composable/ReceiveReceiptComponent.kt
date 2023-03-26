@@ -19,6 +19,7 @@ import com.progressterra.ipbandroidview.shared.ui.TextField
 import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.UseTextField
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.ThemedSwitch
 
 @Immutable
 data class ReceiveReceiptComponentState(
