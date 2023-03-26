@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features
+package com.progressterra.ipbandroidview.features.proshkasearch
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.OutlinedTextField

@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.ui.main
 
-import com.progressterra.ipbandroidview.features.ProshkaBonusesEvent
+import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
-import com.progressterra.ipbandroidview.features.UseProshkaBonuses
+import com.progressterra.ipbandroidview.features.proshkabonuses.UseProshkaBonuses
 import com.progressterra.ipbandroidview.model.Category
 
 interface MainInteractor : StoreCardInteractor, UseProshkaBonuses {

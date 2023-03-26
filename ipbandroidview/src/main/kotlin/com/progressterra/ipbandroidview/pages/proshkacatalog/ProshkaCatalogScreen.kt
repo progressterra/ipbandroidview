@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.features.ProshkaSearch
-import com.progressterra.ipbandroidview.features.ProshkaSearchState
-import com.progressterra.ipbandroidview.features.UseProshkaSearch
+import com.progressterra.ipbandroidview.features.proshkasearch.ProshkaSearch
+import com.progressterra.ipbandroidview.features.proshkasearch.ProshkaSearchState
+import com.progressterra.ipbandroidview.features.proshkasearch.UseProshkaSearch
 import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.shared.ui.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout

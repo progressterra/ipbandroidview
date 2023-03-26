@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.ProshkaOffer
-import com.progressterra.ipbandroidview.features.ProshkaOfferEvent
-import com.progressterra.ipbandroidview.features.ProshkaOfferState
-import com.progressterra.ipbandroidview.features.UseProshkaOffer
+import com.progressterra.ipbandroidview.features.proshkaoffer.ProshkaOffer
+import com.progressterra.ipbandroidview.features.proshkaoffer.ProshkaOfferEvent
+import com.progressterra.ipbandroidview.features.proshkaoffer.ProshkaOfferState
+import com.progressterra.ipbandroidview.features.proshkaoffer.UseProshkaOffer
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 

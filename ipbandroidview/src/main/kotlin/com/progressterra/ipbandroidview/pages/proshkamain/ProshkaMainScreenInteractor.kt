@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.proshkamain
 
-import com.progressterra.ipbandroidview.features.UseProshkaBonuses
+import com.progressterra.ipbandroidview.features.proshkabonuses.UseProshkaBonuses
 import com.progressterra.ipbandroidview.shared.ui.UseStateBox
 import com.progressterra.ipbandroidview.widgets.UseProshkaGalleries
 import com.progressterra.ipbandroidview.widgets.UseProshkaOffers

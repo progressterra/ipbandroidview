@@ -3,12 +3,12 @@ package com.progressterra.ipbandroidview.pages.proshkacart
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.features.ProshkaTopBar
-import com.progressterra.ipbandroidview.features.ProshkaTopBarState
+import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarState
 import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.shared.ui.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.features.UseProshkaTopBar
+import com.progressterra.ipbandroidview.features.proshkatopbar.UseProshkaTopBar
 import com.progressterra.ipbandroidview.shared.ui.UseStateBox
 import com.progressterra.ipbandroidview.widgets.ProshkaCartItems
 import com.progressterra.ipbandroidview.widgets.ProshkaCartItemsState

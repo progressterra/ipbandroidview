@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.ui.confirmationcode
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCode
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeState
-import com.progressterra.ipbandroidview.composable.component.UseConfirmationCode
+import com.progressterra.ipbandroidview.features.confirmationcode.ConfirmationCode
+import com.progressterra.ipbandroidview.features.confirmationcode.ConfirmationCodeState
+import com.progressterra.ipbandroidview.features.confirmationcode.UseConfirmationCode
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 /**

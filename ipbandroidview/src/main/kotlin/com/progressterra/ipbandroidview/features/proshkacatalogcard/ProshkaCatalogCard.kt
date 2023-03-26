@@ -1,11 +1,10 @@
-package com.progressterra.ipbandroidview.features
+package com.progressterra.ipbandroidview.features.proshkacatalogcard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
@@ -16,28 +15,6 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-
-@Immutable
-data class ProshkaCatalogCardState(
-    val id: String = "",
-    val name: String = "",
-    val imageUrl: String = ""
-)
-
-sealed class ProshkaCatalogCardEvent {
-
-    object Open : ProshkaCatalogCardEvent()
-}
-
-interface UseProshkaCatalogCard {
-
-    fun handleEvent(id: String, event: ProshkaCatalogCardEvent)
-
-    class Empty : UseProshkaCatalogCard {
-
-        override fun handleEvent(id: String, event: ProshkaCatalogCardEvent) = Unit
-    }
-}
 
 @Composable
 fun ProshkaCatalogCard(

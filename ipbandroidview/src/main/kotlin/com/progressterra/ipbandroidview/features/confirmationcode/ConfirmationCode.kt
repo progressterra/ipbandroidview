@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.component
+package com.progressterra.ipbandroidview.features.confirmationcode
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -18,29 +18,9 @@ import com.progressterra.ipbandroidview.composable.BottomHolder
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
 import com.progressterra.ipbandroidview.composable.VerificationCodeInput
+import com.progressterra.ipbandroidview.composable.component.TextButton
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.button.UseButton
-
-data class ConfirmationCodeState(
-    val code: String = "",
-    val phoneNumber: String = "",
-    val nextButton: ButtonState,
-    val resendButton: TextButtonState
-)
-
-sealed class ConfirmationCodeEvent {
-
-    object Back : ConfirmationCodeEvent()
-
-    data class CodeChanged(val code: String) : ConfirmationCodeEvent()
-}
-
-interface UseConfirmationCode : UseButton, UseTextButton {
-
-    fun handleEvent(id: String, event: ConfirmationCodeEvent)
-}
 
 /**
  * resend - text button

@@ -9,9 +9,9 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.AuthOrSkipState
-import com.progressterra.ipbandroidview.features.AuthOrSkipWelcome
-import com.progressterra.ipbandroidview.features.UseAuthOrSkip
+import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
+import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipWelcome
+import com.progressterra.ipbandroidview.features.authorskip.UseAuthOrSkip
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 
 @Immutable

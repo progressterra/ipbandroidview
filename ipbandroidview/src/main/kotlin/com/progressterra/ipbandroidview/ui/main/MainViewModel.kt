@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.features.ProshkaBonusesEvent
+import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase

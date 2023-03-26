@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.proshkamain
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.features.ProshkaBonusesState
+import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesState
 import com.progressterra.ipbandroidview.widgets.ProshkaGalleriesState
 import com.progressterra.ipbandroidview.widgets.ProshkaOffersState
 

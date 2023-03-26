@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features
+package com.progressterra.ipbandroidview.features.proshkastorecard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,40 +19,7 @@ import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.Counter
-import com.progressterra.ipbandroidview.shared.ui.CounterEvent
-import com.progressterra.ipbandroidview.shared.ui.CounterState
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.UseCounter
-
-@Immutable
-data class ProshkaStoreCardState(
-    val id: String = "",
-    val name: String = "",
-    val company: String = "",
-    val price: SimplePrice = SimplePrice(),
-    val imageUrl: String = "",
-    val loan: String = "",
-    val counter: CounterState = CounterState()
-)
-
-sealed class ProshkaStoreCardEvent {
-
-    object Open : ProshkaStoreCardEvent()
-
-    object AddToCart : ProshkaStoreCardEvent()
-}
-
-interface UseProshkaStoreCard : UseCounter {
-
-    fun handleEvent(id: String, event: ProshkaStoreCardEvent)
-
-    class Empty : UseProshkaStoreCard {
-
-        override fun handleEvent(id: String, event: CounterEvent) = Unit
-
-        override fun handleEvent(id: String, event: ProshkaStoreCardEvent) = Unit
-    }
-}
 
 @Composable
 fun ProshkaStoreCard(

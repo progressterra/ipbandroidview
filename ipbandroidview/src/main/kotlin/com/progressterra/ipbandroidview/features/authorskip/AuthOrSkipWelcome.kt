@@ -1,0 +1,32 @@
+package com.progressterra.ipbandroidview.features.authorskip
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.shared.ui.button.Button
+
+@Composable
+fun AuthOrSkipWelcome(
+    modifier: Modifier = Modifier,
+    state: AuthOrSkipState,
+    useAuthOrSkip: UseAuthOrSkip
+) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            state = state.auth,
+            useComponent = useAuthOrSkip
+        )
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            state = state.skip,
+            useComponent = useAuthOrSkip
+        )
+    }
+}

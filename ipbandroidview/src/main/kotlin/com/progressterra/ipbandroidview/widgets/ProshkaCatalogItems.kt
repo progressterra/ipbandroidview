@@ -9,10 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.features.ProshkaCatalogCard
-import com.progressterra.ipbandroidview.features.ProshkaCatalogCardEvent
-import com.progressterra.ipbandroidview.features.ProshkaCatalogCardState
-import com.progressterra.ipbandroidview.features.UseProshkaCatalogCard
+import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatalogCard
+import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatalogCardEvent
+import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatalogCardState
+import com.progressterra.ipbandroidview.features.proshkacatalogcard.UseProshkaCatalogCard
 
 
 @Immutable

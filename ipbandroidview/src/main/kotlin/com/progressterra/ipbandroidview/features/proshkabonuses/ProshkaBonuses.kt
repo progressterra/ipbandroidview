@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features
+package com.progressterra.ipbandroidview.features.proshkabonuses
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,39 +20,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-
-enum class ProshkaBonusesStyle {
-    NEXT,
-    PLUS
-}
-
-@Immutable
-data class ProshkaBonusesState(
-    val id: String = "default",
-    val bonuses: String = "",
-    val canWithdraw: String = "",
-    val rate: String = "",
-    val loan: String = "",
-    val burningDate: String = "",
-    val burningQuantity: String = "",
-    val isReversed: Boolean = false
-)
-
-sealed class ProshkaBonusesEvent {
-
-    object Action : ProshkaBonusesEvent()
-
-    object Reverse : ProshkaBonusesEvent()
-}
-
-interface UseProshkaBonuses {
-
-    fun handleEvent(id: String, event: ProshkaBonusesEvent)
-
-    class Empty : UseProshkaBonuses {
-        override fun handleEvent(id: String, event: ProshkaBonusesEvent) = Unit
-    }
-}
 
 @Composable
 fun ProshkaBonuses(

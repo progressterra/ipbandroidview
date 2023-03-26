@@ -2,12 +2,12 @@ package com.progressterra.ipbandroidview.pages.profile
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.features.AuthProfileState
-import com.progressterra.ipbandroidview.features.ProfileButtonState
-import com.progressterra.ipbandroidview.features.UnAuthProfileState
-import com.progressterra.ipbandroidview.features.UseAuthProfile
-import com.progressterra.ipbandroidview.features.UseProfileButton
-import com.progressterra.ipbandroidview.features.UseUnAuthProfile
+import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
+import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
+import com.progressterra.ipbandroidview.features.unauthprofile.UnAuthProfileState
+import com.progressterra.ipbandroidview.features.authprofile.UseAuthProfile
+import com.progressterra.ipbandroidview.features.profilebutton.UseProfileButton
+import com.progressterra.ipbandroidview.features.unauthprofile.UseUnAuthProfile
 import com.progressterra.ipbandroidview.shared.ui.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.UseStateBox
 

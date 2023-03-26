@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.main
 
 import android.graphics.Bitmap
-import com.progressterra.ipbandroidview.features.ProshkaBonusesState
+import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesState
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Category

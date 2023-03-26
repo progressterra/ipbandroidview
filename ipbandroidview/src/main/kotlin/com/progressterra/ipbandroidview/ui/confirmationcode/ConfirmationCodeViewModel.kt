@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeEvent
-import com.progressterra.ipbandroidview.composable.component.ConfirmationCodeState
+import com.progressterra.ipbandroidview.features.confirmationcode.ConfirmationCodeEvent
+import com.progressterra.ipbandroidview.features.confirmationcode.ConfirmationCodeState
 import com.progressterra.ipbandroidview.composable.component.TextButtonEvent
 import com.progressterra.ipbandroidview.composable.component.TextButtonState
-import com.progressterra.ipbandroidview.composable.component.UseConfirmationCode
+import com.progressterra.ipbandroidview.features.confirmationcode.UseConfirmationCode
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.domain.usecase.user.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase

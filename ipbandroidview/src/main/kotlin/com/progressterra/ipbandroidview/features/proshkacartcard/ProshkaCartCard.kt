@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features
+package com.progressterra.ipbandroidview.features.proshkacartcard
 
 
 import androidx.compose.foundation.background
@@ -12,7 +12,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,49 +26,7 @@ import com.progressterra.ipbandroidview.shared.theme.toColor
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.Counter
-import com.progressterra.ipbandroidview.shared.ui.CounterEvent
-import com.progressterra.ipbandroidview.shared.ui.CounterState
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.UseCounter
-
-@Immutable
-data class ProshkaCartCardState(
-    val id: String = "",
-    val name: String = "",
-    val company: String = "",
-    val price: SimplePrice = SimplePrice(),
-    val imageUrl: String = "",
-    val loan: String = "",
-    val counter: CounterState = CounterState(),
-    val properties: List<Property> = emptyList()
-) {
-
-    sealed class Property(val name: String, val value: String) {
-
-        class Color(name: String, value: String) : Property(name, value)
-
-        class Size(name: String, value: String) : Property(name, value)
-    }
-}
-
-sealed class ProshkaCartCardEvent {
-
-    object Open : ProshkaCartCardEvent()
-
-    object RemoveFromCart : ProshkaCartCardEvent()
-}
-
-interface UseProshkaCartCard : UseCounter {
-
-    fun handleEvent(id: String, event: ProshkaCartCardEvent)
-
-    class Empty : UseProshkaCartCard {
-
-        override fun handleEvent(id: String, event: CounterEvent) = Unit
-
-        override fun handleEvent(id: String, event: ProshkaCartCardEvent) = Unit
-    }
-}
 
 @Composable
 fun ProshkaCartCard(

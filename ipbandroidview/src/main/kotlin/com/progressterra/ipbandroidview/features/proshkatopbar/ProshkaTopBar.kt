@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features
+package com.progressterra.ipbandroidview.features.proshkatopbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -15,26 +14,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-
-@Immutable
-data class ProshkaTopBarState(
-    val id: String = "", val title: String = "", val showBackButton: Boolean = false
-)
-
-interface UseProshkaTopBar {
-
-    fun handleEvent(id: String, event: ProshkaTopBarEvent) = Unit
-
-    class Empty : UseProshkaTopBar {
-
-        override fun handleEvent(id: String, event: ProshkaTopBarEvent) = Unit
-    }
-}
-
-sealed class ProshkaTopBarEvent {
-
-    object Back : ProshkaTopBarEvent()
-}
 
 @Composable
 fun ProshkaTopBar(

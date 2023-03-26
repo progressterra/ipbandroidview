@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features
+package com.progressterra.ipbandroidview.features.authprofile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,22 +23,6 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
-
-@Immutable
-data class AuthProfileState(
-    val id: String = "",
-    val profileImage: String = ""
-)
-
-interface UseAuthProfile {
-
-    fun handleEvent(id: String, event: AuthProfileEvent)
-}
-
-sealed class AuthProfileEvent {
-
-    object Click : AuthProfileEvent()
-}
 
 @Composable
 fun AuthProfile(

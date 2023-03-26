@@ -17,8 +17,8 @@ import com.progressterra.ipbandroidview.composable.Qr
 import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.features.ProshkaBonuses
-import com.progressterra.ipbandroidview.features.ProshkaBonusesState
+import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonuses
+import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesState
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
