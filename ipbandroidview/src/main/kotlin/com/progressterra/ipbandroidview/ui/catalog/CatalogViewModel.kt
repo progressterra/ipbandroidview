@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.component.CatalogBarComponentEvent
 import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.store.CatalogUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.CatalogUseCase
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -42,7 +42,7 @@ class CatalogViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: CatalogBarComponentEvent) = intent {
+    override fun handle(id: String, event: CatalogBarComponentEvent) = intent {
         when (id) {
             "main" -> when (event) {
                 is CatalogBarComponentEvent.OnClear -> clear()
@@ -51,7 +51,7 @@ class CatalogViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "keyword" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce {

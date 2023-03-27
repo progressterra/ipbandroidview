@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.ui.profile
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserNameUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserPhoneUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

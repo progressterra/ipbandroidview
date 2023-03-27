@@ -2,5 +2,5 @@ package com.progressterra.ipbandroidview.features.authprofile
 
 interface UseAuthProfile {
 
-    fun handleEvent(id: String, event: AuthProfileEvent)
+    fun handle(id: String, event: AuthProfileEvent)
 }

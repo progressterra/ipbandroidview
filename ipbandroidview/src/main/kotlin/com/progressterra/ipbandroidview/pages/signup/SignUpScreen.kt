@@ -13,9 +13,9 @@ import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarStat
 import com.progressterra.ipbandroidview.features.authorskip.UseAuthOrSkip
 import com.progressterra.ipbandroidview.features.proshkatopbar.UseProshkaTopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.widgets.ProshkaEditUser
-import com.progressterra.ipbandroidview.widgets.ProshkaEditUserState
-import com.progressterra.ipbandroidview.widgets.UseProshkaEditUser
+import com.progressterra.ipbandroidview.widgets.proshkaedituser.ProshkaEditUser
+import com.progressterra.ipbandroidview.widgets.proshkaedituser.ProshkaEditUserState
+import com.progressterra.ipbandroidview.widgets.proshkaedituser.UseProshkaEditUser
 
 @Immutable
 data class SignUpState(

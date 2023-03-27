@@ -12,9 +12,9 @@ interface SupportInteractor : UseChatInput {
 
     class Empty : SupportInteractor {
 
-        override fun handleEvent(id: String, event: ChatInputEvent) = Unit
+        override fun handle(id: String, event: ChatInputEvent) = Unit
 
-        override fun handleEvent(id: String, event: TextFieldEvent) = Unit
+        override fun handle(id: String, event: TextFieldEvent) = Unit
 
         override fun onBack() = Unit
 

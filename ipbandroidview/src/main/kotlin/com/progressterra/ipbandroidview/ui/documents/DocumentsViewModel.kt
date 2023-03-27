@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.checklist.AllDocumentsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.model.ChecklistStatus
 import com.progressterra.ipbandroidview.model.Document
@@ -64,7 +64,7 @@ class DocumentsViewModel(
         )
     }
 
-    override fun handleEvent(id: String, event: ButtonEvent) = intent {
+    override fun handle(id: String, event: ButtonEvent) = intent {
         when (id) {
             "archive" -> when (event) {
                 ButtonEvent.Click -> postSideEffect(

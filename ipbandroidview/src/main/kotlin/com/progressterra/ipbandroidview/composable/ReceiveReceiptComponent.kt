@@ -29,7 +29,7 @@ data class ReceiveReceiptComponentState(
 
 interface UseReceiveReceiptComponent : UseTextField {
 
-    fun handleEvent(id: String, event: ReceiveReceiptComponentEvent)
+    fun handle(id: String, event: ReceiveReceiptComponentEvent)
 }
 
 sealed class ReceiveReceiptComponentEvent {
@@ -65,7 +65,7 @@ fun ReceiveReceiptComponent(
                 color = IpbTheme.colors.black
             )
             ThemedSwitch(onChange = {
-                useComponent.handleEvent(
+                useComponent.handle(
                     id, ReceiveReceiptComponentEvent.ReceiveReceiptChanged(it)
                 )
             }, checked = state.receiveReceipt)

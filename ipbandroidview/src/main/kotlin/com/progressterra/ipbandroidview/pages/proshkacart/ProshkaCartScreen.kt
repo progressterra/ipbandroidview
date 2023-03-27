@@ -10,12 +10,12 @@ import com.progressterra.ipbandroidview.shared.ui.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.features.proshkatopbar.UseProshkaTopBar
 import com.progressterra.ipbandroidview.shared.ui.UseStateBox
-import com.progressterra.ipbandroidview.widgets.ProshkaCartItems
-import com.progressterra.ipbandroidview.widgets.ProshkaCartItemsState
-import com.progressterra.ipbandroidview.widgets.ProshkaCartSummary
-import com.progressterra.ipbandroidview.widgets.ProshkaCartSummaryState
-import com.progressterra.ipbandroidview.widgets.UseProshkaCartItems
-import com.progressterra.ipbandroidview.widgets.UseProshkaCartSummary
+import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItems
+import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItemsState
+import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummary
+import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummaryState
+import com.progressterra.ipbandroidview.widgets.proshkacartitems.UseProshkaCartItems
+import com.progressterra.ipbandroidview.widgets.proshkacartsummary.UseProshkaCartSummary
 
 @Immutable
 data class ProshkaCartState(

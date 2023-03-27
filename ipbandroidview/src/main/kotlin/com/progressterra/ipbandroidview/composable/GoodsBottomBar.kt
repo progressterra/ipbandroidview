@@ -28,7 +28,7 @@ data class GoodsBottomBarComponentState(
 )
 
 interface UseGoodsBottomBar : UseButton {
-    fun handleEvent(id: String, event: GoodsBottomBarEvent)
+    fun handle(id: String, event: GoodsBottomBarEvent)
 }
 
 sealed class GoodsBottomBarEvent {
@@ -65,7 +65,7 @@ fun GoodsBottomBar(
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = { useComponent.handleEvent(id, GoodsBottomBarEvent.Remove) }) {
+            IconButton(onClick = { useComponent.handle(id, GoodsBottomBarEvent.Remove) }) {
                 RemoveItemIcon()
             }
             Text(
@@ -73,7 +73,7 @@ fun GoodsBottomBar(
                 color = IpbTheme.colors.black,
                 style = IpbTheme.typography.button
             )
-            IconButton(onClick = { useComponent.handleEvent(id, GoodsBottomBarEvent.Add) }) {
+            IconButton(onClick = { useComponent.handle(id, GoodsBottomBarEvent.Add) }) {
                 AddItemIcon(available = true)
             }
         }

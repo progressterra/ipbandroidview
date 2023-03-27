@@ -32,7 +32,7 @@ sealed class ChatInputEvent {
 
 interface UseChatInput : UseTextField {
 
-    fun handleEvent(id: String, event: ChatInputEvent)
+    fun handle(id: String, event: ChatInputEvent)
 }
 
 /**
@@ -63,7 +63,7 @@ fun ChatInput(
                 id = "message"
             )
             IconButton(enabled = state.enabled,
-                onClick = { useComponent.handleEvent(id, ChatInputEvent.Send) }) {
+                onClick = { useComponent.handle(id, ChatInputEvent.Send) }) {
                 SendIcon()
             }
         }

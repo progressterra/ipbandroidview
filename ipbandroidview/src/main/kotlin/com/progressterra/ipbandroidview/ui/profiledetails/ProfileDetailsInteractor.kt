@@ -11,9 +11,9 @@ interface ProfileDetailsInteractor : UseTextField, UseButton {
 
     class Empty : ProfileDetailsInteractor {
 
-        override fun handleEvent(id: String, event: ButtonEvent) = Unit
+        override fun handle(id: String, event: ButtonEvent) = Unit
 
-        override fun handleEvent(id: String, event: TextFieldEvent) = Unit
+        override fun handle(id: String, event: TextFieldEvent) = Unit
 
         override fun onBack() = Unit
     }

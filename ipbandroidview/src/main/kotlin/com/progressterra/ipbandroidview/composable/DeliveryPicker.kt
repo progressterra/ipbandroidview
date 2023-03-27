@@ -29,7 +29,7 @@ data class DeliveryPickerState(
 
 interface UseDeliveryPicker : UseTextField {
 
-    fun handleEvent(id: String, event: DeliveryPickerEvent)
+    fun handle(id: String, event: DeliveryPickerEvent)
 }
 
 sealed class DeliveryPickerEvent {
@@ -67,7 +67,7 @@ fun DeliveryPicker(
             .clip(IpbTheme.shapes.medium)
             .background(IpbTheme.colors.background)
             .niceClickable {
-                useComponent.handleEvent(
+                useComponent.handle(
                     id = id, event = DeliveryPickerEvent.ChangeAddress(state.addressUI)
                 )
             }
@@ -90,7 +90,7 @@ fun DeliveryPicker(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     ThemedRadioButton(checked = it == state.selectedDeliveryMethod, onClick = {
-                        useComponent.handleEvent(
+                        useComponent.handle(
                             id = id, event = DeliveryPickerEvent.SelectDeliveryMethod(it)
                         )
                     })
@@ -119,7 +119,7 @@ fun DeliveryPicker(
                         .clip(IpbTheme.shapes.medium)
                         .background(IpbTheme.colors.background)
                         .niceClickable {
-                            useComponent.handleEvent(
+                            useComponent.handle(
                                 id = id, event = DeliveryPickerEvent.SelectPickupPoint
                             )
                         }

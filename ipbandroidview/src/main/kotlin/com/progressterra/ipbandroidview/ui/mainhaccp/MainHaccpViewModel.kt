@@ -5,8 +5,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrganizationsOverviewEvent
 import com.progressterra.ipbandroidview.composable.PartnerBlockEvent
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.domain.usecase.checklist.OrganizationsOverviewUseCase
-import com.progressterra.ipbandroidview.domain.usecase.partner.FetchPartnerUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.OrganizationsOverviewUseCase
+import com.progressterra.ipbandroidview.processes.usecase.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
 import com.progressterra.ipbandroidview.model.Partner
 import org.orbitmvi.orbit.Container
@@ -32,7 +32,7 @@ class MainHaccpViewModel(
         postSideEffect(MainHaccpEffect.OpenPartner(partner))
     }
 
-    override fun handleEvent(event: OrganizationsOverviewEvent) = intent {
+    override fun handle(event: OrganizationsOverviewEvent) = intent {
         when (event) {
             is OrganizationsOverviewEvent.Archived -> postSideEffect(
                 MainHaccpEffect.Archive(
@@ -55,7 +55,7 @@ class MainHaccpViewModel(
         }
     }
 
-    override fun handleEvent(event: PartnerBlockEvent) = intent {
+    override fun handle(event: PartnerBlockEvent) = intent {
         when (event) {
             is PartnerBlockEvent.PartnerClicked -> postSideEffect(MainHaccpEffect.OpenPartner(state.partner))
         }

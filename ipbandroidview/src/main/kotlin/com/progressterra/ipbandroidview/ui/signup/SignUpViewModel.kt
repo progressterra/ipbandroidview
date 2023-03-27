@@ -2,12 +2,12 @@ package com.progressterra.ipbandroidview.ui.signup
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.component.SignUpComponentState
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserBirthdayUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.NeedAddressUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserBirthdayUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserEmailUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserNameUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserPhoneUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.NeedAddressUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.UpdatePersonalInfoUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental

@@ -3,9 +3,9 @@ package com.progressterra.ipbandroidview.ui.referral
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.CopyTextUseCase
-import com.progressterra.ipbandroidview.domain.usecase.ShareTextUseCase
-import com.progressterra.ipbandroidview.domain.usecase.ambassador.InviteUseCase
+import com.progressterra.ipbandroidview.processes.usecase.CopyTextUseCase
+import com.progressterra.ipbandroidview.processes.usecase.ShareTextUseCase
+import com.progressterra.ipbandroidview.processes.usecase.ambassador.InviteUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

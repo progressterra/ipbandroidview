@@ -75,26 +75,26 @@ dependencies {
     api 'org.orbit-mvi:orbit-compose:4.6.1'
 
     //Activity
-    api "androidx.activity:activity-ktx:1.6.1"
-    api "androidx.activity:activity-compose:1.6.1"
+    api "androidx.activity:activity-ktx:1.7.0"
+    api "androidx.activity:activity-compose:1.7.0"
 
     //Compose
-    api 'androidx.compose.ui:ui:1.4.0-rc01'
-    api 'androidx.compose.ui:ui-util:1.4.0-rc01'
-    api 'androidx.compose.ui:ui-tooling:1.4.0-rc01'
-    api 'androidx.compose.ui:ui-tooling-preview:1.4.0-rc01'
-    api "androidx.compose.foundation:foundation:1.4.0-rc01"
-    api "androidx.compose.material:material:1.4.0-rc01"
+    api 'androidx.compose.ui:ui:1.4.0'
+    api 'androidx.compose.ui:ui-util:1.4.0'
+    api 'androidx.compose.ui:ui-tooling:1.4.0'
+    api 'androidx.compose.ui:ui-tooling-preview:1.4.0'
+    api "androidx.compose.foundation:foundation:1.4.0"
+    api "androidx.compose.material:material:1.4.0"
     api "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
     //Koin, DI library
-    api 'io.insert-koin:koin-android:3.3.3'
-    api 'io.insert-koin:koin-androidx-compose:3.4.2'
+    api 'io.insert-koin:koin-android:3.4.0'
+    api 'io.insert-koin:koin-androidx-compose:3.4.3'
 
     //Accompanist, useful composables
-    api 'com.google.accompanist:accompanist-systemuicontroller:0.28.0'
-    api 'com.google.accompanist:accompanist-pager:0.28.0'
-    api 'com.google.accompanist:accompanist-pager-indicators:0.28.0'
+    api 'com.google.accompanist:accompanist-systemuicontroller:0.30.0'
+    api 'com.google.accompanist:accompanist-pager:0.30.0'
+    api 'com.google.accompanist:accompanist-pager-indicators:0.30.0'
 
     //Testing
     api 'org.orbit-mvi:orbit-test:4.6.1'
@@ -104,13 +104,13 @@ dependencies {
     api 'com.bumble.appyx:core:1.0.5'
 
     //Google Firebase platform
-    api platform('com.google.firebase:firebase-bom:31.2.3')
+    api platform('com.google.firebase:firebase-bom:31.3.0')
     api "com.google.firebase:firebase-analytics-ktx"
     api "com.google.firebase:firebase-messaging-ktx"
 
     //Google services
     api "com.google.android.gms:play-services-location:21.0.1"
-    api 'com.google.maps.android:maps-compose:2.11.1'
+    api 'com.google.maps.android:maps-compose:2.11.3'
     api "com.google.android.gms:play-services-maps:18.1.0"
 
     //iProBonusAndroidAPI
@@ -125,11 +125,10 @@ dependencies {
     api "com.squaredem:composecalendar:1.0.4"
 
     //Landscapist, image library with coil implementation
-    api 'com.github.skydoves:landscapist-fresco:2.1.7'
-    api 'com.github.skydoves:landscapist-placeholder:2.1.7'
+    api 'com.github.skydoves:landscapist-fresco:2.1.9'
+    api 'com.github.skydoves:landscapist-placeholder:2.1.9'
 
     //TODO paging if there will be grid support then need to delete own solution
-    api "androidx.paging:paging-compose:1.0.0-alpha18"
     api "androidx.paging:paging-runtime-ktx:3.1.1"
 
     //QR

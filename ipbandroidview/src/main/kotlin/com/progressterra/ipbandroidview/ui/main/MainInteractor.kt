@@ -14,7 +14,7 @@ interface MainInteractor : StoreCardInteractor, UseProshkaBonuses {
 
     class Empty : MainInteractor {
 
-        override fun handleEvent(id: String, event: ProshkaBonusesEvent) = Unit
+        override fun handle(id: String, event: ProshkaBonusesEvent) = Unit
 
         override fun onClick(storeCard: StoreCardComponentState) = Unit
 

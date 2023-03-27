@@ -4,5 +4,5 @@ interface ComponentEvent
 
 interface ComponentEventHandler<T : ComponentEvent> {
     
-    fun handleEvent(event: T)
+    fun handle(event: T)
 }

@@ -53,7 +53,7 @@ sealed class ReceiptComponentEvent : ComponentEvent {
 
 interface UseReceiptComponent : UseButton {
 
-    fun handleEvent(id: String, event: ReceiptComponentEvent)
+    fun handle(id: String, event: ReceiptComponentEvent)
 }
 
 @Composable
@@ -183,17 +183,17 @@ fun ReceiptComponent(
                     text = stringResource(id = R.string.user_agreement),
                     tag = "user agreement",
                     annotation = stringResource(id = R.string.user_agreement_url),
-                    onClick = { useComponent.handleEvent(id, ReceiptComponentEvent.OpenUrl(it)) }
+                    onClick = { useComponent.handle(id, ReceiptComponentEvent.OpenUrl(it)) }
                 ), LinkTextData(text = stringResource(id = R.string.and)), LinkTextData(
                     text = stringResource(id = R.string.payment_agreement),
                     tag = "payment agreement",
                     annotation = stringResource(id = R.string.payment_agreement_url),
-                    onClick = { useComponent.handleEvent(id, ReceiptComponentEvent.OpenUrl(it)) }
+                    onClick = { useComponent.handle(id, ReceiptComponentEvent.OpenUrl(it)) }
                 ), LinkTextData(text = stringResource(id = R.string.payment_1)), LinkTextData(
                     text = stringResource(id = R.string.service_name),
                     tag = "service",
                     annotation = stringResource(id = R.string.service_url),
-                    onClick = { useComponent.handleEvent(id, ReceiptComponentEvent.OpenUrl(it)) }
+                    onClick = { useComponent.handle(id, ReceiptComponentEvent.OpenUrl(it)) }
                 )
             )
         )
@@ -204,7 +204,7 @@ fun ReceiptComponent(
                     text = stringResource(id = R.string.merchant_info),
                     tag = "merchant_info",
                     annotation = stringResource(id = R.string.merchant_info_url),
-                    onClick = { useComponent.handleEvent(id, ReceiptComponentEvent.OpenUrl(it)) }
+                    onClick = { useComponent.handle(id, ReceiptComponentEvent.OpenUrl(it)) }
                 )
             )
         )

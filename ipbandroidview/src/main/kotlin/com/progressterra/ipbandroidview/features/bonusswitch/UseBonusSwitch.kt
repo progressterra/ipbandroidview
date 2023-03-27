@@ -4,5 +4,5 @@ import com.progressterra.ipbandroidview.shared.ui.brushedswitch.UseBrushedSwitch
 
 interface UseBonusSwitch : UseBrushedSwitch {
 
-    fun handleEvent(id: String, event: BonusSwitchEvent)
+    fun handle(id: String, event: BonusSwitchEvent)
 }

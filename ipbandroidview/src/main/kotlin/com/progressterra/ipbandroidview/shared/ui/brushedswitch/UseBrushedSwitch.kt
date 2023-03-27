@@ -2,6 +2,6 @@ package com.progressterra.ipbandroidview.shared.ui.brushedswitch
 
 interface UseBrushedSwitch {
 
-    fun handleEvent(id: String, event: BrushedSwitchEvent)
+    fun handle(id: String, event: BrushedSwitchEvent)
 }
 

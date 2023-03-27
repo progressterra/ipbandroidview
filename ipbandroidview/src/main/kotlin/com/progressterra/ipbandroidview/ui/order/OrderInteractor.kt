@@ -30,7 +30,7 @@ interface OrderInteractor : ReceiptComponentEventHandler {
 
     class Empty : OrderInteractor {
 
-        override fun handleEvent(event: ReceiptComponentEvent) = Unit
+        override fun handle(event: ReceiptComponentEvent) = Unit
 
         override fun onBack() = Unit
 

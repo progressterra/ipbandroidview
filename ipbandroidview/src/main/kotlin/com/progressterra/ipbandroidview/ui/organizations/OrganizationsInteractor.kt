@@ -9,7 +9,7 @@ interface OrganizationsInteractor {
 
     fun onOrganizationDetails(organization: Organization)
 
-    fun handleEvent(event: PartnerBlockEvent)
+    fun handle(event: PartnerBlockEvent)
 
     class Empty : OrganizationsInteractor {
 
@@ -17,6 +17,6 @@ interface OrganizationsInteractor {
 
         override fun onOrganizationDetails(organization: Organization) = Unit
 
-        override fun handleEvent(event: PartnerBlockEvent) = Unit
+        override fun handle(event: PartnerBlockEvent) = Unit
     }
 }

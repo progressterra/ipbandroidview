@@ -1,8 +1,7 @@
 package com.progressterra.ipbandroidview.ui.splash
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
-import kotlinx.coroutines.delay
+import com.progressterra.ipbandroidview.processes.usecase.user.UserExistsUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

@@ -14,7 +14,7 @@ class ColorUnit(
     private val colors: List<Color> = hexes.map { it.toColor() }
 
     private val brush: Brush = if (hexes.size == 1) {
-        SolidColor(colors.first())
+        colors.first().toBrush()
     } else {
         Brush.verticalGradient(colors = colors)
     }

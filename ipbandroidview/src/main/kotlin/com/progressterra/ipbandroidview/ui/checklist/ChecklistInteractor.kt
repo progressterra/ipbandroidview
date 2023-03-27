@@ -14,11 +14,11 @@ interface ChecklistInteractor : UseCurrentCheck {
 
     class Empty : ChecklistInteractor {
 
-        override fun handleEvent(id: String, event: ButtonEvent) = Unit
+        override fun handle(id: String, event: ButtonEvent) = Unit
 
-        override fun handleEvent(id: String, event: TextFieldEvent) = Unit
+        override fun handle(id: String, event: TextFieldEvent) = Unit
 
-        override fun handleEvent(id: String, event: CurrentCheckEvent) = Unit
+        override fun handle(id: String, event: CurrentCheckEvent) = Unit
 
         override fun onBack() = Unit
 

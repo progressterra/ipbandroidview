@@ -54,7 +54,7 @@ sealed class SignUpComponentEvent {
 
 interface UseSignUpComponent : UseButton, UseTextButton, UseTextField {
 
-    fun handleEvent(id: String, event: SignUpComponentEvent)
+    fun handle(id: String, event: SignUpComponentEvent)
 }
 
 @Composable
@@ -84,7 +84,7 @@ fun SignUpComponent(
         }
     }) { _, _ ->
         StateBox(state = state.screenState,
-            refresh = { useComponent.handleEvent(id, SignUpComponentEvent.Refresh) }) {
+            refresh = { useComponent.handle(id, SignUpComponentEvent.Refresh) }) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -100,10 +100,10 @@ fun SignUpComponent(
                 ) {
                     if (state.showCalendar) {
                         ComposeCalendar(onDone = {
-                            useComponent.handleEvent(id, SignUpComponentEvent.EditBirthday(it))
-                            useComponent.handleEvent(id, SignUpComponentEvent.CalendarDismiss)
+                            useComponent.handle(id, SignUpComponentEvent.EditBirthday(it))
+                            useComponent.handle(id, SignUpComponentEvent.CalendarDismiss)
                         }, onDismiss = {
-                            useComponent.handleEvent(
+                            useComponent.handle(
                                 id, SignUpComponentEvent.CalendarDismiss
                             )
                         })
@@ -123,7 +123,7 @@ fun SignUpComponent(
                     ThemedMimicField(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            useComponent.handleEvent(
+                            useComponent.handle(
                                 id, SignUpComponentEvent.CalendarShow
                             )
                         },

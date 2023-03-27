@@ -49,7 +49,7 @@ fun OrganizationsScreen(
                     PartnerBlock2(
                         modifier = Modifier.size(bannerWidth, bannerHeight),
                         partner = state.partner,
-                        onEvent = { interactor.handleEvent(it) }
+                        onEvent = { interactor.handle(it) }
                     )
                 }
                 items(state.organizations) {

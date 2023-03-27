@@ -25,7 +25,7 @@ sealed class StateBoxEvent {
 
 interface UseStateBox {
 
-    fun handleEvent(id: String, event: StateBoxEvent)
+    fun handle(id: String, event: StateBoxEvent)
 }
 
 @Composable
@@ -42,7 +42,7 @@ fun StateBox(
         when (state.state) {
             ScreenState.ERROR -> IconButton(
                 modifier = modifier, onClick = {
-                    useComponent.handleEvent(state.id, StateBoxEvent.Refresh)
+                    useComponent.handle(state.id, StateBoxEvent.Refresh)
                 }
             ) {
                 BrushedIcon(

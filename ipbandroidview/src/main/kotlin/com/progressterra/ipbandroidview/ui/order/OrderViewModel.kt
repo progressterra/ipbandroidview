@@ -1,30 +1,19 @@
 package com.progressterra.ipbandroidview.ui.order
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.composable.component.ReceiptComponentEvent
-import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
-import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
-import com.progressterra.ipbandroidview.domain.usecase.bonus.UseBonusesUseCase
-import com.progressterra.ipbandroidview.domain.usecase.delivery.AvailableDeliveryUseCase
-import com.progressterra.ipbandroidview.domain.usecase.delivery.PaymentMethodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.delivery.SetDeliveryAddressUseCase
-import com.progressterra.ipbandroidview.domain.usecase.order.ConfirmOrderUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserAddressUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
-import com.progressterra.ipbandroidview.model.Delivery
-import com.progressterra.ipbandroidview.model.DeliveryType
-import com.progressterra.ipbandroidview.model.OrderGoods
-import com.progressterra.ipbandroidview.model.PaymentType
-import com.progressterra.ipbandroidview.model.PickUpPointInfo
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.processes.usecase.OpenUrlUseCase
+import com.progressterra.ipbandroidview.processes.usecase.bonus.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.processes.usecase.bonus.UseBonusesUseCase
+import com.progressterra.ipbandroidview.processes.usecase.delivery.AvailableDeliveryUseCase
+import com.progressterra.ipbandroidview.processes.usecase.delivery.PaymentMethodsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.delivery.SetDeliveryAddressUseCase
+import com.progressterra.ipbandroidview.processes.usecase.order.ConfirmOrderUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserAddressUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserEmailUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
-import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
@@ -142,7 +131,7 @@ class OrderViewModel(
 //        reduce { state.copy(email = email) }
 //    }
 //
-//    override fun handleEvent(event: ReceiptComponentEvent) = when (event) {
+//    override fun handle(event: ReceiptComponentEvent) = when (event) {
 //        is ReceiptComponentEvent.OpenUrl -> openUrl(event.url)
 //        is ReceiptComponentEvent.Payment -> payment()
 //    }

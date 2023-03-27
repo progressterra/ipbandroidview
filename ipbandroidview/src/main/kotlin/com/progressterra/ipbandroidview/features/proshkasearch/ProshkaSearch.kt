@@ -4,30 +4,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-
-@Immutable
-data class ProshkaSearchState(
-    val id: String = "",
-    val text: String = "",
-    val enabled: Boolean = true
-)
-
-sealed class ProshkaSearchEvent {
-
-    class OnTextChanged(val text: String) : ProshkaSearchEvent()
-}
-
-interface UseProshkaSearch {
-
-    fun handleEvent(id: String, event: ProshkaSearchEvent)
-}
 
 @Composable
 fun ProshkaSearch(
@@ -39,7 +21,7 @@ fun ProshkaSearch(
         modifier = modifier,
         value = state.text,
         enabled = state.enabled,
-        onValueChange = { useComponent.handleEvent(state.id, ProshkaSearchEvent.OnTextChanged(it)) },
+        onValueChange = { useComponent.handle(state.id, ProshkaSearchEvent.OnTextChanged(it)) },
         placeholder = {
             BrushedText(
                 text = stringResource(R.string.search),

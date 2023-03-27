@@ -31,7 +31,7 @@ fun ProshkaBonuses(
     Box(modifier = modifier.padding(horizontal = 20.dp)) {
         IconButton(
             modifier = Modifier.align(Alignment.TopEnd),
-            onClick = { useComponent.handleEvent(state.id, ProshkaBonusesEvent.Reverse) },
+            onClick = { useComponent.handle(state.id, ProshkaBonusesEvent.Reverse) },
         ) {
             if (state.isReversed) {
                 BrushedIcon(
@@ -47,7 +47,7 @@ fun ProshkaBonuses(
         }
         IconButton(
             modifier = Modifier.align(Alignment.CenterEnd),
-            onClick = { useComponent.handleEvent(state.id, ProshkaBonusesEvent.Action) },
+            onClick = { useComponent.handle(state.id, ProshkaBonusesEvent.Action) },
         ) {
             if (style == ProshkaBonusesStyle.NEXT) {
                 BrushedIcon(
@@ -81,7 +81,7 @@ fun ProshkaBonuses(
             )
             Spacer(modifier = Modifier.height(14.dp))
             BrushedText(
-                text = state.rate,
+                text = stringResource(R.string.bonuses_rate),
                 style = IpbTheme.typography.secondary,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )

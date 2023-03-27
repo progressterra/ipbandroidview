@@ -33,10 +33,10 @@ sealed class CounterEvent {
 
 interface UseCounter {
 
-    fun handleEvent(id: String, event: CounterEvent)
+    fun handle(id: String, event: CounterEvent)
 
     class Empty : UseCounter {
-        override fun handleEvent(id: String, event: CounterEvent) = Unit
+        override fun handle(id: String, event: CounterEvent) = Unit
     }
 }
 
@@ -56,7 +56,7 @@ fun Counter(
                 .background(IpbTheme.colors.onSurface1.asBrush())
                 .clip(CircleShape)
                 .niceClickable {
-                    useComponent.handleEvent(state.id, CounterEvent.Remove)
+                    useComponent.handle(state.id, CounterEvent.Remove)
                 },
         ) {
             BrushedIcon(
@@ -82,7 +82,7 @@ fun Counter(
                 .background(IpbTheme.colors.onSurface1.asBrush())
                 .clip(CircleShape)
                 .niceClickable {
-                    useComponent.handleEvent(state.id, CounterEvent.Add)
+                    useComponent.handle(state.id, CounterEvent.Add)
                 },
         ) {
             BrushedIcon(

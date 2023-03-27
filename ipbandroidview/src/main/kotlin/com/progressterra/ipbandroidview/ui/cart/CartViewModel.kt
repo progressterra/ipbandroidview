@@ -2,10 +2,10 @@ package com.progressterra.ipbandroidview.ui.cart
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.store.CartUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.FastRemoveFromCartUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.CartUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.FastRemoveFromCartUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.removeItem
 import com.progressterra.ipbandroidview.ext.replaceById
 import com.progressterra.ipbandroidview.composable.component.CartCardState

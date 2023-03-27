@@ -23,7 +23,7 @@ fun MainHaccpScreen(
         StateBox(
             state = state.screenState
         ) {
-            PartnerBlock(partner = state.partner, onEvent = { interactor.handleEvent(it) })
+            PartnerBlock(partner = state.partner, onEvent = { interactor.handle(it) })
         }
     }) { _, _ ->
         StateBox(state = state.screenState, refresh = { interactor.refresh() }) {
@@ -33,7 +33,7 @@ fun MainHaccpScreen(
                     .padding(8.dp)
             ) {
                 OrganizationsOverview(overviews = state.overviews,
-                    onEvent = { interactor.handleEvent(it) })
+                    onEvent = { interactor.handle(it) })
             }
         }
     }

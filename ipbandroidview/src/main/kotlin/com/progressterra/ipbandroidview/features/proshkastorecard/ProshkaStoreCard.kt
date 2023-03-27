@@ -31,7 +31,7 @@ fun ProshkaStoreCard(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .niceClickable {
-                useComponent.handleEvent(
+                useComponent.handle(
                     state.id, ProshkaStoreCardEvent.Open
                 )
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -69,7 +69,7 @@ fun ProshkaStoreCard(
                 )
             }
             if (state.counter.isEmpty()) IconButton(onClick = {
-                useComponent.handleEvent(
+                useComponent.handle(
                     state.id, ProshkaStoreCardEvent.AddToCart
                 )
             }) {

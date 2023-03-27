@@ -26,21 +26,23 @@ sealed class ProfileButtonEvent {
 fun ProfileButton(
     modifier: Modifier = Modifier,
     state: ProfileButtonState,
+    title: String,
+    isDanger: Boolean = false,
     useComponent: UseProfileButton
 ) {
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface1.asBrush())
-            .niceClickable { useComponent.handleEvent(state.id, ProfileButtonEvent.Click) }
+            .niceClickable { useComponent.handle(state.id, ProfileButtonEvent.Click) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val color =
-            if (state.isDanger) IpbTheme.colors.textPrimary2.asBrush() else IpbTheme.colors.textPrimary1.asBrush()
+            if (isDanger) IpbTheme.colors.textPrimary2.asBrush() else IpbTheme.colors.textPrimary1.asBrush()
         BrushedText(
-            text = state.title,
+            text = title,
             style = IpbTheme.typography.primary,
             tint = color
         )

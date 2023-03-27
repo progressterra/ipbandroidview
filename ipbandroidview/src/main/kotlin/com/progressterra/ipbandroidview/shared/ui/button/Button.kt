@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
@@ -20,13 +21,14 @@ import com.progressterra.ipbandroidview.shared.ui.niceClickable
 fun Button(
     modifier: Modifier = Modifier,
     state: ButtonState,
+    title: String,
     useComponent: UseButton,
     style: ButtonStyle = ButtonStyle.DEFAULT
 ) {
     val backgroundColor = when (style) {
         ButtonStyle.DEFAULT -> IpbTheme.colors.primary.asBrush()
         ButtonStyle.SILENT -> IpbTheme.colors.surface1.asBrush()
-        ButtonStyle.TEXT -> SolidColor(Color.Transparent)
+        ButtonStyle.TEXT -> Color.Transparent.toBrush()
     }
     val textColor = when (style) {
         ButtonStyle.DEFAULT -> IpbTheme.colors.textButton.asBrush()
@@ -38,12 +40,12 @@ fun Button(
             .clip(RoundedCornerShape(14.dp))
             .background(backgroundColor)
             .padding(horizontal = 32.dp, vertical = 15.dp)
-            .niceClickable { useComponent.handleEvent(state.id, ButtonEvent.Click) },
+            .niceClickable { useComponent.handle(state.id, ButtonEvent.Click) },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         BrushedText(
-            text = state.text,
+            text = title,
             style = IpbTheme.typography.button,
             tint = textColor
         )

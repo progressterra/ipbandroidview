@@ -40,7 +40,7 @@ fun OrderScreen(
 //                )
 //                ReceiptComponent(
 //                    state = state.receiptComponentState,
-//                    onEvent = { interactor.handleEvent(it) }
+//                    onEvent = { interactor.handle(it) }
 //                )
 //            }
 //        }

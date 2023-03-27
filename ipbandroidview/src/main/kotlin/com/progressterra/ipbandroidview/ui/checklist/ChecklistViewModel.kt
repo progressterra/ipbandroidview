@@ -10,24 +10,24 @@ import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.exception.NoEmailException
-import com.progressterra.ipbandroidview.domain.exception.NoPermissionException
-import com.progressterra.ipbandroidview.domain.usecase.AskPermissionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.CheckMediaDetailsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.ChecklistUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.CreateDocumentUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.DocumentChecklistUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.FetchExistingAuditUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.FinishDocumentUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.SendResultOnEmailUseCase
-import com.progressterra.ipbandroidview.domain.usecase.checklist.UpdateAnswerUseCase
-import com.progressterra.ipbandroidview.domain.usecase.media.AudioProgressUseCase
-import com.progressterra.ipbandroidview.domain.usecase.media.MakePhotoUseCase
-import com.progressterra.ipbandroidview.domain.usecase.media.PauseAudioUseCase
-import com.progressterra.ipbandroidview.domain.usecase.media.StartAudioUseCase
-import com.progressterra.ipbandroidview.domain.usecase.media.StartRecordingUseCase
-import com.progressterra.ipbandroidview.domain.usecase.media.StopRecordingUseCase
+import com.progressterra.ipbandroidview.processes.exception.NoEmailException
+import com.progressterra.ipbandroidview.processes.exception.NoPermissionException
+import com.progressterra.ipbandroidview.processes.usecase.AskPermissionUseCase
+import com.progressterra.ipbandroidview.processes.usecase.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.CheckMediaDetailsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.ChecklistUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.CreateDocumentUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.FinishDocumentUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.SendResultOnEmailUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.UpdateAnswerUseCase
+import com.progressterra.ipbandroidview.processes.usecase.media.AudioProgressUseCase
+import com.progressterra.ipbandroidview.processes.usecase.media.MakePhotoUseCase
+import com.progressterra.ipbandroidview.processes.usecase.media.PauseAudioUseCase
+import com.progressterra.ipbandroidview.processes.usecase.media.StartAudioUseCase
+import com.progressterra.ipbandroidview.processes.usecase.media.StartRecordingUseCase
+import com.progressterra.ipbandroidview.processes.usecase.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
 import com.progressterra.ipbandroidview.model.AuditDocument
 import com.progressterra.ipbandroidview.model.Check
@@ -120,7 +120,7 @@ class ChecklistViewModel(
 
     override fun onBack() = intent { postSideEffect(ChecklistEffect.Back) }
 
-    override fun handleEvent(id: String, event: ButtonEvent) = intent {
+    override fun handle(id: String, event: ButtonEvent) = intent {
         when (id) {
             "finish" -> when (event) {
                 is ButtonEvent.Click -> {
@@ -188,7 +188,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "commentary" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updateComment(event.text) }
@@ -197,7 +197,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: CurrentCheckEvent) = intent {
+    override fun handle(id: String, event: CurrentCheckEvent) = intent {
         when (id) {
             "main" -> when (event) {
                 is CurrentCheckEvent.OpenCamera -> makePhotoUseCase().onSuccess {

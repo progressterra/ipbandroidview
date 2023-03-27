@@ -57,7 +57,7 @@ sealed class AuthEvent {
 }
 
 interface UseAuth : UseButton, UseTextButton, UseTextField {
-    fun handleEvent(id: String, event: AuthEvent)
+    fun handle(id: String, event: AuthEvent)
 }
 
 /**
@@ -124,12 +124,12 @@ fun AuthComponent(
                         LinkTextData(text = stringResource(id = R.string.offer),
                             tag = "offer",
                             annotation = offerUrl,
-                            onClick = { useComponent.handleEvent(id, AuthEvent.UrlClick(it)) }),
+                            onClick = { useComponent.handle(id, AuthEvent.UrlClick(it)) }),
                         LinkTextData(text = stringResource(id = R.string.and)),
                         LinkTextData(text = stringResource(id = R.string.privacy_policy),
                             tag = "privacy policy",
                             annotation = policyUrl,
-                            onClick = { useComponent.handleEvent(id, AuthEvent.UrlClick(it)) }),
+                            onClick = { useComponent.handle(id, AuthEvent.UrlClick(it)) }),
                     ), modifier = Modifier.padding(top = 8.dp)
                 )
             }

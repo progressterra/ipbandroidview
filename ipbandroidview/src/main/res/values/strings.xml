@@ -10,7 +10,7 @@
     <string name="and">&#160;и&#160;</string>
     <string name="privacy_policy">политикой конфиденциальности</string>
     <string name="auth_button">Авторизоваться</string>
-    <string name="auth_skip">Пока пропустить</string>
+    <string name="auth_skip_button">Пока пропустить</string>
     <string name="verification_code">Код подтверждения</string>
     <string name="verification_code_message">Код из смс на номер:</string>
     <string name="next">Далее</string>
@@ -98,7 +98,7 @@
     <string name="how_to_spend_0">Бонусы можно потратить на любую покупку в приложении</string>
     <string name="how_to_spend_1">Для этого:\n1. Положите товар в корзину\n2. Откройте корзину и нажмите кнопку «Оформить»\n3. Найдите чекбокс «Использовать бонусы» и сделайте его активным</string>
     <string name="how_to_spend_2">После этого ваши бонусы будут списаны по курсу 1 бонус = 1 рубль</string>
-    <string name="bonuses_ratio">Курс бонусов 1 балл = 1 рубль</string>
+    <string name="bonuses_rate">1 бонус = 1,25 ₽</string>
     <string name="bonuses_ratio_short">Какой курс у бонусов?</string>
     <string name="how_to_obtain_short">Как я могу получить бонусы?</string>
     <string name="how_to_obtain">Покупайте в магазине, делитель реферальной ссылкой и зарабатывайте бонусы!</string>
@@ -158,4 +158,5 @@
     <string name="please_auth">Авторизуйтесь, чтобы заказывать товары и копить бонусы</string>
     <string name="sign_in_text">Нажимая кнопку «Авторизоваться», я соглашаюсь с офертой и политикой конфиденциальности</string>
     <string name="bonuses_short">Б</string>
+    <string name="order_proceed">Оформить заказ</string>
 </resources>

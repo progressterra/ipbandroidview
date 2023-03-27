@@ -13,9 +13,9 @@ interface CatalogInteractor : UseCatalogBarComponent {
 
     class Empty : CatalogInteractor {
 
-        override fun handleEvent(id: String, event: CatalogBarComponentEvent) = Unit
+        override fun handle(id: String, event: CatalogBarComponentEvent) = Unit
 
-        override fun handleEvent(id: String, event: TextFieldEvent) = Unit
+        override fun handle(id: String, event: TextFieldEvent) = Unit
 
         override fun refresh() = Unit
 

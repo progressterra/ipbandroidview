@@ -23,7 +23,7 @@ sealed class TextButtonEvent {
 
 interface UseTextButton {
 
-    fun handleEvent(id: String, event: TextButtonEvent)
+    fun handle(id: String, event: TextButtonEvent)
 }
 
 @Composable
@@ -35,7 +35,7 @@ fun TextButton(
 ) {
     TextButton(
         modifier = modifier,
-        onClick = { useComponent.handleEvent(id, TextButtonEvent.Click) },
+        onClick = { useComponent.handle(id, TextButtonEvent.Click) },
         enabled = state.enabled,
         colors = ButtonDefaults.textButtonColors(
             contentColor = IpbTheme.colors.primary,

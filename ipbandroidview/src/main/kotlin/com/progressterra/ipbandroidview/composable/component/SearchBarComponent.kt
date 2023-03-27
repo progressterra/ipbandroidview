@@ -31,7 +31,7 @@ sealed class CatalogBarComponentEvent {
 
 interface UseCatalogBarComponent : UseTextField {
 
-    fun handleEvent(id: String, event: CatalogBarComponentEvent)
+    fun handle(id: String, event: CatalogBarComponentEvent)
 }
 
 private val paddingBottom = 10.dp
@@ -62,14 +62,14 @@ fun CatalogBarComponent(
             useComponent = useComponent,
             trailingIcon = {
                 if (state.keywordState.text.isNotEmpty()) IconButton(onClick = {
-                    useComponent.handleEvent(
+                    useComponent.handle(
                         id, CatalogBarComponentEvent.OnClear
                     )
                 }) {
                     Mark2Icon()
                 }
                 else IconButton(onClick = {
-                    useComponent.handleEvent(
+                    useComponent.handle(
                         id, CatalogBarComponentEvent.OnSearch
                     )
                 }) {
@@ -97,7 +97,7 @@ sealed class CategoryBarEvent {
 
 interface UseCategoryBarComponent : UseTextField {
 
-    fun handleEvent(id: String, event: CategoryBarEvent)
+    fun handle(id: String, event: CategoryBarEvent)
 }
 
 @Composable
@@ -115,7 +115,7 @@ fun CategoryBar(
         )
     ) {
         if (!state.expanded) {
-            IconButton(onClick = { useComponent.handleEvent(id, CategoryBarEvent.OnBack) }) {
+            IconButton(onClick = { useComponent.handle(id, CategoryBarEvent.OnBack) }) {
                 BackIcon()
             }
         }
@@ -136,7 +136,7 @@ fun CategoryBar(
                 ),
                 trailingIcon = {
                     if (state.keywordState.text.isNotEmpty()) IconButton(onClick = {
-                        useComponent.handleEvent(
+                        useComponent.handle(
                             id, CategoryBarEvent.OnClear
                         )
                     }) {
@@ -148,7 +148,7 @@ fun CategoryBar(
             )
         }
         if (!state.expanded) IconButton(onClick = {
-            useComponent.handleEvent(
+            useComponent.handle(
                 id, CategoryBarEvent.OnExpand
             )
         }) {
@@ -163,7 +163,7 @@ data class GoodsBarComponentState(
 
 interface UseGoodsBarComponent : UseTextField {
 
-    fun handleEvent(id: String, event: GoodsBarComponentEvent)
+    fun handle(id: String, event: GoodsBarComponentEvent)
 }
 
 sealed class GoodsBarComponentEvent {
@@ -192,7 +192,7 @@ fun GoodsSearchBar(
             bottom = paddingBottom
         )
     ) {
-        IconButton(onClick = { useComponent.handleEvent(id, GoodsBarComponentEvent.OnBack) }) {
+        IconButton(onClick = { useComponent.handle(id, GoodsBarComponentEvent.OnBack) }) {
             BackIcon()
         }
         TextField(modifier = Modifier.weight(1f),
@@ -204,14 +204,14 @@ fun GoodsSearchBar(
             ),
             trailingIcon = {
                 if (state.keyword.text.isNotEmpty()) IconButton(onClick = {
-                    useComponent.handleEvent(
+                    useComponent.handle(
                         id, GoodsBarComponentEvent.OnClear
                     )
                 }) {
                     Mark2Icon()
                 }
                 else IconButton(onClick = {
-                    useComponent.handleEvent(
+                    useComponent.handle(
                         id, GoodsBarComponentEvent.OnSearch
                     )
                 }) {

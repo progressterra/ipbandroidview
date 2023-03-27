@@ -10,8 +10,8 @@ import com.progressterra.ipbandroidview.composable.component.TextButtonEvent
 import com.progressterra.ipbandroidview.composable.component.TextButtonState
 import com.progressterra.ipbandroidview.features.confirmationcode.UseConfirmationCode
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.domain.usecase.user.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -105,7 +105,7 @@ class ConfirmationCodeViewModel(
         postSideEffect(ConfirmationCodeEffect.Back)
     }
 
-    override fun handleEvent(
+    override fun handle(
         id: String, event: ConfirmationCodeEvent
     ) {
         when (id) {
@@ -118,13 +118,13 @@ class ConfirmationCodeViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: ButtonEvent) = intent {
+    override fun handle(id: String, event: ButtonEvent) = intent {
         when (id) {
             "next" -> onNext()
         }
     }
 
-    override fun handleEvent(id: String, event: TextButtonEvent) = intent {
+    override fun handle(id: String, event: TextButtonEvent) = intent {
         when (id) {
             "resend" -> {
                 startVerificationChannelUseCase(state.phoneNumber)

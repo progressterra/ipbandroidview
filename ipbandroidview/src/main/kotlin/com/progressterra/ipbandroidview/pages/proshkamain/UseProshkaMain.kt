@@ -1,0 +1,8 @@
+package com.progressterra.ipbandroidview.pages.proshkamain
+
+import com.progressterra.ipbandroidview.features.proshkabonuses.UseProshkaBonuses
+import com.progressterra.ipbandroidview.shared.ui.UseStateBox
+import com.progressterra.ipbandroidview.widgets.proshkagalleries.UseProshkaGalleries
+import com.progressterra.ipbandroidview.widgets.proshkaoffers.UseProshkaOffers
+
+interface UseProshkaMain : UseProshkaGalleries, UseProshkaOffers, UseProshkaBonuses, UseStateBox

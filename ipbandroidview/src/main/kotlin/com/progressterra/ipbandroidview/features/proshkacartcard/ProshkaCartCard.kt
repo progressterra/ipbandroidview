@@ -46,7 +46,7 @@ fun ProshkaCartCard(
             modifier = Modifier
                 .clip(RoundedCornerShape(8.dp))
                 .niceClickable {
-                    useComponent.handleEvent(
+                    useComponent.handle(
                         state.id, ProshkaCartCardEvent.Open
                     )
                 }, verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -103,7 +103,7 @@ fun ProshkaCartCard(
             )
         }
         IconButton(
-            onClick = { useComponent.handleEvent(state.id, ProshkaCartCardEvent.RemoveFromCart) }
+            onClick = { useComponent.handle(state.id, ProshkaCartCardEvent.RemoveFromCart) }
         ) {
             BrushedIcon(
                 resId = R.drawable.ic_trash_pro,

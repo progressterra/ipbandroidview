@@ -4,11 +4,11 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.CreateQrUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.PromoGoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.UserExistsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.bonus.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.CreateQrUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.PromoGoodsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
 import com.progressterra.ipbandroidview.model.Category
 import org.orbitmvi.orbit.Container
@@ -60,7 +60,7 @@ class MainViewModel(
         modifyFavoriteUseCase(storeCard.id, storeCard.favorite).onSuccess { refresh() }
     }
 
-    override fun handleEvent(id: String, event: ProshkaBonusesEvent) = intent {
+    override fun handle(id: String, event: ProshkaBonusesEvent) = intent {
         when (id) {
             "main" -> when (event) {
                 is ProshkaBonusesEvent.OnClick -> postSideEffect(MainEffect.Bonuses)

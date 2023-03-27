@@ -7,12 +7,12 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.domain.usecase.FetchVersionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserEmailUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserNameUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.FetchUserPhoneUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.LogoutUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.processes.usecase.FetchVersionUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserEmailUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserNameUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserPhoneUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.LogoutUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.UpdatePersonalInfoUseCase
 import com.progressterra.ipbandroidview.ext.isEmail
 import com.progressterra.ipbandroidview.ext.isNameAndSurname
 import org.orbitmvi.orbit.Container
@@ -84,7 +84,7 @@ class ProfileDetailsViewModel(
         reduce { state.updateTextFieldsEnabled(true) }
     }
 
-    override fun handleEvent(id: String, event: ButtonEvent) = intent {
+    override fun handle(id: String, event: ButtonEvent) = intent {
         when (id) {
             "confirm" -> when (event) {
                 is ButtonEvent.Click -> confirmChange()
@@ -95,7 +95,7 @@ class ProfileDetailsViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "name" -> when (event) {
                 is TextFieldEvent.TextChanged -> {

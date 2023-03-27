@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.ui.organizations
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.PartnerBlockEvent
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.checklist.AllOrganizationsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.partner.FetchPartnerUseCase
+import com.progressterra.ipbandroidview.processes.usecase.checklist.AllOrganizationsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.model.Organization
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -26,7 +26,7 @@ class OrganizationsViewModel(
         refresh()
     }
 
-    override fun handleEvent(event: PartnerBlockEvent) = intent {
+    override fun handle(event: PartnerBlockEvent) = intent {
         postSideEffect(OrganizationsEffect.OpenPartner(state.partner))
     }
 

@@ -45,12 +45,12 @@ sealed class MapEvent : ComponentEvent {
 
 interface UseMap : UseTextField {
 
-    fun handleEvent(id: String, event: MapEvent)
+    fun handle(id: String, event: MapEvent)
 
-    override fun handleEvent(id: String, event: TextFieldEvent) {
+    override fun handle(id: String, event: TextFieldEvent) {
         when (id) {
             "address" -> when (event) {
-                is TextFieldEvent.TextChanged -> handleEvent(
+                is TextFieldEvent.TextChanged -> handle(
                     id, MapEvent.AddressChanged(event.text)
                 )
                 is TextFieldEvent.Action -> Unit
@@ -97,9 +97,9 @@ fun Map(
                     bottom.linkTo(parent.bottom, 12.dp)
                 },
             cameraPositionState = cameraPositionState,
-            onMapClick = { useComponent.handleEvent(id, MapEvent.MapClicked(it)) },
+            onMapClick = { useComponent.handle(id, MapEvent.MapClicked(it)) },
             onMyLocationClick = {
-                useComponent.handleEvent(
+                useComponent.handle(
                     id,
                     MapEvent.LocationClicked(it)
                 )
@@ -115,7 +115,7 @@ fun Map(
             suggestions = state.suggestions,
             isVisible = state.suggestions.isNotEmpty(),
             onSuggestion = {
-                useComponent.handleEvent(
+                useComponent.handle(
                     id,
                     MapEvent.SuggestionClicked(it)
                 )

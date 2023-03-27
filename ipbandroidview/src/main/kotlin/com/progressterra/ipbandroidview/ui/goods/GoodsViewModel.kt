@@ -7,9 +7,9 @@ import com.progressterra.ipbandroidview.composable.component.GoodsBarComponentEv
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.store.FilteredGoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.GoodsUseCase
-import com.progressterra.ipbandroidview.domain.usecase.store.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.FilteredGoodsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.GoodsUseCase
+import com.progressterra.ipbandroidview.processes.usecase.store.ModifyFavoriteUseCase
 import kotlinx.coroutines.flow.emptyFlow
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -108,7 +108,7 @@ class GoodsViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: GoodsBarComponentEvent) {
+    override fun handle(id: String, event: GoodsBarComponentEvent) {
         when (id) {
             "main" -> {
                 when (event) {
@@ -120,7 +120,7 @@ class GoodsViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "keyword" -> {
                 when (event) {

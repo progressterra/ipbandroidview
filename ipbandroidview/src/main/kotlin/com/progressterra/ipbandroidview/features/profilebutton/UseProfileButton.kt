@@ -2,5 +2,5 @@ package com.progressterra.ipbandroidview.features.profilebutton
 
 interface UseProfileButton {
 
-    fun handleEvent(id: String, event: ProfileButtonEvent)
+    fun handle(id: String, event: ProfileButtonEvent)
 }

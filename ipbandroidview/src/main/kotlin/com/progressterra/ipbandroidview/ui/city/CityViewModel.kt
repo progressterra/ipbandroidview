@@ -5,11 +5,11 @@ import android.location.Location
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidview.composable.component.MapEvent
-import com.progressterra.ipbandroidview.domain.usecase.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.location.GuessLocationUseCase
-import com.progressterra.ipbandroidview.domain.usecase.suggestion.ChooseSuggestionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.suggestion.SuggestionUseCase
-import com.progressterra.ipbandroidview.domain.usecase.user.SaveUserAddressUseCase
+import com.progressterra.ipbandroidview.processes.usecase.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.processes.usecase.location.GuessLocationUseCase
+import com.progressterra.ipbandroidview.processes.usecase.suggestion.ChooseSuggestionUseCase
+import com.progressterra.ipbandroidview.processes.usecase.suggestion.SuggestionUseCase
+import com.progressterra.ipbandroidview.processes.usecase.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.model.SuggestionUI
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
@@ -70,7 +70,7 @@ class CityViewModel(
         }
     }
 
-    override fun handleEvent(event: MapEvent) = when (event) {
+    override fun handle(event: MapEvent) = when (event) {
         is MapEvent.AddressChanged -> editAddress(event.address)
         is MapEvent.LocationClicked -> clickLocation(event.location)
         is MapEvent.MapClicked -> clickMap(event.latLng)

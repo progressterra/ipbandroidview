@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 
 interface UseCurrentCheck : UseTextField, UseButton {
 
-    fun handleEvent(id: String, event: CurrentCheckEvent)
+    fun handle(id: String, event: CurrentCheckEvent)
 }
 
 sealed class CurrentCheckEvent {
@@ -129,7 +129,7 @@ fun CurrentCheckDialog(
                     .fillMaxWidth()
                     .heightIn(min = minDialogHeight),
                 state = state.screenState,
-                refresh = { useComponent.handleEvent(id, CurrentCheckEvent.Refresh) },
+                refresh = { useComponent.handle(id, CurrentCheckEvent.Refresh) },
             ) {
                 val currentCheck = state.check
                 val currentCheckMedia = state.media
@@ -164,7 +164,7 @@ fun CurrentCheckDialog(
                                 modifier = Modifier.fillMaxWidth(),
                                 state = currentCheck.yesNo,
                                 onClick = {
-                                    useComponent.handleEvent(
+                                    useComponent.handle(
                                         id, CurrentCheckEvent.YesNo(it)
                                     )
                                 },
@@ -185,27 +185,27 @@ fun CurrentCheckDialog(
                                 modifier = Modifier.fillMaxWidth(),
                                 state = state.voiceState,
                                 onStartRecording = {
-                                    useComponent.handleEvent(
+                                    useComponent.handle(
                                         id, CurrentCheckEvent.StartStopRecording
                                     )
                                 },
                                 onStopRecording = {
-                                    useComponent.handleEvent(
+                                    useComponent.handle(
                                         id, CurrentCheckEvent.StartStopRecording
                                     )
                                 },
                                 onStartPlay = {
-                                    useComponent.handleEvent(
+                                    useComponent.handle(
                                         id, CurrentCheckEvent.StartPausePlay
                                     )
                                 },
                                 onPausePlay = {
-                                    useComponent.handleEvent(
+                                    useComponent.handle(
                                         id, CurrentCheckEvent.StartPausePlay
                                     )
                                 },
                                 onRemove = {
-                                    useComponent.handleEvent(id, CurrentCheckEvent.RemoveVoice)
+                                    useComponent.handle(id, CurrentCheckEvent.RemoveVoice)
                                 },
                                 enabled = state.status.isOngoing()
                             )
@@ -221,12 +221,12 @@ fun CurrentCheckDialog(
                                 enabled = state.status.isOngoing(),
                                 pictures = currentCheckMedia.pictures.filter { !it.toRemove },
                                 onPhotoSelect = {
-                                    useComponent.handleEvent(
+                                    useComponent.handle(
                                         id, CurrentCheckEvent.OpenImage(it)
                                     )
                                 },
                                 onCamera = {
-                                    useComponent.handleEvent(
+                                    useComponent.handle(
                                         id, CurrentCheckEvent.OpenCamera
                                     )
                                 })
@@ -239,9 +239,9 @@ fun CurrentCheckDialog(
                                 modifier = Modifier.fillMaxWidth(),
                                 state = state.ready,
                                 useComponent = object : UseButton {
-                                    override fun handleEvent(id: String, event: ButtonEvent) {
+                                    override fun handle(id: String, event: ButtonEvent) {
                                         scope.launch { sheetState.hide() }
-                                        useComponent.handleEvent(id, event)
+                                        useComponent.handle(id, event)
                                     }
                                 },
                                 id = "ready"

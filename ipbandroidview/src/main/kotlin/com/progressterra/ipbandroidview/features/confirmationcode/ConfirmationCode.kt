@@ -94,7 +94,7 @@ fun ConfirmationCode(
             maxLines = 1,
             interactionSource = mutableInteractionSource,
             onValueChange = {
-                useComponent.handleEvent(
+                useComponent.handle(
                     state.id,
                     ConfirmationCodeEvent.CodeChanged(it)
                 )

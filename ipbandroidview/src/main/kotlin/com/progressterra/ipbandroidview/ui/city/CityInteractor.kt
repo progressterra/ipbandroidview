@@ -18,6 +18,6 @@ interface CityInteractor : MapComponentEventHandler {
 
         override fun onNext() = Unit
 
-        override fun handleEvent(event: MapEvent) = Unit
+        override fun handle(event: MapEvent) = Unit
     }
 }

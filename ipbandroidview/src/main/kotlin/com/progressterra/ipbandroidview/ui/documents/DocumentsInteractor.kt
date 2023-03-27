@@ -13,7 +13,7 @@ interface DocumentsInteractor : UseButton {
 
     class Empty : DocumentsInteractor {
 
-        override fun handleEvent(id: String, event: ButtonEvent) = Unit
+        override fun handle(id: String, event: ButtonEvent) = Unit
 
         override fun refresh() = Unit
 

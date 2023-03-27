@@ -7,16 +7,16 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonuses
 import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.widgets.ProshkaGalleries
-import com.progressterra.ipbandroidview.widgets.ProshkaOffers
+import com.progressterra.ipbandroidview.widgets.proshkagalleries.ProshkaGalleries
+import com.progressterra.ipbandroidview.widgets.proshkaoffers.ProshkaOffers
 
 @Composable
 fun ProshkaMainScreen(
-    state: ProshkaMainState, interactor: ProshkaMainScreenInteractor
+    state: ProshkaMainState, interactor: UseProshkaMain
 ) {
     ThemedLayout { _, _ ->
         StateBox(
-            state = state.screenState, useComponent = interactor
+            state = state.stateBoxState, useComponent = interactor
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(40.dp)

@@ -21,19 +21,18 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.toBrush
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @Immutable
 data class TextFieldState(
-    val id: String = "", val text: String = "", val hint: String = "", val enabled: Boolean = true
+    val text: String = "", val enabled: Boolean = true
 ) : Parcelable {
 
     fun updateText(text: String): TextFieldState = copy(text = text)
 
     fun updateEnabled(enabled: Boolean): TextFieldState = copy(enabled = enabled)
-
-    fun updateHint(hint: String): TextFieldState = copy(hint = hint)
 }
 
 sealed class TextFieldEvent {
@@ -47,7 +46,7 @@ sealed class TextFieldEvent {
 
 interface UseTextField {
 
-    fun handleEvent(id: String, event: TextFieldEvent)
+    fun handle(id: String, event: TextFieldEvent)
 }
 
 private val borderWidth = 1.dp
@@ -57,6 +56,8 @@ fun TextField(
     modifier: Modifier = Modifier,
     state: TextFieldState,
     useComponent: UseTextField,
+    hint: String = "",
+    id: String = "",
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
@@ -65,7 +66,7 @@ fun TextField(
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
             BrushedText(
-                text = state.hint,
+                text = hint,
                 style = IpbTheme.typography.label,
                 tint = IpbTheme.colors.textTertiary1.asBrush()
             )
@@ -74,7 +75,7 @@ fun TextField(
     val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
             BrushedText(
-                text = state.hint,
+                text = hint,
                 style = IpbTheme.typography.primary,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
@@ -87,7 +88,7 @@ fun TextField(
         modifier = modifier
             .border(
                 width = borderWidth,
-                brush = if (focused) IpbTheme.colors.primary.asBrush() else SolidColor(Color.Transparent),
+                brush = if (focused) IpbTheme.colors.primary.asBrush() else Color.Transparent.toBrush(),
                 shape = RoundedCornerShape(8.dp)
             )
             .clearFocusOnKeyboardDismiss(),
@@ -95,11 +96,11 @@ fun TextField(
         visualTransformation = visualTransformation,
         interactionSource = mutableInteractionSource,
         onValueChange = { text ->
-            useComponent.handleEvent(state.id, TextFieldEvent.TextChanged(text))
+            useComponent.handle(id, TextFieldEvent.TextChanged(text))
         },
         keyboardActions = KeyboardActions {
             focusManager.clearFocus()
-            useComponent.handleEvent(state.id, TextFieldEvent.Action)
+            useComponent.handle(id, TextFieldEvent.Action)
         },
         shape = RoundedCornerShape(8.dp),
         keyboardOptions = keyboardOptions,
@@ -111,8 +112,8 @@ fun TextField(
         trailingIcon = actionIcon?.let {
             {
                 IconButton(onClick = {
-                    useComponent.handleEvent(
-                        state.id, TextFieldEvent.AdditionalAction
+                    useComponent.handle(
+                        id, TextFieldEvent.AdditionalAction
                     )
                 }) {
                     BrushedIcon(

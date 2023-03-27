@@ -8,9 +8,9 @@ import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.AppSettings.ID_ENTERPRISE
-import com.progressterra.ipbandroidview.domain.usecase.chat.FetchChatUseCase
-import com.progressterra.ipbandroidview.domain.usecase.chat.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.AppSettings.ID_ENTERPRISE
+import com.progressterra.ipbandroidview.processes.usecase.chat.FetchChatUseCase
+import com.progressterra.ipbandroidview.processes.usecase.chat.SendMessageUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -71,7 +71,7 @@ class SupportViewModel(
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    override fun handleEvent(id: String, event: ChatInputEvent) {
+    override fun handle(id: String, event: ChatInputEvent) {
         when (id) {
             "main" -> when (event) {
                 is ChatInputEvent.Send -> sendMessage()
@@ -79,7 +79,7 @@ class SupportViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
         when (id) {
             "message" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce {

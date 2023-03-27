@@ -5,5 +5,5 @@ import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
 interface UseConfirmationCode  {
 
-    fun handleEvent(id: String, event: ConfirmationCodeEvent)
+    fun handle(id: String, event: ConfirmationCodeEvent)
 }

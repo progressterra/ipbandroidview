@@ -72,7 +72,7 @@ fun BonusesClarificationScreen(
                 expand = { interactor.expandRatio() }
             ) {
                 Text(
-                    text = stringResource(R.string.bonuses_ratio),
+                    text = stringResource(R.string.bonuses_rate),
                     style = IpbTheme.typography.primary,
                     color = IpbTheme.colors.gray1
                 )

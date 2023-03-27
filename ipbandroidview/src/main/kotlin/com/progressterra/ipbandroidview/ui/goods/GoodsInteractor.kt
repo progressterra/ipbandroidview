@@ -12,9 +12,9 @@ interface GoodsInteractor : StoreCardInteractor, UseGoodsBarComponent {
 
     class Empty : GoodsInteractor {
 
-        override fun handleEvent(id: String, event: GoodsBarComponentEvent) = Unit
+        override fun handle(id: String, event: GoodsBarComponentEvent) = Unit
 
-        override fun handleEvent(id: String, event: TextFieldEvent) = Unit
+        override fun handle(id: String, event: TextFieldEvent) = Unit
 
         override fun refresh() = Unit
 
