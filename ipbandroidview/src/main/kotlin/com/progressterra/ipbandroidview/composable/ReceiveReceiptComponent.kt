@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.ui.TextField
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
-import com.progressterra.ipbandroidview.shared.ui.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedSwitch
 
@@ -29,7 +29,7 @@ data class ReceiveReceiptComponentState(
 
 interface UseReceiveReceiptComponent : UseTextField {
 
-    fun handle(id: String, event: ReceiveReceiptComponentEvent)
+    fun handle(event: ReceiveReceiptComponentEvent)
 }
 
 sealed class ReceiveReceiptComponentEvent {

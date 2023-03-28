@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.features.proshkabonuses
 
 interface UseProshkaBonuses {
 
-    fun handle(id: String, event: ProshkaBonusesEvent)
+    fun handle(event: ProshkaBonusesEvent)
 
     class Empty : UseProshkaBonuses {
-        override fun handle(id: String, event: ProshkaBonusesEvent) = Unit
+        override fun handle(event: ProshkaBonusesEvent) = Unit
     }
 }

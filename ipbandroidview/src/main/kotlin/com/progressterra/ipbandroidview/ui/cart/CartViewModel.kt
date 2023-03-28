@@ -37,7 +37,13 @@ class CartViewModel(
         reduce { state.copy(screenState = ScreenState.LOADING) }
         cartUseCase().onSuccess {
             val userExists = userExistsUseCase()
-            reduce { state.copy(cart = it, userExist = userExists, screenState = ScreenState.SUCCESS) }
+            reduce {
+                state.copy(
+                    cart = it,
+                    userExist = userExists,
+                    screenState = ScreenState.SUCCESS
+                )
+            }
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 

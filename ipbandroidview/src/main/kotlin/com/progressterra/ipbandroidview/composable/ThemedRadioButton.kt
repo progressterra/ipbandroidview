@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 fun ThemedRadioButton(
     modifier: Modifier = Modifier,
     checked: Boolean,
-    enabled: Boolean = true ,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
     RadioButton(

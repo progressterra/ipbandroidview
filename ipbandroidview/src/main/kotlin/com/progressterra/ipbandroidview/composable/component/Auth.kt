@@ -26,10 +26,10 @@ import com.progressterra.ipbandroidview.shared.utils.RUSSIAN_PHONE_MASK
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.TextField
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
-import com.progressterra.ipbandroidview.shared.ui.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
 @Immutable
 data class AuthState(
@@ -57,7 +57,7 @@ sealed class AuthEvent {
 }
 
 interface UseAuth : UseButton, UseTextButton, UseTextField {
-    fun handle(id: String, event: AuthEvent)
+    fun handle(event: AuthEvent)
 }
 
 /**

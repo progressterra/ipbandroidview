@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.features.confirmationcode
 import com.progressterra.ipbandroidview.composable.component.UseTextButton
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
-interface UseConfirmationCode  {
+interface UseConfirmationCode {
 
-    fun handle(id: String, event: ConfirmationCodeEvent)
+    fun handle(event: ConfirmationCodeEvent)
 }

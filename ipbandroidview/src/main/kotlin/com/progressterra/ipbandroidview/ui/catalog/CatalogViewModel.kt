@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.catalog
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.component.CatalogBarComponentEvent
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.processes.usecase.store.CatalogUseCase
 import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
@@ -42,7 +42,7 @@ class CatalogViewModel(
         }
     }
 
-    override fun handle(id: String, event: CatalogBarComponentEvent) = intent {
+    override fun handle(event: CatalogBarComponentEvent) = intent {
         when (id) {
             "main" -> when (event) {
                 is CatalogBarComponentEvent.OnClear -> clear()
@@ -51,7 +51,7 @@ class CatalogViewModel(
         }
     }
 
-    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(event: TextFieldEvent) = blockingIntent {
         when (id) {
             "keyword" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce {

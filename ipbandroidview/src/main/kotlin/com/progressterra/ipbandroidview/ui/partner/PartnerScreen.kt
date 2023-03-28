@@ -44,7 +44,9 @@ fun PartnerScreen(
     state: PartnerState, interactor: PartnerInteractor
 ) {
     ThemedLayout(topBar = {
-        ThemedTopAppBar(title = stringResource(id = R.string.partner), onBack = { interactor.onBack() })
+        ThemedTopAppBar(
+            title = stringResource(id = R.string.partner),
+            onBack = { interactor.onBack() })
     }) { _, _ ->
         ConstraintLayout(
             modifier = Modifier

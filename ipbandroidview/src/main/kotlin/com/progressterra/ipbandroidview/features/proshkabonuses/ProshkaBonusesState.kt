@@ -12,4 +12,7 @@ data class ProshkaBonusesState(
     val burningDate: String = "",
     val burningQuantity: String = "",
     val isReversed: Boolean = false
-)
+) {
+
+    fun reverse() = copy(isReversed = !isReversed)
+}

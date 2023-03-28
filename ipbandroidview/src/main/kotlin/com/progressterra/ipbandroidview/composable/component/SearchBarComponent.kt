@@ -14,9 +14,9 @@ import com.progressterra.ipbandroidview.composable.BasicBar
 import com.progressterra.ipbandroidview.composable.Mark2Icon
 import com.progressterra.ipbandroidview.composable.SearchIcon
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.TextField
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
-import com.progressterra.ipbandroidview.shared.ui.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
 data class CatalogBarComponentState(
     val keywordState: TextFieldState = TextFieldState()
@@ -31,7 +31,7 @@ sealed class CatalogBarComponentEvent {
 
 interface UseCatalogBarComponent : UseTextField {
 
-    fun handle(id: String, event: CatalogBarComponentEvent)
+    fun handle(event: CatalogBarComponentEvent)
 }
 
 private val paddingBottom = 10.dp
@@ -97,7 +97,7 @@ sealed class CategoryBarEvent {
 
 interface UseCategoryBarComponent : UseTextField {
 
-    fun handle(id: String, event: CategoryBarEvent)
+    fun handle(event: CategoryBarEvent)
 }
 
 @Composable
@@ -163,7 +163,7 @@ data class GoodsBarComponentState(
 
 interface UseGoodsBarComponent : UseTextField {
 
-    fun handle(id: String, event: GoodsBarComponentEvent)
+    fun handle(event: GoodsBarComponentEvent)
 }
 
 sealed class GoodsBarComponentEvent {

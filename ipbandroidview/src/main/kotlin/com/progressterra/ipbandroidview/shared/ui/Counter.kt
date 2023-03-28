@@ -33,10 +33,10 @@ sealed class CounterEvent {
 
 interface UseCounter {
 
-    fun handle(id: String, event: CounterEvent)
+    fun handle(event: CounterEvent)
 
     class Empty : UseCounter {
-        override fun handle(id: String, event: CounterEvent) = Unit
+        override fun handle(event: CounterEvent) = Unit
     }
 }
 

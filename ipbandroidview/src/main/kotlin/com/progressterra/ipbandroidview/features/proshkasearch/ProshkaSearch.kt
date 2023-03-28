@@ -21,7 +21,7 @@ fun ProshkaSearch(
         modifier = modifier,
         value = state.text,
         enabled = state.enabled,
-        onValueChange = { useComponent.handle(state.id, ProshkaSearchEvent.OnTextChanged(it)) },
+        onValueChange = { useComponent.handle(ProshkaSearchEvent.OnTextChanged(it)) },
         placeholder = {
             BrushedText(
                 text = stringResource(R.string.search),

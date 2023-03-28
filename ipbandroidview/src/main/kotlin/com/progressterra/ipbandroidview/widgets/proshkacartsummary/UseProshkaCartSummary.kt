@@ -8,6 +8,6 @@ interface UseProshkaCartSummary : UseButton {
 
     class Empty : UseProshkaCartSummary {
 
-        override fun handle(id: String, event: ButtonEvent) = Unit
+        override fun handle(event: ButtonEvent) = Unit
     }
 }

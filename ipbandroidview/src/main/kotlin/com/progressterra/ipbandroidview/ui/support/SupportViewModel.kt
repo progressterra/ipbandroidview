@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.ChatInputEvent
 import com.progressterra.ipbandroidview.composable.ChatInputState
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.processes.AppSettings.ID_ENTERPRISE
@@ -71,7 +71,7 @@ class SupportViewModel(
         }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
     }
 
-    override fun handle(id: String, event: ChatInputEvent) {
+    override fun handle(event: ChatInputEvent) {
         when (id) {
             "main" -> when (event) {
                 is ChatInputEvent.Send -> sendMessage()
@@ -79,7 +79,7 @@ class SupportViewModel(
         }
     }
 
-    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(event: TextFieldEvent) = blockingIntent {
         when (id) {
             "message" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce {

@@ -8,7 +8,7 @@ sealed class ProfileEffect {
 
     object Favorites : ProfileEffect()
 
-    object Support: ProfileEffect()
+    object Support : ProfileEffect()
 
     object Referral : ProfileEffect()
 }

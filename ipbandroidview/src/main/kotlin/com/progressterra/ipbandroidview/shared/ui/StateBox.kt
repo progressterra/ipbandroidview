@@ -25,7 +25,7 @@ sealed class StateBoxEvent {
 
 interface UseStateBox {
 
-    fun handle(id: String, event: StateBoxEvent)
+    fun handle(event: StateBoxEvent)
 }
 
 @Composable

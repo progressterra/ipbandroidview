@@ -53,7 +53,7 @@ sealed class ReceiptComponentEvent : ComponentEvent {
 
 interface UseReceiptComponent : UseButton {
 
-    fun handle(id: String, event: ReceiptComponentEvent)
+    fun handle(event: ReceiptComponentEvent)
 }
 
 @Composable

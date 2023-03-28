@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.processes.usecase.FetchVersionUseCase
 import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserEmailUseCase
@@ -84,7 +84,7 @@ class ProfileDetailsViewModel(
         reduce { state.updateTextFieldsEnabled(true) }
     }
 
-    override fun handle(id: String, event: ButtonEvent) = intent {
+    override fun handle(event: ButtonEvent) = intent {
         when (id) {
             "confirm" -> when (event) {
                 is ButtonEvent.Click -> confirmChange()
@@ -95,7 +95,7 @@ class ProfileDetailsViewModel(
         }
     }
 
-    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(event: TextFieldEvent) = blockingIntent {
         when (id) {
             "name" -> when (event) {
                 is TextFieldEvent.TextChanged -> {

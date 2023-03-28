@@ -20,9 +20,15 @@ interface ConfirmOrderUseCase {
         override suspend fun invoke(): Result<OrderProcessingComponentState> = withToken { token ->
             try {
                 cartRepository.confirmOrder(token).throwOnFailure()
-                OrderProcessingComponentState(success = true, additionalInfo = "Заказ успешно создан!")
+                OrderProcessingComponentState(
+                    success = true,
+                    additionalInfo = "Заказ успешно создан!"
+                )
             } catch (e: Exception) {
-                OrderProcessingComponentState(success = false, additionalInfo = "Что-то пошло не так!")
+                OrderProcessingComponentState(
+                    success = false,
+                    additionalInfo = "Что-то пошло не так!"
+                )
             }
         }
     }

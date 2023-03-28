@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
@@ -40,7 +39,7 @@ fun Button(
             .clip(RoundedCornerShape(14.dp))
             .background(backgroundColor)
             .padding(horizontal = 32.dp, vertical = 15.dp)
-            .niceClickable { useComponent.handle(state.id, ButtonEvent.Click) },
+            .niceClickable { useComponent.handle(ButtonEvent.Click(state.id)) },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

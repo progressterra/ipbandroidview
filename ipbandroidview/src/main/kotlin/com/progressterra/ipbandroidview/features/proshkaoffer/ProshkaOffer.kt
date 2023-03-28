@@ -22,7 +22,7 @@ fun ProshkaOffer(
     Box(modifier = modifier
         .clip(RoundedCornerShape(8.dp))
         .niceClickable {
-            useComponent.handle(state.id, ProshkaOfferEvent.Clicked)
+            useComponent.handle(ProshkaOfferEvent.Clicked(state.id))
         }) {
         SimpleImage(
             url = state.image,

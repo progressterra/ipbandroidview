@@ -6,7 +6,8 @@ sealed class SubCatalogEffect {
 
     object Back : SubCatalogEffect()
 
-    class SubCatalog(val subCategoryWithSubcategories: CategoryWithSubcategories) : SubCatalogEffect()
+    class SubCatalog(val subCategoryWithSubcategories: CategoryWithSubcategories) :
+        SubCatalogEffect()
 
     class Goods(val categoryId: String) : SubCatalogEffect()
 

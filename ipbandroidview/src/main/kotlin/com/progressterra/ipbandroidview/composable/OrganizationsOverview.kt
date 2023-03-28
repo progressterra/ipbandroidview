@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,8 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.PagerScope
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.model.Document
@@ -92,7 +92,7 @@ fun OrganizationsOverview(
             style = IpbTheme.typography.primary,
             color = IpbTheme.colors.black
         )
-        val pagerState = rememberPagerState()
+        val pagerState = androidx.compose.foundation.pager.rememberPagerState()
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -133,9 +133,12 @@ fun OrganizationsOverview(
                 }
             }
         }
-        HorizontalPager(
-            count = overviews.size, state = pagerState
-        ) {
+        PaddingValues(0.dp)
+        PagerDefaults.flingBehavior(
+            state = state,
+            endContentPadding = contentPadding.calculateEndPadding(LayoutDirection.Ltr),
+        )
+        fun PagerScope.(it: Int) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {

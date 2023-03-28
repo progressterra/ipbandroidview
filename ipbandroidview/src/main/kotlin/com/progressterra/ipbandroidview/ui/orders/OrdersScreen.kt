@@ -36,7 +36,7 @@ fun OrdersScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(8.dp)
             ) {
-                items(state.orders) {details ->
+                items(state.orders) { details ->
                     OrdersGoodsLine(
                         state = details,
                         openGoodsDetails = { interactor.openGoodsDetails(it) }

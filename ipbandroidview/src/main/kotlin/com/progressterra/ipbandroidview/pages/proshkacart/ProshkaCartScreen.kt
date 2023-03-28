@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarState
 import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.shared.ui.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout

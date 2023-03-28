@@ -29,9 +29,11 @@ fun ReferralScreen(
             state = state.screenState,
             refresh = { interactor.refresh() }
         ) {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp)
+            ) {
                 ReferralLink(
                     promoCode = state.userInvite.promoCode,
                     onCopy = { interactor.copy() },

@@ -28,7 +28,7 @@ data class GoodsBottomBarComponentState(
 )
 
 interface UseGoodsBottomBar : UseButton {
-    fun handle(id: String, event: GoodsBottomBarEvent)
+    fun handle(event: GoodsBottomBarEvent)
 }
 
 sealed class GoodsBottomBarEvent {

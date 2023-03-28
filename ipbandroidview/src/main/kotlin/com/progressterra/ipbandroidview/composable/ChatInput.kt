@@ -11,9 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.ui.TextField
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
-import com.progressterra.ipbandroidview.shared.ui.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 data class ChatInputState(
@@ -32,7 +32,7 @@ sealed class ChatInputEvent {
 
 interface UseChatInput : UseTextField {
 
-    fun handle(id: String, event: ChatInputEvent)
+    fun handle(event: ChatInputEvent)
 }
 
 /**

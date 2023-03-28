@@ -8,8 +8,8 @@ interface UseProshkaCartItems : UseProshkaCartCard {
 
     class Empty : UseProshkaCartItems {
 
-        override fun handle(id: String, event: CounterEvent) = Unit
+        override fun handle(event: CounterEvent) = Unit
 
-        override fun handle(id: String, event: ProshkaCartCardEvent) = Unit
+        override fun handle(event: ProshkaCartCardEvent) = Unit
     }
 }

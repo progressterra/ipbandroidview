@@ -27,10 +27,10 @@ import com.progressterra.ipbandroidview.composable.YesNoButton
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.TextField
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
-import com.progressterra.ipbandroidview.shared.ui.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStatus
@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 
 interface UseCurrentCheck : UseTextField, UseButton {
 
-    fun handle(id: String, event: CurrentCheckEvent)
+    fun handle(event: CurrentCheckEvent)
 }
 
 sealed class CurrentCheckEvent {
@@ -239,7 +239,7 @@ fun CurrentCheckDialog(
                                 modifier = Modifier.fillMaxWidth(),
                                 state = state.ready,
                                 useComponent = object : UseButton {
-                                    override fun handle(id: String, event: ButtonEvent) {
+                                    override fun handle(event: ButtonEvent) {
                                         scope.launch { sheetState.hide() }
                                         useComponent.handle(id, event)
                                     }

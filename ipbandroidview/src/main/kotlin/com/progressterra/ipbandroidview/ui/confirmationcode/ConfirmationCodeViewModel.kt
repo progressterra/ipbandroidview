@@ -118,13 +118,13 @@ class ConfirmationCodeViewModel(
         }
     }
 
-    override fun handle(id: String, event: ButtonEvent) = intent {
+    override fun handle(event: ButtonEvent) = intent {
         when (id) {
             "next" -> onNext()
         }
     }
 
-    override fun handle(id: String, event: TextButtonEvent) = intent {
+    override fun handle(event: TextButtonEvent) = intent {
         when (id) {
             "resend" -> {
                 startVerificationChannelUseCase(state.phoneNumber)

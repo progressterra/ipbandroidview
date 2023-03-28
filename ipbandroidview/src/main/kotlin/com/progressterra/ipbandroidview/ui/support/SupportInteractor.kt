@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.support
 
 import com.progressterra.ipbandroidview.composable.ChatInputEvent
 import com.progressterra.ipbandroidview.composable.UseChatInput
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 interface SupportInteractor : UseChatInput {
 
@@ -12,9 +12,9 @@ interface SupportInteractor : UseChatInput {
 
     class Empty : SupportInteractor {
 
-        override fun handle(id: String, event: ChatInputEvent) = Unit
+        override fun handle(event: ChatInputEvent) = Unit
 
-        override fun handle(id: String, event: TextFieldEvent) = Unit
+        override fun handle(event: TextFieldEvent) = Unit
 
         override fun onBack() = Unit
 

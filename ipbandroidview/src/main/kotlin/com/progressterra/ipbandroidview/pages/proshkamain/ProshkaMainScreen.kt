@@ -3,7 +3,9 @@ package com.progressterra.ipbandroidview.pages.proshkamain
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonuses
 import com.progressterra.ipbandroidview.shared.ui.StateBox
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -25,13 +27,15 @@ fun ProshkaMainScreen(
                     state = state.bonuses, useComponent = interactor
                 )
                 ProshkaGalleries(
-                    state = state.hits, useComponent = interactor
+                    state = state.hits, useComponent = interactor,
+                    title = stringResource(R.string.hits)
                 )
                 ProshkaOffers(
                     state = state.offers, useComponent = interactor
                 )
                 ProshkaGalleries(
-                    state = state.new, useComponent = interactor
+                    state = state.new, useComponent = interactor,
+                    title = stringResource(R.string.new_items)
                 )
             }
         }

@@ -46,32 +46,32 @@ fun VoiceInput(
 ) {
     when (state) {
         is VoiceState.Recorder -> Box(modifier = modifier) {
-                Row(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .clip(IpbTheme.shapes.small)
-                        .height(TextFieldDefaults.MinHeight)
-                        .fillMaxWidth()
-                        .background(IpbTheme.colors.background)
-                        .padding(vertical = verticalPadding),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clip(IpbTheme.shapes.small)
+                    .height(TextFieldDefaults.MinHeight)
+                    .fillMaxWidth()
+                    .background(IpbTheme.colors.background)
+                    .padding(vertical = verticalPadding),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                if (state.ongoing) IconButton(onClick = onRemove, enabled = enabled) {
+                    TrashIcon(enabled = enabled)
+                }
+                else Text(
+                    modifier = Modifier.padding(start = 12.dp),
+                    text = stringResource(id = R.string.voice_message),
+                    style = IpbTheme.typography.primary,
+                    color = if (enabled) IpbTheme.colors.gray1 else IpbTheme.colors.gray2
+                )
+                IconButton(
+                    onClick = if (state.ongoing) onStopRecording else onStartRecording,
+                    enabled = enabled
                 ) {
-                    if (state.ongoing) IconButton(onClick = onRemove, enabled = enabled) {
-                        TrashIcon(enabled = enabled)
-                    }
-                    else Text(
-                        modifier = Modifier.padding(start = 12.dp),
-                        text = stringResource(id = R.string.voice_message),
-                        style = IpbTheme.typography.primary,
-                        color = if (enabled) IpbTheme.colors.gray1 else IpbTheme.colors.gray2
-                    )
-                    IconButton(
-                        onClick = if (state.ongoing) onStopRecording else onStartRecording,
-                        enabled = enabled
-                    ) {
-                        MicIcon(enabled = enabled)
-                    }
+                    MicIcon(enabled = enabled)
+                }
             }
             if (state.ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
         }

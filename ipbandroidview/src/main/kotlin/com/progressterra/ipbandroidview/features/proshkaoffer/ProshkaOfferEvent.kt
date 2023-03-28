@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.features.proshkaoffer
 
-sealed class ProshkaOfferEvent {
+sealed class ProshkaOfferEvent(val id: String) {
 
-    object Clicked : ProshkaOfferEvent()
+    class Clicked(id: String) : ProshkaOfferEvent(id)
 }

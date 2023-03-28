@@ -18,7 +18,6 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 @Composable
 fun ProshkaTopBar(
     modifier: Modifier = Modifier,
-    state: ProshkaTopBarState,
     title: String,
     showBackButton: Boolean = false,
     useComponent: UseProshkaTopBar
@@ -32,7 +31,7 @@ fun ProshkaTopBar(
         horizontalArrangement = Arrangement.Center
     ) {
         if (showBackButton) {
-            IconButton(onClick = { useComponent.handle(state.id, ProshkaTopBarEvent.Back) }) {
+            IconButton(onClick = { useComponent.handle(ProshkaTopBarEvent.Back) }) {
                 BrushedIcon(
                     resId = R.drawable.ic_back_pro, tint = IpbTheme.colors.iconPrimary1.asBrush()
                 )

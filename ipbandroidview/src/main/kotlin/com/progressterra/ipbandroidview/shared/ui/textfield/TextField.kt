@@ -1,6 +1,5 @@
-package com.progressterra.ipbandroidview.shared.ui
+package com.progressterra.ipbandroidview.shared.ui.textfield
 
-import android.os.Parcelable
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
@@ -11,45 +10,17 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
-@Immutable
-data class TextFieldState(
-    val text: String = "", val enabled: Boolean = true
-) : Parcelable {
-
-    fun updateText(text: String): TextFieldState = copy(text = text)
-
-    fun updateEnabled(enabled: Boolean): TextFieldState = copy(enabled = enabled)
-}
-
-sealed class TextFieldEvent {
-
-    data class TextChanged(val text: String) : TextFieldEvent()
-
-    object Action : TextFieldEvent()
-
-    object AdditionalAction : TextFieldEvent()
-}
-
-interface UseTextField {
-
-    fun handle(id: String, event: TextFieldEvent)
-}
-
-private val borderWidth = 1.dp
+import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
 @Composable
 fun TextField(
@@ -57,7 +28,6 @@ fun TextField(
     state: TextFieldState,
     useComponent: UseTextField,
     hint: String = "",
-    id: String = "",
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
@@ -87,7 +57,7 @@ fun TextField(
     TextField(
         modifier = modifier
             .border(
-                width = borderWidth,
+                width = 1.dp,
                 brush = if (focused) IpbTheme.colors.primary.asBrush() else Color.Transparent.toBrush(),
                 shape = RoundedCornerShape(8.dp)
             )
@@ -96,11 +66,11 @@ fun TextField(
         visualTransformation = visualTransformation,
         interactionSource = mutableInteractionSource,
         onValueChange = { text ->
-            useComponent.handle(id, TextFieldEvent.TextChanged(text))
+            useComponent.handle(TextFieldEvent.TextChanged(state.id, text))
         },
         keyboardActions = KeyboardActions {
             focusManager.clearFocus()
-            useComponent.handle(id, TextFieldEvent.Action)
+            useComponent.handle(TextFieldEvent.Action(state.id))
         },
         shape = RoundedCornerShape(8.dp),
         keyboardOptions = keyboardOptions,
@@ -113,7 +83,7 @@ fun TextField(
             {
                 IconButton(onClick = {
                     useComponent.handle(
-                        id, TextFieldEvent.AdditionalAction
+                        TextFieldEvent.AdditionalAction(state.id)
                     )
                 }) {
                     BrushedIcon(

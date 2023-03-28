@@ -31,7 +31,11 @@ fun BonusesClarificationScreen(
     interactor: BonusesClarificationInteractor
 ) {
     ThemedLayout(
-        topBar = { ThemedTopAppBar(title = stringResource(R.string.faq), onBack = { interactor.onBack() }) }
+        topBar = {
+            ThemedTopAppBar(
+                title = stringResource(R.string.faq),
+                onBack = { interactor.onBack() })
+        }
     ) { _, _ ->
         Column(
             modifier = Modifier

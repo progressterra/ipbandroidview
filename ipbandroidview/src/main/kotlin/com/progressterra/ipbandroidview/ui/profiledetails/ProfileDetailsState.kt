@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.profiledetails
 
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 
 data class ProfileDetailsState(
     val phone: TextFieldState = TextFieldState(),

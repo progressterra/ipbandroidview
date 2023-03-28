@@ -9,7 +9,8 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class BonusesClarificationViewModel : ViewModel(),
-    ContainerHost<BonusesClarificationState, BonusesClarificationEffect>, BonusesClarificationInteractor {
+    ContainerHost<BonusesClarificationState, BonusesClarificationEffect>,
+    BonusesClarificationInteractor {
 
     override val container: Container<BonusesClarificationState, BonusesClarificationEffect> =
         container(BonusesClarificationState())

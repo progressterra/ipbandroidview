@@ -8,8 +8,8 @@ interface UseProshkaGalleries : UseProshkaStoreCard {
 
     class Empty : UseProshkaGalleries {
 
-        override fun handle(id: String, event: CounterEvent) = Unit
+        override fun handle(event: CounterEvent) = Unit
 
-        override fun handle(id: String, event: ProshkaStoreCardEvent) = Unit
+        override fun handle(event: ProshkaStoreCardEvent) = Unit
     }
 }

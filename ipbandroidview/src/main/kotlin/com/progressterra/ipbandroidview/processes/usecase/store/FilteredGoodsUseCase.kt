@@ -17,7 +17,11 @@ import com.progressterra.ipbandroidview.composable.component.StoreCardComponentS
 
 interface FilteredGoodsUseCase {
 
-    suspend operator fun invoke(id: String, keyword: String, filters: List<Filter>): Result<List<StoreCardComponentState>>
+    suspend operator fun invoke(
+        id: String,
+        keyword: String,
+        filters: List<Filter>
+    ): Result<List<StoreCardComponentState>>
 
     class Base(
         scrmRepository: SCRMRepository,

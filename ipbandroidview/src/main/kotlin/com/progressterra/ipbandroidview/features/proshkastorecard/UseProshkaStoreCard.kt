@@ -5,12 +5,12 @@ import com.progressterra.ipbandroidview.shared.ui.UseCounter
 
 interface UseProshkaStoreCard : UseCounter {
 
-    fun handle(id: String, event: ProshkaStoreCardEvent)
+    fun handle(event: ProshkaStoreCardEvent)
 
     class Empty : UseProshkaStoreCard {
 
-        override fun handle(id: String, event: CounterEvent) = Unit
+        override fun handle(event: CounterEvent) = Unit
 
-        override fun handle(id: String, event: ProshkaStoreCardEvent) = Unit
+        override fun handle(event: ProshkaStoreCardEvent) = Unit
     }
 }

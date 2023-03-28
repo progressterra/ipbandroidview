@@ -22,10 +22,10 @@ import com.progressterra.ipbandroidview.ext.print
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.TextField
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
-import com.progressterra.ipbandroidview.shared.ui.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 import com.squaredem.composecalendar.ComposeCalendar
 import java.time.LocalDate
 
@@ -54,7 +54,7 @@ sealed class SignUpComponentEvent {
 
 interface UseSignUpComponent : UseButton, UseTextButton, UseTextField {
 
-    fun handle(id: String, event: SignUpComponentEvent)
+    fun handle(event: SignUpComponentEvent)
 }
 
 @Composable

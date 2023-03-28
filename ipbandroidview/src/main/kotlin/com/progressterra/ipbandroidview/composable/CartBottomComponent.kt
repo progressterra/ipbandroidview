@@ -26,6 +26,7 @@ data class CartBottomComponentState(
     val nextButtonState: ButtonState = ButtonState(),
     val authButtonState: ButtonState = ButtonState()
 )
+
 interface UseCartBottomComponent : UseButton
 
 /**

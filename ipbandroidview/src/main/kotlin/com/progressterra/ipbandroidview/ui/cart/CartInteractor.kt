@@ -11,7 +11,7 @@ interface CartInteractor : CartCardInteractor {
 
     fun onAuth()
 
-    class Empty: CartInteractor {
+    class Empty : CartInteractor {
 
         override fun favorite(cartCard: CartCardState) = Unit
 

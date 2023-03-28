@@ -30,7 +30,9 @@ fun ChatMessage(
         end = if (message.user) emptyPadding else edgePadding
     )
     Row(
-        modifier = modifier.fillMaxWidth().padding(paddingValues),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(paddingValues),
         horizontalArrangement = if (message.user) Arrangement.End else Arrangement.Start
     ) {
         Column(

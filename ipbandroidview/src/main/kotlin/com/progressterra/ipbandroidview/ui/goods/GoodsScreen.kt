@@ -39,7 +39,7 @@ fun GoodsScreen(
                 contentPadding = PaddingValues(8.dp)
             ) {
                 if (lazyItems.itemCount > 0) items(lazyItems) { goods ->
-                    goods?.let {
+                    goods.let {
                         StoreCardComponent(
                             state = goods, interactor = interactor
                         )

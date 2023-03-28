@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.shared.ui.brushedswitch
 
-sealed class BrushedSwitchEvent {
+sealed class BrushedSwitchEvent(val id: String) {
 
-    object Click : BrushedSwitchEvent()
+    class Click(id: String) : BrushedSwitchEvent(id)
 }

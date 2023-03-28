@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,9 +17,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.PagerScope
 import com.progressterra.ipbandroidview.model.GoodsDetails
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -27,14 +27,14 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun Gallery(modifier: Modifier = Modifier, state: GoodsDetails) {
-    val pagerState = rememberPagerState()
+    val pagerState = androidx.compose.foundation.pager.rememberPagerState()
     Box(modifier = modifier.aspectRatio(1f)) {
-        HorizontalPager(
-            count = state.images.size,
-            state = pagerState,
-            contentPadding = PaddingValues(horizontal = 8.dp),
-            itemSpacing = 8.dp
-        ) {
+        PaddingValues(horizontal = 8.dp)
+        PagerDefaults.flingBehavior(
+            state = state,
+            endContentPadding = contentPadding.calculateEndPadding(LayoutDirection.Ltr),
+        )
+        fun PagerScope.(it: Int) {
             SimpleImage(
                 modifier = Modifier
                     .fillMaxSize()

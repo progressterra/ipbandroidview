@@ -60,7 +60,7 @@ class MainViewModel(
         modifyFavoriteUseCase(storeCard.id, storeCard.favorite).onSuccess { refresh() }
     }
 
-    override fun handle(id: String, event: ProshkaBonusesEvent) = intent {
+    override fun handle(event: ProshkaBonusesEvent) = intent {
         when (id) {
             "main" -> when (event) {
                 is ProshkaBonusesEvent.OnClick -> postSideEffect(MainEffect.Bonuses)

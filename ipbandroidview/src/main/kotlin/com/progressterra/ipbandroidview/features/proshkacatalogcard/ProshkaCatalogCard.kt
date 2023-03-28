@@ -27,7 +27,7 @@ fun ProshkaCatalogCard(
             .clip(RoundedCornerShape(8.dp))
             .niceClickable {
                 useComponent.handle(
-                    state.id, ProshkaCatalogCardEvent.Open
+                    ProshkaCatalogCardEvent.Open(state.id)
                 )
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {

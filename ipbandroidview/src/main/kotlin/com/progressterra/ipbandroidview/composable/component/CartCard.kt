@@ -96,7 +96,9 @@ fun CartCard(
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             Text(
-                text = state.name, color = IpbTheme.colors.black, style = IpbTheme.typography.primary
+                text = state.name,
+                color = IpbTheme.colors.black,
+                style = IpbTheme.typography.primary
             )
             Text(
                 text = "${state.color}, ${state.size.primary}, ${state.inCartCounter} шт",

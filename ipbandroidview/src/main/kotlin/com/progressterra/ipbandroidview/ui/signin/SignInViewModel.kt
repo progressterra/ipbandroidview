@@ -9,8 +9,8 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.composable.component.TextButtonEvent
 import com.progressterra.ipbandroidview.composable.component.TextButtonState
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.composable.component.UseAuth
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.processes.usecase.OpenUrlUseCase
@@ -54,7 +54,7 @@ class SignInViewModel(
         }
     }
 
-    override fun handle(id: String, event: AuthEvent) = intent {
+    override fun handle(event: AuthEvent) = intent {
         when (id) {
             "main" -> when (event) {
                 is AuthEvent.UrlClick -> openUrlUseCase(event.url)
@@ -62,7 +62,7 @@ class SignInViewModel(
         }
     }
 
-    override fun handle(id: String, event: ButtonEvent) = intent {
+    override fun handle(event: ButtonEvent) = intent {
         when (id) {
             "next" -> when (event) {
                 is ButtonEvent.Click -> onNext()
@@ -70,7 +70,7 @@ class SignInViewModel(
         }
     }
 
-    override fun handle(id: String, event: TextButtonEvent) = intent {
+    override fun handle(event: TextButtonEvent) = intent {
         when (id) {
             "skip" -> when (event) {
                 is TextButtonEvent.Click -> postSideEffect(SignInEffect.Skip)
@@ -78,7 +78,7 @@ class SignInViewModel(
         }
     }
 
-    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(event: TextFieldEvent) = blockingIntent {
         when (id) {
             "phone" -> when (event) {
                 is TextFieldEvent.TextChanged -> {

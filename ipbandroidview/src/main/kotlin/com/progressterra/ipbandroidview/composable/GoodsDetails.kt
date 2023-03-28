@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
@@ -22,9 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
-import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.pager.PagerScope
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.model.GoodsDetails
 import com.progressterra.ipbandroidview.model.GoodsParameters
@@ -93,18 +92,17 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
         }
     }
 
-    val pagerState = rememberPagerState()
+    val pagerState = androidx.compose.foundation.pager.rememberPagerState()
     Column(
         modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         HorizontalTabs(pagerState = pagerState)
-        HorizontalPager(
-            count = 3,
-            state = pagerState,
-            verticalAlignment = Alignment.Top,
-            contentPadding = PaddingValues(horizontal = 8.dp),
-            itemSpacing = 8.dp
-        ) {
+        PaddingValues(horizontal = 8.dp)
+        PagerDefaults.flingBehavior(
+            state = state,
+            endContentPadding = contentPadding.calculateEndPadding(LayoutDirection.Ltr),
+        )
+        fun PagerScope.(it: Int) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

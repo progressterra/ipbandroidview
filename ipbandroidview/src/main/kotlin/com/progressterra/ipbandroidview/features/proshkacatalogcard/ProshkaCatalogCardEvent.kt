@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.features.proshkacatalogcard
 
-sealed class ProshkaCatalogCardEvent {
+sealed class ProshkaCatalogCardEvent(val id: String) {
 
-    object Open : ProshkaCatalogCardEvent()
+    class Open(id: String) : ProshkaCatalogCardEvent(id)
 }

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.widgets.proshkaedituser
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 
 @Immutable
 data class ProshkaEditUserState(

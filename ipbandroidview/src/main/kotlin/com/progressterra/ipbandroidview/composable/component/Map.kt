@@ -20,10 +20,10 @@ import com.progressterra.ipbandroidview.core.ComponentEvent
 import com.progressterra.ipbandroidview.model.AddressUI
 import com.progressterra.ipbandroidview.model.SuggestionUI
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.TextField
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
-import com.progressterra.ipbandroidview.shared.ui.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
 data class MapState(
     val isPermissionGranted: Boolean = false,
@@ -45,9 +45,9 @@ sealed class MapEvent : ComponentEvent {
 
 interface UseMap : UseTextField {
 
-    fun handle(id: String, event: MapEvent)
+    fun handle(event: MapEvent)
 
-    override fun handle(id: String, event: TextFieldEvent) {
+    override fun handle(event: TextFieldEvent) {
         when (id) {
             "address" -> when (event) {
                 is TextFieldEvent.TextChanged -> handle(

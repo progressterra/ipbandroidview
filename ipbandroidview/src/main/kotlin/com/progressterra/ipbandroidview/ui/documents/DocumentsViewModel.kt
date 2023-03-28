@@ -64,7 +64,7 @@ class DocumentsViewModel(
         )
     }
 
-    override fun handle(id: String, event: ButtonEvent) = intent {
+    override fun handle(event: ButtonEvent) = intent {
         when (id) {
             "archive" -> when (event) {
                 ButtonEvent.Click -> postSideEffect(

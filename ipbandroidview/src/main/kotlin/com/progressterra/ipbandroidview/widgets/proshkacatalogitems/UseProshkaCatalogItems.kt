@@ -7,6 +7,6 @@ interface UseProshkaCatalogItems : UseProshkaCatalogCard {
 
     class Empty : UseProshkaCatalogItems {
 
-        override fun handle(id: String, event: ProshkaCatalogCardEvent) = Unit
+        override fun handle(event: ProshkaCatalogCardEvent) = Unit
     }
 }

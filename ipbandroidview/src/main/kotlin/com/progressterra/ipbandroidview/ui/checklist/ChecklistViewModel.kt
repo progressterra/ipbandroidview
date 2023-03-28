@@ -6,8 +6,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.VoiceState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.processes.exception.NoEmailException
@@ -120,7 +120,7 @@ class ChecklistViewModel(
 
     override fun onBack() = intent { postSideEffect(ChecklistEffect.Back) }
 
-    override fun handle(id: String, event: ButtonEvent) = intent {
+    override fun handle(event: ButtonEvent) = intent {
         when (id) {
             "finish" -> when (event) {
                 is ButtonEvent.Click -> {
@@ -188,7 +188,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(event: TextFieldEvent) = blockingIntent {
         when (id) {
             "commentary" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updateComment(event.text) }
@@ -197,7 +197,7 @@ class ChecklistViewModel(
         }
     }
 
-    override fun handle(id: String, event: CurrentCheckEvent) = intent {
+    override fun handle(event: CurrentCheckEvent) = intent {
         when (id) {
             "main" -> when (event) {
                 is CurrentCheckEvent.OpenCamera -> makePhotoUseCase().onSuccess {

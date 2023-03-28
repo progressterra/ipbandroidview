@@ -15,15 +15,14 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkip
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarState
 import com.progressterra.ipbandroidview.features.authorskip.UseAuthOrSkip
 import com.progressterra.ipbandroidview.features.proshkatopbar.UseProshkaTopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.TextField
-import com.progressterra.ipbandroidview.shared.ui.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.UseTextField
+import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
 @Immutable
 data class SignInState(

@@ -23,7 +23,7 @@ sealed class TextButtonEvent {
 
 interface UseTextButton {
 
-    fun handle(id: String, event: TextButtonEvent)
+    fun handle(event: TextButtonEvent)
 }
 
 @Composable

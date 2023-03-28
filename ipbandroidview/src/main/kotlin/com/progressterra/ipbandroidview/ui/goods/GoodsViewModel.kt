@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.composable.component.GoodsBarComponentEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.processes.usecase.store.FilteredGoodsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.GoodsUseCase
@@ -108,7 +108,7 @@ class GoodsViewModel(
         }
     }
 
-    override fun handle(id: String, event: GoodsBarComponentEvent) {
+    override fun handle(event: GoodsBarComponentEvent) {
         when (id) {
             "main" -> {
                 when (event) {
@@ -120,7 +120,7 @@ class GoodsViewModel(
         }
     }
 
-    override fun handle(id: String, event: TextFieldEvent) = blockingIntent {
+    override fun handle(event: TextFieldEvent) = blockingIntent {
         when (id) {
             "keyword" -> {
                 when (event) {

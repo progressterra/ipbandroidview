@@ -8,6 +8,7 @@ data class SubCatalogState(
         name = "",
         subCategories = emptyList(),
         hasNext = false
-    ))
+    )
+)
 //    override val keyword: String = "",
 //    override val expanded: Boolean = false

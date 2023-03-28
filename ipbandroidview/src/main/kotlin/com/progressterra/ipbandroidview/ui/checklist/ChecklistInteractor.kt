@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.model.Check
 
 interface ChecklistInteractor : UseCurrentCheck {
@@ -14,11 +14,11 @@ interface ChecklistInteractor : UseCurrentCheck {
 
     class Empty : ChecklistInteractor {
 
-        override fun handle(id: String, event: ButtonEvent) = Unit
+        override fun handle(event: ButtonEvent) = Unit
 
-        override fun handle(id: String, event: TextFieldEvent) = Unit
+        override fun handle(event: TextFieldEvent) = Unit
 
-        override fun handle(id: String, event: CurrentCheckEvent) = Unit
+        override fun handle(event: CurrentCheckEvent) = Unit
 
         override fun onBack() = Unit
 
