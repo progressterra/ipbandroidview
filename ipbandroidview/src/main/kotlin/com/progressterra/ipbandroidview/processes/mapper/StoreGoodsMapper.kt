@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.DoubleMapper
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface StoreGoodsMapper : DoubleMapper<RGGoodsInventoryExt, Boolean, StoreCardComponentState> {

@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.composable.component.CatalogBarComponent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.processes.usecase.store.CatalogUseCase
-import com.progressterra.ipbandroidview.model.CategoryWithSubcategories
+import com.progressterra.ipbandroidview.entities.CategoryWithSubcategories
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental

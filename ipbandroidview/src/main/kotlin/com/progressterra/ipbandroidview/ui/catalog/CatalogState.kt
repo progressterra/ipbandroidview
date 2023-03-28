@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.catalog
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.composable.component.CatalogBarComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.MainCategory
+import com.progressterra.ipbandroidview.entities.MainCategory
 
 @Immutable
 data class CatalogState(

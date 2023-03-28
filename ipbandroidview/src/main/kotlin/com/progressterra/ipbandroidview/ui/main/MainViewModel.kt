@@ -4,13 +4,13 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesEvent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.processes.usecase.bonus.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.processes.usecase.bonus.ProshkaBonusesUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.CreateQrUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.PromoGoodsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
-import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.entities.Category
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -20,7 +20,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class MainViewModel(
     private val promoGoodsUseCase: PromoGoodsUseCase,
-    private val availableBonusesUseCase: AvailableBonusesUseCase,
+    private val proshkaBonusesUseCase: ProshkaBonusesUseCase,
     private val userExistsUseCase: UserExistsUseCase,
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val createQrUseCase: CreateQrUseCase
@@ -42,7 +42,7 @@ class MainViewModel(
         createQrUseCase().onSuccess { qr ->
             reduce { state.copy(qr = qr) }
         }.onFailure { isSuccess = false }
-        availableBonusesUseCase().onSuccess { bonusesInfo ->
+        proshkaBonusesUseCase().onSuccess { bonusesInfo ->
             reduce { state.copy(extendedBonusesState = bonusesInfo) }
         }.onFailure { isSuccess = false }
         promoGoodsUseCase().onSuccess {

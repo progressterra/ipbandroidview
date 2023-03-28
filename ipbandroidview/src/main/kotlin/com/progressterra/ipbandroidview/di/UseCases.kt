@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.processes.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.processes.usecase.ShareTextUseCase
 import com.progressterra.ipbandroidview.processes.usecase.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.processes.usecase.ambassador.InviteUseCase
-import com.progressterra.ipbandroidview.processes.usecase.bonus.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.processes.usecase.bonus.ProshkaBonusesUseCase
 import com.progressterra.ipbandroidview.processes.usecase.bonus.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.processes.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.processes.usecase.chat.FetchChatUseCase
@@ -168,7 +168,7 @@ val useCasesModule = module {
 
     single<UserExistsUseCase> { UserExistsUseCase.Base() }
 
-    single<AvailableBonusesUseCase> { AvailableBonusesUseCase.Base(get(), get(), get(), get()) }
+    single<ProshkaBonusesUseCase> { ProshkaBonusesUseCase.Base(get(), get(), get(), get()) }
 
     single<TransactionsUseCase> { TransactionsUseCase.Base(get(), get(), get(), get()) }
 

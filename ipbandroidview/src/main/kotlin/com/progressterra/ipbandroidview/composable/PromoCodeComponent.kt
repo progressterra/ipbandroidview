@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Immutable

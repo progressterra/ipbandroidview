@@ -15,5 +15,6 @@ data class ProshkaMainState(
     val new: ProshkaGalleriesState = ProshkaGalleriesState()
 ) {
 
+    fun updateBonuses(bonuses: ProshkaBonusesState) = copy(bonuses = bonuses)
     fun reverseBonuses() = copy(bonuses = bonuses.reverse())
 }

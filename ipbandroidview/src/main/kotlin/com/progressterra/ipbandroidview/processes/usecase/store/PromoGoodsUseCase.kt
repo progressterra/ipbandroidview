@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.AppSettings
 import com.progressterra.ipbandroidview.processes.mapper.PromoCategoryMapper
 import com.progressterra.ipbandroidview.processes.mapper.StoreGoodsMapper
-import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.entities.Category
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface PromoGoodsUseCase {

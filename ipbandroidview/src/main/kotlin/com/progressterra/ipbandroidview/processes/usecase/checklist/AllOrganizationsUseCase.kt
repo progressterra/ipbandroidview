@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.model.Organization
+import com.progressterra.ipbandroidview.entities.Organization
 
 interface AllOrganizationsUseCase {
 

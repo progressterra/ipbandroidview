@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
-import com.progressterra.ipbandroidview.model.OrderDetails
+import com.progressterra.ipbandroidview.entities.OrderDetails
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable

@@ -29,10 +29,10 @@ import com.progressterra.ipbandroidview.processes.usecase.media.StartAudioUseCas
 import com.progressterra.ipbandroidview.processes.usecase.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.usecase.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
-import com.progressterra.ipbandroidview.model.AuditDocument
-import com.progressterra.ipbandroidview.model.Check
-import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.model.MultisizedImage
+import com.progressterra.ipbandroidview.entities.AuditDocument
+import com.progressterra.ipbandroidview.entities.Check
+import com.progressterra.ipbandroidview.entities.ChecklistStatus
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

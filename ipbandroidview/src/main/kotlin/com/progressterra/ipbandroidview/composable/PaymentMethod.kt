@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.entities.PaymentType
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Immutable

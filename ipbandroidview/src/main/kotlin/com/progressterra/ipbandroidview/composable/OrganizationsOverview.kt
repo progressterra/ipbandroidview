@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -27,7 +26,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerScope
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import kotlinx.coroutines.launch
 

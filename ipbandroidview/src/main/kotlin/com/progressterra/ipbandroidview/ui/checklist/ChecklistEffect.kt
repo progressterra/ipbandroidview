@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.checklist
 
 import androidx.annotation.StringRes
-import com.progressterra.ipbandroidview.model.MultisizedImage
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 
 sealed class ChecklistEffect {
 

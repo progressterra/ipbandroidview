@@ -32,10 +32,10 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Check
-import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.model.MultisizedImage
-import com.progressterra.ipbandroidview.model.Voice
+import com.progressterra.ipbandroidview.entities.Check
+import com.progressterra.ipbandroidview.entities.ChecklistStatus
+import com.progressterra.ipbandroidview.entities.MultisizedImage
+import com.progressterra.ipbandroidview.entities.Voice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import kotlinx.coroutines.launch
 

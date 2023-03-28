@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.model.Message
+import com.progressterra.ipbandroidview.entities.Message
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 private val edgePadding: Dp = 40.dp

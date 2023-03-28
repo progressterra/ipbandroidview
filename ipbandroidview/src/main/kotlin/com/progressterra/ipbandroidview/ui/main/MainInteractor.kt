@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesEv
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
 import com.progressterra.ipbandroidview.features.proshkabonuses.UseProshkaBonuses
-import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.entities.Category
 
 interface MainInteractor : StoreCardInteractor, UseProshkaBonuses {
 

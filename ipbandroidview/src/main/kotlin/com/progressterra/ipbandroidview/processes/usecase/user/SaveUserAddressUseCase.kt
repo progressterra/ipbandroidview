@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.ext.throwOnFailure
-import com.progressterra.ipbandroidview.model.AddressUI
+import com.progressterra.ipbandroidview.entities.AddressUI
 
 interface SaveUserAddressUseCase {
 

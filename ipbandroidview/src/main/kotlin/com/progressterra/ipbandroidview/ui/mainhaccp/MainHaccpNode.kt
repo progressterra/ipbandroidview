@@ -5,8 +5,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.model.Document
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Document
+import com.progressterra.ipbandroidview.entities.Partner
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect

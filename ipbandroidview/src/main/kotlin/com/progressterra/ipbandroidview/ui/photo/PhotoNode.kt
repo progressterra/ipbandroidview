@@ -8,7 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.model.MultisizedImage
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.ui.checklist.ChecklistViewModel
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState

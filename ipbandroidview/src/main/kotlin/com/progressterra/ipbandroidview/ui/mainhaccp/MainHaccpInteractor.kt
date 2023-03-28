@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.mainhaccp
 
 import com.progressterra.ipbandroidview.composable.OrganizationsOverviewEvent
 import com.progressterra.ipbandroidview.composable.PartnerBlockEvent
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Partner
 
 interface MainHaccpInteractor {
 

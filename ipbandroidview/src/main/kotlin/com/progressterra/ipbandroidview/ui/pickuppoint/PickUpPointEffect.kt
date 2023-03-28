@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.pickuppoint
 
-import com.progressterra.ipbandroidview.model.PickUpPointInfo
+import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 
 sealed class PickUpPointEffect {
 

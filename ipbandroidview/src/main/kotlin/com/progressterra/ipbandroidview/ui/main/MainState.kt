@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesState
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Category
+import com.progressterra.ipbandroidview.entities.Category
 
 data class MainState(
     val recommended: List<Pair<Category, List<StoreCardComponentState>>> = emptyList(),

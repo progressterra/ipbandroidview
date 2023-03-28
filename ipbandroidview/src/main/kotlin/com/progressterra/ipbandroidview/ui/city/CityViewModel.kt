@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.processes.usecase.location.GuessLocation
 import com.progressterra.ipbandroidview.processes.usecase.suggestion.ChooseSuggestionUseCase
 import com.progressterra.ipbandroidview.processes.usecase.suggestion.SuggestionUseCase
 import com.progressterra.ipbandroidview.processes.usecase.user.SaveUserAddressUseCase
-import com.progressterra.ipbandroidview.model.SuggestionUI
+import com.progressterra.ipbandroidview.entities.SuggestionUI
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

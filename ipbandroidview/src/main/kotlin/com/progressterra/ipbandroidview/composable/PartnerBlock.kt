@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Partner
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 

@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.bonuses
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.processes.usecase.bonus.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.processes.usecase.bonus.ProshkaBonusesUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.TransactionsUseCase
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -12,7 +12,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class BonusesViewModel(
-    private val availableBonusesUseCase: AvailableBonusesUseCase,
+    private val proshkaBonusesUseCase: ProshkaBonusesUseCase,
     private val transactionsUseCase: TransactionsUseCase
 ) : ViewModel(), ContainerHost<BonusesState, BonusesEffect>, BonusesInteractor {
 
@@ -32,7 +32,7 @@ class BonusesViewModel(
 
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
-        availableBonusesUseCase().onSuccess {
+        proshkaBonusesUseCase().onSuccess {
             reduce { state.copy(bonusesInfo = it) }
             transactionsUseCase().onSuccess {
                 reduce { state.copy(transactions = it, screenState = ScreenState.SUCCESS) }

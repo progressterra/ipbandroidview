@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ext.throwOnFailure
-import com.progressterra.ipbandroidview.model.Check
+import com.progressterra.ipbandroidview.entities.Check
 import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

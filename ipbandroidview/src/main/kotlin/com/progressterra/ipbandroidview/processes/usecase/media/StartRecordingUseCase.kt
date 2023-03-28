@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.processes.usecase.media
 import com.progressterra.ipbandroidview.core.CreateId
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.voice.VoiceManager
-import com.progressterra.ipbandroidview.model.Voice
+import com.progressterra.ipbandroidview.entities.Voice
 
 interface StartRecordingUseCase {
 

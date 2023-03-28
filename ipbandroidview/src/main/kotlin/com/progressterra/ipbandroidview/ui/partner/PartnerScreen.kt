@@ -31,7 +31,7 @@ import com.progressterra.ipbandroidview.composable.Offer
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Partner
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import de.charlex.compose.HtmlText
 

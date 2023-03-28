@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.documents
 
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
-import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.entities.Document
 
 interface DocumentsInteractor : UseButton {
 

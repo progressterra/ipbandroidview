@@ -19,13 +19,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.theme.toColor
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.Counter
+import com.progressterra.ipbandroidview.shared.ui.counter.Counter
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 
 @Composable

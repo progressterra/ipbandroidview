@@ -23,8 +23,8 @@ import com.progressterra.ipbandroidview.composable.LinkText
 import com.progressterra.ipbandroidview.composable.LinkTextData
 import com.progressterra.ipbandroidview.core.ComponentEvent
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesState
-import com.progressterra.ipbandroidview.model.OrderGoods
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.entities.OrderGoods
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState

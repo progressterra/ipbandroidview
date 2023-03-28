@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.cart
 
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Cart
+import com.progressterra.ipbandroidview.entities.Cart
 
 data class CartState(
     val screenState: ScreenState = ScreenState.LOADING,

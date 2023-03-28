@@ -10,8 +10,8 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.model.ChecklistStats
-import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.entities.ChecklistStats
+import com.progressterra.ipbandroidview.entities.Document
 
 interface AllDocumentsUseCase {
 

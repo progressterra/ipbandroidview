@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.order
 
-import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.entities.OrderGoods
 
 data class OrderState(
     val goods: List<OrderGoods> = emptyList(),

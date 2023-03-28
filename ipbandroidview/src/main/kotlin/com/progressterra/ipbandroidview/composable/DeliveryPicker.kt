@@ -16,9 +16,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-import com.progressterra.ipbandroidview.model.AddressUI
-import com.progressterra.ipbandroidview.model.Delivery
-import com.progressterra.ipbandroidview.model.DeliveryType
+import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.entities.Delivery
+import com.progressterra.ipbandroidview.entities.DeliveryType
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 data class DeliveryPickerState(

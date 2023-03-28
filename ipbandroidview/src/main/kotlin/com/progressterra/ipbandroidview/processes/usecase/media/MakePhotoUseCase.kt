@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.core.MakePhotoContract
 import com.progressterra.ipbandroidview.processes.exception.PhotoWasNotTakenException
 import com.progressterra.ipbandroidview.processes.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.ext.throwOnFailure
-import com.progressterra.ipbandroidview.model.MultisizedImage
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 
 interface MakePhotoUseCase {
 

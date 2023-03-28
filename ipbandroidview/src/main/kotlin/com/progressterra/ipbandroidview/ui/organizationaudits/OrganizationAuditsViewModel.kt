@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.processes.usecase.checklist.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.location.OpenMapUseCase
-import com.progressterra.ipbandroidview.model.AuditDocument
-import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.model.Organization
+import com.progressterra.ipbandroidview.entities.AuditDocument
+import com.progressterra.ipbandroidview.entities.ChecklistStatus
+import com.progressterra.ipbandroidview.entities.Organization
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

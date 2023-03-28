@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.ui.organizations
 
 import com.google.errorprone.annotations.Immutable
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Organization
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Organization
+import com.progressterra.ipbandroidview.entities.Partner
 
 @Immutable
 data class OrganizationsState(

@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.ui.order
 
 import com.progressterra.ipbandroidview.composable.component.ReceiptComponentEvent
-import com.progressterra.ipbandroidview.model.Delivery
-import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.entities.Delivery
+import com.progressterra.ipbandroidview.entities.PaymentType
 
 interface OrderInteractor : ReceiptComponentEventHandler {
 

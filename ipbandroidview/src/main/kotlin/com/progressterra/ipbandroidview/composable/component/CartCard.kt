@@ -18,11 +18,11 @@ import com.progressterra.ipbandroidview.composable.FavoriteButton
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.composable.TrashIcon
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-import com.progressterra.ipbandroidview.model.Favorite
-import com.progressterra.ipbandroidview.model.GoodsSize
-import com.progressterra.ipbandroidview.model.Id
-import com.progressterra.ipbandroidview.model.OrderGoods
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.entities.Favorite
+import com.progressterra.ipbandroidview.entities.GoodsSize
+import com.progressterra.ipbandroidview.entities.Id
+import com.progressterra.ipbandroidview.entities.OrderGoods
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 private val picWidth = 80.dp

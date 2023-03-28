@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.features.proshkastorecard
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.model.SimplePrice
-import com.progressterra.ipbandroidview.shared.ui.CounterState
+import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
 @Immutable
 data class ProshkaStoreCardState(

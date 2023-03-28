@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.processes.usecase.delivery
 
-import com.progressterra.ipbandroidview.model.PaymentType
+import com.progressterra.ipbandroidview.entities.PaymentType
 
 interface PaymentMethodsUseCase {
 

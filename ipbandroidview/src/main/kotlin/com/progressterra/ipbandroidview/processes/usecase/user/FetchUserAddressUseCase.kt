@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.processes.usecase.user
 
 import com.progressterra.ipbandroidview.data.UserData
-import com.progressterra.ipbandroidview.model.AddressUI
+import com.progressterra.ipbandroidview.entities.AddressUI
 
 interface FetchUserAddressUseCase {
 

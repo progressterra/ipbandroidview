@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.order
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.processes.usecase.OpenUrlUseCase
-import com.progressterra.ipbandroidview.processes.usecase.bonus.AvailableBonusesUseCase
+import com.progressterra.ipbandroidview.processes.usecase.bonus.ProshkaBonusesUseCase
 import com.progressterra.ipbandroidview.processes.usecase.bonus.UseBonusesUseCase
 import com.progressterra.ipbandroidview.processes.usecase.delivery.AvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.processes.usecase.delivery.PaymentMethodsUseCase
@@ -20,7 +20,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class OrderViewModel(
     private val useBonusesUseCase: UseBonusesUseCase,
     private val notUseBonusesUseCase: UseBonusesUseCase,
-    private val bonusesUseCase: AvailableBonusesUseCase,
+    private val bonusesUseCase: ProshkaBonusesUseCase,
     private val availableDeliveryUseCase: AvailableDeliveryUseCase,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
     private val fetchUserAddressUseCase: FetchUserAddressUseCase,

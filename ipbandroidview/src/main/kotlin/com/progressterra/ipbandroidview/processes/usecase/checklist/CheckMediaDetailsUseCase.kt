@@ -7,9 +7,9 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCaseSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.model.Check
-import com.progressterra.ipbandroidview.model.MultisizedImage
-import com.progressterra.ipbandroidview.model.Voice
+import com.progressterra.ipbandroidview.entities.Check
+import com.progressterra.ipbandroidview.entities.MultisizedImage
+import com.progressterra.ipbandroidview.entities.Voice
 import com.progressterra.ipbandroidview.ui.checklist.CurrentCheckMedia
 
 interface CheckMediaDetailsUseCase {

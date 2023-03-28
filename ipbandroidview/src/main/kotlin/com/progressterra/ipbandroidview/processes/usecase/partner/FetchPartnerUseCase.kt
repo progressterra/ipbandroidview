@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.AppSettings.PARTNER_ID
 import com.progressterra.ipbandroidview.processes.mapper.OfferMapper
 import com.progressterra.ipbandroidview.processes.mapper.PartnerMapper
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Partner
 
 interface FetchPartnerUseCase {
 

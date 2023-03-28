@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
 import com.progressterra.ipbandroidapi.api.suggestion.model.DadataSuggestionsFromLocationRequest
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
-import com.progressterra.ipbandroidview.model.AddressUI
+import com.progressterra.ipbandroidview.entities.AddressUI
 
 interface GuessLocationUseCase {
 

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.order
 
 import com.progressterra.ipbandroidview.composable.component.OrderProcessingComponentState
-import com.progressterra.ipbandroidview.model.PickUpPointInfo
+import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 
 sealed class OrderEffect {
 

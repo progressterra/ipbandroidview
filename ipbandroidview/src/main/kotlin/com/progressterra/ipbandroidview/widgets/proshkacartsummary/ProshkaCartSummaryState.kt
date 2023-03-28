@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.widgets.proshkacartsummary
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
 @Immutable

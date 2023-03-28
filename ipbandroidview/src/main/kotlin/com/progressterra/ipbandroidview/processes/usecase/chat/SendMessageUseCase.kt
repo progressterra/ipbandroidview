@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.data.UserData
 import com.progressterra.ipbandroidview.processes.exception.ChatIdNotObtainedException
 import com.progressterra.ipbandroidview.processes.mapper.MessageMapper
 import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserIdUseCase
-import com.progressterra.ipbandroidview.model.Message
+import com.progressterra.ipbandroidview.entities.Message
 
 interface SendMessageUseCase {
 

@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.DoubleMapper
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.model.Message
+import com.progressterra.ipbandroidview.entities.Message
 
 interface MessageMapper : DoubleMapper<RGMessages, String, Message> {
 

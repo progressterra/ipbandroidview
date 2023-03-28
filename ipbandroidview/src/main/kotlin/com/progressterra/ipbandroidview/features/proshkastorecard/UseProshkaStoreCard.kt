@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.features.proshkastorecard
 
-import com.progressterra.ipbandroidview.shared.ui.CounterEvent
-import com.progressterra.ipbandroidview.shared.ui.UseCounter
+import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.counter.UseCounter
 
 interface UseProshkaStoreCard : UseCounter {
 

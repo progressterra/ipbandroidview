@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.ui.archive
 
-import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.entities.Document
 
 interface ArchiveInteractor {
 

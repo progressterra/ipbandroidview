@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.GoodsDetailsMapper
-import com.progressterra.ipbandroidview.model.GoodsDetails
+import com.progressterra.ipbandroidview.entities.GoodsDetails
 
 interface GoodsDetailsUseCase {
 

@@ -4,7 +4,7 @@ import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.composable.component.GoodsBarComponentState
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Filter
+import com.progressterra.ipbandroidview.entities.Filter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 

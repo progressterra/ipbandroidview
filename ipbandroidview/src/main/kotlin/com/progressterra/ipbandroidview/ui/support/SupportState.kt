@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.support
 
 import com.progressterra.ipbandroidview.composable.ChatInputState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Message
+import com.progressterra.ipbandroidview.entities.Message
 
 data class SupportState(
     val messages: List<Message> = emptyList(),

@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.ui.bonuses
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesState
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Transaction
+import com.progressterra.ipbandroidview.entities.Transaction
 
 @Immutable
 data class BonusesState(

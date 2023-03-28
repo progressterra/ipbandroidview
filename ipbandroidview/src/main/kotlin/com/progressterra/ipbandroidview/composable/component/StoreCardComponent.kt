@@ -22,9 +22,9 @@ import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.composable.FavoriteButton
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-import com.progressterra.ipbandroidview.model.Favorite
-import com.progressterra.ipbandroidview.model.Id
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.entities.Favorite
+import com.progressterra.ipbandroidview.entities.Id
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 private const val aspectRatio = 0.5f

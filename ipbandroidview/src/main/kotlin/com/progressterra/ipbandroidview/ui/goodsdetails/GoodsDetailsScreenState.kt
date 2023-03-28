@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.GoodsDetails
+import com.progressterra.ipbandroidview.entities.GoodsDetails
 
 data class GoodsDetailsScreenState(
     val id: String = "",

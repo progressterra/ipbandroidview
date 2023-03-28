@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.mainhaccp
 
-import com.progressterra.ipbandroidview.model.Document
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Document
+import com.progressterra.ipbandroidview.entities.Partner
 
 sealed class MainHaccpEffect {
 

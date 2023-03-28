@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
 import com.progressterra.ipbandroidview.composable.PartnerBlockEvent
-import com.progressterra.ipbandroidview.model.Organization
+import com.progressterra.ipbandroidview.entities.Organization
 
 interface OrganizationsInteractor {
 

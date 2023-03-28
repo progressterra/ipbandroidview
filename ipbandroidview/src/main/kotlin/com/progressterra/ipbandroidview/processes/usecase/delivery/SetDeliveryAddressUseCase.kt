@@ -5,8 +5,8 @@ import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamForAddAddress
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.model.AddressUI
-import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.entities.Delivery
 
 interface SetDeliveryAddressUseCase {
 

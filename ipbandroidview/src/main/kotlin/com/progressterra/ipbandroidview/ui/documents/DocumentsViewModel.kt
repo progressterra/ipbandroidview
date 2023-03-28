@@ -7,9 +7,9 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.processes.usecase.checklist.AllDocumentsUseCase
-import com.progressterra.ipbandroidview.model.AuditDocument
-import com.progressterra.ipbandroidview.model.ChecklistStatus
-import com.progressterra.ipbandroidview.model.Document
+import com.progressterra.ipbandroidview.entities.AuditDocument
+import com.progressterra.ipbandroidview.entities.ChecklistStatus
+import com.progressterra.ipbandroidview.entities.Document
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

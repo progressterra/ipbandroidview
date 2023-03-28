@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.ui.organizations
 
-import com.progressterra.ipbandroidview.model.Organization
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Organization
+import com.progressterra.ipbandroidview.entities.Partner
 
 sealed class OrganizationsEffect {
 

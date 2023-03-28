@@ -15,9 +15,9 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponent
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 import com.progressterra.ipbandroidview.composable.component.StoreCardInteractor
-import com.progressterra.ipbandroidview.model.Category
-import com.progressterra.ipbandroidview.model.SimpleCategory
-import com.progressterra.ipbandroidview.model.SimplePrice
+import com.progressterra.ipbandroidview.entities.Category
+import com.progressterra.ipbandroidview.entities.SimpleCategory
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 private val height = 260.dp

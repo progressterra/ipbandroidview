@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.ext.orIfNull
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.CatalogMapper
-import com.progressterra.ipbandroidview.model.MainCategory
+import com.progressterra.ipbandroidview.entities.MainCategory
 
 interface CatalogUseCase {
 

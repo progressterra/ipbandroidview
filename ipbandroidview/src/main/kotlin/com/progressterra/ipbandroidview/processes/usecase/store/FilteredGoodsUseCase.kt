@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.processes.mapper.StoreGoodsMapper
-import com.progressterra.ipbandroidview.model.Filter
+import com.progressterra.ipbandroidview.entities.Filter
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface FilteredGoodsUseCase {

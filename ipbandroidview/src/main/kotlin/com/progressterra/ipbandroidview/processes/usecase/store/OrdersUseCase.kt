@@ -10,8 +10,8 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.ImageMapper
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.processes.mapper.StatusOrderMapper
-import com.progressterra.ipbandroidview.model.OrderDetails
-import com.progressterra.ipbandroidview.model.OrderGoods
+import com.progressterra.ipbandroidview.entities.OrderDetails
+import com.progressterra.ipbandroidview.entities.OrderGoods
 
 interface OrdersUseCase {
 

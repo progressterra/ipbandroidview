@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.widgets.proshkacartitems
 
 import com.progressterra.ipbandroidview.features.proshkacartcard.ProshkaCartCardEvent
 import com.progressterra.ipbandroidview.features.proshkacartcard.UseProshkaCartCard
-import com.progressterra.ipbandroidview.shared.ui.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 
 interface UseProshkaCartItems : UseProshkaCartCard {
 

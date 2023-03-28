@@ -5,8 +5,8 @@ import com.progressterra.ipbandroidapi.api.collaboration.models.RGEnterpriseData
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.TripleMapper
-import com.progressterra.ipbandroidview.model.OfferUI
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.OfferUI
+import com.progressterra.ipbandroidview.entities.Partner
 
 interface PartnerMapper : TripleMapper<RGEnterpriseData, RFShop, List<OfferUI>, Partner> {
 

@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.RFKindOfEntity
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.Mapper
-import com.progressterra.ipbandroidview.model.Category
-import com.progressterra.ipbandroidview.model.SimpleCategory
+import com.progressterra.ipbandroidview.entities.Category
+import com.progressterra.ipbandroidview.entities.SimpleCategory
 
 interface PromoCategoryMapper : Mapper<RFKindOfEntity, Category> {
 

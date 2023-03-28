@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.processes.usecase.checklist.OrganizationsOverviewUseCase
 import com.progressterra.ipbandroidview.processes.usecase.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
-import com.progressterra.ipbandroidview.model.Partner
+import com.progressterra.ipbandroidview.entities.Partner
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent

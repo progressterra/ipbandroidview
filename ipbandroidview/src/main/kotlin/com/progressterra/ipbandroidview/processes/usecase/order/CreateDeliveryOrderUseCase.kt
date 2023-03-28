@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.ipbdelivery.models.RGDeliveryParams
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.model.Delivery
+import com.progressterra.ipbandroidview.entities.Delivery
 
 interface CreateDeliveryOrderUseCase {
 

@@ -1,11 +1,10 @@
 package com.progressterra.ipbandroidview.ext
 
-import androidx.compose.ui.graphics.Color
 import com.progressterra.ipbandroidview.core.AttachedMedia
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.Check
-import com.progressterra.ipbandroidview.model.ChecklistStats
-import com.progressterra.ipbandroidview.model.Id
+import com.progressterra.ipbandroidview.entities.Check
+import com.progressterra.ipbandroidview.entities.ChecklistStats
+import com.progressterra.ipbandroidview.entities.Id
 import java.time.LocalDate
 
 fun <T : Id> List<T>.replaceById(item: T): List<T> =
