@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.signin
+package com.progressterra.ipbandroidview.pages.signin
 
 import androidx.annotation.StringRes
 

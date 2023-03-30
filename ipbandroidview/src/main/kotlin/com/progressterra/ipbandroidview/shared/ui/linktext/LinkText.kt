@@ -1,51 +1,40 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.shared.ui.linktext
 
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
-data class LinkTextData(
-    val text: String,
-    val tag: String? = null,
-    val annotation: String? = null,
-    val onClick: ((String) -> Unit)? = null,
-)
 
 @Composable
 fun LinkText(
-    linkTextData: List<LinkTextData>,
-    modifier: Modifier = Modifier,
-    style: TextStyle = IpbTheme.typography.tertiary
+    modifier: Modifier = Modifier, linkTextData: List<LinkTextData>, useComponent: UseLinkText
 ) {
     val annotatedString = createAnnotatedString(linkTextData)
 
     ClickableText(
+        modifier = modifier,
         text = annotatedString,
-        style = style.copy(
-            textAlign = TextAlign.Center, color = IpbTheme.colors.gray2
-        ),
+        style = IpbTheme.typography.tertiary.copy(textAlign = TextAlign.Center),
         onClick = { offset ->
             linkTextData.forEach { annotatedStringData ->
-                if (annotatedStringData.tag != null && annotatedStringData.annotation != null) {
+                annotatedStringData.url?.let { url ->
                     annotatedString.getStringAnnotations(
-                        tag = annotatedStringData.tag,
+                        tag = annotatedStringData.url,
                         start = offset,
                         end = offset,
                     ).firstOrNull()?.let {
-                        annotatedStringData.onClick?.invoke(it.item)
+                        useComponent.handle(LinkTextEvent.Click(url))
                     }
                 }
             }
-        },
-        modifier = modifier,
+        }
     )
 }
 
@@ -53,23 +42,16 @@ fun LinkText(
 private fun createAnnotatedString(data: List<LinkTextData>): AnnotatedString {
     return buildAnnotatedString {
         data.forEach { linkTextData ->
-            if (linkTextData.tag != null && linkTextData.annotation != null) {
-                pushStringAnnotation(
-                    tag = linkTextData.tag,
-                    annotation = linkTextData.annotation,
-                )
+            if (linkTextData.url != null) {
+                pushStringAnnotation(tag = linkTextData.url, annotation = linkTextData.url)
                 withStyle(
                     style = SpanStyle(
-                        color = IpbTheme.colors.primary,
+                        color = IpbTheme.colors.textDisabled.asColor(),
                         textDecoration = TextDecoration.Underline,
                     ),
-                ) {
-                    append(linkTextData.text)
-                }
+                ) { append(linkTextData.text) }
                 pop()
-            } else {
-                append(linkTextData.text)
-            }
+            } else append(linkTextData.text)
         }
     }
 }

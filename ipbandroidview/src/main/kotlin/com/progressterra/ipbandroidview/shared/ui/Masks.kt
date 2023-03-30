@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.utils
+package com.progressterra.ipbandroidview.shared.ui
 
 object Masks {
 

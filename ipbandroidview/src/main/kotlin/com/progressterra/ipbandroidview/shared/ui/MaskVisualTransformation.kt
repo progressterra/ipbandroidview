@@ -1,11 +1,10 @@
-package com.progressterra.ipbandroidview.shared.utils
+package com.progressterra.ipbandroidview.shared.ui
 
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.OffsetMapping
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
-
 
 class MaskVisualTransformation(private val mask: String) : VisualTransformation {
 

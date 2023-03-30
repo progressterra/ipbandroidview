@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.signin
+package com.progressterra.ipbandroidview.pages.signin
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
@@ -23,6 +23,9 @@ class SignInNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: SignInViewModel = getViewModel()
+        viewModel.updateCanBeSkipped(canBeSkipped)
+        viewModel.updateOfferUrl(offerUrl)
+        viewModel.updatePolicyUrl(policyUrl)
         val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
@@ -32,13 +35,7 @@ class SignInNode(
                     .show()
             }
         }
-        val state = viewModel.collectAsState()
-        SignInScreen(
-            state = state.value,
-            interactor = viewModel,
-            canBeSkipped = canBeSkipped,
-            offerUrl = offerUrl,
-            policyUrl = policyUrl
-        )
+        val state = viewModel.collectAsState().value
+        SignInScreen(state = state, useComponent = viewModel)
     }
 }

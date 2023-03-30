@@ -6,22 +6,21 @@ import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface StartVerificationChannelUseCase {
 
-    suspend operator fun invoke(phoneNumber: String): Result<Unit>
+    suspend operator fun invoke(phoneNumber: String): Result<String>
 
     class Base(
         private val repo: SCRMRepository
     ) : StartVerificationChannelUseCase {
 
-        override suspend fun invoke(phoneNumber: String): Result<Unit> = runCatching {
-            var formattedPhoneNumber = phoneNumber.trim()
-            if (formattedPhoneNumber.startsWith('8'))
-                formattedPhoneNumber = formattedPhoneNumber.replaceFirst('8', '7')
+        override suspend fun invoke(phoneNumber: String): Result<String> = runCatching {
+            val formattedPhoneNumber = phoneNumber.trim()
             repo.verificationChannelBegin(
                 IncomeChannelData(
                     channelType = 0,
                     channelData = formattedPhoneNumber
                 )
             ).throwOnFailure()
+            formattedPhoneNumber
         }
     }
 }

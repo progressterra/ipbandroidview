@@ -13,10 +13,10 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
-import com.progressterra.ipbandroidview.shared.utils.MaskVisualTransformation
-import com.progressterra.ipbandroidview.shared.utils.Masks.PASSPORT_NUMBER_MASK
-import com.progressterra.ipbandroidview.shared.utils.Masks.PASSPORT_PROVIDER_CODE_MASK
-import com.progressterra.ipbandroidview.shared.utils.Masks.PHONE_MASK
+import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
+import com.progressterra.ipbandroidview.shared.ui.Masks.PASSPORT_NUMBER_MASK
+import com.progressterra.ipbandroidview.shared.ui.Masks.PASSPORT_PROVIDER_CODE_MASK
+import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
 
 @Composable
 fun ProshkaEditUser(
