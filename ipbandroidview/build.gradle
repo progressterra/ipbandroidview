@@ -101,10 +101,10 @@ dependencies {
     testApi "junit:junit:4.13.2"
 
     //Appyx, navigation library
-    api 'com.bumble.appyx:core:1.0.5'
+    api 'com.bumble.appyx:core:1.1.0'
 
     //Google Firebase platform
-    api platform('com.google.firebase:firebase-bom:31.3.0')
+    api platform('com.google.firebase:firebase-bom:31.4.0')
     api "com.google.firebase:firebase-analytics-ktx"
     api "com.google.firebase:firebase-messaging-ktx"
 
