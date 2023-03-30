@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerScope
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.GoodsDetails
+import com.progressterra.ipbandroidview.entities.GoodsItem
 import com.progressterra.ipbandroidview.entities.GoodsParameters
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import kotlinx.coroutines.launch
@@ -33,7 +33,7 @@ private val detailsParamTitlesWidth = 104.dp
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
+fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsItem) {
 
     @Composable
     fun HorizontalTabs(
@@ -164,7 +164,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetails) {
 private fun GoodsDetailsPagerPreview() {
     IpbTheme {
         GoodsDetails(
-            state = GoodsDetails(
+            state = GoodsItem(
                 description = "Гидрокостюм Dawn Patrol с молнией на груди отличается функциональностью и отличным теплосбережением, красивым ...",
                 favorite = false,
                 images = listOf(),

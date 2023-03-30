@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.entities.OfferUI
+import com.progressterra.ipbandroidview.entities.Offer
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import de.charlex.compose.HtmlText
@@ -25,7 +25,7 @@ private val cardHeight = 450.dp
 @Composable
 fun Offer(
     modifier: Modifier = Modifier,
-    offerUI: OfferUI
+    offer: Offer
 ) {
     Column(
         modifier = modifier
@@ -38,17 +38,17 @@ fun Offer(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1.33f),
-            url = offerUI.imageUrl,
+            url = offer.imageUrl,
             backgroundColor = IpbTheme.colors.surfaces
         )
         Text(
-            text = offerUI.headDescription,
+            text = offer.headDescription,
             style = IpbTheme.typography.primary,
             color = IpbTheme.colors.black
         )
         Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             HtmlText(
-                text = offerUI.fullDescription,
+                text = offer.fullDescription,
                 style = IpbTheme.typography.secondary,
                 color = IpbTheme.colors.black
             )

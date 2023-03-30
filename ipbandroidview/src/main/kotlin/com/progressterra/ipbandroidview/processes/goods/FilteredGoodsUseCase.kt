@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.processes.usecase.store
+package com.progressterra.ipbandroidview.processes.goods
 
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
@@ -11,7 +11,6 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
-import com.progressterra.ipbandroidview.processes.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.entities.Filter
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 

@@ -27,12 +27,11 @@ import com.progressterra.ipbandroidview.processes.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.processes.mapper.ImageMapper
 import com.progressterra.ipbandroidview.processes.mapper.MessageMapper
-import com.progressterra.ipbandroidview.processes.mapper.OfferMapper
-import com.progressterra.ipbandroidview.processes.mapper.PartnerMapper
+import com.progressterra.ipbandroidview.processes.partner.OfferMapper
+import com.progressterra.ipbandroidview.processes.partner.PartnerMapper
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.processes.mapper.PromoCategoryMapper
 import com.progressterra.ipbandroidview.processes.mapper.StatusOrderMapper
-import com.progressterra.ipbandroidview.processes.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.processes.mapper.SubCatalogMapper
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.StringQualifier

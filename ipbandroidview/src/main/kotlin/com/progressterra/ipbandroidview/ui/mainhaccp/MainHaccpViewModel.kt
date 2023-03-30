@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.composable.OrganizationsOverviewEvent
 import com.progressterra.ipbandroidview.composable.PartnerBlockEvent
 import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.processes.usecase.checklist.OrganizationsOverviewUseCase
-import com.progressterra.ipbandroidview.processes.usecase.partner.FetchPartnerUseCase
+import com.progressterra.ipbandroidview.processes.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
 import com.progressterra.ipbandroidview.entities.Partner
 import org.orbitmvi.orbit.Container

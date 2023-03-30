@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.core.AbstractMapper
 import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.entities.GoodsDetails
+import com.progressterra.ipbandroidview.entities.GoodsItem
 import com.progressterra.ipbandroidview.entities.GoodsParameters
 import com.progressterra.ipbandroidview.entities.SimplePrice
 
@@ -16,7 +16,7 @@ interface GoodsDetailsMapper {
         goodsRaw: RGGoodsInventoryExt,
         isFavorite: Boolean,
         count: Int
-    ): GoodsDetails
+    ): GoodsItem
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
@@ -28,7 +28,7 @@ interface GoodsDetailsMapper {
             goodsRaw: RGGoodsInventoryExt,
             isFavorite: Boolean,
             count: Int
-        ): GoodsDetails {
+        ): GoodsItem {
             val parsedParameters = parse<Map<String, String?>>(goodsRaw.additionalDataJSON)
             val parametersToShow = parsedParameters?.get("listVisible")?.split(",")
             val parameters: List<GoodsParameters> = buildList {
@@ -41,7 +41,7 @@ interface GoodsDetailsMapper {
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            return GoodsDetails(
+            return GoodsItem(
                 images = images.map { it.url },
                 price = goodsRaw.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
                 name = goodsRaw.name ?: noData,

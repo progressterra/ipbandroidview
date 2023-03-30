@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.PartnerBlockEvent
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.processes.usecase.checklist.AllOrganizationsUseCase
-import com.progressterra.ipbandroidview.processes.usecase.partner.FetchPartnerUseCase
+import com.progressterra.ipbandroidview.processes.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.entities.Organization
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

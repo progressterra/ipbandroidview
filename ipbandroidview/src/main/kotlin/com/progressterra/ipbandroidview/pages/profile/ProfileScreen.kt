@@ -8,8 +8,8 @@ import com.progressterra.ipbandroidview.features.unauthprofile.UnAuthProfileStat
 import com.progressterra.ipbandroidview.features.authprofile.UseAuthProfile
 import com.progressterra.ipbandroidview.features.profilebutton.UseProfileButton
 import com.progressterra.ipbandroidview.features.unauthprofile.UseUnAuthProfile
-import com.progressterra.ipbandroidview.shared.ui.StateBoxState
-import com.progressterra.ipbandroidview.shared.ui.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
 
 @Immutable
 data class ProfileState(

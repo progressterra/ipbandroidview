@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.composable.Gallery
 import com.progressterra.ipbandroidview.composable.GoodsDetails
 import com.progressterra.ipbandroidview.composable.GoodsTopAppBar
-import com.progressterra.ipbandroidview.shared.ui.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
@@ -24,7 +24,7 @@ fun GoodsDetailsScreen(
         GoodsTopAppBar(
             onBack = { interactor.onBack() },
             onFavorite = { interactor.favorite() },
-            state = state.goodsDetails
+            state = state.goodsItem
         )
     }, bottomBar = {
 //        GoodsBottomBar(
@@ -48,10 +48,10 @@ fun GoodsDetailsScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Gallery(
-                    state = state.goodsDetails
+                    state = state.goodsItem
                 )
                 GoodsDetails(
-                    modifier = Modifier, state = state.goodsDetails
+                    modifier = Modifier, state = state.goodsItem
                 )
             }
         }

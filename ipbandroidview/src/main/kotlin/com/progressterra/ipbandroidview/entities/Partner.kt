@@ -11,7 +11,7 @@ data class Partner(
     override val id: String = "",
     val title: String = "",
     val description: String = "",
-    val offerList: List<OfferUI> = emptyList(),
+    val offerList: List<Offer> = emptyList(),
     val webSite: String = "",
     val phone: String = "",
     val headImageUrl: String = "",

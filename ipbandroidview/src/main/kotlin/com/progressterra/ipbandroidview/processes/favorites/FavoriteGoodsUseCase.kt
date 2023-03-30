@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.processes.usecase.store
+package com.progressterra.ipbandroidview.processes.favorites
 
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.processes.mapper.StoreGoodsMapper
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface FavoriteGoodsUseCase {

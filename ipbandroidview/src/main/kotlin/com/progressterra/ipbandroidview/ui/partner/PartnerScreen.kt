@@ -113,7 +113,7 @@ fun PartnerScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(state.partner.offerList) {
-                    Offer(offerUI = it)
+                    Offer(offer = it)
                 }
             }
             Column(

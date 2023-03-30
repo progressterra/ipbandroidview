@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
-import com.progressterra.ipbandroidview.shared.ui.StateBox
-import com.progressterra.ipbandroidview.shared.ui.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.features.proshkatopbar.UseProshkaTopBar
-import com.progressterra.ipbandroidview.shared.ui.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
 import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItems
 import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItemsState
 import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummary

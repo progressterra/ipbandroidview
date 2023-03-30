@@ -1,12 +1,10 @@
-package com.progressterra.ipbandroidview.processes.usecase.partner
+package com.progressterra.ipbandroidview.processes.partner
 
 import com.progressterra.ipbandroidapi.api.collaboration.CollaborationRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.processes.AppSettings.PARTNER_ID
-import com.progressterra.ipbandroidview.processes.mapper.OfferMapper
-import com.progressterra.ipbandroidview.processes.mapper.PartnerMapper
+import com.progressterra.ipbandroidview.processes.AppSettings.HASSP_PARTNER_ID
 import com.progressterra.ipbandroidview.entities.Partner
 
 interface FetchPartnerUseCase {
@@ -27,19 +25,19 @@ interface FetchPartnerUseCase {
                 accessToken = token,
                 latitude = location?.latitude?.toString() ?: "0.0",
                 longitude = location?.longitude?.toString() ?: "0.0",
-                organizationId = PARTNER_ID
+                organizationId = HASSP_PARTNER_ID
             ).getOrThrow()
             val resultShop = repository.organizationShops(
                 accessToken = token,
                 latitude = location?.latitude?.toString() ?: "0.0",
                 longitude = location?.longitude?.toString() ?: "0.0",
-                organizationId = PARTNER_ID
+                organizationId = HASSP_PARTNER_ID
             ).getOrThrow()
             val resultOffers = repository.offersByOrganization(
                 accessToken = token,
                 latitude = location?.latitude?.toString() ?: "0.0",
                 longitude = location?.longitude?.toString() ?: "0.0",
-                organizationId = PARTNER_ID
+                organizationId = HASSP_PARTNER_ID
             ).getOrThrow()?.map { offerMapper.map(it) } ?: emptyList()
             partnerMapper.map(resultOrganization!!, resultShop!!.first(), resultOffers)
         }

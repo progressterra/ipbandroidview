@@ -43,5 +43,3 @@ fun LocalDate.print(): String = "${this.dayOfMonth}.${this.monthValue}.${this.ye
 fun <T> Result<T>.throwOnFailure() {
     this.onFailure { throw it }
 }
-
-fun Boolean.toScreenState(): ScreenState = if (this) ScreenState.SUCCESS else ScreenState.ERROR

@@ -39,22 +39,21 @@ import com.progressterra.ipbandroidview.processes.usecase.media.StartRecordingUs
 import com.progressterra.ipbandroidview.processes.usecase.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.processes.usecase.order.CreateDeliveryOrderUseCase
-import com.progressterra.ipbandroidview.processes.usecase.partner.FetchPartnerUseCase
+import com.progressterra.ipbandroidview.processes.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.processes.usecase.qr.CreateQr
-import com.progressterra.ipbandroidview.processes.usecase.store.CartUseCase
+import com.progressterra.ipbandroidview.processes.cart.CartUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.CatalogUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.CreateQrUseCase
-import com.progressterra.ipbandroidview.processes.usecase.store.FastAddToCartUseCase
-import com.progressterra.ipbandroidview.processes.usecase.store.FastRemoveFromCartUseCase
-import com.progressterra.ipbandroidview.processes.usecase.store.FavoriteGoodsUseCase
+import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
+import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.processes.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.FetchFavoriteIds
-import com.progressterra.ipbandroidview.processes.usecase.store.FetchGoodsPage
-import com.progressterra.ipbandroidview.processes.usecase.store.FilteredGoodsUseCase
-import com.progressterra.ipbandroidview.processes.usecase.store.GoodsDetailsUseCase
-import com.progressterra.ipbandroidview.processes.usecase.store.GoodsUseCase
+import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
+import com.progressterra.ipbandroidview.processes.goods.FilteredGoodsUseCase
+import com.progressterra.ipbandroidview.processes.goods.GoodsDetailsUseCase
+import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.OrdersUseCase
-import com.progressterra.ipbandroidview.processes.usecase.store.PromoGoodsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.SizeTableUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.TransactionsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.suggestion.ChooseSuggestionUseCase
@@ -162,9 +161,9 @@ val useCasesModule = module {
 
     single<CartUseCase> { CartUseCase.Base(get(), get(), get(), get(), get(), get(), get()) }
 
-    single<FastAddToCartUseCase> { FastAddToCartUseCase.Base(get(), get(), get()) }
+    single<AddToCartUseCase> { AddToCartUseCase.Base(get(), get(), get()) }
 
-    single<FastRemoveFromCartUseCase> { FastRemoveFromCartUseCase.Base(get(), get(), get()) }
+    single<RemoveFromCartUseCase> { RemoveFromCartUseCase.Base(get(), get(), get()) }
 
     single<UserExistsUseCase> { UserExistsUseCase.Base() }
 

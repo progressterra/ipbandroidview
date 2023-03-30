@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.ui.goodsdetails
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.processes.usecase.store.FastAddToCartUseCase
-import com.progressterra.ipbandroidview.processes.usecase.store.FastRemoveFromCartUseCase
-import com.progressterra.ipbandroidview.processes.usecase.store.GoodsDetailsUseCase
+import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
+import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.processes.goods.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.ext.toScreenState
 import org.orbitmvi.orbit.Container
@@ -17,8 +17,8 @@ import org.orbitmvi.orbit.viewmodel.container
 class GoodsDetailsViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val goodsDetailsUseCase: GoodsDetailsUseCase,
-    private val fastAddToCartUseCase: FastAddToCartUseCase,
-    private val fastRemoveFromCartUseCase: FastRemoveFromCartUseCase,
+    private val addToCartUseCase: AddToCartUseCase,
+    private val removeFromCartUseCase: RemoveFromCartUseCase,
 //    private val sizeTableUseCase: SizeTableUseCase
 ) : ViewModel(), ContainerHost<GoodsDetailsScreenState, GoodsDetailsEffect>,
     GoodsDetailsInteractor {
@@ -34,7 +34,7 @@ class GoodsDetailsViewModel(
     override fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         var isSuccess = true
-        goodsDetailsUseCase(state.id).onSuccess { reduce { state.copy(goodsDetails = it) } }
+        goodsDetailsUseCase(state.id).onSuccess { reduce { state.copy(goodsItem = it) } }
             .onFailure {
                 isSuccess = false
             }
@@ -49,20 +49,20 @@ class GoodsDetailsViewModel(
     }
 
     override fun add() = intent {
-        fastAddToCartUseCase(state.id).onSuccess {
-            reduce { state.copy(goodsDetails = state.goodsDetails.addOne()) }
+        addToCartUseCase(state.id).onSuccess {
+            reduce { state.copy(goodsItem = state.goodsItem.addOne()) }
         }
     }
 
     override fun remove() = intent {
-        fastRemoveFromCartUseCase(state.id).onSuccess {
-            reduce { state.copy(goodsDetails = state.goodsDetails.removeOne()) }
+        removeFromCartUseCase(state.id).onSuccess {
+            reduce { state.copy(goodsItem = state.goodsItem.removeOne()) }
         }
     }
 
     override fun favorite() = intent {
-        modifyFavoriteUseCase(state.id, state.goodsDetails.favorite).onSuccess {
-            reduce { state.copy(goodsDetails = state.goodsDetails.reverseFavorite()) }
+        modifyFavoriteUseCase(state.id, state.goodsItem.favorite).onSuccess {
+            reduce { state.copy(goodsItem = state.goodsItem.reverseFavorite()) }
         }
     }
 

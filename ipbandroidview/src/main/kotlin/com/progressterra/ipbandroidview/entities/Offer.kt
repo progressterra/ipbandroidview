@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class OfferUI(
+data class Offer(
     override val id: String,
     val headDescription: String,
     val fullDescription: String,

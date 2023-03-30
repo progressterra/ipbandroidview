@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.processes.usecase.store
+package com.progressterra.ipbandroidview.processes.cart
 
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.CartGoodsMapper
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.entities.Cart
+import com.progressterra.ipbandroidview.processes.usecase.store.FetchFavoriteIds
 
 interface CartUseCase {
 

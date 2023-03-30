@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.processes.usecase.store
+package com.progressterra.ipbandroidview.processes.cart
 
 import com.progressterra.ipbandroidview.data.Constants
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.ext.throwOnFailure
 
-interface FastRemoveFromCartUseCase {
+interface RemoveFromCartUseCase {
 
     suspend operator fun invoke(goodsId: String, count: Int = 1): Result<Unit>
 
@@ -16,7 +16,7 @@ interface FastRemoveFromCartUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val repo: CartRepository
-    ) : FastRemoveFromCartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : RemoveFromCartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(goodsId: String, count: Int): Result<Unit> =
             withToken { token ->

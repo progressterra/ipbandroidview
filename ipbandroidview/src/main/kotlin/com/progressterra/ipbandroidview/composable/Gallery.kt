@@ -18,14 +18,14 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.PagerScope
-import com.progressterra.ipbandroidview.entities.GoodsDetails
+import com.progressterra.ipbandroidview.entities.GoodsItem
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun Gallery(modifier: Modifier = Modifier, state: GoodsDetails) {
+fun Gallery(modifier: Modifier = Modifier, state: GoodsItem) {
     val pagerState = androidx.compose.foundation.pager.rememberPagerState()
     Box(modifier = modifier.aspectRatio(1f)) {
         PaddingValues(horizontal = 8.dp)
@@ -65,7 +65,7 @@ private fun GalleryPreview() {
     IpbTheme {
         LazyColumn {
             item {
-                Gallery(modifier = Modifier.size(350.dp), state = GoodsDetails())
+                Gallery(modifier = Modifier.size(350.dp), state = GoodsItem())
             }
         }
     }
