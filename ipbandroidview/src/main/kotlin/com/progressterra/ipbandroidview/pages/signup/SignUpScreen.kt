@@ -4,26 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
-import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkip
-import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
+import androidx.compose.ui.res.stringResource
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.features.authorskip.NextOrSkip
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
-import com.progressterra.ipbandroidview.features.authorskip.UseAuthOrSkip
-import com.progressterra.ipbandroidview.features.proshkatopbar.UseProshkaTopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.widgets.proshkaedituser.ProshkaEditUser
-import com.progressterra.ipbandroidview.widgets.proshkaedituser.ProshkaEditUserState
-import com.progressterra.ipbandroidview.widgets.proshkaedituser.UseProshkaEditUser
-
-@Immutable
-data class SignUpState(
-    val editUser: ProshkaEditUserState = ProshkaEditUserState(),
-    val topBar: ProshkaTopBarState = ProshkaTopBarState(),
-    val authOrSkip: AuthOrSkipState = AuthOrSkipState()
-)
-
-interface UseSignUp : UseProshkaTopBar, UseProshkaEditUser, UseAuthOrSkip
 
 @Composable
 fun SignUpScreen(
@@ -33,12 +20,12 @@ fun SignUpScreen(
     ThemedLayout(
         topBar = {
             ProshkaTopBar(
-                state = state.topBar,
+                title = stringResource(R.string.sign_up),
                 useComponent = useComponent
             )
         },
         bottomBar = {
-            AuthOrSkip(
+            NextOrSkip(
                 state = state.authOrSkip,
                 useComponent = useComponent
             )

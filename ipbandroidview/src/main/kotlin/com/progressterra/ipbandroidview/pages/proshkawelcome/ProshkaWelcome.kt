@@ -5,26 +5,16 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipWelcome
-import com.progressterra.ipbandroidview.features.authorskip.UseAuthOrSkip
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-
-@Immutable
-data class ProshkaWelcomeState(
-    val authOrSkipState: AuthOrSkipState = AuthOrSkipState()
-)
-
-interface ProshkaWelcomeInteractor : UseAuthOrSkip
 
 @Composable
 fun ProshkaWelcome(
     state: ProshkaWelcomeState,
-    interactor: ProshkaWelcomeInteractor
+    useComponent: UseProshkaWelcome
 ) {
     ThemedLayout { _, _ ->
         Column(
@@ -33,12 +23,12 @@ fun ProshkaWelcome(
         ) {
             Image(
                 modifier = Modifier,
-                painter = painterResource(id = R.drawable.splash_logo),
+                painter = painterResource(id = R.drawable.proshka_welcome),
                 contentDescription = null
             )
             AuthOrSkipWelcome(
                 state = state.authOrSkipState,
-                useAuthOrSkip = interactor
+                useAuthOrSkip = useComponent
             )
         }
     }

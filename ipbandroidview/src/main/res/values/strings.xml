@@ -161,4 +161,7 @@
     <string name="order_proceed">Оформить заказ</string>
     <string name="hits">Хиты продаж</string>
     <string name="new_items">Новинки</string>
+    <string name="bonus_transaction_buying">Покупки</string>
+    <string name="bonus_transaction_burning">Сгорание</string>
+    <string name="bonus_transaction_receiving">Начисление</string>
 </resources>
