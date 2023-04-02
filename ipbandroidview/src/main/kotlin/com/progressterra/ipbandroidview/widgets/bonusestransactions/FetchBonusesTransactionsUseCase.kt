@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType
 
-interface FetchBonusesTransactionUseCase {
+interface FetchBonusesTransactionsUseCase {
 
     suspend operator fun invoke(): Result<BonusesTransactionsState>
 
@@ -20,7 +20,7 @@ interface FetchBonusesTransactionUseCase {
         provideLocation: ProvideLocation,
         manageResources: ManageResources,
         private val bonusesRepository: IBonusRepository
-    ) : FetchBonusesTransactionUseCase, AbstractUseCase(sCRMRepository, provideLocation) {
+    ) : FetchBonusesTransactionsUseCase, AbstractUseCase(sCRMRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
 

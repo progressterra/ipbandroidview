@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.bonuses
+package com.progressterra.ipbandroidview.pages.bonuses
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

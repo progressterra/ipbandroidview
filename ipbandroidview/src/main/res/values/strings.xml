@@ -164,4 +164,5 @@
     <string name="bonus_transaction_buying">Покупки</string>
     <string name="bonus_transaction_burning">Сгорание</string>
     <string name="bonus_transaction_receiving">Начисление</string>
+    <string name="transaction_history">История транзакций</string>
 </resources>

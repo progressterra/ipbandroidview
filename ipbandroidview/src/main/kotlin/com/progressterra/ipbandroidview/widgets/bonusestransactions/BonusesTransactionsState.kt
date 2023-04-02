@@ -5,5 +5,5 @@ import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransacti
 
 @Immutable
 data class BonusesTransactionsState(
-    val transactions: List<BonusTransactionState>
+    val transactions: List<BonusTransactionState> = emptyList()
 )

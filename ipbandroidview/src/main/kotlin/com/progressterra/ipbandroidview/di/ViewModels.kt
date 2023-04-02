@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.di
 
 import com.progressterra.ipbandroidview.ui.archive.ArchiveViewModel
-import com.progressterra.ipbandroidview.ui.bonuses.BonusesViewModel
+import com.progressterra.ipbandroidview.pages.bonuses.BonusesViewModel
 import com.progressterra.ipbandroidview.ui.bonusesclarification.BonusesClarificationViewModel
 import com.progressterra.ipbandroidview.ui.cart.CartViewModel
 import com.progressterra.ipbandroidview.ui.catalog.CatalogViewModel

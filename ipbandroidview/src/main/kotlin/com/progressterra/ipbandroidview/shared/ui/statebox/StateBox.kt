@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedLoadingIndicator
 import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
+import com.progressterra.ipbandroidview.shared.ui.ThemedLoadingIndicator
 
 @Composable
 fun StateBox(
