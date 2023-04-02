@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.entities.Delivery
-import com.progressterra.ipbandroidview.entities.DeliveryType
 
 
 interface AvailableDeliveryUseCase {

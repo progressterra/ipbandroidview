@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.entities
 
 import android.os.Parcelable
+import com.progressterra.ipbandroidview.core.IsEmpty
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -14,4 +15,7 @@ data class PickUpPointInfo(
     val longitude: Double = 0.0,
     val pickupPointCode: String = "",
     val path: String = ""
-) : Parcelable
+) : Parcelable, IsEmpty {
+
+    override fun isEmpty(): Boolean = this == PickUpPointInfo()
+}

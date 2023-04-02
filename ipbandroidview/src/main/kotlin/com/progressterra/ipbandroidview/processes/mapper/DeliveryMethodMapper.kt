@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidview.core.ManageResources
 import com.progressterra.ipbandroidview.core.Mapper
 import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.entities.DeliveryMethodId
-import com.progressterra.ipbandroidview.entities.DeliveryType
 import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.entities.SimplePrice
 

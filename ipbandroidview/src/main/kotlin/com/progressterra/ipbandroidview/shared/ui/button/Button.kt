@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.composable.utils.SideBorder
+import com.progressterra.ipbandroidview.composable.utils.sideBorder
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -28,15 +30,28 @@ fun Button(
         ButtonStyle.DEFAULT -> IpbTheme.colors.primary.asBrush()
         ButtonStyle.SILENT -> IpbTheme.colors.surface1.asBrush()
         ButtonStyle.TEXT -> Color.Transparent.toBrush()
+        ButtonStyle.OUTLINE -> Color.Transparent.toBrush()
     }
     val textColor = when (style) {
         ButtonStyle.DEFAULT -> IpbTheme.colors.textButton.asBrush()
         ButtonStyle.SILENT -> IpbTheme.colors.textDisabled.asBrush()
         ButtonStyle.TEXT -> IpbTheme.colors.textDisabled.asBrush()
+        ButtonStyle.OUTLINE -> IpbTheme.colors.textPrimary3.asBrush()
+    }
+    val border = if (style == ButtonStyle.OUTLINE) {
+        SideBorder(2.dp, IpbTheme.colors.textPrimary3.asBrush())
+    } else {
+        null
     }
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(14.dp))
+            .sideBorder(
+                start = border,
+                end = border,
+                top = border,
+                bottom = border
+            )
             .background(backgroundColor)
             .padding(horizontal = 32.dp, vertical = 15.dp)
             .niceClickable { useComponent.handle(ButtonEvent.Click(state.id)) },

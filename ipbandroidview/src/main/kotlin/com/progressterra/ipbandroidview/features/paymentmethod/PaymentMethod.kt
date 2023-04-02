@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.features.paymentmethod
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -6,24 +6,18 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.PaymentType
+import com.progressterra.ipbandroidview.entities.payment.PaymentType
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-
-@Immutable
-interface PaymentMethodState {
-
-    val selectedPaymentMethod: PaymentType?
-
-    val paymentMethods: List<PaymentType>
-}
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
 
 @Composable
 fun PaymentMethod(
@@ -46,9 +40,9 @@ fun PaymentMethod(
                 checked = type == state.selectedPaymentMethod,
                 onClick = { select(type) }
             )
-            Text(
+            BrushedText(
                 text = stringResource(type.paymentName),
-                color = IpbTheme.colors.black,
+                tint = IpbTheme.colors.textPrimary1.asBrush(),
                 style = IpbTheme.typography.primary
             )
         }
@@ -57,14 +51,14 @@ fun PaymentMethod(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(IpbTheme.shapes.medium)
-            .background(IpbTheme.colors.surfaces)
+            .clip(RoundedCornerShape(12.dp))
+            .background(IpbTheme.colors.surface1.asBrush())
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(
+        BrushedText(
             text = stringResource(R.string.payment),
-            color = IpbTheme.colors.black,
+            tint = IpbTheme.colors.textPrimary1.asBrush(),
             style = IpbTheme.typography.title
         )
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
