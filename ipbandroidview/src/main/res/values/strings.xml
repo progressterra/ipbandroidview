@@ -174,4 +174,5 @@
     <string name="home">Улица, дом</string>
     <string name="entrance">Подъезд</string>
     <string name="apartment">Квартира</string>
+    <string name="processing">Оформление заказа</string>
 </resources>

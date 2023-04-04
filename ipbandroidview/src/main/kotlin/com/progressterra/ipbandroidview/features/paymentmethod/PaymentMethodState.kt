@@ -4,9 +4,11 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.payment.PaymentType
 
 @Immutable
-interface PaymentMethodState {
+data class PaymentMethodState(
+    val selectedPaymentMethod: PaymentType = PaymentType.Empty,
+    val paymentMethods: List<PaymentType> = emptyList()
+) {
 
-    val selectedPaymentMethod: PaymentType
-
-    val paymentMethods: List<PaymentType>
+    fun updatePaymentMethod(paymentMethod: PaymentType) =
+        copy(selectedPaymentMethod = paymentMethod)
 }

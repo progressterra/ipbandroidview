@@ -2,12 +2,13 @@ package com.progressterra.ipbandroidview.entities
 
 import android.os.Parcelable
 import com.progressterra.ipbandroidview.core.IsEmpty
+import com.progressterra.ipbandroidview.core.IsNegative
 import kotlinx.parcelize.Parcelize
 import java.text.NumberFormat
 import java.util.Locale
 
 @Parcelize
-class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable {
+class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable, IsNegative {
 
     constructor(price: Double) : this(price.toInt())
 
@@ -16,6 +17,8 @@ class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable {
         numberFormat.maximumFractionDigits = 0
         return numberFormat.format(price)
     }
+
+    override fun isNegative(): Boolean = price < 0
 
     override fun isEmpty(): Boolean = price == 0
 

@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.processes.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.processes.usecase.bonus.ProshkaBonusesUseCase
 import com.progressterra.ipbandroidview.processes.usecase.bonus.UseBonusesUseCase
-import com.progressterra.ipbandroidview.processes.usecase.delivery.AvailableDeliveryUseCase
+import com.progressterra.ipbandroidview.widgets.deliverypicker.FetchAvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.processes.usecase.delivery.PaymentMethodsUseCase
-import com.progressterra.ipbandroidview.processes.usecase.delivery.SetDeliveryAddressUseCase
+import com.progressterra.ipbandroidview.widgets.deliverypicker.SetDeliveryAddressUseCase
 import com.progressterra.ipbandroidview.processes.usecase.order.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserAddressUseCase
 import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserEmailUseCase
@@ -21,7 +21,7 @@ class OrderViewModel(
     private val useBonusesUseCase: UseBonusesUseCase,
     private val notUseBonusesUseCase: UseBonusesUseCase,
     private val bonusesUseCase: ProshkaBonusesUseCase,
-    private val availableDeliveryUseCase: AvailableDeliveryUseCase,
+    private val availableDeliveryUseCase: FetchAvailableDeliveryUseCase,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
     private val fetchUserAddressUseCase: FetchUserAddressUseCase,
     private val fetchUserEmailUseCase: FetchUserEmailUseCase,

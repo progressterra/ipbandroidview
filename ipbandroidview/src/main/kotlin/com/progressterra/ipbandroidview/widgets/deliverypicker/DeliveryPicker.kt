@@ -63,26 +63,26 @@ fun DeliveryPicker(
                 is Delivery.CourierDelivery -> {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                         TextField(
-                            state = it.city,
+                            state = state.city,
                             useComponent = useComponent,
                             hint = stringResource(R.string.city),
                             actionIcon = R.drawable.ic_cancel_pro
                         )
                         TextField(
-                            state = it.home,
+                            state = state.home,
                             useComponent = useComponent,
                             hint = stringResource(R.string.home),
                             actionIcon = R.drawable.ic_cancel_pro
                         )
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             TextField(
-                                state = it.entrance,
+                                state = state.entrance,
                                 useComponent = useComponent,
                                 hint = stringResource(R.string.entrance),
                                 actionIcon = R.drawable.ic_cancel_pro
                             )
                             TextField(
-                                state = it.apartment,
+                                state = state.apartment,
                                 useComponent = useComponent,
                                 hint = stringResource(R.string.apartment),
                                 actionIcon = R.drawable.ic_cancel_pro
@@ -93,14 +93,14 @@ fun DeliveryPicker(
                 is Delivery.PickUpPointDelivery -> {
                     if (!it.currentPoint.isEmpty()) {
                         TextField(
-                            state = it.address,
+                            state = state.address,
                             useComponent = useComponent,
                             hint = stringResource(R.string.address),
                             actionIcon = R.drawable.ic_cancel_pro
                         )
                     }
                     Button(
-                        state = it.selectPoint,
+                        state = state.selectPoint,
                         useComponent = useComponent,
                         title = stringResource(R.string.select_pickup_point),
                         style = ButtonStyle.OUTLINE

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.processes.usecase.delivery
+package com.progressterra.ipbandroidview.widgets.deliverypicker
 
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamForAddAddress

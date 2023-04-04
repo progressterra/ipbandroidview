@@ -22,8 +22,8 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
 @Composable
 fun PaymentMethod(
     modifier: Modifier = Modifier,
-    select: (PaymentType) -> Unit,
-    state: PaymentMethodState
+    state: PaymentMethodState,
+    useComponent: UsePaymentMethod
 ) {
 
     @Composable
@@ -38,7 +38,7 @@ fun PaymentMethod(
         ) {
             ThemedRadioButton(
                 checked = type == state.selectedPaymentMethod,
-                onClick = { select(type) }
+                onClick = { useComponent.handle(PaymentMethodEvent.Select(type)) }
             )
             BrushedText(
                 text = stringResource(type.paymentName),

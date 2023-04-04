@@ -26,9 +26,9 @@ import com.progressterra.ipbandroidview.processes.usecase.checklist.Organization
 import com.progressterra.ipbandroidview.processes.usecase.checklist.OrganizationsOverviewUseCase
 import com.progressterra.ipbandroidview.processes.usecase.checklist.SendResultOnEmailUseCase
 import com.progressterra.ipbandroidview.processes.usecase.checklist.UpdateAnswerUseCase
-import com.progressterra.ipbandroidview.processes.usecase.delivery.AvailableDeliveryUseCase
+import com.progressterra.ipbandroidview.widgets.deliverypicker.FetchAvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.processes.usecase.delivery.PaymentMethodsUseCase
-import com.progressterra.ipbandroidview.processes.usecase.delivery.SetDeliveryAddressUseCase
+import com.progressterra.ipbandroidview.widgets.deliverypicker.SetDeliveryAddressUseCase
 import com.progressterra.ipbandroidview.processes.usecase.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.usecase.location.OpenMapUseCase
 import com.progressterra.ipbandroidview.processes.usecase.media.AudioProgressUseCase
@@ -191,7 +191,7 @@ val useCasesModule = module {
 
     single<CreateDeliveryOrderUseCase> { CreateDeliveryOrderUseCase.Base(get(), get(), get()) }
 
-    single<AvailableDeliveryUseCase> { AvailableDeliveryUseCase.Base(get(), get(), get(), get()) }
+    single<FetchAvailableDeliveryUseCase> { FetchAvailableDeliveryUseCase.Base(get(), get(), get(), get()) }
 
     single<OrdersUseCase> {
         OrdersUseCase.Base(get(), get(), get(), get(), get(), get(), get(), get())

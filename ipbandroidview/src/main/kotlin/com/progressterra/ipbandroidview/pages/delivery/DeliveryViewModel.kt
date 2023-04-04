@@ -1,0 +1,83 @@
+package com.progressterra.ipbandroidview.pages.delivery
+
+import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerEvent
+import com.progressterra.ipbandroidview.widgets.deliverypicker.FetchAvailableDeliveryUseCase
+import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
+import org.orbitmvi.orbit.viewmodel.container
+
+@OptIn(OrbitExperimental::class)
+class DeliveryViewModel(
+    private val fetchAvailableDeliveryUseCase: FetchAvailableDeliveryUseCase
+) : ViewModel(), ContainerHost<DeliveryState, DeliveryEvent>, UseDelivery {
+
+    override val container = container<DeliveryState, DeliveryEvent>(DeliveryState())
+
+    fun refresh() = intent {
+        reduce { state.updateStateBoxState(ScreenState.LOADING) }
+        fetchAvailableDeliveryUseCase().onSuccess {
+            reduce { state.updateStateBoxState(ScreenState.SUCCESS).updateDeliveryPickerState(it) }
+        }.onFailure {
+            reduce { state.updateStateBoxState(ScreenState.ERROR) }
+        }
+    }
+
+    override fun handle(event: ProshkaTopBarEvent) = intent {
+        when (event) {
+            is ProshkaTopBarEvent.Back -> postSideEffect(DeliveryEvent.Back)
+        }
+    }
+
+    override fun handle(event: ButtonEvent) = intent {
+        when (event) {
+            is ButtonEvent.Click -> when (event.id) {
+                "confirm" -> postSideEffect(DeliveryEvent.Next)
+                "selectPoint" -> postSideEffect(DeliveryEvent.SelectPickupPoint)
+            }
+        }
+    }
+
+    override fun handle(event: StateBoxEvent) = intent {
+        when (event) {
+            is StateBoxEvent.Refresh -> refresh()
+        }
+    }
+
+    override fun handle(event: TextFieldEvent) = blockingIntent {
+        when (event) {
+            is TextFieldEvent.TextChanged -> when (event.id) {
+                "city" -> reduce { state.updateCity(event.text) }
+                "home" -> reduce { state.updateHome(event.text) }
+                "entrance" -> reduce { state.updateEntrance(event.text) }
+                "apartment" -> reduce { state.updateApartment(event.text) }
+            }
+            is TextFieldEvent.Action -> Unit
+            is TextFieldEvent.AdditionalAction -> when (event.id) {
+                "city" -> reduce { state.updateCity("") }
+                "home" -> reduce { state.updateHome("") }
+                "entrance" -> reduce { state.updateEntrance("") }
+                "apartment" -> reduce {
+                    state.updateApartment("")
+                }
+            }
+        }
+    }
+
+    override fun handle(event: DeliveryPickerEvent) = intent {
+        when (event) {
+            is DeliveryPickerEvent.SelectDeliveryMethod -> reduce {
+                state.updateDeliveryMethod(event.delivery)
+            }
+        }
+    }
+}
