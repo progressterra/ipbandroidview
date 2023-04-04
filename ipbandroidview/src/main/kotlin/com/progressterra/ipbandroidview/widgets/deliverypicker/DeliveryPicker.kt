@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.deliverypicker
+package com.progressterra.ipbandroidview.widgets.deliverypicker
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

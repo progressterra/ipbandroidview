@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.deliverypicker
+package com.progressterra.ipbandroidview.widgets.deliverypicker
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.AddressUI

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.deliverypicker
+package com.progressterra.ipbandroidview.widgets.deliverypicker
 
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
