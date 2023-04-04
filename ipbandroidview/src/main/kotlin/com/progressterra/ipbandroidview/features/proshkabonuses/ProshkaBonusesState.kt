@@ -4,7 +4,6 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class ProshkaBonusesState(
-    val id: String = "default",
     val bonuses: String = "",
     val canWithdraw: String = "",
     val rate: String = "",

@@ -28,10 +28,10 @@ fun ProshkaBonuses(
     style: ProshkaBonusesStyle = ProshkaBonusesStyle.NEXT,
     useComponent: UseProshkaBonuses
 ) {
-    Box(modifier = modifier.padding(horizontal = 20.dp)) {
+    Box(modifier = modifier.padding(16.dp)) {
         IconButton(
             modifier = Modifier.align(Alignment.TopEnd),
-            onClick = { useComponent.handle(state.id, ProshkaBonusesEvent.Reverse) },
+            onClick = { useComponent.handle(ProshkaBonusesEvent.Reverse) },
         ) {
             if (state.isReversed) {
                 BrushedIcon(
@@ -47,7 +47,7 @@ fun ProshkaBonuses(
         }
         IconButton(
             modifier = Modifier.align(Alignment.CenterEnd),
-            onClick = { useComponent.handle(state.id, ProshkaBonusesEvent.Action) },
+            onClick = { useComponent.handle(ProshkaBonusesEvent.Action) },
         ) {
             if (style == ProshkaBonusesStyle.NEXT) {
                 BrushedIcon(
@@ -66,7 +66,6 @@ fun ProshkaBonuses(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
                 .background(IpbTheme.colors.secondaryPressed.asBrush())
-                .padding(16.dp)
         ) {
             BrushedText(
                 text = "${stringResource(R.string.you_have)} ${state.bonuses} ${stringResource(R.string.bonuses)}",
