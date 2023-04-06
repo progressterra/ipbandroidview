@@ -1,14 +1,13 @@
 package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerEvent
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent

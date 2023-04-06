@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.processes.usecase
 
-import com.progressterra.ipbandroidview.core.ManagePermissionContract
+import com.progressterra.ipbandroidview.shared.ManagePermissionContract
 
 interface AskPermissionUseCase {
 

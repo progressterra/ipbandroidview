@@ -4,9 +4,9 @@ import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.checklist.model.DHCheckPerformedEntityCreate
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.data.Constants
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
+import com.progressterra.ipbandroidview.shared.Constants
 import java.util.Date
 
 interface CreateDocumentUseCase {

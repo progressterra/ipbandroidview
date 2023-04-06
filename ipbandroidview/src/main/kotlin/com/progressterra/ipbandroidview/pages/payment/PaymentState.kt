@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.entities.payment.PaymentType
 import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitchState
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodState

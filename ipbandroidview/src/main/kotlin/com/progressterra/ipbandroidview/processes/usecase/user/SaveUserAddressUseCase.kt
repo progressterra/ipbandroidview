@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.processes.usecase.user
 
 import com.progressterra.ipbandroidapi.api.address.AddressRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.data.UserData
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.ext.throwOnFailure
 import com.progressterra.ipbandroidview.entities.AddressUI

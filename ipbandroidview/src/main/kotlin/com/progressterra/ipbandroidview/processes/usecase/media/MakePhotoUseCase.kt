@@ -3,9 +3,9 @@ package com.progressterra.ipbandroidview.processes.usecase.media
 import android.Manifest
 import android.content.Intent
 import android.provider.MediaStore
-import com.progressterra.ipbandroidview.core.CreateId
-import com.progressterra.ipbandroidview.core.FileExplorer
-import com.progressterra.ipbandroidview.core.MakePhotoContract
+import com.progressterra.ipbandroidview.shared.CreateId
+import com.progressterra.ipbandroidview.shared.FileExplorer
+import com.progressterra.ipbandroidview.shared.MakePhotoContract
 import com.progressterra.ipbandroidview.processes.exception.PhotoWasNotTakenException
 import com.progressterra.ipbandroidview.processes.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.ext.throwOnFailure

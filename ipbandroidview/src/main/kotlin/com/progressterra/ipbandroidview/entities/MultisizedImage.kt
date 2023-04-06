@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.entities
 
 import android.os.Parcelable
-import com.progressterra.ipbandroidview.core.AttachedMedia
+import com.progressterra.ipbandroidview.shared.AttachedMedia
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

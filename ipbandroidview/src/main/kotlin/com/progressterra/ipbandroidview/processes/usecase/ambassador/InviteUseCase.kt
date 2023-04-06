@@ -3,9 +3,9 @@ package com.progressterra.ipbandroidview.processes.usecase.ambassador
 import com.progressterra.ipbandroidapi.api.ambassadorinvite.AmbassadorInviteRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 
 interface InviteUseCase {
 

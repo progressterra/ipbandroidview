@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.processes.mapper
 import com.progressterra.ipbandroidapi.api.iecommerce.model.CatalogItem
 import com.progressterra.ipbandroidapi.ext.orIfNull
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.Mapper
+import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.Mapper
 import com.progressterra.ipbandroidview.entities.MainCategory
 
 interface CatalogMapper : Mapper<CatalogItem, MainCategory> {

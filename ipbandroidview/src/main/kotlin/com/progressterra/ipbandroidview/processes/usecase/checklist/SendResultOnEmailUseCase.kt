@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.processes.usecase.checklist
 
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.processes.exception.NoEmailException
 import com.progressterra.ipbandroidview.processes.usecase.user.FetchUserEmailUseCase
 import com.progressterra.ipbandroidview.ext.throwOnFailure

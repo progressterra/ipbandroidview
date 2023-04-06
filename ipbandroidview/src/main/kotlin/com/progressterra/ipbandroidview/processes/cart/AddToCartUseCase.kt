@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.processes.cart
 
-import com.progressterra.ipbandroidview.data.Constants
+import com.progressterra.ipbandroidview.shared.Constants
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamGoodsToECommers
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface AddToCartUseCase {

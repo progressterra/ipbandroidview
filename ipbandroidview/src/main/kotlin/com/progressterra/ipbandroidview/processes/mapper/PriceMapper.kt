@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.processes.mapper
 
-import com.progressterra.ipbandroidview.core.Mapper
+import com.progressterra.ipbandroidview.shared.Mapper
 import com.progressterra.ipbandroidview.entities.SimplePrice
 
 interface PriceMapper : Mapper<Double, SimplePrice> {

@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.ui.favorites
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.processes.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.processes.usecase.store.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.ext.replaceById

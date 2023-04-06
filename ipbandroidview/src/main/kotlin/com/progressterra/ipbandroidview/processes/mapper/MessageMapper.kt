@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidapi.api.message.models.RGMessages
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.DoubleMapper
-import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.shared.DoubleMapper
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.entities.Message
 
 interface MessageMapper : DoubleMapper<RGMessages, String, Message> {

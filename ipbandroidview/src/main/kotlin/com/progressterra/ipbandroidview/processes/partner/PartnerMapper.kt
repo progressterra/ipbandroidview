@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.processes.partner
 import com.progressterra.ipbandroidapi.api.collaboration.models.RFShop
 import com.progressterra.ipbandroidapi.api.collaboration.models.RGEnterpriseData
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.TripleMapper
+import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.TripleMapper
 import com.progressterra.ipbandroidview.entities.Offer
 import com.progressterra.ipbandroidview.entities.Partner
 

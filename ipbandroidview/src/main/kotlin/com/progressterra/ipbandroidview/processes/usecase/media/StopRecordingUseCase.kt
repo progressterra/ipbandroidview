@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.processes.usecase.media
 
-import com.progressterra.ipbandroidview.core.voice.VoiceManager
+import com.progressterra.ipbandroidview.shared.voice.VoiceManager
 
 interface StopRecordingUseCase {
 

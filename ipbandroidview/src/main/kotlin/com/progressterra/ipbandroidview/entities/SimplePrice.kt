@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.entities
 
 import android.os.Parcelable
-import com.progressterra.ipbandroidview.core.IsEmpty
-import com.progressterra.ipbandroidview.core.IsNegative
+import com.progressterra.ipbandroidview.shared.IsEmpty
+import com.progressterra.ipbandroidview.shared.IsNegative
 import kotlinx.parcelize.Parcelize
 import java.text.NumberFormat
 import java.util.Locale

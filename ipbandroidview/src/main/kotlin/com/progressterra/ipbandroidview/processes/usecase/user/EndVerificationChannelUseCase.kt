@@ -4,10 +4,10 @@ import android.os.Build
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataForEndLogin
 import com.progressterra.ipbandroidapi.ext.parseToDate
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
-import com.progressterra.ipbandroidview.data.UserData
-import com.progressterra.ipbandroidview.data.UserName
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
+import com.progressterra.ipbandroidview.shared.UserData
+import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.ext.throwOnFailure
 
 interface EndVerificationChannelUseCase {

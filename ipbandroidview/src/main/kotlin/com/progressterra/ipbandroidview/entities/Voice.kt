@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.entities
 
-import com.progressterra.ipbandroidview.core.AttachedMedia
+import com.progressterra.ipbandroidview.shared.AttachedMedia
 
 data class Voice(
     override val id: String,

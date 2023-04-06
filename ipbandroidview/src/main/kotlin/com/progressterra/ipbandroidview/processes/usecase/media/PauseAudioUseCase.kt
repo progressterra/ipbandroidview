@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.processes.usecase.media
 
-import com.progressterra.ipbandroidview.core.voice.AudioManager
+import com.progressterra.ipbandroidview.shared.voice.AudioManager
 
 interface PauseAudioUseCase {
 

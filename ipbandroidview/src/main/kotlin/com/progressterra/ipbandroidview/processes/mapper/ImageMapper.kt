@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.processes.mapper
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
-import com.progressterra.ipbandroidview.core.AbstractMapper
-import com.progressterra.ipbandroidview.core.Mapper
+import com.progressterra.ipbandroidview.shared.AbstractMapper
+import com.progressterra.ipbandroidview.shared.Mapper
 
 interface ImageMapper : Mapper<String, String> {
 

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent

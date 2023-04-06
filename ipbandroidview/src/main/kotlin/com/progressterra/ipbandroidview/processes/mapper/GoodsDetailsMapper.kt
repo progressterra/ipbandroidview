@@ -4,8 +4,8 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.AbstractMapper
-import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.shared.AbstractMapper
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.entities.GoodsItem
 import com.progressterra.ipbandroidview.entities.GoodsParameters
 import com.progressterra.ipbandroidview.entities.SimplePrice

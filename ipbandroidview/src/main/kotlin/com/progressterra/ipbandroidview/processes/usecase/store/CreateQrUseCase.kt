@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.processes.usecase.store
 
 import android.graphics.Bitmap
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.processes.usecase.qr.CreateQr
 
 interface CreateQrUseCase {

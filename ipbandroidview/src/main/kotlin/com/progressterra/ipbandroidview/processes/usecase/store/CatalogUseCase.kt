@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.processes.usecase.store
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.orIfNull
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.CatalogMapper
 import com.progressterra.ipbandroidview.entities.MainCategory
 

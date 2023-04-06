@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.widgets.deliverypicker
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamForAddAddress
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.entities.Delivery
 

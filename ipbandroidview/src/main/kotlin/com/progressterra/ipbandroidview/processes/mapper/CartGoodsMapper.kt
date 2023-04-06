@@ -4,9 +4,9 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.AbstractMapper
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.TripleMapper
+import com.progressterra.ipbandroidview.shared.AbstractMapper
+import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.TripleMapper
 import com.progressterra.ipbandroidview.composable.component.CartCardState
 import com.progressterra.ipbandroidview.entities.GoodsSize
 import com.progressterra.ipbandroidview.entities.SimplePrice

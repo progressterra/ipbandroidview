@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.processes.usecase
 
 import android.content.Intent
-import com.progressterra.ipbandroidview.core.StartActivityContract
+import com.progressterra.ipbandroidview.shared.StartActivityContract
 
 interface ShareTextUseCase {
 

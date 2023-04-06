@@ -3,9 +3,9 @@ package com.progressterra.ipbandroidview.processes.usecase.checklist
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.entities.Organization
 
 interface AllOrganizationsUseCase {

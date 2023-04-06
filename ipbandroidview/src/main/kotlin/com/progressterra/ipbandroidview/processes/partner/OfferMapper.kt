@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.processes.partner
 
 import com.progressterra.ipbandroidapi.api.collaboration.models.RGOffersExt
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.Mapper
+import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.Mapper
 import com.progressterra.ipbandroidview.entities.Offer
 
 interface OfferMapper : Mapper<RGOffersExt, Offer> {

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.proshkamain
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesEvent
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesUseCase
 import com.progressterra.ipbandroidview.features.proshkaoffer.ProshkaOfferEvent

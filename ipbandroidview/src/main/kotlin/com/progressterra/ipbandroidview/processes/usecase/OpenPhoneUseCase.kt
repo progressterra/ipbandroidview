@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.processes.usecase
 
 import android.content.Intent
 import android.net.Uri
-import com.progressterra.ipbandroidview.core.StartActivityContract
+import com.progressterra.ipbandroidview.shared.StartActivityContract
 
 interface OpenPhoneUseCase {
 

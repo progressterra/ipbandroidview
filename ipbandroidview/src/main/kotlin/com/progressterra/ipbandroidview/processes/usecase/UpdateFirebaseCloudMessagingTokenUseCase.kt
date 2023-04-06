@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.processes.usecase
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDeviceParameters
-import com.progressterra.ipbandroidview.data.UserData
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.UserData
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 
 interface UpdateFirebaseCloudMessagingTokenUseCase {
 

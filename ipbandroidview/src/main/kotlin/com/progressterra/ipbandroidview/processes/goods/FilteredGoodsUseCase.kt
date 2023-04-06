@@ -8,8 +8,8 @@ import com.progressterra.ipbandroidapi.api.product.models.IncomeDataForFilterAnd
 import com.progressterra.ipbandroidapi.api.product.models.SortData
 import com.progressterra.ipbandroidapi.api.product.models.TypeVariantSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.entities.Filter
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState

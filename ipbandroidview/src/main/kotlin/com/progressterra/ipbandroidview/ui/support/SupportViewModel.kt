@@ -6,8 +6,8 @@ import com.progressterra.ipbandroidview.composable.ChatInputEvent
 import com.progressterra.ipbandroidview.composable.ChatInputState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.processes.AppSettings.ID_ENTERPRISE
 import com.progressterra.ipbandroidview.processes.usecase.chat.FetchChatUseCase
 import com.progressterra.ipbandroidview.processes.usecase.chat.SendMessageUseCase

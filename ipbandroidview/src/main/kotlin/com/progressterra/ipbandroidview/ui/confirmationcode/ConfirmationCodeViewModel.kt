@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.features.confirmationcode.ConfirmationCo
 import com.progressterra.ipbandroidview.composable.component.TextButtonEvent
 import com.progressterra.ipbandroidview.composable.component.TextButtonState
 import com.progressterra.ipbandroidview.features.confirmationcode.UseConfirmationCode
-import com.progressterra.ipbandroidview.core.ManageResources
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.processes.usecase.user.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.usecase.user.StartVerificationChannelUseCase
 import kotlinx.coroutines.delay

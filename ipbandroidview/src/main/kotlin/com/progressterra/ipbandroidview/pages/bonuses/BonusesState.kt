@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.bonuses
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.core.ScreenState
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.BonusesTransactionsState

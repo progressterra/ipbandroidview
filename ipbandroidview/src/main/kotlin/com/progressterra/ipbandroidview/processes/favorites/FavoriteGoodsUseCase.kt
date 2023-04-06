@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreReposit
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCase
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface FavoriteGoodsUseCase {

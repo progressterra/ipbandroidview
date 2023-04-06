@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.processes.usecase.user
 
-import com.progressterra.ipbandroidview.data.UserData
+import com.progressterra.ipbandroidview.shared.UserData
 
 
 interface FetchUserIdUseCase {

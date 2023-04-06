@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.shared.ui.counter
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.core.IsEmpty
+import com.progressterra.ipbandroidview.shared.IsEmpty
 
 @Immutable
 data class CounterState(

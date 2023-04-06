@@ -4,9 +4,9 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.core.AbstractUseCaseSaving
-import com.progressterra.ipbandroidview.core.FileExplorer
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCaseSaving
+import com.progressterra.ipbandroidview.shared.FileExplorer
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.entities.Check
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.entities.Voice

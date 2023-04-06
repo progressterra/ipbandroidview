@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.processes.usecase.suggestion
 
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
 import com.progressterra.ipbandroidapi.api.suggestion.model.DadataSuggestionsFromLocationRequest
-import com.progressterra.ipbandroidview.core.ProvideLocation
+import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.entities.SuggestionUI
 

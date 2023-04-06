@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.processes.mapper
 
 import com.progressterra.ipbandroidapi.api.iecommerce.model.StatusOrder
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.core.ManageResources
-import com.progressterra.ipbandroidview.core.Mapper
+import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.Mapper
 
 interface StatusOrderMapper : Mapper<StatusOrder, String> {
 
