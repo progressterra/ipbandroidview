@@ -8,9 +8,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 data class SignInState(
     val phone: TextFieldState = TextFieldState(),
     val authOrSkipState: AuthOrSkipState = AuthOrSkipState(),
-    val canBeSkipped: Boolean = false,
-    val offerUrl: String = "",
-    val policyUrl: String = ""
+    val canBeSkipped: Boolean = false
 ) {
 
     fun updatePhoneValid(valid: Boolean): SignInState = copy(phone = phone.updateValid(valid))
@@ -24,8 +22,4 @@ data class SignInState(
 
     fun updateSkipButton(enabled: Boolean): SignInState =
         copy(authOrSkipState = authOrSkipState.updateSkipButton(enabled))
-
-    fun updatePolicyUrl(url: String): SignInState = copy(policyUrl = url)
-
-    fun updateOfferUrl(url: String): SignInState = copy(offerUrl = url)
 }

@@ -13,7 +13,12 @@ object IpbTheme {
 
     val typography
         @Composable @ReadOnlyComposable get() = LocalTypography.current
+
+    val customization
+        @Composable @ReadOnlyComposable get() = LocalCustomization.current
 }
+
+val LocalCustomization = staticCompositionLocalOf { IpbCustomization() }
 
 val LocalTypography = staticCompositionLocalOf { IpbTypography() }
 
@@ -24,12 +29,14 @@ fun IpbTheme(
     lightColors: IpbColors = defaultIpbLightColors,
     darkColors: IpbColors = defaultIpbDarkColors,
     typography: IpbTypography = IpbTheme.typography,
+    customization: IpbCustomization = IpbTheme.customization,
     content: @Composable () -> Unit
 ) {
     val colors = if (isSystemInDarkTheme()) darkColors else lightColors
     CompositionLocalProvider(
         LocalTypography provides typography,
-        LocalColors provides colors
+        LocalColors provides colors,
+        LocalCustomization provides customization
     ) {
         SystemUiSetup()
         content()

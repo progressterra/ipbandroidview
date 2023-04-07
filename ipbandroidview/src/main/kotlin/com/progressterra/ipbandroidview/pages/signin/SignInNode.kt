@@ -14,18 +14,13 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class SignInNode(
     buildContext: BuildContext,
     private val onNext: (phoneNumber: String) -> Unit,
-    private val onSkip: (() -> Unit)? = null,
-    private val canBeSkipped: Boolean,
-    private val offerUrl: String,
-    private val policyUrl: String
+    private val onSkip: (() -> Unit)? = null
 ) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: SignInViewModel = getViewModel()
-        viewModel.updateCanBeSkipped(canBeSkipped)
-        viewModel.updateOfferUrl(offerUrl)
-        viewModel.updatePolicyUrl(policyUrl)
+        viewModel.updateCanBeSkipped(onSkip != null)
         val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {

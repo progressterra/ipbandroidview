@@ -46,9 +46,12 @@ fun SignInScreen(
             LinkText(
                 linkTextData = listOf(
                     LinkTextData(stringResource(R.string.auth_warning_0)),
-                    LinkTextData(stringResource(R.string.offer), state.offerUrl),
+                    LinkTextData(stringResource(R.string.offer), IpbTheme.customization.offerUrl),
                     LinkTextData(stringResource(R.string.and)),
-                    LinkTextData(stringResource(R.string.privacy_policy), state.policyUrl)
+                    LinkTextData(
+                        stringResource(R.string.privacy_policy),
+                        IpbTheme.customization.privacyUrl
+                    )
                 ),
                 useComponent = useComponent
             )
