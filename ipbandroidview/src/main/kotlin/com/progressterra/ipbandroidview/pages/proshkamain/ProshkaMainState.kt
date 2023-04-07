@@ -14,13 +14,13 @@ import kotlinx.coroutines.flow.Flow
 data class ProshkaMainState(
     val bonuses: ProshkaBonusesState = ProshkaBonusesState(),
     val offers: ProshkaOffersState = ProshkaOffersState(),
-    val stateBoxState: StateBoxState = StateBoxState(),
+    val stateBox: StateBoxState = StateBoxState(),
     val hits: ProshkaGalleriesState = ProshkaGalleriesState(),
     val new: ProshkaGalleriesState = ProshkaGalleriesState()
 ) {
 
     fun updateStateBox(screenState: ScreenState) =
-        copy(stateBoxState = stateBoxState.updateState(screenState))
+        copy(stateBox = stateBox.updateState(screenState))
 
     fun updateHits(newHits: Flow<PagingData<ProshkaStoreCardState>>) =
         copy(hits = hits.updateItems(newHits))
