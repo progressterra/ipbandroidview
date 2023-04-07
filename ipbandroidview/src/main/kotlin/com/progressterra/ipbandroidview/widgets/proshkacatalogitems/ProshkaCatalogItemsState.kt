@@ -6,4 +6,8 @@ import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatal
 @Immutable
 data class ProshkaCatalogItemsState(
     val items: List<ProshkaCatalogCardState> = emptyList()
-)
+) {
+
+    fun updateItems(newItems: List<ProshkaCatalogCardState>) =
+        copy(items = newItems)
+}

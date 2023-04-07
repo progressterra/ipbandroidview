@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.favorites
+package com.progressterra.ipbandroidview.pages.favorites
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -20,7 +20,7 @@ class FavoritesNode(
         val viewModel: FavoritesViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
-                is FavoritesEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
+                is FavoritesEvent.GoodsDetails -> onGoodsDetails(it.goodsId)
             }
         }
         LaunchedEffect(Unit) {
@@ -29,7 +29,7 @@ class FavoritesNode(
         val state = viewModel.collectAsState()
         FavoritesScreen(
             state = state.value,
-            interactor = viewModel
+            useComponent = viewModel
         )
     }
 }

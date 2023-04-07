@@ -12,9 +12,9 @@ import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
-import com.progressterra.ipbandroidview.widgets.proshkacatalogitems.ProshkaCatalogItems
+import com.progressterra.ipbandroidview.widgets.proshkastoreitems.ProshkaStoreItems
 import com.progressterra.ipbandroidview.widgets.proshkacatalogitems.ProshkaCatalogItemsState
-import com.progressterra.ipbandroidview.widgets.proshkacatalogitems.UseProshkaCatalogItems
+import com.progressterra.ipbandroidview.widgets.proshkastoreitems.UseProshkaCatalogItems
 
 @Immutable
 data class ProshkaCatalogState(
@@ -40,7 +40,7 @@ fun ProshkaCatalogScreen(
         StateBox(
             state = state.stateBox, useComponent = interactor
         ) {
-            ProshkaCatalogItems(
+            ProshkaStoreItems(
                 state = state.items,
                 useComponent = interactor
             )

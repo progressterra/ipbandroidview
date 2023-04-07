@@ -1,26 +1,27 @@
-package com.progressterra.ipbandroidview.processes.favorites
+package com.progressterra.ipbandroidview.pages.favorites
 
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardMapper
+import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardState
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.shared.ProvideLocation
-import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
 
 interface FavoriteGoodsUseCase {
 
-    suspend operator fun invoke(): Result<List<StoreCardComponentState>>
+    suspend operator fun invoke(): Result<List<ProshkaStoreCardState>>
 
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val favoriteRepository: IPBFavPromoRecRepository,
         private val eIECommerceCoreRepository: IECommerceCoreRepository,
-        private val storeGoodsMapper: StoreGoodsMapper
+        private val mapper: ProshkaStoreCardMapper
     ) : AbstractUseCase(scrmRepository, provideLocation), FavoriteGoodsUseCase {
 
-        override suspend fun invoke(): Result<List<StoreCardComponentState>> = withToken { token ->
+        override suspend fun invoke(): Result<List<ProshkaStoreCardState>> = withToken { token ->
             val favoriteIds = favoriteRepository.getClientEntityByType(
                 token, TypeEntities.ONE.ordinal
             ).getOrThrow()!!
@@ -29,7 +30,7 @@ interface FavoriteGoodsUseCase {
                     eIECommerceCoreRepository.getProductDetailByIDRG(
                         favoriteId
                     ).getOrThrow()?.listProducts?.firstOrNull()?.let {
-                        add(storeGoodsMapper.map(it, true))
+                        add(mapper.map(it))
                     }
                 }
             }

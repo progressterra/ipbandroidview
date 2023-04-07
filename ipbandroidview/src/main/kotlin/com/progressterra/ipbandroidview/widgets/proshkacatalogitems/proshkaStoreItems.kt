@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatalogCard
+import com.progressterra.ipbandroidview.widgets.proshkastoreitems.UseProshkaCatalogItems
 
 @Composable
 fun ProshkaCatalogItems(
