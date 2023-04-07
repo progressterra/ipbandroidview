@@ -139,7 +139,7 @@
     <string name="partner">Партнёр</string>
     <string name="web_site">Веб-сайт</string>
     <string name="size_table">Таблица размеров</string>
-    <string name="resend">Отправить повторно</string>
+    <string name="resend">Повторить отправку</string>
     <string name="ongoing">В работе</string>
     <string name="completed">Завершённые</string>
     <string name="archived">Архив аудитов</string>

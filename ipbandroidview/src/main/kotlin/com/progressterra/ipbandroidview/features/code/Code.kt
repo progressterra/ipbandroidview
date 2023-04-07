@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.confirmationcode
+package com.progressterra.ipbandroidview.features.code
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,10 +29,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.utils.clearFocusOnKeyboardDismiss
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.ui.clearFocusOnKeyboardDismiss
 
 @Composable
 private fun Digit(
@@ -46,8 +46,7 @@ private fun Digit(
                 width = 1.dp,
                 brush = if (active) IpbTheme.colors.primary.asBrush() else Color.Transparent.toBrush(),
                 shape = RoundedCornerShape(8.dp)
-            ),
-        contentAlignment = Alignment.Center
+            ), contentAlignment = Alignment.Center
     ) {
         if (!active && digit.isEmpty()) {
             BrushedText(
@@ -65,10 +64,8 @@ private fun Digit(
 }
 
 @Composable
-fun ConfirmationCode(
-    modifier: Modifier = Modifier,
-    state: ConfirmationCodeState,
-    useComponent: UseConfirmationCode
+fun Code(
+    modifier: Modifier = Modifier, state: CodeState, useComponent: UseCode
 ) {
     Column(
         modifier = Modifier
@@ -80,7 +77,7 @@ fun ConfirmationCode(
     ) {
         BrushedText(
             modifier = Modifier.fillMaxWidth(),
-            text = "${stringResource(id = R.string.verification_code_message)}\n${state.phoneNumber}",
+            text = "${stringResource(id = R.string.verification_code_message)}\n${state.phone}",
             tint = IpbTheme.colors.textSecondary.asBrush(),
             style = IpbTheme.typography.primary,
             textAlign = TextAlign.Center
@@ -88,17 +85,13 @@ fun ConfirmationCode(
         val mutableInteractionSource = remember { MutableInteractionSource() }
         val focused = mutableInteractionSource.collectIsFocusedAsState().value
         val focusManager = LocalFocusManager.current
-        BasicTextField(modifier = modifier.clearFocusOnKeyboardDismiss(),
+        BasicTextField(
+            modifier = modifier.clearFocusOnKeyboardDismiss(),
             value = state.code,
             singleLine = true,
             maxLines = 1,
             interactionSource = mutableInteractionSource,
-            onValueChange = {
-                useComponent.handle(
-                    state.id,
-                    ConfirmationCodeEvent.CodeChanged(it)
-                )
-            },
+            onValueChange = { useComponent.handle(CodeEvent.Changed(it)) },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
             ),
