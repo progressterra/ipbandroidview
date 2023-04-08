@@ -71,15 +71,21 @@ class ProshkaMainViewModel(
 
     override fun handle(event: ProshkaStoreCardEvent) = intent {
         when (event) {
-            is ProshkaStoreCardEvent.AddToCart -> addToCartUseCase(event.id)
+            is ProshkaStoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+                refresh()
+            }
             is ProshkaStoreCardEvent.Open -> postSideEffect(ProshkaMainEvent.OnItem(event.id))
         }
     }
 
     override fun handle(event: CounterEvent) = intent {
         when (event) {
-            is CounterEvent.Add -> addToCartUseCase(event.id)
-            is CounterEvent.Remove -> removeFromCartUseCase(event.id)
+            is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                refresh()
+            }
+            is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
+                refresh()
+            }
         }
     }
 
