@@ -49,7 +49,7 @@ fun ChatInput(
         Text(
             text = stringResource(R.string.support_info),
             color = IpbTheme.colors.gray2,
-            style = IpbTheme.typography.tertiary
+            style = IpbTheme.typography.footnoteRegular
         )
         Spacer(modifier = Modifier.size(8.dp))
         Row(

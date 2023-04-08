@@ -33,7 +33,7 @@ fun ProshkaOffer(
                 .align(Alignment.BottomCenter)
                 .padding(8.dp),
             text = state.title,
-            style = IpbTheme.typography.primary,
+            style = IpbTheme.typography.body,
             tint = IpbTheme.colors.textButton.asBrush()
         )
     }

@@ -43,7 +43,7 @@ fun ProfileButton(
             if (isDanger) IpbTheme.colors.textPrimary2.asBrush() else IpbTheme.colors.textPrimary1.asBrush()
         BrushedText(
             text = title,
-            style = IpbTheme.typography.primary,
+            style = IpbTheme.typography.body,
             tint = color
         )
         BrushedIcon(

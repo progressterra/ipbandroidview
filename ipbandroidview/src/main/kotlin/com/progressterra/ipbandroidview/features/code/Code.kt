@@ -51,13 +51,13 @@ private fun Digit(
         if (!active && digit.isEmpty()) {
             BrushedText(
                 text = ".",
-                style = IpbTheme.typography.headLine,
+                style = IpbTheme.typography.largeTitle,
                 tint = IpbTheme.colors.textDisabled.asBrush()
             )
         }
         BrushedText(
             text = digit,
-            style = IpbTheme.typography.headLine,
+            style = IpbTheme.typography.largeTitle,
             tint = IpbTheme.colors.textPrimary1.asBrush()
         )
     }
@@ -79,7 +79,7 @@ fun Code(
             modifier = Modifier.fillMaxWidth(),
             text = "${stringResource(id = R.string.verification_code_message)}\n${state.phone}",
             tint = IpbTheme.colors.textSecondary.asBrush(),
-            style = IpbTheme.typography.primary,
+            style = IpbTheme.typography.body,
             textAlign = TextAlign.Center
         )
         val mutableInteractionSource = remember { MutableInteractionSource() }

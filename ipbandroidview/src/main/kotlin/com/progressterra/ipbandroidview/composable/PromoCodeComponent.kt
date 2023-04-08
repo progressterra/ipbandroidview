@@ -54,7 +54,7 @@ fun PromoCodeComponent(
             Text(
                 text = "Скидка ${state.promoCode}",
                 color = IpbTheme.colors.primary,
-                style = IpbTheme.typography.tertiary
+                style = IpbTheme.typography.footnoteRegular
             )
         }
     }

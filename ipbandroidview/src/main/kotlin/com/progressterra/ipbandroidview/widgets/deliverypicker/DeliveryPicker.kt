@@ -41,7 +41,7 @@ fun DeliveryPicker(
                 val textColor =
                     if (it == state.selectedDeliveryMethod) IpbTheme.colors.textPrimary1 else IpbTheme.colors.textDisabled
                 val textStyle =
-                    if (it == state.selectedDeliveryMethod) IpbTheme.typography.primary else IpbTheme.typography.secondary
+                    if (it == state.selectedDeliveryMethod) IpbTheme.typography.body else IpbTheme.typography.subHeadlineRegular
                 val icon = when (it) {
                     is Delivery.CourierDelivery -> R.drawable.ic_courier
                     is Delivery.PickUpPointDelivery -> R.drawable.ic_pickup_point

@@ -21,7 +21,7 @@ fun LinkText(
     ClickableText(
         modifier = modifier,
         text = annotatedString,
-        style = IpbTheme.typography.tertiary.copy(textAlign = TextAlign.Center),
+        style = IpbTheme.typography.footnoteRegular.copy(textAlign = TextAlign.Center),
         onClick = { offset ->
             linkTextData.forEach { annotatedStringData ->
                 annotatedStringData.url?.let { url ->

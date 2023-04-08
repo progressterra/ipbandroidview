@@ -43,7 +43,7 @@ fun PaymentMethod(
             BrushedText(
                 text = stringResource(type.paymentName),
                 tint = IpbTheme.colors.textPrimary1.asBrush(),
-                style = IpbTheme.typography.primary
+                style = IpbTheme.typography.body
             )
         }
     }

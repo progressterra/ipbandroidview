@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.ThemedLoadingIndicator
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.components.rememberImageComponent
@@ -35,7 +34,7 @@ fun SimpleImage(
                 modifier = Modifier.align(Alignment.Center),
                 text = stringResource(id = R.string.image_missing),
                 tint = IpbTheme.colors.error.asBrush(),
-                style = IpbTheme.typography.primary,
+                style = IpbTheme.typography.body,
                 textAlign = TextAlign.Center
             )
         }, loading = {

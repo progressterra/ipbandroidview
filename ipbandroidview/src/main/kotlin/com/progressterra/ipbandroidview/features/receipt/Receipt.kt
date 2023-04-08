@@ -64,12 +64,12 @@ fun Receipt(
                 BrushedText(
                     text = "${it.name} x${it.quantity}",
                     tint = IpbTheme.colors.textTertiary1.asBrush(),
-                    style = IpbTheme.typography.label
+                    style = IpbTheme.typography.caption
                 )
                 BrushedText(
                     text = it.price.toString(),
                     tint = if (it.price.isNegative()) IpbTheme.colors.error.asBrush() else IpbTheme.colors.textSecondary.asBrush(),
-                    style = IpbTheme.typography.label
+                    style = IpbTheme.typography.caption
                 )
             }
         }

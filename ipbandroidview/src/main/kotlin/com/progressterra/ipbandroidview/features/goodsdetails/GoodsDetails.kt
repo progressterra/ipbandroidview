@@ -61,7 +61,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                     val textColor =
                         if (selected) IpbTheme.colors.textPressed else IpbTheme.colors.textSecondary
                     val style =
-                        if (selected) IpbTheme.typography.secondaryBold else IpbTheme.typography.secondary
+                        if (selected) IpbTheme.typography.subHeadlineBold else IpbTheme.typography.subHeadlineRegular
                     BrushedText(
                         text = text,
                         tint = textColor.asBrush(),
@@ -92,12 +92,12 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                     BrushedText(
                         text = state.company,
                         tint = IpbTheme.colors.textTertiary1.asBrush(),
-                        style = IpbTheme.typography.secondaryItalic
+                        style = IpbTheme.typography.subHeadlineItalic
                     )
                     BrushedText(
                         text = state.description,
                         tint = IpbTheme.colors.textSecondary.asBrush(),
-                        style = IpbTheme.typography.secondary
+                        style = IpbTheme.typography.subHeadlineRegular
                     )
                 }
             }

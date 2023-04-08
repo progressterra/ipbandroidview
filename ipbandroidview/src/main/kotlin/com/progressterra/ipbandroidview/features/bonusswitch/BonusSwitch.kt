@@ -40,7 +40,7 @@ fun BonusSwitch(
             BrushedText(
                 text = "${state.availableBonuses} ${stringResource(R.string.bonuses_short)}",
                 tint = IpbTheme.colors.textTertiary1.asBrush(),
-                style = IpbTheme.typography.primary
+                style = IpbTheme.typography.body
             )
             BrushedSwitch(
                 state = state.useBonuses, useComponent = useComponent

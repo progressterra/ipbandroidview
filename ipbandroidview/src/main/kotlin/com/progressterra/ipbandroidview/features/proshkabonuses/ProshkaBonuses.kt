@@ -75,13 +75,13 @@ fun ProshkaBonuses(
             Spacer(modifier = Modifier.height(6.dp))
             BrushedText(
                 text = "${stringResource(R.string.can_withdraw)} ${state.canWithdraw}",
-                style = IpbTheme.typography.secondaryItalic,
+                style = IpbTheme.typography.subHeadlineItalic,
                 tint = IpbTheme.colors.textTertiary1.asBrush()
             )
             Spacer(modifier = Modifier.height(14.dp))
             BrushedText(
                 text = stringResource(R.string.bonuses_rate),
-                style = IpbTheme.typography.secondary,
+                style = IpbTheme.typography.subHeadlineRegular,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
             Spacer(modifier = Modifier.height(30.dp))
@@ -89,12 +89,12 @@ fun ProshkaBonuses(
                 Row {
                     BrushedText(
                         text = "${stringResource(R.string.available_loan)} - ",
-                        style = IpbTheme.typography.secondary,
+                        style = IpbTheme.typography.subHeadlineRegular,
                         tint = IpbTheme.colors.textButton.asBrush()
                     )
                     BrushedText(
                         text = state.loan,
-                        style = IpbTheme.typography.secondaryBold,
+                        style = IpbTheme.typography.subHeadlineBold,
                         tint = IpbTheme.colors.textButton.asBrush()
                     )
                 }
@@ -102,7 +102,7 @@ fun ProshkaBonuses(
                 Row {
                     BrushedText(
                         text = state.burningDate,
-                        style = IpbTheme.typography.secondary,
+                        style = IpbTheme.typography.subHeadlineRegular,
                         tint = IpbTheme.colors.textPrimary2.asBrush()
                     )
                     BrushedText(
@@ -111,7 +111,7 @@ fun ProshkaBonuses(
                                 R.string.bonuses
                             )
                         }",
-                        style = IpbTheme.typography.secondaryBold,
+                        style = IpbTheme.typography.subHeadlineBold,
                         tint = IpbTheme.colors.textPrimary2.asBrush()
                     )
                 }

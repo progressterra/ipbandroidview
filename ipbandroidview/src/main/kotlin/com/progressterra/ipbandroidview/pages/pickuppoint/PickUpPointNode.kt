@@ -1,15 +1,12 @@
-package com.progressterra.ipbandroidview.ui.pickuppoint
+package com.progressterra.ipbandroidview.pages.pickuppoint
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.PickUpPointInfo
-import com.progressterra.ipbandroidview.ui.order.OrderViewModel
+import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -23,7 +20,7 @@ class PickUpPointNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val parentViewModel: OrderViewModel = getViewModel()
+        val parentViewModel: DeliveryViewModel = getViewModel()
         val viewModel: PickUpPointViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
@@ -34,17 +31,13 @@ class PickUpPointNode(
                 }
             }
         }
-        var alreadyLaunched by rememberSaveable(points) {
-            mutableStateOf(false)
-        }
-        if (!alreadyLaunched) {
-            alreadyLaunched = true
-            viewModel.setPoints(points)
+        LaunchedEffect(points) {
+            viewModel.refresh(points)
         }
         val state = viewModel.collectAsState()
         PickUpPointScreen(
             state = state.value,
-            interactor = viewModel
+            useComponent = viewModel
         )
     }
 }

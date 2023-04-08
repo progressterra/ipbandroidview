@@ -53,13 +53,13 @@ fun BonusTransaction(
                 BrushedText(
                     text = stringResource(text),
                     tint = IpbTheme.colors.textPrimary1.asBrush(),
-                    style = IpbTheme.typography.primary
+                    style = IpbTheme.typography.body
                 )
             }
             BrushedText(
                 text = state.date,
                 tint = IpbTheme.colors.textSecondary.asBrush(),
-                style = IpbTheme.typography.secondary
+                style = IpbTheme.typography.subHeadlineRegular
             )
         }
         val color = when (state.type) {

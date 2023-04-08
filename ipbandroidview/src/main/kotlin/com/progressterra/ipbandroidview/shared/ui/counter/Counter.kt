@@ -48,7 +48,7 @@ fun Counter(
         ) {
             BrushedText(
                 text = state.count.toString(),
-                style = IpbTheme.typography.tertiary,
+                style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textPrimary1.asBrush(),
             )
         }

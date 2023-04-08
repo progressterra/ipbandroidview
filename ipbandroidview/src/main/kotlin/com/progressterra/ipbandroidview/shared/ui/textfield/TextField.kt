@@ -37,7 +37,7 @@ fun TextField(
         {
             BrushedText(
                 text = hint,
-                style = IpbTheme.typography.label,
+                style = IpbTheme.typography.caption,
                 tint = IpbTheme.colors.textTertiary1.asBrush()
             )
         }
@@ -46,7 +46,7 @@ fun TextField(
         {
             BrushedText(
                 text = hint,
-                style = IpbTheme.typography.primary,
+                style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
         }
@@ -77,7 +77,7 @@ fun TextField(
         placeholder = placeholder,
         label = label,
         enabled = state.enabled,
-        textStyle = IpbTheme.typography.primary,
+        textStyle = IpbTheme.typography.body,
         singleLine = singleLine,
         trailingIcon = actionIcon?.let {
             {

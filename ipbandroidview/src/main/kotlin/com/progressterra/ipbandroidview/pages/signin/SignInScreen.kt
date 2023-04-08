@@ -58,7 +58,7 @@ fun SignInScreen(
             BrushedText(
                 text = stringResource(R.string.sign_in_text),
                 textAlign = TextAlign.Center,
-                style = IpbTheme.typography.tertiary,
+                style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textDisabled.asBrush()
             )
             Spacer(Modifier.weight(1f))
