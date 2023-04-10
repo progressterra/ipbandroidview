@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.features.chatmessage
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -7,18 +7,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.entities.Message
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-
-private val edgePadding: Dp = 40.dp
-
-private val emptyPadding: Dp = 0.dp
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
 @Composable
 fun ChatMessage(
@@ -26,8 +22,8 @@ fun ChatMessage(
     message: Message
 ) {
     val paddingValues = PaddingValues(
-        start = if (message.user) edgePadding else emptyPadding,
-        end = if (message.user) emptyPadding else edgePadding
+        start = if (message.user) 40.dp else 20.dp,
+        end = if (message.user) 20.dp else 40.dp
     )
     Row(
         modifier = modifier
@@ -37,19 +33,19 @@ fun ChatMessage(
     ) {
         Column(
             modifier = modifier
-                .clip(IpbTheme.shapes.medium)
-                .background(IpbTheme.colors.surfaces)
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.surface1.asBrush())
                 .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
-            Text(
+            BrushedText(
                 text = message.content,
-                color = IpbTheme.colors.black,
+                tint = IpbTheme.colors.textPrimary1.asBrush(),
                 style = IpbTheme.typography.body
             )
-            Text(
+            BrushedText(
                 text = message.date,
-                color = IpbTheme.colors.gray2,
+                tint = IpbTheme.colors.textTertiary1.asBrush(),
                 style = IpbTheme.typography.footnoteRegular
             )
         }

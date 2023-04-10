@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.features.addresssuggestions
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -12,21 +12,18 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.entities.SuggestionUI
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-
-private val elevation = 4.dp
-
-private val height = 150.dp
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun AddressSuggestions(
@@ -42,9 +39,9 @@ fun AddressSuggestions(
         exit = shrinkVertically()
     ) {
         Card(
-            elevation = elevation, shape = IpbTheme.shapes.small
+            elevation = 4.dp, shape = RoundedCornerShape(8.dp),
         ) {
-            LazyColumn(modifier = Modifier.heightIn(max = height)) {
+            LazyColumn(modifier = Modifier.heightIn(max = 150.dp)) {
                 items(suggestions) {
                     Column(
                         modifier = Modifier
@@ -55,9 +52,9 @@ fun AddressSuggestions(
                                 vertical = 6.dp
                             )
                     ) {
-                        Text(
+                        BrushedText(
                             text = it.previewOfSuggestion,
-                            color = IpbTheme.colors.black,
+                            tint = IpbTheme.colors.textPrimary1.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular
                         )
                     }

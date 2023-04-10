@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.shared.ui.bottommenutab
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -10,14 +10,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,10 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-
-private val bottomMenuItemSize = 32.dp
-
-private val bottomMenuIconSize = 24.dp
+import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
 @Immutable
 data class BottomMenuTabState(
@@ -53,15 +48,15 @@ fun BottomMenuTab(
                 modifier = modifier
                     .size(16.dp)
                     .clip(CircleShape)
-                    .background(IpbTheme.colors.secondary)
+                    .background(IpbTheme.colors.primary.asBrush())
                     .zIndex(1f),
                 contentAlignment = Alignment.Center
             ) {
-                Text(
+                BrushedText(
                     text = state.count.toString(),
                     textAlign = TextAlign.Center,
-                    color = IpbTheme.colors.black,
-                    style = IpbTheme.typography.actionBarLabels
+                    tint = IpbTheme.colors.textPrimary1.asBrush(),
+                    style = IpbTheme.typography.footnoteBold
                 )
             }
         }
@@ -73,21 +68,20 @@ fun BottomMenuTab(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
-        Box(modifier = Modifier.size(bottomMenuItemSize)) {
+        Box(modifier = Modifier.size(32.dp)) {
             Counter(modifier = Modifier.align(Alignment.TopEnd), count = state.count)
-            Icon(
+            BrushedIcon(
                 modifier = Modifier
-                    .size(bottomMenuIconSize)
+                    .size(24.dp)
                     .align(Alignment.Center),
-                painter = painterResource(id = state.iconId),
-                contentDescription = null,
-                tint = if (active == state.id) IpbTheme.colors.primary else IpbTheme.colors.gray2
+                resId = state.iconId,
+                tint = if (active == state.id) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary1.asBrush()
             )
         }
-        Text(
+        BrushedText(
             text = stringResource(id = state.titleId),
-            style = IpbTheme.typography.actionBarLabels,
-            color = if (active == state.id) IpbTheme.colors.primary else IpbTheme.colors.gray2
+            style = IpbTheme.typography.footnoteBold,
+            tint = if (active == state.id) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary1.asBrush()
         )
     }
 }
