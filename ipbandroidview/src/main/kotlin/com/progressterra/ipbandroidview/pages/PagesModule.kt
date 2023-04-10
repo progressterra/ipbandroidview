@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages
 import com.progressterra.ipbandroidview.pages.bonuses.BonusesViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
+import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
 import com.progressterra.ipbandroidview.pages.proshkamain.ProshkaMainViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
@@ -28,4 +29,6 @@ val pagesModule = module {
     viewModel { DeliveryViewModel(get()) }
 
     viewModel { BonusesViewModel(get(), get()) }
+
+    viewModel { FavoritesViewModel(get(), get(), get()) }
 }

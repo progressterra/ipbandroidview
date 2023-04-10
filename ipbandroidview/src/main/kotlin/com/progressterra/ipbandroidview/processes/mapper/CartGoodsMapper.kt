@@ -4,14 +4,13 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.features.proshkacartcard.ProshkaCartCardState
 import com.progressterra.ipbandroidview.shared.AbstractMapper
 import com.progressterra.ipbandroidview.shared.ManageResources
-import com.progressterra.ipbandroidview.shared.TripleMapper
-import com.progressterra.ipbandroidview.composable.component.CartCardState
-import com.progressterra.ipbandroidview.entities.GoodsSize
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.shared.Mapper
 
-interface CartGoodsMapper : TripleMapper<RGGoodsInventoryExt, Boolean, Int, CartCardState> {
+interface CartGoodsMapper : Mapper<RGGoodsInventoryExt, ProshkaCartCardState> {
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
@@ -19,22 +18,16 @@ interface CartGoodsMapper : TripleMapper<RGGoodsInventoryExt, Boolean, Int, Cart
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override fun map(data1: RGGoodsInventoryExt, data2: Boolean, data3: Int): CartCardState {
-            val images = data1.imageDataJSON?.let { image ->
+        override fun map(data: RGGoodsInventoryExt): ProshkaCartCardState {
+            val images = data.imageDataJSON?.let { image ->
                 gson.fromJson(
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            return CartCardState(
-                id = data1.idUnique!!,
-                image = images.firstOrNull()?.url ?: "",
-                price = data1.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
-                name = data1.name ?: noData,
-                favorite = data2,
-                inCartCounter = data3,
-                color = data1.colorName ?: noData,
-                size = GoodsSize(true, "", null),
-            )
+            return ProshkaCartCardState(id = data.idUnique!!,
+                imageUrl = images.firstOrNull()?.url ?: "",
+                price = data.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
+                name = data.name ?: noData)
         }
 
         data class ImageData(
