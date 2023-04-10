@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardMapper
 import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardState
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.shared.ProvideLocation
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 
 interface FavoriteGoodsUseCase {
 

@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.widgets.proshkaoffers
 
-import com.progressterra.ipbandroidview.processes.partner.FetchOffersUseCase
-
 interface FetchProshkaOffersUseCase {
 
     suspend operator fun invoke(): Result<ProshkaOffersState>

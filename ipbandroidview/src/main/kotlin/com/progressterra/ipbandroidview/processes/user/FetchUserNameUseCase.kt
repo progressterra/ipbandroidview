@@ -1,0 +1,18 @@
+package com.progressterra.ipbandroidview.processes.user
+
+import com.progressterra.ipbandroidview.shared.UserData
+
+interface FetchUserNameUseCase {
+
+    suspend operator fun invoke(): String
+
+    class Base : FetchUserNameUseCase {
+
+        override suspend fun invoke(): String = buildString {
+            if (UserData.userName.name.isNotBlank())
+                append(UserData.userName.name)
+            if (UserData.userName.surname.isNotBlank())
+                append(" ${UserData.userName.surname}")
+        }
+    }
+}

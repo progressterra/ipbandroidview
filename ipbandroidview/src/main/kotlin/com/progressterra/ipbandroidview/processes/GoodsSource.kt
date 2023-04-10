@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.processes
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.progressterra.ipbandroidview.composable.component.StoreCardComponentState
-import com.progressterra.ipbandroidview.processes.usecase.store.FetchFavoriteIds
+import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
 
 class GoodsSource(

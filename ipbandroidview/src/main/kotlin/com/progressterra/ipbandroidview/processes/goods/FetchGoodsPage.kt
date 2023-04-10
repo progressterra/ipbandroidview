@@ -2,10 +2,9 @@ package com.progressterra.ipbandroidview.processes.goods
 
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.shared.ProvideLocation
 import com.progressterra.ipbandroidview.entities.GoodsItem
-import com.progressterra.ipbandroidview.processes.AppSettings
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
 
 interface FetchGoodsPage {
 
@@ -29,7 +28,7 @@ interface FetchGoodsPage {
                 token,
                 id,
                 pageNumber,
-                AppSettings.PAGE_SIZE,
+                10,
                 0,
                 0
             ).getOrThrow()

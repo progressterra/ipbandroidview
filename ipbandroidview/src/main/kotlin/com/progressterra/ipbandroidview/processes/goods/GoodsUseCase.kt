@@ -4,9 +4,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.entities.GoodsItem
-import com.progressterra.ipbandroidview.processes.AppSettings
 import com.progressterra.ipbandroidview.processes.GoodsSource
-import com.progressterra.ipbandroidview.processes.usecase.store.FetchFavoriteIds
+import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import kotlinx.coroutines.flow.Flow
 
 interface GoodsUseCase {
@@ -20,7 +19,7 @@ interface GoodsUseCase {
 
         override suspend fun invoke(categoryId: String): Result<Flow<PagingData<GoodsItem>>> =
             runCatching {
-                Pager<Int, GoodsItem>(PagingConfig(AppSettings.PAGE_SIZE)) {
+                Pager<Int, GoodsItem>(PagingConfig(10)) {
                     GoodsSource(
                         categoryId = categoryId,
                         fetchGoodsPage = fetchGoodsPage,

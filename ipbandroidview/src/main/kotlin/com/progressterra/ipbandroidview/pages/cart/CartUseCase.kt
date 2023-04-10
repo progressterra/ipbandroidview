@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.processes.mapper.CartGoodsMapper
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.shared.ProvideLocation
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItemsState
 import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummaryState

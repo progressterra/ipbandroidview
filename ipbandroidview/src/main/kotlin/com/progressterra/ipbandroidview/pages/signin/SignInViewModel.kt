@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
-import com.progressterra.ipbandroidview.processes.usecase.OpenUrlUseCase
+import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.processes.usecase.user.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
 import com.progressterra.ipbandroidview.shared.isTestPhoneNumber

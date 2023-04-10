@@ -3,11 +3,11 @@ package com.progressterra.ipbandroidview.processes.goods
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.shared.ProvideLocation
-import com.progressterra.ipbandroidview.processes.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.entities.GoodsItem
-import com.progressterra.ipbandroidview.processes.usecase.store.FetchFavoriteIds
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.processes.mapper.GoodsDetailsMapper
+import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
 
 interface GoodsDetailsUseCase {
 
