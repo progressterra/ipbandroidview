@@ -1,9 +1,8 @@
-package com.progressterra.ipbandroidview.composable.utils
+package com.progressterra.ipbandroidview.shared.ui
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp

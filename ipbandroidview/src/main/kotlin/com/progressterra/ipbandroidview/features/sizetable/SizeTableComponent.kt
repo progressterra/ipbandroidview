@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable.component
+package com.progressterra.ipbandroidview.features.sizetable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,7 +19,6 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.WebViewCompose
 
-//TODO уточнить какие размеры должны быть у таблицы
 @Composable
 fun SizeTableComponent(
     modifier: Modifier = Modifier,

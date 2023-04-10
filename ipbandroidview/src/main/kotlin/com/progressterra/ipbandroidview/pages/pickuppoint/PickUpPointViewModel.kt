@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
 import com.progressterra.ipbandroidview.processes.usecase.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.widgets.pickupchoose.PickUpChooseEvent
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -34,26 +33,16 @@ class PickUpPointViewModel(
     }
 
     override fun handle(event: ButtonEvent) = intent {
-        TODO("Not yet implemented")
-    }
-
-    override fun handle(event: TextFieldEvent) = blockingIntent {
-        TODO("Not yet implemented")
+        when (event) {
+            is ButtonEvent.Click -> state.choose.currentPickUpPointInfo?.let {
+                postSideEffect(PickUpPointEffect.Next(it))
+            }
+        }
     }
 
     override fun handle(event: PickUpChooseEvent) = intent {
-        TODO("Not yet implemented")
-    }
-
-    override fun choose(info: PickUpPointInfo) = intent {
-        reduce { state.copy(currentPickUpPointInfo = info) }
-    }
-
-    override fun onNext() = intent {
-        state.currentPickUpPointInfo?.let { postSideEffect(PickUpPointEffect.Next(it)) }
-    }
-
-    override fun onBack() = intent {
-        postSideEffect(PickUpPointEffect.Back)
+        when (event) {
+            is PickUpChooseEvent.Choose -> reduce { state.updateCurrentPoint(event.info) }
+        }
     }
 }

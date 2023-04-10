@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.features.promocode
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -6,54 +6,52 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
-import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Immutable
-data class PromoCodeComponentState(
+data class PromoCodeState(
 
-    val promoCode: SimplePrice = SimplePrice(),
+    val price: SimplePrice = SimplePrice(),
 
-    val promoCodeState: TextFieldState = TextFieldState()
+    val code: TextFieldState = TextFieldState()
 )
 
-interface UsePromoCodeComponent : UseTextField
+interface UsePromoCode : UseTextField
 
-/**
- * code - text field
- */
 @Composable
-fun PromoCodeComponent(
+fun PromoCode(
     modifier: Modifier = Modifier,
-    state: PromoCodeComponentState,
-    useComponent: UsePromoCodeComponent
+    state: PromoCodeState,
+    useComponent: UsePromoCode
 ) {
     Column(
         modifier = modifier
-            .clip(IpbTheme.shapes.medium)
-            .background(IpbTheme.colors.surfaces)
+            .clip(RoundedCornerShape(12.dp))
+            .background(IpbTheme.colors.surface1.asBrush())
             .animateContentSize()
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            id = "code",
-            state = state.promoCodeState,
+            state = state.code,
             useComponent = useComponent
         )
-        if (!state.promoCode.isEmpty()) {
-            Text(
-                text = "Скидка ${state.promoCode}",
-                color = IpbTheme.colors.primary,
+        if (!state.price.isEmpty()) {
+            BrushedText(
+                text = "Скидка ${state.price}",
+                tint = IpbTheme.colors.textSecondary.asBrush(),
                 style = IpbTheme.typography.footnoteRegular
             )
         }

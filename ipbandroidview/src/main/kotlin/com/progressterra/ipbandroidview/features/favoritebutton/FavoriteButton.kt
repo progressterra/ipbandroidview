@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.features.favoritebutton
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -8,6 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -19,14 +22,20 @@ fun FavoriteButton(
     IconButton(
         modifier = modifier, onClick = onClick
     ) {
-        FavoriteUncheckedIcon()
+        BrushedIcon(
+            resId = R.drawable.ic_favorite_off,
+            tint = IpbTheme.colors.iconTertiary1.asBrush()
+        )
         Column {
             AnimatedVisibility(
                 visible = favorite,
                 enter = scaleIn(),
                 exit = scaleOut()
             ) {
-                FavoriteCheckedIcon()
+                BrushedIcon(
+                    resId = R.drawable.ic_favorite_on,
+                    tint = IpbTheme.colors.iconPressed.asBrush()
+                )
             }
         }
     }

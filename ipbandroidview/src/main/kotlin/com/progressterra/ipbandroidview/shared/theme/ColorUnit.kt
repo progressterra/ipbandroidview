@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.shared.theme
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 
 class ColorUnit(
     vararg hexes: String

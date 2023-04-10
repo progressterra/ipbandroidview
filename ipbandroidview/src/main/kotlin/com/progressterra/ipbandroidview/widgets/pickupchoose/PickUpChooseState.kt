@@ -10,6 +10,8 @@ data class PickUpChooseState(
     val currentPickUpPointInfo: PickUpPointInfo? = null
 ) {
 
+    fun updateCurrentPoint(newPoint: PickUpPointInfo) = copy(currentPickUpPointInfo = newPoint)
+
     fun updatePermission(isGranted: Boolean) = copy(isPermissionGranted = isGranted)
 
     fun updatePoints(newPoints: List<PickUpPointInfo>) = copy(pickUpPoints = newPoints)
