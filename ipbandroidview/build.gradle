@@ -113,8 +113,8 @@ dependencies {
     api "com.google.android.gms:play-services-maps:18.1.0"
 
     //iProBonusAndroidAPI
-    releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.85"
-    debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.85"
+    releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.87"
+    debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.87"
 
     //Kotpref
     api "com.chibatching.kotpref:kotpref:2.13.2"
