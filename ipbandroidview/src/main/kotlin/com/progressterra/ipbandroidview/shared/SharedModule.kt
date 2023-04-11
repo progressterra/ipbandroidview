@@ -49,5 +49,5 @@ val sharedModule = module {
 
     single<ManageResources> { ManageResources.Base(androidContext()) }
 
-    single<Gson> { Gson() }
+    single { Gson() }
 }
