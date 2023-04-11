@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.widgets.deliverypicker.SetDeliveryAddres
 import com.progressterra.ipbandroidview.widgets.proshkagalleries.FetchProshkaGalleriesUseCase
 import com.progressterra.ipbandroidview.widgets.proshkaoffers.FetchOffersUseCase
 import com.progressterra.ipbandroidview.widgets.proshkaoffers.FetchProshkaOffersUseCase
+import com.progressterra.ipbandroidview.widgets.proshkaoffers.OfferMapper
 import org.koin.dsl.module
 
 val widgetsModule = module {
@@ -21,6 +22,10 @@ val widgetsModule = module {
         FetchAvailableDeliveryUseCase.Base(
             get(), get(), get(), get(), get()
         )
+    }
+
+    single<OfferMapper> {
+        OfferMapper.Base(get())
     }
 
     single<DeliveryMethodMapper> {
