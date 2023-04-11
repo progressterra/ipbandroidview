@@ -4,6 +4,7 @@ plugins {
     id "kotlin-android"
     id "kotlin-kapt"
     id "kotlin-parcelize"
+    id 'org.jetbrains.kotlin.android'
 }
 
 apply from: "publish.gradle"
@@ -97,6 +98,7 @@ dependencies {
 
     //Testing
     api 'org.orbit-mvi:orbit-test:4.6.1'
+    implementation 'androidx.core:core-ktx:+'
     testApi "junit:junit:4.13.2"
 
     //Appyx, navigation library
