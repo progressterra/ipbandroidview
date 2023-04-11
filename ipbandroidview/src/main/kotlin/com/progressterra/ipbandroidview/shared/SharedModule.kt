@@ -1,8 +1,15 @@
 package com.progressterra.ipbandroidview.shared
 
+import android.content.ClipboardManager
+import android.content.Context
+import android.media.MediaPlayer
+import android.media.MediaRecorder
+import android.os.Build
+import com.google.android.gms.location.LocationServices
 import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
 import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
 import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.binds
 import org.koin.dsl.module
 
@@ -24,4 +31,18 @@ val sharedModule = module {
     single {
         MakePhotoContract.Base()
     }.binds(arrayOf(MakePhotoContract.Activity::class, MakePhotoContract.Client::class))
+
+    single { androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
+
+    single { MediaPlayer() }
+
+    @Suppress("DEPRECATION")
+    single {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            MediaRecorder(androidContext())
+        else
+            MediaRecorder()
+    }
+
+    single { LocationServices.getFusedLocationProviderClient(androidContext()) }
 }
