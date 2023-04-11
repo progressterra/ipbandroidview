@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
 import com.google.android.gms.location.LocationServices
+import com.google.gson.Gson
 import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
 import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
 import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
@@ -47,4 +48,6 @@ val sharedModule = module {
     single { LocationServices.getFusedLocationProviderClient(androidContext()) }
 
     single<ManageResources> { ManageResources.Base(androidContext()) }
+
+    single<Gson> { Gson() }
 }
