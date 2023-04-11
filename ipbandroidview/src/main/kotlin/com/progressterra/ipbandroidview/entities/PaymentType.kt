@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.entities.payment
+package com.progressterra.ipbandroidview.entities
 
 import androidx.annotation.StringRes
 import com.progressterra.ipbandroidview.R

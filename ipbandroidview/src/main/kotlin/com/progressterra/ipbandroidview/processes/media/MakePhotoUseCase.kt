@@ -3,13 +3,13 @@ package com.progressterra.ipbandroidview.processes.media
 import android.Manifest
 import android.content.Intent
 import android.provider.MediaStore
+import com.progressterra.ipbandroidview.entities.MultisizedImage
+import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.FileExplorer
 import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
-import com.progressterra.ipbandroidview.processes.exception.PhotoWasNotTakenException
-import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.ext.throwOnFailure
-import com.progressterra.ipbandroidview.entities.MultisizedImage
+import com.progressterra.ipbandroidview.shared.activity.PhotoWasNotTakenException
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface MakePhotoUseCase {
 

@@ -14,7 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.payment.PaymentType
+import com.progressterra.ipbandroidview.entities.PaymentType
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton

@@ -4,10 +4,9 @@ import android.os.Build
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataForEndLogin
 import com.progressterra.ipbandroidapi.ext.parseToDate
-import com.progressterra.ipbandroidview.ext.throwOnFailure
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 

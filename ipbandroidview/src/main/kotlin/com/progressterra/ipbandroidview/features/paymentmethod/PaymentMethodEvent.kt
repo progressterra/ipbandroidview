@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.features.paymentmethod
 
-import com.progressterra.ipbandroidview.entities.payment.PaymentType
+import com.progressterra.ipbandroidview.entities.PaymentType
 
 sealed class PaymentMethodEvent {
 

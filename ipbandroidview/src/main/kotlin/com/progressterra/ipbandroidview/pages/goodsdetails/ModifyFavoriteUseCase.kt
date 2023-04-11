@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.ext.throwOnFailure
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface ModifyFavoriteUseCase {
 

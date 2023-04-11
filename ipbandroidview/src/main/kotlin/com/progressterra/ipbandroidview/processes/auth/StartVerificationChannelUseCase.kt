@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.processes.auth
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeChannelData
-import com.progressterra.ipbandroidview.ext.throwOnFailure
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface StartVerificationChannelUseCase {
 

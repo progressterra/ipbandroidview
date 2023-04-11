@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.features.paymentmethod
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.payment.PaymentType
+import com.progressterra.ipbandroidview.entities.PaymentType
 
 @Immutable
 data class PaymentMethodState(

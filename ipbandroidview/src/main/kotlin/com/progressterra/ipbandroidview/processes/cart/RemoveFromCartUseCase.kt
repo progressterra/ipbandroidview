@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.processes.cart
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamGoodsToECommers
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.ext.throwOnFailure
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.shared.Constants
