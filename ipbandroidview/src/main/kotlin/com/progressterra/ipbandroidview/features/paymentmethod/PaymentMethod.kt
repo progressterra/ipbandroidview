@@ -42,7 +42,7 @@ fun PaymentMethod(
             )
             BrushedText(
                 text = stringResource(type.paymentName),
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.body
             )
         }
@@ -52,13 +52,13 @@ fun PaymentMethod(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         BrushedText(
             text = stringResource(R.string.payment),
-            tint = IpbTheme.colors.textPrimary1.asBrush(),
+            tint = IpbTheme.colors.textPrimary.asBrush(),
             style = IpbTheme.typography.title
         )
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {

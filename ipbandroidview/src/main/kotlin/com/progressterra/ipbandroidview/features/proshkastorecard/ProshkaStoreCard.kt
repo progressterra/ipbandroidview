@@ -44,12 +44,12 @@ fun ProshkaStoreCard(
         BrushedText(
             text = state.name,
             style = IpbTheme.typography.footnoteRegular,
-            tint = IpbTheme.colors.textPrimary1.asBrush(),
+            tint = IpbTheme.colors.textPrimary.asBrush(),
         )
         BrushedText(
             text = state.company,
             style = IpbTheme.typography.footnoteRegular,
-            tint = IpbTheme.colors.textTertiary1.asBrush(),
+            tint = IpbTheme.colors.textTertiary.asBrush(),
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween
@@ -63,7 +63,7 @@ fun ProshkaStoreCard(
                 BrushedText(
                     text = state.loan,
                     style = IpbTheme.typography.footnoteRegular,
-                    tint = IpbTheme.colors.textPrimary1.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
             }
             if (state.counter.isEmpty()) IconButton(onClick = {
@@ -71,7 +71,7 @@ fun ProshkaStoreCard(
             }) {
                 BrushedIcon(
                     resId = R.drawable.ic_cart_pro,
-                    tint = IpbTheme.colors.iconPrimary1.asBrush()
+                    tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
             else Counter(

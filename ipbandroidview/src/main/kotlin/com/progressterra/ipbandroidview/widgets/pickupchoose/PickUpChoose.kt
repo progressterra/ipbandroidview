@@ -38,7 +38,7 @@ fun PickUpChoose(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -88,19 +88,19 @@ fun PickUpChoose(
             ) {
                 BrushedText(
                     text = state.currentPickUpPointInfo?.address ?: "",
-                    tint = IpbTheme.colors.textPrimary1.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.title
                 )
                 Spacer(modifier = Modifier.size(2.dp))
                 BrushedText(
                     text = state.currentPickUpPointInfo?.pickupPointCode ?: "",
-                    tint = IpbTheme.colors.textTertiary1.asBrush(),
+                    tint = IpbTheme.colors.textTertiary.asBrush(),
                     style = IpbTheme.typography.footnoteRegular
                 )
                 Spacer(modifier = Modifier.size(12.dp))
                 BrushedText(
                     text = stringResource(R.string.work_hour),
-                    tint = IpbTheme.colors.textPrimary1.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
                 )
                 Spacer(modifier = Modifier.size(4.dp))
@@ -112,7 +112,7 @@ fun PickUpChoose(
                 Spacer(modifier = Modifier.size(12.dp))
                 BrushedText(
                     text = stringResource(R.string.how_to_go),
-                    tint = IpbTheme.colors.textPrimary1.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
                 )
                 Spacer(modifier = Modifier.size(4.dp))

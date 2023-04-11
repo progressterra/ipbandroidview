@@ -58,7 +58,7 @@ private fun Digit(
         BrushedText(
             text = digit,
             style = IpbTheme.typography.largeTitle,
-            tint = IpbTheme.colors.textPrimary1.asBrush()
+            tint = IpbTheme.colors.textPrimary.asBrush()
         )
     }
 }
@@ -71,7 +71,7 @@ fun Code(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {

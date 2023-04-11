@@ -33,7 +33,7 @@ fun AuthProfile(
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .niceClickable { useComponent.handle(AuthProfileEvent.Click) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -43,7 +43,7 @@ fun AuthProfile(
             modifier = Modifier
                 .clip(CircleShape)
                 .size(80.dp),
-            backgroundColor = IpbTheme.colors.surface1.asColor()
+            backgroundColor = IpbTheme.colors.surface.asColor()
         )
         Spacer(modifier = Modifier.width(20.dp))
         Column(
@@ -57,12 +57,12 @@ fun AuthProfile(
             BrushedText(
                 text = stringResource(R.string.please_auth),
                 style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textTertiary1.asBrush()
+                tint = IpbTheme.colors.textTertiary.asBrush()
             )
         }
         BrushedIcon(
             resId = R.drawable.ic_forw_pro,
-            tint = IpbTheme.colors.iconPrimary1.asBrush()
+            tint = IpbTheme.colors.iconPrimary.asBrush()
         )
     }
 }

@@ -29,7 +29,7 @@ fun Counter(
         Box(
             modifier = Modifier
                 .size(24.dp)
-                .background(IpbTheme.colors.onSurface1.asBrush())
+                .background(IpbTheme.colors.onSurface.asBrush())
                 .clip(CircleShape)
                 .niceClickable {
                     useComponent.handle(CounterEvent.Remove(state.id))
@@ -37,32 +37,32 @@ fun Counter(
         ) {
             BrushedIcon(
                 resId = R.drawable.ic_subtraction,
-                tint = IpbTheme.colors.iconPrimary1.asBrush()
+                tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }
         Box(
             modifier = Modifier
                 .size(28.dp)
-                .background(IpbTheme.colors.onSurface1.asBrush())
+                .background(IpbTheme.colors.onSurface.asBrush())
                 .clip(CircleShape)
         ) {
             BrushedText(
                 text = state.count.toString(),
                 style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
             )
         }
         Box(
             modifier = Modifier
                 .size(24.dp)
-                .background(IpbTheme.colors.onSurface1.asBrush())
+                .background(IpbTheme.colors.onSurface.asBrush())
                 .clip(CircleShape)
                 .niceClickable {
                     useComponent.handle(CounterEvent.Add(state.id))
                 },
         ) {
             BrushedIcon(
-                resId = R.drawable.ic_add, tint = IpbTheme.colors.iconPrimary1.asBrush()
+                resId = R.drawable.ic_add, tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }
     }

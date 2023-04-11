@@ -32,12 +32,12 @@ fun BonusesTransactions(
         BrushedText(
             text = stringResource(R.string.transaction_history),
             style = IpbTheme.typography.title,
-            tint = IpbTheme.colors.textPrimary1.asBrush()
+            tint = IpbTheme.colors.textPrimary.asBrush()
         )
         LazyColumn(
             modifier = Modifier
                 .clip(RoundedCornerShape(12.dp))
-                .background(IpbTheme.colors.surface1.asBrush()),
+                .background(IpbTheme.colors.surface.asBrush()),
             contentPadding = PaddingValues(24.dp)
         ) {
             itemsIndexed(state.transactions) { index, item ->

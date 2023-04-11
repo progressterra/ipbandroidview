@@ -31,7 +31,7 @@ fun StateBox(
             ) {
                 BrushedIcon(
                     resId = R.drawable.ic_refresh,
-                    tint = IpbTheme.colors.iconPrimary1.asBrush()
+                    tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
             ScreenState.LOADING -> ThemedLoadingIndicator()

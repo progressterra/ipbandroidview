@@ -33,14 +33,14 @@ fun ProshkaTopBar(
         if (showBackButton) {
             IconButton(onClick = { useComponent.handle(ProshkaTopBarEvent.Back) }) {
                 BrushedIcon(
-                    resId = R.drawable.ic_back_pro, tint = IpbTheme.colors.iconPrimary1.asBrush()
+                    resId = R.drawable.ic_back_pro, tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
         }
         BrushedText(
             text = title,
             style = IpbTheme.typography.title,
-            tint = IpbTheme.colors.textPrimary1.asBrush(),
+            tint = IpbTheme.colors.textPrimary.asBrush(),
         )
     }
 }

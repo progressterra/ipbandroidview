@@ -29,7 +29,7 @@ fun ProshkaOffers(
             modifier = Modifier.padding(start = 20.dp),
             text = stringResource(R.string.offers),
             style = IpbTheme.typography.title,
-            tint = IpbTheme.colors.textPrimary1.asBrush(),
+            tint = IpbTheme.colors.textPrimary.asBrush(),
         )
         LazyRow(
             modifier = modifier,

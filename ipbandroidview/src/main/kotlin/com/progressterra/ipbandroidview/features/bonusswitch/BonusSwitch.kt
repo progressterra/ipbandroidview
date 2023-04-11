@@ -24,13 +24,13 @@ fun BonusSwitch(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         BrushedText(
             text = stringResource(R.string.use_bonuses),
-            tint = IpbTheme.colors.textPrimary1.asBrush(),
+            tint = IpbTheme.colors.textPrimary.asBrush(),
             style = IpbTheme.typography.title
         )
         Row(
@@ -39,7 +39,7 @@ fun BonusSwitch(
         ) {
             BrushedText(
                 text = "${state.availableBonuses} ${stringResource(R.string.bonuses_short)}",
-                tint = IpbTheme.colors.textTertiary1.asBrush(),
+                tint = IpbTheme.colors.textTertiary.asBrush(),
                 style = IpbTheme.typography.body
             )
             BrushedSwitch(

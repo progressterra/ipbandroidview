@@ -27,7 +27,7 @@ fun SizeTableComponent(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp)
             .fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -35,7 +35,7 @@ fun SizeTableComponent(
     ) {
         BrushedText(
             text = stringResource(R.string.size_table),
-            tint = IpbTheme.colors.textPrimary1.asBrush(),
+            tint = IpbTheme.colors.textPrimary.asBrush(),
             style = IpbTheme.typography.title,
             textAlign = TextAlign.Center
         )

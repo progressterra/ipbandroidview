@@ -33,18 +33,18 @@ fun ChatMessage(
         Column(
             modifier = modifier
                 .clip(RoundedCornerShape(12.dp))
-                .background(IpbTheme.colors.surface1.asBrush())
+                .background(IpbTheme.colors.surface.asBrush())
                 .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             BrushedText(
                 text = message.content,
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.body
             )
             BrushedText(
                 text = message.date,
-                tint = IpbTheme.colors.textTertiary1.asBrush(),
+                tint = IpbTheme.colors.textTertiary.asBrush(),
                 style = IpbTheme.typography.footnoteRegular
             )
         }

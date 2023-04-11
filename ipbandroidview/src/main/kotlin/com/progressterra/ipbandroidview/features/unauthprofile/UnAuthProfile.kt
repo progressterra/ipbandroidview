@@ -26,7 +26,7 @@ fun UnAuthProfile(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -34,7 +34,7 @@ fun UnAuthProfile(
         BrushedText(
             text = stringResource(R.string.please_auth),
             style = IpbTheme.typography.title,
-            tint = IpbTheme.colors.textPrimary1.asBrush()
+            tint = IpbTheme.colors.textPrimary.asBrush()
         )
         Button(
             modifier = Modifier.fillMaxWidth(),

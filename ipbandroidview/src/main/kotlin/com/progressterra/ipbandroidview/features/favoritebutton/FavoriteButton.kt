@@ -24,7 +24,7 @@ fun FavoriteButton(
     ) {
         BrushedIcon(
             resId = R.drawable.ic_favorite_off,
-            tint = IpbTheme.colors.iconTertiary1.asBrush()
+            tint = IpbTheme.colors.iconTertiary.asBrush()
         )
         Column {
             AnimatedVisibility(

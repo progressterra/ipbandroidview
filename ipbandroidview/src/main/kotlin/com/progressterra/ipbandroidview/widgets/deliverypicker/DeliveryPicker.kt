@@ -30,7 +30,7 @@ fun DeliveryPicker(
     ) {
         BrushedText(
             text = stringResource(R.string.delivery),
-            tint = IpbTheme.colors.textPrimary1.asBrush(),
+            tint = IpbTheme.colors.textPrimary.asBrush(),
             style = IpbTheme.typography.title
         )
         state.deliveryMethods.forEach {
@@ -39,7 +39,7 @@ fun DeliveryPicker(
                     useComponent.handle(DeliveryPickerEvent.SelectDeliveryMethod(it))
                 })
                 val textColor =
-                    if (it == state.selectedDeliveryMethod) IpbTheme.colors.textPrimary1 else IpbTheme.colors.textDisabled
+                    if (it == state.selectedDeliveryMethod) IpbTheme.colors.textPrimary else IpbTheme.colors.textDisabled
                 val textStyle =
                     if (it == state.selectedDeliveryMethod) IpbTheme.typography.body else IpbTheme.typography.subHeadlineRegular
                 val icon = when (it) {

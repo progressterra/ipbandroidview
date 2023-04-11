@@ -28,7 +28,7 @@ fun Button(
 ) {
     val backgroundColor = when (style) {
         ButtonStyle.DEFAULT -> IpbTheme.colors.primary.asBrush()
-        ButtonStyle.SILENT -> IpbTheme.colors.surface1.asBrush()
+        ButtonStyle.SILENT -> IpbTheme.colors.surface.asBrush()
         ButtonStyle.TEXT -> Color.Transparent.toBrush()
         ButtonStyle.OUTLINE -> Color.Transparent.toBrush()
     }

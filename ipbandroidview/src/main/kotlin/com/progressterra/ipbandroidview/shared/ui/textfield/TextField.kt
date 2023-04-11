@@ -38,7 +38,7 @@ fun TextField(
             BrushedText(
                 text = hint,
                 style = IpbTheme.typography.caption,
-                tint = IpbTheme.colors.textTertiary1.asBrush()
+                tint = IpbTheme.colors.textTertiary.asBrush()
             )
         }
     } else null
@@ -88,24 +88,24 @@ fun TextField(
                 }) {
                     BrushedIcon(
                         resId = it,
-                        tint = if (focused) IpbTheme.colors.iconPrimary3.asBrush() else IpbTheme.colors.iconTertiary1.asBrush()
+                        tint = if (focused) IpbTheme.colors.iconPrimary3.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
                     )
                 }
             }
         },
         colors = TextFieldDefaults.textFieldColors(
             //Background
-            backgroundColor = IpbTheme.colors.surface1.asColor(),
+            backgroundColor = IpbTheme.colors.surface.asColor(),
             //Placeholder
             placeholderColor = IpbTheme.colors.textSecondary.asColor(),
             disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor(),
             //Label always same color
-            focusedLabelColor = IpbTheme.colors.textTertiary1.asColor(),
-            unfocusedLabelColor = IpbTheme.colors.textTertiary1.asColor(),
-            disabledLabelColor = IpbTheme.colors.textTertiary1.asColor(),
+            focusedLabelColor = IpbTheme.colors.textTertiary.asColor(),
+            unfocusedLabelColor = IpbTheme.colors.textTertiary.asColor(),
+            disabledLabelColor = IpbTheme.colors.textTertiary.asColor(),
             errorLabelColor = IpbTheme.colors.error.asColor(),
             //Text color depend on enable state
-            textColor = IpbTheme.colors.textPrimary1.asColor(),
+            textColor = IpbTheme.colors.textPrimary.asColor(),
             disabledTextColor = IpbTheme.colors.textDisabled.asColor(),
             //Here is no indicator actually
             unfocusedIndicatorColor = Color.Transparent,
@@ -116,12 +116,12 @@ fun TextField(
             cursorColor = IpbTheme.colors.primary.asColor(),
             errorCursorColor = IpbTheme.colors.error.asColor(),
             //Leading icon
-            leadingIconColor = if (focused) IpbTheme.colors.primary.asColor() else IpbTheme.colors.iconTertiary1.asColor(),
-            disabledLeadingIconColor = IpbTheme.colors.iconDisabled1.asColor(),
+            leadingIconColor = if (focused) IpbTheme.colors.primary.asColor() else IpbTheme.colors.iconTertiary.asColor(),
+            disabledLeadingIconColor = IpbTheme.colors.iconDisabled.asColor(),
             errorLeadingIconColor = IpbTheme.colors.error.asColor(),
             //Leading icon
-            trailingIconColor = if (focused) IpbTheme.colors.primary.asColor() else IpbTheme.colors.iconTertiary1.asColor(),
-            disabledTrailingIconColor = IpbTheme.colors.iconDisabled1.asColor(),
+            trailingIconColor = if (focused) IpbTheme.colors.primary.asColor() else IpbTheme.colors.iconTertiary.asColor(),
+            disabledTrailingIconColor = IpbTheme.colors.iconDisabled.asColor(),
             errorTrailingIconColor = IpbTheme.colors.error.asColor()
         )
     )

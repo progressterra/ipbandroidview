@@ -26,6 +26,9 @@ data class IpbTypography(
         lineHeight = 12.sp,
         letterSpacing = (-0.2).sp
     ),
+    val body2: TextStyle = TextStyle(
+        fontSize = 17.sp, fontWeight = FontWeight.Normal, lineHeight = 20.4.sp
+    ),
     val subHeadlineRegular: TextStyle = TextStyle(
         fontSize = 15.sp, fontWeight = FontWeight.Normal, lineHeight = 18.sp
     ),

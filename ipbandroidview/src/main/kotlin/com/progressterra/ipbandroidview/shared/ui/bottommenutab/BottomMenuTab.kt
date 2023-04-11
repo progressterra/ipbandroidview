@@ -44,7 +44,7 @@ fun BottomMenuTab(
                 BrushedText(
                     text = state.count.toString(),
                     textAlign = TextAlign.Center,
-                    tint = IpbTheme.colors.textPrimary1.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.footnoteBold
                 )
             }
@@ -64,13 +64,13 @@ fun BottomMenuTab(
                     .size(24.dp)
                     .align(Alignment.Center),
                 resId = state.iconId,
-                tint = if (active == state.id) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary1.asBrush()
+                tint = if (active == state.id) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary.asBrush()
             )
         }
         BrushedText(
             text = stringResource(id = state.titleId),
             style = IpbTheme.typography.footnoteBold,
-            tint = if (active == state.id) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary1.asBrush()
+            tint = if (active == state.id) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary.asBrush()
         )
     }
 }

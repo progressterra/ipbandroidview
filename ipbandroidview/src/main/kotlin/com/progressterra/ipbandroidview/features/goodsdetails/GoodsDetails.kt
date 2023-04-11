@@ -41,7 +41,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
-                .background(IpbTheme.colors.surface1.asBrush())
+                .background(IpbTheme.colors.surface.asBrush())
                 .padding(6.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -49,7 +49,7 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
             tabs.forEachIndexed { index, text ->
                 val selected = pagerState.currentPage == index
                 val backgroundColor =
-                    if (selected) IpbTheme.colors.background else IpbTheme.colors.surface1
+                    if (selected) IpbTheme.colors.background else IpbTheme.colors.surface
                 Box(
                     modifier = Modifier
                         .weight(1f)
@@ -79,19 +79,19 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
-                    .background(IpbTheme.colors.surface1.asBrush())
+                    .background(IpbTheme.colors.surface.asBrush())
                     .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 if (it == 0) {
                     BrushedText(
                         text = state.name,
-                        tint = IpbTheme.colors.textPrimary1.asBrush(),
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
                         style = IpbTheme.typography.title
                     )
                     BrushedText(
                         text = state.company,
-                        tint = IpbTheme.colors.textTertiary1.asBrush(),
+                        tint = IpbTheme.colors.textTertiary.asBrush(),
                         style = IpbTheme.typography.subHeadlineItalic
                     )
                     BrushedText(

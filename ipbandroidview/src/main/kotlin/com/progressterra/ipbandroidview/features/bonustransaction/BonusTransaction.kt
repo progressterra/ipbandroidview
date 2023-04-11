@@ -52,7 +52,7 @@ fun BonusTransaction(
                 )
                 BrushedText(
                     text = stringResource(text),
-                    tint = IpbTheme.colors.textPrimary1.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
                 )
             }

@@ -33,14 +33,14 @@ fun ProfileButton(
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .niceClickable { useComponent.handle(ProfileButtonEvent.Click) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         val color =
-            if (isDanger) IpbTheme.colors.textPrimary2.asBrush() else IpbTheme.colors.textPrimary1.asBrush()
+            if (isDanger) IpbTheme.colors.textPrimary2.asBrush() else IpbTheme.colors.textPrimary.asBrush()
         BrushedText(
             text = title,
             style = IpbTheme.typography.body,

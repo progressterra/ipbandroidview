@@ -38,7 +38,7 @@ fun PromoCode(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .animateContentSize()
             .padding(12.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)

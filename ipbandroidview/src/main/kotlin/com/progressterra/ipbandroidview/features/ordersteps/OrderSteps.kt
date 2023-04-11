@@ -43,7 +43,7 @@ fun OrderSteps(
         } else {
             BrushedIcon(
                 resId = R.drawable.ic_untick,
-                tint = IpbTheme.colors.iconPrimary1.asBrush(),
+                tint = IpbTheme.colors.iconPrimary.asBrush(),
             )
         }
         if (state == OrderStepsState.DELIVERY) {
@@ -51,7 +51,7 @@ fun OrderSteps(
                 modifier = Modifier
                     .weight(1f)
                     .height(2.dp)
-                    .background(IpbTheme.colors.textPrimary1.asBrush())
+                    .background(IpbTheme.colors.textPrimary.asBrush())
             )
         } else {
             Box(
@@ -68,7 +68,7 @@ fun OrderSteps(
             )
             OrderStepsState.PAYMENT -> BrushedIcon(
                 resId = R.drawable.ic_untick,
-                tint = IpbTheme.colors.iconPrimary1.asBrush(),
+                tint = IpbTheme.colors.iconPrimary.asBrush(),
             )
             OrderStepsState.FINISHED -> BrushedIcon(
                 resId = R.drawable.ic_tick,
@@ -87,7 +87,7 @@ fun OrderSteps(
                 modifier = Modifier
                     .weight(1f)
                     .height(2.dp)
-                    .background(IpbTheme.colors.textPrimary1.asBrush())
+                    .background(IpbTheme.colors.textPrimary.asBrush())
             )
         }
     }

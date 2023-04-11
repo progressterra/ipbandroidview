@@ -27,7 +27,7 @@ fun ReceiveReceiptComponent(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .animateContentSize()
             .padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -39,7 +39,7 @@ fun ReceiveReceiptComponent(
             BrushedText(
                 text = stringResource(R.string.receive_check),
                 style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textPrimary1.asBrush()
+                tint = IpbTheme.colors.textPrimary.asBrush()
             )
             BrushedSwitch(
                 state = state.receiveReceipt,

@@ -29,7 +29,7 @@ fun ProshkaGalleries(
             modifier = Modifier.padding(start = 20.dp),
             text = title,
             style = IpbTheme.typography.title,
-            tint = IpbTheme.colors.textPrimary1.asBrush(),
+            tint = IpbTheme.colors.textPrimary.asBrush(),
         )
         val items = state.items.collectAsLazyPagingItems()
         LazyRow(

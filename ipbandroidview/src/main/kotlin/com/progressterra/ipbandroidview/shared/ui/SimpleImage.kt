@@ -26,7 +26,7 @@ fun SimpleImage(
         imageOptions = options,
         component = rememberImageComponent {
             +ShimmerPlugin(
-                baseColor = backgroundColor, highlightColor = IpbTheme.colors.secondary1.asColor()
+                baseColor = backgroundColor, highlightColor = IpbTheme.colors.secondary.asColor()
             )
         },
         failure = {

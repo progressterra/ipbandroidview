@@ -54,12 +54,12 @@ fun ProshkaCartCard(
             BrushedText(
                 text = state.name,
                 style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
             )
             BrushedText(
                 text = state.company,
                 style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textTertiary1.asBrush(),
+                tint = IpbTheme.colors.textTertiary.asBrush(),
             )
             state.properties.forEach {
                 when (it) {
@@ -76,7 +76,7 @@ fun ProshkaCartCard(
                                 .background(it.value.toColor())
                                 .border(
                                     width = 1.dp,
-                                    brush = IpbTheme.colors.secondary1.asBrush(),
+                                    brush = IpbTheme.colors.secondary.asBrush(),
                                     shape = CircleShape
                                 )
                         )
@@ -96,7 +96,7 @@ fun ProshkaCartCard(
             BrushedText(
                 text = state.loan,
                 style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
             )
             Counter(
                 state = state.counter, useComponent = useComponent
@@ -107,7 +107,7 @@ fun ProshkaCartCard(
         ) {
             BrushedIcon(
                 resId = R.drawable.ic_trash_pro,
-                tint = IpbTheme.colors.iconTertiary1.asBrush()
+                tint = IpbTheme.colors.iconTertiary.asBrush()
             )
         }
     }

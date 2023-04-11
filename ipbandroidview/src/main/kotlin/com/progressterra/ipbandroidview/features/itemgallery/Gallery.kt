@@ -34,7 +34,7 @@ fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
                 modifier = Modifier
                     .fillMaxSize(),
                 url = state.images[it],
-                backgroundColor = IpbTheme.colors.onSurface1.asColor()
+                backgroundColor = IpbTheme.colors.onSurface.asColor()
             )
         }
         HorizontalPagerIndicator(
@@ -43,8 +43,8 @@ fun Gallery(modifier: Modifier = Modifier, state: GalleryState) {
                 .padding(10.dp),
             pagerState = pagerState,
             pageCount = state.images.size,
-            activeColor = IpbTheme.colors.onSurface1.asColor(),
-            inactiveColor = IpbTheme.colors.onSurface1.asColor().copy(alpha = 0.4f),
+            activeColor = IpbTheme.colors.onSurface.asColor(),
+            inactiveColor = IpbTheme.colors.onSurface.asColor().copy(alpha = 0.4f),
             indicatorWidth = 10.dp
         )
     }

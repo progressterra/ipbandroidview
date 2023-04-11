@@ -25,13 +25,13 @@ fun ProshkaSearch(
         placeholder = {
             BrushedText(
                 text = stringResource(R.string.search),
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.subHeadlineRegular
             )
         },
         shape = CircleShape,
         colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = IpbTheme.colors.textPrimary1.asColor(),
+            textColor = IpbTheme.colors.textPrimary.asColor(),
             disabledTextColor = IpbTheme.colors.textDisabled.asColor(),
             cursorColor = IpbTheme.colors.primary.asColor(),
             errorCursorColor = IpbTheme.colors.error.asColor(),
@@ -39,24 +39,24 @@ fun ProshkaSearch(
             unfocusedBorderColor = IpbTheme.colors.onSurface2.asColor(),
             disabledBorderColor = IpbTheme.colors.onSurface2.asColor(),
             errorBorderColor = IpbTheme.colors.onSurface2.asColor(),
-            leadingIconColor = IpbTheme.colors.iconPrimary1.asColor(),
-            trailingIconColor = IpbTheme.colors.iconPrimary1.asColor(),
-            disabledLeadingIconColor = IpbTheme.colors.iconDisabled1.asColor(),
-            disabledTrailingIconColor = IpbTheme.colors.iconDisabled1.asColor(),
-            focusedLabelColor = IpbTheme.colors.textPrimary1.asColor(),
-            unfocusedLabelColor = IpbTheme.colors.textPrimary1.asColor(),
+            leadingIconColor = IpbTheme.colors.iconPrimary.asColor(),
+            trailingIconColor = IpbTheme.colors.iconPrimary.asColor(),
+            disabledLeadingIconColor = IpbTheme.colors.iconDisabled.asColor(),
+            disabledTrailingIconColor = IpbTheme.colors.iconDisabled.asColor(),
+            focusedLabelColor = IpbTheme.colors.textPrimary.asColor(),
+            unfocusedLabelColor = IpbTheme.colors.textPrimary.asColor(),
             disabledLabelColor = IpbTheme.colors.textDisabled.asColor(),
-            errorLabelColor = IpbTheme.colors.textPrimary1.asColor(),
+            errorLabelColor = IpbTheme.colors.textPrimary.asColor(),
             errorTrailingIconColor = IpbTheme.colors.error.asColor(),
             errorLeadingIconColor = IpbTheme.colors.error.asColor(),
-            placeholderColor = IpbTheme.colors.textPrimary1.asColor(),
+            placeholderColor = IpbTheme.colors.textPrimary.asColor(),
             disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor()
         ),
         singleLine = true,
         textStyle = IpbTheme.typography.subHeadlineRegular,
         trailingIcon = {
             BrushedIcon(
-                tint = IpbTheme.colors.iconPrimary1.asBrush(),
+                tint = IpbTheme.colors.iconPrimary.asBrush(),
                 resId = R.drawable.ic_search_pro
             )
         }

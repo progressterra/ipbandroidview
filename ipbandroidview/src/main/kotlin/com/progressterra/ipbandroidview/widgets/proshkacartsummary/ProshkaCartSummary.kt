@@ -36,12 +36,12 @@ fun ProshkaCartSummary(
             BrushedText(
                 text = stringResource(R.string.total_to_pay),
                 style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
             )
             BrushedText(
                 text = state.total.toString(),
                 style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
             )
         }
         Button(

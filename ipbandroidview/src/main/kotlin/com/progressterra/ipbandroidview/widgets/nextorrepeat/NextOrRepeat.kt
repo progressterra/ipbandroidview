@@ -25,7 +25,7 @@ fun NextOrRepeat(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-            .background(IpbTheme.colors.surface1.asBrush())
+            .background(IpbTheme.colors.surface.asBrush())
             .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {

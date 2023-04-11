@@ -53,7 +53,7 @@ fun AddressSuggestions(
                     ) {
                         BrushedText(
                             text = it.previewOfSuggestion,
-                            tint = IpbTheme.colors.textPrimary1.asBrush(),
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular
                         )
                     }

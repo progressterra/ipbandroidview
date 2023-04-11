@@ -31,7 +31,7 @@ fun Receipt(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-            .background(IpbTheme.colors.surface1.asBrush()),
+            .background(IpbTheme.colors.surface.asBrush()),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -43,12 +43,12 @@ fun Receipt(
         ) {
             BrushedText(
                 text = stringResource(R.string.total_to_pay),
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.title
             )
             BrushedText(
                 text = state.total.toString(),
-                tint = IpbTheme.colors.textPrimary1.asBrush(),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.title
             )
         }
@@ -63,7 +63,7 @@ fun Receipt(
             ) {
                 BrushedText(
                     text = "${it.name} x${it.quantity}",
-                    tint = IpbTheme.colors.textTertiary1.asBrush(),
+                    tint = IpbTheme.colors.textTertiary.asBrush(),
                     style = IpbTheme.typography.caption
                 )
                 BrushedText(

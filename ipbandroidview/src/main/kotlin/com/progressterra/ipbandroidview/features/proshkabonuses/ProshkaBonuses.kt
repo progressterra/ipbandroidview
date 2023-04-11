@@ -36,7 +36,7 @@ fun ProshkaBonuses(
             if (state.isReversed) {
                 BrushedIcon(
                     resId = R.drawable.ic_money_bag_off,
-                    tint = IpbTheme.colors.iconDisabled1.asBrush(),
+                    tint = IpbTheme.colors.iconDisabled.asBrush(),
                 )
             } else {
                 BrushedIcon(
@@ -76,7 +76,7 @@ fun ProshkaBonuses(
             BrushedText(
                 text = "${stringResource(R.string.can_withdraw)} ${state.canWithdraw}",
                 style = IpbTheme.typography.subHeadlineItalic,
-                tint = IpbTheme.colors.textTertiary1.asBrush()
+                tint = IpbTheme.colors.textTertiary.asBrush()
             )
             Spacer(modifier = Modifier.height(14.dp))
             BrushedText(
