@@ -45,4 +45,6 @@ val sharedModule = module {
     }
 
     single { LocationServices.getFusedLocationProviderClient(androidContext()) }
+
+    single<ManageResources> { ManageResources.Base(androidContext()) }
 }
