@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 
 class ColorUnit(
-    vararg hexes: String
+    hexes: List<String>
 ) {
     init {
         require(hexes.isNotEmpty()) { "ColorUnit must have at least 1 color" }
