@@ -136,4 +136,7 @@ dependencies {
 
     //HTML
     implementation "de.charlex.compose:html-text:1.4.1"
+
+    //Reflection
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.20"
 }
