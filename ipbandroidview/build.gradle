@@ -53,7 +53,7 @@ android {
 
     composeOptions {
 
-        kotlinCompilerExtensionVersion "1.4.3"
+        kotlinCompilerExtensionVersion "1.4.4"
     }
 
     namespace "com.progressterra.ipbandroidview"
@@ -98,7 +98,6 @@ dependencies {
 
     //Testing
     api 'org.orbit-mvi:orbit-test:4.6.1'
-    implementation 'androidx.core:core-ktx:+'
     testApi "junit:junit:4.13.2"
 
     //Appyx, navigation library
