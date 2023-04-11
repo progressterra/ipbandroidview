@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.integration
 
+import com.progressterra.ipbandroidapi.di.iPBAndroidAPIModule
 import com.progressterra.ipbandroidview.features.featuresModule
 import com.progressterra.ipbandroidview.pages.pagesModule
 import com.progressterra.ipbandroidview.processes.processesModule
@@ -11,5 +12,12 @@ import org.koin.dsl.module
 @Suppress("unused")
 val ipbModule = module {
 
-    includes(pagesModule, widgetsModule, featuresModule, sharedModule, processesModule)
+    includes(
+        iPBAndroidAPIModule,
+        pagesModule,
+        widgetsModule,
+        featuresModule,
+        sharedModule,
+        processesModule
+    )
 }
