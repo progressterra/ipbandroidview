@@ -3,9 +3,9 @@ package com.progressterra.ipbandroidview.pages.proshkamain
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
@@ -18,7 +18,7 @@ class ProshkaMainNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = viewModel<ProshkaMainViewModel>()
+        val viewModel = getViewModel<ProshkaMainViewModel>()
         viewModel.collectSideEffect {
             when (it) {
                 is ProshkaMainEvent.OnBonuses -> onBonuses()
