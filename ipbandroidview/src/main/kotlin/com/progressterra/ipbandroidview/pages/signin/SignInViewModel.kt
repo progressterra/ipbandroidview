@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
-import com.progressterra.ipbandroidview.processes.usecase.user.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
 import com.progressterra.ipbandroidview.shared.isTestPhoneNumber
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -42,14 +42,6 @@ class SignInViewModel(
     fun updateCanBeSkipped(canBeSkipped: Boolean) = intent {
         reduce { state.updateCanBeSkipped(canBeSkipped) }
         reduce { state.updateSkipButton(canBeSkipped) }
-    }
-
-    fun updateOfferUrl(url: String) = intent {
-        reduce { state.updateOfferUrl(url) }
-    }
-
-    fun updatePolicyUrl(url: String) = intent {
-        reduce { state.updatePolicyUrl(url) }
     }
 
     override fun handle(event: ButtonEvent) = intent {

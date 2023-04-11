@@ -12,14 +12,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.counter.Counter
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.counter.Counter
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun ProshkaStoreCard(
@@ -31,9 +31,7 @@ fun ProshkaStoreCard(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .niceClickable {
-                useComponent.handle(
-                    state.id, ProshkaStoreCardEvent.Open
-                )
+                useComponent.handle(ProshkaStoreCardEvent.Open(state.id))
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         SimpleImage(
@@ -69,9 +67,7 @@ fun ProshkaStoreCard(
                 )
             }
             if (state.counter.isEmpty()) IconButton(onClick = {
-                useComponent.handle(
-                    state.id, ProshkaStoreCardEvent.AddToCart
-                )
+                useComponent.handle(ProshkaStoreCardEvent.AddToCart(state.id))
             }) {
                 BrushedIcon(
                     resId = R.drawable.ic_cart_pro,

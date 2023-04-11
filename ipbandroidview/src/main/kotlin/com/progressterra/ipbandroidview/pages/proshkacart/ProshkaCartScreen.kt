@@ -2,54 +2,37 @@ package com.progressterra.ipbandroidview.pages.proshkacart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
+import androidx.compose.ui.res.stringResource
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.features.proshkatopbar.UseProshkaTopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItems
-import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItemsState
 import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummary
-import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummaryState
-import com.progressterra.ipbandroidview.widgets.proshkacartitems.UseProshkaCartItems
-import com.progressterra.ipbandroidview.widgets.proshkacartsummary.UseProshkaCartSummary
-
-@Immutable
-data class ProshkaCartState(
-    val stateBoxState: StateBoxState = StateBoxState(),
-    val summaryState: ProshkaCartSummaryState = ProshkaCartSummaryState(),
-    val items: ProshkaCartItemsState = ProshkaCartItemsState(),
-    val topBar: ProshkaTopBarState = ProshkaTopBarState()
-)
-
-interface ProshkaCartScreenInteractor : UseProshkaCartItems, UseStateBox,
-    UseProshkaTopBar, UseProshkaCartSummary
 
 @Composable
 fun ProshkaCartScreen(
-    state: ProshkaCartState, interactor: ProshkaCartScreenInteractor
+    state: ProshkaCartState, useComponent: UseProshkaCartScreen
 ) {
     ThemedLayout(
         topBar = {
             ProshkaTopBar(
-                state = state.topBar,
-                useComponent = interactor
+                title = stringResource(R.string.cart),
+                useComponent = useComponent
             )
         }
     ) { _, _ ->
         StateBox(
-            state = state.stateBoxState, useComponent = interactor
+            state = state.stateBoxState, useComponent = useComponent
         ) {
             Column {
                 ProshkaCartItems(
                     state = state.items,
-                    useComponent = interactor
+                    useComponent = useComponent
                 )
                 ProshkaCartSummary(
                     state = state.summaryState,
-                    useComponent = interactor
+                    useComponent = useComponent
                 )
             }
         }

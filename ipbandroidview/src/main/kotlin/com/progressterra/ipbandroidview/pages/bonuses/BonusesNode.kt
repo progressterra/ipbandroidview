@@ -21,13 +21,12 @@ class BonusesNode(
         viewModel.collectSideEffect {
             when (it) {
                 is BonusesEffect.Back -> onBack()
-                is BonusesEffect.Clarification -> onClarification()
             }
         }
         val state = viewModel.collectAsState()
         BonusesScreen(
-//            state = state.value,
-//            interactor = viewModel
+            state = state.value,
+            useComponent = viewModel
         )
     }
 

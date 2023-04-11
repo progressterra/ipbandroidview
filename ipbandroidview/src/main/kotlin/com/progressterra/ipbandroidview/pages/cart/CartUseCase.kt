@@ -3,10 +3,9 @@ package com.progressterra.ipbandroidview.pages.cart
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.processes.mapper.CartGoodsMapper
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItemsState
 import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummaryState

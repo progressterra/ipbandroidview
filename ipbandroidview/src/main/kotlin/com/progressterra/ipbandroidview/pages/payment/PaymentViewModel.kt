@@ -1,11 +1,14 @@
 package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitchEvent
 import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import org.orbitmvi.orbit.ContainerHost
@@ -46,6 +49,14 @@ class PaymentViewModel(
         }
     }
 
+    override fun handle(event: BonusSwitchEvent) {
+        TODO("Not yet implemented")
+    }
+
+    override fun handle(event: BrushedSwitchEvent) {
+        TODO("Not yet implemented")
+    }
+
     override fun handle(event: StateBoxEvent) = intent {
         when (event) {
             is StateBoxEvent.Refresh -> refresh()
@@ -54,27 +65,19 @@ class PaymentViewModel(
 
     override fun handle(event: TextFieldEvent) = blockingIntent {
         when (event) {
-            is TextFieldEvent.TextChanged -> when (event.id) {
-                "city" -> reduce { state.updateCity(event.text) }
-                "home" -> reduce { state.updateHome(event.text) }
-                "entrance" -> reduce { state.updateEntrance(event.text) }
-                "apartment" -> reduce { state.updateApartment(event.text) }
-            }
-            is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "city" -> reduce { state.updateCity("") }
-                "home" -> reduce { state.updateHome("") }
-                "entrance" -> reduce { state.updateEntrance("") }
-                "apartment" -> reduce {
-                    state.updateApartment("")
-                }
-            }
+            is TextFieldEvent.Action -> TODO()
+            is TextFieldEvent.AdditionalAction -> TODO()
+            is TextFieldEvent.TextChanged -> TODO()
         }
+    }
+
+    override fun handle(event: LinkTextEvent) {
+        TODO("Not yet implemented")
     }
 
     override fun handle(event: PaymentMethodEvent) = intent {
         when (event) {
-            is PaymentMethodEvent.PaymentMethodSelected -> reduce { state.updatePaymentMethod(event.paymentMethod) }
+            is PaymentMethodEvent.Select -> reduce { state.updatePaymentMethod(event.type) }
         }
     }
 }

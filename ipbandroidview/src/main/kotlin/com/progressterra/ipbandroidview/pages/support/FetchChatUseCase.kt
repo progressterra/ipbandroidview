@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.pages.support
 import com.progressterra.ipbandroidapi.api.message.IMessengerRepository
 import com.progressterra.ipbandroidapi.api.message.models.IncomeDataGetOrCreateDialog
 import com.progressterra.ipbandroidview.features.chatmessage.Message
-import com.progressterra.ipbandroidview.processes.mapper.MessageMapper
 import com.progressterra.ipbandroidview.processes.user.FetchUserIdUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 

@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.address.models.RGAddress
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.entities.AddressUI
-import com.progressterra.ipbandroidview.entities.SuggestionUI
+import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 
 interface AddressesMapper {
 

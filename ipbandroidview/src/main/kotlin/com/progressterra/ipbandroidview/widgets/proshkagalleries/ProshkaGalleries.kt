@@ -8,6 +8,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCard
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -29,16 +31,19 @@ fun ProshkaGalleries(
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.textPrimary1.asBrush(),
         )
+        val items = state.items.collectAsLazyPagingItems()
         LazyRow(
             modifier = Modifier,
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(horizontal = 20.dp)
         ) {
-            items(state.items) { item ->
-                ProshkaStoreCard(
-                    state = item,
-                    useComponent = useComponent
-                )
+            items(items) { item ->
+                item?.let {
+                    ProshkaStoreCard(
+                        state = it,
+                        useComponent = useComponent
+                    )
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.shared
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.InputStream

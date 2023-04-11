@@ -1,8 +1,7 @@
 package com.progressterra.ipbandroidview.features.addresssuggestions
 
-import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.entities.AddressUI
-import com.progressterra.ipbandroidview.entities.SuggestionUI
+import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 
 interface ChooseSuggestionUseCase {
 

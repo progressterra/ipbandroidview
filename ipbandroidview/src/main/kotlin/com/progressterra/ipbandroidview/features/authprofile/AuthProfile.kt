@@ -34,7 +34,7 @@ fun AuthProfile(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface1.asBrush())
-            .niceClickable { useComponent.handle(state.id, AuthProfileEvent.Click) }
+            .niceClickable { useComponent.handle(AuthProfileEvent.Click) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -19,7 +19,7 @@ interface GoodsUseCase {
 
         override suspend fun invoke(categoryId: String): Result<Flow<PagingData<ProshkaStoreCardState>>> =
             runCatching {
-                Pager<Int, ProshkaStoreCardState>(PagingConfig(10)) {
+                Pager(PagingConfig(10)) {
                     GoodsSource(
                         categoryId = categoryId,
                         fetchGoodsPage = fetchGoodsPage,

@@ -38,6 +38,7 @@ fun UnAuthProfile(
         )
         Button(
             modifier = Modifier.fillMaxWidth(),
+            title = stringResource(R.string.authorization),
             state = state.auth,
             useComponent = useComponent
         )

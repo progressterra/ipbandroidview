@@ -34,7 +34,7 @@ fun ProfileButton(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface1.asBrush())
-            .niceClickable { useComponent.handle(state.id, ProfileButtonEvent.Click) }
+            .niceClickable { useComponent.handle(ProfileButtonEvent.Click) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

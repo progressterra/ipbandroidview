@@ -1,11 +1,9 @@
 package com.progressterra.ipbandroidview.widgets.proshkagalleries
 
 import androidx.paging.PagingData
-import androidx.paging.map
 import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardState
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 interface FetchProshkaGalleriesUseCase {
 
@@ -16,9 +14,7 @@ interface FetchProshkaGalleriesUseCase {
     ) : FetchProshkaGalleriesUseCase {
 
         override suspend fun invoke(categoryId: String): Result<Flow<PagingData<ProshkaStoreCardState>>> =
-            goodsUseCase(categoryId).map {
-                it.map { pagingData -> pagingData.map { item -> ProshkaStoreCardState(item) } }
-            }
+            goodsUseCase(categoryId)
     }
 
     companion object {

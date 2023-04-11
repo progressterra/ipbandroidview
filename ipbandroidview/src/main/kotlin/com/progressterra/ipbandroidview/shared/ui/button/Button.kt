@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.composable.utils.SideBorder
-import com.progressterra.ipbandroidview.composable.utils.sideBorder
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.SideBorder
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.sideBorder
 
 @Composable
 fun Button(
@@ -60,7 +60,7 @@ fun Button(
     ) {
         BrushedText(
             text = title,
-            style = IpbTheme.typography.button,
+            style = IpbTheme.typography.headline,
             tint = textColor
         )
     }

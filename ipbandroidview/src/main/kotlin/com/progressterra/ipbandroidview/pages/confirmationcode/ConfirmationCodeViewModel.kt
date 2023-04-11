@@ -5,8 +5,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.code.CodeEvent
 import com.progressterra.ipbandroidview.features.countdown.CountdownEvent
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
-import com.progressterra.ipbandroidview.processes.usecase.user.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.processes.usecase.user.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container

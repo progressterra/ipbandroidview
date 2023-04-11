@@ -22,7 +22,6 @@ interface OrdersUseCase {
         manageResources: ManageResources,
         private val purchasesRepository: PurchasesRepository,
         private val cartRepository: CartRepository,
-        private val imageMapper: ImageMapper,
         private val statusOrderMapper: StatusOrderMapper,
         private val priceMapper: PriceMapper
     ) : OrdersUseCase, AbstractUseCase(scrmRepository, provideLocation) {
@@ -42,7 +41,7 @@ interface OrdersUseCase {
                         OrderGoods(
                             id = product.productId ?: noData,
                             inCartCounter = count,
-                            image = imageMapper.map(product.productImageDataJson ?: ""),
+                            image = "",
                             name = product.productName ?: noData,
                             totalPrice = priceMapper.map(count * (product.price ?: 0.0))
                         )

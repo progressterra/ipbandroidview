@@ -29,7 +29,7 @@ fun CountDown(
     ) {
         BrushedText(
             text = if (state.enabled) stringResource(R.string.resend) else state.count,
-            style = IpbTheme.typography.button,
+            style = IpbTheme.typography.headline,
             tint = IpbTheme.colors.textDisabled.asBrush()
         )
     }

@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.shared
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataCreateAccessToken
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 
 abstract class AbstractUseCase(
     private val sCRMRepository: SCRMRepository, private val provideLocation: ProvideLocation
