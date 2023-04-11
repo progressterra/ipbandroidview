@@ -1,9 +1,8 @@
-package com.progressterra.ipbandroidview.processes
+package com.progressterra.ipbandroidview.processes.goods
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardState
-import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 
 class GoodsSource(

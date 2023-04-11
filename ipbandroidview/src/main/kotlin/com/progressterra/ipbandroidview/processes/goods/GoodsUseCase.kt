@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardState
-import com.progressterra.ipbandroidview.processes.GoodsSource
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import kotlinx.coroutines.flow.Flow
 
