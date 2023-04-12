@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.signin
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -37,6 +38,7 @@ fun SignInScreen(
                 .padding(top = 20.dp, start = 16.dp, end = 16.dp)
         ) {
             TextField(
+                modifier = Modifier.fillMaxWidth(),
                 state = state.phone,
                 useComponent = useComponent,
                 hint = stringResource(R.string.phone_number),
@@ -54,12 +56,6 @@ fun SignInScreen(
                     )
                 ),
                 useComponent = useComponent
-            )
-            BrushedText(
-                text = stringResource(R.string.sign_in_text),
-                textAlign = TextAlign.Center,
-                style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textDisabled.asBrush()
             )
             Spacer(Modifier.weight(1f))
             AuthOrSkip(

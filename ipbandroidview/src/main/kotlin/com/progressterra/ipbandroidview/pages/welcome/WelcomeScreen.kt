@@ -18,11 +18,11 @@ fun WelcomeScreen(
 ) {
     ThemedLayout { _, _ ->
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
-                modifier = Modifier,
+                modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = R.drawable.proshka_welcome),
                 contentDescription = null
             )
