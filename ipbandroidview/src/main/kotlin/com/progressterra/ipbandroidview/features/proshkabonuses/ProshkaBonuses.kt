@@ -44,44 +44,42 @@ fun ProshkaBonuses(
 ) {
     var rotated by remember { mutableStateOf(false) }
     val rotation by animateFloatAsState(
-        targetValue = if (rotated) 180f else 0f,
-        animationSpec = tween(500)
+        targetValue = if (rotated) 180f else 0f, animationSpec = tween(500)
     )
     val animateFront by animateFloatAsState(
-        targetValue = if (!rotated) 1f else 0f,
-        animationSpec = tween(500)
+        targetValue = if (!rotated) 1f else 0f, animationSpec = tween(500)
     )
     val animateBack by animateFloatAsState(
-        targetValue = if (rotated) 1f else 0f,
-        animationSpec = tween(500)
+        targetValue = if (rotated) 1f else 0f, animationSpec = tween(500)
     )
     val animateColor by animateColorAsState(
         targetValue = if (rotated) IpbTheme.colors.surface.asColor() else IpbTheme.colors.secondaryPressed.asColor(),
         animationSpec = tween(500)
     )
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .background(animateColor)
-            .graphicsLayer {
-                rotationY = rotation
-                cameraDistance = 8 * density
-            }
-            .padding(16.dp), horizontalArrangement = Arrangement.SpaceBetween
-    ) {
+    Row(modifier = modifier
+        .fillMaxWidth()
+        .clip(RoundedCornerShape(12.dp))
+        .background(animateColor)
+        .graphicsLayer {
+            rotationY = rotation
+            cameraDistance = 8 * density
+        }
+        .padding(16.dp),
+        horizontalArrangement = if (rotated) Arrangement.End else Arrangement.Start) {
         var height by remember { mutableStateOf(0.dp) }
         val density = LocalDensity.current
-        Column(
-            modifier = Modifier
-                .onGloballyPositioned {
-                    with(density) { height = it.size.height.toDp() }
-                }
-        ) {
+        Column(modifier = Modifier
+            .onGloballyPositioned {
+                with(density) { height = it.size.height.toDp() }
+            }
+            .graphicsLayer {
+                alpha = if (rotated) animateBack else animateFront
+                rotationY = rotation
+            }) {
             BrushedText(
                 text = "${stringResource(R.string.you_have)} ${state.bonuses} ${stringResource(R.string.bonuses)}",
                 style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textButton.asBrush()
+                tint = if (rotated) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textButton.asBrush()
             )
             Spacer(modifier = Modifier.height(6.dp))
             BrushedText(
@@ -99,19 +97,6 @@ fun ProshkaBonuses(
             if (rotated) {
                 Row {
                     BrushedText(
-                        text = "${stringResource(R.string.available_loan)} - ",
-                        style = IpbTheme.typography.subHeadlineRegular,
-                        tint = IpbTheme.colors.textButton.asBrush()
-                    )
-                    BrushedText(
-                        text = state.loan,
-                        style = IpbTheme.typography.subHeadlineBold,
-                        tint = IpbTheme.colors.textButton.asBrush()
-                    )
-                }
-            } else {
-                Row {
-                    BrushedText(
                         text = state.burningDate,
                         style = IpbTheme.typography.subHeadlineRegular,
                         tint = IpbTheme.colors.textPrimary2.asBrush()
@@ -126,12 +111,28 @@ fun ProshkaBonuses(
                         tint = IpbTheme.colors.textPrimary2.asBrush()
                     )
                 }
+            } else {
+                Row {
+                    BrushedText(
+                        text = "${stringResource(R.string.available_loan)} - ",
+                        style = IpbTheme.typography.subHeadlineRegular,
+                        tint = IpbTheme.colors.textButton.asBrush()
+                    )
+                    BrushedText(
+                        text = state.loan,
+                        style = IpbTheme.typography.subHeadlineBold,
+                        tint = IpbTheme.colors.textButton.asBrush()
+                    )
+                }
+
             }
         }
-        Box(
-            modifier = Modifier
-                .height(height)
-        ) {
+        Box(modifier = Modifier
+            .height(height)
+            .graphicsLayer {
+                alpha = if (rotated) animateBack else animateFront
+                rotationY = rotation
+            }) {
             IconButton(
                 modifier = Modifier
                     .size(30.dp)
@@ -185,8 +186,7 @@ private fun ProshkaBonusesPreview() {
                 loan = "100",
                 burningDate = "01.01.2021",
                 burningQuantity = "50"
-            ),
-            useComponent = UseProshkaBonuses.Empty()
+            ), useComponent = UseProshkaBonuses.Empty()
         )
     }
 }
@@ -203,8 +203,7 @@ private fun ProshkaBonusesReversedPreview() {
                 loan = "100",
                 burningDate = "01.01.2021",
                 burningQuantity = "50"
-            ),
-            useComponent = UseProshkaBonuses.Empty()
+            ), useComponent = UseProshkaBonuses.Empty()
         )
     }
 }
