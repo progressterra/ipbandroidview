@@ -9,7 +9,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 @Composable
 fun SystemUiSetup() {
     val systemUiController = rememberSystemUiController()
-    val systemBarColor = IpbTheme.colors.primary.asColor()
+    val systemBarColor = IpbTheme.colors.background.asColor()
     val transparentColor: (Color) -> Color = { original ->
         systemBarColor.compositeOver(original)
     }
