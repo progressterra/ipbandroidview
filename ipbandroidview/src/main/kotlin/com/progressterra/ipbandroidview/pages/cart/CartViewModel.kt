@@ -26,7 +26,7 @@ class CartViewModel(
     fun refresh() = intent {
         var isSuccess = true
         cartUseCase().onSuccess {
-            reduce { CartState() }
+            reduce { it }
         }.onFailure {
             isSuccess = false
         }
