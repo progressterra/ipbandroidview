@@ -40,6 +40,7 @@ private fun Digit(
 ) {
     Box(
         modifier = Modifier
+            .size(56.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.background.asBrush())
             .border(
