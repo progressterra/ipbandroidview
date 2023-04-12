@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.features.catalogcard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -25,6 +26,7 @@ fun CatalogCard(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
+            .width(98.dp)
             .niceClickable {
                 useComponent.handle(
                     CatalogCardEvent.Open(state)
