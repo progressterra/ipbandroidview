@@ -3,7 +3,9 @@ package com.progressterra.ipbandroidview.features.proshkastorecard
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -31,6 +33,7 @@ fun ProshkaStoreCard(
 ) {
     Column(
         modifier = modifier
+            .width(157.dp)
             .clip(RoundedCornerShape(8.dp))
             .niceClickable {
                 useComponent.handle(ProshkaStoreCardEvent.Open(state.id))
@@ -54,10 +57,14 @@ fun ProshkaStoreCard(
             tint = IpbTheme.colors.textTertiary.asBrush(),
         )
         Row(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(
+                modifier = Modifier.width(80.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
                 BrushedText(
                     text = state.price.toString(),
                     style = IpbTheme.typography.subHeadlineRegular,

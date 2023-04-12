@@ -74,10 +74,6 @@ fun ProshkaBonuses(
         val density = LocalDensity.current
         Column(
             modifier = Modifier
-                .graphicsLayer {
-                    alpha = if (rotated) animateBack else animateFront
-                    rotationY = rotation
-                }
                 .onGloballyPositioned {
                     with(density) { height = it.size.height.toDp() }
                 }
@@ -135,10 +131,6 @@ fun ProshkaBonuses(
         Box(
             modifier = Modifier
                 .height(height)
-                .graphicsLayer {
-                    alpha = if (rotated) animateBack else animateFront
-                    rotationY = rotation
-                }
         ) {
             IconButton(
                 modifier = Modifier
