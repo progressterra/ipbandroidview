@@ -61,7 +61,7 @@ fun Button(
         BrushedText(
             text = title,
             style = IpbTheme.typography.headline,
-            tint = textColor
+            tint = if (state.enabled) textColor else IpbTheme.colors.textDisabled.asBrush()
         )
     }
 }
