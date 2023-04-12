@@ -59,6 +59,7 @@ class ConfirmationCodeViewModel(
                 if (event.code.length == 4) onNext()
             }
         }
+        state.updateNextEnabled(state.code.code.length == 4)
     }
 
     override fun handle(event: ButtonEvent) = intent {
