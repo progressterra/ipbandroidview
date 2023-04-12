@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,6 +20,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.counter.Counter
+import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
@@ -52,7 +54,8 @@ fun ProshkaStoreCard(
             tint = IpbTheme.colors.textTertiary.asBrush(),
         )
         Row(
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 BrushedText(
@@ -66,18 +69,21 @@ fun ProshkaStoreCard(
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
             }
-            if (state.counter.isEmpty()) IconButton(onClick = {
-                useComponent.handle(ProshkaStoreCardEvent.AddToCart(state.id))
-            }) {
-                BrushedIcon(
-                    resId = R.drawable.ic_cart_pro,
-                    tint = IpbTheme.colors.iconPrimary.asBrush()
+            if (state.counter.isEmpty()) {
+                IconButton(onClick = {
+                    useComponent.handle(ProshkaStoreCardEvent.AddToCart(state.id))
+                }) {
+                    BrushedIcon(
+                        resId = R.drawable.ic_cart_pro,
+                        tint = IpbTheme.colors.iconPrimary.asBrush()
+                    )
+                }
+            } else {
+                Counter(
+                    state = state.counter,
+                    useComponent = useComponent
                 )
             }
-            else Counter(
-                state = state.counter,
-                useComponent = useComponent
-            )
         }
     }
 }
@@ -92,6 +98,22 @@ private fun ProshkaStoreCardPreview() {
                 company = "Lenovo",
                 price = SimplePrice(1000),
                 loan = "(Рассрочка: 2 платежа по 150 ₽)"
+            ), useComponent = UseProshkaStoreCard.Empty()
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun ProshkaStoreCardFullPreview() {
+    Preview {
+        ProshkaStoreCard(
+            state = ProshkaStoreCardState(
+                name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
+                company = "Lenovo",
+                price = SimplePrice(1000),
+                loan = "(Рассрочка: 2 платежа по 150 ₽)",
+                counter = CounterState("1", 5)
             ), useComponent = UseProshkaStoreCard.Empty()
         )
     }

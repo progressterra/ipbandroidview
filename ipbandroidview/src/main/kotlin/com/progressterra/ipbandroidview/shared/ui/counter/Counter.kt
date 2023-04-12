@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -24,27 +26,29 @@ fun Counter(
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(2.dp)
+        horizontalArrangement = Arrangement.spacedBy(2.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
                 .size(24.dp)
-                .background(IpbTheme.colors.onSurface.asBrush())
                 .clip(CircleShape)
+                .background(IpbTheme.colors.onSurface.asBrush())
+
                 .niceClickable {
                     useComponent.handle(CounterEvent.Remove(state.id))
-                },
+                }, contentAlignment = Alignment.Center
         ) {
             BrushedIcon(
-                resId = R.drawable.ic_subtraction,
-                tint = IpbTheme.colors.iconPrimary.asBrush()
+                resId = R.drawable.ic_subtraction, tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }
         Box(
             modifier = Modifier
                 .size(28.dp)
-                .background(IpbTheme.colors.onSurface.asBrush())
                 .clip(CircleShape)
+                .background(IpbTheme.colors.onSurface.asBrush()),
+            contentAlignment = Alignment.Center
         ) {
             BrushedText(
                 text = state.count.toString(),
@@ -55,15 +59,27 @@ fun Counter(
         Box(
             modifier = Modifier
                 .size(24.dp)
-                .background(IpbTheme.colors.onSurface.asBrush())
                 .clip(CircleShape)
+                .background(IpbTheme.colors.onSurface.asBrush())
                 .niceClickable {
                     useComponent.handle(CounterEvent.Add(state.id))
-                },
+                }, contentAlignment = Alignment.Center
         ) {
             BrushedIcon(
                 resId = R.drawable.ic_add, tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun CounterPreview() {
+    IpbTheme {
+        Counter(
+            state = CounterState(
+                id = "a", count = 1
+            )
+        )
     }
 }
