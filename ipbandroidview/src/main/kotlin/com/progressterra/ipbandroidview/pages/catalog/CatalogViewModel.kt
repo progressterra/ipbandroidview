@@ -39,12 +39,12 @@ class CatalogViewModel(
     override fun handle(event: CatalogCardEvent) = intent {
         when (event) {
             is CatalogCardEvent.Open -> {
-                reduce { state.addTrace(event.category).updateItems(event.category) }
-                if (!event.category.hasNext) {
+                if (!state.current.hasNext) {
                     goodsUseCase(event.category.id).onSuccess {
                         reduce { state.updateGoods(it) }
                     }
                 }
+                reduce { state.addTrace(event.category).updateItems(event.category) }
             }
         }
     }
