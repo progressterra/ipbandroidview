@@ -39,10 +39,6 @@ class SignInViewModel(
         )
     )
 
-    fun refresh(canBeSkipped: Boolean) = intent {
-        reduce { state.updateCanBeSkipped(canBeSkipped).updateSkipButton(canBeSkipped) }
-    }
-
     override fun handle(event: ButtonEvent) = intent {
         when (event.id) {
             "next" -> when (event) {
