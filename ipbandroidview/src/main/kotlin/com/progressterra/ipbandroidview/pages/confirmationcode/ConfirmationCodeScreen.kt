@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.pages.confirmationcode
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,16 +29,21 @@ fun ConfirmationCodeScreen(
         },
         bottomBar = {
             NextOrRepeat(
+                modifier = Modifier.padding(horizontal = 8.dp),
                 state = state.nextOrRepeat,
                 useComponent = useComponent
             )
         }
     ) { _, _ ->
-        Code(
-            modifier = Modifier.padding(horizontal = 8.dp),
-            state = state.code,
-            useComponent = useComponent
-        )
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Code(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                state = state.code,
+                useComponent = useComponent
+            )
+        }
     }
 }
 
