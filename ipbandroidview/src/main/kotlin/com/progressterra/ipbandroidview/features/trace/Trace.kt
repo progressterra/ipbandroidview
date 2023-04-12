@@ -8,42 +8,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-
-@Immutable
-data class TraceState(
-    val trace: List<CatalogCardState> = emptyList()
-) {
-
-    fun addTrace(newTrace: CatalogCardState) = copy(trace = trace + newTrace)
-
-    fun removeTrace() = copy(trace = trace.dropLast(1))
-}
-
-interface UseTrace {
-
-    fun handle(event: TraceEvent)
-}
-
-sealed class TraceEvent {
-
-    object Back : TraceEvent()
-}
 
 @Composable
 fun Trace(
     modifier: Modifier = Modifier, state: TraceState, useComponent: UseTrace
 ) {
     Box(
-        modifier = modifier.fillMaxWidth().background(IpbTheme.colors.surface.asColor())
+        modifier = modifier
+            .fillMaxWidth()
+            .background(IpbTheme.colors.surface.asColor())
     ) {
         IconButton(modifier = Modifier.align(Alignment.CenterStart),
             onClick = { useComponent.handle(TraceEvent.Back) }) {
