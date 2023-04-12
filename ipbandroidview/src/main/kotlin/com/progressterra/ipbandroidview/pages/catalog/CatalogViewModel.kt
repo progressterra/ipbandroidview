@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.features.trace.TraceEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import org.orbitmvi.orbit.ContainerHost
@@ -26,8 +27,12 @@ class CatalogViewModel(
     override val container = container<CatalogState, CatalogEvent>(CatalogState())
 
     fun refresh() = intent {
+        reduce { state.updateStateBox(ScreenState.LOADING) }
         catalogUseCase().onSuccess {
+            reduce { state.updateStateBox(ScreenState.SUCCESS) }
             reduce { state.updateItems(it) }
+        }.onFailure {
+            reduce { state.updateStateBox(ScreenState.ERROR) }
         }
     }
 
