@@ -22,17 +22,17 @@ interface FetchProshkaOffersUseCase {
                     ProshkaOfferState(
                         id = "1",
                         title = "Title 1",
-                        image = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                        image = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                     ),
                     ProshkaOfferState(
                         id = "3",
                         title = "Title 2",
-                        image = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                        image = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                     ),
                     ProshkaOfferState(
                         id = "2",
                         title = "Title 3",
-                        image = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                        image = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                     )
                 )
             )

@@ -2,7 +2,9 @@ package com.progressterra.ipbandroidview.pages.proshkamain
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
@@ -24,6 +26,7 @@ fun ProshkaMainScreen(
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 ProshkaBonuses(
+                    modifier = Modifier.padding(horizontal = 20.dp),
                     state = state.bonuses, useComponent = useComponent
                 )
                 ProshkaGalleries(
