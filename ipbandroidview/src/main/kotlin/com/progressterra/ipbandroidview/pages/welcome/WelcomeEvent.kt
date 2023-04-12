@@ -5,4 +5,6 @@ sealed class WelcomeEvent {
     object OnAuth : WelcomeEvent()
 
     object OnSkip : WelcomeEvent()
+
+    object OnAlreadyAuth : WelcomeEvent()
 }

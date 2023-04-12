@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipWelcome
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 
 @Composable
-fun ProshkaWelcome(
+fun WelcomeScreen(
     state: WelcomeState,
     useComponent: UseWelcome
 ) {

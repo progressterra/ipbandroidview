@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.welcome
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import org.orbitmvi.orbit.ContainerHost
@@ -24,6 +25,10 @@ class WelcomeViewModel : ViewModel(),
                 )
             )
         )
+
+    fun refresh() = intent {
+        if (UserData.clientExist) postSideEffect(WelcomeEvent.OnAlreadyAuth)
+    }
 
     override fun handle(event: ButtonEvent) = intent {
         when (event.id) {
