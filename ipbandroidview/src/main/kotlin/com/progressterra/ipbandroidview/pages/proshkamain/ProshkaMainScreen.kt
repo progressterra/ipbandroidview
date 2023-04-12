@@ -3,6 +3,8 @@ package com.progressterra.ipbandroidview.pages.proshkamain
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -23,6 +25,7 @@ fun ProshkaMainScreen(
             state = state.stateBox, useComponent = useComponent
         ) {
             Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 ProshkaBonuses(
