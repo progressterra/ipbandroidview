@@ -149,17 +149,17 @@ val processesModule = module {
     single<FetchGoodsPage> { FetchGoodsPage.Base(get(), get(), get(), get()) }
 
     single<AddToCartUseCase> {
-        AddToCartUseCase.Test()
-//        AddToCartUseCase.Base(get(), get(), get())
+//        AddToCartUseCase.Test()
+        AddToCartUseCase.Base(get(), get(), get())
     }
 
     single<RemoveFromCartUseCase> {
-        RemoveFromCartUseCase.Test()
-//        RemoveFromCartUseCase.Base(get(), get(), get())
+//        RemoveFromCartUseCase.Test()
+        RemoveFromCartUseCase.Base(get(), get(), get())
     }
 
     single<StartVerificationChannelUseCase> {
-//        StartVerificationChannelUseCase.Base(get())
-        StartVerificationChannelUseCase.Test()
+        StartVerificationChannelUseCase.Base(get())
+//        StartVerificationChannelUseCase.Test()
     }
 }

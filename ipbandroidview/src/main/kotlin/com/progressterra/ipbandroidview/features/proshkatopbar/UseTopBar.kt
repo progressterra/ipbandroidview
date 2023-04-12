@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.features.proshkatopbar
 
-interface UseProshkaTopBar {
+interface UseTopBar {
 
     fun handle(event: ProshkaTopBarEvent) = Unit
 
-    class Empty : UseProshkaTopBar {
+    class Empty : UseTopBar {
 
         override fun handle(event: ProshkaTopBarEvent) = Unit
     }

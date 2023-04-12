@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.Button
 fun ProshkaCartSummary(
     modifier: Modifier = Modifier,
     state: ProshkaCartSummaryState,
-    useComponent: UseProshkaCartSummary
+    useComponent: UseCartSummary
 ) {
     Column(
         modifier = modifier
@@ -59,7 +59,7 @@ private fun ProshkaCartSummaryPreview() {
     Preview {
         ProshkaCartSummary(
             state = ProshkaCartSummaryState(),
-            useComponent = UseProshkaCartSummary.Empty()
+            useComponent = UseCartSummary.Empty()
         )
     }
 }

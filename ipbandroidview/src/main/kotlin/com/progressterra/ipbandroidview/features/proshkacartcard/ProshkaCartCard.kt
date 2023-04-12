@@ -30,7 +30,7 @@ import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 
 @Composable
 fun ProshkaCartCard(
-    modifier: Modifier = Modifier, state: ProshkaCartCardState, useComponent: UseProshkaCartCard
+    modifier: Modifier = Modifier, state: ProshkaCartCardState, useComponent: UseCartCard
 ) {
     Row(
         modifier = modifier, horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -123,7 +123,7 @@ private fun ProshkaCartCardPreview() {
                 company = "Lenovo",
                 price = SimplePrice(1000),
                 loan = "(Рассрочка: 2 платежа по 150 ₽)"
-            ), useComponent = UseProshkaCartCard.Empty()
+            ), useComponent = UseCartCard.Empty()
         )
     }
 }

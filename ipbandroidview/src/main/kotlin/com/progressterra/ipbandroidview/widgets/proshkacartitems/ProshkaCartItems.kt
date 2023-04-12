@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.features.proshkacartcard.ProshkaCartCard
 fun ProshkaCartItems(
     modifier: Modifier = Modifier,
     state: ProshkaCartItemsState,
-    useComponent: UseProshkaCartItems
+    useComponent: UseCartItems
 ) {
     LazyColumn(
         modifier = modifier,

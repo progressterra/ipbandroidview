@@ -20,7 +20,7 @@ fun ProshkaTopBar(
     modifier: Modifier = Modifier,
     title: String,
     showBackButton: Boolean = false,
-    useComponent: UseProshkaTopBar
+    useComponent: UseTopBar
 ) {
     Row(
         modifier = modifier
