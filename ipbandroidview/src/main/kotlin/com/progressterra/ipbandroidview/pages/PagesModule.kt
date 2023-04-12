@@ -69,7 +69,10 @@ val pagesModule = module {
 
     single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get()) }
 
-    single<CartUseCase> { CartUseCase.Base(get(), get(), get(), get(), get(), get()) }
+    single<CartUseCase> {
+//        CartUseCase.Base(get(), get(), get(), get(), get(), get())
+        CartUseCase.Test()
+    }
 
     single<FavoriteGoodsUseCase> { FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get()) }
 

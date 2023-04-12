@@ -3,6 +3,8 @@ package com.progressterra.ipbandroidview.pages.cart
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
@@ -47,6 +49,42 @@ interface CartUseCase {
                 items = CartItemsState(goods),
                 summary = CartSummaryState(
                     total = price
+                )
+            )
+        }
+    }
+
+    class Test : CartUseCase {
+
+        override suspend fun invoke(): Result<CartState> = runCatching {
+            CartState(
+                items = CartItemsState(
+                    listOf(
+                        CartCardState(
+                            id = "1",
+                            name = "Товар 1",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg",
+                            price = SimplePrice(1000),
+                            counter = CounterState("1", 1)
+                        ),
+                        CartCardState(
+                            id = "2",
+                            name = "Товар 2",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg",
+                            price = SimplePrice(2000),
+                            counter = CounterState("2", 1)
+                        ),
+                        CartCardState(
+                            id = "3",
+                            name = "Товар 3",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg",
+                            price = SimplePrice(4444),
+                            counter = CounterState("3", 1)
+                        )
+                    )
+                ),
+                summary = CartSummaryState(
+                    total = SimplePrice(7444)
                 )
             )
         }
