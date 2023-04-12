@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.processes
 
-import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
@@ -91,8 +90,6 @@ val processesModule = module {
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get(), get(), get(), get()) }
 
     single<FetchFavoriteIds> { FetchFavoriteIds.Base(get(), get(), get()) }
-
-    single<CatalogUseCase> { CatalogUseCase.Base(get(), get(), get(), get()) }
 
     single<CheckPermissionUseCase> { CheckPermissionUseCase.Base(get()) }
 
