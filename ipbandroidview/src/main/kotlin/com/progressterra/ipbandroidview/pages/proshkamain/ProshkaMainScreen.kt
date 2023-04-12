@@ -37,7 +37,7 @@ fun ProshkaMainScreen(
                     title = stringResource(R.string.hits)
                 )
                 ProshkaOffers(
-                    state = state.offers, useComponent = useComponent
+                    state = state.offers
                 )
                 ProshkaGalleries(
                     state = state.new, useComponent = useComponent,

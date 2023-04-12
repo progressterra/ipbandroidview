@@ -18,8 +18,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 @Composable
 fun ProshkaOffers(
     modifier: Modifier = Modifier,
-    state: ProshkaOffersState,
-    useComponent: UseProshkaOffers
+    state: ProshkaOffersState
 ) {
     Column(
         modifier = modifier,
@@ -38,8 +37,7 @@ fun ProshkaOffers(
         ) {
             items(state.items) { item ->
                 ProshkaOffer(
-                    state = item,
-                    useComponent = useComponent
+                    state = item
                 )
             }
         }
