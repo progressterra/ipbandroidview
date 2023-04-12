@@ -1,11 +1,11 @@
-package com.progressterra.ipbandroidview.widgets.proshkacatalogitems
+package com.progressterra.ipbandroidview.widgets.catalogitems
 
 import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatalogCardEvent
 import com.progressterra.ipbandroidview.features.proshkacatalogcard.UseProshkaCatalogCard
 
-interface UseProshkaCatalogItems : UseProshkaCatalogCard {
+interface UseCatalogItems : UseProshkaCatalogCard {
 
-    class Empty : UseProshkaCatalogItems {
+    class Empty : UseCatalogItems {
 
         override fun handle(event: ProshkaCatalogCardEvent) = Unit
     }

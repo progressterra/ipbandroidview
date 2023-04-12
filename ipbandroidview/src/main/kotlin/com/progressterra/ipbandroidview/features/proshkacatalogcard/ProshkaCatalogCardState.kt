@@ -6,5 +6,7 @@ import androidx.compose.runtime.Immutable
 data class ProshkaCatalogCardState(
     val id: String = "",
     val name: String = "",
-    val imageUrl: String = ""
+    val imageUrl: String = "",
+    val subCategories: List<ProshkaCatalogCardState>,
+    val hasNext: Boolean
 )

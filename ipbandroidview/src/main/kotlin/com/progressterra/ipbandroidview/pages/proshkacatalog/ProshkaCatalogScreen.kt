@@ -6,28 +6,28 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.proshkasearch.ProshkaSearch
-import com.progressterra.ipbandroidview.features.proshkasearch.ProshkaSearchState
+import com.progressterra.ipbandroidview.features.proshkasearch.SearchState
 import com.progressterra.ipbandroidview.features.proshkasearch.UseProshkaSearch
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
-import com.progressterra.ipbandroidview.widgets.proshkacatalogitems.ProshkaCatalogItems
-import com.progressterra.ipbandroidview.widgets.proshkacatalogitems.ProshkaCatalogItemsState
-import com.progressterra.ipbandroidview.widgets.proshkacatalogitems.UseProshkaCatalogItems
+import com.progressterra.ipbandroidview.widgets.catalogitems.CatalogItems
+import com.progressterra.ipbandroidview.widgets.catalogitems.CatalogItemsState
+import com.progressterra.ipbandroidview.widgets.catalogitems.UseCatalogItems
 
 @Immutable
-data class ProshkaCatalogState(
+data class CatalogState(
     val stateBox: StateBoxState = StateBoxState(),
-    val search: ProshkaSearchState = ProshkaSearchState(),
-    val items: ProshkaCatalogItemsState = ProshkaCatalogItemsState()
+    val search: SearchState = SearchState(),
+    val items: CatalogItemsState = CatalogItemsState()
 )
 
-interface ProshkaCatalogScreenInteractor : UseProshkaSearch, UseProshkaCatalogItems, UseStateBox
+interface ProshkaCatalogScreenInteractor : UseProshkaSearch, UseCatalogItems, UseStateBox
 
 @Composable
 fun ProshkaCatalogScreen(
-    state: ProshkaCatalogState, interactor: ProshkaCatalogScreenInteractor
+    state: CatalogState, interactor: ProshkaCatalogScreenInteractor
 ) {
     ThemedLayout(
         topBar = {
@@ -40,7 +40,7 @@ fun ProshkaCatalogScreen(
         StateBox(
             state = state.stateBox, useComponent = interactor
         ) {
-            ProshkaCatalogItems(
+            CatalogItems(
                 state = state.items,
                 useComponent = interactor
             )

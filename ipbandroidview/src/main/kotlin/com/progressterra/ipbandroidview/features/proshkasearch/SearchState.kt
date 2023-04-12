@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.features.proshkasearch
 import androidx.compose.runtime.Immutable
 
 @Immutable
-data class ProshkaSearchState(
+data class SearchState(
     val text: String = "",
     val enabled: Boolean = true
 )

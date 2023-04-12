@@ -1,10 +1,10 @@
-package com.progressterra.ipbandroidview.widgets.proshkacatalogitems
+package com.progressterra.ipbandroidview.widgets.catalogitems
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatalogCardState
 
 @Immutable
-data class ProshkaCatalogItemsState(
+data class CatalogItemsState(
     val items: List<ProshkaCatalogCardState> = emptyList()
 ) {
 

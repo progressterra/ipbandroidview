@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.widgets.proshkacatalogitems
+package com.progressterra.ipbandroidview.widgets.catalogitems
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,10 +11,10 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatalogCard
 
 @Composable
-fun ProshkaCatalogItems(
+fun CatalogItems(
     modifier: Modifier = Modifier,
-    state: ProshkaCatalogItemsState,
-    useComponent: UseProshkaCatalogItems
+    state: CatalogItemsState,
+    useComponent: UseCatalogItems
 ) {
     LazyVerticalGrid(
         modifier = modifier,

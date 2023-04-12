@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 @Composable
 fun ProshkaSearch(
     modifier: Modifier = Modifier,
-    state: ProshkaSearchState,
+    state: SearchState,
     useComponent: UseProshkaSearch
 ) {
     OutlinedTextField(

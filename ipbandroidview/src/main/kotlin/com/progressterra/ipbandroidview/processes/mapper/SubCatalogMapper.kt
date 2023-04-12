@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidapi.ext.orIfNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.Mapper
-import com.progressterra.ipbandroidview.entities.CategoryWithSubcategories
 
 interface SubCatalogMapper : Mapper<CatalogItem, CategoryWithSubcategories> {
 
