@@ -74,7 +74,8 @@ fun Code(
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         BrushedText(
             modifier = Modifier.fillMaxWidth(),
