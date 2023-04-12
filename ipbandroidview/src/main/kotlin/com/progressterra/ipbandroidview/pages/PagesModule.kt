@@ -60,7 +60,10 @@ val pagesModule = module {
 
     single<CartGoodsMapper> { CartGoodsMapper.Base(get(), get(), get()) }
 
-    single<CatalogUseCase> { CatalogUseCase.Base(get(), get(), get(), get()) }
+    single<CatalogUseCase> {
+//        CatalogUseCase.Base(get(), get(), get(), get())
+        CatalogUseCase.Test()
+    }
 
     single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get()) }
 

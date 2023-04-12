@@ -27,4 +27,27 @@ interface CatalogUseCase {
                 } ?: emptyList())
         }
     }
+
+    class Test : CatalogUseCase {
+
+        override suspend fun invoke(): Result<CatalogCardState> = runCatching {
+            val list = listOf(
+                CatalogCardState(
+                    name = "Категория 1",
+                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                ),
+                CatalogCardState(
+                    name = "Категория 2",
+                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                ),
+                CatalogCardState(
+                    name = "Категория 3",
+                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                )
+            )
+            CatalogCardState(
+                subCategories = list.map { it.copy(subCategories = list) }
+            )
+        }
+    }
 }
