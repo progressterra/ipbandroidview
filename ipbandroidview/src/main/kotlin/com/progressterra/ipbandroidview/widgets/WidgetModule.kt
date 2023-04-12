@@ -36,16 +36,13 @@ val widgetsModule = module {
     }
 
     single<FetchGalleriesUseCase> {
-        FetchGalleriesUseCase.Base(get())
-//        FetchGalleriesUseCase.Test()
+//        FetchGalleriesUseCase.Base(get())
+        FetchGalleriesUseCase.Test()
     }
 
-    single<FetchOffersUseCase> {
-        FetchOffersUseCase.Base(get(), get(), get(), get())
-    }
 
     single<FetchOffersUseCase> {
-        FetchOffersUseCase.Base(get(), get(), get(), get())
-//        FetchOffersUseCase.Test()
+//        FetchOffersUseCase.Base(get(), get(), get(), get())
+        FetchOffersUseCase.Test()
     }
 }

@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.features.search
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.TextFieldDefaults
@@ -18,7 +19,7 @@ fun Search(
     useComponent: UseSearch
 ) {
     OutlinedTextField(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         value = state.text,
         enabled = state.enabled,
         onValueChange = { useComponent.handle(SearchEvent.OnTextChanged(it)) },

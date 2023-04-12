@@ -26,7 +26,7 @@ fun StateBox(
     ) {
         when (state.state) {
             ScreenState.ERROR -> IconButton(
-                modifier = modifier.align(Alignment.Center), onClick = {
+                modifier = Modifier.align(Alignment.Center), onClick = {
                     useComponent.handle(StateBoxEvent.Refresh)
                 }
             ) {
@@ -35,7 +35,7 @@ fun StateBox(
                     tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
-            ScreenState.LOADING -> ThemedLoadingIndicator()
+            ScreenState.LOADING -> ThemedLoadingIndicator(Modifier.align(Alignment.Center))
             ScreenState.SUCCESS -> content()
         }
     }
