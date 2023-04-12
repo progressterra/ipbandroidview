@@ -37,7 +37,8 @@ val widgetsModule = module {
     }
 
     single<FetchProshkaGalleriesUseCase> {
-        FetchProshkaGalleriesUseCase.Base(get())
+//        FetchProshkaGalleriesUseCase.Base(get())
+        FetchProshkaGalleriesUseCase.Test()
     }
 
     single<FetchOffersUseCase> {
@@ -45,6 +46,7 @@ val widgetsModule = module {
     }
 
     single<FetchProshkaOffersUseCase> {
-        FetchProshkaOffersUseCase.Base(get())
+//        FetchProshkaOffersUseCase.Base(get())
+        FetchProshkaOffersUseCase.Test()
     }
 }
