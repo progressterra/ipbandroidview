@@ -152,6 +152,8 @@ val processesModule = module {
 
     single<RemoveFromCartUseCase> { RemoveFromCartUseCase.Base(get(), get(), get()) }
 
-    single<StartVerificationChannelUseCase> { StartVerificationChannelUseCase.Base(get()) }
+    single<StartVerificationChannelUseCase> {
+//        StartVerificationChannelUseCase.Base(get())
+        StartVerificationChannelUseCase.Test()
+    }
 }
-

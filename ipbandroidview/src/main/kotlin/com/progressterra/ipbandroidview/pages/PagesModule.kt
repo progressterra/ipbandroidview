@@ -50,7 +50,10 @@ val pagesModule = module {
         )
     }
 
-    single<EndVerificationChannelUseCase> { EndVerificationChannelUseCase.Base(get(), get()) }
+    single<EndVerificationChannelUseCase> {
+//        EndVerificationChannelUseCase.Base(get(), get())
+        EndVerificationChannelUseCase.Test()
+    }
 
     single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get()) }
 

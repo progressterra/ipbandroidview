@@ -15,7 +15,8 @@ val featuresModule = module {
     }
 
     single<ProshkaBonusesUseCase> {
-        ProshkaBonusesUseCase.Base(get(), get(), get(), get())
+//        ProshkaBonusesUseCase.Base(get(), get(), get(), get())
+        ProshkaBonusesUseCase.Test()
     }
 
     single<FetchPaymentMethods> {

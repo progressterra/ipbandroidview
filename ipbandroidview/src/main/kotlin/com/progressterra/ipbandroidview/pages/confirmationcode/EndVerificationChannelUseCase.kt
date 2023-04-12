@@ -4,11 +4,11 @@ import android.os.Build
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataForEndLogin
 import com.progressterra.ipbandroidapi.ext.parseToDate
-import com.progressterra.ipbandroidview.shared.throwOnFailure
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface EndVerificationChannelUseCase {
 
@@ -48,6 +48,26 @@ interface EndVerificationChannelUseCase {
                     UserData.email = it.eMailGeneral ?: ""
                 }
             }.throwOnFailure()
+        }
+    }
+
+    class Test : EndVerificationChannelUseCase {
+
+        override suspend fun invoke(phoneNumber: String, code: String): Result<Unit> = runCatching {
+            var formattedPhoneNumber = phoneNumber.trim()
+            if (formattedPhoneNumber.startsWith('8')) formattedPhoneNumber =
+                formattedPhoneNumber.replaceFirst('8', '7')
+            UserData.deviceId = "test device id"
+            UserData.phone = formattedPhoneNumber
+            UserData.clientExist = true
+            UserData.idUnique = "test id"
+            UserData.userName = UserName(
+                name = "",
+                surname = "",
+                patronymic = ""
+            )
+            UserData.dateOfBirthday = 0L
+            UserData.email = ""
         }
     }
 }

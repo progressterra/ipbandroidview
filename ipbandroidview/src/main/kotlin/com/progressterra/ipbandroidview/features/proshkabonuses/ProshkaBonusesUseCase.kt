@@ -34,4 +34,18 @@ interface ProshkaBonusesUseCase {
             )
         }
     }
+
+    class Test : ProshkaBonusesUseCase {
+
+        override suspend fun invoke(): Result<ProshkaBonusesState> = runCatching {
+            ProshkaBonusesState(
+                bonuses = "1234",
+                burningQuantity = "5",
+                burningDate = "10.10",
+                canWithdraw = "Можно вывести 10 000₽",
+                rate = "1₽ = 1 бонус",
+                loan = "50 000₽",
+            )
+        }
+    }
 }

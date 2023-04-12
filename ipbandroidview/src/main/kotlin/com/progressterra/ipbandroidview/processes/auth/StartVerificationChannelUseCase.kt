@@ -8,6 +8,13 @@ interface StartVerificationChannelUseCase {
 
     suspend operator fun invoke(phoneNumber: String): Result<String>
 
+    class Test : StartVerificationChannelUseCase {
+
+        override suspend fun invoke(phoneNumber: String): Result<String> = runCatching {
+            phoneNumber.trim()
+        }
+    }
+
     class Base(
         private val repo: SCRMRepository
     ) : StartVerificationChannelUseCase {
