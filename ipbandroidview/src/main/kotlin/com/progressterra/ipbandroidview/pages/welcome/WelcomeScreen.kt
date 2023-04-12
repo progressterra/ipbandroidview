@@ -39,7 +39,7 @@ fun WelcomeScreen(
             Image(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(343f / 547f),
+                    .weight(1f),
                 painter = painterResource(id = R.drawable.proshka_welcome),
                 contentDescription = null
             )
