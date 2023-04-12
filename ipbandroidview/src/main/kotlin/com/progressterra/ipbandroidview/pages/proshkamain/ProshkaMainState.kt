@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.pages.proshkamain
 
 import androidx.compose.runtime.Immutable
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesState
 import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardState
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.widgets.proshkagalleries.ProshkaGalleriesState
 import com.progressterra.ipbandroidview.widgets.proshkaoffers.ProshkaOffersState

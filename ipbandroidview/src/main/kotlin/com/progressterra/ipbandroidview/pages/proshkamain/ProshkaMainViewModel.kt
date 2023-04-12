@@ -1,13 +1,14 @@
 package com.progressterra.ipbandroidview.pages.proshkamain
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesEvent
 import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesUseCase
-import com.progressterra.ipbandroidview.features.proshkaoffer.ProshkaOfferEvent
 import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.widgets.proshkagalleries.FetchProshkaGalleriesUseCase
@@ -31,7 +32,6 @@ class ProshkaMainViewModel(
         container(ProshkaMainState())
 
     fun refresh() = intent {
-        reduce { state.updateStateBox(ScreenState.LOADING) }
         var isSuccess = true
         fetchBonusesUseCase().onSuccess {
             reduce { state.updateBonuses(it) }
@@ -44,12 +44,14 @@ class ProshkaMainViewModel(
             isSuccess = false
         }
         if (isSuccess) fetchProshkaGalleriesUseCase(FetchProshkaGalleriesUseCase.HOT).onSuccess {
-            reduce { state.updateHits(it) }
+            val cached = it.cachedIn(viewModelScope)
+            reduce { state.updateHits(cached) }
         }.onFailure {
             isSuccess = false
         }
         if (isSuccess) fetchProshkaGalleriesUseCase(FetchProshkaGalleriesUseCase.NEW).onSuccess {
-            reduce { state.updateNew(it) }
+            val cached = it.cachedIn(viewModelScope)
+            reduce { state.updateNew(cached) }
         }.onFailure {
             isSuccess = false
         }
@@ -59,12 +61,6 @@ class ProshkaMainViewModel(
     override fun handle(event: ProshkaBonusesEvent) = intent {
         when (event) {
             is ProshkaBonusesEvent.Action -> postSideEffect(ProshkaMainEvent.OnBonuses)
-        }
-    }
-
-    override fun handle(event: ProshkaOfferEvent) = intent {
-        when (event) {
-            is ProshkaOfferEvent.Clicked -> postSideEffect(ProshkaMainEvent.OnOffer(event.id))
         }
     }
 

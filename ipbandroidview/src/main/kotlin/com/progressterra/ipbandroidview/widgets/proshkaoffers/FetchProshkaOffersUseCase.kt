@@ -20,18 +20,15 @@ interface FetchProshkaOffersUseCase {
             ProshkaOffersState(
                 listOf(
                     ProshkaOfferState(
-                        id = "1",
-                        title = "Title 1",
+                        title = "Акция 1",
                         image = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                     ),
                     ProshkaOfferState(
-                        id = "3",
-                        title = "Title 2",
+                        title = "Акция 2",
                         image = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                     ),
                     ProshkaOfferState(
-                        id = "2",
-                        title = "Title 3",
+                        title = "Акция 3",
                         image = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                     )
                 )

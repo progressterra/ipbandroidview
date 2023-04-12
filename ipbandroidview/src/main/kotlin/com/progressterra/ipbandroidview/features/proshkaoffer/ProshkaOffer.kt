@@ -12,27 +12,24 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun ProshkaOffer(
     modifier: Modifier = Modifier,
-    state: ProshkaOfferState,
-    useComponent: UseProshkaOffer = UseProshkaOffer.Empty()
+    state: ProshkaOfferState
 ) {
-    Box(modifier = modifier
-        .size(width = 157.dp, height = 122.dp)
-        .clip(RoundedCornerShape(8.dp))
-        .niceClickable {
-            useComponent.handle(ProshkaOfferEvent.Clicked(state.id))
-        }) {
+    Box(
+        modifier = modifier
+            .size(width = 157.dp, height = 122.dp)
+            .clip(RoundedCornerShape(8.dp))
+    ) {
         SimpleImage(
             url = state.image,
             backgroundColor = IpbTheme.colors.background.asColor()
         )
         BrushedText(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
+                .align(Alignment.BottomStart)
                 .padding(8.dp),
             text = state.title,
             style = IpbTheme.typography.body,
