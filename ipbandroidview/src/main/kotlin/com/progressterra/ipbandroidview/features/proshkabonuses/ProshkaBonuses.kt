@@ -64,8 +64,11 @@ fun ProshkaBonuses(
             rotationY = rotation
             cameraDistance = 8 * density
         }
-        .padding(16.dp),
-        horizontalArrangement = if (rotated) Arrangement.End else Arrangement.Start) {
+        .graphicsLayer {
+            alpha = if (rotated) animateBack else animateFront
+            rotationY = rotation
+        }
+        .padding(16.dp), horizontalArrangement = Arrangement.SpaceBetween) {
         var height by remember { mutableStateOf(0.dp) }
         val density = LocalDensity.current
         Column(modifier = Modifier
