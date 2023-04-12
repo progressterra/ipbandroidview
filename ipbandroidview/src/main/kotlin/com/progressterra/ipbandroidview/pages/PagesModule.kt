@@ -4,15 +4,16 @@ import com.progressterra.ipbandroidview.pages.bonuses.BonusesViewModel
 import com.progressterra.ipbandroidview.pages.bonuses.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonuses.UseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartUseCase
+import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
-import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.pages.support.FetchChatUseCase
@@ -45,8 +46,7 @@ val pagesModule = module {
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(
-            get(),
-            get()
+            get(), get()
         )
     }
 
@@ -66,4 +66,6 @@ val pagesModule = module {
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 
     single<ConfirmOrderUseCase> { ConfirmOrderUseCase.Base(get(), get(), get()) }
+
+    viewModel { CatalogViewModel(get(), get(), get(), get()) }
 }

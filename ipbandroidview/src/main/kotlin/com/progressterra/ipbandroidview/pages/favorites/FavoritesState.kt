@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.widgets.storeitems.StoreItemsState
 
 @Immutable
 data class FavoritesState(
-    val items: StoreItemsState = StoreItemsState(),
+    val items: StoreItemsState.Listed = StoreItemsState.Listed(),
     val stateBox: StateBoxState = StateBoxState()
 ) {
 

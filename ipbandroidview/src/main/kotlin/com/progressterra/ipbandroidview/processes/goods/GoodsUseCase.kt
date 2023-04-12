@@ -12,8 +12,7 @@ interface GoodsUseCase {
     suspend operator fun invoke(categoryId: String): Result<Flow<PagingData<StoreCardState>>>
 
     class Base(
-        private val fetchGoodsPage: FetchGoodsPage,
-        private val fetchFavoriteIds: FetchFavoriteIds
+        private val fetchGoodsPage: FetchGoodsPage, private val fetchFavoriteIds: FetchFavoriteIds
     ) : GoodsUseCase {
 
         override suspend fun invoke(categoryId: String): Result<Flow<PagingData<StoreCardState>>> =

@@ -9,11 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCard
+import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 
 @Composable
 fun CatalogItems(
     modifier: Modifier = Modifier,
-    state: CatalogItemsState,
+    state: CatalogCardState,
     useComponent: UseCatalogItems
 ) {
     LazyVerticalGrid(
@@ -23,7 +24,7 @@ fun CatalogItems(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(horizontal = 20.dp)
     ) {
-        items(state.items) { item ->
+        items(state.subCategories) { item ->
             CatalogCard(
                 state = item,
                 useComponent = useComponent

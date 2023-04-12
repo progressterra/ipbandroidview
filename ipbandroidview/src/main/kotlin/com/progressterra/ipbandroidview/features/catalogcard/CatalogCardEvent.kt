@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.features.catalogcard
 
-sealed class CatalogCardEvent(val id: String) {
+sealed class CatalogCardEvent(val category: CatalogCardState) {
 
-    class Open(id: String) : CatalogCardEvent(id)
+    class Open(category: CatalogCardState) : CatalogCardEvent(category)
 }

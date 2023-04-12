@@ -10,11 +10,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun CatalogCard(
@@ -27,7 +27,7 @@ fun CatalogCard(
             .clip(RoundedCornerShape(8.dp))
             .niceClickable {
                 useComponent.handle(
-                    CatalogCardEvent.Open(state.id)
+                    CatalogCardEvent.Open(state)
                 )
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {

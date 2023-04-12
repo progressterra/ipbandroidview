@@ -10,7 +10,6 @@ import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 import com.progressterra.ipbandroidview.widgets.offers.OffersState
 import kotlinx.coroutines.flow.Flow
 
-@Immutable
 data class MainState(
     val bonuses: BonusesState = BonusesState(),
     val offers: OffersState = OffersState(),

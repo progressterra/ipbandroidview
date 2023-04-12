@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.processes
 
+import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
@@ -16,7 +17,6 @@ import com.progressterra.ipbandroidview.processes.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.processes.mapper.StatusOrderMapper
-import com.progressterra.ipbandroidview.processes.mapper.SubCatalogMapper
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
@@ -26,7 +26,6 @@ import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.order.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.processes.store.CatalogUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.processes.store.OrdersUseCase
 import com.progressterra.ipbandroidview.processes.store.SizeTableUseCase
@@ -113,7 +112,6 @@ val processesModule = module {
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
 
-    single<SubCatalogMapper> { SubCatalogMapper.Base(get()) }
 
     single<StatusOrderMapper> { StatusOrderMapper.Base(get()) }
 
@@ -123,7 +121,7 @@ val processesModule = module {
 
     single<GoodsDetailsMapper> { GoodsDetailsMapper.Base(get(), get(), get()) }
 
-    single<CatalogMapper> { CatalogMapper.Base(get(), get()) }
+    single<CatalogMapper> { CatalogMapper.Base(get()) }
 
     single<AddressesMapper> { AddressesMapper.Base() }
 
