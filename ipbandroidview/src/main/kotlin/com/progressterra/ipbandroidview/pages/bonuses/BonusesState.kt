@@ -20,6 +20,4 @@ data class BonusesState(
 
     fun updateStateBoxState(screenState: ScreenState) =
         copy(stateBoxState = stateBoxState.updateState(screenState))
-
-    fun reverse() = copy(bonusesInfo = bonusesInfo.reverse())
 }

@@ -40,7 +40,6 @@ class BonusesViewModel(
     override fun handle(event: ProshkaBonusesEvent) = intent {
         when (event) {
             is ProshkaBonusesEvent.Action -> Unit
-            is ProshkaBonusesEvent.Reverse -> reduce { state.reverse() }
         }
     }
 

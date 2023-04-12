@@ -9,9 +9,5 @@ data class ProshkaBonusesState(
     val rate: String = "",
     val loan: String = "",
     val burningDate: String = "",
-    val burningQuantity: String = "",
-    val isReversed: Boolean = false
-) {
-
-    fun reverse() = copy(isReversed = !isReversed)
-}
+    val burningQuantity: String = ""
+)

@@ -59,7 +59,6 @@ class ProshkaMainViewModel(
     override fun handle(event: ProshkaBonusesEvent) = intent {
         when (event) {
             is ProshkaBonusesEvent.Action -> postSideEffect(ProshkaMainEvent.OnBonuses)
-            is ProshkaBonusesEvent.Reverse -> reduce { state.reverseBonuses() }
         }
     }
 

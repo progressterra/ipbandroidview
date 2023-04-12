@@ -29,7 +29,6 @@ data class ProshkaMainState(
         copy(new = new.updateItems(newNew))
 
     fun updateBonuses(bonuses: ProshkaBonusesState) = copy(bonuses = bonuses)
-    fun reverseBonuses() = copy(bonuses = bonuses.reverse())
 
     fun updateOffers(offers: ProshkaOffersState) = copy(offers = offers)
 }

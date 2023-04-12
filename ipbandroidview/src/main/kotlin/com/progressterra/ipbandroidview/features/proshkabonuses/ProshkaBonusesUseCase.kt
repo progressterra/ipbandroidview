@@ -5,9 +5,9 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 
 interface ProshkaBonusesUseCase {
 
@@ -27,7 +27,10 @@ interface ProshkaBonusesUseCase {
             ProshkaBonusesState(
                 bonuses = response?.currentQuantity?.toString() ?: noData,
                 burningQuantity = response?.forBurningQuantity?.toString() ?: noData,
-                burningDate = response?.dateBurning?.parseToDate()?.format("dd.MM") ?: noData
+                burningDate = response?.dateBurning?.parseToDate()?.format("dd.MM") ?: noData,
+                canWithdraw = "Можно вывести 10 000₽",
+                rate = "1₽ = 1 бонус",
+                loan = "50 000₽",
             )
         }
     }
