@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.widgets.proshkacartitems
 
 import com.progressterra.ipbandroidview.features.proshkacartcard.ProshkaCartCardEvent
-import com.progressterra.ipbandroidview.features.proshkacartcard.UseProshkaCartCard
+import com.progressterra.ipbandroidview.features.proshkacartcard.UseCartCard
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 
-interface UseProshkaCartItems : UseProshkaCartCard {
+interface UseCartItems : UseCartCard {
 
-    class Empty : UseProshkaCartItems {
+    class Empty : UseCartItems {
 
         override fun handle(event: CounterEvent) = Unit
 

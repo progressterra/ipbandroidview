@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.proshkacart
+package com.progressterra.ipbandroidview.pages.cart
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
@@ -11,8 +11,8 @@ import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItem
 import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummary
 
 @Composable
-fun ProshkaCartScreen(
-    state: ProshkaCartState, useComponent: UseProshkaCartScreen
+fun CartScreen(
+    state: CartState, useComponent: UseCartScreen
 ) {
     ThemedLayout(
         topBar = {
@@ -23,7 +23,7 @@ fun ProshkaCartScreen(
         }
     ) { _, _ ->
         StateBox(
-            state = state.stateBoxState, useComponent = useComponent
+            state = state.stateBox, useComponent = useComponent
         ) {
             Column {
                 ProshkaCartItems(
@@ -31,7 +31,7 @@ fun ProshkaCartScreen(
                     useComponent = useComponent
                 )
                 ProshkaCartSummary(
-                    state = state.summaryState,
+                    state = state.summary,
                     useComponent = useComponent
                 )
             }

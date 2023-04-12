@@ -44,7 +44,7 @@ interface CartUseCase {
                 }
             }.toList()
             CartState(
-                goods = ProshkaCartItemsState(goods),
+                items = ProshkaCartItemsState(goods),
                 summary = ProshkaCartSummaryState(
                     total = price
                 )
