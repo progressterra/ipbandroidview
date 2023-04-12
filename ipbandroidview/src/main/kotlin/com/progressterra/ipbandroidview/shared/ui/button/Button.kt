@@ -52,8 +52,8 @@ fun Button(
                 top = border,
                 bottom = border
             )
-            .background(backgroundColor)
-            .niceClickable { useComponent.handle(ButtonEvent.Click(state.id)) }
+            .background(if (state.enabled) backgroundColor else IpbTheme.colors.primaryDisabled.asBrush())
+            .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
             .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically

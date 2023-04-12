@@ -39,9 +39,8 @@ class SignInViewModel(
         )
     )
 
-    fun updateCanBeSkipped(canBeSkipped: Boolean) = intent {
-        reduce { state.updateCanBeSkipped(canBeSkipped) }
-        reduce { state.updateSkipButton(canBeSkipped) }
+    fun refresh(canBeSkipped: Boolean) = intent {
+        reduce { state.updateCanBeSkipped(canBeSkipped).updateSkipButton(canBeSkipped) }
     }
 
     override fun handle(event: ButtonEvent) = intent {
@@ -77,8 +76,7 @@ class SignInViewModel(
                     } else {
                         reduce { state.updatePhoneText(event.text) }
                     }
-                    reduce { state.updatePhoneValid(valid) }
-                    reduce { state.updateAuthButton(valid) }
+                    reduce { state.updatePhoneValid(valid).updateAuthButton(valid) }
                 }
             }
             is TextFieldEvent.Action -> onNext()

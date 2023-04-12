@@ -38,7 +38,7 @@ fun IpbTheme(
         LocalColors provides colors,
         LocalCustomization provides customization
     ) {
-        SystemUiSetup()
+//        SystemUiSetup()
         content()
     }
 }

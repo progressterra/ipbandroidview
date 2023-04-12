@@ -20,7 +20,7 @@ class SignInNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: SignInViewModel = getViewModel()
-        viewModel.updateCanBeSkipped(onSkip != null)
+        viewModel.refresh(onSkip != null)
         val context = LocalContext.current
         viewModel.collectSideEffect {
             when (it) {
