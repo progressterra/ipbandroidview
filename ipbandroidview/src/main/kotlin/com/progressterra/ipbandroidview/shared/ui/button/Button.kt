@@ -53,8 +53,8 @@ fun Button(
                 bottom = border
             )
             .background(backgroundColor)
-            .padding(horizontal = 32.dp, vertical = 15.dp)
-            .niceClickable { useComponent.handle(ButtonEvent.Click(state.id)) },
+            .niceClickable { useComponent.handle(ButtonEvent.Click(state.id)) }
+            .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
