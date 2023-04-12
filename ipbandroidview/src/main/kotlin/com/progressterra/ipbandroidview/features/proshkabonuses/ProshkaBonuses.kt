@@ -74,10 +74,6 @@ fun ProshkaBonuses(
         Column(modifier = Modifier
             .onGloballyPositioned {
                 with(density) { height = it.size.height.toDp() }
-            }
-            .graphicsLayer {
-                alpha = if (rotated) animateBack else animateFront
-                rotationY = rotation
             }) {
             BrushedText(
                 text = "${stringResource(R.string.you_have)} ${state.bonuses} ${stringResource(R.string.bonuses)}",
@@ -130,12 +126,7 @@ fun ProshkaBonuses(
 
             }
         }
-        Box(modifier = Modifier
-            .height(height)
-            .graphicsLayer {
-                alpha = if (rotated) animateBack else animateFront
-                rotationY = rotation
-            }) {
+        Box(modifier = Modifier.height(height)) {
             IconButton(
                 modifier = Modifier
                     .size(30.dp)
