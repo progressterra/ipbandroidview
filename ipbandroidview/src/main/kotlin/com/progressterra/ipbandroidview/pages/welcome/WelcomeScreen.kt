@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -21,24 +22,28 @@ fun WelcomeScreen(
     state: WelcomeState,
     useComponent: UseWelcome
 ) {
-    ThemedLayout { _, _ ->
+    ThemedLayout(
+        bottomOverlap = true,
+        bottomBar = {
+            AuthOrSkipWelcome(
+                state = state.authOrSkipState,
+                useAuthOrSkip = useComponent
+            )
+        }
+    ) { _, bottom ->
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = bottom),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 modifier = Modifier
-                    .weight(1f)
+                    .fillMaxWidth()
                     .aspectRatio(343f / 547f),
                 painter = painterResource(id = R.drawable.proshka_welcome),
                 contentDescription = null
             )
             Spacer(modifier = Modifier.height(80.dp))
-            AuthOrSkipWelcome(
-                state = state.authOrSkipState,
-                useAuthOrSkip = useComponent
-            )
         }
     }
 }

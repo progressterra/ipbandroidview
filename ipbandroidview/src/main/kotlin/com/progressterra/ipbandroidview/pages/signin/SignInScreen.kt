@@ -9,13 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkip
 import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
 import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -30,6 +28,10 @@ fun SignInScreen(
     ThemedLayout(topBar = {
         ProshkaTopBar(
             title = stringResource(R.string.authorization), useComponent = useComponent
+        )
+    }, bottomBar = {
+        AuthOrSkip(
+            state = state.authOrSkipState, useComponent = useComponent
         )
     }) { _, _ ->
         Column(
@@ -51,15 +53,9 @@ fun SignInScreen(
                     LinkTextData(stringResource(R.string.offer), IpbTheme.customization.offerUrl),
                     LinkTextData(stringResource(R.string.and)),
                     LinkTextData(
-                        stringResource(R.string.privacy_policy),
-                        IpbTheme.customization.privacyUrl
+                        stringResource(R.string.privacy_policy), IpbTheme.customization.privacyUrl
                     )
-                ),
-                useComponent = useComponent
-            )
-            Spacer(Modifier.weight(1f))
-            AuthOrSkip(
-                state = state.authOrSkipState, useComponent = useComponent
+                ), useComponent = useComponent
             )
         }
     }

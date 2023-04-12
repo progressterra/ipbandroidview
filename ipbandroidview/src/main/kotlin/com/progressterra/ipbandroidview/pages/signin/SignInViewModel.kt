@@ -33,7 +33,7 @@ class SignInViewModel(
                 auth = ButtonState(
                     id = "next", enabled = false
                 ), skip = ButtonState(
-                    id = "skip", enabled = false
+                    id = "skip"
                 )
             )
         )
