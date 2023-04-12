@@ -2,11 +2,11 @@ package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
-import com.progressterra.ipbandroidview.widgets.proshkaedituser.ProshkaEditUserState
+import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 
 @Immutable
 data class SignUpState(
-    val editUser: ProshkaEditUserState = ProshkaEditUserState(),
+    val editUser: EditUserState = EditUserState(),
     val authOrSkip: AuthOrSkipState = AuthOrSkipState()
 ) {
 

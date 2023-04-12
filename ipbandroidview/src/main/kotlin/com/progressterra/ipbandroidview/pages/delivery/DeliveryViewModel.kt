@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
@@ -32,9 +32,9 @@ class DeliveryViewModel(
         }
     }
 
-    override fun handle(event: ProshkaTopBarEvent) = intent {
+    override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is ProshkaTopBarEvent.Back -> postSideEffect(DeliveryEvent.Back)
+            is TopBarEvent.Back -> postSideEffect(DeliveryEvent.Back)
         }
     }
 

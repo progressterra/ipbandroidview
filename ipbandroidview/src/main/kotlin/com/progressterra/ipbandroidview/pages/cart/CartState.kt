@@ -3,14 +3,14 @@ package com.progressterra.ipbandroidview.pages.cart
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
-import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItemsState
-import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummaryState
+import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
+import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
 @Immutable
 data class CartState(
     val stateBox: StateBoxState = StateBoxState(),
-    val summary: ProshkaCartSummaryState = ProshkaCartSummaryState(),
-    val items: ProshkaCartItemsState = ProshkaCartItemsState()
+    val summary: CartSummaryState = CartSummaryState(),
+    val items: CartItemsState = CartItemsState()
 ) {
 
     fun updateScreenState(screenState: ScreenState) = copy(

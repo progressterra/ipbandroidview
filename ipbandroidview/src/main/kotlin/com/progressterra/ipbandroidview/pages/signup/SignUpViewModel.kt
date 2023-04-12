@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.isEmail
 import com.progressterra.ipbandroidview.shared.isNameAndSurname
 import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
-import com.progressterra.ipbandroidview.widgets.proshkaedituser.ProshkaEditUserState
+import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -25,7 +25,7 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, Us
 
     override val container = container<SignUpState, SignUpEvent>(
         SignUpState(
-            editUser = ProshkaEditUserState(
+            editUser = EditUserState(
                 name = TextFieldState(
                     id = "name"
                 ),
@@ -69,9 +69,9 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, Us
         )
     )
 
-    override fun handle(event: ProshkaTopBarEvent) = intent {
+    override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is ProshkaTopBarEvent.Back -> Unit
+            is TopBarEvent.Back -> Unit
         }
     }
 

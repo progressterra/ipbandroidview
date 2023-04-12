@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.pages.pickuppoint
 import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.entities.PickUpPointInfo
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.widgets.pickupchoose.PickUpChooseEvent
@@ -28,7 +28,7 @@ class PickUpPointViewModel(
         reduce { state.updatePermission(result).updatePoints(points) }
     }
 
-    override fun handle(event: ProshkaTopBarEvent) = intent {
+    override fun handle(event: TopBarEvent) = intent {
         super.handle(event)
     }
 

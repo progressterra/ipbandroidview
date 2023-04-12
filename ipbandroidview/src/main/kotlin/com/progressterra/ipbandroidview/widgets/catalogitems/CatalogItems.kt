@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.features.proshkacatalogcard.ProshkaCatalogCard
+import com.progressterra.ipbandroidview.features.catalogcard.CatalogCard
 
 @Composable
 fun CatalogItems(
@@ -24,7 +24,7 @@ fun CatalogItems(
         contentPadding = PaddingValues(horizontal = 20.dp)
     ) {
         items(state.items) { item ->
-            ProshkaCatalogCard(
+            CatalogCard(
                 state = item,
                 useComponent = useComponent
             )

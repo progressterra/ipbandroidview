@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.code.Code
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.widgets.nextorrepeat.NextOrRepeat
@@ -22,7 +22,7 @@ fun ConfirmationCodeScreen(
 ) {
     ThemedLayout(
         topBar = {
-            ProshkaTopBar(
+            TopBar(
                 title = stringResource(R.string.verification_code),
                 useComponent = useComponent
             )

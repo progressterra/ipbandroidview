@@ -4,18 +4,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
-import com.progressterra.ipbandroidview.widgets.proshkastoreitems.ProshkaStoreItems
+import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 
 @Composable
 fun FavoritesScreen(
     state: FavoritesState, useComponent: UseFavorites
 ) {
     ThemedLayout(topBar = {
-        ProshkaTopBar(
+        TopBar(
             title = stringResource(id = R.string.favorites),
             useComponent = useComponent
         )
@@ -24,7 +24,7 @@ fun FavoritesScreen(
             state = state.stateBox,
             useComponent = useComponent
         ) {
-            ProshkaStoreItems(
+            StoreItems(
                 state = state.items,
                 useComponent = useComponent
             )

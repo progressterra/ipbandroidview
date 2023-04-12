@@ -41,7 +41,7 @@ fun WelcomeScreen(
             Image(
                 modifier = Modifier.fillMaxWidth().weight(1f),
                 contentScale = ContentScale.FillBounds,
-                painter = painterResource(id = R.drawable.proshka_welcome),
+                painter = painterResource(id = R.drawable.welcome),
                 contentDescription = null
             )
             Spacer(modifier = Modifier.height(16.dp))

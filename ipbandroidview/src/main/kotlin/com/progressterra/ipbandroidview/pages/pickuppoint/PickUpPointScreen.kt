@@ -8,7 +8,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.widgets.pickupchoose.PickUpChoose
@@ -18,7 +18,7 @@ fun PickUpPointScreen(
     state: PickUpPointState, useComponent: UsePickUpPoint
 ) {
     ThemedLayout(topBar = {
-        ProshkaTopBar(
+        TopBar(
             title = stringResource(id = R.string.pick_up_point),
             showBackButton = true,
             useComponent = useComponent

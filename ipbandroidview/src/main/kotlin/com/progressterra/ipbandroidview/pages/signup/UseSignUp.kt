@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import com.progressterra.ipbandroidview.features.authorskip.UseAuthOrSkip
-import com.progressterra.ipbandroidview.features.proshkatopbar.UseTopBar
-import com.progressterra.ipbandroidview.widgets.proshkaedituser.UseProshkaEditUser
+import com.progressterra.ipbandroidview.features.topbar.UseTopBar
+import com.progressterra.ipbandroidview.widgets.edituser.UseEditUser
 
-interface UseSignUp : UseTopBar, UseProshkaEditUser, UseAuthOrSkip
+interface UseSignUp : UseTopBar, UseEditUser, UseAuthOrSkip

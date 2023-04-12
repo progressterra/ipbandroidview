@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.code.CodeEvent
 import com.progressterra.ipbandroidview.features.countdown.CountdownEvent
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import kotlinx.coroutines.delay
@@ -79,9 +79,9 @@ class ConfirmationCodeViewModel(
         }
     }
 
-    override fun handle(event: ProshkaTopBarEvent) = intent {
+    override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is ProshkaTopBarEvent.Back -> postSideEffect(ConfirmationCodeEvent.Back)
+            is TopBarEvent.Back -> postSideEffect(ConfirmationCodeEvent.Back)
         }
     }
 }

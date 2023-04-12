@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
-import com.progressterra.ipbandroidview.pages.proshkamain.ProshkaMainViewModel
+import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.pages.support.FetchChatUseCase
@@ -31,7 +31,7 @@ val pagesModule = module {
 
     viewModel { SignUpViewModel() }
 
-    viewModel { ProshkaMainViewModel(get(), get(), get(), get(), get()) }
+    viewModel { MainViewModel(get(), get(), get(), get(), get()) }
 
     viewModel { PaymentViewModel(get()) }
 

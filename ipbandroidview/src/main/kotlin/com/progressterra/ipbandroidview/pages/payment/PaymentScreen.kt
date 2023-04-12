@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitch
 import com.progressterra.ipbandroidview.features.ordersteps.OrderSteps
 import com.progressterra.ipbandroidview.features.ordersteps.OrderStepsState
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethod
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.receipt.Receipt
 import com.progressterra.ipbandroidview.features.receivereceipt.ReceiveReceiptComponent
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -25,7 +25,7 @@ fun PaymentScreen(
 ) {
     ThemedLayout(
         topBar = {
-            ProshkaTopBar(
+            TopBar(
                 title = stringResource(R.string.processing),
                 useComponent = useComponent
             )

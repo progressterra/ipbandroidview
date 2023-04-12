@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages.cart
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.features.proshkacartcard.ProshkaCartCardEvent
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.features.cartcard.CartCardEvent
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -33,18 +33,18 @@ class CartViewModel(
         reduce { state.updateScreenState(ScreenState.fromBoolean(isSuccess)) }
     }
 
-    override fun handle(event: ProshkaCartCardEvent) = intent {
+    override fun handle(event: CartCardEvent) = intent {
         when (event) {
-            is ProshkaCartCardEvent.Open -> postSideEffect(CartEvent.OnItem(event.id))
-            is ProshkaCartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
+            is CartCardEvent.Open -> postSideEffect(CartEvent.OnItem(event.id))
+            is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
                 refresh()
             }
         }
     }
 
-    override fun handle(event: ProshkaTopBarEvent) {
+    override fun handle(event: TopBarEvent) {
         when (event) {
-            ProshkaTopBarEvent.Back -> Unit
+            TopBarEvent.Back -> Unit
         }
     }
 

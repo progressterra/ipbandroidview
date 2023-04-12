@@ -14,7 +14,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkip
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
 import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
@@ -28,7 +28,7 @@ fun SignInScreen(
     state: SignInState, useComponent: UseSignIn
 ) {
     ThemedLayout(topBar = {
-        ProshkaTopBar(
+        TopBar(
             title = stringResource(R.string.authorization), useComponent = useComponent
         )
     }, bottomBar = {

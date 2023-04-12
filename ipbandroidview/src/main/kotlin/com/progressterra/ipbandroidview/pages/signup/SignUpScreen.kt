@@ -8,9 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.authorskip.NextOrSkip
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.widgets.proshkaedituser.ProshkaEditUser
+import com.progressterra.ipbandroidview.widgets.edituser.EditUser
 
 @Composable
 fun SignUpScreen(
@@ -19,7 +19,7 @@ fun SignUpScreen(
 ) {
     ThemedLayout(
         topBar = {
-            ProshkaTopBar(
+            TopBar(
                 title = stringResource(R.string.sign_up),
                 useComponent = useComponent
             )
@@ -34,7 +34,7 @@ fun SignUpScreen(
         Column(
             modifier = Modifier.verticalScroll(rememberScrollState())
         ) {
-            ProshkaEditUser(
+            EditUser(
                 state = state.editUser,
                 useComponent = useComponent
             )

@@ -4,10 +4,9 @@ import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonuses
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.widgets.deliverypicker.FetchAvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.widgets.deliverypicker.SetDeliveryAddressUseCase
-import com.progressterra.ipbandroidview.widgets.proshkagalleries.FetchProshkaGalleriesUseCase
-import com.progressterra.ipbandroidview.widgets.proshkaoffers.FetchOffersUseCase
-import com.progressterra.ipbandroidview.widgets.proshkaoffers.FetchProshkaOffersUseCase
-import com.progressterra.ipbandroidview.widgets.proshkaoffers.OfferMapper
+import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
+import com.progressterra.ipbandroidview.widgets.offers.FetchOffersUseCase
+import com.progressterra.ipbandroidview.widgets.offers.OfferMapper
 import org.koin.dsl.module
 
 val widgetsModule = module {
@@ -36,17 +35,17 @@ val widgetsModule = module {
         SetDeliveryAddressUseCase.Base(get(), get(), get())
     }
 
-    single<FetchProshkaGalleriesUseCase> {
-        FetchProshkaGalleriesUseCase.Base(get())
-//        FetchProshkaGalleriesUseCase.Test()
+    single<FetchGalleriesUseCase> {
+        FetchGalleriesUseCase.Base(get())
+//        FetchGalleriesUseCase.Test()
     }
 
     single<FetchOffersUseCase> {
         FetchOffersUseCase.Base(get(), get(), get(), get())
     }
 
-    single<FetchProshkaOffersUseCase> {
-        FetchProshkaOffersUseCase.Base(get())
-//        FetchProshkaOffersUseCase.Test()
+    single<FetchOffersUseCase> {
+        FetchOffersUseCase.Base(get(), get(), get(), get())
+//        FetchOffersUseCase.Test()
     }
 }

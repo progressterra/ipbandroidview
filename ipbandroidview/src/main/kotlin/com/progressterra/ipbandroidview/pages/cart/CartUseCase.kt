@@ -7,8 +7,8 @@ import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
-import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItemsState
-import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummaryState
+import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
+import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
 interface CartUseCase {
 
@@ -44,8 +44,8 @@ interface CartUseCase {
                 }
             }.toList()
             CartState(
-                items = ProshkaCartItemsState(goods),
-                summary = ProshkaCartSummaryState(
+                items = CartItemsState(goods),
+                summary = CartSummaryState(
                     total = price
                 )
             )

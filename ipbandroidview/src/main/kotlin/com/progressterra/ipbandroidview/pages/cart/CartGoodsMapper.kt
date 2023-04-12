@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.features.proshkacartcard.ProshkaCartCardState
+import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.shared.AbstractMapper
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.Mapper
 
-interface CartGoodsMapper : Mapper<RGGoodsInventoryExt, ProshkaCartCardState> {
+interface CartGoodsMapper : Mapper<RGGoodsInventoryExt, CartCardState> {
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
@@ -19,13 +19,13 @@ interface CartGoodsMapper : Mapper<RGGoodsInventoryExt, ProshkaCartCardState> {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        override fun map(data: RGGoodsInventoryExt): ProshkaCartCardState {
+        override fun map(data: RGGoodsInventoryExt): CartCardState {
             val images = data.imageDataJSON?.let { image ->
                 gson.fromJson(
                     image, ImageData::class.java
                 ).list
             } ?: emptyList()
-            return ProshkaCartCardState(id = data.idUnique!!,
+            return CartCardState(id = data.idUnique!!,
                 imageUrl = images.firstOrNull()?.url ?: "",
                 price = data.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
                 name = data.name ?: noData)

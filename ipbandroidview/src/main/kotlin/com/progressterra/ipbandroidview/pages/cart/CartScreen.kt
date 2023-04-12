@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
-import com.progressterra.ipbandroidview.widgets.proshkacartitems.ProshkaCartItems
-import com.progressterra.ipbandroidview.widgets.proshkacartsummary.ProshkaCartSummary
+import com.progressterra.ipbandroidview.widgets.cartitems.CartItems
+import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummary
 
 @Composable
 fun CartScreen(
@@ -16,7 +16,7 @@ fun CartScreen(
 ) {
     ThemedLayout(
         topBar = {
-            ProshkaTopBar(
+            TopBar(
                 title = stringResource(R.string.cart),
                 useComponent = useComponent
             )
@@ -26,11 +26,11 @@ fun CartScreen(
             state = state.stateBox, useComponent = useComponent
         ) {
             Column {
-                ProshkaCartItems(
+                CartItems(
                     state = state.items,
                     useComponent = useComponent
                 )
-                ProshkaCartSummary(
+                CartSummary(
                     state = state.summary,
                     useComponent = useComponent
                 )

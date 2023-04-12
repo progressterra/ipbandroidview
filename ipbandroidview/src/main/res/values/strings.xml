@@ -165,10 +165,10 @@
     <string name="bonus_transaction_burning">Сгорание</string>
     <string name="bonus_transaction_receiving">Начисление</string>
     <string name="transaction_history">История транзакций</string>
-    <string name="payment_proshka_card_online">Картой онлайн</string>
-    <string name="payment_proshka_card_offline">Картой при получении</string>
-    <string name="payment_proshka_sbp">СБП</string>
-    <string name="payment_proshka_sberpay">SberPay</string>
+    <string name="payment_card_online">Картой онлайн</string>
+    <string name="payment_card_offline">Картой при получении</string>
+    <string name="payment_sbp">СБП</string>
+    <string name="payment_sberpay">SberPay</string>
     <string name="select_pickup_point">Выбрать пункт выдачи на карте</string>
     <string name="city">Город</string>
     <string name="home">Улица, дом</string>

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitchEvent
 import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -35,9 +35,9 @@ class PaymentViewModel(
         }
     }
 
-    override fun handle(event: ProshkaTopBarEvent) = intent {
+    override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is ProshkaTopBarEvent.Back -> postSideEffect(PaymentEvent.Back)
+            is TopBarEvent.Back -> postSideEffect(PaymentEvent.Back)
         }
     }
 

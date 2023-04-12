@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.ordersteps.OrderSteps
 import com.progressterra.ipbandroidview.features.ordersteps.OrderStepsState
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
@@ -24,7 +24,7 @@ fun DeliveryScreen(
 ) {
     ThemedLayout(
         topBar = {
-            ProshkaTopBar(
+            TopBar(
                 title = stringResource(R.string.processing),
                 useComponent = useComponent
             )

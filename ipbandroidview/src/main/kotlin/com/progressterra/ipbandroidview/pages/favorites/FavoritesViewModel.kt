@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages.favorites
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.features.proshkastorecard.ProshkaStoreCardEvent
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -44,18 +44,18 @@ class FavoritesViewModel(
     }
 
 
-    override fun handle(event: ProshkaStoreCardEvent) = intent {
+    override fun handle(event: StoreCardEvent) = intent {
         when (event) {
-            is ProshkaStoreCardEvent.Open -> postSideEffect(FavoritesEvent.GoodsDetails(event.id))
-            is ProshkaStoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+            is StoreCardEvent.Open -> postSideEffect(FavoritesEvent.GoodsDetails(event.id))
+            is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
                 refresh()
             }
         }
     }
 
-    override fun handle(event: ProshkaTopBarEvent) = intent {
+    override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is ProshkaTopBarEvent.Back -> Unit
+            is TopBarEvent.Back -> Unit
         }
     }
 

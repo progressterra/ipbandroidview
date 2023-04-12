@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonuses
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBar
+import com.progressterra.ipbandroidview.features.bonuses.Bonuses
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.BonusesTransactions
@@ -19,7 +19,7 @@ fun BonusesScreen(
 ) {
     ThemedLayout(
         topBar = {
-            ProshkaTopBar(
+            TopBar(
                 title = stringResource(R.string.bonuses_title),
                 useComponent = useComponent
             )
@@ -31,7 +31,7 @@ fun BonusesScreen(
             Column(
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
-                ProshkaBonuses(
+                Bonuses(
                     state = state.bonusesInfo,
                     useComponent = useComponent
                 )

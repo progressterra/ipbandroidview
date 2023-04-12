@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.pages.bonuses
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
-import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesEvent
-import com.progressterra.ipbandroidview.features.proshkabonuses.ProshkaBonusesUseCase
-import com.progressterra.ipbandroidview.features.proshkatopbar.ProshkaTopBarEvent
+import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
+import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 import org.orbitmvi.orbit.Container
@@ -15,7 +15,7 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class BonusesViewModel(
-    private val proshkaBonusesUseCase: ProshkaBonusesUseCase,
+    private val bonusesUseCase: BonusesUseCase,
     private val fetchBonusesTransactionsUseCase: FetchBonusesTransactionsUseCase
 ) : ViewModel(), ContainerHost<BonusesState, BonusesEffect>, UseBonuses {
 
@@ -24,7 +24,7 @@ class BonusesViewModel(
     fun refresh() = intent {
         reduce { state.updateStateBoxState(ScreenState.LOADING) }
         var isSuccess = true
-        proshkaBonusesUseCase().onSuccess {
+        bonusesUseCase().onSuccess {
             reduce { state.updateBonusesInfo(it) }
         }.onFailure {
             isSuccess = false
@@ -37,15 +37,15 @@ class BonusesViewModel(
         reduce { state.updateStateBoxState(ScreenState.fromBoolean(isSuccess)) }
     }
 
-    override fun handle(event: ProshkaBonusesEvent) = intent {
+    override fun handle(event: BonusesEvent) = intent {
         when (event) {
-            is ProshkaBonusesEvent.Action -> Unit
+            is BonusesEvent.Action -> Unit
         }
     }
 
-    override fun handle(event: ProshkaTopBarEvent) = intent {
+    override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is ProshkaTopBarEvent.Back -> postSideEffect(BonusesEffect.Back)
+            is TopBarEvent.Back -> postSideEffect(BonusesEffect.Back)
         }
     }
 
