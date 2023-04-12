@@ -22,11 +22,11 @@ fun StateBox(
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.TopCenter
     ) {
         when (state.state) {
             ScreenState.ERROR -> IconButton(
-                modifier = modifier, onClick = {
+                modifier = modifier.align(Alignment.Center), onClick = {
                     useComponent.handle(StateBoxEvent.Refresh)
                 }
             ) {
