@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages
 import com.progressterra.ipbandroidview.pages.bonuses.BonusesViewModel
 import com.progressterra.ipbandroidview.pages.bonuses.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonuses.UseBonusesUseCase
+import com.progressterra.ipbandroidview.pages.cart.CartGoodsMapper
 import com.progressterra.ipbandroidview.pages.cart.CartUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartViewModel
 import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
@@ -56,6 +57,8 @@ val pagesModule = module {
         EndVerificationChannelUseCase.Base(get(), get())
 //        EndVerificationChannelUseCase.Test()
     }
+
+    single<CartGoodsMapper> { CartGoodsMapper.Base(get(), get(), get()) }
 
     single<CatalogUseCase> { CatalogUseCase.Base(get(), get(), get(), get()) }
 
