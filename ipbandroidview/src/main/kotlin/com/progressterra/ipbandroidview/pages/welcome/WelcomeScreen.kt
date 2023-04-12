@@ -23,16 +23,16 @@ fun WelcomeScreen(
     useComponent: UseWelcome
 ) {
     ThemedLayout(
-        bottomOverlap = true,
         bottomBar = {
             AuthOrSkipWelcome(
+                modifier = Modifier.padding(horizontal = 16.dp),
                 state = state.authOrSkipState,
                 useAuthOrSkip = useComponent
             )
         }
-    ) { _, bottom ->
+    ) { _, _ ->
         Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = bottom),
+            modifier = Modifier.padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
