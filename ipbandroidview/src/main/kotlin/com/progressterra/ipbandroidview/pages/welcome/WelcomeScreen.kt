@@ -44,7 +44,7 @@ fun WelcomeScreen(
                 painter = painterResource(id = R.drawable.proshka_welcome),
                 contentDescription = null
             )
-            Spacer(modifier = Modifier.height(80.dp))
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
