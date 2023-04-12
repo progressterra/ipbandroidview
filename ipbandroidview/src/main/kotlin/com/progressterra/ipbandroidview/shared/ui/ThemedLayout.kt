@@ -53,7 +53,7 @@ fun ThemedLayout(
                 .padding(
                     top = if (topOverlap) 0.dp else topBarHeight,
                     bottom = if (bottomOverlap) 0.dp else bottomBarHeight
-                ), contentAlignment = Alignment.Center
+                ), contentAlignment = Alignment.TopCenter
         ) {
             content(
                 if (topOverlap) topBarHeight else 0.dp,
