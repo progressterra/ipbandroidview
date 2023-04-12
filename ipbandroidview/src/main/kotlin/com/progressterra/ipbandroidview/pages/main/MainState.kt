@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.main
 
-import androidx.compose.runtime.Immutable
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.features.bonuses.BonusesState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
