@@ -101,10 +101,10 @@ dependencies {
     testApi "junit:junit:4.13.2"
 
     //Appyx, navigation library
-    api 'com.bumble.appyx:core:1.1.1'
+    api 'com.bumble.appyx:core:1.2.0'
 
     //Google Firebase platform
-    api platform('com.google.firebase:firebase-bom:31.4.0')
+    api platform('com.google.firebase:firebase-bom:31.5.0')
     api "com.google.firebase:firebase-analytics-ktx"
     api "com.google.firebase:firebase-messaging-ktx"
 
@@ -125,8 +125,8 @@ dependencies {
     api "com.squaredem:composecalendar:1.0.4"
 
     //Landscapist, image library with coil implementation
-    api 'com.github.skydoves:landscapist-fresco:2.1.9'
-    api 'com.github.skydoves:landscapist-placeholder:2.1.9'
+    api 'com.github.skydoves:landscapist-fresco:2.1.11'
+    api 'com.github.skydoves:landscapist-placeholder:2.1.11'
 
     //TODO paging if there will be grid support then need to delete own solution
     api "androidx.paging:paging-runtime-ktx:3.1.1"
