@@ -19,22 +19,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.theme.toColor
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.counter.Counter
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.counter.Counter
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun CartCard(
     modifier: Modifier = Modifier, state: CartCardState, useComponent: UseCartCard
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween
     ) {
         SimpleImage(
             modifier = Modifier
@@ -82,6 +82,7 @@ fun CartCard(
                                 )
                         )
                     }
+
                     is CartCardState.Property.Size -> BrushedText(
                         text = "${it.name}: ${it.value}",
                         style = IpbTheme.typography.footnoteRegular,
@@ -104,6 +105,7 @@ fun CartCard(
             )
         }
         IconButton(
+            modifier = Modifier.size(20.dp),
             onClick = { useComponent.handle(CartCardEvent.RemoveFromCart(state.id)) }
         ) {
             BrushedIcon(
