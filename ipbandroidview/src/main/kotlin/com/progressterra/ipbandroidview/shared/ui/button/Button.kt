@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.shared.ui.button
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -14,9 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.SideBorder
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-import com.progressterra.ipbandroidview.shared.ui.sideBorder
 
 @Composable
 fun Button(
@@ -38,26 +37,18 @@ fun Button(
         ButtonStyle.TEXT -> IpbTheme.colors.textDisabled.asBrush()
         ButtonStyle.OUTLINE -> IpbTheme.colors.textPrimary3.asBrush()
     }
-    val border = if (style == ButtonStyle.OUTLINE) {
-        SideBorder(2.dp, IpbTheme.colors.textPrimary3.asBrush())
-    } else {
-        null
-    }
-    Row(
-        modifier = modifier
-            .clip(RoundedCornerShape(14.dp))
-            .sideBorder(
-                start = border,
-                end = border,
-                top = border,
-                bottom = border
-            )
-            .background(if (state.enabled) backgroundColor else IpbTheme.colors.primaryDisabled.asBrush())
-            .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
-            .padding(horizontal = 32.dp, vertical = 15.dp),
+    Row(modifier = modifier
+        .clip(RoundedCornerShape(14.dp))
+        .border(
+            width = 2.dp,
+            brush = IpbTheme.colors.textPrimary3.asBrush(),
+            shape = RoundedCornerShape(14.dp)
+        )
+        .background(if (state.enabled) backgroundColor else IpbTheme.colors.primaryDisabled.asBrush())
+        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
+        .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+        verticalAlignment = Alignment.CenterVertically) {
         BrushedText(
             text = title,
             style = IpbTheme.typography.headline,
