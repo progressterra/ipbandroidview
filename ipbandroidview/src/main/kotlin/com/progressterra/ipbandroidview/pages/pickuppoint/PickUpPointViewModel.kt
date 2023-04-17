@@ -29,7 +29,8 @@ class PickUpPointViewModel(
     }
 
     override fun handle(event: TopBarEvent) = intent {
-        super.handle(event)
+
+
     }
 
     override fun handle(event: ButtonEvent) = intent {

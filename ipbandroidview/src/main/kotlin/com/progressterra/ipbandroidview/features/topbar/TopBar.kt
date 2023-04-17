@@ -1,8 +1,7 @@
 package com.progressterra.ipbandroidview.features.topbar
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.IconButton
@@ -22,22 +21,22 @@ fun TopBar(
     showBackButton: Boolean = false,
     useComponent: UseTopBar
 ) {
-    Row(
+    Box(
         modifier = modifier
             .fillMaxWidth()
             .height(44.dp)
-            .background(IpbTheme.colors.background.asBrush()),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+            .background(IpbTheme.colors.background.asBrush())
     ) {
         if (showBackButton) {
-            IconButton(onClick = { useComponent.handle(TopBarEvent.Back) }) {
+            IconButton(modifier = Modifier.align(Alignment.CenterStart),
+                onClick = { useComponent.handle(TopBarEvent.Back) }) {
                 BrushedIcon(
                     resId = R.drawable.ic_back_pro, tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
         }
         BrushedText(
+            modifier = Modifier.align(Alignment.Center),
             text = title,
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.textPrimary.asBrush(),

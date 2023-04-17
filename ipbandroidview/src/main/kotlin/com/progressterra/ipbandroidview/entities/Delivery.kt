@@ -15,10 +15,11 @@ sealed class Delivery {
 
     @Immutable
     data class CourierDelivery(
-        override val id: DeliveryMethodId,
         override val price: SimplePrice = SimplePrice(),
         override val type: String = "",
     ) : Delivery() {
+
+        override val id = DeliveryMethodId.COURIER
 
         override val available: Boolean = true
     }
