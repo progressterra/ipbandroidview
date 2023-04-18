@@ -177,4 +177,11 @@
     <string name="apartment">Квартира</string>
     <string name="processing">Оформление заказа</string>
     <string name="details">Детали</string>
+    <string name="order_id">Номер заказа:</string>
+    <string name="items_paid">товара оплачено</string>
+    <string name="estimated_delivery">Доставка ожидается:</string>
+    <string name="delivery_address">Адрес доставки:</string>
+    <string name="see_receipt">Посмотреть чек</string>
+    <string name="to_main">На главную</string>
+    <string name="order_processing">Оформление заказа</string>
 </resources>

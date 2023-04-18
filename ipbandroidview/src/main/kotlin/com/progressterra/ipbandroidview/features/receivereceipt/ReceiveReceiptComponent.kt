@@ -26,10 +26,12 @@ fun ReceiveReceiptComponent(
 ) {
     Column(
         modifier = modifier
+            .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .animateContentSize()
-            .padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -42,8 +44,7 @@ fun ReceiveReceiptComponent(
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
             BrushedSwitch(
-                state = state.receiveReceipt,
-                useComponent = useComponent
+                state = state.receiveReceipt, useComponent = useComponent
             )
         }
         if (state.receiveReceipt.turned) TextField(

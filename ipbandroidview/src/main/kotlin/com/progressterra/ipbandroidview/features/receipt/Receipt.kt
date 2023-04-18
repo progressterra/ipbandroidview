@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -23,13 +25,12 @@ import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextData
 
 @Composable
 fun Receipt(
-    modifier: Modifier = Modifier,
-    state: ReceiptState,
-    useComponent: UseReceipt
+    modifier: Modifier = Modifier, state: ReceiptState, useComponent: UseReceipt
 ) {
 
     Column(
         modifier = modifier
+            .padding(horizontal = 8.dp)
             .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
             .background(IpbTheme.colors.surface.asBrush()),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -53,12 +54,13 @@ fun Receipt(
             )
         }
         BrushedDivider(
-            tint = IpbTheme.colors.background.asColor(),
-            thickness = 1.dp
+            tint = IpbTheme.colors.background.asColor(), thickness = 1.dp
         )
         state.items.forEach {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 BrushedText(
@@ -98,5 +100,11 @@ fun Receipt(
                 )
             ), useComponent = useComponent
         )
+        LinkText(
+            linkTextData = listOf(
+                LinkTextData(text = stringResource(id = R.string.merchant_info))
+            ), useComponent = useComponent
+        )
+        Spacer(Modifier.height(0.dp))
     }
 }

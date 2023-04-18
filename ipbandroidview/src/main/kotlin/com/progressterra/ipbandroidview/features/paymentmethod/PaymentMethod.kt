@@ -51,6 +51,7 @@ fun PaymentMethod(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),
