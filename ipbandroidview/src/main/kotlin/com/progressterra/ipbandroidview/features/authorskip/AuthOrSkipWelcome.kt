@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonStyle
+import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
 @Composable
 fun AuthOrSkipWelcome(
@@ -27,10 +27,9 @@ fun AuthOrSkipWelcome(
             title = stringResource(R.string.auth_button),
             useComponent = useAuthOrSkip
         )
-        Button(
+        TextButton(
             modifier = Modifier.fillMaxWidth(),
             state = state.skip,
-            style = ButtonStyle.SILENT,
             title = stringResource(R.string.auth_skip_button),
             useComponent = useAuthOrSkip
         )

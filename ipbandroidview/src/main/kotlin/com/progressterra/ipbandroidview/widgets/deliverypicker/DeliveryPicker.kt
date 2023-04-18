@@ -17,8 +17,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
-import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonStyle
+import com.progressterra.ipbandroidview.shared.ui.button.OutlineButton
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -105,12 +104,11 @@ fun DeliveryPicker(
                             actionIcon = R.drawable.ic_cancel_pro
                         )
                     }
-                    Button(
+                    OutlineButton(
                         modifier = Modifier.fillMaxWidth(),
                         state = state.selectPoint,
                         useComponent = useComponent,
-                        title = stringResource(R.string.select_pickup_point),
-                        style = ButtonStyle.OUTLINE
+                        title = stringResource(R.string.select_pickup_point)
                     )
                 }
             }

@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.widgets.deliverypicker
 
 import com.progressterra.ipbandroidapi.api.ipbdelivery.IPBDeliveryRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.processes.user.FetchUserAddressUseCase
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.UserData
 
 
 interface FetchAvailableDeliveryUseCase {
@@ -15,7 +15,6 @@ interface FetchAvailableDeliveryUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val deliveryRepository: IPBDeliveryRepository,
-        private val fetchUserAddressUseCase: FetchUserAddressUseCase,
         private val mapper: DeliveryMethodMapper
     ) : FetchAvailableDeliveryUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
@@ -24,7 +23,7 @@ interface FetchAvailableDeliveryUseCase {
                 deliveryRepository.getDeliveryList(token).getOrThrow()?.map { mapper.map(it) }
                     ?: emptyList()
             DeliveryPickerState(
-                addressUI = fetchUserAddressUseCase().getOrThrow(),
+                addressUI = UserData.address,
                 selectedDeliveryMethod = deliveryList.firstOrNull(),
                 deliveryMethods = deliveryList
             )

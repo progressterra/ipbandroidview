@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonStyle
+import com.progressterra.ipbandroidview.shared.ui.button.OutlineButton
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
 @Immutable
@@ -48,11 +48,10 @@ fun MainOrReceipt(
             useComponent = useComponent,
             title = stringResource(R.string.to_main)
         )
-        Button(
+        OutlineButton(
             modifier = Modifier.fillMaxWidth(),
             state = state.receipt,
             useComponent = useComponent,
-            style = ButtonStyle.OUTLINE,
             title = stringResource(R.string.see_receipt)
         )
     }

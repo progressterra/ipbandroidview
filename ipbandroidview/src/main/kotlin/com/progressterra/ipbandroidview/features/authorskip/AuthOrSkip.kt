@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonStyle
+import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
 @Composable
 fun AuthOrSkip(
@@ -35,10 +35,9 @@ fun AuthOrSkip(
             title = stringResource(R.string.auth_button),
             useComponent = useComponent
         )
-        Button(
+        TextButton(
             modifier = Modifier.fillMaxWidth(),
             state = state.skip,
-            style = ButtonStyle.SILENT,
             title = stringResource(R.string.auth_skip_button),
             useComponent = useComponent
         )

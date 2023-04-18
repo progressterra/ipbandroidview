@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.shared.ui.button
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,15 +18,11 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
-fun Button(
-    modifier: Modifier = Modifier,
-    state: ButtonState,
-    title: String,
-    useComponent: UseButton
+fun TextButton(
+    modifier: Modifier = Modifier, state: ButtonState, title: String, useComponent: UseButton
 ) {
     Row(modifier = modifier
         .clip(RoundedCornerShape(14.dp))
-        .background(if (state.enabled) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.primaryDisabled.asBrush())
         .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
         .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
@@ -35,23 +30,21 @@ fun Button(
         BrushedText(
             text = title,
             style = IpbTheme.typography.headline,
-            tint = if (state.enabled) IpbTheme.colors.textButton.asBrush() else IpbTheme.colors.textDisabled.asBrush()
+            tint = IpbTheme.colors.textDisabled.asBrush()
         )
     }
 }
 
 @Preview
 @Composable
-private fun ButtonPreview() {
+private fun TextButtonPreview() {
     IpbTheme {
         Column {
-            Button(
-                state = ButtonState(),
-                title = "Button",
-                useComponent = UseButton.Empty()
+            TextButton(
+                state = ButtonState(), title = "Button", useComponent = UseButton.Empty()
             )
             Spacer(Modifier.height(10.dp))
-            Button(
+            TextButton(
                 state = ButtonState(enabled = false),
                 title = "Button",
                 useComponent = UseButton.Empty()

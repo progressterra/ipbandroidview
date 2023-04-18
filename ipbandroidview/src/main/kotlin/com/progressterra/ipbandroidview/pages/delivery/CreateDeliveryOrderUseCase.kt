@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.processes.order
+package com.progressterra.ipbandroidview.pages.delivery
 
 import com.progressterra.ipbandroidapi.api.ipbdelivery.IPBDeliveryRepository
 import com.progressterra.ipbandroidapi.api.ipbdelivery.models.DeliverySeriviceTypeEnum
@@ -25,8 +25,7 @@ interface CreateDeliveryOrderUseCase {
                         rfMethodType = deliveryMethod.id.toServiceEnum(),
                         rfServiceType = DeliverySeriviceTypeEnum.ZERO,
                         rdPickUpPoint = (deliveryMethod as? Delivery.PickUpPointDelivery)?.currentPoint?.pickupPointCode,
-                    ),
-                    accessToken = token
+                    ), accessToken = token
                 )
             }
     }

@@ -39,13 +39,13 @@ val pagesModule = module {
 
     viewModel { PaymentViewModel(get()) }
 
-    viewModel { DeliveryViewModel(get()) }
+    viewModel { DeliveryViewModel(get(), get()) }
 
     viewModel { BonusesViewModel(get(), get()) }
 
     viewModel { FavoritesViewModel(get(), get(), get()) }
 
-    single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get(), get()) }
+    single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get()) }
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(

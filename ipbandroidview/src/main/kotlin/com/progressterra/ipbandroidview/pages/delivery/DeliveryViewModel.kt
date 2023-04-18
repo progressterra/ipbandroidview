@@ -18,7 +18,8 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class DeliveryViewModel(
-    private val fetchAvailableDeliveryUseCase: FetchAvailableDeliveryUseCase
+    private val fetchAvailableDeliveryUseCase: FetchAvailableDeliveryUseCase,
+    private val createDeliveryOrderUseCase: CreateDeliveryOrderUseCase
 ) : ViewModel(), ContainerHost<DeliveryState, DeliveryEvent>, UseDelivery {
 
     override val container = container<DeliveryState, DeliveryEvent>(DeliveryState())

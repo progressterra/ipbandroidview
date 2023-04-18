@@ -19,7 +19,7 @@ val widgetsModule = module {
 
     single<FetchAvailableDeliveryUseCase> {
         FetchAvailableDeliveryUseCase.Base(
-            get(), get(), get(), get(), get()
+            get(), get(), get(), get()
         )
     }
 

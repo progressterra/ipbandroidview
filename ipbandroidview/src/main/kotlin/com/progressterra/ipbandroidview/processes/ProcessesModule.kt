@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.processes
 
+import com.progressterra.ipbandroidview.pages.delivery.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
@@ -22,24 +23,15 @@ import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
-import com.progressterra.ipbandroidview.processes.order.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.processes.store.OrdersUseCase
 import com.progressterra.ipbandroidview.processes.store.SizeTableUseCase
-import com.progressterra.ipbandroidview.processes.user.FetchUserAddressUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserBirthdayUseCase
-import com.progressterra.ipbandroidview.processes.user.FetchUserEmailUseCase
-import com.progressterra.ipbandroidview.processes.user.FetchUserIdUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserNameUseCase
-import com.progressterra.ipbandroidview.processes.user.FetchUserPhoneUseCase
-import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
-import com.progressterra.ipbandroidview.processes.user.NeedAddressUseCase
-import com.progressterra.ipbandroidview.processes.user.NeedDetailsUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveUserAddressUseCase
 import com.progressterra.ipbandroidview.processes.user.UpdatePersonalInfoUseCase
-import com.progressterra.ipbandroidview.processes.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenPhoneUseCase
@@ -61,29 +53,13 @@ val processesModule = module {
 
     single<OpenUrlUseCase> { OpenUrlUseCase.Base(get()) }
 
-    single<UserExistsUseCase> { UserExistsUseCase.Base() }
-
     single<UpdatePersonalInfoUseCase> { UpdatePersonalInfoUseCase.Base(get(), get()) }
 
-    single<NeedDetailsUseCase> { NeedDetailsUseCase.Base() }
-
-    single<NeedAddressUseCase> { NeedAddressUseCase.Base() }
-
-    single<LogoutUseCase> { LogoutUseCase.Base() }
-
-    single<FetchUserPhoneUseCase> { FetchUserPhoneUseCase.Base() }
-
     single<FetchUserNameUseCase> { FetchUserNameUseCase.Base() }
-
-    single<FetchUserIdUseCase> { FetchUserIdUseCase.Base() }
-
-    single<FetchUserEmailUseCase> { FetchUserEmailUseCase.Base() }
 
     single<FetchUserBirthdayUseCase> { FetchUserBirthdayUseCase.Base() }
 
     single<SaveUserAddressUseCase> { SaveUserAddressUseCase.Base(get(), get(), get(), get()) }
-
-    single<FetchUserAddressUseCase> { FetchUserAddressUseCase.Base() }
 
     single<SizeTableUseCase> { SizeTableUseCase.Base(get(), get(), get()) }
 
@@ -132,12 +108,7 @@ val processesModule = module {
 
     single<GoodsDetailsUseCase> {
         GoodsDetailsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
+            get(), get(), get(), get(), get(), get()
         )
     }
 

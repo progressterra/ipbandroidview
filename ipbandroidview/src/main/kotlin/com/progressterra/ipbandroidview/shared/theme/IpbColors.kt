@@ -21,7 +21,7 @@ data class IpbColors(
     val onSurface: ColorUnit = ColorUnit(listOf("#FFFFFF")),
     val onSurface2: ColorUnit = ColorUnit(listOf("#101010")),
     val primaryPressed: ColorUnit = ColorUnit(listOf("#3D3D3D")),
-    val primaryDisabled: ColorUnit = ColorUnit(listOf("#B5B5B5")),
+    val primaryDisabled: ColorUnit = ColorUnit(listOf("#E4E4F0")),
     val secondaryPressed: ColorUnit = ColorUnit(listOf("#232427")),
     // Status
     val error: ColorUnit = ColorUnit(listOf("#DF3636")),
