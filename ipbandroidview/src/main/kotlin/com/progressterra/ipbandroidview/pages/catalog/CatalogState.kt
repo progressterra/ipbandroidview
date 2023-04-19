@@ -17,13 +17,13 @@ data class CatalogState(
     val goods: StoreItemsState.Flowed = StoreItemsState.Flowed()
 ) {
 
-    fun updateStateBox(screenState: ScreenState) = copy(stateBox = screenState)
+    fun updateScreenState(screenState: ScreenState) = copy(stateBox = screenState)
 
     fun updateGoods(flow: Flow<PagingData<StoreCardState>>) = copy(goods = goods.updateItems(flow))
 
     fun addTrace(newTrace: CatalogCardState) = copy(trace = trace.addTrace(newTrace))
 
-    fun updateItems(newCurrent: CatalogCardState) = copy(current = newCurrent)
+    fun updateCategory(newCurrent: CatalogCardState) = copy(current = newCurrent)
 
     fun removeTrace() = copy(trace = trace.removeTrace())
 }

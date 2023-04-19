@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import kotlinx.coroutines.flow.emptyFlow
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -27,32 +28,33 @@ class CatalogViewModel(
     override val container = container<CatalogState, CatalogEvent>(CatalogState())
 
     fun refresh() = intent {
-        reduce { state.updateStateBox(ScreenState.LOADING) }
+        reduce { state.updateScreenState(ScreenState.LOADING) }
         catalogUseCase().onSuccess {
-            reduce { state.updateStateBox(ScreenState.SUCCESS) }
-            reduce { state.updateItems(it) }
+            reduce { state.updateScreenState(ScreenState.SUCCESS) }
+            reduce { state.updateCategory(it) }
         }.onFailure {
-            reduce { state.updateStateBox(ScreenState.ERROR) }
+            reduce { state.updateScreenState(ScreenState.ERROR) }
         }
     }
 
     override fun handle(event: CatalogCardEvent) = intent {
         when (event) {
             is CatalogCardEvent.Open -> {
-                if (!state.current.hasNext) {
+                reduce { state.addTrace(event.category).updateCategory(event.category) }
+                if (state.current.subCategories.isEmpty()) {
                     goodsUseCase(event.category.id).onSuccess {
                         reduce { state.updateGoods(it) }
                     }
                 }
-                reduce { state.addTrace(event.category).updateItems(event.category) }
             }
         }
     }
 
     override fun handle(event: TraceEvent) = intent {
         when (event) {
-            is TraceEvent.Back -> {
-                reduce { state.removeTrace().updateItems(state.trace.trace.last()) }
+            is TraceEvent.Back -> reduce {
+                state.removeTrace().updateCategory(state.trace.trace.last())
+                    .updateGoods(emptyFlow())
             }
         }
     }
@@ -62,6 +64,7 @@ class CatalogViewModel(
             is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
                 refresh()
             }
+
             is StoreCardEvent.Open -> postSideEffect(CatalogEvent.OnItem(event.id))
         }
     }
@@ -71,6 +74,7 @@ class CatalogViewModel(
             is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
                 refresh()
             }
+
             is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
                 refresh()
             }
@@ -80,7 +84,7 @@ class CatalogViewModel(
     override fun handle(event: SearchEvent) = intent {
         when (event) {
             is SearchEvent.OnTextChanged -> {
-                //TODO
+
             }
         }
     }
