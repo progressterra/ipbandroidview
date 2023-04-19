@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -32,10 +33,15 @@ class DeliveryViewModel(
                 city = TextFieldState(id = "city"),
                 home = TextFieldState(id = "home"),
                 entrance = TextFieldState(id = "entrance"),
-                apartment = TextFieldState(id = "apartment")
+                apartment = TextFieldState(id = "apartment"),
+                selectPoint = ButtonState(id = "selectPoint")
             )
         )
     )
+
+    fun updatePickUpPoint(info: PickUpPointInfo) = intent {
+        reduce { state.updatePickUpPoint(info) }
+    }
 
     fun refresh() = intent {
         reduce { state.updateStateBoxState(ScreenState.LOADING) }
@@ -55,7 +61,14 @@ class DeliveryViewModel(
     override fun handle(event: ButtonEvent) = intent {
         when (event) {
             is ButtonEvent.Click -> when (event.id) {
-                "confirm" -> postSideEffect(DeliveryEvent.Next)
+                "confirm" -> {
+                    createDeliveryOrderUseCase(
+                        state.commentary.text, state.deliveryPicker.selectedDeliveryMethod!!
+                    ).onSuccess {
+                        postSideEffect(DeliveryEvent.Next)
+                    }
+                }
+
                 "selectPoint" -> postSideEffect(DeliveryEvent.SelectPickupPoint)
             }
         }
@@ -92,7 +105,7 @@ class DeliveryViewModel(
     override fun handle(event: DeliveryPickerEvent) = intent {
         when (event) {
             is DeliveryPickerEvent.SelectDeliveryMethod -> reduce {
-                state.updateDeliveryMethod(event.delivery)
+                state.updateDeliveryMethod(event.delivery).updateConfirmEnabled(true)
             }
         }
     }

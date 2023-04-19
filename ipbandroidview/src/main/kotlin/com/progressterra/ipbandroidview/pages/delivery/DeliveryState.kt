@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.Delivery
+import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
@@ -20,14 +21,16 @@ data class DeliveryState(
     fun updateDeliveryPickerState(deliveryPickerState: DeliveryPickerState) =
         copy(deliveryPicker = deliveryPickerState)
 
+    fun updatePickUpPoint(newPickUpPointInfo: PickUpPointInfo) = copy(
+        deliveryPicker = deliveryPicker.updatePickUpPointInfo(newPickUpPointInfo)
+    )
+
     fun updateDeliveryMethod(deliveryMethod: Delivery) =
         copy(deliveryPicker = deliveryPicker.updateSelectedMethod(deliveryMethod))
 
-    fun updateCity(newCity: String) =
-        copy(deliveryPicker = deliveryPicker.updateCity(newCity))
+    fun updateCity(newCity: String) = copy(deliveryPicker = deliveryPicker.updateCity(newCity))
 
-    fun updateHome(newHome: String) =
-        copy(deliveryPicker = deliveryPicker.updateHome(newHome))
+    fun updateHome(newHome: String) = copy(deliveryPicker = deliveryPicker.updateHome(newHome))
 
     fun updateEntrance(newEntrance: String) =
         copy(deliveryPicker = deliveryPicker.updateEntrance(newEntrance))
@@ -37,4 +40,6 @@ data class DeliveryState(
 
     fun updateCommentary(newCommentary: String) =
         copy(commentary = commentary.updateText(newCommentary))
+
+    fun updateConfirmEnabled(isEnabled: Boolean) = copy(confirm = confirm.updateEnabled(isEnabled))
 }

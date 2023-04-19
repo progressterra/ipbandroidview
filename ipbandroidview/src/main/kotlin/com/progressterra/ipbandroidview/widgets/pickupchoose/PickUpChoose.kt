@@ -7,6 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -16,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
@@ -26,17 +29,18 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.PickUpPointInfo
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
 @Composable
 fun PickUpChoose(
-    modifier: Modifier = Modifier,
-    state: PickUpChooseState,
-    useComponent: UsePickUpChoose
+    modifier: Modifier = Modifier, state: PickUpChooseState, useComponent: UsePickUpChoose
 ) {
     Column(
         modifier = modifier
+            .padding(horizontal = 8.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),
@@ -47,15 +51,15 @@ fun PickUpChoose(
         }
         GoogleMap(
             modifier = Modifier
-                .weight(1f)
+                .fillMaxWidth()
+                .height(330.dp)
                 .clip(RoundedCornerShape(8.dp)),
             cameraPositionState = cameraPositionState,
             onMyLocationClick = {
                 cameraPositionState.move(
                     CameraUpdateFactory.newLatLng(
                         LatLng(
-                            it.latitude,
-                            it.longitude
+                            it.latitude, it.longitude
                         )
                     )
                 )
@@ -63,22 +67,17 @@ fun PickUpChoose(
             properties = MapProperties(isMyLocationEnabled = state.isPermissionGranted)
         ) {
             state.pickUpPoints.forEach { pickUpPoint ->
-                Marker(
-                    state = rememberMarkerState(
-                        position = LatLng(
-                            pickUpPoint.latitude,
-                            pickUpPoint.longitude
-                        )
-                    ),
-                    onClick = {
-                        useComponent.handle(PickUpChooseEvent.Choose(pickUpPoint))
-                        false
-                    }
-                )
+                Marker(state = rememberMarkerState(
+                    position = LatLng(
+                        pickUpPoint.latitude, pickUpPoint.longitude
+                    )
+                ), onClick = {
+                    useComponent.handle(PickUpChooseEvent.Choose(pickUpPoint))
+                    false
+                })
             }
         }
         AnimatedVisibility(
-            modifier = Modifier.weight(1f),
             visible = state.currentPickUpPointInfo != null,
             enter = expandVertically(),
             exit = shrinkVertically()
@@ -123,5 +122,37 @@ fun PickUpChoose(
                 )
             }
         }
+    }
+}
+
+@Composable
+@Preview
+private fun PickUpScreenPreview() {
+    IpbTheme {
+        PickUpChoose(
+            state = PickUpChooseState(
+                isPermissionGranted = false, pickUpPoints = listOf(
+                    PickUpPointInfo(
+                        price = SimplePrice(price = 0.1),
+                        address = "sociis",
+                        workHour = "detraxit",
+                        latitude = 2.3,
+                        type = "comprehensam",
+                        longitude = 4.5,
+                        pickupPointCode = "graecis",
+                        path = "sed"
+                    ), PickUpPointInfo(
+                        price = SimplePrice(price = 6.7),
+                        address = "cursus",
+                        workHour = "feugiat",
+                        latitude = 8.9,
+                        type = "turpis",
+                        longitude = 10.11,
+                        pickupPointCode = "cursus",
+                        path = "libris"
+                    )
+                ), currentPickUpPointInfo = null
+            ), useComponent = UsePickUpChoose.Empty()
+        )
     }
 }

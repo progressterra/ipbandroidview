@@ -29,8 +29,9 @@ class PickUpPointViewModel(
     }
 
     override fun handle(event: TopBarEvent) = intent {
-
-
+        when (event) {
+            is TopBarEvent.Back -> postSideEffect(PickUpPointEffect.Back)
+        }
     }
 
     override fun handle(event: ButtonEvent) = intent {
