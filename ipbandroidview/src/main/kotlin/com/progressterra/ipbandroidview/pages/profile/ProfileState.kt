@@ -4,11 +4,11 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
 import com.progressterra.ipbandroidview.features.unauthprofile.UnAuthProfileState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ScreenState
 
 @Immutable
 data class ProfileState(
-    val stateBox: StateBoxState = StateBoxState(),
+    val stateBox: ScreenState = ScreenState.LOADING,
     val isAuthorized: Boolean = false,
     val unAuthProfileState: UnAuthProfileState = UnAuthProfileState(),
     val authProfileState: AuthProfileState = AuthProfileState(),

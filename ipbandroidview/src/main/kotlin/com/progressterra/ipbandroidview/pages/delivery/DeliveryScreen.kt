@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPicker
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
 
@@ -59,6 +59,11 @@ fun DeliveryScreen(
                 DeliveryPicker(
                     useComponent = useComponent, state = state.deliveryPicker
                 )
+                TextField(
+                    state = state.commentary,
+                    useComponent = useComponent,
+                    hint = stringResource(R.string.comment)
+                )
             }
         }
     }
@@ -72,7 +77,7 @@ private fun DeliveryScreenPreview() {
     )
     DeliveryScreen(
         state = DeliveryState(
-            stateBox = StateBoxState(ScreenState.SUCCESS), deliveryPicker = DeliveryPickerState(
+            stateBox = ScreenState.SUCCESS, deliveryPicker = DeliveryPickerState(
                 selectedDeliveryMethod = m,
                 deliveryMethods = listOf(
                     Delivery.PickUpPointDelivery(
@@ -110,7 +115,8 @@ private fun DeliveryScreenPreview2() {
     )
     DeliveryScreen(
         state = DeliveryState(
-            stateBox = StateBoxState(ScreenState.SUCCESS), deliveryPicker = DeliveryPickerState(
+            stateBox = ScreenState.SUCCESS,
+            deliveryPicker = DeliveryPickerState(
                 selectedDeliveryMethod = m,
                 deliveryMethods = listOf(
                     m, Delivery.CourierDelivery(

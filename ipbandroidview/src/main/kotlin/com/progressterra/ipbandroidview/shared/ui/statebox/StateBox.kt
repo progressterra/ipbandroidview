@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLoadingIndicator
 @Composable
 fun StateBox(
     modifier: Modifier = Modifier,
-    state: StateBoxState,
+    state: ScreenState,
     useComponent: UseStateBox,
     content: @Composable (BoxScope.() -> Unit)
 ) {
@@ -24,7 +24,7 @@ fun StateBox(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter
     ) {
-        when (state.state) {
+        when (state) {
             ScreenState.ERROR -> IconButton(
                 modifier = Modifier.align(Alignment.Center), onClick = {
                     useComponent.handle(StateBoxEvent.Refresh)
@@ -35,6 +35,7 @@ fun StateBox(
                     tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
+
             ScreenState.LOADING -> ThemedLoadingIndicator(Modifier.align(Alignment.Center))
             ScreenState.SUCCESS -> content()
         }

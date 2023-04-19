@@ -1,12 +1,15 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerEvent
+import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.FetchAvailableDeliveryUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -22,7 +25,17 @@ class DeliveryViewModel(
     private val createDeliveryOrderUseCase: CreateDeliveryOrderUseCase
 ) : ViewModel(), ContainerHost<DeliveryState, DeliveryEvent>, UseDelivery {
 
-    override val container = container<DeliveryState, DeliveryEvent>(DeliveryState())
+    override val container = container<DeliveryState, DeliveryEvent>(
+        DeliveryState(
+            confirm = ButtonState(id = "confirm", enabled = false),
+            deliveryPicker = DeliveryPickerState(
+                city = TextFieldState(id = "city"),
+                home = TextFieldState(id = "home"),
+                entrance = TextFieldState(id = "entrance"),
+                apartment = TextFieldState(id = "apartment")
+            )
+        )
+    )
 
     fun refresh() = intent {
         reduce { state.updateStateBoxState(ScreenState.LOADING) }
@@ -61,7 +74,9 @@ class DeliveryViewModel(
                 "home" -> reduce { state.updateHome(event.text) }
                 "entrance" -> reduce { state.updateEntrance(event.text) }
                 "apartment" -> reduce { state.updateApartment(event.text) }
+                "commentary" -> reduce { state.updateCommentary(event.text) }
             }
+
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
                 "city" -> reduce { state.updateCity("") }

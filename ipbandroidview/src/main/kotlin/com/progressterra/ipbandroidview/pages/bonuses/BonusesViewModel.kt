@@ -22,7 +22,7 @@ class BonusesViewModel(
     override val container: Container<BonusesState, BonusesEffect> = container(BonusesState())
 
     fun refresh() = intent {
-        reduce { state.updateStateBoxState(ScreenState.LOADING) }
+        reduce { state.updateScreenState(ScreenState.LOADING) }
         var isSuccess = true
         bonusesUseCase().onSuccess {
             reduce { state.updateBonusesInfo(it) }
@@ -34,7 +34,7 @@ class BonusesViewModel(
         }.onFailure {
             isSuccess = false
         }
-        reduce { state.updateStateBoxState(ScreenState.fromBoolean(isSuccess)) }
+        reduce { state.updateScreenState(ScreenState.fromBoolean(isSuccess)) }
     }
 
     override fun handle(event: BonusesEvent) = intent {

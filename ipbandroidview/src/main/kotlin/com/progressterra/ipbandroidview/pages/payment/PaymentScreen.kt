@@ -25,7 +25,6 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 
 @Composable
 fun PaymentScreen(
@@ -37,7 +36,7 @@ fun PaymentScreen(
         )
     }) { _, _ ->
         StateBox(
-            state = state.stateBox, useComponent = useComponent
+            state = state.screenState, useComponent = useComponent
         ) {
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -72,7 +71,7 @@ fun PaymentScreen(
 private fun PaymentScreenPreview() {
     PaymentScreen(
         state = PaymentState(
-            stateBox = StateBoxState(ScreenState.SUCCESS), receipt = ReceiptState(
+            screenState = ScreenState.SUCCESS, receipt = ReceiptState(
                 total = SimplePrice(12500), items = listOf(
                     ReceiptState.Item(
                         name = "Кофе", price = SimplePrice(10000), quantity = 1

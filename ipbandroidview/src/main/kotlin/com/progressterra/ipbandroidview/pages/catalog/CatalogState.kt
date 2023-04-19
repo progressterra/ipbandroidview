@@ -6,20 +6,18 @@ import com.progressterra.ipbandroidview.features.search.SearchState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.trace.TraceState
 import com.progressterra.ipbandroidview.shared.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItemsState
 import kotlinx.coroutines.flow.Flow
 
 data class CatalogState(
     val trace: TraceState = TraceState(),
-    val stateBox: StateBoxState = StateBoxState(),
+    val stateBox: ScreenState = ScreenState.LOADING,
     val search: SearchState = SearchState(),
     val current: CatalogCardState = CatalogCardState(),
     val goods: StoreItemsState.Flowed = StoreItemsState.Flowed()
 ) {
 
-    fun updateStateBox(screenState: ScreenState) =
-        copy(stateBox = stateBox.updateState(screenState))
+    fun updateStateBox(screenState: ScreenState) = copy(stateBox = screenState)
 
     fun updateGoods(flow: Flow<PagingData<StoreCardState>>) = copy(goods = goods.updateItems(flow))
 

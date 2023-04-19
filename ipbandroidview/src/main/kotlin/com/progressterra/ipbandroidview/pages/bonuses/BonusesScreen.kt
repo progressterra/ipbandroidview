@@ -26,7 +26,7 @@ fun BonusesScreen(
         }
     ) { _, _ ->
         StateBox(
-            state = state.stateBoxState, useComponent = useComponent
+            state = state.screenState, useComponent = useComponent
         ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(40.dp)
