@@ -9,6 +9,7 @@ import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
+@Suppress("unused")
 class CartNode(
     buildContext: BuildContext,
     private val onItem: (String) -> Unit,
