@@ -13,6 +13,9 @@ import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationCh
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
+import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsMapper
+import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
+import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
@@ -26,6 +29,8 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val pagesModule = module {
+
+    viewModel { GoodsDetailsViewModel(get(), get()) }
 
     viewModel { WelcomeViewModel() }
 
@@ -72,6 +77,15 @@ val pagesModule = module {
     single<CartUseCase> {
 //        CartUseCase.Base(get(), get(), get(), get(), get(), get())
         CartUseCase.Test()
+    }
+
+    single<GoodsDetailsUseCase> {
+//        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
+        GoodsDetailsUseCase.Test()
+    }
+
+    single<GoodsDetailsMapper> {
+        GoodsDetailsMapper.Base(get(), get(), get())
     }
 
     single<FavoriteGoodsUseCase> { FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get()) }

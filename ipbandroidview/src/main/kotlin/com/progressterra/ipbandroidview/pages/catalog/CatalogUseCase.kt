@@ -46,8 +46,7 @@ interface CatalogUseCase {
                 )
             )
             CatalogCardState(
-                subCategories = list.map { it.copy(subCategories = list) },
-                hasNext = true
+                subCategories = list.map { it.copy(subCategories = list) }
             )
         }
     }

@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.processes
 
 import com.progressterra.ipbandroidview.pages.delivery.CreateDeliveryOrderUseCase
+import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
-import com.progressterra.ipbandroidview.processes.goods.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsSource
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
@@ -13,7 +13,6 @@ import com.progressterra.ipbandroidview.processes.location.OpenMapUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.processes.mapper.CatalogMapper
-import com.progressterra.ipbandroidview.processes.mapper.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.processes.mapper.StatusOrderMapper
@@ -85,7 +84,6 @@ val processesModule = module {
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
 
-
     single<StatusOrderMapper> { StatusOrderMapper.Base(get()) }
 
     single<PriceMapper> { PriceMapper.Russia() }
@@ -106,11 +104,6 @@ val processesModule = module {
 
     single<GoodsUseCase> { GoodsUseCase.Base(get(), get()) }
 
-    single<GoodsDetailsUseCase> {
-        GoodsDetailsUseCase.Base(
-            get(), get(), get(), get(), get(), get()
-        )
-    }
 
     single<FetchGoodsPage> { FetchGoodsPage.Base(get(), get(), get(), get()) }
 

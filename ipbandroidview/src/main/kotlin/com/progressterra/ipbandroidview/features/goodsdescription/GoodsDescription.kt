@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.goodsdetails
+package com.progressterra.ipbandroidview.features.goodsdescription
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
+fun GoodsDescription(modifier: Modifier = Modifier, state: GoodsDescriptionState) {
     val pagerState = rememberPagerState()
     val tabs = listOf(
         stringResource(id = R.string.description),
@@ -35,7 +35,8 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
         stringResource(id = R.string.delivery)
     )
     Column(
-        modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier.padding(horizontal = 20.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
             modifier = Modifier
@@ -55,7 +56,8 @@ fun GoodsDetails(modifier: Modifier = Modifier, state: GoodsDetailsState) {
                         .weight(1f)
                         .clip(RoundedCornerShape(8.dp))
                         .background(backgroundColor.asBrush())
-                        .niceClickable { scope.launch { pagerState.animateScrollToPage(page = index) } },
+                        .niceClickable { scope.launch { pagerState.animateScrollToPage(page = index) } }
+                        .padding(vertical = 12.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     val textColor =

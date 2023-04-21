@@ -1,12 +1,13 @@
-package com.progressterra.ipbandroidview.processes.mapper
+package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.models.RGGoodsInventoryExt
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.GoodsItem
 import com.progressterra.ipbandroidview.entities.GoodsParameters
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
+import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
+import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.shared.AbstractMapper
 import com.progressterra.ipbandroidview.shared.ManageResources
 
@@ -14,7 +15,7 @@ interface GoodsDetailsMapper {
 
     fun map(
         goodsRaw: RGGoodsInventoryExt, isFavorite: Boolean, count: Int
-    ): GoodsItem
+    ): GoodsDetailsState
 
     class Base(
         gson: Gson, manageResources: ManageResources, private val priceMapper: PriceMapper
@@ -24,7 +25,7 @@ interface GoodsDetailsMapper {
 
         override fun map(
             goodsRaw: RGGoodsInventoryExt, isFavorite: Boolean, count: Int
-        ): GoodsItem {
+        ): GoodsDetailsState {
             val parsedParameters = parse<Map<String, String?>>(goodsRaw.additionalDataJSON)
             val parametersToShow = parsedParameters?.get("listVisible")?.split(",")
             val parameters: List<GoodsParameters> = buildList {
@@ -36,10 +37,16 @@ interface GoodsDetailsMapper {
                 gson.fromJson(
                     image, ImageData::class.java
                 ).list
-            } ?: emptyList()
-            return GoodsItem(
-                price = goodsRaw.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
+            }?.map { it.url } ?: emptyList()
+            return GoodsDetailsState(
+//                price = goodsRaw.currentPrice?.let { priceMapper.map(it) } ?: SimplePrice(),
                 name = goodsRaw.name ?: noData,
+                gallery = ItemGalleryState(images),
+                description = GoodsDescriptionState(
+                    name = goodsRaw.name ?: noData,
+                    description = goodsRaw.extendedDescription ?: noData,
+                    company = noData
+                )
             )
         }
 
