@@ -48,6 +48,7 @@ fun Bonuses(
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(animateColor)
             .padding(16.dp), horizontalArrangement = Arrangement.SpaceBetween

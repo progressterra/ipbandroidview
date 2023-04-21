@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.bonuses
+package com.progressterra.ipbandroidview.pages.bonusesdetails
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +9,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
-class BonusesNode(
+class BonusesDetailsNode(
     buildContext: BuildContext,
     private val onBack: () -> Unit,
     private val onClarification: () -> Unit
@@ -17,10 +17,10 @@ class BonusesNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel: BonusesViewModel = getViewModel()
+        val viewModel: BonusesDetailsViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
-                is BonusesEffect.Back -> onBack()
+                is BonusesDetailsEvent.Back -> onBack()
             }
         }
         val state = viewModel.collectAsState()

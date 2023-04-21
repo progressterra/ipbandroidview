@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages
 
-import com.progressterra.ipbandroidview.pages.bonuses.BonusesViewModel
-import com.progressterra.ipbandroidview.pages.bonuses.CancelUseBonusesUseCase
-import com.progressterra.ipbandroidview.pages.bonuses.UseBonusesUseCase
+import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
+import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
+import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartGoodsMapper
 import com.progressterra.ipbandroidview.pages.cart.CartUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartViewModel
@@ -46,7 +46,7 @@ val pagesModule = module {
 
     viewModel { DeliveryViewModel(get(), get()) }
 
-    viewModel { BonusesViewModel(get(), get()) }
+    viewModel { BonusesDetailsViewModel(get(), get()) }
 
     viewModel { FavoritesViewModel(get(), get(), get()) }
 

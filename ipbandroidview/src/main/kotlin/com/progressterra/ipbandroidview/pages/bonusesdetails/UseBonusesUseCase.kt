@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.bonuses
+package com.progressterra.ipbandroidview.pages.bonusesdetails
 
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamImplementBonusV3

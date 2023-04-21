@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.bonuses
+package com.progressterra.ipbandroidview.pages.bonusesdetails
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -14,12 +14,12 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class BonusesViewModel(
+class BonusesDetailsViewModel(
     private val bonusesUseCase: BonusesUseCase,
     private val fetchBonusesTransactionsUseCase: FetchBonusesTransactionsUseCase
-) : ViewModel(), ContainerHost<BonusesState, BonusesEffect>, UseBonuses {
+) : ViewModel(), ContainerHost<BonusesDetailsState, BonusesDetailsEvent>, UseBonusesDetails {
 
-    override val container: Container<BonusesState, BonusesEffect> = container(BonusesState())
+    override val container: Container<BonusesDetailsState, BonusesDetailsEvent> = container(BonusesDetailsState())
 
     fun refresh() = intent {
         reduce { state.updateScreenState(ScreenState.LOADING) }
@@ -45,7 +45,7 @@ class BonusesViewModel(
 
     override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is TopBarEvent.Back -> postSideEffect(BonusesEffect.Back)
+            is TopBarEvent.Back -> postSideEffect(BonusesDetailsEvent.Back)
         }
     }
 

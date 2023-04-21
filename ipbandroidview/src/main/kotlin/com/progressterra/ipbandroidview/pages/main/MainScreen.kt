@@ -30,7 +30,6 @@ fun MainScreen(
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 Bonuses(
-                    modifier = Modifier.padding(horizontal = 20.dp),
                     state = state.bonuses, useComponent = useComponent
                 )
                 Galleries(
