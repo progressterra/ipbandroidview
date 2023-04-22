@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -61,15 +62,13 @@ class DeliveryViewModel(
     override fun handle(event: ButtonEvent) = intent {
         when (event) {
             is ButtonEvent.Click -> when (event.id) {
-                "confirm" -> {
-                    createDeliveryOrderUseCase(
-                        state.commentary.text, state.deliveryPicker.selectedDeliveryMethod!!
-                    ).onSuccess {
-                        postSideEffect(DeliveryEvent.Next)
-                    }
+                "confirm" -> createDeliveryOrderUseCase(
+                    state.commentary.text, state.deliveryPicker.selectedDeliveryMethod!!
+                ).onSuccess {
+                    postSideEffect(DeliveryEvent.Next)
                 }
 
-                "selectPoint" -> postSideEffect(DeliveryEvent.SelectPickupPoint)
+                "selectPoint" -> postSideEffect(DeliveryEvent.SelectPickupPoint((state.deliveryPicker.selectedDeliveryMethod as Delivery.PickUpPointDelivery).points))
             }
         }
     }
