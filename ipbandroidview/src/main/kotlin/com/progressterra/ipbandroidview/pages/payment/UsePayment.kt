@@ -19,7 +19,7 @@ interface UsePayment : UseTopBar, UsePaymentMethod, UseStateBox, UseButton, UseB
     UseReceiveReceipt, UseReceipt {
 
         class Empty : UsePayment {
-            
+
             override fun handle(event: PaymentMethodEvent) = Unit
 
             override fun handle(event: TopBarEvent) = Unit
