@@ -21,7 +21,8 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class PaymentViewModel(
-    private val fetchPaymentMethods: FetchPaymentMethods
+    private val fetchPaymentMethods: FetchPaymentMethods,
+    private val payUseCase: ConfirmOrderUseCase
 ) : ViewModel(), ContainerHost<PaymentState, PaymentEvent>, UsePayment {
 
     override val container = container<PaymentState, PaymentEvent>(PaymentState())
