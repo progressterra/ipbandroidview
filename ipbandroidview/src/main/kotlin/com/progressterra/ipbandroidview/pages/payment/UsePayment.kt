@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.payment
 
-import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitchEvent
 import com.progressterra.ipbandroidview.features.bonusswitch.UseBonusSwitch
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
 import com.progressterra.ipbandroidview.features.paymentmethod.UsePaymentMethod
@@ -20,9 +19,7 @@ interface UsePayment : UseTopBar, UsePaymentMethod, UseStateBox, UseButton, UseB
     UseReceiveReceipt, UseReceipt {
 
         class Empty : UsePayment {
-
-            override fun handle(event: BonusSwitchEvent) = Unit
-
+            
             override fun handle(event: PaymentMethodEvent) = Unit
 
             override fun handle(event: TopBarEvent) = Unit

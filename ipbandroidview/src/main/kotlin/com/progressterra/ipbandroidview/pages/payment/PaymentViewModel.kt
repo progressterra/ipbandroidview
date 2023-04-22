@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitchEvent
 import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -22,7 +22,8 @@ import org.orbitmvi.orbit.viewmodel.container
 @OptIn(OrbitExperimental::class)
 class PaymentViewModel(
     private val fetchPaymentMethods: FetchPaymentMethods,
-    private val payUseCase: ConfirmOrderUseCase
+    private val confirmOrderUseCase: ConfirmOrderUseCase,
+    private val openUrlUseCase: OpenUrlUseCase
 ) : ViewModel(), ContainerHost<PaymentState, PaymentEvent>, UsePayment {
 
     override val container = container<PaymentState, PaymentEvent>(PaymentState())
@@ -45,17 +46,20 @@ class PaymentViewModel(
     override fun handle(event: ButtonEvent) = intent {
         when (event) {
             is ButtonEvent.Click -> when (event.id) {
-                "confirm" -> postSideEffect(PaymentEvent.Next)
+                "confirm" -> confirmOrderUseCase().onSuccess {
+                    postSideEffect(PaymentEvent.Next(it))
+                }
             }
         }
     }
 
-    override fun handle(event: BonusSwitchEvent) {
-        TODO("Not yet implemented")
-    }
-
-    override fun handle(event: BrushedSwitchEvent) {
-        TODO("Not yet implemented")
+    override fun handle(event: BrushedSwitchEvent) = intent {
+        when (event) {
+            is BrushedSwitchEvent.Click -> when (event.id) {
+                "useBonuses" -> reduce { state.reverseBonusSwitch() }
+                "receiveReceipt" -> reduce { state.reverseReceiveReceipt() }
+            }
+        }
     }
 
     override fun handle(event: StateBoxEvent) = intent {
@@ -66,14 +70,18 @@ class PaymentViewModel(
 
     override fun handle(event: TextFieldEvent) = blockingIntent {
         when (event) {
-            is TextFieldEvent.Action -> TODO()
-            is TextFieldEvent.AdditionalAction -> TODO()
-            is TextFieldEvent.TextChanged -> TODO()
+            is TextFieldEvent.Action -> Unit
+            is TextFieldEvent.AdditionalAction -> Unit
+            is TextFieldEvent.TextChanged -> when (event.id) {
+                "email" -> reduce { state.updateEmail(event.text) }
+            }
         }
     }
 
-    override fun handle(event: LinkTextEvent) {
-        TODO("Not yet implemented")
+    override fun handle(event: LinkTextEvent) = intent {
+        when (event) {
+            is LinkTextEvent.Click -> openUrlUseCase(event.url)
+        }
     }
 
     override fun handle(event: PaymentMethodEvent) = intent {

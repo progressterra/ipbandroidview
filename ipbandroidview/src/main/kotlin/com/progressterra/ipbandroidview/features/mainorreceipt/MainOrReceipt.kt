@@ -24,7 +24,7 @@ data class MainOrReceiptState(
     val main: ButtonState = ButtonState(
         id = "main"
     ), val receipt: ButtonState = ButtonState(
-        id = "check"
+        id = "receipt"
     )
 )
 

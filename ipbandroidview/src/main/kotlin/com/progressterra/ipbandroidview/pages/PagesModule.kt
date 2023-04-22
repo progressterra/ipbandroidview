@@ -42,7 +42,7 @@ val pagesModule = module {
 
     viewModel { MainViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel { PaymentViewModel(get()) }
+    viewModel { PaymentViewModel(get(), get(), get()) }
 
     viewModel { DeliveryViewModel(get(), get()) }
 
@@ -92,7 +92,10 @@ val pagesModule = module {
 
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 
-    single<ConfirmOrderUseCase> { ConfirmOrderUseCase.Base(get(), get(), get()) }
+    single<ConfirmOrderUseCase> {
+//        ConfirmOrderUseCase.Base(get(), get(), get())
+        ConfirmOrderUseCase.Test()
+    }
 
     viewModel { CatalogViewModel(get(), get(), get(), get()) }
 

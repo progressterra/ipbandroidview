@@ -6,6 +6,15 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 
 @Immutable
 data class ReceiveReceiptState(
-    val receiveReceipt: BrushedSwitchState = BrushedSwitchState(),
-    val emailState: TextFieldState = TextFieldState()
-)
+    val receiveReceipt: BrushedSwitchState = BrushedSwitchState(
+        id = "receiveReceipt"
+    ),
+    val emailState: TextFieldState = TextFieldState(
+        id = "email"
+    )
+) {
+
+    fun reverseReceiveReceipt() = copy(receiveReceipt = receiveReceipt.reverse())
+
+    fun updateEmail(newEmail: String) = copy(emailState = emailState.updateText(newEmail))
+}

@@ -17,6 +17,12 @@ data class PaymentState(
     val receipt: ReceiptState = ReceiptState()
 ) {
 
+    fun updateEmail(newEmail: String) = copy(receiveReceipt = receiveReceipt.updateEmail(newEmail))
+
+    fun reverseBonusSwitch() = copy(bonusSwitch = bonusSwitch.reverse())
+
+    fun reverseReceiveReceipt() = copy(receiveReceipt = receiveReceipt.reverseReceiveReceipt())
+
     fun updateStateBoxState(newScreenState: ScreenState) = copy(screenState = newScreenState)
 
     fun updatePaymentMethodState(paymentMethodState: PaymentMethodState) =

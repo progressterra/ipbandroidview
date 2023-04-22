@@ -6,5 +6,10 @@ import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchSta
 @Immutable
 data class BonusSwitchState(
     val availableBonuses: Int = 0,
-    val useBonuses: BrushedSwitchState = BrushedSwitchState(),
-)
+    val useBonuses: BrushedSwitchState = BrushedSwitchState(
+        "useBonuses"
+    ),
+) {
+
+    fun reverse() = copy(useBonuses = useBonuses.reverse())
+}
