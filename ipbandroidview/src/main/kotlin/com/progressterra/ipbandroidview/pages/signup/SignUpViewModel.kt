@@ -1,17 +1,13 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.isEmail
 import com.progressterra.ipbandroidview.shared.isNameAndSurname
 import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
 import com.progressterra.ipbandroidview.shared.isTestPhoneNumber
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
-import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -23,39 +19,7 @@ import org.orbitmvi.orbit.viewmodel.container
 @OptIn(OrbitExperimental::class)
 class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, UseSignUp {
 
-    override val container = container<SignUpState, SignUpEvent>(
-        SignUpState(
-            editUser = EditUserState(
-                name = TextFieldState(
-                    id = "name"
-                ), email = TextFieldState(
-                    id = "email"
-                ), phone = TextFieldState(
-                    id = "phone"
-                ), birthday = TextFieldState(
-                    id = "birthday"
-                ), citizenship = TextFieldState(
-                    id = "citizenship"
-                ), address = TextFieldState(
-                    id = "address"
-                ), passport = TextFieldState(
-                    id = "passport"
-                ), passportProvider = TextFieldState(
-                    id = "passportProvider"
-                ), passportProviderCode = TextFieldState(
-                    id = "passportProviderCode"
-                ), patent = TextFieldState(
-                    id = "patent"
-                )
-            ), authOrSkip = AuthOrSkipState(
-                auth = ButtonState(
-                    id = "auth", enabled = false
-                ), skip = ButtonState(
-                    id = "skip"
-                )
-            )
-        )
-    )
+    override val container = container<SignUpState, SignUpEvent>(SignUpState())
 
     override fun handle(event: TopBarEvent) = intent {
         when (event) {

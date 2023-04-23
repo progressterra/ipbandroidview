@@ -5,8 +5,12 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
 @Immutable
 data class AuthOrSkipState(
-    val auth: ButtonState = ButtonState(),
-    val skip: ButtonState = ButtonState()
+    val auth: ButtonState = ButtonState(
+        id = "auth", enabled = false
+    ),
+    val skip: ButtonState = ButtonState(
+        id = "skip"
+    )
 ) {
 
     fun updateAuthButton(enabled: Boolean): AuthOrSkipState =

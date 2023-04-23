@@ -5,16 +5,16 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 
 @Immutable
 data class EditUserState(
-    val name: TextFieldState = TextFieldState(),
-    val email: TextFieldState = TextFieldState(),
-    val phone: TextFieldState = TextFieldState(),
-    val birthday: TextFieldState = TextFieldState(),
-    val citizenship: TextFieldState = TextFieldState(),
-    val address: TextFieldState = TextFieldState(),
-    val passport: TextFieldState = TextFieldState(),
-    val passportProvider: TextFieldState = TextFieldState(),
-    val passportProviderCode: TextFieldState = TextFieldState(),
-    val patent: TextFieldState = TextFieldState()
+    val name: TextFieldState = TextFieldState(id = "name"),
+    val email: TextFieldState = TextFieldState(id = "email"),
+    val phone: TextFieldState = TextFieldState(id = "phone"),
+    val birthday: TextFieldState = TextFieldState(id = "birthday"),
+    val citizenship: TextFieldState = TextFieldState(id = "citizenship"),
+    val address: TextFieldState = TextFieldState(id = "address"),
+    val passport: TextFieldState = TextFieldState(id = "passport"),
+    val passportProvider: TextFieldState = TextFieldState(id = "passportProvider"),
+    val passportProviderCode: TextFieldState = TextFieldState(id = "passportProviderCode"),
+    val patent: TextFieldState = TextFieldState(id = "patent")
 ) {
 
     fun updateName(newName: String) = copy(name = name.updateText(newName))
