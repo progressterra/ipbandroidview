@@ -3,6 +3,8 @@ package com.progressterra.ipbandroidview.shared.ui.textfield
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -15,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
@@ -125,4 +128,25 @@ fun TextField(
             errorTrailingIconColor = IpbTheme.colors.error.asColor()
         )
     )
+}
+
+@Preview
+@Composable
+private fun TextFieldPreview() {
+    IpbTheme {
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            TextField(
+                state = TextFieldState(
+                    text = "123-450-30"
+                ),
+                useComponent = UseTextField.Empty(),
+                hint = "Passport"
+            )
+            TextField(
+                state = TextFieldState(),
+                useComponent = UseTextField.Empty(),
+                hint = "Passport"
+            )
+        }
+    }
 }
