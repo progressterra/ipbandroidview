@@ -28,41 +28,29 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, Us
             editUser = EditUserState(
                 name = TextFieldState(
                     id = "name"
-                ),
-                email = TextFieldState(
+                ), email = TextFieldState(
                     id = "email"
-                ),
-                phone = TextFieldState(
+                ), phone = TextFieldState(
                     id = "phone"
-                ),
-                birthday = TextFieldState(
+                ), birthday = TextFieldState(
                     id = "birthday"
-                ),
-                citizenship = TextFieldState(
+                ), citizenship = TextFieldState(
                     id = "citizenship"
-                ),
-                address = TextFieldState(
+                ), address = TextFieldState(
                     id = "address"
-                ),
-                passport = TextFieldState(
+                ), passport = TextFieldState(
                     id = "passport"
-                ),
-                passportProvider = TextFieldState(
+                ), passportProvider = TextFieldState(
                     id = "passportProvider"
-                ),
-                passportProviderCode = TextFieldState(
+                ), passportProviderCode = TextFieldState(
                     id = "passportProviderCode"
-                ),
-                patent = TextFieldState(
+                ), patent = TextFieldState(
                     id = "patent"
                 )
-            ),
-            authOrSkip = AuthOrSkipState(
+            ), authOrSkip = AuthOrSkipState(
                 auth = ButtonState(
-                    id = "auth",
-                    enabled = false
-                ),
-                skip = ButtonState(
+                    id = "auth", enabled = false
+                ), skip = ButtonState(
                     id = "skip"
                 )
             )
@@ -71,7 +59,7 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, Us
 
     override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is TopBarEvent.Back -> Unit
+            is TopBarEvent.Back -> postSideEffect(SignUpEvent.OnBack)
         }
     }
 
@@ -80,6 +68,7 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, Us
             "auth" -> when (event) {
                 is ButtonEvent.Click -> postSideEffect(SignUpEvent.OnNext)
             }
+
             "skip" -> when (event) {
                 is ButtonEvent.Click -> postSideEffect(SignUpEvent.OnSkip)
             }
@@ -93,62 +82,63 @@ class SignUpViewModel : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, Us
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "email" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updateEmail(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "phone" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updatePhone(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "birthday" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updateBirthday(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "citizenship" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updateCitizenship(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "address" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updateAddress(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "passport" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updatePassport(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "passportProvider" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updatePassportProvider(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "passportProviderCode" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updatePassportProviderCode(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
+
             "patent" -> when (event) {
                 is TextFieldEvent.TextChanged -> reduce { state.updatePatent(event.text) }
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> Unit
             }
         }
-        val valid = state.editUser.name.text.isNameAndSurname() &&
-                state.editUser.email.text.isEmail() &&
-                (state.editUser.phone.text.isRussianPhoneNumber() || state.editUser.phone.text.isTestPhoneNumber()) &&
-                state.editUser.birthday.text.isNotBlank() &&
-                state.editUser.citizenship.text.isNotBlank() &&
-                state.editUser.address.text.isNotBlank() &&
-                state.editUser.passport.text.isNotBlank() &&
-                state.editUser.passportProvider.text.isNotBlank() &&
-                state.editUser.passportProviderCode.text.isNotBlank() &&
-                state.editUser.patent.text.isNotBlank()
+        val valid =
+            state.editUser.name.text.isNameAndSurname() && state.editUser.email.text.isEmail() && (state.editUser.phone.text.isRussianPhoneNumber() || state.editUser.phone.text.isTestPhoneNumber()) && state.editUser.birthday.text.isNotBlank() && state.editUser.citizenship.text.isNotBlank() && state.editUser.address.text.isNotBlank() && state.editUser.passport.text.isNotBlank() && state.editUser.passportProvider.text.isNotBlank() && state.editUser.passportProviderCode.text.isNotBlank() && state.editUser.patent.text.isNotBlank()
         reduce { state.updateAuthEnabled(valid) }
     }
 }

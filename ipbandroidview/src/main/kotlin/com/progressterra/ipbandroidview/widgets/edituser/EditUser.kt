@@ -26,6 +26,7 @@ fun EditUser(
 ) {
     Column(
         modifier = modifier
+            .padding(horizontal = 8.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),

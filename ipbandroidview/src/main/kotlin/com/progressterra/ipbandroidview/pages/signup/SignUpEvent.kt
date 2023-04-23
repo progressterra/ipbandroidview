@@ -5,4 +5,6 @@ sealed class SignUpEvent {
     object OnNext : SignUpEvent()
 
     object OnSkip : SignUpEvent()
+
+    object OnBack : SignUpEvent()
 }
