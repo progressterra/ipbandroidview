@@ -13,8 +13,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class MainNode(
     buildContext: BuildContext,
     private val onBonuses: () -> Unit,
-    private val onItem: () -> Unit,
-    private val onOffer: () -> Unit
+    private val onItem: (String) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -23,8 +22,7 @@ class MainNode(
         viewModel.collectSideEffect {
             when (it) {
                 is MainEvent.OnBonuses -> onBonuses()
-                is MainEvent.OnItem -> onItem()
-                is MainEvent.OnOffer -> onOffer()
+                is MainEvent.OnItem -> onItem(it.id)
             }
         }
         LaunchedEffect(Unit) {
