@@ -9,20 +9,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
 import com.progressterra.ipbandroidview.shared.ui.Masks.PASSPORT_NUMBER_MASK
 import com.progressterra.ipbandroidview.shared.ui.Masks.PASSPORT_PROVIDER_CODE_MASK
 import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
 fun EditUser(
-    modifier: Modifier = Modifier,
-    state: EditUserState,
-    useComponent: UseEditUser
+    modifier: Modifier = Modifier, state: EditUserState, useComponent: UseEditUser
 ) {
     Column(
         modifier = modifier
@@ -35,56 +34,75 @@ fun EditUser(
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.name,
-            useComponent = useComponent
+            hint = stringResource(R.string.name_surname),
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.birthday,
+            hint = stringResource(R.string.birthday),
             actionIcon = R.drawable.ic_cal_pro,
             useComponent = useComponent
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.phone,
+            hint = stringResource(R.string.phone_number),
             visualTransformation = MaskVisualTransformation(PHONE_MASK),
-            useComponent = useComponent
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.email,
-            useComponent = useComponent
+            hint = stringResource(R.string.email),
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.citizenship,
-            useComponent = useComponent
+            hint = stringResource(R.string.citizenship),
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.address,
-            useComponent = useComponent
+            hint = stringResource(R.string.address),
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.passport,
+            hint = stringResource(R.string.passport),
             visualTransformation = MaskVisualTransformation(PASSPORT_NUMBER_MASK),
-            useComponent = useComponent
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.passportProvider,
-            useComponent = useComponent
+            hint = stringResource(R.string.passport_provider),
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.passportProviderCode,
+            hint = stringResource(R.string.passport_provider_code),
             visualTransformation = MaskVisualTransformation(PASSPORT_PROVIDER_CODE_MASK),
-            useComponent = useComponent
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.patent,
-            useComponent = useComponent
+            hint = stringResource(R.string.patent_number),
+            useComponent = useComponent,
+            actionIcon = R.drawable.ic_cancel_pro
         )
     }
 }

@@ -184,4 +184,9 @@
     <string name="see_receipt">Посмотреть чек</string>
     <string name="to_main">На главную</string>
     <string name="order_processing">Оформление заказа</string>
+    <string name="citizenship">Гражданство</string>
+    <string name="passport">Номер и серия паспорта</string>
+    <string name="passport_provider">Кем выдан</string>
+    <string name="passport_provider_code">Код подразделения</string>
+    <string name="patent_number">Номер патента</string>
 </resources>

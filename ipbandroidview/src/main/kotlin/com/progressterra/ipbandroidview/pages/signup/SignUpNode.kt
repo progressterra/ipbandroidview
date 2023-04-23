@@ -10,7 +10,10 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class SignUpNode(
-    buildContext: BuildContext, private val onNext: () -> Unit, private val onSkip: () -> Unit
+    buildContext: BuildContext,
+    private val onNext: () -> Unit,
+    private val onSkip: () -> Unit,
+    private val onBack: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -18,6 +21,7 @@ class SignUpNode(
         val viewModel = getViewModel<SignUpViewModel>()
         viewModel.collectSideEffect {
             when (it) {
+                is SignUpEvent.OnBack -> onBack()
                 is SignUpEvent.OnNext -> onNext()
                 is SignUpEvent.OnSkip -> onSkip()
             }
