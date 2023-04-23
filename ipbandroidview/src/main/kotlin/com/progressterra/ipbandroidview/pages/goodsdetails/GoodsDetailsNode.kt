@@ -15,9 +15,7 @@ class GoodsDetailsNode(
     private val goodsId: String,
     private val onBack: () -> Unit,
     private val openPhoto: (String) -> Unit
-) : Node(
-    buildContext = buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {

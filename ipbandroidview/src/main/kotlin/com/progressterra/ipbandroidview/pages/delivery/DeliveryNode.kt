@@ -15,9 +15,7 @@ class DeliveryNode(
     private val onPickUpPoint: (List<PickUpPointInfo>) -> Unit,
     private val onNext: () -> Unit,
     private val onBack: () -> Unit
-) : Node(
-    buildContext = buildContext
-) {
+) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
