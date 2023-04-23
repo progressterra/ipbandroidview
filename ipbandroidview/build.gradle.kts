@@ -63,16 +63,16 @@ dependencies {
     api("org.orbit-mvi:orbit-compose:4.6.1")
 
     // Activity
-    api("androidx.activity:activity-ktx:1.7.0")
-    api("androidx.activity:activity-compose:1.7.0")
+    api("androidx.activity:activity-ktx:1.7.1")
+    api("androidx.activity:activity-compose:1.7.1")
 
     // Compose
-    api("androidx.compose.ui:ui:1.4.1")
-    api("androidx.compose.ui:ui-util:1.4.1")
-    api("androidx.compose.ui:ui-tooling:1.4.1")
-    api("androidx.compose.ui:ui-tooling-preview:1.4.1")
-    api("androidx.compose.foundation:foundation:1.4.1")
-    api("androidx.compose.material:material:1.4.1")
+    api("androidx.compose.ui:ui:1.4.2")
+    api("androidx.compose.ui:ui-util:1.4.2")
+    api("androidx.compose.ui:ui-tooling:1.4.2")
+    api("androidx.compose.ui:ui-tooling-preview:1.4.2")
+    api("androidx.compose.foundation:foundation:1.4.2")
+    api("androidx.compose.material:material:1.4.2")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Koin, DI library
