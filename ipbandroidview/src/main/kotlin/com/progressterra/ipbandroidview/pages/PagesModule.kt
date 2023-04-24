@@ -94,7 +94,10 @@ val pagesModule = module {
         GoodsDetailsMapper.Base(get(), get(), get())
     }
 
-    single<FavoriteGoodsUseCase> { FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get()) }
+    single<FavoriteGoodsUseCase> {
+//        FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get())
+        FavoriteGoodsUseCase.Test()
+    }
 
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 

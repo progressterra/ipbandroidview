@@ -95,7 +95,10 @@ val processesModule = module {
 
     single<GuessLocationUseCase> { GuessLocationUseCase.Base(get(), get()) }
 
-    single<GoodsUseCase> { GoodsUseCase.Base(get()) }
+    single<GoodsUseCase> {
+//        GoodsUseCase.Base(get())
+        GoodsUseCase.Test()
+    }
 
 
     single<FetchGoodsPage> {
