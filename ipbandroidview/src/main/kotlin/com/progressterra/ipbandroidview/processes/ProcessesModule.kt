@@ -27,10 +27,9 @@ import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseC
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.processes.store.OrdersUseCase
 import com.progressterra.ipbandroidview.processes.store.SizeTableUseCase
-import com.progressterra.ipbandroidview.processes.user.FetchUserBirthdayUseCase
-import com.progressterra.ipbandroidview.processes.user.FetchUserNameUseCase
-import com.progressterra.ipbandroidview.processes.user.SaveUserAddressUseCase
-import com.progressterra.ipbandroidview.processes.user.UpdatePersonalInfoUseCase
+import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
+import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
+import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenPhoneUseCase
@@ -52,13 +51,7 @@ val processesModule = module {
 
     single<OpenUrlUseCase> { OpenUrlUseCase.Base(get()) }
 
-    single<UpdatePersonalInfoUseCase> { UpdatePersonalInfoUseCase.Base(get(), get()) }
-
-    single<FetchUserNameUseCase> { FetchUserNameUseCase.Base() }
-
-    single<FetchUserBirthdayUseCase> { FetchUserBirthdayUseCase.Base() }
-
-    single<SaveUserAddressUseCase> { SaveUserAddressUseCase.Base(get(), get(), get(), get()) }
+    single<SaveAddressUseCase> { SaveAddressUseCase.Base(get(), get(), get(), get()) }
 
     single<SizeTableUseCase> { SizeTableUseCase.Base(get(), get(), get()) }
 
@@ -120,5 +113,13 @@ val processesModule = module {
     single<StartVerificationChannelUseCase> {
         StartVerificationChannelUseCase.Base(get())
 //        StartVerificationChannelUseCase.Test()
+    }
+
+    single<SaveDataUseCase> {
+        SaveDataUseCase.Test()
+    }
+
+    single<FetchUserUseCase> {
+        FetchUserUseCase.Base()
     }
 }

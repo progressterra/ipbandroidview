@@ -38,7 +38,7 @@ val pagesModule = module {
 
     viewModel { SignInViewModel(get(), get()) }
 
-    viewModel { SignUpViewModel() }
+    viewModel { SignUpViewModel(get(), get()) }
 
     viewModel { MainViewModel(get(), get(), get(), get(), get()) }
 

@@ -119,6 +119,8 @@ data class AddressUI(
         if (this@AddressUI.isEmpty())
             append("Установите адрес")
         else {
+            if (nameCity.isNotBlank())
+                append(nameCity)
             if (nameStreet.isNotBlank())
                 append(nameStreet)
             if (houseNUmber.isNotBlank())

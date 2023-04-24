@@ -14,6 +14,11 @@ object UserData : KotprefModel() {
     var email by stringPref()
     var address by gsonPref(AddressUI())
     var userName by gsonPref(UserName())
+    var citizenship by stringPref()
+    var passport by stringPref()
+    var passportProvider by stringPref()
+    var passportProviderCode by stringPref()
+    var patent by stringPref()
     var dateOfBirthday by longPref()
     var supportChatId by stringPref()
 

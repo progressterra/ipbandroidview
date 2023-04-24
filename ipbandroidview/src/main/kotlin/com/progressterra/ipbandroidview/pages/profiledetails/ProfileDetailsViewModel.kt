@@ -1,9 +1,12 @@
-package com.progressterra.ipbandroidview.pages.signup
+package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserValidUseCase
 import org.orbitmvi.orbit.ContainerHost
@@ -15,34 +18,51 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
-class SignUpViewModel(
-    private val userValidUseCase: EditUserValidUseCase,
-    private val saveDataUseCase: SaveDataUseCase
-) : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, UseSignUp {
+class ProfileDetailsViewModel(
+    private val saveUseCase: SaveDataUseCase,
+    private val fetchUserUseCase: FetchUserUseCase,
+    private val editUserValidUseCase: EditUserValidUseCase
+) : ViewModel(),
+    ContainerHost<ProfileDetailsState, ProfileDetailsEvent>, UseProfileDetails {
 
-    override val container = container<SignUpState, SignUpEvent>(SignUpState())
+    override val container =
+        container<ProfileDetailsState, ProfileDetailsEvent>(ProfileDetailsState())
+
+    fun refresh() = intent {
+        fetchUserUseCase().onSuccess {
+            reduce { state.updateEditUser(it) }
+        }
+    }
+
+    override fun handle(event: AuthProfileEvent) = intent {
+        when (event) {
+            //TODO
+            is AuthProfileEvent.Click -> Unit
+        }
+    }
 
     override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is TopBarEvent.Back -> postSideEffect(SignUpEvent.OnBack)
+            is TopBarEvent.Back -> postSideEffect(ProfileDetailsEvent.Back)
         }
     }
 
     override fun handle(event: ButtonEvent) = intent {
-        when (event.id) {
-            "auth" -> when (event) {
-                is ButtonEvent.Click -> {
-                    saveDataUseCase(state.editUser).onSuccess {
-                        postSideEffect(SignUpEvent.OnNext)
-                    }
-                }
-            }
-
-            "skip" -> when (event) {
-                is ButtonEvent.Click -> postSideEffect(SignUpEvent.OnSkip)
+        when (event) {
+            is ButtonEvent.Click -> when (event.id) {
+                "edit" -> reduce { state.startCancelEdit() }
+                "save" -> saveUseCase(state.editUser)
+                "cancel" -> refresh()
             }
         }
     }
+
+    override fun handle(event: StateBoxEvent) = intent {
+        when (event) {
+            is StateBoxEvent.Refresh -> refresh()
+        }
+    }
+
 
     override fun handle(event: TextFieldEvent) = blockingIntent {
         when (event.id) {
@@ -110,7 +130,7 @@ class SignUpViewModel(
     }
 
     private fun valid() = intent {
-        val valid = userValidUseCase(state.editUser).isSuccess
-        reduce { state.updateAuthEnabled(valid) }
+        val valid = editUserValidUseCase(state.editUser).isSuccess
+        reduce { state.updateSaveEnabled(valid) }
     }
 }

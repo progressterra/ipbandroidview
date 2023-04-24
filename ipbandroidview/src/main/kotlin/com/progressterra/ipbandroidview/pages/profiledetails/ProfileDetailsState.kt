@@ -1,14 +1,20 @@
-package com.progressterra.ipbandroidview.pages.signup
+package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
+import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
+import com.progressterra.ipbandroidview.features.editbutton.EditButtonState
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 
 @Immutable
-data class SignUpState(
+data class ProfileDetailsState(
     val editUser: EditUserState = EditUserState(),
-    val authOrSkip: AuthOrSkipState = AuthOrSkipState()
+    val editButton: EditButtonState = EditButtonState(),
+    val authProfileState: AuthProfileState = AuthProfileState()
 ) {
+
+    fun updateEditUser(newEditUser: EditUserState) = copy(editUser = newEditUser)
+
+    fun startCancelEdit() = copy(editButton = editButton.startCancel())
 
     fun updateName(name: String) = copy(editUser = editUser.updateName(name))
 
@@ -16,17 +22,14 @@ data class SignUpState(
 
     fun updatePhone(phone: String) = copy(editUser = editUser.updatePhone(phone))
 
-    fun updateBirthday(birthday: String) =
-        copy(editUser = editUser.updateBirthday(birthday))
+    fun updateBirthday(birthday: String) = copy(editUser = editUser.updateBirthday(birthday))
 
     fun updateCitizenship(citizenship: String) =
         copy(editUser = editUser.updateCitizenship(citizenship))
 
-    fun updateAddress(address: String) =
-        copy(editUser = editUser.updateAddress(address))
+    fun updateAddress(address: String) = copy(editUser = editUser.updateAddress(address))
 
-    fun updatePassport(passport: String) =
-        copy(editUser = editUser.updatePassport(passport))
+    fun updatePassport(passport: String) = copy(editUser = editUser.updatePassport(passport))
 
     fun updatePassportProvider(passportProvider: String) =
         copy(editUser = editUser.updatePassportProvider(passportProvider))
@@ -36,6 +39,6 @@ data class SignUpState(
 
     fun updatePatent(patent: String) = copy(editUser = editUser.updatePatent(patent))
 
-    fun updateAuthEnabled(enabled: Boolean) =
-        copy(authOrSkip = authOrSkip.updateAuthButton(enabled))
+    fun updateSaveEnabled(enabled: Boolean) =
+        copy(editButton = editButton.updateSaveEnabled(enabled))
 }

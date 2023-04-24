@@ -189,4 +189,7 @@
     <string name="passport_provider">Кем выдан</string>
     <string name="passport_provider_code">Код подразделения</string>
     <string name="patent_number">Номер патента</string>
+    <string name="change_data">Изменить данные</string>
+    <string name="my_orders">Мои заказы</string>
+    <string name="delete_account">Удалить аккаунт</string>
 </resources>

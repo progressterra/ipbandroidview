@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,6 +33,8 @@ fun AuthProfile(
 ) {
     Row(
         modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .niceClickable { useComponent.handle(AuthProfileEvent.Click) }

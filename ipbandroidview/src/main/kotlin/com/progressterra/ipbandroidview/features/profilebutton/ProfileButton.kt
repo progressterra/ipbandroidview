@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.features.profilebutton
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -17,11 +18,6 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 
-sealed class ProfileButtonEvent {
-
-    object Click : ProfileButtonEvent()
-}
-
 @Composable
 fun ProfileButton(
     modifier: Modifier = Modifier,
@@ -32,9 +28,11 @@ fun ProfileButton(
 ) {
     Row(
         modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable { useComponent.handle(ProfileButtonEvent.Click) }
+            .niceClickable { useComponent.handle(ProfileButtonEvent.Click(state.id)) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
