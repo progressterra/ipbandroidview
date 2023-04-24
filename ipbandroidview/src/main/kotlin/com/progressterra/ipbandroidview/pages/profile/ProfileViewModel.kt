@@ -16,7 +16,7 @@ class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEvent>,
 
     override fun handle(event: AuthProfileEvent) = intent {
         when (event) {
-            is AuthProfileEvent.Click -> Unit
+            is AuthProfileEvent.Click -> postSideEffect(ProfileEvent.Details)
         }
     }
 
