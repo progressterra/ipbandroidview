@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -21,6 +22,9 @@ class ProfileDetailsNode(
             when (it) {
                 is ProfileDetailsEvent.Back -> onBack()
             }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.collectAsState().value
         ProfileDetailsScreen(
