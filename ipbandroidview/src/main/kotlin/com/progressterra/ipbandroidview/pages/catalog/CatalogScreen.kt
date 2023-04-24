@@ -16,7 +16,7 @@ fun CatalogScreen(
     state: CatalogState, useComponent: UseCatalog
 ) {
     ThemedLayout(topBar = {
-        if (state.trace.trace.isEmpty()) {
+        if (state.trace.trace.size <= 1) {
             Search(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.search,

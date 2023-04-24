@@ -34,19 +34,53 @@ interface CatalogUseCase {
             val list = listOf(
                 CatalogCardState(
                     name = "Хозтовары",
-                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
-                ),
-                CatalogCardState(
+                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg",
+                    children = listOf(
+                        CatalogCardState(
+                            name = "Хозтовары 1",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        ), CatalogCardState(
+                            name = "Хозтовары 2",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        ), CatalogCardState(
+                            name = "Хозтовары 3",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        )
+                    )
+                ), CatalogCardState(
                     name = "Обувь",
-                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
-                ),
-                CatalogCardState(
+                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg",
+                    children = listOf(
+                        CatalogCardState(
+                            name = "Обувь 1",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        ), CatalogCardState(
+                            name = "Обувь 2",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        ), CatalogCardState(
+                            name = "Обувь 3",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        )
+                    )
+                ), CatalogCardState(
                     name = "Еда",
-                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                    imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg",
+                    children = listOf(
+                        CatalogCardState(
+                            name = "Еда 1",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        ), CatalogCardState(
+                            name = "Еда 2",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        ), CatalogCardState(
+                            name = "Еда 3",
+                            imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
+                        )
+                    )
                 )
             )
             CatalogCardState(
-                children = list.map { it.copy(children = list) }
+                children = list
             )
         }
     }
