@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -26,6 +27,9 @@ class DeliveryNode(
                 is DeliveryEvent.Next -> onNext()
                 is DeliveryEvent.SelectPickupPoint -> onPickUpPoint(it.points)
             }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.collectAsState().value
         DeliveryScreen(
