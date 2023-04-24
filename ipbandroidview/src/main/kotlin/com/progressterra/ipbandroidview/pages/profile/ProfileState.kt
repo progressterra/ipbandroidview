@@ -4,12 +4,14 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
 import com.progressterra.ipbandroidview.features.unauthprofile.UnAuthProfileState
+import com.progressterra.ipbandroidview.shared.ScreenState
 
 @Immutable
 data class ProfileState(
     val isAuthorized: Boolean = false,
     val unAuthProfileState: UnAuthProfileState = UnAuthProfileState(),
     val authProfileState: AuthProfileState = AuthProfileState(),
+    val screenState: ScreenState = ScreenState.LOADING,
     val orders: ProfileButtonState = ProfileButtonState(
         id = "orders"
     ),
@@ -26,6 +28,8 @@ data class ProfileState(
         id = "delete"
     )
 ) {
+
+    fun updateScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
 
     fun updateIsAuthorized(newIsAuthorized: Boolean) = copy(isAuthorized = newIsAuthorized)
 }

@@ -5,7 +5,9 @@ import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.UserExistsUseCase
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -19,8 +21,16 @@ class ProfileViewModel(
     override val container = container<ProfileState, ProfileEvent>(ProfileState())
 
     fun refresh() = intent {
+        reduce { state.updateScreenState(ScreenState.LOADING) }
         val exists = userExistsUseCase().isSuccess
         reduce { state.updateIsAuthorized(exists) }
+        reduce { state.updateScreenState(ScreenState.SUCCESS) }
+    }
+
+    override fun handle(event: StateBoxEvent) = intent {
+        when (event) {
+            is StateBoxEvent.Refresh -> refresh()
+        }
     }
 
     override fun handle(event: AuthProfileEvent) = intent {

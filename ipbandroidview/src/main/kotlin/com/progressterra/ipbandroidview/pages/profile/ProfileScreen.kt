@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidview.features.profilebutton.ProfileButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.unauthprofile.UnAuthProfile
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 
 @Composable
 fun ProfileScreen(
@@ -28,50 +29,52 @@ fun ProfileScreen(
             )
         }
     ) { _, _ ->
-        Column(Modifier.padding(top = 8.dp)) {
-            if (state.isAuthorized) {
-                AuthProfile(
-                    state = state.authProfileState,
-                    useComponent = useComponent
+        StateBox(state = state.screenState, useComponent = useComponent) {
+            Column(Modifier.padding(top = 8.dp)) {
+                if (state.isAuthorized) {
+                    AuthProfile(
+                        state = state.authProfileState,
+                        useComponent = useComponent
+                    )
+                } else {
+                    UnAuthProfile(
+                        state = state.unAuthProfileState,
+                        useComponent = useComponent
+                    )
+                }
+                Spacer(Modifier.height(8.dp))
+                ProfileButton(
+                    state = state.orders,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.my_orders)
                 )
-            } else {
-                UnAuthProfile(
-                    state = state.unAuthProfileState,
-                    useComponent = useComponent
+                Spacer(Modifier.height(8.dp))
+                ProfileButton(
+                    state = state.favorites,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.favorites)
                 )
+                Spacer(Modifier.height(8.dp))
+                ProfileButton(
+                    state = state.support,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.support)
+                )
+                Spacer(Modifier.weight(1f))
+                ProfileButton(
+                    state = state.deleteAccount,
+                    useComponent = useComponent,
+                    isDanger = true,
+                    title = stringResource(R.string.delete_account)
+                )
+                Spacer(Modifier.height(8.dp))
+                ProfileButton(
+                    state = state.logout,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.logout)
+                )
+                Spacer(Modifier.height(8.dp))
             }
-            Spacer(Modifier.height(8.dp))
-            ProfileButton(
-                state = state.orders,
-                useComponent = useComponent,
-                title = stringResource(R.string.my_orders)
-            )
-            Spacer(Modifier.height(8.dp))
-            ProfileButton(
-                state = state.favorites,
-                useComponent = useComponent,
-                title = stringResource(R.string.favorites)
-            )
-            Spacer(Modifier.height(8.dp))
-            ProfileButton(
-                state = state.support,
-                useComponent = useComponent,
-                title = stringResource(R.string.support)
-            )
-            Spacer(Modifier.weight(1f))
-            ProfileButton(
-                state = state.deleteAccount,
-                useComponent = useComponent,
-                isDanger = true,
-                title = stringResource(R.string.delete_account)
-            )
-            Spacer(Modifier.height(8.dp))
-            ProfileButton(
-                state = state.logout,
-                useComponent = useComponent,
-                title = stringResource(R.string.logout)
-            )
-            Spacer(Modifier.height(8.dp))
         }
     }
 }
