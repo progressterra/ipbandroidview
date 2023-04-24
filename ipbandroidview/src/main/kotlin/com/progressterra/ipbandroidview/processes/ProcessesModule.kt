@@ -41,7 +41,7 @@ val processesModule = module {
 
     single<CopyTextUseCase> { CopyTextUseCase.Base(get()) }
 
-    single { GoodsSource(get(), get(), get()) }
+    single { GoodsSource(get(), get()) }
 
     single<FetchVersionUseCase> { FetchVersionUseCase.Base(get()) }
 
@@ -95,7 +95,7 @@ val processesModule = module {
 
     single<GuessLocationUseCase> { GuessLocationUseCase.Base(get(), get()) }
 
-    single<GoodsUseCase> { GoodsUseCase.Base(get(), get()) }
+    single<GoodsUseCase> { GoodsUseCase.Base(get()) }
 
 
     single<FetchGoodsPage> {
