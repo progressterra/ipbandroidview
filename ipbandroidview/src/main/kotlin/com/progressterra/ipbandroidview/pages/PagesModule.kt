@@ -46,7 +46,7 @@ val pagesModule = module {
 
     viewModel { PaymentViewModel(get(), get(), get()) }
 
-    viewModel { DeliveryViewModel(get(), get()) }
+    viewModel { DeliveryViewModel(get(), get(), get()) }
 
     viewModel { BonusesDetailsViewModel(get(), get()) }
 
