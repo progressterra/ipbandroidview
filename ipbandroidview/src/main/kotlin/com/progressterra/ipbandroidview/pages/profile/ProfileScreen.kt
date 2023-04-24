@@ -71,6 +71,7 @@ fun ProfileScreen(
                 useComponent = useComponent,
                 title = stringResource(R.string.logout)
             )
+            Spacer(Modifier.height(8.dp))
         }
     }
 }

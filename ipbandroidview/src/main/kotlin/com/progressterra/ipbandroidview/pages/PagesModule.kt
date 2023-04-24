@@ -52,7 +52,7 @@ val pagesModule = module {
 
     viewModel { FavoritesViewModel(get(), get(), get()) }
 
-    viewModel { ProfileViewModel() }
+    viewModel { ProfileViewModel(get()) }
 
     viewModel { ProfileDetailsViewModel(get(), get(), get()) }
 

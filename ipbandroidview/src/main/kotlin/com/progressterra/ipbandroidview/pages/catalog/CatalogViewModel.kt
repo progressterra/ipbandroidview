@@ -28,10 +28,9 @@ class CatalogViewModel(
     override val container = container<CatalogState, CatalogEvent>(CatalogState())
 
     fun refresh() = intent {
-        reduce { state.updateScreenState(ScreenState.LOADING) }
+        reduce { CatalogState() }
         catalogUseCase().onSuccess {
-            reduce { state.updateScreenState(ScreenState.SUCCESS) }
-            reduce { state.updateCategory(it).addTrace(it) }
+            reduce { state.updateCategory(it).addTrace(it).updateScreenState(ScreenState.SUCCESS) }
         }.onFailure {
             reduce { state.updateScreenState(ScreenState.ERROR) }
         }

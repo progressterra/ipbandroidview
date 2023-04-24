@@ -37,6 +37,7 @@ class FavoritesViewModel(
             is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
                 refresh()
             }
+
             is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
                 refresh()
             }
@@ -55,7 +56,7 @@ class FavoritesViewModel(
 
     override fun handle(event: TopBarEvent) = intent {
         when (event) {
-            is TopBarEvent.Back -> Unit
+            is TopBarEvent.Back -> postSideEffect(FavoritesEvent.Back)
         }
     }
 

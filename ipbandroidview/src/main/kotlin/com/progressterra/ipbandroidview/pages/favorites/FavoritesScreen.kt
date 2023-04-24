@@ -17,7 +17,8 @@ fun FavoritesScreen(
     ThemedLayout(topBar = {
         TopBar(
             title = stringResource(id = R.string.favorites),
-            useComponent = useComponent
+            useComponent = useComponent,
+            showBackButton = true
         )
     }) { _, _ ->
         StateBox(

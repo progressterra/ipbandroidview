@@ -25,4 +25,7 @@ data class ProfileState(
     val deleteAccount: ProfileButtonState = ProfileButtonState(
         id = "delete"
     )
-)
+) {
+
+    fun updateIsAuthorized(newIsAuthorized: Boolean) = copy(isAuthorized = newIsAuthorized)
+}

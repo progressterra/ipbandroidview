@@ -4,15 +4,24 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class ProfileViewModel : ViewModel(), ContainerHost<ProfileState, ProfileEvent>, UseProfile {
+class ProfileViewModel(
+    private val userExistsUseCase: UserExistsUseCase
+) : ViewModel(), ContainerHost<ProfileState, ProfileEvent>, UseProfile {
 
     override val container = container<ProfileState, ProfileEvent>(ProfileState())
+
+    fun refresh() = intent {
+        val exists = userExistsUseCase().isSuccess
+        reduce { state.updateIsAuthorized(exists) }
+    }
 
     override fun handle(event: AuthProfileEvent) = intent {
         when (event) {

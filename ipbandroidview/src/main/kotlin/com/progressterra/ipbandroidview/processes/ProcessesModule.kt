@@ -30,6 +30,7 @@ import com.progressterra.ipbandroidview.processes.store.SizeTableUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
+import com.progressterra.ipbandroidview.processes.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenPhoneUseCase
@@ -127,5 +128,9 @@ val processesModule = module {
 
     single<FetchUserUseCase> {
         FetchUserUseCase.Base()
+    }
+
+    single<UserExistsUseCase> {
+        UserExistsUseCase.Base()
     }
 }

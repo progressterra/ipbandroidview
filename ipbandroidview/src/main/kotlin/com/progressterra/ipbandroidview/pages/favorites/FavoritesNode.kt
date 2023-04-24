@@ -12,7 +12,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class FavoritesNode(
     buildContext: BuildContext,
-    private val onGoodsDetails: (String) -> Unit
+    private val onGoodsDetails: (String) -> Unit,
+    private val onBack: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -21,6 +22,7 @@ class FavoritesNode(
         viewModel.collectSideEffect {
             when (it) {
                 is FavoritesEvent.GoodsDetails -> onGoodsDetails(it.goodsId)
+                is FavoritesEvent.Back -> onBack()
             }
         }
         LaunchedEffect(Unit) {
