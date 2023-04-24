@@ -94,31 +94,29 @@ class ProfileDetailsViewModel(
         when (event) {
             is TextFieldEvent.TextChanged -> {
                 when (event.id) {
-                    "name" -> state.updateName(event.text)
-                    "email" -> state.updateEmail(event.text)
-                    "phone" -> state.updatePhone(event.text)
-                    "birthday" -> state.updateBirthday(event.text)
-                    "citizenship" -> state.updateCitizenship(event.text)
-                    "address" -> state.updateAddress(event.text)
-                    "passport" -> state.updatePassport(event.text)
-                    "passportProvider" -> state.updatePassportProvider(event.text)
-                    "passportProviderCode" -> state.updatePassportProviderCode(event.text)
-                    "patent" -> state.updatePatent(event.text)
+                    "name" -> reduce { state.updateName(event.text) }
+                    "email" -> reduce { state.updateEmail(event.text) }
+                    "birthday" -> reduce { state.updateBirthday(event.text) }
+                    "citizenship" -> reduce { state.updateCitizenship(event.text) }
+                    "address" -> reduce { state.updateAddress(event.text) }
+                    "passport" -> reduce { state.updatePassport(event.text) }
+                    "passportProvider" -> reduce { state.updatePassportProvider(event.text) }
+                    "passportProviderCode" -> reduce { state.updatePassportProviderCode(event.text) }
+                    "patent" -> reduce { state.updatePatent(event.text) }
                 }
             }
 
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> state.updateName("")
-                "email" -> state.updateEmail("")
-                "phone" -> state.updatePhone("")
+                "name" -> reduce { state.updateName("") }
+                "email" -> reduce { state.updateEmail("") }
                 "birthday" -> Unit
-                "citizenship" -> state.updateCitizenship("")
-                "address" -> state.updateAddress("")
-                "passport" -> state.updatePassport("")
-                "passportProvider" -> state.updatePassportProvider("")
-                "passportProviderCode" -> state.updatePassportProviderCode("")
-                "patent" -> state.updatePatent("")
+                "citizenship" -> reduce { state.updateCitizenship("") }
+                "address" -> reduce { state.updateAddress("") }
+                "passport" -> reduce { state.updatePassport("") }
+                "passportProvider" -> reduce { state.updatePassportProvider("") }
+                "passportProviderCode" -> reduce { state.updatePassportProviderCode("") }
+                "patent" -> reduce { state.updatePatent("") }
             }
         }
         valid()
