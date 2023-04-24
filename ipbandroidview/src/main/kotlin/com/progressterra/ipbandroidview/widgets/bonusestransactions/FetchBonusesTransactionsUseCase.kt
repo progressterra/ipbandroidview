@@ -5,11 +5,11 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface FetchBonusesTransactionsUseCase {
 
@@ -38,6 +38,36 @@ interface FetchBonusesTransactionsUseCase {
                 } ?: emptyList()
             }
             BonusesTransactionsState(transactions)
+        }
+    }
+
+    class Test : FetchBonusesTransactionsUseCase {
+
+        override suspend fun invoke(): Result<BonusesTransactionsState> = runCatching {
+            BonusesTransactionsState(
+                transactions = listOf(
+                    BonusTransactionState(
+                        date = "2021-01-01",
+                        amount = "100",
+                        type = BonusTransactionType.BURNING
+                    ),
+                    BonusTransactionState(
+                        date = "2021-01-02",
+                        amount = "200",
+                        type = BonusTransactionType.BUYING
+                    ),
+                    BonusTransactionState(
+                        date = "2021-01-03",
+                        amount = "300",
+                        type = BonusTransactionType.BURNING
+                    ),
+                    BonusTransactionState(
+                        date = "2021-01-04",
+                        amount = "400",
+                        type = BonusTransactionType.RECEIVING
+                    )
+                )
+            )
         }
     }
 }

@@ -12,9 +12,10 @@ import org.koin.dsl.module
 val widgetsModule = module {
 
     single<FetchBonusesTransactionsUseCase> {
-        FetchBonusesTransactionsUseCase.Base(
-            get(), get(), get(), get()
-        )
+//        FetchBonusesTransactionsUseCase.Base(
+//            get(), get(), get(), get()
+//        )
+        FetchBonusesTransactionsUseCase.Test()
     }
 
     single<FetchAvailableDeliveryUseCase> {
