@@ -13,8 +13,7 @@ interface OpenUrlUseCase {
     ) : OpenUrlUseCase {
 
         override suspend fun invoke(url: String) {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse(url)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivityContract.start(intent)
         }
     }

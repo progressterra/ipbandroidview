@@ -44,6 +44,7 @@ class SignInViewModel(
             "next" -> when (event) {
                 is ButtonEvent.Click -> onNext()
             }
+
             "skip" -> when (event) {
                 is ButtonEvent.Click -> postSideEffect(SignInEffect.Skip)
             }
@@ -75,6 +76,7 @@ class SignInViewModel(
                     reduce { state.updatePhoneValid(valid).updateAuthButton(valid) }
                 }
             }
+
             is TextFieldEvent.Action -> onNext()
             is TextFieldEvent.AdditionalAction -> Unit
         }
