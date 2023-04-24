@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.bonusesdetails
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -21,6 +22,9 @@ class BonusesDetailsNode(
             when (it) {
                 is BonusesDetailsEvent.Back -> onBack()
             }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.collectAsState()
         BonusesScreen(
