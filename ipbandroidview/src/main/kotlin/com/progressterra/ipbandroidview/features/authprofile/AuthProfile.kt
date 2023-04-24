@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -53,12 +52,12 @@ fun AuthProfile(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             BrushedText(
-                text = stringResource(R.string.please_auth),
+                text = state.name,
                 style = IpbTheme.typography.title,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
             BrushedText(
-                text = stringResource(R.string.please_auth),
+                text = state.email,
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )

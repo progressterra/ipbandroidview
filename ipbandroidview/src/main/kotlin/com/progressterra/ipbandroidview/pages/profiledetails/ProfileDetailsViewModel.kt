@@ -36,7 +36,6 @@ class ProfileDetailsViewModel(
 
     override fun handle(event: AuthProfileEvent) = intent {
         when (event) {
-            //TODO
             is AuthProfileEvent.Click -> Unit
         }
     }
@@ -50,8 +49,34 @@ class ProfileDetailsViewModel(
     override fun handle(event: ButtonEvent) = intent {
         when (event) {
             is ButtonEvent.Click -> when (event.id) {
-                "edit" -> reduce { state.startCancelEdit() }
-                "save" -> saveUseCase(state.editUser)
+                "edit" -> reduce {
+                    state.startCancelEdit()
+                        .updatePassportProviderEnabled(true)
+                        .updatePassportEnabled(true)
+                        .updatePassportProviderCodeEnabled(true)
+                        .updateCitizenshipEnabled(true)
+                        .updateEmailEnabled(true)
+                        .updateNameEnabled(true)
+                        .updateBirthdayEnabled(true)
+                        .updateAddressEnabled(true)
+                        .updatePatentEnabled(true)
+                }
+
+                "save" -> saveUseCase(state.editUser).onSuccess {
+                    reduce {
+                        state.startCancelEdit()
+                            .updatePassportProviderEnabled(true)
+                            .updatePassportEnabled(true)
+                            .updatePassportProviderCodeEnabled(true)
+                            .updateCitizenshipEnabled(true)
+                            .updateEmailEnabled(true)
+                            .updateNameEnabled(true)
+                            .updateBirthdayEnabled(true)
+                            .updateAddressEnabled(true)
+                            .updatePatentEnabled(true)
+                    }
+                }
+
                 "cancel" -> refresh()
             }
         }

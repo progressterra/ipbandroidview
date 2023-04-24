@@ -41,4 +41,34 @@ data class ProfileDetailsState(
 
     fun updateSaveEnabled(enabled: Boolean) =
         copy(editButton = editButton.updateSaveEnabled(enabled))
+
+    fun updateEmailEnabled(enabled: Boolean) = copy(editUser = editUser.updateEmailEnabled(enabled))
+
+    fun updateNameEnabled(enabled: Boolean) = copy(editUser = editUser.updateNameEnabled(enabled))
+
+    fun updateBirthdayEnabled(enabled: Boolean) =
+        copy(editUser = editUser.updateBirthdayEnabled(enabled))
+
+
+    fun updateCitizenshipEnabled(enabled: Boolean) =
+        copy(editUser = editUser.updateCitizenshipEnabled(enabled))
+
+
+    fun updateAddressEnabled(enabled: Boolean) =
+        copy(editUser = editUser.updateAddressEnabled(enabled))
+
+
+    fun updatePassportEnabled(enabled: Boolean) =
+        copy(editUser = editUser.updatePassportEnabled(enabled))
+
+
+    fun updatePassportProviderEnabled(enabled: Boolean) =
+        copy(editUser = editUser.updatePassportProviderEnabled(enabled))
+
+    fun updatePassportProviderCodeEnabled(enabled: Boolean) =
+        copy(editUser = editUser.updatePassportProviderCodeEnabled(enabled))
+
+
+    fun updatePatentEnabled(enabled: Boolean) =
+        copy(editUser = editUser.updatePatentEnabled(enabled))
 }

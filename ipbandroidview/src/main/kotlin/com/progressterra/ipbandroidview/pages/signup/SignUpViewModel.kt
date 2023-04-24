@@ -2,7 +2,9 @@ package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.user.FetchPhoneUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserValidUseCase
@@ -16,10 +18,24 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class SignUpViewModel(
-    private val userValidUseCase: EditUserValidUseCase, private val saveDataUseCase: SaveDataUseCase
+    private val userValidUseCase: EditUserValidUseCase,
+    private val saveDataUseCase: SaveDataUseCase,
+    private val fetchPhoneUseCase: FetchPhoneUseCase
 ) : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, UseSignUp {
 
     override val container = container<SignUpState, SignUpEvent>(SignUpState())
+
+    fun refresh() = intent {
+        reduce { state.updateScreenState(ScreenState.LOADING) }
+        fetchPhoneUseCase().onSuccess {
+            reduce {
+                state.updatePhone(it).updatePhoneEnabled(false)
+                    .updateScreenState(ScreenState.SUCCESS)
+            }
+        }.onFailure {
+            reduce { state.updateScreenState(ScreenState.ERROR) }
+        }
+    }
 
     override fun handle(event: TopBarEvent) = intent {
         when (event) {
@@ -49,7 +65,6 @@ class SignUpViewModel(
                 when (event.id) {
                     "name" -> state.updateName(event.text)
                     "email" -> state.updateEmail(event.text)
-                    "phone" -> state.updatePhone(event.text)
                     "birthday" -> state.updateBirthday(event.text)
                     "citizenship" -> state.updateCitizenship(event.text)
                     "address" -> state.updateAddress(event.text)
@@ -64,7 +79,6 @@ class SignUpViewModel(
             is TextFieldEvent.AdditionalAction -> when (event.id) {
                 "name" -> state.updateName("")
                 "email" -> state.updateEmail("")
-                "phone" -> state.updatePhone("")
                 "birthday" -> Unit
                 "citizenship" -> state.updateCitizenship("")
                 "address" -> state.updateAddress("")

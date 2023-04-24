@@ -5,5 +5,7 @@ import androidx.compose.runtime.Immutable
 @Immutable
 data class AuthProfileState(
     val id: String = "",
-    val profileImage: String = ""
+    val profileImage: String = "",
+    val name: String = "",
+    val email: String = "",
 )
