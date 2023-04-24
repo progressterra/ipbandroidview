@@ -59,8 +59,8 @@ val pagesModule = module {
     }
 
     single<EndVerificationChannelUseCase> {
-        EndVerificationChannelUseCase.Base(get(), get())
-//        EndVerificationChannelUseCase.Test()
+//        EndVerificationChannelUseCase.Base(get(), get())
+        EndVerificationChannelUseCase.Test()
     }
 
     single<CartGoodsMapper> { CartGoodsMapper.Base(get(), get(), get()) }
