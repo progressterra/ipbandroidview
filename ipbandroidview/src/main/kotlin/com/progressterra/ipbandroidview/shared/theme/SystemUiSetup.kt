@@ -15,12 +15,12 @@ fun SystemUiSetup() {
     }
     LaunchedEffect(Unit) {
         systemUiController.setStatusBarColor(
-            color = Color.Transparent,
+            color = systemBarColor,
             darkIcons = true,
             transformColorForLightContent = transparentColor
         )
         systemUiController.setNavigationBarColor(
-            color = Color.Transparent,
+            color = systemBarColor,
             darkIcons = true,
             navigationBarContrastEnforced = false,
             transformColorForLightContent = transparentColor
