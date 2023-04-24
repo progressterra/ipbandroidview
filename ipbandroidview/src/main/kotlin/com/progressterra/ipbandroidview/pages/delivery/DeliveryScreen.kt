@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -36,7 +38,9 @@ fun DeliveryScreen(
         )
     }, bottomBar = {
         Column(
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 20.dp)
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(vertical = 40.dp, horizontal = 20.dp)
         ) {
             Button(
                 modifier = Modifier.fillMaxWidth(),

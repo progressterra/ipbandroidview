@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerEvent
+import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerValidUseCase
 import com.progressterra.ipbandroidview.widgets.deliverypicker.FetchAvailableDeliveryUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -21,7 +22,8 @@ import org.orbitmvi.orbit.viewmodel.container
 @OptIn(OrbitExperimental::class)
 class DeliveryViewModel(
     private val fetchAvailableDeliveryUseCase: FetchAvailableDeliveryUseCase,
-    private val createDeliveryOrderUseCase: CreateDeliveryOrderUseCase
+    private val createDeliveryOrderUseCase: CreateDeliveryOrderUseCase,
+    private val deliveryPickerValidUseCase: DeliveryPickerValidUseCase
 ) : ViewModel(), ContainerHost<DeliveryState, DeliveryEvent>, UseDelivery {
 
     override val container = container<DeliveryState, DeliveryEvent>(DeliveryState())
@@ -85,12 +87,18 @@ class DeliveryViewModel(
                 }
             }
         }
+        checkValid()
+    }
+
+    private fun checkValid() = intent {
+        val valid = deliveryPickerValidUseCase(state.deliveryPicker).isSuccess
+        reduce { state.updateConfirmEnabled(valid) }
     }
 
     override fun handle(event: DeliveryPickerEvent) = intent {
         when (event) {
             is DeliveryPickerEvent.SelectDeliveryMethod -> reduce {
-                state.updateDeliveryMethod(event.delivery).updateConfirmEnabled(true)
+                state.updateDeliveryMethod(event.delivery)
             }
         }
     }

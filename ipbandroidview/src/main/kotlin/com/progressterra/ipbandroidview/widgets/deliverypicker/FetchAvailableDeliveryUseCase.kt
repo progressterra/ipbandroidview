@@ -35,7 +35,12 @@ interface FetchAvailableDeliveryUseCase {
     class Test : FetchAvailableDeliveryUseCase {
 
         override suspend fun invoke(): Result<DeliveryPickerState> = runCatching {
-            val deliveries = listOf(Delivery.CourierDelivery(price = SimplePrice(500), type = ""))
+            val deliveries = listOf(
+                Delivery.CourierDelivery(
+                    price = SimplePrice(500),
+                    type = "Курьерская доставка"
+                )
+            )
             DeliveryPickerState(
                 addressUI = UserData.address,
                 deliveryMethods = deliveries
