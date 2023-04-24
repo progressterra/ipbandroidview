@@ -16,6 +16,7 @@ class ProfileNode(
     private val onLogout: () -> Unit,
     private val onOrders: () -> Unit,
     private val onSupport: () -> Unit,
+    private val onDetails: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -28,6 +29,7 @@ class ProfileNode(
                 is ProfileEvent.Logout -> onLogout()
                 is ProfileEvent.Orders -> onOrders()
                 is ProfileEvent.Support -> onSupport()
+                is ProfileEvent.Details -> onDetails()
             }
         }
         val state = viewModel.collectAsState().value
