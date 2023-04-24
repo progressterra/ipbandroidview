@@ -40,23 +40,28 @@ class CatalogViewModel(
     override fun handle(event: CatalogCardEvent) = intent {
         when (event) {
             is CatalogCardEvent.Open -> {
-                reduce { state.addTrace(event.category).updateCategory(event.category) }
-                if (state.current.subCategories.isEmpty()) {
-                    goodsUseCase(event.category.id).onSuccess {
-                        reduce { state.updateGoods(it) }
-                    }
-                }
+                reduce { state.addTrace(event.category) }
+                updateCategory()
             }
         }
     }
 
     override fun handle(event: TraceEvent) = intent {
         when (event) {
-            is TraceEvent.Back -> reduce {
-                state.removeTrace().updateCategory(state.trace.trace.last())
-                    .updateGoods(emptyFlow())
+            is TraceEvent.Back -> {
+                reduce { state.removeTrace() }
+                updateCategory()
             }
         }
+    }
+
+    private fun updateCategory() = intent {
+        reduce { state.updateCategory(state.trace.trace.last()) }
+        if (state.current.subCategories.isEmpty()) {
+            goodsUseCase(state.current.id).onSuccess {
+                reduce { state.updateGoods(it) }
+            }
+        } else reduce { state.updateGoods(emptyFlow()) }
     }
 
     override fun handle(event: StoreCardEvent) = intent {

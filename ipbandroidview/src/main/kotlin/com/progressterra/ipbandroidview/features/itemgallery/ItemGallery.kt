@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.features.itemgallery
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
@@ -21,6 +20,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalPagerApi::class)
 @Composable
@@ -44,7 +44,7 @@ fun ItemGallery(
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(8.dp))
-                    .clickable { useComponent.handle(ItemGalleryEvent.Open(state.images[it])) },
+                    .niceClickable { useComponent.handle(ItemGalleryEvent.Open(state.images[it])) },
                 url = state.images[it],
                 backgroundColor = IpbTheme.colors.onSurface.asColor()
             )

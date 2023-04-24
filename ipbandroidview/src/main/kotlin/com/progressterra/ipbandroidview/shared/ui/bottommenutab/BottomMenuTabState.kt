@@ -7,7 +7,6 @@ import androidx.compose.runtime.Immutable
 @Immutable
 data class BottomMenuTabState(
     val id: Int,
-    val count: Int = 0,
     @StringRes val titleId: Int,
     @DrawableRes val iconId: Int
 )

@@ -98,7 +98,10 @@ val processesModule = module {
     single<GoodsUseCase> { GoodsUseCase.Base(get(), get()) }
 
 
-    single<FetchGoodsPage> { FetchGoodsPage.Base(get(), get(), get(), get()) }
+    single<FetchGoodsPage> {
+//        FetchGoodsPage.Base(get(), get(), get(), get())
+        FetchGoodsPage.Test()
+    }
 
     single<AddToCartUseCase> {
         AddToCartUseCase.Test()
