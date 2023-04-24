@@ -51,7 +51,8 @@ fun Bonuses(
             .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(animateColor)
-            .padding(16.dp), horizontalArrangement = Arrangement.SpaceBetween
+            .padding(16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         var height by remember { mutableStateOf(0.dp) }
         val density = LocalDensity.current
@@ -129,20 +130,15 @@ fun Bonuses(
                     )
                 }
             }
-            IconButton(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd)
-                    .zIndex(1f),
-                onClick = { useComponent.handle(BonusesEvent.Action) },
-            ) {
-                if (style == BonusesStyle.NEXT) {
+            if (style == BonusesStyle.NEXT) {
+                IconButton(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .zIndex(1f),
+                    onClick = { useComponent.handle(BonusesEvent.Action) },
+                ) {
                     BrushedIcon(
                         resId = R.drawable.ic_arrow_pro,
-                        tint = IpbTheme.colors.iconPrimary3.asBrush(),
-                    )
-                } else if (style == BonusesStyle.PLUS) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_plus_pro,
                         tint = IpbTheme.colors.iconPrimary3.asBrush(),
                     )
                 }
@@ -154,23 +150,6 @@ fun Bonuses(
 @Composable
 @Preview
 private fun BonusesPreview() {
-    IpbTheme {
-        Bonuses(
-            state = BonusesState(
-                bonuses = "100",
-                canWithdraw = "50",
-                rate = "10",
-                loan = "100",
-                burningDate = "01.01.2021",
-                burningQuantity = "50"
-            ), useComponent = UseBonuses.Empty()
-        )
-    }
-}
-
-@Composable
-@Preview
-private fun BonusesReversedPreview() {
     IpbTheme {
         Bonuses(
             state = BonusesState(
