@@ -29,6 +29,9 @@ data class ProfileState(
     )
 ) {
 
+    fun updateAuthProfile(newAuthProfileState: AuthProfileState) =
+        copy(authProfileState = newAuthProfileState)
+
     fun updateScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
 
     fun updateIsAuthorized(newIsAuthorized: Boolean) = copy(isAuthorized = newIsAuthorized)

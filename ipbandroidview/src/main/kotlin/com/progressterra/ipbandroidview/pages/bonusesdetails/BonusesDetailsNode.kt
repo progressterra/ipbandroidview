@@ -11,8 +11,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class BonusesDetailsNode(
     buildContext: BuildContext,
-    private val onBack: () -> Unit,
-    private val onClarification: () -> Unit
+    private val onBack: () -> Unit
 ) : Node(buildContext) {
 
     @Composable

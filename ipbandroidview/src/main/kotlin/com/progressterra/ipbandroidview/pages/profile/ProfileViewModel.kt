@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -15,7 +16,8 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileViewModel(
-    private val userExistsUseCase: UserExistsUseCase
+    private val userExistsUseCase: UserExistsUseCase,
+    private val fetchUserProfileUseCase: FetchUserProfileUseCase
 ) : ViewModel(), ContainerHost<ProfileState, ProfileEvent>, UseProfile {
 
     override val container = container<ProfileState, ProfileEvent>(ProfileState())
@@ -24,7 +26,11 @@ class ProfileViewModel(
         reduce { state.updateScreenState(ScreenState.LOADING) }
         val exists = userExistsUseCase().isSuccess
         reduce { state.updateIsAuthorized(exists) }
-        reduce { state.updateScreenState(ScreenState.SUCCESS) }
+        fetchUserProfileUseCase().onSuccess {
+            reduce { state.updateAuthProfile(it).updateScreenState(ScreenState.SUCCESS) }
+        }.onFailure {
+            reduce { state.updateScreenState(ScreenState.ERROR) }
+        }
     }
 
     override fun handle(event: StateBoxEvent) = intent {
