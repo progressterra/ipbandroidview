@@ -25,7 +25,7 @@ fun StoreItems(
                     horizontalArrangement = Arrangement.spacedBy(20.dp),
                     verticalArrangement = Arrangement.spacedBy(30.dp),
                     columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(horizontal = 20.dp)
+                    contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
                 ) {
                     items(lazyItems) { item ->
                         item?.let {
@@ -37,6 +37,7 @@ fun StoreItems(
                 }
             }
         }
+
         is StoreItemsState.Listed -> {
             if (state.items.isNotEmpty()) {
                 LazyVerticalGrid(
@@ -44,7 +45,7 @@ fun StoreItems(
                     horizontalArrangement = Arrangement.spacedBy(20.dp),
                     verticalArrangement = Arrangement.spacedBy(30.dp),
                     columns = GridCells.Fixed(2),
-                    contentPadding = PaddingValues(horizontal = 20.dp)
+                    contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
                 ) {
                     items(state.items) {
                         StoreCard(
