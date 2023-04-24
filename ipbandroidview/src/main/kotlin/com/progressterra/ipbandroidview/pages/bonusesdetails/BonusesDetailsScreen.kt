@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bonuses.Bonuses
+import com.progressterra.ipbandroidview.features.bonuses.BonusesStyle
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType
 import com.progressterra.ipbandroidview.features.topbar.TopBar
@@ -26,7 +27,8 @@ fun BonusesScreen(
         topBar = {
             TopBar(
                 title = stringResource(R.string.bonuses_title),
-                useComponent = useComponent
+                useComponent = useComponent,
+                showBackButton = true
             )
         }
     ) { _, _ ->
@@ -38,7 +40,8 @@ fun BonusesScreen(
             ) {
                 Bonuses(
                     state = state.bonusesInfo,
-                    useComponent = useComponent
+                    useComponent = useComponent,
+                    style = BonusesStyle.TRAN
                 )
                 BonusesTransactions(state = state.transactions)
             }

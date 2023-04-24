@@ -25,7 +25,8 @@ fun ProfileDetailsScreen(
         topBar = {
             TopBar(
                 title = stringResource(R.string.profile),
-                useComponent = useComponent
+                useComponent = useComponent,
+                showBackButton = true
             )
         },
         bottomBar = {

@@ -66,7 +66,10 @@ val processesModule = module {
 
     single<AskPermissionUseCase> { AskPermissionUseCase.Base(get()) }
 
-    single<CreateDeliveryOrderUseCase> { CreateDeliveryOrderUseCase.Base(get(), get(), get()) }
+    single<CreateDeliveryOrderUseCase> {
+//        CreateDeliveryOrderUseCase.Base(get(), get(), get())
+        CreateDeliveryOrderUseCase.Test()
+    }
 
     single<StopRecordingUseCase> { StopRecordingUseCase.Base(get()) }
 

@@ -12,12 +12,12 @@ data class DeliveryPickerState(
     val addressUI: AddressUI = AddressUI(),
     val selectedDeliveryMethod: Delivery? = null,
     val deliveryMethods: List<Delivery> = emptyList(),
-    val city: TextFieldState = TextFieldState(),
-    val home: TextFieldState = TextFieldState(),
-    val entrance: TextFieldState = TextFieldState(),
-    val apartment: TextFieldState = TextFieldState(),
-    val address: TextFieldState = TextFieldState(),
-    val selectPoint: ButtonState = ButtonState()
+    val city: TextFieldState = TextFieldState(id = "city"),
+    val home: TextFieldState = TextFieldState(id = "home"),
+    val entrance: TextFieldState = TextFieldState(id = "entrance"),
+    val apartment: TextFieldState = TextFieldState(id = "apartment"),
+    val address: TextFieldState = TextFieldState(id = "address"),
+    val selectPoint: ButtonState = ButtonState(id = "selectPoint")
 ) {
 
     fun updatePickUpPointInfo(info: PickUpPointInfo) =

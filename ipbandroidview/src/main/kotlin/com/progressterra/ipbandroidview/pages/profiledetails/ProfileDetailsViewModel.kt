@@ -29,6 +29,7 @@ class ProfileDetailsViewModel(
         container<ProfileDetailsState, ProfileDetailsEvent>(ProfileDetailsState())
 
     fun refresh() = intent {
+        reduce { ProfileDetailsState() }
         fetchUserUseCase().onSuccess {
             reduce { state.updateEditUser(it) }
         }
@@ -65,15 +66,15 @@ class ProfileDetailsViewModel(
                 "save" -> saveUseCase(state.editUser).onSuccess {
                     reduce {
                         state.startCancelEdit()
-                            .updatePassportProviderEnabled(true)
-                            .updatePassportEnabled(true)
-                            .updatePassportProviderCodeEnabled(true)
-                            .updateCitizenshipEnabled(true)
-                            .updateEmailEnabled(true)
-                            .updateNameEnabled(true)
-                            .updateBirthdayEnabled(true)
-                            .updateAddressEnabled(true)
-                            .updatePatentEnabled(true)
+                            .updatePassportProviderEnabled(false)
+                            .updatePassportEnabled(false)
+                            .updatePassportProviderCodeEnabled(false)
+                            .updateCitizenshipEnabled(false)
+                            .updateEmailEnabled(false)
+                            .updateNameEnabled(false)
+                            .updateBirthdayEnabled(false)
+                            .updateAddressEnabled(false)
+                            .updatePatentEnabled(false)
                     }
                 }
 

@@ -13,7 +13,7 @@ data class DeliveryState(
     val stateBox: ScreenState = ScreenState.LOADING,
     val deliveryPicker: DeliveryPickerState = DeliveryPickerState(),
     val commentary: TextFieldState = TextFieldState(),
-    val confirm: ButtonState = ButtonState()
+    val confirm: ButtonState = ButtonState(id = "confirm")
 ) {
 
     fun updateStateBoxState(screenState: ScreenState) = copy(stateBox = screenState)

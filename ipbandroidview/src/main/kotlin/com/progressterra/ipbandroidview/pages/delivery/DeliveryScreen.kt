@@ -60,6 +60,9 @@ fun DeliveryScreen(
                     useComponent = useComponent, state = state.deliveryPicker
                 )
                 TextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
                     state = state.commentary,
                     useComponent = useComponent,
                     hint = stringResource(R.string.comment)
@@ -115,8 +118,7 @@ private fun DeliveryScreenPreview2() {
     )
     DeliveryScreen(
         state = DeliveryState(
-            stateBox = ScreenState.SUCCESS,
-            deliveryPicker = DeliveryPickerState(
+            stateBox = ScreenState.SUCCESS, deliveryPicker = DeliveryPickerState(
                 selectedDeliveryMethod = m,
                 deliveryMethods = listOf(
                     m, Delivery.CourierDelivery(

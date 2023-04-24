@@ -19,9 +19,10 @@ val widgetsModule = module {
     }
 
     single<FetchAvailableDeliveryUseCase> {
-        FetchAvailableDeliveryUseCase.Base(
-            get(), get(), get(), get()
-        )
+//        FetchAvailableDeliveryUseCase.Base(
+//            get(), get(), get(), get()
+//        )
+        FetchAvailableDeliveryUseCase.Test()
     }
 
     single<OfferMapper> {

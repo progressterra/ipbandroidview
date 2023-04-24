@@ -48,22 +48,22 @@ interface FetchBonusesTransactionsUseCase {
                 transactions = listOf(
                     BonusTransactionState(
                         date = "2021-01-01",
-                        amount = "100",
+                        amount = "-100",
                         type = BonusTransactionType.BURNING
                     ),
                     BonusTransactionState(
                         date = "2021-01-02",
-                        amount = "200",
+                        amount = "-200",
                         type = BonusTransactionType.BUYING
                     ),
                     BonusTransactionState(
                         date = "2021-01-03",
-                        amount = "300",
+                        amount = "-300",
                         type = BonusTransactionType.BURNING
                     ),
                     BonusTransactionState(
                         date = "2021-01-04",
-                        amount = "400",
+                        amount = "+400",
                         type = BonusTransactionType.RECEIVING
                     )
                 )

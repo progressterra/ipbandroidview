@@ -37,7 +37,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 fun Bonuses(
     modifier: Modifier = Modifier,
     state: BonusesState,
-    style: BonusesStyle = BonusesStyle.NEXT,
+    style: BonusesStyle = BonusesStyle.MAIN,
     useComponent: UseBonuses
 ) {
     var rotated by remember { mutableStateOf(false) }
@@ -130,7 +130,7 @@ fun Bonuses(
                     )
                 }
             }
-            if (style == BonusesStyle.NEXT) {
+            if (style == BonusesStyle.MAIN) {
                 IconButton(
                     modifier = Modifier
                         .align(Alignment.CenterEnd)

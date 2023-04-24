@@ -29,4 +29,10 @@ interface CreateDeliveryOrderUseCase {
                 )
             }
     }
+
+    class Test : CreateDeliveryOrderUseCase {
+
+        override suspend fun invoke(comment: String, deliveryMethod: Delivery): Result<Unit> =
+            Result.success(Unit)
+    }
 }

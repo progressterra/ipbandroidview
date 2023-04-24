@@ -40,7 +40,7 @@ fun EditButton(
             TextButton(
                 modifier = Modifier.fillMaxWidth(),
                 state = state.cancel,
-                title = stringResource(R.string.ready),
+                title = stringResource(R.string.cancel),
                 useComponent = useComponent
             )
         } else {
