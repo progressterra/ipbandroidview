@@ -25,11 +25,11 @@ fun BottomMenuTab(
     Column(modifier = modifier
         .clip(CircleShape)
         .niceClickable { onClick(state.id) }
-        .padding(4.dp),
+        .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(4.dp)) {
         BrushedIcon(
-            modifier = Modifier.size(32.dp),
+            modifier = Modifier.size(24.dp),
             resId = state.iconId,
             tint = if (active == state.id) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary.asBrush()
         )
@@ -41,7 +41,7 @@ fun BottomMenuTab(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun BottomNavItemPreview() {
     IpbTheme {

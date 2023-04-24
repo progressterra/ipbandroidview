@@ -7,12 +7,11 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardMapper
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
 interface FetchGoodsPage {
 
     suspend operator fun invoke(
-        id: String, pageNumber: Int, favorites: List<String>
+        id: String, pageNumber: Int
     ): Result<Pair<Int, List<StoreCardState>>>
 
     class Base(
@@ -23,7 +22,7 @@ interface FetchGoodsPage {
     ) : AbstractUseCase(scrmRepository, provideLocation), FetchGoodsPage {
 
         override suspend fun invoke(
-            id: String, pageNumber: Int, favorites: List<String>
+            id: String, pageNumber: Int
         ): Result<Pair<Int, List<StoreCardState>>> = withToken { token ->
             val result = eCommerceRepo.getProductsByCategory(
                 token, id, pageNumber, 10, 0, 0
@@ -37,8 +36,7 @@ interface FetchGoodsPage {
 
         override suspend fun invoke(
             id: String,
-            pageNumber: Int,
-            favorites: List<String>
+            pageNumber: Int
         ): Result<Pair<Int, List<StoreCardState>>> = runCatching {
             if (pageNumber == 0) {
                 0 to listOf(

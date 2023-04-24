@@ -4,7 +4,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
-import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import kotlinx.coroutines.flow.Flow
 
 interface GoodsUseCase {
@@ -12,7 +11,7 @@ interface GoodsUseCase {
     suspend operator fun invoke(categoryId: String): Result<Flow<PagingData<StoreCardState>>>
 
     class Base(
-        private val fetchGoodsPage: FetchGoodsPage, private val fetchFavoriteIds: FetchFavoriteIds
+        private val fetchGoodsPage: FetchGoodsPage
     ) : GoodsUseCase {
 
         override suspend fun invoke(categoryId: String): Result<Flow<PagingData<StoreCardState>>> =
@@ -20,8 +19,7 @@ interface GoodsUseCase {
                 Pager(PagingConfig(10)) {
                     GoodsSource(
                         categoryId = categoryId,
-                        fetchGoodsPage = fetchGoodsPage,
-                        fetchFavoriteIds = fetchFavoriteIds
+                        fetchGoodsPage = fetchGoodsPage
                     )
                 }.flow
             }

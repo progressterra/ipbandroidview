@@ -3,24 +3,19 @@ package com.progressterra.ipbandroidview.processes.goods
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
-import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 
 class GoodsSource(
-    private val fetchGoodsPage: FetchGoodsPage,
-    private val categoryId: String,
-    private val fetchFavoriteIds: FetchFavoriteIds
+    private val fetchGoodsPage: FetchGoodsPage, private val categoryId: String
 ) : PagingSource<Int, StoreCardState>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoreCardState> {
         val nextPage = params.key ?: 1
-        val response = fetchFavoriteIds().onSuccess { favorites ->
-            fetchGoodsPage(categoryId, nextPage, favorites).onSuccess {
-                    return LoadResult.Page(
-                        data = it.second,
-                        prevKey = if (nextPage == 1) null else nextPage - 1,
-                        nextKey = if (it.second.isEmpty()) null else it.first + 1
-                    )
-                }
+        val response = fetchGoodsPage(categoryId, nextPage).onSuccess {
+            return LoadResult.Page(
+                data = it.second,
+                prevKey = if (nextPage == 1) null else nextPage - 1,
+                nextKey = if (it.second.isEmpty()) null else it.first + 1
+            )
         }
         return LoadResult.Error(response.exceptionOrNull()!!)
     }

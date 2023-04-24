@@ -40,7 +40,7 @@ class CatalogViewModel(
     override fun handle(event: CatalogCardEvent) = intent {
         when (event) {
             is CatalogCardEvent.Open -> {
-                reduce { state.addTrace(event.category) }
+                reduce { state.addTrace(state.current).updateCategory(event.category) }
                 updateCategory()
             }
         }
@@ -49,14 +49,13 @@ class CatalogViewModel(
     override fun handle(event: TraceEvent) = intent {
         when (event) {
             is TraceEvent.Back -> {
-                reduce { state.removeTrace() }
+                reduce { state.updateCategory(state.trace.trace.last()).removeTrace() }
                 updateCategory()
             }
         }
     }
 
     private fun updateCategory() = intent {
-        reduce { state.updateCategory(state.trace.trace.last()) }
         if (state.current.subCategories.isEmpty()) {
             goodsUseCase(state.current.id).onSuccess {
                 reduce { state.updateGoods(it) }
