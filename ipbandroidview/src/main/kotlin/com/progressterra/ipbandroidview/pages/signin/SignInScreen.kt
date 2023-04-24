@@ -60,7 +60,9 @@ fun SignInScreen(
                     LinkTextData(
                         stringResource(R.string.privacy_policy), IpbTheme.customization.privacyUrl
                     )
-                ), useComponent = useComponent
+                ), useComponent = useComponent,
+                style = IpbTheme.typography.footnoteRegular,
+                brush = IpbTheme.colors.textDisabled.asBrush()
             )
         }
     }

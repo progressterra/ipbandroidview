@@ -98,12 +98,16 @@ fun Receipt(
                     text = stringResource(id = R.string.service_name),
                     url = stringResource(id = R.string.service_url),
                 )
-            ), useComponent = useComponent
+            ), useComponent = useComponent,
+            style = IpbTheme.typography.footnoteRegular,
+            brush = IpbTheme.colors.textSecondary.asBrush()
         )
         LinkText(
             linkTextData = listOf(
                 LinkTextData(text = stringResource(id = R.string.merchant_info))
-            ), useComponent = useComponent
+            ), useComponent = useComponent,
+            style = IpbTheme.typography.footnoteRegular,
+            brush = IpbTheme.colors.textSecondary.asBrush()
         )
         Spacer(Modifier.height(0.dp))
     }
