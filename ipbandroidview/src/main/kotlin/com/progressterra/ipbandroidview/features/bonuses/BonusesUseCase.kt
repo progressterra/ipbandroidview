@@ -28,7 +28,7 @@ interface BonusesUseCase {
                 bonuses = response?.currentQuantity?.toString() ?: noData,
                 burningQuantity = response?.forBurningQuantity?.toString() ?: noData,
                 burningDate = response?.dateBurning?.parseToDate()?.format("dd.MM") ?: noData,
-                canWithdraw = "Можно вывести 10 000₽",
+                canWithdraw = "10 000₽",
                 rate = "1₽ = 1 бонус",
                 loan = "50 000₽",
             )

@@ -19,7 +19,7 @@ interface CatalogUseCase {
     ) : AbstractUseCase(scrmRepository, provideLocation), CatalogUseCase {
 
         override suspend fun invoke(): Result<CatalogCardState> = withToken { token ->
-            CatalogCardState(subCategories = repo.getCatalog(token).getOrThrow()
+            CatalogCardState(children = repo.getCatalog(token).getOrThrow()
                 ?.first()?.childItems?.map {
                     mapper.map(
                         it
@@ -33,20 +33,20 @@ interface CatalogUseCase {
         override suspend fun invoke(): Result<CatalogCardState> = runCatching {
             val list = listOf(
                 CatalogCardState(
-                    name = "Категория 1",
+                    name = "Хозтовары",
                     imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                 ),
                 CatalogCardState(
-                    name = "Категория 2",
+                    name = "Обувь",
                     imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                 ),
                 CatalogCardState(
-                    name = "Категория 3",
+                    name = "Еда",
                     imageUrl = "https://i.pinimg.com/736x/2a/5b/66/2a5b664425808595ba6eab3c9726573f.jpg"
                 )
             )
             CatalogCardState(
-                subCategories = list.map { it.copy(subCategories = list) }
+                children = list.map { it.copy(children = list) }
             )
         }
     }

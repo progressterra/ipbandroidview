@@ -31,7 +31,7 @@ class CatalogViewModel(
         reduce { state.updateScreenState(ScreenState.LOADING) }
         catalogUseCase().onSuccess {
             reduce { state.updateScreenState(ScreenState.SUCCESS) }
-            reduce { state.updateCategory(it) }
+            reduce { state.updateCategory(it).addTrace(it) }
         }.onFailure {
             reduce { state.updateScreenState(ScreenState.ERROR) }
         }
@@ -40,7 +40,7 @@ class CatalogViewModel(
     override fun handle(event: CatalogCardEvent) = intent {
         when (event) {
             is CatalogCardEvent.Open -> {
-                reduce { state.addTrace(state.current).updateCategory(event.category) }
+                reduce { state.addTrace(event.category).updateCategory(event.category) }
                 updateCategory()
             }
         }
@@ -49,14 +49,15 @@ class CatalogViewModel(
     override fun handle(event: TraceEvent) = intent {
         when (event) {
             is TraceEvent.Back -> {
-                reduce { state.updateCategory(state.trace.trace.last()).removeTrace() }
+                reduce { state.removeTrace() }
+                reduce { state.updateCategory(state.trace.trace.last()) }
                 updateCategory()
             }
         }
     }
 
     private fun updateCategory() = intent {
-        if (state.current.subCategories.isEmpty()) {
+        if (state.current.children.isEmpty()) {
             goodsUseCase(state.current.id).onSuccess {
                 reduce { state.updateGoods(it) }
             }

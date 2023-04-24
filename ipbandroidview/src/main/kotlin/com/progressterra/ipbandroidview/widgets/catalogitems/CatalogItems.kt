@@ -24,7 +24,7 @@ fun CatalogItems(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
     ) {
-        items(state.subCategories) { item ->
+        items(state.children) { item ->
             CatalogCard(
                 state = item,
                 useComponent = useComponent

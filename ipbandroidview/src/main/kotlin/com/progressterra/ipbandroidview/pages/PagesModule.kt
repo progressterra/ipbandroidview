@@ -20,6 +20,8 @@ import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
+import com.progressterra.ipbandroidview.pages.profile.ProfileViewModel
+import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.pages.support.FetchChatUseCase
@@ -49,6 +51,10 @@ val pagesModule = module {
     viewModel { BonusesDetailsViewModel(get(), get()) }
 
     viewModel { FavoritesViewModel(get(), get(), get()) }
+
+    viewModel { ProfileViewModel() }
+
+    viewModel { ProfileDetailsViewModel(get(), get(), get()) }
 
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get()) }
 

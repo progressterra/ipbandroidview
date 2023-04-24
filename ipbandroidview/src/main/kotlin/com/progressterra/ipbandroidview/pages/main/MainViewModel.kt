@@ -69,6 +69,7 @@ class MainViewModel(
             is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
                 refresh()
             }
+
             is StoreCardEvent.Open -> postSideEffect(MainEvent.OnItem(event.id))
         }
     }
@@ -78,6 +79,7 @@ class MainViewModel(
             is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
                 refresh()
             }
+
             is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
                 refresh()
             }

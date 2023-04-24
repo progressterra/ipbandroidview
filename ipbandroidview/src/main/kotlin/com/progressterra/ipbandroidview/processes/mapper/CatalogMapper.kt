@@ -17,7 +17,7 @@ interface CatalogMapper : Mapper<CatalogItem, CatalogCardState> {
             return CatalogCardState(id = data.item?.idUnique!!,
                 name = data.item?.name ?: noData,
                 imageUrl = data.item?.urlImage ?: "",
-                subCategories = data.childItems?.map { map(it) } ?: emptyList()
+                children = data.childItems?.map { map(it) } ?: emptyList()
             )
         }
     }

@@ -10,8 +10,10 @@ import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -34,22 +36,52 @@ fun Trace(
         Row(
             modifier = Modifier
                 .padding(vertical = 6.dp, horizontal = 40.dp)
-                .align(Alignment.Center), horizontalArrangement = Arrangement.spacedBy(6.dp)
+                .align(Alignment.Center),
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             state.trace.forEachIndexed { index, trace ->
                 if (index != 0) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_forw_pro,
-                        tint = IpbTheme.colors.iconPrimary3.asBrush()
+                    BrushedText(
+                        modifier = Modifier.padding(horizontal = 4.dp),
+                        text = trace.name,
+                        style = IpbTheme.typography.title,
+                        tint = IpbTheme.colors.textPrimary.asBrush()
                     )
+                    if (index != state.trace.lastIndex) {
+                        BrushedIcon(
+                            resId = R.drawable.ic_forw_pro,
+                            tint = IpbTheme.colors.iconPrimary3.asBrush()
+                        )
+                    }
                 }
-                BrushedText(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = trace.name,
-                    style = IpbTheme.typography.title,
-                    tint = IpbTheme.colors.textPrimary.asBrush()
-                )
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun TracePreview() {
+    IpbTheme {
+        Trace(
+            state = TraceState(
+                listOf(
+                    CatalogCardState(
+                        id = "nunc PARENT",
+                        name = "NUNU",
+                        imageUrl = "https://www.google.com/#q=montes"
+                    ), CatalogCardState(
+                        id = "nunc 1",
+                        name = "Cory ",
+                        imageUrl = "https://www.google.com/#q=montes"
+                    ), CatalogCardState(
+                        id = "nunc 2",
+                        name = "Chang",
+                        imageUrl = "https://www.google.com/#q=montes"
+                    )
+                )
+            ), useComponent = UseTrace.Empty()
+        )
     }
 }
