@@ -38,7 +38,7 @@ fun SignUpScreen(
     }, bottomOverlap = true) { _, bottom ->
         Column(
             modifier = Modifier
-                .padding(top = 8.dp)
+                .padding(vertical = 8.dp)
                 .verticalScroll(rememberScrollState())
         ) {
             EditUser(

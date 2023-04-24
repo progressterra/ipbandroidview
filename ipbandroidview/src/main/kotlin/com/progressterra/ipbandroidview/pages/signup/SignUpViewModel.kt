@@ -16,8 +16,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class SignUpViewModel(
-    private val userValidUseCase: EditUserValidUseCase,
-    private val saveDataUseCase: SaveDataUseCase
+    private val userValidUseCase: EditUserValidUseCase, private val saveDataUseCase: SaveDataUseCase
 ) : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, UseSignUp {
 
     override val container = container<SignUpState, SignUpEvent>(SignUpState())
@@ -45,65 +44,34 @@ class SignUpViewModel(
     }
 
     override fun handle(event: TextFieldEvent) = blockingIntent {
-        when (event.id) {
-            "name" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updateName(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
+        when (event) {
+            is TextFieldEvent.TextChanged -> {
+                when (event.id) {
+                    "name" -> state.updateName(event.text)
+                    "email" -> state.updateEmail(event.text)
+                    "phone" -> state.updatePhone(event.text)
+                    "birthday" -> state.updateBirthday(event.text)
+                    "citizenship" -> state.updateCitizenship(event.text)
+                    "address" -> state.updateAddress(event.text)
+                    "passport" -> state.updatePassport(event.text)
+                    "passportProvider" -> state.updatePassportProvider(event.text)
+                    "passportProviderCode" -> state.updatePassportProviderCode(event.text)
+                    "patent" -> state.updatePatent(event.text)
+                }
             }
 
-            "email" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updateEmail(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-            }
-
-            "phone" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updatePhone(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-            }
-
-            "birthday" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updateBirthday(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-            }
-
-            "citizenship" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updateCitizenship(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-            }
-
-            "address" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updateAddress(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-            }
-
-            "passport" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updatePassport(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-            }
-
-            "passportProvider" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updatePassportProvider(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-            }
-
-            "passportProviderCode" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updatePassportProviderCode(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-            }
-
-            "patent" -> when (event) {
-                is TextFieldEvent.TextChanged -> reduce { state.updatePatent(event.text) }
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
+            is TextFieldEvent.Action -> Unit
+            is TextFieldEvent.AdditionalAction -> when (event.id) {
+                "name" -> state.updateName("")
+                "email" -> state.updateEmail("")
+                "phone" -> state.updatePhone("")
+                "birthday" -> Unit
+                "citizenship" -> state.updateCitizenship("")
+                "address" -> state.updateAddress("")
+                "passport" -> state.updatePassport("")
+                "passportProvider" -> state.updatePassportProvider("")
+                "passportProviderCode" -> state.updatePassportProviderCode("")
+                "patent" -> state.updatePatent("")
             }
         }
         valid()
