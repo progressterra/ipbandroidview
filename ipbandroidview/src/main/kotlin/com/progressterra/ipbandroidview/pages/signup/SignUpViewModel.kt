@@ -68,9 +68,9 @@ class SignUpViewModel(
                     "birthday" -> reduce { state.updateBirthday(event.text) }
                     "citizenship" -> reduce { state.updateCitizenship(event.text) }
                     "address" -> reduce { state.updateAddress(event.text) }
-                    "passport" -> reduce { state.updatePassport(event.text) }
+                    "passport" -> if (event.text.length <= 10) reduce { state.updatePassport(event.text) }
                     "passportProvider" -> reduce { state.updatePassportProvider(event.text) }
-                    "passportProviderCode" -> reduce { state.updatePassportProviderCode(event.text) }
+                    "passportProviderCode" -> if (event.text.length <= 6) reduce { state.updatePassportProviderCode(event.text) }
                     "patent" -> reduce { state.updatePatent(event.text) }
                 }
             }
