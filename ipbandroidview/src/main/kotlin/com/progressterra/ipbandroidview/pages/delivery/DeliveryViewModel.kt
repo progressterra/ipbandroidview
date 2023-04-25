@@ -70,21 +70,19 @@ class DeliveryViewModel(
     override fun handle(event: TextFieldEvent) = blockingIntent {
         when (event) {
             is TextFieldEvent.TextChanged -> when (event.id) {
-                "city" -> reduce { state.uCity(event.text) }
-                "home" -> reduce { state.uHome(event.text) }
-                "entrance" -> reduce { state.uEntrance(event.text) }
-                "apartment" -> reduce { state.uApartment(event.text) }
-                "commentary" -> reduce { state.uCommentary(event.text) }
+                "city" -> reduce { state.uDeliveryPickerCityText(event.text) }
+                "home" -> reduce { state.uDeliveryPickerHomeText(event.text) }
+                "entrance" -> reduce { state.uDeliveryPickerEntranceText(event.text) }
+                "apartment" -> reduce { state.uDeliveryPickerApartmentText(event.text) }
+                "commentary" -> reduce { state.uCommentaryText(event.text) }
             }
 
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "city" -> reduce { state.uCity("") }
-                "home" -> reduce { state.uHome("") }
-                "entrance" -> reduce { state.uEntrance("") }
-                "apartment" -> reduce {
-                    state.uApartment("")
-                }
+                "city" -> reduce { state.uDeliveryPickerCityText("") }
+                "home" -> reduce { state.uDeliveryPickerHomeText("") }
+                "entrance" -> reduce { state.uDeliveryPickerEntranceText("") }
+                "apartment" -> reduce { state.uDeliveryPickerApartmentText("") }
             }
         }
         checkValid()

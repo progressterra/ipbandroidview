@@ -38,7 +38,7 @@ fun ProfileScreen(
                     )
                 } else {
                     UnAuthPlaceholder(
-                        state = state.unAuthProfileState,
+                        state = state.unAuth,
                         useComponent = useComponent
                     )
                 }

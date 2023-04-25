@@ -3,6 +3,26 @@ package com.progressterra.ipbandroidview.processes.user
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.print
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
+import com.progressterra.ipbandroidview.widgets.edituser.uAddressEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uAddressText
+import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayText
+import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipText
+import com.progressterra.ipbandroidview.widgets.edituser.uEmailEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uEmailText
+import com.progressterra.ipbandroidview.widgets.edituser.uNameEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uNameText
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportCodeEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportCodeText
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportProviderEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportProviderText
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportText
+import com.progressterra.ipbandroidview.widgets.edituser.uPatentEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPatentText
+import com.progressterra.ipbandroidview.widgets.edituser.uPhoneEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPhoneText
 import java.time.Instant
 import java.time.ZoneId
 
@@ -19,8 +39,8 @@ interface FetchUserUseCase {
                     if (UserData.userName.surname.isNotBlank()) append(" ${UserData.userName.surname}")
                 })
                 .uEmailText(UserData.email)
-                .uPhone(UserData.phone)
-                .uBirthday(
+                .uPhoneText(UserData.phone)
+                .uBirthdayText(
                     Instant.ofEpochMilli(UserData.dateOfBirthday).atZone(
                         ZoneId.systemDefault()
                     ).toLocalDate().print()

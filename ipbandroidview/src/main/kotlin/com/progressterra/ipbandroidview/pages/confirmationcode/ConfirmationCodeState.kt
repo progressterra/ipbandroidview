@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.confirmationcode
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.code.CodeState
 import com.progressterra.ipbandroidview.widgets.nextorrepeat.NextOrRepeatState
+import com.progressterra.ipbandroidview.widgets.nextorrepeat.uNextEnabled
 
 @Immutable
 data class ConfirmationCodeState(

@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitchState
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodState
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.receivereceipt.ReceiveReceiptState
+import com.progressterra.ipbandroidview.features.receivereceipt.uEmailStateText
 import com.progressterra.ipbandroidview.shared.ScreenState
 
 @Immutable
@@ -17,7 +18,7 @@ data class PaymentState(
     val receipt: ReceiptState = ReceiptState()
 ) {
 
-    fun uEmail(newEmail: String) = copy(receiveReceipt = receiveReceipt.uEmail(newEmail))
+    fun uEmail(newEmail: String) = copy(receiveReceipt = receiveReceipt.uEmailStateText(newEmail))
 
     fun reverseBonusSwitch() = copy(bonusSwitch = bonusSwitch.reverse())
 

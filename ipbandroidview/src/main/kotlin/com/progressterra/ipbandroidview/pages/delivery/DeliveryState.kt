@@ -5,22 +5,42 @@ import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.button.uEnabled
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
+import com.progressterra.ipbandroidview.widgets.deliverypicker.uAddressText
+import com.progressterra.ipbandroidview.widgets.deliverypicker.uApartmentText
+import com.progressterra.ipbandroidview.widgets.deliverypicker.uCityText
+import com.progressterra.ipbandroidview.widgets.deliverypicker.uEntranceText
+import com.progressterra.ipbandroidview.widgets.deliverypicker.uHomeText
 import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class DeliveryState(
     val stateBox: ScreenState = ScreenState.LOADING,
     val deliveryPicker: DeliveryPickerState = DeliveryPickerState(),
-    val commentary: TextFieldState = TextFieldState(
+    @IpbSubState val commentary: TextFieldState = TextFieldState(
         id = "commentary"
     ),
     @IpbSubState val confirm: ButtonState = ButtonState(
         id = "confirm"
     )
 ) {
+
+    fun uDeliveryPickerCityText(newText: String) =
+        copy(deliveryPicker = deliveryPicker.uCityText(newText))
+
+    fun uDeliveryPickerHomeText(newText: String) =
+        copy(deliveryPicker = deliveryPicker.uHomeText(newText))
+
+    fun uDeliveryPickerEntranceText(newText: String) =
+        copy(deliveryPicker = deliveryPicker.uEntranceText(newText))
+
+    fun uDeliveryPickerApartmentText(newText: String) =
+        copy(deliveryPicker = deliveryPicker.uApartmentText(newText))
+
+    fun uDeliveryPickeuAddressText(newText: String) =
+        copy(deliveryPicker = deliveryPicker.uAddressText(newText))
+
 
     fun uStateBoxState(screenState: ScreenState) = copy(stateBox = screenState)
 
@@ -33,19 +53,4 @@ data class DeliveryState(
 
     fun uDeliveryMethod(deliveryMethod: Delivery) =
         copy(deliveryPicker = deliveryPicker.uSelectedMethod(deliveryMethod))
-
-    fun uCity(newCity: String) = copy(deliveryPicker = deliveryPicker.uCity(newCity))
-
-    fun uHome(newHome: String) = copy(deliveryPicker = deliveryPicker.uHome(newHome))
-
-    fun uEntrance(newEntrance: String) =
-        copy(deliveryPicker = deliveryPicker.uEntrance(newEntrance))
-
-    fun uApartment(newApartment: String) =
-        copy(deliveryPicker = deliveryPicker.uApartment(newApartment))
-
-    fun uCommentary(newCommentary: String) =
-        copy(commentary = commentary.uText(newCommentary))
-
-    fun uConfirmEnabled(isEnabled: Boolean) = copy(confirm = confirm.uEnabled(isEnabled))
 }

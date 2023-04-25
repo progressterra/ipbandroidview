@@ -18,11 +18,12 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
+import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class PromoCodeState(
     val price: SimplePrice = SimplePrice(),
-    val code: TextFieldState = TextFieldState()
+    @IpbSubState val code: TextFieldState = TextFieldState()
 )
 
 interface UsePromoCode : UseTextField

@@ -3,7 +3,27 @@ package com.progressterra.ipbandroidview.pages.profiledetails
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.editbutton.EditButtonState
+import com.progressterra.ipbandroidview.features.editbutton.uSaveEnabled
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
+import com.progressterra.ipbandroidview.widgets.edituser.uAddressEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uAddressText
+import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayText
+import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipText
+import com.progressterra.ipbandroidview.widgets.edituser.uEmailEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uEmailText
+import com.progressterra.ipbandroidview.widgets.edituser.uNameEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uNameText
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportCodeEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportCodeText
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportProviderEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportProviderText
+import com.progressterra.ipbandroidview.widgets.edituser.uPassportText
+import com.progressterra.ipbandroidview.widgets.edituser.uPatentEnabled
+import com.progressterra.ipbandroidview.widgets.edituser.uPatentText
+import com.progressterra.ipbandroidview.widgets.edituser.uPhoneText
 
 @Immutable
 data class ProfileDetailsState(
@@ -20,9 +40,9 @@ data class ProfileDetailsState(
 
     fun uEmail(email: String) = copy(editUser = editUser.uEmailText(email))
 
-    fun uPhone(phone: String) = copy(editUser = editUser.uPhone(phone))
+    fun uPhone(phone: String) = copy(editUser = editUser.uPhoneText(phone))
 
-    fun uBirthday(birthday: String) = copy(editUser = editUser.uBirthday(birthday))
+    fun uBirthday(birthday: String) = copy(editUser = editUser.uBirthdayText(birthday))
 
     fun uCitizenship(citizenship: String) =
         copy(editUser = editUser.uCitizenshipText(citizenship))
