@@ -2,13 +2,15 @@ package com.progressterra.ipbandroidview.features.authorskip
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.uEnabled
+import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class AuthOrSkipState(
-    val auth: ButtonState = ButtonState(
+    @IpbSubState val auth: ButtonState = ButtonState(
         id = "auth"
     ),
-    val skip: ButtonState = ButtonState(
+    @IpbSubState val skip: ButtonState = ButtonState(
         id = "skip"
     )
 ) {
@@ -18,4 +20,5 @@ data class AuthOrSkipState(
 
     fun uSkipEnabled(enabled: Boolean): AuthOrSkipState =
         copy(skip = skip.uEnabled(enabled))
+
 }

@@ -2,7 +2,6 @@ package com.progressterra.processors
 
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
-import com.google.devtools.ksp.processing.KSPLogger
 import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.symbol.KSAnnotated
@@ -10,8 +9,9 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import java.util.Locale
 
+//TODO: make infinity
 class IpbStateProcessor(
-    private val codeGenerator: CodeGenerator, private val logger: KSPLogger
+    private val codeGenerator: CodeGenerator
 ) : SymbolProcessor {
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
@@ -46,7 +46,7 @@ class IpbStateProcessor(
             properties.forEach { property ->
                 val propName = property.name!!.asString()
                 val propType = property.type.resolve().declaration.qualifiedName!!.asString()
-                writer.appendLine("fun $className.update${propName.capitalize()}(new${propName.capitalize()}: $propType) = copy($propName = new${propName.capitalize()})")
+                writer.appendLine("fun $className.u${propName.capitalize()}(new${propName.capitalize()}: $propType) = copy($propName = new${propName.capitalize()})")
             }
         }
     }
@@ -68,10 +68,19 @@ class IpbStateProcessor(
             writer.appendLine()
             subStateProperties.forEach { subStateProperty ->
                 val propName = subStateProperty.name!!.asString()
+                writer.appendLine(
+                    "import ${
+                        property.type.resolve().declaration.qualifiedName?.getQualifier()
+                    }.u${propName.capitalize()}"
+                )
+            }
+            writer.appendLine()
+            subStateProperties.forEach { subStateProperty ->
+                val propName = subStateProperty.name!!.asString()
                 val propType =
                     subStateProperty.type.resolve().declaration.qualifiedName!!.asString()
                 val parentPropertyName = property.simpleName.asString()
-                writer.appendLine("fun $parentClassName.update${parentPropertyName.capitalize()}${propName.capitalize()}(new${propName.capitalize()}: $propType) = copy($parentPropertyName = $parentPropertyName.update${propName.capitalize()}(new${propName.capitalize()}))")
+                writer.appendLine("fun $parentClassName.u${parentPropertyName.capitalize()}${propName.capitalize()}(new${propName.capitalize()}: $propType) = copy($parentPropertyName = $parentPropertyName.u${propName.capitalize()}(new${propName.capitalize()}))")
             }
         }
     }

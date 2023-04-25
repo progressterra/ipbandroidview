@@ -5,8 +5,10 @@ import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.uEnabled
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
+import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class DeliveryState(
@@ -15,7 +17,7 @@ data class DeliveryState(
     val commentary: TextFieldState = TextFieldState(
         id = "commentary"
     ),
-    val confirm: ButtonState = ButtonState(
+    @IpbSubState val confirm: ButtonState = ButtonState(
         id = "confirm"
     )
 ) {

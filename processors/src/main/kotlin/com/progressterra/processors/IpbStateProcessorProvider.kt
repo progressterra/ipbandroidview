@@ -7,5 +7,5 @@ import com.google.devtools.ksp.processing.SymbolProcessorProvider
 class IpbStateProcessorProvider : SymbolProcessorProvider {
 
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor =
-        IpbStateProcessor(environment.codeGenerator, environment.logger)
+        IpbStateProcessor(environment.codeGenerator)
 }

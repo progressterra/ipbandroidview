@@ -3,10 +3,12 @@ package com.progressterra.ipbandroidview.widgets.nextorrepeat
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.countdown.CountDownState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.uEnabled
+import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class NextOrRepeatState(
-    val next: ButtonState = ButtonState(
+    @IpbSubState val next: ButtonState = ButtonState(
         id = "next"
     ),
     val repeat: CountDownState = CountDownState()
