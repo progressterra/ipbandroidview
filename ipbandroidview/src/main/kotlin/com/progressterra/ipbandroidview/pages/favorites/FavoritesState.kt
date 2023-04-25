@@ -11,8 +11,8 @@ data class FavoritesState(
     val stateBox: ScreenState = ScreenState.LOADING
 ) {
 
-    fun updateScreenState(newScreenState: ScreenState) = copy(stateBox = newScreenState)
+    fun uScreenState(newScreenState: ScreenState) = copy(stateBox = newScreenState)
 
-    fun updateItemsState(newItems: List<StoreCardState>) =
-        copy(items = items.updateItems(newItems))
+    fun uItemsState(newItems: List<StoreCardState>) =
+        copy(items = items.uItems(newItems))
 }

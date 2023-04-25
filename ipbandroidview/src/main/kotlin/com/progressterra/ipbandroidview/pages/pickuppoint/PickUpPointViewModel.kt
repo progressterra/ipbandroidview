@@ -25,7 +25,7 @@ class PickUpPointViewModel(
 
     fun refresh(points: List<PickUpPointInfo>) = intent {
         val result = checkPermissionUseCase(locationPermission).isSuccess
-        reduce { state.updatePermission(result).updatePoints(points) }
+        reduce { state.uPermission(result).uPoints(points) }
     }
 
     override fun handle(event: TopBarEvent) = intent {
@@ -44,7 +44,7 @@ class PickUpPointViewModel(
 
     override fun handle(event: PickUpChooseEvent) = intent {
         when (event) {
-            is PickUpChooseEvent.Choose -> reduce { state.updateCurrentPoint(event.info) }
+            is PickUpChooseEvent.Choose -> reduce { state.uCurrentPoint(event.info) }
         }
     }
 }

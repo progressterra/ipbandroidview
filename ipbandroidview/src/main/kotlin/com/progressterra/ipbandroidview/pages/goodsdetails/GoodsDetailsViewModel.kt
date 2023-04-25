@@ -22,7 +22,7 @@ class GoodsDetailsViewModel(
         reduce { GoodsDetailsState() }
         goodsDetailsUseCase(goodsId)
             .onSuccess { reduce { it } }
-            .onFailure { reduce { state.updateScreenState(ScreenState.ERROR) } }
+            .onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
     }
 
     override fun handle(event: ItemGalleryEvent) = intent {

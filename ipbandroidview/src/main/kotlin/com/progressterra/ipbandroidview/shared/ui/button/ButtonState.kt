@@ -8,5 +8,5 @@ data class ButtonState(
     val enabled: Boolean = true
 ) {
 
-    fun updateEnabled(enabled: Boolean): ButtonState = copy(enabled = enabled)
+    fun uEnabled(enabled: Boolean): ButtonState = copy(enabled = enabled)
 }

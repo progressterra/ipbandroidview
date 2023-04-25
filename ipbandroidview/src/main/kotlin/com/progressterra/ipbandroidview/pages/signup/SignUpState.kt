@@ -12,33 +12,33 @@ data class SignUpState(
     val screenState: ScreenState = ScreenState.LOADING
 ) {
 
-    fun updateScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
+    fun uScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
 
-    fun updateName(name: String) = copy(editUser = editUser.updateName(name))
+    fun uName(name: String) = copy(editUser = editUser.uNameText(name))
 
-    fun updateEmail(email: String) = copy(editUser = editUser.updateEmail(email))
+    fun uEmail(email: String) = copy(editUser = editUser.uEmailText(email))
 
-    fun updatePhone(phone: String) = copy(editUser = editUser.updatePhone(phone))
+    fun uPhone(phone: String) = copy(editUser = editUser.uPhone(phone))
 
-    fun updatePhoneEnabled(enabled: Boolean) = copy(editUser = editUser.updatePhoneEnabled(enabled))
+    fun uPhoneEnabled(enabled: Boolean) = copy(editUser = editUser.uPhoneEnabled(enabled))
 
-    fun updateBirthday(birthday: String) = copy(editUser = editUser.updateBirthday(birthday))
+    fun uBirthday(birthday: String) = copy(editUser = editUser.uBirthday(birthday))
 
-    fun updateCitizenship(citizenship: String) =
-        copy(editUser = editUser.updateCitizenship(citizenship))
+    fun uCitizenship(citizenship: String) =
+        copy(editUser = editUser.uCitizenshipText(citizenship))
 
-    fun updateAddress(address: String) = copy(editUser = editUser.updateAddress(address))
+    fun uAddress(address: String) = copy(editUser = editUser.uAddressText(address))
 
-    fun updatePassport(passport: String) = copy(editUser = editUser.updatePassport(passport))
+    fun uPassport(passport: String) = copy(editUser = editUser.uPassportText(passport))
 
-    fun updatePassportProvider(passportProvider: String) =
-        copy(editUser = editUser.updatePassportProvider(passportProvider))
+    fun uPassportProvider(passportProvider: String) =
+        copy(editUser = editUser.uPassportProviderText(passportProvider))
 
-    fun updatePassportProviderCode(passportProviderCode: String) =
-        copy(editUser = editUser.updatePassportProviderCode(passportProviderCode))
+    fun uPassportProviderCode(passportProviderCode: String) =
+        copy(editUser = editUser.uPassportCodeText(passportProviderCode))
 
-    fun updatePatent(patent: String) = copy(editUser = editUser.updatePatent(patent))
+    fun uPatent(patent: String) = copy(editUser = editUser.uPatentText(patent))
 
-    fun updateAuthEnabled(enabled: Boolean) =
-        copy(authOrSkip = authOrSkip.updateAuthButton(enabled))
+    fun uAuthEnabled(enabled: Boolean) =
+        copy(authOrSkip = authOrSkip.uAuthEnabled(enabled))
 }

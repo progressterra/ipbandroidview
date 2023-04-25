@@ -9,5 +9,5 @@ data class GalleriesState(
     val items: Flow<PagingData<StoreCardState>> = emptyFlow()
 ) {
 
-    fun updateItems(items: Flow<PagingData<StoreCardState>>) = copy(items = items)
+    fun uItems(items: Flow<PagingData<StoreCardState>>) = copy(items = items)
 }

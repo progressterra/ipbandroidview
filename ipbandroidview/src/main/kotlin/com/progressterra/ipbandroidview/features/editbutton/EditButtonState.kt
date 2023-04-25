@@ -19,5 +19,5 @@ data class EditButtonState(
 
     fun startCancel() = copy(editing = !editing)
 
-    fun updateSaveEnabled(enabled: Boolean) = copy(save = save.updateEnabled(enabled))
+    fun uSaveEnabled(enabled: Boolean) = copy(save = save.uEnabled(enabled))
 }

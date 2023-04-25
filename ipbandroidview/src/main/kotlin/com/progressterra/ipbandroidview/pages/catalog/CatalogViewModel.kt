@@ -30,17 +30,17 @@ class CatalogViewModel(
     fun refresh() = intent {
         reduce { CatalogState() }
         catalogUseCase().onSuccess {
-            reduce { state.updateCategory(it).addTrace(it).updateScreenState(ScreenState.SUCCESS) }
+            reduce { state.uCategory(it).addTrace(it).uScreenState(ScreenState.SUCCESS) }
         }.onFailure {
-            reduce { state.updateScreenState(ScreenState.ERROR) }
+            reduce { state.uScreenState(ScreenState.ERROR) }
         }
     }
 
     override fun handle(event: CatalogCardEvent) = intent {
         when (event) {
             is CatalogCardEvent.Open -> {
-                reduce { state.addTrace(event.category).updateCategory(event.category) }
-                updateCategory()
+                reduce { state.addTrace(event.category).uCategory(event.category) }
+                uCategory()
             }
         }
     }
@@ -49,18 +49,18 @@ class CatalogViewModel(
         when (event) {
             is TraceEvent.Back -> {
                 reduce { state.removeTrace() }
-                reduce { state.updateCategory(state.trace.trace.last()) }
-                updateCategory()
+                reduce { state.uCategory(state.trace.trace.last()) }
+                uCategory()
             }
         }
     }
 
-    private fun updateCategory() = intent {
+    private fun uCategory() = intent {
         if (state.current.children.isEmpty()) {
             goodsUseCase(state.current.id).onSuccess {
-                reduce { state.updateGoods(it) }
+                reduce { state.uGoods(it) }
             }
-        } else reduce { state.updateGoods(emptyFlow()) }
+        } else reduce { state.uGoods(emptyFlow()) }
     }
 
     override fun handle(event: StoreCardEvent) = intent {

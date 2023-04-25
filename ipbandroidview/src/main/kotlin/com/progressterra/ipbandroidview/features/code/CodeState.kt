@@ -9,9 +9,9 @@ data class CodeState(
     val enabled: Boolean = false
 ) {
 
-    fun updateCode(newCode: String): CodeState = copy(code = newCode)
+    fun uCode(newCode: String): CodeState = copy(code = newCode)
 
-    fun updateEnabled(newEnabled: Boolean): CodeState = copy(enabled = newEnabled)
+    fun uEnabled(newEnabled: Boolean): CodeState = copy(enabled = newEnabled)
 
-    fun updatePhone(newPhone: String): CodeState = copy(phone = newPhone)
+    fun uPhone(newPhone: String): CodeState = copy(phone = newPhone)
 }

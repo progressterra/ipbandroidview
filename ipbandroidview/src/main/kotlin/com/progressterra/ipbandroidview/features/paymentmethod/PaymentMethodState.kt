@@ -9,6 +9,6 @@ data class PaymentMethodState(
     val paymentMethods: List<PaymentType> = emptyList()
 ) {
 
-    fun updatePaymentMethod(paymentMethod: PaymentType) =
+    fun uPaymentMethod(paymentMethod: PaymentType) =
         copy(selectedPaymentMethod = paymentMethod)
 }

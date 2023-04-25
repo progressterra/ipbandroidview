@@ -24,11 +24,11 @@ class FavoritesViewModel(
     override val container: Container<FavoritesState, FavoritesEvent> = container(FavoritesState())
 
     fun refresh() = intent {
-        reduce { state.updateScreenState(ScreenState.LOADING) }
+        reduce { state.uScreenState(ScreenState.LOADING) }
         favoriteGoodsUseCase().onSuccess {
-            reduce { state.updateScreenState(ScreenState.SUCCESS).updateItemsState(it) }
+            reduce { state.uScreenState(ScreenState.SUCCESS).uItemsState(it) }
         }.onFailure {
-            reduce { state.updateScreenState(ScreenState.ERROR) }
+            reduce { state.uScreenState(ScreenState.ERROR) }
         }
     }
 

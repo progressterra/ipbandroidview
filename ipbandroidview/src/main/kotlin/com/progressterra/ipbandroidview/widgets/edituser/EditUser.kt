@@ -91,7 +91,7 @@ fun EditUser(
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            state = state.passportProviderCode,
+            state = state.passportCode,
             hint = stringResource(R.string.passport_provider_code),
             visualTransformation = MaskVisualTransformation(PASSPORT_PROVIDER_CODE_MASK),
             useComponent = useComponent,

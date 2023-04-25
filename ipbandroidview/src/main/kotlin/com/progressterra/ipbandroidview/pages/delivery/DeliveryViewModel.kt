@@ -28,16 +28,16 @@ class DeliveryViewModel(
 
     override val container = container<DeliveryState, DeliveryEvent>(DeliveryState())
 
-    fun updatePickUpPoint(info: PickUpPointInfo) = intent {
-        reduce { state.updatePickUpPoint(info) }
+    fun uPickUpPoint(info: PickUpPointInfo) = intent {
+        reduce { state.uPickUpPoint(info) }
     }
 
     fun refresh() = intent {
-        reduce { DeliveryState().updateConfirmEnabled(false) }
+        reduce { DeliveryState().uConfirmEnabled(false) }
         fetchAvailableDeliveryUseCase().onSuccess {
-            reduce { state.updateStateBoxState(ScreenState.SUCCESS).updateDeliveryPickerState(it) }
+            reduce { state.uStateBoxState(ScreenState.SUCCESS).uDeliveryPickerState(it) }
         }.onFailure {
-            reduce { state.updateStateBoxState(ScreenState.ERROR) }
+            reduce { state.uStateBoxState(ScreenState.ERROR) }
         }
     }
 
@@ -70,20 +70,20 @@ class DeliveryViewModel(
     override fun handle(event: TextFieldEvent) = blockingIntent {
         when (event) {
             is TextFieldEvent.TextChanged -> when (event.id) {
-                "city" -> reduce { state.updateCity(event.text) }
-                "home" -> reduce { state.updateHome(event.text) }
-                "entrance" -> reduce { state.updateEntrance(event.text) }
-                "apartment" -> reduce { state.updateApartment(event.text) }
-                "commentary" -> reduce { state.updateCommentary(event.text) }
+                "city" -> reduce { state.uCity(event.text) }
+                "home" -> reduce { state.uHome(event.text) }
+                "entrance" -> reduce { state.uEntrance(event.text) }
+                "apartment" -> reduce { state.uApartment(event.text) }
+                "commentary" -> reduce { state.uCommentary(event.text) }
             }
 
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "city" -> reduce { state.updateCity("") }
-                "home" -> reduce { state.updateHome("") }
-                "entrance" -> reduce { state.updateEntrance("") }
+                "city" -> reduce { state.uCity("") }
+                "home" -> reduce { state.uHome("") }
+                "entrance" -> reduce { state.uEntrance("") }
                 "apartment" -> reduce {
-                    state.updateApartment("")
+                    state.uApartment("")
                 }
             }
         }
@@ -92,13 +92,13 @@ class DeliveryViewModel(
 
     private fun checkValid() = intent {
         val valid = deliveryPickerValidUseCase(state.deliveryPicker).isSuccess
-        reduce { state.updateConfirmEnabled(valid) }
+        reduce { state.uConfirmEnabled(valid) }
     }
 
     override fun handle(event: DeliveryPickerEvent) = intent {
         when (event) {
             is DeliveryPickerEvent.SelectDeliveryMethod -> reduce {
-                state.updateDeliveryMethod(event.delivery)
+                state.uDeliveryMethod(event.delivery)
             }
         }
     }

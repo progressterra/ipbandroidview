@@ -24,7 +24,7 @@ interface EditUserValidUseCase {
                         editUserState.address.text.isAddress() &&
                         editUserState.passport.text.isNotBlank() &&
                         editUserState.passportProvider.text.isNotBlank() &&
-                        editUserState.passportProviderCode.text.isNotBlank() &&
+                        editUserState.passportCode.text.isNotBlank() &&
                         editUserState.patent.text.isNotBlank()
             if (!valid) {
                 throw Exception("Invalid")

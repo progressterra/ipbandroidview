@@ -12,5 +12,5 @@ data class CartState(
     val items: CartItemsState = CartItemsState()
 ) {
 
-    fun updateScreenState(screenState: ScreenState) = copy(screenState = screenState)
+    fun uScreenState(screenState: ScreenState) = copy(screenState = screenState)
 }

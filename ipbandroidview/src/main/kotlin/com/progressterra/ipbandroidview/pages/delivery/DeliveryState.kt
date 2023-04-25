@@ -12,34 +12,38 @@ import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerSta
 data class DeliveryState(
     val stateBox: ScreenState = ScreenState.LOADING,
     val deliveryPicker: DeliveryPickerState = DeliveryPickerState(),
-    val commentary: TextFieldState = TextFieldState(),
-    val confirm: ButtonState = ButtonState(id = "confirm")
+    val commentary: TextFieldState = TextFieldState(
+        id = "commentary"
+    ),
+    val confirm: ButtonState = ButtonState(
+        id = "confirm"
+    )
 ) {
 
-    fun updateStateBoxState(screenState: ScreenState) = copy(stateBox = screenState)
+    fun uStateBoxState(screenState: ScreenState) = copy(stateBox = screenState)
 
-    fun updateDeliveryPickerState(deliveryPickerState: DeliveryPickerState) =
+    fun uDeliveryPickerState(deliveryPickerState: DeliveryPickerState) =
         copy(deliveryPicker = deliveryPickerState)
 
-    fun updatePickUpPoint(newPickUpPointInfo: PickUpPointInfo) = copy(
-        deliveryPicker = deliveryPicker.updatePickUpPointInfo(newPickUpPointInfo)
+    fun uPickUpPoint(newPickUpPointInfo: PickUpPointInfo) = copy(
+        deliveryPicker = deliveryPicker.uPickUpPointInfo(newPickUpPointInfo)
     )
 
-    fun updateDeliveryMethod(deliveryMethod: Delivery) =
-        copy(deliveryPicker = deliveryPicker.updateSelectedMethod(deliveryMethod))
+    fun uDeliveryMethod(deliveryMethod: Delivery) =
+        copy(deliveryPicker = deliveryPicker.uSelectedMethod(deliveryMethod))
 
-    fun updateCity(newCity: String) = copy(deliveryPicker = deliveryPicker.updateCity(newCity))
+    fun uCity(newCity: String) = copy(deliveryPicker = deliveryPicker.uCity(newCity))
 
-    fun updateHome(newHome: String) = copy(deliveryPicker = deliveryPicker.updateHome(newHome))
+    fun uHome(newHome: String) = copy(deliveryPicker = deliveryPicker.uHome(newHome))
 
-    fun updateEntrance(newEntrance: String) =
-        copy(deliveryPicker = deliveryPicker.updateEntrance(newEntrance))
+    fun uEntrance(newEntrance: String) =
+        copy(deliveryPicker = deliveryPicker.uEntrance(newEntrance))
 
-    fun updateApartment(newApartment: String) =
-        copy(deliveryPicker = deliveryPicker.updateApartment(newApartment))
+    fun uApartment(newApartment: String) =
+        copy(deliveryPicker = deliveryPicker.uApartment(newApartment))
 
-    fun updateCommentary(newCommentary: String) =
-        copy(commentary = commentary.updateText(newCommentary))
+    fun uCommentary(newCommentary: String) =
+        copy(commentary = commentary.uText(newCommentary))
 
-    fun updateConfirmEnabled(isEnabled: Boolean) = copy(confirm = confirm.updateEnabled(isEnabled))
+    fun uConfirmEnabled(isEnabled: Boolean) = copy(confirm = confirm.uEnabled(isEnabled))
 }

@@ -26,14 +26,14 @@ class SignUpViewModel(
     override val container = container<SignUpState, SignUpEvent>(SignUpState())
 
     fun refresh() = intent {
-        reduce { state.updateScreenState(ScreenState.LOADING) }
+        reduce { state.uScreenState(ScreenState.LOADING) }
         fetchPhoneUseCase().onSuccess {
             reduce {
-                state.updatePhone(it).updatePhoneEnabled(false)
-                    .updateScreenState(ScreenState.SUCCESS)
+                state.uPhone(it).uPhoneEnabled(false)
+                    .uScreenState(ScreenState.SUCCESS)
             }
         }.onFailure {
-            reduce { state.updateScreenState(ScreenState.ERROR) }
+            reduce { state.uScreenState(ScreenState.ERROR) }
         }
     }
 
@@ -63,34 +63,34 @@ class SignUpViewModel(
         when (event) {
             is TextFieldEvent.TextChanged -> {
                 when (event.id) {
-                    "name" -> reduce { state.updateName(event.text) }
-                    "email" -> reduce { state.updateEmail(event.text) }
-                    "birthday" -> reduce { state.updateBirthday(event.text) }
-                    "citizenship" -> reduce { state.updateCitizenship(event.text) }
-                    "address" -> reduce { state.updateAddress(event.text) }
-                    "passport" -> if (event.text.length <= 10) reduce { state.updatePassport(event.text) }
-                    "passportProvider" -> reduce { state.updatePassportProvider(event.text) }
+                    "name" -> reduce { state.uName(event.text) }
+                    "email" -> reduce { state.uEmail(event.text) }
+                    "birthday" -> reduce { state.uBirthday(event.text) }
+                    "citizenship" -> reduce { state.uCitizenship(event.text) }
+                    "address" -> reduce { state.uAddress(event.text) }
+                    "passport" -> if (event.text.length <= 10) reduce { state.uPassport(event.text) }
+                    "passportProvider" -> reduce { state.uPassportProvider(event.text) }
                     "passportProviderCode" -> if (event.text.length <= 6) reduce {
-                        state.updatePassportProviderCode(
+                        state.uPassportProviderCode(
                             event.text
                         )
                     }
 
-                    "patent" -> reduce { state.updatePatent(event.text) }
+                    "patent" -> reduce { state.uPatent(event.text) }
                 }
             }
 
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> reduce { state.updateName("") }
-                "email" -> reduce { state.updateEmail("") }
+                "name" -> reduce { state.uName("") }
+                "email" -> reduce { state.uEmail("") }
                 "birthday" -> Unit
-                "citizenship" -> reduce { state.updateCitizenship("") }
-                "address" -> reduce { state.updateAddress("") }
-                "passport" -> reduce { state.updatePassport("") }
-                "passportProvider" -> reduce { state.updatePassportProvider("") }
-                "passportProviderCode" -> reduce { state.updatePassportProviderCode("") }
-                "patent" -> reduce { state.updatePatent("") }
+                "citizenship" -> reduce { state.uCitizenship("") }
+                "address" -> reduce { state.uAddress("") }
+                "passport" -> reduce { state.uPassport("") }
+                "passportProvider" -> reduce { state.uPassportProvider("") }
+                "passportProviderCode" -> reduce { state.uPassportProviderCode("") }
+                "patent" -> reduce { state.uPatent("") }
             }
         }
         valid()
@@ -98,6 +98,6 @@ class SignUpViewModel(
 
     private fun valid() = intent {
         val valid = userValidUseCase(state.editUser).isSuccess
-        reduce { state.updateAuthEnabled(valid) }
+        reduce { state.uAuthEnabled(valid) }
     }
 }

@@ -11,9 +11,9 @@ data class PickUpPointState(
     val confirm: ButtonState = ButtonState()
 ) {
 
-    fun updateCurrentPoint(newPoint: PickUpPointInfo) = copy(choose = choose.updateCurrentPoint(newPoint))
+    fun uCurrentPoint(newPoint: PickUpPointInfo) = copy(choose = choose.uCurrentPoint(newPoint))
 
-    fun updatePermission(isGranted: Boolean) = copy(choose = choose.updatePermission(isGranted))
+    fun uPermission(isGranted: Boolean) = copy(choose = choose.uPermission(isGranted))
 
-    fun updatePoints(newPoints: List<PickUpPointInfo>) = copy(choose = choose.updatePoints(newPoints))
+    fun uPoints(newPoints: List<PickUpPointInfo>) = copy(choose = choose.uPoints(newPoints))
 }

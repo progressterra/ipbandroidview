@@ -21,9 +21,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
 @Immutable
 data class PromoCodeState(
-
     val price: SimplePrice = SimplePrice(),
-
     val code: TextFieldState = TextFieldState()
 )
 

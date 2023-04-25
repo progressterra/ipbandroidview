@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.unauthprofile
+package com.progressterra.ipbandroidview.features.unauthplaceholder
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,12 +16,14 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
 @Composable
-fun UnAuthProfile(
+fun UnAuthPlaceholder(
     modifier: Modifier = Modifier,
-    state: UnAuthProfileState,
-    useComponent: UseUnAuthProfile
+    state: ButtonState,
+    useComponent: UseButton
 ) {
     Column(
         modifier = modifier
@@ -41,7 +43,7 @@ fun UnAuthProfile(
         Button(
             modifier = Modifier.fillMaxWidth(),
             title = stringResource(R.string.authorization),
-            state = state.auth,
+            state = state,
             useComponent = useComponent
         )
     }

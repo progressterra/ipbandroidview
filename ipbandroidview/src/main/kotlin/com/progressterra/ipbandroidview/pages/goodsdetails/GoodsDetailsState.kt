@@ -13,5 +13,5 @@ data class GoodsDetailsState(
     val screenState: ScreenState = ScreenState.LOADING
 ) {
 
-    fun updateScreenState(screenState: ScreenState) = copy(screenState = screenState)
+    fun uScreenState(screenState: ScreenState) = copy(screenState = screenState)
 }

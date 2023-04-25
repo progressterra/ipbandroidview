@@ -30,7 +30,7 @@ sealed class Delivery {
         val currentPoint: PickUpPointInfo,
     ) : Delivery() {
 
-        fun updateCurrentPoint(info: PickUpPointInfo) = copy(currentPoint = info)
+        fun uCurrentPoint(info: PickUpPointInfo) = copy(currentPoint = info)
 
         override val type: String = currentPoint.type
 

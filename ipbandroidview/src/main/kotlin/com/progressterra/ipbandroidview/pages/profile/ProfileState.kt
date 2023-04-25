@@ -3,13 +3,13 @@ package com.progressterra.ipbandroidview.pages.profile
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
-import com.progressterra.ipbandroidview.features.unauthprofile.UnAuthProfileState
 import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
 @Immutable
 data class ProfileState(
     val isAuthorized: Boolean = false,
-    val unAuthProfileState: UnAuthProfileState = UnAuthProfileState(),
+    val unAuthProfileState: ButtonState = ButtonState(),
     val authProfileState: AuthProfileState = AuthProfileState(),
     val screenState: ScreenState = ScreenState.LOADING,
     val orders: ProfileButtonState = ProfileButtonState(
@@ -29,10 +29,10 @@ data class ProfileState(
     )
 ) {
 
-    fun updateAuthProfile(newAuthProfileState: AuthProfileState) =
-        copy(authProfileState = newAuthProfileState)
+    fun uProfile(newProfileState: AuthProfileState) =
+        copy(authProfileState = newProfileState)
 
-    fun updateScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
+    fun uScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
 
-    fun updateIsAuthorized(newIsAuthorized: Boolean) = copy(isAuthorized = newIsAuthorized)
+    fun uIsAuthorized(newIsAuthorized: Boolean) = copy(isAuthorized = newIsAuthorized)
 }

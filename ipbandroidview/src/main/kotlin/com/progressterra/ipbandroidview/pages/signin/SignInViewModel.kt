@@ -69,11 +69,11 @@ class SignInViewModel(
                 if (event.text.length <= 11) {
                     val valid = event.text.isRussianPhoneNumber() || event.text.isTestPhoneNumber()
                     if (event.text.length == 1 && event.text.first() == '8') {
-                        reduce { state.updatePhoneText("7") }
+                        reduce { state.uPhoneText("7") }
                     } else {
-                        reduce { state.updatePhoneText(event.text) }
+                        reduce { state.uPhoneText(event.text) }
                     }
-                    reduce { state.updatePhoneValid(valid).updateAuthButton(valid) }
+                    reduce { state.uPhoneValid(valid).uAuthButton(valid) }
                 }
             }
 

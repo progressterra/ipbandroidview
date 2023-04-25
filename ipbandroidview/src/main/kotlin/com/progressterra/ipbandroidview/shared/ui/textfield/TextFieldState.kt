@@ -10,9 +10,9 @@ data class TextFieldState(
     val valid: Boolean = true
 ) {
 
-    fun updateText(text: String): TextFieldState = copy(text = text)
+    fun uText(text: String): TextFieldState = copy(text = text)
 
-    fun updateEnabled(enabled: Boolean): TextFieldState = copy(enabled = enabled)
+    fun uEnabled(enabled: Boolean): TextFieldState = copy(enabled = enabled)
 
-    fun updateValid(valid: Boolean): TextFieldState = copy(valid = valid)
+    fun uValid(valid: Boolean): TextFieldState = copy(valid = valid)
 }

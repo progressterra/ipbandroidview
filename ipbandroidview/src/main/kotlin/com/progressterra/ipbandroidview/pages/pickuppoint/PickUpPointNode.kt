@@ -26,7 +26,7 @@ class PickUpPointNode(
             when (it) {
                 is PickUpPointEffect.Back -> onBack()
                 is PickUpPointEffect.Next -> {
-                    parentViewModel.updatePickUpPoint(it.info)
+                    parentViewModel.uPickUpPoint(it.info)
                     onBack()
                 }
             }

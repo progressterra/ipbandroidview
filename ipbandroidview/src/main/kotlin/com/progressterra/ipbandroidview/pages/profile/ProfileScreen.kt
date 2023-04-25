@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfile
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.features.unauthprofile.UnAuthProfile
+import com.progressterra.ipbandroidview.features.unauthplaceholder.UnAuthPlaceholder
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 
@@ -37,7 +37,7 @@ fun ProfileScreen(
                         useComponent = useComponent
                     )
                 } else {
-                    UnAuthProfile(
+                    UnAuthPlaceholder(
                         state = state.unAuthProfileState,
                         useComponent = useComponent
                     )

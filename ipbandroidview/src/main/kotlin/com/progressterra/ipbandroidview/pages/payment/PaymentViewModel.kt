@@ -29,11 +29,11 @@ class PaymentViewModel(
     override val container = container<PaymentState, PaymentEvent>(PaymentState())
 
     fun refresh() = intent {
-        reduce { state.updateStateBoxState(ScreenState.LOADING) }
+        reduce { state.uStateBoxState(ScreenState.LOADING) }
         fetchPaymentMethods().onSuccess {
-            reduce { state.updateStateBoxState(ScreenState.SUCCESS).updatePaymentMethodState(it) }
+            reduce { state.uStateBoxState(ScreenState.SUCCESS).uPaymentMethodState(it) }
         }.onFailure {
-            reduce { state.updateStateBoxState(ScreenState.ERROR) }
+            reduce { state.uStateBoxState(ScreenState.ERROR) }
         }
     }
 
@@ -73,7 +73,7 @@ class PaymentViewModel(
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> Unit
             is TextFieldEvent.TextChanged -> when (event.id) {
-                "email" -> reduce { state.updateEmail(event.text) }
+                "email" -> reduce { state.uEmail(event.text) }
             }
         }
     }
@@ -86,7 +86,7 @@ class PaymentViewModel(
 
     override fun handle(event: PaymentMethodEvent) = intent {
         when (event) {
-            is PaymentMethodEvent.Select -> reduce { state.updatePaymentMethod(event.type) }
+            is PaymentMethodEvent.Select -> reduce { state.uPaymentMethod(event.type) }
         }
     }
 }

@@ -40,7 +40,7 @@ interface SaveDataUseCase {
             )
             UserData.passport = income.passport.text
             UserData.passportProvider = income.passportProvider.text
-            UserData.passportProviderCode = income.passportProviderCode.text
+            UserData.passportProviderCode = income.passportCode.text
             UserData.patent = income.patent.text
         }
     }

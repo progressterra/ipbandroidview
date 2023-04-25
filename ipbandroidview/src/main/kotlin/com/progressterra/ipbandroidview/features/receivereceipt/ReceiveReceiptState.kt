@@ -16,5 +16,5 @@ data class ReceiveReceiptState(
 
     fun reverseReceiveReceipt() = copy(receiveReceipt = receiveReceipt.reverse())
 
-    fun updateEmail(newEmail: String) = copy(emailState = emailState.updateText(newEmail))
+    fun uEmail(newEmail: String) = copy(emailState = emailState.uText(newEmail))
 }

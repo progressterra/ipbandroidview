@@ -10,13 +10,13 @@ data class SignInState(
     val authOrSkipState: AuthOrSkipState = AuthOrSkipState()
 ) {
 
-    fun updatePhoneValid(valid: Boolean): SignInState = copy(phone = phone.updateValid(valid))
+    fun uPhoneValid(valid: Boolean): SignInState = copy(phone = phone.uValid(valid))
 
-    fun updatePhoneText(text: String): SignInState = copy(phone = phone.updateText(text))
+    fun uPhoneText(text: String): SignInState = copy(phone = phone.uText(text))
 
-    fun updateAuthButton(enabled: Boolean): SignInState =
-        copy(authOrSkipState = authOrSkipState.updateAuthButton(enabled))
+    fun uAuthButton(enabled: Boolean): SignInState =
+        copy(authOrSkipState = authOrSkipState.uAuthEnabled(enabled))
 
-    fun updateSkipButton(enabled: Boolean): SignInState =
-        copy(authOrSkipState = authOrSkipState.updateSkipButton(enabled))
+    fun uSkipButton(enabled: Boolean): SignInState =
+        copy(authOrSkipState = authOrSkipState.uSkipEnabled(enabled))
 }

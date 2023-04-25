@@ -71,7 +71,7 @@ private fun SignUpScreenPreview() {
                     id = "eruditi", text = "ullamcorper"
                 ), passportProvider = TextFieldState(
                     id = "invidunt", text = "blandit"
-                ), passportProviderCode = TextFieldState(
+                ), passportCode = TextFieldState(
                     id = "parturient", text = "mandamus"
                 ), patent = TextFieldState(
                     id = "eloquentiam", text = "persius"

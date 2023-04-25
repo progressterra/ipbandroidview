@@ -12,11 +12,11 @@ data class BonusesDetailsState(
     val screenState: ScreenState = ScreenState.LOADING
 ) {
 
-    fun updateBonusesInfo(bonusesInfo: BonusesState) = copy(bonusesInfo = bonusesInfo)
+    fun uBonusesInfo(bonusesInfo: BonusesState) = copy(bonusesInfo = bonusesInfo)
 
-    fun updateTransactions(transactions: BonusesTransactionsState) =
+    fun uTransactions(transactions: BonusesTransactionsState) =
         copy(transactions = transactions)
 
-    fun updateScreenState(screenState: ScreenState) =
+    fun uScreenState(screenState: ScreenState) =
         copy(screenState = screenState)
 }

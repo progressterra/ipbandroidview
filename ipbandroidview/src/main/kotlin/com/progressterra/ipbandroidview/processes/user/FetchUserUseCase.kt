@@ -14,33 +14,33 @@ interface FetchUserUseCase {
 
         override suspend fun invoke(): Result<EditUserState> = runCatching {
             EditUserState()
-                .updateName(buildString {
+                .uNameText(buildString {
                     if (UserData.userName.name.isNotBlank()) append(UserData.userName.name)
                     if (UserData.userName.surname.isNotBlank()) append(" ${UserData.userName.surname}")
                 })
-                .updateEmail(UserData.email)
-                .updatePhone(UserData.phone)
-                .updateBirthday(
+                .uEmailText(UserData.email)
+                .uPhone(UserData.phone)
+                .uBirthday(
                     Instant.ofEpochMilli(UserData.dateOfBirthday).atZone(
                         ZoneId.systemDefault()
                     ).toLocalDate().print()
                 )
-                .updateCitizenship(UserData.citizenship)
-                .updateAddress(UserData.address.printAddress())
-                .updatePassport(UserData.passport)
-                .updatePassportProvider(UserData.passportProvider)
-                .updatePassportProviderCode(UserData.passportProviderCode)
-                .updatePatent(UserData.patent)
-                .updatePhoneEnabled(false)
-                .updatePassportProviderEnabled(false)
-                .updatePassportEnabled(false)
-                .updatePassportProviderCodeEnabled(false)
-                .updateCitizenshipEnabled(false)
-                .updateEmailEnabled(false)
-                .updateNameEnabled(false)
-                .updateBirthdayEnabled(false)
-                .updateAddressEnabled(false)
-                .updatePatentEnabled(false)
+                .uCitizenshipText(UserData.citizenship)
+                .uAddressText(UserData.address.printAddress())
+                .uPassportText(UserData.passport)
+                .uPassportProviderText(UserData.passportProvider)
+                .uPassportCodeText(UserData.passportProviderCode)
+                .uPatentText(UserData.patent)
+                .uPhoneEnabled(false)
+                .uPassportProviderEnabled(false)
+                .uPassportEnabled(false)
+                .uPassportCodeEnabled(false)
+                .uCitizenshipEnabled(false)
+                .uEmailEnabled(false)
+                .uNameEnabled(false)
+                .uBirthdayEnabled(false)
+                .uAddressEnabled(false)
+                .uPatentEnabled(false)
         }
     }
 }

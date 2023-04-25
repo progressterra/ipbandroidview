@@ -23,13 +23,13 @@ class ProfileViewModel(
     override val container = container<ProfileState, ProfileEvent>(ProfileState())
 
     fun refresh() = intent {
-        reduce { state.updateScreenState(ScreenState.LOADING) }
+        reduce { state.uScreenState(ScreenState.LOADING) }
         val exists = userExistsUseCase().isSuccess
-        reduce { state.updateIsAuthorized(exists) }
+        reduce { state.uIsAuthorized(exists) }
         fetchUserProfileUseCase().onSuccess {
-            reduce { state.updateAuthProfile(it).updateScreenState(ScreenState.SUCCESS) }
+            reduce { state.uProfile(it).uScreenState(ScreenState.SUCCESS) }
         }.onFailure {
-            reduce { state.updateScreenState(ScreenState.ERROR) }
+            reduce { state.uScreenState(ScreenState.ERROR) }
         }
     }
 

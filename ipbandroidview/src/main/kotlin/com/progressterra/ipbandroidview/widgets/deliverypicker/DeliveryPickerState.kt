@@ -20,18 +20,18 @@ data class DeliveryPickerState(
     val selectPoint: ButtonState = ButtonState(id = "selectPoint")
 ) {
 
-    fun updatePickUpPointInfo(info: PickUpPointInfo) =
+    fun uPickUpPointInfo(info: PickUpPointInfo) =
         if (selectedDeliveryMethod is Delivery.PickUpPointDelivery) {
-            copy(selectedDeliveryMethod = selectedDeliveryMethod.updateCurrentPoint(info))
+            copy(selectedDeliveryMethod = selectedDeliveryMethod.uCurrentPoint(info))
         } else this
 
-    fun updateSelectedMethod(delivery: Delivery) = copy(selectedDeliveryMethod = delivery)
+    fun uSelectedMethod(delivery: Delivery) = copy(selectedDeliveryMethod = delivery)
 
-    fun updateCity(newCity: String) = copy(city = city.updateText(newCity))
+    fun uCity(newCity: String) = copy(city = city.uText(newCity))
 
-    fun updateHome(newHome: String) = copy(home = home.updateText(newHome))
+    fun uHome(newHome: String) = copy(home = home.uText(newHome))
 
-    fun updateEntrance(newEntrance: String) = copy(entrance = entrance.updateText(newEntrance))
+    fun uEntrance(newEntrance: String) = copy(entrance = entrance.uText(newEntrance))
 
-    fun updateApartment(newApartment: String) = copy(apartment = apartment.updateText(newApartment))
+    fun uApartment(newApartment: String) = copy(apartment = apartment.uText(newApartment))
 }

@@ -10,20 +10,20 @@ data class ConfirmationCodeState(
     val nextOrRepeat: NextOrRepeatState = NextOrRepeatState()
 ) {
 
-    fun updateCode(newCode: String): ConfirmationCodeState = copy(code = code.updateCode(newCode))
+    fun uCode(newCode: String): ConfirmationCodeState = copy(code = code.uCode(newCode))
 
-    fun updatePhoneNumber(newPhoneNumber: String): ConfirmationCodeState =
-        copy(code = code.updatePhone(newPhoneNumber))
+    fun uPhoneNumber(newPhoneNumber: String): ConfirmationCodeState =
+        copy(code = code.uPhone(newPhoneNumber))
 
-    fun updateCodeEnabled(newEnabled: Boolean): ConfirmationCodeState =
-        copy(code = code.updateEnabled(newEnabled))
+    fun uCodeEnabled(newEnabled: Boolean): ConfirmationCodeState =
+        copy(code = code.uEnabled(newEnabled))
 
-    fun updateNextEnabled(newEnabled: Boolean): ConfirmationCodeState =
-        copy(nextOrRepeat = nextOrRepeat.updateNextEnabled(newEnabled))
+    fun uNextEnabled(newEnabled: Boolean): ConfirmationCodeState =
+        copy(nextOrRepeat = nextOrRepeat.uNextEnabled(newEnabled))
 
-    fun updateRepeatEnabled(newEnabled: Boolean): ConfirmationCodeState =
-        copy(nextOrRepeat = nextOrRepeat.updateRepeatEnabled(newEnabled))
+    fun uRepeatEnabled(newEnabled: Boolean): ConfirmationCodeState =
+        copy(nextOrRepeat = nextOrRepeat.uRepeatEnabled(newEnabled))
 
-    fun updateRepeatCount(newCount: String): ConfirmationCodeState =
-        copy(nextOrRepeat = nextOrRepeat.updateRepeatCount(newCount))
+    fun uRepeatCount(newCount: String): ConfirmationCodeState =
+        copy(nextOrRepeat = nextOrRepeat.uRepeatCount(newCount))
 }

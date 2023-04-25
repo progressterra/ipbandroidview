@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 apply(from = "publish.gradle.kts")
@@ -19,7 +20,7 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
+        release {
             isMinifyEnabled = false
             proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
@@ -127,5 +128,8 @@ dependencies {
 
     // Reflection
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
+
+    ksp(project(":processors"))
+    implementation(project(":processors"))
 }
 

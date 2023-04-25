@@ -22,19 +22,19 @@ class BonusesDetailsViewModel(
     override val container: Container<BonusesDetailsState, BonusesDetailsEvent> = container(BonusesDetailsState())
 
     fun refresh() = intent {
-        reduce { state.updateScreenState(ScreenState.LOADING) }
+        reduce { state.uScreenState(ScreenState.LOADING) }
         var isSuccess = true
         bonusesUseCase().onSuccess {
-            reduce { state.updateBonusesInfo(it) }
+            reduce { state.uBonusesInfo(it) }
         }.onFailure {
             isSuccess = false
         }
         fetchBonusesTransactionsUseCase().onSuccess {
-            reduce { state.updateTransactions(it) }
+            reduce { state.uTransactions(it) }
         }.onFailure {
             isSuccess = false
         }
-        reduce { state.updateScreenState(ScreenState.fromBoolean(isSuccess)) }
+        reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
     }
 
     override fun handle(event: BonusesEvent) = intent {

@@ -12,7 +12,7 @@ sealed class StoreItemsState {
         val items: Flow<PagingData<StoreCardState>> = emptyFlow()
     ) : StoreItemsState() {
 
-        fun updateItems(newItems: Flow<PagingData<StoreCardState>>) = copy(items = newItems)
+        fun uItems(newItems: Flow<PagingData<StoreCardState>>) = copy(items = newItems)
     }
 
     @Immutable
@@ -20,6 +20,6 @@ sealed class StoreItemsState {
         val items: List<StoreCardState> = emptyList()
     ) : StoreItemsState() {
 
-        fun updateItems(newItems: List<StoreCardState>) = copy(items = newItems)
+        fun uItems(newItems: List<StoreCardState>) = copy(items = newItems)
     }
 }

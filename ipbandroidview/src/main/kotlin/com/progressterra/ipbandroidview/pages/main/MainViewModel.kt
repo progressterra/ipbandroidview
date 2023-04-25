@@ -34,28 +34,28 @@ class MainViewModel(
     fun refresh() = intent {
         var isSuccess = true
         fetchBonusesUseCase().onSuccess {
-            reduce { state.updateBonuses(it) }
+            reduce { state.uBonuses(it) }
         }.onFailure {
             isSuccess = false
         }
         if (isSuccess) fetchOffersUseCase().onSuccess {
-            reduce { state.updateOffers(it) }
+            reduce { state.uOffers(it) }
         }.onFailure {
             isSuccess = false
         }
         if (isSuccess) fetchGalleriesUseCase(FetchGalleriesUseCase.HOT).onSuccess {
             val cached = it.cachedIn(viewModelScope)
-            reduce { state.updateHits(cached) }
+            reduce { state.uHits(cached) }
         }.onFailure {
             isSuccess = false
         }
         if (isSuccess) fetchGalleriesUseCase(FetchGalleriesUseCase.NEW).onSuccess {
             val cached = it.cachedIn(viewModelScope)
-            reduce { state.updateNew(cached) }
+            reduce { state.uNew(cached) }
         }.onFailure {
             isSuccess = false
         }
-        reduce { state.updateStateBox(ScreenState.fromBoolean(isSuccess)) }
+        reduce { state.uStateBox(ScreenState.fromBoolean(isSuccess)) }
     }
 
     override fun handle(event: BonusesEvent) = intent {

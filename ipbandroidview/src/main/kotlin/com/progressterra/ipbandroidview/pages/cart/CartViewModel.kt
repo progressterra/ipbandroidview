@@ -30,7 +30,7 @@ class CartViewModel(
         }.onFailure {
             isSuccess = false
         }
-        reduce { state.updateScreenState(ScreenState.fromBoolean(isSuccess)) }
+        reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
     }
 
     override fun handle(event: CartCardEvent) = intent {

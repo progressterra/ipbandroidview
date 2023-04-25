@@ -28,12 +28,12 @@ class ConfirmationCodeViewModel(
         container(ConfirmationCodeState())
 
     fun refresh(phoneNumber: String) = intent {
-        reduce { state.updateCode("").updatePhoneNumber(phoneNumber) }
+        reduce { state.uCode("").uPhoneNumber(phoneNumber) }
         startTimer()
     }
 
     private fun onNext() = intent {
-        reduce { state.updateCodeEnabled(false).updateNextEnabled(false) }
+        reduce { state.uCodeEnabled(false).uNextEnabled(false) }
         var isSuccess = true
         endVerificationChannelUseCase(state.code.phone, state.code.code).onSuccess {
             postSideEffect(ConfirmationCodeEvent.Next)
@@ -42,26 +42,26 @@ class ConfirmationCodeViewModel(
             isSuccess = false
             postSideEffect(ConfirmationCodeEvent.Toast(R.string.wrong_code))
         }
-        reduce { state.updateCodeEnabled(isSuccess).updateNextEnabled(isSuccess) }
+        reduce { state.uCodeEnabled(isSuccess).uNextEnabled(isSuccess) }
     }
 
     private fun startTimer() = intent {
-        reduce { state.updateRepeatEnabled(false) }
+        reduce { state.uRepeatEnabled(false) }
         for (i in 45.downTo(1)) {
             delay(1000)
-            reduce { state.updateRepeatCount(if (i >= 10) "00:$i" else "00:0$i") }
+            reduce { state.uRepeatCount(if (i >= 10) "00:$i" else "00:0$i") }
         }
-        reduce { state.updateRepeatEnabled(true) }
+        reduce { state.uRepeatEnabled(true) }
     }
 
     override fun handle(event: CodeEvent) = blockingIntent {
         when (event) {
             is CodeEvent.Changed -> {
-                if (event.code.length <= 4) reduce { state.updateCode(event.code) }
+                if (event.code.length <= 4) reduce { state.uCode(event.code) }
                 if (event.code.length == 4) onNext()
             }
         }
-        state.updateNextEnabled(state.code.code.length == 4)
+        state.uNextEnabled(state.code.code.length == 4)
     }
 
     override fun handle(event: ButtonEvent) = intent {

@@ -8,7 +8,7 @@ data class CountDownState(
     val enabled: Boolean = false
 ) {
 
-    fun updateCount(newCount: String): CountDownState = copy(count = newCount)
+    fun uCount(newCount: String): CountDownState = copy(count = newCount)
 
-    fun updateEnabled(newEnabled: Boolean): CountDownState = copy(enabled = newEnabled)
+    fun uEnabled(newEnabled: Boolean): CountDownState = copy(enabled = newEnabled)
 }

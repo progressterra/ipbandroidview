@@ -16,15 +16,15 @@ data class MainState(
     val new: GalleriesState = GalleriesState()
 ) {
 
-    fun updateStateBox(screenState: ScreenState) = copy(stateBox = screenState)
+    fun uStateBox(screenState: ScreenState) = copy(stateBox = screenState)
 
-    fun updateHits(newHits: Flow<PagingData<StoreCardState>>) =
-        copy(hits = hits.updateItems(newHits))
+    fun uHits(newHits: Flow<PagingData<StoreCardState>>) =
+        copy(hits = hits.uItems(newHits))
 
-    fun updateNew(newNew: Flow<PagingData<StoreCardState>>) =
-        copy(new = new.updateItems(newNew))
+    fun uNew(newNew: Flow<PagingData<StoreCardState>>) =
+        copy(new = new.uItems(newNew))
 
-    fun updateBonuses(bonuses: BonusesState) = copy(bonuses = bonuses)
+    fun uBonuses(bonuses: BonusesState) = copy(bonuses = bonuses)
 
-    fun updateOffers(offers: OffersState) = copy(offers = offers)
+    fun uOffers(offers: OffersState) = copy(offers = offers)
 }
