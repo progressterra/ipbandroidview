@@ -1,6 +1,9 @@
 package com.progressterra.ipbandroidview.processes.user
 
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.shared.splitName
@@ -12,8 +15,12 @@ interface SaveDataUseCase {
 
     suspend operator fun invoke(income: EditUserState): Result<Unit>
 
-    class Test : SaveDataUseCase {
+    class Base(
+        private val scrmRepository: SCRMRepository,
+        provideLocation: ProvideLocation
+    ) : SaveDataUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
+        //TODO saving
         override suspend fun invoke(income: EditUserState): Result<Unit> = runCatching {
             val nameList = income.name.text.splitName(false)
             UserData.userName = UserName(

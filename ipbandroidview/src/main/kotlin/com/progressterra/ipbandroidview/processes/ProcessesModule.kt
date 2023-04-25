@@ -67,8 +67,8 @@ val processesModule = module {
     single<AskPermissionUseCase> { AskPermissionUseCase.Base(get()) }
 
     single<CreateDeliveryOrderUseCase> {
-//        CreateDeliveryOrderUseCase.Base(get(), get(), get())
-        CreateDeliveryOrderUseCase.Test()
+        CreateDeliveryOrderUseCase.Base(get(), get(), get())
+//        CreateDeliveryOrderUseCase.Test()
     }
 
     single<StopRecordingUseCase> { StopRecordingUseCase.Base(get()) }
@@ -102,33 +102,34 @@ val processesModule = module {
     single<GuessLocationUseCase> { GuessLocationUseCase.Base(get(), get()) }
 
     single<GoodsUseCase> {
-//        GoodsUseCase.Base(get())
-        GoodsUseCase.Test()
+        GoodsUseCase.Base(get())
+//        GoodsUseCase.Test()
     }
 
 
     single<FetchGoodsPage> {
-//        FetchGoodsPage.Base(get(), get(), get(), get())
-        FetchGoodsPage.Test()
+        FetchGoodsPage.Base(get(), get(), get(), get())
+//        FetchGoodsPage.Test()
     }
 
     single<AddToCartUseCase> {
-        AddToCartUseCase.Test()
-//        AddToCartUseCase.Base(get(), get(), get())
+//        AddToCartUseCase.Test()
+        AddToCartUseCase.Base(get(), get(), get())
     }
 
     single<RemoveFromCartUseCase> {
-        RemoveFromCartUseCase.Test()
-//        RemoveFromCartUseCase.Base(get(), get(), get())
+//        RemoveFromCartUseCase.Test()
+        RemoveFromCartUseCase.Base(get(), get(), get())
     }
 
     single<StartVerificationChannelUseCase> {
-//        StartVerificationChannelUseCase.Base(get())
-        StartVerificationChannelUseCase.Test()
+        StartVerificationChannelUseCase.Base(get())
+//        StartVerificationChannelUseCase.Test()
     }
 
     single<SaveDataUseCase> {
-        SaveDataUseCase.Test()
+//        SaveDataUseCase.Test()
+        SaveDataUseCase.Base(get(), get())
     }
 
     single<FetchUserUseCase> {

@@ -16,8 +16,8 @@ val featuresModule = module {
     }
 
     single<BonusesUseCase> {
-//        BonusesUseCase.Base(get(), get(), get(), get())
-        BonusesUseCase.Test()
+        BonusesUseCase.Base(get(), get(), get(), get())
+//        BonusesUseCase.Test()
     }
 
     single<FetchPaymentMethods> {

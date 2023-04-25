@@ -13,17 +13,17 @@ import org.koin.dsl.module
 val widgetsModule = module {
 
     single<FetchBonusesTransactionsUseCase> {
-//        FetchBonusesTransactionsUseCase.Base(
-//            get(), get(), get(), get()
-//        )
-        FetchBonusesTransactionsUseCase.Test()
+        FetchBonusesTransactionsUseCase.Base(
+            get(), get(), get(), get()
+        )
+//        FetchBonusesTransactionsUseCase.Test()
     }
 
     single<FetchAvailableDeliveryUseCase> {
-//        FetchAvailableDeliveryUseCase.Base(
-//            get(), get(), get(), get()
-//        )
-        FetchAvailableDeliveryUseCase.Test()
+        FetchAvailableDeliveryUseCase.Base(
+            get(), get(), get(), get()
+        )
+//        FetchAvailableDeliveryUseCase.Test()
     }
 
     single<OfferMapper> {
@@ -39,14 +39,14 @@ val widgetsModule = module {
     }
 
     single<FetchGalleriesUseCase> {
-//        FetchGalleriesUseCase.Base(get())
-        FetchGalleriesUseCase.Test()
+        FetchGalleriesUseCase.Base(get())
+//        FetchGalleriesUseCase.Test()
     }
 
 
     single<FetchOffersUseCase> {
-//        FetchOffersUseCase.Base(get(), get(), get(), get())
-        FetchOffersUseCase.Test()
+        FetchOffersUseCase.Base(get(), get(), get(), get())
+//        FetchOffersUseCase.Test()
     }
 
     single<DeliveryPickerValidUseCase> {

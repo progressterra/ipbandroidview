@@ -65,15 +65,15 @@ val pagesModule = module {
     }
 
     single<EndVerificationChannelUseCase> {
-//        EndVerificationChannelUseCase.Base(get(), get())
-        EndVerificationChannelUseCase.Test()
+        EndVerificationChannelUseCase.Base(get(), get())
+//        EndVerificationChannelUseCase.Test()
     }
 
     single<CartGoodsMapper> { CartGoodsMapper.Base(get(), get(), get()) }
 
     single<CatalogUseCase> {
-//        CatalogUseCase.Base(get(), get(), get(), get())
-        CatalogUseCase.Test()
+        CatalogUseCase.Base(get(), get(), get(), get())
+//        CatalogUseCase.Test()
     }
 
     single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get()) }
@@ -81,13 +81,13 @@ val pagesModule = module {
     single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get()) }
 
     single<CartUseCase> {
-//        CartUseCase.Base(get(), get(), get(), get(), get(), get())
-        CartUseCase.Test()
+        CartUseCase.Base(get(), get(), get(), get(), get(), get())
+//        CartUseCase.Test()
     }
 
     single<GoodsDetailsUseCase> {
-//        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
-        GoodsDetailsUseCase.Test()
+        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
+//        GoodsDetailsUseCase.Test()
     }
 
     single<GoodsDetailsMapper> {
@@ -95,15 +95,15 @@ val pagesModule = module {
     }
 
     single<FavoriteGoodsUseCase> {
-//        FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get())
-        FavoriteGoodsUseCase.Test()
+        FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get())
+//        FavoriteGoodsUseCase.Test()
     }
 
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 
     single<ConfirmOrderUseCase> {
-//        ConfirmOrderUseCase.Base(get(), get(), get())
-        ConfirmOrderUseCase.Test()
+        ConfirmOrderUseCase.Base(get(), get(), get())
+//        ConfirmOrderUseCase.Test()
     }
 
     viewModel { CatalogViewModel(get(), get(), get(), get()) }
