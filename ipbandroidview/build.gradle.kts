@@ -6,8 +6,6 @@ plugins {
     id("com.google.devtools.ksp")
 }
 
-apply(from = "publish.gradle.kts")
-
 android {
 
     compileSdk = 33
@@ -46,6 +44,14 @@ android {
     }
 
     namespace = "com.progressterra.ipbandroidview"
+
+    publishing {
+        multipleVariants {
+            withSourcesJar()
+            withJavadocJar()
+            allVariants()
+        }
+    }
 }
 
 dependencies {
@@ -130,6 +136,5 @@ dependencies {
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
 
     ksp(project(":processors"))
-    implementation(project(":processors", "jarRelease"))
+    implementation(project(":processors"))
 }
-
