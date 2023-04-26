@@ -15,7 +15,6 @@ import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.processes.mapper.CatalogMapper
 import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
-import com.progressterra.ipbandroidview.processes.mapper.StatusOrderMapper
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
@@ -25,7 +24,6 @@ import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
-import com.progressterra.ipbandroidview.processes.store.OrdersUseCase
 import com.progressterra.ipbandroidview.processes.store.SizeTableUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchPhoneUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
@@ -58,8 +56,6 @@ val processesModule = module {
 
     single<SizeTableUseCase> { SizeTableUseCase.Base(get(), get(), get()) }
 
-    single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get(), get(), get(), get()) }
-
     single<FetchFavoriteIds> { FetchFavoriteIds.Base(get(), get(), get()) }
 
     single<CheckPermissionUseCase> { CheckPermissionUseCase.Base(get()) }
@@ -82,8 +78,6 @@ val processesModule = module {
     single<MakePhotoUseCase> { MakePhotoUseCase.Base(get(), get(), get(), get()) }
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
-
-    single<StatusOrderMapper> { StatusOrderMapper.Base(get()) }
 
     single<PriceMapper> { PriceMapper.Russia() }
 
