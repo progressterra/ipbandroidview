@@ -1,40 +1,55 @@
 package com.progressterra.ipbandroidview.pages.orders
 
-import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
-import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
-import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
+import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.purchases.PurchasesRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.features.storecard.StoreCardMapper
-import com.progressterra.ipbandroidview.features.storecard.StoreCardState
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
+import com.progressterra.ipbandroidview.processes.mapper.StatusOrderMapper
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface OrdersUseCase {
 
-    suspend operator fun invoke(): Result<List<StoreCardState>>
+    suspend operator fun invoke(): Result<List<OrderDetails>>
 
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
-        private val favoriteRepository: IPBFavPromoRecRepository,
-        private val eIECommerceCoreRepository: IECommerceCoreRepository,
-        private val mapper: StoreCardMapper
-    ) : AbstractUseCase(scrmRepository, provideLocation), OrdersUseCase {
+        manageResources: ManageResources,
+        private val purchasesRepository: PurchasesRepository,
+        private val cartRepository: CartRepository,
+        private val imageMapper: ImageMapper,
+        private val statusOrderMapper: StatusOrderMapper,
+        private val priceMapper: PriceMapper
+    ) : OrdersUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun invoke(): Result<List<StoreCardState>> = withToken { token ->
-            val favoriteIds = favoriteRepository.getClientEntityByType(
-                token, TypeEntities.ONE.ordinal
-            ).getOrThrow()!!
-            buildList {
-                favoriteIds.map { favoriteId ->
-                    eIECommerceCoreRepository.getProductDetailByIDRG(
-                        favoriteId
-                    ).getOrThrow()?.listProducts?.firstOrNull()?.let {
-                        add(mapper.map(it))
-                    }
-                }
-            }
+        private val noData = manageResources.string(R.string.no_data)
+
+        override suspend fun invoke(): Result<List<OrderDetails>> = withToken { token ->
+            purchasesRepository.getShopList(token).getOrThrow()?.map { purchase ->
+                purchasesRepository.getPurchaseDetails(purchase.purchaseId!!).getOrThrow()
+            }?.map { details ->
+                OrderDetails(
+                    id = details?.purchaseId!!,
+                    number = details.number ?: noData,
+                    goods = details.productsInfo?.map { product ->
+                        val count =
+                            details.productsInfo?.count { it.productId == product.productId } ?: 0
+                        OrderDetails.OrderGoods(
+                            id = product.productId ?: noData,
+                            inCartCounter = count,
+                            image = imageMapper.map(product.productImageDataJson ?: "")
+                        )
+                    } ?: emptyList()
+                )
+            }?.map {
+                val result = cartRepository.getOrderById(it.id).getOrThrow()
+                it.copy(status = result?.statusOrder?.let { status -> statusOrderMapper.map(status) }
+                    ?: noData)
+            } ?: emptyList()
         }
     }
 }

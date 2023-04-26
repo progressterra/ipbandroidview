@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.processes.mapper
+package com.progressterra.ipbandroidview.pages.orders
 
 import com.progressterra.ipbandroidapi.api.iecommerce.model.StatusOrder
 import com.progressterra.ipbandroidview.R
