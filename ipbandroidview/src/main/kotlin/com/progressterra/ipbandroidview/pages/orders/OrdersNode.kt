@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.orders
+package com.progressterra.ipbandroidview.pages.orders
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,8 +21,8 @@ class OrdersNode(
         val viewModel: OrdersViewModel = getViewModel()
         viewModel.collectSideEffect {
             when (it) {
-                is OrdersEffect.Back -> onBack()
-                is OrdersEffect.GoodsDetails -> onGoodsDetails(it.goodsId)
+                is OrdersEvent.Back -> onBack()
+                is OrdersEvent.GoodsDetails -> onGoodsDetails(it.goodsId)
             }
         }
         LaunchedEffect(Unit) {
@@ -31,7 +31,7 @@ class OrdersNode(
         val state = viewModel.collectAsState()
         OrdersScreen(
             state = state.value,
-            interactor = viewModel
+            useComponent = viewModel
         )
     }
 }

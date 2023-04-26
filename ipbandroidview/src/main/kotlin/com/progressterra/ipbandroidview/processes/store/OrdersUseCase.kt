@@ -4,8 +4,6 @@ import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.purchases.PurchasesRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.OrderDetails
-import com.progressterra.ipbandroidview.entities.OrderGoods
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.processes.mapper.StatusOrderMapper
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation

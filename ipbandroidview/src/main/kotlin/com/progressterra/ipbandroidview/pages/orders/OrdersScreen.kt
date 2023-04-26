@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.ui.orders
+package com.progressterra.ipbandroidview.pages.orders
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -8,39 +8,35 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.OrdersGoodsLine
-import com.progressterra.ipbandroidview.composable.StateBox
-import com.progressterra.ipbandroidview.composable.ThemedLayout
-import com.progressterra.ipbandroidview.composable.ThemedTopAppBar
-import com.progressterra.ipbandroidview.theme.AppTheme
+import com.progressterra.ipbandroidview.features.orderdetails.OrdersDetails
+import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 
 @Composable
 fun OrdersScreen(
-    state: OrdersState,
-    interactor: OrdersInteractor
+    state: OrdersState, useComponent: UseOrders
 ) {
-    ThemedLayout(
-        topBar = {
-            ThemedTopAppBar(
-                title = stringResource(R.string.your_orders),
-                onBack = { interactor.onBack() }
-            )
-        }
-    ) { _, _ ->
+    ThemedLayout(topBar = {
+        TopBar(
+            title = stringResource(R.string.your_orders),
+            showBackButton = true,
+            useComponent = useComponent
+        )
+    }) { _, _ ->
         StateBox(
-            state = state.screenState,
-            refresh = { interactor.refresh() }
+            state = state.screenState, useComponent = useComponent
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(AppTheme.dimensions.small),
-                contentPadding = PaddingValues(AppTheme.dimensions.small)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(top = 40.dp, start = 20.dp, end = 20.dp)
             ) {
-                items(state.orders) {details ->
-                    OrdersGoodsLine(
-                        state = details,
-                        openGoodsDetails = { interactor.openGoodsDetails(it) }
+                items(state.orders) { details ->
+                    OrdersDetails(
+                        state = details, useComponent = useComponent
                     )
                 }
             }

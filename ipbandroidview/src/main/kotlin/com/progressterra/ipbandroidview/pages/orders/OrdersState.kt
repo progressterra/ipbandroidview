@@ -1,8 +1,8 @@
-package com.progressterra.ipbandroidview.ui.orders
+package com.progressterra.ipbandroidview.pages.orders
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.model.OrderDetails
+import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
+import com.progressterra.ipbandroidview.shared.ScreenState
 
 @Immutable
 data class OrdersState(

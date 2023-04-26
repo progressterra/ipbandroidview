@@ -37,34 +37,4 @@ interface OrdersUseCase {
             }
         }
     }
-
-    class Test : OrdersUseCase {
-
-        override suspend fun invoke(): Result<List<StoreCardState>> = Result.success(
-            listOf(
-                StoreCardState(
-                    id = "Kotek",
-                    name = "Weston",
-                    company = "Convallis",
-                    price = SimplePrice(1000),
-                    imageUrl = "https://placekitten.com/200/300",
-                    loan = "Рассрочка: 2 платежа по 150 ₽"
-                ), StoreCardState(
-                    id = "Kotek 2",
-                    name = "Weston",
-                    company = "Convallis",
-                    price = SimplePrice(2000),
-                    imageUrl = "https://placekitten.com/200/300",
-                    loan = "Рассрочка: 2 платежа по 150 ₽"
-                ), StoreCardState(
-                    id = "Kotek 3",
-                    name = "Nombre",
-                    company = "Convallis",
-                    price = SimplePrice(5000),
-                    imageUrl = "https://placekitten.com/200/300",
-                    loan = "Рассрочка: 2 платежа по 150 ₽"
-                )
-            )
-        )
-    }
 }

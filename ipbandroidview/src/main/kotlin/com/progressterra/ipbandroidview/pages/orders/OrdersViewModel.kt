@@ -1,8 +1,10 @@
-package com.progressterra.ipbandroidview.ui.orders
+package com.progressterra.ipbandroidview.pages.orders
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.core.ScreenState
-import com.progressterra.ipbandroidview.domain.usecase.store.OrdersUseCase
+import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -12,23 +14,34 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class OrdersViewModel(
     private val ordersUseCase: OrdersUseCase
-) : ViewModel(),
-    ContainerHost<OrdersState, OrdersEffect>, OrdersInteractor {
+) : ViewModel(), ContainerHost<OrdersState, OrdersEvent>, UseOrders {
 
-    override val container: Container<OrdersState, OrdersEffect> =
-        container(OrdersState())
+    override val container: Container<OrdersState, OrdersEvent> = container(OrdersState())
 
-    override fun openGoodsDetails(goodsId: String) =
-        intent { postSideEffect(OrdersEffect.GoodsDetails(goodsId)) }
-
-    override fun onBack() = intent { postSideEffect(OrdersEffect.Back) }
-
-    override fun refresh() = intent {
+    fun refresh() = intent {
         reduce { state.copy(screenState = ScreenState.LOADING) }
         ordersUseCase().onSuccess {
             reduce { state.copy(screenState = ScreenState.SUCCESS, orders = it) }
         }.onFailure {
             reduce { state.copy(screenState = ScreenState.ERROR) }
+        }
+    }
+
+    override fun handle(event: OrderDetailsEvent) = intent {
+        when (event) {
+            is OrderDetailsEvent.GoodsDetails -> postSideEffect(OrdersEvent.GoodsDetails(event.id))
+        }
+    }
+
+    override fun handle(event: TopBarEvent) = intent {
+        when (event) {
+            is TopBarEvent.Back -> postSideEffect(OrdersEvent.Back)
+        }
+    }
+
+    override fun handle(event: StateBoxEvent) = intent {
+        when (event) {
+            is StateBoxEvent.Refresh -> refresh()
         }
     }
 }
