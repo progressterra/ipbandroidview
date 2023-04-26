@@ -1,9 +1,12 @@
+import java.io.ByteArrayOutputStream
+
 plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id("maven-publish")
 }
 
 android {
@@ -47,11 +50,49 @@ android {
 
     publishing {
         multipleVariants {
-            withSourcesJar()
-            withJavadocJar()
-            allVariants()
+            includeBuildTypeValues("debug", "release")
         }
     }
+}
+
+afterEvaluate {
+    val result = ByteArrayOutputStream()
+    exec {
+        commandLine("git", "rev-list", "HEAD", "--count")
+        standardOutput = result
+        isIgnoreExitValue = true
+    }
+    val countCommits = result.toString().trim().toInt()
+    configure<PublishingExtension> {
+        val group = "com.progressterra.ipbandroidview"
+        val fullVersion = "0.${(countCommits / 100)}.${countCommits % 100}"
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/progressterra/ipbandroidview")
+                credentials {
+                    username = project.findProperty("gpr.user") as String?
+                    password = project.findProperty("gpr.key") as String?
+                }
+            }
+        }
+        publications {
+            create<MavenPublication>("release") {
+                from(components.findByName("release"))
+                groupId = group
+                artifactId = "ipbandroidviewuiconfig"
+                version = fullVersion
+            }
+            create<MavenPublication>("debug") {
+                from(components.findByName("debug"))
+                groupId = group
+                artifactId = "ipbandroidviewuiconfigtest"
+                version = fullVersion
+            }
+            println(fullVersion)
+        }
+    }
+
 }
 
 dependencies {
@@ -135,6 +176,6 @@ dependencies {
     // Reflection
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
 
-    ksp(project(":processors"))
-    implementation(project(":processors"))
+    ksp(files("processors.jar"))
+    implementation(files("processors.jar"))
 }
