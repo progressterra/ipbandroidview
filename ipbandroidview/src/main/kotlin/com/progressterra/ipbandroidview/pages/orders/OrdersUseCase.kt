@@ -1,13 +1,13 @@
 package com.progressterra.ipbandroidview.pages.orders
 
+import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.purchases.PurchasesRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
-import com.progressterra.ipbandroidview.processes.mapper.StatusOrderMapper
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
@@ -21,9 +21,8 @@ interface OrdersUseCase {
         manageResources: ManageResources,
         private val purchasesRepository: PurchasesRepository,
         private val cartRepository: CartRepository,
-        private val imageMapper: ImageMapper,
         private val statusOrderMapper: StatusOrderMapper,
-        private val priceMapper: PriceMapper
+        private val gson: Gson
     ) : OrdersUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
@@ -41,7 +40,7 @@ interface OrdersUseCase {
                         OrderDetails.OrderGoods(
                             id = product.productId ?: noData,
                             inCartCounter = count,
-                            image = imageMapper.map(product.productImageDataJson ?: "")
+                            image = parseImage(product.productImageDataJson ?: "")
                         )
                     } ?: emptyList()
                 )
@@ -50,6 +49,19 @@ interface OrdersUseCase {
                 it.copy(status = result?.statusOrder?.let { status -> statusOrderMapper.map(status) }
                     ?: noData)
             } ?: emptyList()
+        }
+
+        private fun parseImage(data: String): String = gson.fromJson(
+            data, ImageData::class.java
+        ).list.first().url
+
+        data class ImageData(
+            @SerializedName("datalist") val list: List<Item>
+        ) {
+
+            data class Item(
+                @SerializedName("URL") val url: String
+            )
         }
     }
 }
