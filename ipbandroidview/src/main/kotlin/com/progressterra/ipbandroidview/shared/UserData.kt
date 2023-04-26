@@ -3,12 +3,13 @@ package com.progressterra.ipbandroidview.shared
 import com.chibatching.kotpref.KotprefModel
 import com.chibatching.kotpref.gsonpref.gsonPref
 import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.shared.Constants.DEFAULT_ID
 
 @Suppress("unused")
 object UserData : KotprefModel() {
 
-    var idUnique by stringPref()
-    var deviceId by stringPref()
+    var idUnique by stringPref(DEFAULT_ID)
+    var deviceId by stringPref(DEFAULT_ID)
     var clientExist by booleanPref()
     var phone by stringPref()
     var email by stringPref()
@@ -23,8 +24,8 @@ object UserData : KotprefModel() {
     var supportChatId by stringPref()
 
     fun clearUser() {
-        idUnique = ""
-        deviceId = ""
+        idUnique = DEFAULT_ID
+        deviceId = DEFAULT_ID
         clientExist = false
         phone = ""
         email = ""
