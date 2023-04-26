@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.shared
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataCreateAccessToken
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.shared.Constants.DEFAULT_ID
 
 abstract class AbstractUseCase(
     private val sCRMRepository: SCRMRepository, private val provideLocation: ProvideLocation
@@ -19,6 +20,6 @@ abstract class AbstractUseCase(
                 longitude = locationResult.getOrNull()?.longitude?.toFloat() ?: 0f
             )
         ).getOrThrow()
-        block(result ?: "")
+        block(result ?: DEFAULT_ID)
     }
 }
