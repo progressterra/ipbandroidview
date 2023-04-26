@@ -23,7 +23,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -130,6 +130,6 @@ dependencies {
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
 
     ksp(project(":processors"))
-    implementation(project(":processors"))
+    implementation(project(":processors", "jarRelease"))
 }
 
