@@ -23,6 +23,7 @@ import com.progressterra.ipbandroidview.pages.orders.OrdersViewModel
 import com.progressterra.ipbandroidview.pages.orders.StatusOrderMapper
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
+import com.progressterra.ipbandroidview.pages.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.pages.profile.ProfileViewModel
 import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
@@ -54,6 +55,8 @@ val pagesModule = module {
     viewModel { BonusesDetailsViewModel(get(), get()) }
 
     viewModel { FavoritesViewModel(get(), get(), get()) }
+
+    viewModel { PhotoViewModel() }
 
     viewModel { ProfileViewModel(get(), get()) }
 
