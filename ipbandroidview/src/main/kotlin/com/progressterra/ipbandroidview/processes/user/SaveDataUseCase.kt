@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.processes.user
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.AddressUI
@@ -21,7 +22,7 @@ interface SaveDataUseCase {
     suspend operator fun invoke(income: EditUserState): Result<Unit>
 
     class Base(
-        private val scrmRepository: SCRMRepository,
+        scrmRepository: SCRMRepository,
         private val mediaDataRepository: IPBMediaDataRepository,
         private val fileExplorer: FileExplorer,
         provideLocation: ProvideLocation
@@ -48,6 +49,7 @@ interface SaveDataUseCase {
             UserData.passportProviderCode = income.passportCode.text
             UserData.patent = income.patent.text
             income.makePhoto.items.forEach {
+                Log.d("CAMERA", "save invoke ${it.id}")
                 mediaDataRepository.attachToEntity(
                     accessToken = token,
                     typeContent = "image",
