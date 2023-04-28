@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.theme.ProjectType
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
@@ -40,101 +41,161 @@ fun Bonuses(
     style: BonusesStyle = BonusesStyle.MAIN,
     useComponent: UseBonuses
 ) {
-    var rotated by remember { mutableStateOf(false) }
-    val animateColor by animateColorAsState(
-        targetValue = if (rotated) IpbTheme.colors.surface.asColor() else IpbTheme.colors.secondaryPressed.asColor(),
-        animationSpec = tween(500)
-    )
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(animateColor)
-            .padding(16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        var height by remember { mutableStateOf(0.dp) }
-        val density = LocalDensity.current
-        Column(modifier = Modifier.onGloballyPositioned {
-            with(density) { height = it.size.height.toDp() }
-        }) {
-            BrushedText(
-                text = "${stringResource(R.string.you_have)} ${state.bonuses} ${stringResource(R.string.bonuses)}",
-                style = IpbTheme.typography.title,
-                tint = if (rotated) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textButton.asBrush()
+    when (IpbTheme.customization.projectType) {
+        ProjectType.REDI -> {
+            var rotated by remember { mutableStateOf(false) }
+            val animateColor by animateColorAsState(
+                targetValue = if (rotated) IpbTheme.colors.surface.asColor() else IpbTheme.colors.secondaryPressed.asColor(),
+                animationSpec = tween(500)
             )
-            Spacer(modifier = Modifier.height(6.dp))
-            BrushedText(
-                text = "${stringResource(R.string.can_withdraw)} ${state.canWithdraw}",
-                style = IpbTheme.typography.subHeadlineItalic,
-                tint = IpbTheme.colors.textTertiary.asBrush()
-            )
-            Spacer(modifier = Modifier.height(14.dp))
-            BrushedText(
-                text = stringResource(R.string.bonuses_rate),
-                style = IpbTheme.typography.subHeadlineRegular,
-                tint = IpbTheme.colors.textSecondary.asBrush()
-            )
-            Spacer(modifier = Modifier.height(30.dp))
-            if (rotated) {
-                Row {
+
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(animateColor)
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                var height by remember { mutableStateOf(0.dp) }
+                val density = LocalDensity.current
+                Column(modifier = Modifier.onGloballyPositioned {
+                    with(density) { height = it.size.height.toDp() }
+                }) {
                     BrushedText(
-                        text = state.burningDate,
-                        style = IpbTheme.typography.subHeadlineRegular,
-                        tint = IpbTheme.colors.textPrimary2.asBrush()
-                    )
-                    BrushedText(
-                        text = " ${stringResource(R.string.will_burn)} ${state.burningQuantity} ${
+                        text = "${stringResource(R.string.you_have)} ${state.bonuses} ${
                             stringResource(
                                 R.string.bonuses
                             )
                         }",
-                        style = IpbTheme.typography.subHeadlineBold,
-                        tint = IpbTheme.colors.textPrimary2.asBrush()
+                        style = IpbTheme.typography.title,
+                        tint = if (rotated) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textButton.asBrush()
                     )
-                }
-            } else {
-                Row {
+                    Spacer(modifier = Modifier.height(6.dp))
                     BrushedText(
-                        text = "${stringResource(R.string.available_loan)} - ",
+                        text = "${stringResource(R.string.can_withdraw)} ${state.canWithdraw}",
+                        style = IpbTheme.typography.subHeadlineItalic,
+                        tint = IpbTheme.colors.textTertiary.asBrush()
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+                    BrushedText(
+                        text = stringResource(R.string.bonuses_rate),
                         style = IpbTheme.typography.subHeadlineRegular,
-                        tint = IpbTheme.colors.textButton.asBrush()
+                        tint = IpbTheme.colors.textSecondary.asBrush()
                     )
-                    BrushedText(
-                        text = state.loan,
-                        style = IpbTheme.typography.subHeadlineBold,
-                        tint = IpbTheme.colors.textButton.asBrush()
-                    )
-                }
+                    Spacer(modifier = Modifier.height(30.dp))
+                    if (rotated) {
+                        Row {
+                            BrushedText(
+                                text = state.burningDate,
+                                style = IpbTheme.typography.subHeadlineRegular,
+                                tint = IpbTheme.colors.textPrimary2.asBrush()
+                            )
+                            BrushedText(
+                                text = " ${stringResource(R.string.will_burn)} ${state.burningQuantity} ${
+                                    stringResource(
+                                        R.string.bonuses
+                                    )
+                                }",
+                                style = IpbTheme.typography.subHeadlineBold,
+                                tint = IpbTheme.colors.textPrimary2.asBrush()
+                            )
+                        }
+                    } else {
+                        Row {
+                            BrushedText(
+                                text = "${stringResource(R.string.available_loan)} - ",
+                                style = IpbTheme.typography.subHeadlineRegular,
+                                tint = IpbTheme.colors.textButton.asBrush()
+                            )
+                            BrushedText(
+                                text = state.loan,
+                                style = IpbTheme.typography.subHeadlineBold,
+                                tint = IpbTheme.colors.textButton.asBrush()
+                            )
+                        }
 
+                    }
+                }
+                Box(modifier = Modifier.height(height)) {
+                    IconButton(
+                        modifier = Modifier
+                            .size(30.dp)
+                            .align(Alignment.TopCenter)
+                            .zIndex(1f),
+                        onClick = { rotated = !rotated },
+                    ) {
+                        if (rotated) {
+                            BrushedIcon(
+                                resId = R.drawable.ic_money_bag_off,
+                                tint = IpbTheme.colors.iconDisabled.asBrush(),
+                            )
+                        } else {
+                            BrushedIcon(
+                                resId = R.drawable.ic_money_bag,
+                                tint = IpbTheme.colors.iconTertiary4.asBrush(),
+                            )
+                        }
+                    }
+                    if (style == BonusesStyle.MAIN) {
+                        IconButton(
+                            modifier = Modifier
+                                .align(Alignment.CenterEnd)
+                                .zIndex(1f),
+                            onClick = { useComponent.handle(BonusesEvent.Action) },
+                        ) {
+                            BrushedIcon(
+                                resId = R.drawable.ic_arrow_pro,
+                                tint = IpbTheme.colors.iconPrimary3.asBrush(),
+                            )
+                        }
+                    }
+                }
             }
         }
-        Box(modifier = Modifier.height(height)) {
-            IconButton(
-                modifier = Modifier
-                    .size(30.dp)
-                    .align(Alignment.TopCenter)
-                    .zIndex(1f),
-                onClick = { rotated = !rotated },
+
+        ProjectType.WHITELABEL -> {
+            Row(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(IpbTheme.colors.primary.asBrush())
+                    .padding(12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                if (rotated) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_money_bag_off,
-                        tint = IpbTheme.colors.iconDisabled.asBrush(),
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
+                    BrushedText(
+                        text = "${stringResource(R.string.you_have)} ${state.bonuses} ${
+                            stringResource(
+                                R.string.bonuses
+                            )
+                        }",
+                        style = IpbTheme.typography.title,
+                        tint = IpbTheme.colors.textPrimary.asBrush()
                     )
-                } else {
-                    BrushedIcon(
-                        resId = R.drawable.ic_money_bag,
-                        tint = IpbTheme.colors.iconTertiary4.asBrush(),
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        BrushedIcon(
+                            resId = R.drawable.ic_fire,
+                            tint = IpbTheme.colors.iconTertiary4.asBrush(),
+                        )
+                        BrushedText(
+                            text = "${state.burningDate} ${stringResource(R.string.will_burn)} ${state.burningQuantity} ${
+                                stringResource(R.string.bonuses)
+                            }",
+                            style = IpbTheme.typography.subHeadlineBold,
+                            tint = IpbTheme.colors.textPrimary2.asBrush()
+                        )
+                    }
                 }
-            }
-            if (style == BonusesStyle.MAIN) {
                 IconButton(
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .zIndex(1f),
+                    modifier = Modifier.zIndex(1f),
                     onClick = { useComponent.handle(BonusesEvent.Action) },
                 ) {
                     BrushedIcon(
