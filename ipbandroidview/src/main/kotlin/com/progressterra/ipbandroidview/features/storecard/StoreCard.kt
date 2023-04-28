@@ -18,6 +18,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
+import com.progressterra.ipbandroidview.shared.theme.ProjectType
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
@@ -27,9 +28,7 @@ import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun StoreCard(
-    modifier: Modifier = Modifier,
-    state: StoreCardState,
-    useComponent: UseStoreCard
+    modifier: Modifier = Modifier, state: StoreCardState, useComponent: UseStoreCard
 ) {
     Column(
         modifier = modifier
@@ -51,44 +50,45 @@ fun StoreCard(
             style = IpbTheme.typography.footnoteRegular,
             tint = IpbTheme.colors.textPrimary.asBrush(),
         )
-        BrushedText(
-            text = state.company,
-            style = IpbTheme.typography.footnoteRegular,
-            tint = IpbTheme.colors.textTertiary.asBrush(),
-        )
+        if (IpbTheme.customization.projectType == ProjectType.REDI) {
+            BrushedText(
+                text = state.company,
+                style = IpbTheme.typography.footnoteRegular,
+                tint = IpbTheme.colors.textTertiary.asBrush(),
+            )
+        }
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
-                modifier = Modifier.width(80.dp),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                modifier = Modifier.width(80.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 BrushedText(
                     text = state.price.toString(),
                     style = IpbTheme.typography.subHeadlineRegular,
                     tint = IpbTheme.colors.textPrimary2.asBrush(),
                 )
-                BrushedText(
-                    text = state.loan,
-                    style = IpbTheme.typography.footnoteRegular,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                )
+                if (IpbTheme.customization.projectType == ProjectType.REDI) {
+                    BrushedText(
+                        text = state.loan,
+                        style = IpbTheme.typography.footnoteRegular,
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
+                    )
+                }
             }
             if (state.counter.isEmpty()) {
                 IconButton(onClick = {
                     useComponent.handle(StoreCardEvent.AddToCart(state.id))
                 }) {
                     BrushedIcon(
-                        resId = R.drawable.ic_cart_pro,
-                        tint = IpbTheme.colors.iconPrimary.asBrush()
+                        resId = R.drawable.ic_cart_pro, tint = IpbTheme.colors.iconPrimary.asBrush()
                     )
                 }
             } else {
                 Counter(
-                    state = state.counter,
-                    useComponent = useComponent
+                    state = state.counter, useComponent = useComponent
                 )
             }
         }
@@ -107,13 +107,6 @@ private fun StoreCardPreview() {
                 loan = "(Рассрочка: 2 платежа по 150 ₽)"
             ), useComponent = UseStoreCard.Empty()
         )
-    }
-}
-
-@Preview
-@Composable
-private fun StoreCardFullPreview() {
-    Preview {
         StoreCard(
             state = StoreCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
