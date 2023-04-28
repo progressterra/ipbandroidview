@@ -61,6 +61,7 @@ interface FetchUserUseCase {
                 .uBirthdayEnabled(false)
                 .uAddressEnabled(false)
                 .uPatentEnabled(false)
+                .uMakePhotoEnabled(false)
         }
     }
 }

@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.widgets.edituser
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoState
+import com.progressterra.ipbandroidview.features.makephoto.uMakePhotoEnabled
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.processors.IpbSubState
 
@@ -20,6 +21,8 @@ data class EditUserState(
     @IpbSubState val patent: TextFieldState = TextFieldState(id = "patent"),
     val makePhoto: MakePhotoState = MakePhotoState()
 ) {
+
+    fun uMakePhotoEnabled(enabled: Boolean) = copy(makePhoto = makePhoto.uMakePhotoEnabled(enabled))
 
     fun addPhoto(item: MultisizedImage) = copy(makePhoto = makePhoto.add(item))
 

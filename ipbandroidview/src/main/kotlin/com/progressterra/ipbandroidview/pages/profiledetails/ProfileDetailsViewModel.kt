@@ -55,6 +55,7 @@ class ProfileDetailsViewModel(
             is ButtonEvent.Click -> when (event.id) {
                 "edit" -> reduce {
                     state.startCancelEdit()
+                        .uMakePhotoEnabled(true)
                         .uPassportProviderEnabled(true)
                         .uPassportEnabled(true)
                         .uPassportProviderCodeEnabled(true)
@@ -69,6 +70,7 @@ class ProfileDetailsViewModel(
                 "save" -> saveUseCase(state.editUser).onSuccess {
                     reduce {
                         state.startCancelEdit()
+                            .uMakePhotoEnabled(true)
                             .uPassportProviderEnabled(false)
                             .uPassportEnabled(false)
                             .uPassportProviderCodeEnabled(false)

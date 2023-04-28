@@ -33,6 +33,8 @@ data class ProfileDetailsState(
     val authProfileState: AuthProfileState = AuthProfileState()
 ) {
 
+    fun uMakePhotoEnabled(enabled: Boolean) = copy(editUser = editUser.uMakePhotoEnabled(enabled))
+
     fun addPhoto(item: MultisizedImage) = copy(editUser = editUser.addPhoto(item))
 
     fun removePhoto(item: MultisizedImage) = copy(editUser = editUser.removePhoto(item))
