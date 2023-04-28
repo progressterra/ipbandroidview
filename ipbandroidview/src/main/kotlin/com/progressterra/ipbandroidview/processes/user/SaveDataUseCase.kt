@@ -5,12 +5,16 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.FileExplorer
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.shared.splitName
 import com.progressterra.ipbandroidview.shared.toAddress
 import com.progressterra.ipbandroidview.shared.toEpochMillis
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 interface SaveDataUseCase {
 
@@ -19,15 +23,14 @@ interface SaveDataUseCase {
     class Base(
         private val scrmRepository: SCRMRepository,
         private val mediaDataRepository: IPBMediaDataRepository,
+        private val fileExplorer: FileExplorer,
         provideLocation: ProvideLocation
     ) : SaveDataUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
-        //TODO saving
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
             val nameList = income.name.text.splitName(false)
             UserData.userName = UserName(
-                name = nameList[0],
-                surname = nameList[1]
+                name = nameList[0], surname = nameList[1]
             )
             UserData.dateOfBirthday = income.birthday.text.toEpochMillis()
             UserData.phone = income.phone.text
@@ -50,7 +53,12 @@ interface SaveDataUseCase {
                     typeContent = "image",
                     alias = "",
                     tag = 0,
-                    file =
+                    file = MultipartBody.Part.createFormData(
+                        name = "file",
+                        filename = fileExplorer.pictureFile(it.id).name,
+                        body = fileExplorer.pictureFile(it.id)
+                            .asRequestBody("image/*".toMediaTypeOrNull())
+                    )
                 )
             }
         }

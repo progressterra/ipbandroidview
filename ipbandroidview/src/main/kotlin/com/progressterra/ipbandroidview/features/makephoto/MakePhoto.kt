@@ -42,7 +42,7 @@ fun MakePhoto(
                     .size(63.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(IpbTheme.colors.surface.asBrush())
-                    .niceClickable { useComponent.handle(MakePhotoEvent.Select(picture.id)) },
+                    .niceClickable { useComponent.handle(MakePhotoEvent.Select(picture)) },
                 url = picture.thumbnail,
                 backgroundColor = IpbTheme.colors.surface.asColor()
             )
@@ -51,7 +51,7 @@ fun MakePhoto(
                     .align(Alignment.TopEnd)
                     .size(18.dp)
                     .padding(4.dp),
-                onClick = { useComponent.handle(MakePhotoEvent.Remove(picture.id)) }
+                onClick = { useComponent.handle(MakePhotoEvent.Remove(picture)) }
             ) {
                 BrushedIcon(
                     resId = R.drawable.ic_cancel_small,

@@ -5,6 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -14,7 +15,8 @@ class SignUpNode(
     buildContext: BuildContext,
     private val onNext: () -> Unit,
     private val onSkip: () -> Unit,
-    private val onBack: () -> Unit
+    private val onBack: () -> Unit,
+    private val openPhoto: (MultisizedImage) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -25,6 +27,8 @@ class SignUpNode(
                 is SignUpEvent.OnBack -> onBack()
                 is SignUpEvent.OnNext -> onNext()
                 is SignUpEvent.OnSkip -> onSkip()
+                is SignUpEvent.OpenPhoto -> openPhoto(it.photo)
+
             }
         }
         LaunchedEffect(Unit) {

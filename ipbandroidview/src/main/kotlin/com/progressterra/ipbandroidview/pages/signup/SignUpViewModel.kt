@@ -1,7 +1,9 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchPhoneUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -20,6 +22,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class SignUpViewModel(
     private val userValidUseCase: EditUserValidUseCase,
     private val saveDataUseCase: SaveDataUseCase,
+    private val makePhotoUseCase: MakePhotoUseCase,
     private val fetchPhoneUseCase: FetchPhoneUseCase
 ) : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, UseSignUp {
 
@@ -29,8 +32,7 @@ class SignUpViewModel(
         reduce { state.uScreenState(ScreenState.LOADING) }
         fetchPhoneUseCase().onSuccess {
             reduce {
-                state.uPhone(it).uPhoneEnabled(false)
-                    .uScreenState(ScreenState.SUCCESS)
+                state.uPhone(it).uPhoneEnabled(false).uScreenState(ScreenState.SUCCESS)
             }
         }.onFailure {
             reduce { state.uScreenState(ScreenState.ERROR) }
@@ -56,8 +58,20 @@ class SignUpViewModel(
             "skip" -> when (event) {
                 is ButtonEvent.Click -> postSideEffect(SignUpEvent.OnSkip)
             }
+
+            "makePhoto" -> makePhotoUseCase().onSuccess {
+                reduce { state.addPhoto(it) }
+            }
         }
     }
+
+    override fun handle(event: MakePhotoEvent) = intent {
+        when (event) {
+            is MakePhotoEvent.Remove -> reduce { state.removePhoto(event.photo) }
+            is MakePhotoEvent.Select -> postSideEffect(SignUpEvent.OpenPhoto(event.photo))
+        }
+    }
+
 
     override fun handle(event: TextFieldEvent) = blockingIntent {
         when (event) {

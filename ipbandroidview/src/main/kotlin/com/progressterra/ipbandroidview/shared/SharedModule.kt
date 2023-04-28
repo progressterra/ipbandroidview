@@ -50,4 +50,6 @@ val sharedModule = module {
     single<ManageResources> { ManageResources.Base(androidContext()) }
 
     single { Gson() }
+
+    single<FileExplorer> { FileExplorer.Redi(get(), get()) }
 }

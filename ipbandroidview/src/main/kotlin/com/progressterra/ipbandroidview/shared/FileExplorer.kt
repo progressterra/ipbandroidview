@@ -20,35 +20,71 @@ interface FileExplorer {
     fun reset()
 
     class Haccp(
-        private val context: Context,
-        private val authority: String
+        private val context: Context, private val authority: String
     ) : FileExplorer {
 
         private val folder = context.getExternalFilesDir("HACCP")!!.path
 
         override fun uriForFile(file: File): Uri = getUriForFile(
-            context,
-            authority,
-            file
+            context, authority, file
         )
 
         override fun inputStreamToVoices(inputStream: InputStream, id: String) {
-            if (!exist(id))
-                inputStream.use { input ->
-                    val fos = FileOutputStream(File("$folder/$id.m4a"))
-                    fos.use { output ->
-                        val buffer = ByteArray(4 * 1024)
-                        var read: Int
-                        while (input.read(buffer).also { read = it } != -1) {
-                            output.write(buffer, 0, read)
-                        }
-                        output.flush()
+            if (!exist(id)) inputStream.use { input ->
+                val fos = FileOutputStream(File("$folder/$id.m4a"))
+                fos.use { output ->
+                    val buffer = ByteArray(4 * 1024)
+                    var read: Int
+                    while (input.read(buffer).also { read = it } != -1) {
+                        output.write(buffer, 0, read)
                     }
+                    output.flush()
                 }
+            }
         }
 
-        override fun audioFile(id: String): File =
-            File("$folder/$id.m4a")
+        override fun audioFile(id: String): File = File("$folder/$id.m4a")
+
+        override fun pictureFile(id: String): File = File("$folder/$id.jpg")
+
+        private fun exist(id: String): Boolean =
+            File("$folder/$id.m4a").exists() || File("$folder/$id.jpg").exists()
+
+        override fun reset() {
+            File(folder).list()?.forEach {
+                File(it).delete()
+            }
+            File(folder).list()?.forEach {
+                File(it).delete()
+            }
+        }
+    }
+
+    class Redi(
+        private val context: Context, private val authority: String
+    ) : FileExplorer {
+
+        private val folder = context.getExternalFilesDir("Redi")!!.path
+
+        override fun uriForFile(file: File): Uri = getUriForFile(
+            context, authority, file
+        )
+
+        override fun inputStreamToVoices(inputStream: InputStream, id: String) {
+            if (!exist(id)) inputStream.use { input ->
+                val fos = FileOutputStream(File("$folder/$id.m4a"))
+                fos.use { output ->
+                    val buffer = ByteArray(4 * 1024)
+                    var read: Int
+                    while (input.read(buffer).also { read = it } != -1) {
+                        output.write(buffer, 0, read)
+                    }
+                    output.flush()
+                }
+            }
+        }
+
+        override fun audioFile(id: String): File = File("$folder/$id.m4a")
 
         override fun pictureFile(id: String): File = File("$folder/$id.jpg")
 
