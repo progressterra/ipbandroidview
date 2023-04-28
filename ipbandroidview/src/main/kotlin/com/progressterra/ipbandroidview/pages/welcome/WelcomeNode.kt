@@ -32,8 +32,7 @@ class WelcomeNode(
         }
         val state = viewModel.collectAsState().value
         WelcomeScreen(
-            state = state,
-            useComponent = viewModel
+            state = state, useComponent = viewModel
         )
     }
 }
