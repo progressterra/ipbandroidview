@@ -36,13 +36,13 @@ fun EditUser(
             state = state.name,
             hint = stringResource(R.string.name_surname),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.birthday,
             hint = stringResource(R.string.birthday),
-            actionIcon = R.drawable.ic_cal_pro,
+            actionIcon = R.drawable.ic_cal,
             useComponent = useComponent
         )
         TextField(
@@ -51,28 +51,28 @@ fun EditUser(
             hint = stringResource(R.string.phone_number),
             visualTransformation = MaskVisualTransformation(PHONE_MASK),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.email,
             hint = stringResource(R.string.email),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.citizenship,
             hint = stringResource(R.string.citizenship),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.address,
             hint = stringResource(R.string.address),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
@@ -80,14 +80,14 @@ fun EditUser(
             hint = stringResource(R.string.passport),
             visualTransformation = MaskVisualTransformation(PASSPORT_NUMBER_MASK),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.passportProvider,
             hint = stringResource(R.string.passport_provider),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
@@ -95,14 +95,14 @@ fun EditUser(
             hint = stringResource(R.string.passport_provider_code),
             visualTransformation = MaskVisualTransformation(PASSPORT_PROVIDER_CODE_MASK),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.patent,
             hint = stringResource(R.string.patent_number),
             useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel_pro
+            actionIcon = R.drawable.ic_cancel
         )
     }
 }

@@ -45,7 +45,7 @@ fun ProfileButton(
             tint = color
         )
         BrushedIcon(
-            resId = R.drawable.ic_forw_pro,
+            resId = R.drawable.ic_forw,
             tint = color
         )
     }

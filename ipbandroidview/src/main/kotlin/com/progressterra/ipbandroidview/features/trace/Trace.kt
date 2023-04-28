@@ -30,7 +30,7 @@ fun Trace(
         IconButton(modifier = Modifier.align(Alignment.CenterStart),
             onClick = { useComponent.handle(TraceEvent.Back) }) {
             BrushedIcon(
-                resId = R.drawable.ic_back_pro, tint = IpbTheme.colors.iconPrimary.asBrush()
+                resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }
         Row(
@@ -50,7 +50,7 @@ fun Trace(
                     )
                     if (index != state.trace.lastIndex) {
                         BrushedIcon(
-                            resId = R.drawable.ic_forw_pro,
+                            resId = R.drawable.ic_forw,
                             tint = IpbTheme.colors.iconPrimary3.asBrush()
                         )
                     }

@@ -83,7 +83,7 @@ fun StoreCard(
                     useComponent.handle(StoreCardEvent.AddToCart(state.id))
                 }) {
                     BrushedIcon(
-                        resId = R.drawable.ic_cart_pro, tint = IpbTheme.colors.iconPrimary.asBrush()
+                        resId = R.drawable.ic_cart, tint = IpbTheme.colors.iconPrimary.asBrush()
                     )
                 }
             } else {

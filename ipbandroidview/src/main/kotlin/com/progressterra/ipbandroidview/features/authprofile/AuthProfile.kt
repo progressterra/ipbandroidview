@@ -63,7 +63,7 @@ fun AuthProfile(
             )
         }
         BrushedIcon(
-            resId = R.drawable.ic_forw_pro,
+            resId = R.drawable.ic_forw,
             tint = IpbTheme.colors.iconPrimary.asBrush()
         )
     }

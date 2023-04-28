@@ -31,7 +31,7 @@ fun TopBar(
             IconButton(modifier = Modifier.align(Alignment.CenterStart),
                 onClick = { useComponent.handle(TopBarEvent.Back) }) {
                 BrushedIcon(
-                    resId = R.drawable.ic_back_pro, tint = IpbTheme.colors.iconPrimary.asBrush()
+                    resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
         }

@@ -58,7 +58,7 @@ fun Search(
         trailingIcon = {
             BrushedIcon(
                 tint = IpbTheme.colors.iconPrimary.asBrush(),
-                resId = R.drawable.ic_search_pro
+                resId = R.drawable.ic_search
             )
         }
     )

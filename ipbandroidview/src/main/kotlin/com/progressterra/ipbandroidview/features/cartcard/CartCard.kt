@@ -109,7 +109,7 @@ fun CartCard(
             onClick = { useComponent.handle(CartCardEvent.RemoveFromCart(state.id)) }
         ) {
             BrushedIcon(
-                resId = R.drawable.ic_trash_pro,
+                resId = R.drawable.ic_trash,
                 tint = IpbTheme.colors.iconTertiary.asBrush()
             )
         }

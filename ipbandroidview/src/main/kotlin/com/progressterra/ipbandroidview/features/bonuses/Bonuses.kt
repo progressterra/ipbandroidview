@@ -146,7 +146,7 @@ fun Bonuses(
                             onClick = { useComponent.handle(BonusesEvent.Action) },
                         ) {
                             BrushedIcon(
-                                resId = R.drawable.ic_arrow_pro,
+                                resId = R.drawable.ic_arrow,
                                 tint = IpbTheme.colors.iconPrimary3.asBrush(),
                             )
                         }
@@ -199,7 +199,7 @@ fun Bonuses(
                     onClick = { useComponent.handle(BonusesEvent.Action) },
                 ) {
                     BrushedIcon(
-                        resId = R.drawable.ic_arrow_pro,
+                        resId = R.drawable.ic_arrow,
                         tint = IpbTheme.colors.iconPrimary3.asBrush(),
                     )
                 }

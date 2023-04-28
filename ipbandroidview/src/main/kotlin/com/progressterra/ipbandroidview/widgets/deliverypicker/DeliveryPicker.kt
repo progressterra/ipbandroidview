@@ -66,14 +66,14 @@ fun DeliveryPicker(
                             state = state.city,
                             useComponent = useComponent,
                             hint = stringResource(R.string.city),
-                            actionIcon = R.drawable.ic_cancel_pro
+                            actionIcon = R.drawable.ic_cancel
                         )
                         TextField(
                             modifier = Modifier.fillMaxWidth(),
                             state = state.home,
                             useComponent = useComponent,
                             hint = stringResource(R.string.home),
-                            actionIcon = R.drawable.ic_cancel_pro
+                            actionIcon = R.drawable.ic_cancel
                         )
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             TextField(
@@ -81,14 +81,14 @@ fun DeliveryPicker(
                                 state = state.entrance,
                                 useComponent = useComponent,
                                 hint = stringResource(R.string.entrance),
-                                actionIcon = R.drawable.ic_cancel_pro
+                                actionIcon = R.drawable.ic_cancel
                             )
                             TextField(
                                 modifier = Modifier.weight(1f),
                                 state = state.apartment,
                                 useComponent = useComponent,
                                 hint = stringResource(R.string.apartment),
-                                actionIcon = R.drawable.ic_cancel_pro
+                                actionIcon = R.drawable.ic_cancel
                             )
                         }
                     }
@@ -101,7 +101,7 @@ fun DeliveryPicker(
                             state = state.address,
                             useComponent = useComponent,
                             hint = stringResource(R.string.address),
-                            actionIcon = R.drawable.ic_cancel_pro
+                            actionIcon = R.drawable.ic_cancel
                         )
                     }
                     OutlineButton(
