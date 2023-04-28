@@ -75,7 +75,7 @@ val processesModule = module {
 
     single<PauseAudioUseCase> { PauseAudioUseCase.Base(get()) }
 
-    single<MakePhotoUseCase> { MakePhotoUseCase.Base(get(), get(), get(), get()) }
+    single<MakePhotoUseCase> { MakePhotoUseCase.Base(get(), get(), get()) }
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
 
