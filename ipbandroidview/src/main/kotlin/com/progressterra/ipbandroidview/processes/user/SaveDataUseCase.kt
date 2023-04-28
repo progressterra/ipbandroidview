@@ -29,6 +29,7 @@ interface SaveDataUseCase {
     ) : SaveDataUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
+            Log.d("CAMERA", "income: $income")
             val nameList = income.name.text.splitName(false)
             UserData.userName = UserName(
                 name = nameList[0], surname = nameList[1]
