@@ -51,7 +51,7 @@ interface SaveDataUseCase {
                 mediaDataRepository.attachToEntity(
                     accessToken = token,
                     typeContent = "image",
-                    alias = "",
+                    alias = "docs",
                     tag = 0,
                     file = MultipartBody.Part.createFormData(
                         name = "file",
