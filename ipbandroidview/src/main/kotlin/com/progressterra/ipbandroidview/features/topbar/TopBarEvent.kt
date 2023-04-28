@@ -4,3 +4,4 @@ sealed class TopBarEvent {
 
     object Back : TopBarEvent()
 }
+

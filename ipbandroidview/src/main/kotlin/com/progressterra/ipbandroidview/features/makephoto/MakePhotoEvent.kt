@@ -1,8 +1,10 @@
 package com.progressterra.ipbandroidview.features.makephoto
 
-sealed class MakePhotoEvent(val id: String) {
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 
-    class Select(id: String) : MakePhotoEvent(id)
+sealed class MakePhotoEvent(val photo: MultisizedImage) {
 
-    class Remove(id: String) : MakePhotoEvent(id)
+    class Select(image: MultisizedImage) : MakePhotoEvent(image)
+
+    class Remove(image: MultisizedImage) : MakePhotoEvent(image)
 }

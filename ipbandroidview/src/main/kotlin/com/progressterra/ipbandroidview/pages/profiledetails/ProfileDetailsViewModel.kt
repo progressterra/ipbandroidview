@@ -2,7 +2,9 @@ package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
+import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -21,7 +23,8 @@ import org.orbitmvi.orbit.viewmodel.container
 class ProfileDetailsViewModel(
     private val saveUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
-    private val editUserValidUseCase: EditUserValidUseCase
+    private val editUserValidUseCase: EditUserValidUseCase,
+    private val makePhotoUseCase: MakePhotoUseCase
 ) : ViewModel(),
     ContainerHost<ProfileDetailsState, ProfileDetailsEvent>, UseProfileDetails {
 
@@ -79,6 +82,10 @@ class ProfileDetailsViewModel(
                 }
 
                 "cancel" -> refresh()
+
+                "makePhoto" -> makePhotoUseCase().onSuccess {
+                    reduce { state.addPhoto(it) }
+                }
             }
         }
     }
@@ -125,6 +132,13 @@ class ProfileDetailsViewModel(
             }
         }
         valid()
+    }
+
+    override fun handle(event: MakePhotoEvent) = intent {
+        when (event) {
+            is MakePhotoEvent.Remove -> reduce { state.removePhoto(event.photo) }
+            is MakePhotoEvent.Select -> Unit
+        }
     }
 
     private fun valid() = intent {

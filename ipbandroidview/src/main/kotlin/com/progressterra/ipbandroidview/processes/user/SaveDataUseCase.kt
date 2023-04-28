@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.processes.user
 
+import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
@@ -17,11 +18,12 @@ interface SaveDataUseCase {
 
     class Base(
         private val scrmRepository: SCRMRepository,
+        private val mediaDataRepository: IPBMediaDataRepository,
         provideLocation: ProvideLocation
     ) : SaveDataUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         //TODO saving
-        override suspend fun invoke(income: EditUserState): Result<Unit> = runCatching {
+        override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
             val nameList = income.name.text.splitName(false)
             UserData.userName = UserName(
                 name = nameList[0],
@@ -42,6 +44,15 @@ interface SaveDataUseCase {
             UserData.passportProvider = income.passportProvider.text
             UserData.passportProviderCode = income.passportCode.text
             UserData.patent = income.patent.text
+            income.makePhoto.items.forEach {
+                mediaDataRepository.attachToEntity(
+                    accessToken = token,
+                    typeContent = "image",
+                    alias = "",
+                    tag = 0,
+                    file =
+                )
+            }
         }
     }
 }

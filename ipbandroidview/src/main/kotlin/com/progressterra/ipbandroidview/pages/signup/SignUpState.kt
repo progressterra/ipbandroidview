@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.authorskip.uAuthEnabled
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -32,6 +33,10 @@ data class SignUpState(
     val authOrSkip: AuthOrSkipState = AuthOrSkipState(),
     val screenState: ScreenState = ScreenState.LOADING
 ) {
+
+    fun addPhoto(item: MultisizedImage) = copy(editUser = editUser.addPhoto(item))
+
+    fun removePhoto(item: MultisizedImage) = copy(editUser = editUser.removePhoto(item))
 
     fun uScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
 

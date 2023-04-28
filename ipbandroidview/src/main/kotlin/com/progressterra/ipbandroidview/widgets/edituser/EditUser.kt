@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.features.makephoto.MakePhoto
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
 import com.progressterra.ipbandroidview.shared.ui.Masks.PASSPORT_NUMBER_MASK
@@ -103,6 +104,11 @@ fun EditUser(
             hint = stringResource(R.string.patent_number),
             useComponent = useComponent,
             actionIcon = R.drawable.ic_cancel
+        )
+        MakePhoto(
+            title = stringResource(R.string.passport_photo),
+            state = state.makePhoto,
+            useComponent = useComponent
         )
     }
 }

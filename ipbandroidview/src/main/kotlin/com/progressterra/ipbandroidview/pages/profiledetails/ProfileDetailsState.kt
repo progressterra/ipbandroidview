@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.editbutton.EditButtonState
 import com.progressterra.ipbandroidview.features.editbutton.uSaveEnabled
@@ -32,6 +33,10 @@ data class ProfileDetailsState(
     val authProfileState: AuthProfileState = AuthProfileState()
 ) {
 
+    fun addPhoto(item: MultisizedImage) = copy(editUser = editUser.addPhoto(item))
+
+    fun removePhoto(item: MultisizedImage) = copy(editUser = editUser.removePhoto(item))
+
     fun uEditUser(newEditUser: EditUserState) = copy(editUser = newEditUser)
 
     fun startCancelEdit() = copy(editButton = editButton.startCancel())
@@ -44,8 +49,7 @@ data class ProfileDetailsState(
 
     fun uBirthday(birthday: String) = copy(editUser = editUser.uBirthdayText(birthday))
 
-    fun uCitizenship(citizenship: String) =
-        copy(editUser = editUser.uCitizenshipText(citizenship))
+    fun uCitizenship(citizenship: String) = copy(editUser = editUser.uCitizenshipText(citizenship))
 
     fun uAddress(address: String) = copy(editUser = editUser.uAddressText(address))
 
@@ -59,27 +63,23 @@ data class ProfileDetailsState(
 
     fun uPatent(patent: String) = copy(editUser = editUser.uPatentText(patent))
 
-    fun uSaveEnabled(enabled: Boolean) =
-        copy(editButton = editButton.uSaveEnabled(enabled))
+    fun uSaveEnabled(enabled: Boolean) = copy(editButton = editButton.uSaveEnabled(enabled))
 
     fun uEmailEnabled(enabled: Boolean) = copy(editUser = editUser.uEmailEnabled(enabled))
 
     fun uNameEnabled(enabled: Boolean) = copy(editUser = editUser.uNameEnabled(enabled))
 
-    fun uBirthdayEnabled(enabled: Boolean) =
-        copy(editUser = editUser.uBirthdayEnabled(enabled))
+    fun uBirthdayEnabled(enabled: Boolean) = copy(editUser = editUser.uBirthdayEnabled(enabled))
 
 
     fun uCitizenshipEnabled(enabled: Boolean) =
         copy(editUser = editUser.uCitizenshipEnabled(enabled))
 
 
-    fun uAddressEnabled(enabled: Boolean) =
-        copy(editUser = editUser.uAddressEnabled(enabled))
+    fun uAddressEnabled(enabled: Boolean) = copy(editUser = editUser.uAddressEnabled(enabled))
 
 
-    fun uPassportEnabled(enabled: Boolean) =
-        copy(editUser = editUser.uPassportEnabled(enabled))
+    fun uPassportEnabled(enabled: Boolean) = copy(editUser = editUser.uPassportEnabled(enabled))
 
 
     fun uPassportProviderEnabled(enabled: Boolean) =
@@ -89,6 +89,5 @@ data class ProfileDetailsState(
         copy(editUser = editUser.uPassportCodeEnabled(enabled))
 
 
-    fun uPatentEnabled(enabled: Boolean) =
-        copy(editUser = editUser.uPatentEnabled(enabled))
+    fun uPatentEnabled(enabled: Boolean) = copy(editUser = editUser.uPatentEnabled(enabled))
 }

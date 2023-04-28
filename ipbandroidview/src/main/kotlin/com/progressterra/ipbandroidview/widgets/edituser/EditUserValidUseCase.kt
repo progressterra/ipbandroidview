@@ -25,7 +25,8 @@ interface EditUserValidUseCase {
                         editUserState.passport.text.isNotBlank() &&
                         editUserState.passportProvider.text.isNotBlank() &&
                         editUserState.passportCode.text.isNotBlank() &&
-                        editUserState.patent.text.isNotBlank()
+                        editUserState.patent.text.isNotBlank() &&
+                        editUserState.makePhoto.items.isNotEmpty()
             if (!valid) {
                 throw Exception("Invalid")
             }

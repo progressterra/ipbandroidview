@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.topbar
+package com.progressterra.ipbandroidview.features.phototopbar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,14 +12,11 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
 @Composable
-fun TopBar(
+fun PhotoTopBar(
     modifier: Modifier = Modifier,
-    title: String,
-    showBackButton: Boolean = false,
-    useComponent: UseTopBar
+    useComponent: UsePhotoTopBar
 ) {
     Box(
         modifier = modifier
@@ -27,19 +24,11 @@ fun TopBar(
             .height(44.dp)
             .background(IpbTheme.colors.background.asBrush())
     ) {
-        if (showBackButton) {
-            IconButton(modifier = Modifier.align(Alignment.CenterStart),
-                onClick = { useComponent.handle(TopBarEvent.Back) }) {
-                BrushedIcon(
-                    resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
-                )
-            }
+        IconButton(modifier = Modifier.align(Alignment.CenterStart),
+            onClick = { useComponent.handle(PhotoTopBarEvent.Back) }) {
+            BrushedIcon(
+                resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
+            )
         }
-        BrushedText(
-            modifier = Modifier.align(Alignment.Center),
-            text = title,
-            style = IpbTheme.typography.title,
-            tint = IpbTheme.colors.textPrimary.asBrush(),
-        )
     }
 }
