@@ -38,7 +38,7 @@ data class DeliveryState(
     fun uDeliveryPickerApartmentText(newText: String) =
         copy(deliveryPicker = deliveryPicker.uApartmentText(newText))
 
-    fun uDeliveryPickeuAddressText(newText: String) =
+    fun uDeliveryPickerAddressText(newText: String) =
         copy(deliveryPicker = deliveryPicker.uAddressText(newText))
 
 

@@ -15,7 +15,6 @@ import com.progressterra.ipbandroidview.features.itemgallery.ItemGallery
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun GoodsDetailsScreen(
