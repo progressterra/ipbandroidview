@@ -54,4 +54,9 @@ val sharedModule = module {
 
     single<FileExplorer> {
         FileExplorer.Redi(androidContext(), get(qualifier = StringQualifier("authority")))
-    }}
+    }
+
+    single<CreateId> {
+        CreateId.Base()
+    }
+}
