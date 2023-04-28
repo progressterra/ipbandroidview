@@ -20,6 +20,7 @@ class SplashViewModel(
     }
 
     private fun splashInit() = intent {
+        delay(2000)
         postSideEffect(if (clientExistsUseCase()) SplashEffect.OpenMain else SplashEffect.OpenAuth)
     }
 }
