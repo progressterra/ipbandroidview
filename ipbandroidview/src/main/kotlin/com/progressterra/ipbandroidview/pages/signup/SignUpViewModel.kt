@@ -1,9 +1,12 @@
 package com.progressterra.ipbandroidview.pages.signup
 
+import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
+import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
+import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchPhoneUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -23,7 +26,9 @@ class SignUpViewModel(
     private val userValidUseCase: EditUserValidUseCase,
     private val saveDataUseCase: SaveDataUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
-    private val fetchPhoneUseCase: FetchPhoneUseCase
+    private val fetchPhoneUseCase: FetchPhoneUseCase,
+    private val checkPermissionUseCase: CheckPermissionUseCase,
+    private val askPermissionUseCase: AskPermissionUseCase
 ) : ViewModel(), ContainerHost<SignUpState, SignUpEvent>, UseSignUp {
 
     override val container = container<SignUpState, SignUpEvent>(SignUpState())
@@ -59,8 +64,12 @@ class SignUpViewModel(
                 is ButtonEvent.Click -> postSideEffect(SignUpEvent.OnSkip)
             }
 
-            "makePhoto" -> makePhotoUseCase().onSuccess {
-                reduce { state.addPhoto(it) }
+            "makePhoto" -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
+                makePhotoUseCase().onSuccess {
+                    reduce { state.addPhoto(it) }
+                }
+            }.onFailure {
+                askPermissionUseCase(Manifest.permission.CAMERA)
             }
         }
     }

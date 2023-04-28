@@ -1,10 +1,13 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
+import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
+import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
+import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -24,7 +27,9 @@ class ProfileDetailsViewModel(
     private val saveUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
     private val editUserValidUseCase: EditUserValidUseCase,
-    private val makePhotoUseCase: MakePhotoUseCase
+    private val makePhotoUseCase: MakePhotoUseCase,
+    private val checkPermissionUseCase: CheckPermissionUseCase,
+    private val askPermissionUseCase: AskPermissionUseCase
 ) : ViewModel(),
     ContainerHost<ProfileDetailsState, ProfileDetailsEvent>, UseProfileDetails {
 
@@ -85,8 +90,12 @@ class ProfileDetailsViewModel(
 
                 "cancel" -> refresh()
 
-                "makePhoto" -> makePhotoUseCase().onSuccess {
-                    reduce { state.addPhoto(it) }
+                "makePhoto" -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
+                    makePhotoUseCase().onSuccess {
+                        reduce { state.addPhoto(it) }
+                    }
+                }.onFailure {
+                    askPermissionUseCase(Manifest.permission.CAMERA)
                 }
             }
         }
