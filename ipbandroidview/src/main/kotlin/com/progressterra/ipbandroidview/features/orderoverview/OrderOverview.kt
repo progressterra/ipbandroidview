@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.features.orderoverview
 
+import android.os.Parcelable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,14 +21,16 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Immutable
 data class OrderOverviewState(
     val quantity: Int = 0,
     val estimatedDelivery: String = "",
     val address: String = "",
     val images: List<String> = emptyList()
-)
+) : Parcelable
 
 @Composable
 fun OrderOverview(
