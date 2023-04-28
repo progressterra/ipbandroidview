@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
 import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
 import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.binds
 import org.koin.dsl.module
 
@@ -51,5 +52,6 @@ val sharedModule = module {
 
     single { Gson() }
 
-    single<FileExplorer> { FileExplorer.Redi(get(), get()) }
-}
+    single<FileExplorer> {
+        FileExplorer.Redi(androidContext(), get(qualifier = StringQualifier("authority")))
+    }}
