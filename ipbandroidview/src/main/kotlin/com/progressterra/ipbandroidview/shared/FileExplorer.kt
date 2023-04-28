@@ -64,7 +64,7 @@ interface FileExplorer {
         private val context: Context, private val authority: String
     ) : FileExplorer {
 
-        private val folder = context.getExternalFilesDir("Redi")!!.path
+        private val folder = context.cacheDir.absolutePath
 
         override fun uriForFile(file: File): Uri = getUriForFile(
             context, authority, file

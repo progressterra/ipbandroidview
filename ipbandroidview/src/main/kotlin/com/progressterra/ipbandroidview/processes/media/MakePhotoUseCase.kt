@@ -23,7 +23,7 @@ interface MakePhotoUseCase {
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             Log.d("CAMERA", "$intent")
             val newPhotoId = createId()
-            Log.d("CAMERA", "$newPhotoId")
+            Log.d("CAMERA", "id: $newPhotoId")
             val uri = fileExplorer.uriForFile(fileExplorer.pictureFile(newPhotoId))
             Log.d("CAMERA", "$uri")
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
