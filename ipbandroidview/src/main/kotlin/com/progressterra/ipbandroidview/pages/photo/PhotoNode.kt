@@ -10,12 +10,11 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.shared.nav.Back
-import com.progressterra.ipbandroidview.shared.nav.Remove
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
-interface PhotoNodeContract : Remove, Back {
+interface PhotoNodeContract : Back {
 
     fun enabled(): Boolean
 
@@ -33,8 +32,6 @@ interface PhotoNodeContract : Remove, Back {
         override fun picture(): MultisizedImage = picture
 
         override fun back() = onBack()
-
-        override fun remove() = onRemove()
     }
 }
 
@@ -50,7 +47,6 @@ class PhotoNode(
         viewModel.collectSideEffect {
             when (it) {
                 is PhotoEvent.Back -> contract.back()
-                is PhotoEvent.Remove -> contract.remove()
             }
         }
         var alreadyLaunched by rememberSaveable(contract) {
@@ -58,12 +54,12 @@ class PhotoNode(
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setPhoto(contract.picture(), contract.enabled())
+            viewModel.setPhoto(contract.picture())
         }
         val state = viewModel.collectAsState()
         PhotoScreen(
             state = state.value,
-            interactor = viewModel
+            useComponent = viewModel
         )
     }
 }
