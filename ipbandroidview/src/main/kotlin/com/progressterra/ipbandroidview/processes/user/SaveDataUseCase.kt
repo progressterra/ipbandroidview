@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.processes.user
 
-import android.util.Log
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.AddressUI
@@ -29,7 +28,6 @@ interface SaveDataUseCase {
     ) : SaveDataUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
-            Log.d("CAMERA", "income: $income")
             val nameList = income.name.text.splitName(false)
             UserData.userName = UserName(
                 name = nameList[0], surname = nameList[1]
@@ -50,7 +48,6 @@ interface SaveDataUseCase {
             UserData.passportProviderCode = income.passportCode.text
             UserData.patent = income.patent.text
             income.makePhoto.items.forEach {
-                Log.d("CAMERA", "save invoke ${it.id}")
                 mediaDataRepository.attachToEntity(
                     accessToken = token,
                     typeContent = "image",
