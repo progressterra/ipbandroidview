@@ -58,6 +58,7 @@ class SignInViewModel(
         when (id) {
             "main" -> when (event) {
                 is AuthEvent.UrlClick -> openUrlUseCase(event.url)
+                is AuthEvent.Agreement -> postSideEffect(SignInEffect.Agreement)
             }
         }
     }

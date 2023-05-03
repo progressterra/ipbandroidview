@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.di
 
+import com.progressterra.ipbandroidview.ui.agreement.AgreementViewModel
 import com.progressterra.ipbandroidview.ui.bonuses.BonusesViewModel
 import com.progressterra.ipbandroidview.ui.bonusesclarification.BonusesClarificationViewModel
 import com.progressterra.ipbandroidview.ui.cart.CartViewModel
@@ -51,6 +52,8 @@ val viewModelsModule = module {
     viewModel { OrganizationAuditsViewModel(get(), get()) }
 
     viewModel { CityViewModel(get(), get(), get(), get(), get()) }
+
+    viewModel { AgreementViewModel(get()) }
 
     viewModel {
         ChecklistViewModel(

@@ -15,6 +15,7 @@ class SignInNode(
     buildContext: BuildContext,
     private val onNext: (phoneNumber: String) -> Unit,
     private val onSkip: (() -> Unit)? = null,
+    private val onAgreement: () -> Unit,
     private val canBeSkipped: Boolean,
     private val offerUrl: String,
     private val policyUrl: String
@@ -28,6 +29,7 @@ class SignInNode(
             when (it) {
                 is SignInEffect.Next -> onNext(it.phoneNumber)
                 is SignInEffect.Skip -> onSkip?.invoke()
+                is SignInEffect.Agreement -> onAgreement()
                 is SignInEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                     .show()
             }

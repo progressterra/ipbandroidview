@@ -47,6 +47,8 @@ data class AuthState(
 
 sealed class AuthEvent {
 
+    object Agreement : AuthEvent()
+
     data class UrlClick(val url: String) : AuthEvent()
 }
 
@@ -118,7 +120,7 @@ fun AuthComponent(
                         LinkTextData(text = stringResource(id = R.string.offer),
                             tag = "offer",
                             annotation = offerUrl,
-                            onClick = { useComponent.handleEvent(id, AuthEvent.UrlClick(it)) }),
+                            onClick = { useComponent.handleEvent(id, AuthEvent.Agreement) }),
                         LinkTextData(text = stringResource(id = R.string.and)),
                         LinkTextData(text = stringResource(id = R.string.privacy_policy),
                             tag = "privacy policy",
