@@ -7,7 +7,7 @@
     <string name="phone_number">Номер телефона</string>
     <string name="auth_warning_0">Нажимая кнопку «Авторизоваться», я соглашаюсь с&#160;</string>
     <string name="offer">офертой</string>
-    <string name="and">&#160;и политикой конфиденциальности</string>
+    <string name="and">&#160;и&#160;</string>
     <string name="privacy_policy">политикой конфиденциальности</string>
     <string name="auth_button">Авторизоваться</string>
     <string name="auth_skip">Пока пропустить</string>
