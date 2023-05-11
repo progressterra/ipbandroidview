@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.domain.usecase.OpenMailToUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OpenPhoneUseCase
 import com.progressterra.ipbandroidview.domain.usecase.OpenUrlUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ShareTextUseCase
+import com.progressterra.ipbandroidview.domain.usecase.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.domain.usecase.ambassador.InviteUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.AvailableBonusesUseCase
 import com.progressterra.ipbandroidview.domain.usecase.bonus.CancelUseBonusesUseCase
