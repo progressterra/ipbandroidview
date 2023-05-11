@@ -31,6 +31,7 @@ val iPBAndroidViewModule = module {
 
     includes(iPBAndroidAPIModule, useCasesModule, viewModelsModule)
 
+    single<StoreGoodsMapper> { StoreGoodsMapper.Base(get(), get(), get()) }
 
     single { Gson() }
 
@@ -38,8 +39,13 @@ val iPBAndroidViewModule = module {
 
     single<ManageResources> { ManageResources.Base(androidContext()) }
 
+    single<CartGoodsMapper> { CartGoodsMapper.Base(get(), get(), get()) }
 
     single { LocationServices.getFusedLocationProviderClient(androidContext()) }
+
+    single<PriceMapper> { PriceMapper.Russia() }
+
+    single<GoodsDetailsMapper> { GoodsDetailsMapper.Base(get(), get(), get()) }
 
     single {
         ManagePermissionContract.Base()
@@ -78,6 +84,22 @@ val iPBAndroidViewModule = module {
 
     single<AudioManager> { AudioManager.Base(get()) }
 
+    single<GoodsFilterMapper> { GoodsFilterMapper.Base() }
+
+    single<CatalogMapper> { CatalogMapper.Base(get(), get()) }
+
+    single<SubCatalogMapper> { SubCatalogMapper.Base(get()) }
+
+    single<ImageMapper> { ImageMapper.Base(get()) }
+
+    single<StatusOrderMapper> { StatusOrderMapper.Base(get()) }
+
+    single<DeliveryMethodMapper> { DeliveryMethodMapper.Base(get(), get()) }
+
+    single<AddressesMapper> { AddressesMapper.Base() }
+
+    single<MessageMapper> { MessageMapper.Base(get()) }
+
     single { androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
 
     single<OfferMapper> { OfferMapper.Base(get()) }
@@ -85,4 +107,6 @@ val iPBAndroidViewModule = module {
     single<PartnerMapper> { PartnerMapper.Base(get()) }
 
     single<CreateId> { CreateId.Base() }
+
+    single<PromoCategoryMapper> { PromoCategoryMapper.Base(get()) }
 }
