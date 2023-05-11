@@ -99,7 +99,7 @@ dependencies {
     // Core
     api("androidx.core:core-ktx:1.10.0")
     api("androidx.appcompat:appcompat:1.6.1")
-    api("com.google.android.material:material:1.8.0")
+    api("com.google.android.material:material:1.9.0")
 
     // Coroutines
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
@@ -115,12 +115,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.7.1")
 
     // Compose
-    api("androidx.compose.ui:ui:1.4.2")
-    api("androidx.compose.ui:ui-util:1.4.2")
-    api("androidx.compose.ui:ui-tooling:1.4.2")
-    api("androidx.compose.ui:ui-tooling-preview:1.4.2")
-    api("androidx.compose.foundation:foundation:1.4.2")
-    api("androidx.compose.material:material:1.4.2")
+    api("androidx.compose.ui:ui:1.4.3")
+    api("androidx.compose.ui:ui-util:1.4.3")
+    api("androidx.compose.ui:ui-tooling:1.4.3")
+    api("androidx.compose.ui:ui-tooling-preview:1.4.3")
+    api("androidx.compose.foundation:foundation:1.4.3")
+    api("androidx.compose.material:material:1.4.3")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Koin, DI library
@@ -165,7 +165,7 @@ dependencies {
 
     // TODO paging if there will be grid support then need to delete own solution
     api("androidx.paging:paging-runtime-ktx:3.1.1")
-    api("androidx.paging:paging-compose:1.0.0-alpha18")
+    api("androidx.paging:paging-compose:1.0.0-alpha19")
 
     // QR
     api("com.google.zxing:core:3.5.1")
