@@ -1,5 +1,3 @@
-import java.io.ByteArrayOutputStream
-
 plugins {
     id("com.android.library")
     id("kotlin-android")
@@ -14,17 +12,16 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt")
             )
         }
     }
@@ -50,22 +47,16 @@ android {
 
     publishing {
         multipleVariants {
-            includeBuildTypeValues("debug", "release")
+            withSourcesJar()
+            withJavadocJar()
+            allVariants()
         }
     }
 }
 
 afterEvaluate {
-    val result = ByteArrayOutputStream()
-    exec {
-        commandLine("git", "rev-list", "HEAD", "--count")
-        standardOutput = result
-        isIgnoreExitValue = true
-    }
-    val countCommits = result.toString().trim().toInt()
     configure<PublishingExtension> {
         val group = "com.progressterra.ipbandroidview"
-        val fullVersion = "0.${(countCommits / 100)}.${countCommits % 100}"
         repositories {
             maven {
                 name = "GitHubPackages"
@@ -81,19 +72,27 @@ afterEvaluate {
                 from(components.findByName("release"))
                 groupId = group
                 artifactId = "ipbandroidviewuiconfig"
-                version = fullVersion
             }
             create<MavenPublication>("debug") {
                 from(components.findByName("debug"))
                 groupId = group
                 artifactId = "ipbandroidviewuiconfigtest"
-                version = fullVersion
             }
-            println(fullVersion)
         }
     }
-
 }
+
+tasks.register<Copy>("copyProcessorsJar") {
+    dependsOn(":processors:jar")
+
+    from("../processors/build/libs") {
+        include("processors.jar")
+    }
+
+    into("libs")
+}
+
+tasks.getByName("preBuild").dependsOn(tasks.getByName("copyProcessorsJar"))
 
 dependencies {
     // Core
@@ -149,15 +148,12 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    releaseApi("com.progressterra.ipbandroidapi:ipbandroidapi:0.4.93")
-    debugApi("com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.93")
+    releaseApi("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.0")
+    debugApi("com.progressterra.ipbandroidapi:ipbandroidapitest:0.5.0")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
     api("com.chibatching.kotpref:gson-support:2.13.2")
-
-    // Compose-written calendar dialog
-    api("com.squaredem:composecalendar:1.0.4")
 
     // Landscapist, image library with coil implementation
     api("com.github.skydoves:landscapist-fresco:2.1.11")
@@ -176,6 +172,6 @@ dependencies {
     // Reflection
     api("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
 
-    ksp(files("processors.jar"))
-    implementation(files("processors.jar"))
+    ksp(files("libs/processors.jar"))
+    implementation(files("libs/processors.jar"))
 }

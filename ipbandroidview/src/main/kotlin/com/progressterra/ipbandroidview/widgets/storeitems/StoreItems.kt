@@ -9,8 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.features.storecard.StoreCard
-import com.progressterra.ipbandroidview.shared.ui.items
 
 @Composable
 fun StoreItems(
@@ -27,8 +27,11 @@ fun StoreItems(
                     columns = GridCells.Fixed(2),
                     contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
                 ) {
-                    items(lazyItems) { item ->
-                        item?.let {
+                    items(
+                        count = lazyItems.itemCount,
+                        key = lazyItems.itemKey { it.id }
+                    ) { index ->
+                        lazyItems[index]?.let {
                             StoreCard(
                                 state = it, useComponent = useComponent
                             )

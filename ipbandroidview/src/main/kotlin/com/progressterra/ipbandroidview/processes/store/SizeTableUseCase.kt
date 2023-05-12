@@ -16,7 +16,7 @@ interface SizeTableUseCase {
     ) : AbstractUseCase(scrmRepository, provideLocation), SizeTableUseCase {
 
         override suspend fun invoke(id: String): Result<String> = withToken {
-            productRepository.sizeTableForItem(id).getOrThrow() ?: ""
+            ""
         }
     }
 }
