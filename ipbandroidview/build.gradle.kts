@@ -40,23 +40,18 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
+        kotlinCompilerExtensionVersion = "1.4.6"
     }
 
     namespace = "com.progressterra.ipbandroidview"
 
     publishing {
-        multipleVariants {
-            withSourcesJar()
-            withJavadocJar()
-            allVariants()
-        }
+        singleVariant("release")
     }
 }
 
 afterEvaluate {
     configure<PublishingExtension> {
-        val group = "com.progressterra.ipbandroidview"
         repositories {
             maven {
                 name = "GitHubPackages"
@@ -70,13 +65,7 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components.findByName("release"))
-                groupId = group
                 artifactId = "ipbandroidviewuiconfig"
-            }
-            create<MavenPublication>("debug") {
-                from(components.findByName("debug"))
-                groupId = group
-                artifactId = "ipbandroidviewuiconfigtest"
             }
         }
     }
@@ -148,8 +137,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    releaseApi("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.0")
-    debugApi("com.progressterra.ipbandroidapi:ipbandroidapitest:0.5.0")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.2")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")

@@ -19,7 +19,8 @@ plugins {
 }
 
 allprojects {
-    version = "0.16.91"
+    version = "0.17.0"
+    group = "com.progressterra.ipbandroidview"
     repositories {
         google()
         mavenLocal()
