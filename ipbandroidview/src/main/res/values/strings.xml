@@ -109,4 +109,6 @@
     <string name="cancel">Отменить</string>
     <string name="passport_photo">Фото паспорта</string>
     <string name="similar_goods">Похожие товары</string>
+    <string name="add_to_cart">Добавить в корзину</string>
+    <string name="buy_with_loan">Купить в рассрочку</string>
 </resources>
