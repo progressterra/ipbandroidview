@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.catalog
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardEvent
 import com.progressterra.ipbandroidview.features.search.SearchEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
@@ -57,7 +58,7 @@ class CatalogViewModel(
 
     private fun uCategory() = intent {
         if (state.current.children.isEmpty()) {
-            goodsUseCase(state.current.id).onSuccess {
+            goodsUseCase(GoodsFilter(state.current.id)).onSuccess {
                 reduce { state.uGoods(it) }
             }
         } else reduce { state.uGoods(emptyFlow()) }
