@@ -14,7 +14,7 @@ class GoodsSource(
         val nextPage = params.key ?: 1
         val response = fetchGoodsPage(
             filterAndSort.copy(
-                skip = nextPage * PAGE_SIZE,
+                skip = (nextPage - 1) * PAGE_SIZE,
                 take = PAGE_SIZE
             )
         ).onSuccess {
