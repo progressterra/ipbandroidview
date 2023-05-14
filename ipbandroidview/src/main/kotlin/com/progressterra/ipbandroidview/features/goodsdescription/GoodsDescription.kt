@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,12 +44,13 @@ fun GoodsDescription(
         stringResource(id = R.string.delivery)
     )
     Column(
-        modifier = modifier.padding(horizontal = 20.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 20.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(IpbTheme.colors.surface.asBrush())
                 .padding(6.dp),
@@ -79,7 +81,9 @@ fun GoodsDescription(
             }
         }
         HorizontalPager(
-            state = pagerState, pageCount = tabs.size
+            state = pagerState, pageCount = tabs.size,
+            contentPadding = PaddingValues(horizontal = 20.dp),
+            pageSpacing = 20.dp
         ) {
             Column(
                 modifier = Modifier
