@@ -148,7 +148,7 @@ class ProfileDetailsViewModel(
     override fun handle(event: MakePhotoEvent) = intent {
         when (event) {
             is MakePhotoEvent.Remove -> reduce { state.removePhoto(event.photo) }
-            is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo))
+            is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo.fullSize))
         }
     }
 

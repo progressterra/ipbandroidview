@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.entities.MultisizedImage
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -14,7 +13,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class ProfileDetailsNode(
     buildContext: BuildContext,
     private val onBack: () -> Unit,
-    private val openPhoto: (MultisizedImage) -> Unit
+    private val openPhoto: (String) -> Unit
 ) : Node(buildContext) {
 
     @Composable
