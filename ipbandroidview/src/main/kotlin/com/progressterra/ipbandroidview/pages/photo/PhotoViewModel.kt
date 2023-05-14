@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.photo
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.features.phototopbar.PhotoTopBarEvent
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -15,7 +14,7 @@ class PhotoViewModel : ViewModel(), ContainerHost<PhotoState, PhotoEvent>, UsePh
     override val container: Container<PhotoState, PhotoEvent> = container(PhotoState())
 
     fun setPhoto(
-        picture: MultisizedImage
+        picture: String
     ) = intent {
         reduce {
             PhotoState(
