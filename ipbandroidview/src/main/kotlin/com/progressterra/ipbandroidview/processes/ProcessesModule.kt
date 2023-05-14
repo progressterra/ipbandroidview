@@ -102,7 +102,7 @@ val processesModule = module {
 
 
     single<FetchGoodsPage> {
-        FetchGoodsPage.Base(get(), get(), get(), get())
+        FetchGoodsPage.Base(get(), get())
 //        FetchGoodsPage.Test()
     }
 

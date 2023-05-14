@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages.favorites
 
-import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
+import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.storecard.StoreCardMapper
@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
 
 interface FavoriteGoodsUseCase {
+    //todo maybe wrong id
 
     suspend operator fun invoke(): Result<List<StoreCardState>>
 
@@ -18,7 +19,7 @@ interface FavoriteGoodsUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val favoriteRepository: IPBFavPromoRecRepository,
-        private val eIECommerceCoreRepository: IECommerceCoreRepository,
+        private val productRepository: ProductRepository,
         private val mapper: StoreCardMapper
     ) : AbstractUseCase(scrmRepository, provideLocation), FavoriteGoodsUseCase {
 
@@ -28,9 +29,9 @@ interface FavoriteGoodsUseCase {
             ).getOrThrow()!!
             buildList {
                 favoriteIds.map { favoriteId ->
-                    eIECommerceCoreRepository.getProductDetailByIDRG(
+                    productRepository.productByGoodsInventoryId(
                         favoriteId
-                    ).getOrThrow()?.listProducts?.firstOrNull()?.let {
+                    ).getOrThrow()?.firstOrNull()?.let {
                         add(mapper.map(it))
                     }
                 }

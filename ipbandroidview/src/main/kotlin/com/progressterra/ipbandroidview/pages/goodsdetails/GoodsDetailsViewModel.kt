@@ -39,11 +39,20 @@ class GoodsDetailsViewModel(
         }
     }
 
-    override fun handle(event: FavoriteButtonEvent) {
-        TODO("Not yet implemented")
+    override fun handle(event: FavoriteButtonEvent) = intent {
+        when (event) {
+            is FavoriteButtonEvent.Click -> modifyFavoriteUseCase(
+                event.id,
+                !state.description.favoriteButton.favorite
+            ).onSuccess {
+                reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
+            }
+        }
     }
 
     override fun handle(event: GoodsDescriptionEvent) {
-        TODO("Not yet implemented")
+        when (event) {
+            is GoodsDescriptionEvent.Share -> TODO()
+        }
     }
 }

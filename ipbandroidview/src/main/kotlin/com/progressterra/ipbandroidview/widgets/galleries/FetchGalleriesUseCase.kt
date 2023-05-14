@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.widgets.galleries
 
 import androidx.paging.PagingData
+import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
@@ -16,7 +17,7 @@ interface FetchGalleriesUseCase {
     ) : FetchGalleriesUseCase {
 
         override suspend fun invoke(categoryId: String): Result<Flow<PagingData<StoreCardState>>> =
-            goodsUseCase(categoryId)
+            goodsUseCase(GoodsFilter(categoryId = categoryId))
     }
 
     class Test : FetchGalleriesUseCase {
