@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -16,6 +17,7 @@ import com.progressterra.ipbandroidview.shared.theme.Preview
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun CatalogCard(
@@ -38,7 +40,8 @@ fun CatalogCard(
                 .size(98.dp)
                 .clip(RoundedCornerShape(8.dp)),
             url = state.imageUrl,
-            backgroundColor = IpbTheme.colors.background.asColor()
+            backgroundColor = IpbTheme.colors.background.asColor(),
+            options = ImageOptions(contentScale = ContentScale.FillBounds)
         )
         BrushedText(
             text = state.name,

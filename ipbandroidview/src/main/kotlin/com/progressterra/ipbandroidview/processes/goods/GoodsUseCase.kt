@@ -43,7 +43,7 @@ interface GoodsUseCase {
                                     )
                                 }
                             }, searchData = filter.search, sort = SortData(
-                                fieldName = "name", variantSort = "asc"
+                                fieldName = "price", variantSort = "asc"
                             )
                         )
                     )
