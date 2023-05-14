@@ -1,13 +1,17 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
+import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
+import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.entities.GoodsParameters
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.ScreenState
 
 interface GoodsDetailsUseCase {
 
@@ -16,7 +20,7 @@ interface GoodsDetailsUseCase {
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
-        private val ieCommerceCoreRepository: IECommerceCoreRepository,
+        private val productRepository: ProductRepository,
         private val cartRepository: CartRepository,
         private val goodsDetailsMapper: GoodsDetailsMapper,
         private val fetchFavoriteIds: FetchFavoriteIds
@@ -25,13 +29,23 @@ interface GoodsDetailsUseCase {
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
             val count = cartRepository.getGoodsQuantity(token, id).getOrThrow()
-            val goods = ieCommerceCoreRepository.getProductDetailByIDRG(id)
-                .getOrThrow()!!.listProducts!!.first()
-            goodsDetailsMapper.map(
-                goods,
-                isFavorite,
-                count?.count ?: 0,
-//                emptyList(),
+            val goods = productRepository.productByGoodsInventoryId(id)
+                .getOrThrow()!!.first()
+            GoodsDetailsState(
+                description = GoodsDescriptionState(
+                    name = "",
+                    description = "",
+                    company = ""
+                ), gallery = ItemGalleryState(images = listOf()), name = ""
+            )
+        }
+
+        data class ImageData(
+            @SerializedName("datalist") val list: List<Item>
+        ) {
+
+            data class Item(
+                @SerializedName("URL") val url: String
             )
         }
     }

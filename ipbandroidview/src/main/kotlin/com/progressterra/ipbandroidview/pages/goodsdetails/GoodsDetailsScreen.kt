@@ -31,7 +31,7 @@ fun GoodsDetailsScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ItemGallery(state = state.gallery, useComponent = useComponent)
-            GoodsDescription(state = state.description)
+            GoodsDescription(state = state.description, useComponent = useComponent)
         }
     }
 }

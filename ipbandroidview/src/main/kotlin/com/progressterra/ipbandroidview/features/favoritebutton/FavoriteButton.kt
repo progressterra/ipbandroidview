@@ -15,26 +15,22 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun FavoriteButton(
-    modifier: Modifier = Modifier,
-    favorite: Boolean,
-    onClick: () -> Unit
+    modifier: Modifier = Modifier, state: FavoriteButtonState, useComponent: UseFavoriteButton
 ) {
     IconButton(
-        modifier = modifier, onClick = onClick
+        modifier = modifier,
+        onClick = { useComponent.handle(FavoriteButtonEvent.Click(state.id)) },
+        enabled = state.enabled
     ) {
         BrushedIcon(
-            resId = R.drawable.ic_favorite_off,
-            tint = IpbTheme.colors.iconTertiary.asBrush()
+            resId = R.drawable.ic_favorite_off, tint = IpbTheme.colors.iconTertiary.asBrush()
         )
         Column {
             AnimatedVisibility(
-                visible = favorite,
-                enter = scaleIn(),
-                exit = scaleOut()
+                visible = state.favorite, enter = scaleIn(), exit = scaleOut()
             ) {
                 BrushedIcon(
-                    resId = R.drawable.ic_favorite_on,
-                    tint = IpbTheme.colors.iconPressed.asBrush()
+                    resId = R.drawable.ic_favorite_on, tint = IpbTheme.colors.iconPressed.asBrush()
                 )
             }
         }

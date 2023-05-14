@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonEvent
+import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionEvent
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -35,5 +37,13 @@ class GoodsDetailsViewModel(
         when (event) {
             is TopBarEvent.Back -> postSideEffect(GoodsDetailsEvent.Back)
         }
+    }
+
+    override fun handle(event: FavoriteButtonEvent) {
+        TODO("Not yet implemented")
+    }
+
+    override fun handle(event: GoodsDescriptionEvent) {
+        TODO("Not yet implemented")
     }
 }
