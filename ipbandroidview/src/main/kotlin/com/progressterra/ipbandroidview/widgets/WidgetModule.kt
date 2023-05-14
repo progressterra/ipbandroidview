@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.widgets
 
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerValidUseCase
@@ -12,18 +13,25 @@ import org.koin.dsl.module
 
 val widgetsModule = module {
 
-    single<FetchBonusesTransactionsUseCase> {
-        FetchBonusesTransactionsUseCase.Base(
-            get(), get(), get(), get()
-        )
-//        FetchBonusesTransactionsUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            FetchBonusesTransactionsUseCase.Test()
+        } else {
+            FetchBonusesTransactionsUseCase.Base(
+                get(), get(), get(), get()
+            )
+        }
     }
 
-    single<FetchAvailableDeliveryUseCase> {
-        FetchAvailableDeliveryUseCase.Base(
-            get(), get(), get(), get()
-        )
-//        FetchAvailableDeliveryUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            FetchAvailableDeliveryUseCase.Test()
+
+        } else {
+            FetchAvailableDeliveryUseCase.Base(
+                get(), get(), get(), get()
+            )
+        }
     }
 
     single<OfferMapper> {
@@ -38,15 +46,20 @@ val widgetsModule = module {
         SetDeliveryAddressUseCase.Base(get(), get(), get())
     }
 
-    single<FetchGalleriesUseCase> {
-        FetchGalleriesUseCase.Base(get())
-//        FetchGalleriesUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            FetchGalleriesUseCase.Test()
+        } else {
+            FetchGalleriesUseCase.Base(get())
+        }
     }
 
-
-    single<FetchOffersUseCase> {
-        FetchOffersUseCase.Base(get(), get(), get(), get())
-//        FetchOffersUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            FetchOffersUseCase.Test()
+        } else {
+            FetchOffersUseCase.Base(get(), get(), get(), get())
+        }
     }
 
     single<DeliveryPickerValidUseCase> {

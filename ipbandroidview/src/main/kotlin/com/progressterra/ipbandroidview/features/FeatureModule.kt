@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.features
 
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.features.addresssuggestions.ChooseSuggestionUseCase
 import com.progressterra.ipbandroidview.features.addresssuggestions.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUseCase
@@ -15,9 +16,12 @@ val featuresModule = module {
         StoreCardMapper.Base(get())
     }
 
-    single<BonusesUseCase> {
-        BonusesUseCase.Base(get(), get(), get(), get())
-//        BonusesUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            BonusesUseCase.Test()
+        } else {
+            BonusesUseCase.Base(get(), get(), get(), get())
+        }
     }
 
     single<FetchPaymentMethods> {

@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages
 
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
@@ -76,46 +77,64 @@ val pagesModule = module {
         )
     }
 
-    single<EndVerificationChannelUseCase> {
-        EndVerificationChannelUseCase.Base(get(), get())
-//        EndVerificationChannelUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            EndVerificationChannelUseCase.Test()
+        } else {
+            EndVerificationChannelUseCase.Base(get(), get())
+        }
     }
 
     single<CartGoodsMapper> { CartGoodsMapper.Base(get(), get(), get()) }
 
-    single<CatalogUseCase> {
-        CatalogUseCase.Base(get(), get(), get(), get())
-//        CatalogUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            CatalogUseCase.Test()
+        } else {
+            CatalogUseCase.Base(get(), get(), get(), get())
+        }
     }
 
     single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get()) }
 
     single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get()) }
 
-    single<CartUseCase> {
-        CartUseCase.Base(get(), get(), get(), get(), get(), get())
-//        CartUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            CartUseCase.Test()
+        } else {
+            CartUseCase.Base(get(), get(), get(), get(), get(), get())
+        }
     }
 
-    single<GoodsDetailsUseCase> {
-        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
-//        GoodsDetailsUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            GoodsDetailsUseCase.Test()
+        } else {
+            GoodsDetailsUseCase.Base(get(), get())
+        }
     }
 
     single<GoodsDetailsMapper> {
         GoodsDetailsMapper.Base(get(), get(), get())
     }
 
-    single<FavoriteGoodsUseCase> {
-        FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get())
-//        FavoriteGoodsUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            FavoriteGoodsUseCase.Test()
+        } else {
+            FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get())
+        }
     }
 
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 
-    single<ConfirmOrderUseCase> {
-        ConfirmOrderUseCase.Base(get(), get(), get())
-//        ConfirmOrderUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            ConfirmOrderUseCase.Test()
+        } else {
+            ConfirmOrderUseCase.Base(get(), get(), get())
+        }
     }
 
     viewModel { CatalogViewModel(get(), get(), get(), get()) }

@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.processes
 
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.pages.delivery.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
@@ -62,9 +63,12 @@ val processesModule = module {
 
     single<AskPermissionUseCase> { AskPermissionUseCase.Base(get()) }
 
-    single<CreateDeliveryOrderUseCase> {
-        CreateDeliveryOrderUseCase.Base(get(), get(), get())
-//        CreateDeliveryOrderUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            CreateDeliveryOrderUseCase.Test()
+        } else {
+            CreateDeliveryOrderUseCase.Base(get(), get(), get())
+        }
     }
 
     single<StopRecordingUseCase> { StopRecordingUseCase.Base(get()) }
@@ -97,32 +101,38 @@ val processesModule = module {
 
     single<GoodsUseCase> {
         GoodsUseCase.Base(get())
-//        GoodsUseCase.Test()
     }
-
 
     single<FetchGoodsPage> {
         FetchGoodsPage.Base(get(), get())
-//        FetchGoodsPage.Test()
     }
 
-    single<AddToCartUseCase> {
-//        AddToCartUseCase.Test()
-        AddToCartUseCase.Base(get(), get(), get())
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            AddToCartUseCase.Test()
+        } else {
+            AddToCartUseCase.Base(get(), get(), get())
+        }
     }
 
-    single<RemoveFromCartUseCase> {
-//        RemoveFromCartUseCase.Test()
-        RemoveFromCartUseCase.Base(get(), get(), get())
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            RemoveFromCartUseCase.Test()
+        } else {
+            RemoveFromCartUseCase.Base(get(), get(), get())
+        }
     }
 
-    single<StartVerificationChannelUseCase> {
-        StartVerificationChannelUseCase.Base(get())
-//        StartVerificationChannelUseCase.Test()
+    single {
+        if (IpbAndroidViewSettings.TEST_MODE) {
+            StartVerificationChannelUseCase.Test()
+
+        } else {
+            StartVerificationChannelUseCase.Base(get())
+        }
     }
 
     single<SaveDataUseCase> {
-//        SaveDataUseCase.Test()
         SaveDataUseCase.Base(get(), get(), get(), get())
     }
 
