@@ -56,10 +56,17 @@ fun CatalogCard(
 @Composable
 private fun CatalogCardPreview() {
     Preview {
-        CatalogCard(
-            state = CatalogCardState(
-                name = "Ноутбук Lenovo IdeaPad 3 15ADA05"
-            ), useComponent = UseCatalogCard.Empty()
-        )
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            CatalogCard(
+                state = CatalogCardState(
+                    name = "Ноутбук Lenovo IdeaPad 3 15ADA05"
+                ), useComponent = UseCatalogCard.Empty()
+            )
+            CatalogCard(
+                state = CatalogCardState(
+                    name = "Лэп"
+                ), useComponent = UseCatalogCard.Empty()
+            )
+        }
     }
 }

@@ -19,7 +19,7 @@ fun CatalogItems(
 ) {
     LazyVerticalGrid(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(20.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalArrangement = Arrangement.spacedBy(20.dp),
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
