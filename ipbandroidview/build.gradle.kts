@@ -137,7 +137,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.2")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.3")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
@@ -147,7 +147,6 @@ dependencies {
     api("com.github.skydoves:landscapist-fresco:2.1.11")
     api("com.github.skydoves:landscapist-placeholder:2.1.11")
 
-    // TODO paging if there will be grid support then need to delete own solution
     api("androidx.paging:paging-runtime-ktx:3.1.1")
     api("androidx.paging:paging-compose:1.0.0-alpha19")
 
