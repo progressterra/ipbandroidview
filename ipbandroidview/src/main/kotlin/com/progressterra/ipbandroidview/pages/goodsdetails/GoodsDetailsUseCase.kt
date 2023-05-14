@@ -1,51 +1,36 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
-import com.google.gson.annotations.SerializedName
-import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
-import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.entities.GoodsParameters
+import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
-import com.progressterra.ipbandroidview.shared.ScreenState
 
 interface GoodsDetailsUseCase {
 
     suspend operator fun invoke(id: String): Result<GoodsDetailsState>
 
     class Base(
-        provideLocation: ProvideLocation,
-        scrmRepository: SCRMRepository,
         private val productRepository: ProductRepository,
-        private val cartRepository: CartRepository,
-        private val goodsDetailsMapper: GoodsDetailsMapper,
         private val fetchFavoriteIds: FetchFavoriteIds
-    ) : AbstractUseCase(scrmRepository, provideLocation), GoodsDetailsUseCase {
+    ) : GoodsDetailsUseCase {
 
-        override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
+        override suspend fun invoke(id: String): Result<GoodsDetailsState> = runCatching {
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
-            val count = cartRepository.getGoodsQuantity(token, id).getOrThrow()
             val goods = productRepository.productByGoodsInventoryId(id)
                 .getOrThrow()!!.first()
             GoodsDetailsState(
                 description = GoodsDescriptionState(
-                    name = "",
-                    description = "",
-                    company = ""
-                ), gallery = ItemGalleryState(images = listOf()), name = ""
-            )
-        }
-
-        data class ImageData(
-            @SerializedName("datalist") val list: List<Item>
-        ) {
-
-            data class Item(
-                @SerializedName("URL") val url: String
+                    name = goods.nomenclature?.name ?: "",
+                    description = goods.nomenclature?.commerseDescription ?: "",
+                    favoriteButton = FavoriteButtonState(
+                        id = goods.nomenclature?.idUnique!!,
+                        favorite = isFavorite
+                    )
+                ),
+                gallery = ItemGalleryState(images = goods.nomenclature?.listImages?.map { it.urlData!! }
+                    ?: emptyList()),
+                name = goods.nomenclature?.name ?: ""
             )
         }
     }
