@@ -10,11 +10,11 @@ apply from: "publish.gradle"
 
 android {
 
-    compileSdkVersion 33
-
     defaultConfig {
 
-        minSdkVersion 24
+        minSdk 24
+        targetSdk 33
+        compileSdk 33
 
         versionCode commitsCount()
         versionName "$major.${generateMinorVersionCode()}"
@@ -60,7 +60,7 @@ android {
 dependencies {
 
     //Core
-    api "androidx.core:core-ktx:1.10.0"
+    api "androidx.core:core-ktx:1.10.1"
     api "androidx.appcompat:appcompat:1.6.1"
     api 'com.google.android.material:material:1.9.0'
 
@@ -97,7 +97,7 @@ dependencies {
 
     //Testing
     api 'org.orbit-mvi:orbit-test:4.6.1'
-    api "androidx.core:core-ktx:1.10.0"
+    api "androidx.core:core-ktx:1.10.1"
     testApi "junit:junit:4.13.2"
 
     //Appyx, navigation library
@@ -117,15 +117,10 @@ dependencies {
     releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.88"
     debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.88"
 
-    // Implementing the `core` module is mandatory for using other use cases.
-    implementation 'com.maxkeppeler.sheets-compose-dialogs:core:1.1.1'
-    implementation 'com.maxkeppeler.sheets-compose-dialogs:calendar:1.1.1'
-
     //Landscapist, image library with coil implementation
     api 'com.github.skydoves:landscapist-fresco:2.1.11'
     api 'com.github.skydoves:landscapist-placeholder:2.1.11'
 
-    //TODO paging if there will be grid support then need to delete own solution
     api "androidx.paging:paging-compose:1.0.0-alpha19"
     api "androidx.paging:paging-runtime-ktx:3.1.1"
 
