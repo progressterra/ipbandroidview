@@ -29,12 +29,11 @@ interface FavoriteGoodsUseCase {
             ).getOrThrow()!!
             buildList {
                 favoriteIds.map { favoriteId ->
-                    productRepository.productByGoodsInventoryId(
+                    val goods = productRepository.productByGoodsInventoryId(
                         token,
                         favoriteId
-                    ).getOrThrow()?.firstOrNull()?.let {
-                        add(mapper.map(it))
-                    }
+                    ).getOrThrow()!!
+                    add(mapper.map(goods))
                 }
             }
         }

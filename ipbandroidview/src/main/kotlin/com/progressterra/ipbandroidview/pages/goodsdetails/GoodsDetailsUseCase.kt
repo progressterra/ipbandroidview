@@ -24,7 +24,8 @@ interface GoodsDetailsUseCase {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
-            val goods = productRepository.productByNomenclatureId(token, id).getOrThrow()!!.first()
+            val goods =
+                productRepository.productByNomenclatureId(token, id).getOrThrow()!!
             GoodsDetailsState(description = GoodsDescriptionState(
                 name = goods.nomenclature?.name ?: "",
                 description = goods.nomenclature?.commerseDescription ?: "",

@@ -9,10 +9,9 @@ plugins {
 
 android {
 
-    compileSdk = 33
-
     defaultConfig {
         minSdk = 24
+        compileSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,7 +45,10 @@ android {
     namespace = "com.progressterra.ipbandroidview"
 
     publishing {
-        singleVariant("release")
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 
@@ -137,7 +139,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.8")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.9")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
