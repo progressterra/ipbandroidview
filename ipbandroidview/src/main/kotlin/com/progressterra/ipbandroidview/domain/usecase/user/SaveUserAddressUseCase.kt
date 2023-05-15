@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCase
 import com.progressterra.ipbandroidview.core.ProvideLocation
 import com.progressterra.ipbandroidview.data.UserData
-import com.progressterra.ipbandroidview.domain.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.ext.throwOnFailure
 import com.progressterra.ipbandroidview.model.AddressUI
 
