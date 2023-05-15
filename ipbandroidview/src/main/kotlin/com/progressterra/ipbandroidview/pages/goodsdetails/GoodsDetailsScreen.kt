@@ -16,6 +16,7 @@ import com.progressterra.ipbandroidview.features.itemgallery.ItemGallery
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.widgets.similargoods.SimilarGoods
 
 @Composable
@@ -27,15 +28,20 @@ fun GoodsDetailsScreen(
             title = state.name, showBackButton = true, useComponent = useComponent
         )
     }) { _, _ ->
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+        StateBox(
+            state = state.screenState,
+            useComponent = useComponent
         ) {
-            ItemGallery(state = state.gallery, useComponent = useComponent)
-            GoodsDescription(state = state.description, useComponent = useComponent)
-            BuyGoods(state = state.buyGoods, useComponent = useComponent)
-            SimilarGoods(state = state.similarGoods, useComponent = useComponent)
+            Column(
+                modifier = Modifier.verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                ItemGallery(state = state.gallery, useComponent = useComponent)
+                GoodsDescription(state = state.description, useComponent = useComponent)
+                BuyGoods(state = state.buyGoods, useComponent = useComponent)
+                SimilarGoods(state = state.similarGoods, useComponent = useComponent)
+            }
         }
     }
 }

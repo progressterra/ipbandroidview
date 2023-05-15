@@ -1,7 +1,10 @@
 package com.progressterra.ipbandroidview.pages.pickuppoint
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -31,7 +34,11 @@ class PickUpPointNode(
                 }
             }
         }
-        LaunchedEffect(points) {
+        var alreadyLaunched by rememberSaveable {
+            mutableStateOf(false)
+        }
+        if (!alreadyLaunched) {
+            alreadyLaunched = true
             viewModel.refresh(points)
         }
         val state = viewModel.collectAsState()

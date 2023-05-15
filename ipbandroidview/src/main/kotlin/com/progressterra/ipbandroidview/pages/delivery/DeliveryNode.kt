@@ -1,7 +1,11 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -28,7 +32,11 @@ class DeliveryNode(
                 is DeliveryEvent.SelectPickupPoint -> onPickUpPoint(it.points)
             }
         }
-        LaunchedEffect(Unit) {
+        var alreadyLaunched by rememberSaveable {
+            mutableStateOf(false)
+        }
+        if (!alreadyLaunched) {
+            alreadyLaunched = true
             viewModel.refresh()
         }
         val state = viewModel.collectAsState().value

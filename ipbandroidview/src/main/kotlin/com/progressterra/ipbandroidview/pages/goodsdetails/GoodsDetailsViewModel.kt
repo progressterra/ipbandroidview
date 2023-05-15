@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
@@ -25,9 +26,9 @@ class GoodsDetailsViewModel(
     override val container = container<GoodsDetailsState, GoodsDetailsEvent>(GoodsDetailsState())
 
     fun refresh(goodsId: String) = intent {
-        reduce { GoodsDetailsState() }
+        reduce { state.uScreenState(ScreenState.LOADING) }
         goodsDetailsUseCase(goodsId)
-            .onSuccess { reduce { it } }
+            .onSuccess { reduce { it.uScreenState(ScreenState.SUCCESS) } }
             .onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
     }
 
@@ -74,5 +75,9 @@ class GoodsDetailsViewModel(
 
     override fun handle(event: CounterEvent) {
         TODO("Not yet implemented")
+    }
+
+    override fun handle(event: StateBoxEvent) = intent {
+        postSideEffect(GoodsDetailsEvent.Refresh)
     }
 }
