@@ -45,10 +45,7 @@ android {
     namespace = "com.progressterra.ipbandroidview"
 
     publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
+        singleVariant("release")
     }
 }
 
