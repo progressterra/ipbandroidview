@@ -85,7 +85,7 @@ tasks.getByName("preBuild").dependsOn(tasks.getByName("copyProcessorsJar"))
 
 dependencies {
     // Core
-    api("androidx.core:core-ktx:1.10.0")
+    api("androidx.core:core-ktx:1.10.1")
     api("androidx.appcompat:appcompat:1.6.1")
     api("com.google.android.material:material:1.9.0")
 
@@ -137,7 +137,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.5")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.6")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
