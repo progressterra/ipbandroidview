@@ -45,7 +45,7 @@ fun GoodsDetailsScreen(
                 BuyGoods(state = state.buyGoods, useComponent = useComponent)
                 Galleries(
                     state = state.similarGoods, useComponent = useComponent,
-                    title = stringResource(R.string.new_items),
+                    title = stringResource(R.string.similar_goods),
                     titleBrush = IpbTheme.colors.textSecondary.asBrush()
                 )
             }
