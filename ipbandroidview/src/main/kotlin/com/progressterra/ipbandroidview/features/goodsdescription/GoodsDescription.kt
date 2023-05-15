@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -96,6 +99,7 @@ fun GoodsDescription(
                 if (it == 0) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         BrushedText(
+                            modifier = Modifier.widthIn(max = 200.dp),
                             text = state.name,
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.title
@@ -104,7 +108,10 @@ fun GoodsDescription(
                         FavoriteButton(
                             state = state.favoriteButton, useComponent = useComponent
                         )
-                        IconButton(onClick = { useComponent.handle(GoodsDescriptionEvent.Share) }) {
+                        Spacer(Modifier.width(20.dp))
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = { useComponent.handle(GoodsDescriptionEvent.Share) }) {
                             BrushedIcon(
                                 resId = R.drawable.ic_share,
                                 tint = IpbTheme.colors.iconTertiary.asBrush()
@@ -132,7 +139,7 @@ fun GoodsDescription(
 fun PreviewGoodsDescription() {
     GoodsDescription(
         state = GoodsDescriptionState(
-            name = "Product Name",
+            name = "Product Loooooooooooooooooooooooong Name",
             description = "This is a great product that you would definitely want to buy.",
             company = "Awesome Company",
             favoriteButton = FavoriteButtonState(

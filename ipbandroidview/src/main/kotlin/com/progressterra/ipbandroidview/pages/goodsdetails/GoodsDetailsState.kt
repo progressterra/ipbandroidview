@@ -6,13 +6,13 @@ import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescripti
 import com.progressterra.ipbandroidview.features.goodsdescription.uFavoriteButtonFavorite
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.shared.ScreenState
-import com.progressterra.ipbandroidview.widgets.similargoods.SimilarGoodsState
+import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
 @Immutable
 data class GoodsDetailsState(
     val description: GoodsDescriptionState = GoodsDescriptionState(),
     val gallery: ItemGalleryState = ItemGalleryState(),
-    val similarGoods: SimilarGoodsState = SimilarGoodsState(),
+    val similarGoods: GalleriesState = GalleriesState(),
     val buyGoods: BuyGoodsState = BuyGoodsState(),
     val name: String = "",
     val screenState: ScreenState = ScreenState.LOADING

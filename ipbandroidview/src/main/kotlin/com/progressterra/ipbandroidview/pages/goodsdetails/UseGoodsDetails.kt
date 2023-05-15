@@ -14,10 +14,10 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
-import com.progressterra.ipbandroidview.widgets.similargoods.UseSimilarGoods
+import com.progressterra.ipbandroidview.widgets.galleries.UseGalleries
 
 interface UseGoodsDetails : UseTopBar, UseItemGallery, UseGoodsDescription, UseBuyGoods,
-    UseSimilarGoods, UseStateBox {
+    UseStateBox, UseGalleries {
 
     class Empty : UseGoodsDetails {
 

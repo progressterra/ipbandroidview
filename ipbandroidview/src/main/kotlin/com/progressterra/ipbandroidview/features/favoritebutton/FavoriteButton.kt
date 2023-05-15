@@ -5,9 +5,11 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
@@ -18,7 +20,7 @@ fun FavoriteButton(
     modifier: Modifier = Modifier, state: FavoriteButtonState, useComponent: UseFavoriteButton
 ) {
     IconButton(
-        modifier = modifier,
+        modifier = modifier.size(24.dp),
         onClick = { useComponent.handle(FavoriteButtonEvent.Click(state.id)) },
         enabled = state.enabled
     ) {

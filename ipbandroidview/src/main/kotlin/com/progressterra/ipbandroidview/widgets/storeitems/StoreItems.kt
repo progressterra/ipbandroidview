@@ -1,11 +1,13 @@
 package com.progressterra.ipbandroidview.widgets.storeitems
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -32,9 +34,11 @@ fun StoreItems(
                         key = lazyItems.itemKey { it.id }
                     ) { index ->
                         lazyItems[index]?.let {
-                            StoreCard(
-                                state = it, useComponent = useComponent
-                            )
+                            Box(contentAlignment = Alignment.Center) {
+                                StoreCard(
+                                    state = it, useComponent = useComponent
+                                )
+                            }
                         }
                     }
                 }
@@ -51,9 +55,11 @@ fun StoreItems(
                     contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
                 ) {
                     items(state.items) {
-                        StoreCard(
-                            state = it, useComponent = useComponent
-                        )
+                        Box(contentAlignment = Alignment.Center) {
+                            StoreCard(
+                                state = it, useComponent = useComponent
+                            )
+                        }
                     }
                 }
             }

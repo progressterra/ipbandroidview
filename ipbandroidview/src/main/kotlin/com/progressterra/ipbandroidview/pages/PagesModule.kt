@@ -110,7 +110,7 @@ val pagesModule = module {
         if (IpbAndroidViewSettings.TEST_MODE) {
             GoodsDetailsUseCase.Test()
         } else {
-            GoodsDetailsUseCase.Base(get(), get(), get(), get())
+            GoodsDetailsUseCase.Base(get(), get(), get(), get(), get())
         }
     }
 

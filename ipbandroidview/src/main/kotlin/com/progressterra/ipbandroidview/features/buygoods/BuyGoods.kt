@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,8 +50,9 @@ fun BuyGoods(
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             BrushedText(
+                modifier = Modifier.widthIn(max = 100.dp),
                 text = state.loan,
-                style = IpbTheme.typography.title,
+                style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
             OutlineButton(

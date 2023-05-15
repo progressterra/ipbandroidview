@@ -10,6 +10,8 @@ import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
+import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
 interface GoodsDetailsUseCase {
 
@@ -19,13 +21,16 @@ interface GoodsDetailsUseCase {
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         private val productRepository: ProductRepository,
-        private val fetchFavoriteIds: FetchFavoriteIds
+        private val fetchFavoriteIds: FetchFavoriteIds,
+        private val fetchGalleriesUseCase: FetchGalleriesUseCase
     ) : GoodsDetailsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
             val goods =
                 productRepository.productByNomenclatureId(token, id).getOrThrow()!!
+            val recommended =
+                fetchGalleriesUseCase(goods.nomenclature?.listCatalogCategory?.first()!!).getOrThrow()
             GoodsDetailsState(description = GoodsDescriptionState(
                 name = goods.nomenclature?.name ?: "",
                 description = goods.nomenclature?.commerseDescription ?: "",
@@ -43,7 +48,7 @@ interface GoodsDetailsUseCase {
                             goods.installmentPlanValue?.amountPaymentInMonth ?: 0.0
                         )
                     }"
-                ))
+                ), similarGoods = GalleriesState(items = recommended))
         }
     }
 
