@@ -9,12 +9,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.features.buygoods.BuyGoods
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescription
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGallery
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.widgets.similargoods.SimilarGoods
 
 @Composable
 fun GoodsDetailsScreen(
@@ -27,11 +29,13 @@ fun GoodsDetailsScreen(
     }) { _, _ ->
         Column(
             modifier = Modifier.verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             ItemGallery(state = state.gallery, useComponent = useComponent)
             GoodsDescription(state = state.description, useComponent = useComponent)
+            BuyGoods(state = state.buyGoods, useComponent = useComponent)
+            SimilarGoods(state = state.similarGoods, useComponent = useComponent)
         }
     }
 }

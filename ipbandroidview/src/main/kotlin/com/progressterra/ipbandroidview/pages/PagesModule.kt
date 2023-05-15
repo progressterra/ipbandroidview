@@ -14,7 +14,6 @@ import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationCh
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
-import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
@@ -111,12 +110,8 @@ val pagesModule = module {
         if (IpbAndroidViewSettings.TEST_MODE) {
             GoodsDetailsUseCase.Test()
         } else {
-            GoodsDetailsUseCase.Base(get(), get())
+            GoodsDetailsUseCase.Base(get(), get(), get(), get())
         }
-    }
-
-    single<GoodsDetailsMapper> {
-        GoodsDetailsMapper.Base(get(), get(), get())
     }
 
     single {

@@ -15,7 +15,12 @@ interface StoreCardMapper : Mapper<ProductView, StoreCardState> {
         override fun map(data: ProductView): StoreCardState = StoreCardState(
             name = data.nomenclature?.name ?: "",
             price = SimplePrice(data.inventoryData?.currentPrice ?: 0.0),
-            imageUrl = data.nomenclature?.listImages?.first()?.urlData ?: ""
+            imageUrl = data.nomenclature?.listImages?.first()?.urlData ?: "",
+            loan = "Рассрочка: ${data.installmentPlanValue?.countMonthPayment} платежей по ${
+                SimplePrice(
+                    data.installmentPlanValue?.amountPaymentInMonth ?: 0.0
+                )
+            }"
         )
     }
 }

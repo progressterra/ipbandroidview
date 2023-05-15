@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.OutlineButton
 
 @Composable
 fun BuyGoods(
@@ -22,7 +23,10 @@ fun BuyGoods(
     useComponent: UseBuyGoods
 ) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(horizontal = 20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -49,7 +53,7 @@ fun BuyGoods(
                 style = IpbTheme.typography.title,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
-            Button(
+            OutlineButton(
                 modifier = Modifier.weight(1f),
                 state = state.buyWithLoan,
                 useComponent = useComponent,

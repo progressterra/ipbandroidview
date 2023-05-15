@@ -30,6 +30,7 @@ interface FavoriteGoodsUseCase {
             buildList {
                 favoriteIds.map { favoriteId ->
                     productRepository.productByGoodsInventoryId(
+                        token,
                         favoriteId
                     ).getOrThrow()?.firstOrNull()?.let {
                         add(mapper.map(it))

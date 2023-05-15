@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.processes
 
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.pages.delivery.CreateDeliveryOrderUseCase
-import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsMapper
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
@@ -87,8 +86,6 @@ val processesModule = module {
 
     single<GoodsFilterMapper> { GoodsFilterMapper.Base() }
 
-    single<GoodsDetailsMapper> { GoodsDetailsMapper.Base(get(), get(), get()) }
-
     single<CatalogMapper> { CatalogMapper.Base(get()) }
 
     single<AddressesMapper> { AddressesMapper.Base() }
@@ -104,7 +101,7 @@ val processesModule = module {
     }
 
     single<FetchGoodsPage> {
-        FetchGoodsPage.Base(get(), get())
+        FetchGoodsPage.Base(get(), get(), get(), get())
     }
 
     single {
