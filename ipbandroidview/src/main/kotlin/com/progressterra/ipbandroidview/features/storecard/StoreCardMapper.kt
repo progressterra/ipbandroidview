@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.AbstractMapper
 import com.progressterra.ipbandroidview.shared.Mapper
+import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
 interface StoreCardMapper : Mapper<ProductView, StoreCardState> {
 
@@ -13,6 +14,7 @@ interface StoreCardMapper : Mapper<ProductView, StoreCardState> {
     ) : StoreCardMapper, AbstractMapper(gson) {
 
         override fun map(data: ProductView): StoreCardState = StoreCardState(
+            id = data.nomenclature?.idUnique!!,
             name = data.nomenclature?.name ?: "",
             price = SimplePrice(data.inventoryData?.currentPrice ?: 0.0),
             imageUrl = data.nomenclature?.listImages?.first()?.urlData ?: "",
@@ -20,7 +22,10 @@ interface StoreCardMapper : Mapper<ProductView, StoreCardState> {
                 SimplePrice(
                     data.installmentPlanValue?.amountPaymentInMonth ?: 0.0
                 )
-            }"
+            }",
+            counter = CounterState(
+                id = data.nomenclature?.idUnique!!
+            )
         )
     }
 }
