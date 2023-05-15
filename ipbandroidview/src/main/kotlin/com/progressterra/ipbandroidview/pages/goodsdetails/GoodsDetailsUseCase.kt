@@ -36,7 +36,10 @@ interface GoodsDetailsUseCase {
                 description = goods.nomenclature?.commerseDescription ?: "",
                 favoriteButton = FavoriteButtonState(
                     id = goods.nomenclature?.idUnique!!, favorite = isFavorite
-                )
+                ),
+                properties = goods.listProductCharacteristic?.associate {
+                    (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
+                } ?: emptyMap()
             ),
                 gallery = ItemGalleryState(images = goods.nomenclature?.listImages?.mapNotNull { it.urlData }
                     ?: emptyList()),
@@ -59,7 +62,6 @@ interface GoodsDetailsUseCase {
                 description = GoodsDescriptionState(
                     description = "Описание товара",
                     name = "Товар",
-                    company = "IKEA",
                 ), gallery = ItemGalleryState(
                     images = listOf(
                         "https://www.ikea.com/ru/ru/images/products/leifarne-krug-iz-serebra__0712009_PE729202_S5.JPG?f=xxs",

@@ -119,15 +119,32 @@ fun GoodsDescription(
                         }
                     }
                     BrushedText(
-                        text = state.company,
-                        tint = IpbTheme.colors.textTertiary.asBrush(),
-                        style = IpbTheme.typography.subHeadlineItalic
-                    )
-                    BrushedText(
                         text = state.description,
                         tint = IpbTheme.colors.textSecondary.asBrush(),
                         style = IpbTheme.typography.subHeadlineRegular
                     )
+                } else if (it == 1) {
+                    BrushedText(
+                        text = stringResource(R.string.parameters),
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
+                        style = IpbTheme.typography.title
+                    )
+                    state.properties.forEach {
+                        Row {
+                            BrushedText(
+                                modifier = Modifier.widthIn(max = 100.dp),
+                                text = it.key,
+                                tint = IpbTheme.colors.textSecondary.asBrush(),
+                                style = IpbTheme.typography.subHeadlineRegular
+                            )
+                            BrushedText(
+                                modifier = Modifier.widthIn(max = 100.dp),
+                                text = it.value,
+                                tint = IpbTheme.colors.textPrimary.asBrush(),
+                                style = IpbTheme.typography.subHeadlineRegular
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -141,9 +158,12 @@ fun PreviewGoodsDescription() {
         state = GoodsDescriptionState(
             name = "Product Loooooooooooooooooooooooong Name",
             description = "This is a great product that you would definitely want to buy.",
-            company = "Awesome Company",
             favoriteButton = FavoriteButtonState(
                 id = "1", enabled = true, favorite = false
+            ),
+            properties = mapOf(
+                "color" to "black",
+                "size" to "M"
             )
         ), useComponent = UseGoodsDescription.Empty()
     )

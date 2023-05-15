@@ -69,8 +69,7 @@ private fun GoodsDetailsScreenPreview() {
         ),
         description = GoodsDescriptionState(
             name = "Красивый товар",
-            description = "Описание товара",
-            company = "Компания"
+            description = "Описание товара"
         )
     )
     GoodsDetailsScreen(state = state, useComponent = UseGoodsDetails.Empty())
