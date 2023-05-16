@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.ipbdelivery.IPBDeliveryRepository
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
@@ -31,16 +32,14 @@ interface GoodsDetailsUseCase {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
-            val goods =
-                productRepository.productByNomenclatureId(token, id).getOrThrow()!!
+            val goods = productRepository.productByNomenclatureId(token, id).getOrThrow()!!
             val recommended =
                 fetchGalleriesUseCase(goods.nomenclature?.listCatalogCategory?.first()!!).getOrThrow()
-            val deliveryList =
-                deliveryRepository.getDeliveryList(token).getOrThrow()
-                    ?.map { deliveryMapper.map(it) }
-                    ?: emptyList()
-            GoodsDetailsState(description = GoodsDescriptionState(
-                name = goods.nomenclature?.name ?: "",
+            val deliveryList = deliveryRepository.getDeliveryList(token).getOrThrow()
+                ?.map { deliveryMapper.map(it) } ?: emptyList()
+            Log.d("DETAILS", "delivery: $deliveryList")
+            GoodsDetailsState(description = GoodsDescriptionState(name = goods.nomenclature?.name
+                ?: "",
                 description = goods.nomenclature?.commerseDescription ?: "",
                 favoriteButton = FavoriteButtonState(
                     id = goods.nomenclature?.idUnique!!, favorite = isFavorite
@@ -48,8 +47,7 @@ interface GoodsDetailsUseCase {
                 properties = goods.listProductCharacteristic?.associate {
                     (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
                 } ?: emptyMap(),
-                availableDeliveries = deliveryList
-            ),
+                availableDeliveries = deliveryList),
                 gallery = ItemGalleryState(images = goods.nomenclature?.listImages?.mapNotNull { it.urlData }
                     ?: emptyList()),
                 name = goods.nomenclature?.name ?: "",
@@ -60,7 +58,8 @@ interface GoodsDetailsUseCase {
                             goods.installmentPlanValue?.amountPaymentInMonth ?: 0.0
                         )
                     }"
-                ), similarGoods = GalleriesState(items = recommended))
+                ),
+                similarGoods = GalleriesState(items = recommended))
         }
     }
 
