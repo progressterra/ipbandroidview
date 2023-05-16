@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
+import com.progressterra.ipbandroidapi.api.ipbdelivery.IPBDeliveryRepository
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
@@ -10,6 +11,7 @@ import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
@@ -22,7 +24,9 @@ interface GoodsDetailsUseCase {
         provideLocation: ProvideLocation,
         private val productRepository: ProductRepository,
         private val fetchFavoriteIds: FetchFavoriteIds,
-        private val fetchGalleriesUseCase: FetchGalleriesUseCase
+        private val fetchGalleriesUseCase: FetchGalleriesUseCase,
+        private val deliveryRepository: IPBDeliveryRepository,
+        private val deliveryMapper: DeliveryMethodMapper
     ) : GoodsDetailsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
@@ -31,6 +35,10 @@ interface GoodsDetailsUseCase {
                 productRepository.productByNomenclatureId(token, id).getOrThrow()!!
             val recommended =
                 fetchGalleriesUseCase(goods.nomenclature?.listCatalogCategory?.first()!!).getOrThrow()
+            val deliveryList =
+                deliveryRepository.getDeliveryList(token).getOrThrow()
+                    ?.map { deliveryMapper.map(it) }
+                    ?: emptyList()
             GoodsDetailsState(description = GoodsDescriptionState(
                 name = goods.nomenclature?.name ?: "",
                 description = goods.nomenclature?.commerseDescription ?: "",
@@ -39,7 +47,8 @@ interface GoodsDetailsUseCase {
                 ),
                 properties = goods.listProductCharacteristic?.associate {
                     (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
-                } ?: emptyMap()
+                } ?: emptyMap(),
+                availableDeliveries = deliveryList
             ),
                 gallery = ItemGalleryState(images = goods.nomenclature?.listImages?.mapNotNull { it.urlData }
                     ?: emptyList()),

@@ -27,6 +27,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButton
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -96,53 +97,77 @@ fun GoodsDescription(
                     .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                if (it == 0) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                when (it) {
+                    0 -> {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            BrushedText(
+                                modifier = Modifier.widthIn(max = 200.dp),
+                                text = state.name,
+                                tint = IpbTheme.colors.textPrimary.asBrush(),
+                                style = IpbTheme.typography.title
+                            )
+                            Spacer(Modifier.weight(1f))
+                            FavoriteButton(
+                                state = state.favoriteButton, useComponent = useComponent
+                            )
+                            Spacer(Modifier.width(20.dp))
+                            IconButton(
+                                modifier = Modifier.size(24.dp),
+                                onClick = { useComponent.handle(GoodsDescriptionEvent.Share) }) {
+                                BrushedIcon(
+                                    resId = R.drawable.ic_share,
+                                    tint = IpbTheme.colors.iconTertiary.asBrush()
+                                )
+                            }
+                        }
                         BrushedText(
-                            modifier = Modifier.widthIn(max = 200.dp),
-                            text = state.name,
+                            text = state.description,
+                            tint = IpbTheme.colors.textSecondary.asBrush(),
+                            style = IpbTheme.typography.subHeadlineRegular
+                        )
+                    }
+
+                    1 -> {
+                        BrushedText(
+                            text = stringResource(R.string.parameters),
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.title
                         )
-                        Spacer(Modifier.weight(1f))
-                        FavoriteButton(
-                            state = state.favoriteButton, useComponent = useComponent
-                        )
-                        Spacer(Modifier.width(20.dp))
-                        IconButton(
-                            modifier = Modifier.size(24.dp),
-                            onClick = { useComponent.handle(GoodsDescriptionEvent.Share) }) {
-                            BrushedIcon(
-                                resId = R.drawable.ic_share,
-                                tint = IpbTheme.colors.iconTertiary.asBrush()
-                            )
+                        state.properties.forEach {
+                            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                BrushedText(
+                                    modifier = Modifier.width(100.dp),
+                                    text = it.key,
+                                    tint = IpbTheme.colors.textSecondary.asBrush(),
+                                    style = IpbTheme.typography.subHeadlineRegular
+                                )
+                                BrushedText(
+                                    text = it.value,
+                                    tint = IpbTheme.colors.textPrimary.asBrush(),
+                                    style = IpbTheme.typography.subHeadlineRegular
+                                )
+                            }
                         }
                     }
-                    BrushedText(
-                        text = state.description,
-                        tint = IpbTheme.colors.textSecondary.asBrush(),
-                        style = IpbTheme.typography.subHeadlineRegular
-                    )
-                } else if (it == 1) {
-                    BrushedText(
-                        text = stringResource(R.string.parameters),
-                        tint = IpbTheme.colors.textPrimary.asBrush(),
-                        style = IpbTheme.typography.title
-                    )
-                    state.properties.forEach {
-                        Row {
-                            BrushedText(
-                                modifier = Modifier.widthIn(max = 100.dp),
-                                text = it.key,
-                                tint = IpbTheme.colors.textSecondary.asBrush(),
-                                style = IpbTheme.typography.subHeadlineRegular
-                            )
-                            BrushedText(
-                                modifier = Modifier.widthIn(max = 100.dp),
-                                text = it.value,
-                                tint = IpbTheme.colors.textPrimary.asBrush(),
-                                style = IpbTheme.typography.subHeadlineRegular
-                            )
+
+                    2 -> {
+                        state.availableDeliveries.forEach {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                val icon = when (it) {
+                                    is Delivery.CourierDelivery -> R.drawable.ic_courier
+                                    is Delivery.PickUpPointDelivery -> R.drawable.ic_pickup_point
+                                }
+                                BrushedIcon(
+                                    modifier = Modifier.size(45.dp),
+                                    resId = icon,
+                                    tint = IpbTheme.colors.iconPrimary3.asBrush()
+                                )
+                                BrushedText(
+                                    text = it.type,
+                                    tint = IpbTheme.colors.textPrimary.asBrush(),
+                                    style = IpbTheme.typography.body
+                                )
+                            }
                         }
                     }
                 }
