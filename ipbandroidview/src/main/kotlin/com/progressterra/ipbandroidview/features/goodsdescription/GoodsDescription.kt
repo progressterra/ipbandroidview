@@ -87,7 +87,8 @@ fun GoodsDescription(
         HorizontalPager(
             state = pagerState, pageCount = tabs.size,
             contentPadding = PaddingValues(horizontal = 20.dp),
-            pageSpacing = 20.dp
+            pageSpacing = 20.dp,
+            verticalAlignment = Alignment.Top
         ) {
             Column(
                 modifier = Modifier
@@ -151,6 +152,11 @@ fun GoodsDescription(
                     }
 
                     2 -> {
+                        BrushedText(
+                            text = stringResource(R.string.delivery),
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
+                            style = IpbTheme.typography.title
+                        )
                         state.availableDeliveries.forEach {
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 val icon = when (it) {
