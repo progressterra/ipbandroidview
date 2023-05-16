@@ -89,8 +89,8 @@ dependencies {
     api("com.google.android.material:material:1.9.0")
 
     // Coroutines
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
 
     // Orbit, MVI library
     api("org.orbit-mvi:orbit-core:4.6.1")
@@ -126,7 +126,7 @@ dependencies {
     api("com.bumble.appyx:core:1.2.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:31.5.0"))
+    api(platform("com.google.firebase:firebase-bom:32.0.0"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
 
@@ -143,8 +143,8 @@ dependencies {
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.1.11")
-    api("com.github.skydoves:landscapist-placeholder:2.1.11")
+    api("com.github.skydoves:landscapist-fresco:2.1.13")
+    api("com.github.skydoves:landscapist-placeholder:2.1.13")
 
     api("androidx.paging:paging-runtime-ktx:3.1.1")
     api("androidx.paging:paging-compose:1.0.0-alpha19")
