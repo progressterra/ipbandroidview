@@ -6,6 +6,5 @@ import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class ChatInputState(
-    @IpbSubState val input: TextFieldState = TextFieldState(),
-    val enabled: Boolean = false
+    @IpbSubState val input: TextFieldState = TextFieldState()
 )
