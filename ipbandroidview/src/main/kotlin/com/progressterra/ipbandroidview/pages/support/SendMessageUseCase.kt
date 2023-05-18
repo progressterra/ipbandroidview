@@ -22,7 +22,7 @@ interface SendMessageUseCase {
         override suspend fun invoke(
             dialogId: String, message: String
         ): Result<MessagesState> = withToken { token ->
-            if (UserData.supportChatId.isEmpty()) throw ChatIdNotObtainedException()
+            if (UserData.supportChatId.isEmpty()) throw Exception("Set correct chat id!")
             MessagesState(
                 items = iMessengerRepository.sendMessage(
                     IncomeMessagesTextData(
