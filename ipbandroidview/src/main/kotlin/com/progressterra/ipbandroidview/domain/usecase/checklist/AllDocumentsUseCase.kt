@@ -39,7 +39,6 @@ interface AllDocumentsUseCase {
                     shownotmarkedasdeleted = false
                 )
             ).getOrThrow()
-            val today = Date()
             buildList {
                 documents?.map { doc ->
                     add(
