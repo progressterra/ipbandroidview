@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
-import com.progressterra.ipbandroidview.pages.cart.CartGoodsMapper
 import com.progressterra.ipbandroidview.pages.cart.CartUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartViewModel
 import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
@@ -84,8 +83,6 @@ val pagesModule = module {
         }
     }
 
-    single<CartGoodsMapper> { CartGoodsMapper.Base(get(), get(), get()) }
-
     single {
         if (IpbAndroidViewSettings.TEST_MODE) {
             CatalogUseCase.Test()
@@ -102,7 +99,7 @@ val pagesModule = module {
         if (IpbAndroidViewSettings.TEST_MODE) {
             CartUseCase.Test()
         } else {
-            CartUseCase.Base(get(), get(), get(), get(), get(), get())
+            CartUseCase.Base(get(), get(), get(), get(), get())
         }
     }
 

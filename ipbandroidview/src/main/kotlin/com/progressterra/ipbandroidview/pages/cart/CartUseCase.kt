@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.cart
 
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
-import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
+import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
+
 interface CartUseCase {
 
     suspend operator fun invoke(): Result<CartState>
@@ -20,8 +21,7 @@ interface CartUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val cartRepo: CartRepository,
-        private val iECommerceCoreRepository: IECommerceCoreRepository,
-        private val cartGoodsMapper: CartGoodsMapper,
+        private val productRepository: ProductRepository,
         private val priceMapper: PriceMapper
     ) : CartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
 
@@ -31,17 +31,33 @@ interface CartUseCase {
             val goods = buildSet {
                 cart?.drSaleRow?.map { saleRow ->
                     saleRow.idrgGoodsInventory?.let { id ->
-                        iECommerceCoreRepository.getProductDetailByIDRG(
-                            id
-                        ).getOrThrow()?.listProducts?.firstOrNull()?.let { goodsDetails ->
-                            val count =
-                                cart.drSaleRow?.count { it.idrfNomnclatura == goodsDetails.idrfNomenclatura }
-                                    ?: 0
-                            add(
-                                cartGoodsMapper.map(goodsDetails)
-                                    .copy(counter = CounterState(id, count))
-                            )
-                        }
+                        productRepository.productByGoodsInventoryId(token, id).getOrThrow()
+                            ?.let { goodsDetails ->
+                                add(
+                                    CartCardState(
+                                        id = id,
+                                        properties = goodsDetails.listProductCharacteristic?.associate {
+                                            (it.characteristicType?.name
+                                                ?: "") to (it.characteristicValue?.viewData ?: "")
+                                        } ?: emptyMap(),
+                                        imageUrl = goodsDetails.nomenclature?.listImages?.firstNotNullOfOrNull { it.urlData }
+                                            ?: "",
+                                        name = goodsDetails.nomenclature?.name ?: "",
+                                        price = SimplePrice(
+                                            goodsDetails.inventoryData?.currentPrice ?: 0.0
+                                        ),
+                                        loan = "Рассрочка: ${goodsDetails.installmentPlanValue?.countMonthPayment} платежей по ${
+                                            SimplePrice(
+                                                goodsDetails.installmentPlanValue?.amountPaymentInMonth ?: 0.0
+                                            )
+                                        }",
+                                        counter = CounterState(
+                                            id = id,
+                                            count = goodsDetails.countInCart ?: 0
+                                        )
+                                    )
+                                )
+                            }
                     }
                 }
             }.toList()

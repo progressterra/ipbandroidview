@@ -53,7 +53,6 @@ fun CartScreenPreview() {
                         price = SimplePrice(10000),
                         counter = CounterState(count = 1),
                         loan = "по 500 ₽ 6 платежей",
-                        company = "Nord",
                         imageUrl = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
@@ -62,7 +61,6 @@ fun CartScreenPreview() {
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
                         loan = "по 500 ₽ 6 платежей",
-                        company = "Nord",
                         imageUrl = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
@@ -71,7 +69,6 @@ fun CartScreenPreview() {
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
                         loan = "по 500 ₽ 6 платежей",
-                        company = "Nord",
                         imageUrl = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
@@ -80,7 +77,6 @@ fun CartScreenPreview() {
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
                         loan = "по 500 ₽ 6 платежей",
-                        company = "Nord",
                         imageUrl = "https://picsum.photos/200/300"
                     ),
                 )
