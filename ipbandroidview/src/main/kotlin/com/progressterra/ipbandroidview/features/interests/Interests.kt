@@ -55,7 +55,7 @@ fun Interests(
     }
 
     Column(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 28.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -68,9 +68,7 @@ fun Interests(
             state.items.filter { it.selected || state.editMode }
         }
         FlowRow(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+            modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items.forEach {
