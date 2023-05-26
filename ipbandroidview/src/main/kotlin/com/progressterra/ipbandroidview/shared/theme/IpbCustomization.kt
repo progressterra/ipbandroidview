@@ -6,5 +6,6 @@ data class IpbCustomization(
     val showSupport: Boolean = true,
     val projectType: ProjectType = ProjectType.REDI,
     val privacyUrl: String = "",
-    var offerUrl: String = ""
+    val offerUrl: String = "",
+    val buttonRounding: Int = 14,
 )
