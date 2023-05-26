@@ -98,8 +98,8 @@ dependencies {
     api("org.orbit-mvi:orbit-compose:4.6.1")
 
     // Activity
-    api("androidx.activity:activity-ktx:1.7.1")
-    api("androidx.activity:activity-compose:1.7.1")
+    api("androidx.activity:activity-ktx:1.7.2")
+    api("androidx.activity:activity-compose:1.7.2")
 
     // Compose
     api("androidx.compose.ui:ui:1.4.3")
@@ -147,7 +147,7 @@ dependencies {
     api("com.github.skydoves:landscapist-placeholder:2.1.13")
 
     api("androidx.paging:paging-runtime-ktx:3.1.1")
-    api("androidx.paging:paging-compose:1.0.0-alpha19")
+    api("androidx.paging:paging-compose:1.0.0-alpha20")
 
     // QR
     api("com.google.zxing:core:3.5.1")
