@@ -112,4 +112,5 @@
     <string name="add_to_cart">Добавить в корзину</string>
     <string name="buy_with_loan">Купить в рассрочку</string>
     <string name="request">Запрос</string>
+    <string name="interests">Интересы</string>
 </resources>
