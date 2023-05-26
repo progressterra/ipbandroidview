@@ -7,6 +7,7 @@ data class InterestsPickerState(
     val items: List<Item> = emptyList()
 ) {
 
+    @Immutable
     data class Item(
         val id: String = "",
         val name: String = "",
