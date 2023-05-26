@@ -22,7 +22,7 @@ fun TextButton(
     modifier: Modifier = Modifier, state: ButtonState, title: String, useComponent: UseButton
 ) {
     Row(modifier = modifier
-        .clip(RoundedCornerShape(14.dp))
+        .clip(RoundedCornerShape(IpbTheme.customization.buttonRounding.dp))
         .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
         .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,

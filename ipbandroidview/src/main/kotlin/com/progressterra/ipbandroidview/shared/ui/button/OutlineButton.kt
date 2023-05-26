@@ -23,11 +23,11 @@ fun OutlineButton(
     modifier: Modifier = Modifier, state: ButtonState, title: String, useComponent: UseButton
 ) {
     Row(modifier = modifier
-        .clip(RoundedCornerShape(14.dp))
+        .clip(RoundedCornerShape(IpbTheme.customization.buttonRounding.dp))
         .border(
             width = 2.dp,
             brush = IpbTheme.colors.textPrimary3.asBrush(),
-            shape = RoundedCornerShape(14.dp)
+            shape = RoundedCornerShape(IpbTheme.customization.buttonRounding.dp)
         )
         .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
         .padding(horizontal = 32.dp, vertical = 15.dp),

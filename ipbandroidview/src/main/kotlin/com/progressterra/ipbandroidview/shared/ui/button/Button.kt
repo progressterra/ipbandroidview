@@ -26,7 +26,7 @@ fun Button(
     useComponent: UseButton
 ) {
     Row(modifier = modifier
-        .clip(RoundedCornerShape(14.dp))
+        .clip(RoundedCornerShape(IpbTheme.customization.buttonRounding.dp))
         .background(if (state.enabled) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.primaryDisabled.asBrush())
         .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
         .padding(horizontal = 32.dp, vertical = 15.dp),
