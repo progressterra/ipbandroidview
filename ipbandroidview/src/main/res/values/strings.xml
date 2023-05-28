@@ -113,4 +113,7 @@
     <string name="buy_with_loan">Купить в рассрочку</string>
     <string name="request">Запрос</string>
     <string name="interests">Интересы</string>
+    <string name="incoming_connections">входящих запросов на коннект</string>
+    <string name="accepted_connections">Принятые запросы</string>
+    <string name="pending_connections">Вам ещё не ответили</string>
 </resources>
