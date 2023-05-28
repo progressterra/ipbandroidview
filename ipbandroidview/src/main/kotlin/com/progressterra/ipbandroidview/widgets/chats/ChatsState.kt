@@ -1,6 +1,7 @@
-package com.progressterra.ipbandroidview.features.chats
+package com.progressterra.ipbandroidview.widgets.chats
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.features.avatar.AvatarState
 
 @Immutable
 data class ChatsState(
@@ -10,8 +11,7 @@ data class ChatsState(
     @Immutable
     data class Item(
         val id: String = "",
-        val avatarUrl: String = "",
-        val online: Boolean = false,
+        val avatar: AvatarState = AvatarState(),
         val name: String = "",
         val previewMessage: String = "",
         val lastTime: String = ""

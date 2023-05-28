@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.chats
+package com.progressterra.ipbandroidview.widgets.chats
 
 sealed class ChatsEvent(val id: String) {
 
