@@ -15,17 +15,21 @@ class PhotoViewModel : ViewModel(), ContainerHost<PhotoState, PhotoEvent>, UsePh
 
     fun setPhoto(
         picture: String
-    ) = intent {
-        reduce {
-            PhotoState(
-                picture = picture
-            )
+    ) {
+        intent {
+            reduce {
+                PhotoState(
+                    picture = picture
+                )
+            }
         }
     }
 
-    override fun handle(event: PhotoTopBarEvent) = intent {
-        when (event) {
-            is PhotoTopBarEvent.Back -> postSideEffect(PhotoEvent.Back)
+    override fun handle(event: PhotoTopBarEvent) {
+        intent {
+            when (event) {
+                is PhotoTopBarEvent.Back -> postSideEffect(PhotoEvent.Back)
+            }
         }
     }
 }

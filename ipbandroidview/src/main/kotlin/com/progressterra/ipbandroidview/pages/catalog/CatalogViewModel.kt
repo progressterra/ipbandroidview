@@ -28,75 +28,91 @@ class CatalogViewModel(
 
     override val container = container<CatalogState, CatalogEvent>(CatalogState())
 
-    fun refresh() = intent {
-        reduce { CatalogState() }
-        catalogUseCase().onSuccess {
-            reduce { state.uCategory(it).addTrace(it).uScreenState(ScreenState.SUCCESS) }
-        }.onFailure {
-            reduce { state.uScreenState(ScreenState.ERROR) }
-        }
-    }
-
-    override fun handle(event: CatalogCardEvent) = intent {
-        when (event) {
-            is CatalogCardEvent.Open -> {
-                reduce { state.addTrace(event.category).uCategory(event.category) }
-                uCategory()
+    fun refresh() {
+        intent {
+            reduce { CatalogState() }
+            catalogUseCase().onSuccess {
+                reduce { state.uCategory(it).addTrace(it).uScreenState(ScreenState.SUCCESS) }
+            }.onFailure {
+                reduce { state.uScreenState(ScreenState.ERROR) }
             }
         }
     }
 
-    override fun handle(event: TraceEvent) = intent {
-        when (event) {
-            is TraceEvent.Back -> {
-                reduce { state.removeTrace() }
-                reduce { state.uCategory(state.trace.trace.last()) }
-                uCategory()
+    override fun handle(event: CatalogCardEvent) {
+        intent {
+            when (event) {
+                is CatalogCardEvent.Open -> {
+                    reduce { state.addTrace(event.category).uCategory(event.category) }
+                    uCategory()
+                }
             }
         }
     }
 
-    private fun uCategory() = intent {
-        if (state.current.children.isEmpty()) {
-            goodsUseCase(GoodsFilter(state.current.id)).onSuccess {
-                reduce { state.uGoods(it) }
-            }
-        } else reduce { state.uGoods(emptyFlow()) }
-    }
-
-    override fun handle(event: StoreCardEvent) = intent {
-        when (event) {
-            is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
-                refresh()
-            }
-
-            is StoreCardEvent.Open -> postSideEffect(CatalogEvent.OnItem(event.id))
-        }
-    }
-
-    override fun handle(event: CounterEvent) = intent {
-        when (event) {
-            is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
-                refresh()
-            }
-
-            is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                refresh()
+    override fun handle(event: TraceEvent) {
+        intent {
+            when (event) {
+                is TraceEvent.Back -> {
+                    reduce { state.removeTrace() }
+                    reduce { state.uCategory(state.trace.trace.last()) }
+                    uCategory()
+                }
             }
         }
     }
 
-    override fun handle(event: SearchEvent) = intent {
-        when (event) {
-            is SearchEvent.OnTextChanged -> {
+    private fun uCategory() {
+        intent {
+            if (state.current.children.isEmpty()) {
+                goodsUseCase(GoodsFilter(state.current.id)).onSuccess {
+                    reduce { state.uGoods(it) }
+                }
+            } else reduce { state.uGoods(emptyFlow()) }
+        }
+    }
 
+    override fun handle(event: StoreCardEvent) {
+        intent {
+            when (event) {
+                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+
+                is StoreCardEvent.Open -> postSideEffect(CatalogEvent.OnItem(event.id))
             }
         }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
+    override fun handle(event: CounterEvent) {
+        intent {
+            when (event) {
+                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+
+                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+            }
+        }
+    }
+
+    override fun handle(event: SearchEvent) {
+        intent {
+            when (event) {
+                is SearchEvent.OnTextChanged -> {
+
+                }
+            }
+        }
+    }
+
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
+            }
         }
     }
 }

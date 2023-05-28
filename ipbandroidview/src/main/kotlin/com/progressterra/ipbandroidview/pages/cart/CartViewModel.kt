@@ -23,51 +23,64 @@ class CartViewModel(
 
     override val container = container<CartState, CartEvent>(CartState())
 
-    fun refresh() = intent {
-        var isSuccess = true
-        cartUseCase().onSuccess {
-            reduce { it }
-        }.onFailure {
-            isSuccess = false
+    fun refresh() {
+        intent {
+            var isSuccess = true
+            cartUseCase().onSuccess {
+                reduce { it }
+            }.onFailure {
+                isSuccess = false
+            }
+            reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
         }
-        reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
     }
 
-    override fun handle(event: CartCardEvent) = intent {
-        when (event) {
-            is CartCardEvent.Open -> postSideEffect(CartEvent.OnItem(event.id))
-            is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
-                refresh()
+    override fun handle(event: CartCardEvent) {
+        intent {
+            when (event) {
+                is CartCardEvent.Open -> postSideEffect(CartEvent.OnItem(event.id))
+                is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
             }
         }
     }
 
     override fun handle(event: TopBarEvent) {
-        when (event) {
-            TopBarEvent.Back -> Unit
-        }
-    }
-
-    override fun handle(event: ButtonEvent) = intent {
-        when (event) {
-            is ButtonEvent.Click -> postSideEffect(CartEvent.Payment)
-        }
-    }
-
-    override fun handle(event: CounterEvent) = intent {
-        when (event) {
-            is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
-                refresh()
-            }
-            is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                refresh()
+        intent {
+            when (event) {
+                TopBarEvent.Back -> Unit
             }
         }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
+    override fun handle(event: ButtonEvent) {
+        intent {
+            when (event) {
+                is ButtonEvent.Click -> postSideEffect(CartEvent.Payment)
+            }
+        }
+    }
+
+    override fun handle(event: CounterEvent) {
+        intent {
+            when (event) {
+                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+
+                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+            }
+        }
+    }
+
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
+            }
         }
     }
 }

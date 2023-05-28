@@ -23,46 +23,56 @@ class FavoritesViewModel(
 
     override val container: Container<FavoritesState, FavoritesEvent> = container(FavoritesState())
 
-    fun refresh() = intent {
-        reduce { state.uScreenState(ScreenState.LOADING) }
-        favoriteGoodsUseCase().onSuccess {
-            reduce { state.uScreenState(ScreenState.SUCCESS).uItemsState(it) }
-        }.onFailure {
-            reduce { state.uScreenState(ScreenState.ERROR) }
-        }
-    }
-
-    override fun handle(event: CounterEvent) = intent {
-        when (event) {
-            is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
-                refresh()
-            }
-
-            is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                refresh()
+    fun refresh() {
+        intent {
+            reduce { state.uScreenState(ScreenState.LOADING) }
+            favoriteGoodsUseCase().onSuccess {
+                reduce { state.uScreenState(ScreenState.SUCCESS).uItemsState(it) }
+            }.onFailure {
+                reduce { state.uScreenState(ScreenState.ERROR) }
             }
         }
     }
 
+    override fun handle(event: CounterEvent) {
+        intent {
+            when (event) {
+                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
 
-    override fun handle(event: StoreCardEvent) = intent {
-        when (event) {
-            is StoreCardEvent.Open -> postSideEffect(FavoritesEvent.GoodsDetails(event.id))
-            is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
-                refresh()
+                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
             }
         }
     }
 
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> postSideEffect(FavoritesEvent.Back)
+
+    override fun handle(event: StoreCardEvent) {
+        intent {
+            when (event) {
+                is StoreCardEvent.Open -> postSideEffect(FavoritesEvent.GoodsDetails(event.id))
+                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+            }
         }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> postSideEffect(FavoritesEvent.Back)
+            }
+        }
+    }
+
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
+            }
         }
     }
 }

@@ -26,17 +26,22 @@ class WelcomeViewModel : ViewModel(),
             )
         )
 
-    fun refresh() = intent {
-        if (UserData.clientExist) postSideEffect(WelcomeEvent.OnAlreadyAuth)
+    fun refresh() {
+        intent {
+            if (UserData.clientExist) postSideEffect(WelcomeEvent.OnAlreadyAuth)
+        }
     }
 
-    override fun handle(event: ButtonEvent) = intent {
-        when (event.id) {
-            "next" -> when (event) {
-                is ButtonEvent.Click -> postSideEffect(WelcomeEvent.OnAuth)
-            }
-            "skip" -> when (event) {
-                is ButtonEvent.Click -> postSideEffect(WelcomeEvent.OnSkip)
+    override fun handle(event: ButtonEvent) {
+        intent {
+            when (event.id) {
+                "next" -> when (event) {
+                    is ButtonEvent.Click -> postSideEffect(WelcomeEvent.OnAuth)
+                }
+
+                "skip" -> when (event) {
+                    is ButtonEvent.Click -> postSideEffect(WelcomeEvent.OnSkip)
+                }
             }
         }
     }

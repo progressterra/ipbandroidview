@@ -18,30 +18,38 @@ class OrdersViewModel(
 
     override val container: Container<OrdersState, OrdersEvent> = container(OrdersState())
 
-    fun refresh() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
-        ordersUseCase().onSuccess {
-            reduce { state.copy(screenState = ScreenState.SUCCESS, orders = it) }
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
+    fun refresh() {
+        intent {
+            reduce { state.copy(screenState = ScreenState.LOADING) }
+            ordersUseCase().onSuccess {
+                reduce { state.copy(screenState = ScreenState.SUCCESS, orders = it) }
+            }.onFailure {
+                reduce { state.copy(screenState = ScreenState.ERROR) }
+            }
         }
     }
 
-    override fun handle(event: OrderDetailsEvent) = intent {
-        when (event) {
-            is OrderDetailsEvent.GoodsDetails -> postSideEffect(OrdersEvent.GoodsDetails(event.id))
+    override fun handle(event: OrderDetailsEvent) {
+        intent {
+            when (event) {
+                is OrderDetailsEvent.GoodsDetails -> postSideEffect(OrdersEvent.GoodsDetails(event.id))
+            }
         }
     }
 
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> postSideEffect(OrdersEvent.Back)
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> postSideEffect(OrdersEvent.Back)
+            }
         }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
+            }
         }
     }
 }

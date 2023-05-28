@@ -36,124 +36,140 @@ class ProfileDetailsViewModel(
     override val container =
         container<ProfileDetailsState, ProfileDetailsEvent>(ProfileDetailsState())
 
-    fun refresh() = intent {
-        reduce { ProfileDetailsState() }
-        fetchUserUseCase().onSuccess {
-            reduce { state.uEditUser(it) }
+    fun refresh() {
+        intent {
+            reduce { ProfileDetailsState() }
+            fetchUserUseCase().onSuccess {
+                reduce { state.uEditUser(it) }
+            }
         }
     }
 
-    override fun handle(event: AuthProfileEvent) = intent {
-        when (event) {
-            is AuthProfileEvent.Click -> Unit
+    override fun handle(event: AuthProfileEvent) {
+        intent {
+            when (event) {
+                is AuthProfileEvent.Click -> Unit
+            }
         }
     }
 
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> postSideEffect(ProfileDetailsEvent.Back)
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> postSideEffect(ProfileDetailsEvent.Back)
+            }
         }
     }
 
-    override fun handle(event: ButtonEvent) = intent {
-        when (event) {
-            is ButtonEvent.Click -> when (event.id) {
-                "edit" -> reduce {
-                    state.startCancelEdit()
-                        .uMakePhotoEnabled(true)
-                        .uPassportProviderEnabled(true)
-                        .uPassportEnabled(true)
-                        .uPassportProviderCodeEnabled(true)
-                        .uCitizenshipEnabled(true)
-                        .uEmailEnabled(true)
-                        .uNameEnabled(true)
-                        .uBirthdayEnabled(true)
-                        .uAddressEnabled(true)
-                        .uPatentEnabled(true)
-                }
-
-                "save" -> saveUseCase(state.editUser).onSuccess {
-                    reduce {
+    override fun handle(event: ButtonEvent) {
+        intent {
+            when (event) {
+                is ButtonEvent.Click -> when (event.id) {
+                    "edit" -> reduce {
                         state.startCancelEdit()
                             .uMakePhotoEnabled(true)
-                            .uPassportProviderEnabled(false)
-                            .uPassportEnabled(false)
-                            .uPassportProviderCodeEnabled(false)
-                            .uCitizenshipEnabled(false)
-                            .uEmailEnabled(false)
-                            .uNameEnabled(false)
-                            .uBirthdayEnabled(false)
-                            .uAddressEnabled(false)
-                            .uPatentEnabled(false)
+                            .uPassportProviderEnabled(true)
+                            .uPassportEnabled(true)
+                            .uPassportProviderCodeEnabled(true)
+                            .uCitizenshipEnabled(true)
+                            .uEmailEnabled(true)
+                            .uNameEnabled(true)
+                            .uBirthdayEnabled(true)
+                            .uAddressEnabled(true)
+                            .uPatentEnabled(true)
                     }
-                }
 
-                "cancel" -> refresh()
-
-                "makePhoto" -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                    makePhotoUseCase().onSuccess {
-                        reduce { state.addPhoto(it) }
+                    "save" -> saveUseCase(state.editUser).onSuccess {
+                        reduce {
+                            state.startCancelEdit()
+                                .uMakePhotoEnabled(true)
+                                .uPassportProviderEnabled(false)
+                                .uPassportEnabled(false)
+                                .uPassportProviderCodeEnabled(false)
+                                .uCitizenshipEnabled(false)
+                                .uEmailEnabled(false)
+                                .uNameEnabled(false)
+                                .uBirthdayEnabled(false)
+                                .uAddressEnabled(false)
+                                .uPatentEnabled(false)
+                        }
                     }
-                }.onFailure {
-                    askPermissionUseCase(Manifest.permission.CAMERA)
+
+                    "cancel" -> refresh()
+
+                    "makePhoto" -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
+                        makePhotoUseCase().onSuccess {
+                            reduce { state.addPhoto(it) }
+                        }
+                    }.onFailure {
+                        askPermissionUseCase(Manifest.permission.CAMERA)
+                    }
                 }
             }
         }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
+            }
         }
     }
 
 
-    override fun handle(event: TextFieldEvent) = blockingIntent {
-        when (event) {
-            is TextFieldEvent.TextChanged -> {
-                when (event.id) {
-                    "name" -> reduce { state.uName(event.text) }
-                    "email" -> reduce { state.uEmail(event.text) }
-                    "birthday" -> reduce { state.uBirthday(event.text) }
-                    "citizenship" -> reduce { state.uCitizenship(event.text) }
-                    "address" -> reduce { state.uAddress(event.text) }
-                    "passport" -> if (event.text.length <= 10) reduce { state.uPassport(event.text) }
-                    "passportProvider" -> reduce { state.uPassportProvider(event.text) }
-                    "passportProviderCode" -> if (event.text.length <= 6) reduce {
-                        state.uPassportProviderCode(
-                            event.text
-                        )
-                    }
+    override fun handle(event: TextFieldEvent) {
+        blockingIntent {
+            when (event) {
+                is TextFieldEvent.TextChanged -> {
+                    when (event.id) {
+                        "name" -> reduce { state.uName(event.text) }
+                        "email" -> reduce { state.uEmail(event.text) }
+                        "birthday" -> reduce { state.uBirthday(event.text) }
+                        "citizenship" -> reduce { state.uCitizenship(event.text) }
+                        "address" -> reduce { state.uAddress(event.text) }
+                        "passport" -> if (event.text.length <= 10) reduce { state.uPassport(event.text) }
+                        "passportProvider" -> reduce { state.uPassportProvider(event.text) }
+                        "passportProviderCode" -> if (event.text.length <= 6) reduce {
+                            state.uPassportProviderCode(
+                                event.text
+                            )
+                        }
 
-                    "patent" -> reduce { state.uPatent(event.text) }
+                        "patent" -> reduce { state.uPatent(event.text) }
+                    }
+                }
+
+                is TextFieldEvent.Action -> Unit
+                is TextFieldEvent.AdditionalAction -> when (event.id) {
+                    "name" -> reduce { state.uName("") }
+                    "email" -> reduce { state.uEmail("") }
+                    "birthday" -> Unit
+                    "citizenship" -> reduce { state.uCitizenship("") }
+                    "address" -> reduce { state.uAddress("") }
+                    "passport" -> reduce { state.uPassport("") }
+                    "passportProvider" -> reduce { state.uPassportProvider("") }
+                    "passportProviderCode" -> reduce { state.uPassportProviderCode("") }
+                    "patent" -> reduce { state.uPatent("") }
                 }
             }
+            valid()
+        }
+    }
 
-            is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> reduce { state.uName("") }
-                "email" -> reduce { state.uEmail("") }
-                "birthday" -> Unit
-                "citizenship" -> reduce { state.uCitizenship("") }
-                "address" -> reduce { state.uAddress("") }
-                "passport" -> reduce { state.uPassport("") }
-                "passportProvider" -> reduce { state.uPassportProvider("") }
-                "passportProviderCode" -> reduce { state.uPassportProviderCode("") }
-                "patent" -> reduce { state.uPatent("") }
+    override fun handle(event: MakePhotoEvent) {
+        intent {
+            when (event) {
+                is MakePhotoEvent.Remove -> reduce { state.removePhoto(event.photo) }
+                is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo.fullSize))
             }
         }
-        valid()
     }
 
-    override fun handle(event: MakePhotoEvent) = intent {
-        when (event) {
-            is MakePhotoEvent.Remove -> reduce { state.removePhoto(event.photo) }
-            is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo.fullSize))
+    private fun valid() {
+        intent {
+            val valid = editUserValidUseCase(state.editUser).isSuccess
+            reduce { state.uSaveEnabled(valid) }
         }
-    }
-
-    private fun valid() = intent {
-        val valid = editUserValidUseCase(state.editUser).isSuccess
-        reduce { state.uSaveEnabled(valid) }
     }
 }

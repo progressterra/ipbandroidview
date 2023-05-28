@@ -39,54 +39,65 @@ class SignInViewModel(
         )
     )
 
-    override fun handle(event: ButtonEvent) = intent {
-        when (event.id) {
-            "next" -> when (event) {
-                is ButtonEvent.Click -> onNext()
-            }
+    override fun handle(event: ButtonEvent) {
+        intent {
+            when (event.id) {
+                "next" -> when (event) {
+                    is ButtonEvent.Click -> onNext()
+                }
 
-            "skip" -> when (event) {
-                is ButtonEvent.Click -> postSideEffect(SignInEffect.Skip)
-            }
-        }
-    }
-
-    override fun handle(event: LinkTextEvent) = intent {
-        when (event) {
-            is LinkTextEvent.Click -> openUrlUseCase(event.url)
-        }
-    }
-
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> Unit
-        }
-    }
-
-    override fun handle(event: TextFieldEvent) = blockingIntent {
-        when (event) {
-            is TextFieldEvent.TextChanged -> {
-                if (event.text.length <= 11) {
-                    val valid = event.text.isRussianPhoneNumber() || event.text.isTestPhoneNumber()
-                    if (event.text.length == 1 && event.text.first() == '8') {
-                        reduce { state.uPhoneText("7") }
-                    } else {
-                        reduce { state.uPhoneText(event.text) }
-                    }
-                    reduce { state.uPhoneValid(valid).uAuthButton(valid) }
+                "skip" -> when (event) {
+                    is ButtonEvent.Click -> postSideEffect(SignInEffect.Skip)
                 }
             }
-
-            is TextFieldEvent.Action -> onNext()
-            is TextFieldEvent.AdditionalAction -> Unit
         }
     }
 
-    private fun onNext() = intent {
-        startVerificationChannelUseCase(state.phone.text).onSuccess {
-            postSideEffect(SignInEffect.Next(it))
-        }.onFailure {
-            postSideEffect(SignInEffect.Toast(R.string.wrong_phone))
+    override fun handle(event: LinkTextEvent) {
+        intent {
+            when (event) {
+                is LinkTextEvent.Click -> openUrlUseCase(event.url)
+            }
+        }
+    }
+
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> Unit
+            }
+        }
+    }
+
+    override fun handle(event: TextFieldEvent) {
+        blockingIntent {
+            when (event) {
+                is TextFieldEvent.TextChanged -> {
+                    if (event.text.length <= 11) {
+                        val valid =
+                            event.text.isRussianPhoneNumber() || event.text.isTestPhoneNumber()
+                        if (event.text.length == 1 && event.text.first() == '8') {
+                            reduce { state.uPhoneText("7") }
+                        } else {
+                            reduce { state.uPhoneText(event.text) }
+                        }
+                        reduce { state.uPhoneValid(valid).uAuthButton(valid) }
+                    }
+                }
+
+                is TextFieldEvent.Action -> onNext()
+                is TextFieldEvent.AdditionalAction -> Unit
+            }
+        }
+    }
+
+    private fun onNext() {
+        intent {
+            startVerificationChannelUseCase(state.phone.text).onSuccess {
+                postSideEffect(SignInEffect.Next(it))
+            }.onFailure {
+                postSideEffect(SignInEffect.Toast(R.string.wrong_phone))
+            }
         }
     }
 }

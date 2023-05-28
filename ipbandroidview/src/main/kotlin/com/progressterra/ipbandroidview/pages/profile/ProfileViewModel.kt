@@ -22,47 +22,57 @@ class ProfileViewModel(
 
     override val container = container<ProfileState, ProfileEvent>(ProfileState())
 
-    fun refresh() = intent {
-        reduce { state.uScreenState(ScreenState.LOADING) }
-        val exists = userExistsUseCase().isSuccess
-        reduce { state.uIsAuthorized(exists) }
-        fetchUserProfileUseCase().onSuccess {
-            reduce { state.uProfile(it).uScreenState(ScreenState.SUCCESS) }
-        }.onFailure {
-            reduce { state.uScreenState(ScreenState.ERROR) }
+    fun refresh() {
+        intent {
+            reduce { state.uScreenState(ScreenState.LOADING) }
+            val exists = userExistsUseCase().isSuccess
+            reduce { state.uIsAuthorized(exists) }
+            fetchUserProfileUseCase().onSuccess {
+                reduce { state.uProfile(it).uScreenState(ScreenState.SUCCESS) }
+            }.onFailure {
+                reduce { state.uScreenState(ScreenState.ERROR) }
+            }
         }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
+            }
         }
     }
 
-    override fun handle(event: AuthProfileEvent) = intent {
-        when (event) {
-            is AuthProfileEvent.Click -> postSideEffect(ProfileEvent.Details)
+    override fun handle(event: AuthProfileEvent) {
+        intent {
+            when (event) {
+                is AuthProfileEvent.Click -> postSideEffect(ProfileEvent.Details)
+            }
         }
     }
 
-    override fun handle(event: ProfileButtonEvent) = intent {
-        when (event) {
-            is ProfileButtonEvent.Click -> when (event.id) {
-                "logout" -> postSideEffect(ProfileEvent.Logout)
-                "delete" -> Unit
-                "orders" -> postSideEffect(ProfileEvent.Orders)
-                "favorites" -> postSideEffect(ProfileEvent.Favorites)
-                "support" -> postSideEffect(ProfileEvent.Support)
+    override fun handle(event: ProfileButtonEvent) {
+        intent {
+            when (event) {
+                is ProfileButtonEvent.Click -> when (event.id) {
+                    "logout" -> postSideEffect(ProfileEvent.Logout)
+                    "delete" -> Unit
+                    "orders" -> postSideEffect(ProfileEvent.Orders)
+                    "favorites" -> postSideEffect(ProfileEvent.Favorites)
+                    "support" -> postSideEffect(ProfileEvent.Support)
+                }
             }
         }
     }
 
     override fun handle(event: TopBarEvent) = Unit
 
-    override fun handle(event: ButtonEvent) = intent {
-        when (event) {
-            is ButtonEvent.Click -> when (event.id) {
-                "auth" -> postSideEffect(ProfileEvent.Auth)
+    override fun handle(event: ButtonEvent) {
+        intent {
+            when (event) {
+                is ButtonEvent.Click -> when (event.id) {
+                    "auth" -> postSideEffect(ProfileEvent.Auth)
+                }
             }
         }
     }

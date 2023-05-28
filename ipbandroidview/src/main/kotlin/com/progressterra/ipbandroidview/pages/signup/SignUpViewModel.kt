@@ -33,94 +33,106 @@ class SignUpViewModel(
 
     override val container = container<SignUpState, SignUpEvent>(SignUpState())
 
-    fun refresh() = intent {
-        reduce { state.uScreenState(ScreenState.LOADING) }
-        fetchPhoneUseCase().onSuccess {
-            reduce {
-                state.uPhone(it).uPhoneEnabled(false).uScreenState(ScreenState.SUCCESS)
-            }
-        }.onFailure {
-            reduce { state.uScreenState(ScreenState.ERROR) }
-        }
-    }
-
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> postSideEffect(SignUpEvent.OnBack)
-        }
-    }
-
-    override fun handle(event: ButtonEvent) = intent {
-        when (event.id) {
-            "auth" -> when (event) {
-                is ButtonEvent.Click -> {
-                    saveDataUseCase(state.editUser).onSuccess {
-                        postSideEffect(SignUpEvent.OnNext)
-                    }
-                }
-            }
-
-            "skip" -> when (event) {
-                is ButtonEvent.Click -> postSideEffect(SignUpEvent.OnSkip)
-            }
-
-            "makePhoto" -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                makePhotoUseCase().onSuccess {
-                    reduce { state.addPhoto(it) }
+    fun refresh() {
+        intent {
+            reduce { state.uScreenState(ScreenState.LOADING) }
+            fetchPhoneUseCase().onSuccess {
+                reduce {
+                    state.uPhone(it).uPhoneEnabled(false).uScreenState(ScreenState.SUCCESS)
                 }
             }.onFailure {
-                askPermissionUseCase(Manifest.permission.CAMERA)
+                reduce { state.uScreenState(ScreenState.ERROR) }
             }
         }
     }
 
-    override fun handle(event: MakePhotoEvent) = intent {
-        when (event) {
-            is MakePhotoEvent.Remove -> reduce { state.removePhoto(event.photo) }
-            is MakePhotoEvent.Select -> postSideEffect(SignUpEvent.OpenPhoto(event.photo.fullSize))
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> postSideEffect(SignUpEvent.OnBack)
+            }
         }
     }
 
-
-    override fun handle(event: TextFieldEvent) = blockingIntent {
-        when (event) {
-            is TextFieldEvent.TextChanged -> {
-                when (event.id) {
-                    "name" -> reduce { state.uName(event.text) }
-                    "email" -> reduce { state.uEmail(event.text) }
-                    "birthday" -> reduce { state.uBirthday(event.text) }
-                    "citizenship" -> reduce { state.uCitizenship(event.text) }
-                    "address" -> reduce { state.uAddress(event.text) }
-                    "passport" -> if (event.text.length <= 10) reduce { state.uPassport(event.text) }
-                    "passportProvider" -> reduce { state.uPassportProvider(event.text) }
-                    "passportProviderCode" -> if (event.text.length <= 6) reduce {
-                        state.uPassportProviderCode(
-                            event.text
-                        )
+    override fun handle(event: ButtonEvent) {
+        intent {
+            when (event.id) {
+                "auth" -> when (event) {
+                    is ButtonEvent.Click -> {
+                        saveDataUseCase(state.editUser).onSuccess {
+                            postSideEffect(SignUpEvent.OnNext)
+                        }
                     }
+                }
 
-                    "patent" -> reduce { state.uPatent(event.text) }
+                "skip" -> when (event) {
+                    is ButtonEvent.Click -> postSideEffect(SignUpEvent.OnSkip)
+                }
+
+                "makePhoto" -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
+                    makePhotoUseCase().onSuccess {
+                        reduce { state.addPhoto(it) }
+                    }
+                }.onFailure {
+                    askPermissionUseCase(Manifest.permission.CAMERA)
                 }
             }
-
-            is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> reduce { state.uName("") }
-                "email" -> reduce { state.uEmail("") }
-                "birthday" -> Unit
-                "citizenship" -> reduce { state.uCitizenship("") }
-                "address" -> reduce { state.uAddress("") }
-                "passport" -> reduce { state.uPassport("") }
-                "passportProvider" -> reduce { state.uPassportProvider("") }
-                "passportProviderCode" -> reduce { state.uPassportProviderCode("") }
-                "patent" -> reduce { state.uPatent("") }
-            }
         }
-        valid()
     }
 
-    private fun valid() = intent {
-        val valid = userValidUseCase(state.editUser).isSuccess
-        reduce { state.uAuthEnabled(valid) }
+    override fun handle(event: MakePhotoEvent) {
+        intent {
+            when (event) {
+                is MakePhotoEvent.Remove -> reduce { state.removePhoto(event.photo) }
+                is MakePhotoEvent.Select -> postSideEffect(SignUpEvent.OpenPhoto(event.photo.fullSize))
+            }
+        }
+    }
+
+
+    override fun handle(event: TextFieldEvent) {
+        blockingIntent {
+            when (event) {
+                is TextFieldEvent.TextChanged -> {
+                    when (event.id) {
+                        "name" -> reduce { state.uName(event.text) }
+                        "email" -> reduce { state.uEmail(event.text) }
+                        "birthday" -> reduce { state.uBirthday(event.text) }
+                        "citizenship" -> reduce { state.uCitizenship(event.text) }
+                        "address" -> reduce { state.uAddress(event.text) }
+                        "passport" -> if (event.text.length <= 10) reduce { state.uPassport(event.text) }
+                        "passportProvider" -> reduce { state.uPassportProvider(event.text) }
+                        "passportProviderCode" -> if (event.text.length <= 6) reduce {
+                            state.uPassportProviderCode(
+                                event.text
+                            )
+                        }
+
+                        "patent" -> reduce { state.uPatent(event.text) }
+                    }
+                }
+
+                is TextFieldEvent.Action -> Unit
+                is TextFieldEvent.AdditionalAction -> when (event.id) {
+                    "name" -> reduce { state.uName("") }
+                    "email" -> reduce { state.uEmail("") }
+                    "birthday" -> Unit
+                    "citizenship" -> reduce { state.uCitizenship("") }
+                    "address" -> reduce { state.uAddress("") }
+                    "passport" -> reduce { state.uPassport("") }
+                    "passportProvider" -> reduce { state.uPassportProvider("") }
+                    "passportProviderCode" -> reduce { state.uPassportProviderCode("") }
+                    "patent" -> reduce { state.uPatent("") }
+                }
+            }
+            valid()
+        }
+    }
+
+    private fun valid() {
+        intent {
+            val valid = userValidUseCase(state.editUser).isSuccess
+            reduce { state.uAuthEnabled(valid) }
+        }
     }
 }

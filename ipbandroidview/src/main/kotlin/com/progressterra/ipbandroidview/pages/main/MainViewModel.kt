@@ -31,64 +31,74 @@ class MainViewModel(
     override val container: Container<MainState, MainEvent> =
         container(MainState())
 
-    fun refresh() = intent {
-        var isSuccess = true
-        fetchBonusesUseCase().onSuccess {
-            reduce { state.uBonuses(it) }
-        }.onFailure {
-            isSuccess = false
-        }
-        if (isSuccess) fetchOffersUseCase().onSuccess {
-            reduce { state.uOffers(it) }
-        }.onFailure {
-            isSuccess = false
-        }
-        if (isSuccess) fetchGalleriesUseCase(FetchGalleriesUseCase.HOT).onSuccess {
-            val cached = it.cachedIn(viewModelScope)
-            reduce { state.uHits(cached) }
-        }.onFailure {
-            isSuccess = false
-        }
-        if (isSuccess) fetchGalleriesUseCase(FetchGalleriesUseCase.NEW).onSuccess {
-            val cached = it.cachedIn(viewModelScope)
-            reduce { state.uNew(cached) }
-        }.onFailure {
-            isSuccess = false
-        }
-        reduce { state.uStateBox(ScreenState.fromBoolean(isSuccess)) }
-    }
-
-    override fun handle(event: BonusesEvent) = intent {
-        when (event) {
-            is BonusesEvent.Action -> postSideEffect(MainEvent.OnBonuses)
-        }
-    }
-
-    override fun handle(event: StoreCardEvent) = intent {
-        when (event) {
-            is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
-                refresh()
+    fun refresh() {
+        intent {
+            var isSuccess = true
+            fetchBonusesUseCase().onSuccess {
+                reduce { state.uBonuses(it) }
+            }.onFailure {
+                isSuccess = false
             }
-
-            is StoreCardEvent.Open -> postSideEffect(MainEvent.OnItem(event.id))
+            if (isSuccess) fetchOffersUseCase().onSuccess {
+                reduce { state.uOffers(it) }
+            }.onFailure {
+                isSuccess = false
+            }
+            if (isSuccess) fetchGalleriesUseCase(FetchGalleriesUseCase.HOT).onSuccess {
+                val cached = it.cachedIn(viewModelScope)
+                reduce { state.uHits(cached) }
+            }.onFailure {
+                isSuccess = false
+            }
+            if (isSuccess) fetchGalleriesUseCase(FetchGalleriesUseCase.NEW).onSuccess {
+                val cached = it.cachedIn(viewModelScope)
+                reduce { state.uNew(cached) }
+            }.onFailure {
+                isSuccess = false
+            }
+            reduce { state.uStateBox(ScreenState.fromBoolean(isSuccess)) }
         }
     }
 
-    override fun handle(event: CounterEvent) = intent {
-        when (event) {
-            is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
-                refresh()
-            }
-
-            is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                refresh()
+    override fun handle(event: BonusesEvent) {
+        intent {
+            when (event) {
+                is BonusesEvent.Action -> postSideEffect(MainEvent.OnBonuses)
             }
         }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
+    override fun handle(event: StoreCardEvent) {
+        intent {
+            when (event) {
+                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+
+                is StoreCardEvent.Open -> postSideEffect(MainEvent.OnItem(event.id))
+            }
+        }
+    }
+
+    override fun handle(event: CounterEvent) {
+        intent {
+            when (event) {
+                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+
+                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+            }
+        }
+    }
+
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
+            }
         }
     }
 }

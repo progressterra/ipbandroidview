@@ -28,65 +28,81 @@ class PaymentViewModel(
 
     override val container = container<PaymentState, PaymentEvent>(PaymentState())
 
-    fun refresh() = intent {
-        reduce { state.uStateBoxState(ScreenState.LOADING) }
-        fetchPaymentMethods().onSuccess {
-            reduce { state.uStateBoxState(ScreenState.SUCCESS).uPaymentMethodState(it) }
-        }.onFailure {
-            reduce { state.uStateBoxState(ScreenState.ERROR) }
+    fun refresh() {
+        intent {
+            reduce { state.uStateBoxState(ScreenState.LOADING) }
+            fetchPaymentMethods().onSuccess {
+                reduce { state.uStateBoxState(ScreenState.SUCCESS).uPaymentMethodState(it) }
+            }.onFailure {
+                reduce { state.uStateBoxState(ScreenState.ERROR) }
+            }
         }
     }
 
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> postSideEffect(PaymentEvent.Back)
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> postSideEffect(PaymentEvent.Back)
+            }
         }
     }
 
-    override fun handle(event: ButtonEvent) = intent {
-        when (event) {
-            is ButtonEvent.Click -> when (event.id) {
-                "confirm" -> confirmOrderUseCase().onSuccess {
-                    postSideEffect(PaymentEvent.Next(it))
+    override fun handle(event: ButtonEvent) {
+        intent {
+            when (event) {
+                is ButtonEvent.Click -> when (event.id) {
+                    "confirm" -> confirmOrderUseCase().onSuccess {
+                        postSideEffect(PaymentEvent.Next(it))
+                    }
                 }
             }
         }
     }
 
-    override fun handle(event: BrushedSwitchEvent) = intent {
-        when (event) {
-            is BrushedSwitchEvent.Click -> when (event.id) {
-                "useBonuses" -> reduce { state.reverseBonusSwitch() }
-                "receiveReceipt" -> reduce { state.reverseReceiveReceipt() }
+    override fun handle(event: BrushedSwitchEvent) {
+        intent {
+            when (event) {
+                is BrushedSwitchEvent.Click -> when (event.id) {
+                    "useBonuses" -> reduce { state.reverseBonusSwitch() }
+                    "receiveReceipt" -> reduce { state.reverseReceiveReceipt() }
+                }
             }
         }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
-        }
-    }
-
-    override fun handle(event: TextFieldEvent) = blockingIntent {
-        when (event) {
-            is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> Unit
-            is TextFieldEvent.TextChanged -> when (event.id) {
-                "email" -> reduce { state.uEmail(event.text) }
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
             }
         }
     }
 
-    override fun handle(event: LinkTextEvent) = intent {
-        when (event) {
-            is LinkTextEvent.Click -> openUrlUseCase(event.url)
+    override fun handle(event: TextFieldEvent) {
+        blockingIntent {
+            when (event) {
+                is TextFieldEvent.Action -> Unit
+                is TextFieldEvent.AdditionalAction -> Unit
+                is TextFieldEvent.TextChanged -> when (event.id) {
+                    "email" -> reduce { state.uEmail(event.text) }
+                }
+            }
         }
     }
 
-    override fun handle(event: PaymentMethodEvent) = intent {
-        when (event) {
-            is PaymentMethodEvent.Select -> reduce { state.uPaymentMethod(event.type) }
+    override fun handle(event: LinkTextEvent) {
+        intent {
+            when (event) {
+                is LinkTextEvent.Click -> openUrlUseCase(event.url)
+            }
+        }
+    }
+
+    override fun handle(event: PaymentMethodEvent) {
+        intent {
+            when (event) {
+                is PaymentMethodEvent.Select -> reduce { state.uPaymentMethod(event.type) }
+            }
         }
     }
 }

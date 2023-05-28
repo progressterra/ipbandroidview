@@ -23,28 +23,36 @@ class PickUpPointViewModel(
 
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
 
-    fun refresh(points: List<PickUpPointInfo>) = intent {
-        val result = checkPermissionUseCase(locationPermission).isSuccess
-        reduce { state.uPermission(result).uPoints(points) }
-    }
-
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> postSideEffect(PickUpPointEffect.Back)
+    fun refresh(points: List<PickUpPointInfo>) {
+        intent {
+            val result = checkPermissionUseCase(locationPermission).isSuccess
+            reduce { state.uPermission(result).uPoints(points) }
         }
     }
 
-    override fun handle(event: ButtonEvent) = intent {
-        when (event) {
-            is ButtonEvent.Click -> state.choose.currentPickUpPointInfo?.let {
-                postSideEffect(PickUpPointEffect.Next(it))
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> postSideEffect(PickUpPointEffect.Back)
             }
         }
     }
 
-    override fun handle(event: PickUpChooseEvent) = intent {
-        when (event) {
-            is PickUpChooseEvent.Choose -> reduce { state.uCurrentPoint(event.info) }
+    override fun handle(event: ButtonEvent) {
+        intent {
+            when (event) {
+                is ButtonEvent.Click -> state.choose.currentPickUpPointInfo?.let {
+                    postSideEffect(PickUpPointEffect.Next(it))
+                }
+            }
+        }
+    }
+
+    override fun handle(event: PickUpChooseEvent) {
+        intent {
+            when (event) {
+                is PickUpChooseEvent.Choose -> reduce { state.uCurrentPoint(event.info) }
+            }
         }
     }
 }

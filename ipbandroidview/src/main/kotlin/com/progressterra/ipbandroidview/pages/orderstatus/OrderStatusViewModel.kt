@@ -14,18 +14,24 @@ class OrderStatusViewModel : UseOrderStatus, ViewModel(),
 
     override val container = container<OrderStatusState, OrderStatusEvent>(OrderStatusState())
 
-    fun refresh(orderStatusState: OrderStatusState) = intent {
-        reduce { orderStatusState }
+    fun refresh(orderStatusState: OrderStatusState) {
+        intent {
+            reduce { orderStatusState }
+        }
     }
 
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> postSideEffect(OrderStatusEvent.OnBack)
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> postSideEffect(OrderStatusEvent.OnBack)
+            }
         }
     }
 
     override fun handle(event: ButtonEvent) {
-        TODO("Not yet implemented")
+        intent {
+            TODO("Not yet implemented")
+        }
     }
 }
 

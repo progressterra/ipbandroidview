@@ -25,62 +25,82 @@ class GoodsDetailsViewModel(
 
     override val container = container<GoodsDetailsState, GoodsDetailsEvent>(GoodsDetailsState())
 
-    fun refresh(goodsId: String) = intent {
-        reduce { state.uScreenState(ScreenState.LOADING) }
-        goodsDetailsUseCase(goodsId)
-            .onSuccess { reduce { it.uScreenState(ScreenState.SUCCESS) } }
-            .onFailure {
-                it.printStackTrace()
-                reduce { state.uScreenState(ScreenState.ERROR) }
+    fun refresh(goodsId: String) {
+        intent {
+            reduce { state.uScreenState(ScreenState.LOADING) }
+            goodsDetailsUseCase(goodsId)
+                .onSuccess { reduce { it.uScreenState(ScreenState.SUCCESS) } }
+                .onFailure {
+                    it.printStackTrace()
+                    reduce { state.uScreenState(ScreenState.ERROR) }
+                }
+        }
+    }
+
+    override fun handle(event: ItemGalleryEvent) {
+        intent {
+            when (event) {
+                is ItemGalleryEvent.Open -> postSideEffect(GoodsDetailsEvent.OpenImage(event.image))
             }
-    }
-
-    override fun handle(event: ItemGalleryEvent) = intent {
-        when (event) {
-            is ItemGalleryEvent.Open -> postSideEffect(GoodsDetailsEvent.OpenImage(event.image))
         }
     }
 
-    override fun handle(event: TopBarEvent) = intent {
-        when (event) {
-            is TopBarEvent.Back -> postSideEffect(GoodsDetailsEvent.Back)
+    override fun handle(event: TopBarEvent) {
+        intent {
+            when (event) {
+                is TopBarEvent.Back -> postSideEffect(GoodsDetailsEvent.Back)
+            }
         }
     }
 
-    override fun handle(event: FavoriteButtonEvent) = intent {
-        when (event) {
-            is FavoriteButtonEvent.Click -> modifyFavoriteUseCase(
-                event.id,
-                !state.description.favoriteButton.favorite
-            ).onSuccess {
-                reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
+    override fun handle(event: FavoriteButtonEvent) {
+        intent {
+            when (event) {
+                is FavoriteButtonEvent.Click -> modifyFavoriteUseCase(
+                    event.id,
+                    !state.description.favoriteButton.favorite
+                ).onSuccess {
+                    reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
+                }
             }
         }
     }
 
     override fun handle(event: GoodsDescriptionEvent) {
-        when (event) {
-            is GoodsDescriptionEvent.Share -> TODO()
+        intent {
+            when (event) {
+                is GoodsDescriptionEvent.Share -> TODO()
+            }
         }
     }
 
     override fun handle(event: BuyGoodsEvent) {
-        TODO("Not yet implemented")
+        intent {
+            TODO("Not yet implemented")
+        }
     }
 
     override fun handle(event: StoreCardEvent) {
-        TODO("Not yet implemented")
+        intent {
+            TODO("Not yet implemented")
+        }
     }
 
     override fun handle(event: ButtonEvent) {
-        TODO("Not yet implemented")
+        intent {
+            TODO("Not yet implemented")
+        }
     }
 
     override fun handle(event: CounterEvent) {
-        TODO("Not yet implemented")
+        intent {
+            TODO("Not yet implemented")
+        }
     }
 
-    override fun handle(event: StateBoxEvent) = intent {
-        postSideEffect(GoodsDetailsEvent.Refresh)
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            postSideEffect(GoodsDetailsEvent.Refresh)
+        }
     }
 }
