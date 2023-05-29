@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.features.interestsdiff
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -35,9 +34,6 @@ fun InterestsDiff(
                 .padding(vertical = 4.dp)
                 .clip(CircleShape)
                 .background(backgroundBrush)
-                .border(
-                    width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
-                )
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
             BrushedText(
