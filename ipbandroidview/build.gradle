@@ -65,8 +65,8 @@ dependencies {
     api 'com.google.android.material:material:1.9.0'
 
     //Coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
 
     //Orbit, MVI library
     api 'org.orbit-mvi:orbit-core:4.6.1'
@@ -74,8 +74,8 @@ dependencies {
     api 'org.orbit-mvi:orbit-compose:4.6.1'
 
     //Activity
-    api "androidx.activity:activity-ktx:1.7.1"
-    api "androidx.activity:activity-compose:1.7.1"
+    api "androidx.activity:activity-ktx:1.7.2"
+    api "androidx.activity:activity-compose:1.7.2"
 
     //Compose
     api 'androidx.compose.ui:ui:1.4.3'
@@ -114,14 +114,13 @@ dependencies {
     api "com.google.android.gms:play-services-maps:18.1.0"
 
     //iProBonusAndroidAPI
-    releaseApi "com.progressterra.ipbandroidapi:ipbandroidapi:0.4.88"
-    debugApi "com.progressterra.ipbandroidapi:ipbandroidapitest:0.4.88"
+    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.5.11"
 
     //Landscapist, image library with coil implementation
-    api 'com.github.skydoves:landscapist-fresco:2.1.11'
-    api 'com.github.skydoves:landscapist-placeholder:2.1.11'
+    api 'com.github.skydoves:landscapist-fresco:2.2.0'
+    api 'com.github.skydoves:landscapist-placeholder:2.2.0'
 
-    api "androidx.paging:paging-compose:1.0.0-alpha19"
+    api "androidx.paging:paging-compose:1.0.0-alpha20"
     api "androidx.paging:paging-runtime-ktx:3.1.1"
 
     api "com.chibatching.kotpref:kotpref:2.13.2"

@@ -81,7 +81,7 @@ val useCasesModule = module {
     single<UpdatePersonalInfoUseCase> { UpdatePersonalInfoUseCase.Base(get(), get(), get()) }
 
     single<AllOrganizationsUseCase> {
-        AllOrganizationsUseCase.Base(get(), get(), get(), get())
+        AllOrganizationsUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<OrganizationAuditsUseCase> {
