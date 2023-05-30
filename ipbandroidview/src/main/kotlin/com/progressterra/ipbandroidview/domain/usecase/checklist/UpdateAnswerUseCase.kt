@@ -40,12 +40,10 @@ interface UpdateAnswerUseCase {
                 if (voice.local)
                     mediaDataRepository.attachToEntity(
                         accessToken = token,
-                        idEntity = check.id,
-                        typeContent = 6,
-                        entityTypeName = "DrCheckListItem",
-                        alias = "",
+                        typeContent = "image",
+                        alias = "DrCheckListItem",
                         tag = 0,
-                        MultipartBody.Part.createFormData(
+                        file = MultipartBody.Part.createFormData(
                             name = "file",
                             filename = fileExplorer.audioFile(voice.id).name,
                             body = fileExplorer.audioFile(voice.id)
@@ -59,12 +57,10 @@ interface UpdateAnswerUseCase {
                 if (picture.local)
                     mediaDataRepository.attachToEntity(
                         accessToken = token,
-                        idEntity = check.id,
-                        typeContent = 0,
-                        entityTypeName = "DrCheckListItem",
-                        alias = "",
+                        typeContent = "image",
+                        alias = "DrCheckListItem",
                         tag = 0,
-                        MultipartBody.Part.createFormData(
+                        file = MultipartBody.Part.createFormData(
                             name = "file",
                             filename = fileExplorer.pictureFile(picture.id).name,
                             body = fileExplorer.pictureFile(picture.id)
