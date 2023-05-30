@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.domain.usecase.checklist
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
+import com.progressterra.ipbandroidapi.api.ipbmediadata.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.core.AbstractUseCaseSaving
 import com.progressterra.ipbandroidview.core.FileExplorer
@@ -32,9 +33,16 @@ interface CheckMediaDetailsUseCase {
             val pictures = mutableListOf<MultisizedImage>()
             mediaDataRepository.attachedToEntity(
                 token,
-                check.id
+                check.id,
+                FilterAndSort(
+                    emptyList(),
+                    null,
+                    "",
+                    0,
+                    300
+                )
             ).getOrThrow()?.forEach { item ->
-                if (item.contentType == 0) {
+                if (item.contentType == "image") {
                     val sizes = gson.fromJson(item.dataJSON, ImageData::class.java).list
                     pictures.add(
                         MultisizedImage(
@@ -45,7 +53,7 @@ interface CheckMediaDetailsUseCase {
                             fullSize = sizes.first { it.sizeType == 3 }.url
                         )
                     )
-                } else if (item.contentType == 6 && voices.size == 0) {
+                } else if (item.contentType == "voiceData" && voices.size == 0) {
                     saveAudio(
                         mediaDataRepository.downloadFile(
                             token,
