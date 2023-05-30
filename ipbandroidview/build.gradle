@@ -114,7 +114,7 @@ dependencies {
     api "com.google.android.gms:play-services-maps:18.1.0"
 
     //iProBonusAndroidAPI
-    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.5.12"
+    api "com.progressterra.ipbandroidapi:ipbandroidapi:0.5.13"
 
     //Landscapist, image library with coil implementation
     api 'com.github.skydoves:landscapist-fresco:2.2.0'
