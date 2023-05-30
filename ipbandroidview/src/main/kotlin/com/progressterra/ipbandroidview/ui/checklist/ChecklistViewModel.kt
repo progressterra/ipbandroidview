@@ -272,7 +272,6 @@ class ChecklistViewModel(
 
     private fun refreshCheck() = intent {
         reduce { state.updateCheckScreenState(ScreenState.LOADING) }
-        Log.d("CHECK", "refreshCheck: ${state.currentCheckState.check}")
         checkMediaDetailsUseCase(state.currentCheckState.check).onSuccess {
             reduce {
                 state.updateMedia(it)

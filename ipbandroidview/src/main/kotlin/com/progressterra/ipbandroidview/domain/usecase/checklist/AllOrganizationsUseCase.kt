@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.domain.usecase.checklist
 
-import android.util.Log
 import com.progressterra.ipbandroidapi.api.checklist.ChecklistRepository
 import com.progressterra.ipbandroidapi.api.complace.ComPlaceRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
@@ -27,22 +26,19 @@ interface AllOrganizationsUseCase {
         private val noData = manageResources.string(R.string.no_data)
 
         override suspend fun invoke(): Result<List<Organization>> = withToken { token ->
-            Log.d("Places", "start use case")
             val places = placeRepository.places(
                 token, ComPlaceF(emptyList(), null, "", 0, 300)
-            ).onFailure { Log.e("Places", it.message, it) }.getOrThrow()!!
+            ).getOrThrow()!!
             buildList {
                 places.map { place ->
                     val audits =
                         checklistRepository.availableChecklistsForPlace(token, place.idUnique!!)
-                            .onFailure { Log.e("Places", it.message, it) }
                             .getOrThrow()!!
-                    val docs =
-                        checklistRepository.availableDocsForPlace(
-                            token, place.idUnique!!, ChecklistF(
-                                emptyList(), null, "", false, 0, 300
-                            )
-                        ).onFailure { Log.e("Places", it.message, it) }.getOrThrow()!!
+                    val docs = checklistRepository.availableDocsForPlace(
+                        token, place.idUnique!!, ChecklistF(
+                            emptyList(), null, "", false, 0, 300
+                        )
+                    ).getOrThrow()!!
                     add(
                         Organization(
                             address = place.address ?: noData,
