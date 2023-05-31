@@ -48,7 +48,7 @@ interface SaveDataUseCase {
             UserData.passportProviderCode = income.passportCode.text
             UserData.patent = income.patent.text
             income.makePhoto.items.forEach {
-                mediaDataRepository.attachToEntity(
+                mediaDataRepository.attachToClient(
                     accessToken = token,
                     typeContent = "image",
                     alias = "docs",
