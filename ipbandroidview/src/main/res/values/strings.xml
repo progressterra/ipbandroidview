@@ -117,4 +117,5 @@
     <string name="accepted_connections">Принятые запросы</string>
     <string name="pending_connections">Вам ещё не ответили</string>
     <string name="messages">Сообщения</string>
+    <string name="connections">Запросы</string>
 </resources>
