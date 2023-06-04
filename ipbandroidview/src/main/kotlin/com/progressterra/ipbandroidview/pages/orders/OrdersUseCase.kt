@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface OrdersUseCase {
@@ -23,7 +23,7 @@ interface OrdersUseCase {
         private val cartRepository: CartRepository,
         private val statusOrderMapper: StatusOrderMapper,
         private val gson: Gson
-    ) : OrdersUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : OrdersUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
 

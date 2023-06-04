@@ -5,7 +5,6 @@ import com.chibatching.kotpref.gsonpref.gsonPref
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.shared.Constants.DEFAULT_ID
 
-@Suppress("unused")
 object UserData : KotprefModel() {
 
     var idUnique by stringPref(DEFAULT_ID)
@@ -16,10 +15,7 @@ object UserData : KotprefModel() {
     var address by gsonPref(AddressUI())
     var userName by gsonPref(UserName())
     var citizenship by stringPref()
-    var passport by stringPref()
-    var passportProvider by stringPref()
-    var passportProviderCode by stringPref()
-    var patent by stringPref()
+    var docSpecId by stringPref()
     var dateOfBirthday by longPref()
     var supportChatId by stringPref()
 
@@ -27,6 +23,8 @@ object UserData : KotprefModel() {
         idUnique = DEFAULT_ID
         deviceId = DEFAULT_ID
         clientExist = false
+        citizenship = ""
+        docSpecId = ""
         phone = ""
         email = ""
         userName = UserName()
@@ -34,9 +32,4 @@ object UserData : KotprefModel() {
         address = AddressUI()
         supportChatId = ""
     }
-
-    fun needDetails(): Boolean =
-        email.isBlank() || dateOfBirthday == 0L || userName.isEmpty()
-
-    fun needAddress(): Boolean = address.isEmpty()
 }

@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.ipbdelivery.models.RGDeliveryParams
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface CreateDeliveryOrderUseCase {
 
@@ -16,7 +16,7 @@ interface CreateDeliveryOrderUseCase {
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         private val repository: IPBDeliveryRepository
-    ) : CreateDeliveryOrderUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : CreateDeliveryOrderUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(comment: String, deliveryMethod: Delivery): Result<Unit> =
             withToken { token ->

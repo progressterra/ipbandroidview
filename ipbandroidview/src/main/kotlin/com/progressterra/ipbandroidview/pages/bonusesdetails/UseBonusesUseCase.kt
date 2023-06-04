@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamImplementBonusV
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface UseBonusesUseCase {
 
@@ -15,7 +15,7 @@ interface UseBonusesUseCase {
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         private val cartRepository: CartRepository
-    ) : AbstractUseCase(scrmRepository, provideLocation), UseBonusesUseCase {
+    ) : AbstractTokenUseCase(scrmRepository, provideLocation), UseBonusesUseCase {
 
         override suspend fun invoke(sum: Int): Result<Unit> = withToken { token ->
             cartRepository.implementBonus(

@@ -10,7 +10,7 @@ abstract class AbstractUseCaseSaving(
     scrmRepository: SCRMRepository,
     provideLocation: ProvideLocation,
     private val fileExplorer: FileExplorer
-) : AbstractUseCase(scrmRepository, provideLocation) {
+) : AbstractTokenUseCase(scrmRepository, provideLocation) {
 
     protected suspend fun saveAudio(inputStream: InputStream, id: String) {
         withContext(Dispatchers.IO) { fileExplorer.inputStreamToVoices(inputStream, id) }

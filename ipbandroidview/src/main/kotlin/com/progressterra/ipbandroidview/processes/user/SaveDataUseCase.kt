@@ -1,20 +1,17 @@
 package com.progressterra.ipbandroidview.processes.user
 
-import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
+import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.FileExplorer
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.shared.splitName
-import com.progressterra.ipbandroidview.shared.toAddress
 import com.progressterra.ipbandroidview.shared.toEpochMillis
+import com.progressterra.ipbandroidview.widgets.edituser.CitizenshipSuggestionsUseCase
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
 
 interface SaveDataUseCase {
 
@@ -22,10 +19,11 @@ interface SaveDataUseCase {
 
     class Base(
         scrmRepository: SCRMRepository,
-        private val mediaDataRepository: IPBMediaDataRepository,
+        private val repo: DocumentsRepository,
+        private val citizenshipSuggestionsUseCase: CitizenshipSuggestionsUseCase,
         private val fileExplorer: FileExplorer,
         provideLocation: ProvideLocation
-    ) : SaveDataUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : SaveDataUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
             val nameList = income.name.text.splitName(false)
@@ -36,30 +34,14 @@ interface SaveDataUseCase {
             UserData.phone = income.phone.text
             UserData.email = income.email.text
             UserData.citizenship = income.citizenship.text
-            val address = income.address.text.toAddress()
-            UserData.address = AddressUI(
-                nameCity = address.city,
-                nameStreet = address.street,
-                houseNUmber = address.building,
-                apartment = address.apartment?.toInt() ?: 0
-            )
-            UserData.passport = income.passport.text
-            UserData.passportProvider = income.passportProvider.text
-            UserData.passportProviderCode = income.passportCode.text
-            UserData.patent = income.patent.text
-            income.makePhoto.items.forEach {
-                mediaDataRepository.attachToClient(
-                    accessToken = token,
-                    typeContent = "image",
-                    alias = "docs",
-                    tag = 0,
-                    file = MultipartBody.Part.createFormData(
-                        name = "file",
-                        filename = fileExplorer.pictureFile(it.id).name,
-                        body = fileExplorer.pictureFile(it.id)
-                            .asRequestBody("image/*".toMediaTypeOrNull())
-                    )
-                )
+            UserData.docSpecId =
+                citizenshipSuggestionsUseCase(income.citizenship.text).items.first { it.name == income.citizenship.text }.data
+            income.adaptiveDocuments.forEach { doc ->
+                if (doc.makePhoto != null) {
+                    doc.makePhoto.items.filter { it.local }.forEach { img ->
+                        repo.setImageForChar(token, img.id, MultipartBody.Part fileExplorer.pictureFile(img.id))
+                    }
+                }
             }
         }
     }

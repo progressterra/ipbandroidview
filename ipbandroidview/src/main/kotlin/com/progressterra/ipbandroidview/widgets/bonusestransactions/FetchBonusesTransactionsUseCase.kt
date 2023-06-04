@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface FetchBonusesTransactionsUseCase {
@@ -20,7 +20,7 @@ interface FetchBonusesTransactionsUseCase {
         provideLocation: ProvideLocation,
         manageResources: ManageResources,
         private val bonusesRepository: IBonusRepository
-    ) : FetchBonusesTransactionsUseCase, AbstractUseCase(sCRMRepository, provideLocation) {
+    ) : FetchBonusesTransactionsUseCase, AbstractTokenUseCase(sCRMRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
 

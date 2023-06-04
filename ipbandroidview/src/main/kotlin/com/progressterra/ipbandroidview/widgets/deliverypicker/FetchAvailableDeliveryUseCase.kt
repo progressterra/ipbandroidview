@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 
 
@@ -18,7 +18,7 @@ interface FetchAvailableDeliveryUseCase {
         scrmRepository: SCRMRepository,
         private val deliveryRepository: IPBDeliveryRepository,
         private val mapper: DeliveryMethodMapper
-    ) : FetchAvailableDeliveryUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : FetchAvailableDeliveryUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(): Result<DeliveryPickerState> = withToken { token ->
             val deliveryList =

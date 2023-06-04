@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.mapper.CatalogMapper
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface CatalogUseCase {
 
@@ -16,7 +16,7 @@ interface CatalogUseCase {
         scrmRepository: SCRMRepository,
         private val repo: IECommerceCoreRepository,
         private val mapper: CatalogMapper
-    ) : AbstractUseCase(scrmRepository, provideLocation), CatalogUseCase {
+    ) : AbstractTokenUseCase(scrmRepository, provideLocation), CatalogUseCase {
 
         override suspend fun invoke(): Result<CatalogCardState> = withToken { token ->
             CatalogCardState(children = repo.getCatalog(token).getOrThrow()

@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamGoodsToECommers
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.Constants
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 
@@ -16,7 +16,7 @@ interface AddToCartUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val repo: CartRepository
-    ) : AddToCartUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : AddToCartUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(goodsId: String, count: Int): Result<Unit> =
             withToken { token ->

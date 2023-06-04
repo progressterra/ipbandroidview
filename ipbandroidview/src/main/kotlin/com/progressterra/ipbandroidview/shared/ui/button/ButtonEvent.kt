@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.shared.ui.button
 
-sealed class ButtonEvent(val id: String) {
+import com.progressterra.ipbandroidview.entities.Id
+
+sealed class ButtonEvent(override val id: String) : Id {
 
     class Click(id: String) : ButtonEvent(id)
 }

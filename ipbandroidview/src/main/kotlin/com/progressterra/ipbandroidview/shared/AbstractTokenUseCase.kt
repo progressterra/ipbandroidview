@@ -5,13 +5,13 @@ import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataCreateAccessToke
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.Constants.DEFAULT_ID
 
-abstract class AbstractUseCase(
+abstract class AbstractTokenUseCase(
     private val sCRMRepository: SCRMRepository, private val provideLocation: ProvideLocation
-) {
+) : AbstractLoggingUseCase() {
 
     protected suspend fun <T> withToken(
         block: suspend (accessToken: String) -> T
-    ): Result<T> = runCatching {
+    ): Result<T> = handle {
         val locationResult = provideLocation.location()
         val result = sCRMRepository.accessToken(
             IncomeDataCreateAccessToken(

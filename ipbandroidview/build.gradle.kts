@@ -111,8 +111,8 @@ dependencies {
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Koin, DI library
-    api("io.insert-koin:koin-android:3.4.0")
-    api("io.insert-koin:koin-androidx-compose:3.4.4")
+    api("io.insert-koin:koin-android:3.4.1")
+    api("io.insert-koin:koin-androidx-compose:3.4.5")
 
     // Accompanist, useful composables
     api("com.google.accompanist:accompanist-systemuicontroller:0.30.0")
@@ -136,15 +136,15 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.15")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.16")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.0")
-    api("com.github.skydoves:landscapist-placeholder:2.2.0")
+    api("com.github.skydoves:landscapist-fresco:2.2.1")
+    api("com.github.skydoves:landscapist-placeholder:2.2.1")
 
     api("androidx.paging:paging-runtime-ktx:3.1.1")
     api("androidx.paging:paging-compose:1.0.0-alpha20")

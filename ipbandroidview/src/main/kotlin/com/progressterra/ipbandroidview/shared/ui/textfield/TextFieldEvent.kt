@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.shared.ui.textfield
 
-sealed class TextFieldEvent(val id: String) {
+import com.progressterra.ipbandroidview.entities.Id
+
+sealed class TextFieldEvent(override val id: String) : Id {
 
     class TextChanged(id: String, val text: String) : TextFieldEvent(id)
 

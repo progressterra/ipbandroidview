@@ -25,7 +25,6 @@ import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCas
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.processes.store.SizeTableUseCase
-import com.progressterra.ipbandroidview.processes.user.FetchPhoneUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
@@ -130,19 +129,15 @@ val processesModule = module {
     }
 
     single<SaveDataUseCase> {
-        SaveDataUseCase.Base(get(), get(), get(), get())
+        SaveDataUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<FetchUserUseCase> {
-        FetchUserUseCase.Base()
+        FetchUserUseCase.Base(get(), get(), get())
     }
 
     single<UserExistsUseCase> {
         UserExistsUseCase.Base()
-    }
-
-    single<FetchPhoneUseCase> {
-        FetchPhoneUseCase.Base()
     }
 
     single<FetchUserProfileUseCase> {

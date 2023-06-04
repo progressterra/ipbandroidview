@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.widgets.edituser
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,10 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.makephoto.MakePhoto
+import com.progressterra.ipbandroidview.features.suggestions.Suggestions
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
-import com.progressterra.ipbandroidview.shared.ui.Masks.PASSPORT_NUMBER_MASK
-import com.progressterra.ipbandroidview.shared.ui.Masks.PASSPORT_PROVIDER_CODE_MASK
 import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
@@ -27,6 +27,7 @@ fun EditUser(
     Column(
         modifier = modifier
             .padding(horizontal = 8.dp)
+            .animateContentSize()
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),
@@ -68,47 +69,26 @@ fun EditUser(
             useComponent = useComponent,
             actionIcon = R.drawable.ic_cancel
         )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.address,
-            hint = stringResource(R.string.address),
-            useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.passport,
-            hint = stringResource(R.string.passport),
-            visualTransformation = MaskVisualTransformation(PASSPORT_NUMBER_MASK),
-            useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.passportProvider,
-            hint = stringResource(R.string.passport_provider),
-            useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.passportCode,
-            hint = stringResource(R.string.passport_provider_code),
-            visualTransformation = MaskVisualTransformation(PASSPORT_PROVIDER_CODE_MASK),
-            useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.patent,
-            hint = stringResource(R.string.patent_number),
-            useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel
-        )
-        MakePhoto(
-            title = stringResource(R.string.passport_photo),
-            state = state.makePhoto,
+        Suggestions(
+            state = state.suggestions,
             useComponent = useComponent
         )
+        state.adaptiveDocuments.forEach {
+            if (it.text != null) {
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = it.text,
+                    hint = it.name,
+                    useComponent = useComponent
+                )
+            }
+            if (it.makePhoto != null) {
+                MakePhoto(
+                    title = it.name,
+                    state = it.makePhoto,
+                    useComponent = useComponent
+                )
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.features.storecard.StoreCardMapper
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface FetchGoodsPage {
 
@@ -19,7 +19,7 @@ interface FetchGoodsPage {
         provideLocation: ProvideLocation,
         private val mapper: StoreCardMapper,
         private val productRepo: ProductRepository,
-    ) : FetchGoodsPage, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : FetchGoodsPage, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(
             filterAndSort: FilterAndSort

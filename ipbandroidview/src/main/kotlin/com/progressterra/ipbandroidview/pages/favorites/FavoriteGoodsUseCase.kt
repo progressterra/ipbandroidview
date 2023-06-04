@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.storecard.StoreCardMapper
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface FavoriteGoodsUseCase {
     //todo maybe wrong id
@@ -21,7 +21,7 @@ interface FavoriteGoodsUseCase {
         private val favoriteRepository: IPBFavPromoRecRepository,
         private val productRepository: ProductRepository,
         private val mapper: StoreCardMapper
-    ) : AbstractUseCase(scrmRepository, provideLocation), FavoriteGoodsUseCase {
+    ) : AbstractTokenUseCase(scrmRepository, provideLocation), FavoriteGoodsUseCase {
 
         override suspend fun invoke(): Result<List<StoreCardState>> = withToken { token ->
             val favoriteIds = favoriteRepository.getClientEntityByType(

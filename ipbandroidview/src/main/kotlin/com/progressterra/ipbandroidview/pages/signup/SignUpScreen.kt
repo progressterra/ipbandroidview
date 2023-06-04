@@ -65,16 +65,6 @@ private fun SignUpScreenPreview() {
                     id = "voluptatibus", text = "mutat"
                 ), citizenship = TextFieldState(
                     id = "vituperata", text = "vis"
-                ), address = TextFieldState(
-                    id = "an", text = "quaerendum"
-                ), passport = TextFieldState(
-                    id = "eruditi", text = "ullamcorper"
-                ), passportProvider = TextFieldState(
-                    id = "invidunt", text = "blandit"
-                ), passportCode = TextFieldState(
-                    id = "parturient", text = "mandamus"
-                ), patent = TextFieldState(
-                    id = "eloquentiam", text = "persius"
                 )
             ), authOrSkip = AuthOrSkipState(
                 auth = ButtonState(id = "orci"), skip = ButtonState(id = "laudem")

@@ -4,16 +4,23 @@ import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
+import com.progressterra.ipbandroidview.features.makephoto.uMakePhotoEnabled
+import com.progressterra.ipbandroidview.features.suggestions.SuggestionsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.uEnabled
+import com.progressterra.ipbandroidview.shared.ui.textfield.uText
+import com.progressterra.ipbandroidview.widgets.edituser.CitizenshipSuggestionsUseCase
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserValidUseCase
+import com.progressterra.ipbandroidview.widgets.edituser.FetchAdaptiveEntriesUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -27,7 +34,9 @@ class ProfileDetailsViewModel(
     private val saveUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
     private val editUserValidUseCase: EditUserValidUseCase,
+    private val suggestionsUseCase: CitizenshipSuggestionsUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
+    private val fetchAdaptiveEntriesUseCase: FetchAdaptiveEntriesUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase
 ) : ViewModel(),
@@ -40,7 +49,15 @@ class ProfileDetailsViewModel(
         intent {
             reduce { ProfileDetailsState() }
             fetchUserUseCase().onSuccess {
-                reduce { state.uEditUser(it) }
+                reduce { state.uEditUser(it).uScreenState(ScreenState.SUCCESS) }
+            }.onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
+        }
+    }
+
+    override fun handle(event: StateBoxEvent) {
+        intent {
+            when (event) {
+                is StateBoxEvent.Refresh -> refresh()
             }
         }
     }
@@ -53,53 +70,60 @@ class ProfileDetailsViewModel(
         }
     }
 
-    override fun handle(event: TopBarEvent) {
-        intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(ProfileDetailsEvent.Back)
-            }
-        }
-    }
 
     override fun handle(event: ButtonEvent) {
         intent {
             when (event) {
-                is ButtonEvent.Click -> when (event.id) {
-                    "edit" -> reduce {
-                        state.startCancelEdit()
-                            .uMakePhotoEnabled(true)
-                            .uPassportProviderEnabled(true)
-                            .uPassportEnabled(true)
-                            .uPassportProviderCodeEnabled(true)
-                            .uCitizenshipEnabled(true)
-                            .uEmailEnabled(true)
-                            .uNameEnabled(true)
-                            .uBirthdayEnabled(true)
-                            .uAddressEnabled(true)
-                            .uPatentEnabled(true)
-                    }
-
-                    "save" -> saveUseCase(state.editUser).onSuccess {
+                is ButtonEvent.Click -> when {
+                    event.id == "save" -> saveUseCase(state.editUser).onSuccess {
                         reduce {
                             state.startCancelEdit()
-                                .uMakePhotoEnabled(true)
-                                .uPassportProviderEnabled(false)
-                                .uPassportEnabled(false)
-                                .uPassportProviderCodeEnabled(false)
                                 .uCitizenshipEnabled(false)
                                 .uEmailEnabled(false)
                                 .uNameEnabled(false)
                                 .uBirthdayEnabled(false)
-                                .uAddressEnabled(false)
-                                .uPatentEnabled(false)
+                        }
+                        state.editUser.adaptiveDocuments.forEach {
+                            reduce {
+                                state.updateById(it) { edit ->
+                                    edit.copy(
+                                        text = edit.text.uEnabled(false),
+                                        makePhoto = edit.makePhoto?.uMakePhotoEnabled(false)
+                                    )
+                                }
+                            }
                         }
                     }
 
-                    "cancel" -> refresh()
+                    event.id == "edit" -> {
+                        reduce {
+                            state.startCancelEdit()
+                                .uCitizenshipEnabled(true)
+                                .uEmailEnabled(true)
+                                .uNameEnabled(true)
+                                .uBirthdayEnabled(true)
+                        }
+                        state.editUser.adaptiveDocuments.forEach {
+                            reduce {
+                                state.updateById(it) { edit ->
+                                    edit.copy(
+                                        text = edit.text.uEnabled(true),
+                                        makePhoto = edit.makePhoto?.uMakePhotoEnabled(true)
+                                    )
+                                }
+                            }
+                        }
+                    }
 
-                    "makePhoto" -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
+                    event.id == "cancel" -> refresh()
+
+                    event.id.startsWith("makePhoto") -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
                         makePhotoUseCase().onSuccess {
-                            reduce { state.addPhoto(it) }
+                            reduce {
+                                state.updateById(event) { entry ->
+                                    entry.copy(makePhoto = entry.makePhoto?.add(it))
+                                }
+                            }
                         }
                     }.onFailure {
                         askPermissionUseCase(Manifest.permission.CAMERA)
@@ -109,10 +133,24 @@ class ProfileDetailsViewModel(
         }
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: TopBarEvent) {
         intent {
             when (event) {
-                is StateBoxEvent.Refresh -> refresh()
+                is TopBarEvent.Back -> postSideEffect(ProfileDetailsEvent.Back)
+            }
+        }
+    }
+
+    override fun handle(event: MakePhotoEvent) {
+        intent {
+            when (event) {
+                is MakePhotoEvent.Remove -> reduce {
+                    state.updateById(event.photo) {
+                        it.copy(makePhoto = it.makePhoto?.remove(event.photo))
+                    }
+                }
+
+                is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo.fullSize))
             }
         }
     }
@@ -126,17 +164,16 @@ class ProfileDetailsViewModel(
                         "name" -> reduce { state.uName(event.text) }
                         "email" -> reduce { state.uEmail(event.text) }
                         "birthday" -> reduce { state.uBirthday(event.text) }
-                        "citizenship" -> reduce { state.uCitizenship(event.text) }
-                        "address" -> reduce { state.uAddress(event.text) }
-                        "passport" -> if (event.text.length <= 10) reduce { state.uPassport(event.text) }
-                        "passportProvider" -> reduce { state.uPassportProvider(event.text) }
-                        "passportProviderCode" -> if (event.text.length <= 6) reduce {
-                            state.uPassportProviderCode(
-                                event.text
-                            )
+                        "citizenship" -> {
+                            reduce { state.uCitizenship(event.text) }
+                            updateSuggestions()
                         }
 
-                        "patent" -> reduce { state.uPatent(event.text) }
+                        else -> reduce {
+                            state.updateById(event) {
+                                it.copy(text = it.text.uText(event.text))
+                            }
+                        }
                     }
                 }
 
@@ -146,23 +183,27 @@ class ProfileDetailsViewModel(
                     "email" -> reduce { state.uEmail("") }
                     "birthday" -> Unit
                     "citizenship" -> reduce { state.uCitizenship("") }
-                    "address" -> reduce { state.uAddress("") }
-                    "passport" -> reduce { state.uPassport("") }
-                    "passportProvider" -> reduce { state.uPassportProvider("") }
-                    "passportProviderCode" -> reduce { state.uPassportProviderCode("") }
-                    "patent" -> reduce { state.uPatent("") }
                 }
             }
             valid()
         }
     }
 
-    override fun handle(event: MakePhotoEvent) {
+    override fun handle(event: SuggestionsEvent<String>) {
         intent {
             when (event) {
-                is MakePhotoEvent.Remove -> reduce { state.removePhoto(event.photo) }
-                is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo.fullSize))
+                is SuggestionsEvent.Click -> {
+                    fetchAdaptiveEntriesUseCase(event.suggestion.data)
+                    reduce { state.uCitizenship(citizenship = event.suggestion.name) }
+                }
             }
+        }
+    }
+
+    private fun updateSuggestions() {
+        intent {
+            val suggestions = suggestionsUseCase(state.editUser.citizenship.text)
+            reduce { state.uSuggestions(suggestions) }
         }
     }
 

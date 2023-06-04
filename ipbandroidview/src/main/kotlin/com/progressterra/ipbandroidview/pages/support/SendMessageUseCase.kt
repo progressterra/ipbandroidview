@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidapi.api.message.IMessengerRepository
 import com.progressterra.ipbandroidapi.api.message.models.IncomeMessagesTextData
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.widgets.messages.MessagesState
 
@@ -17,7 +17,7 @@ interface SendMessageUseCase {
         provideLocation: ProvideLocation,
         private val iMessengerRepository: IMessengerRepository,
         private val messageMapper: MessageMapper
-    ) : SendMessageUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : SendMessageUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(
             dialogId: String, message: String

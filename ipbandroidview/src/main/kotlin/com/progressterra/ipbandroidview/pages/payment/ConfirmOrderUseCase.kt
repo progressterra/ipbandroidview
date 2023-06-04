@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.orderid.OrderIdState
 import com.progressterra.ipbandroidview.features.orderoverview.OrderOverviewState
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface ConfirmOrderUseCase {
 
@@ -16,7 +16,7 @@ interface ConfirmOrderUseCase {
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         private val cartRepository: CartRepository
-    ) : ConfirmOrderUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : ConfirmOrderUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         //TODO
         override suspend fun invoke(): Result<OrderStatusState> = withToken { token ->

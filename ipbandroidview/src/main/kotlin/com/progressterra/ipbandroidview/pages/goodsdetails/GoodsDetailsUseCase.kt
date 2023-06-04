@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescripti
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
@@ -28,7 +28,7 @@ interface GoodsDetailsUseCase {
         private val fetchGalleriesUseCase: FetchGalleriesUseCase,
         private val deliveryRepository: IPBDeliveryRepository,
         private val deliveryMapper: DeliveryMethodMapper
-    ) : GoodsDetailsUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : GoodsDetailsUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)

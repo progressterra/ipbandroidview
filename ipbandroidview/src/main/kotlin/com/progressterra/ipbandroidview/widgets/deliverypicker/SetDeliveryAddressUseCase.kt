@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.widgets.deliverypicker
 import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamForAddAddress
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.entities.Delivery
@@ -16,7 +16,7 @@ interface SetDeliveryAddressUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val repo: CartRepository
-    ) : SetDeliveryAddressUseCase, AbstractUseCase(scrmRepository, provideLocation) {
+    ) : SetDeliveryAddressUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(
             deliveryMethod: Delivery,

@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.editbutton.EditButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.widgets.edituser.EditUser
 
 @Composable
@@ -33,15 +34,21 @@ fun ProfileDetailsScreen(
             EditButton(state = state.editButton, useComponent = useComponent)
         }, bottomOverlap = true
     ) { _, bottom ->
-        Column(
-            Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(vertical = 8.dp)) {
-            EditUser(
-                state = state.editUser,
-                useComponent = useComponent
-            )
-            Spacer(Modifier.height(bottom))
+        StateBox(
+            state = state.screen,
+            useComponent = useComponent
+        ) {
+            Column(
+                Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(vertical = 8.dp)
+            ) {
+                EditUser(
+                    state = state.editUser,
+                    useComponent = useComponent
+                )
+                Spacer(Modifier.height(bottom))
+            }
         }
     }
 }

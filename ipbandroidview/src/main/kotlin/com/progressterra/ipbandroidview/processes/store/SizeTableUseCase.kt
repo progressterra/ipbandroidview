@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.processes.store
 
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 
 interface SizeTableUseCase {
@@ -13,7 +13,7 @@ interface SizeTableUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val productRepository: ProductRepository
-    ) : AbstractUseCase(scrmRepository, provideLocation), SizeTableUseCase {
+    ) : AbstractTokenUseCase(scrmRepository, provideLocation), SizeTableUseCase {
 
         override suspend fun invoke(id: String): Result<String> = withToken {
             ""

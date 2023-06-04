@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface BonusesUseCase {
@@ -18,7 +18,7 @@ interface BonusesUseCase {
         provideLocation: ProvideLocation,
         manageResources: ManageResources,
         private val bonusesRepository: IBonusRepository
-    ) : BonusesUseCase, AbstractUseCase(sCRMRepository, provideLocation) {
+    ) : BonusesUseCase, AbstractTokenUseCase(sCRMRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
 

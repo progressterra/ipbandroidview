@@ -1,10 +1,11 @@
 package com.progressterra.ipbandroidview.widgets.edituser
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.MultisizedImage
-import com.progressterra.ipbandroidview.features.makephoto.MakePhotoState
-import com.progressterra.ipbandroidview.features.makephoto.uMakePhotoEnabled
+import com.progressterra.ipbandroidview.entities.AdaptiveEntry
+import com.progressterra.ipbandroidview.entities.Id
+import com.progressterra.ipbandroidview.features.suggestions.SuggestionsState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.updateById
 import com.progressterra.processors.IpbSubState
 
 @Immutable
@@ -14,17 +15,11 @@ data class EditUserState(
     @IpbSubState val phone: TextFieldState = TextFieldState(id = "phone"),
     @IpbSubState val birthday: TextFieldState = TextFieldState(id = "birthday"),
     @IpbSubState val citizenship: TextFieldState = TextFieldState(id = "citizenship"),
-    @IpbSubState val address: TextFieldState = TextFieldState(id = "address"),
-    @IpbSubState val passport: TextFieldState = TextFieldState(id = "passport"),
-    @IpbSubState val passportProvider: TextFieldState = TextFieldState(id = "passportProvider"),
-    @IpbSubState val passportCode: TextFieldState = TextFieldState(id = "passportProviderCode"),
-    @IpbSubState val patent: TextFieldState = TextFieldState(id = "patent"),
-    val makePhoto: MakePhotoState = MakePhotoState()
+    val suggestions: SuggestionsState = SuggestionsState(),
+    val adaptiveDocuments: List<AdaptiveEntry> = emptyList()
 ) {
 
-    fun uMakePhotoEnabled(enabled: Boolean) = copy(makePhoto = makePhoto.uMakePhotoEnabled(enabled))
-
-    fun addPhoto(item: MultisizedImage) = copy(makePhoto = makePhoto.add(item))
-
-    fun removePhoto(item: MultisizedImage) = copy(makePhoto = makePhoto.remove(item))
+    fun updateById(id: Id, reducer: (AdaptiveEntry) -> AdaptiveEntry) = copy(
+        adaptiveDocuments = adaptiveDocuments.updateById(id, reducer)
+    )
 }

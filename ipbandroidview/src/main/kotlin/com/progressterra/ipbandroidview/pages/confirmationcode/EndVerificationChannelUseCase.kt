@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataForEndLogin
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.shared.AbstractUseCase
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.shared.throwOnFailure
@@ -16,7 +16,7 @@ interface EndVerificationChannelUseCase {
 
     class Base(
         private val repo: SCRMRepository, provideLocation: ProvideLocation
-    ) : EndVerificationChannelUseCase, AbstractUseCase(repo, provideLocation) {
+    ) : EndVerificationChannelUseCase, AbstractTokenUseCase(repo, provideLocation) {
 
         override suspend fun invoke(phoneNumber: String, code: String): Result<Unit> = runCatching {
             var formattedPhoneNumber = phoneNumber.trim()
