@@ -39,6 +39,6 @@ val featuresModule = module {
     single<SuggestionUseCase> { SuggestionUseCase.Base(get(), get()) }
 
     single<EditUserValidUseCase> {
-        EditUserValidUseCase.Base()
+        EditUserValidUseCase.Base(get())
     }
 }
