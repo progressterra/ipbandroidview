@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidview.pages.delivery.CreateDeliveryOrderUseCas
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
 import com.progressterra.ipbandroidview.processes.goods.GoodsSource
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
@@ -137,5 +138,9 @@ val processesModule = module {
 
     single<FetchUserProfileUseCase> {
         FetchUserProfileUseCase.Base()
+    }
+
+    single<CitizenshipRepository> {
+        CitizenshipRepository.Base()
     }
 }
