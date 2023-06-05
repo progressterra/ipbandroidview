@@ -14,7 +14,7 @@ interface CitizenshipSuggestionsUseCase {
         override suspend fun invoke(input: String): CitizenshipSuggestionsState =
             CitizenshipSuggestionsState(
                 items = if (input.length <= 3) emptyList() else repo.provideCitizenships()
-                    .filter { it.name.contains(input, true) }
+                    .filter { it.name.contains(input, true) }.take(3)
                     .map { CitizenshipSuggestionsState.Item(it.name, it.id) }
             )
     }
