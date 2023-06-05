@@ -11,7 +11,9 @@ import com.progressterra.ipbandroidview.shared.splitName
 import com.progressterra.ipbandroidview.shared.toEpochMillis
 import com.progressterra.ipbandroidview.widgets.edituser.CitizenshipSuggestionsUseCase
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 interface SaveDataUseCase {
 
@@ -39,7 +41,14 @@ interface SaveDataUseCase {
             income.adaptiveDocuments.forEach { doc ->
                 if (doc.makePhoto != null) {
                     doc.makePhoto.items.filter { it.local }.forEach { img ->
-                        repo.setImageForChar(token, img.id, MultipartBody.Part fileExplorer.pictureFile(img.id))
+                        repo.setImageForChar(
+                            token, doc.id, MultipartBody.Part.createFormData(
+                                name = "file",
+                                filename = fileExplorer.pictureFile(img.id).name,
+                                body = fileExplorer.pictureFile(img.id)
+                                    .asRequestBody("image/*".toMediaTypeOrNull())
+                            )
+                        )
                     }
                 }
             }
