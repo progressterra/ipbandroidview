@@ -3,9 +3,9 @@ package com.progressterra.ipbandroidview.pages.profiledetails
 import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
+import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsEvent
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.makephoto.uMakePhotoEnabled
-import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
@@ -193,8 +193,9 @@ class ProfileDetailsViewModel(
         intent {
             when (event) {
                 is CitizenshipSuggestionsEvent.Click -> {
-                    fetchAdaptiveEntriesUseCase(event.suggestion.data)
-                    reduce { state.uCitizenship(citizenship = event.suggestion.name) }
+                    fetchAdaptiveEntriesUseCase(state.editUser.suggestions.id)
+                    reduce { state.uCitizenship(citizenship = state.editUser.suggestions.suggestion) }
+                    updateSuggestions()
                 }
             }
         }
@@ -202,8 +203,9 @@ class ProfileDetailsViewModel(
 
     private fun updateSuggestions() {
         intent {
-            val suggestions = suggestionsUseCase(state.editUser.citizenship.text)
-            reduce { state.uSuggestions(suggestions) }
+            suggestionsUseCase(state.editUser.citizenship.text).onSuccess {
+                reduce { state.uSuggestions(it) }
+            }
         }
     }
 

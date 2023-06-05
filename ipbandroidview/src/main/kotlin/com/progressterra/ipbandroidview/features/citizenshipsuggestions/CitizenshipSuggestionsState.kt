@@ -5,13 +5,8 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class CitizenshipSuggestionsState(
-    val items: List<Item> = emptyList()
-) {
-
-    @Immutable
-    data class Item(
-        val name: String,
-        val data: String
-    )
-}
+    val suggestion: String = "",
+    val id: String = "",
+    val toHide: Boolean = true
+)
 

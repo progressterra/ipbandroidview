@@ -130,7 +130,7 @@ val processesModule = module {
     }
 
     single<SaveDataUseCase> {
-        SaveDataUseCase.Base(get(), get(), get(), get(), get())
+        SaveDataUseCase.Base(get(), get(), get(), get())
     }
 
     single<FetchUserUseCase> {

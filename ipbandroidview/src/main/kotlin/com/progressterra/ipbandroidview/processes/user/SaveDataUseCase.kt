@@ -9,7 +9,6 @@ import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.shared.splitName
 import com.progressterra.ipbandroidview.shared.toEpochMillis
-import com.progressterra.ipbandroidview.widgets.edituser.CitizenshipSuggestionsUseCase
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -22,7 +21,6 @@ interface SaveDataUseCase {
     class Base(
         scrmRepository: SCRMRepository,
         private val repo: DocumentsRepository,
-        private val citizenshipSuggestionsUseCase: CitizenshipSuggestionsUseCase,
         private val fileExplorer: FileExplorer,
         provideLocation: ProvideLocation
     ) : SaveDataUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
@@ -36,8 +34,7 @@ interface SaveDataUseCase {
             UserData.phone = income.phone.text
             UserData.email = income.email.text
             UserData.citizenship = income.citizenship.text
-            UserData.docSpecId =
-                citizenshipSuggestionsUseCase(income.citizenship.text).items.first { it.name == income.citizenship.text }.data
+            UserData.docSpecId = income.citizenship.id
             income.adaptiveDocuments.forEach { doc ->
                 if (doc.makePhoto != null) {
                     doc.makePhoto.items.filter { it.local }.forEach { img ->

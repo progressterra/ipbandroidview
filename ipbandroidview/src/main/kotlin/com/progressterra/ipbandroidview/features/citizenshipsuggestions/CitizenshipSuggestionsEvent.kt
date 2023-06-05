@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.features.citizenshipsuggestions
 
-sealed class CitizenshipSuggestionsEvent(val suggestion: CitizenshipSuggestionsState.Item) {
+sealed class CitizenshipSuggestionsEvent {
 
-    class Click(suggestion: CitizenshipSuggestionsState.Item) : CitizenshipSuggestionsEvent(suggestion)
+    object Click : CitizenshipSuggestionsEvent()
 }

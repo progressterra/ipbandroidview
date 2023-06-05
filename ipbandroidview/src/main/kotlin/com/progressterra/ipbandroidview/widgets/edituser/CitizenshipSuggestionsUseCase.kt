@@ -2,20 +2,23 @@ package com.progressterra.ipbandroidview.widgets.edituser
 
 import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsState
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
+import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
 
 interface CitizenshipSuggestionsUseCase {
 
-    suspend operator fun invoke(input: String): CitizenshipSuggestionsState
+    suspend operator fun invoke(input: String): Result<CitizenshipSuggestionsState>
 
     class Base(
         private val repo: CitizenshipRepository
-    ) : CitizenshipSuggestionsUseCase {
+    ) : CitizenshipSuggestionsUseCase, AbstractLoggingUseCase() {
 
-        override suspend fun invoke(input: String): CitizenshipSuggestionsState =
+        override suspend fun invoke(input: String): Result<CitizenshipSuggestionsState> = handle {
+            val suggestion = repo.citizenships().firstOrNull { it.name.contains(input) }
             CitizenshipSuggestionsState(
-                items = if (input.length <= 3) emptyList() else repo.provideCitizenships()
-                    .filter { it.name.contains(input, true) }.take(3)
-                    .map { CitizenshipSuggestionsState.Item(it.name, it.id) }
+                suggestion = suggestion?.name ?: "",
+                id = suggestion?.id ?: "",
+                toHide = suggestion == null || suggestion.name == input
             )
+        }
     }
 }

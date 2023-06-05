@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.features.citizenshipsuggestions
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,22 +19,17 @@ fun CitizenshipSuggestions(
     state: CitizenshipSuggestionsState,
     useComponent: UseCitizenshipSuggestions
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        state.items.forEach {
-            Row(modifier = Modifier
-                .fillMaxWidth()
-                .clip(CircleShape)
-                .niceClickable { useComponent.handle(CitizenshipSuggestionsEvent.Click(it)) }
-                .padding(horizontal = 16.dp, vertical = 4.dp)) {
-                BrushedText(
-                    text = it.name,
-                    style = IpbTheme.typography.body,
-                    tint = IpbTheme.colors.textPrimary.asBrush()
-                )
-            }
+    if (!state.toHide) {
+        Row(modifier = modifier
+            .fillMaxWidth()
+            .clip(CircleShape)
+            .niceClickable { useComponent.handle(CitizenshipSuggestionsEvent.Click) }
+            .padding(horizontal = 16.dp, vertical = 4.dp)) {
+            BrushedText(
+                text = state.suggestion,
+                style = IpbTheme.typography.body,
+                tint = IpbTheme.colors.textPrimary.asBrush()
+            )
         }
     }
 }
@@ -47,15 +40,9 @@ private fun SuggestionsPreview() {
     IpbTheme {
         CitizenshipSuggestions(
             state = CitizenshipSuggestionsState(
-                items = listOf(
-                    CitizenshipSuggestionsState.Item(
-                        name = "Россия", data = ""
-                    ), CitizenshipSuggestionsState.Item(
-                        name = "Беларусь", data = ""
-                    ), CitizenshipSuggestionsState.Item(
-                        name = "Украина", data = ""
-                    )
-                )
+                suggestion = "Belarus",
+                id = "",
+                toHide = false
             ), useComponent = UseCitizenshipSuggestions.Empty()
         )
     }

@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.pages.signup
 
 import android.Manifest
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsEvent
+import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
@@ -138,8 +138,9 @@ class SignUpViewModel(
         intent {
             when (event) {
                 is CitizenshipSuggestionsEvent.Click -> {
-                    fetchAdaptiveEntriesUseCase(event.suggestion.data)
-                    reduce { state.uCitizenship(citizenship = event.suggestion.name) }
+                    fetchAdaptiveEntriesUseCase(state.editUser.suggestions.id)
+                    reduce { state.uCitizenship(citizenship = state.editUser.suggestions.suggestion) }
+                    updateSuggestions()
                 }
             }
         }
@@ -147,8 +148,9 @@ class SignUpViewModel(
 
     private fun updateSuggestions() {
         intent {
-            val suggestions = citizenshipSuggestionsUseCase(state.editUser.citizenship.text)
-            reduce { state.uSuggestions(suggestions) }
+            citizenshipSuggestionsUseCase(state.editUser.citizenship.text).onSuccess {
+                reduce { state.uSuggestions(it) }
+            }
         }
     }
 

@@ -4,11 +4,11 @@ import com.progressterra.ipbandroidview.entities.Citizenship
 
 interface CitizenshipRepository {
 
-    suspend fun provideCitizenships(): List<Citizenship>
+    suspend fun citizenships(): List<Citizenship>
 
     class Base : CitizenshipRepository {
 
-        override suspend fun provideCitizenships(): List<Citizenship> = listOf(
+        private val data = listOf(
             Citizenship(
                 name = "Россия",
                 id = "08db6340-c0c5-4b0b-8546-aeff7259b739"
@@ -42,6 +42,8 @@ interface CitizenshipRepository {
                 id = "08db6340-8152-4b24-8a32-776545e3240e"
             )
         )
+
+        override suspend fun citizenships(): List<Citizenship> = data
     }
 }
 
