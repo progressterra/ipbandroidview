@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
+import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -16,7 +17,8 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileViewModel(
-    private val fetchUserProfileUseCase: FetchUserProfileUseCase
+    private val fetchUserProfileUseCase: FetchUserProfileUseCase,
+    private val logoutUseCase: LogoutUseCase
 ) : ViewModel(), ContainerHost<ProfileState, ProfileEvent>, UseProfile {
 
     override val container = container<ProfileState, ProfileEvent>(ProfileState())
@@ -55,7 +57,12 @@ class ProfileViewModel(
         intent {
             when (event) {
                 is ProfileButtonEvent.Click -> when (event.id) {
-                    "logout" -> postSideEffect(ProfileEvent.Logout)
+                    "logout" -> {
+                        logoutUseCase().onSuccess {
+                            postSideEffect(ProfileEvent.Logout)
+                        }
+                    }
+
                     "delete" -> Unit
                     "orders" -> postSideEffect(ProfileEvent.Orders)
                     "favorites" -> postSideEffect(ProfileEvent.Favorites)

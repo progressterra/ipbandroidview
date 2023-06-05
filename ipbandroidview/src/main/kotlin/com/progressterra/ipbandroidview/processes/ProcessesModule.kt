@@ -28,6 +28,7 @@ import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.processes.store.SizeTableUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
+import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
@@ -142,5 +143,9 @@ val processesModule = module {
 
     single<CitizenshipRepository> {
         CitizenshipRepository.Base()
+    }
+
+    single<LogoutUseCase> {
+        LogoutUseCase.Base()
     }
 }
