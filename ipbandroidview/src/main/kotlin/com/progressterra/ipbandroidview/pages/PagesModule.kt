@@ -57,7 +57,7 @@ val pagesModule = module {
 
     viewModel { PhotoViewModel() }
 
-    viewModel { ProfileViewModel(get()) }
+    viewModel { ProfileViewModel(get(), get()) }
 
     viewModel { ProfileDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
