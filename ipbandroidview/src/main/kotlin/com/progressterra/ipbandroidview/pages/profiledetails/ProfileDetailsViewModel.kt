@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.makephoto.uMakePhotoEnabled
-import com.progressterra.ipbandroidview.features.suggestions.SuggestionsEvent
+import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
@@ -189,10 +189,10 @@ class ProfileDetailsViewModel(
         }
     }
 
-    override fun handle(event: SuggestionsEvent<String>) {
+    override fun handle(event: CitizenshipSuggestionsEvent) {
         intent {
             when (event) {
-                is SuggestionsEvent.Click -> {
+                is CitizenshipSuggestionsEvent.Click -> {
                     fetchAdaptiveEntriesUseCase(event.suggestion.data)
                     reduce { state.uCitizenship(citizenship = event.suggestion.name) }
                 }

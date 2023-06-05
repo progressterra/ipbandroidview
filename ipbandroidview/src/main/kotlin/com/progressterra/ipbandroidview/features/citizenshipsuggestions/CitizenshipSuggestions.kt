@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.suggestions
+package com.progressterra.ipbandroidview.features.citizenshipsuggestions
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -17,8 +17,10 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
-fun Suggestions(
-    modifier: Modifier = Modifier, state: SuggestionsState, useComponent: UseSuggestions<String>
+fun CitizenshipSuggestions(
+    modifier: Modifier = Modifier,
+    state: CitizenshipSuggestionsState,
+    useComponent: UseCitizenshipSuggestions
 ) {
     LazyColumn(
         modifier = modifier,
@@ -28,7 +30,7 @@ fun Suggestions(
             Row(modifier = Modifier
                 .fillMaxWidth()
                 .clip(CircleShape)
-                .niceClickable { useComponent.handle(SuggestionsEvent.Click(it)) }
+                .niceClickable { useComponent.handle(CitizenshipSuggestionsEvent.Click(it)) }
                 .padding(horizontal = 16.dp, vertical = 4.dp)) {
                 BrushedText(
                     text = it.name,
@@ -44,18 +46,18 @@ fun Suggestions(
 @Composable
 private fun SuggestionsPreview() {
     IpbTheme {
-        Suggestions(
-            state = SuggestionsState(
+        CitizenshipSuggestions(
+            state = CitizenshipSuggestionsState(
                 items = listOf(
-                    SuggestionsState.Item(
+                    CitizenshipSuggestionsState.Item(
                         name = "Россия", data = ""
-                    ), SuggestionsState.Item(
+                    ), CitizenshipSuggestionsState.Item(
                         name = "Беларусь", data = ""
-                    ), SuggestionsState.Item(
+                    ), CitizenshipSuggestionsState.Item(
                         name = "Украина", data = ""
                     )
                 )
-            ), useComponent = UseSuggestions.Empty()
+            ), useComponent = UseCitizenshipSuggestions.Empty()
         )
     }
 }

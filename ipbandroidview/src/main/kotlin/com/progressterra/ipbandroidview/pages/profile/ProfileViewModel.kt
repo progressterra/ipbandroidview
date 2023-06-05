@@ -5,8 +5,8 @@ import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
-import com.progressterra.ipbandroidview.processes.user.UserExistsUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import org.orbitmvi.orbit.ContainerHost
@@ -16,7 +16,6 @@ import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileViewModel(
-    private val userExistsUseCase: UserExistsUseCase,
     private val fetchUserProfileUseCase: FetchUserProfileUseCase
 ) : ViewModel(), ContainerHost<ProfileState, ProfileEvent>, UseProfile {
 
@@ -25,10 +24,11 @@ class ProfileViewModel(
     fun refresh() {
         intent {
             reduce { state.uScreenState(ScreenState.LOADING) }
-            val exists = userExistsUseCase().isSuccess
-            reduce { state.uIsAuthorized(exists) }
             fetchUserProfileUseCase().onSuccess {
-                reduce { state.uProfile(it).uScreenState(ScreenState.SUCCESS) }
+                reduce {
+                    state.uProfile(it).uIsAuthorized(UserData.clientExist)
+                        .uScreenState(ScreenState.SUCCESS)
+                }
             }.onFailure {
                 reduce { state.uScreenState(ScreenState.ERROR) }
             }

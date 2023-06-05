@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.entities.AdaptiveEntry
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.authorskip.uAuthEnabled
-import com.progressterra.ipbandroidview.features.suggestions.SuggestionsState
+import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsState
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayText
@@ -13,7 +13,6 @@ import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipText
 import com.progressterra.ipbandroidview.widgets.edituser.uEmailText
 import com.progressterra.ipbandroidview.widgets.edituser.uNameText
 import com.progressterra.ipbandroidview.widgets.edituser.uPhoneEnabled
-import com.progressterra.ipbandroidview.widgets.edituser.uPhoneText
 
 @Immutable
 data class SignUpState(
@@ -22,7 +21,8 @@ data class SignUpState(
     val screenState: ScreenState = ScreenState.LOADING
 ) {
 
-    fun uSuggestions(items: SuggestionsState) = copy(editUser = editUser.copy(suggestions = items))
+    fun uSuggestions(items: CitizenshipSuggestionsState) =
+        copy(editUser = editUser.copy(suggestions = items))
 
     fun updateById(id: Id, reducer: (AdaptiveEntry) -> AdaptiveEntry) =
         copy(editUser = editUser.updateById(id, reducer))
@@ -34,8 +34,6 @@ data class SignUpState(
     fun uName(name: String) = copy(editUser = editUser.uNameText(name))
 
     fun uEmail(email: String) = copy(editUser = editUser.uEmailText(email))
-
-    fun uPhone(phone: String) = copy(editUser = editUser.uPhoneText(phone))
 
     fun uPhoneEnabled(enabled: Boolean) = copy(editUser = editUser.uPhoneEnabled(enabled))
 

@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.makephoto.MakePhoto
-import com.progressterra.ipbandroidview.features.suggestions.Suggestions
+import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestions
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
 import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
@@ -69,19 +69,17 @@ fun EditUser(
             useComponent = useComponent,
             actionIcon = R.drawable.ic_cancel
         )
-        Suggestions(
+        CitizenshipSuggestions(
             state = state.suggestions,
             useComponent = useComponent
         )
         state.adaptiveDocuments.forEach {
-            if (it.text != null) {
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = it.text,
-                    hint = it.name,
-                    useComponent = useComponent
-                )
-            }
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                state = it.text,
+                hint = it.name,
+                useComponent = useComponent
+            )
             if (it.makePhoto != null) {
                 MakePhoto(
                     title = it.name,

@@ -1,48 +1,21 @@
 package com.progressterra.ipbandroidview.widgets.edituser
 
-import com.progressterra.ipbandroidview.features.suggestions.SuggestionsState
+import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsState
+import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 
 interface CitizenshipSuggestionsUseCase {
 
-    suspend operator fun invoke(input: String): SuggestionsState
+    suspend operator fun invoke(input: String): CitizenshipSuggestionsState
 
-    class Base : CitizenshipSuggestionsUseCase {
+    class Base(
+        private val repo: CitizenshipRepository
+    ) : CitizenshipSuggestionsUseCase {
 
-        override suspend fun invoke(input: String): SuggestionsState = SuggestionsState(
-            items = if (input.length <= 3) emptyList() else listOf(
-                SuggestionsState.Item(
-                    name = "Россия",
-                    data = "08db6340-c0c5-4b0b-8546-aeff7259b739"
-                ),
-                SuggestionsState.Item(
-                    name = "Таджикистан",
-                    data = "08db6340-a968-41d2-8d83-76a1db8ad366"
-                ),
-                SuggestionsState.Item(
-                    name = "Украина",
-                    data = "08db6340-a968-41d2-8d83-76a1db8ad366"
-                ),
-                SuggestionsState.Item(
-                    name = "Узбекистан",
-                    data = "08db6340-a968-41d2-8d83-76a1db8ad366"
-                ),
-                SuggestionsState.Item(
-                    name = "Беларусь",
-                    data = "08db6340-8152-4b24-8a32-776545e3240e"
-                ),
-                SuggestionsState.Item(
-                    name = "Кыргызстан",
-                    data = "08db6340-8152-4b24-8a32-776545e3240e"
-                ),
-                SuggestionsState.Item(
-                    name = "Казахстан",
-                    data = "08db6340-8152-4b24-8a32-776545e3240e"
-                ),
-                SuggestionsState.Item(
-                    name = "Армения",
-                    data = "08db6340-8152-4b24-8a32-776545e3240e"
-                )
-            ).filter { it.name.contains(input, true) }
-        )
+        override suspend fun invoke(input: String): CitizenshipSuggestionsState =
+            CitizenshipSuggestionsState(
+                items = if (input.length <= 3) emptyList() else repo.provideCitizenships()
+                    .filter { it.name.contains(input, true) }
+                    .map { CitizenshipSuggestionsState.Item(it.name, it.id) }
+            )
     }
 }

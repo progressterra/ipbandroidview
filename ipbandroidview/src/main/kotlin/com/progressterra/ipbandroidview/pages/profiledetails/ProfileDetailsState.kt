@@ -4,9 +4,9 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.AdaptiveEntry
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
+import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsState
 import com.progressterra.ipbandroidview.features.editbutton.EditButtonState
 import com.progressterra.ipbandroidview.features.editbutton.uSaveEnabled
-import com.progressterra.ipbandroidview.features.suggestions.SuggestionsState
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayEnabled
@@ -17,7 +17,6 @@ import com.progressterra.ipbandroidview.widgets.edituser.uEmailEnabled
 import com.progressterra.ipbandroidview.widgets.edituser.uEmailText
 import com.progressterra.ipbandroidview.widgets.edituser.uNameEnabled
 import com.progressterra.ipbandroidview.widgets.edituser.uNameText
-import com.progressterra.ipbandroidview.widgets.edituser.uPhoneText
 
 @Immutable
 data class ProfileDetailsState(
@@ -29,7 +28,8 @@ data class ProfileDetailsState(
 
     fun uScreenState(newScreenState: ScreenState) = copy(screen = newScreenState)
 
-    fun uSuggestions(items: SuggestionsState) = copy(editUser = editUser.copy(suggestions = items))
+    fun uSuggestions(items: CitizenshipSuggestionsState) =
+        copy(editUser = editUser.copy(suggestions = items))
 
     fun updateById(id: Id, reducer: (AdaptiveEntry) -> AdaptiveEntry) =
         copy(editUser = editUser.updateById(id, reducer))
@@ -41,8 +41,6 @@ data class ProfileDetailsState(
     fun uName(name: String) = copy(editUser = editUser.uNameText(name))
 
     fun uEmail(email: String) = copy(editUser = editUser.uEmailText(email))
-
-    fun uPhone(phone: String) = copy(editUser = editUser.uPhoneText(phone))
 
     fun uBirthday(birthday: String) = copy(editUser = editUser.uBirthdayText(birthday))
 
