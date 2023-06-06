@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.processes.user
 
 import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.FileExplorer
@@ -22,6 +23,7 @@ interface SaveDataUseCase {
         scrmRepository: SCRMRepository,
         private val repo: DocumentsRepository,
         private val fileExplorer: FileExplorer,
+        private val citizenshipRepository: CitizenshipRepository,
         provideLocation: ProvideLocation
     ) : SaveDataUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
@@ -34,7 +36,7 @@ interface SaveDataUseCase {
             UserData.phone = income.phone.text
             UserData.email = income.email.text
             UserData.citizenship = income.citizenship.text
-            UserData.docSpecId = income.citizenship.id
+            UserData.docSpecId = citizenshipRepository.idByName(income.citizenship.text)
             income.adaptiveDocuments.forEach { doc ->
                 if (doc.makePhoto != null) {
                     doc.makePhoto.items.filter { it.local }.forEach { img ->
