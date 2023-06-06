@@ -70,16 +70,19 @@ class SignUpViewModel(
 
                     event.id == "skip" -> postSideEffect(SignUpEvent.OnSkip)
 
-                    event.id.startsWith("makePhoto") -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                        makePhotoUseCase().onSuccess {
-                            reduce {
-                                state.updateById(event) { entry ->
-                                    entry.copy(makePhoto = entry.makePhoto?.add(it))
+                    event.id.startsWith("makePhoto") -> {
+                        val trueId = event.id.substring(9)
+                        checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
+                            makePhotoUseCase(trueId).onSuccess {
+                                reduce {
+                                    state.updateById(it) { entry ->
+                                        entry.copy(makePhoto = entry.makePhoto?.add(it))
+                                    }
                                 }
                             }
+                        }.onFailure {
+                            askPermissionUseCase(Manifest.permission.CAMERA)
                         }
-                    }.onFailure {
-                        askPermissionUseCase(Manifest.permission.CAMERA)
                     }
                 }
             }

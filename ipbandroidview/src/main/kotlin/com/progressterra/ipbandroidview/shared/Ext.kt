@@ -8,10 +8,9 @@ import java.util.Locale
 fun <T : Id> List<T>.replaceById(item: T): List<T> =
     toMutableList().apply { set(indexOfFirst { item.id == it.id }, item) }
 
-fun <T : Id> List<T>.updateById(id: Id, reduced: (T) -> T): List<T> = toMutableList().apply {
-    val index = indexOfFirst { id.id == it.id }
-    val tempItem = get(index)
-    set(index, reduced(tempItem))
+fun <T : Id> List<T>.updateById(entity: Id, reduced: (T) -> T): List<T> = toMutableList().apply {
+    val index = indexOfFirst { entity.id == it.id }
+    set(index, reduced(get(index)))
 }
 
 fun Date.print(): String {
