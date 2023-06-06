@@ -9,8 +9,7 @@ data class MultisizedImage(
     override val id: String,
     override val local: Boolean,
     override val toRemove: Boolean,
-    val thumbnail: String,
-    val fullSize: String
+    val url: String
 ) : Parcelable, AttachedMedia<MultisizedImage> {
 
     override fun markToRemove(): MultisizedImage = this.copy(toRemove = true)

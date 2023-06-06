@@ -27,8 +27,7 @@ interface MakePhotoUseCase {
                 id = newPhotoId,
                 local = true,
                 toRemove = false,
-                thumbnail = uri.toString(),
-                fullSize = uri.toString()
+                url = uri.toString()
             )
             else throw PhotoWasNotTakenException()
         }

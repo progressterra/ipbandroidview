@@ -35,8 +35,7 @@ interface FetchAdaptiveEntriesUseCase {
                                         id = img.idUnique!!,
                                         local = false,
                                         toRemove = false,
-                                        thumbnail = img.urlData!!,
-                                        fullSize = img.urlData!!
+                                        url = img.urlData!!
                                     )
                                 } ?: emptyList()) else null,
                             status = it.characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,

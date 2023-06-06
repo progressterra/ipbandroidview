@@ -43,7 +43,7 @@ fun MakePhoto(
                     .clip(RoundedCornerShape(8.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .niceClickable { useComponent.handle(MakePhotoEvent.Select(picture)) },
-                url = picture.thumbnail,
+                url = picture.url,
                 backgroundColor = IpbTheme.colors.surface.asColor()
             )
             IconButton(
@@ -93,11 +93,11 @@ private fun AttachedPhotosPreviewEnabled() {
                 enabled = true,
                 items = listOf(
                     MultisizedImage(
-                        id = "", local = false, toRemove = false, thumbnail = "", fullSize = ""
+                        id = "", local = false, toRemove = false, url = ""
                     ), MultisizedImage(
-                        id = "", local = false, toRemove = false, thumbnail = "", fullSize = ""
+                        id = "", local = false, toRemove = false, url = ""
                     ), MultisizedImage(
-                        id = "", local = false, toRemove = false, thumbnail = "", fullSize = ""
+                        id = "", local = false, toRemove = false, url = ""
                     )
                 )
             ), useComponent = UseMakePhoto.Empty(),

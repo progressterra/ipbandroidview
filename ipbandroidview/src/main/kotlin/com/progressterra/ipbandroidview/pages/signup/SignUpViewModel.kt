@@ -98,7 +98,7 @@ class SignUpViewModel(
                     }
                 }
 
-                is MakePhotoEvent.Select -> postSideEffect(SignUpEvent.OpenPhoto(event.photo.fullSize))
+                is MakePhotoEvent.Select -> postSideEffect(SignUpEvent.OpenPhoto(event.photo.url))
             }
         }
     }

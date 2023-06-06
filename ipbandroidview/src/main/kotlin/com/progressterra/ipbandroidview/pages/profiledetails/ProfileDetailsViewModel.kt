@@ -164,7 +164,7 @@ class ProfileDetailsViewModel(
                     }
                 }
 
-                is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo.fullSize))
+                is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo.url))
             }
         }
     }
