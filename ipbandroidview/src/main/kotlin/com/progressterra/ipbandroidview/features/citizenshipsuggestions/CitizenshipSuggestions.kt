@@ -19,7 +19,7 @@ fun CitizenshipSuggestions(
     state: CitizenshipSuggestionsState,
     useComponent: UseCitizenshipSuggestions
 ) {
-    if (!state.toHide || !state.exact) {
+    if (!state.toHide && !state.exact) {
         Row(modifier = modifier
             .fillMaxWidth()
             .clip(CircleShape)
