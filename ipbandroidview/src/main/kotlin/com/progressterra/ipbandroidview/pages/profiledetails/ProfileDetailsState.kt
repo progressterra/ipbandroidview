@@ -46,6 +46,8 @@ data class ProfileDetailsState(
 
     fun uCitizenship(citizenship: String) = copy(editUser = editUser.uCitizenshipText(citizenship))
 
+    fun uDocuments(documents: List<AdaptiveEntry>) =
+        copy(editUser = editUser.updateDocuments(documents))
 
     fun uSaveEnabled(enabled: Boolean) = copy(editButton = editButton.uSaveEnabled(enabled))
 

@@ -193,9 +193,10 @@ class ProfileDetailsViewModel(
         intent {
             when (event) {
                 is CitizenshipSuggestionsEvent.Click -> {
-                    fetchAdaptiveEntriesUseCase(state.editUser.suggestions.id)
-                    reduce { state.uCitizenship(citizenship = state.editUser.suggestions.suggestion) }
-                    updateSuggestions()
+                    fetchAdaptiveEntriesUseCase(state.editUser.suggestions.id).onSuccess {
+                        reduce { state.uCitizenship(citizenship = state.editUser.suggestions.suggestion).uDocuments(it) }
+                        updateSuggestions()
+                    }
                 }
             }
         }

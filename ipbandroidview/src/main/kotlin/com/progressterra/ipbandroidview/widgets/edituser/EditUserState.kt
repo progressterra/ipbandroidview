@@ -19,6 +19,8 @@ data class EditUserState(
     val adaptiveDocuments: List<AdaptiveEntry> = emptyList()
 ) {
 
+    fun updateDocuments(documents: List<AdaptiveEntry>) = copy(adaptiveDocuments = documents)
+
     fun updateById(id: Id, reducer: (AdaptiveEntry) -> AdaptiveEntry) = copy(
         adaptiveDocuments = adaptiveDocuments.updateById(id, reducer)
     )

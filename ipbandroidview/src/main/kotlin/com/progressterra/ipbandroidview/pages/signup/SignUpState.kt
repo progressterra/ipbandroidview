@@ -21,6 +21,9 @@ data class SignUpState(
     val screenState: ScreenState = ScreenState.LOADING
 ) {
 
+    fun uDocuments(documents: List<AdaptiveEntry>) =
+        copy(editUser = editUser.updateDocuments(documents))
+
     fun uSuggestions(items: CitizenshipSuggestionsState) =
         copy(editUser = editUser.copy(suggestions = items))
 
