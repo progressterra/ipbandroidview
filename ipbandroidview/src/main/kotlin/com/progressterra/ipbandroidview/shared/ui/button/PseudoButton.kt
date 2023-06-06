@@ -42,7 +42,7 @@ fun PseudoButton(
         BrushedText(
             text = title,
             style = IpbTheme.typography.body,
-            tint = IpbTheme.colors.textPrimary.asBrush()
+            tint = if (state.enabled) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textDisabled.asBrush()
         )
         BrushedIcon(
             resId = icId,

@@ -61,7 +61,7 @@ class ProfileDetailsViewModel(
                         state.updateById(it) { edit ->
                             edit.copy(
                                 text = edit.text.uEnabled(false),
-                                makePhoto = edit.makePhoto?.uMakePhotoEnabled(false)
+                                makePhoto = edit.makePhoto?.uMakePhotoEnabled(false)?.uEnabled(false)
                             )
                         }
                     }
@@ -102,7 +102,7 @@ class ProfileDetailsViewModel(
                                 state.updateById(it) { edit ->
                                     edit.copy(
                                         text = edit.text.uEnabled(false),
-                                        makePhoto = edit.makePhoto?.uMakePhotoEnabled(false)
+                                        makePhoto = edit.makePhoto?.uMakePhotoEnabled(false)?.uEnabled(false)
                                     )
                                 }
                             }
@@ -119,7 +119,7 @@ class ProfileDetailsViewModel(
                                 state.updateById(it) { edit ->
                                     edit.copy(
                                         text = edit.text.uEnabled(true),
-                                        makePhoto = edit.makePhoto?.uMakePhotoEnabled(true)
+                                        makePhoto = edit.makePhoto?.uMakePhotoEnabled(true)?.uEnabled(true)
                                     )
                                 }
                             }

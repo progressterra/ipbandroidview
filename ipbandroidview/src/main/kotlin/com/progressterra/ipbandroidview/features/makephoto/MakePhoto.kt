@@ -51,7 +51,8 @@ fun MakePhoto(
                     .align(Alignment.TopEnd)
                     .size(18.dp)
                     .padding(4.dp),
-                onClick = { useComponent.handle(MakePhotoEvent.Remove(picture)) }
+                onClick = { useComponent.handle(MakePhotoEvent.Remove(picture)) },
+                enabled = state.enabled
             ) {
                 BrushedIcon(
                     resId = R.drawable.ic_cancel_small,
@@ -89,6 +90,7 @@ private fun AttachedPhotosPreviewEnabled() {
     IpbTheme {
         MakePhoto(
             state = MakePhotoState(
+                enabled = true,
                 items = listOf(
                     MultisizedImage(
                         id = "", local = false, toRemove = false, thumbnail = "", fullSize = ""

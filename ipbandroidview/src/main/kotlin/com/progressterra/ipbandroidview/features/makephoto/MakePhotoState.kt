@@ -8,8 +8,11 @@ import com.progressterra.processors.IpbSubState
 @Immutable
 data class MakePhotoState(
     @IpbSubState val makePhoto: ButtonState = ButtonState(),
-    val items: List<MultisizedImage> = emptyList()
+    val items: List<MultisizedImage> = emptyList(),
+    val enabled: Boolean = true
 ) {
+
+    fun uEnabled(newEnabled: Boolean) = copy(enabled = newEnabled)
 
     fun add(item: MultisizedImage) = copy(items = items + item)
 
