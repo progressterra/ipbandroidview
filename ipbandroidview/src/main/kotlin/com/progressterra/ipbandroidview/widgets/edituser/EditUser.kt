@@ -13,8 +13,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.makephoto.MakePhoto
 import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestions
+import com.progressterra.ipbandroidview.features.makephoto.MakePhoto
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
 import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
@@ -22,7 +22,10 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
 fun EditUser(
-    modifier: Modifier = Modifier, state: EditUserState, useComponent: UseEditUser
+    modifier: Modifier = Modifier,
+    state: EditUserState,
+    useComponent: UseEditUser,
+    photosFromRemote: Boolean
 ) {
     Column(
         modifier = modifier
@@ -84,7 +87,8 @@ fun EditUser(
                 MakePhoto(
                     title = it.name,
                     state = it.makePhoto,
-                    useComponent = useComponent
+                    useComponent = useComponent,
+                    photosFromRemote = photosFromRemote
                 )
             }
         }

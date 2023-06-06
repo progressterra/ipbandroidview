@@ -42,7 +42,9 @@ fun SignUpScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             EditUser(
-                state = state.editUser, useComponent = useComponent
+                state = state.editUser,
+                useComponent = useComponent,
+                photosFromRemote = true
             )
             Spacer(Modifier.height(bottom))
         }

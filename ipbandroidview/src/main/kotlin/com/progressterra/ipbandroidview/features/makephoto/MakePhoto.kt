@@ -31,7 +31,8 @@ fun MakePhoto(
     modifier: Modifier = Modifier,
     title: String,
     state: MakePhotoState,
-    useComponent: UseMakePhoto
+    useComponent: UseMakePhoto,
+    photosFromRemote: Boolean
 ) {
 
     @Composable
@@ -46,18 +47,20 @@ fun MakePhoto(
                 url = picture.url,
                 backgroundColor = IpbTheme.colors.surface.asColor()
             )
-            IconButton(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .size(18.dp)
-                    .padding(4.dp),
-                onClick = { useComponent.handle(MakePhotoEvent.Remove(picture)) },
-                enabled = state.enabled
-            ) {
-                BrushedIcon(
-                    resId = R.drawable.ic_cancel_small,
-                    tint = IpbTheme.colors.iconTertiary.asBrush()
-                )
+            if (!photosFromRemote) {
+                IconButton(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .size(18.dp)
+                        .padding(4.dp),
+                    onClick = { useComponent.handle(MakePhotoEvent.Remove(picture)) },
+                    enabled = state.enabled
+                ) {
+                    BrushedIcon(
+                        resId = R.drawable.ic_cancel_small,
+                        tint = IpbTheme.colors.iconTertiary.asBrush()
+                    )
+                }
             }
         }
     }
@@ -101,7 +104,8 @@ private fun AttachedPhotosPreviewEnabled() {
                     )
                 )
             ), useComponent = UseMakePhoto.Empty(),
-            title = stringResource(R.string.passport_photo)
+            title = stringResource(R.string.passport_photo),
+            photosFromRemote = true
         )
     }
 }

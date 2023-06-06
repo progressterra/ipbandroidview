@@ -158,11 +158,7 @@ class ProfileDetailsViewModel(
     override fun handle(event: MakePhotoEvent) {
         intent {
             when (event) {
-                is MakePhotoEvent.Remove -> reduce {
-                    state.updateById(event.photo) {
-                        it.copy(makePhoto = it.makePhoto?.remove(event.photo))
-                    }
-                }
+                is MakePhotoEvent.Remove -> Unit
 
                 is MakePhotoEvent.Select -> postSideEffect(ProfileDetailsEvent.OpenPhoto(event.photo.url))
             }
