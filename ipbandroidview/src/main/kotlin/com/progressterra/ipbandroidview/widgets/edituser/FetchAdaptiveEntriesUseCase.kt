@@ -24,7 +24,8 @@ interface FetchAdaptiveEntriesUseCase {
         override suspend fun invoke(citizenshipId: String): Result<List<AdaptiveEntry>> =
             withToken { token ->
                 repo.docsBySpecification(token, citizenshipId)
-                    .getOrThrow()?.listProductCharacteristic?.filter { it.characteristicValue?.statusDoc == TypeStatusDoc.NOT_FILL || it.characteristicValue?.statusDoc == TypeStatusDoc.REJECTED }
+                    .getOrThrow()
+                    ?.listProductCharacteristic
                     ?.map {
                         AdaptiveEntry(
                             makePhoto = if (it.imageRequired!!) MakePhotoState(

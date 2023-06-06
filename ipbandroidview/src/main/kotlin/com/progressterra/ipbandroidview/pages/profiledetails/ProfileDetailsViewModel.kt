@@ -34,7 +34,7 @@ class ProfileDetailsViewModel(
     private val saveUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
     private val editUserValidUseCase: EditUserValidUseCase,
-    private val suggestionsUseCase: CitizenshipSuggestionsUseCase,
+    private val citizenshipSuggestionsUseCase: CitizenshipSuggestionsUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
     private val fetchAdaptiveEntriesUseCase: FetchAdaptiveEntriesUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
@@ -209,7 +209,7 @@ class ProfileDetailsViewModel(
 
     private fun updateSuggestions() {
         intent {
-            suggestionsUseCase(state.editUser.citizenship.text).onSuccess {
+            citizenshipSuggestionsUseCase(state.editUser.citizenship.text).onSuccess {
                 reduce { state.uSuggestions(it) }
                 if (it.exact) {
                     updateEntries()

@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.features.citizenshipsuggestions
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,7 +20,7 @@ fun CitizenshipSuggestions(
     state: CitizenshipSuggestionsState,
     useComponent: UseCitizenshipSuggestions
 ) {
-    if (!state.toHide && !state.exact) {
+    if (!state.toHide) {
         Row(modifier = modifier
             .fillMaxWidth()
             .clip(CircleShape)
@@ -38,12 +39,29 @@ fun CitizenshipSuggestions(
 @Composable
 private fun SuggestionsPreview() {
     IpbTheme {
-        CitizenshipSuggestions(
-            state = CitizenshipSuggestionsState(
-                suggestion = "Belarus",
-                id = "",
-                toHide = false
-            ), useComponent = UseCitizenshipSuggestions.Empty()
-        )
+        Column {
+            CitizenshipSuggestions(
+                state = CitizenshipSuggestionsState(
+                    suggestion = "Belarus",
+                    id = "",
+                    toHide = false
+                ), useComponent = UseCitizenshipSuggestions.Empty()
+            )
+            CitizenshipSuggestions(
+                state = CitizenshipSuggestionsState(
+                    suggestion = "Russia",
+                    id = "",
+                    toHide = true
+                ), useComponent = UseCitizenshipSuggestions.Empty()
+            )
+            CitizenshipSuggestions(
+                state = CitizenshipSuggestionsState(
+                    suggestion = "Ukraine",
+                    id = "",
+                    toHide = false,
+                    exact = true
+                ), useComponent = UseCitizenshipSuggestions.Empty()
+            )
+        }
     }
 }

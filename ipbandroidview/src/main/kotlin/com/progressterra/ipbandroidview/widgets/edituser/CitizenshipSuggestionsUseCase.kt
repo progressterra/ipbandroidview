@@ -15,11 +15,12 @@ interface CitizenshipSuggestionsUseCase {
         override suspend fun invoke(input: String): Result<CitizenshipSuggestionsState> = handle {
             val suggestion = repo.citizenships()
                 .firstOrNull { it.name.contains(input.trim(), ignoreCase = true) }
+            val exact = suggestion?.name == input.trim()
             CitizenshipSuggestionsState(
                 suggestion = suggestion?.name ?: "",
                 id = suggestion?.id ?: "",
-                toHide = suggestion == null,
-                exact = suggestion?.name == input.trim()
+                toHide = suggestion == null || exact,
+                exact = exact
             )
         }
     }

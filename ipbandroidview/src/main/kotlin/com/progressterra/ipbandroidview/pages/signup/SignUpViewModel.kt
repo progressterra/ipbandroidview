@@ -27,7 +27,7 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class SignUpViewModel(
-    private val userValidUseCase: EditUserValidUseCase,
+    private val editUserValidUseCase: EditUserValidUseCase,
     private val saveDataUseCase: SaveDataUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
@@ -169,7 +169,7 @@ class SignUpViewModel(
 
     private fun valid() {
         intent {
-            val valid = userValidUseCase(state.editUser).isSuccess
+            val valid = editUserValidUseCase(state.editUser).isSuccess
             reduce { state.uAuthEnabled(valid) }
         }
     }
