@@ -49,9 +49,24 @@ class ProfileDetailsViewModel(
             reduce { ProfileDetailsState() }
             fetchUserUseCase().onSuccess {
                 reduce {
-                    state.uEditUser(it).uScreenState(ScreenState.SUCCESS).uPhoneEnabled(false).uEmailEnabled(false)
-                        .uBirthdayEnabled(false).uCitizenshipEnabled(false).uNameEnabled(false)
+                    state.uEditUser(it)
+                        .uPhoneEnabled(false)
+                        .uEmailEnabled(false)
+                        .uBirthdayEnabled(false)
+                        .uCitizenshipEnabled(false)
+                        .uNameEnabled(false)
                 }
+                state.editUser.adaptiveDocuments.forEach {
+                    reduce {
+                        state.updateById(it) { edit ->
+                            edit.copy(
+                                text = edit.text.uEnabled(false),
+                                makePhoto = edit.makePhoto?.uMakePhotoEnabled(false)
+                            )
+                        }
+                    }
+                }
+                reduce { state.uScreenState(ScreenState.SUCCESS) }
             }.onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
         }
     }

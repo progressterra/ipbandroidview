@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.processes.user
 
 import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
+import com.progressterra.ipbandroidapi.api.documents.models.IncomeDataClientArea
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
@@ -50,6 +51,11 @@ interface SaveDataUseCase {
                         )
                     }
                 }
+                repo.setValueForChar(
+                    token, doc.id, IncomeDataClientArea(
+                        data = doc.text.text
+                    )
+                )
             }
         }
     }
