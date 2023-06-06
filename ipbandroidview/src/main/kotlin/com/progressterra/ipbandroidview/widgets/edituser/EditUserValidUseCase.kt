@@ -21,7 +21,7 @@ interface EditUserValidUseCase {
                         editUserState.email.text.isEmail() &&
                         (editUserState.phone.text.isRussianPhoneNumber() || editUserState.phone.text.isTestPhoneNumber()) &&
                         editUserState.birthday.text.isBirthday() &&
-                        citizenshipSuggestionsUseCase(editUserState.citizenship.text).getOrThrow().toHide
+                        citizenshipSuggestionsUseCase(editUserState.citizenship.text).getOrThrow().exact
             if (!valid) {
                 throw Exception("Invalid entries")
             }

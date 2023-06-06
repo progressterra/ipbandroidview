@@ -7,6 +7,7 @@ import androidx.compose.runtime.Immutable
 data class CitizenshipSuggestionsState(
     val suggestion: String = "",
     val id: String = "",
-    val toHide: Boolean = true
+    val toHide: Boolean = true,
+    val exact: Boolean = true
 )
 

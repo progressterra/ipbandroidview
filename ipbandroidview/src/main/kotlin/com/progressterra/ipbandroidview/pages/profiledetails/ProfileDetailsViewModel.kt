@@ -196,11 +196,17 @@ class ProfileDetailsViewModel(
         intent {
             when (event) {
                 is CitizenshipSuggestionsEvent.Click -> {
-                    fetchAdaptiveEntriesUseCase(state.editUser.suggestions.id).onSuccess {
-                        reduce { state.uCitizenship(citizenship = state.editUser.suggestions.suggestion).uDocuments(it) }
-                        updateSuggestions()
-                    }
+                    reduce { state.uCitizenship(citizenship = state.editUser.suggestions.suggestion) }
+                    updateEntries()
                 }
+            }
+        }
+    }
+
+    private fun updateEntries() {
+        intent {
+            fetchAdaptiveEntriesUseCase(state.editUser.suggestions.id).onSuccess {
+                reduce { state.uDocuments(it) }
             }
         }
     }
@@ -209,6 +215,9 @@ class ProfileDetailsViewModel(
         intent {
             suggestionsUseCase(state.editUser.citizenship.text).onSuccess {
                 reduce { state.uSuggestions(it) }
+                if (it.exact) {
+                    updateEntries()
+                }
             }
         }
     }

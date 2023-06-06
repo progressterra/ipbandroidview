@@ -18,7 +18,8 @@ interface CitizenshipSuggestionsUseCase {
             CitizenshipSuggestionsState(
                 suggestion = suggestion?.name ?: "",
                 id = suggestion?.id ?: "",
-                toHide = suggestion == null
+                toHide = suggestion == null,
+                exact = suggestion?.name == input.trim()
             )
         }
     }

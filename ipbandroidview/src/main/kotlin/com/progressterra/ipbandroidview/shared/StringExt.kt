@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.shared
 
 import androidx.core.util.PatternsCompat
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 fun String.isEmail() = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
 
@@ -15,19 +14,19 @@ fun String.isRussianPhoneNumber() = matches(Regex("^7\\d{10}$"))
 fun String.isTestPhoneNumber() = this == "1777555777"
 
 fun String.isBirthday(): Boolean {
-    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+    val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
     return try {
-        LocalDate.parse(this, formatter)
+        format.parse(this)
         true
-    } catch (e: DateTimeParseException) {
+    } catch (e: ParseException) {
         false
     }
 }
 
 fun String.toEpochMillis(): Long {
-    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-    val date = LocalDate.parse(this, formatter)
-    return date.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli()
+    val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    val date = format.parse(this)
+    return date?.time ?: 0L
 }
 
 fun String.splitName(full: Boolean): List<String> {
@@ -61,5 +60,3 @@ fun String.toAddress(): Address {
     val apartment = parts.firstOrNull { it.startsWith("кв.") }?.substringAfter("кв.")?.trim()
     return Address(city, street, building, apartment)
 }
-
-fun String.isValidCitizenship() = this == "Россия"
