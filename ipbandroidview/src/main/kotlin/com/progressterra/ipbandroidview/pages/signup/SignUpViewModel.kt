@@ -138,7 +138,7 @@ class SignUpViewModel(
             when (event) {
                 is CitizenshipSuggestionsEvent.Click -> {
                     reduce { state.uCitizenship(citizenship = state.editUser.suggestions.suggestion) }
-                    updateEntries()
+                    updateSuggestions()
                 }
             }
         }
