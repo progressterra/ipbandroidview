@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.processes.user
 
-import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -9,6 +8,7 @@ import com.progressterra.ipbandroidview.shared.print
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import com.progressterra.ipbandroidview.widgets.edituser.FetchAdaptiveEntriesUseCase
 import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayText
+import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipText
 import com.progressterra.ipbandroidview.widgets.edituser.uEmailText
 import com.progressterra.ipbandroidview.widgets.edituser.uNameText
 import com.progressterra.ipbandroidview.widgets.edituser.uPhoneText
@@ -32,6 +32,7 @@ interface FetchUserUseCase {
                 })
                 .uEmailText(UserData.email)
                 .uPhoneText(UserData.phone)
+                .uCitizenshipText(UserData.citizenship)
                 .uBirthdayText(Date(UserData.dateOfBirthday).print())
             if (UserData.citizenship.isNotBlank() && UserData.docSpecId.isNotBlank()) {
                 result =

@@ -39,8 +39,7 @@ class ProfileDetailsViewModel(
     private val fetchAdaptiveEntriesUseCase: FetchAdaptiveEntriesUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase
-) : ViewModel(),
-    ContainerHost<ProfileDetailsState, ProfileDetailsEvent>, UseProfileDetails {
+) : ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEvent>, UseProfileDetails {
 
     override val container =
         container<ProfileDetailsState, ProfileDetailsEvent>(ProfileDetailsState())
@@ -49,7 +48,10 @@ class ProfileDetailsViewModel(
         intent {
             reduce { ProfileDetailsState() }
             fetchUserUseCase().onSuccess {
-                reduce { state.uEditUser(it).uScreenState(ScreenState.SUCCESS) }
+                reduce {
+                    state.uEditUser(it).uScreenState(ScreenState.SUCCESS).uEmailEnabled(false)
+                        .uBirthdayEnabled(false).uCitizenshipEnabled(false).uNameEnabled(false)
+                }
             }.onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
         }
     }
@@ -77,11 +79,8 @@ class ProfileDetailsViewModel(
                 is ButtonEvent.Click -> when {
                     event.id == "save" -> saveUseCase(state.editUser).onSuccess {
                         reduce {
-                            state.startCancelEdit()
-                                .uCitizenshipEnabled(false)
-                                .uEmailEnabled(false)
-                                .uNameEnabled(false)
-                                .uBirthdayEnabled(false)
+                            state.startCancelEdit().uCitizenshipEnabled(false).uEmailEnabled(false)
+                                .uNameEnabled(false).uBirthdayEnabled(false)
                         }
                         state.editUser.adaptiveDocuments.forEach {
                             reduce {
@@ -97,11 +96,8 @@ class ProfileDetailsViewModel(
 
                     event.id == "edit" -> {
                         reduce {
-                            state.startCancelEdit()
-                                .uCitizenshipEnabled(true)
-                                .uEmailEnabled(true)
-                                .uNameEnabled(true)
-                                .uBirthdayEnabled(true)
+                            state.startCancelEdit().uCitizenshipEnabled(true).uEmailEnabled(true)
+                                .uNameEnabled(true).uBirthdayEnabled(true)
                         }
                         state.editUser.adaptiveDocuments.forEach {
                             reduce {
