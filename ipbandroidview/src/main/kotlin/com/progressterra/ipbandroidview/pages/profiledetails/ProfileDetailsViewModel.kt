@@ -49,7 +49,7 @@ class ProfileDetailsViewModel(
             reduce { ProfileDetailsState() }
             fetchUserUseCase().onSuccess {
                 reduce {
-                    state.uEditUser(it).uScreenState(ScreenState.SUCCESS).uEmailEnabled(false)
+                    state.uEditUser(it).uScreenState(ScreenState.SUCCESS).uPhoneEnabled(false).uEmailEnabled(false)
                         .uBirthdayEnabled(false).uCitizenshipEnabled(false).uNameEnabled(false)
                 }
             }.onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }

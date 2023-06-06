@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidview.widgets.edituser.uEmailEnabled
 import com.progressterra.ipbandroidview.widgets.edituser.uEmailText
 import com.progressterra.ipbandroidview.widgets.edituser.uNameEnabled
 import com.progressterra.ipbandroidview.widgets.edituser.uNameText
+import com.progressterra.ipbandroidview.widgets.edituser.uPhoneEnabled
 
 @Immutable
 data class ProfileDetailsState(
@@ -25,6 +26,8 @@ data class ProfileDetailsState(
     val authProfileState: AuthProfileState = AuthProfileState(),
     val screen: ScreenState = ScreenState.LOADING
 ) {
+
+    fun uPhoneEnabled(newEnabled: Boolean) = copy(editUser = editUser.uPhoneEnabled(newEnabled))
 
     fun uScreenState(newScreenState: ScreenState) = copy(screen = newScreenState)
 

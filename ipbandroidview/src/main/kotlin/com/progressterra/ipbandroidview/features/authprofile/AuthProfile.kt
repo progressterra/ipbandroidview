@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -49,7 +50,7 @@ fun AuthProfile(
         )
         Spacer(modifier = Modifier.width(20.dp))
         Column(
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             BrushedText(
                 text = state.name,
@@ -62,9 +63,24 @@ fun AuthProfile(
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
         }
+        Spacer(modifier = Modifier.weight(1f))
         BrushedIcon(
             resId = R.drawable.ic_forw,
             tint = IpbTheme.colors.iconPrimary.asBrush()
+        )
+    }
+}
+
+@Composable
+@Preview
+private fun AuthProfilePreview() {
+    IpbTheme {
+        AuthProfile(
+            state = AuthProfileState(
+                name = "Volan de Mort",
+                email = "email@email.email"
+            ),
+            useComponent = UseAuthProfile.Empty()
         )
     }
 }
