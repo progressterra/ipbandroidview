@@ -1,0 +1,74 @@
+package com.progressterra.ipbandroidview.features.pfpsetter
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
+
+@Composable
+fun PfpSetter(
+    modifier: Modifier = Modifier, state: PfpSetterState, useComponent: UsePfpSetter
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(36.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(modifier = modifier
+            .size(263.dp)
+            .clip(CircleShape)
+            .niceClickable { useComponent.handle(PfpSetterEvent.Click) }
+            .background(IpbTheme.colors.surface.asBrush()), contentAlignment = Alignment.Center) {
+            if (state.url == null) {
+                BrushedIcon(
+                    resId = R.drawable.ic_add_avatar, tint = IpbTheme.colors.primary.asBrush()
+                )
+            } else {
+                SimpleImage(
+                    modifier = Modifier.size(263.dp),
+                    url = state.url,
+                    backgroundColor = IpbTheme.colors.background.asColor()
+                )
+            }
+        }
+        BrushedText(
+            text = stringResource(R.string.choose_photo_wisely),
+            style = IpbTheme.typography.body,
+            tint = IpbTheme.colors.textPrimary.asBrush(),
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PfpSetterPreview() {
+    IpbTheme {
+        Column(
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+            PfpSetter(
+                state = PfpSetterState(url = ""),
+                useComponent = UsePfpSetter.Empty()
+            )
+            PfpSetter(
+                state = PfpSetterState(), useComponent = UsePfpSetter.Empty()
+            )
+        }
+    }
+}

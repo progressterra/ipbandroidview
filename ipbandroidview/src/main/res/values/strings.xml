@@ -121,4 +121,5 @@
     <string name="avatar_picker_desc">Выберите аватар, который будет отображаться у других пользователей до подтверждения коннекта</string>
     <string name="avatar_picker">Выберите аватар</string>
     <string name="skip_yet">Пока пропустить</string>
+    <string name="choose_photo_wisely">Выберите такое фото, чтобы по нему вас смогли узнать</string>
 </resources>
