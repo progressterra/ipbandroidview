@@ -122,4 +122,9 @@
     <string name="avatar_picker">Выберите аватар</string>
     <string name="skip_yet">Пока пропустить</string>
     <string name="choose_photo_wisely">Выберите такое фото, чтобы по нему вас смогли узнать</string>
+    <string name="document_confirmed">Документ подтверждён менеджером</string>
+    <string name="document_rejected">Документ отклонён менеджером</string>
+    <string name="document_wait_review">Ожидает проверки со стороны менеджера</string>
+    <string name="document_wait_image">Требуется добавить изображение документа</string>
+    <string name="document_not_fill">Документ не заполнен</string>
 </resources>

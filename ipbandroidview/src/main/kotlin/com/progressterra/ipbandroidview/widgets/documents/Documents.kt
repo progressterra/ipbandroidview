@@ -1,0 +1,123 @@
+package com.progressterra.ipbandroidview.widgets.documents
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
+
+@Composable
+fun Documents(
+    modifier: Modifier = Modifier,
+    state: DocumentsState,
+    useComponent: UseDocuments
+) {
+
+    @Composable
+    fun Item(
+        itemState: DocumentsState.Item
+    ) {
+        Row(
+            modifier = Modifier
+                .clip(RoundedCornerShape(8.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .niceClickable { useComponent.handle(DocumentsEvent.Click(itemState)) }
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                BrushedText(
+                    text = itemState.name,
+                    style = IpbTheme.typography.body,
+                    tint = IpbTheme.colors.textPrimary.asBrush()
+                )
+                BrushedText(
+                    text = when (itemState.status) {
+                        TypeStatusDoc.NOT_FILL -> stringResource(R.string.document_not_fill)
+                        TypeStatusDoc.WAIT_IMAGE -> stringResource(R.string.document_wait_image)
+                        TypeStatusDoc.WAIT_REVIEW -> stringResource(R.string.document_wait_review)
+                        TypeStatusDoc.REJECTED -> stringResource(R.string.document_rejected)
+                        TypeStatusDoc.CONFIRMED -> stringResource(R.string.document_confirmed)
+                    },
+                    style = IpbTheme.typography.footnoteRegular,
+                    tint = when (itemState.status) {
+                        TypeStatusDoc.NOT_FILL -> IpbTheme.colors.textTertiary.asBrush()
+                        TypeStatusDoc.WAIT_IMAGE -> IpbTheme.colors.textTertiary.asBrush()
+                        TypeStatusDoc.WAIT_REVIEW -> IpbTheme.colors.textTertiary.asBrush()
+                        TypeStatusDoc.REJECTED -> IpbTheme.colors.textPrimary2.asBrush()
+                        TypeStatusDoc.CONFIRMED -> IpbTheme.colors.onBackground.asBrush()
+                    }
+                )
+            }
+            BrushedIcon(
+                resId = R.drawable.ic_forw,
+                tint = IpbTheme.colors.iconPrimary.asBrush()
+            )
+        }
+    }
+
+    LazyColumn(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(state.items) {
+            Item(it)
+        }
+    }
+}
+
+@Composable
+@Preview
+private fun DocumentsPreview() {
+    IpbTheme {
+        Documents(
+            state = DocumentsState(
+                items = listOf(
+                    DocumentsState.Item(
+                        id = "",
+                        name = "Passport 1",
+                        status = TypeStatusDoc.REJECTED
+                    ),
+                    DocumentsState.Item(
+                        id = "",
+                        name = "Passport 2",
+                        status = TypeStatusDoc.NOT_FILL
+                    ),
+                    DocumentsState.Item(
+                        id = "",
+                        name = "Passport 3",
+                        status = TypeStatusDoc.WAIT_REVIEW
+                    ),
+                    DocumentsState.Item(
+                        id = "",
+                        name = "Passport 4",
+                        status = TypeStatusDoc.WAIT_IMAGE
+                    ),
+                    DocumentsState.Item(
+                        id = "",
+                        name = "Passport 5",
+                        status = TypeStatusDoc.CONFIRMED
+                    )
+                )
+            ),
+            useComponent = UseDocuments.Empty()
+        )
+    }
+}
