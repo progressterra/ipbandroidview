@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.FileExplorer
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -30,10 +31,15 @@ interface SaveDocumentsUseCase {
             val entries = data.entries.map {
                 FieldData(
                     idrfCharacteristicType = data.id,
-                    name = it.hint!!,
-                    comment = it.hint,
+                    name = it.label,
+                    comment = it.placeholder,
                     order = 0,
-                    typeValue = TypeValueCharacteristic.AS_STRING,
+                    typeValue = when (it.type) {
+                        TextInputType.DEFAULT -> TypeValueCharacteristic.AS_STRING
+                        TextInputType.NUMBER -> TypeValueCharacteristic.AS_NUMBER
+                        TextInputType.PHONE_NUMBER -> TypeValueCharacteristic.AS_STRING
+                        TextInputType.CHAT -> TypeValueCharacteristic.AS_STRING
+                    },
                     valueData = it.text
 
                 )
