@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.widgets.documents
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
@@ -28,6 +29,7 @@ interface DocumentsUseCase {
         override suspend fun invoke(): Result<DocumentsState> = withToken { token ->
             DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
                 .getOrThrow()?.listProductCharacteristic?.map { doc ->
+                    Log.d("DOC", doc.characteristicType?.dataInJSON ?: "NULL")
                     val entries = gson.fromJson<List<FieldData>?>(
                         doc.characteristicType?.dataInJSON,
                         object : TypeToken<List<FieldData>>() {}.type
