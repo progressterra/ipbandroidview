@@ -39,7 +39,7 @@ fun TextField(
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
             BrushedText(
-                text = hint,
+                text = state.hint ?: hint,
                 style = IpbTheme.typography.caption,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
@@ -48,7 +48,7 @@ fun TextField(
     val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
             BrushedText(
-                text = hint,
+                text = state.hint ?: hint,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )

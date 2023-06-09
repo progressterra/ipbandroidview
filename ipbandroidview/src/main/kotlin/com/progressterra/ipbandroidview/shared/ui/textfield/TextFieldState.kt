@@ -8,6 +8,7 @@ import com.progressterra.processors.IpbState
 data class TextFieldState(
     val id: String = "",
     val text: String = "",
+    val hint: String? = null,
     val enabled: Boolean = true,
     val valid: Boolean = true
 )
