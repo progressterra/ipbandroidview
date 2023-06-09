@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.documentdetails
 
+import android.os.Parcelable
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.AdaptiveEntry
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
@@ -9,8 +9,10 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.updateById
 import com.progressterra.processors.IpbSubState
+import kotlinx.parcelize.Parcelize
 
 @Immutable
+@Parcelize
 data class DocumentDetailsState(
     override val id: String = "",
     val docName: String = "",
@@ -19,7 +21,7 @@ data class DocumentDetailsState(
     @IpbSubState val apply: ButtonState = ButtonState(
         id = "apply"
     )
-) : Id {
+) : Id, Parcelable {
 
     fun uId(newId: String) = copy(id = newId)
 
