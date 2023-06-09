@@ -44,7 +44,7 @@ fun DialogPicker(
                 BrushedText(
                     text = item.name,
                     style = IpbTheme.typography.body,
-                    tint = IpbTheme.colors.primary.asBrush()
+                    tint = IpbTheme.colors.textPrimary.asBrush()
                 )
             }
         }

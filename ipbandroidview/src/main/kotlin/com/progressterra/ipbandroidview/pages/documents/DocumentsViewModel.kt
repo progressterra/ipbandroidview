@@ -87,9 +87,11 @@ class DocumentsViewModel(
         intent {
             when (event) {
                 is ButtonEvent.Click -> when (event.id) {
-                    "apply" -> state.citizenship.dialog.selected?.let {
-                        saveCitizenshipUseCase(it)
-                        reduce { state.uCitizenship(it) }
+                    "apply" -> state.citizenship.dialog.selected?.let { newCitizenship ->
+                        saveCitizenshipUseCase(newCitizenship).onSuccess {
+                            reduce { state.uOpen(false) }
+                            refresh()
+                        }
                     }
                 }
             }
