@@ -65,11 +65,13 @@ private fun DocumentsScreenPreview() {
                 DocumentsState.Item(
                     name = "Passport",
                     status = TypeStatusDoc.CONFIRMED,
-                    id = ""
+                    id = "",
+                    entries = emptyList()
                 ), DocumentsState.Item(
                     name = "Passport",
                     status = TypeStatusDoc.NOT_FILL,
-                    id = ""
+                    id = "",
+                    entries = emptyList()
                 )
             )
         ),
