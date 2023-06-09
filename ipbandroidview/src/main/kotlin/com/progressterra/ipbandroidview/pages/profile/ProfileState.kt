@@ -22,6 +22,9 @@ data class ProfileState(
     val favorites: ProfileButtonState = ProfileButtonState(
         id = "favorites"
     ),
+    val documents: ProfileButtonState = ProfileButtonState(
+        id = "documents"
+    ),
     val logout: ProfileButtonState = ProfileButtonState(
         id = "logout"
     ),

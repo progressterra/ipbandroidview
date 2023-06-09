@@ -13,4 +13,6 @@ sealed class ProfileEvent {
     object Auth : ProfileEvent()
 
     object Details : ProfileEvent()
+
+    object Documents : ProfileEvent()
 }

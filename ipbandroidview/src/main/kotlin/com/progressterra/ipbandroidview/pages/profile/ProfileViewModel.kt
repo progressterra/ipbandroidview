@@ -67,6 +67,7 @@ class ProfileViewModel(
                     "orders" -> postSideEffect(ProfileEvent.Orders)
                     "favorites" -> postSideEffect(ProfileEvent.Favorites)
                     "support" -> postSideEffect(ProfileEvent.Support)
+                    "documents" -> postSideEffect(ProfileEvent.Documents)
                 }
             }
         }
