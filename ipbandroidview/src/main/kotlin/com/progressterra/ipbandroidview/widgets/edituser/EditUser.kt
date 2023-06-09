@@ -24,8 +24,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 fun EditUser(
     modifier: Modifier = Modifier,
     state: EditUserState,
-    useComponent: UseEditUser,
-    photosFromRemote: Boolean
+    useComponent: UseEditUser
 ) {
     Column(
         modifier = modifier
@@ -65,32 +64,5 @@ fun EditUser(
             useComponent = useComponent,
             actionIcon = R.drawable.ic_cancel
         )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.citizenship,
-            hint = stringResource(R.string.citizenship),
-            useComponent = useComponent,
-            actionIcon = R.drawable.ic_cancel
-        )
-        CitizenshipSuggestions(
-            state = state.suggestions,
-            useComponent = useComponent
-        )
-        state.adaptiveDocuments.forEach {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = it.text,
-                hint = it.name,
-                useComponent = useComponent
-            )
-            if (it.makePhoto != null) {
-                MakePhoto(
-                    title = it.name,
-                    state = it.makePhoto,
-                    useComponent = useComponent,
-                    photosFromRemote = photosFromRemote
-                )
-            }
-        }
     }
 }

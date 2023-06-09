@@ -11,17 +11,14 @@ interface EditUserValidUseCase {
 
     suspend operator fun invoke(editUserState: EditUserState): Result<Unit>
 
-    class Base(
-        private val citizenshipSuggestionsUseCase: CitizenshipSuggestionsUseCase
-    ) : EditUserValidUseCase, AbstractLoggingUseCase() {
+    class Base : EditUserValidUseCase, AbstractLoggingUseCase() {
 
         override suspend fun invoke(editUserState: EditUserState): Result<Unit> = handle {
             val valid =
                 editUserState.name.text.isNameAndSurname() &&
                         editUserState.email.text.isEmail() &&
                         (editUserState.phone.text.isRussianPhoneNumber() || editUserState.phone.text.isTestPhoneNumber()) &&
-                        editUserState.birthday.text.isBirthday() &&
-                        citizenshipSuggestionsUseCase(editUserState.citizenship.text).getOrThrow().exact
+                        editUserState.birthday.text.isBirthday()
             if (!valid) {
                 throw Exception("Invalid entries")
             }

@@ -13,15 +13,5 @@ data class EditUserState(
     @IpbSubState val name: TextFieldState = TextFieldState(id = "name"),
     @IpbSubState val email: TextFieldState = TextFieldState(id = "email"),
     @IpbSubState val phone: TextFieldState = TextFieldState(id = "phone"),
-    @IpbSubState val birthday: TextFieldState = TextFieldState(id = "birthday"),
-    @IpbSubState val citizenship: TextFieldState = TextFieldState(id = "citizenship"),
-    val suggestions: CitizenshipSuggestionsState = CitizenshipSuggestionsState(),
-    val adaptiveDocuments: List<AdaptiveEntry> = emptyList()
-) {
-
-    fun updateDocuments(documents: List<AdaptiveEntry>) = copy(adaptiveDocuments = documents)
-
-    fun updateById(id: Id, reducer: (AdaptiveEntry) -> AdaptiveEntry) = copy(
-        adaptiveDocuments = adaptiveDocuments.updateById(id, reducer)
-    )
-}
+    @IpbSubState val birthday: TextFieldState = TextFieldState(id = "birthday")
+)
