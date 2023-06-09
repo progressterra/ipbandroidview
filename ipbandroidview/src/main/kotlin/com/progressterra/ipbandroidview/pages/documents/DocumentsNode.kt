@@ -28,6 +28,7 @@ class DocumentsNode(
             }
         }
         val state = viewModel.collectAsState().value
+        viewModel.refresh()
         DocumentsScreen(
             modifier = modifier,
             state = state,

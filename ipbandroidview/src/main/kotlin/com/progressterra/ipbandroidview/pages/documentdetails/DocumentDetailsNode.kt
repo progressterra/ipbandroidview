@@ -1,6 +1,10 @@
 package com.progressterra.ipbandroidview.pages.documentdetails
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -26,6 +30,13 @@ class DocumentDetailsNode(
                 is DocumentDetailsEvent.Back -> onBack()
                 is DocumentDetailsEvent.OpenPhoto -> openPhoto(it.image)
             }
+        }
+        var alreadyLaunched by rememberSaveable(documentDetailsState) {
+            mutableStateOf(false)
+        }
+        if (!alreadyLaunched) {
+            alreadyLaunched = true
+            viewModel.refresh(documentDetailsState)
         }
         val state = viewModel.collectAsState().value
         DocumentDetails(
