@@ -29,7 +29,7 @@ class DocumentsViewModel(
 
     fun refresh() {
         intent {
-            reduce { DocumentsScreenState() }
+            reduce { state.uScreenState(ScreenState.LOADING) }
             var isSuccess = true
             documentsUseCase().onSuccess {
                 reduce { state.uDocuments(it) }
@@ -64,7 +64,9 @@ class DocumentsViewModel(
     }
 
     override fun handle(event: StateBoxEvent) {
-        refresh()
+        when (event) {
+            is StateBoxEvent.Refresh -> refresh()
+        }
     }
 
     override fun handle(event: DialogPickerEvent) {
