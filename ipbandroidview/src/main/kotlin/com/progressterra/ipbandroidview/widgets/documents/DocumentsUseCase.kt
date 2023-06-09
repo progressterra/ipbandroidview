@@ -26,6 +26,9 @@ interface DocumentsUseCase {
     ) : AbstractTokenUseCase(scrmRepository, provideLocation), DocumentsUseCase {
 
         override suspend fun invoke(): Result<DocumentsState> = withToken { token ->
+            if (UserData.citizenship.isEmpty()) {
+                DocumentsState()
+            }
             DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
                 .getOrThrow()?.listProductCharacteristic?.map { doc ->
                     Log.d("DOC", doc.characteristicType?.dataInJSON ?: "NULL")

@@ -10,5 +10,5 @@ data class Citizenship(
     override val id: String = ""
 ) : Id, IsEmpty {
 
-    override fun isEmpty(): Boolean = this == Citizenship()
+    override fun isEmpty(): Boolean = id == "" && name == ""
 }
