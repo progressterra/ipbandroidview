@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
+import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.IncomeDataClientArea
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
@@ -56,20 +57,5 @@ interface SaveDocumentsUseCase {
                 }
             }
         }
-
-        data class FieldData(
-            // Значение харатеристики (к какому типу документа относится поле), на основе который создано поле
-            @SerializedName("idrfCharacteristicType") val idrfCharacteristicType: String,
-            // Наименование поля
-            @SerializedName("name") val name: String,
-            // Подсказка, которую можно отобразить пользователю
-            @SerializedName("comment") val comment: String,
-            // Позволяет организовать сортировку данных
-            @SerializedName("order") val order: Int,
-            // Тип значения поля. Позволяет понять какие данные хранятся в поле. Позволяет правильного отображать значения полей
-            @SerializedName("typeValue") val typeValue: TypeValueCharacteristic,
-            // Само значение
-            @SerializedName("valueData") val valueData: String
-        )
     }
 }

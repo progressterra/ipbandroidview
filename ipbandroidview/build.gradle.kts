@@ -136,7 +136,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.17")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.18")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
@@ -147,7 +147,7 @@ dependencies {
     api("com.github.skydoves:landscapist-placeholder:2.2.1")
 
     api("androidx.paging:paging-runtime-ktx:3.1.1")
-    api("androidx.paging:paging-compose:1.0.0-alpha20")
+    api("androidx.paging:paging-compose:3.2.0-beta01")
 
     // QR
     api("com.google.zxing:core:3.5.1")

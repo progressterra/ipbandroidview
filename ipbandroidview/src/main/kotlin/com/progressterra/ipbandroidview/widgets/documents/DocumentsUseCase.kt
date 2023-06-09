@@ -2,11 +2,10 @@ package com.progressterra.ipbandroidview.widgets.documents
 
 import android.util.Log
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
+import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
-import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
@@ -30,13 +29,15 @@ interface DocumentsUseCase {
             DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
                 .getOrThrow()?.listProductCharacteristic?.map { doc ->
                     Log.d("DOC", doc.characteristicType?.dataInJSON ?: "NULL")
-                    val entries = gson.fromJson<List<FieldData>?>(
-                        doc.characteristicType?.dataInJSON,
-                        object : TypeToken<List<FieldData>>() {}.type
-                    ).map {
+                    val entries = (doc.characteristicType?.dataInJSON?.let {
+                        gson.fromJson<List<FieldData>?>(
+                            it,
+                            object : TypeToken<List<FieldData>>() {}.type
+                        )
+                    } ?: emptyList()).map {
                         TextFieldState(
                             id = it.order.toString(),
-                            text = it.valueData,
+                            text = it.valueData ?: "",
                             hint = it.comment
                         )
                     }
@@ -57,21 +58,5 @@ interface DocumentsUseCase {
                     )
                 } ?: emptyList())
         }
-
-
-        data class FieldData(
-            // Значение харатеристики (к какому типу документа относится поле), на основе который создано поле
-            @SerializedName("idrfCharacteristicType") val idrfCharacteristicType: String,
-            // Наименование поля
-            @SerializedName("name") val name: String,
-            // Подсказка, которую можно отобразить пользователю
-            @SerializedName("comment") val comment: String,
-            // Позволяет организовать сортировку данных
-            @SerializedName("order") val order: Int,
-            // Тип значения поля. Позволяет понять какие данные хранятся в поле. Позволяет правильного отображать значения полей
-            @SerializedName("typeValue") val typeValue: TypeValueCharacteristic,
-            // Само значение
-            @SerializedName("valueData") val valueData: String
-        )
     }
 }
