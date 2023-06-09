@@ -135,7 +135,7 @@ val processesModule = module {
     }
 
     single<FetchUserUseCase> {
-        FetchUserUseCase.Base(get(), get(), get())
+        FetchUserUseCase.Base()
     }
 
     single<FetchUserProfileUseCase> {
