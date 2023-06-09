@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,7 +29,7 @@ fun DocumentDetails(
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
-            title = stringResource(R.string.documents),
+            title = state.docName,
             showBackButton = true,
             useComponent = useComponent
         )
@@ -47,12 +49,12 @@ fun DocumentDetails(
                 )
             }
         }) { _, _ ->
-        Column(
+        LazyColumn(
             modifier = Modifier.padding(horizontal = 20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            state.entries.forEach {
+            items(state.entries) {
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
                     state = it,
@@ -60,10 +62,12 @@ fun DocumentDetails(
                 )
             }
             state.photo?.let {
-                DocumentPhoto(
-                    state = it,
-                    useComponent = useComponent
-                )
+                item {
+                    DocumentPhoto(
+                        state = it,
+                        useComponent = useComponent
+                    )
+                }
             }
         }
     }
