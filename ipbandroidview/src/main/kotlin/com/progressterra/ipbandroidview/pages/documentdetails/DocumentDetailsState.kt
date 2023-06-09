@@ -20,7 +20,8 @@ data class DocumentDetailsState(
     val photo: DocumentPhotoState? = null,
     @IpbSubState val apply: ButtonState = ButtonState(
         id = "apply"
-    )
+    ),
+    val canBeEdit: Boolean = true
 ) : Id, Parcelable {
 
     fun uId(newId: String) = copy(id = newId)

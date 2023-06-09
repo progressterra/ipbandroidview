@@ -23,9 +23,9 @@ class DocumentDetailsViewModel(
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
-    private val makePhotoUseCase: MakePhotoUseCase
-) : ContainerHost<DocumentDetailsState, DocumentDetailsEvent>,
-    ViewModel(), UseDocumentDetails {
+    private val makePhotoUseCase: MakePhotoUseCase,
+    private val validationUseCase: ValidationUseCase
+) : ContainerHost<DocumentDetailsState, DocumentDetailsEvent>, ViewModel(), UseDocumentDetails {
 
     override val container =
         container<DocumentDetailsState, DocumentDetailsEvent>(DocumentDetailsState())
@@ -65,8 +65,16 @@ class DocumentDetailsViewModel(
                             it.uText(event.text)
                         }
                     }
+                    validation()
                 }
             }
+        }
+    }
+
+    private fun validation() {
+        intent {
+            val valid = validationUseCase(state)
+            reduce { state.uApplyEnabled(valid.isSuccess) }
         }
     }
 
@@ -80,6 +88,5 @@ class DocumentDetailsViewModel(
                 is DocumentPhotoEvent.Select -> postSideEffect(DocumentDetailsEvent.OpenPhoto(event.image.url))
             }
         }
-
     }
 }

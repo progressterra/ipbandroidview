@@ -16,6 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,6 +25,8 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
+import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
 import com.progressterra.ipbandroidview.shared.ui.clearFocusOnKeyboardDismiss
 
 @Composable
@@ -31,15 +35,13 @@ fun TextField(
     state: TextFieldState,
     useComponent: UseTextField,
     hint: String = "",
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     singleLine: Boolean = true,
     actionIcon: Int? = null
 ) {
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
             BrushedText(
-                text = state.hint ?: hint,
+                text = state.label ?: hint,
                 style = IpbTheme.typography.caption,
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
@@ -48,7 +50,7 @@ fun TextField(
     val placeholder: (@Composable () -> Unit)? = if (state.text.isEmpty()) {
         {
             BrushedText(
-                text = state.hint ?: hint,
+                text = state.placeholder ?: hint,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
@@ -66,7 +68,12 @@ fun TextField(
             )
             .clearFocusOnKeyboardDismiss(),
         value = state.text,
-        visualTransformation = visualTransformation,
+        visualTransformation = when (state.type) {
+            TextInputType.DEFAULT -> VisualTransformation.None
+            TextInputType.NUMBER -> VisualTransformation.None
+            TextInputType.PHONE_NUMBER -> MaskVisualTransformation(PHONE_MASK)
+            TextInputType.CHAT -> VisualTransformation.None
+        },
         interactionSource = mutableInteractionSource,
         onValueChange = { text ->
             useComponent.handle(TextFieldEvent.TextChanged(state.id, text))
@@ -76,7 +83,12 @@ fun TextField(
             useComponent.handle(TextFieldEvent.Action(state.id))
         },
         shape = RoundedCornerShape(8.dp),
-        keyboardOptions = keyboardOptions,
+        keyboardOptions = when (state.type) {
+            TextInputType.DEFAULT -> KeyboardOptions.Default
+            TextInputType.NUMBER -> KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+            TextInputType.PHONE_NUMBER -> KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
+            TextInputType.CHAT -> KeyboardOptions.Default.copy(imeAction = ImeAction.Send)
+        },
         placeholder = placeholder,
         label = label,
         enabled = state.enabled,

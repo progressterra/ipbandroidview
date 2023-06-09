@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationCh
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.pages.documentdetails.ValidationUseCase
 import com.progressterra.ipbandroidview.pages.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.pages.documents.OpenDocumentUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
@@ -143,5 +144,7 @@ val pagesModule = module {
 
     viewModel { DocumentsViewModel(get(), get(), get(), get()) }
 
-    viewModel { DocumentDetailsViewModel(get(), get(), get(), get()) }
+    viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get()) }
+
+    single<ValidationUseCase> { ValidationUseCase.Base() }
 }

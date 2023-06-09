@@ -14,8 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
-import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -51,7 +49,6 @@ fun EditUser(
             modifier = Modifier.fillMaxWidth(),
             state = state.phone,
             hint = stringResource(R.string.phone_number),
-            visualTransformation = MaskVisualTransformation(PHONE_MASK),
             useComponent = useComponent,
             actionIcon = R.drawable.ic_cancel
         )

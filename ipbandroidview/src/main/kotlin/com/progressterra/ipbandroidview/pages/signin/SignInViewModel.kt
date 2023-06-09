@@ -72,21 +72,28 @@ class SignInViewModel(
     override fun handle(event: TextFieldEvent) {
         blockingIntent {
             when (event) {
-                is TextFieldEvent.TextChanged -> {
-                    if (event.text.length <= 11) {
-                        val valid =
-                            event.text.isRussianPhoneNumber() || event.text.isTestPhoneNumber()
-                        if (event.text.length == 1 && event.text.first() == '8') {
-                            reduce { state.uPhoneText("7") }
-                        } else {
-                            reduce { state.uPhoneText(event.text) }
+                is TextFieldEvent.TextChanged -> when (event.id) {
+                    "phone" -> {
+                        if (event.text.length <= 11) {
+                            val valid =
+                                event.text.isRussianPhoneNumber() || event.text.isTestPhoneNumber()
+                            if (event.text.length == 1 && event.text.first() == '8') {
+                                reduce { state.uPhoneText("7") }
+                            } else {
+                                reduce { state.uPhoneText(event.text) }
+                            }
+                            reduce { state.uPhoneValid(valid).uAuthButton(valid) }
                         }
-                        reduce { state.uPhoneValid(valid).uAuthButton(valid) }
                     }
                 }
 
-                is TextFieldEvent.Action -> onNext()
-                is TextFieldEvent.AdditionalAction -> Unit
+                is TextFieldEvent.Action -> when (event.id) {
+                    "phone" -> onNext()
+                }
+
+                is TextFieldEvent.AdditionalAction -> when (event.id) {
+                    "phone" -> Unit
+                }
             }
         }
     }

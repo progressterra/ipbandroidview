@@ -35,18 +35,20 @@ fun DocumentDetails(
         )
     },
         bottomBar = {
-            Column(
-                modifier = modifier
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(8.dp)
-            ) {
-                Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state.apply,
-                    useComponent = useComponent,
-                    title = stringResource(R.string.ready)
-                )
+            if (state.canBeEdit) {
+                Column(
+                    modifier = modifier
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(8.dp)
+                ) {
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.apply,
+                        useComponent = useComponent,
+                        title = stringResource(R.string.ready)
+                    )
+                }
             }
         }) { _, _ ->
         LazyColumn(

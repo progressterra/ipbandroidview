@@ -13,7 +13,7 @@ fun String.isRussianPhoneNumber() = matches(Regex("^7\\d{10}$"))
 
 fun String.isTestPhoneNumber() = this == "1777555777"
 
-fun String.isBirthday(): Boolean {
+fun String.isDate(): Boolean {
     val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
     return try {
         format.parse(this)

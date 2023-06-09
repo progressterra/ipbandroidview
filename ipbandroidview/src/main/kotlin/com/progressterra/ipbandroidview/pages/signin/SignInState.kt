@@ -5,11 +5,15 @@ import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.authorskip.uAuthEnabled
 import com.progressterra.ipbandroidview.features.authorskip.uSkipEnabled
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class SignInState(
-    @IpbSubState val phone: TextFieldState = TextFieldState(),
+    @IpbSubState val phone: TextFieldState = TextFieldState(
+        type = TextInputType.PHONE_NUMBER,
+        id = "phone"
+    ),
     val authOrSkipState: AuthOrSkipState = AuthOrSkipState()
 ) {
 
