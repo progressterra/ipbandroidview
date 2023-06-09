@@ -21,7 +21,8 @@ class ProfileNode(
     private val onLogout: () -> Unit,
     private val onOrders: () -> Unit,
     private val onSupport: () -> Unit,
-    private val onDetails: () -> Unit
+    private val onDetails: () -> Unit,
+    private val onDocuments: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -35,6 +36,7 @@ class ProfileNode(
                 is ProfileEvent.Orders -> onOrders()
                 is ProfileEvent.Support -> onSupport()
                 is ProfileEvent.Details -> onDetails()
+                is ProfileEvent.Documents -> onDocuments()
             }
         }
         var alreadyLaunched by rememberSaveable {
