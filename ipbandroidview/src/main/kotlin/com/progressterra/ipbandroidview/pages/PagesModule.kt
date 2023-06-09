@@ -11,6 +11,10 @@ import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
+import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
+import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.pages.documents.DocumentsViewModel
+import com.progressterra.ipbandroidview.pages.documents.OpenDocumentUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
@@ -43,7 +47,7 @@ val pagesModule = module {
 
     viewModel { SignInViewModel(get(), get()) }
 
-    viewModel { SignUpViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { SignUpViewModel(get(), get(), get()) }
 
     viewModel { MainViewModel(get(), get(), get(), get(), get()) }
 
@@ -59,7 +63,7 @@ val pagesModule = module {
 
     viewModel { ProfileViewModel(get(), get()) }
 
-    viewModel { ProfileDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { ProfileDetailsViewModel(get(), get(), get()) }
 
     viewModel { OrdersViewModel(get()) }
 
@@ -129,7 +133,15 @@ val pagesModule = module {
         }
     }
 
+    single<OpenDocumentUseCase> { OpenDocumentUseCase.Base() }
+
+    single<SaveDocumentsUseCase> { SaveDocumentsUseCase.Base(get(), get(), get(), get(), get()) }
+
     viewModel { CatalogViewModel(get(), get(), get(), get()) }
 
     viewModel { CartViewModel(get(), get(), get()) }
+
+    viewModel { DocumentsViewModel(get(), get(), get(), get()) }
+
+    viewModel { DocumentDetailsViewModel(get(), get(), get(), get()) }
 }

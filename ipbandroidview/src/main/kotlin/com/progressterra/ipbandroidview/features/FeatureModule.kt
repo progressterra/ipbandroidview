@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidview.features.addresssuggestions.ChooseSugges
 import com.progressterra.ipbandroidview.features.addresssuggestions.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUseCase
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
+import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizenshipsUseCase
 import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
 import com.progressterra.ipbandroidview.features.storecard.StoreCardMapper
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserValidUseCase
@@ -39,6 +40,8 @@ val featuresModule = module {
     single<SuggestionUseCase> { SuggestionUseCase.Base(get(), get()) }
 
     single<EditUserValidUseCase> {
-        EditUserValidUseCase.Base(get())
+        EditUserValidUseCase.Base()
     }
+
+    single<FetchCitizenshipsUseCase> { FetchCitizenshipsUseCase.Base(get()) }
 }

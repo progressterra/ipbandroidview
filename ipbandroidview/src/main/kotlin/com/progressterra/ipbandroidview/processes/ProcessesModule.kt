@@ -30,6 +30,7 @@ import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
+import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
@@ -130,7 +131,7 @@ val processesModule = module {
     }
 
     single<SaveDataUseCase> {
-        SaveDataUseCase.Base(get(), get(), get(), get(), get())
+        SaveDataUseCase.Base(get(), get())
     }
 
     single<FetchUserUseCase> {
@@ -147,5 +148,9 @@ val processesModule = module {
 
     single<LogoutUseCase> {
         LogoutUseCase.Base()
+    }
+
+    single<SaveCitizenshipUseCase> {
+        SaveCitizenshipUseCase.Base()
     }
 }

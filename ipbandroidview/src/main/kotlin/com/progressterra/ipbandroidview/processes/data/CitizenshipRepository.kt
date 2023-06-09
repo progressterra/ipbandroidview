@@ -8,6 +8,8 @@ interface CitizenshipRepository {
 
     suspend fun idByName(name: String): String
 
+    suspend fun byName(name: String): Citizenship
+
     class Base : CitizenshipRepository {
 
         private val data = listOf(
@@ -48,6 +50,8 @@ interface CitizenshipRepository {
         override suspend fun idByName(name: String): String = data.first { it.name == name }.id
 
         override suspend fun citizenships(): List<Citizenship> = data
+
+        override suspend fun byName(name: String): Citizenship = data.first { it.name == name }
     }
 }
 

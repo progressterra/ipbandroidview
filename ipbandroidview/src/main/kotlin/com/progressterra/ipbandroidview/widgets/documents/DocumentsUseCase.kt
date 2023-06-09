@@ -26,7 +26,7 @@ interface DocumentsUseCase {
     ) : AbstractTokenUseCase(scrmRepository, provideLocation), DocumentsUseCase {
 
         override suspend fun invoke(): Result<DocumentsState> = withToken { token ->
-            DocumentsState(items = repo.docsBySpecification(token, UserData.docSpecId)
+            DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
                 .getOrThrow()?.listProductCharacteristic?.map { doc ->
                     val entries = gson.fromJson<List<FieldData>?>(
                         doc.characteristicType?.dataInJSON,

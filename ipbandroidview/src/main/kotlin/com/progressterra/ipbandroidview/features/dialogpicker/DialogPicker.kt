@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Citizenship
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
@@ -30,7 +31,7 @@ fun DialogPicker(
     if (state.variants.isNotEmpty()) {
 
         @Composable
-        fun RadioListItem(item: DialogPickerState.Item, selected: Boolean) {
+        fun RadioListItem(item: Citizenship, selected: Boolean) {
             Row(
                 modifier = modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -41,36 +42,37 @@ fun DialogPicker(
                     onClick = { useComponent.handle(DialogPickerEvent.Select(item)) }
                 )
                 BrushedText(
-                    text = item.text,
+                    text = item.name,
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.primary.asBrush()
                 )
             }
         }
-
-        Dialog(
-            onDismissRequest = { useComponent.handle(DialogPickerEvent.Close) })
-        {
-            Column(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                state.variants.forEach { item ->
-                    RadioListItem(
-                        item = item,
-                        selected = item == state.selected
+        if (state.open) {
+            Dialog(
+                onDismissRequest = { useComponent.handle(DialogPickerEvent.Close) })
+            {
+                Column(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    state.variants.forEach { item ->
+                        RadioListItem(
+                            item = item,
+                            selected = item == state.selected
+                        )
+                    }
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        title = stringResource(R.string.choose),
+                        state = state.apply,
+                        useComponent = useComponent
                     )
                 }
-                Button(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(R.string.choose),
-                    state = state.apply,
-                    useComponent = useComponent
-                )
             }
         }
     }
@@ -82,10 +84,7 @@ private fun DialogPickerPreview() {
     DialogPicker(
         modifier = Modifier,
         state = DialogPickerState(
-            listOf(
-                DialogPickerState.Item("1", "Item 1"),
-                DialogPickerState.Item("2", "Item 2")
-            )
+            listOf()
         ),
         useComponent = UseDialogPicker.Empty()
     )
