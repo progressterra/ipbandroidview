@@ -1,26 +1,16 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
-import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
-import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsEvent
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
-import com.progressterra.ipbandroidview.features.makephoto.uMakePhotoEnabled
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
-import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
-import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.uEnabled
-import com.progressterra.ipbandroidview.shared.ui.textfield.uText
-import com.progressterra.ipbandroidview.widgets.edituser.CitizenshipSuggestionsUseCase
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserValidUseCase
-import com.progressterra.ipbandroidview.widgets.edituser.FetchAdaptiveEntriesUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -33,12 +23,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class ProfileDetailsViewModel(
     private val saveUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase,
-    private val editUserValidUseCase: EditUserValidUseCase,
-    private val citizenshipSuggestionsUseCase: CitizenshipSuggestionsUseCase,
-    private val makePhotoUseCase: MakePhotoUseCase,
-    private val fetchAdaptiveEntriesUseCase: FetchAdaptiveEntriesUseCase,
-    private val checkPermissionUseCase: CheckPermissionUseCase,
-    private val askPermissionUseCase: AskPermissionUseCase
+    private val editUserValidUseCase: EditUserValidUseCase
 ) : ViewModel(), ContainerHost<ProfileDetailsState, ProfileDetailsEvent>, UseProfileDetails {
 
     override val container =
@@ -53,18 +38,7 @@ class ProfileDetailsViewModel(
                         .uPhoneEnabled(false)
                         .uEmailEnabled(false)
                         .uBirthdayEnabled(false)
-                        .uCitizenshipEnabled(false)
                         .uNameEnabled(false)
-                }
-                state.editUser.adaptiveDocuments.forEach {
-                    reduce {
-                        state.updateById(it) { edit ->
-                            edit.copy(
-                                text = edit.text.uEnabled(false),
-                                makePhoto = edit.makePhoto?.uMakePhotoEnabled(false)?.uEnabled(false)
-                            )
-                        }
-                    }
                 }
                 reduce { state.uScreenState(ScreenState.SUCCESS) }
             }.onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
@@ -91,57 +65,22 @@ class ProfileDetailsViewModel(
     override fun handle(event: ButtonEvent) {
         intent {
             when (event) {
-                is ButtonEvent.Click -> when {
-                    event.id == "save" -> saveUseCase(state.editUser).onSuccess {
+                is ButtonEvent.Click -> when (event.id) {
+                    "save" -> saveUseCase(state.editUser).onSuccess {
                         reduce {
-                            state.startCancelEdit().uCitizenshipEnabled(false).uEmailEnabled(false)
+                            state.startCancelEdit().uEmailEnabled(false)
                                 .uNameEnabled(false).uBirthdayEnabled(false)
                         }
-                        state.editUser.adaptiveDocuments.forEach {
-                            reduce {
-                                state.updateById(it) { edit ->
-                                    edit.copy(
-                                        text = edit.text.uEnabled(false),
-                                        makePhoto = edit.makePhoto?.uMakePhotoEnabled(false)?.uEnabled(false)
-                                    )
-                                }
-                            }
-                        }
                     }
 
-                    event.id == "edit" -> {
+                    "edit" -> {
                         reduce {
-                            state.startCancelEdit().uCitizenshipEnabled(true).uEmailEnabled(true)
+                            state.startCancelEdit().uEmailEnabled(true)
                                 .uNameEnabled(true).uBirthdayEnabled(true)
                         }
-                        state.editUser.adaptiveDocuments.forEach {
-                            reduce {
-                                state.updateById(it) { edit ->
-                                    edit.copy(
-                                        text = edit.text.uEnabled(true),
-                                        makePhoto = edit.makePhoto?.uMakePhotoEnabled(true)?.uEnabled(true)
-                                    )
-                                }
-                            }
-                        }
                     }
 
-                    event.id == "cancel" -> refresh()
-
-                    event.id.startsWith("makePhoto") -> {
-                        val trueId = event.id.substring(9)
-                        checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                            makePhotoUseCase(trueId).onSuccess {
-                                reduce {
-                                    state.updateById(it) { entry ->
-                                        entry.copy(makePhoto = entry.makePhoto?.add(it))
-                                    }
-                                }
-                            }
-                        }.onFailure {
-                            askPermissionUseCase(Manifest.permission.CAMERA)
-                        }
-                    }
+                    "cancel" -> refresh()
                 }
             }
         }
@@ -174,16 +113,6 @@ class ProfileDetailsViewModel(
                         "name" -> reduce { state.uName(event.text) }
                         "email" -> reduce { state.uEmail(event.text) }
                         "birthday" -> reduce { state.uBirthday(event.text) }
-                        "citizenship" -> {
-                            reduce { state.uCitizenship(event.text) }
-                            updateSuggestions()
-                        }
-
-                        else -> reduce {
-                            state.updateById(event) {
-                                it.copy(text = it.text.uText(event.text))
-                            }
-                        }
                     }
                 }
 
@@ -192,40 +121,9 @@ class ProfileDetailsViewModel(
                     "name" -> reduce { state.uName("") }
                     "email" -> reduce { state.uEmail("") }
                     "birthday" -> Unit
-                    "citizenship" -> reduce { state.uCitizenship("") }
                 }
             }
             valid()
-        }
-    }
-
-    override fun handle(event: CitizenshipSuggestionsEvent) {
-        intent {
-            when (event) {
-                is CitizenshipSuggestionsEvent.Click -> {
-                    reduce { state.uCitizenship(citizenship = state.editUser.suggestions.suggestion) }
-                    updateSuggestions()
-                }
-            }
-        }
-    }
-
-    private fun updateEntries() {
-        intent {
-            fetchAdaptiveEntriesUseCase(state.editUser.suggestions.id).onSuccess {
-                reduce { state.uDocuments(it) }
-            }
-        }
-    }
-
-    private fun updateSuggestions() {
-        intent {
-            citizenshipSuggestionsUseCase(state.editUser.citizenship.text).onSuccess {
-                reduce { state.uSuggestions(it) }
-                if (it.exact) {
-                    updateEntries()
-                }
-            }
         }
     }
 

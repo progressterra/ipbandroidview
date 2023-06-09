@@ -1,18 +1,13 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.AdaptiveEntry
-import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
-import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsState
 import com.progressterra.ipbandroidview.features.editbutton.EditButtonState
 import com.progressterra.ipbandroidview.features.editbutton.uSaveEnabled
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayEnabled
 import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayText
-import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipEnabled
-import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipText
 import com.progressterra.ipbandroidview.widgets.edituser.uEmailEnabled
 import com.progressterra.ipbandroidview.widgets.edituser.uEmailText
 import com.progressterra.ipbandroidview.widgets.edituser.uNameEnabled
@@ -31,12 +26,6 @@ data class ProfileDetailsState(
 
     fun uScreenState(newScreenState: ScreenState) = copy(screen = newScreenState)
 
-    fun uSuggestions(items: CitizenshipSuggestionsState) =
-        copy(editUser = editUser.copy(suggestions = items))
-
-    fun updateById(id: Id, reducer: (AdaptiveEntry) -> AdaptiveEntry) =
-        copy(editUser = editUser.updateById(id, reducer))
-
     fun uEditUser(newEditUser: EditUserState) = copy(editUser = newEditUser)
 
     fun startCancelEdit() = copy(editButton = editButton.startCancel())
@@ -47,11 +36,6 @@ data class ProfileDetailsState(
 
     fun uBirthday(birthday: String) = copy(editUser = editUser.uBirthdayText(birthday))
 
-    fun uCitizenship(citizenship: String) = copy(editUser = editUser.uCitizenshipText(citizenship))
-
-    fun uDocuments(documents: List<AdaptiveEntry>) =
-        copy(editUser = editUser.updateDocuments(documents))
-
     fun uSaveEnabled(enabled: Boolean) = copy(editButton = editButton.uSaveEnabled(enabled))
 
     fun uEmailEnabled(enabled: Boolean) = copy(editUser = editUser.uEmailEnabled(enabled))
@@ -59,8 +43,4 @@ data class ProfileDetailsState(
     fun uNameEnabled(enabled: Boolean) = copy(editUser = editUser.uNameEnabled(enabled))
 
     fun uBirthdayEnabled(enabled: Boolean) = copy(editUser = editUser.uBirthdayEnabled(enabled))
-
-
-    fun uCitizenshipEnabled(enabled: Boolean) =
-        copy(editUser = editUser.uCitizenshipEnabled(enabled))
 }

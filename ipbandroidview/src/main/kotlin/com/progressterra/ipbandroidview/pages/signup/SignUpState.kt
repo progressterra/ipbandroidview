@@ -1,15 +1,11 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.AdaptiveEntry
-import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.authorskip.uAuthEnabled
-import com.progressterra.ipbandroidview.features.citizenshipsuggestions.CitizenshipSuggestionsState
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import com.progressterra.ipbandroidview.widgets.edituser.uBirthdayText
-import com.progressterra.ipbandroidview.widgets.edituser.uCitizenshipText
 import com.progressterra.ipbandroidview.widgets.edituser.uEmailText
 import com.progressterra.ipbandroidview.widgets.edituser.uNameText
 import com.progressterra.ipbandroidview.widgets.edituser.uPhoneEnabled
@@ -20,15 +16,6 @@ data class SignUpState(
     val authOrSkip: AuthOrSkipState = AuthOrSkipState(),
     val screenState: ScreenState = ScreenState.LOADING
 ) {
-
-    fun uDocuments(documents: List<AdaptiveEntry>) =
-        copy(editUser = editUser.updateDocuments(documents))
-
-    fun uSuggestions(items: CitizenshipSuggestionsState) =
-        copy(editUser = editUser.copy(suggestions = items))
-
-    fun updateById(id: Id, reducer: (AdaptiveEntry) -> AdaptiveEntry) =
-        copy(editUser = editUser.updateById(id, reducer))
 
     fun uScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
 
@@ -43,7 +30,4 @@ data class SignUpState(
     fun uAuthEnabled(enabled: Boolean) = copy(authOrSkip = authOrSkip.uAuthEnabled(enabled))
 
     fun uBirthday(birthday: String) = copy(editUser = editUser.uBirthdayText(birthday))
-
-    fun uCitizenship(citizenship: String) = copy(editUser = editUser.uCitizenshipText(citizenship))
-
 }

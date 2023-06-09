@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.widgets.documents
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
-import com.progressterra.ipbandroidview.entities.AdaptiveEntry
 import com.progressterra.ipbandroidview.entities.Id
+import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 
 @Immutable
@@ -16,6 +16,7 @@ data class DocumentsState(
         override val id: String,
         val name: String,
         val status: TypeStatusDoc,
-        val entries: List<TextFieldState>
+        val entries: List<TextFieldState>,
+        val photo: DocumentPhotoState?
     ) : Id
 }

@@ -7,6 +7,8 @@ import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.entities.MultisizedImage
+import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
@@ -31,7 +33,7 @@ interface DocumentsUseCase {
                         object : TypeToken<List<FieldData>>() {}.type
                     ).map {
                         TextFieldState(
-                            id = "doc${it.idrfCharacteristicType}",
+                            id = it.order.toString(),
                             text = it.valueData,
                             hint = it.comment
                         )
@@ -40,10 +42,20 @@ interface DocumentsUseCase {
                         status = doc.characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,
                         name = doc.characteristicType?.name ?: "",
                         id = doc.characteristicValue?.idUnique!!,
-                        entries = entries
+                        entries = entries,
+                        photo = if (doc.imageRequired!!) DocumentPhotoState(
+                            items = doc.characteristicValue?.listImages?.map { img ->
+                                MultisizedImage(
+                                    id = img.idUnique!!,
+                                    local = false,
+                                    toRemove = false,
+                                    url = img.urlData!!
+                                )
+                            } ?: emptyList()) else null
                     )
                 } ?: emptyList())
         }
+
 
         data class FieldData(
             // Значение харатеристики (к какому типу документа относится поле), на основе который создано поле
