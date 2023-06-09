@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.pages.profile.ProfileState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -24,6 +25,7 @@ fun ProfileButton(
     state: ProfileButtonState,
     title: String,
     isDanger: Boolean = false,
+    notification: ProfileState.DocumentsNotification? = null,
     useComponent: UseProfileButton
 ) {
     Row(
@@ -44,9 +46,21 @@ fun ProfileButton(
             style = IpbTheme.typography.body,
             tint = color
         )
-        BrushedIcon(
-            resId = R.drawable.ic_forw,
-            tint = color
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            if (notification?.isEmpty() == false) {
+                BrushedText(
+                    text = "${notification.count}/${notification.max}",
+                    style = IpbTheme.typography.footnoteBold,
+                    tint = if (notification.isFull()) IpbTheme.colors.onBackground.asBrush() else IpbTheme.colors.textPrimary2.asBrush()
+                )
+            }
+            BrushedIcon(
+                resId = R.drawable.ic_forw,
+                tint = color
+            )
+        }
     }
 }

@@ -18,7 +18,8 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileViewModel(
     private val fetchUserProfileUseCase: FetchUserProfileUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
+    private val documentsNotification: DocumentsNotificationUseCase
 ) : ViewModel(), ContainerHost<ProfileState, ProfileEvent>, UseProfile {
 
     override val container = container<ProfileState, ProfileEvent>(ProfileState())
@@ -26,14 +27,20 @@ class ProfileViewModel(
     fun refresh() {
         intent {
             reduce { state.uScreenState(ScreenState.LOADING) }
+            var isSuccess = true
             fetchUserProfileUseCase().onSuccess {
                 reduce {
                     state.uProfile(it).uIsAuthorized(UserData.clientExist)
-                        .uScreenState(ScreenState.SUCCESS)
                 }
             }.onFailure {
-                reduce { state.uScreenState(ScreenState.ERROR) }
+                isSuccess = false
             }
+            documentsNotification().onSuccess {
+                reduce { state.uNotification(it) }
+            }.onFailure {
+                isSuccess = false
+            }
+            reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
         }
     }
 

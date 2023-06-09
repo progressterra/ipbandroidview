@@ -1,8 +1,10 @@
 package com.progressterra.ipbandroidview.pages.profile
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.entities.IsFull
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
+import com.progressterra.ipbandroidview.shared.IsEmpty
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.processors.IpbSubState
@@ -30,8 +32,23 @@ data class ProfileState(
     ),
     val deleteAccount: ProfileButtonState = ProfileButtonState(
         id = "delete"
-    )
+    ),
+    val documentsNotification: DocumentsNotification = DocumentsNotification()
 ) {
+
+    @Immutable
+    data class DocumentsNotification(
+        val count: Int = 0,
+        val max: Int = 0
+    ) : IsEmpty, IsFull {
+
+        override fun isFull(): Boolean = count == max
+
+        override fun isEmpty(): Boolean = count == 0 && max == 0
+    }
+
+    fun uNotification(newNotification: DocumentsNotification) =
+        copy(documentsNotification = newNotification)
 
     fun uProfile(newProfileState: AuthProfileState) =
         copy(authProfileState = newProfileState)

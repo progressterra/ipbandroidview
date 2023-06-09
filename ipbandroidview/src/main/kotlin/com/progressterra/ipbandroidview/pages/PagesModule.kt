@@ -28,6 +28,7 @@ import com.progressterra.ipbandroidview.pages.orders.StatusOrderMapper
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoViewModel
+import com.progressterra.ipbandroidview.pages.profile.DocumentsNotificationUseCase
 import com.progressterra.ipbandroidview.pages.profile.ProfileViewModel
 import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
@@ -62,7 +63,7 @@ val pagesModule = module {
 
     viewModel { PhotoViewModel() }
 
-    viewModel { ProfileViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get(), get(), get()) }
 
     viewModel { ProfileDetailsViewModel(get(), get(), get()) }
 
@@ -147,4 +148,6 @@ val pagesModule = module {
     viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get()) }
 
     single<ValidationUseCase> { ValidationUseCase.Base() }
+
+    single<DocumentsNotificationUseCase> { DocumentsNotificationUseCase.Base(get(), get(), get()) }
 }
