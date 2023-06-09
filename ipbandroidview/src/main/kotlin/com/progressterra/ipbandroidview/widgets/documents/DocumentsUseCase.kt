@@ -28,38 +28,39 @@ interface DocumentsUseCase {
         override suspend fun invoke(): Result<DocumentsState> = withToken { token ->
             if (UserData.citizenship.isEmpty()) {
                 DocumentsState()
+            } else {
+                DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
+                    .getOrThrow()?.listProductCharacteristic?.map { doc ->
+                        Log.d("DOC", doc.characteristicType?.dataInJSON ?: "NULL")
+                        val entries = (doc.characteristicType?.dataInJSON?.let {
+                            gson.fromJson<List<FieldData>?>(
+                                it,
+                                object : TypeToken<List<FieldData>>() {}.type
+                            )
+                        } ?: emptyList()).map {
+                            TextFieldState(
+                                id = it.order.toString(),
+                                text = it.valueData ?: "",
+                                hint = it.comment
+                            )
+                        }
+                        DocumentsState.Item(
+                            status = doc.characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,
+                            name = doc.characteristicType?.name ?: "",
+                            id = doc.characteristicValue?.idUnique!!,
+                            entries = entries,
+                            photo = if (doc.imageRequired!!) DocumentPhotoState(
+                                items = doc.characteristicValue?.listImages?.map { img ->
+                                    MultisizedImage(
+                                        id = img.idUnique!!,
+                                        local = false,
+                                        toRemove = false,
+                                        url = img.urlData!!
+                                    )
+                                } ?: emptyList()) else null
+                        )
+                    } ?: emptyList())
             }
-            DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
-                .getOrThrow()?.listProductCharacteristic?.map { doc ->
-                    Log.d("DOC", doc.characteristicType?.dataInJSON ?: "NULL")
-                    val entries = (doc.characteristicType?.dataInJSON?.let {
-                        gson.fromJson<List<FieldData>?>(
-                            it,
-                            object : TypeToken<List<FieldData>>() {}.type
-                        )
-                    } ?: emptyList()).map {
-                        TextFieldState(
-                            id = it.order.toString(),
-                            text = it.valueData ?: "",
-                            hint = it.comment
-                        )
-                    }
-                    DocumentsState.Item(
-                        status = doc.characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,
-                        name = doc.characteristicType?.name ?: "",
-                        id = doc.characteristicValue?.idUnique!!,
-                        entries = entries,
-                        photo = if (doc.imageRequired!!) DocumentPhotoState(
-                            items = doc.characteristicValue?.listImages?.map { img ->
-                                MultisizedImage(
-                                    id = img.idUnique!!,
-                                    local = false,
-                                    toRemove = false,
-                                    url = img.urlData!!
-                                )
-                            } ?: emptyList()) else null
-                    )
-                } ?: emptyList())
         }
     }
 }
