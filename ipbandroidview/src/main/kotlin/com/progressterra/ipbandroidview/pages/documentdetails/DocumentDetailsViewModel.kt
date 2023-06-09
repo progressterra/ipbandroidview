@@ -83,6 +83,7 @@ class DocumentDetailsViewModel(
             when (event) {
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
                     makePhotoUseCase().onSuccess { reduce { state.addPhoto(it) } }
+                    validation()
                 }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
 
                 is DocumentPhotoEvent.Select -> postSideEffect(DocumentDetailsEvent.OpenPhoto(event.image.url))
