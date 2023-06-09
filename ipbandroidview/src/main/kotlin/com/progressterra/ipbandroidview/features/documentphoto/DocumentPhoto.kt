@@ -64,7 +64,7 @@ fun DocumentPhoto(
                     .size(56.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(IpbTheme.colors.surface.asBrush())
-                    .niceClickable { useComponent.handle(DocumentPhotoEvent.MakePhoto) }
+                    .niceClickable(enabled = state.enabled) { useComponent.handle(DocumentPhotoEvent.MakePhoto) }
                     .padding(12.dp),
                 contentAlignment = Alignment.Center
             ) {
