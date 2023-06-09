@@ -39,7 +39,7 @@ fun Documents(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
                 .background(IpbTheme.colors.surface.asBrush())
-                .niceClickable { useComponent.handle(DocumentsEvent.Click(itemState)) }
+                .niceClickable { useComponent.handle(DocumentsEvent(itemState)) }
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween

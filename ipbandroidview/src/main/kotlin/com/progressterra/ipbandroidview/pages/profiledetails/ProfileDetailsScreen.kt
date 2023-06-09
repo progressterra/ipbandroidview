@@ -45,8 +45,7 @@ fun ProfileDetailsScreen(
             ) {
                 EditUser(
                     state = state.editUser,
-                    useComponent = useComponent,
-                    photosFromRemote = true
+                    useComponent = useComponent
                 )
                 Spacer(Modifier.height(bottom))
             }

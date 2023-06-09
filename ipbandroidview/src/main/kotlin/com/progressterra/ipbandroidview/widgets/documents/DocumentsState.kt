@@ -13,10 +13,10 @@ data class DocumentsState(
 
     @Immutable
     data class Item(
-        override val id: String,
-        val name: String,
-        val status: TypeStatusDoc,
-        val entries: List<TextFieldState>,
-        val photo: DocumentPhotoState?
+        override val id: String = "",
+        val name: String = "",
+        val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,
+        val entries: List<TextFieldState> = emptyList(),
+        val photo: DocumentPhotoState? = null
     ) : Id
 }

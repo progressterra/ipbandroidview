@@ -43,8 +43,7 @@ fun SignUpScreen(
         ) {
             EditUser(
                 state = state.editUser,
-                useComponent = useComponent,
-                photosFromRemote = true
+                useComponent = useComponent
             )
             Spacer(Modifier.height(bottom))
         }
@@ -65,8 +64,6 @@ private fun SignUpScreenPreview() {
                     id = "ad", text = "tellus"
                 ), birthday = TextFieldState(
                     id = "voluptatibus", text = "mutat"
-                ), citizenship = TextFieldState(
-                    id = "vituperata", text = "vis"
                 )
             ), authOrSkip = AuthOrSkipState(
                 auth = ButtonState(id = "orci"), skip = ButtonState(id = "laudem")
