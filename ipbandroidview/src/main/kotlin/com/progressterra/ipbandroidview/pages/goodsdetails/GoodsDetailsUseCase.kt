@@ -37,7 +37,6 @@ interface GoodsDetailsUseCase {
                 fetchGalleriesUseCase(goods.nomenclature?.listCatalogCategory?.first()!!).getOrThrow()
             val deliveryList = deliveryRepository.getDeliveryList(token).getOrThrow()
                 ?.map { deliveryMapper.map(it) } ?: emptyList()
-            Log.d("DETAILS", "delivery: $deliveryList")
             GoodsDetailsState(description = GoodsDescriptionState(name = goods.nomenclature?.name
                 ?: "",
                 description = goods.nomenclature?.commerseDescription ?: "",
