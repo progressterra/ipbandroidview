@@ -111,7 +111,7 @@ dependencies {
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Koin, DI library
-    api("io.insert-koin:koin-android:3.4.1")
+    api("io.insert-koin:koin-android:3.4.2")
     api("io.insert-koin:koin-androidx-compose:3.4.5")
 
     // Accompanist, useful composables
