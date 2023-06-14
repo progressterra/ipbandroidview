@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.pfpsetter
+package com.progressterra.ipbandroidview.features.pfppicker
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,17 +22,18 @@ import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
-fun PfpSetter(
-    modifier: Modifier = Modifier, state: PfpSetterState, useComponent: UsePfpSetter
+fun PfpPicker(
+    modifier: Modifier = Modifier, state: PfpPickerState, useComponent: UsePfpPicker
 ) {
     Column(
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(36.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(modifier = modifier
+        Box(modifier = Modifier
             .size(263.dp)
             .clip(CircleShape)
-            .niceClickable { useComponent.handle(PfpSetterEvent.Click) }
+            .niceClickable { useComponent.handle(PfpPickerEvent.Click) }
             .background(IpbTheme.colors.surface.asBrush()), contentAlignment = Alignment.Center) {
             if (state.url == null) {
                 BrushedIcon(
@@ -57,17 +58,17 @@ fun PfpSetter(
 
 @Preview
 @Composable
-private fun PfpSetterPreview() {
+private fun PfpPickerPreview() {
     IpbTheme {
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            PfpSetter(
-                state = PfpSetterState(url = ""),
-                useComponent = UsePfpSetter.Empty()
+            PfpPicker(
+                state = PfpPickerState(url = ""),
+                useComponent = UsePfpPicker.Empty()
             )
-            PfpSetter(
-                state = PfpSetterState(), useComponent = UsePfpSetter.Empty()
+            PfpPicker(
+                state = PfpPickerState(), useComponent = UsePfpPicker.Empty()
             )
         }
     }

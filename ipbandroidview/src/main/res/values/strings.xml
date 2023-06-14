@@ -129,4 +129,5 @@
     <string name="document_not_fill">Документ не заполнен</string>
     <string name="photo">Фото</string>
     <string name="documents">Документы</string>
+    <string name="photo_picker">Выберите фото</string>
 </resources>
