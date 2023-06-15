@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.catalog
 
-import com.progressterra.ipbandroidapi.api.iecommerce.core.IECommerceCoreRepository
+import com.progressterra.ipbandroidapi.api.catalog.CatalogRepository
+import com.progressterra.ipbandroidapi.api.catalog.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
@@ -14,17 +15,16 @@ interface CatalogUseCase {
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
-        private val repo: IECommerceCoreRepository,
+        private val repo: CatalogRepository,
         private val mapper: CatalogMapper
     ) : AbstractTokenUseCase(scrmRepository, provideLocation), CatalogUseCase {
 
         override suspend fun invoke(): Result<CatalogCardState> = withToken { token ->
-            CatalogCardState(children = repo.getCatalog(token).getOrThrow()
-                ?.first()?.childItems?.map {
-                    mapper.map(
-                        it
-                    )
-                } ?: emptyList())
+            CatalogCardState(children = repo.catalog(
+                token, FilterAndSort(
+                    emptyList(), null, "", 0, 300
+                )
+            ).getOrThrow()?.listChildItems?.map { mapper.map(it) } ?: emptyList())
         }
     }
 

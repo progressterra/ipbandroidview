@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.processes.mapper
 
-import com.progressterra.ipbandroidapi.api.iecommerce.model.CatalogItem
+import com.progressterra.ipbandroidapi.api.catalog.models.CatalogItem
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.shared.ManageResources
@@ -14,10 +14,10 @@ interface CatalogMapper : Mapper<CatalogItem, CatalogCardState> {
         private val noData = manageResources.string(R.string.no_data)
 
         override fun map(data: CatalogItem): CatalogCardState {
-            return CatalogCardState(id = data.item?.idUnique!!,
-                name = data.item?.name ?: noData,
-                imageUrl = data.item?.urlImage ?: "",
-                children = data.childItems?.map { map(it) } ?: emptyList()
+            return CatalogCardState(id = data.itemCategory?.idUnique!!,
+                name = data.itemCategory?.name ?: noData,
+                imageUrl = data.itemCategory?.imageData?.urlData ?: "",
+                children = data.listChildItems?.map { map(it) } ?: emptyList()
             )
         }
     }
