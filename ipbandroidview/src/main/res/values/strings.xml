@@ -135,4 +135,8 @@
     <string name="profession_hint">Сфера деятельности</string>
     <string name="save">Сохранить</string>
     <string name="choose_interests">Выберите интересы, которые наиболее точно характеризуют вас. Так другим пользователям будет легче вас найти.</string>
+    <string name="give_access">Открыть доступ</string>
+    <string name="location">Местоположение</string>
+    <string name="location_welcome">Несколько человек рядом с вами хотят общаться!</string>
+    <string name="location_reasoning">Предоставьте доступ к вашему местоположению и начните общение!</string>
 </resources>
