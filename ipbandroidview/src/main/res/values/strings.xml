@@ -131,7 +131,8 @@
     <string name="documents">Документы</string>
     <string name="photo_picker">Выберите фото</string>
     <string name="about_you">Расскажите немного о себе. Эта информация будет видна всем пользователям в вашем профиле.</string>
-    <string name="about_you_hint">Пару слов о себе...</string>
+    <string name="about_you_hint">Пару слов о себе…</string>
     <string name="profession_hint">Сфера деятельности</string>
     <string name="save">Сохранить</string>
+    <string name="choose_interests">Выберите интересы, которые наиболее точно характеризуют вас. Так другим пользователям будет легче вас найти.</string>
 </resources>
