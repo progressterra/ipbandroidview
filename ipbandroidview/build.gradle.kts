@@ -136,15 +136,15 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.23")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.24")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.1")
-    api("com.github.skydoves:landscapist-placeholder:2.2.1")
+    api("com.github.skydoves:landscapist-fresco:2.2.2")
+    api("com.github.skydoves:landscapist-placeholder:2.2.2")
 
     api("androidx.paging:paging-runtime-ktx:3.1.1")
     api("androidx.paging:paging-compose:3.2.0-beta01")
