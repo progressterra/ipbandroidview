@@ -50,9 +50,7 @@ fun InterestsPicker(
     }
 
     FlowRow(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         state.items.forEach {
