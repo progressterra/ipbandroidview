@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedIn
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
-import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
+import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
@@ -77,9 +77,12 @@ fun GoodsItem.toStoreCardState(): StoreCardState = StoreCardState(
     )
 )
 
-fun GoodsItem.toOrderDetailsOrderGoods() = OrderDetails.OrderGoods(
-    id = id, image = imageUrl, inCartCounter = count
-
+fun GoodsItem.toOrderCardState(): OrderCardState = OrderCardState(
+    id = id,
+    name = name,
+    price = price * count,
+    imageUrl = imageUrl,
+    installment = installment
 )
 
 fun TypeStatusOrder.toString(manageResources: ManageResources) = when (this) {

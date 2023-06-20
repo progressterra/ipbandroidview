@@ -8,15 +8,17 @@ import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toOrder
-import com.progressterra.ipbandroidview.entities.toOrderDetailsOrderGoods
-import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
+import com.progressterra.ipbandroidview.entities.toOrderCardState
+import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
+import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
 interface OrdersUseCase {
 
-    suspend operator fun invoke(): Result<List<OrderDetails>>
+    suspend operator fun invoke(): Result<List<OrderDetailsState>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -26,7 +28,7 @@ interface OrdersUseCase {
         private val productRepository: ProductRepository
     ) : OrdersUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun invoke(): Result<List<OrderDetails>> = withToken { token ->
+        override suspend fun invoke(): Result<List<OrderDetailsState>> = withToken { token ->
             cartRepository.orders(
                 accessToken = token,
                 income = FilterAndSort(
@@ -44,12 +46,12 @@ interface OrdersUseCase {
                 val goods =
                     order.itemsIds.map { id ->
                         productRepository.productByNomenclatureId(token, id).getOrThrow()
-                            ?.toGoodsItem()?.toOrderDetailsOrderGoods() ?: OrderDetails.OrderGoods()
+                            ?.toGoodsItem()?.toOrderCardState() ?: OrderCardState()
                     }
-                OrderDetails(
+                OrderDetailsState(
                     id = order.id,
                     number = order.number,
-                    goods = goods,
+                    goods = OrderItemsState(goods),
                     status = order.status
                 )
             } ?: emptyList()

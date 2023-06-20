@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.orderdetails.OrdersDetails
+import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
@@ -35,7 +35,7 @@ fun OrdersScreen(
                 contentPadding = PaddingValues(top = 40.dp, start = 20.dp, end = 20.dp)
             ) {
                 items(state.orders) { details ->
-                    OrdersDetails(
+                    OrderDetails(
                         state = details, useComponent = useComponent
                     )
                 }

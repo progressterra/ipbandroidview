@@ -144,4 +144,8 @@
     <string name="installment">Рассрочка</string>
     <string name="one_click">Одно нажатие</string>
     <string name="courier_delivery">Курьерская доставка</string>
+    <string name="order">Заказ</string>
+    <string name="order_from">Заказ от</string>
+    <string name="sum_of_goods">товара на сумму</string>
+    <string name="track">Отследить</string>
 </resources>

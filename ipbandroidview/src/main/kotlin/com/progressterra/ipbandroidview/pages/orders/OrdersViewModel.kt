@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.orders
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.features.ordercard.OrderCardEvent
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -30,9 +31,13 @@ class OrdersViewModel(
     }
 
     override fun handle(event: OrderDetailsEvent) {
+        TODO("Not yet implemented")
+    }
+
+    override fun handle(event: OrderCardEvent) {
         intent {
             when (event) {
-                is OrderDetailsEvent.GoodsDetails -> postSideEffect(OrdersEvent.GoodsDetails(event.id))
+                is OrderCardEvent.GoodsDetails -> postSideEffect(OrdersEvent.GoodsDetails(event.id))
             }
         }
     }
