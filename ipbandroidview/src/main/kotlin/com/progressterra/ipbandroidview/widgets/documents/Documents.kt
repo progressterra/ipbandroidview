@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -32,7 +33,7 @@ fun Documents(
 
     @Composable
     fun Item(
-        itemState: DocumentsState.Item
+        itemState: Document
     ) {
         Row(
             modifier = Modifier
@@ -46,7 +47,7 @@ fun Documents(
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 BrushedText(
-                    text = itemState.name,
+                    text = itemState.docName,
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
@@ -92,29 +93,29 @@ private fun DocumentsPreview() {
         Documents(
             state = DocumentsState(
                 items = listOf(
-                    DocumentsState.Item(
+                    Document(
                         id = "",
-                        name = "Passport 1",
+                        docName = "Passport 1",
                         status = TypeStatusDoc.REJECTED
                     ),
-                    DocumentsState.Item(
+                    Document(
                         id = "",
-                        name = "Passport 2",
+                        docName = "Passport 2",
                         status = TypeStatusDoc.NOT_FILL
                     ),
-                    DocumentsState.Item(
+                    Document(
                         id = "",
-                        name = "Passport 3",
+                        docName = "Passport 3",
                         status = TypeStatusDoc.WAIT_REVIEW
                     ),
-                    DocumentsState.Item(
+                    Document(
                         id = "",
-                        name = "Passport 4",
+                        docName = "Passport 4",
                         status = TypeStatusDoc.WAIT_IMAGE
                     ),
-                    DocumentsState.Item(
+                    Document(
                         id = "",
-                        name = "Passport 5",
+                        docName = "Passport 5",
                         status = TypeStatusDoc.CONFIRMED
                     )
                 )

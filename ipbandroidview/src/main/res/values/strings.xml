@@ -148,4 +148,8 @@
     <string name="order_from">Заказ от</string>
     <string name="sum_of_goods">товара на сумму</string>
     <string name="track">Отследить</string>
+    <string name="want_this">Хочу это</string>
+    <string name="past_requests">Предыдущие запросы</string>
+    <string name="order_link">Ссылка на товар</string>
+    <string name="send_request">Отправить запрос</string>
 </resources>

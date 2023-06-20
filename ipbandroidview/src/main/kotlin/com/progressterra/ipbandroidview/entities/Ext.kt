@@ -1,19 +1,29 @@
 package com.progressterra.ipbandroidview.entities
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.progressterra.ipbandroidapi.api.address.models.DataAddress
 import com.progressterra.ipbandroidapi.api.address.models.RGAddress
 import com.progressterra.ipbandroidapi.api.cart.models.DHSaleHeadAsOrderViewModel
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
+import com.progressterra.ipbandroidapi.api.documents.models.CharacteristicData
+import com.progressterra.ipbandroidapi.api.documents.models.FieldData
+import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
+import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
+import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
+import com.progressterra.ipbandroidview.widgets.documents.DocumentsState
 
 fun pricesSum(prices: List<SimplePrice>): SimplePrice {
     var sum = SimplePrice()
@@ -223,3 +233,47 @@ fun DataAddress.convertDtoToAddressUiModel(): List<AddressUI> = listAddAddress?.
         longitude = it.longitude ?: 0.0
     )
 } ?: emptyList()
+
+fun CharacteristicData.toDocument(gson: Gson) = Document(
+    status = characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,
+    docName = characteristicType?.name ?: "",
+    id = characteristicValue?.idUnique!!,
+    entries = (characteristicType?.dataInJSON?.let {
+        gson.fromJson<List<FieldData>?>(
+            it,
+            object : TypeToken<List<FieldData>>() {}.type
+        )
+    } ?: emptyList()).map {
+        TextFieldState(
+            id = it.order.toString(),
+            text = it.valueData ?: "",
+            placeholder = it.comment,
+            label = it.name,
+            type = when (it.typeValue) {
+                TypeValueCharacteristic.AS_STRING -> TextInputType.DEFAULT
+                TypeValueCharacteristic.AS_NUMBER -> TextInputType.NUMBER
+                TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DEFAULT
+                TypeValueCharacteristic.AS_REFERENCE -> TextInputType.DEFAULT
+                TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
+                null -> TextInputType.DEFAULT
+            }
+        )
+    },
+    photo = if (imageRequired!!) DocumentPhotoState(
+        items = characteristicValue?.listImages?.map { img ->
+            MultisizedImage(
+                id = img.idUnique!!,
+                local = false,
+                toRemove = false,
+                url = img.urlData!!
+            )
+        } ?: emptyList()) else null
+)
+
+fun Document.toDocumentsStateItem() = DocumentsState.Item(
+    id = id,
+    name = docName,
+    status = status,
+    entries = entries,
+    photo = photo
+)

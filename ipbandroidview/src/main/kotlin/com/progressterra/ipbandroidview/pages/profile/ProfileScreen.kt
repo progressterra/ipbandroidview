@@ -30,7 +30,7 @@ fun ProfileScreen(
         }
     ) { _, _ ->
         StateBox(state = state.screenState, useComponent = useComponent) {
-            Column(Modifier.padding(top = 8.dp)) {
+            Column(Modifier.padding(top = 8.dp, start = 20.dp, end = 20.dp)) {
                 if (state.isAuthorized) {
                     AuthProfile(
                         state = state.authProfileState,
