@@ -16,8 +16,7 @@ fun CartItems(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         items(state.items) { item ->
             CartCard(
