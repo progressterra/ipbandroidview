@@ -67,9 +67,9 @@ data class AddressUI(
     @SerializedName("building")
     val building: String = "",
     @SerializedName("apartment")
-    val apartment: Int = 0,
+    val apartment: String = "",
     @SerializedName("entrance")
-    val entrance: Int = 0,
+    val entrance: String = "",
     @SerializedName("floor")
     val floor: Int = 0,
     @SerializedName("latitude")
@@ -109,8 +109,8 @@ data class AddressUI(
             postalCode == "" &&
             houseNUmber == "" &&
             building == "" &&
-            apartment == 0 &&
-            entrance == 0 &&
+            apartment == "" &&
+            entrance == "" &&
             floor == 0 &&
             latitude == 0.0 &&
             longitude == 0.0
@@ -125,7 +125,7 @@ data class AddressUI(
                 append(nameStreet)
             if (houseNUmber.isNotBlank())
                 append(", д $houseNUmber")
-            if (apartment != 0)
+            if (apartment != "")
                 append(", кв $apartment")
         }
     }

@@ -1,11 +1,7 @@
 package com.progressterra.ipbandroidview.pages.profile
 
 import androidx.compose.runtime.Composable
-
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -39,11 +35,7 @@ class ProfileNode(
                 is ProfileEvent.Documents -> onDocuments()
             }
         }
-        var alreadyLaunched by rememberSaveable {
-            mutableStateOf(false)
-        }
-        if (!alreadyLaunched) {
-            alreadyLaunched = true
+        LaunchedEffect(Unit) {
             viewModel.refresh()
         }
         val state = viewModel.collectAsState().value

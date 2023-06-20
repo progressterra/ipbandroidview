@@ -34,7 +34,6 @@ fun AuthProfile(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 20.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .niceClickable { useComponent.handle(AuthProfileEvent.Click) }

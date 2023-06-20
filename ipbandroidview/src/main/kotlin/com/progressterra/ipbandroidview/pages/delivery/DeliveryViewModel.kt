@@ -28,8 +28,8 @@ class DeliveryViewModel(
         intent {
             reduce {
                 state.uConfirmEnabled(false).uDeliveryPickerCityText(UserData.address.nameCity)
-                    .uDeliveryPickerEntranceText(UserData.address.entrance.toString())
-                    .uDeliveryPickerApartmentText(UserData.address.apartment.toString())
+                    .uDeliveryPickerEntranceText(UserData.address.entrance)
+                    .uDeliveryPickerApartmentText(UserData.address.apartment)
                     .uDeliveryPickerHomeText(UserData.address.houseNUmber).uCommentaryText("")
             }
 
