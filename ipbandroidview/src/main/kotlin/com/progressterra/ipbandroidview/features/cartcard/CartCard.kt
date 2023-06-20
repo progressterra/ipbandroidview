@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.Preview
@@ -98,7 +99,8 @@ private fun CartCardPreview() {
         CartCard(
             state = CartCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                price = SimplePrice(1000)
+                price = SimplePrice(1000),
+                installment = Installment()
             ), useComponent = UseCartCard.Empty()
         )
     }

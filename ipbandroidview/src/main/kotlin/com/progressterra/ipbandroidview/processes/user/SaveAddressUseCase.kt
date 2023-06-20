@@ -62,8 +62,8 @@ interface SaveAddressUseCase {
                 postalCode = "",
                 houseNUmber = home,
                 building = "",
-                apartment = apartment.toInt(),
-                entrance = entrance.toInt(),
+                apartment = apartment,
+                entrance = entrance,
                 floor = 0,
                 latitude = 0.0,
                 longitude = 0.0

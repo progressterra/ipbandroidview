@@ -8,7 +8,7 @@ import java.text.NumberFormat
 import java.util.Locale
 
 @Parcelize
-class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable, IsNegative {
+data class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable, IsNegative {
 
     override fun toString(): String {
         val numberFormat = NumberFormat.getCurrencyInstance(Locale("ru", "RU"))
