@@ -5,7 +5,8 @@ import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.features.storecard.StoreCardMapper
+import com.progressterra.ipbandroidview.entities.toGoodsItem
+import com.progressterra.ipbandroidview.entities.toStoreCardState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -19,8 +20,7 @@ interface FavoriteGoodsUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val favoriteRepository: IPBFavPromoRecRepository,
-        private val productRepository: ProductRepository,
-        private val mapper: StoreCardMapper
+        private val productRepository: ProductRepository
     ) : AbstractTokenUseCase(scrmRepository, provideLocation), FavoriteGoodsUseCase {
 
         override suspend fun invoke(): Result<List<StoreCardState>> = withToken { token ->
@@ -32,8 +32,8 @@ interface FavoriteGoodsUseCase {
                     val goods = productRepository.productByGoodsInventoryId(
                         token,
                         favoriteId
-                    ).getOrThrow()!!
-                    add(mapper.map(goods))
+                    ).getOrThrow()!!.toGoodsItem().toStoreCardState()
+                    add(goods)
                 }
             }
         }
@@ -46,24 +46,18 @@ interface FavoriteGoodsUseCase {
                 StoreCardState(
                     id = "Kotek",
                     name = "Weston",
-                    company = "Convallis",
                     price = SimplePrice(1000),
                     imageUrl = "https://placekitten.com/200/300",
-                    loan = "Рассрочка: 2 платежа по 150 ₽"
                 ), StoreCardState(
                     id = "Kotek 2",
                     name = "Weston",
-                    company = "Convallis",
                     price = SimplePrice(2000),
                     imageUrl = "https://placekitten.com/200/300",
-                    loan = "Рассрочка: 2 платежа по 150 ₽"
                 ), StoreCardState(
                     id = "Kotek 3",
                     name = "Nombre",
-                    company = "Convallis",
                     price = SimplePrice(5000),
                     imageUrl = "https://placekitten.com/200/300",
-                    loan = "Рассрочка: 2 платежа по 150 ₽"
                 )
             )
         )

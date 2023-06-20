@@ -11,7 +11,6 @@ import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.OpenMapUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.processes.mapper.CatalogMapper
 import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
@@ -52,7 +51,7 @@ val processesModule = module {
 
     single<OpenUrlUseCase> { OpenUrlUseCase.Base(get()) }
 
-    single<SaveAddressUseCase> { SaveAddressUseCase.Base(get(), get(), get(), get()) }
+    single<SaveAddressUseCase> { SaveAddressUseCase.Base(get(), get(), get()) }
 
     single<SizeTableUseCase> { SizeTableUseCase.Base(get(), get(), get()) }
 
@@ -61,14 +60,6 @@ val processesModule = module {
     single<CheckPermissionUseCase> { CheckPermissionUseCase.Base(get()) }
 
     single<AskPermissionUseCase> { AskPermissionUseCase.Base(get()) }
-
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            CreateDeliveryOrderUseCase.Test()
-        } else {
-            CreateDeliveryOrderUseCase.Base(get(), get(), get())
-        }
-    }
 
     single<StopRecordingUseCase> { StopRecordingUseCase.Base(get()) }
 
@@ -88,20 +79,18 @@ val processesModule = module {
 
     single<CatalogMapper> { CatalogMapper.Base(get()) }
 
-    single<AddressesMapper> { AddressesMapper.Base() }
-
     single<ProvideLocation> { ProvideLocation.Base(get()) }
 
     single<OpenMapUseCase> { OpenMapUseCase.Base(get()) }
 
-    single<GuessLocationUseCase> { GuessLocationUseCase.Base(get(), get()) }
+    single<GuessLocationUseCase> { GuessLocationUseCase.Base(get()) }
 
     single<GoodsUseCase> {
         GoodsUseCase.Base(get())
     }
 
     single<FetchGoodsPage> {
-        FetchGoodsPage.Base(get(), get(), get(), get())
+        FetchGoodsPage.Base(get(), get(), get())
     }
 
     single {

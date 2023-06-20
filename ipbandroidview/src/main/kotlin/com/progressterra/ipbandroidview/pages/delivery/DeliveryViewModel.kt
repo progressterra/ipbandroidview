@@ -2,11 +2,10 @@ package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerEvent
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerValidUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -18,27 +17,22 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class DeliveryViewModel(
-    private val fetchAvailableDeliveryUseCase: FetchAvailableDeliveryUseCase,
-    private val createDeliveryOrderUseCase: CreateDeliveryOrderUseCase,
-    private val deliveryPickerValidUseCase: DeliveryPickerValidUseCase
+    private val deliveryPickerValidUseCase: DeliveryPickerValidUseCase,
+    private val saveAddressUseCase: SaveAddressUseCase,
+    private val commentUseCase: CommentUseCase
 ) : ViewModel(), ContainerHost<DeliveryState, DeliveryEvent>, UseDelivery {
 
     override val container = container<DeliveryState, DeliveryEvent>(DeliveryState())
 
-    fun uPickUpPoint(info: PickUpPointInfo) {
-        intent {
-            reduce { state.uPickUpPoint(info) }
-        }
-    }
-
     fun refresh() {
         intent {
-            reduce { DeliveryState().uConfirmEnabled(false) }
-            fetchAvailableDeliveryUseCase().onSuccess {
-                reduce { state.uStateBoxState(ScreenState.SUCCESS).uDeliveryPickerState(it) }
-            }.onFailure {
-                reduce { state.uStateBoxState(ScreenState.ERROR) }
+            reduce {
+                state.uConfirmEnabled(false).uDeliveryPickerCityText(UserData.address.nameCity)
+                    .uDeliveryPickerEntranceText(UserData.address.entrance.toString())
+                    .uDeliveryPickerApartmentText(UserData.address.apartment.toString())
+                    .uDeliveryPickerHomeText(UserData.address.houseNUmber).uCommentaryText("")
             }
+
         }
     }
 
@@ -54,22 +48,24 @@ class DeliveryViewModel(
         intent {
             when (event) {
                 is ButtonEvent.Click -> when (event.id) {
-                    "confirm" -> createDeliveryOrderUseCase(
-                        state.commentary.text, state.deliveryPicker.selectedDeliveryMethod!!
-                    ).onSuccess {
-                        postSideEffect(DeliveryEvent.Next)
+                    "confirm" -> {
+                        var isSuccess = true
+                        saveAddressUseCase(
+                            city = state.deliveryPicker.city.text,
+                            home = state.deliveryPicker.home.text,
+                            entrance = state.deliveryPicker.entrance.text,
+                            apartment = state.deliveryPicker.apartment.text
+                        ).onFailure {
+                            isSuccess = false
+                        }
+                        commentUseCase(state.commentary.text).onFailure {
+                            isSuccess = false
+                        }
+                        if (isSuccess) {
+                            postSideEffect(DeliveryEvent.Next)
+                        }
                     }
-
-                    "selectPoint" -> postSideEffect(DeliveryEvent.SelectPickupPoint((state.deliveryPicker.selectedDeliveryMethod as Delivery.PickUpPointDelivery).points))
                 }
-            }
-        }
-    }
-
-    override fun handle(event: StateBoxEvent) {
-        intent {
-            when (event) {
-                is StateBoxEvent.Refresh -> refresh()
             }
         }
     }
@@ -101,16 +97,6 @@ class DeliveryViewModel(
         intent {
             val valid = deliveryPickerValidUseCase(state.deliveryPicker).isSuccess
             reduce { state.uConfirmEnabled(valid) }
-        }
-    }
-
-    override fun handle(event: DeliveryPickerEvent) {
-        intent {
-            when (event) {
-                is DeliveryPickerEvent.SelectDeliveryMethod -> reduce {
-                    state.uDeliveryMethod(event.delivery)
-                }
-            }
         }
     }
 }

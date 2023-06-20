@@ -2,9 +2,7 @@ package com.progressterra.ipbandroidview.widgets
 
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
-import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerValidUseCase
-import com.progressterra.ipbandroidview.widgets.deliverypicker.SetDeliveryAddressUseCase
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.widgets.offers.FetchOffersUseCase
@@ -23,27 +21,8 @@ val widgetsModule = module {
         }
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            FetchAvailableDeliveryUseCase.Test()
-
-        } else {
-            FetchAvailableDeliveryUseCase.Base(
-                get(), get(), get(), get()
-            )
-        }
-    }
-
     single<OfferMapper> {
         OfferMapper.Base(get())
-    }
-
-    single<DeliveryMethodMapper> {
-        DeliveryMethodMapper.Base(get(), get())
-    }
-
-    single<SetDeliveryAddressUseCase> {
-        SetDeliveryAddressUseCase.Base(get(), get(), get())
     }
 
     single {

@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.pages.delivery.CommentUseCase
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
@@ -118,7 +119,7 @@ val pagesModule = module {
         if (IpbAndroidViewSettings.TEST_MODE) {
             FavoriteGoodsUseCase.Test()
         } else {
-            FavoriteGoodsUseCase.Base(get(), get(), get(), get(), get())
+            FavoriteGoodsUseCase.Base(get(), get(), get(), get())
         }
     }
 
@@ -147,4 +148,8 @@ val pagesModule = module {
     single<ValidationUseCase> { ValidationUseCase.Base() }
 
     single<DocumentsNotificationUseCase> { DocumentsNotificationUseCase.Base(get(), get(), get()) }
+
+    single<CommentUseCase> {
+        CommentUseCase.Base(get(), get(), get())
+    }
 }

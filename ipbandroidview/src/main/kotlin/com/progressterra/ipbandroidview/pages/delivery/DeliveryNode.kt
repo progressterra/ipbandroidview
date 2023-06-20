@@ -16,7 +16,6 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Suppress("unused")
 class DeliveryNode(
     buildContext: BuildContext,
-    private val onPickUpPoint: (List<PickUpPointInfo>) -> Unit,
     private val onNext: () -> Unit,
     private val onBack: () -> Unit
 ) : Node(buildContext) {
@@ -28,7 +27,6 @@ class DeliveryNode(
             when (it) {
                 is DeliveryEvent.Back -> onBack()
                 is DeliveryEvent.Next -> onNext()
-                is DeliveryEvent.SelectPickupPoint -> onPickUpPoint(it.points)
             }
         }
         var alreadyLaunched by rememberSaveable {

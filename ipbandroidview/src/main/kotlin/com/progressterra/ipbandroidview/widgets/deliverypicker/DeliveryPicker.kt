@@ -15,7 +15,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -29,26 +28,19 @@ fun DeliveryPicker(
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         BrushedText(
-            text = stringResource(R.string.choose_delivery),
+            text = stringResource(R.string.delivery),
             tint = IpbTheme.colors.textPrimary.asBrush(),
             style = IpbTheme.typography.title
         )
         Row(verticalAlignment = Alignment.CenterVertically) {
-            ThemedRadioButton(checked = it == state.selectedDeliveryMethod, onClick = {
-                useComponent.handle(DeliveryPickerEvent.SelectDeliveryMethod(it))
-            })
-            val textColor =
-                if (it == state.selectedDeliveryMethod) IpbTheme.colors.textPrimary else IpbTheme.colors.textDisabled
-            val textStyle =
-                if (it == state.selectedDeliveryMethod) IpbTheme.typography.body else IpbTheme.typography.subHeadlineRegular
-            val iconColor =
-                if (it == state.selectedDeliveryMethod) IpbTheme.colors.primary else IpbTheme.colors.textDisabled
             BrushedText(
-                text = it.type, tint = textColor.asBrush(), style = textStyle
+                text = stringResource(R.string.courier_delivery),
+                tint = IpbTheme.colors.textPrimary.asBrush(),
+                style = IpbTheme.typography.body
             )
             Spacer(Modifier.weight(1f))
             BrushedIcon(
-                resId = R.drawable.ic_courier, tint = iconColor.asBrush()
+                resId = R.drawable.ic_courier, tint = IpbTheme.colors.primary.asBrush()
             )
         }
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {

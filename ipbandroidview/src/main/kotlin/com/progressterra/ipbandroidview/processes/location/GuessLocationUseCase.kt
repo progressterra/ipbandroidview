@@ -3,9 +3,8 @@ package com.progressterra.ipbandroidview.processes.location
 import com.google.android.gms.maps.model.LatLng
 import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
 import com.progressterra.ipbandroidapi.api.suggestion.model.DadataSuggestionsFromLocationRequest
-import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
-import com.progressterra.ipbandroidview.processes.mapper.AddressesMapper
 import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.entities.convertSuggestionToAddressUIModel
 
 interface GuessLocationUseCase {
 
@@ -13,7 +12,6 @@ interface GuessLocationUseCase {
 
     class Base(
         private val repo: SuggestionRepository,
-        private val addressesMapper: AddressesMapper
     ) : GuessLocationUseCase {
 
         override suspend fun invoke(latLng: LatLng): Result<AddressUI> = runCatching {
@@ -24,9 +22,8 @@ interface GuessLocationUseCase {
                     count = 3
                 )
             ).getOrThrow()
-            addressesMapper.convertSuggestionToAddressUIModel(
-                suggestionsResult?.first()?.suggestionExtendedInfo ?: SuggestionExtendedInfo()
-            )
+            suggestionsResult?.first()?.suggestionExtendedInfo?.convertSuggestionToAddressUIModel()
+                ?: AddressUI()
         }
     }
 }

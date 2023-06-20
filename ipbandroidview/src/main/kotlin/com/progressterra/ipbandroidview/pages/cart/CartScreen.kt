@@ -52,7 +52,6 @@ fun CartScreenPreview() {
                         name = "Товар 1",
                         price = SimplePrice(10000),
                         counter = CounterState(count = 1),
-                        loan = "по 500 ₽ 6 платежей",
                         imageUrl = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
@@ -60,7 +59,6 @@ fun CartScreenPreview() {
                         name = "Товар 2",
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
-                        loan = "по 500 ₽ 6 платежей",
                         imageUrl = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
@@ -68,7 +66,6 @@ fun CartScreenPreview() {
                         name = "Товар 3",
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
-                        loan = "по 500 ₽ 6 платежей",
                         imageUrl = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
@@ -76,7 +73,6 @@ fun CartScreenPreview() {
                         name = "Товар 4",
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
-                        loan = "по 500 ₽ 6 платежей",
                         imageUrl = "https://picsum.photos/200/300"
                     ),
                 )
