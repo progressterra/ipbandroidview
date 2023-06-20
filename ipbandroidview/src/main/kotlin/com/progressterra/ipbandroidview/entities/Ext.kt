@@ -23,7 +23,6 @@ import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
-import com.progressterra.ipbandroidview.widgets.documents.DocumentsState
 
 fun pricesSum(prices: List<SimplePrice>): SimplePrice {
     var sum = SimplePrice()
@@ -268,12 +267,4 @@ fun CharacteristicData.toDocument(gson: Gson) = Document(
                 url = img.urlData!!
             )
         } ?: emptyList()) else null
-)
-
-fun Document.toDocumentsStateItem() = DocumentsState.Item(
-    id = id,
-    name = docName,
-    status = status,
-    entries = entries,
-    photo = photo
 )

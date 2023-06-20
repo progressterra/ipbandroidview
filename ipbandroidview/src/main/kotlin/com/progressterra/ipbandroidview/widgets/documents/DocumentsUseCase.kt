@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.toDocument
-import com.progressterra.ipbandroidview.entities.toDocumentsStateItem
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
@@ -26,7 +25,7 @@ interface DocumentsUseCase {
             } else {
                 DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
                     .getOrThrow()?.listProductCharacteristic?.map { doc ->
-                        doc.toDocument(gson).toDocumentsStateItem()
+                        doc.toDocument(gson)
                     } ?: emptyList())
             }
         }

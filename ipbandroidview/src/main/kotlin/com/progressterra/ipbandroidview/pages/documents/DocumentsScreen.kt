@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Citizenship
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenship
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
@@ -62,14 +63,14 @@ private fun DocumentsScreenPreview() {
     val documentsScreenState = DocumentsScreenState(
         documents = DocumentsState(
             listOf(
-                DocumentsState.Item(
-                    name = "Passport",
+                Document(
+                    docName = "Passport",
                     status = TypeStatusDoc.CONFIRMED,
                     id = "",
                     entries = emptyList(),
                     photo = null
-                ), DocumentsState.Item(
-                    name = "Passport",
+                ), Document(
+                    docName = "Passport",
                     status = TypeStatusDoc.NOT_FILL,
                     id = "",
                     entries = emptyList(),

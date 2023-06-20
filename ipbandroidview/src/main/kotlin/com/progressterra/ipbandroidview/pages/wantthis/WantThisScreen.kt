@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -40,20 +42,17 @@ fun WantThisScreen(
                     title = stringResource(R.string.past_requests)
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                state.
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state.link,
-                    useComponent = useComponent,
-                    hint = stringResource(R.string.order_link)
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state.link,
-                    useComponent = useComponent,
-                    hint = stringResource(R.string.order_link)
-                )
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    items(state.document.entries) {
+                        TextField(
+                            modifier = Modifier.fillMaxWidth(),
+                            state = it,
+                            useComponent = useComponent
+                        )
+                    }
+                }
                 Spacer(modifier = Modifier.height(40.dp))
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(20.dp)

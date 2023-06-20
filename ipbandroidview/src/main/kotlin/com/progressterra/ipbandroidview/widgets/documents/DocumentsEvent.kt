@@ -1,3 +1,5 @@
 package com.progressterra.ipbandroidview.widgets.documents
 
-class DocumentsEvent(val item: DocumentsState.Item)
+import com.progressterra.ipbandroidview.entities.Document
+
+class DocumentsEvent(val item: Document)
