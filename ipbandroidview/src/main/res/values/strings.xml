@@ -152,4 +152,5 @@
     <string name="past_requests">Предыдущие запросы</string>
     <string name="order_link">Ссылка на товар</string>
     <string name="send_request">Отправить запрос</string>
+    <string name="recommended_goods">Рекомендованные товары</string>
 </resources>

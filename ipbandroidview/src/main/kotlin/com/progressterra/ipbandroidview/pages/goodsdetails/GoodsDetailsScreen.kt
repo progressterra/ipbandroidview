@@ -7,17 +7,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.buygoods.BuyGoods
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescription
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGallery
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.widgets.galleries.Galleries
@@ -44,9 +41,7 @@ fun GoodsDetailsScreen(
                 GoodsDescription(state = state.description, useComponent = useComponent)
                 BuyGoods(state = state.buyGoods, useComponent = useComponent)
                 Galleries(
-                    state = state.similarGoods, useComponent = useComponent,
-                    title = stringResource(R.string.similar_goods),
-                    titleBrush = IpbTheme.colors.textSecondary.asBrush()
+                    state = state.similarGoods, useComponent = useComponent
                 )
             }
         }

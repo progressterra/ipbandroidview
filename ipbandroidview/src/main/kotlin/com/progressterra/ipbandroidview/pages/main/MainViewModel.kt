@@ -44,15 +44,10 @@ class MainViewModel(
             }.onFailure {
                 isSuccess = false
             }
-            if (isSuccess) fetchGalleriesUseCase(FetchGalleriesUseCase.HOT).onSuccess {
-                val cached = it.cachedIn(viewModelScope)
-                reduce { state.uHits(cached) }
-            }.onFailure {
-                isSuccess = false
-            }
-            if (isSuccess) fetchGalleriesUseCase(FetchGalleriesUseCase.NEW).onSuccess {
-                val cached = it.cachedIn(viewModelScope)
-                reduce { state.uNew(cached) }
+            if (isSuccess) fetchGalleriesUseCase().onSuccess {
+                val cached =
+                    it.map { item -> item.uItems(item.items.cachedIn(viewModelScope)) }
+                reduce { state.uRecommended(cached) }
             }.onFailure {
                 isSuccess = false
             }

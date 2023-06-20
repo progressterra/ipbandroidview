@@ -2,15 +2,18 @@ package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.buygoods.BuyGoodsState
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
+import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
 interface GoodsDetailsUseCase {
@@ -22,7 +25,8 @@ interface GoodsDetailsUseCase {
         provideLocation: ProvideLocation,
         private val productRepository: ProductRepository,
         private val fetchFavoriteIds: FetchFavoriteIds,
-        private val fetchGalleriesUseCase: FetchGalleriesUseCase
+        private val goodsUseCase: GoodsUseCase,
+        private val manageResources: ManageResources
     ) : GoodsDetailsUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
@@ -30,7 +34,7 @@ interface GoodsDetailsUseCase {
             val goods =
                 productRepository.productByNomenclatureId(token, id).getOrThrow()!!.toGoodsItem()
             val recommended =
-                fetchGalleriesUseCase(goods.categoryId).getOrThrow()
+                goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow()
             GoodsDetailsState(
                 description = GoodsDescriptionState(
                     name = goods.name,
@@ -46,7 +50,10 @@ interface GoodsDetailsUseCase {
                     price = goods.price,
                     installment = goods.installment
                 ),
-                similarGoods = GalleriesState(items = recommended)
+                similarGoods = GalleriesState(
+                    items = recommended,
+                    title = manageResources.string(R.string.similar_goods)
+                )
             )
         }
     }

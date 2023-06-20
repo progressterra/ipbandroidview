@@ -1,60 +1,29 @@
 package com.progressterra.ipbandroidview.widgets.galleries
 
-import androidx.paging.PagingData
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.GoodsFilter
-import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface FetchGalleriesUseCase {
 
-    suspend operator fun invoke(categoryId: String): Result<Flow<PagingData<StoreCardState>>>
+    suspend operator fun invoke(): Result<List<GalleriesState>>
 
     class Base(
-        private val goodsUseCase: GoodsUseCase
-    ) : FetchGalleriesUseCase {
+        private val goodsUseCase: GoodsUseCase,
+        private val manageResources: ManageResources
+    ) : FetchGalleriesUseCase, AbstractLoggingUseCase() {
 
-        override suspend fun invoke(categoryId: String): Result<Flow<PagingData<StoreCardState>>> =
-            goodsUseCase(GoodsFilter(categoryId = categoryId))
-    }
-
-    class Test : FetchGalleriesUseCase {
-
-        override suspend fun invoke(categoryId: String): Result<Flow<PagingData<StoreCardState>>> =
-            Result.success(
-                flowOf(
-                    PagingData.from(
-                        listOf(
-                            StoreCardState(
-                                id = "1",
-                                name = "Товар 1",
-                                price = SimplePrice(1000),
-                                imageUrl = "https://hips.hearstapps.com/hmg-prod/images/sunflower-1508785046.jpg?resize=480:*",
-                            ),
-                            StoreCardState(
-                                id = "2",
-                                name = "Товар 2",
-                                price = SimplePrice(150),
-                                imageUrl = "https://images.unsplash.com/photo-1578185708140-55c94bb9426f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwZmxvd2Vyc3xlbnwwfHwwfHw%3D&w=1000&q=80",
-                            ),
-                            StoreCardState(
-                                id = "3",
-                                name = "Товар 3",
-                                price = SimplePrice(450),
-                                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVk0d_WhOQxU1z0Ay85XcZff9Q6JFvQjER2g&usqp=CAU",
-                            )
-                        )
-                    )
+        override suspend fun invoke(): Result<List<GalleriesState>> = handle {
+            IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES.map {
+                val goods = goodsUseCase(GoodsFilter(categoryId = it)).getOrThrow()
+                GalleriesState(
+                    items = goods,
+                    title = manageResources.string(R.string.recommended_goods)
                 )
-            )
-    }
-
-    companion object {
-
-        const val HOT = "ef1f4abf-5060-4f19-be1c-4a3f56beb89d"
-
-        const val NEW = "04d76bfe-3a6c-44fc-ab56-13b0fce61287"
+            }
+        }
     }
 }

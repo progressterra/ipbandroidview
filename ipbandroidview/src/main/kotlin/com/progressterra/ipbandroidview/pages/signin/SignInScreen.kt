@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkip
 import com.progressterra.ipbandroidview.features.topbar.TopBar
@@ -47,10 +48,10 @@ fun SignInScreen(
             LinkText(
                 linkTextData = listOf(
                     LinkTextData(stringResource(R.string.auth_warning_0)),
-                    LinkTextData(stringResource(R.string.offer), IpbTheme.customization.offerUrl),
+                    LinkTextData(stringResource(R.string.offer), IpbAndroidViewSettings.OFFER_URL),
                     LinkTextData(stringResource(R.string.and)),
                     LinkTextData(
-                        stringResource(R.string.privacy_policy), IpbTheme.customization.privacyUrl
+                        stringResource(R.string.privacy_policy), IpbAndroidViewSettings.PRIVACY_URL
                     )
                 ), useComponent = useComponent,
                 style = IpbTheme.typography.footnoteRegular,

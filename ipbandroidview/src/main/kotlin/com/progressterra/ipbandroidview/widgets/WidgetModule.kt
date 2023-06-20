@@ -26,11 +26,7 @@ val widgetsModule = module {
     }
 
     single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            FetchGalleriesUseCase.Test()
-        } else {
-            FetchGalleriesUseCase.Base(get())
-        }
+        FetchGalleriesUseCase.Base(get(), get())
     }
 
     single {

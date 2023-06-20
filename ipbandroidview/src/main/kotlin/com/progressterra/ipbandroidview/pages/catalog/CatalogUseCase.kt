@@ -19,9 +19,9 @@ interface CatalogUseCase {
         private val mapper: CatalogMapper
     ) : AbstractTokenUseCase(scrmRepository, provideLocation), CatalogUseCase {
 
-        override suspend fun invoke(): Result<CatalogCardState> = withToken {
+        override suspend fun invoke(): Result<CatalogCardState> = withToken { token ->
             CatalogCardState(children = repo.catalog(
-                it,
+                token,
                 FilterAndSort(
                     emptyList(), null, "", 0, 300
                 )

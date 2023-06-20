@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -64,7 +65,7 @@ fun StoreCard(
                     style = IpbTheme.typography.subHeadlineRegular,
                     tint = IpbTheme.colors.textPrimary2.asBrush(),
                 )
-                if (IpbTheme.customization.projectType == ProjectType.REDI) {
+                if (IpbAndroidViewSettings.PROJECT_TYPE == ProjectType.REDI) {
                     BrushedText(
                         text = "(${stringResource(R.string.installment)}: ${
                             state.installment.months
