@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.pages.pickuppoint
 
 import android.Manifest
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent

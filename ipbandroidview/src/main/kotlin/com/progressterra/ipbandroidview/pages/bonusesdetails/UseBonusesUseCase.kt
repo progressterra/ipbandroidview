@@ -1,11 +1,11 @@
 package com.progressterra.ipbandroidview.pages.bonusesdetails
 
-import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
-import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamImplementBonusV3
+import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.models.IncomeDataImplementBonuses
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.shared.throwOnFailure
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface UseBonusesUseCase {
 
@@ -18,10 +18,8 @@ interface UseBonusesUseCase {
     ) : AbstractTokenUseCase(scrmRepository, provideLocation), UseBonusesUseCase {
 
         override suspend fun invoke(sum: Int): Result<Unit> = withToken { token ->
-            cartRepository.implementBonus(
-                token, ParamImplementBonusV3(
-                    sumPaymentBonus = sum.toDouble()
-                )
+            cartRepository.useBonuses(
+                token, IncomeDataImplementBonuses(sum.toDouble())
             ).throwOnFailure()
         }
     }

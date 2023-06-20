@@ -24,7 +24,6 @@ import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.orders.OrdersUseCase
 import com.progressterra.ipbandroidview.pages.orders.OrdersViewModel
-import com.progressterra.ipbandroidview.pages.orders.StatusOrderMapper
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoViewModel
@@ -69,9 +68,7 @@ val pagesModule = module {
 
     viewModel { OrdersViewModel(get()) }
 
-    single<StatusOrderMapper> { StatusOrderMapper.Base(get()) }
-
-    single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get(), get(), get(), get()) }
+    single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get()) }
 
@@ -105,7 +102,7 @@ val pagesModule = module {
         if (IpbAndroidViewSettings.TEST_MODE) {
             CartUseCase.Test()
         } else {
-            CartUseCase.Base(get(), get(), get(), get(), get())
+            CartUseCase.Base(get(), get(), get(), get())
         }
     }
 
@@ -113,7 +110,7 @@ val pagesModule = module {
         if (IpbAndroidViewSettings.TEST_MODE) {
             GoodsDetailsUseCase.Test()
         } else {
-            GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get(), get())
+            GoodsDetailsUseCase.Base(get(), get(), get(), get(), get())
         }
     }
 
@@ -131,7 +128,7 @@ val pagesModule = module {
         if (IpbAndroidViewSettings.TEST_MODE) {
             ConfirmOrderUseCase.Test()
         } else {
-            ConfirmOrderUseCase.Base(get(), get(), get())
+            ConfirmOrderUseCase.Base(get(), get(), get(), get())
         }
     }
 

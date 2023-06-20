@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryMethodMapper
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerValidUseCase
-import com.progressterra.ipbandroidview.widgets.deliverypicker.FetchAvailableDeliveryUseCase
 import com.progressterra.ipbandroidview.widgets.deliverypicker.SetDeliveryAddressUseCase
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase

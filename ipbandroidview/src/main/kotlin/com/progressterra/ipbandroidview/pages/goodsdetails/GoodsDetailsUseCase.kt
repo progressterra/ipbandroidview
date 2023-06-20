@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
-import android.util.Log
 import com.progressterra.ipbandroidapi.api.ipbdelivery.IPBDeliveryRepository
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.buygoods.BuyGoodsState
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
@@ -25,40 +24,32 @@ interface GoodsDetailsUseCase {
         provideLocation: ProvideLocation,
         private val productRepository: ProductRepository,
         private val fetchFavoriteIds: FetchFavoriteIds,
-        private val fetchGalleriesUseCase: FetchGalleriesUseCase,
-        private val deliveryRepository: IPBDeliveryRepository,
-        private val deliveryMapper: DeliveryMethodMapper
+        private val fetchGalleriesUseCase: FetchGalleriesUseCase
     ) : GoodsDetailsUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
-            val goods = productRepository.productByNomenclatureId(token, id).getOrThrow()!!
+            val goods =
+                productRepository.productByNomenclatureId(token, id).getOrThrow()!!.toGoodsItem()
             val recommended =
-                fetchGalleriesUseCase(goods.nomenclature?.listCatalogCategory?.first()!!).getOrThrow()
-            val deliveryList = deliveryRepository.getDeliveryList(token).getOrThrow()
-                ?.map { deliveryMapper.map(it) } ?: emptyList()
-            GoodsDetailsState(description = GoodsDescriptionState(name = goods.nomenclature?.name
-                ?: "",
-                description = goods.nomenclature?.commerseDescription ?: "",
-                favoriteButton = FavoriteButtonState(
-                    id = goods.nomenclature?.idUnique!!, favorite = isFavorite
+                fetchGalleriesUseCase(goods.categoryId).getOrThrow()
+            GoodsDetailsState(
+                description = GoodsDescriptionState(
+                    name = goods.name,
+                    description = goods.description,
+                    favoriteButton = FavoriteButtonState(
+                        id = goods.id, favorite = isFavorite
+                    ),
+                    properties = goods.properties
                 ),
-                properties = goods.listProductCharacteristic?.associate {
-                    (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
-                } ?: emptyMap(),
-                availableDeliveries = deliveryList),
-                gallery = ItemGalleryState(images = goods.nomenclature?.listImages?.mapNotNull { it.urlData }
-                    ?: emptyList()),
-                name = goods.nomenclature?.name ?: "",
+                gallery = ItemGalleryState(images = goods.images),
+                name = goods.name,
                 buyGoods = BuyGoodsState(
-                    price = SimplePrice(goods.inventoryData?.currentPrice ?: 0.0),
-                    loan = "Рассрочка: ${goods.installmentPlanValue?.countMonthPayment} платежей по ${
-                        SimplePrice(
-                            goods.installmentPlanValue?.amountPaymentInMonth ?: 0.0
-                        )
-                    }"
+                    price = goods.price,
+                    installment = goods.installment
                 ),
-                similarGoods = GalleriesState(items = recommended))
+                similarGoods = GalleriesState(items = recommended)
+            )
         }
     }
 

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
@@ -50,13 +51,6 @@ fun StoreCard(
             style = IpbTheme.typography.footnoteRegular,
             tint = IpbTheme.colors.textPrimary.asBrush(),
         )
-        if (IpbTheme.customization.projectType == ProjectType.REDI) {
-            BrushedText(
-                text = state.company,
-                style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textTertiary.asBrush(),
-            )
-        }
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -72,7 +66,9 @@ fun StoreCard(
                 )
                 if (IpbTheme.customization.projectType == ProjectType.REDI) {
                     BrushedText(
-                        text = state.loan,
+                        text = "(${stringResource(R.string.installment)}: ${
+                            state.installment.months
+                        } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
                         style = IpbTheme.typography.footnoteRegular,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
@@ -102,17 +98,13 @@ private fun StoreCardPreview() {
         StoreCard(
             state = StoreCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                company = "Lenovo",
                 price = SimplePrice(1000),
-                loan = "(Рассрочка: 2 платежа по 150 ₽)"
             ), useComponent = UseStoreCard.Empty()
         )
         StoreCard(
             state = StoreCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                company = "Lenovo",
                 price = SimplePrice(1000),
-                loan = "(Рассрочка: 2 платежа по 150 ₽)",
                 counter = CounterState("1", 5)
             ), useComponent = UseStoreCard.Empty()
         )

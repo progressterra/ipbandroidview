@@ -10,6 +10,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
@@ -57,16 +58,26 @@ fun CartCard(
                     tint = IpbTheme.colors.textSecondary.asBrush()
                 )
             }
-            BrushedText(
-                text = state.price.toString(),
-                style = IpbTheme.typography.subHeadlineRegular,
-                tint = IpbTheme.colors.textPrimary2.asBrush(),
-            )
-            BrushedText(
-                text = state.loan,
-                style = IpbTheme.typography.footnoteRegular,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-            )
+            if (state.installment.isEmpty()) {
+                BrushedText(
+                    text = state.price.toString(),
+                    style = IpbTheme.typography.subHeadlineRegular,
+                    tint = IpbTheme.colors.textPrimary2.asBrush(),
+                )
+            } else {
+                BrushedText(
+                    text = "${stringResource(R.string.po)} ${state.installment.perMonth} ${
+                        state.installment.months
+                    } ${stringResource(R.string.payments)}",
+                    style = IpbTheme.typography.subHeadlineRegular,
+                    tint = IpbTheme.colors.textPrimary2.asBrush(),
+                )
+                BrushedText(
+                    text = "(${stringResource(R.string.installment)})",
+                    style = IpbTheme.typography.subHeadlineRegular,
+                    tint = IpbTheme.colors.textDisabled.asBrush(),
+                )
+            }
             Counter(
                 state = state.counter, useComponent = useComponent
             )
@@ -87,8 +98,7 @@ private fun CartCardPreview() {
         CartCard(
             state = CartCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
-                price = SimplePrice(1000),
-                loan = "(Рассрочка: 2 платежа по 150 ₽)"
+                price = SimplePrice(1000)
             ), useComponent = UseCartCard.Empty()
         )
     }

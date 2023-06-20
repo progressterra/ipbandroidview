@@ -12,8 +12,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.Delivery
-import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.ordersteps.OrderSteps
 import com.progressterra.ipbandroidview.features.ordersteps.OrderStepsState
@@ -79,9 +77,6 @@ fun DeliveryScreen(
 @Preview
 @Composable
 private fun DeliveryScreenPreview() {
-    val m = Delivery.CourierDelivery(
-        price = SimplePrice(price = 6.7), type = "fames"
-    )
     DeliveryScreen(
         state = DeliveryState(
             stateBox = ScreenState.SUCCESS, deliveryPicker = DeliveryPickerState(

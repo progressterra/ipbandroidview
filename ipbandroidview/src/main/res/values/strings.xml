@@ -92,7 +92,7 @@
     <string name="processing">Оформление заказа</string>
     <string name="details">Детали</string>
     <string name="order_id">Номер заказа:</string>
-    <string name="items_paid">товара оплачено</string>
+    <string name="items_paid">товар(-ов) оплачено</string>
     <string name="estimated_delivery">Доставка ожидается:</string>
     <string name="delivery_address">Адрес доставки:</string>
     <string name="see_receipt">Посмотреть чек</string>
@@ -131,7 +131,12 @@
     <string name="documents">Документы</string>
     <string name="photo_picker">Выберите фото</string>
     <string name="about_you">Расскажите немного о себе. Эта информация будет видна всем пользователям в вашем профиле.</string>
-    <string name="about_you_hint">Пару слов о себе...</string>
+    <string name="about_you_hint">Пару слов о себе…</string>
     <string name="profession_hint">Сфера деятельности</string>
     <string name="save">Сохранить</string>
+    <string name="po">по</string>
+    <string name="payments">платежей</string>
+    <string name="installment">Рассрочка</string>
+    <string name="one_click">Одно нажатие</string>
+    <string name="courier_delivery">Курьерская доставка</string>
 </resources>

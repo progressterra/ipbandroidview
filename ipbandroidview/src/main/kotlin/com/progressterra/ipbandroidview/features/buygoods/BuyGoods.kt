@@ -51,7 +51,9 @@ fun BuyGoods(
         ) {
             BrushedText(
                 modifier = Modifier.widthIn(max = 100.dp),
-                text = state.loan,
+                text = "(${stringResource(R.string.installment)}: ${
+                    state.installment.months
+                } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )

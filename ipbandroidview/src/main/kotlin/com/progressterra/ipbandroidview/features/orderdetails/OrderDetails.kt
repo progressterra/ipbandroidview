@@ -11,6 +11,8 @@ data class OrderDetails(
 ) {
 
     data class OrderGoods(
-        val id: String, val image: String, val inCartCounter: Int
+        val id: String = "",
+        val image: String = "",
+        val inCartCounter: Int = 0
     )
 }

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.widgets.pickupchoose
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 
 @Immutable
 data class PickUpChooseState(

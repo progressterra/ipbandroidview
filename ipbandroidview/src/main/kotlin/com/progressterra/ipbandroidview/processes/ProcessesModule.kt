@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.processes
 
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
-import com.progressterra.ipbandroidview.pages.delivery.CreateDeliveryOrderUseCase
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase

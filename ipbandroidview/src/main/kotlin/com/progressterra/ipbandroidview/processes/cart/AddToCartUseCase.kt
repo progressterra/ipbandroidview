@@ -1,11 +1,10 @@
 package com.progressterra.ipbandroidview.processes.cart
 
-import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
-import com.progressterra.ipbandroidapi.api.iecommerce.model.ParamGoodsToECommers
+import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.models.IncomeDataAddProductFullPrice
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.shared.Constants
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface AddToCartUseCase {
@@ -20,12 +19,11 @@ interface AddToCartUseCase {
 
         override suspend fun invoke(goodsId: String, count: Int): Result<Unit> =
             withToken { token ->
-                repo.fastAddToCart(
+                repo.addToCart(
                     token,
-                    ParamGoodsToECommers(
-                        idGoodsInventory = goodsId,
-                        count = 1,
-                        idSellerAmbassador = Constants.DEFAULT_ID
+                    IncomeDataAddProductFullPrice(
+                        idrfNomenclature = goodsId,
+                        count = 1
                     )
                 ).throwOnFailure()
             }

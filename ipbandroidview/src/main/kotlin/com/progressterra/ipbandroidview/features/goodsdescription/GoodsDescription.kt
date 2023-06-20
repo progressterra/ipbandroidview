@@ -27,7 +27,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButton
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -96,7 +95,8 @@ fun GoodsDescription(
                     .clip(RoundedCornerShape(12.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 when (it) {
                     0 -> {
@@ -157,24 +157,16 @@ fun GoodsDescription(
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.title
                         )
-                        state.availableDeliveries.forEach {
-                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                val icon = when (it) {
-                                    is Delivery.CourierDelivery -> R.drawable.ic_courier
-                                    is Delivery.PickUpPointDelivery -> R.drawable.ic_pickup_point
-                                }
-                                BrushedIcon(
-                                    modifier = Modifier.size(45.dp),
-                                    resId = icon,
-                                    tint = IpbTheme.colors.iconPrimary3.asBrush()
-                                )
-                                BrushedText(
-                                    text = it.type,
-                                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                                    style = IpbTheme.typography.body
-                                )
-                            }
-                        }
+                        BrushedIcon(
+                            modifier = Modifier.size(45.dp),
+                            resId = R.drawable.ic_courier,
+                            tint = IpbTheme.colors.iconPrimary3.asBrush()
+                        )
+                        BrushedText(
+                            text = stringResource(R.string.courier_delivery),
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
+                            style = IpbTheme.typography.body
+                        )
                     }
                 }
             }

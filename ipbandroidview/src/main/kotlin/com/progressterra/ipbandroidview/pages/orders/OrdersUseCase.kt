@@ -1,11 +1,14 @@
 package com.progressterra.ipbandroidview.pages.orders
 
-import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
-import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
-import com.progressterra.ipbandroidapi.api.purchases.PurchasesRepository
+import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.models.FilterAndSort
+import com.progressterra.ipbandroidapi.api.cart.models.SortData
+import com.progressterra.ipbandroidapi.api.cart.models.TypeVariantSort
+import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.toGoodsItem
+import com.progressterra.ipbandroidview.entities.toOrder
+import com.progressterra.ipbandroidview.entities.toOrderDetailsOrderGoods
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -18,50 +21,38 @@ interface OrdersUseCase {
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
-        manageResources: ManageResources,
-        private val purchasesRepository: PurchasesRepository,
+        private val manageResources: ManageResources,
         private val cartRepository: CartRepository,
-        private val statusOrderMapper: StatusOrderMapper,
-        private val gson: Gson
+        private val productRepository: ProductRepository
     ) : OrdersUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
-        private val noData = manageResources.string(R.string.no_data)
-
         override suspend fun invoke(): Result<List<OrderDetails>> = withToken { token ->
-            purchasesRepository.getShopList(token).getOrThrow()?.map { purchase ->
-                purchasesRepository.getPurchaseDetails(purchase.purchaseId!!).getOrThrow()
-            }?.map { details ->
-                OrderDetails(
-                    id = details?.purchaseId!!,
-                    number = details.number ?: noData,
-                    goods = details.productsInfo?.map { product ->
-                        val count =
-                            details.productsInfo?.count { it.productId == product.productId } ?: 0
-                        OrderDetails.OrderGoods(
-                            id = product.productId ?: noData,
-                            inCartCounter = count,
-                            image = parseImage(product.productImageDataJson ?: "")
-                        )
-                    } ?: emptyList()
+            cartRepository.orders(
+                accessToken = token,
+                income = FilterAndSort(
+                    listFields = emptyList(),
+                    sort = SortData(
+                        fieldName = "dateUpdated",
+                        variantSort = TypeVariantSort.ASC
+                    ),
+                    searchData = "",
+                    skip = 0,
+                    take = 300
                 )
-            }?.map {
-                val result = cartRepository.getOrderById(it.id).getOrThrow()
-                it.copy(status = result?.statusOrder?.let { status -> statusOrderMapper.map(status) }
-                    ?: noData)
+            ).getOrThrow()?.map {
+                val order = it.toOrder(manageResources)
+                val goods =
+                    order.itemsIds.map { id ->
+                        productRepository.productByNomenclatureId(token, id).getOrThrow()
+                            ?.toGoodsItem()?.toOrderDetailsOrderGoods() ?: OrderDetails.OrderGoods()
+                    }
+                OrderDetails(
+                    id = order.id,
+                    number = order.number,
+                    goods = goods,
+                    status = order.status
+                )
             } ?: emptyList()
-        }
-
-        private fun parseImage(data: String): String = gson.fromJson(
-            data, ImageData::class.java
-        ).list.first().url
-
-        data class ImageData(
-            @SerializedName("datalist") val list: List<Item>
-        ) {
-
-            data class Item(
-                @SerializedName("URL") val url: String
-            )
         }
     }
 }

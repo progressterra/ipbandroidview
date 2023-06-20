@@ -1,12 +1,14 @@
 package com.progressterra.ipbandroidview.pages.cart
 
-import com.progressterra.ipbandroidapi.api.iecommerce.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.pricesSum
+import com.progressterra.ipbandroidview.entities.toCartCardState
+import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
@@ -21,50 +23,18 @@ interface CartUseCase {
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
         private val cartRepo: CartRepository,
-        private val productRepository: ProductRepository,
-        private val priceMapper: PriceMapper
+        private val productRepository: ProductRepository
     ) : CartUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(): Result<CartState> = withToken { token ->
-            val cart = cartRepo.getProductsInCart(token).getOrThrow()
-            val price = priceMapper.map(cart?.drSaleRow?.sumOf { it.endPrice ?: 0.0 } ?: 0.0)
-            val goods = buildSet {
-                cart?.drSaleRow?.map { saleRow ->
-                    saleRow.idrgGoodsInventory?.let { id ->
-                        productRepository.productByGoodsInventoryId(token, id).getOrThrow()
-                            ?.let { goodsDetails ->
-                                add(
-                                    CartCardState(
-                                        id = id,
-                                        properties = goodsDetails.listProductCharacteristic?.associate {
-                                            (it.characteristicType?.name
-                                                ?: "") to (it.characteristicValue?.viewData ?: "")
-                                        } ?: emptyMap(),
-                                        imageUrl = goodsDetails.nomenclature?.listImages?.firstNotNullOfOrNull { it.urlData }
-                                            ?: "",
-                                        name = goodsDetails.nomenclature?.name ?: "",
-                                        price = SimplePrice(
-                                            goodsDetails.inventoryData?.currentPrice ?: 0.0
-                                        ),
-                                        loan = "Рассрочка: ${goodsDetails.installmentPlanValue?.countMonthPayment} платежей по ${
-                                            SimplePrice(
-                                                goodsDetails.installmentPlanValue?.amountPaymentInMonth ?: 0.0
-                                            )
-                                        }",
-                                        counter = CounterState(
-                                            id = id,
-                                            count = goodsDetails.countInCart ?: 0
-                                        )
-                                    )
-                                )
-                            }
-                    }
-                }
-            }.toList()
+            val goods = cartRepo.cart(token).getOrThrow()!!.listDRSale?.mapNotNull {
+                productRepository.productByGoodsInventoryId(token, it.idrfNomenclature!!)
+                    .getOrThrow()?.toGoodsItem()?.toCartCardState()
+            } ?: emptyList()
             CartState(
                 items = CartItemsState(goods),
                 summary = CartSummaryState(
-                    total = price
+                    total = pricesSum(goods.map { it.price })
                 )
             )
         }

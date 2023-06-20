@@ -1,8 +1,6 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.Delivery
-import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState

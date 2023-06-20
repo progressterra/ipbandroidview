@@ -10,8 +10,6 @@ import java.util.Locale
 @Parcelize
 class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable, IsNegative {
 
-    constructor(price: Double) : this(price.toInt())
-
     override fun toString(): String {
         val numberFormat = NumberFormat.getCurrencyInstance(Locale("ru", "RU"))
         numberFormat.maximumFractionDigits = 0

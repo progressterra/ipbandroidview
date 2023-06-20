@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.features.goodsdescription
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.Delivery
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 import com.progressterra.processors.IpbSubState
 
@@ -10,6 +9,5 @@ data class GoodsDescriptionState(
     val name: String = "",
     val description: String = "",
     val properties: Map<String, String> = emptyMap(),
-    @IpbSubState val favoriteButton: FavoriteButtonState = FavoriteButtonState(),
-    val availableDeliveries: List<Delivery> = emptyList()
+    @IpbSubState val favoriteButton: FavoriteButtonState = FavoriteButtonState()
 )

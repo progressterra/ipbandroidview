@@ -1,8 +1,6 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.entities.Delivery
-import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -10,7 +8,6 @@ import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerEvent
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerValidUseCase
-import com.progressterra.ipbandroidview.widgets.deliverypicker.FetchAvailableDeliveryUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.pickuppoint
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.widgets.pickupchoose.PickUpChooseState
 import com.progressterra.processors.IpbSubState

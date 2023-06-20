@@ -2,9 +2,6 @@ package com.progressterra.ipbandroidview.widgets.deliverypicker
 
 import com.progressterra.ipbandroidapi.api.ipbdelivery.models.DeliveryMethod
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.Delivery
-import com.progressterra.ipbandroidview.entities.DeliveryMethodId
-import com.progressterra.ipbandroidview.entities.PickUpPointInfo
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.shared.ManageResources
