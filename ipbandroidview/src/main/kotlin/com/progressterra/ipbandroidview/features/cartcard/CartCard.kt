@@ -38,7 +38,7 @@ fun CartCard(
     ) {
         SimpleImage(
             modifier = Modifier
-                .size(width = 157.dp, height = 122.dp)
+                .size(width = 157.dp, height = 157.dp)
                 .clip(RoundedCornerShape(8.dp)),
             url = state.imageUrl,
             backgroundColor = IpbTheme.colors.background.asColor()
