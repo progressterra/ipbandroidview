@@ -157,4 +157,5 @@
     <string name="catalog_screen">Каталог</string>
     <string name="cart_screen">Корзина</string>
     <string name="profile_screen">Профиль</string>
+    <string name="payment_inner">Бонусы</string>
 </resources>

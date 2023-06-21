@@ -10,7 +10,7 @@ interface FetchPaymentMethods {
 
         override suspend fun invoke(): Result<PaymentMethodState> = runCatching {
             val paymentMethods = listOf(
-                PaymentType.Cash
+                PaymentType.InnerBonuses
             )
             PaymentMethodState(
                 selectedPaymentMethod = paymentMethods.first(),

@@ -23,6 +23,7 @@ import org.orbitmvi.orbit.viewmodel.container
 class PaymentViewModel(
     private val fetchPaymentMethods: FetchPaymentMethods,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
+    private val paymentUseCase: PaymentUseCase,
     private val openUrlUseCase: OpenUrlUseCase
 ) : ViewModel(), ContainerHost<PaymentState, PaymentEvent>, UsePayment {
 
@@ -48,8 +49,15 @@ class PaymentViewModel(
     override fun handle(event: ButtonEvent) {
         intent {
             when (event.id) {
-                "confirm" -> confirmOrderUseCase().onSuccess {
-                    postSideEffect(PaymentEvent.Next(it))
+                "confirm" -> {
+                    var isSuccess = true
+                    val result = confirmOrderUseCase().onFailure {
+                        isSuccess = false
+                    }
+                    paymentUseCase().onFailure {
+                        isSuccess = false
+                    }
+                    if (isSuccess) postSideEffect(PaymentEvent.Next(result.getOrThrow()))
                 }
             }
         }

@@ -26,6 +26,7 @@ import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
 import com.progressterra.ipbandroidview.pages.orders.OrdersViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
+import com.progressterra.ipbandroidview.pages.payment.PaymentUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.pages.profile.DocumentsNotificationUseCase
@@ -55,7 +56,7 @@ val pagesModule = module {
 
     viewModel { MainViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel { PaymentViewModel(get(), get(), get()) }
+    viewModel { PaymentViewModel(get(), get(), get(), get()) }
 
     viewModel { DeliveryViewModel(get(), get(), get()) }
 
@@ -154,6 +155,8 @@ val pagesModule = module {
     }
 
     single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get(), get()) }
+
+    single<PaymentUseCase> { PaymentUseCase.Base(get(), get(), get()) }
 
     viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get()) }
 
