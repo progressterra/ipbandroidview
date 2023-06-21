@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -26,6 +27,9 @@ class PaymentNode(
                 is PaymentEvent.Back -> onBack()
                 is PaymentEvent.Next -> onNext(it.orderStatusState)
             }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.collectAsState().value
         PaymentScreen(
