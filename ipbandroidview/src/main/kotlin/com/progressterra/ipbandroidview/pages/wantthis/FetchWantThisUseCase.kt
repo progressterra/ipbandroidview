@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.entities.toWantThisScreenState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.CreateId
 
 interface FetchWantThisUseCase {
 
@@ -18,14 +19,15 @@ interface FetchWantThisUseCase {
         scrmRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         private val documentsRepository: DocumentsRepository,
-        private val gson: Gson
+        private val gson: Gson,
+        private val createId: CreateId
     ) : FetchWantThisUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(): Result<WantThisScreenState> = withToken { token ->
             documentsRepository.createDoc(
                 accessToken = token,
                 income = IncnomeDataCreateCharValue(IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID)
-            ).getOrThrow()?.toDocument(gson)?.toWantThisScreenState() ?: WantThisScreenState()
+            ).getOrThrow()?.toDocument(gson, createId)?.toWantThisScreenState() ?: WantThisScreenState()
         }
     }
 }
