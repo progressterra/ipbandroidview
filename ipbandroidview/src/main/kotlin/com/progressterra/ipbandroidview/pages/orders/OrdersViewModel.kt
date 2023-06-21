@@ -3,9 +3,8 @@ package com.progressterra.ipbandroidview.pages.orders
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardEvent
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
+import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -13,25 +12,20 @@ import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-class OrdersViewModel(
-    private val ordersUseCase: OrdersUseCase
-) : ViewModel(), ContainerHost<OrdersState, OrdersEvent>, UseOrders {
+class OrdersViewModel : ViewModel(), ContainerHost<OrdersState, OrdersEvent>, UseOrders {
 
     override val container: Container<OrdersState, OrdersEvent> = container(OrdersState())
 
-    fun refresh() {
+    fun refresh(newState: OrderDetailsState) {
         intent {
-            reduce { state.copy(screenState = ScreenState.LOADING) }
-            ordersUseCase().onSuccess {
-                reduce { state.copy(screenState = ScreenState.SUCCESS, orders = it) }
-            }.onFailure {
-                reduce { state.copy(screenState = ScreenState.ERROR) }
-            }
+            reduce { state.uOrder(newState) }
         }
     }
 
     override fun handle(event: OrderDetailsEvent) {
-        TODO("Not yet implemented")
+        intent {
+            postSideEffect(OrdersEvent.Tracking)
+        }
     }
 
     override fun handle(event: OrderCardEvent) {
@@ -45,12 +39,6 @@ class OrdersViewModel(
     override fun handle(event: TopBarEvent) {
         intent {
             postSideEffect(OrdersEvent.Back)
-        }
-    }
-
-    override fun handle(event: StateBoxEvent) {
-        intent {
-            refresh()
         }
     }
 }

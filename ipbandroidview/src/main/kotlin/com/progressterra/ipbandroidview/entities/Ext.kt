@@ -19,6 +19,8 @@ import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
+import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
+import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsState
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenState
@@ -28,6 +30,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
+import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
 fun pricesSum(prices: List<SimplePrice>): SimplePrice {
     var sum = SimplePrice()
@@ -342,3 +345,21 @@ fun Document.toWantThisScreenState() = WantThisScreenState(
     entries = entries,
     photo = photo
 )
+
+fun OrderCompactState.toOrderDetailsState() = OrderDetailsState(
+    id = id,
+    number = number,
+    status = status,
+    date = date,
+    count = count,
+    totalPrice = totalPrice,
+    goods = goods
+)
+
+fun Order.toOrderCompactState(goods: List<OrderCardState>) =
+    OrderCompactState(
+        id = id,
+        number = number,
+        goods = OrderItemsState(goods),
+        status = status
+    )

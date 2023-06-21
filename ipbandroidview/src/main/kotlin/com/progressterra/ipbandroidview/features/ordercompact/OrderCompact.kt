@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.orderdetails
+package com.progressterra.ipbandroidview.features.ordercompact
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,24 +15,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.widgets.orderitems.OrderItems
-import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
-fun OrderDetails(
-    modifier: Modifier = Modifier, state: OrderDetailsState, useComponent: UseOrderDetails
+fun OrderCompact(
+    modifier: Modifier = Modifier, state: OrderCompactState, useComponent: UseOrderCompact
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
+            .niceClickable { useComponent.handle(OrderCompactEvent(state)) }
             .padding(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -49,25 +44,6 @@ fun OrderDetails(
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.title
                 )
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
-                ) {
-                    IconButton(
-                        modifier = Modifier.size(24.dp),
-                        onClick = { useComponent.handle(OrderDetailsEvent) }
-                    ) {
-                        BrushedIcon(
-                            resId = R.drawable.ic_map,
-                            tint = IpbTheme.colors.iconTertiary.asBrush()
-                        )
-                    }
-                    BrushedText(
-                        text = stringResource(R.string.track),
-                        tint = IpbTheme.colors.textTertiary.asBrush(),
-                        style = IpbTheme.typography.footnoteRegular
-                    )
-                }
             }
             BrushedText(
                 text = state.number,
@@ -94,9 +70,6 @@ fun OrderDetails(
                 )
             }
         }
-        OrderItems(
-            state = state.goods, useComponent = useComponent
-        )
     }
 }
 
@@ -104,34 +77,11 @@ fun OrderDetails(
 @Preview
 private fun OrderDetailsPreview() {
     IpbTheme {
-        OrderDetails(
-            state = OrderDetailsState(
+        OrderCompact(
+            state = OrderCompactState(
                 id = "dicam", number = "alienum", status = "egestas",
-                goods = OrderItemsState(
-                    items = listOf(
-                        OrderCardState(
-                            id = "mnesarchum",
-                            name = "Kris Sheppard",
-                            price = SimplePrice(price = 4541),
-                            imageUrl = "https://duckduckgo.com/?q=sodales",
-                            installment = Installment(
-                                months = 7486, perMonth = SimplePrice(price = 1309)
-                            ),
-                            oldPrice = SimplePrice(price = 5389)
-                        ), OrderCardState(
-                            id = "mnesarchum",
-                            name = "Kris Sheppard",
-                            price = SimplePrice(price = 4541),
-                            imageUrl = "https://duckduckgo.com/?q=sodales",
-                            installment = Installment(
-                                months = 7486, perMonth = SimplePrice(price = 1309)
-                            ),
-                            oldPrice = SimplePrice(price = 5389)
-                        )
-                    )
-                ),
                 date = "13.10", count = "5", totalPrice = SimplePrice(price = 0),
-            ), useComponent = UseOrderDetails.Empty()
+            ), useComponent = UseOrderCompact.Empty()
         )
     }
 }

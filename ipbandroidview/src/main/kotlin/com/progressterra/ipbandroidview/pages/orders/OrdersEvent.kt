@@ -5,4 +5,6 @@ sealed class OrdersEvent {
     object Back : OrdersEvent()
 
     class GoodsDetails(val goodsId: String) : OrdersEvent()
+
+    object Tracking : OrdersEvent()
 }

@@ -1,0 +1,3 @@
+package com.progressterra.ipbandroidview.features.orderdetails
+
+object OrderDetailsEvent

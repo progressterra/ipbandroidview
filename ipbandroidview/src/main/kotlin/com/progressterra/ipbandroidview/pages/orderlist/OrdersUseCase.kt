@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.orders
+package com.progressterra.ipbandroidview.pages.orderlist
 
 import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.cart.models.FilterAndSort
@@ -9,16 +9,16 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toOrder
 import com.progressterra.ipbandroidview.entities.toOrderCardState
+import com.progressterra.ipbandroidview.entities.toOrderCompactState
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
-import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
+import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
-import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
 interface OrdersUseCase {
 
-    suspend operator fun invoke(): Result<List<OrderDetailsState>>
+    suspend operator fun invoke(): Result<List<OrderCompactState>>
 
     class Base(
         provideLocation: ProvideLocation,
@@ -28,7 +28,7 @@ interface OrdersUseCase {
         private val productRepository: ProductRepository
     ) : OrdersUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun invoke(): Result<List<OrderDetailsState>> = withToken { token ->
+        override suspend fun invoke(): Result<List<OrderCompactState>> = withToken { token ->
             cartRepository.orders(
                 accessToken = token,
                 income = FilterAndSort(
@@ -43,17 +43,11 @@ interface OrdersUseCase {
                 )
             ).getOrThrow()?.map {
                 val order = it.toOrder(manageResources)
-                val goods =
-                    order.itemsIds.map { id ->
-                        productRepository.productByNomenclatureId(token, id).getOrThrow()
-                            ?.toGoodsItem()?.toOrderCardState() ?: OrderCardState()
-                    }
-                OrderDetailsState(
-                    id = order.id,
-                    number = order.number,
-                    goods = OrderItemsState(goods),
-                    status = order.status
-                )
+                val goods = order.itemsIds.map { id ->
+                    productRepository.productByNomenclatureId(token, id).getOrThrow()
+                        ?.toGoodsItem()?.toOrderCardState() ?: OrderCardState()
+                }
+                order.toOrderCompactState(goods)
             } ?: emptyList()
         }
     }

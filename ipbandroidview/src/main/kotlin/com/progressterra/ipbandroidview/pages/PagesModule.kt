@@ -22,7 +22,8 @@ import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.main.MainViewModel
-import com.progressterra.ipbandroidview.pages.orders.OrdersUseCase
+import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
+import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
 import com.progressterra.ipbandroidview.pages.orders.OrdersViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
@@ -68,7 +69,7 @@ val pagesModule = module {
 
     viewModel { ProfileDetailsViewModel(get(), get(), get()) }
 
-    viewModel { OrdersViewModel(get()) }
+    viewModel { OrdersViewModel() }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get(), get()) }
 
@@ -155,4 +156,6 @@ val pagesModule = module {
     single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get(), get()) }
 
     viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get()) }
+
+    viewModel { OrdersListViewModel(get()) }
 }
