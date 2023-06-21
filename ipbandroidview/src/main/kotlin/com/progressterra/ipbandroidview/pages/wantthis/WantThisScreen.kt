@@ -12,10 +12,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
@@ -41,6 +45,13 @@ fun WantThisScreen(
                     useComponent = useComponent,
                     title = stringResource(R.string.past_requests)
                 )
+                state.document.photo?.let {
+                    Spacer(modifier = Modifier.height(20.dp))
+                    DocumentPhoto(
+                        state = it,
+                        useComponent = useComponent
+                    )
+                }
                 Spacer(modifier = Modifier.weight(1f))
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(20.dp)
@@ -70,7 +81,20 @@ fun WantThisScreen(
                         title = stringResource(R.string.cancel)
                     )
                 }
+                Spacer(modifier = Modifier.height(40.dp))
+
             }
         }
+    }
+}
+
+@Composable
+@Preview
+private fun WantThisScreenPreview() {
+    IpbTheme {
+        WantThisScreen(
+            state = WantThisScreenState(screen = ScreenState.SUCCESS),
+            useComponent = UseWantThisScreen.Empty()
+        )
     }
 }
