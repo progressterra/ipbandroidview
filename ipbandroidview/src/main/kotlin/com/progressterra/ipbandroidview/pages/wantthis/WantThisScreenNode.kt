@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -25,6 +26,9 @@ class WantThisScreenNode(
                 is WantThisScreenEvent.Requests -> onRequests()
                 is WantThisScreenEvent.OpenPhoto -> onPhoto(it.url)
             }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.collectAsState().value
         WantThisScreen(

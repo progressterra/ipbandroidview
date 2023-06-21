@@ -64,7 +64,10 @@ class WantThisScreenViewModel(
     override fun handle(event: ButtonEvent) {
         intent {
             when (event.id) {
-                "send" -> saveDocumentsUseCase(state.toDocument())
+                "send" -> saveDocumentsUseCase(state.toDocument()).onSuccess {
+                    postSideEffect(WantThisScreenEvent.Back)
+                }
+
                 "cancel" -> reduce { state }
             }
         }
