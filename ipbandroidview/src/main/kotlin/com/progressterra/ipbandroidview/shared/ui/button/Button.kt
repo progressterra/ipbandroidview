@@ -29,7 +29,7 @@ fun Button(
     Row(modifier = modifier
         .clip(RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp))
         .background(if (state.enabled) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.primaryDisabled.asBrush())
-        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
+        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
         .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically) {

@@ -35,7 +35,7 @@ fun PseudoButton(
             brush = IpbTheme.colors.primary.asBrush(),
             shape = RoundedCornerShape(8.dp)
         )
-        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
+        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
         .padding(horizontal = 8.dp, vertical = 13.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically) {

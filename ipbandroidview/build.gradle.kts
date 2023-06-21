@@ -136,7 +136,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.26")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.27")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")

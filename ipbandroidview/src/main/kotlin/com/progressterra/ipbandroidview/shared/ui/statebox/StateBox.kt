@@ -27,7 +27,7 @@ fun StateBox(
         when (state) {
             ScreenState.ERROR -> IconButton(
                 modifier = Modifier.align(Alignment.Center), onClick = {
-                    useComponent.handle(StateBoxEvent.Refresh)
+                    useComponent.handle(StateBoxEvent)
                 }
             ) {
                 BrushedIcon(

@@ -46,9 +46,7 @@ class ProfileViewModel(
 
     override fun handle(event: StateBoxEvent) {
         intent {
-            when (event) {
-                is StateBoxEvent.Refresh -> refresh()
-            }
+            refresh()
         }
     }
 
@@ -62,20 +60,18 @@ class ProfileViewModel(
 
     override fun handle(event: ProfileButtonEvent) {
         intent {
-            when (event) {
-                is ProfileButtonEvent.Click -> when (event.id) {
-                    "logout" -> {
-                        logoutUseCase().onSuccess {
-                            postSideEffect(ProfileEvent.Logout)
-                        }
+            when (event.id) {
+                "logout" -> {
+                    logoutUseCase().onSuccess {
+                        postSideEffect(ProfileEvent.Logout)
                     }
-
-                    "delete" -> Unit
-                    "orders" -> postSideEffect(ProfileEvent.Orders)
-                    "favorites" -> postSideEffect(ProfileEvent.Favorites)
-                    "support" -> postSideEffect(ProfileEvent.Support)
-                    "documents" -> postSideEffect(ProfileEvent.Documents)
                 }
+
+                "delete" -> Unit
+                "orders" -> postSideEffect(ProfileEvent.Orders)
+                "favorites" -> postSideEffect(ProfileEvent.Favorites)
+                "support" -> postSideEffect(ProfileEvent.Support)
+                "documents" -> postSideEffect(ProfileEvent.Documents)
             }
         }
     }
@@ -84,10 +80,8 @@ class ProfileViewModel(
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> when (event.id) {
-                    "auth" -> postSideEffect(ProfileEvent.Auth)
-                }
+            when (event.id) {
+                "auth" -> postSideEffect(ProfileEvent.Auth)
             }
         }
     }

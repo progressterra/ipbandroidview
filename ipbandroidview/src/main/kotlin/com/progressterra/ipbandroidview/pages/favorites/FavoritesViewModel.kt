@@ -62,17 +62,13 @@ class FavoritesViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(FavoritesEvent.Back)
-            }
+            postSideEffect(FavoritesEvent.Back)
         }
     }
 
     override fun handle(event: StateBoxEvent) {
         intent {
-            when (event) {
-                is StateBoxEvent.Refresh -> refresh()
-            }
+            refresh()
         }
     }
 }

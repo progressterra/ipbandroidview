@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.documentdetails
 
 import android.Manifest
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
@@ -36,19 +37,15 @@ class DocumentDetailsViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(DocumentDetailsEvent.Back)
-            }
+            postSideEffect(DocumentDetailsEvent.Back)
         }
     }
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> when (event.id) {
-                    "apply" -> saveDocumentsUseCase(state).onSuccess {
-                        postSideEffect(DocumentDetailsEvent.Back)
-                    }
+            when (event.id) {
+                "apply" -> saveDocumentsUseCase(state.toDocument()).onSuccess {
+                    postSideEffect(DocumentDetailsEvent.Back)
                 }
             }
         }

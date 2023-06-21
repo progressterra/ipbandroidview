@@ -30,7 +30,7 @@ fun OutlineButton(
             brush = IpbTheme.colors.textPrimary3.asBrush(),
             shape = RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp)
         )
-        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent.Click(state.id)) }
+        .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
         .padding(horizontal = 32.dp, vertical = 15.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically) {

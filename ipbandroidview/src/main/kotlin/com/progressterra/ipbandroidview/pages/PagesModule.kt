@@ -16,7 +16,6 @@ import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsVie
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.pages.documentdetails.ValidationUseCase
 import com.progressterra.ipbandroidview.pages.documents.DocumentsViewModel
-import com.progressterra.ipbandroidview.pages.documents.OpenDocumentUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
@@ -35,6 +34,8 @@ import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.pages.support.FetchChatUseCase
 import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
+import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
+import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -133,15 +134,13 @@ val pagesModule = module {
         }
     }
 
-    single<OpenDocumentUseCase> { OpenDocumentUseCase.Base() }
-
     single<SaveDocumentsUseCase> { SaveDocumentsUseCase.Base(get(), get(), get(), get(), get()) }
 
     viewModel { CatalogViewModel(get(), get(), get(), get()) }
 
     viewModel { CartViewModel(get(), get(), get()) }
 
-    viewModel { DocumentsViewModel(get(), get(), get(), get()) }
+    viewModel { DocumentsViewModel(get(), get(), get()) }
 
     viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get()) }
 
@@ -152,4 +151,8 @@ val pagesModule = module {
     single<CommentUseCase> {
         CommentUseCase.Base(get(), get(), get())
     }
+
+    single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get(), get()) }
+
+    viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get()) }
 }

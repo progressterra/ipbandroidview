@@ -50,17 +50,13 @@ class BonusesDetailsViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(BonusesDetailsEvent.Back)
-            }
+            postSideEffect(BonusesDetailsEvent.Back)
         }
     }
 
     override fun handle(event: StateBoxEvent) {
         intent {
-            when (event) {
-                is StateBoxEvent.Refresh -> refresh()
-            }
+            refresh()
         }
     }
 }

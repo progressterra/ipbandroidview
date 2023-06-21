@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.documents
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.toDocumentDetailsState
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipEvent
 import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizenshipsUseCase
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
@@ -19,7 +20,6 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class DocumentsViewModel(
     private val documentsUseCase: DocumentsUseCase,
-    private val openDocumentUseCase: OpenDocumentUseCase,
     private val saveCitizenshipUseCase: SaveCitizenshipUseCase,
     private val citizenshipsUseCase: FetchCitizenshipsUseCase
 ) : ContainerHost<DocumentsScreenState, DocumentsScreenEvent>, ViewModel(), UseDocumentsScreen {
@@ -57,16 +57,12 @@ class DocumentsViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(DocumentsScreenEvent.Back)
-            }
+            postSideEffect(DocumentsScreenEvent.Back)
         }
     }
 
     override fun handle(event: StateBoxEvent) {
-        when (event) {
-            is StateBoxEvent.Refresh -> refresh()
-        }
+        refresh()
     }
 
     override fun handle(event: DialogPickerEvent) {
@@ -85,13 +81,11 @@ class DocumentsViewModel(
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> when (event.id) {
-                    "apply" -> state.citizenship.dialog.selected?.let { newCitizenship ->
-                        saveCitizenshipUseCase(newCitizenship).onSuccess {
-                            reduce { state.uOpen(false) }
-                            refresh()
-                        }
+            when (event.id) {
+                "apply" -> state.citizenship.dialog.selected?.let { newCitizenship ->
+                    saveCitizenshipUseCase(newCitizenship).onSuccess {
+                        reduce { state.uOpen(false) }
+                        refresh()
                     }
                 }
             }
@@ -100,9 +94,7 @@ class DocumentsViewModel(
 
     override fun handle(event: DocumentsEvent) {
         intent {
-            openDocumentUseCase(event.item).onSuccess {
-                postSideEffect(DocumentsScreenEvent.OpenDocument(it))
-            }
+            postSideEffect(DocumentsScreenEvent.OpenDocument(event.item.toDocumentDetailsState()))
         }
     }
 }

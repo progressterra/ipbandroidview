@@ -49,16 +49,14 @@ class CartViewModel(
     override fun handle(event: TopBarEvent) {
         intent {
             when (event) {
-                TopBarEvent.Back -> Unit
+                TopBarEvent -> Unit
             }
         }
     }
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> postSideEffect(CartEvent.Payment)
-            }
+            postSideEffect(CartEvent.Payment)
         }
     }
 
@@ -78,9 +76,7 @@ class CartViewModel(
 
     override fun handle(event: StateBoxEvent) {
         intent {
-            when (event) {
-                is StateBoxEvent.Refresh -> refresh()
-            }
+            refresh()
         }
     }
 }

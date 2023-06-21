@@ -38,32 +38,28 @@ class DeliveryViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(DeliveryEvent.Back)
-            }
+            postSideEffect(DeliveryEvent.Back)
         }
     }
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> when (event.id) {
-                    "confirm" -> {
-                        var isSuccess = true
-                        saveAddressUseCase(
-                            city = state.deliveryPicker.city.text,
-                            home = state.deliveryPicker.home.text,
-                            entrance = state.deliveryPicker.entrance.text,
-                            apartment = state.deliveryPicker.apartment.text
-                        ).onFailure {
-                            isSuccess = false
-                        }
-                        commentUseCase(state.commentary.text).onFailure {
-                            isSuccess = false
-                        }
-                        if (isSuccess) {
-                            postSideEffect(DeliveryEvent.Next)
-                        }
+            when (event.id) {
+                "confirm" -> {
+                    var isSuccess = true
+                    saveAddressUseCase(
+                        city = state.deliveryPicker.city.text,
+                        home = state.deliveryPicker.home.text,
+                        entrance = state.deliveryPicker.entrance.text,
+                        apartment = state.deliveryPicker.apartment.text
+                    ).onFailure {
+                        isSuccess = false
+                    }
+                    commentUseCase(state.commentary.text).onFailure {
+                        isSuccess = false
+                    }
+                    if (isSuccess) {
+                        postSideEffect(DeliveryEvent.Next)
                     }
                 }
             }

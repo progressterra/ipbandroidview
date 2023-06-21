@@ -41,19 +41,15 @@ class PaymentViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(PaymentEvent.Back)
-            }
+            postSideEffect(PaymentEvent.Back)
         }
     }
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> when (event.id) {
-                    "confirm" -> confirmOrderUseCase().onSuccess {
-                        postSideEffect(PaymentEvent.Next(it))
-                    }
+            when (event.id) {
+                "confirm" -> confirmOrderUseCase().onSuccess {
+                    postSideEffect(PaymentEvent.Next(it))
                 }
             }
         }
@@ -72,9 +68,7 @@ class PaymentViewModel(
 
     override fun handle(event: StateBoxEvent) {
         intent {
-            when (event) {
-                is StateBoxEvent.Refresh -> refresh()
-            }
+            refresh()
         }
     }
 

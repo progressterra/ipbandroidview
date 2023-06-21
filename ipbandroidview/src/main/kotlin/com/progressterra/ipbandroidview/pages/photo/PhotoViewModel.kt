@@ -27,9 +27,7 @@ class PhotoViewModel : ViewModel(), ContainerHost<PhotoState, PhotoEvent>, UsePh
 
     override fun handle(event: PhotoTopBarEvent) {
         intent {
-            when (event) {
-                is PhotoTopBarEvent.Back -> postSideEffect(PhotoEvent.Back)
-            }
+            postSideEffect(PhotoEvent.Back)
         }
     }
 }

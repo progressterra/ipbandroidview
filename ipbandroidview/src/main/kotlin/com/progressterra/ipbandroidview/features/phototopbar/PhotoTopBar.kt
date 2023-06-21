@@ -25,7 +25,7 @@ fun PhotoTopBar(
             .background(IpbTheme.colors.background.asBrush())
     ) {
         IconButton(modifier = Modifier.align(Alignment.CenterStart),
-            onClick = { useComponent.handle(PhotoTopBarEvent.Back) }) {
+            onClick = { useComponent.handle(PhotoTopBarEvent) }) {
             BrushedIcon(
                 resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
             )

@@ -41,21 +41,18 @@ class SignUpViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(SignUpEvent.OnBack)
-            }
+            postSideEffect(SignUpEvent.OnBack)
         }
     }
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> when (event.id) {
-                    "auth" -> saveDataUseCase(state.editUser).onSuccess {
-                        postSideEffect(SignUpEvent.OnNext)
-                    }
-                    "skip" -> postSideEffect(SignUpEvent.OnSkip)
+            when (event.id) {
+                "auth" -> saveDataUseCase(state.editUser).onSuccess {
+                    postSideEffect(SignUpEvent.OnNext)
                 }
+
+                "skip" -> postSideEffect(SignUpEvent.OnSkip)
             }
         }
     }

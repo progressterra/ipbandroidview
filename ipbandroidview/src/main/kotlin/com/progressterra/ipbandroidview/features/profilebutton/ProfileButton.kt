@@ -33,7 +33,7 @@ fun ProfileButton(
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable { useComponent.handle(ProfileButtonEvent.Click(state.id)) }
+            .niceClickable { useComponent.handle(ProfileButtonEvent(state.id)) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

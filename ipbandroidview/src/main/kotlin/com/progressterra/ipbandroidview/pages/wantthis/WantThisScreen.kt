@@ -45,7 +45,7 @@ fun WantThisScreen(
                     useComponent = useComponent,
                     title = stringResource(R.string.past_requests)
                 )
-                state.document.photo?.let {
+                state.photo?.let {
                     Spacer(modifier = Modifier.height(20.dp))
                     DocumentPhoto(
                         state = it,
@@ -56,7 +56,7 @@ fun WantThisScreen(
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
-                    items(state.document.entries) {
+                    items(state.entries) {
                         TextField(
                             modifier = Modifier.fillMaxWidth(),
                             state = it,

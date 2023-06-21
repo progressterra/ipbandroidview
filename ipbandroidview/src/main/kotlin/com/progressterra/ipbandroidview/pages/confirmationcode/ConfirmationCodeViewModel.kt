@@ -74,9 +74,7 @@ class ConfirmationCodeViewModel(
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> onNext()
-            }
+            onNext()
         }
     }
 
@@ -93,9 +91,7 @@ class ConfirmationCodeViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(ConfirmationCodeEvent.Back)
-            }
+            postSideEffect(ConfirmationCodeEvent.Back)
         }
     }
 }

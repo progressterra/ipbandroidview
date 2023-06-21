@@ -47,9 +47,7 @@ class ProfileDetailsViewModel(
 
     override fun handle(event: StateBoxEvent) {
         intent {
-            when (event) {
-                is StateBoxEvent.Refresh -> refresh()
-            }
+            refresh()
         }
     }
 
@@ -64,33 +62,29 @@ class ProfileDetailsViewModel(
 
     override fun handle(event: ButtonEvent) {
         intent {
-            when (event) {
-                is ButtonEvent.Click -> when (event.id) {
-                    "save" -> saveUseCase(state.editUser).onSuccess {
-                        reduce {
-                            state.startCancelEdit().uEmailEnabled(false)
-                                .uNameEnabled(false).uBirthdayEnabled(false)
-                        }
+            when (event.id) {
+                "save" -> saveUseCase(state.editUser).onSuccess {
+                    reduce {
+                        state.startCancelEdit().uEmailEnabled(false)
+                            .uNameEnabled(false).uBirthdayEnabled(false)
                     }
-
-                    "edit" -> {
-                        reduce {
-                            state.startCancelEdit().uEmailEnabled(true)
-                                .uNameEnabled(true).uBirthdayEnabled(true)
-                        }
-                    }
-
-                    "cancel" -> refresh()
                 }
+
+                "edit" -> {
+                    reduce {
+                        state.startCancelEdit().uEmailEnabled(true)
+                            .uNameEnabled(true).uBirthdayEnabled(true)
+                    }
+                }
+
+                "cancel" -> refresh()
             }
         }
     }
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(ProfileDetailsEvent.Back)
-            }
+            postSideEffect(ProfileDetailsEvent.Back)
         }
     }
 

@@ -44,17 +44,13 @@ class OrdersViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(OrdersEvent.Back)
-            }
+            postSideEffect(OrdersEvent.Back)
         }
     }
 
     override fun handle(event: StateBoxEvent) {
         intent {
-            when (event) {
-                is StateBoxEvent.Refresh -> refresh()
-            }
+            refresh()
         }
     }
 }

@@ -10,7 +10,10 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class WantThisScreenNode(
-    buildContext: BuildContext, private val onBack: () -> Unit, private val onRequests: () -> Unit
+    buildContext: BuildContext,
+    private val onBack: () -> Unit,
+    private val onRequests: () -> Unit,
+    private val onPhoto: (String) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -20,6 +23,7 @@ class WantThisScreenNode(
             when (it) {
                 is WantThisScreenEvent.Back -> onBack()
                 is WantThisScreenEvent.Requests -> onRequests()
+                is WantThisScreenEvent.OpenPhoto -> onPhoto(it.url)
             }
         }
         val state = viewModel.collectAsState().value

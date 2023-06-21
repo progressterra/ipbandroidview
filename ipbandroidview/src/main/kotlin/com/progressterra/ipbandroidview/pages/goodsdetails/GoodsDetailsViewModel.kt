@@ -47,9 +47,7 @@ class GoodsDetailsViewModel(
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(GoodsDetailsEvent.Back)
-            }
+            postSideEffect(GoodsDetailsEvent.Back)
         }
     }
 

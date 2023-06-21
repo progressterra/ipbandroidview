@@ -42,13 +42,9 @@ class SignInViewModel(
     override fun handle(event: ButtonEvent) {
         intent {
             when (event.id) {
-                "next" -> when (event) {
-                    is ButtonEvent.Click -> onNext()
-                }
+                "next" -> onNext()
 
-                "skip" -> when (event) {
-                    is ButtonEvent.Click -> postSideEffect(SignInEffect.Skip)
-                }
+                "skip" -> postSideEffect(SignInEffect.Skip)
             }
         }
     }
@@ -61,13 +57,7 @@ class SignInViewModel(
         }
     }
 
-    override fun handle(event: TopBarEvent) {
-        intent {
-            when (event) {
-                is TopBarEvent.Back -> Unit
-            }
-        }
-    }
+    override fun handle(event: TopBarEvent) = Unit
 
     override fun handle(event: TextFieldEvent) {
         blockingIntent {

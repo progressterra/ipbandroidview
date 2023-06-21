@@ -22,9 +22,7 @@ class OrderStatusViewModel : UseOrderStatus, ViewModel(),
 
     override fun handle(event: TopBarEvent) {
         intent {
-            when (event) {
-                is TopBarEvent.Back -> postSideEffect(OrderStatusEvent.OnBack)
-            }
+            postSideEffect(OrderStatusEvent.OnBack)
         }
     }
 

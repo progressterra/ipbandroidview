@@ -35,13 +35,9 @@ class WelcomeViewModel : ViewModel(),
     override fun handle(event: ButtonEvent) {
         intent {
             when (event.id) {
-                "next" -> when (event) {
-                    is ButtonEvent.Click -> postSideEffect(WelcomeEvent.OnAuth)
-                }
+                "next" -> postSideEffect(WelcomeEvent.OnAuth)
 
-                "skip" -> when (event) {
-                    is ButtonEvent.Click -> postSideEffect(WelcomeEvent.OnSkip)
-                }
+                "skip" -> postSideEffect(WelcomeEvent.OnSkip)
             }
         }
     }
