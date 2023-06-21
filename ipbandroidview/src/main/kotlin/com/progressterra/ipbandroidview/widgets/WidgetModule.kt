@@ -25,7 +25,7 @@ val widgetsModule = module {
         OfferMapper.Base(get())
     }
 
-    single {
+    single<FetchGalleriesUseCase> {
         FetchGalleriesUseCase.Base(get(), get())
     }
 
