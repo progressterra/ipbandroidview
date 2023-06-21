@@ -41,5 +41,5 @@ val widgetsModule = module {
         DeliveryPickerValidUseCase.Base()
     }
 
-    single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get()) }
+    single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get(), get()) }
 }
