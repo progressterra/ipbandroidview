@@ -154,7 +154,7 @@ val pagesModule = module {
         CommentUseCase.Base(get(), get(), get())
     }
 
-    single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get(), get()) }
+    single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<PaymentUseCase> { PaymentUseCase.Base(get(), get(), get()) }
 
