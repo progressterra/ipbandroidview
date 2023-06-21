@@ -263,7 +263,7 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
             )
         } ?: emptyList()) else null)
 
-fun RFCharacteristicValueViewModel.toDocument(gson: Gson) =
+fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
     Document(status = statusDoc ?: TypeStatusDoc.NOT_FILL,
         docName = characteristicType?.name ?: "",
         id = idUnique!!,
@@ -273,7 +273,7 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson) =
             )
         } ?: emptyList()).map {
             TextFieldState(
-                id = it.order.toString(),
+                id = createId(),
                 text = it.valueData ?: "",
                 placeholder = it.comment,
                 label = it.name,
