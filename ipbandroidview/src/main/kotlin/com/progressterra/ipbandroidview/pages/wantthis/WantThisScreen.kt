@@ -31,7 +31,9 @@ fun WantThisScreen(
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
-            title = stringResource(R.string.want_this), useComponent = useComponent
+            title = stringResource(R.string.want_this),
+            useComponent = useComponent,
+            showBackButton = true
         )
     }) { _, _ ->
         StateBox(

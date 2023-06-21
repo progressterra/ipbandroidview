@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsState
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenState
+import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
@@ -229,7 +230,7 @@ fun DataAddress.convertDtoToAddressUiModel(): List<AddressUI> = listAddAddress?.
     )
 } ?: emptyList()
 
-fun CharacteristicData.toDocument(gson: Gson) =
+fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
     Document(status = characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,
         docName = characteristicType?.name ?: "",
         id = characteristicValue?.idUnique!!,
@@ -239,7 +240,7 @@ fun CharacteristicData.toDocument(gson: Gson) =
             )
         } ?: emptyList()).map {
             TextFieldState(
-                id = it.order.toString(),
+                id = createId(),
                 text = it.valueData ?: "",
                 placeholder = it.comment,
                 label = it.name,
