@@ -68,7 +68,7 @@ class WantThisScreenViewModel(
                     postSideEffect(WantThisScreenEvent.Back)
                 }
 
-                "cancel" -> reduce { state }
+                "cancel" -> postSideEffect(WantThisScreenEvent.Back)
             }
         }
     }
