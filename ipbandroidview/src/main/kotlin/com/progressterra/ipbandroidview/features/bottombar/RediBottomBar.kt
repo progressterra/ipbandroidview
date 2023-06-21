@@ -36,7 +36,7 @@ fun RediBottomBar(
     ) {
         Column(modifier = Modifier
             .clip(CircleShape)
-            .niceClickable { useComponent.handle(RediBottomBarEvent.Activate(index)) }
+            .niceClickable { useComponent.handle(RediBottomBarEvent(index)) }
             .padding(8.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp)) {
