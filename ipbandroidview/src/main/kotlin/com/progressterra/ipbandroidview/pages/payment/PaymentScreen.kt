@@ -79,14 +79,7 @@ private fun PaymentScreenPreview() {
                         name = "Сахар", price = SimplePrice(2500), quantity = 2
                     )
                 )
-            ), paymentMethod = PaymentMethodState(
-                selectedPaymentMethod = PaymentType.Cash, paymentMethods = listOf(
-                    PaymentType.Cash,
-                    PaymentType.CardOffline,
-                    PaymentType.CardOnline,
-                    PaymentType.Sbp
-                )
-            )
+            ), paymentMethod = PaymentMethodState()
         ), useComponent = UsePayment.Empty()
     )
 }
