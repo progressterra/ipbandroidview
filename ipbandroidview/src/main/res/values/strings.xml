@@ -153,4 +153,8 @@
     <string name="order_link">Ссылка на товар</string>
     <string name="send_request">Отправить запрос</string>
     <string name="recommended_goods">Рекомендованные товары</string>
+    <string name="main_screen">Главная</string>
+    <string name="catalog_screen">Каталог</string>
+    <string name="cart_screen">Корзина</string>
+    <string name="profile_screen">Профиль</string>
 </resources>

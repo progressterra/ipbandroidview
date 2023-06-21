@@ -2,11 +2,9 @@ package com.progressterra.ipbandroidview.features.bottombar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -55,20 +53,38 @@ fun RediBottomBar(
         }
     }
 
-    Box(modifier = modifier, contentAlignment = Alignment.BottomCenter) {
-        Box(
-            modifier = Modifier
-                .height(50.dp)
-                .background(IpbTheme.colors.surface.asBrush())
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .background(IpbTheme.colors.surface.asBrush()),
+        verticalAlignment = Alignment.Bottom,
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        Item(
+            iconRes = R.drawable.ic_main,
+            titleRes = R.string.main_screen,
+            index = 0
         )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Item(
-                iconRes = R.drawable
-            )
-        }
+        Item(
+            iconRes = R.drawable.ic_catalog,
+            titleRes = R.string.catalog_screen,
+            index = 1
+        )
+        Item(
+            iconRes = R.drawable.ic_want_this,
+            titleRes = R.string.want_this,
+            index = 2
+        )
+        Item(
+            iconRes = R.drawable.ic_cart,
+            titleRes = R.string.cart_screen,
+            index = 3
+        )
+        Item(
+            iconRes = R.drawable.ic_profile,
+            titleRes = R.string.profile_screen,
+            index = 4
+        )
     }
 }
 
@@ -79,6 +95,18 @@ private fun RediBottomBarPreview() {
         RediBottomBar(
             state = RediBottomBarState(
                 activeIndex = 1
+            ), useComponent = UseRediBottomBar.Empty()
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun RediBottomBarPreviewWantThis() {
+    IpbTheme {
+        RediBottomBar(
+            state = RediBottomBarState(
+                activeIndex = 2
             ), useComponent = UseRediBottomBar.Empty()
         )
     }
