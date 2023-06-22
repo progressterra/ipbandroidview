@@ -16,6 +16,8 @@ data class SimplePrice(private val price: Int = 0) : IsEmpty, Parcelable, IsNega
         return numberFormat.format(price)
     }
 
+    fun toDouble() = price.toDouble()
+
     override fun isNegative(): Boolean = price < 0
 
     override fun isEmpty(): Boolean = price == 0

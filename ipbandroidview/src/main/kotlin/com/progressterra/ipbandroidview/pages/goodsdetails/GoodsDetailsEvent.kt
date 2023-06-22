@@ -6,5 +6,7 @@ sealed class GoodsDetailsEvent {
 
     class OpenImage(val image: String) : GoodsDetailsEvent()
 
+    class GoodsDetails(val id: String) : GoodsDetailsEvent()
+
     object Refresh : GoodsDetailsEvent()
 }

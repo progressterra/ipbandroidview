@@ -1,12 +1,14 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.features.buygoods.BuyGoodsEvent
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonEvent
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionEvent
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCase
+import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
+import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
@@ -19,7 +21,10 @@ import org.orbitmvi.orbit.viewmodel.container
 
 class GoodsDetailsViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
-    private val goodsDetailsUseCase: GoodsDetailsUseCase
+    private val goodsDetailsUseCase: GoodsDetailsUseCase,
+    private val addToCartUseCase: AddToCartUseCase,
+    private val addToCartInstallmentUseCase: AddToCartInstallmentUseCase,
+    private val removeFromCartUseCase: RemoveFromCartUseCase
 ) : ViewModel(), ContainerHost<GoodsDetailsState, GoodsDetailsEvent>,
     UseGoodsDetails {
 
@@ -29,7 +34,7 @@ class GoodsDetailsViewModel(
         intent {
             reduce { state.uScreenState(ScreenState.LOADING) }
             goodsDetailsUseCase(goodsId)
-                .onSuccess { reduce { it.uScreenState(ScreenState.SUCCESS) } }
+                .onSuccess { reduce { it.uId(goodsId).uScreenState(ScreenState.SUCCESS) } }
                 .onFailure {
                     it.printStackTrace()
                     reduce { state.uScreenState(ScreenState.ERROR) }
@@ -67,32 +72,44 @@ class GoodsDetailsViewModel(
     override fun handle(event: GoodsDescriptionEvent) {
         intent {
             when (event) {
-                is GoodsDescriptionEvent.Share -> TODO()
+                is GoodsDescriptionEvent.Share -> Unit
             }
-        }
-    }
-
-    override fun handle(event: BuyGoodsEvent) {
-        intent {
-            TODO("Not yet implemented")
         }
     }
 
     override fun handle(event: StoreCardEvent) {
         intent {
-            TODO("Not yet implemented")
+            when (event) {
+                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id)
+
+                is StoreCardEvent.Open -> postSideEffect(GoodsDetailsEvent.GoodsDetails(event.id))
+            }
         }
     }
 
     override fun handle(event: ButtonEvent) {
         intent {
-            TODO("Not yet implemented")
+            when (event.id) {
+                "buy" -> addToCartUseCase(event.id)
+                "buyInstallment" -> addToCartInstallmentUseCase(
+                    event.id,
+                    state.buyGoods.installment
+                )
+            }
         }
     }
 
     override fun handle(event: CounterEvent) {
         intent {
-            TODO("Not yet implemented")
+            when (event) {
+                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                    refresh(state.id)
+                }
+
+                is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
+                    refresh(state.id)
+                }
+            }
         }
     }
 

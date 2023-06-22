@@ -18,7 +18,8 @@ class GoodsDetailsNode(
     buildContext: BuildContext,
     private val goodsId: String,
     private val onBack: () -> Unit,
-    private val openPhoto: (String) -> Unit
+    private val openPhoto: (String) -> Unit,
+    private val onGoodsDetails: (String) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -29,6 +30,7 @@ class GoodsDetailsNode(
                 is GoodsDetailsEvent.Back -> onBack()
                 is GoodsDetailsEvent.OpenImage -> openPhoto(it.image)
                 is GoodsDetailsEvent.Refresh -> viewModel.refresh(goodsId)
+                is GoodsDetailsEvent.GoodsDetails -> onGoodsDetails(it.id)
             }
         }
         var alreadyLaunched by rememberSaveable {

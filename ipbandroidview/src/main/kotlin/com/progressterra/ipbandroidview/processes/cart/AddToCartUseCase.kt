@@ -28,9 +28,4 @@ interface AddToCartUseCase {
                 ).throwOnFailure()
             }
     }
-
-    class Test : AddToCartUseCase {
-        override suspend fun invoke(goodsId: String, count: Int): Result<Unit> =
-            Result.success(Unit)
-    }
 }

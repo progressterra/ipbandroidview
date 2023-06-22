@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.buygoods.BuyGoodsState
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.goodsdescription.uFavoriteButtonFavorite
@@ -15,8 +16,11 @@ data class GoodsDetailsState(
     val similarGoods: GalleriesState = GalleriesState(),
     val buyGoods: BuyGoodsState = BuyGoodsState(),
     val name: String = "",
+    override val id: String = "",
     val screenState: ScreenState = ScreenState.LOADING
-) {
+) : Id {
+
+    fun uId(newId: String) = copy(id = newId)
 
     fun uScreenState(screenState: ScreenState) = copy(screenState = screenState)
 

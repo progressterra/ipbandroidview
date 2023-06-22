@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
-import com.progressterra.ipbandroidview.features.buygoods.BuyGoodsEvent
 import com.progressterra.ipbandroidview.features.buygoods.UseBuyGoods
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonEvent
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionEvent
@@ -30,8 +29,6 @@ interface UseGoodsDetails : UseTopBar, UseItemGallery, UseGoodsDescription, UseB
         override fun handle(event: FavoriteButtonEvent) = Unit
 
         override fun handle(event: GoodsDescriptionEvent) = Unit
-
-        override fun handle(event: BuyGoodsEvent) = Unit
 
         override fun handle(event: StoreCardEvent) = Unit
 

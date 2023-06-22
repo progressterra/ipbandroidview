@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.processes
 
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
@@ -93,12 +94,8 @@ val processesModule = module {
         FetchGoodsPage.Base(get(), get(), get())
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            AddToCartUseCase.Test()
-        } else {
-            AddToCartUseCase.Base(get(), get(), get())
-        }
+    single<AddToCartUseCase> {
+        AddToCartUseCase.Base(get(), get(), get())
     }
 
     single {
@@ -140,5 +137,9 @@ val processesModule = module {
 
     single<SaveCitizenshipUseCase> {
         SaveCitizenshipUseCase.Base()
+    }
+
+    single<AddToCartInstallmentUseCase> {
+        AddToCartInstallmentUseCase.Base(get(), get(), get())
     }
 }
