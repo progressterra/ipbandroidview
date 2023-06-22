@@ -12,7 +12,8 @@ data class Document(
     val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,
     val docName: String = "",
     val entries: List<TextFieldState> = emptyList(),
-    val photo: DocumentPhotoState? = null
+    val photo: DocumentPhotoState? = null,
+    val additionalValue: String = ""
 ) : Id {
 
     fun updateById(id: Id, reducer: (TextFieldState) -> TextFieldState) = copy(

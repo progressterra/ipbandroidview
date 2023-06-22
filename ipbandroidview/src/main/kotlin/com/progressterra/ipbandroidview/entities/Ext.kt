@@ -262,7 +262,8 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
             MultisizedImage(
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
-        } ?: emptyList()) else null)
+        } ?: emptyList()) else null,
+    additionalValue = characteristicValue?.valueAsReference ?: "")
 
 fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
     Document(status = statusDoc ?: TypeStatusDoc.NOT_FILL,
@@ -292,7 +293,8 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
             MultisizedImage(
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
-        } ?: emptyList()))
+        } ?: emptyList()),
+        additionalValue = valueAsReference ?: "")
 
 fun TextFieldState.toFieldData(id: String) = FieldData(
     idrfCharacteristicType = id,

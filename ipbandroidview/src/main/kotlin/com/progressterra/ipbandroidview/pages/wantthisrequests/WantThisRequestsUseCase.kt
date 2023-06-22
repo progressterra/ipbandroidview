@@ -59,8 +59,7 @@ interface WantThisRequestsUseCase {
                 if (it.statusDoc == TypeStatusDoc.CONFIRMED) {
                     doc.toWantThisCardState()
                 } else {
-                    val id = ""
-                    productRepository.productByNomenclatureId(token, id).getOrThrow()?.toGoodsItem()
+                    productRepository.productByNomenclatureId(token, doc.additionalValue).getOrThrow()?.toGoodsItem()
                         ?.toWantThisCardState()
                 }
             } ?: emptyList()
