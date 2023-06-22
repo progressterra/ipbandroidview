@@ -13,7 +13,7 @@ data class BuyGoodsState(
     @IpbSubState val buy: ButtonState = ButtonState(
         id = "buy"
     ),
-    @IpbSubState val buyWithLoan: ButtonState = ButtonState(
-        id = "buyWithLoan"
+    @IpbSubState val buyInstallment: ButtonState = ButtonState(
+        id = "buyInstallment"
     )
 )

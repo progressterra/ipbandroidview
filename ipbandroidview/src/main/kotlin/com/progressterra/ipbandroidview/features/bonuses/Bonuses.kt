@@ -106,12 +106,12 @@ fun Bonuses(
                     } else {
                         Row {
                             BrushedText(
-                                text = "${stringResource(R.string.available_loan)} - ",
+                                text = "${stringResource(R.string.available_installment)} - ",
                                 style = IpbTheme.typography.subHeadlineRegular,
                                 tint = IpbTheme.colors.textButton.asBrush()
                             )
                             BrushedText(
-                                text = state.loan,
+                                text = state.installment,
                                 style = IpbTheme.typography.subHeadlineBold,
                                 tint = IpbTheme.colors.textButton.asBrush()
                             )
@@ -218,7 +218,7 @@ private fun BonusesPreview() {
                 bonuses = "100",
                 canWithdraw = "50",
                 rate = "10",
-                loan = "100",
+                installment = "100",
                 burningDate = "01.01.2021",
                 burningQuantity = "50"
             ), useComponent = UseBonuses.Empty()

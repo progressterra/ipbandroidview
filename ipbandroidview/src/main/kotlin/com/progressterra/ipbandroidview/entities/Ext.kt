@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
+import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsState
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenState
 import com.progressterra.ipbandroidview.shared.CreateId
@@ -363,3 +364,23 @@ fun Order.toOrderCompactState(goods: List<OrderCardState>) =
         goods = OrderItemsState(goods),
         status = status
     )
+
+fun Document.toWantThisCardState() = WantThisCardState(
+    id = id,
+    image = photo?.items?.firstOrNull()?.url ?: "",
+    status = status,
+    name = docName
+)
+
+//TODO replace all imageUrl with image
+fun GoodsItem.toWantThisCardState() = WantThisCardState(
+    id = id,
+    image = imageUrl,
+    price = price,
+    installment = installment,
+    counter = CounterState(
+        id = id, count = count
+    ),
+    status = TypeStatusDoc.CONFIRMED,
+    name = name
+)

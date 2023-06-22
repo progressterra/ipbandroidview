@@ -68,7 +68,7 @@
     <string name="resend">Повторить отправку</string>
     <string name="you_have">У вас</string>
     <string name="can_withdraw">Можно вывести</string>
-    <string name="available_loan">Доступна рассрочка</string>
+    <string name="available_installment">Доступна рассрочка</string>
     <string name="offers">Акции</string>
     <string name="total_to_pay">Итого к оплате:</string>
     <string name="please_auth">Авторизуйтесь, чтобы заказывать товары и копить бонусы</string>
@@ -110,7 +110,7 @@
     <string name="passport_photo">Фото паспорта</string>
     <string name="similar_goods">Похожие товары</string>
     <string name="add_to_cart">Добавить в корзину</string>
-    <string name="buy_with_loan">Купить в рассрочку</string>
+    <string name="buy_with_installment">Купить в рассрочку</string>
     <string name="request">Запрос</string>
     <string name="interests">Интересы</string>
     <string name="incoming_connections">входящих запросов на коннект</string>
@@ -158,4 +158,5 @@
     <string name="cart_screen">Корзина</string>
     <string name="profile_screen">Профиль</string>
     <string name="payment_inner">Бонусы</string>
+    <string name="want_this_requests">Запросы Хочу это</string>
 </resources>

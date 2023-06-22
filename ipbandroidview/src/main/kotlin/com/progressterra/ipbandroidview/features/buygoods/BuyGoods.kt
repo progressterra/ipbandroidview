@@ -59,9 +59,9 @@ fun BuyGoods(
             )
             OutlineButton(
                 modifier = Modifier.weight(1f),
-                state = state.buyWithLoan,
+                state = state.buyInstallment,
                 useComponent = useComponent,
-                title = stringResource(R.string.buy_with_loan)
+                title = stringResource(R.string.buy_with_installment)
             )
         }
     }

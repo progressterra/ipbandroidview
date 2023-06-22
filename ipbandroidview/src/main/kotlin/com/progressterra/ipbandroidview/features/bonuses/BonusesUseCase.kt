@@ -30,7 +30,7 @@ interface BonusesUseCase {
                 burningDate = response?.dateBurning?.parseToDate()?.format("dd.MM") ?: noData,
                 canWithdraw = "10 000₽",
                 rate = "1₽ = 1 бонус",
-                loan = "50 000₽",
+                installment = "50 000₽",
             )
         }
     }
@@ -44,7 +44,7 @@ interface BonusesUseCase {
                 burningDate = "10.10",
                 canWithdraw = "5 000₽",
                 rate = "1₽ = 1 бонус",
-                loan = "50 000₽",
+                installment = "50 000₽",
             )
         }
     }
