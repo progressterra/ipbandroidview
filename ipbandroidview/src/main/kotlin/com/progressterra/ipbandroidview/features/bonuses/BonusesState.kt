@@ -4,10 +4,8 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class BonusesState(
+    val roubles: String = "",
     val bonuses: String = "",
-    val canWithdraw: String = "",
-    val rate: String = "",
-    val installment: String = "",
     val burningDate: String = "",
     val burningQuantity: String = ""
 )

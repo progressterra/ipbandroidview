@@ -159,4 +159,5 @@
     <string name="profile_screen">Профиль</string>
     <string name="payment_inner">Бонусы</string>
     <string name="want_this_requests">Запросы Хочу это</string>
+    <string name="roubles">рублей</string>
 </resources>

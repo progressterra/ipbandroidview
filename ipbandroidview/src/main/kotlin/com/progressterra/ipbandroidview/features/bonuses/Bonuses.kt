@@ -53,7 +53,6 @@ fun Bonuses(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(animateColor)
                     .padding(16.dp),
@@ -65,9 +64,9 @@ fun Bonuses(
                     with(density) { height = it.size.height.toDp() }
                 }) {
                     BrushedText(
-                        text = "${stringResource(R.string.you_have)} ${state.bonuses} ${
+                        text = "${stringResource(R.string.you_have)} ${state.roubles} ${
                             stringResource(
-                                R.string.bonuses
+                                R.string.roubles
                             )
                         }",
                         style = IpbTheme.typography.title,
@@ -75,7 +74,11 @@ fun Bonuses(
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     BrushedText(
-                        text = "${stringResource(R.string.can_withdraw)} ${state.canWithdraw}",
+                        text = "${stringResource(R.string.you_have)} ${state.bonuses} ${
+                            stringResource(
+                                R.string.bonuses
+                            )
+                        }",
                         style = IpbTheme.typography.subHeadlineItalic,
                         tint = IpbTheme.colors.textTertiary.asBrush()
                     )
@@ -103,20 +106,6 @@ fun Bonuses(
                                 tint = IpbTheme.colors.textPrimary2.asBrush()
                             )
                         }
-                    } else {
-                        Row {
-                            BrushedText(
-                                text = "${stringResource(R.string.available_installment)} - ",
-                                style = IpbTheme.typography.subHeadlineRegular,
-                                tint = IpbTheme.colors.textButton.asBrush()
-                            )
-                            BrushedText(
-                                text = state.installment,
-                                style = IpbTheme.typography.subHeadlineBold,
-                                tint = IpbTheme.colors.textButton.asBrush()
-                            )
-                        }
-
                     }
                 }
                 Box(modifier = Modifier.height(height)) {
@@ -171,7 +160,7 @@ fun Bonuses(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     BrushedText(
-                        text = "${stringResource(R.string.you_have)} ${state.bonuses} ${
+                        text = "${stringResource(R.string.you_have)} ${state.roubles} ${
                             stringResource(
                                 R.string.bonuses
                             )
@@ -215,12 +204,10 @@ private fun BonusesPreview() {
     IpbTheme {
         Bonuses(
             state = BonusesState(
-                bonuses = "100",
-                canWithdraw = "50",
-                rate = "10",
-                installment = "100",
+                roubles = "100",
                 burningDate = "01.01.2021",
-                burningQuantity = "50"
+                burningQuantity = "50",
+                bonuses = "500"
             ), useComponent = UseBonuses.Empty()
         )
     }

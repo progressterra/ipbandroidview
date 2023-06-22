@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ fun MainScreen(
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 Bonuses(
+                    modifier = Modifier.padding(horizontal = 20.dp),
                     state = state.bonuses, useComponent = useComponent
                 )
                 state.recommended.forEach {

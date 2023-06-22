@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.features.bonuses
 
+import com.progressterra.ipbandroidapi.api.balance.BalanceRepository
 import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
@@ -17,7 +18,8 @@ interface BonusesUseCase {
         sCRMRepository: SCRMRepository,
         provideLocation: ProvideLocation,
         manageResources: ManageResources,
-        private val bonusesRepository: IBonusRepository
+        private val bonusesRepository: IBonusRepository,
+        private val balanceRepository: BalanceRepository
     ) : BonusesUseCase, AbstractTokenUseCase(sCRMRepository, provideLocation) {
 
         private val noData = manageResources.string(R.string.no_data)
@@ -28,23 +30,7 @@ interface BonusesUseCase {
                 bonuses = response?.currentQuantity?.toString() ?: noData,
                 burningQuantity = response?.forBurningQuantity?.toString() ?: noData,
                 burningDate = response?.dateBurning?.parseToDate()?.format("dd.MM") ?: noData,
-                canWithdraw = "10 000₽",
-                rate = "1₽ = 1 бонус",
-                installment = "50 000₽",
-            )
-        }
-    }
-
-    class Test : BonusesUseCase {
-
-        override suspend fun invoke(): Result<BonusesState> = runCatching {
-            BonusesState(
-                bonuses = "1234",
-                burningQuantity = "5",
-                burningDate = "10.10",
-                canWithdraw = "5 000₽",
-                rate = "1₽ = 1 бонус",
-                installment = "50 000₽",
+                roubles = balanceRepository.client().getOrThrow()?.amount?.toInt()?.toString() ?: ""
             )
         }
     }
