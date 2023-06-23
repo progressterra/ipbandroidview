@@ -32,25 +32,32 @@ fun OrderOverview(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(modifier = Modifier.size(width = 128.dp, height = 104.dp)) {
-            state.goodsImages.forEachIndexed { index, image ->
-                val horizontalPadding = 38.dp / (state.goodsImages.size - 1) * index
-                val verticalPadding = 34.dp / (state.goodsImages.size - 1) * index
-                Box(
-                    modifier = Modifier
-
-                        .align(Alignment.TopStart)
-                        .padding(
-                            start = horizontalPadding, top = verticalPadding
-                        )
-                ) {
-                    SimpleImage(
+            if (state.goodsImages.size >= 2) {
+                state.goodsImages.forEachIndexed { index, image ->
+                    val horizontalPadding = 38.dp / (state.goodsImages.size - 1) * index
+                    val verticalPadding = 34.dp / (state.goodsImages.size - 1) * index
+                    Box(
                         modifier = Modifier
-                            .size(width = 90.dp, height = 70.dp)
-                            .clip(RoundedCornerShape(8.dp)),
-                        url = image,
-                        backgroundColor = IpbTheme.colors.background.asColor()
-                    )
+                            .align(Alignment.TopStart)
+                            .padding(start = horizontalPadding, top = verticalPadding)
+                    ) {
+                        SimpleImage(
+                            modifier = Modifier
+                                .size(width = 90.dp, height = 70.dp)
+                                .clip(RoundedCornerShape(8.dp)),
+                            url = image,
+                            backgroundColor = IpbTheme.colors.background.asColor()
+                        )
+                    }
                 }
+            } else if (state.goodsImages.size == 1) {
+                SimpleImage(
+                    modifier = Modifier
+                        .size(width = 90.dp, height = 70.dp)
+                        .clip(RoundedCornerShape(8.dp)).align(Alignment.Center),
+                    url = state.goodsImages.first(),
+                    backgroundColor = IpbTheme.colors.background.asColor()
+                )
             }
         }
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -79,9 +86,7 @@ private fun OrderOverviewPreview() {
     IpbTheme {
         OrderOverview(
             state = OrderOverviewState(
-                quantity = 3,
-                address = "Karl-Marx-Allee 1, 10178 Berlin",
-                goodsImages = listOf(
+                quantity = 3, address = "Karl-Marx-Allee 1, 10178 Berlin", goodsImages = listOf(
                     "https://images.unsplash.com/photo-1616489953143-8b8b2b2b2b1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
                     "https://images.unsplash.com/photo-1616489953143-8b8b2b2b2b1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
                     "https://images.unsplash.com/photo-1616489953143-8b8b2b2b2b1c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"

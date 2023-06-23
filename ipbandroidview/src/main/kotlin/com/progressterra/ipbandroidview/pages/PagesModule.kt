@@ -41,6 +41,7 @@ import com.progressterra.ipbandroidview.pages.support.FetchChatUseCase
 import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
+import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsViewModel
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -174,4 +175,6 @@ val pagesModule = module {
     }
 
     viewModel { OrderStatusViewModel() }
+
+    viewModel { WantThisRequestsViewModel(get(), get(), get()) }
 }

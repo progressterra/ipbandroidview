@@ -57,8 +57,8 @@ private fun OrderStatusScreenPreview() {
     OrderStatusScreen(
         state = OrderStatusState(
             orderOverview = OrderOverviewState(
-                quantity = 4,
-                goodsImages = listOf("", "", "", "")
+                quantity = 1,
+                goodsImages = listOf("")
             )
         ),
         useComponent = UseOrderStatus.Empty()
