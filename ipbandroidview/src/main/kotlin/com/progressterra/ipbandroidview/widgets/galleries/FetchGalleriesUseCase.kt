@@ -1,27 +1,31 @@
 package com.progressterra.ipbandroidview.widgets.galleries
 
+import com.progressterra.ipbandroidapi.api.catalog.CatalogRepository
+import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
-import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface FetchGalleriesUseCase {
 
     suspend operator fun invoke(): Result<List<GalleriesState>>
 
     class Base(
+        scrmRepository: SCRMRepository,
+        provideLocation: ProvideLocation,
         private val goodsUseCase: GoodsUseCase,
-        private val manageResources: ManageResources
-    ) : FetchGalleriesUseCase, AbstractLoggingUseCase() {
+        private val productRepository: CatalogRepository
+    ) : FetchGalleriesUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
-        override suspend fun invoke(): Result<List<GalleriesState>> = handle {
+        override suspend fun invoke(): Result<List<GalleriesState>> = withToken { token ->
             IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES.map {
                 val goods = goodsUseCase(GoodsFilter(categoryId = it)).getOrThrow()
+                val category = productRepository.category(token, it).getOrThrow()
                 GalleriesState(
                     items = goods,
-                    title = manageResources.string(R.string.recommended_goods)
+                    title = category?.name ?: ""
                 )
             }
         }

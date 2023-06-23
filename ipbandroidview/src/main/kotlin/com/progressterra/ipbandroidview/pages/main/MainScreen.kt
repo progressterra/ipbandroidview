@@ -12,7 +12,6 @@ import com.progressterra.ipbandroidview.features.bonuses.Bonuses
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.widgets.galleries.Galleries
-import com.progressterra.ipbandroidview.widgets.offers.Offers
 
 @Composable
 fun MainScreen(
@@ -35,9 +34,6 @@ fun MainScreen(
                         state = it, useComponent = useComponent
                     )
                 }
-                Offers(
-                    state = state.offers
-                )
             }
         }
     }
