@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.mainorreceipt.MainOrReceipt
 import com.progressterra.ipbandroidview.features.orderid.OrderId
 import com.progressterra.ipbandroidview.features.orderoverview.OrderOverview
+import com.progressterra.ipbandroidview.features.orderoverview.OrderOverviewState
 import com.progressterra.ipbandroidview.features.ordersteps.OrderSteps
 import com.progressterra.ipbandroidview.features.ordersteps.OrderStepsState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
@@ -54,7 +55,12 @@ fun OrderStatusScreen(
 @Composable
 private fun OrderStatusScreenPreview() {
     OrderStatusScreen(
-        state = OrderStatusState(),
+        state = OrderStatusState(
+            orderOverview = OrderOverviewState(
+                quantity = 4,
+                goodsImages = listOf("", "", "", "")
+            )
+        ),
         useComponent = UseOrderStatus.Empty()
     )
 }

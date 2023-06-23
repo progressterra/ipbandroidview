@@ -5,7 +5,7 @@ import androidx.compose.runtime.Immutable
 @Immutable
 data class BrushedSwitchState(
     val id: String = "",
-    val enabled: Boolean = false,
+    val enabled: Boolean = true,
     val turned: Boolean = false
 ) {
 

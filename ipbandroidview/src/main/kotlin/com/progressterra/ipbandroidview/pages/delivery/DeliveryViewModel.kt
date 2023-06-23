@@ -32,7 +32,7 @@ class DeliveryViewModel(
                     .uDeliveryPickerApartmentText(UserData.address.apartment)
                     .uDeliveryPickerHomeText(UserData.address.houseNUmber).uCommentaryText("")
             }
-
+            checkValid()
         }
     }
 

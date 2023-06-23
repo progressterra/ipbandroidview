@@ -23,17 +23,17 @@ interface ConfirmOrderUseCase {
 
         override suspend fun invoke(): Result<OrderStatusState> = withToken { token ->
             val result = cartRepository.confirmOrder(token).getOrThrow()
-            val images = result?.listDRSale?.map {
+            val images = result?.listDRSale?.mapNotNull {
                 productRepository.productByNomenclatureId(
                     token,
                     it.idrfNomenclature!!
-                ).getOrThrow()!!.toGoodsItem().imageUrl
+                ).getOrThrow()?.toGoodsItem()?.imageUrl
             } ?: emptyList()
             OrderStatusState(
                 orderId = OrderIdState(
                     id = result?.idUnique!!
                 ), orderOverview = OrderOverviewState(
-                    quantity = result.listDRSale?.size ?: 0,
+                    quantity = images.size,
                     goodsImages = images,
                     address = result.adressString ?: ""
                 )
