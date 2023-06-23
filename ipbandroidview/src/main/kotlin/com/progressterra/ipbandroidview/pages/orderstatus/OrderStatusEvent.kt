@@ -4,7 +4,5 @@ sealed class OrderStatusEvent {
 
     object OnMain : OrderStatusEvent()
 
-    object OnRecipe : OrderStatusEvent()
-
     object OnBack : OrderStatusEvent()
 }

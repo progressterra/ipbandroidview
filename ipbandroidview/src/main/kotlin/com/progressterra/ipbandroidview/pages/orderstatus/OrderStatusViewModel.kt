@@ -28,7 +28,9 @@ class OrderStatusViewModel : UseOrderStatus, ViewModel(),
 
     override fun handle(event: ButtonEvent) {
         intent {
-            TODO("Not yet implemented")
+            when (event.id) {
+                "main" -> postSideEffect(OrderStatusEvent.OnMain)
+            }
         }
     }
 }
