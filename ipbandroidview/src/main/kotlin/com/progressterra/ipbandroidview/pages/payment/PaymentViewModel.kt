@@ -10,20 +10,15 @@ import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEve
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.annotation.OrbitExperimental
-import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
-@OptIn(OrbitExperimental::class)
 class PaymentViewModel(
     private val fetchPaymentMethods: FetchPaymentMethods,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
-    private val paymentUseCase: PaymentUseCase,
     private val openUrlUseCase: OpenUrlUseCase,
     private val fetchReceiptUseCase: FetchReceiptUseCase,
     private val fetchBonusSwitchUseCase: FetchBonusSwitchUseCase
@@ -38,7 +33,7 @@ class PaymentViewModel(
             fetchPaymentMethods().onSuccess {
                 reduce { state.uPaymentMethodState(it) }
             }.onFailure {
-                 isSuccess = false
+                isSuccess = false
             }
             fetchBonusSwitchUseCase().onSuccess {
                 reduce { state.uBonusSwitch(it) }
@@ -64,14 +59,9 @@ class PaymentViewModel(
         intent {
             when (event.id) {
                 "pay" -> {
-                    var isSuccess = true
-                    val result = confirmOrderUseCase().onFailure {
-                        isSuccess = false
+                    confirmOrderUseCase().onSuccess {
+                        postSideEffect(PaymentEvent.Next(it))
                     }
-                    paymentUseCase().onFailure {
-                        isSuccess = false
-                    }
-                    if (isSuccess) postSideEffect(PaymentEvent.Next(result.getOrThrow()))
                 }
             }
         }

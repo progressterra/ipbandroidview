@@ -60,7 +60,7 @@ val pagesModule = module {
 
     viewModel { MainViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel { PaymentViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { PaymentViewModel(get(), get(), get(), get(), get()) }
 
     viewModel { DeliveryViewModel(get(), get(), get()) }
 
