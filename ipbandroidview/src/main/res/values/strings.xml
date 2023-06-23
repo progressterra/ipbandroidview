@@ -136,7 +136,7 @@
     <string name="catalog_screen">Каталог</string>
     <string name="cart_screen">Корзина</string>
     <string name="profile_screen">Профиль</string>
-    <string name="payment_inner">Бонусы</string>
+    <string name="payment_inner">Внутренний баланс</string>
     <string name="want_this_requests">Запросы Хочу это</string>
     <string name="roubles">рублей</string>
     <string name="request_confirmed">Запрос подтверждён менеджером</string>

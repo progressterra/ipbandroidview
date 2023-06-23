@@ -7,5 +7,5 @@ sealed class PaymentType(@StringRes val paymentName: Int) {
 
     object Empty : PaymentType(0)
 
-    object InnerBonuses : PaymentType(R.string.payment_inner)
+    object InnerBalance : PaymentType(R.string.payment_inner)
 }
