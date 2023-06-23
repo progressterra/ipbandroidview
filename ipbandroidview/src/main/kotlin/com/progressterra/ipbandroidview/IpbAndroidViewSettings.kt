@@ -10,7 +10,7 @@ object IpbAndroidViewSettings {
 
     var MAIN_SCREEN_CATEGORIES: List<String> = emptyList()
 
-    val PROJECT_TYPE: ProjectType = ProjectType.REDI
+    var PROJECT_TYPE: ProjectType = ProjectType.REDI
 
     var PRIVACY_URL: String = ""
 
