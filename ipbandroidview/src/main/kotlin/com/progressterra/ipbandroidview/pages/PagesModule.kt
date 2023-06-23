@@ -25,6 +25,7 @@ import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
 import com.progressterra.ipbandroidview.pages.orders.OrdersViewModel
+import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchBonusSwitchUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchReceiptUseCase
@@ -171,4 +172,6 @@ val pagesModule = module {
     single<FetchReceiptUseCase> {
         FetchReceiptUseCase.Base(get(), get(), get())
     }
+
+    viewModel { OrderStatusViewModel() }
 }
