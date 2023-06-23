@@ -63,7 +63,7 @@ class PaymentViewModel(
     override fun handle(event: ButtonEvent) {
         intent {
             when (event.id) {
-                "confirm" -> {
+                "pay" -> {
                     var isSuccess = true
                     val result = confirmOrderUseCase().onFailure {
                         isSuccess = false

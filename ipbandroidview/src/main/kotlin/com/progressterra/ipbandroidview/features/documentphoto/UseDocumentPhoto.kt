@@ -1,8 +1,5 @@
 package com.progressterra.ipbandroidview.features.documentphoto
 
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.button.UseButton
-
 interface UseDocumentPhoto {
 
     fun handle(event: DocumentPhotoEvent)

@@ -22,8 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -53,16 +51,13 @@ fun Bonuses(
             Row(
                 modifier = modifier
                     .fillMaxWidth()
+                    .height(160.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(animateColor)
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                var height by remember { mutableStateOf(0.dp) }
-                val density = LocalDensity.current
-                Column(modifier = Modifier.onGloballyPositioned {
-                    with(density) { height = it.size.height.toDp() }
-                }) {
+                Column {
                     BrushedText(
                         text = "${stringResource(R.string.you_have)} ${state.roubles} ${
                             stringResource(
@@ -82,13 +77,6 @@ fun Bonuses(
                         style = IpbTheme.typography.subHeadlineItalic,
                         tint = IpbTheme.colors.textTertiary.asBrush()
                     )
-                    Spacer(modifier = Modifier.height(14.dp))
-                    BrushedText(
-                        text = stringResource(R.string.bonuses_rate),
-                        style = IpbTheme.typography.subHeadlineRegular,
-                        tint = IpbTheme.colors.textSecondary.asBrush()
-                    )
-                    Spacer(modifier = Modifier.height(30.dp))
                     if (rotated) {
                         Row {
                             BrushedText(
@@ -108,7 +96,7 @@ fun Bonuses(
                         }
                     }
                 }
-                Box(modifier = Modifier.height(height)) {
+                Box(modifier = Modifier.height(160.dp)) {
                     IconButton(
                         modifier = Modifier
                             .size(30.dp)
