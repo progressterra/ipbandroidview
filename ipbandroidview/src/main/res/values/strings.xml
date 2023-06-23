@@ -144,4 +144,5 @@
     <string name="request_wait_review">Ожидает проверки со стороны менеджера</string>
     <string name="request_wait_image">Требуется добавить изображение</string>
     <string name="request_not_fill">Запрос не заполнен</string>
+    <string name="payment_error">Произошла ошибка при оплате</string>
 </resources>

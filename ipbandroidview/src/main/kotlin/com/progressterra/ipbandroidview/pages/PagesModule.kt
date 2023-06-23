@@ -29,7 +29,6 @@ import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchBonusSwitchUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchReceiptUseCase
-import com.progressterra.ipbandroidview.pages.payment.PaymentUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.pages.profile.DocumentsNotificationUseCase
@@ -133,12 +132,8 @@ val pagesModule = module {
 
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            ConfirmOrderUseCase.Test()
-        } else {
-            ConfirmOrderUseCase.Base(get(), get(), get(), get())
-        }
+    single<ConfirmOrderUseCase> {
+        ConfirmOrderUseCase.Base(get(), get(), get(), get())
     }
 
     single<SaveDocumentsUseCase> { SaveDocumentsUseCase.Base(get(), get(), get(), get(), get()) }
@@ -160,8 +155,6 @@ val pagesModule = module {
     }
 
     single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get(), get(), get()) }
-
-    single<PaymentUseCase> { PaymentUseCase.Base(get(), get(), get()) }
 
     viewModel { OrdersListViewModel(get()) }
 

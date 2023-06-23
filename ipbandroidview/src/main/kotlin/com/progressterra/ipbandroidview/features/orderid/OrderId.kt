@@ -34,7 +34,7 @@ fun OrderId(
     ) {
         BrushedText(
             modifier = Modifier,
-            text = stringResource(R.string.success_payment),
+            text = if (state.success) stringResource(R.string.success_payment) else stringResource(R.string.payment_error),
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.onBackground.asBrush()
         )

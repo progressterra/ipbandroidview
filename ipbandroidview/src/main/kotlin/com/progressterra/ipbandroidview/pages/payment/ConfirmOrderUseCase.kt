@@ -29,9 +29,11 @@ interface ConfirmOrderUseCase {
                     it.idrfNomenclature!!
                 ).getOrThrow()?.toGoodsItem()?.imageUrl
             } ?: emptyList()
+            val payment = cartRepository.paymentInternal(token).isSuccess
             OrderStatusState(
                 orderId = OrderIdState(
-                    id = result?.idUnique!!
+                    id = result?.idUnique!!,
+                    success = payment
                 ), orderOverview = OrderOverviewState(
                     quantity = images.size,
                     goodsImages = images,
@@ -39,24 +41,5 @@ interface ConfirmOrderUseCase {
                 )
             )
         }
-    }
-
-    class Test : ConfirmOrderUseCase {
-
-        override suspend fun invoke(): Result<OrderStatusState> = Result.success(
-            OrderStatusState(
-                orderId = OrderIdState(id = "0-000-001"), orderOverview = OrderOverviewState(
-                    quantity = 5,
-                    address = "ул. Пушкина, д. 13",
-                    goodsImages = listOf(
-                        "https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-                        "https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-                        "https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-                        "https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-                        "https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80"
-                    )
-                )
-            )
-        )
     }
 }
