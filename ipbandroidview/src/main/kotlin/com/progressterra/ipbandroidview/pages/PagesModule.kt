@@ -40,7 +40,7 @@ import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.pages.support.FetchChatUseCase
 import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
-import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
+import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsViewModel
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -162,8 +162,6 @@ val pagesModule = module {
 
     single<PaymentUseCase> { PaymentUseCase.Base(get(), get(), get()) }
 
-    viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get()) }
-
     viewModel { OrdersListViewModel(get()) }
 
     single<FetchBonusSwitchUseCase> {
@@ -177,4 +175,15 @@ val pagesModule = module {
     viewModel { OrderStatusViewModel() }
 
     viewModel { WantThisRequestsViewModel(get(), get(), get()) }
+
+    single<WantThisRequestsUseCase> {
+        WantThisRequestsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 }
