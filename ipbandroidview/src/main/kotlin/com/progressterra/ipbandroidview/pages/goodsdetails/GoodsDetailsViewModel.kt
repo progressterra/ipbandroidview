@@ -90,9 +90,9 @@ class GoodsDetailsViewModel(
     override fun handle(event: ButtonEvent) {
         intent {
             when (event.id) {
-                "buy" -> addToCartUseCase(event.id)
+                "buy" -> addToCartUseCase(state.id)
                 "buyInstallment" -> addToCartInstallmentUseCase(
-                    event.id,
+                    state.id,
                     state.buyGoods.installment
                 )
             }
