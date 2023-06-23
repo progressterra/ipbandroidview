@@ -19,7 +19,6 @@ import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethod
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodState
 import com.progressterra.ipbandroidview.features.receipt.Receipt
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
-import com.progressterra.ipbandroidview.features.receivereceipt.ReceiveReceiptComponent
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -51,10 +50,6 @@ fun PaymentScreen(
                 Spacer(Modifier.height(8.dp))
                 BonusSwitch(
                     state = state.bonusSwitch, useComponent = useComponent
-                )
-                Spacer(Modifier.height(8.dp))
-                ReceiveReceiptComponent(
-                    state = state.receiveReceipt, useComponent = useComponent
                 )
                 Spacer(Modifier.height(40.dp))
                 Receipt(

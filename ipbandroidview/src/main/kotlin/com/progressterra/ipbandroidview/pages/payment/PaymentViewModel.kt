@@ -82,7 +82,6 @@ class PaymentViewModel(
             when (event) {
                 is BrushedSwitchEvent.Click -> when (event.id) {
                     "useBonuses" -> reduce { state.reverseBonusSwitch() }
-                    "receiveReceipt" -> reduce { state.reverseReceiveReceipt() }
                 }
             }
         }
@@ -91,18 +90,6 @@ class PaymentViewModel(
     override fun handle(event: StateBoxEvent) {
         intent {
             refresh()
-        }
-    }
-
-    override fun handle(event: TextFieldEvent) {
-        blockingIntent {
-            when (event) {
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-                is TextFieldEvent.TextChanged -> when (event.id) {
-                    "email" -> reduce { state.uEmail(event.text) }
-                }
-            }
         }
     }
 
