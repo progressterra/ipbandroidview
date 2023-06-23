@@ -40,6 +40,7 @@ import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.pages.support.FetchChatUseCase
 import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
+import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsViewModel
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeViewModel
@@ -175,6 +176,8 @@ val pagesModule = module {
     viewModel { OrderStatusViewModel() }
 
     viewModel { WantThisRequestsViewModel(get(), get(), get()) }
+
+    viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get()) }
 
     single<WantThisRequestsUseCase> {
         WantThisRequestsUseCase.Base(
