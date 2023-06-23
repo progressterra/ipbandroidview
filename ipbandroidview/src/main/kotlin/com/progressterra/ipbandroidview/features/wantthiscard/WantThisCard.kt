@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -44,6 +45,23 @@ fun WantThisCard(
             text = state.name,
             style = IpbTheme.typography.footnoteRegular,
             tint = IpbTheme.colors.textPrimary.asBrush(),
+        )
+        BrushedText(
+            text = when (state.status) {
+                TypeStatusDoc.NOT_FILL -> stringResource(R.string.request_not_fill)
+                TypeStatusDoc.WAIT_IMAGE -> stringResource(R.string.request_wait_image)
+                TypeStatusDoc.WAIT_REVIEW -> stringResource(R.string.request_wait_review)
+                TypeStatusDoc.REJECTED -> stringResource(R.string.request_rejected)
+                TypeStatusDoc.CONFIRMED -> stringResource(R.string.request_confirmed)
+            },
+            style = IpbTheme.typography.footnoteBold,
+            tint = when (state.status) {
+                TypeStatusDoc.NOT_FILL -> IpbTheme.colors.textTertiary.asBrush()
+                TypeStatusDoc.WAIT_IMAGE -> IpbTheme.colors.textTertiary.asBrush()
+                TypeStatusDoc.WAIT_REVIEW -> IpbTheme.colors.textTertiary.asBrush()
+                TypeStatusDoc.REJECTED -> IpbTheme.colors.textPrimary2.asBrush()
+                TypeStatusDoc.CONFIRMED -> IpbTheme.colors.onBackground.asBrush()
+            }
         )
         Row(
             modifier = Modifier.fillMaxWidth(),

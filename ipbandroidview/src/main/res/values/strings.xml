@@ -139,4 +139,9 @@
     <string name="payment_inner">Бонусы</string>
     <string name="want_this_requests">Запросы Хочу это</string>
     <string name="roubles">рублей</string>
+    <string name="request_confirmed">Запрос подтверждён менеджером</string>
+    <string name="request_rejected">Запрос отклонён менеджером</string>
+    <string name="request_wait_review">Ожидает проверки со стороны менеджера</string>
+    <string name="request_wait_image">Требуется добавить изображение</string>
+    <string name="request_not_fill">Запрос не заполнен</string>
 </resources>

@@ -56,7 +56,7 @@ interface WantThisRequestsUseCase {
                     gson = gson,
                     createId = createId
                 )
-                if (it.statusDoc == TypeStatusDoc.CONFIRMED) {
+                if (it.statusDoc != TypeStatusDoc.CONFIRMED) {
                     doc.toWantThisCardState()
                 } else {
                     productRepository.productByNomenclatureId(token, doc.additionalValue).getOrThrow()?.toGoodsItem()
