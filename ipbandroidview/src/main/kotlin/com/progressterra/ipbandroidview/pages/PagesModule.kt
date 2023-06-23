@@ -26,6 +26,8 @@ import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
 import com.progressterra.ipbandroidview.pages.orders.OrdersViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
+import com.progressterra.ipbandroidview.pages.payment.FetchBonusSwitchUseCase
+import com.progressterra.ipbandroidview.pages.payment.FetchReceiptUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoViewModel
@@ -56,7 +58,7 @@ val pagesModule = module {
 
     viewModel { MainViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel { PaymentViewModel(get(), get(), get(), get()) }
+    viewModel { PaymentViewModel(get(), get(), get(), get(), get(), get()) }
 
     viewModel { DeliveryViewModel(get(), get(), get()) }
 
@@ -161,4 +163,12 @@ val pagesModule = module {
     viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get()) }
 
     viewModel { OrdersListViewModel(get()) }
+
+    single<FetchBonusSwitchUseCase> {
+        FetchBonusSwitchUseCase.Base(get(), get(), get())
+    }
+
+    single<FetchReceiptUseCase> {
+        FetchReceiptUseCase.Base(get(), get(), get())
+    }
 }

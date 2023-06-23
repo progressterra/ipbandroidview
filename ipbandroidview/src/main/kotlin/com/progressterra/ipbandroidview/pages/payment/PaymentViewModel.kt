@@ -24,7 +24,9 @@ class PaymentViewModel(
     private val fetchPaymentMethods: FetchPaymentMethods,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
     private val paymentUseCase: PaymentUseCase,
-    private val openUrlUseCase: OpenUrlUseCase
+    private val openUrlUseCase: OpenUrlUseCase,
+    private val fetchReceiptUseCase: FetchReceiptUseCase,
+    private val fetchBonusSwitchUseCase: FetchBonusSwitchUseCase
 ) : ViewModel(), ContainerHost<PaymentState, PaymentEvent>, UsePayment {
 
     override val container = container<PaymentState, PaymentEvent>(PaymentState())
@@ -32,11 +34,23 @@ class PaymentViewModel(
     fun refresh() {
         intent {
             reduce { state.uStateBoxState(ScreenState.LOADING) }
+            var isSuccess = true
             fetchPaymentMethods().onSuccess {
-                reduce { state.uStateBoxState(ScreenState.SUCCESS).uPaymentMethodState(it) }
+                reduce { state.uPaymentMethodState(it) }
             }.onFailure {
-                reduce { state.uStateBoxState(ScreenState.ERROR) }
+                 isSuccess = false
             }
+            fetchBonusSwitchUseCase().onSuccess {
+                reduce { state.uBonusSwitch(it) }
+            }.onFailure {
+                isSuccess = false
+            }
+            fetchReceiptUseCase().onSuccess {
+                reduce { state.uReceiveReceipt(it) }
+            }.onFailure {
+                isSuccess = false
+            }
+            reduce { state.uStateBoxState(ScreenState.fromBoolean(isSuccess)) }
         }
     }
 

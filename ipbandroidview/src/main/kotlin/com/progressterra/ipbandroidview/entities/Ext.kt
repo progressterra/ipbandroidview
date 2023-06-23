@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken
 import com.progressterra.ipbandroidapi.api.address.models.DataAddress
 import com.progressterra.ipbandroidapi.api.address.models.RGAddress
 import com.progressterra.ipbandroidapi.api.cart.models.DHSaleHeadAsOrderViewModel
+import com.progressterra.ipbandroidapi.api.cart.models.DRSaleForCartAndOrder
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidapi.api.documents.models.CharacteristicData
 import com.progressterra.ipbandroidapi.api.documents.models.FieldData
@@ -21,6 +22,7 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoStat
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
+import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsState
@@ -263,7 +265,7 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
         } ?: emptyList()) else null,
-    additionalValue = characteristicValue?.valueAsReference ?: "")
+        additionalValue = characteristicValue?.valueAsReference ?: "")
 
 fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
     Document(status = statusDoc ?: TypeStatusDoc.NOT_FILL,
@@ -385,4 +387,16 @@ fun GoodsItem.toWantThisCardState() = WantThisCardState(
     ),
     status = TypeStatusDoc.CONFIRMED,
     name = name
+)
+
+fun GoodsItem.toReceiptItems() = ReceiptState.Item(
+    name = name,
+    price = price,
+    quantity = count
+)
+
+fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(
+    name = nameGoods ?: "",
+    quantity = quantity ?: 0,
+    price = SimplePrice(amountEndPrice?.toInt() ?: 0)
 )

@@ -9,7 +9,7 @@ import com.progressterra.processors.IpbSubState
 data class ReceiptState(
     val total: SimplePrice = SimplePrice(),
     val items: List<Item> = emptyList(),
-    @IpbSubState val pay: ButtonState = ButtonState()
+    @IpbSubState val pay: ButtonState = ButtonState(id = "pay")
 ) {
 
     data class Item(
