@@ -30,7 +30,7 @@ interface BonusesUseCase {
                 bonuses = response?.currentQuantity?.toString() ?: noData,
                 burningQuantity = response?.forBurningQuantity?.toString() ?: noData,
                 burningDate = response?.dateBurning?.parseToDate()?.format("dd.MM") ?: noData,
-                roubles = balanceRepository.client().getOrThrow()?.amount?.toInt()?.toString() ?: ""
+                roubles = balanceRepository.client(token).getOrThrow()?.amount?.toInt()?.toString() ?: ""
             )
         }
     }
