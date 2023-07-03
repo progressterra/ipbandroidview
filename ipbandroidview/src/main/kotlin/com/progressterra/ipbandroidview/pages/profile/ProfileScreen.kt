@@ -61,12 +61,12 @@ fun ProfileScreen(
                     title = stringResource(R.string.documents),
                     notification = state.documentsNotification
                 )
-                Spacer(Modifier.height(8.dp))
-                ProfileButton(
-                    state = state.support,
-                    useComponent = useComponent,
-                    title = stringResource(R.string.support)
-                )
+//                Spacer(Modifier.height(8.dp))
+//                ProfileButton(
+//                    state = state.support,
+//                    useComponent = useComponent,
+//                    title = stringResource(R.string.support)
+//                )
                 Spacer(Modifier.weight(1f))
                 ProfileButton(
                     state = state.deleteAccount,
