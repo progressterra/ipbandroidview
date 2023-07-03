@@ -95,8 +95,7 @@ fun GoodsDescription(
                     .clip(RoundedCornerShape(12.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 when (it) {
                     0 -> {
@@ -157,16 +156,21 @@ fun GoodsDescription(
                             tint = IpbTheme.colors.textPrimary.asBrush(),
                             style = IpbTheme.typography.title
                         )
-                        BrushedIcon(
-                            modifier = Modifier.size(45.dp),
-                            resId = R.drawable.ic_courier,
-                            tint = IpbTheme.colors.iconPrimary3.asBrush()
-                        )
-                        BrushedText(
-                            text = stringResource(R.string.courier_delivery),
-                            tint = IpbTheme.colors.textPrimary.asBrush(),
-                            style = IpbTheme.typography.body
-                        )
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            BrushedIcon(
+                                modifier = Modifier.size(45.dp),
+                                resId = R.drawable.ic_courier,
+                                tint = IpbTheme.colors.iconPrimary3.asBrush()
+                            )
+                            BrushedText(
+                                text = stringResource(R.string.courier_delivery),
+                                tint = IpbTheme.colors.textPrimary.asBrush(),
+                                style = IpbTheme.typography.body
+                            )
+                        }
                     }
                 }
             }
