@@ -42,9 +42,7 @@ interface GoodsUseCase {
                                         )
                                     )
                                 }
-                            }, searchData = filter.search, sort = SortData(
-                                fieldName = "price", variantSort = "asc"
-                            )
+                            }, searchData = filter.search, sort = null
                         )
                     )
                 }.flow
