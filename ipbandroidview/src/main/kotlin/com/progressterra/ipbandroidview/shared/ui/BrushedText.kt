@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -15,11 +16,16 @@ fun BrushedText(
     text: String,
     style: TextStyle,
     tint: Brush,
-    textAlign: TextAlign = TextAlign.Start
+    textAlign: TextAlign = TextAlign.Start,
+    maxLines: Int = Int.MAX_VALUE
 ) {
     Text(
-        modifier = modifier, text = text, style = style.copy(
+        modifier = modifier,
+        text = text,
+        style = style.copy(
             brush = tint, textAlign = textAlign
-        )
+        ),
+        maxLines = maxLines,
+        overflow = TextOverflow.Ellipsis
     )
 }
