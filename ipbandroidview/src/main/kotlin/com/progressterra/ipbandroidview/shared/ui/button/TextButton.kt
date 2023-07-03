@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
@@ -30,6 +31,7 @@ fun TextButton(
         verticalAlignment = Alignment.CenterVertically) {
         BrushedText(
             text = title,
+            textAlign = TextAlign.Center,
             style = IpbTheme.typography.headline,
             tint = IpbTheme.colors.textDisabled.asBrush()
         )
