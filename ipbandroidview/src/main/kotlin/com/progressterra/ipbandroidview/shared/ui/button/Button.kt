@@ -50,7 +50,7 @@ private fun ButtonPreview() {
         Column {
             Button(
                 state = ButtonState(),
-                title = "Button",
+                title = "Button with loooooooooooooond name",
                 useComponent = UseButton.Empty()
             )
             Spacer(Modifier.height(10.dp))

@@ -2,7 +2,9 @@ package com.progressterra.ipbandroidview.pages.bonusesdetails
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,6 +41,7 @@ fun BonusesScreen(
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 Bonuses(
+                    modifier = Modifier.padding(horizontal = 20.dp),
                     state = state.bonusesInfo,
                     useComponent = useComponent,
                     style = BonusesStyle.TRAN
