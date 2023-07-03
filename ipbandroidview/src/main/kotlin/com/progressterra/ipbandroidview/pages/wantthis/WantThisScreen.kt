@@ -10,7 +10,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -70,14 +76,20 @@ fun WantThisScreen(
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
+                    val density = LocalDensity.current
+                    var height by remember { mutableStateOf(0.dp) }
                     Button(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier
+                            .weight(1f)
+                            .onGloballyPositioned {
+                                height = with(density) { it.size.height.toDp() }
+                            },
                         state = state.send,
                         useComponent = useComponent,
                         title = stringResource(R.string.send_request)
                     )
                     Button(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f).height(height),
                         state = state.cancel,
                         useComponent = useComponent,
                         title = stringResource(R.string.cancel)
