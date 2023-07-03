@@ -27,10 +27,11 @@ interface BonusesUseCase {
         override suspend fun invoke(): Result<BonusesState> = withToken { token ->
             val response = bonusesRepository.getGeneralInfo(token).getOrThrow()
             BonusesState(
-                bonuses = response?.currentQuantity?.toString() ?: noData,
-                burningQuantity = response?.forBurningQuantity?.toString() ?: noData,
+                bonuses = response?.currentQuantity?.toInt()?.toString() ?: noData,
+                burningQuantity = response?.forBurningQuantity?.toInt()?.toString() ?: noData,
                 burningDate = response?.dateBurning?.parseToDate()?.format("dd.MM") ?: noData,
-                roubles = balanceRepository.client(token).getOrThrow()?.amount?.toInt()?.toString() ?: ""
+                roubles = balanceRepository.client(token).getOrThrow()?.amount?.toInt()?.toString()
+                    ?: ""
             )
         }
     }

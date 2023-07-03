@@ -35,18 +35,20 @@ fun BonusesTransactions(
             style = IpbTheme.typography.title,
             tint = IpbTheme.colors.textPrimary.asBrush()
         )
-        LazyColumn(
-            modifier = Modifier
-                .clip(RoundedCornerShape(12.dp))
-                .background(IpbTheme.colors.surface.asBrush()),
-            contentPadding = PaddingValues(24.dp)
-        ) {
-            itemsIndexed(state.transactions) { index, item ->
-                BonusTransaction(
-                    state = item
-                )
-                if (index != state.transactions.lastIndex) {
-                    BrushedDivider(tint = IpbTheme.colors.background.asColor())
+        if (state.transactions.isNotEmpty()) {
+            LazyColumn(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(IpbTheme.colors.surface.asBrush()),
+                contentPadding = PaddingValues(24.dp)
+            ) {
+                itemsIndexed(state.transactions) { index, item ->
+                    BonusTransaction(
+                        state = item
+                    )
+                    if (index != state.transactions.lastIndex) {
+                        BrushedDivider(tint = IpbTheme.colors.background.asColor())
+                    }
                 }
             }
         }

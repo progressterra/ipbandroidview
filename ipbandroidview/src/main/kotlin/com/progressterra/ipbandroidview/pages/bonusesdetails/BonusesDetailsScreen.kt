@@ -83,3 +83,17 @@ private fun BonusesScreenPreview() {
         useComponent = UseBonusesDetails.Empty()
     )
 }
+
+@Composable
+@Preview
+private fun BonusesScreenPreviewEmpty() {
+    BonusesScreen(
+        state = BonusesDetailsState(
+            screenState = ScreenState.SUCCESS,
+            transactions = BonusesTransactionsState(
+                transactions = emptyList()
+            )
+        ),
+        useComponent = UseBonusesDetails.Empty()
+    )
+}

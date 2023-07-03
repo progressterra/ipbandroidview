@@ -31,7 +31,7 @@ interface FetchBonusesTransactionsUseCase {
                     add(
                         BonusTransactionState(
                             date = it.dateEvent?.parseToDate()?.format("dd.MM.yyyy") ?: noData,
-                            amount = it.quantity?.toString() ?: noData,
+                            amount = it.quantity?.toInt()?.toString() ?: noData,
                             type = BonusTransactionType.BURNING
                         )
                     )
