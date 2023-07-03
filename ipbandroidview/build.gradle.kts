@@ -89,8 +89,8 @@ dependencies {
     api("com.google.android.material:material:1.9.0")
 
     // Coroutines
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
 
     // Orbit, MVI library
     api("org.orbit-mvi:orbit-core:6.0.0")
@@ -123,10 +123,10 @@ dependencies {
     testApi("junit:junit:4.13.2")
 
     // Appyx, navigation library
-    api("com.bumble.appyx:core:1.2.0")
+    api("com.bumble.appyx:core:1.3.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.1.0"))
+    api(platform("com.google.firebase:firebase-bom:32.1.1"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
 
@@ -136,7 +136,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.30")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.31")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
@@ -147,7 +147,7 @@ dependencies {
     api("com.github.skydoves:landscapist-placeholder:2.2.2")
 
     api("androidx.paging:paging-runtime-ktx:3.1.1")
-    api("androidx.paging:paging-compose:3.2.0-beta01")
+    api("androidx.paging:paging-compose:3.2.0-rc01")
 
     // QR
     api("com.google.zxing:core:3.5.1")
