@@ -34,7 +34,7 @@ fun ItemGallery(
         HorizontalPager(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(335f / 220f),
+                .aspectRatio(1f),
             pageCount = state.images.size,
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 20.dp),
@@ -64,7 +64,7 @@ fun ItemGallery(
 
 @Preview
 @Composable
-private fun ItemGalleryPriview() {
+private fun ItemGalleryPreview() {
     IpbTheme {
         ItemGallery(
             state = ItemGalleryState(
