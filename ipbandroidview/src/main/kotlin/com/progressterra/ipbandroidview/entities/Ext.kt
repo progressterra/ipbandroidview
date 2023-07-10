@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidapi.api.cart.models.DRSaleForCartAndOrder
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidapi.api.documents.models.CharacteristicData
 import com.progressterra.ipbandroidapi.api.documents.models.FieldData
+import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicTypeViewModel
 import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValueViewModel
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
@@ -297,6 +298,37 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
             )
         } ?: emptyList()),
         additionalValue = valueAsReference ?: "")
+
+fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
+    Document(
+        docName = name ?: "",
+        entries = (dataInJSON?.let {
+            gson.fromJson<List<FieldData>?>(
+                it, object : TypeToken<List<FieldData>>() {}.type
+            )
+        } ?: emptyList()).map {
+            TextFieldState(
+                id = createId(),
+                text = it.valueData ?: "",
+                placeholder = it.comment,
+                label = it.name,
+                type = when (it.typeValue) {
+                    TypeValueCharacteristic.AS_STRING -> TextInputType.DEFAULT
+                    TypeValueCharacteristic.AS_NUMBER -> TextInputType.NUMBER
+                    TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DEFAULT
+                    TypeValueCharacteristic.AS_REFERENCE -> TextInputType.DEFAULT
+                    TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
+                    null -> TextInputType.DEFAULT
+                }
+            )
+        },
+        photo = DocumentPhotoState()
+    )
+
+fun Document.fromTemplateToReal(real: Document) = real.copy(
+    entries = entries,
+    photo = photo
+)
 
 fun TextFieldState.toFieldData(id: String) = FieldData(
     idrfCharacteristicType = id,

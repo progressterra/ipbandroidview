@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.widgets
 
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.pages.wantthis.CreateWantThisRequestUseCase
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
-import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerValidUseCase
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.widgets.offers.FetchOffersUseCase
@@ -37,8 +37,8 @@ val widgetsModule = module {
         }
     }
 
-    single<DeliveryPickerValidUseCase> {
-        DeliveryPickerValidUseCase.Base()
+    single<CreateWantThisRequestUseCase> {
+        CreateWantThisRequestUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
     single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get(), get()) }

@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages
 
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
@@ -62,7 +63,7 @@ val pagesModule = module {
 
     viewModel { PaymentViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel { DeliveryViewModel(get(), get(), get()) }
+    viewModel { DeliveryViewModel(get(), get(), get(), get()) }
 
     viewModel { BonusesDetailsViewModel(get(), get()) }
 
@@ -181,5 +182,9 @@ val pagesModule = module {
             get(),
             get()
         )
+    }
+
+    single<SuggestionsUseCase> {
+        SuggestionsUseCase.Base(get())
     }
 }

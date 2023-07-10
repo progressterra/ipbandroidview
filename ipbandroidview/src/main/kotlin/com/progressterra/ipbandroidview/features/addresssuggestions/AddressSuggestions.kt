@@ -15,25 +15,49 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
+@Immutable
+data class AddressSuggestionsState(
+    val isVisible: Boolean = false,
+    val suggestions: List<SuggestionUI> = emptyList()
+) {
+
+    fun uSuggestions(newSuggestions: List<SuggestionUI>) = copy(suggestions = newSuggestions)
+
+    fun uVisible(newVisible: Boolean) = copy(isVisible = newVisible)
+}
+
+interface UseAddressSuggestions {
+
+    fun handle(event: AddressSuggestionsEvent)
+
+    class Empty : UseAddressSuggestions {
+
+        override fun handle(event: AddressSuggestionsEvent) = Unit
+    }
+}
+
+class AddressSuggestionsEvent(val suggestion: SuggestionUI)
+
 @Composable
 fun AddressSuggestions(
     modifier: Modifier = Modifier,
-    isVisible: Boolean,
-    suggestions: List<SuggestionUI>,
-    onSuggestion: (SuggestionUI) -> Unit
+    state: AddressSuggestionsState,
+    useComponent: UseAddressSuggestions
 ) {
     AnimatedVisibility(
         modifier = modifier,
-        visible = isVisible,
+        visible = state.isVisible,
         enter = expandVertically(),
         exit = shrinkVertically()
     ) {
@@ -41,11 +65,11 @@ fun AddressSuggestions(
             elevation = 4.dp, shape = RoundedCornerShape(8.dp),
         ) {
             LazyColumn(modifier = Modifier.heightIn(max = 150.dp)) {
-                items(suggestions) {
+                items(state.suggestions) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .niceClickable { onSuggestion(it) }
+                            .niceClickable { useComponent.handle(AddressSuggestionsEvent(it)) }
                             .padding(
                                 horizontal = 8.dp,
                                 vertical = 6.dp
@@ -75,9 +99,23 @@ private fun AddressSuggestionsPreview() {
             verticalArrangement = Arrangement.Center
         ) {
             AddressSuggestions(
-                isVisible = true,
-                suggestions = emptyList(),
-                onSuggestion = {}
+                state = AddressSuggestionsState(
+                    isVisible = true,
+                    suggestions = listOf(
+                        SuggestionUI(
+                            previewOfSuggestion = "Lalala",
+                            suggestionExtendedInfo = SuggestionExtendedInfo()
+                        ),
+                        SuggestionUI(
+                            previewOfSuggestion = "Estoy triste",
+                            suggestionExtendedInfo = SuggestionExtendedInfo()
+                        ),
+                        SuggestionUI(
+                            previewOfSuggestion = "Estoy loco",
+                            suggestionExtendedInfo = SuggestionExtendedInfo()
+                        ),
+                    )
+                ), useComponent = UseAddressSuggestions.Empty()
             )
         }
     }

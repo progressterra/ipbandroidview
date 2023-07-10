@@ -1,13 +1,12 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
-import com.progressterra.ipbandroidview.widgets.deliverypicker.uApartmentText
-import com.progressterra.ipbandroidview.widgets.deliverypicker.uCityText
-import com.progressterra.ipbandroidview.widgets.deliverypicker.uEntranceText
-import com.progressterra.ipbandroidview.widgets.deliverypicker.uHomeText
+import com.progressterra.ipbandroidview.widgets.deliverypicker.uAddressText
 import com.progressterra.processors.IpbSubState
 
 @Immutable
@@ -18,18 +17,18 @@ data class DeliveryState(
     ),
     @IpbSubState val confirm: ButtonState = ButtonState(
         id = "confirm"
-    )
+    ),
+    val address: AddressUI? = null
 ) {
 
-    fun uDeliveryPickerCityText(newText: String) =
-        copy(deliveryPicker = deliveryPicker.uCityText(newText))
+    fun uSuggestions(newSuggestions: List<SuggestionUI>) =
+        copy(deliveryPicker = deliveryPicker.uSuggestions(newSuggestions))
 
-    fun uDeliveryPickerHomeText(newText: String) =
-        copy(deliveryPicker = deliveryPicker.uHomeText(newText))
+    fun uSuggestionsVisible(newVisible: Boolean) =
+        copy(deliveryPicker = deliveryPicker.uSuggestionsVisible(newVisible))
 
-    fun uDeliveryPickerEntranceText(newText: String) =
-        copy(deliveryPicker = deliveryPicker.uEntranceText(newText))
+    fun uDeliveryPickerAddressText(newAddress: String) =
+        copy(deliveryPicker = deliveryPicker.uAddressText(newAddress))
 
-    fun uDeliveryPickerApartmentText(newText: String) =
-        copy(deliveryPicker = deliveryPicker.uApartmentText(newText))
+    fun uAddress(newAddress: AddressUI?) = copy(address = newAddress)
 }

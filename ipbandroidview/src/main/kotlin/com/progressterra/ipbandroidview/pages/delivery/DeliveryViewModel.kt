@@ -1,12 +1,14 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
+import com.progressterra.ipbandroidview.features.addresssuggestions.ChooseSuggestionUseCase
+import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerValidUseCase
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -17,8 +19,9 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class DeliveryViewModel(
-    private val deliveryPickerValidUseCase: DeliveryPickerValidUseCase,
     private val saveAddressUseCase: SaveAddressUseCase,
+    private val suggestionsUse: SuggestionsUseCase,
+    private val chooseSuggestionUseCase: ChooseSuggestionUseCase,
     private val commentUseCase: CommentUseCase
 ) : ViewModel(), ContainerHost<DeliveryState, DeliveryEvent>, UseDelivery {
 
@@ -27,10 +30,13 @@ class DeliveryViewModel(
     fun refresh() {
         intent {
             reduce {
-                state.uConfirmEnabled(false).uDeliveryPickerCityText(UserData.address.nameCity)
-                    .uDeliveryPickerEntranceText(UserData.address.entrance)
-                    .uDeliveryPickerApartmentText(UserData.address.apartment)
-                    .uDeliveryPickerHomeText(UserData.address.houseNUmber).uCommentaryText("")
+                if (UserData.address.isEmpty()) {
+                    state.uCommentaryText("")
+                } else {
+                    state.uDeliveryPickerAddressText(UserData.address.printAddress())
+                        .uCommentaryText("")
+                        .uAddress(UserData.address)
+                }
             }
             checkValid()
         }
@@ -47,12 +53,7 @@ class DeliveryViewModel(
             when (event.id) {
                 "confirm" -> {
                     var isSuccess = true
-                    saveAddressUseCase(
-                        city = state.deliveryPicker.city.text,
-                        home = state.deliveryPicker.home.text,
-                        entrance = state.deliveryPicker.entrance.text,
-                        apartment = state.deliveryPicker.apartment.text
-                    ).onFailure {
+                    saveAddressUseCase(state.address!!).onFailure {
                         isSuccess = false
                     }
                     commentUseCase(state.commentary.text).onFailure {
@@ -66,33 +67,45 @@ class DeliveryViewModel(
         }
     }
 
+    override fun handle(event: AddressSuggestionsEvent) {
+        intent {
+            chooseSuggestionUseCase(event.suggestion).onSuccess {
+                reduce { state.uAddress(it).uSuggestionsVisible(false) }
+                checkValid()
+            }
+        }
+    }
+
     override fun handle(event: TextFieldEvent) {
         blockingIntent {
             when (event) {
                 is TextFieldEvent.TextChanged -> when (event.id) {
-                    "city" -> reduce { state.uDeliveryPickerCityText(event.text) }
-                    "home" -> reduce { state.uDeliveryPickerHomeText(event.text) }
-                    "entrance" -> reduce { state.uDeliveryPickerEntranceText(event.text) }
-                    "apartment" -> reduce { state.uDeliveryPickerApartmentText(event.text) }
+                    "address" -> reduce { state.uDeliveryPickerAddressText(event.text) }
                     "commentary" -> reduce { state.uCommentaryText(event.text) }
                 }
 
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> when (event.id) {
-                    "city" -> reduce { state.uDeliveryPickerCityText("") }
-                    "home" -> reduce { state.uDeliveryPickerHomeText("") }
-                    "entrance" -> reduce { state.uDeliveryPickerEntranceText("") }
-                    "apartment" -> reduce { state.uDeliveryPickerApartmentText("") }
+                    "address" -> reduce { state.uDeliveryPickerAddressText("") }
                 }
             }
+            reduce { state.uAddress(null) }
             checkValid()
+            updateSuggestions()
+        }
+    }
+
+    private fun updateSuggestions() {
+        intent {
+            suggestionsUse(state.deliveryPicker.address.text).onSuccess {
+                reduce { state.uSuggestions(it).uSuggestionsVisible(true) }
+            }
         }
     }
 
     private fun checkValid() {
         intent {
-            val valid = deliveryPickerValidUseCase(state.deliveryPicker).isSuccess
-            reduce { state.uConfirmEnabled(valid) }
+            reduce { state.uConfirmEnabled(state.address != null) }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
+import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -9,6 +10,8 @@ import com.progressterra.ipbandroidview.widgets.deliverypicker.UseDeliveryPicker
 interface UseDelivery : UseTopBar, UseDeliveryPicker{
 
     class Empty : UseDelivery {
+
+        override fun handle(event: AddressSuggestionsEvent) = Unit
 
         override fun handle(event: TopBarEvent) = Unit
 
