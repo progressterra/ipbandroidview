@@ -5,7 +5,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidapi.api.product.models.FieldForFilter
 import com.progressterra.ipbandroidapi.api.product.models.FilterAndSort
-import com.progressterra.ipbandroidapi.api.product.models.SortData
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import kotlinx.coroutines.flow.Flow
