@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.entities.toFieldData
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.FileExplorer
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -33,7 +34,7 @@ interface SaveDocumentsUseCase {
                 token, data.id, IncomeDataClientArea(
                     data = gson.toJson(entries, object : TypeToken<List<FieldData>>() {}.type)
                 )
-            )
+            ).throwOnFailure()
             data.photo?.let {
                 it.items.filter { photo -> photo.local }.forEach { img ->
                     repo.setImageForChar(
@@ -43,7 +44,7 @@ interface SaveDocumentsUseCase {
                             body = fileExplorer.pictureFile(img.id)
                                 .asRequestBody("image/*".toMediaTypeOrNull())
                         )
-                    )
+                    ).throwOnFailure()
                 }
             }
         }
