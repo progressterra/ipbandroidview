@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.pages.wantthis
 
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
-import com.progressterra.ipbandroidapi.api.documents.models.IncnomeDataCreateCharValue
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.toDocument
@@ -24,10 +23,11 @@ interface FetchWantThisUseCase {
     ) : FetchWantThisUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(): Result<WantThisScreenState> = withToken { token ->
-            documentsRepository.createDoc(
+            documentsRepository.typeById(
                 accessToken = token,
-                income = IncnomeDataCreateCharValue(IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID)
-            ).getOrThrow()?.toDocument(gson, createId)?.toWantThisScreenState() ?: WantThisScreenState()
+                id = IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID
+            ).getOrThrow()?.toDocument(gson, createId)?.toWantThisScreenState()
+                ?: WantThisScreenState()
         }
     }
 }

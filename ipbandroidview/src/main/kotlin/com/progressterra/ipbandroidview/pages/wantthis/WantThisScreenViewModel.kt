@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
@@ -29,7 +28,7 @@ class WantThisScreenViewModel(
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
-    private val saveDocumentsUseCase: SaveDocumentsUseCase
+    private val createWantThisRequestUseCase: CreateWantThisRequestUseCase
 ) : ContainerHost<WantThisScreenState, WantThisScreenEvent>,
     ViewModel(), UseWantThisScreen {
 
@@ -64,7 +63,7 @@ class WantThisScreenViewModel(
     override fun handle(event: ButtonEvent) {
         intent {
             when (event.id) {
-                "send" -> saveDocumentsUseCase(state.toDocument()).onSuccess {
+                "send" -> createWantThisRequestUseCase(state.toDocument()).onSuccess {
                     postSideEffect(WantThisScreenEvent.Back)
                 }
 
