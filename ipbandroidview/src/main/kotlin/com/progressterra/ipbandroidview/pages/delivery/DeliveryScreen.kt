@@ -33,7 +33,7 @@ fun DeliveryScreen(
         )
     }, bottomBar = {
         Column(
-            modifier = Modifier.padding(vertical = 40.dp, horizontal = 20.dp)
+            modifier = Modifier.padding(vertical = 20.dp, horizontal = 20.dp)
         ) {
             Button(
                 modifier = Modifier.fillMaxWidth(),
@@ -49,9 +49,9 @@ fun DeliveryScreen(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(top = 40.dp)
+                    .padding(top = 20.dp)
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(40.dp)
+                verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
                 OrderSteps(
                     state = OrderStepsState.DELIVERY
