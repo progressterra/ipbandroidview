@@ -117,18 +117,14 @@ data class AddressUI(
             longitude == 0.0
 
     fun printAddress(): String = buildString {
-        if (this@AddressUI.isEmpty())
-            append("Установите адрес")
-        else {
-            if (nameCity.isNotBlank())
-                append(nameCity)
-            if (nameStreet.isNotBlank())
-                append(nameStreet)
-            if (houseNUmber.isNotBlank())
-                append(", д $houseNUmber")
-            if (apartment.isNotBlank())
-                append(", кв $apartment")
-        }
+        if (nameCity.isNotBlank())
+            append(nameCity)
+        if (nameStreet.isNotBlank())
+            append(", ул. $nameStreet")
+        if (houseNUmber.isNotBlank())
+            append(", д. $houseNUmber")
+        if (apartment.isNotBlank())
+            append(", кв. $apartment")
     }
 
     override fun isValid(): Boolean =
