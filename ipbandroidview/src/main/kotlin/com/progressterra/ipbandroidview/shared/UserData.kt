@@ -13,7 +13,7 @@ object UserData : KotprefModel() {
     var clientExist by booleanPref()
     var phone by stringPref()
     var email by stringPref()
-    var address by gsonPref(AddressUI())
+    var shippingAddress by gsonPref(AddressUI())
     var userName by gsonPref(UserName())
     var citizenship by gsonPref(Citizenship())
     var dateOfBirthday by longPref()
@@ -28,7 +28,7 @@ object UserData : KotprefModel() {
         email = ""
         userName = UserName()
         dateOfBirthday = 0L
-        address = AddressUI()
+        shippingAddress = AddressUI()
         supportChatId = ""
     }
 }

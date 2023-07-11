@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.delivery
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
@@ -18,8 +19,11 @@ data class DeliveryState(
     @IpbSubState val confirm: ButtonState = ButtonState(
         id = "confirm"
     ),
-    val address: AddressUI? = null
+    val address: AddressUI? = null,
+    val screenState: ScreenState = ScreenState.LOADING
 ) {
+
+    fun uScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
 
     fun uSuggestions(newSuggestions: List<SuggestionUI>) =
         copy(deliveryPicker = deliveryPicker.uSuggestions(newSuggestions))

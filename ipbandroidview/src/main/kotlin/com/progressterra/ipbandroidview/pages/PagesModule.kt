@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeV
 import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.pages.delivery.CommentUseCase
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
+import com.progressterra.ipbandroidview.pages.delivery.FetchShippingAddressUseCase
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.pages.documentdetails.ValidationUseCase
@@ -63,7 +64,7 @@ val pagesModule = module {
 
     viewModel { PaymentViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel { DeliveryViewModel(get(), get(), get(), get()) }
+    viewModel { DeliveryViewModel(get(), get(), get(), get(), get(), get()) }
 
     viewModel { BonusesDetailsViewModel(get(), get()) }
 
@@ -186,5 +187,9 @@ val pagesModule = module {
 
     single<SuggestionsUseCase> {
         SuggestionsUseCase.Base(get())
+    }
+
+    single<FetchShippingAddressUseCase> {
+        FetchShippingAddressUseCase.Base(get(), get(), get())
     }
 }

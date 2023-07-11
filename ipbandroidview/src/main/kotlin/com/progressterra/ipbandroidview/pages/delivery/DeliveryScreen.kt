@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidview.features.ordersteps.OrderStepsState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPicker
 
@@ -42,26 +43,31 @@ fun DeliveryScreen(
             )
         }
     }) { _, _ ->
-        Column(
-            modifier = Modifier
-                .padding(top = 40.dp)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(40.dp)
+        StateBox(
+            state = state.screenState,
+            useComponent = useComponent
         ) {
-            OrderSteps(
-                state = OrderStepsState.DELIVERY
-            )
-            DeliveryPicker(
-                useComponent = useComponent, state = state.deliveryPicker
-            )
-            TextField(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                state = state.commentary,
-                useComponent = useComponent,
-                hint = stringResource(R.string.comment)
-            )
+                    .padding(top = 40.dp)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(40.dp)
+            ) {
+                OrderSteps(
+                    state = OrderStepsState.DELIVERY
+                )
+                DeliveryPicker(
+                    useComponent = useComponent, state = state.deliveryPicker
+                )
+                TextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    state = state.commentary,
+                    useComponent = useComponent,
+                    hint = stringResource(R.string.comment)
+                )
+            }
         }
     }
 }

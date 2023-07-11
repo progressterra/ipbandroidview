@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.entities
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.progressterra.ipbandroidapi.api.address.models.DataAddress
 import com.progressterra.ipbandroidapi.api.address.models.RGAddress
 import com.progressterra.ipbandroidapi.api.cart.models.DHSaleHeadAsOrderViewModel
 import com.progressterra.ipbandroidapi.api.cart.models.DRSaleForCartAndOrder
@@ -114,15 +113,15 @@ fun TypeStatusOrder.toString(manageResources: ManageResources) = when (this) {
 }
 
 
-fun SuggestionExtendedInfo.convertSuggestionToAddressUIModel() = AddressUI(
+fun SuggestionExtendedInfo.convertSuggestionToAddressUIModel(time: String) = AddressUI(
     idUnique = "00000000-0000-0000-0000-000000000000",
     idClient = "00000000-0000-0000-0000-000000000000",
     dateAdded = "0001-01-01T00:00:00",
     dateVerification = "",
     idManagerVerification = "",
     dateDeactivation = "",
-    defaultShipping = "",
-    defaultBilling = "",
+    defaultShipping = time,
+    defaultBilling = time,
     fiasIDCountry = "",
     fiasIDRegion = regionFiasId ?: "",
     fiasIDCity = cityFiasId ?: "",
@@ -197,46 +196,44 @@ fun AddressUI.convertAddressUiModelToDto() = RGAddress(
     longitude = longitude
 )
 
-fun DataAddress.convertDtoToAddressUiModel(): List<AddressUI> = listAddAddress?.map {
-    AddressUI(
-        idUnique = it.idUnique ?: "",
-        nameCity = it.nameCity ?: "",
-        postalCode = it.postalCode ?: "",
-        building = it.building ?: "",
-        apartment = it.apartment?.toString() ?: "",
-        floor = it.floor ?: 0,
-        nameStreet = it.nameStreet ?: "",
-        entrance = it.entrance?.toString() ?: "",
-        idClient = it.idClient ?: "",
-        dateAdded = it.dateAdded ?: "",
-        dateVerification = it.dateVerification ?: "",
-        idManagerVerification = it.idManagerVerification ?: "",
-        dateDeactivation = it.dateDeactivation ?: "",
-        defaultBilling = it.defaultBilling ?: "",
-        defaultShipping = it.defaultShipping ?: "",
-        fiasIDCountry = it.fiasIDCountry ?: "",
-        fiasIDRegion = it.fiasIDRegion ?: "",
-        fiasIDCity = it.fiasIDCity ?: "",
-        fiasIDArea = it.fiasIDArea ?: "",
-        fiasIDDistrict = it.fiasIDDistrict ?: "",
-        fiasIDHouse = it.fiasIDHouse ?: "",
-        fiasIDStreet = it.fiasIDStreet ?: "",
-        kladrCountry = it.kladrCountry ?: "",
-        kladrRegion = it.kladrRegion ?: "",
-        kladrCity = it.kladrCity ?: "",
-        kladrArea = it.kladrArea ?: "",
-        kladrDistrict = it.kladrArea ?: "",
-        kladrStreet = it.kladrStreet ?: "",
-        kladrHouse = it.kladrHouse ?: "",
-        nameCountry = it.nameCountry ?: "",
-        nameRegion = it.nameRegion ?: "",
-        nameArea = it.nameArea ?: "",
-        nameDistrict = it.nameDistrict ?: "",
-        houseNUmber = it.houseNUmber ?: "",
-        latitude = it.latitude ?: 0.0,
-        longitude = it.longitude ?: 0.0
-    )
-} ?: emptyList()
+fun RGAddress.toAddressUiModel() = AddressUI(
+    idUnique = idUnique ?: "",
+    nameCity = nameCity ?: "",
+    postalCode = postalCode ?: "",
+    building = building ?: "",
+    apartment = apartment?.toString() ?: "",
+    floor = floor ?: 0,
+    nameStreet = nameStreet ?: "",
+    entrance = entrance?.toString() ?: "",
+    idClient = idClient ?: "",
+    dateAdded = dateAdded ?: "",
+    dateVerification = dateVerification ?: "",
+    idManagerVerification = idManagerVerification ?: "",
+    dateDeactivation = dateDeactivation ?: "",
+    defaultBilling = defaultBilling ?: "",
+    defaultShipping = defaultShipping ?: "",
+    fiasIDCountry = fiasIDCountry ?: "",
+    fiasIDRegion = fiasIDRegion ?: "",
+    fiasIDCity = fiasIDCity ?: "",
+    fiasIDArea = fiasIDArea ?: "",
+    fiasIDDistrict = fiasIDDistrict ?: "",
+    fiasIDHouse = fiasIDHouse ?: "",
+    fiasIDStreet = fiasIDStreet ?: "",
+    kladrCountry = kladrCountry ?: "",
+    kladrRegion = kladrRegion ?: "",
+    kladrCity = kladrCity ?: "",
+    kladrArea = kladrArea ?: "",
+    kladrDistrict = kladrArea ?: "",
+    kladrStreet = kladrStreet ?: "",
+    kladrHouse = kladrHouse ?: "",
+    nameCountry = nameCountry ?: "",
+    nameRegion = nameRegion ?: "",
+    nameArea = nameArea ?: "",
+    nameDistrict = nameDistrict ?: "",
+    houseNUmber = houseNUmber ?: "",
+    latitude = latitude ?: 0.0,
+    longitude = longitude ?: 0.0
+)
 
 fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
     Document(status = characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,

@@ -7,7 +7,6 @@ import com.progressterra.ipbandroidview.entities.convertAddressUiModelToDto
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
-import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface SaveAddressUseCase {
 
@@ -20,11 +19,13 @@ interface SaveAddressUseCase {
     ) : SaveAddressUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(address: AddressUI): Result<Unit> = withToken { token ->
-            addressRepository.uploadClientAddress(
-                accessToken = token,
-                request = address.convertAddressUiModelToDto()
-            ).throwOnFailure()
-            UserData.address = address
+            if (address != UserData.shippingAddress) {
+                addressRepository.uploadClientAddress(
+                    accessToken = token,
+                    request = address.convertAddressUiModelToDto()
+                )
+                UserData.shippingAddress = address
+            }
         }
     }
 }
