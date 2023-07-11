@@ -69,13 +69,6 @@ fun ProfileScreen(
 //                )
                 Spacer(Modifier.weight(1f))
                 ProfileButton(
-                    state = state.deleteAccount,
-                    useComponent = useComponent,
-                    isDanger = true,
-                    title = stringResource(R.string.delete_account)
-                )
-                Spacer(Modifier.height(8.dp))
-                ProfileButton(
                     state = state.logout,
                     useComponent = useComponent,
                     title = stringResource(R.string.logout)
