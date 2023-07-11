@@ -99,7 +99,12 @@ fun GoodsItem.toStoreCardState(): StoreCardState = StoreCardState(
 )
 
 fun GoodsItem.toOrderCardState(): OrderCardState = OrderCardState(
-    id = id, name = name, price = price * count, imageUrl = imageUrl, installment = installment
+    id = id,
+    name = name,
+    price = price * count,
+    imageUrl = imageUrl,
+    installment = installment,
+    properties = properties
 )
 
 fun TypeStatusOrder.toString(manageResources: ManageResources) = when (this) {

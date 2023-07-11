@@ -123,8 +123,7 @@ private fun OrderDetailsPreview() {
                             imageUrl = "https://duckduckgo.com/?q=sodales",
                             installment = Installment(
                                 months = 7486, perMonth = SimplePrice(price = 1309)
-                            ),
-                            oldPrice = SimplePrice(price = 5389)
+                            )
                         ), OrderCardState(
                             id = "mnesarchum",
                             name = "Kris Sheppard",
@@ -132,8 +131,7 @@ private fun OrderDetailsPreview() {
                             imageUrl = "https://duckduckgo.com/?q=sodales",
                             installment = Installment(
                                 months = 7486, perMonth = SimplePrice(price = 1309)
-                            ),
-                            oldPrice = SimplePrice(price = 5389)
+                            )
                         )
                     )
                 ),
