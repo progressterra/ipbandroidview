@@ -30,7 +30,7 @@ interface OrdersUseCase {
             cartRepository.orders(
                 accessToken = token, income = FilterAndSort(
                     listFields = emptyList(), sort = SortData(
-                        fieldName = "dateUpdated", variantSort = TypeVariantSort.ASC
+                        fieldName = "dateUpdated", variantSort = TypeVariantSort.DESC
                     ), searchData = "", skip = 0, take = 300
                 )
             ).getOrThrow()?.map {

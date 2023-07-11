@@ -14,7 +14,7 @@ data class OrderDetailsState(
     val number: String = "",
     val status: TypeStatusOrder = TypeStatusOrder.CANCELED,
     val date: String = "",
-    val count: String = "",
+    val count: Int = 0,
     val totalPrice: SimplePrice = SimplePrice(),
     val goods: OrderItemsState = OrderItemsState()
 ) : Parcelable

@@ -137,7 +137,7 @@ private fun OrderDetailsPreview() {
                         )
                     )
                 ),
-                date = "13.10", count = "5", totalPrice = SimplePrice(price = 0),
+                date = "13.10", count = 5, totalPrice = SimplePrice(price = 0),
             ), useComponent = UseOrderDetails.Empty()
         )
     }

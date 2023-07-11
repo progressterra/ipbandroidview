@@ -84,7 +84,7 @@ private fun OrderDetailsPreview() {
         OrderCompact(
             state = OrderCompactState(
                 id = "dicam", number = "alienum", status = TypeStatusOrder.SENT_TO_WAREHOUSE,
-                date = "13.10", count = "5", totalPrice = SimplePrice(price = 0),
+                date = "13.10", count = 5, totalPrice = SimplePrice(price = 0),
             ), useComponent = UseOrderCompact.Empty()
         )
     }

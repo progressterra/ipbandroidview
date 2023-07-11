@@ -15,6 +15,7 @@ import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteris
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
+import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
@@ -30,6 +31,7 @@ import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsSta
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenState
 import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.print
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
@@ -52,7 +54,8 @@ fun DHSaleHeadAsOrderViewModel.toOrder() =
         price = pricesSum(listDRSale?.map { it.amountEndPrice!!.toSimplePrice() } ?: emptyList()),
         id = idUnique!!,
         number = number ?: "",
-        status = statusOrder ?: TypeStatusOrder.CANCELED)
+        status = statusOrder ?: TypeStatusOrder.CANCELED,
+        date = dateAdded?.parseToDate()?.print() ?: "")
 
 fun ProductView.toGoodsItem(): GoodsItem = GoodsItem(
     id = nomenclature?.idUnique!!,
@@ -413,7 +416,10 @@ fun Order.toOrderCompactState(goods: List<OrderCardState>) =
         id = id,
         number = number,
         goods = OrderItemsState(goods),
-        status = status
+        status = status,
+        count = itemsIds.size,
+        totalPrice = price,
+        date = date
     )
 
 fun Order.toOrderTrackingState() = OrderTrackingState(

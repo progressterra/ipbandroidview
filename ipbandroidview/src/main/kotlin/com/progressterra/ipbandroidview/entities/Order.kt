@@ -7,5 +7,6 @@ data class Order(
     val itemsIds: List<String>,
     val price: SimplePrice,
     val number: String,
-    val status: TypeStatusOrder
+    val status: TypeStatusOrder,
+    val date: String
 ) : Id
