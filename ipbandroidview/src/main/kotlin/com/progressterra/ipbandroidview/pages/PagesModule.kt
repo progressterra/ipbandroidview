@@ -27,7 +27,6 @@ import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
-import com.progressterra.ipbandroidview.pages.orders.OrdersViewModel
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchBonusSwitchUseCase
@@ -77,7 +76,6 @@ val pagesModule = module {
 
     viewModel { ProfileDetailsViewModel(get(), get(), get()) }
 
-    viewModel { OrdersViewModel() }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get()) }
 
