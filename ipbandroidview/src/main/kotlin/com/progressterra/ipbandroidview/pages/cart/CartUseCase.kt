@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.pricesSum
 import com.progressterra.ipbandroidview.entities.toCartCardState
 import com.progressterra.ipbandroidview.entities.toGoodsItem
+import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -28,9 +29,13 @@ interface CartUseCase {
 
         override suspend fun invoke(): Result<CartState> = withToken { token ->
             val goods = cartRepo.cart(token).getOrThrow()!!.listDRSale?.mapNotNull {
-
-                productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
-                    .getOrThrow()?.toGoodsItem()?.toCartCardState()
+                val oneGoods =
+                    productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
+                        .getOrThrow()?.toGoodsItem()?.toCartCardState()
+                oneGoods?.copy(
+                    price = it.amountEndPrice?.toSimplePrice() ?: SimplePrice(),
+                    counter = oneGoods.counter.copy(count = it.quantity ?: 0)
+                )
             } ?: emptyList()
             CartState(
                 items = CartItemsState(goods),

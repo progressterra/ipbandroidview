@@ -88,7 +88,10 @@ class DeliveryViewModel(
     override fun handle(event: AddressSuggestionsEvent) {
         intent {
             chooseSuggestionUseCase(event.suggestion).onSuccess {
-                reduce { state.uAddress(it).uSuggestionsVisible(false) }
+                reduce {
+                    state.uAddress(it).uDeliveryPickerAddressText(it.printAddress())
+                        .uSuggestionsVisible(false)
+                }
                 checkValid()
             }
         }
@@ -123,7 +126,11 @@ class DeliveryViewModel(
 
     private fun checkValid() {
         intent {
-            reduce { state.uConfirmEnabled(state.address != null) }
+            if (state.address != null) {
+                reduce { state.uConfirmEnabled(state.address!!.isValid()) }
+            } else {
+                reduce { state.uConfirmEnabled(false) }
+            }
         }
     }
 }
