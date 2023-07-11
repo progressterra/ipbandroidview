@@ -40,7 +40,9 @@ class CartViewModel(
             when (event) {
                 is CartCardEvent.Open -> postSideEffect(CartEvent.OnItem(event.id))
                 is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
-                    refresh()
+                    reduce { it.uScreenState(ScreenState.SUCCESS) }
+                }.onFailure {
+                    reduce { state.uScreenState(ScreenState.ERROR) }
                 }
             }
         }
@@ -64,11 +66,15 @@ class CartViewModel(
         intent {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
-                    refresh()
+                    reduce { it.uScreenState(ScreenState.SUCCESS) }
+                }.onFailure {
+                    reduce { state.uScreenState(ScreenState.ERROR) }
                 }
 
                 is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                    refresh()
+                    reduce { it.uScreenState(ScreenState.SUCCESS) }
+                }.onFailure {
+                    reduce { state.uScreenState(ScreenState.ERROR) }
                 }
             }
         }
