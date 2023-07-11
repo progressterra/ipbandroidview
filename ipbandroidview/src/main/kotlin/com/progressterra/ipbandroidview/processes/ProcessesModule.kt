@@ -95,15 +95,11 @@ val processesModule = module {
     }
 
     single<AddToCartUseCase> {
-        AddToCartUseCase.Base(get(), get(), get())
+        AddToCartUseCase.Base(get(), get(), get(), get())
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            RemoveFromCartUseCase.Test()
-        } else {
-            RemoveFromCartUseCase.Base(get(), get(), get())
-        }
+    single<RemoveFromCartUseCase> {
+        RemoveFromCartUseCase.Base(get(), get(), get(), get())
     }
 
     single {
@@ -140,6 +136,6 @@ val processesModule = module {
     }
 
     single<AddToCartInstallmentUseCase> {
-        AddToCartInstallmentUseCase.Base(get(), get(), get())
+        AddToCartInstallmentUseCase.Base(get(), get(), get(), get())
     }
 }

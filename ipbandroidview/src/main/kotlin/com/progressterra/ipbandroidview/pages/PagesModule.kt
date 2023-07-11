@@ -112,12 +112,8 @@ val pagesModule = module {
 
     single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get()) }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            CartUseCase.Test()
-        } else {
-            CartUseCase.Base(get(), get(), get(), get())
-        }
+    single<CartUseCase> {
+        CartUseCase.Base(get(), get(), get(), get())
     }
 
     single {
