@@ -152,6 +152,18 @@ fun SuggestionExtendedInfo.convertSuggestionToAddressUIModel(time: String) = Add
     longitude = geoLon?.toDouble() ?: 0.0
 )
 
+fun TypeStatusOrder.canBeTracker(): Boolean {
+    val trackable = listOf(
+        TypeStatusOrder.CONFIRM_FROM_STORE,
+        TypeStatusOrder.CONFIRM_FROM_CALL_CENTER,
+        TypeStatusOrder.SENT_TO_WAREHOUSE,
+        TypeStatusOrder.SENT_DELIVERY_SERVICE,
+        TypeStatusOrder.ON_PICK_UP_POINT,
+        TypeStatusOrder.DELIVERED
+    )
+    return trackable.contains(this)
+}
+
 fun Suggestion.convertSuggestionsDtoToUIModels() = SuggestionUI(
     suggestionExtendedInfo = suggestionExtendedInfo ?: SuggestionExtendedInfo(),
     previewOfSuggestion = previewOfSuggestion ?: ""

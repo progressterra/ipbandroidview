@@ -17,9 +17,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.canBeTracker
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.shared.ManageResources
@@ -52,24 +54,26 @@ fun OrderDetails(
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.title
                 )
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(2.dp)
-                ) {
-                    IconButton(
-                        modifier = Modifier.size(24.dp),
-                        onClick = { useComponent.handle(OrderDetailsEvent) }
+                if (state.status.canBeTracker()) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
-                        BrushedIcon(
-                            resId = R.drawable.ic_map,
-                            tint = IpbTheme.colors.iconTertiary.asBrush()
+                        IconButton(
+                            modifier = Modifier.size(24.dp),
+                            onClick = { useComponent.handle(OrderDetailsEvent) }
+                        ) {
+                            BrushedIcon(
+                                resId = R.drawable.ic_map,
+                                tint = IpbTheme.colors.iconTertiary.asBrush()
+                            )
+                        }
+                        BrushedText(
+                            text = stringResource(R.string.track),
+                            tint = IpbTheme.colors.textTertiary.asBrush(),
+                            style = IpbTheme.typography.footnoteRegular
                         )
                     }
-                    BrushedText(
-                        text = stringResource(R.string.track),
-                        tint = IpbTheme.colors.textTertiary.asBrush(),
-                        style = IpbTheme.typography.footnoteRegular
-                    )
                 }
             }
             BrushedText(
@@ -109,7 +113,7 @@ private fun OrderDetailsPreview() {
     IpbTheme {
         OrderDetails(
             state = OrderDetailsState(
-                id = "dicam", number = "alienum",
+                id = "dicam", number = "alienum", status = TypeStatusOrder.DELIVERED,
                 goods = OrderItemsState(
                     items = listOf(
                         OrderCardState(

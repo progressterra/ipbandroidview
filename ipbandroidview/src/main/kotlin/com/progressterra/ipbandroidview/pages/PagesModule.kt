@@ -29,6 +29,7 @@ import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenVie
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusViewModel
+import com.progressterra.ipbandroidview.pages.ordertracking.OrderTrackingScreenViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchBonusSwitchUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchReceiptUseCase
@@ -78,6 +79,8 @@ val pagesModule = module {
     viewModel { ProfileDetailsViewModel(get(), get(), get()) }
 
     viewModel { OrderDetailsScreenViewModel() }
+
+    viewModel { OrderTrackingScreenViewModel() }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get()) }
 
