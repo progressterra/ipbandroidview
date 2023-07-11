@@ -31,7 +31,7 @@ fun OrderOverview(
         horizontalArrangement = Arrangement.spacedBy(15.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(modifier = Modifier.size(width = 128.dp, height = 104.dp)) {
+        Box(modifier = Modifier.size(128.dp)) {
             if (state.goodsImages.size >= 2) {
                 state.goodsImages.forEachIndexed { index, image ->
                     val horizontalPadding = 38.dp / (state.goodsImages.size - 1) * index
@@ -43,7 +43,7 @@ fun OrderOverview(
                     ) {
                         SimpleImage(
                             modifier = Modifier
-                                .size(width = 90.dp, height = 70.dp)
+                                .size(90.dp)
                                 .clip(RoundedCornerShape(8.dp)),
                             url = image,
                             backgroundColor = IpbTheme.colors.background.asColor()
@@ -53,8 +53,9 @@ fun OrderOverview(
             } else if (state.goodsImages.size == 1) {
                 SimpleImage(
                     modifier = Modifier
-                        .size(width = 90.dp, height = 70.dp)
-                        .clip(RoundedCornerShape(8.dp)).align(Alignment.Center),
+                        .size(90.dp)
+                        .clip(RoundedCornerShape(8.dp))
+                        .align(Alignment.Center),
                     url = state.goodsImages.first(),
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )

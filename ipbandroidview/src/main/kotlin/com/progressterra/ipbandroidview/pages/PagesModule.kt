@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.pages.delivery.AddDeliveryToCartUseCase
 import com.progressterra.ipbandroidview.pages.delivery.CommentUseCase
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import com.progressterra.ipbandroidview.pages.delivery.FetchShippingAddressUseCase
@@ -191,5 +192,9 @@ val pagesModule = module {
 
     single<FetchShippingAddressUseCase> {
         FetchShippingAddressUseCase.Base(get(), get(), get())
+    }
+
+    single<AddDeliveryToCartUseCase> {
+        AddDeliveryToCartUseCase.Base(get(), get(), get())
     }
 }
