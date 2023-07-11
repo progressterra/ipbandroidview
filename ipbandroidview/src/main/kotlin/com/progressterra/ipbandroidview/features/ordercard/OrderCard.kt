@@ -29,7 +29,7 @@ fun OrderCard(
             .clip(RoundedCornerShape(8.dp))
             .niceClickable {
                 useComponent.handle(
-                    OrderCardEvent.GoodsDetails(state.id)
+                    OrderCardEvent(state.id)
                 )
             }, horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {

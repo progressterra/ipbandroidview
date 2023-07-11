@@ -14,7 +14,6 @@ import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface OrdersUseCase {
 
@@ -23,29 +22,22 @@ interface OrdersUseCase {
     class Base(
         provideLocation: ProvideLocation,
         scrmRepository: SCRMRepository,
-        private val manageResources: ManageResources,
         private val cartRepository: CartRepository,
         private val productRepository: ProductRepository
     ) : OrdersUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(): Result<List<OrderCompactState>> = withToken { token ->
             cartRepository.orders(
-                accessToken = token,
-                income = FilterAndSort(
-                    listFields = emptyList(),
-                    sort = SortData(
-                        fieldName = "dateUpdated",
-                        variantSort = TypeVariantSort.ASC
-                    ),
-                    searchData = "",
-                    skip = 0,
-                    take = 300
+                accessToken = token, income = FilterAndSort(
+                    listFields = emptyList(), sort = SortData(
+                        fieldName = "dateUpdated", variantSort = TypeVariantSort.ASC
+                    ), searchData = "", skip = 0, take = 300
                 )
             ).getOrThrow()?.map {
-                val order = it.toOrder(manageResources)
+                val order = it.toOrder()
                 val goods = order.itemsIds.map { id ->
-                    productRepository.productByNomenclatureId(token, id).getOrThrow()
-                        ?.toGoodsItem()?.toOrderCardState() ?: OrderCardState()
+                    productRepository.productByNomenclatureId(token, id).getOrThrow()?.toGoodsItem()
+                        ?.toOrderCardState() ?: OrderCardState()
                 }
                 order.toOrderCompactState(goods)
             } ?: emptyList()

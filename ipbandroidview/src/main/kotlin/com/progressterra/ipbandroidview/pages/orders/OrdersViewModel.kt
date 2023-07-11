@@ -30,9 +30,7 @@ class OrdersViewModel : ViewModel(), ContainerHost<OrdersState, OrdersEvent>, Us
 
     override fun handle(event: OrderCardEvent) {
         intent {
-            when (event) {
-                is OrderCardEvent.GoodsDetails -> postSideEffect(OrdersEvent.GoodsDetails(event.id))
-            }
+            postSideEffect(OrdersEvent.GoodsDetails(event.id))
         }
     }
 

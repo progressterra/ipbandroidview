@@ -23,6 +23,7 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoStat
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
+import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
@@ -47,12 +48,12 @@ fun Int.toSimplePrice(): SimplePrice = SimplePrice(this)
 fun Double.toSimplePrice(): SimplePrice = SimplePrice(toInt())
 
 //TODO check id
-fun DHSaleHeadAsOrderViewModel.toOrder(manageResources: ManageResources) =
+fun DHSaleHeadAsOrderViewModel.toOrder() =
     Order(itemsIds = listDRSale?.map { it.idrfNomenclature!! } ?: emptyList(),
         price = pricesSum(listDRSale?.map { it.amountEndPrice!!.toSimplePrice() } ?: emptyList()),
         id = idUnique!!,
         number = number ?: "",
-        status = statusOrder?.toString(manageResources) ?: "")
+        status = statusOrder ?: TypeStatusOrder.CANCELED)
 
 fun ProductView.toGoodsItem(): GoodsItem = GoodsItem(
     id = nomenclature?.idUnique!!,
@@ -393,6 +394,11 @@ fun OrderCompactState.toOrderDetailsState() = OrderDetailsState(
     goods = goods
 )
 
+fun OrderDetailsState.toOrderTrackingState() = OrderTrackingState(
+    status = status,
+    number = number
+)
+
 fun Order.toOrderCompactState(goods: List<OrderCardState>) =
     OrderCompactState(
         id = id,
@@ -400,6 +406,11 @@ fun Order.toOrderCompactState(goods: List<OrderCardState>) =
         goods = OrderItemsState(goods),
         status = status
     )
+
+fun Order.toOrderTrackingState() = OrderTrackingState(
+    status = status,
+    number = number
+)
 
 fun Document.toWantThisCardState() = WantThisCardState(
     id = id,

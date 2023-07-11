@@ -11,11 +11,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.entities.toString
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
@@ -51,7 +55,7 @@ fun OrderCompact(
                 style = IpbTheme.typography.footnoteRegular
             )
             BrushedText(
-                text = state.status,
+                text = state.status.toString(ManageResources.Base(LocalContext.current)),
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 style = IpbTheme.typography.subHeadlineBold
             )
@@ -79,7 +83,7 @@ private fun OrderDetailsPreview() {
     IpbTheme {
         OrderCompact(
             state = OrderCompactState(
-                id = "dicam", number = "alienum", status = "egestas",
+                id = "dicam", number = "alienum", status = TypeStatusOrder.SENT_TO_WAREHOUSE,
                 date = "13.10", count = "5", totalPrice = SimplePrice(price = 0),
             ), useComponent = UseOrderCompact.Empty()
         )

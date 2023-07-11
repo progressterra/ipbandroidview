@@ -28,6 +28,7 @@ interface CartUseCase {
 
         override suspend fun invoke(): Result<CartState> = withToken { token ->
             val goods = cartRepo.cart(token).getOrThrow()!!.listDRSale?.mapNotNull {
+
                 productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
                     .getOrThrow()?.toGoodsItem()?.toCartCardState()
             } ?: emptyList()

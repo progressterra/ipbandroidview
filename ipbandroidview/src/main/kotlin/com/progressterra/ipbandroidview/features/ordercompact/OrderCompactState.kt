@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.features.ordercompact
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
@@ -8,7 +9,7 @@ import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 data class OrderCompactState(
     val id: String = "",
     val number: String = "",
-    val status: String = "",
+    val status: TypeStatusOrder = TypeStatusOrder.CANCELED,
     val date: String = "",
     val count: String = "",
     val totalPrice: SimplePrice = SimplePrice(),

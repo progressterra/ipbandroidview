@@ -77,7 +77,7 @@ val pagesModule = module {
 
     viewModel { OrdersViewModel() }
 
-    single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get(), get()) }
+    single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get()) }
 

@@ -1,10 +1,13 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.toOrderTrackingState
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardEvent
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
 
 class OrderDetailsScreenViewModel : ContainerHost<OrderDetailsScreenState, OrderDetailsScreenEvent>,
@@ -15,14 +18,20 @@ class OrderDetailsScreenViewModel : ContainerHost<OrderDetailsScreenState, Order
     )
 
     override fun handle(event: OrderCardEvent) {
-        TODO("Not yet implemented")
+        intent {
+            postSideEffect(OrderDetailsScreenEvent.OpenGoods(event.id))
+        }
     }
 
     override fun handle(event: OrderDetailsEvent) {
-        TODO("Not yet implemented")
+        intent {
+            postSideEffect(OrderDetailsScreenEvent.Tracking(state.details.toOrderTrackingState()))
+        }
     }
 
     override fun handle(event: TopBarEvent) {
-        TODO("Not yet implemented")
+        intent {
+            postSideEffect(OrderDetailsScreenEvent.Back)
+        }
     }
 }
