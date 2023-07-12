@@ -32,12 +32,12 @@ interface ConfirmOrderUseCase {
             val payment = cartRepository.paymentInternal(token).isSuccess
             OrderStatusState(
                 orderId = OrderIdState(
-                    id = result?.idUnique!!,
+                    id = result?.number ?: "",
                     success = payment
                 ), orderOverview = OrderOverviewState(
                     quantity = images.size,
                     goodsImages = images,
-                    address = result.adressString ?: ""
+                    address = result?.adressString ?: ""
                 )
             )
         }
