@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.entities
 
 import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidview.shared.IsEmpty
-import com.progressterra.ipbandroidview.shared.IsValid
 
 data class AddressUI(
     @SerializedName("idUnique")
@@ -77,7 +76,7 @@ data class AddressUI(
     val latitude: Double = 0.0,
     @SerializedName("longitude")
     val longitude: Double = 0.0
-) : IsEmpty, IsValid {
+) : IsEmpty {
 
     override fun isEmpty(): Boolean = idUnique == "" &&
             idClient == "" &&
@@ -126,7 +125,4 @@ data class AddressUI(
         if (apartment.isNotBlank())
             append(", кв. $apartment")
     }
-
-    override fun isValid(): Boolean =
-        houseNUmber.isNotBlank() && nameCity.isNotBlank() && nameStreet.isNotBlank()
 }

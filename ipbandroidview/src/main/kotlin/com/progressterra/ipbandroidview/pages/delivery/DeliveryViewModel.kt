@@ -2,10 +2,8 @@ package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
-import com.progressterra.ipbandroidview.features.addresssuggestions.ChooseSuggestionUseCase
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -21,11 +19,9 @@ import org.orbitmvi.orbit.viewmodel.container
 
 @OptIn(OrbitExperimental::class)
 class DeliveryViewModel(
-    private val saveAddressUseCase: SaveAddressUseCase,
     private val addDeliveryToCartUseCase: AddDeliveryToCartUseCase,
     private val fetchShippingAddressUseCase: FetchShippingAddressUseCase,
     private val suggestionsUse: SuggestionsUseCase,
-    private val chooseSuggestionUseCase: ChooseSuggestionUseCase,
     private val commentUseCase: CommentUseCase
 ) : ViewModel(), ContainerHost<DeliveryState, DeliveryEvent>, UseDelivery {
 
@@ -68,10 +64,10 @@ class DeliveryViewModel(
             when (event.id) {
                 "confirm" -> {
                     var isSuccess = true
-                    saveAddressUseCase(state.address!!).onFailure {
-                        isSuccess = false
-                    }
-                    addDeliveryToCartUseCase().onFailure {
+                    addDeliveryToCartUseCase(
+                        address = state.address,
+                        suggestionUI = state.suggestion
+                    ).onFailure {
                         isSuccess = false
                     }
                     commentUseCase(state.commentary.text).onFailure {
@@ -87,13 +83,13 @@ class DeliveryViewModel(
 
     override fun handle(event: AddressSuggestionsEvent) {
         intent {
-            chooseSuggestionUseCase(event.suggestion).onSuccess {
-                reduce {
-                    state.uAddress(it).uDeliveryPickerAddressText(it.printAddress())
-                        .uSuggestionsVisible(false)
-                }
-                checkValid()
+            reduce {
+                state.uSuggestion(event.suggestion)
+                    .uAddress(null)
+                    .uDeliveryPickerAddressText(event.suggestion.previewOfSuggestion)
+                    .uSuggestionsVisible(false)
             }
+            checkValid()
         }
     }
 
@@ -110,7 +106,7 @@ class DeliveryViewModel(
                     "address" -> reduce { state.uDeliveryPickerAddressText("") }
                 }
             }
-            reduce { state.uAddress(null) }
+            reduce { state.uAddress(null).uSuggestion(null) }
             checkValid()
             updateSuggestions()
         }
@@ -126,8 +122,8 @@ class DeliveryViewModel(
 
     private fun checkValid() {
         intent {
-            if (state.address != null) {
-                reduce { state.uConfirmEnabled(state.address!!.isValid()) }
+            if (state.address != null || state.suggestion != null) {
+                reduce { state.uConfirmEnabled(true) }
             } else {
                 reduce { state.uConfirmEnabled(false) }
             }

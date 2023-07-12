@@ -20,6 +20,7 @@ data class DeliveryState(
         id = "confirm"
     ),
     val address: AddressUI? = null,
+    val suggestion: SuggestionUI? = null,
     val screenState: ScreenState = ScreenState.LOADING
 ) {
 
@@ -35,4 +36,6 @@ data class DeliveryState(
         copy(deliveryPicker = deliveryPicker.uAddressText(newAddress))
 
     fun uAddress(newAddress: AddressUI?) = copy(address = newAddress)
+
+    fun uSuggestion(newSuggestion: SuggestionUI?) = copy(suggestion = newSuggestion)
 }
