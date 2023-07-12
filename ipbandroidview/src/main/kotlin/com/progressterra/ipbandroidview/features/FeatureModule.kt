@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.features
 
-import com.progressterra.ipbandroidview.features.addresssuggestions.ChooseSuggestionUseCase
 import com.progressterra.ipbandroidview.features.addresssuggestions.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizenshipsUseCase
@@ -16,10 +15,6 @@ val featuresModule = module {
 
     single<FetchPaymentMethods> {
         FetchPaymentMethods.Base()
-    }
-
-    single<ChooseSuggestionUseCase> {
-        ChooseSuggestionUseCase.Base()
     }
 
     single<CurrentLocationSuggestionsUseCase> {

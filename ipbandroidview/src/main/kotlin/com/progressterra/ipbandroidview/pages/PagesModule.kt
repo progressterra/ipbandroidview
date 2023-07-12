@@ -66,7 +66,7 @@ val pagesModule = module {
 
     viewModel { PaymentViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel { DeliveryViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { DeliveryViewModel(get(), get(), get(), get()) }
 
     viewModel { BonusesDetailsViewModel(get(), get()) }
 
@@ -194,6 +194,6 @@ val pagesModule = module {
     }
 
     single<AddDeliveryToCartUseCase> {
-        AddDeliveryToCartUseCase.Base(get(), get(), get())
+        AddDeliveryToCartUseCase.Base(get(), get(), get(), get())
     }
 }
