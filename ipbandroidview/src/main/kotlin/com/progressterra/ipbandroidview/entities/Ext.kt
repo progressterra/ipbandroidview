@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.entities
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.progressterra.ipbandroidapi.api.address.models.RGAddress
@@ -37,6 +38,7 @@ import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
+import kotlin.math.log
 
 fun pricesSum(prices: List<SimplePrice>): SimplePrice {
     var sum = SimplePrice()
@@ -260,10 +262,12 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
         docName = characteristicType?.name ?: "",
         id = characteristicValue?.idUnique!!,
         entries = (characteristicType?.dataInJSON?.let {
+            Log.d("DOC", "RAW: $it")
             gson.fromJson<List<FieldData>?>(
                 it, object : TypeToken<List<FieldData>>() {}.type
             )
         } ?: emptyList()).map {
+            Log.d("DOC", "toDocument: $it")
             TextFieldState(
                 id = createId(),
                 text = it.valueData ?: "",

@@ -26,7 +26,7 @@ interface DocumentsUseCase {
                 DocumentsState()
             } else {
                 val state =
-                    DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
+                    DocumentsState(repo.docsBySpecification(token, UserData.citizenship.id)
                         .getOrThrow()?.listProductCharacteristic?.map { doc ->
                             doc.toDocument(gson, createId)
                         } ?: emptyList())
