@@ -56,10 +56,11 @@ interface WantThisRequestsUseCase {
                     gson = gson,
                     createId = createId
                 )
-                if (it.statusDoc != TypeStatusDoc.CONFIRMED) {
+                if (it.statusDoc != TypeStatusDoc.CONFIRMED && doc.additionalValue.isNotBlank()) {
                     doc.toWantThisCardState()
                 } else {
-                    productRepository.productByNomenclatureId(token, doc.additionalValue).getOrThrow()?.toGoodsItem()
+                    productRepository.productByNomenclatureId(token, doc.additionalValue)
+                        .getOrThrow()?.toGoodsItem()
                         ?.toWantThisCardState()
                 }
             } ?: emptyList()
