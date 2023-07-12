@@ -23,6 +23,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.counter.Counter
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun WantThisCard(
@@ -31,7 +32,9 @@ fun WantThisCard(
     useComponent: UseWantThisCard
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.niceClickable {
+            if (state.status == TypeStatusDoc.CONFIRMED) useComponent.handle(WantThisCardEvent(state.id))
+        },
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         SimpleImage(

@@ -21,8 +21,8 @@ class WantThisRequestsNode(
         val viewModel = getViewModel<WantThisRequestsViewModel>()
         viewModel.collectSideEffect {
             when (it) {
-                is WantThisRequestsEvent.Back -> TODO()
-                is WantThisRequestsEvent.GoodsDetails -> TODO()
+                is WantThisRequestsEvent.Back -> onBack()
+                is WantThisRequestsEvent.GoodsDetails -> onGoodsDetails(it.id)
             }
         }
         LaunchedEffect(Unit) {
