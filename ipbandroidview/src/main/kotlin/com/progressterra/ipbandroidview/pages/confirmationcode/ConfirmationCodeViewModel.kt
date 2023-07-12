@@ -41,7 +41,6 @@ class ConfirmationCodeViewModel(
             endVerificationChannelUseCase(state.code.phone, state.code.code).onSuccess {
                 postSideEffect(ConfirmationCodeEvent.Next)
             }.onFailure {
-                Log.e("ConfirmationCodeViewModel", "onNext: ", it)
                 isSuccess = false
                 postSideEffect(ConfirmationCodeEvent.Toast(R.string.wrong_code))
             }

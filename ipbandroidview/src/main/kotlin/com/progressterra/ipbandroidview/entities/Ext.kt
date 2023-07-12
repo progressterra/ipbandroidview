@@ -261,13 +261,11 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
     Document(status = characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,
         docName = characteristicType?.name ?: "",
         id = characteristicValue?.idUnique!!,
-        entries = (characteristicType?.dataInJSON?.let {
-            Log.d("DOC", "RAW: $it")
+        entries = (characteristicValue?.valueAsJSON?.let {
             gson.fromJson<List<FieldData>?>(
                 it, object : TypeToken<List<FieldData>>() {}.type
             )
         } ?: emptyList()).map {
-            Log.d("DOC", "toDocument: $it")
             TextFieldState(
                 id = createId(),
                 text = it.valueData ?: "",
@@ -294,7 +292,7 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
     Document(status = statusDoc ?: TypeStatusDoc.NOT_FILL,
         docName = characteristicType?.name ?: "",
         id = idUnique!!,
-        entries = (characteristicType?.dataInJSON?.let {
+        entries = (valueAsJSON?.let {
             gson.fromJson<List<FieldData>?>(
                 it, object : TypeToken<List<FieldData>>() {}.type
             )
