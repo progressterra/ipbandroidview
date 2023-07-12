@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidview.entities.Id
+import com.progressterra.ipbandroidview.shared.toDate
 import com.progressterra.processors.IpbState
 import kotlinx.parcelize.Parcelize
 
@@ -19,4 +20,10 @@ data class TextFieldState(
     val valid: Boolean = true,
     val type: TextInputType = TextInputType.DEFAULT,
     val typeValue: TypeValueCharacteristic? = null
-) : Id, Parcelable
+) : Id, Parcelable {
+
+    fun formatByType() = when (type) {
+        TextInputType.DATE -> text.toDate()
+        else -> text
+    }
+}

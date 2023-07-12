@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.IconButton
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -16,17 +15,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
-import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
 import com.progressterra.ipbandroidview.shared.ui.clearFocusOnKeyboardDismiss
 
 @Composable
@@ -68,27 +62,19 @@ fun TextField(
             )
             .clearFocusOnKeyboardDismiss(),
         value = state.text,
-        visualTransformation = when (state.type) {
-            TextInputType.DEFAULT -> VisualTransformation.None
-            TextInputType.NUMBER -> VisualTransformation.None
-            TextInputType.PHONE_NUMBER -> MaskVisualTransformation(PHONE_MASK)
-            TextInputType.CHAT -> VisualTransformation.None
-        },
+        visualTransformation = state.type.toVisualTransformation(),
         interactionSource = mutableInteractionSource,
         onValueChange = { text ->
-            useComponent.handle(TextFieldEvent.TextChanged(state.id, text))
+            if (text.length <= state.type.toAllowedChars()) {
+                useComponent.handle(TextFieldEvent.TextChanged(state.id, text))
+            }
         },
         keyboardActions = KeyboardActions {
             focusManager.clearFocus()
             useComponent.handle(TextFieldEvent.Action(state.id))
         },
         shape = RoundedCornerShape(8.dp),
-        keyboardOptions = when (state.type) {
-            TextInputType.DEFAULT -> KeyboardOptions.Default
-            TextInputType.NUMBER -> KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
-            TextInputType.PHONE_NUMBER -> KeyboardOptions.Default.copy(keyboardType = KeyboardType.Phone)
-            TextInputType.CHAT -> KeyboardOptions.Default.copy(imeAction = ImeAction.Send)
-        },
+        keyboardOptions = state.type.toKeyboardOptions(),
         placeholder = placeholder,
         label = label,
         enabled = state.enabled,

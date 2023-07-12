@@ -13,6 +13,16 @@ fun String.isRussianPhoneNumber() = matches(Regex("^7\\d{10}$"))
 
 fun String.isTestPhoneNumber() = this == "1777555777"
 
+fun String.toDate(): String {
+    val stringBuilder = StringBuilder(this)
+    listOf(2, 4).sortedDescending().forEach { pos ->
+        if (pos <= stringBuilder.length) {
+            stringBuilder.insert(pos, ".")
+        }
+    }
+    return stringBuilder.toString()
+}
+
 fun String.isDate(): Boolean {
     val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
     return try {
