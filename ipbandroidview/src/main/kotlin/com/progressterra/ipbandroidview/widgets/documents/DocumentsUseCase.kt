@@ -25,10 +25,13 @@ interface DocumentsUseCase {
             if (UserData.citizenship.isEmpty()) {
                 DocumentsState()
             } else {
-                DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
-                    .getOrThrow()?.listProductCharacteristic?.map { doc ->
-                        doc.toDocument(gson, createId)
-                    } ?: emptyList())
+                val state =
+                    DocumentsState(items = repo.docsBySpecification(token, UserData.citizenship.id)
+                        .getOrThrow()?.listProductCharacteristic?.map { doc ->
+                            doc.toDocument(gson, createId)
+                        } ?: emptyList())
+                log(state)
+                state
             }
         }
     }

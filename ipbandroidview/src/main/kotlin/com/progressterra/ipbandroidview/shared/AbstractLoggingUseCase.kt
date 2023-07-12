@@ -5,6 +5,12 @@ import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 
 abstract class AbstractLoggingUseCase {
 
+    protected fun <T> log(message: T) {
+        if (IpbAndroidViewSettings.DEBUG) {
+            Log.d(javaClass::getSimpleName.toString(), message.toString())
+        }
+    }
+
     protected suspend fun <T> handle(
         block: suspend () -> T
     ): Result<T> = runCatching {
