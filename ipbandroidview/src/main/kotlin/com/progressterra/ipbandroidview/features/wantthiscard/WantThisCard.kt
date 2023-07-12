@@ -63,41 +63,44 @@ fun WantThisCard(
                 TypeStatusDoc.CONFIRMED -> IpbTheme.colors.onBackground.asBrush()
             }
         )
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier.width(80.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
+        if (state.status == TypeStatusDoc.CONFIRMED) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                BrushedText(
-                    text = state.price.toString(),
-                    style = IpbTheme.typography.subHeadlineRegular,
-                    tint = IpbTheme.colors.textPrimary2.asBrush(),
-                )
-                if (IpbAndroidViewSettings.PROJECT_TYPE == ProjectType.REDI) {
+                Column(
+                    modifier = Modifier.width(80.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
                     BrushedText(
-                        text = "(${stringResource(R.string.installment)}: ${
-                            state.installment.months
-                        } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
-                        style = IpbTheme.typography.footnoteRegular,
-                        tint = IpbTheme.colors.textPrimary.asBrush(),
+                        text = state.price.toString(),
+                        style = IpbTheme.typography.subHeadlineRegular,
+                        tint = IpbTheme.colors.textPrimary2.asBrush(),
+                    )
+                    if (IpbAndroidViewSettings.PROJECT_TYPE == ProjectType.REDI) {
+                        BrushedText(
+                            text = "(${stringResource(R.string.installment)}: ${
+                                state.installment.months
+                            } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
+                            style = IpbTheme.typography.footnoteRegular,
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
+                        )
+                    }
+                }
+                if (state.counter.isEmpty()) {
+                    IconButton(onClick = {
+                        useComponent.handle(WantThisCardEvent(state.id))
+                    }) {
+                        BrushedIcon(
+                            resId = R.drawable.ic_cart, tint = IpbTheme.colors.iconPrimary.asBrush()
+                        )
+                    }
+                } else {
+                    Counter(
+                        state = state.counter, useComponent = useComponent
                     )
                 }
-            }
-            if (state.counter.isEmpty()) {
-                IconButton(onClick = {
-                    useComponent.handle(WantThisCardEvent(state.id))
-                }) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_cart, tint = IpbTheme.colors.iconPrimary.asBrush()
-                    )
-                }
-            } else {
-                Counter(
-                    state = state.counter, useComponent = useComponent
-                )
             }
         }
     }

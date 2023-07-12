@@ -45,7 +45,7 @@ interface WantThisRequestsUseCase {
                     ),
                     sort = SortData(
                         fieldName = "dateUpdated",
-                        variantSort = TypeVariantSort.ASC
+                        variantSort = TypeVariantSort.DESC
                     ),
                     searchData = "",
                     skip = 0,
