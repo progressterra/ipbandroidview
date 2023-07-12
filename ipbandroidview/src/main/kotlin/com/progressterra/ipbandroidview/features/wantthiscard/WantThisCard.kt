@@ -32,9 +32,12 @@ fun WantThisCard(
     useComponent: UseWantThisCard
 ) {
     Column(
-        modifier = modifier.niceClickable {
-            if (state.status == TypeStatusDoc.CONFIRMED) useComponent.handle(WantThisCardEvent(state.id))
-        },
+        modifier = modifier
+            .width(157.dp)
+            .clip(RoundedCornerShape(8.dp))
+            .niceClickable(enabled = state.status == TypeStatusDoc.CONFIRMED) {
+                useComponent.handle(WantThisCardEvent(state.id))
+            },
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         SimpleImage(

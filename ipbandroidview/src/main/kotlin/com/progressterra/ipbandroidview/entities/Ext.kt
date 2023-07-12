@@ -436,7 +436,7 @@ fun Document.toWantThisCardState() = WantThisCardState(
     id = id,
     image = photo?.items?.firstOrNull()?.url ?: "",
     status = status,
-    name = docName
+    name = entries.firstOrNull { it.label == "Наименование" }?.text ?: ""
 )
 
 //TODO replace all imageUrl with image
