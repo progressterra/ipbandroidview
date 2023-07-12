@@ -57,9 +57,7 @@ class MainViewModel(
 
     override fun handle(event: BonusesEvent) {
         intent {
-            when (event) {
-                is BonusesEvent.Action -> postSideEffect(MainEvent.OnBonuses)
-            }
+            postSideEffect(MainEvent.OnBonuses)
         }
     }
 

@@ -21,7 +21,7 @@ fun FavoriteButton(
 ) {
     IconButton(
         modifier = modifier.size(24.dp),
-        onClick = { useComponent.handle(FavoriteButtonEvent.Click(state.id)) },
+        onClick = { useComponent.handle(FavoriteButtonEvent(state.id)) },
         enabled = state.enabled
     ) {
         BrushedIcon(

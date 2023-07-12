@@ -24,7 +24,6 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
-
 @Composable
 fun AuthProfile(
     modifier: Modifier = Modifier,
@@ -36,7 +35,7 @@ fun AuthProfile(
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable { useComponent.handle(AuthProfileEvent.Click) }
+            .niceClickable { useComponent.handle(AuthProfileEvent) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

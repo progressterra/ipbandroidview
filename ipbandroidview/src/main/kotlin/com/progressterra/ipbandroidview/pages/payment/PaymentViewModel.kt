@@ -69,10 +69,8 @@ class PaymentViewModel(
 
     override fun handle(event: BrushedSwitchEvent) {
         intent {
-            when (event) {
-                is BrushedSwitchEvent.Click -> when (event.id) {
-                    "useBonuses" -> reduce { state.reverseBonusSwitch() }
-                }
+            when (event.id) {
+                "useBonuses" -> reduce { state.reverseBonusSwitch() }
             }
         }
     }
@@ -85,17 +83,13 @@ class PaymentViewModel(
 
     override fun handle(event: LinkTextEvent) {
         intent {
-            when (event) {
-                is LinkTextEvent.Click -> openUrlUseCase(event.url)
-            }
+            openUrlUseCase(event.url)
         }
     }
 
     override fun handle(event: PaymentMethodEvent) {
         intent {
-            when (event) {
-                is PaymentMethodEvent.Select -> reduce { state.uPaymentMethod(event.type) }
-            }
+            reduce { state.uPaymentMethod(event.type) }
         }
     }
 }

@@ -47,10 +47,8 @@ class DocumentsViewModel(
 
     override fun handle(event: CurrentCitizenshipEvent) {
         intent {
-            when (event) {
-                is CurrentCitizenshipEvent.Click -> reduce {
-                    state.uOpen(true)
-                }
+            reduce {
+                state.uOpen(true)
             }
         }
     }

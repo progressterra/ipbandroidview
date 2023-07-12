@@ -22,7 +22,7 @@ fun Search(
         modifier = modifier.fillMaxWidth(),
         value = state.text,
         enabled = state.enabled,
-        onValueChange = { useComponent.handle(SearchEvent.OnTextChanged(it)) },
+        onValueChange = { useComponent.handle(SearchEvent(it)) },
         placeholder = {
             BrushedText(
                 text = stringResource(R.string.search),

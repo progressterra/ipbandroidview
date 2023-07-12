@@ -23,7 +23,7 @@ fun CountDown(
         modifier = modifier
             .clip(RoundedCornerShape(14.dp))
             .padding(horizontal = 32.dp, vertical = 15.dp)
-            .niceClickable(enabled = state.enabled) { useComponent.handle(CountdownEvent.Click) },
+            .niceClickable(enabled = state.enabled) { useComponent.handle(CountdownEvent) },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

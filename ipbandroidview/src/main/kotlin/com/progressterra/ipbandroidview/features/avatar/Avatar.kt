@@ -33,7 +33,7 @@ fun Avatar(
             modifier = Modifier
                 .size(64.dp)
                 .clip(CircleShape)
-                .niceClickable { useComponent.handle(AvatarEvent.Click(state.id)) },
+                .niceClickable { useComponent.handle(AvatarEvent(state.id)) },
             url = state.url,
             backgroundColor = IpbTheme.colors.background.asColor()
         )

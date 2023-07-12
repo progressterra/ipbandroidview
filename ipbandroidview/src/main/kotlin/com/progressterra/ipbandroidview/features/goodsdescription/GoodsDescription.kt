@@ -113,7 +113,7 @@ fun GoodsDescription(
                             Spacer(Modifier.width(20.dp))
                             IconButton(
                                 modifier = Modifier.size(24.dp),
-                                onClick = { useComponent.handle(GoodsDescriptionEvent.Share) }) {
+                                onClick = { useComponent.handle(GoodsDescriptionEvent) }) {
                                 BrushedIcon(
                                     resId = R.drawable.ic_share,
                                     tint = IpbTheme.colors.iconTertiary.asBrush()

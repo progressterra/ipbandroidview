@@ -33,7 +33,7 @@ fun PfpPicker(
         Box(modifier = Modifier
             .size(263.dp)
             .clip(CircleShape)
-            .niceClickable { useComponent.handle(PfpPickerEvent.Click) }
+            .niceClickable { useComponent.handle(PfpPickerEvent) }
             .background(IpbTheme.colors.surface.asBrush()), contentAlignment = Alignment.Center) {
             if (state.url == null) {
                 BrushedIcon(

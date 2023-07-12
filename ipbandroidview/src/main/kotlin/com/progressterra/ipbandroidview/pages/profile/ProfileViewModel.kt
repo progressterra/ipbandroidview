@@ -52,9 +52,7 @@ class ProfileViewModel(
 
     override fun handle(event: AuthProfileEvent) {
         intent {
-            when (event) {
-                is AuthProfileEvent.Click -> postSideEffect(ProfileEvent.Details)
-            }
+            postSideEffect(ProfileEvent.Details)
         }
     }
 

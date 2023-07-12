@@ -40,13 +40,7 @@ class BonusesDetailsViewModel(
         }
     }
 
-    override fun handle(event: BonusesEvent) {
-        intent {
-            when (event) {
-                is BonusesEvent.Action -> Unit
-            }
-        }
-    }
+    override fun handle(event: BonusesEvent) = Unit
 
     override fun handle(event: TopBarEvent) {
         intent {

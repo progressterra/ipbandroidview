@@ -44,7 +44,7 @@ fun Interests(
             .border(
                 width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
             )
-            .niceClickable { useComponent.handle(InterestsEvent.Select(itemState.id)) }
+            .niceClickable { useComponent.handle(InterestsEvent(itemState.id)) }
             .padding(horizontal = 16.dp, vertical = 8.dp)) {
             BrushedText(
                 text = itemState.name,

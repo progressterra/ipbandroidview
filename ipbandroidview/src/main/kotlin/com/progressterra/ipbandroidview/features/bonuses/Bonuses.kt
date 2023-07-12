@@ -121,7 +121,7 @@ fun Bonuses(
                             modifier = Modifier
                                 .align(Alignment.CenterEnd)
                                 .zIndex(1f),
-                            onClick = { useComponent.handle(BonusesEvent.Action) },
+                            onClick = { useComponent.handle(BonusesEvent) },
                         ) {
                             BrushedIcon(
                                 resId = R.drawable.ic_arrow,
@@ -174,7 +174,7 @@ fun Bonuses(
                 }
                 IconButton(
                     modifier = Modifier.zIndex(1f),
-                    onClick = { useComponent.handle(BonusesEvent.Action) },
+                    onClick = { useComponent.handle(BonusesEvent) },
                 ) {
                     BrushedIcon(
                         resId = R.drawable.ic_arrow,

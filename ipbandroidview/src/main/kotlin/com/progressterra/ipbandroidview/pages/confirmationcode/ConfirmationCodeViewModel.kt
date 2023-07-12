@@ -62,12 +62,8 @@ class ConfirmationCodeViewModel(
 
     override fun handle(event: CodeEvent) {
         blockingIntent {
-            when (event) {
-                is CodeEvent.Changed -> {
-                    if (event.code.length <= 4) reduce { state.uCode(event.code) }
-                    if (event.code.length == 4) onNext()
-                }
-            }
+            if (event.code.length <= 4) reduce { state.uCode(event.code) }
+            if (event.code.length == 4) onNext()
             state.uNextEnabled(state.code.code.length == 4)
         }
     }
@@ -80,12 +76,8 @@ class ConfirmationCodeViewModel(
 
     override fun handle(event: CountdownEvent) {
         intent {
-            when (event) {
-                is CountdownEvent.Click -> {
-                    startVerificationChannelUseCase(state.code.phone)
-                    startTimer()
-                }
-            }
+            startVerificationChannelUseCase(state.code.phone)
+            startTimer()
         }
     }
 

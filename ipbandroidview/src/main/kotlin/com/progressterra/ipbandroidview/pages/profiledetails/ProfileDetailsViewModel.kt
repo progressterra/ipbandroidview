@@ -51,13 +51,7 @@ class ProfileDetailsViewModel(
         }
     }
 
-    override fun handle(event: AuthProfileEvent) {
-        intent {
-            when (event) {
-                is AuthProfileEvent.Click -> Unit
-            }
-        }
-    }
+    override fun handle(event: AuthProfileEvent) = Unit
 
 
     override fun handle(event: ButtonEvent) {

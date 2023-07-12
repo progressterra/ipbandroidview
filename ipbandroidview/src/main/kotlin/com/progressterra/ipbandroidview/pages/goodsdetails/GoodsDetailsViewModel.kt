@@ -44,9 +44,7 @@ class GoodsDetailsViewModel(
 
     override fun handle(event: ItemGalleryEvent) {
         intent {
-            when (event) {
-                is ItemGalleryEvent.Open -> postSideEffect(GoodsDetailsEvent.OpenImage(event.image))
-            }
+            postSideEffect(GoodsDetailsEvent.OpenImage(event.image))
         }
     }
 
@@ -58,24 +56,16 @@ class GoodsDetailsViewModel(
 
     override fun handle(event: FavoriteButtonEvent) {
         intent {
-            when (event) {
-                is FavoriteButtonEvent.Click -> modifyFavoriteUseCase(
-                    event.id,
-                    !state.description.favoriteButton.favorite
-                ).onSuccess {
-                    reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
-                }
+            modifyFavoriteUseCase(
+                event.id,
+                !state.description.favoriteButton.favorite
+            ).onSuccess {
+                reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
             }
         }
     }
 
-    override fun handle(event: GoodsDescriptionEvent) {
-        intent {
-            when (event) {
-                is GoodsDescriptionEvent.Share -> Unit
-            }
-        }
-    }
+    override fun handle(event: GoodsDescriptionEvent) = Unit
 
     override fun handle(event: StoreCardEvent) {
         intent {

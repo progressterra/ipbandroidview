@@ -31,7 +31,7 @@ fun CatalogCard(
             .width(98.dp)
             .niceClickable {
                 useComponent.handle(
-                    CatalogCardEvent.Open(state)
+                    CatalogCardEvent(state)
                 )
             }, verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {

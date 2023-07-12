@@ -37,7 +37,7 @@ fun LinkText(
                         start = offset,
                         end = offset,
                     ).firstOrNull()?.let {
-                        useComponent.handle(LinkTextEvent.Click(url))
+                        useComponent.handle(LinkTextEvent(url))
                     }
                 }
             }

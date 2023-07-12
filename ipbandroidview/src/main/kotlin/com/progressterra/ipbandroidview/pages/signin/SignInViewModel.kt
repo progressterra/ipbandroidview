@@ -51,9 +51,7 @@ class SignInViewModel(
 
     override fun handle(event: LinkTextEvent) {
         intent {
-            when (event) {
-                is LinkTextEvent.Click -> openUrlUseCase(event.url)
-            }
+            openUrlUseCase(event.url)
         }
     }
 

@@ -16,7 +16,7 @@ fun BrushedSwitch(
         modifier = modifier,
         checked = state.turned,
         enabled = state.enabled,
-        onCheckedChange = { useComponent.handle(BrushedSwitchEvent.Click(state.id)) },
+        onCheckedChange = { useComponent.handle(BrushedSwitchEvent(state.id)) },
         colors = SwitchDefaults.colors(
             checkedThumbColor = IpbTheme.colors.primary.asColor(),
             checkedTrackColor = IpbTheme.colors.background.asColor(),

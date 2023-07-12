@@ -41,24 +41,16 @@ class CatalogViewModel(
 
     override fun handle(event: CatalogCardEvent) {
         intent {
-            when (event) {
-                is CatalogCardEvent.Open -> {
-                    reduce { state.addTrace(event.category).uCategory(event.category) }
-                    uCategory()
-                }
-            }
+            reduce { state.addTrace(event.category).uCategory(event.category) }
+            uCategory()
         }
     }
 
     override fun handle(event: TraceEvent) {
         intent {
-            when (event) {
-                is TraceEvent.Back -> {
-                    reduce { state.removeTrace() }
-                    reduce { state.uCategory(state.trace.trace.last()) }
-                    uCategory()
-                }
-            }
+            reduce { state.removeTrace() }
+            reduce { state.uCategory(state.trace.trace.last()) }
+            uCategory()
         }
     }
 
@@ -98,15 +90,7 @@ class CatalogViewModel(
         }
     }
 
-    override fun handle(event: SearchEvent) {
-        intent {
-            when (event) {
-                is SearchEvent.OnTextChanged -> {
-
-                }
-            }
-        }
-    }
+    override fun handle(event: SearchEvent) = Unit
 
     override fun handle(event: StateBoxEvent) {
         intent {

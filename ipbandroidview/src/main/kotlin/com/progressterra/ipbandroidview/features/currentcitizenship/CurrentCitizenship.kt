@@ -29,7 +29,7 @@ fun CurrentCitizenship(
         .fillMaxWidth()
         .clip(RoundedCornerShape(8.dp))
         .background(IpbTheme.colors.surface.asBrush())
-        .niceClickable { useComponent.handle(CurrentCitizenshipEvent.Click) }
+        .niceClickable { useComponent.handle(CurrentCitizenshipEvent) }
         .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp)) {
         if (state.citizenship == null) {

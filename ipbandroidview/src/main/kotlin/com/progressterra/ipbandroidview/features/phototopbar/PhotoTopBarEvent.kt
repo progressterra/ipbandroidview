@@ -1,2 +1,3 @@
 package com.progressterra.ipbandroidview.features.phototopbar
+
 object PhotoTopBarEvent

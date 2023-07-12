@@ -38,7 +38,7 @@ fun PaymentMethod(
         ) {
             ThemedRadioButton(
                 checked = type == state.selectedPaymentMethod,
-                onClick = { useComponent.handle(PaymentMethodEvent.Select(type)) }
+                onClick = { useComponent.handle(PaymentMethodEvent(type)) }
             )
             BrushedText(
                 text = stringResource(type.paymentName),

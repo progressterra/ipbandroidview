@@ -28,7 +28,7 @@ fun Trace(
             .background(IpbTheme.colors.surface.asColor())
     ) {
         IconButton(modifier = Modifier.align(Alignment.CenterStart),
-            onClick = { useComponent.handle(TraceEvent.Back) }) {
+            onClick = { useComponent.handle(TraceEvent) }) {
             BrushedIcon(
                 resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
             )
