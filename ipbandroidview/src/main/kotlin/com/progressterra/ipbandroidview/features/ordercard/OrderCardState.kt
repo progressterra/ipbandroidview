@@ -15,5 +15,5 @@ data class OrderCardState(
     val imageUrl: String = "",
     val installment: Installment = Installment(),
     val count: Int = 0,
-    val properties: Map<String, String> = emptyMap()
+    val properties: List<Pair<String, String>> = emptyList()
 ) : Parcelable

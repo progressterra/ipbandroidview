@@ -8,6 +8,6 @@ import com.progressterra.processors.IpbSubState
 data class GoodsDescriptionState(
     val name: String = "",
     val description: String = "",
-    val properties: Map<String, String> = emptyMap(),
+    val properties: List<Pair<String, String>> = emptyList(),
     @IpbSubState val favoriteButton: FavoriteButtonState = FavoriteButtonState()
 )

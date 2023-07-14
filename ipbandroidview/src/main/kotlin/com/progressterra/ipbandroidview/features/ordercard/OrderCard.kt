@@ -50,7 +50,7 @@ fun OrderCard(
             )
             state.properties.forEach {
                 BrushedText(
-                    text = "${it.key}: ${it.value}",
+                    text = "${it.first}: ${it.second}",
                     style = IpbTheme.typography.footnoteRegular,
                     tint = IpbTheme.colors.textSecondary.asBrush()
                 )

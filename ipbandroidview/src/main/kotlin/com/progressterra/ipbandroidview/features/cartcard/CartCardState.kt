@@ -14,5 +14,5 @@ data class CartCardState(
     val installment: Installment = Installment(),
     val oldPrice: SimplePrice = SimplePrice(),
     val counter: CounterState = CounterState(),
-    val properties: Map<String, String> = emptyMap()
+    val properties: List<Pair<String, String>> = emptyList()
 )

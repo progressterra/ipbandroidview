@@ -10,7 +10,7 @@ data class GoodsItem(
     val price: SimplePrice = SimplePrice(),
     val imageUrl: String = "",
     val images: List<String> = emptyList(),
-    val properties: Map<String, String> = emptyMap(),
+    val properties: List<Pair<String, String>> = emptyList(),
     val count: Int = 0,
     val description: String = "",
     val installment: Installment = Installment()

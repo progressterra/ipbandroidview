@@ -137,12 +137,12 @@ fun GoodsDescription(
                             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                                 BrushedText(
                                     modifier = Modifier.width(100.dp),
-                                    text = it.key,
+                                    text = it.first,
                                     tint = IpbTheme.colors.textSecondary.asBrush(),
                                     style = IpbTheme.typography.subHeadlineRegular
                                 )
                                 BrushedText(
-                                    text = it.value,
+                                    text = it.second,
                                     tint = IpbTheme.colors.textPrimary.asBrush(),
                                     style = IpbTheme.typography.subHeadlineRegular
                                 )
@@ -188,9 +188,10 @@ fun PreviewGoodsDescription() {
             favoriteButton = FavoriteButtonState(
                 id = "1", enabled = true, favorite = false
             ),
-            properties = mapOf(
+            properties = listOf(
                 "color" to "black",
-                "size" to "M"
+                "size" to "M",
+                "additional info" to "Veeeeeeeeryyyyy long value it is realy very long it even can't be fitted in field"
             )
         ), useComponent = UseGoodsDescription.Empty()
     )

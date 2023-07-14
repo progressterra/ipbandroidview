@@ -69,9 +69,9 @@ fun ProductView.toGoodsItem(): GoodsItem = GoodsItem(
         months = installmentPlanValue?.countMonthPayment ?: 0,
         perMonth = installmentPlanValue?.amountPaymentInMonth?.toSimplePrice() ?: SimplePrice()
     ),
-    properties = listProductCharacteristic?.associate {
+    properties = listProductCharacteristic?.map {
         (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
-    } ?: emptyMap(),
+    } ?: emptyList(),
     count = countInCart ?: 0,
 )
 
