@@ -24,7 +24,6 @@ class MainViewModel(
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val fetchBonusesUseCase: BonusesUseCase,
-    private val fetchOffersUseCase: FetchOffersUseCase,
     private val fetchGalleriesUseCase: FetchGalleriesUseCase
 ) : UseMain, ContainerHost<MainState, MainEvent>, ViewModel() {
 
@@ -36,11 +35,6 @@ class MainViewModel(
             var isSuccess = true
             fetchBonusesUseCase().onSuccess {
                 reduce { state.uBonuses(it) }
-            }.onFailure {
-                isSuccess = false
-            }
-            if (isSuccess) fetchOffersUseCase().onSuccess {
-                reduce { state.uOffers(it) }
             }.onFailure {
                 isSuccess = false
             }

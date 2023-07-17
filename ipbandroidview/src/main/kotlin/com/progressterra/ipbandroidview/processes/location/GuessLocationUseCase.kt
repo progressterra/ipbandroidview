@@ -24,10 +24,9 @@ interface GuessLocationUseCase {
                     count = 3
                 )
             ).getOrThrow()
-            suggestionsResult?.first()?.suggestionExtendedInfo?.convertSuggestionToAddressUIModel(
+            suggestionsResult?.firstOrNull()?.suggestionExtendedInfo?.convertSuggestionToAddressUIModel(
                 Date().format()
-            )
-                ?: AddressUI()
+            ) ?: AddressUI()
         }
     }
 }
