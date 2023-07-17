@@ -146,4 +146,6 @@
     <string name="request_not_fill">Запрос не заполнен</string>
     <string name="payment_error">Произошла ошибка при оплате</string>
     <string name="tracking">Отслеживание</string>
+    <string name="success">Успешно</string>
+    <string name="failure">Неудачно</string>
 </resources>

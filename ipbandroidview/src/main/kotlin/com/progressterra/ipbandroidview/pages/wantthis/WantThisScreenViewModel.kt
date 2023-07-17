@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.wantthis
 
 import android.Manifest
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
@@ -64,7 +65,10 @@ class WantThisScreenViewModel(
         intent {
             when (event.id) {
                 "send" -> createWantThisRequestUseCase(state.toDocument()).onSuccess {
+                    postSideEffect(WantThisScreenEvent.Toast(R.string.success))
                     postSideEffect(WantThisScreenEvent.Back)
+                }.onFailure {
+                    postSideEffect(WantThisScreenEvent.Toast(R.string.failure))
                 }
 
                 "cancel" -> postSideEffect(WantThisScreenEvent.Back)
