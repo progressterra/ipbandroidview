@@ -41,6 +41,8 @@ interface OrdersUseCase {
                         .getOrThrow()
                         ?.toGoodsItem()
                         ?.toOrderCardState()?.copy(
+                            oldPrice = (dr.amountBeginPrice?.toSimplePrice()
+                                ?: SimplePrice()) * (dr.quantity ?: 0),
                             count = dr.quantity ?: 0,
                             price = (dr.amountEndPrice?.toSimplePrice()
                                 ?: SimplePrice()) * (dr.quantity ?: 0)

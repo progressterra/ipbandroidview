@@ -23,10 +23,12 @@ interface FetchGalleriesUseCase {
             IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES.map {
                 val goods = goodsUseCase(GoodsFilter(categoryId = it)).getOrThrow()
                 val category = productRepository.category(token, it).getOrThrow()
-                GalleriesState(
+                val result = GalleriesState(
                     items = goods,
                     title = category?.name ?: ""
                 )
+                log(result)
+                result
             }
         }
     }
