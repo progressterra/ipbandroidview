@@ -7,6 +7,7 @@ data class GoodsItem(
     override val id: String = "",
     val categoryId: String = "",
     val name: String = "",
+    val oldPrice: SimplePrice = SimplePrice(),
     val price: SimplePrice = SimplePrice(),
     val imageUrl: String = "",
     val images: List<String> = emptyList(),

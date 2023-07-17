@@ -47,6 +47,7 @@ interface GoodsDetailsUseCase {
                 gallery = ItemGalleryState(images = goods.images),
                 name = goods.name,
                 buyGoods = BuyGoodsState(
+                    oldPrice = goods.oldPrice,
                     price = goods.price,
                     installment = goods.installment
                 ),

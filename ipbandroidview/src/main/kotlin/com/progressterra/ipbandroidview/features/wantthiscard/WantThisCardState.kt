@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 data class WantThisCardState(
     override val id: String = "",
     val image: String = "",
+    val oldPrice: SimplePrice = SimplePrice(),
     val price: SimplePrice = SimplePrice(),
     val counter: CounterState = CounterState(),
     val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,

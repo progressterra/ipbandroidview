@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview
 
-import com.progressterra.ipbandroidview.shared.theme.ProjectType
-
 object IpbAndroidViewSettings {
 
     var TEST_MODE = false
@@ -10,7 +8,6 @@ object IpbAndroidViewSettings {
 
     var MAIN_SCREEN_CATEGORIES: List<String> = emptyList()
 
-    var PROJECT_TYPE: ProjectType = ProjectType.REDI
 
     var PRIVACY_URL: String = ""
 

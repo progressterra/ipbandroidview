@@ -15,10 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.theme.ProjectType
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
@@ -76,15 +74,29 @@ fun WantThisCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(
-                    modifier = Modifier.width(80.dp),
+                    modifier = Modifier.width(if (state.counter.isEmpty()) 130.dp else 80.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    BrushedText(
-                        text = state.price.toString(),
-                        style = IpbTheme.typography.subHeadlineRegular,
-                        tint = IpbTheme.colors.textPrimary2.asBrush(),
-                    )
-                    if (IpbAndroidViewSettings.PROJECT_TYPE == ProjectType.REDI) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        BrushedText(
+                            text = state.oldPrice.toString(),
+                            style = IpbTheme.typography.body2,
+                            tint = IpbTheme.colors.textTertiary.asBrush(),
+                        )
+                        BrushedText(
+                            text = stringResource(id = R.string.price_for_you),
+                            style = IpbTheme.typography.footnoteRegular,
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
+                        )
+                        BrushedText(
+                            text = state.price.toString(),
+                            style = IpbTheme.typography.subHeadlineRegular,
+                            tint = IpbTheme.colors.textPrimary2.asBrush(),
+                        )
+                    }
+                    if (!state.installment.isEmpty()) {
                         BrushedText(
                             text = "(${stringResource(R.string.installment)}: ${
                                 state.installment.months
@@ -95,9 +107,11 @@ fun WantThisCard(
                     }
                 }
                 if (state.counter.isEmpty()) {
-                    IconButton(onClick = {
-                        useComponent.handle(WantThisCardEvent(state.id))
-                    }) {
+                    IconButton(
+                        modifier = Modifier.size(26.dp),
+                        onClick = {
+                            useComponent.handle(WantThisCardEvent(state.id))
+                        }) {
                         BrushedIcon(
                             resId = R.drawable.ic_cart, tint = IpbTheme.colors.iconPrimary.asBrush()
                         )

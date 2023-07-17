@@ -64,6 +64,7 @@ fun ProductView.toGoodsItem(): GoodsItem = GoodsItem(
     description = nomenclature?.commerseDescription ?: "",
     images = nomenclature?.listImages?.map { it.urlData!! } ?: emptyList(),
     imageUrl = nomenclature?.listImages?.first()?.urlData ?: "",
+    oldPrice = inventoryData?.beginPrice?.toSimplePrice() ?: SimplePrice(),
     price = inventoryData?.currentPrice?.toSimplePrice() ?: SimplePrice(),
     installment = Installment(
         months = installmentPlanValue?.countMonthPayment ?: 0,
@@ -78,6 +79,7 @@ fun ProductView.toGoodsItem(): GoodsItem = GoodsItem(
 fun GoodsItem.toCartCardState(): CartCardState = CartCardState(
     id = id,
     name = name,
+    oldPrice = oldPrice,
     price = price,
     imageUrl = imageUrl,
     installment = installment,
@@ -90,6 +92,7 @@ fun GoodsItem.toCartCardState(): CartCardState = CartCardState(
 fun GoodsItem.toStoreCardState(): StoreCardState = StoreCardState(
     id = id,
     name = name,
+    oldPrice = oldPrice,
     price = price,
     imageUrl = imageUrl,
     installment = installment,
@@ -101,6 +104,7 @@ fun GoodsItem.toStoreCardState(): StoreCardState = StoreCardState(
 fun GoodsItem.toOrderCardState(): OrderCardState = OrderCardState(
     id = id,
     name = name,
+    oldPrice = oldPrice * count,
     price = price * count,
     imageUrl = imageUrl,
     installment = installment,
@@ -439,18 +443,13 @@ fun GoodsItem.toWantThisCardState() = WantThisCardState(
     id = id,
     image = imageUrl,
     price = price,
+    oldPrice = oldPrice,
     installment = installment,
     counter = CounterState(
         id = id, count = count
     ),
     status = TypeStatusDoc.CONFIRMED,
     name = name
-)
-
-fun GoodsItem.toReceiptItems() = ReceiptState.Item(
-    name = name,
-    price = price,
-    quantity = count
 )
 
 fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(

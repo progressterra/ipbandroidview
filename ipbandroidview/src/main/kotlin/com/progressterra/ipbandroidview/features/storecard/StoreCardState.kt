@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 data class StoreCardState(
     val id: String = "",
     val name: String = "",
+    val oldPrice: SimplePrice = SimplePrice(),
     val price: SimplePrice = SimplePrice(),
     val imageUrl: String = "",
     val installment: Installment = Installment(),

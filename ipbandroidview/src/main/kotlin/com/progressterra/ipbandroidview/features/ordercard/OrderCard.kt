@@ -56,11 +56,25 @@ fun OrderCard(
                 )
             }
             if (state.installment.isEmpty()) {
-                BrushedText(
-                    text = state.price.toString(),
-                    style = IpbTheme.typography.subHeadlineRegular,
-                    tint = IpbTheme.colors.textPrimary2.asBrush(),
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    BrushedText(
+                        text = state.oldPrice.toString(),
+                        style = IpbTheme.typography.body2,
+                        tint = IpbTheme.colors.textTertiary.asBrush(),
+                    )
+                    BrushedText(
+                        text = stringResource(id = R.string.price_for_you),
+                        style = IpbTheme.typography.footnoteRegular,
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
+                    )
+                    BrushedText(
+                        text = state.price.toString(),
+                        style = IpbTheme.typography.subHeadlineRegular,
+                        tint = IpbTheme.colors.textPrimary2.asBrush(),
+                    )
+                }
             } else {
                 BrushedText(
                     text = "${stringResource(R.string.po)} ${state.installment.perMonth} ${
@@ -86,6 +100,7 @@ private fun CartCardPreview() {
         OrderCard(
             state = OrderCardState(
                 name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
+                oldPrice = SimplePrice(10000),
                 price = SimplePrice(1000)
             ), useComponent = UseOrderCard.Empty()
         )

@@ -33,11 +33,25 @@ fun BuyGoods(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            BrushedText(
-                text = state.price.toString(),
-                style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textPrimary.asBrush()
-            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                BrushedText(
+                    text = state.oldPrice.toString(),
+                    style = IpbTheme.typography.title2,
+                    tint = IpbTheme.colors.textTertiary.asBrush(),
+                )
+                BrushedText(
+                    text = stringResource(id = R.string.price_for_you),
+                    style = IpbTheme.typography.footnoteRegular,
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
+                )
+                BrushedText(
+                    text = state.price.toString(),
+                    style = IpbTheme.typography.title,
+                    tint = IpbTheme.colors.textPrimary2.asBrush(),
+                )
+            }
             Button(
                 modifier = Modifier.weight(1f),
                 state = state.buy,
@@ -45,24 +59,26 @@ fun BuyGoods(
                 title = stringResource(R.string.add_to_cart)
             )
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
-        ) {
-            BrushedText(
-                modifier = Modifier.widthIn(max = 100.dp),
-                text = "(${stringResource(R.string.installment)}: ${
-                    state.installment.months
-                } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
-                style = IpbTheme.typography.body,
-                tint = IpbTheme.colors.textPrimary.asBrush()
-            )
-            OutlineButton(
-                modifier = Modifier.weight(1f),
-                state = state.buyInstallment,
-                useComponent = useComponent,
-                title = stringResource(R.string.buy_with_installment)
-            )
+        if (!state.installment.isEmpty()) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                BrushedText(
+                    modifier = Modifier.widthIn(max = 100.dp),
+                    text = "(${stringResource(R.string.installment)}: ${
+                        state.installment.months
+                    } ${stringResource(R.string.payments)} ${stringResource(R.string.po)} ${state.installment.perMonth}",
+                    style = IpbTheme.typography.body,
+                    tint = IpbTheme.colors.textPrimary.asBrush()
+                )
+                OutlineButton(
+                    modifier = Modifier.weight(1f),
+                    state = state.buyInstallment,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.buy_with_installment)
+                )
+            }
         }
     }
 }

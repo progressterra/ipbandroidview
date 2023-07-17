@@ -8,6 +8,7 @@ import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class BuyGoodsState(
+    val oldPrice: SimplePrice = SimplePrice(),
     val price: SimplePrice = SimplePrice(),
     val installment: Installment = Installment(),
     @IpbSubState val buy: ButtonState = ButtonState(
