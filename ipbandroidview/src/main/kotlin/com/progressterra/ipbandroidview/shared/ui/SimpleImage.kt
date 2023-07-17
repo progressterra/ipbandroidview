@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.shared.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,13 +32,17 @@ fun SimpleImage(
             )
         },
         failure = {
-            BrushedText(
-                modifier = Modifier.align(Alignment.Center),
-                text = stringResource(id = R.string.image_missing),
-                tint = IpbTheme.colors.error.asBrush(),
-                style = IpbTheme.typography.body,
-                textAlign = TextAlign.Center
-            )
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                BrushedText(
+                    text = stringResource(id = R.string.image_missing),
+                    tint = IpbTheme.colors.error.asBrush(),
+                    style = IpbTheme.typography.body,
+                    textAlign = TextAlign.Center
+                )
+            }
         }, loading = {
             ThemedLoadingIndicator(modifier = Modifier.align(Alignment.Center))
         },
