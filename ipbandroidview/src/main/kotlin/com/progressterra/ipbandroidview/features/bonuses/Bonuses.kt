@@ -121,7 +121,7 @@ fun Bonuses(
                 ) {
                     BrushedIcon(
                         resId = R.drawable.ic_arrow,
-                        tint = IpbTheme.colors.iconPrimary.asBrush(),
+                        tint = IpbTheme.colors.primary.asBrush(),
                     )
                 }
             }

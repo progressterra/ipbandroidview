@@ -12,7 +12,6 @@ import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface FavoriteGoodsUseCase {
-    //todo maybe wrong id
 
     suspend operator fun invoke(): Result<List<StoreCardState>>
 
@@ -29,7 +28,7 @@ interface FavoriteGoodsUseCase {
             ).getOrThrow()!!
             buildList {
                 favoriteIds.map { favoriteId ->
-                    val goods = productRepository.productByGoodsInventoryId(
+                    val goods = productRepository.productByNomenclatureId(
                         token,
                         favoriteId
                     ).getOrThrow()!!.toGoodsItem().toStoreCardState()

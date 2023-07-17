@@ -35,11 +35,11 @@ fun AuthOrSkip(
             title = stringResource(R.string.auth_button),
             useComponent = useComponent
         )
-        TextButton(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.skip,
-            title = stringResource(R.string.auth_skip_button),
-            useComponent = useComponent
-        )
+//        TextButton(
+//            modifier = Modifier.fillMaxWidth(),
+//            state = state.skip,
+//            title = stringResource(R.string.auth_skip_button),
+//            useComponent = useComponent
+//        )
     }
 }

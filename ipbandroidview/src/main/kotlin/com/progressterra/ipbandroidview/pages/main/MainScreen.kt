@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.pages.main
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,15 +20,16 @@ fun MainScreen(
         StateBox(
             state = state.stateBox, useComponent = useComponent
         ) {
-            Column(
-                modifier = Modifier.verticalScroll(rememberScrollState()),
+            LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
-                Bonuses(
-                    modifier = Modifier.padding(horizontal = 20.dp),
-                    state = state.bonuses, useComponent = useComponent
-                )
-                state.recommended.forEach {
+                item {
+                    Bonuses(
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                        state = state.bonuses, useComponent = useComponent
+                    )
+                }
+                items(state.recommended) {
                     Galleries(
                         state = it, useComponent = useComponent
                     )
