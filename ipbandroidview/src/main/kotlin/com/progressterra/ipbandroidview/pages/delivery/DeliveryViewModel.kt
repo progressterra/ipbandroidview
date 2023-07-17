@@ -32,12 +32,9 @@ class DeliveryViewModel(
             reduce { state.uScreenState(ScreenState.LOADING) }
             fetchShippingAddressUseCase().onSuccess {
                 reduce { state.uScreenState(ScreenState.SUCCESS) }
-                reduce {
-                    if (UserData.shippingAddress.isEmpty()) {
-                        state.uCommentaryText("")
-                    } else {
+                if (!UserData.shippingAddress.isEmpty()) {
+                    reduce {
                         state.uDeliveryPickerAddressText(UserData.shippingAddress.printAddress())
-                            .uCommentaryText("")
                             .uAddress(UserData.shippingAddress)
                     }
                 }
@@ -64,10 +61,7 @@ class DeliveryViewModel(
             when (event.id) {
                 "confirm" -> {
                     var isSuccess = true
-                    addDeliveryToCartUseCase(
-                        address = state.address,
-                        suggestionUI = state.suggestion
-                    ).onFailure {
+                    addDeliveryToCartUseCase(state.suggestion).onFailure {
                         isSuccess = false
                     }
                     commentUseCase(state.commentary.text).onFailure {
@@ -122,11 +116,7 @@ class DeliveryViewModel(
 
     private fun checkValid() {
         intent {
-            if (state.address != null || state.suggestion != null) {
-                reduce { state.uConfirmEnabled(true) }
-            } else {
-                reduce { state.uConfirmEnabled(false) }
-            }
+            reduce { state.uConfirmEnabled(state.address != null || state.suggestion != null) }
         }
     }
 }
