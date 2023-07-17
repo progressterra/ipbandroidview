@@ -1,3 +1,0 @@
-package com.progressterra.ipbandroidview.features.goodsdescription
-
-object GoodsDescriptionEvent

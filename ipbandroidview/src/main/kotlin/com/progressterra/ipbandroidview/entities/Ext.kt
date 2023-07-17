@@ -72,7 +72,7 @@ fun ProductView.toGoodsItem(): GoodsItem = GoodsItem(
     properties = listProductCharacteristic?.map {
         (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
     } ?: emptyList(),
-    count = countInCart ?: 0,
+    count = countInCart ?: 0
 )
 
 fun GoodsItem.toCartCardState(): CartCardState = CartCardState(

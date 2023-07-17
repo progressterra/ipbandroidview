@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -110,15 +109,6 @@ fun GoodsDescription(
                             FavoriteButton(
                                 state = state.favoriteButton, useComponent = useComponent
                             )
-                            Spacer(Modifier.width(20.dp))
-                            IconButton(
-                                modifier = Modifier.size(24.dp),
-                                onClick = { useComponent.handle(GoodsDescriptionEvent) }) {
-                                BrushedIcon(
-                                    resId = R.drawable.ic_share,
-                                    tint = IpbTheme.colors.iconTertiary.asBrush()
-                                )
-                            }
                         }
                         BrushedText(
                             text = state.description,

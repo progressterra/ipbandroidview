@@ -5,12 +5,8 @@ import com.progressterra.ipbandroidview.features.favoritebutton.UseFavoriteButto
 
 interface UseGoodsDescription : UseFavoriteButton {
 
-    fun handle(event: GoodsDescriptionEvent)
-
     class Empty : UseGoodsDescription {
 
         override fun handle(event: FavoriteButtonEvent) = Unit
-
-        override fun handle(event: GoodsDescriptionEvent) = Unit
     }
 }

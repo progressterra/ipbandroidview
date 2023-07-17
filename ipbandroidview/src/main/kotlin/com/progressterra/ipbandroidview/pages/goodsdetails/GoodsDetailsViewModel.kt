@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonEvent
-import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionEvent
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
@@ -60,12 +60,13 @@ class GoodsDetailsViewModel(
                 event.id,
                 !state.description.favoriteButton.favorite
             ).onSuccess {
+                postSideEffect(GoodsDetailsEvent.Toast(R.string.success))
                 reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
+            }.onFailure {
+                postSideEffect(GoodsDetailsEvent.Toast(R.string.failure))
             }
         }
     }
-
-    override fun handle(event: GoodsDescriptionEvent) = Unit
 
     override fun handle(event: StoreCardEvent) {
         intent {
