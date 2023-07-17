@@ -11,11 +11,9 @@ data class IpbColors(
     val primary: ColorUnit = ColorUnit(listOf("#35C290", "#2E9399")),
     val secondary: ColorUnit = ColorUnit(listOf("#3E4555")),
     val secondary2: ColorUnit = ColorUnit(listOf("#CDCDD6")),
-    val secondary3: ColorUnit = ColorUnit(listOf("#DCE8FF", "#FFFFFF")),
     val tertiary: ColorUnit = ColorUnit(listOf("#B5B5BC")),
     val background: ColorUnit = ColorUnit(listOf("#F2F5FF")),
     val onBackground: ColorUnit = ColorUnit(listOf("#2E8E6C")),
-    val onBackground2: ColorUnit = ColorUnit(listOf("#1A1A20")),
     val surface: ColorUnit = ColorUnit(listOf("#FFFFFF")),
     val surface2: ColorUnit = ColorUnit(listOf("#111111")),
     val onSurface: ColorUnit = ColorUnit(listOf("#FFFFFF")),
@@ -31,7 +29,6 @@ data class IpbColors(
     // Text
     val textPrimary: ColorUnit = ColorUnit(listOf("#111111")),
     val textPrimary2: ColorUnit = ColorUnit(listOf("#E82741")),
-    val textPrimary3: ColorUnit = ColorUnit(listOf("#35C290", "#2E9399")),
     val textSecondary: ColorUnit = ColorUnit(listOf("#6E7289")),
     val textTertiary: ColorUnit = ColorUnit(listOf("#9191A1")),
     val textTertiary2: ColorUnit = ColorUnit(listOf("#453896")),
@@ -43,16 +40,13 @@ data class IpbColors(
     // Icons
     val iconPrimary: ColorUnit = ColorUnit(listOf("#111111")),
     val iconPrimary2: ColorUnit = ColorUnit(listOf("#E82741")),
-    val iconPrimary3: ColorUnit = ColorUnit(listOf("#35C290", "#2E9399")),
     val iconSecondary: ColorUnit = ColorUnit(listOf("#FFFFFF")),
     val iconTertiary: ColorUnit = ColorUnit(listOf("#B5B5BC")),
     val iconTertiary2: ColorUnit = ColorUnit(listOf("#4578DC", "#453896")),
     val iconTertiary3: ColorUnit = ColorUnit(listOf("#B2FF75", "#28AB13")),
     val iconTertiary4: ColorUnit = ColorUnit(listOf("#F6E651", "#B80707")),
-    val iconTertiary5: ColorUnit = ColorUnit(listOf("#1A1A20")),
     val iconPressed: ColorUnit = ColorUnit(listOf("#0F1215")),
-    val iconDisabled: ColorUnit = ColorUnit(listOf("#B5B5B5")),
-    val iconDisabled2: ColorUnit = ColorUnit(listOf("#EDF1FF"))
+    val iconDisabled: ColorUnit = ColorUnit(listOf("#B5B5B5"))
 ) : Copyable<IpbColors> {
 
     override fun copy(key: String, values: List<String>): IpbColors {

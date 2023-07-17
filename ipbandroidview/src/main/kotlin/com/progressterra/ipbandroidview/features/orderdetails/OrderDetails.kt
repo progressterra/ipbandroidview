@@ -96,7 +96,7 @@ fun OrderDetails(
                 )
                 BrushedText(
                     text = state.totalPrice.toString(),
-                    tint = IpbTheme.colors.textPrimary3.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body
                 )
             }

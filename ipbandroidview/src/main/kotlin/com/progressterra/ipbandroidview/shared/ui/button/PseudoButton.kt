@@ -46,7 +46,7 @@ fun PseudoButton(
         )
         BrushedIcon(
             resId = icId,
-            tint = IpbTheme.colors.iconPrimary3.asBrush()
+            tint = IpbTheme.colors.iconPrimary.asBrush()
         )
     }
 }

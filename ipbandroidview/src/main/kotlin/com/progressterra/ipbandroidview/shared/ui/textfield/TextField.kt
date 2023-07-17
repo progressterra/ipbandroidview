@@ -89,7 +89,7 @@ fun TextField(
                 }) {
                     BrushedIcon(
                         resId = it,
-                        tint = if (focused) IpbTheme.colors.iconPrimary3.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
+                        tint = if (focused) IpbTheme.colors.iconPrimary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
                     )
                 }
             }

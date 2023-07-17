@@ -121,7 +121,7 @@ fun Bonuses(
                 ) {
                     BrushedIcon(
                         resId = R.drawable.ic_arrow,
-                        tint = IpbTheme.colors.iconPrimary3.asBrush(),
+                        tint = IpbTheme.colors.iconPrimary.asBrush(),
                     )
                 }
             }
@@ -172,7 +172,7 @@ fun Bonuses(
 //                ) {
 //                    BrushedIcon(
 //                        resId = R.drawable.ic_arrow,
-//                        tint = IpbTheme.colors.iconPrimary3.asBrush(),
+//                        tint = IpbTheme.colors.iconPrimary.asBrush(),
 //                    )
 //                }
 //            }

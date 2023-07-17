@@ -70,7 +70,7 @@ fun DocumentPhoto(
             ) {
                 BrushedIcon(
                     resId = R.drawable.ic_camera,
-                    tint = if (state.enabled) IpbTheme.colors.iconPrimary3.asBrush() else IpbTheme.colors.textDisabled.asBrush()
+                    tint = if (state.enabled) IpbTheme.colors.iconPrimary.asBrush() else IpbTheme.colors.textDisabled.asBrush()
                 )
             }
         }

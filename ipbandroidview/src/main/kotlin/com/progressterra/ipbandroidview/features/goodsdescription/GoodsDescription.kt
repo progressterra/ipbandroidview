@@ -153,7 +153,7 @@ fun GoodsDescription(
                             BrushedIcon(
                                 modifier = Modifier.size(45.dp),
                                 resId = R.drawable.ic_courier,
-                                tint = IpbTheme.colors.iconPrimary3.asBrush()
+                                tint = IpbTheme.colors.iconPrimary.asBrush()
                             )
                             BrushedText(
                                 text = stringResource(R.string.courier_delivery),

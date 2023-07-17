@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
 @Immutable
@@ -15,22 +16,22 @@ data class IpbTypography(
         fontSize = 20.sp, fontWeight = FontWeight.Bold, lineHeight = 24.sp
     ),
     val title2: TextStyle = TextStyle(
-        fontSize = 20.sp, fontWeight = FontWeight.Bold, lineHeight = 24.sp
-    ),
-    val body: TextStyle = TextStyle(
-        fontSize = 17.sp, fontWeight = FontWeight.Normal, lineHeight = 20.4.sp
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Bold,
+        lineHeight = 24.sp,
+        textDecoration = TextDecoration.LineThrough
     ),
     val headline: TextStyle = TextStyle(
         fontSize = 17.sp, fontWeight = FontWeight.Bold, lineHeight = 20.4.sp
     ),
-    val caption: TextStyle = TextStyle(
-        fontSize = 10.sp,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 12.sp,
-        letterSpacing = (-0.2).sp
+    val body: TextStyle = TextStyle(
+        fontSize = 17.sp, fontWeight = FontWeight.Normal, lineHeight = 20.4.sp
     ),
     val body2: TextStyle = TextStyle(
-        fontSize = 17.sp, fontWeight = FontWeight.Normal, lineHeight = 20.4.sp
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Normal,
+        lineHeight = 20.4.sp,
+        textDecoration = TextDecoration.LineThrough
     ),
     val subHeadlineRegular: TextStyle = TextStyle(
         fontSize = 15.sp, fontWeight = FontWeight.Normal, lineHeight = 18.sp
@@ -41,13 +42,16 @@ data class IpbTypography(
     val subHeadlineBold: TextStyle = subHeadlineRegular.copy(
         fontWeight = FontWeight.Bold
     ),
-    val subHeadlineExtraBold: TextStyle = subHeadlineRegular.copy(
-        fontWeight = FontWeight.ExtraBold
-    ),
     val footnoteRegular: TextStyle = TextStyle(
         fontSize = 13.sp, fontWeight = FontWeight.Normal, lineHeight = 15.6.sp
     ),
     val footnoteBold: TextStyle = footnoteRegular.copy(
         fontWeight = FontWeight.Bold
     ),
+    val caption: TextStyle = TextStyle(
+        fontSize = 10.sp,
+        fontWeight = FontWeight.Bold,
+        lineHeight = 12.sp,
+        letterSpacing = (-0.2).sp
+    )
 )

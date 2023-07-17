@@ -51,7 +51,7 @@ fun Trace(
                     if (index != state.trace.lastIndex) {
                         BrushedIcon(
                             resId = R.drawable.ic_forw,
-                            tint = IpbTheme.colors.iconPrimary3.asBrush()
+                            tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
                     }
                 }
