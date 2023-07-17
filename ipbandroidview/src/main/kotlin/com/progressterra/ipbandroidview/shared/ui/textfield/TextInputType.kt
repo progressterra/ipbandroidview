@@ -38,7 +38,7 @@ enum class TextInputType {
     }
 
     fun toAllowedChars() = when (this) {
-        PHONE_NUMBER -> 11
+        PHONE_NUMBER -> 10
         DATE -> 8
         else -> Int.MAX_VALUE
     }

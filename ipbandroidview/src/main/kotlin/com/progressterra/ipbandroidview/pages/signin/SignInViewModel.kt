@@ -7,7 +7,6 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
-import com.progressterra.ipbandroidview.shared.isTestPhoneNumber
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
@@ -63,14 +62,10 @@ class SignInViewModel(
                 is TextFieldEvent.TextChanged -> when (event.id) {
                     "phone" -> {
                         if (event.text.length <= 11) {
-                            val valid =
-                                event.text.isRussianPhoneNumber() || event.text.isTestPhoneNumber()
-                            if (event.text.length == 1 && event.text.first() == '8') {
-                                reduce { state.uPhoneText("7") }
-                            } else {
-                                reduce { state.uPhoneText(event.text) }
+                            val valid = event.text.isRussianPhoneNumber()
+                            reduce {
+                                state.uPhoneText(event.text).uPhoneValid(valid).uAuthButton(valid)
                             }
-                            reduce { state.uPhoneValid(valid).uAuthButton(valid) }
                         }
                     }
                 }
@@ -88,7 +83,7 @@ class SignInViewModel(
 
     private fun onNext() {
         intent {
-            startVerificationChannelUseCase(state.phone.text).onSuccess {
+            startVerificationChannelUseCase(state.phone.formatByType()).onSuccess {
                 postSideEffect(SignInEffect.Next(it))
             }.onFailure {
                 postSideEffect(SignInEffect.Toast(R.string.wrong_phone))

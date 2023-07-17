@@ -24,6 +24,7 @@ data class TextFieldState(
 
     fun formatByType() = when (type) {
         TextInputType.DATE -> text.toDate()
+        TextInputType.PHONE_NUMBER -> "7$text"
         else -> text
     }
 }
