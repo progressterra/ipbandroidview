@@ -62,8 +62,7 @@ private fun CatalogScreenPreview() {
                 trace = TraceState(trace = listOf()),
                 stateBox = ScreenState.SUCCESS,
                 search = SearchState(
-                    text = "aliquam",
-                    enabled = false
+                    text = "aliquam"
                 ),
                 current = CatalogCardState(
                     id = "liber",

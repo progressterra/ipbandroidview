@@ -90,11 +90,20 @@ class CatalogViewModel(
         }
     }
 
-    override fun handle(event: SearchEvent) = Unit
+    override fun handle(event: SearchEvent) {
+        intent {
+            reduce { state.uSearchText(event.text) }
+            if (state.search.text.isNotEmpty()) {
+                goodsUseCase(GoodsFilter(search = state.search.text)).onSuccess {
+                    reduce { state.uGoods(it) }
+                }
+            } else {
+                reduce { state.uGoods(emptyFlow()) }
+            }
+        }
+    }
 
     override fun handle(event: StateBoxEvent) {
-        intent {
-            refresh()
-        }
+        intent { refresh() }
     }
 }

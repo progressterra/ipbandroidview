@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidapi.api.product.models.FieldForFilter
 import com.progressterra.ipbandroidapi.api.product.models.FilterAndSort
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
+import com.progressterra.ipbandroidview.shared.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 
 interface GoodsUseCase {
@@ -19,7 +20,7 @@ interface GoodsUseCase {
 
         override suspend fun invoke(filter: GoodsFilter): Result<Flow<PagingData<StoreCardState>>> =
             runCatching {
-                Pager(PagingConfig(10)) {
+                Pager(PagingConfig(PAGE_SIZE)) {
                     GoodsSource(
                         fetchGoodsPage = fetchGoodsPage, filterAndSort = FilterAndSort(
                             listFields = buildList {

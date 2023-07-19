@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.catalog
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.search.SearchState
+import com.progressterra.ipbandroidview.features.search.uText
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.trace.TraceState
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -16,6 +17,8 @@ data class CatalogState(
     val current: CatalogCardState = CatalogCardState(),
     val goods: StoreItemsState.Flowed = StoreItemsState.Flowed()
 ) {
+
+    fun uSearchText(newText: String) = copy(search = search.uText(newText))
 
     fun uScreenState(screenState: ScreenState) = copy(stateBox = screenState)
 
