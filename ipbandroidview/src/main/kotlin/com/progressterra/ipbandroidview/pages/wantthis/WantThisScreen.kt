@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +27,7 @@ import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -42,62 +41,63 @@ fun WantThisScreen(
             showBackButton = true
         )
     }) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.screen, useComponent = useComponent
         ) {
-            Column(
-                modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp)
-            ) {
-                ProfileButton(
-                    state = state.requests,
-                    useComponent = useComponent,
-                    title = stringResource(R.string.past_requests)
+            ProfileButton(
+                modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp),
+                state = state.requests,
+                useComponent = useComponent,
+                title = stringResource(R.string.past_requests)
+            )
+            state.photo?.let {
+                Spacer(modifier = Modifier.height(20.dp))
+                DocumentPhoto(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    state = it,
+                    useComponent = useComponent
                 )
-                state.photo?.let {
-                    Spacer(modifier = Modifier.height(20.dp))
-                    DocumentPhoto(
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            LazyColumn(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                items(state.entries) {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
                         state = it,
                         useComponent = useComponent
                     )
                 }
-                Spacer(modifier = Modifier.weight(1f))
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    items(state.entries) {
-                        TextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            state = it,
-                            useComponent = useComponent
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(40.dp))
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    val density = LocalDensity.current
-                    var height by remember { mutableStateOf(0.dp) }
-                    Button(
-                        modifier = Modifier
-                            .weight(1f)
-                            .onGloballyPositioned {
-                                height = with(density) { it.size.height.toDp() }
-                            },
-                        state = state.send,
-                        useComponent = useComponent,
-                        title = stringResource(R.string.send_request)
-                    )
-                    Button(
-                        modifier = Modifier.weight(1f).height(height),
-                        state = state.cancel,
-                        useComponent = useComponent,
-                        title = stringResource(R.string.cancel)
-                    )
-                }
-                Spacer(modifier = Modifier.height(40.dp))
-
             }
+            Spacer(modifier = Modifier.height(40.dp))
+            Row(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
+                val density = LocalDensity.current
+                var height by remember { mutableStateOf(0.dp) }
+                Button(
+                    modifier = Modifier
+                        .weight(1f)
+                        .onGloballyPositioned {
+                            height = with(density) { it.size.height.toDp() }
+                        },
+                    state = state.send,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.send_request)
+                )
+                Button(
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(height),
+                    state = state.cancel,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.cancel)
+                )
+            }
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }

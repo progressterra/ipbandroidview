@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
 fun InterestsScreen(
@@ -51,23 +51,21 @@ fun InterestsScreen(
             )
         }
     }) { _, _ ->
-        StateBox(
-            state = state.screen, useComponent = useComponent
+        StateColumn(
+            state = state.screen, useComponent = useComponent,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Column(
+            BrushedText(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 36.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                BrushedText(
-                    text = stringResource(R.string.choose_interests),
-                    style = IpbTheme.typography.body,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                    textAlign = TextAlign.Center
-                )
-                InterestsPicker(
-                    state = state.interests, useComponent = useComponent
-                )
-            }
+                text = stringResource(R.string.choose_interests),
+                style = IpbTheme.typography.body,
+                tint = IpbTheme.colors.textPrimary.asBrush(),
+                textAlign = TextAlign.Center
+            )
+            InterestsPicker(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                state = state.interests, useComponent = useComponent
+            )
         }
     }
 }

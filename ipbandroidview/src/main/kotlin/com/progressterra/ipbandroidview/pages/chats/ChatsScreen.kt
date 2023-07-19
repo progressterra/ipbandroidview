@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.chats
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,7 +14,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.chats.Chats
 import com.progressterra.ipbandroidview.widgets.chats.ChatsState
 
@@ -33,21 +32,20 @@ fun ChatsScreen(
             )
         }
     ) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.screen,
-            useComponent = useComponent
+            useComponent = useComponent,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Search(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    state = state.search,
-                    useComponent = useComponent
-                )
-                Chats(
-                    state = state.chats,
-                    useComponent = useComponent
-                )
-            }
+            Search(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                state = state.search,
+                useComponent = useComponent
+            )
+            Chats(
+                state = state.chats,
+                useComponent = useComponent
+            )
         }
     }
 }

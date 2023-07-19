@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 
 @Composable
@@ -21,7 +21,7 @@ fun FavoritesScreen(
             showBackButton = true
         )
     }) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.stateBox,
             useComponent = useComponent
         ) {

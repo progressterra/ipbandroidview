@@ -23,7 +23,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
 fun AvatarPickerScreen(
@@ -54,23 +54,22 @@ fun AvatarPickerScreen(
             )
         }
     }) { _, _ ->
-        StateBox(
-            state = state.screen, useComponent = useComponent
+        StateColumn(
+            state = state.screen, useComponent = useComponent,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Spacer(modifier = Modifier.height(36.dp))
-                BrushedText(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    text = stringResource(R.string.avatar_picker_desc),
-                    style = IpbTheme.typography.body,
-                    textAlign = TextAlign.Center,
-                    tint = IpbTheme.colors.textPrimary.asBrush()
-                )
-                Spacer(modifier = Modifier.height(25.dp))
-                AvatarPicker(
-                    state = state.avatars, useComponent = useComponent
-                )
-            }
+            Spacer(modifier = Modifier.height(36.dp))
+            BrushedText(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                text = stringResource(R.string.avatar_picker_desc),
+                style = IpbTheme.typography.body,
+                textAlign = TextAlign.Center,
+                tint = IpbTheme.colors.textPrimary.asBrush()
+            )
+            Spacer(modifier = Modifier.height(25.dp))
+            AvatarPicker(
+                state = state.avatars, useComponent = useComponent
+            )
         }
     }
 }

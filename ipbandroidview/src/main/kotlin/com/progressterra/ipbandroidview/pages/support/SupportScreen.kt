@@ -18,7 +18,7 @@ import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
@@ -47,7 +47,7 @@ fun SupportScreen(
             )
         }
     ) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.screenState,
             useComponent = useComponent
         ) {

@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.bonuses.Bonuses
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.galleries.Galleries
 
 @Composable
@@ -17,7 +17,7 @@ fun MainScreen(
     state: MainState, useComponent: UseMain
 ) {
     ThemedLayout { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.stateBox, useComponent = useComponent
         ) {
             LazyColumn(

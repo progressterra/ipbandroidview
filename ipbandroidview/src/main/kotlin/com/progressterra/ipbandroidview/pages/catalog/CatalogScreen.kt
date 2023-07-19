@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.features.trace.TraceState
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.catalogitems.CatalogItems
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItemsState
@@ -40,7 +40,7 @@ fun CatalogScreen(
             )
         }
     }) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.stateBox, useComponent = useComponent
         ) {
             StoreItems(

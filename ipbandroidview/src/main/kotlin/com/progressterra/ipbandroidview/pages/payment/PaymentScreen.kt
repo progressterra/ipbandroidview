@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.payment
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
@@ -22,7 +21,7 @@ import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
 fun PaymentScreen(
@@ -33,29 +32,26 @@ fun PaymentScreen(
             title = stringResource(R.string.processing), useComponent = useComponent
         )
     }) { _, _ ->
-        StateBox(
+        StateColumn(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
             state = state.screenState, useComponent = useComponent
         ) {
-            Column(
-                modifier = Modifier.verticalScroll(rememberScrollState()),
-            ) {
-                Spacer(Modifier.height(40.dp))
-                OrderSteps(
-                    state = OrderStepsState.DELIVERY
-                )
-                Spacer(Modifier.height(8.dp))
-                PaymentMethod(
-                    state = state.paymentMethod, useComponent = useComponent
-                )
-                Spacer(Modifier.height(8.dp))
-                BonusSwitch(
-                    state = state.bonusSwitch, useComponent = useComponent
-                )
-                Spacer(Modifier.height(40.dp))
-                Receipt(
-                    state = state.receipt, useComponent = useComponent
-                )
-            }
+            Spacer(Modifier.height(40.dp))
+            OrderSteps(
+                state = OrderStepsState.DELIVERY
+            )
+            Spacer(Modifier.height(8.dp))
+            PaymentMethod(
+                state = state.paymentMethod, useComponent = useComponent
+            )
+            Spacer(Modifier.height(8.dp))
+            BonusSwitch(
+                state = state.bonusSwitch, useComponent = useComponent
+            )
+            Spacer(Modifier.height(40.dp))
+            Receipt(
+                state = state.receipt, useComponent = useComponent
+            )
         }
     }
 }

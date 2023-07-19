@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -17,7 +16,7 @@ import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.galleries.Galleries
 
 @Composable
@@ -29,22 +28,19 @@ fun GoodsDetailsScreen(
             title = state.name, showBackButton = true, useComponent = useComponent
         )
     }) { _, _ ->
-        StateBox(
+        StateColumn(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
             state = state.screenState,
             useComponent = useComponent
         ) {
-            Column(
-                modifier = Modifier.verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                ItemGallery(state = state.gallery, useComponent = useComponent)
-                GoodsDescription(state = state.description, useComponent = useComponent)
-                BuyGoods(state = state.buyGoods, useComponent = useComponent)
-                Galleries(
-                    state = state.similarGoods, useComponent = useComponent
-                )
-            }
+            ItemGallery(state = state.gallery, useComponent = useComponent)
+            GoodsDescription(state = state.description, useComponent = useComponent)
+            BuyGoods(state = state.buyGoods, useComponent = useComponent)
+            Galleries(
+                state = state.similarGoods, useComponent = useComponent
+            )
         }
     }
 }

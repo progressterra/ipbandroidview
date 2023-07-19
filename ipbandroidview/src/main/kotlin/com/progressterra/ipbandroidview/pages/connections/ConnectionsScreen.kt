@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.connections.Connections
 import com.progressterra.ipbandroidview.widgets.connections.ConnectionsState
 
@@ -30,7 +30,7 @@ fun ConnectionsScreen(
             )
         }
     ) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.screen,
             useComponent = useComponent
         ) {

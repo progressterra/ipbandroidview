@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.features.ordersteps.OrderStepsState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPicker
 
@@ -43,7 +43,7 @@ fun DeliveryScreen(
             )
         }
     }) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.screenState,
             useComponent = useComponent
         ) {

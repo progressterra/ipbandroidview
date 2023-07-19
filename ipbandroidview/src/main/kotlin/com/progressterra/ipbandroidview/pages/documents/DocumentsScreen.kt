@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.documents
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +18,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.documents.Documents
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsState
 
@@ -34,21 +33,19 @@ fun DocumentsScreen(
             useComponent = useComponent
         )
     }) { _, _ ->
-        StateBox(
-            state = state.screen, useComponent = useComponent
+        StateColumn(
+            state = state.screen, useComponent = useComponent,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Column(
+            CurrentCitizenship(
                 modifier = Modifier.padding(horizontal = 20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                CurrentCitizenship(
-                    state = state.citizenship, useComponent = useComponent
-                )
-                Documents(
-                    state = state.documents, useComponent = useComponent
-                )
-            }
+                state = state.citizenship, useComponent = useComponent
+            )
+            Documents(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                state = state.documents, useComponent = useComponent
+            )
         }
     }
 }

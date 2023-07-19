@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItems
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummary
@@ -32,7 +32,7 @@ fun CartScreen(
             state = state.summary, useComponent = useComponent
         )
     }) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.screenState, useComponent = useComponent
         ) {
             CartItems(

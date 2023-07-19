@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -10,7 +9,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
 fun OrderDetailsScreen(
@@ -25,15 +24,12 @@ fun OrderDetailsScreen(
             useComponent = useComponent
         )
     }) { _, _ ->
-        StateBox(state = state.screenState, useComponent = useComponent) {
-            Column(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp)
-            ) {
-                OrderDetails(
-                    state = state.details,
-                    useComponent = useComponent
-                )
-            }
+        StateColumn(state = state.screenState, useComponent = useComponent) {
+            OrderDetails(
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                state = state.details,
+                useComponent = useComponent
+            )
         }
     }
 }

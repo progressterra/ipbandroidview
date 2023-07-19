@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompact
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
 fun OrdersListScreen(
@@ -26,7 +26,7 @@ fun OrdersListScreen(
             useComponent = useComponent
         )
     }) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.screenState, useComponent = useComponent
         ) {
             LazyColumn(

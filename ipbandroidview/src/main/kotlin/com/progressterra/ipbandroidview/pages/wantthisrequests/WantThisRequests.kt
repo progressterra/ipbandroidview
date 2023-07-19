@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCard
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBox
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
 fun WantThisRequests(
@@ -32,7 +32,7 @@ fun WantThisRequests(
             showBackButton = true
         )
     }) { _, _ ->
-        StateBox(
+        StateColumn(
             state = state.screen, useComponent = useComponent
         ) {
             LazyVerticalGrid(
