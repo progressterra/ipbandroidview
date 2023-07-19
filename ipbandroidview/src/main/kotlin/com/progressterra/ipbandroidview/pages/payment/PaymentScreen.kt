@@ -2,8 +2,6 @@ package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,8 +31,9 @@ fun PaymentScreen(
         )
     }) { _, _ ->
         StateColumn(
-            modifier = Modifier.verticalScroll(rememberScrollState()),
-            state = state.screenState, useComponent = useComponent
+            scrollable = true,
+            state = state.screenState,
+            useComponent = useComponent
         ) {
             Spacer(Modifier.height(40.dp))
             OrderSteps(

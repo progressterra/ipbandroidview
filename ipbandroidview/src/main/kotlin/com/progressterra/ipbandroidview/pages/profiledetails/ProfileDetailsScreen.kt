@@ -3,8 +3,6 @@ package com.progressterra.ipbandroidview.pages.profiledetails
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -34,7 +32,7 @@ fun ProfileDetailsScreen(
         }, bottomOverlap = true
     ) { _, bottom ->
         StateColumn(
-            modifier = Modifier.verticalScroll(rememberScrollState()),
+            scrollable = true,
             state = state.screen,
             useComponent = useComponent
         ) {

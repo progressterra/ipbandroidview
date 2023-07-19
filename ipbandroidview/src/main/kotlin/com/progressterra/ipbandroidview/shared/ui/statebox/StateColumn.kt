@@ -1,11 +1,15 @@
 package com.progressterra.ipbandroidview.shared.ui.statebox
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
@@ -22,6 +26,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLoadingIndicator
 fun StateColumn(
     modifier: Modifier = Modifier,
     state: ScreenState,
+    scrollable: Boolean = false,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     useComponent: UseStateBox,
@@ -30,14 +35,27 @@ fun StateColumn(
     val refreshState = rememberPullRefreshState(
         refreshing = state.isLoading(),
         onRefresh = { useComponent.handle(StateBoxEvent) })
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .pullRefresh(state = refreshState, enabled = !state.isLoading()),
-        verticalArrangement = if (state.isSuccess()) verticalArrangement else Arrangement.Center,
-        horizontalAlignment = if (state.isSuccess()) horizontalAlignment else Alignment.CenterHorizontally
+    Box(
+        modifier = modifier.pullRefresh(state = refreshState, enabled = !state.isLoading()),
+        contentAlignment = Alignment.Center
     ) {
         when (state) {
+            ScreenState.SUCCESS -> {
+                val columnModifier = if (scrollable) {
+                    Modifier
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                } else {
+                    Modifier.fillMaxSize()
+                }
+                Column(
+                    modifier = columnModifier,
+                    verticalArrangement = if (state.isSuccess()) verticalArrangement else Arrangement.Center,
+                    horizontalAlignment = if (state.isSuccess()) horizontalAlignment else Alignment.CenterHorizontally,
+                    content = content
+                )
+            }
+
             ScreenState.ERROR -> IconButton(
                 onClick = { useComponent.handle(StateBoxEvent) }
             ) {
@@ -48,7 +66,7 @@ fun StateColumn(
             }
 
             ScreenState.LOADING -> ThemedLoadingIndicator()
-            ScreenState.SUCCESS -> content()
         }
+        PullRefreshIndicator(refreshing = state.isLoading(), state = refreshState)
     }
 }
