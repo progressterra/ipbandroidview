@@ -8,18 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.IconButton
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
-import com.progressterra.ipbandroidview.shared.ui.ThemedLoadingIndicator
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -39,33 +38,26 @@ fun StateColumn(
         modifier = modifier.pullRefresh(state = refreshState, enabled = !state.isLoading()),
         contentAlignment = Alignment.Center
     ) {
-        when (state) {
-            ScreenState.SUCCESS -> {
-                val columnModifier = if (scrollable) {
-                    Modifier
-                        .fillMaxSize()
-                        .verticalScroll(rememberScrollState())
-                } else {
-                    Modifier.fillMaxSize()
-                }
-                Column(
-                    modifier = columnModifier,
-                    verticalArrangement = if (state.isSuccess()) verticalArrangement else Arrangement.Center,
-                    horizontalAlignment = if (state.isSuccess()) horizontalAlignment else Alignment.CenterHorizontally,
-                    content = content
-                )
+        if (state.isSuccess()) {
+            val columnModifier = if (scrollable) {
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            } else {
+                Modifier.fillMaxSize()
             }
-
-            ScreenState.ERROR -> IconButton(
-                onClick = { useComponent.handle(StateBoxEvent) }
-            ) {
-                BrushedIcon(
-                    resId = R.drawable.ic_refresh,
-                    tint = IpbTheme.colors.iconPrimary.asBrush()
-                )
-            }
-
-            ScreenState.LOADING -> ThemedLoadingIndicator()
+            Column(
+                modifier = columnModifier,
+                verticalArrangement = if (state.isSuccess()) verticalArrangement else Arrangement.Center,
+                horizontalAlignment = if (state.isSuccess()) horizontalAlignment else Alignment.CenterHorizontally,
+                content = content
+            )
+        } else if (state.isError()) {
+            BrushedText(
+                text = stringResource(id = R.string.pull_for_update),
+                style = IpbTheme.typography.body,
+                tint = IpbTheme.colors.textPrimary.asBrush()
+            )
         }
         PullRefreshIndicator(refreshing = state.isLoading(), state = refreshState)
     }

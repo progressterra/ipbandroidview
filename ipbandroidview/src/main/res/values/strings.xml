@@ -149,4 +149,5 @@
     <string name="success">Успешно</string>
     <string name="failure">Неудачно</string>
     <string name="price_for_you">Цена для вас:</string>
+    <string name="pull_for_update">Потяните вниз, чтобы обновить</string>
 </resources>
