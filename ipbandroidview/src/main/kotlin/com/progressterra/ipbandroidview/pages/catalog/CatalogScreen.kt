@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.catalog
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -43,12 +44,14 @@ fun CatalogScreen(
         StateColumn(
             state = state.stateBox, useComponent = useComponent
         ) {
-            StoreItems(
-                state = state.goods, useComponent = useComponent
-            )
-            CatalogItems(
-                state = state.current, useComponent = useComponent
-            )
+            Box {
+                StoreItems(
+                    state = state.goods, useComponent = useComponent
+                )
+                CatalogItems(
+                    state = state.current, useComponent = useComponent
+                )
+            }
         }
     }
 }

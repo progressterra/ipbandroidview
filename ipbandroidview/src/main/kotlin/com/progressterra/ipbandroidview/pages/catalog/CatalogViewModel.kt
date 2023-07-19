@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.pages.catalog
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardEvent
 import com.progressterra.ipbandroidview.features.search.SearchEvent
@@ -61,7 +63,8 @@ class CatalogViewModel(
         intent {
             if (state.current.children.isEmpty()) {
                 goodsUseCase(GoodsFilter(categoryId = state.current.id)).onSuccess {
-                    reduce { state.uGoods(it) }
+                    val cached = it.cachedIn(viewModelScope)
+                    reduce { state.uGoods(cached) }
                 }
             } else reduce { state.uGoods(emptyFlow()) }
         }
@@ -104,7 +107,8 @@ class CatalogViewModel(
             }
             if (state.search.text.isNotEmpty()) {
                 goodsUseCase(filter).onSuccess {
-                    reduce { state.uGoods(it) }
+                    val cached = it.cachedIn(viewModelScope)
+                    reduce { state.uGoods(cached) }
                 }
             } else {
                 reduce { state.uGoods(emptyFlow()) }
