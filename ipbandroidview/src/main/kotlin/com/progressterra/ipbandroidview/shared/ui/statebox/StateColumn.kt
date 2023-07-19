@@ -36,8 +36,8 @@ fun StateColumn(
                     Modifier
                 }
             ),
-        verticalArrangement = if (state.isError()) Arrangement.Center else verticalArrangement,
-        horizontalAlignment = if (state.isError()) Alignment.CenterHorizontally else horizontalAlignment
+        verticalArrangement = if (state.isSuccess()) verticalArrangement else Arrangement.Center,
+        horizontalAlignment = if (state.isSuccess()) horizontalAlignment else Alignment.CenterHorizontally
     ) {
         when (state) {
             ScreenState.ERROR -> IconButton(
