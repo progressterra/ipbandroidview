@@ -10,7 +10,5 @@ sealed class GoodsDetailsEvent {
 
     class GoodsDetails(val id: String) : GoodsDetailsEvent()
 
-    object Refresh : GoodsDetailsEvent()
-
     class Toast(@StringRes val message: Int) : GoodsDetailsEvent()
 }

@@ -14,11 +14,14 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class GoodsDetailsViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val goodsDetailsUseCase: GoodsDetailsUseCase,
@@ -30,15 +33,18 @@ class GoodsDetailsViewModel(
 
     override val container = container<GoodsDetailsState, GoodsDetailsEvent>(GoodsDetailsState())
 
-    fun refresh(goodsId: String) {
+    fun setupId(newId: String) {
+        blockingIntent {
+            reduce { state.uId(newId) }
+        }
+    }
+
+    fun refresh() {
         intent {
             reduce { state.uScreenState(ScreenState.LOADING) }
-            goodsDetailsUseCase(goodsId)
-                .onSuccess { reduce { it.uId(goodsId).uScreenState(ScreenState.SUCCESS) } }
-                .onFailure {
-                    it.printStackTrace()
-                    reduce { state.uScreenState(ScreenState.ERROR) }
-                }
+            goodsDetailsUseCase(state.id)
+                .onSuccess { reduce { it.uId(state.id).uScreenState(ScreenState.SUCCESS) } }
+                .onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
         }
     }
 
@@ -71,7 +77,9 @@ class GoodsDetailsViewModel(
     override fun handle(event: StoreCardEvent) {
         intent {
             when (event) {
-                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id)
+                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+                    postSideEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
+                }
 
                 is StoreCardEvent.Open -> postSideEffect(GoodsDetailsEvent.GoodsDetails(event.id))
             }
@@ -81,11 +89,16 @@ class GoodsDetailsViewModel(
     override fun handle(event: ButtonEvent) {
         intent {
             when (event.id) {
-                "buy" -> addToCartUseCase(state.id)
+                "buy" -> addToCartUseCase(state.id).onSuccess {
+                    postSideEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
+                }
+
                 "buyInstallment" -> addToCartInstallmentUseCase(
                     state.id,
                     state.buyGoods.installment
-                )
+                ).onSuccess {
+                    postSideEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
+                }
             }
         }
     }
@@ -94,19 +107,20 @@ class GoodsDetailsViewModel(
         intent {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
-                    refresh(state.id)
+                    refresh()
+                    postSideEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
                 }
 
                 is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                    refresh(state.id)
+                    refresh()
+                    postSideEffect(GoodsDetailsEvent.Toast(R.string.removed_from_cart))
+
                 }
             }
         }
     }
 
     override fun handle(event: StateBoxEvent) {
-        intent {
-            postSideEffect(GoodsDetailsEvent.Refresh)
-        }
+        refresh()
     }
 }

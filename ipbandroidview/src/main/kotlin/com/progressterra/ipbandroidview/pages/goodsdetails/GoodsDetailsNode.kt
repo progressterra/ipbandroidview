@@ -32,7 +32,6 @@ class GoodsDetailsNode(
             when (it) {
                 is GoodsDetailsEvent.Back -> onBack()
                 is GoodsDetailsEvent.OpenImage -> openPhoto(it.image)
-                is GoodsDetailsEvent.Refresh -> viewModel.refresh(goodsId)
                 is GoodsDetailsEvent.GoodsDetails -> onGoodsDetails(it.id)
                 is GoodsDetailsEvent.Toast -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
@@ -44,7 +43,8 @@ class GoodsDetailsNode(
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.refresh(goodsId)
+            viewModel.setupId(goodsId)
+            viewModel.refresh()
         }
         val state = viewModel.collectAsState().value
         GoodsDetailsScreen(state = state, useComponent = viewModel)

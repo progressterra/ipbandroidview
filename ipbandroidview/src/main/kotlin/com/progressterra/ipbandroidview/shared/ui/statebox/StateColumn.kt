@@ -39,26 +39,27 @@ fun StateColumn(
         contentAlignment = Alignment.Center
     ) {
         if (state.isSuccess()) {
-            val columnModifier = if (scrollable) {
-                Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-            } else {
-                Modifier.fillMaxSize()
-            }
+            val baseColumnModifier = Modifier.fillMaxSize()
+            val columnModifier =
+                if (scrollable) Modifier.verticalScroll(rememberScrollState()) else Modifier
             Column(
-                modifier = columnModifier,
+                modifier = baseColumnModifier.then(columnModifier),
                 verticalArrangement = if (state.isSuccess()) verticalArrangement else Arrangement.Center,
                 horizontalAlignment = if (state.isSuccess()) horizontalAlignment else Alignment.CenterHorizontally,
                 content = content
             )
         } else if (state.isError()) {
             BrushedText(
+                modifier = Modifier.align(Alignment.Center),
                 text = stringResource(id = R.string.pull_for_update),
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
         }
-        PullRefreshIndicator(refreshing = state.isLoading(), state = refreshState)
+        PullRefreshIndicator(
+            modifier = Modifier.align(Alignment.TopCenter),
+            refreshing = state.isLoading(),
+            state = refreshState
+        )
     }
 }
