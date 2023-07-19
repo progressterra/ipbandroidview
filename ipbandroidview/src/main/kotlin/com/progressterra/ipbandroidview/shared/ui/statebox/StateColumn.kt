@@ -46,17 +46,22 @@ fun StateColumn(
                 if (scrollable) Modifier.verticalScroll(rememberScrollState()) else Modifier
             Column(
                 modifier = baseColumnModifier.then(columnModifier),
-                verticalArrangement = if (state.isSuccess()) verticalArrangement else Arrangement.Center,
-                horizontalAlignment = if (state.isSuccess()) horizontalAlignment else Alignment.CenterHorizontally,
+                verticalArrangement = verticalArrangement,
+                horizontalAlignment = horizontalAlignment,
                 content = content
             )
         } else if (state.isError()) {
-            BrushedText(
-                modifier = Modifier.align(Alignment.Center),
-                text = stringResource(id = R.string.pull_for_update),
-                style = IpbTheme.typography.body,
-                tint = IpbTheme.colors.textPrimary.asBrush()
-            )
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                BrushedText(
+                    text = stringResource(id = R.string.pull_for_update),
+                    style = IpbTheme.typography.body,
+                    tint = IpbTheme.colors.textPrimary.asBrush()
+                )
+            }
         }
         PullRefreshIndicator(
             modifier = Modifier.align(Alignment.TopCenter),
