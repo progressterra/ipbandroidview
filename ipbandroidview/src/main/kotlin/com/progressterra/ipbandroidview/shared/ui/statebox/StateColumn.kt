@@ -35,7 +35,9 @@ fun StateColumn(
         refreshing = state.isLoading(),
         onRefresh = { useComponent.handle(StateBoxEvent) })
     Box(
-        modifier = modifier.pullRefresh(state = refreshState, enabled = !state.isLoading()),
+        modifier = modifier
+            .fillMaxSize()
+            .pullRefresh(state = refreshState, enabled = !state.isLoading()),
         contentAlignment = Alignment.Center
     ) {
         if (state.isSuccess()) {

@@ -66,7 +66,7 @@ class GoodsDetailsViewModel(
                 event.id,
                 !state.description.favoriteButton.favorite
             ).onSuccess {
-                postSideEffect(GoodsDetailsEvent.Toast(R.string.success))
+                postSideEffect(GoodsDetailsEvent.Toast(R.string.added_to_favorites))
                 reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
             }.onFailure {
                 postSideEffect(GoodsDetailsEvent.Toast(R.string.failure))

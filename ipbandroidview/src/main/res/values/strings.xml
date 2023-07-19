@@ -147,9 +147,10 @@
     <string name="payment_error">Произошла ошибка при оплате</string>
     <string name="tracking">Отслеживание</string>
     <string name="success">Успешно</string>
-    <string name="failure">Неудачно</string>
+    <string name="failure">Ошибка!</string>
     <string name="price_for_you">Цена для вас:</string>
     <string name="pull_for_update">Потяните вниз, чтобы обновить</string>
     <string name="added_to_cart">Добавлено в корзину</string>
     <string name="removed_from_cart">Удалено из корзины</string>
+    <string name="added_to_favorites">Добавлено в избранное</string>
 </resources>
