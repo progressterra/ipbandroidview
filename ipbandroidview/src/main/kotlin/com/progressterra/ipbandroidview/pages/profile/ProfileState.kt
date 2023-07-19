@@ -15,29 +15,26 @@ data class ProfileState(
     @IpbSubState val unAuth: ButtonState = ButtonState(),
     val authProfileState: AuthProfileState = AuthProfileState(),
     val screenState: ScreenState = ScreenState.LOADING,
-    val orders: ProfileButtonState = ProfileButtonState(
+    @IpbSubState val orders: ProfileButtonState = ProfileButtonState(
         id = "orders"
     ),
-    val support: ProfileButtonState = ProfileButtonState(
+    @IpbSubState val support: ProfileButtonState = ProfileButtonState(
         id = "support"
     ),
-    val favorites: ProfileButtonState = ProfileButtonState(
+    @IpbSubState val favorites: ProfileButtonState = ProfileButtonState(
         id = "favorites"
     ),
-    val documents: ProfileButtonState = ProfileButtonState(
+    @IpbSubState val documents: ProfileButtonState = ProfileButtonState(
         id = "documents"
     ),
-    val logout: ProfileButtonState = ProfileButtonState(
+    @IpbSubState val logout: ProfileButtonState = ProfileButtonState(
         id = "logout"
     ),
-    val deleteAccount: ProfileButtonState = ProfileButtonState(
-        id = "delete"
-    ),
-    val documentsNotification: DocumentsNotification = DocumentsNotification()
+    val docNotification: CounterNotification = CounterNotification()
 ) {
 
     @Immutable
-    data class DocumentsNotification(
+    data class CounterNotification(
         val count: Int = 0,
         val max: Int = 0
     ) : IsEmpty, IsFull {
@@ -47,8 +44,8 @@ data class ProfileState(
         override fun isEmpty(): Boolean = count == 0 && max == 0
     }
 
-    fun uNotification(newNotification: DocumentsNotification) =
-        copy(documentsNotification = newNotification)
+    fun uNotification(newNotification: CounterNotification) =
+        copy(docNotification = newNotification)
 
     fun uProfile(newProfileState: AuthProfileState) =
         copy(authProfileState = newProfileState)

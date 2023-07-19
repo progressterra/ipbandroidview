@@ -59,7 +59,7 @@ fun ProfileScreen(
                     state = state.documents,
                     useComponent = useComponent,
                     title = stringResource(R.string.documents),
-                    notification = state.documentsNotification
+                    notification = state.docNotification
                 )
 //                Spacer(Modifier.height(8.dp))
 //                ProfileButton(

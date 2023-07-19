@@ -25,7 +25,7 @@ fun ProfileButton(
     state: ProfileButtonState,
     title: String,
     isDanger: Boolean = false,
-    notification: ProfileState.DocumentsNotification? = null,
+    notification: ProfileState.CounterNotification? = null,
     useComponent: UseProfileButton
 ) {
     Row(
@@ -33,13 +33,20 @@ fun ProfileButton(
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable { useComponent.handle(ProfileButtonEvent(state.id)) }
+            .niceClickable(state.enabled) { useComponent.handle(ProfileButtonEvent(state.id)) }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        val color =
-            if (isDanger) IpbTheme.colors.textPrimary2.asBrush() else IpbTheme.colors.textPrimary.asBrush()
+        val color = if (state.enabled) {
+            if (isDanger) {
+                IpbTheme.colors.textPrimary2.asBrush()
+            } else {
+                IpbTheme.colors.textPrimary.asBrush()
+            }
+        } else {
+            IpbTheme.colors.textDisabled.asBrush()
+        }
         BrushedText(
             text = title,
             style = IpbTheme.typography.body,

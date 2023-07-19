@@ -36,9 +36,9 @@ class ProfileViewModel(
                 isSuccess = false
             }
             documentsNotification().onSuccess {
-                reduce { state.uNotification(it) }
+                reduce { state.uNotification(it).uDocumentsEnabled(true) }
             }.onFailure {
-                isSuccess = false
+                reduce { state.uDocumentsEnabled(false) }
             }
             reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
         }

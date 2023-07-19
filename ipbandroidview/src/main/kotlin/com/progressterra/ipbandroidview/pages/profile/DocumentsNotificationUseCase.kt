@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.shared.UserData
 
 interface DocumentsNotificationUseCase {
 
-    suspend operator fun invoke(): Result<ProfileState.DocumentsNotification>
+    suspend operator fun invoke(): Result<ProfileState.CounterNotification>
 
     class Base(
         scrmRepository: SCRMRepository,
@@ -17,14 +17,14 @@ interface DocumentsNotificationUseCase {
         private val repo: DocumentsRepository
     ) : AbstractTokenUseCase(scrmRepository, provideLocation), DocumentsNotificationUseCase {
 
-        override suspend fun invoke(): Result<ProfileState.DocumentsNotification> =
+        override suspend fun invoke(): Result<ProfileState.CounterNotification> =
             withToken { token ->
                 if (UserData.citizenship.isEmpty()) {
-                    ProfileState.DocumentsNotification()
+                    ProfileState.CounterNotification()
                 } else {
                     val result =
                         repo.docsBySpecification(token, UserData.citizenship.id).getOrThrow()
-                    ProfileState.DocumentsNotification(
+                    ProfileState.CounterNotification(
                         count = result?.listProductCharacteristic?.count { it.characteristicValue?.statusDoc == TypeStatusDoc.CONFIRMED }
                             ?: 0,
                         max = result?.listProductCharacteristic?.size ?: 0

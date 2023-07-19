@@ -21,7 +21,6 @@ fun Search(
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
         value = state.text,
-        enabled = state.enabled,
         onValueChange = { useComponent.handle(SearchEvent(it)) },
         placeholder = {
             BrushedText(
