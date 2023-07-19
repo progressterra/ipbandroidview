@@ -26,6 +26,7 @@ import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenViewModel
+import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsUseCase
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusViewModel
@@ -78,11 +79,11 @@ val pagesModule = module {
 
     viewModel { ProfileDetailsViewModel(get(), get(), get()) }
 
-    viewModel { OrderDetailsScreenViewModel() }
+    viewModel { OrderDetailsScreenViewModel(get()) }
 
     viewModel { OrderTrackingScreenViewModel() }
 
-    single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get(), get()) }
+    single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get()) }
 
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get()) }
 
@@ -90,6 +91,10 @@ val pagesModule = module {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(
             get(), get()
         )
+    }
+
+    single<OrderDetailsUseCase> {
+        OrderDetailsUseCase.Base(get(), get(), get(), get())
     }
 
     single {

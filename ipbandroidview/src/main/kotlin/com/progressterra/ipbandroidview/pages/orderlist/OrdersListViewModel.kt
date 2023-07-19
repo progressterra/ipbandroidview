@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.orderlist
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.entities.toOrderDetailsState
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -33,7 +32,7 @@ class OrdersListViewModel(
 
     override fun handle(event: OrderCompactEvent) {
         intent {
-            postSideEffect(OrdersListEvent.OpenDetails(event.state.toOrderDetailsState()))
+            postSideEffect(OrdersListEvent.OpenDetails(event.state.id))
         }
     }
 

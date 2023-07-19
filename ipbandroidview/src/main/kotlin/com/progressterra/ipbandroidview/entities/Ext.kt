@@ -400,26 +400,26 @@ fun Document.toWantThisScreenState() = WantThisScreenState(
     photo = photo
 )
 
-fun OrderCompactState.toOrderDetailsState() = OrderDetailsState(
-    id = id,
-    number = number,
-    status = status,
-    date = date,
-    count = count,
-    totalPrice = totalPrice,
-    goods = goods
-)
-
 fun OrderDetailsState.toOrderTrackingState() = OrderTrackingState(
     status = status,
     number = number
 )
 
-fun Order.toOrderCompactState(goods: List<OrderCardState>) =
-    OrderCompactState(
+fun Order.toOrderDetailsState(goods: List<OrderCardState>) =
+    OrderDetailsState(
         id = id,
         number = number,
         goods = OrderItemsState(goods),
+        status = status,
+        count = itemsIds.size,
+        totalPrice = price,
+        date = date
+    )
+
+fun Order.toOrderCompactState() =
+    OrderCompactState(
+        id = id,
+        number = number,
         status = status,
         count = itemsIds.size,
         totalPrice = price,

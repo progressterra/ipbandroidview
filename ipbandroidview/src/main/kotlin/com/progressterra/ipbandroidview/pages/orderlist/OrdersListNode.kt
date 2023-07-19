@@ -5,7 +5,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
 import org.koin.androidx.compose.getViewModel
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -14,7 +13,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 class OrdersListNode(
     buildContext: BuildContext,
     private val onBack: () -> Unit,
-    private val onOrderDetails: (OrderDetailsState) -> Unit
+    private val onOrderDetails: (String) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -23,7 +22,7 @@ class OrdersListNode(
         viewModel.collectSideEffect {
             when (it) {
                 is OrdersListEvent.Back -> onBack()
-                is OrdersListEvent.OpenDetails -> onOrderDetails(it.state)
+                is OrdersListEvent.OpenDetails -> onOrderDetails(it.id)
             }
         }
         LaunchedEffect(Unit) {
