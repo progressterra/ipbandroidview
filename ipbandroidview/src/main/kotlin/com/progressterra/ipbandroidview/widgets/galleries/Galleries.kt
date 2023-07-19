@@ -23,31 +23,33 @@ fun Galleries(
     state: GalleriesState,
     useComponent: UseGalleries
 ) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
-    ) {
-        BrushedText(
-            modifier = Modifier.padding(start = 20.dp),
-            text = state.title,
-            style = IpbTheme.typography.title,
-            tint = IpbTheme.colors.textPrimary.asBrush(),
-        )
-        val items = state.items.collectAsLazyPagingItems()
-        LazyRow(
-            modifier = Modifier,
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
-            contentPadding = PaddingValues(horizontal = 20.dp)
+    val items = state.items.collectAsLazyPagingItems()
+    if (items.itemCount > 0) {
+        Column(
+            modifier = modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            items(count = items.itemCount,
-                key = items.itemKey { it.id }
+            BrushedText(
+                modifier = Modifier.padding(start = 20.dp),
+                text = state.title,
+                style = IpbTheme.typography.title,
+                tint = IpbTheme.colors.textPrimary.asBrush(),
+            )
+            LazyRow(
+                modifier = Modifier,
+                horizontalArrangement = Arrangement.spacedBy(20.dp),
+                contentPadding = PaddingValues(horizontal = 20.dp)
             ) {
-                items[it]?.let { item ->
-                    Box(contentAlignment = Alignment.Center) {
-                        StoreCard(
-                            state = item,
-                            useComponent = useComponent
-                        )
+                items(count = items.itemCount,
+                    key = items.itemKey { it.id }
+                ) {
+                    items[it]?.let { item ->
+                        Box(contentAlignment = Alignment.Center) {
+                            StoreCard(
+                                state = item,
+                                useComponent = useComponent
+                            )
+                        }
                     }
                 }
             }

@@ -26,7 +26,7 @@
     <string name="description">Описание</string>
     <string name="parameters">Параметры</string>
     <string name="delivery">Доставка</string>
-    <string name="image_missing">Изображение отсутствует!</string>
+    <string name="image_missing">Нет\nизображения</string>
     <string name="favorites">Избранное</string>
     <string name="cart">Корзина</string>
     <string name="use_bonuses">Использовать бонусы</string>

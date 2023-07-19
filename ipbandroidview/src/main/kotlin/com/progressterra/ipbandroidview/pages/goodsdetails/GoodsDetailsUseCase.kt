@@ -15,6 +15,7 @@ import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
+import kotlinx.coroutines.flow.emptyFlow
 
 interface GoodsDetailsUseCase {
 
@@ -34,7 +35,7 @@ interface GoodsDetailsUseCase {
             val goods =
                 productRepository.productByNomenclatureId(token, id).getOrThrow()!!.toGoodsItem()
             val recommended =
-                goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow()
+                if (goods.categoryId.isNotEmpty()) goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow() else emptyFlow()
             GoodsDetailsState(
                 description = GoodsDescriptionState(
                     name = goods.name,

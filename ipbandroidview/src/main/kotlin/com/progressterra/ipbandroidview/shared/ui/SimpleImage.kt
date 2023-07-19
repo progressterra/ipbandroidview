@@ -38,7 +38,7 @@ fun SimpleImage(
             ) {
                 BrushedText(
                     text = stringResource(id = R.string.image_missing),
-                    tint = IpbTheme.colors.error.asBrush(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.body,
                     textAlign = TextAlign.Center
                 )
