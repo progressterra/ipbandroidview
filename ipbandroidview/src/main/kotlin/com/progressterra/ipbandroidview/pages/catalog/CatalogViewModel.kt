@@ -57,7 +57,7 @@ class CatalogViewModel(
     private fun uCategory() {
         intent {
             if (state.current.children.isEmpty()) {
-                goodsUseCase(GoodsFilter(state.current.id)).onSuccess {
+                goodsUseCase(GoodsFilter(categoryId = state.current.id)).onSuccess {
                     reduce { state.uGoods(it) }
                 }
             } else reduce { state.uGoods(emptyFlow()) }
@@ -93,8 +93,12 @@ class CatalogViewModel(
     override fun handle(event: SearchEvent) {
         intent {
             reduce { state.uSearchText(event.text) }
+            var filter = GoodsFilter(search = state.search.text)
+            if (state.current.id.isNotEmpty()) {
+                filter = filter.copy(categoryId = state.current.id)
+            }
             if (state.search.text.isNotEmpty()) {
-                goodsUseCase(GoodsFilter(search = state.search.text)).onSuccess {
+                goodsUseCase(filter).onSuccess {
                     reduce { state.uGoods(it) }
                 }
             } else {
