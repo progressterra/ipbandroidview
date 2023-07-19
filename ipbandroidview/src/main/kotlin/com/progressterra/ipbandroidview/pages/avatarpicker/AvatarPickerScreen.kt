@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -55,8 +54,7 @@ fun AvatarPickerScreen(
         }
     }) { _, _ ->
         StateColumn(
-            state = state.screen, useComponent = useComponent,
-            horizontalAlignment = Alignment.CenterHorizontally
+            state = state.screen, useComponent = useComponent
         ) {
             Spacer(modifier = Modifier.height(36.dp))
             BrushedText(

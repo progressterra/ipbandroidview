@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.pages.documents
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,7 +34,6 @@ fun DocumentsScreen(
     }) { _, _ ->
         StateColumn(
             state = state.screen, useComponent = useComponent,
-            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             CurrentCitizenship(

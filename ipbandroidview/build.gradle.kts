@@ -115,7 +115,6 @@ dependencies {
     api("io.insert-koin:koin-androidx-compose:3.4.5")
 
     // Accompanist, useful composables
-    api("com.google.accompanist:accompanist-swiperefresh:0.30.1")
     api("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
     api("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
