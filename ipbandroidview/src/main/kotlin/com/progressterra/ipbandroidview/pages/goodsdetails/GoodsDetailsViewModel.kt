@@ -64,7 +64,7 @@ class GoodsDetailsViewModel(
         intent {
             modifyFavoriteUseCase(
                 event.id,
-                !state.description.favoriteButton.favorite
+                state.description.favoriteButton.favorite
             ).onSuccess {
                 postSideEffect(GoodsDetailsEvent.Toast(R.string.added_to_favorites))
                 reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
