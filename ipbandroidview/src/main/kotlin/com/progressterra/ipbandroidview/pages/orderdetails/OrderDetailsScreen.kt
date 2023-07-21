@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,12 +26,13 @@ fun OrderDetailsScreen(
             useComponent = useComponent
         )
     }) { _, _ ->
-        StateColumn(state = state.screenState, useComponent = useComponent) {
+        StateColumn(state = state.screenState, useComponent = useComponent, scrollable = true) {
             OrderDetails(
-                modifier = Modifier.padding(20.dp),
+                modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 state = state.details,
                 useComponent = useComponent
             )
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }
