@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
-import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
@@ -61,12 +60,8 @@ class SignInViewModel(
             when (event) {
                 is TextFieldEvent.TextChanged -> when (event.id) {
                     "phone" -> {
-                        if (event.text.length <= 11) {
-                            val valid = event.text.isRussianPhoneNumber()
-                            reduce {
-                                state.uPhoneText(event.text).uPhoneValid(valid).uAuthButton(valid)
-                            }
-                        }
+                        reduce { state.uPhoneText(event.text) }
+                        reduce { state.uAuthButton(state.phone.valid()) }
                     }
                 }
 
