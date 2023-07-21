@@ -276,7 +276,7 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
                 type = when (it.typeValue) {
                     TypeValueCharacteristic.AS_STRING -> TextInputType.DEFAULT
                     TypeValueCharacteristic.AS_NUMBER -> TextInputType.NUMBER
-                    TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DEFAULT
+                    TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DATE
                     TypeValueCharacteristic.AS_REFERENCE -> TextInputType.DEFAULT
                     TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
                     null -> TextInputType.DEFAULT
@@ -307,7 +307,7 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
                 type = when (it.typeValue) {
                     TypeValueCharacteristic.AS_STRING -> TextInputType.DEFAULT
                     TypeValueCharacteristic.AS_NUMBER -> TextInputType.NUMBER
-                    TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DEFAULT
+                    TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DATE
                     TypeValueCharacteristic.AS_REFERENCE -> TextInputType.DEFAULT
                     TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
                     null -> TextInputType.DEFAULT
@@ -337,7 +337,7 @@ fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
                 type = when (it.typeValue) {
                     TypeValueCharacteristic.AS_STRING -> TextInputType.DEFAULT
                     TypeValueCharacteristic.AS_NUMBER -> TextInputType.NUMBER
-                    TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DEFAULT
+                    TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DATE
                     TypeValueCharacteristic.AS_REFERENCE -> TextInputType.DEFAULT
                     TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
                     null -> TextInputType.DEFAULT
