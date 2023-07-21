@@ -57,7 +57,15 @@ fun TextField(
         modifier = modifier
             .border(
                 width = 1.dp,
-                brush = if (focused) IpbTheme.colors.primary.asBrush() else Color.Transparent.toBrush(),
+                brush = if (focused) {
+                    if (state.valid()) {
+                        IpbTheme.colors.primary.asBrush()
+                    } else {
+                        IpbTheme.colors.error.asBrush()
+                    }
+                } else {
+                    Color.Transparent.toBrush()
+                },
                 shape = RoundedCornerShape(8.dp)
             )
             .clearFocusOnKeyboardDismiss(),
@@ -77,6 +85,7 @@ fun TextField(
         keyboardOptions = state.type.toKeyboardOptions(),
         placeholder = placeholder,
         label = label,
+        isError = !state.valid(),
         enabled = state.enabled,
         textStyle = IpbTheme.typography.body,
         singleLine = singleLine,
