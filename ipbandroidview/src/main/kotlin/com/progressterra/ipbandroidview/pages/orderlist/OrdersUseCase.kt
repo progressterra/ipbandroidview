@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidapi.api.cart.models.SortData
 import com.progressterra.ipbandroidapi.api.cart.models.TypeVariantSort
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.toOrder
-import com.progressterra.ipbandroidview.entities.toOrderCompactState
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase

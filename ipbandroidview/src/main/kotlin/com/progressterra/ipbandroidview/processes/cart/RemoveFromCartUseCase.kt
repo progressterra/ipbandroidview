@@ -5,8 +5,7 @@ import com.progressterra.ipbandroidapi.api.cart.models.IncomeDataAddProductFullP
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
-import com.progressterra.ipbandroidview.entities.pricesSum
-import com.progressterra.ipbandroidview.entities.toCartCardState
+import com.progressterra.ipbandroidview.entities.sum
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.pages.cart.CartState
@@ -43,7 +42,7 @@ interface RemoveFromCartUseCase {
                 CartState(
                     items = CartItemsState(goods),
                     summary = CartSummaryState(
-                        total = pricesSum(goods.map { it.price })
+                        total = goods.map { it.price }.sum()
                     )
                 )
             }

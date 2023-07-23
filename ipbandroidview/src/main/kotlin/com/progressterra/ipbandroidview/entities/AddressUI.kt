@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.entities
 
 import com.google.gson.annotations.SerializedName
+import com.progressterra.ipbandroidapi.api.address.models.RGAddress
 import com.progressterra.ipbandroidview.shared.IsEmpty
 
 data class AddressUI(
@@ -77,6 +78,45 @@ data class AddressUI(
     @SerializedName("longitude")
     val longitude: Double = 0.0
 ) : IsEmpty {
+
+    fun convertAddressUiModelToDto() = RGAddress(
+        idUnique = idUnique,
+        nameCity = nameCity,
+        postalCode = postalCode,
+        building = building,
+        apartment = apartment.toIntOrNull() ?: 0,
+        floor = floor,
+        nameStreet = nameStreet,
+        entrance = entrance.toIntOrNull() ?: 0,
+        idClient = idClient,
+        dateAdded = dateAdded,
+        dateVerification = dateVerification,
+        idManagerVerification = idManagerVerification,
+        dateDeactivation = dateDeactivation,
+        defaultBilling = defaultBilling,
+        defaultShipping = defaultShipping,
+        fiasIDCountry = fiasIDCountry,
+        fiasIDRegion = fiasIDRegion,
+        fiasIDCity = fiasIDCity,
+        fiasIDArea = fiasIDArea,
+        fiasIDDistrict = fiasIDDistrict,
+        fiasIDHouse = fiasIDHouse,
+        fiasIDStreet = fiasIDStreet,
+        kladrCountry = kladrCountry,
+        kladrRegion = kladrRegion,
+        kladrCity = kladrCity,
+        kladrArea = kladrArea,
+        kladrDistrict = kladrArea,
+        kladrStreet = kladrStreet,
+        kladrHouse = kladrHouse,
+        nameCountry = nameCountry,
+        nameRegion = nameRegion,
+        nameArea = nameArea,
+        nameDistrict = nameDistrict,
+        houseNUmber = houseNUmber,
+        latitude = latitude,
+        longitude = longitude
+    )
 
     override fun isEmpty(): Boolean = idUnique == "" &&
             idClient == "" &&

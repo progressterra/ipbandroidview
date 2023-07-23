@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
@@ -21,6 +22,12 @@ data class WantThisScreenState(
     val entries: List<TextFieldState> = emptyList(),
     val photo: DocumentPhotoState? = null
 ) : Id {
+
+    fun toDocument() = Document(
+        id = id,
+        entries = entries,
+        photo = photo
+    )
 
     fun addPhoto(newPhoto: MultisizedImage) = copy(photo = photo?.add(newPhoto))
 

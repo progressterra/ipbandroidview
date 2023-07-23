@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.shared.ui.textfield
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import androidx.core.text.isDigitsOnly
+import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
@@ -22,6 +23,15 @@ data class TextFieldState(
     val type: TextInputType = TextInputType.DEFAULT,
     val typeValue: TypeValueCharacteristic? = null
 ) : Id, Parcelable {
+
+    fun toFieldData(id: String) = FieldData(
+        idrfCharacteristicType = id,
+        name = label,
+        comment = placeholder,
+        order = 0,
+        typeValue = type.toTypeValueCharacteristic(),
+        valueData = formatByType()
+    )
 
     fun formatByType() = when (type) {
         TextInputType.DATE -> text.toDate()

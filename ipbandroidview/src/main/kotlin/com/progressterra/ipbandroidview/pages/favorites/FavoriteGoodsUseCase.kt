@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.toGoodsItem
-import com.progressterra.ipbandroidview.entities.toStoreCardState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase

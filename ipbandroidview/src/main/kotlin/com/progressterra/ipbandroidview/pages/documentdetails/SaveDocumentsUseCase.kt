@@ -7,7 +7,6 @@ import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.IncomeDataClientArea
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.Document
-import com.progressterra.ipbandroidview.entities.toFieldData
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.FileExplorer

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.entities.toOrderTrackingState
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardEvent
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent

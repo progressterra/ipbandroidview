@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidapi.api.documents.models.IncnomeDataCreateCha
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.Document
-import com.progressterra.ipbandroidview.entities.fromTemplateToReal
 import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation

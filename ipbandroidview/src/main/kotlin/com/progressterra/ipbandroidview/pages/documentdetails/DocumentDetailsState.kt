@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.documentdetails
 
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
@@ -34,5 +35,12 @@ data class DocumentDetailsState(
 
     fun updateById(id: Id, reducer: (TextFieldState) -> TextFieldState) = copy(
         entries = entries.updateById(id, reducer)
+    )
+
+    fun toDocument() = Document(
+        id = id,
+        docName = docName,
+        entries = entries,
+        photo = photo
     )
 }

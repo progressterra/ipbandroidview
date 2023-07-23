@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.documents
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.entities.toDocumentDetailsState
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipEvent
 import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizenshipsUseCase
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent

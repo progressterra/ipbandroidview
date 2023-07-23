@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.processes.user
 import com.progressterra.ipbandroidapi.api.address.AddressRepository
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.AddressUI
-import com.progressterra.ipbandroidview.entities.convertAddressUiModelToDto
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData

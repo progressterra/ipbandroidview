@@ -13,7 +13,6 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.entities.toGoodsItem
-import com.progressterra.ipbandroidview.entities.toWantThisCardState
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase

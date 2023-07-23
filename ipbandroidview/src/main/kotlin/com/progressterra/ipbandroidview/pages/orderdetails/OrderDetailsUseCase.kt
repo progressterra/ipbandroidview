@@ -6,8 +6,6 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toOrder
-import com.progressterra.ipbandroidview.entities.toOrderCardState
-import com.progressterra.ipbandroidview.entities.toOrderDetailsState
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
