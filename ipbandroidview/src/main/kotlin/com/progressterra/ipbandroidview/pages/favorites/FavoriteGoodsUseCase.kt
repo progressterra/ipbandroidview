@@ -46,17 +46,17 @@ interface FavoriteGoodsUseCase {
                     id = "Kotek",
                     name = "Weston",
                     price = SimplePrice(1000),
-                    imageUrl = "https://placekitten.com/200/300",
+                    image = "https://placekitten.com/200/300",
                 ), StoreCardState(
                     id = "Kotek 2",
                     name = "Weston",
                     price = SimplePrice(2000),
-                    imageUrl = "https://placekitten.com/200/300",
+                    image = "https://placekitten.com/200/300",
                 ), StoreCardState(
                     id = "Kotek 3",
                     name = "Nombre",
                     price = SimplePrice(5000),
-                    imageUrl = "https://placekitten.com/200/300",
+                    image = "https://placekitten.com/200/300",
                 )
             )
         )

@@ -6,6 +6,6 @@ import androidx.compose.runtime.Immutable
 data class CatalogCardState(
     val id: String = "",
     val name: String = "",
-    val imageUrl: String = "",
+    val image: String = "",
     val children: List<CatalogCardState> = emptyList()
 )

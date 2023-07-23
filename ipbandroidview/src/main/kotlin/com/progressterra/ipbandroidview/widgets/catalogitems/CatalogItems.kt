@@ -42,18 +42,18 @@ fun CatalogItems(
 fun CatalogItemsPreview() {
     val mockChildren = listOf(
         CatalogCardState(
-            id = "1", name = "Item 1", imageUrl = "https://example.com/image1.jpg"
+            id = "1", name = "Item 1", image = "https://example.com/image1.jpg"
         ), CatalogCardState(
-            id = "2", name = "Item 2", imageUrl = "https://example.com/image2.jpg"
+            id = "2", name = "Item 2", image = "https://example.com/image2.jpg"
         ), CatalogCardState(
-            id = "3", name = "Item 3", imageUrl = "https://example.com/image3.jpg"
+            id = "3", name = "Item 3", image = "https://example.com/image3.jpg"
         )
     )
 
     val mockState = CatalogCardState(
         id = "0",
         name = "Parent",
-        imageUrl = "https://example.com/image0.jpg",
+        image = "https://example.com/image0.jpg",
         children = mockChildren
     )
     Column(modifier = Modifier.fillMaxWidth()) {

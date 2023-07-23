@@ -34,7 +34,7 @@ fun Avatar(
                 .size(64.dp)
                 .clip(CircleShape)
                 .niceClickable { useComponent.handle(AvatarEvent(state.id)) },
-            url = state.url,
+            image = state.url,
             backgroundColor = IpbTheme.colors.background.asColor()
         )
         if (state.online) {

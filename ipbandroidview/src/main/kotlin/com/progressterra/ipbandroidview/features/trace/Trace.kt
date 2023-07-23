@@ -70,15 +70,15 @@ private fun TracePreview() {
                     CatalogCardState(
                         id = "nunc PARENT",
                         name = "NUNU",
-                        imageUrl = "https://www.google.com/#q=montes"
+                        image = "https://www.google.com/#q=montes"
                     ), CatalogCardState(
                         id = "nunc 1",
                         name = "Cory ",
-                        imageUrl = "https://www.google.com/#q=montes"
+                        image = "https://www.google.com/#q=montes"
                     ), CatalogCardState(
                         id = "nunc 2",
                         name = "Chang",
-                        imageUrl = "https://www.google.com/#q=montes"
+                        image = "https://www.google.com/#q=montes"
                     )
                 )
             ), useComponent = UseTrace.Empty()

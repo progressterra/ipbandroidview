@@ -45,7 +45,7 @@ fun OrderOverview(
                             modifier = Modifier
                                 .size(90.dp)
                                 .clip(RoundedCornerShape(8.dp)),
-                            url = image,
+                            image = image,
                             backgroundColor = IpbTheme.colors.background.asColor()
                         )
                     }
@@ -56,7 +56,7 @@ fun OrderOverview(
                         .size(90.dp)
                         .clip(RoundedCornerShape(8.dp))
                         .align(Alignment.Center),
-                    url = state.goodsImages.firstOrNull() ?: "",
+                    image = state.goodsImages.firstOrNull() ?: "",
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
             }

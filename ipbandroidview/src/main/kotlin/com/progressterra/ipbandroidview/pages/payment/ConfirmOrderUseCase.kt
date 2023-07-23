@@ -27,7 +27,7 @@ interface ConfirmOrderUseCase {
                 productRepository.productByNomenclatureId(
                     token,
                     it.idrfNomenclature!!
-                ).getOrThrow()?.toGoodsItem()?.imageUrl
+                ).getOrThrow()?.toGoodsItem()?.image
             } ?: emptyList()
             val payment = cartRepository.paymentInternal(token).isSuccess
             OrderStatusState(

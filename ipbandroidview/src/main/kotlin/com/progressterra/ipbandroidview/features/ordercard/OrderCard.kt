@@ -37,7 +37,7 @@ fun OrderCard(
             modifier = Modifier
                 .size(157.dp)
                 .clip(RoundedCornerShape(8.dp)),
-            url = state.imageUrl,
+            image = state.image,
             backgroundColor = IpbTheme.colors.background.asColor()
         )
         Column(

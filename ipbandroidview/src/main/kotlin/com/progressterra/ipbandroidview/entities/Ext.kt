@@ -48,7 +48,6 @@ fun Int.toSimplePrice(): SimplePrice = SimplePrice(this)
 
 fun Double.toSimplePrice(): SimplePrice = SimplePrice(toInt())
 
-//TODO check id
 fun DHSaleHeadAsOrderViewModel.toOrder() =
     Order(itemsIds = listDRSale?.map { it.idrfNomenclature!! } ?: emptyList(),
         price = pricesSum(listDRSale?.map { it.amountEndPrice!!.toSimplePrice() } ?: emptyList()),
@@ -63,7 +62,7 @@ fun ProductView.toGoodsItem(): GoodsItem = GoodsItem(
     name = nomenclature?.name ?: "",
     description = nomenclature?.commerseDescription ?: "",
     images = nomenclature?.listImages?.map { it.urlData!! } ?: emptyList(),
-    imageUrl = nomenclature?.listImages?.firstOrNull()?.urlData ?: "",
+    image = nomenclature?.listImages?.firstOrNull()?.urlData ?: "",
     oldPrice = inventoryData?.beginPrice?.toSimplePrice() ?: SimplePrice(),
     price = inventoryData?.currentPrice?.toSimplePrice() ?: SimplePrice(),
     installment = Installment(
@@ -81,7 +80,7 @@ fun GoodsItem.toCartCardState(): CartCardState = CartCardState(
     name = name,
     oldPrice = oldPrice,
     price = price,
-    imageUrl = imageUrl,
+    image = image,
     installment = installment,
     counter = CounterState(
         id = id, count = count
@@ -94,7 +93,7 @@ fun GoodsItem.toStoreCardState(): StoreCardState = StoreCardState(
     name = name,
     oldPrice = oldPrice,
     price = price,
-    imageUrl = imageUrl,
+    image = image,
     installment = installment,
     counter = CounterState(
         id = id, count = count
@@ -106,7 +105,7 @@ fun GoodsItem.toOrderCardState(): OrderCardState = OrderCardState(
     name = name,
     oldPrice = oldPrice * count,
     price = price * count,
-    imageUrl = imageUrl,
+    image = image,
     installment = installment,
     properties = properties
 )
@@ -438,10 +437,9 @@ fun Document.toWantThisCardState() = WantThisCardState(
     name = entries.firstOrNull { it.label == "Наименование" }?.text ?: ""
 )
 
-//TODO replace all imageUrl with image
 fun GoodsItem.toWantThisCardState() = WantThisCardState(
     id = id,
-    image = imageUrl,
+    image = image,
     price = price,
     oldPrice = oldPrice,
     installment = installment,

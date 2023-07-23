@@ -120,7 +120,7 @@ private fun OrderDetailsPreview() {
                             id = "mnesarchum",
                             name = "Kris Sheppard",
                             price = SimplePrice(price = 4541),
-                            imageUrl = "https://duckduckgo.com/?q=sodales",
+                            image = "https://duckduckgo.com/?q=sodales",
                             installment = Installment(
                                 months = 7486, perMonth = SimplePrice(price = 1309)
                             )
@@ -128,7 +128,7 @@ private fun OrderDetailsPreview() {
                             id = "mnesarchum",
                             name = "Kris Sheppard",
                             price = SimplePrice(price = 4541),
-                            imageUrl = "https://duckduckgo.com/?q=sodales",
+                            image = "https://duckduckgo.com/?q=sodales",
                             installment = Installment(
                                 months = 7486, perMonth = SimplePrice(price = 1309)
                             )

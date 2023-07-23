@@ -27,7 +27,7 @@ fun PhotoScreen(
         state.picture?.let {
             SimpleImage(
                 modifier = Modifier.fillMaxWidth(),
-                url = it,
+                image = it,
                 options = ImageOptions(contentScale = ContentScale.FillWidth),
                 backgroundColor = IpbTheme.colors.background.asColor()
             )

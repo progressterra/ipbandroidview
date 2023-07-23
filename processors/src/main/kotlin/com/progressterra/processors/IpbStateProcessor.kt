@@ -9,7 +9,6 @@ import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSPropertyDeclaration
 import java.util.Locale
 
-//TODO: make infinity
 class IpbStateProcessor(
     private val codeGenerator: CodeGenerator
 ) : SymbolProcessor {

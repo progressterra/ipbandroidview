@@ -42,7 +42,7 @@ fun PfpPicker(
             } else {
                 SimpleImage(
                     modifier = Modifier.size(263.dp),
-                    url = state.url,
+                    image = state.url,
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
             }

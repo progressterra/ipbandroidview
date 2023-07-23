@@ -16,7 +16,7 @@ interface CatalogMapper : Mapper<CatalogItem, CatalogCardState> {
         override fun map(data: CatalogItem): CatalogCardState {
             return CatalogCardState(id = data.itemCategory?.idUnique!!,
                 name = data.itemCategory?.name ?: noData,
-                imageUrl = data.itemCategory?.imageData?.urlData ?: "",
+                image = data.itemCategory?.imageData?.urlData ?: "",
                 children = data.listChildItems?.map { map(it) } ?: emptyList()
             )
         }

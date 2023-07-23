@@ -40,7 +40,7 @@ fun AuthProfile(
         verticalAlignment = Alignment.CenterVertically
     ) {
         SimpleImage(
-            url = state.profileImage,
+            image = state.profileImage,
             modifier = Modifier
                 .clip(CircleShape)
                 .size(80.dp),

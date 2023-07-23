@@ -56,28 +56,28 @@ fun CartScreenPreview() {
                         name = "Товар 1",
                         price = SimplePrice(10000),
                         counter = CounterState(count = 1),
-                        imageUrl = "https://picsum.photos/200/300"
+                        image = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
                         id = "2",
                         name = "Товар 2",
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
-                        imageUrl = "https://picsum.photos/200/300"
+                        image = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
                         id = "3",
                         name = "Товар 3",
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
-                        imageUrl = "https://picsum.photos/200/300"
+                        image = "https://picsum.photos/200/300"
                     ),
                     CartCardState(
                         id = "4",
                         name = "Товар 4",
                         price = SimplePrice(2000),
                         counter = CounterState(count = 1),
-                        imageUrl = "https://picsum.photos/200/300"
+                        image = "https://picsum.photos/200/300"
                     ),
                 )
             ), summary = CartSummaryState(

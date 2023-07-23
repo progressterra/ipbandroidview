@@ -13,7 +13,7 @@ data class OrderCardState(
     val name: String = "",
     val oldPrice: SimplePrice = SimplePrice(),
     val price: SimplePrice = SimplePrice(),
-    val imageUrl: String = "",
+    val image: String = "",
     val installment: Installment = Installment(),
     val count: Int = 0,
     val properties: List<Pair<String, String>> = emptyList()

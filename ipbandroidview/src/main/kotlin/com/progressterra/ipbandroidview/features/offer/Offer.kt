@@ -24,7 +24,7 @@ fun Offer(
             .clip(RoundedCornerShape(8.dp))
     ) {
         SimpleImage(
-            url = state.image,
+            image = state.image,
             backgroundColor = IpbTheme.colors.background.asColor()
         )
         BrushedText(

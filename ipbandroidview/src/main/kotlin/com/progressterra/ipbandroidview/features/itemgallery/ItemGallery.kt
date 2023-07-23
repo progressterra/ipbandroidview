@@ -44,7 +44,7 @@ fun ItemGallery(
                     .fillMaxSize()
                     .clip(RoundedCornerShape(8.dp))
                     .niceClickable { useComponent.handle(ItemGalleryEvent(state.images[it])) },
-                url = state.images[it],
+                image = state.images[it],
                 backgroundColor = IpbTheme.colors.onSurface.asColor()
             )
         }
