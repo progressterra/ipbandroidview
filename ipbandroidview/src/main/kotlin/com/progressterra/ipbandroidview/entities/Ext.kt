@@ -230,7 +230,9 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
             MultisizedImage(
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
-        } ?: emptyList()),
+        } ?: emptyList(),
+            docName = characteristicType?.name ?: "",
+            required = !listImages.isNullOrEmpty()),
         additionalValue = valueAsReference ?: "")
 
 fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
@@ -256,7 +258,7 @@ fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
                 }
             )
         },
-        photo = DocumentPhotoState()
+        photo = DocumentPhotoState(required = true)
     )
 
 fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(
