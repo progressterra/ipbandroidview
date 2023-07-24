@@ -199,7 +199,7 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
             MultisizedImage(
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
-        } ?: emptyList()) else null,
+        } ?: emptyList()) else DocumentPhotoState(),
         additionalValue = characteristicValue?.valueAsReference ?: "")
 
 fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =

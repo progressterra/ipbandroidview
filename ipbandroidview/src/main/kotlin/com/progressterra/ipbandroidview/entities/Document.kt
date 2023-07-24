@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsSta
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
-import com.progressterra.ipbandroidview.shared.updateById
 
 @Immutable
 data class Document(
@@ -16,13 +15,13 @@ data class Document(
     val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,
     val docName: String = "",
     val entries: List<TextFieldState> = emptyList(),
-    val photo: DocumentPhotoState? = null,
+    val photo: DocumentPhotoState = DocumentPhotoState(),
     val additionalValue: String = ""
 ) : Id {
 
     fun toWantThisCardState() = WantThisCardState(
         id = id,
-        image = photo?.items?.firstOrNull()?.url ?: "",
+        image = photo.items.firstOrNull()?.url ?: "",
         status = status,
         name = entries.firstOrNull { it.label == "Наименование" }?.text ?: ""
     )
@@ -46,7 +45,7 @@ data class Document(
             docName = docName,
             canBeEdit = canBeEdit,
             entries = entries.map { it.copy(enabled = canBeEdit) },
-            photo = photo?.copy(enabled = canBeEdit),
+            photo = photo.copy(enabled = canBeEdit),
             apply = ButtonState(
                 id = "apply", enabled = false
             )
@@ -56,9 +55,5 @@ data class Document(
     fun fromTemplateToReal(real: Document) = real.copy(
         entries = entries,
         photo = photo
-    )
-
-    fun updateById(id: Id, reducer: (TextFieldState) -> TextFieldState) = copy(
-        entries = entries.updateById(id, reducer)
     )
 }

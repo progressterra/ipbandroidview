@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.pages.documentdetails
 
 import android.Manifest
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase

@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.confirmationcode
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.code.CodeEvent

@@ -34,8 +34,8 @@ interface SaveDocumentsUseCase {
                     data = gson.toJson(entries, object : TypeToken<List<FieldData>>() {}.type)
                 )
             ).throwOnFailure()
-            data.photo?.let {
-                it.items.filter { photo -> photo.local }.forEach { img ->
+            if (!data.photo.isEmpty()) {
+                data.photo.items.filter { photo -> photo.local }.forEach { img ->
                     repo.setImageForChar(
                         token, data.id, MultipartBody.Part.createFormData(
                             name = "file",

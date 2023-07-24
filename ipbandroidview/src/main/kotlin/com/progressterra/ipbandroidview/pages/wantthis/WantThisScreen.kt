@@ -52,10 +52,10 @@ fun WantThisScreen(
                     useComponent = useComponent,
                     title = stringResource(R.string.past_requests)
                 )
-                state.photo?.let {
+                if (!state.photo.isEmpty()) {
                     DocumentPhoto(
                         modifier = Modifier.padding(horizontal = 20.dp),
-                        state = it,
+                        state = state.photo,
                         useComponent = useComponent
                     )
                 }
