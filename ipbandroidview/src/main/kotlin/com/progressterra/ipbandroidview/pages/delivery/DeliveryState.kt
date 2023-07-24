@@ -23,7 +23,4 @@ data class DeliveryState(
     val address: AddressUI = AddressUI(),
     val suggestion: SuggestionUI = SuggestionUI(),
     val screenState: ScreenState = ScreenState.LOADING
-) {
-
-    companion object
-}
+) { companion object }

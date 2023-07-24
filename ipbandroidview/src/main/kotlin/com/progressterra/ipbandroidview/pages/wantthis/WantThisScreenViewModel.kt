@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.pages.wantthis
 import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
+import com.progressterra.ipbandroidview.features.documentphoto.items
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
@@ -14,7 +14,9 @@ import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.uText
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.text
+import com.progressterra.ipbandroidview.shared.updateById
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -38,12 +40,11 @@ class WantThisScreenViewModel(
 
     fun refresh() {
         intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
+            reduce { WantThisScreenState.screen.set(state, ScreenState.LOADING) }
             fetchWantThisUseCase().onSuccess {
-                reduce { it.uScreenState(ScreenState.SUCCESS) }
-            }.onFailure {
-                reduce { state.uScreenState(ScreenState.ERROR) }
-            }
+                reduce { it }
+                reduce { WantThisScreenState.screen.set(state, ScreenState.SUCCESS) }
+            }.onFailure { reduce { WantThisScreenState.screen.set(state, ScreenState.ERROR) } }
         }
     }
 
@@ -80,7 +81,9 @@ class WantThisScreenViewModel(
         intent {
             when (event) {
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                    makePhotoUseCase().onSuccess { reduce { state.addPhoto(it) } }
+                    makePhotoUseCase().onSuccess { photo ->
+                        reduce { WantThisScreenState.photo.items.modify(state) { it + photo } }
+                    }
                 }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
 
                 is DocumentPhotoEvent.Select -> postSideEffect(WantThisScreenEvent.OpenPhoto(event.image.url))
@@ -99,8 +102,10 @@ class WantThisScreenViewModel(
                 is TextFieldEvent.AdditionalAction -> Unit
                 is TextFieldEvent.TextChanged -> {
                     reduce {
-                        state.updateById(event) {
-                            it.uText(event.text)
+                        WantThisScreenState.entries.modify(state) {
+                            it.updateById(event) { field ->
+                                TextFieldState.text.set(field, event.text)
+                            }
                         }
                     }
                 }
