@@ -13,16 +13,10 @@ import kotlinx.parcelize.Parcelize
 data class DocumentPhotoState(
     val items: List<MultisizedImage> = emptyList(),
     val docName: String = "",
+    val required: Boolean = false,
     val enabled: Boolean = true
 ) : Parcelable, IsEmpty {
-    override fun isEmpty(): Boolean =
-        items == emptyList<MultisizedImage>() && docName == "" && enabled
-
-    fun uEnabled(newEnabled: Boolean) = copy(enabled = newEnabled)
-
-    fun add(item: MultisizedImage) = copy(items = items + item)
-
-    fun remove(item: MultisizedImage) = copy(items = items - item)
+    override fun isEmpty(): Boolean = this == DocumentPhotoState()
 
     companion object
 }

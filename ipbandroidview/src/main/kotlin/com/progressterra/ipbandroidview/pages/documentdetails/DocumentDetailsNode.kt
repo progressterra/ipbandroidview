@@ -36,7 +36,7 @@ class DocumentDetailsNode(
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.refresh(documentDetailsState)
+            viewModel.setup(documentDetailsState)
         }
         val state = viewModel.collectAsState().value
         DocumentDetails(

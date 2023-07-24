@@ -26,8 +26,6 @@ data class TextFieldState(
     val typeValue: TypeValueCharacteristic? = null
 ) : Id, Parcelable {
 
-    companion object
-
     fun toFieldData(id: String) = FieldData(
         idrfCharacteristicType = id,
         name = label,
@@ -50,4 +48,6 @@ data class TextFieldState(
         TextInputType.DATE -> text.isDigitsOnly()
         TextInputType.CHAT -> true
     }
+
+    companion object
 }

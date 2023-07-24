@@ -3,13 +3,17 @@ package com.progressterra.ipbandroidview.pages.documentdetails
 import android.Manifest
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
+import com.progressterra.ipbandroidview.features.documentphoto.items
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.enabled
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.uText
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.text
+import com.progressterra.ipbandroidview.shared.updateById
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -30,8 +34,10 @@ class DocumentDetailsViewModel(
     override val container =
         container<DocumentDetailsState, DocumentDetailsEvent>(DocumentDetailsState())
 
-    fun refresh(state: DocumentDetailsState) {
-        intent { reduce { state } }
+    fun setup(state: DocumentDetailsState) {
+        intent {
+            reduce { state }
+        }
     }
 
     override fun handle(event: TopBarEvent) {
@@ -57,8 +63,10 @@ class DocumentDetailsViewModel(
                 is TextFieldEvent.AdditionalAction -> Unit
                 is TextFieldEvent.TextChanged -> {
                     reduce {
-                        state.updateById(event) {
-                            it.uText(event.text)
+                        DocumentDetailsState.entries.modify(state) {
+                            it.updateById(event) { field ->
+                                TextFieldState.text.set(field, event.text)
+                            }
                         }
                     }
                     validation()
@@ -70,7 +78,7 @@ class DocumentDetailsViewModel(
     private fun validation() {
         intent {
             val valid = validationUseCase(state)
-            reduce { state.uApplyEnabled(valid.isSuccess) }
+            reduce { DocumentDetailsState.apply.enabled.set(state, valid.isSuccess) }
         }
     }
 
@@ -78,7 +86,9 @@ class DocumentDetailsViewModel(
         intent {
             when (event) {
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                    makePhotoUseCase().onSuccess { reduce { state.addPhoto(it) } }
+                    makePhotoUseCase().onSuccess { photo ->
+                        reduce { DocumentDetailsState.photo.items.modify(state) { it + photo } }
+                    }
                     validation()
                 }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
 

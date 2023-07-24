@@ -32,8 +32,6 @@ fun List<SimplePrice>.sum(): SimplePrice {
     return sum
 }
 
-fun Int.toSimplePrice(): SimplePrice = SimplePrice(this)
-
 fun Double.toSimplePrice(): SimplePrice = SimplePrice(toInt())
 
 fun DHSaleHeadAsOrderViewModel.toOrder() =
@@ -195,11 +193,13 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
                 }
             )
         },
-        photo = if (imageRequired!!) DocumentPhotoState(items = characteristicValue?.listImages?.map { img ->
+        photo = DocumentPhotoState(items = characteristicValue?.listImages?.map { img ->
             MultisizedImage(
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
-        } ?: emptyList()) else DocumentPhotoState(),
+        } ?: emptyList(),
+            docName = characteristicType?.name ?: "",
+            required = imageRequired ?: false),
         additionalValue = characteristicValue?.valueAsReference ?: "")
 
 fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =

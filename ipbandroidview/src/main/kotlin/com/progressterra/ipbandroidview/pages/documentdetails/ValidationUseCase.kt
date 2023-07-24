@@ -14,7 +14,7 @@ interface ValidationUseCase {
                     throw Exception("Invalid!")
                 }
             }
-            if (state.photo?.items?.isEmpty() == true) {
+            if (state.photo.items.isEmpty() && state.photo.required) {
                 throw Exception("Invalid!")
             }
         }
