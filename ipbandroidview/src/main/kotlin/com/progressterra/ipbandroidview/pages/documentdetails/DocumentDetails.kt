@@ -63,10 +63,10 @@ fun DocumentDetails(
                     useComponent = useComponent
                 )
             }
-            state.photo?.let {
+            if (!state.photo.isEmpty()) {
                 item {
                     DocumentPhoto(
-                        state = it,
+                        state = state.photo,
                         useComponent = useComponent
                     )
                 }

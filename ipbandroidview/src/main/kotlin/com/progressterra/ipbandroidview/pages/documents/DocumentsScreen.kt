@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.entities.Citizenship
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenship
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipState
+import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -63,13 +64,13 @@ private fun DocumentsScreenPreview() {
                     status = TypeStatusDoc.CONFIRMED,
                     id = "",
                     entries = emptyList(),
-                    photo = null
+                    photo = DocumentPhotoState()
                 ), Document(
                     docName = "Passport",
                     status = TypeStatusDoc.NOT_FILL,
                     id = "",
                     entries = emptyList(),
-                    photo = null
+                    photo = DocumentPhotoState()
                 )
             )
         ),

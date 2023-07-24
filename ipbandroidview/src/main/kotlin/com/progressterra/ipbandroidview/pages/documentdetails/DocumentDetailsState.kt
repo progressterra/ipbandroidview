@@ -18,7 +18,7 @@ data class DocumentDetailsState(
     override val id: String = "",
     val docName: String = "",
     val entries: List<TextFieldState> = emptyList(),
-    val photo: DocumentPhotoState? = null,
+    val photo: DocumentPhotoState = DocumentPhotoState(),
     @IpbSubState val apply: ButtonState = ButtonState(
         id = "apply"
     ),
@@ -27,11 +27,7 @@ data class DocumentDetailsState(
 
     fun uId(newId: String) = copy(id = newId)
 
-    fun addPhoto(newPhoto: MultisizedImage) = copy(photo = photo?.add(newPhoto))
-
-    fun uState(newEntries: List<TextFieldState>, newPhoto: DocumentPhotoState?) = copy(
-        entries = newEntries, photo = newPhoto
-    )
+    fun addPhoto(newPhoto: MultisizedImage) = copy(photo = photo.add(newPhoto))
 
     fun updateById(id: Id, reducer: (TextFieldState) -> TextFieldState) = copy(
         entries = entries.updateById(id, reducer)
