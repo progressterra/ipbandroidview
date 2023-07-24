@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.shared.ui.textfield
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import androidx.core.text.isDigitsOnly
+import arrow.optics.optics
 import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidview.entities.Id
@@ -14,6 +15,7 @@ import kotlinx.parcelize.Parcelize
 @Immutable
 @IpbState
 @Parcelize
+@optics
 data class TextFieldState(
     override val id: String = "",
     val text: String = "",
@@ -23,6 +25,8 @@ data class TextFieldState(
     val type: TextInputType = TextInputType.DEFAULT,
     val typeValue: TypeValueCharacteristic? = null
 ) : Id, Parcelable {
+
+    companion object
 
     fun toFieldData(id: String) = FieldData(
         idrfCharacteristicType = id,

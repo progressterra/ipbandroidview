@@ -101,6 +101,10 @@ dependencies {
     api("androidx.activity:activity-ktx:1.7.2")
     api("androidx.activity:activity-compose:1.7.2")
 
+    //Optics
+    implementation("io.arrow-kt:arrow-optics:1.2.0")
+    ksp("io.arrow-kt:arrow-optics-ksp-plugin:1.2.0")
+
     // Compose
     api("androidx.compose.ui:ui:1.4.3")
     api("androidx.compose.ui:ui-util:1.4.3")
@@ -143,8 +147,8 @@ dependencies {
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.2")
-    api("com.github.skydoves:landscapist-placeholder:2.2.2")
+    api("com.github.skydoves:landscapist-fresco:2.2.3")
+    api("com.github.skydoves:landscapist-placeholder:2.2.3")
 
     api("androidx.paging:paging-runtime-ktx:3.1.1")
     api("androidx.paging:paging-compose:3.2.0-rc01")

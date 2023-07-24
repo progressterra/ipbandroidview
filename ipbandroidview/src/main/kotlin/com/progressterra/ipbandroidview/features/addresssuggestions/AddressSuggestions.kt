@@ -21,20 +21,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import arrow.optics.optics
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Immutable
+@optics
 data class AddressSuggestionsState(
     val isVisible: Boolean = false,
     val suggestions: List<SuggestionUI> = emptyList()
 ) {
 
-    fun uSuggestions(newSuggestions: List<SuggestionUI>) = copy(suggestions = newSuggestions)
-
-    fun uVisible(newVisible: Boolean) = copy(isVisible = newVisible)
+    companion object
 }
 
 interface UseAddressSuggestions {

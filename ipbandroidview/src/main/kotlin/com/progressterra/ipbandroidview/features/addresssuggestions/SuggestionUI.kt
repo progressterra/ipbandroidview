@@ -6,8 +6,8 @@ import com.progressterra.ipbandroidview.shared.IsEmpty
 
 @Immutable
 data class SuggestionUI(
-    val suggestionExtendedInfo: SuggestionExtendedInfo,
-    val previewOfSuggestion: String
+    val suggestionExtendedInfo: SuggestionExtendedInfo = SuggestionExtendedInfo(),
+    val previewOfSuggestion: String = ""
 ) : IsEmpty {
 
     override fun isEmpty(): Boolean =

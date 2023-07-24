@@ -1,14 +1,22 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
+import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
+import com.progressterra.ipbandroidview.features.addresssuggestions.isVisible
+import com.progressterra.ipbandroidview.features.addresssuggestions.suggestions
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.enabled
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.text
+import com.progressterra.ipbandroidview.widgets.deliverypicker.address
+import com.progressterra.ipbandroidview.widgets.deliverypicker.suggestions
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -29,18 +37,21 @@ class DeliveryViewModel(
 
     fun refresh() {
         intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
+            reduce { DeliveryState.screenState.set(state, ScreenState.LOADING) }
             fetchShippingAddressUseCase().onSuccess {
-                reduce { state.uScreenState(ScreenState.SUCCESS) }
+                reduce { DeliveryState.screenState.set(state, ScreenState.SUCCESS) }
                 if (!UserData.shippingAddress.isEmpty()) {
+                    reduce { DeliveryState.address.set(state, UserData.shippingAddress) }
                     reduce {
-                        state.uDeliveryPickerAddressText(UserData.shippingAddress.printAddress())
-                            .uAddress(UserData.shippingAddress)
+                        DeliveryState.deliveryPicker.address.text.set(
+                            state,
+                            UserData.shippingAddress.printAddress()
+                        )
                     }
                 }
                 checkValid()
             }.onFailure {
-                reduce { state.uScreenState(ScreenState.ERROR) }
+                reduce { DeliveryState.screenState.set(state, ScreenState.ERROR) }
             }
 
         }
@@ -77,12 +88,15 @@ class DeliveryViewModel(
 
     override fun handle(event: AddressSuggestionsEvent) {
         intent {
+            reduce { DeliveryState.suggestion.set(state, event.suggestion) }
+            reduce { DeliveryState.address.set(state, AddressUI()) }
             reduce {
-                state.uSuggestion(event.suggestion)
-                    .uAddress(null)
-                    .uDeliveryPickerAddressText(event.suggestion.previewOfSuggestion)
-                    .uSuggestionsVisible(false)
+                DeliveryState.deliveryPicker.address.text.set(
+                    state,
+                    event.suggestion.previewOfSuggestion
+                )
             }
+            reduce { DeliveryState.deliveryPicker.suggestions.isVisible.set(state, false) }
             checkValid()
         }
     }
@@ -91,16 +105,22 @@ class DeliveryViewModel(
         blockingIntent {
             when (event) {
                 is TextFieldEvent.TextChanged -> when (event.id) {
-                    "address" -> reduce { state.uDeliveryPickerAddressText(event.text) }
-                    "commentary" -> reduce { state.uCommentaryText(event.text) }
+                    "address" -> reduce {
+                        DeliveryState.deliveryPicker.address.text.set(state, event.text)
+                    }
+
+                    "commentary" -> reduce { DeliveryState.commentary.text.set(state, event.text) }
                 }
 
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> when (event.id) {
-                    "address" -> reduce { state.uDeliveryPickerAddressText("") }
+                    "address" -> reduce {
+                        DeliveryState.deliveryPicker.address.text.set(state, "")
+                    }
                 }
             }
-            reduce { state.uAddress(null).uSuggestion(null) }
+            reduce { DeliveryState.address.set(state, AddressUI()) }
+            reduce { DeliveryState.suggestion.set(state, SuggestionUI()) }
             checkValid()
             updateSuggestions()
         }
@@ -109,14 +129,20 @@ class DeliveryViewModel(
     private fun updateSuggestions() {
         intent {
             suggestionsUse(state.deliveryPicker.address.text).onSuccess {
-                reduce { state.uSuggestions(it).uSuggestionsVisible(true) }
+                reduce { DeliveryState.deliveryPicker.suggestions.isVisible.set(state, true) }
+                reduce { DeliveryState.deliveryPicker.suggestions.suggestions.set(state, it) }
             }
         }
     }
 
     private fun checkValid() {
         intent {
-            reduce { state.uConfirmEnabled(state.address != null || state.suggestion != null) }
+            reduce {
+                DeliveryState.confirm.enabled.set(
+                    state,
+                    !state.address.isEmpty() || !state.suggestion.isEmpty()
+                )
+            }
         }
     }
 }

@@ -1,16 +1,17 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.compose.runtime.Immutable
+import arrow.optics.optics
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
-import com.progressterra.ipbandroidview.widgets.deliverypicker.uAddressText
 import com.progressterra.processors.IpbSubState
 
 @Immutable
+@optics
 data class DeliveryState(
     val deliveryPicker: DeliveryPickerState = DeliveryPickerState(),
     @IpbSubState val commentary: TextFieldState = TextFieldState(
@@ -19,23 +20,10 @@ data class DeliveryState(
     @IpbSubState val confirm: ButtonState = ButtonState(
         id = "confirm"
     ),
-    val address: AddressUI? = null,
-    val suggestion: SuggestionUI? = null,
+    val address: AddressUI = AddressUI(),
+    val suggestion: SuggestionUI = SuggestionUI(),
     val screenState: ScreenState = ScreenState.LOADING
 ) {
 
-    fun uScreenState(newScreenState: ScreenState) = copy(screenState = newScreenState)
-
-    fun uSuggestions(newSuggestions: List<SuggestionUI>) =
-        copy(deliveryPicker = deliveryPicker.uSuggestions(newSuggestions))
-
-    fun uSuggestionsVisible(newVisible: Boolean) =
-        copy(deliveryPicker = deliveryPicker.uSuggestionsVisible(newVisible))
-
-    fun uDeliveryPickerAddressText(newAddress: String) =
-        copy(deliveryPicker = deliveryPicker.uAddressText(newAddress))
-
-    fun uAddress(newAddress: AddressUI?) = copy(address = newAddress)
-
-    fun uSuggestion(newSuggestion: SuggestionUI?) = copy(suggestion = newSuggestion)
+    companion object
 }
