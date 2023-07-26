@@ -12,15 +12,12 @@ import kotlinx.parcelize.Parcelize
 
 @Immutable
 @Parcelize
-@optics
-data class DocumentDetailsState(
+@optics data class DocumentDetailsState(
     override val id: String = "",
     val docName: String = "",
     val entries: List<TextFieldState> = emptyList(),
     val photo: DocumentPhotoState = DocumentPhotoState(),
-    val apply: ButtonState = ButtonState(
-        id = "apply"
-    ),
+    val apply: ButtonState = ButtonState(id = "apply"),
     val canBeEdit: Boolean = true
 ) : Id, Parcelable {
 

@@ -9,8 +9,7 @@ import kotlinx.parcelize.Parcelize
 
 @Immutable
 @Parcelize
-@optics
-data class DocumentPhotoState(
+@optics data class DocumentPhotoState(
     val items: List<MultisizedImage> = emptyList(),
     val docName: String = "",
     val required: Boolean = false,
