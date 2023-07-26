@@ -1,14 +1,11 @@
 package com.progressterra.ipbandroidview.features.trace
 
 import androidx.compose.runtime.Immutable
+import arrow.optics.optics
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 
 @Immutable
+@optics
 data class TraceState(
     val trace: List<CatalogCardState> = emptyList()
-) {
-
-    fun addTrace(newTrace: CatalogCardState) = copy(trace = trace + newTrace)
-
-    fun removeTrace() = copy(trace = trace.dropLast(1))
-}
+) { companion object }

@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.features.search
 
 import androidx.compose.runtime.Immutable
-import com.progressterra.processors.IpbState
+import arrow.optics.optics
 
 @Immutable
-@IpbState
-data class SearchState(
+@optics data class SearchState(
     val text: String = ""
-)
+) { companion object }

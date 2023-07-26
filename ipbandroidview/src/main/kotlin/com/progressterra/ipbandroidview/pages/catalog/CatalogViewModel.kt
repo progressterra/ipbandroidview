@@ -6,14 +6,17 @@ import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardEvent
 import com.progressterra.ipbandroidview.features.search.SearchEvent
+import com.progressterra.ipbandroidview.features.search.text
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.trace.TraceEvent
+import com.progressterra.ipbandroidview.features.trace.trace
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.widgets.storeitems.items
 import kotlinx.coroutines.flow.emptyFlow
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
@@ -36,25 +39,28 @@ class CatalogViewModel(
     fun refresh() {
         intent {
             reduce { CatalogState() }
-            catalogUseCase().onSuccess {
-                reduce { state.uCategory(it).addTrace(it).uScreenState(ScreenState.SUCCESS) }
+            catalogUseCase().onSuccess { catalog ->
+                reduce { CatalogState.stateBox.set(state, ScreenState.SUCCESS) }
+                reduce { CatalogState.current.set(state, catalog) }
+                reduce { CatalogState.trace.trace.modify(state) { it + catalog } }
             }.onFailure {
-                reduce { state.uScreenState(ScreenState.ERROR) }
+                reduce { CatalogState.stateBox.set(state, ScreenState.ERROR) }
             }
         }
     }
 
     override fun handle(event: CatalogCardEvent) {
         intent {
-            reduce { state.addTrace(event.category).uCategory(event.category) }
+            reduce { CatalogState.trace.trace.modify(state) { it + event.category } }
+            reduce { CatalogState.current.set(state, event.category) }
             uCategory()
         }
     }
 
     override fun handle(event: TraceEvent) {
         intent {
-            reduce { state.removeTrace() }
-            reduce { state.uCategory(state.trace.trace.last()) }
+            reduce { CatalogState.trace.trace.modify(state) { it.dropLast(1) } }
+            reduce { CatalogState.current.set(state, state.trace.trace.last()) }
             uCategory()
         }
     }
@@ -64,9 +70,11 @@ class CatalogViewModel(
             if (state.current.children.isEmpty()) {
                 goodsUseCase(GoodsFilter(categoryId = state.current.id)).onSuccess {
                     val cached = it.cachedIn(viewModelScope)
-                    reduce { state.uGoods(cached) }
+                    reduce { CatalogState.goods.items.set(state, cached) }
                 }
-            } else reduce { state.uGoods(emptyFlow()) }
+            } else {
+                reduce { CatalogState.goods.items.set(state, emptyFlow()) }
+            }
         }
     }
 
@@ -98,7 +106,7 @@ class CatalogViewModel(
 
     override fun handle(event: SearchEvent) {
         blockingIntent {
-            reduce { state.uSearchText(event.text) }
+            reduce { CatalogState.search.text.set(state, event.text) }
         }
         intent {
             var filter = GoodsFilter(search = state.search.text)
@@ -108,10 +116,10 @@ class CatalogViewModel(
             if (state.search.text.isNotEmpty()) {
                 goodsUseCase(filter).onSuccess {
                     val cached = it.cachedIn(viewModelScope)
-                    reduce { state.uGoods(cached) }
+                    reduce { CatalogState.goods.items.set(state, cached) }
                 }
             } else {
-                reduce { state.uGoods(emptyFlow()) }
+                reduce { CatalogState.goods.items.set(state, emptyFlow()) }
             }
         }
     }
