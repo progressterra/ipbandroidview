@@ -3,6 +3,8 @@ package com.progressterra.ipbandroidview.pages.goodsdetails
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonEvent
+import com.progressterra.ipbandroidview.features.favoritebutton.favorite
+import com.progressterra.ipbandroidview.features.goodsdescription.favoriteButton
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
@@ -35,16 +37,19 @@ class GoodsDetailsViewModel(
 
     fun setupId(newId: String) {
         blockingIntent {
-            reduce { state.uId(newId) }
+            reduce { GoodsDetailsState.id.set(state, newId) }
         }
     }
 
     fun refresh() {
         intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
+            reduce { GoodsDetailsState.screenState.set(state, ScreenState.LOADING) }
             goodsDetailsUseCase(state.id)
-                .onSuccess { reduce { it.uId(state.id).uScreenState(ScreenState.SUCCESS) } }
-                .onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
+                .onSuccess {
+                    reduce { GoodsDetailsState.id.set(it, state.id) }
+                    reduce { GoodsDetailsState.screenState.set(state, ScreenState.SUCCESS) }
+                }
+                .onFailure { GoodsDetailsState.screenState.set(state, ScreenState.ERROR) }
         }
     }
 
@@ -67,7 +72,7 @@ class GoodsDetailsViewModel(
                 state.description.favoriteButton.favorite
             ).onSuccess {
                 postSideEffect(GoodsDetailsEvent.Toast(R.string.added_to_favorites))
-                reduce { state.uDescriptionFavoriteButtonState(!state.description.favoriteButton.favorite) }
+                reduce { GoodsDetailsState.description.favoriteButton.favorite.set(state, !state.description.favoriteButton.favorite) }
             }.onFailure {
                 postSideEffect(GoodsDetailsEvent.Toast(R.string.failure))
             }
