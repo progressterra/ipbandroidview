@@ -4,24 +4,23 @@ import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.phototopbar.PhotoTopBarEvent
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.annotation.OrbitExperimental
+import org.orbitmvi.orbit.syntax.simple.blockingIntent
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
 
+@OptIn(OrbitExperimental::class)
 class PhotoViewModel : ViewModel(), ContainerHost<PhotoState, PhotoEvent>, UsePhoto {
 
     override val container: Container<PhotoState, PhotoEvent> = container(PhotoState())
 
-    fun setPhoto(
+    fun setup(
         picture: String
     ) {
-        intent {
-            reduce {
-                PhotoState(
-                    picture = picture
-                )
-            }
+        blockingIntent {
+            reduce { PhotoState(picture) }
         }
     }
 

@@ -30,7 +30,7 @@ class PhotoNode(
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.setPhoto(image)
+            viewModel.setup(image)
         }
         val state = viewModel.collectAsState()
         PhotoScreen(

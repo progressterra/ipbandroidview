@@ -1,22 +1,16 @@
 package com.progressterra.ipbandroidview.features.editbutton
 
 import androidx.compose.runtime.Immutable
+import arrow.optics.optics
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.processors.IpbSubState
 
 @Immutable
+@optics
 data class EditButtonState(
-    @IpbSubState val edit: ButtonState = ButtonState(
-        id = "edit"
-    ),
-    @IpbSubState val save: ButtonState = ButtonState(
-        id = "save"
-    ),
-    @IpbSubState val cancel: ButtonState = ButtonState(
-        id = "cancel"
-    ),
+    val edit: ButtonState = ButtonState(id = "edit"),
+    val save: ButtonState = ButtonState(id = "save"),
+    val cancel: ButtonState = ButtonState(id = "cancel"),
     val editing: Boolean = false
 ) {
-
-    fun startCancel() = copy(editing = !editing)
+    companion object
 }

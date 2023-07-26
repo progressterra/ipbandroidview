@@ -29,7 +29,7 @@ class OrderTrackingScreenNode(
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.refresh(tracking)
+            viewModel.setup(tracking)
         }
         val state = viewModel.collectAsState().value
         OrderTrackingScreen(

@@ -1,19 +1,23 @@
 package com.progressterra.ipbandroidview.widgets.edituser
 
 import androidx.compose.runtime.Immutable
+import arrow.optics.optics
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
-import com.progressterra.processors.IpbSubState
 
 @Immutable
+@optics
 data class EditUserState(
-    @IpbSubState val name: TextFieldState = TextFieldState(id = "name"),
-    @IpbSubState val email: TextFieldState = TextFieldState(id = "email"),
-    @IpbSubState val phone: TextFieldState = TextFieldState(
+    val name: TextFieldState = TextFieldState(id = "name"),
+    val email: TextFieldState = TextFieldState(id = "email"),
+    val phone: TextFieldState = TextFieldState(
         id = "phone",
         type = TextInputType.PHONE_NUMBER
     ),
-    @IpbSubState val birthday: TextFieldState = TextFieldState(
-        id = "birthday"
+    val birthday: TextFieldState = TextFieldState(
+        id = "birthday",
+        type = TextInputType.DATE
     )
-)
+) {
+    companion object
+}

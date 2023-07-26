@@ -34,7 +34,7 @@ class OrderStatusNode(
         }
         if (!alreadyLaunched) {
             alreadyLaunched = true
-            viewModel.refresh(orderStatusState)
+            viewModel.setup(orderStatusState)
         }
         val state = viewModel.collectAsState().value
         OrderStatusScreen(

@@ -2,15 +2,24 @@ package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
+import com.progressterra.ipbandroidview.features.editbutton.editing
+import com.progressterra.ipbandroidview.features.editbutton.save
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.enabled
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.enabled
+import com.progressterra.ipbandroidview.shared.ui.textfield.text
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserValidUseCase
+import com.progressterra.ipbandroidview.widgets.edituser.birthday
+import com.progressterra.ipbandroidview.widgets.edituser.email
+import com.progressterra.ipbandroidview.widgets.edituser.name
+import com.progressterra.ipbandroidview.widgets.edituser.phone
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.annotation.OrbitExperimental
 import org.orbitmvi.orbit.syntax.simple.blockingIntent
@@ -33,15 +42,13 @@ class ProfileDetailsViewModel(
         intent {
             reduce { ProfileDetailsState() }
             fetchUserUseCase().onSuccess {
-                reduce {
-                    state.uEditUser(it)
-                        .uPhoneEnabled(false)
-                        .uEmailEnabled(false)
-                        .uBirthdayEnabled(false)
-                        .uNameEnabled(false)
-                }
-                reduce { state.uScreenState(ScreenState.SUCCESS) }
-            }.onFailure { reduce { state.uScreenState(ScreenState.ERROR) } }
+                reduce { ProfileDetailsState.editUser.set(state, it) }
+                reduce { ProfileDetailsState.editUser.phone.enabled.set(state, false) }
+                reduce { ProfileDetailsState.editUser.email.enabled.set(state, false) }
+                reduce { ProfileDetailsState.editUser.birthday.enabled.set(state, false) }
+                reduce { ProfileDetailsState.editUser.name.enabled.set(state, false) }
+                reduce { ProfileDetailsState.screen.set(state, ScreenState.SUCCESS) }
+            }.onFailure { reduce { ProfileDetailsState.screen.set(state, ScreenState.ERROR) } }
         }
     }
 
@@ -59,16 +66,26 @@ class ProfileDetailsViewModel(
             when (event.id) {
                 "save" -> saveUseCase(state.editUser).onSuccess {
                     reduce {
-                        state.startCancelEdit().uEmailEnabled(false)
-                            .uNameEnabled(false).uBirthdayEnabled(false)
+                        ProfileDetailsState.editButton.editing.set(
+                            state,
+                            !state.editButton.editing
+                        )
                     }
+                    reduce { ProfileDetailsState.editUser.email.enabled.set(state, false) }
+                    reduce { ProfileDetailsState.editUser.birthday.enabled.set(state, false) }
+                    reduce { ProfileDetailsState.editUser.name.enabled.set(state, false) }
                 }
 
                 "edit" -> {
                     reduce {
-                        state.startCancelEdit().uEmailEnabled(true)
-                            .uNameEnabled(true).uBirthdayEnabled(true)
+                        ProfileDetailsState.editButton.editing.set(
+                            state,
+                            !state.editButton.editing
+                        )
                     }
+                    reduce { ProfileDetailsState.editUser.email.enabled.set(state, true) }
+                    reduce { ProfileDetailsState.editUser.birthday.enabled.set(state, true) }
+                    reduce { ProfileDetailsState.editUser.name.enabled.set(state, true) }
                 }
 
                 "cancel" -> refresh()
@@ -98,16 +115,33 @@ class ProfileDetailsViewModel(
             when (event) {
                 is TextFieldEvent.TextChanged -> {
                     when (event.id) {
-                        "name" -> reduce { state.uName(event.text) }
-                        "email" -> reduce { state.uEmail(event.text) }
-                        "birthday" -> reduce { state.uBirthday(event.text) }
+                        "name" -> reduce {
+                            ProfileDetailsState.editUser.name.text.set(
+                                state,
+                                event.text
+                            )
+                        }
+
+                        "email" -> reduce {
+                            ProfileDetailsState.editUser.email.text.set(
+                                state,
+                                event.text
+                            )
+                        }
+
+                        "birthday" -> reduce {
+                            ProfileDetailsState.editUser.birthday.text.set(
+                                state,
+                                event.text
+                            )
+                        }
                     }
                 }
 
                 is TextFieldEvent.Action -> Unit
                 is TextFieldEvent.AdditionalAction -> when (event.id) {
-                    "name" -> reduce { state.uName("") }
-                    "email" -> reduce { state.uEmail("") }
+                    "name" -> reduce { ProfileDetailsState.editUser.name.text.set(state, "") }
+                    "email" -> reduce { ProfileDetailsState.editUser.email.text.set(state, "") }
                     "birthday" -> Unit
                 }
             }
@@ -118,7 +152,7 @@ class ProfileDetailsViewModel(
     private fun valid() {
         intent {
             val valid = editUserValidUseCase(state.editUser).isSuccess
-            reduce { state.uSaveEnabled(valid) }
+            reduce { ProfileDetailsState.editButton.save.enabled.set(state, valid) }
         }
     }
 }

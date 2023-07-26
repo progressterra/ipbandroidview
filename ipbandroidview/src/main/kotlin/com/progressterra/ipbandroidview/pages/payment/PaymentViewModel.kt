@@ -1,12 +1,16 @@
 package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.toScreenState
+import com.progressterra.ipbandroidview.features.bonusswitch.useBonuses
 import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
+import com.progressterra.ipbandroidview.features.paymentmethod.selectedPaymentMethod
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
+import com.progressterra.ipbandroidview.shared.ui.brushedswitch.enabled
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
@@ -28,24 +32,24 @@ class PaymentViewModel(
 
     fun refresh() {
         intent {
-            reduce { state.uStateBoxState(ScreenState.LOADING) }
+            reduce { PaymentState.screenState.set(state, ScreenState.LOADING) }
             var isSuccess = true
             fetchPaymentMethods().onSuccess {
-                reduce { state.uPaymentMethodState(it) }
+                reduce { PaymentState.paymentMethod.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
             fetchBonusSwitchUseCase().onSuccess {
-                reduce { state.uBonusSwitch(it) }
+                reduce { PaymentState.bonusSwitch.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
             fetchReceiptUseCase().onSuccess {
-                reduce { state.uReceiveReceipt(it) }
+                reduce { PaymentState.receipt.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
-            reduce { state.uStateBoxState(ScreenState.fromBoolean(isSuccess)) }
+            reduce { PaymentState.screenState.set(state, isSuccess.toScreenState()) }
         }
     }
 
@@ -70,15 +74,18 @@ class PaymentViewModel(
     override fun handle(event: BrushedSwitchEvent) {
         intent {
             when (event.id) {
-                "useBonuses" -> reduce { state.reverseBonusSwitch() }
+                "useBonuses" -> reduce {
+                    PaymentState.bonusSwitch.useBonuses.enabled.set(
+                        state,
+                        !state.bonusSwitch.useBonuses.enabled
+                    )
+                }
             }
         }
     }
 
     override fun handle(event: StateBoxEvent) {
-        intent {
-            refresh()
-        }
+        refresh()
     }
 
     override fun handle(event: LinkTextEvent) {
@@ -89,7 +96,7 @@ class PaymentViewModel(
 
     override fun handle(event: PaymentMethodEvent) {
         intent {
-            reduce { state.uPaymentMethod(event.type) }
+            reduce { PaymentState.paymentMethod.selectedPaymentMethod.set(state, event.type) }
         }
     }
 }

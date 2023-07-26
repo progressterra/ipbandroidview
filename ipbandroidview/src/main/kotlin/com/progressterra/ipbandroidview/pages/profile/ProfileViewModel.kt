@@ -1,13 +1,14 @@
 package com.progressterra.ipbandroidview.pages.profile
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
+import com.progressterra.ipbandroidview.features.profilebutton.enabled
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
-import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import org.orbitmvi.orbit.ContainerHost
@@ -26,28 +27,26 @@ class ProfileViewModel(
 
     fun refresh() {
         intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
+            reduce { ProfileState.screenState.set(state, ScreenState.LOADING) }
             var isSuccess = true
             fetchUserProfileUseCase().onSuccess {
-                reduce {
-                    state.uProfile(it).uIsAuthorized(UserData.clientExist)
-                }
+                reduce { ProfileState.isAuthorized.set(state, true) }
+                reduce { ProfileState.authProfileState.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
             documentsNotification().onSuccess {
-                reduce { state.uNotification(it).uDocumentsEnabled(true) }
+                reduce { ProfileState.docNotification.set(state, it) }
+                reduce { ProfileState.documents.enabled.set(state, true) }
             }.onFailure {
-                reduce { state.uDocumentsEnabled(false) }
+                reduce { ProfileState.documents.enabled.set(state, false) }
             }
-            reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
+            reduce { ProfileState.screenState.set(state, isSuccess.toScreenState()) }
         }
     }
 
     override fun handle(event: StateBoxEvent) {
-        intent {
-            refresh()
-        }
+        refresh()
     }
 
     override fun handle(event: AuthProfileEvent) {
