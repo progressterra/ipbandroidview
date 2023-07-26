@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.widgets.storeitems.items
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -25,11 +26,12 @@ class FavoritesViewModel(
 
     fun refresh() {
         intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
+            reduce { FavoritesState.stateBox.set(state, ScreenState.LOADING) }
             favoriteGoodsUseCase().onSuccess {
-                reduce { state.uScreenState(ScreenState.SUCCESS).uItemsState(it) }
+                reduce { FavoritesState.stateBox.set(state, ScreenState.SUCCESS) }
+                reduce { FavoritesState.items.items.set(state, it) }
             }.onFailure {
-                reduce { state.uScreenState(ScreenState.ERROR) }
+                reduce { FavoritesState.stateBox.set(state, ScreenState.ERROR) }
             }
         }
     }
@@ -67,8 +69,6 @@ class FavoritesViewModel(
     }
 
     override fun handle(event: StateBoxEvent) {
-        intent {
-            refresh()
-        }
+        refresh()
     }
 }
