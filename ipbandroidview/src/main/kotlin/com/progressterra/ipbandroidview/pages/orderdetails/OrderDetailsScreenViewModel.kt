@@ -26,17 +26,18 @@ class OrderDetailsScreenViewModel(
 
     fun setupId(newId: String) {
         blockingIntent {
-            reduce { state.uId(newId) }
+            reduce { OrderDetailsScreenState.id.set(state, newId) }
         }
     }
 
     fun refresh() {
         intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
+            reduce { OrderDetailsScreenState.screenState.set(state, ScreenState.LOADING) }
             orderDetailsUseCase(state.id).onSuccess {
-                reduce { state.uDetails(it).uScreenState(ScreenState.SUCCESS) }
+                reduce { OrderDetailsScreenState.details.set(state, it) }
+                reduce { OrderDetailsScreenState.screenState.set(state, ScreenState.SUCCESS) }
             }.onFailure {
-                reduce { state.uScreenState(ScreenState.ERROR) }
+                reduce { OrderDetailsScreenState.screenState.set(state, ScreenState.ERROR) }
             }
         }
     }

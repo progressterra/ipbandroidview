@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.features.orderdetails
 
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
+import arrow.optics.optics
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
@@ -10,6 +11,7 @@ import kotlinx.parcelize.Parcelize
 
 @Immutable
 @Parcelize
+@optics
 data class OrderDetailsState(
     val id: String = "",
     val number: String = "",
@@ -24,4 +26,6 @@ data class OrderDetailsState(
         status = status,
         number = number
     )
+
+    companion object
 }
