@@ -93,7 +93,11 @@ fun Code(
             singleLine = true,
             maxLines = 1,
             interactionSource = mutableInteractionSource,
-            onValueChange = { useComponent.handle(CodeEvent(it)) },
+            onValueChange = {
+                if (it.length <= 4) {
+                    useComponent.handle(CodeEvent(it))
+                }
+            },
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number, imeAction = ImeAction.Done
             ),

@@ -3,10 +3,14 @@ package com.progressterra.ipbandroidview.pages.confirmationcode
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.code.CodeEvent
+import com.progressterra.ipbandroidview.features.code.code
+import com.progressterra.ipbandroidview.features.code.enabled
+import com.progressterra.ipbandroidview.features.code.phone
 import com.progressterra.ipbandroidview.features.countdown.CountdownEvent
+import com.progressterra.ipbandroidview.features.countdown.count
+import com.progressterra.ipbandroidview.features.countdown.enabled
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import kotlinx.coroutines.delay
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -28,47 +32,44 @@ class ConfirmationCodeViewModel(
 
     fun refresh(phoneNumber: String) {
         intent {
-            reduce { state.uCode("").uPhoneNumber(phoneNumber) }
+            reduce { ConfirmationCodeState.code.code.set(state, "") }
+            reduce { ConfirmationCodeState.code.phone.set(state, phoneNumber) }
             startTimer()
         }
     }
 
     private fun onNext() {
         intent {
-            reduce { state.uCodeEnabled(false).uNextEnabled(false) }
-            var isSuccess = true
-            endVerificationChannelUseCase(state.code.phone, state.code.code).onSuccess {
+            reduce { ConfirmationCodeState.code.enabled.set(state, false) }
+            val call = endVerificationChannelUseCase(state.code.phone, state.code.code).onSuccess {
                 postSideEffect(ConfirmationCodeEvent.Next)
             }.onFailure {
-                isSuccess = false
                 postSideEffect(ConfirmationCodeEvent.Toast(R.string.wrong_code))
             }
-            reduce { state.uCodeEnabled(isSuccess).uNextEnabled(isSuccess) }
+            reduce { ConfirmationCodeState.code.enabled.set(state, call.isSuccess) }
         }
     }
 
     private fun startTimer() {
         intent {
-            reduce { state.uRepeatEnabled(false) }
+            reduce { ConfirmationCodeState.repeat.enabled.set(state, false) }
             for (i in 45.downTo(1)) {
                 delay(1000)
-                reduce { state.uRepeatCount(if (i >= 10) "00:$i" else "00:0$i") }
+                reduce {
+                    ConfirmationCodeState.repeat.count.set(
+                        state,
+                        if (i >= 10) "00:$i" else "00:0$i"
+                    )
+                }
             }
-            reduce { state.uRepeatEnabled(true) }
+            reduce { ConfirmationCodeState.repeat.enabled.set(state, true) }
         }
     }
 
     override fun handle(event: CodeEvent) {
         blockingIntent {
-            if (event.code.length <= 4) reduce { state.uCode(event.code) }
+            reduce { ConfirmationCodeState.code.code.set(state, event.code) }
             if (event.code.length == 4) onNext()
-            state.uNextEnabled(state.code.code.length == 4)
-        }
-    }
-
-    override fun handle(event: ButtonEvent) {
-        intent {
-            onNext()
         }
     }
 
@@ -80,8 +81,6 @@ class ConfirmationCodeViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        intent {
-            postSideEffect(ConfirmationCodeEvent.Back)
-        }
+        intent { postSideEffect(ConfirmationCodeEvent.Back) }
     }
 }

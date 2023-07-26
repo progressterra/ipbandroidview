@@ -1,17 +1,11 @@
 package com.progressterra.ipbandroidview.features.code
 
 import androidx.compose.runtime.Immutable
+import arrow.optics.optics
 
 @Immutable
-data class CodeState(
+@optics data class CodeState(
     val code: String = "",
     val phone: String = "",
     val enabled: Boolean = false
-) {
-
-    fun uCode(newCode: String): CodeState = copy(code = newCode)
-
-    fun uEnabled(newEnabled: Boolean): CodeState = copy(enabled = newEnabled)
-
-    fun uPhone(newPhone: String): CodeState = copy(phone = newPhone)
-}
+) { companion object }
