@@ -3,15 +3,17 @@ package com.progressterra.ipbandroidview.pages.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
+import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
+import com.progressterra.ipbandroidview.widgets.galleries.items
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -33,18 +35,21 @@ class MainViewModel(
         intent {
             var isSuccess = true
             fetchBonusesUseCase().onSuccess {
-                reduce { state.uBonuses(it) }
+                reduce { MainState.bonuses.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
             if (isSuccess) fetchGalleriesUseCase().onSuccess {
-                val cached =
-                    it.map { item -> item.uItems(item.items.cachedIn(viewModelScope)) }
-                reduce { state.uRecommended(cached) }
+                val cachedGalleries = it.map { gallery ->
+                    val cached = gallery.items.cachedIn(viewModelScope)
+                    GalleriesState.items.set(gallery, cached)
+                }
+                reduce { MainState.recommended.set(state, cachedGalleries) }
             }.onFailure {
                 isSuccess = false
             }
-            reduce { state.uStateBox(ScreenState.fromBoolean(isSuccess)) }
+
+            reduce { MainState.stateBox.set(state, isSuccess.toScreenState()) }
         }
     }
 
@@ -81,8 +86,6 @@ class MainViewModel(
     }
 
     override fun handle(event: StateBoxEvent) {
-        intent {
-            refresh()
-        }
+        refresh()
     }
 }
