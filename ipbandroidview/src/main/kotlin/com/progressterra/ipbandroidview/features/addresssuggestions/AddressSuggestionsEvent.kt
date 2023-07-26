@@ -1,0 +1,3 @@
+package com.progressterra.ipbandroidview.features.addresssuggestions
+
+class AddressSuggestionsEvent(val suggestion: SuggestionUI)

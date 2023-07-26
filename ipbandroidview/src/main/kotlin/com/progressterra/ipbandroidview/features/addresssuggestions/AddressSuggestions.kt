@@ -15,39 +15,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import arrow.optics.optics
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-
-@Immutable
-@optics
-data class AddressSuggestionsState(
-    val isVisible: Boolean = false,
-    val suggestions: List<SuggestionUI> = emptyList()
-) {
-
-    companion object
-}
-
-interface UseAddressSuggestions {
-
-    fun handle(event: AddressSuggestionsEvent)
-
-    class Empty : UseAddressSuggestions {
-
-        override fun handle(event: AddressSuggestionsEvent) = Unit
-    }
-}
-
-class AddressSuggestionsEvent(val suggestion: SuggestionUI)
 
 @Composable
 fun AddressSuggestions(
