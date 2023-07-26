@@ -21,11 +21,12 @@ class OrdersListViewModel(
 
     fun refresh() {
         intent {
-            reduce { state.copy(screenState = ScreenState.LOADING) }
+            reduce { OrdersListState.screenState.set(state, ScreenState.LOADING) }
             ordersUseCase().onSuccess {
-                reduce { state.copy(screenState = ScreenState.SUCCESS, orders = it) }
+                reduce { OrdersListState.screenState.set(state, ScreenState.SUCCESS) }
+                reduce { OrdersListState.orders.set(state, it) }
             }.onFailure {
-                reduce { state.copy(screenState = ScreenState.ERROR) }
+                reduce { OrdersListState.screenState.set(state, ScreenState.ERROR) }
             }
         }
     }
@@ -43,8 +44,6 @@ class OrdersListViewModel(
     }
 
     override fun handle(event: StateBoxEvent) {
-        intent {
-            refresh()
-        }
+        refresh()
     }
 }
