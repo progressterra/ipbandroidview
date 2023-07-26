@@ -24,19 +24,24 @@ class BonusesDetailsViewModel(
 
     fun refresh() {
         intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
+            reduce { BonusesDetailsState.screenState.set(state, ScreenState.LOADING) }
             var isSuccess = true
             bonusesUseCase().onSuccess {
-                reduce { state.uBonusesInfo(it) }
+                reduce { BonusesDetailsState.bonusesInfo.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
             fetchBonusesTransactionsUseCase().onSuccess {
-                reduce { state.uTransactions(it) }
+                reduce { BonusesDetailsState.transactions.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
-            reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
+            reduce {
+                BonusesDetailsState.screenState.set(
+                    state,
+                    ScreenState.fromBoolean(isSuccess)
+                )
+            }
         }
     }
 
