@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoStat
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.print
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
@@ -32,7 +33,9 @@ fun List<SimplePrice>.sum(): SimplePrice {
     return sum
 }
 
-fun Double.toSimplePrice(): SimplePrice = SimplePrice(toInt())
+fun Double.toSimplePrice() = SimplePrice(toInt())
+
+fun Boolean.toScreenState() = if (this) ScreenState.SUCCESS else ScreenState.ERROR
 
 fun DHSaleHeadAsOrderViewModel.toOrder() =
     Order(itemsIds = listDRSale?.map { it.idrfNomenclature!! } ?: emptyList(),
@@ -42,7 +45,7 @@ fun DHSaleHeadAsOrderViewModel.toOrder() =
         status = statusOrder ?: TypeStatusOrder.CANCELED,
         date = dateAdded?.parseToDate()?.print() ?: "")
 
-fun ProductView.toGoodsItem(): GoodsItem = GoodsItem(
+fun ProductView.toGoodsItem() = GoodsItem(
     id = nomenclature?.idUnique!!,
     categoryId = nomenclature?.listCatalogCategory?.first()!!,
     name = nomenclature?.name ?: "",

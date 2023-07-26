@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.bonusesdetails
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
@@ -39,7 +40,7 @@ class BonusesDetailsViewModel(
             reduce {
                 BonusesDetailsState.screenState.set(
                     state,
-                    ScreenState.fromBoolean(isSuccess)
+                    isSuccess.toScreenState()
                 )
             }
         }

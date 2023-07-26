@@ -9,11 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Immutable
 @Parcelize
 @IpbState
-@optics
-data class ButtonState(
+@optics data class ButtonState(
     val id: String = "",
     val enabled: Boolean = true
-) : Parcelable {
-
-    companion object
-}
+) : Parcelable { companion object }

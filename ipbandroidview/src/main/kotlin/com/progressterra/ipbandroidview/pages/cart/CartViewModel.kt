@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.cart
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.cartcard.CartCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
@@ -26,12 +27,10 @@ class CartViewModel(
     fun refresh() {
         intent {
             var isSuccess = true
-            cartUseCase().onSuccess {
-                reduce { it }
-            }.onFailure {
-                isSuccess = false
-            }
-            reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
+            cartUseCase()
+                .onSuccess { reduce { it } }
+                .onFailure { isSuccess = false }
+            reduce { CartState.screenState.set(state, isSuccess.toScreenState()) }
         }
     }
 
@@ -40,49 +39,41 @@ class CartViewModel(
             when (event) {
                 is CartCardEvent.Open -> postSideEffect(CartEvent.OnItem(event.id))
                 is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
-                    reduce { it.uScreenState(ScreenState.SUCCESS) }
+                    reduce { CartState.screenState.set(state, ScreenState.SUCCESS) }
                 }.onFailure {
-                    reduce { state.uScreenState(ScreenState.ERROR) }
+                    reduce { CartState.screenState.set(state, ScreenState.ERROR) }
                 }
             }
         }
     }
 
-    override fun handle(event: TopBarEvent) {
-        intent {
-            when (event) {
-                TopBarEvent -> Unit
-            }
-        }
-    }
+    override fun handle(event: TopBarEvent) = Unit
 
     override fun handle(event: ButtonEvent) {
-        intent {
-            postSideEffect(CartEvent.Payment)
-        }
+        intent { postSideEffect(CartEvent.Payment) }
     }
 
     override fun handle(event: CounterEvent) {
         intent {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
-                    reduce { it.uScreenState(ScreenState.SUCCESS) }
+                    reduce { it }
+                    reduce { CartState.screenState.set(state, ScreenState.SUCCESS) }
                 }.onFailure {
-                    reduce { state.uScreenState(ScreenState.ERROR) }
+                    reduce { CartState.screenState.set(state, ScreenState.ERROR) }
                 }
 
                 is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
-                    reduce { it.uScreenState(ScreenState.SUCCESS) }
+                    reduce { it }
+                    reduce { CartState.screenState.set(state, ScreenState.SUCCESS) }
                 }.onFailure {
-                    reduce { state.uScreenState(ScreenState.ERROR) }
+                    reduce { CartState.screenState.set(state, ScreenState.ERROR) }
                 }
             }
         }
     }
 
     override fun handle(event: StateBoxEvent) {
-        intent {
-            refresh()
-        }
+        intent { refresh() }
     }
 }
