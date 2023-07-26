@@ -23,6 +23,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
+//TODO не создавать новый док каждый раз
 @Composable
 fun DocumentDetails(
     modifier: Modifier = Modifier, state: DocumentDetailsState, useComponent: UseDocumentDetails

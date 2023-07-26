@@ -18,6 +18,8 @@ import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.CreateId
 
+//TODO pagination generic
+
 interface WantThisRequestsUseCase {
 
     suspend operator fun invoke(): Result<List<WantThisCardState>>

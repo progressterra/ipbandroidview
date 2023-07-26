@@ -47,7 +47,7 @@ fun DHSaleHeadAsOrderViewModel.toOrder() =
 
 fun ProductView.toGoodsItem() = GoodsItem(
     id = nomenclature?.idUnique!!,
-    categoryId = nomenclature?.listCatalogCategory?.first()!!,
+    categoryId = nomenclature?.listCatalogCategory?.firstOrNull() ?: "",
     name = nomenclature?.name ?: "",
     description = nomenclature?.commerseDescription ?: "",
     images = nomenclature?.listImages?.map { it.urlData!! } ?: emptyList(),

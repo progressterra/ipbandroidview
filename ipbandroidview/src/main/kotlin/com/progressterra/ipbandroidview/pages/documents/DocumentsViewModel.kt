@@ -1,9 +1,13 @@
 package com.progressterra.ipbandroidview.pages.documents
 
 import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipEvent
 import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizenshipsUseCase
+import com.progressterra.ipbandroidview.features.currentcitizenship.dialog
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
+import com.progressterra.ipbandroidview.features.dialogpicker.open
+import com.progressterra.ipbandroidview.features.dialogpicker.selected
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.shared.ScreenState
@@ -28,26 +32,29 @@ class DocumentsViewModel(
 
     fun refresh() {
         intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
+            reduce { DocumentsScreenState.screen.set(state, ScreenState.LOADING) }
             var isSuccess = true
             documentsUseCase().onSuccess {
-                reduce { state.uDocuments(it) }
+                reduce { DocumentsScreenState.documents.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
             citizenshipsUseCase().onSuccess {
-                reduce { state.uCurrent(it) }
+                reduce { DocumentsScreenState.citizenship.set(state, it) }
             }.onFailure {
                 isSuccess = false
             }
-            reduce { state.uScreenState(ScreenState.fromBoolean(isSuccess)) }
+            reduce { DocumentsScreenState.screen.set(state, isSuccess.toScreenState()) }
         }
     }
 
     override fun handle(event: CurrentCitizenshipEvent) {
         intent {
             reduce {
-                state.uOpen(true)
+                DocumentsScreenState.citizenship.dialog.open.set(
+                    state,
+                    true
+                )
             }
         }
     }
@@ -66,11 +73,17 @@ class DocumentsViewModel(
         intent {
             when (event) {
                 is DialogPickerEvent.Close -> reduce {
-                    state.uOpen(false)
+                    DocumentsScreenState.citizenship.dialog.open.set(
+                        state,
+                        false
+                    )
                 }
 
                 is DialogPickerEvent.Select -> reduce {
-                    state.uSelected(event.item)
+                    DocumentsScreenState.citizenship.dialog.selected.set(
+                        state,
+                        event.item
+                    )
                 }
             }
         }
@@ -81,7 +94,10 @@ class DocumentsViewModel(
             when (event.id) {
                 "apply" -> state.citizenship.dialog.selected?.let { newCitizenship ->
                     saveCitizenshipUseCase(newCitizenship).onSuccess {
-                        reduce { state.uOpen(false) }
+                        DocumentsScreenState.citizenship.dialog.open.set(
+                            state,
+                            false
+                        )
                         refresh()
                     }
                 }
