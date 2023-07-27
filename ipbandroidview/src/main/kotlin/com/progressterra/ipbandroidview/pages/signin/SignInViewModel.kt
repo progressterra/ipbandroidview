@@ -16,7 +16,7 @@ class SignInViewModel(
     private val openUrlUseCase: OpenUrlUseCase
 ) : BaseViewModel<SignInState, SignInEffect>(SignInState()), UseSignIn {
 
-    fun refresh() {
+    fun refresh() = onUi {
         emitState {
             it.copy(auth = it.auth.copy(enabled = false))
         }
@@ -34,7 +34,7 @@ class SignInViewModel(
 
     override fun handle(event: TopBarEvent) = Unit
 
-    override fun handle(event: TextFieldEvent) {
+    override fun handle(event: TextFieldEvent) = onUi {
         when (event) {
             is TextFieldEvent.TextChanged -> {
                 emitState { it.copy(phone = it.phone.copy(text = event.text)) }

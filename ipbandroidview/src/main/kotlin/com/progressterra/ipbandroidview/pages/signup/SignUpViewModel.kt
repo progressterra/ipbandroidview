@@ -16,39 +16,35 @@ class SignUpViewModel(
     private val fetchUserUseCase: FetchUserUseCase
 ) : BaseViewModel<SignUpState, SignUpEvent>(SignUpState()), UseSignUp {
 
-    fun refresh() {
-        onBackground {
-            emitState { it.copy(screenState = ScreenState.LOADING) }
-            fetchUserUseCase().onSuccess { user ->
-                emitState {
-                    it.copy(
-                        editUser = user.copy(phone = user.phone.copy(enabled = false)),
-                        screenState = ScreenState.SUCCESS
-                    )
-                }
-            }.onFailure {
-                emitState { it.copy(screenState = ScreenState.ERROR) }
+    fun refresh() = onBackground {
+        emitState { it.copy(screenState = ScreenState.LOADING) }
+        fetchUserUseCase().onSuccess { user ->
+            emitState {
+                it.copy(
+                    editUser = user.copy(phone = user.phone.copy(enabled = false)),
+                    screenState = ScreenState.SUCCESS
+                )
             }
+        }.onFailure {
+            emitState { it.copy(screenState = ScreenState.ERROR) }
         }
     }
 
-    override fun handle(event: TopBarEvent) {
+    override fun handle(event: TopBarEvent) = onBackground {
         postEffect(SignUpEvent.OnBack)
     }
 
-    override fun handle(event: ButtonEvent) {
-        onBackground {
-            when (event.id) {
-                "auth" -> saveDataUseCase(state.value.editUser).onSuccess {
-                    postEffect(SignUpEvent.OnNext)
-                }
-
-                "skip" -> postEffect(SignUpEvent.OnSkip)
+    override fun handle(event: ButtonEvent) = onBackground {
+        when (event.id) {
+            "auth" -> saveDataUseCase(state.value.editUser).onSuccess {
+                postEffect(SignUpEvent.OnNext)
             }
+
+            "skip" -> postEffect(SignUpEvent.OnSkip)
         }
     }
 
-    override fun handle(event: MakePhotoEvent) {
+    override fun handle(event: MakePhotoEvent) = onBackground {
         when (event) {
             is MakePhotoEvent.Remove -> Unit
 
@@ -57,7 +53,7 @@ class SignUpViewModel(
     }
 
 
-    override fun handle(event: TextFieldEvent) {
+    override fun handle(event: TextFieldEvent) = onUi {
         when (event) {
             is TextFieldEvent.TextChanged -> {
                 when (event.id) {
@@ -102,10 +98,8 @@ class SignUpViewModel(
     }
 
 
-    private fun valid() {
-        onBackground {
-            val valid = editUserValidUseCase(state.value.editUser).isSuccess
-            emitState { it.copy(next = it.next.copy(enabled = valid)) }
-        }
+    private fun valid() = onBackground {
+        val valid = editUserValidUseCase(state.value.editUser).isSuccess
+        emitState { it.copy(next = it.next.copy(enabled = valid)) }
     }
 }

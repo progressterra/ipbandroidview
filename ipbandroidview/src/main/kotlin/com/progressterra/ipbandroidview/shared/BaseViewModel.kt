@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 abstract class BaseViewModel<STATE : Any, EFFECT : Any>(initialState: STATE) : ViewModel() {
 
@@ -46,14 +47,22 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any>(initialState: STATE) : V
         viewModelScope.launch(Dispatchers.IO) { block() }
     }
 
-    protected fun emitState(reducer: (STATE) -> STATE) {
-        viewModelScope.launch(Dispatchers.Main) {
+    protected fun onUi(
+        block: suspend () -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.Main) { block() }
+    }
+
+    protected suspend fun emitState(reducer: (STATE) -> STATE) {
+        withContext(Dispatchers.Main) {
             val newState = reducer(state.value)
             _state.value = newState
         }
     }
 
-    protected fun postEffect(effect: EFFECT) {
-        viewModelScope.launch(Dispatchers.IO) { _effects.send(effect) }
+    protected suspend fun postEffect(effect: EFFECT) {
+        withContext(Dispatchers.IO) {
+            _effects.send(effect)
+        }
     }
 }
