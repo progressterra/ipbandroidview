@@ -1,22 +1,28 @@
 package com.progressterra.ipbandroidview.pages.signup
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
-import com.progressterra.ipbandroidview.features.authorskip.NextOrSkip
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.edituser.EditUser
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
@@ -32,9 +38,26 @@ fun SignUpScreen(
             showBackButton = true
         )
     }, bottomBar = {
-        NextOrSkip(
-            state = state.authOrSkip, useComponent = useComponent
-        )
+        Column(
+            modifier = Modifier
+                .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                .background(IpbTheme.colors.surface.asBrush())
+                .padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                state = state.next,
+                title = stringResource(R.string.next),
+                useComponent = useComponent
+            )
+            TextButton(
+                modifier = Modifier.fillMaxWidth(),
+                state = state.skip,
+                title = stringResource(R.string.auth_skip_button),
+                useComponent = useComponent
+            )
+        }
     }, bottomOverlap = true) { _, bottom ->
         Column(
             modifier = Modifier
@@ -65,9 +88,9 @@ private fun SignUpScreenPreview() {
                 ), birthday = TextFieldState(
                     id = "voluptatibus", text = "mutat"
                 )
-            ), authOrSkip = AuthOrSkipState(
-                auth = ButtonState(id = "orci"), skip = ButtonState(id = "laudem")
-            )
+            ),
+            next = ButtonState(id = "orci"),
+            skip = ButtonState(id = "laudem")
         ), useComponent = UseSignUp.Empty()
     )
 }

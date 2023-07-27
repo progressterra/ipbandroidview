@@ -7,8 +7,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class SignInNode(
@@ -21,7 +19,7 @@ class SignInNode(
     override fun View(modifier: Modifier) {
         val viewModel: SignInViewModel = getViewModel()
         val context = LocalContext.current
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is SignInEffect.Next -> onNext(it.phoneNumber)
                 is SignInEffect.Skip -> onSkip.invoke()
@@ -29,7 +27,7 @@ class SignInNode(
                     .show()
             }
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         SignInScreen(state = state, useComponent = viewModel)
     }
 }

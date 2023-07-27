@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.welcome
 
 import androidx.lifecycle.ViewModel
-import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipState
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
@@ -16,12 +15,8 @@ class WelcomeViewModel : ViewModel(),
     override val container =
         container<WelcomeState, WelcomeEvent>(
             WelcomeState(
-                authOrSkipState = AuthOrSkipState(
-                    auth = ButtonState(
-                        id = "next"
-                    ), skip = ButtonState(
-                        id = "skip"
-                    )
+                auth = ButtonState(
+                    id = "next"
                 )
             )
         )

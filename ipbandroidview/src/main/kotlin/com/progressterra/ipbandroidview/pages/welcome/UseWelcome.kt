@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.pages.welcome
 
-import com.progressterra.ipbandroidview.features.authorskip.UseAuthOrSkip
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 
-interface UseWelcome : UseAuthOrSkip {
+interface UseWelcome : UseButton {
 
     class Empty : UseWelcome {
 

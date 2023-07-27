@@ -13,10 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.authorskip.AuthOrSkipWelcome
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.button.Button
 
 
 @Composable
@@ -24,11 +25,16 @@ fun WelcomeScreen(
     state: WelcomeState, useComponent: UseWelcome
 ) {
     ThemedLayout(bottomBar = {
-        AuthOrSkipWelcome(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            state = state.authOrSkipState,
-            useAuthOrSkip = useComponent
-        )
+        Column(
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                state = state.auth,
+                title = stringResource(R.string.auth_button),
+                useComponent = useComponent
+            )
+        }
     }) { _, _ ->
         Column(
             modifier = Modifier

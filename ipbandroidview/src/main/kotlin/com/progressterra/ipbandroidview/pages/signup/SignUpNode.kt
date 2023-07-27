@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.compose.runtime.Composable
-
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -10,8 +9,6 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class SignUpNode(
@@ -25,7 +22,7 @@ class SignUpNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<SignUpViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is SignUpEvent.OnBack -> onBack()
                 is SignUpEvent.OnNext -> onNext()
@@ -41,7 +38,7 @@ class SignUpNode(
             alreadyLaunched = true
             viewModel.refresh()
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         SignUpScreen(
             state = state, useComponent = viewModel
         )
