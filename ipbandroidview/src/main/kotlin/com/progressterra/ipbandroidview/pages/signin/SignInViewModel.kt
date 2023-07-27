@@ -16,8 +16,8 @@ class SignInViewModel(
     private val openUrlUseCase: OpenUrlUseCase
 ) : BaseViewModel<SignInState, SignInEffect>(SignInState()), UseSignIn {
 
-    fun refresh() = onUi {
-        emitState {
+    fun refresh() {
+        fastEmitState {
             it.copy(auth = it.auth.copy(enabled = false))
         }
     }
@@ -27,18 +27,18 @@ class SignInViewModel(
     }
 
     override fun handle(event: LinkTextEvent) {
-        viewModelScope.launch {
+        onBackground {
             openUrlUseCase(event.url)
         }
     }
 
     override fun handle(event: TopBarEvent) = Unit
 
-    override fun handle(event: TextFieldEvent) = onUi {
+    override fun handle(event: TextFieldEvent) {
         when (event) {
             is TextFieldEvent.TextChanged -> {
-                emitState { it.copy(phone = it.phone.copy(text = event.text)) }
-                emitState { it.copy(auth = it.auth.copy(enabled = it.phone.valid())) }
+                fastEmitState { it.copy(phone = it.phone.copy(text = event.text)) }
+                fastEmitState { it.copy(auth = it.auth.copy(enabled = it.phone.valid())) }
             }
 
             is TextFieldEvent.Action -> onNext()
@@ -47,7 +47,7 @@ class SignInViewModel(
     }
 
     private fun onNext() {
-        viewModelScope.launch {
+        onBackground {
             startVerificationChannelUseCase(state.value.phone.formatByType()).onSuccess {
                 postEffect(SignInEffect.Next(it))
             }.onFailure {

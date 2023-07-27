@@ -30,7 +30,7 @@ class SignUpViewModel(
         }
     }
 
-    override fun handle(event: TopBarEvent) = onBackground {
+    override fun handle(event: TopBarEvent) {
         postEffect(SignUpEvent.OnBack)
     }
 
@@ -44,7 +44,7 @@ class SignUpViewModel(
         }
     }
 
-    override fun handle(event: MakePhotoEvent) = onBackground {
+    override fun handle(event: MakePhotoEvent) {
         when (event) {
             is MakePhotoEvent.Remove -> Unit
 
@@ -53,23 +53,23 @@ class SignUpViewModel(
     }
 
 
-    override fun handle(event: TextFieldEvent) = onUi {
+    override fun handle(event: TextFieldEvent)  {
         when (event) {
             is TextFieldEvent.TextChanged -> {
                 when (event.id) {
-                    "name" -> emitState {
+                    "name" -> fastEmitState {
                         it.copy(
                             editUser = it.editUser.copy(name = it.editUser.name.copy(text = event.text))
                         )
                     }
 
-                    "email" -> emitState {
+                    "email" -> fastEmitState {
                         it.copy(
                             editUser = it.editUser.copy(email = it.editUser.email.copy(text = event.text))
                         )
                     }
 
-                    "birthday" -> emitState {
+                    "birthday" -> fastEmitState {
                         it.copy(
                             editUser = it.editUser.copy(birthday = it.editUser.birthday.copy(text = event.text))
                         )
@@ -79,13 +79,13 @@ class SignUpViewModel(
 
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> emitState {
+                "name" -> fastEmitState {
                     it.copy(
                         editUser = it.editUser.copy(name = it.editUser.name.copy(text = ""))
                     )
                 }
 
-                "email" -> emitState {
+                "email" -> fastEmitState {
                     it.copy(
                         editUser = it.editUser.copy(email = it.editUser.email.copy(text = ""))
                     )

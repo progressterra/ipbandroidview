@@ -44,13 +44,12 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any>(initialState: STATE) : V
     protected fun onBackground(
         block: suspend () -> Unit
     ) {
-        viewModelScope.launch(Dispatchers.IO) { block() }
+        viewModelScope.launch { block() }
     }
 
-    protected fun onUi(
-        block: suspend () -> Unit
-    ) {
-        viewModelScope.launch(Dispatchers.Main) { block() }
+    protected fun fastEmitState(reducer: (STATE) -> STATE) {
+        val newState = reducer(state.value)
+        _state.value = newState
     }
 
     protected suspend fun emitState(reducer: (STATE) -> STATE) {
@@ -60,9 +59,7 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any>(initialState: STATE) : V
         }
     }
 
-    protected suspend fun postEffect(effect: EFFECT) {
-        withContext(Dispatchers.IO) {
-            _effects.send(effect)
-        }
+    protected fun postEffect(effect: EFFECT) {
+        viewModelScope.launch { _effects.send(effect) }
     }
 }
