@@ -47,11 +47,13 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any>(initialState: STATE) : V
     }
 
     protected fun emitState(reducer: (STATE) -> STATE) {
-        val newState = reducer(state.value)
-        _state.value = newState
+        viewModelScope.launch(Dispatchers.Main) {
+            val newState = reducer(state.value)
+            _state.value = newState
+        }
     }
 
     protected fun postEffect(effect: EFFECT) {
-        viewModelScope.launch { _effects.send(effect) }
+        viewModelScope.launch(Dispatchers.IO) { _effects.send(effect) }
     }
 }
