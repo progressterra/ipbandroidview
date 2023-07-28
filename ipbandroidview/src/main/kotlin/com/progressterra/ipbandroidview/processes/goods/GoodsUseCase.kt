@@ -1,51 +1,17 @@
 package com.progressterra.ipbandroidview.processes.goods
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.progressterra.ipbandroidapi.api.product.models.FieldForFilter
-import com.progressterra.ipbandroidapi.api.product.models.FilterAndSort
+import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
-import com.progressterra.ipbandroidview.shared.Constants.PAGE_SIZE
-import kotlinx.coroutines.flow.Flow
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.PagingUseCase
 
-interface GoodsUseCase {
-
-    suspend operator fun invoke(filter: GoodsFilter): Result<Flow<PagingData<StoreCardState>>>
+interface GoodsUseCase : PagingUseCase<GoodsFilter, StoreCardState> {
 
     class Base(
-        private val fetchGoodsPage: FetchGoodsPage
-    ) : GoodsUseCase {
-
-        override suspend fun invoke(filter: GoodsFilter): Result<Flow<PagingData<StoreCardState>>> =
-            runCatching {
-                Pager(PagingConfig(PAGE_SIZE)) {
-                    GoodsSource(
-                        fetchGoodsPage = fetchGoodsPage, filterAndSort = FilterAndSort(
-                            listFields = buildList {
-                                filter.categoryId?.let {
-                                    add(
-                                        FieldForFilter(
-                                            fieldName = "nomenclature.listCatalogCategory",
-                                            listValue = listOf(filter.categoryId),
-                                            comparison = "equalsStrong"
-                                        )
-                                    )
-                                }
-                                filter.params?.forEach {
-                                    add(
-                                        FieldForFilter(
-                                            fieldName = it.key,
-                                            listValue = it.value,
-                                            comparison = "containsIgnoreCase"
-                                        )
-                                    )
-                                }
-                            }, searchData = filter.search, sort = null
-                        )
-                    )
-                }.flow
-            }
-    }
+        obtainAccessToken: ObtainAccessToken,
+        productRepository: ProductRepository
+    ) : GoodsUseCase, PagingUseCase.Abstract<GoodsFilter, StoreCardState>(
+        GoodsSource(obtainAccessToken, productRepository)
+    )
 }

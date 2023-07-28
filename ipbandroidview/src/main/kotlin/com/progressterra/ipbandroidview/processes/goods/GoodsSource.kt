@@ -1,37 +1,26 @@
 package com.progressterra.ipbandroidview.processes.goods
 
-import androidx.paging.PagingSource
-import androidx.paging.PagingState
-import com.progressterra.ipbandroidapi.api.product.models.FilterAndSort
+import com.progressterra.ipbandroidapi.api.product.ProductRepository
+import com.progressterra.ipbandroidview.entities.GoodsFilter
+import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
-import com.progressterra.ipbandroidview.shared.Constants.PAGE_SIZE
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.AbstractSource
 
 class GoodsSource(
-    private val fetchGoodsPage: FetchGoodsPage,
-    private val filterAndSort: FilterAndSort
-) : PagingSource<Int, StoreCardState>() {
+    private val obtainAccessToken: ObtainAccessToken,
+    private val productRepo: ProductRepository
+) : AbstractSource<GoodsFilter, StoreCardState>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, StoreCardState> {
-        val nextPage = params.key ?: 1
-        val response = fetchGoodsPage(
-            filterAndSort.copy(
-                skip = (nextPage - 1) * PAGE_SIZE,
-                take = PAGE_SIZE
-            )
-        ).onSuccess {
-            return LoadResult.Page(
-                data = it,
-                prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = if (it.isEmpty()) null else nextPage + 1
-            )
+    override suspend fun loadPage(skip: Int, take: Int): Result<List<StoreCardState>> =
+        runCatching {
+            productRepo.productList(
+                obtainAccessToken().getOrThrow(), filter!!.toFilterAndSort().copy(
+                    skip = skip,
+                    take = take
+                )
+            ).getOrThrow()
+                ?.map { it.toGoodsItem().toStoreCardState() }
+                ?: emptyList()
         }
-        return LoadResult.Error(response.exceptionOrNull()!!)
-    }
-
-    override fun getRefreshKey(state: PagingState<Int, StoreCardState>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            val anchorPage = state.closestPageToPosition(anchorPosition)
-            anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
-        }
-    }
 }
