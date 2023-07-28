@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.pages.catalog
 
-import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardEvent
 import com.progressterra.ipbandroidview.features.search.SearchEvent
@@ -31,9 +29,7 @@ class CatalogViewModel(
                     it.copy(
                         stateBox = ScreenState.SUCCESS,
                         current = catalog,
-                        trace = it.trace.copy(
-                            trace = it.trace.trace + catalog
-                        )
+                        trace = it.trace.copy(trace = it.trace.trace + catalog)
                     )
                 }
             }.onFailure {
@@ -46,9 +42,7 @@ class CatalogViewModel(
         fastEmitState {
             it.copy(
                 current = event.category,
-                trace = it.trace.copy(
-                    trace = it.trace.trace + event.category
-                )
+                trace = it.trace.copy(trace = it.trace.trace + event.category)
             )
         }
         uCategory()
@@ -66,8 +60,9 @@ class CatalogViewModel(
         onBackground {
             if (state.value.current.children.isEmpty()) {
                 goodsUseCase(GoodsFilter(categoryId = state.value.current.id)).onSuccess { nonCached ->
-                    val cached = nonCached.cachedIn(viewModelScope)
-                    emitState { it.copy(goods = it.goods.copy(items = cached)) }
+                    emitState {
+                        it.copy(goods = it.goods.copy(items = cachePaging(nonCached)))
+                    }
                 }
             } else {
                 emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
@@ -112,8 +107,7 @@ class CatalogViewModel(
             }
             if (state.value.search.text.isNotEmpty()) {
                 goodsUseCase(filter).onSuccess { nonCached ->
-                    val cached = nonCached.cachedIn(viewModelScope)
-                    emitState { it.copy(goods = it.goods.copy(items = cached)) }
+                    emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
                 }
             } else {
                 emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }

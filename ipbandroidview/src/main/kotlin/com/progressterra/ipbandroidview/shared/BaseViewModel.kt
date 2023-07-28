@@ -12,8 +12,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -62,4 +65,7 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any>(initialState: STATE) : V
     protected fun postEffect(effect: EFFECT) {
         viewModelScope.launch { _effects.send(effect) }
     }
+
+    protected fun <T : Any> cachePaging(toBeCached: Flow<PagingData<T>>): Flow<PagingData<T>> =
+        toBeCached.cachedIn(viewModelScope)
 }
