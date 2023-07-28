@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.progressterra.ipbandroidapi.api.product.models.FilterAndSort
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
+import com.progressterra.ipbandroidview.shared.Constants.PAGE_SIZE
 
 class GoodsSource(
     private val fetchGoodsPage: FetchGoodsPage,
@@ -32,10 +33,5 @@ class GoodsSource(
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
-    }
-
-    companion object {
-
-        private const val PAGE_SIZE = 10
     }
 }
