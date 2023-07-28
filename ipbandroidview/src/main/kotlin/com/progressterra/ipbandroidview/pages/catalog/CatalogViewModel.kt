@@ -1,97 +1,94 @@
 package com.progressterra.ipbandroidview.pages.catalog
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardEvent
 import com.progressterra.ipbandroidview.features.search.SearchEvent
-import com.progressterra.ipbandroidview.features.search.text
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.trace.TraceEvent
-import com.progressterra.ipbandroidview.features.trace.trace
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import com.progressterra.ipbandroidview.widgets.storeitems.items
 import kotlinx.coroutines.flow.emptyFlow
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.annotation.OrbitExperimental
-import org.orbitmvi.orbit.syntax.simple.blockingIntent
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 
-@OptIn(OrbitExperimental::class)
 class CatalogViewModel(
     private val catalogUseCase: CatalogUseCase,
     private val goodsUseCase: GoodsUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
-) : UseCatalog, ViewModel(), ContainerHost<CatalogState, CatalogEvent> {
-
-    override val container = container<CatalogState, CatalogEvent>(CatalogState())
+) : UseCatalog, BaseViewModel<CatalogState, CatalogEvent>(CatalogState()) {
 
     fun refresh() {
-        intent {
-            reduce { CatalogState() }
+        onBackground {
+            emitState { it.copy(stateBox = ScreenState.LOADING) }
             catalogUseCase().onSuccess { catalog ->
-                reduce { CatalogState.stateBox.set(state, ScreenState.SUCCESS) }
-                reduce { CatalogState.current.set(state, catalog) }
-                reduce { CatalogState.trace.trace.modify(state) { it + catalog } }
+                emitState {
+                    it.copy(
+                        stateBox = ScreenState.SUCCESS,
+                        current = catalog,
+                        trace = it.trace.copy(
+                            trace = it.trace.trace + catalog
+                        )
+                    )
+                }
             }.onFailure {
-                reduce { CatalogState.stateBox.set(state, ScreenState.ERROR) }
+                emitState { it.copy(stateBox = ScreenState.ERROR) }
             }
         }
     }
 
     override fun handle(event: CatalogCardEvent) {
-        intent {
-            reduce { CatalogState.trace.trace.modify(state) { it + event.category } }
-            reduce { CatalogState.current.set(state, event.category) }
-            uCategory()
+        fastEmitState {
+            it.copy(
+                current = event.category,
+                trace = it.trace.copy(
+                    trace = it.trace.trace + event.category
+                )
+            )
         }
+        uCategory()
     }
 
     override fun handle(event: TraceEvent) {
-        intent {
-            reduce { CatalogState.trace.trace.modify(state) { it.dropLast(1) } }
-            reduce { CatalogState.current.set(state, state.trace.trace.last()) }
-            uCategory()
+        fastEmitState {
+            it.copy(trace = it.trace.copy(trace = it.trace.trace.dropLast(1)))
         }
+        fastEmitState { it.copy(current = it.trace.trace.last()) }
+        uCategory()
     }
 
     private fun uCategory() {
-        intent {
-            if (state.current.children.isEmpty()) {
-                goodsUseCase(GoodsFilter(categoryId = state.current.id)).onSuccess {
-                    val cached = it.cachedIn(viewModelScope)
-                    reduce { CatalogState.goods.items.set(state, cached) }
+        onBackground {
+            if (state.value.current.children.isEmpty()) {
+                goodsUseCase(GoodsFilter(categoryId = state.value.current.id)).onSuccess { nonCached ->
+                    val cached = nonCached.cachedIn(viewModelScope)
+                    emitState { it.copy(goods = it.goods.copy(items = cached)) }
                 }
             } else {
-                reduce { CatalogState.goods.items.set(state, emptyFlow()) }
+                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
             }
         }
     }
 
     override fun handle(event: StoreCardEvent) {
-        intent {
+        onBackground {
             when (event) {
                 is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
                     refresh()
                 }
 
-                is StoreCardEvent.Open -> postSideEffect(CatalogEvent.OnItem(event.id))
+                is StoreCardEvent.Open -> postEffect(CatalogEvent.OnItem(event.id))
             }
         }
     }
 
     override fun handle(event: CounterEvent) {
-        intent {
+        onBackground {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
                     refresh()
@@ -105,26 +102,26 @@ class CatalogViewModel(
     }
 
     override fun handle(event: SearchEvent) {
-        blockingIntent {
-            reduce { CatalogState.search.text.set(state, event.text) }
+        fastEmitState {
+            it.copy(search = it.search.copy(text = event.text))
         }
-        intent {
-            var filter = GoodsFilter(search = state.search.text)
-            if (state.current.id.isNotEmpty()) {
-                filter = filter.copy(categoryId = state.current.id)
+        onBackground {
+            var filter = GoodsFilter(search = state.value.search.text)
+            if (state.value.current.id.isNotEmpty()) {
+                filter = filter.copy(categoryId = state.value.current.id)
             }
-            if (state.search.text.isNotEmpty()) {
-                goodsUseCase(filter).onSuccess {
-                    val cached = it.cachedIn(viewModelScope)
-                    reduce { CatalogState.goods.items.set(state, cached) }
+            if (state.value.search.text.isNotEmpty()) {
+                goodsUseCase(filter).onSuccess { nonCached ->
+                    val cached = nonCached.cachedIn(viewModelScope)
+                    emitState { it.copy(goods = it.goods.copy(items = cached)) }
                 }
             } else {
-                reduce { CatalogState.goods.items.set(state, emptyFlow()) }
+                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
             }
         }
     }
 
     override fun handle(event: StateBoxEvent) {
-        intent { refresh() }
+        refresh()
     }
 }
