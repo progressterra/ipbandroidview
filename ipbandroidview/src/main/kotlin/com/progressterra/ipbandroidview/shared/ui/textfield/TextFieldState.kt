@@ -35,10 +35,16 @@ data class TextFieldState(
         valueData = formatByType()
     )
 
+    fun unFormatByType(data: String) = when (type) {
+        TextInputType.PHONE_NUMBER -> copy(text = data.removePrefix("7"))
+        TextInputType.DATE -> copy(text = data.replace(".", ""))
+        else -> this
+    }
+
     fun formatByType() = when (type) {
         TextInputType.DATE -> text.toDate()
         TextInputType.PHONE_NUMBER -> "7$text"
-        else -> text
+        else -> text.trim()
     }
 
     fun valid() = when (type) {

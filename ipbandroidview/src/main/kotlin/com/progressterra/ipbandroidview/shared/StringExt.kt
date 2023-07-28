@@ -9,9 +9,7 @@ fun String.isEmail() = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
 
 fun String.isNameAndSurname() = matches(Regex("^[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+\$"))
 
-fun String.isRussianPhoneNumber() = matches(Regex("^\\d{10}$"))
-
-fun String.isTestPhoneNumber() = this == "1777555777"
+fun String.isRussianPhoneNumber() = matches(Regex("^7\\d{10}$"))
 
 fun String.toDate(): String {
     val stringBuilder = StringBuilder(this)
@@ -47,26 +45,4 @@ fun String.splitName(full: Boolean): List<String> {
         if (splitName[2].isBlank())
             throw Exception("Bad name")
     return splitName
-}
-
-data class Address(
-    val city: String,
-    val street: String,
-    val building: String,
-    val apartment: String?
-)
-
-fun String.isAddress() =
-    matches(Regex("^(г\\.[^,]+|д\\.[^,]+|пгт\\.[^,]+|с\\.[^,]+), ул\\.[^,]+, д\\.[^,]+(, кв\\.[^,]+)?$"))
-
-fun String.toAddress(): Address {
-    val parts = this.split(", ")
-    val city = parts.getOrNull(0)?.substringAfter("г.")?.takeIf { it.isNotBlank() }
-        ?: parts.getOrNull(0)?.substringAfter("д.")?.takeIf { it.isNotBlank() }
-        ?: parts.getOrNull(0)?.substringAfter("пгт.")?.takeIf { it.isNotBlank() }
-        ?: parts.getOrNull(0)?.substringAfter("с.")?.takeIf { it.isNotBlank() } ?: ""
-    val street = parts.firstOrNull { it.startsWith("ул.") }?.substringAfter("ул.")?.trim() ?: ""
-    val building = parts.firstOrNull { it.startsWith("д.") }?.substringAfter("д.")?.trim() ?: ""
-    val apartment = parts.firstOrNull { it.startsWith("кв.") }?.substringAfter("кв.")?.trim()
-    return Address(city, street, building, apartment)
 }

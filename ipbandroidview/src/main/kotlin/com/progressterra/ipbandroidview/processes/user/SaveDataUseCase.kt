@@ -22,23 +22,23 @@ interface SaveDataUseCase {
     ) : SaveDataUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
-            val nameList = income.name.text.splitName(false)
+            val nameList = income.name.formatByType().splitName(false)
             UserData.userName = UserName(
                 name = nameList[0], surname = nameList[1]
             )
-            UserData.dateOfBirthday = income.birthday.text.toEpochMillis()
-            UserData.phone = income.phone.text
-            UserData.email = income.email.text
+            UserData.dateOfBirthday = income.birthday.formatByType().toEpochMillis()
+            UserData.phone = income.phone.formatByType()
+            UserData.email = income.email.formatByType()
             scrmRepository.setPersonalInfo(
                 accessToken = token, request = ClientDataIncome(
                     name = nameList[0],
                     soname = nameList[1],
-                    dateOfBirth = Date(income.birthday.text.toEpochMillis()).format()
+                    dateOfBirth = Date(income.birthday.formatByType().toEpochMillis()).format()
                 )
             )
             scrmRepository.setEmail(
                 accessToken = token, request = IncomeDataEmail(
-                    email = income.email.text
+                    email = income.email.formatByType()
                 )
             )
         }
