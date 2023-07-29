@@ -18,9 +18,8 @@ class CatalogSource(
         runCatching {
             val token = obtainAccessToken().getOrThrow()
             repo.catalog(
-                token,
-                FilterAndSort(
-                    emptyList(), null, "", skip, take
+                accessToken = token, filterAndSort = FilterAndSort(
+                    listFields = emptyList(), sort = null, searchData = "", skip = skip, take = take
                 )
             ).getOrThrow()?.listChildItems?.map { it.toCatalogCardState(manageResources) }
                 ?: emptyList()
