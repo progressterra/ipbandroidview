@@ -7,8 +7,6 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusState
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class PaymentNode(
@@ -22,7 +20,7 @@ class PaymentNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<PaymentViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is PaymentEvent.Back -> onBack()
                 is PaymentEvent.Next -> onNext(it.orderStatusState)
@@ -31,7 +29,7 @@ class PaymentNode(
         LaunchedEffect(Unit) {
             viewModel.refresh()
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         PaymentScreen(
             state = state,
             useComponent = viewModel

@@ -9,8 +9,6 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class MainNode(
@@ -22,7 +20,7 @@ class MainNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<MainViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is MainEvent.OnBonuses -> onBonuses()
                 is MainEvent.OnItem -> onItem(it.id)
@@ -35,7 +33,7 @@ class MainNode(
             alreadyLaunched = true
             viewModel.refresh()
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         MainScreen(
             state = state, useComponent = viewModel
         )

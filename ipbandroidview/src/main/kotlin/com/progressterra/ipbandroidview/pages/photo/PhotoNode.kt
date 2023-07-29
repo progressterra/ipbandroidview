@@ -9,8 +9,6 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class PhotoNode(
@@ -20,7 +18,7 @@ class PhotoNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: PhotoViewModel = getViewModel()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is PhotoEvent.Back -> onBack()
             }
@@ -32,9 +30,9 @@ class PhotoNode(
             alreadyLaunched = true
             viewModel.setup(image)
         }
-        val state = viewModel.collectAsState()
+        val state = viewModel.state.value
         PhotoScreen(
-            state = state.value, useComponent = viewModel
+            state = state, useComponent = viewModel
         )
     }
 }

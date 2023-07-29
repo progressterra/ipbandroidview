@@ -9,8 +9,6 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class FavoritesNode(
@@ -22,7 +20,7 @@ class FavoritesNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel: FavoritesViewModel = getViewModel()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is FavoritesEvent.GoodsDetails -> onGoodsDetails(it.goodsId)
                 is FavoritesEvent.Back -> onBack()
@@ -35,9 +33,9 @@ class FavoritesNode(
             alreadyLaunched = true
             viewModel.refresh()
         }
-        val state = viewModel.collectAsState()
+        val state = viewModel.state.value
         FavoritesScreen(
-            state = state.value,
+            state = state,
             useComponent = viewModel
         )
     }

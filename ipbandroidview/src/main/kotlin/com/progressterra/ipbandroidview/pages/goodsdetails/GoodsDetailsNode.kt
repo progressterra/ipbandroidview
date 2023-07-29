@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
-
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -12,8 +11,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class GoodsDetailsNode(
@@ -28,7 +25,7 @@ class GoodsDetailsNode(
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<GoodsDetailsViewModel>()
         val context = LocalContext.current
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is GoodsDetailsEvent.Back -> onBack()
                 is GoodsDetailsEvent.OpenImage -> openPhoto(it.image)
@@ -46,7 +43,7 @@ class GoodsDetailsNode(
             viewModel.setupId(goodsId)
             viewModel.refresh()
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         GoodsDetailsScreen(state = state, useComponent = viewModel)
     }
 }

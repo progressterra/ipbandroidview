@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.welcome
 
 import androidx.compose.runtime.Composable
-
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -10,8 +9,6 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class WelcomeNode(
@@ -24,7 +21,7 @@ class WelcomeNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<WelcomeViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is WelcomeEvent.OnAuth -> onAuth()
                 is WelcomeEvent.OnSkip -> onSkip?.invoke()
@@ -38,7 +35,7 @@ class WelcomeNode(
             alreadyLaunched = true
             viewModel.refresh()
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         WelcomeScreen(
             state = state, useComponent = viewModel
         )

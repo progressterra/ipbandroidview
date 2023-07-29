@@ -9,8 +9,6 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class DocumentDetailsNode(
@@ -25,7 +23,7 @@ class DocumentDetailsNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<DocumentDetailsViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is DocumentDetailsEvent.Back -> onBack()
                 is DocumentDetailsEvent.OpenPhoto -> openPhoto(it.image)
@@ -38,7 +36,7 @@ class DocumentDetailsNode(
             alreadyLaunched = true
             viewModel.setup(documentDetailsState)
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         DocumentDetails(
             modifier = modifier,
             state = state,

@@ -83,7 +83,7 @@ val pagesModule = module {
 
     viewModel { OrderTrackingScreenViewModel() }
 
-    single<OrdersUseCase> { OrdersUseCase.Base(get(), get(), get()) }
+    single<OrdersUseCase> { OrdersUseCase.Base(get()) }
 
     single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get()) }
 
@@ -129,12 +129,8 @@ val pagesModule = module {
         }
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            FavoriteGoodsUseCase.Test()
-        } else {
-            FavoriteGoodsUseCase.Base(get(), get(), get(), get())
-        }
+    single<FavoriteGoodsUseCase> {
+        FavoriteGoodsUseCase.Base(get(), get(), get(), get())
     }
 
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get(), get()) }
@@ -181,11 +177,6 @@ val pagesModule = module {
 
     single<WantThisRequestsUseCase> {
         WantThisRequestsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
             get()
         )
     }

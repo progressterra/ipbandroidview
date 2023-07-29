@@ -1,14 +1,13 @@
 package com.progressterra.ipbandroidview.pages.cart
 
 import androidx.compose.runtime.Immutable
-import arrow.optics.optics
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
 @Immutable
-@optics data class CartState(
+data class CartState(
     val screenState: ScreenState = ScreenState.LOADING,
     val summary: CartSummaryState = CartSummaryState(),
     val items: CartItemsState = CartItemsState()
-) { companion object }
+)

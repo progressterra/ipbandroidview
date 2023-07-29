@@ -3,18 +3,10 @@ package com.progressterra.ipbandroidview.features.makephoto
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.processors.IpbSubState
 
 @Immutable
 data class MakePhotoState(
-    @IpbSubState val makePhoto: ButtonState = ButtonState(),
+    val makePhoto: ButtonState = ButtonState(),
     val items: List<MultisizedImage> = emptyList(),
     val enabled: Boolean = true
-) {
-
-    fun uEnabled(newEnabled: Boolean) = copy(enabled = newEnabled)
-
-    fun add(item: MultisizedImage) = copy(items = items + item)
-
-    fun remove(item: MultisizedImage) = copy(items = items - item)
-}
+)

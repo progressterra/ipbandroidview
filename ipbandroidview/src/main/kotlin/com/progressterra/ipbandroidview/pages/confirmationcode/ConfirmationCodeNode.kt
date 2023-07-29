@@ -11,8 +11,6 @@ import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class ConfirmationCodeNode(
@@ -26,7 +24,7 @@ class ConfirmationCodeNode(
     override fun View(modifier: Modifier) {
         val viewModel: ConfirmationCodeViewModel = getViewModel()
         val context = LocalContext.current
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is ConfirmationCodeEvent.Toast -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
@@ -43,9 +41,9 @@ class ConfirmationCodeNode(
             alreadyLaunched = true
             viewModel.refresh(phoneNumber)
         }
-        val state = viewModel.collectAsState()
+        val state = viewModel.state.value
         ConfirmationCodeScreen(
-            state = state.value, useComponent = viewModel
+            state = state, useComponent = viewModel
         )
     }
 }

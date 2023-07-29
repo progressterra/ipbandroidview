@@ -6,8 +6,6 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class WantThisRequestsNode(
@@ -19,7 +17,7 @@ class WantThisRequestsNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<WantThisRequestsViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is WantThisRequestsEvent.Back -> onBack()
                 is WantThisRequestsEvent.GoodsDetails -> onGoodsDetails(it.id)
@@ -28,7 +26,7 @@ class WantThisRequestsNode(
         LaunchedEffect(Unit) {
             viewModel.refresh()
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         WantThisRequests(
             modifier = modifier,
             state = state,

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
 import androidx.compose.runtime.Immutable
-import arrow.optics.optics
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
@@ -11,7 +10,6 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 
 @Immutable
-@optics
 data class WantThisScreenState(
     override val id: String = "",
     val send: ButtonState = ButtonState(id = "send"),

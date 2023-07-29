@@ -8,25 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
-import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
-import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
-import com.progressterra.processors.IpbSubState
-
-@Immutable
-data class PromoCodeState(
-    val price: SimplePrice = SimplePrice(),
-    @IpbSubState val code: TextFieldState = TextFieldState()
-)
-
-interface UsePromoCode : UseTextField
 
 @Composable
 fun PromoCode(

@@ -70,18 +70,6 @@ afterEvaluate {
     }
 }
 
-tasks.register<Copy>("copyProcessorsJar") {
-    dependsOn(":processors:jar")
-
-    from("../processors/build/libs") {
-        include("processors.jar")
-    }
-
-    into("libs")
-}
-
-tasks.getByName("preBuild").dependsOn(tasks.getByName("copyProcessorsJar"))
-
 dependencies {
     // Core
     api("androidx.core:core-ktx:1.10.1")

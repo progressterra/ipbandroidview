@@ -7,8 +7,6 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class OrderDetailsScreenNode(
@@ -22,7 +20,7 @@ class OrderDetailsScreenNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<OrderDetailsScreenViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is OrderDetailsScreenEvent.Back -> onBack()
                 is OrderDetailsScreenEvent.OpenGoods -> onGoods(it.goodsId)
@@ -33,7 +31,7 @@ class OrderDetailsScreenNode(
             viewModel.setupId(orderId)
             viewModel.refresh()
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         OrderDetailsScreen(
             modifier = modifier, state = state, useComponent = viewModel
         )

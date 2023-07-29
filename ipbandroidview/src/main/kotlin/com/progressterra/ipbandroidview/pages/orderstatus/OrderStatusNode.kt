@@ -9,8 +9,6 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class OrderStatusNode(
@@ -23,7 +21,7 @@ class OrderStatusNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<OrderStatusViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is OrderStatusEvent.OnBack -> onBack()
                 is OrderStatusEvent.OnMain -> onMain()
@@ -36,7 +34,7 @@ class OrderStatusNode(
             alreadyLaunched = true
             viewModel.setup(orderStatusState)
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         OrderStatusScreen(
             state = state,
             useComponent = viewModel

@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.pages.documentdetails
 
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
-import arrow.optics.optics
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
@@ -12,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 
 @Immutable
 @Parcelize
-@optics data class DocumentDetailsState(
+data class DocumentDetailsState(
     override val id: String = "",
     val docName: String = "",
     val entries: List<TextFieldState> = emptyList(),

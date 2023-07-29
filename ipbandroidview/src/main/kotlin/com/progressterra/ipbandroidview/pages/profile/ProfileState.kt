@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.profile
 
 import androidx.compose.runtime.Immutable
-import arrow.optics.optics
 import com.progressterra.ipbandroidview.entities.IsFull
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
@@ -10,7 +9,6 @@ import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
 @Immutable
-@optics
 data class ProfileState(
     val isAuthorized: Boolean = false,
     val unAuth: ButtonState = ButtonState(),

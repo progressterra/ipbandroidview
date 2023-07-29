@@ -73,7 +73,7 @@ private fun CatalogScreenPreview() {
                     image = "http://www.bing.com/search?q=libris",
                     children = listOf()
                 ),
-                goods = StoreItemsState.Flowed(
+                goods = StoreItemsState(
                     items =
                     flowOf(
                         PagingData.from(

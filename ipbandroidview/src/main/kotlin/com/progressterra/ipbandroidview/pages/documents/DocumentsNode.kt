@@ -7,8 +7,6 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsState
 import org.koin.androidx.compose.getViewModel
-import org.orbitmvi.orbit.compose.collectAsState
-import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Suppress("unused")
 class DocumentsNode(
@@ -22,13 +20,13 @@ class DocumentsNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<DocumentsViewModel>()
-        viewModel.collectSideEffect {
+        viewModel.collectEffects {
             when (it) {
                 is DocumentsScreenEvent.Back -> onBack()
                 is DocumentsScreenEvent.OpenDocument -> onDocument(it.item)
             }
         }
-        val state = viewModel.collectAsState().value
+        val state = viewModel.state.value
         LaunchedEffect(Unit) {
             viewModel.refresh()
         }

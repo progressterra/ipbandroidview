@@ -1,11 +1,9 @@
 package com.progressterra.ipbandroidview.features.goodsdescription
 
 import androidx.compose.runtime.Immutable
-import arrow.optics.optics
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 
 @Immutable
-@optics
 data class GoodsDescriptionState(
     val name: String = "",
     val description: String = "",

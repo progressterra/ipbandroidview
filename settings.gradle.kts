@@ -16,4 +16,3 @@ pluginManagement {
 
 rootProject.name = "ipbandroidview"
 include(":ipbandroidview")
-include(":processors")
