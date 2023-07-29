@@ -21,26 +21,26 @@ class CatalogViewModel(
     private val removeFromCartUseCase: RemoveFromCartUseCase,
 ) : UseCatalog, BaseViewModel<CatalogState, CatalogEvent>() {
 
-    override val initialState = CatalogState()
+    override fun createInitialState() = CatalogState()
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(stateBox = ScreenState.LOADING) }
+            this.emitState { it.copy(stateBox = ScreenState.LOADING) }
             catalogUseCase().onSuccess { catalog ->
-                emitState {
+                this.emitState {
                     it.copy(
                         stateBox = ScreenState.SUCCESS,
                         items = cachePaging(catalog)
                     )
                 }
             }.onFailure {
-                emitState { it.copy(stateBox = ScreenState.ERROR) }
+                this.emitState { it.copy(stateBox = ScreenState.ERROR) }
             }
         }
     }
 
     override fun handle(event: CatalogCardEvent) {
-        fastEmitState {
+        emitState {
             it.copy(
                 current = event.category,
                 trace = it.trace.copy(trace = it.trace.trace + event.category)
@@ -50,23 +50,23 @@ class CatalogViewModel(
     }
 
     override fun handle(event: TraceEvent) {
-        fastEmitState {
+        emitState {
             it.copy(trace = it.trace.copy(trace = it.trace.trace.dropLast(1)))
         }
-        fastEmitState { it.copy(current = it.trace.trace.last()) }
+        emitState { it.copy(current = it.trace.trace.last()) }
         uCategory()
     }
 
     private fun uCategory() {
         onBackground {
-            if (state.value.current.children.isEmpty()) {
-                goodsUseCase(GoodsFilter(categoryId = state.value.current.id)).onSuccess { nonCached ->
-                    emitState {
+            if (currentState.current.children.isEmpty()) {
+                goodsUseCase(GoodsFilter(categoryId = currentState.current.id)).onSuccess { nonCached ->
+                    this.emitState {
                         it.copy(goods = it.goods.copy(items = cachePaging(nonCached)))
                     }
                 }
             } else {
-                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
+                this.emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
             }
         }
     }
@@ -98,20 +98,20 @@ class CatalogViewModel(
     }
 
     override fun handle(event: SearchEvent) {
-        fastEmitState {
+        emitState {
             it.copy(search = it.search.copy(text = event.text))
         }
         onBackground {
-            var filter = GoodsFilter(search = state.value.search.text)
-            if (state.value.current.id.isNotEmpty()) {
-                filter = filter.copy(categoryId = state.value.current.id)
+            var filter = GoodsFilter(search = currentState.search.text)
+            if (currentState.current.id.isNotEmpty()) {
+                filter = filter.copy(categoryId = currentState.current.id)
             }
-            if (state.value.search.text.isNotEmpty()) {
+            if (currentState.search.text.isNotEmpty()) {
                 goodsUseCase(filter).onSuccess { nonCached ->
-                    emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
+                    this.emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
                 }
             } else {
-                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
+                this.emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
             }
         }
     }

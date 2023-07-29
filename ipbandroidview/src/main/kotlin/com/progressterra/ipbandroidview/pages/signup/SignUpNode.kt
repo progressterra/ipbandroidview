@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -38,7 +39,7 @@ class SignUpNode(
             alreadyLaunched = true
             viewModel.refresh()
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         SignUpScreen(
             state = state, useComponent = viewModel
         )

@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.signin
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
@@ -27,7 +28,7 @@ class SignInNode(
                     .show()
             }
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         SignInScreen(state = state, useComponent = viewModel)
     }
 }

@@ -18,13 +18,13 @@ class ProfileDetailsViewModel(
     private val editUserValidUseCase: EditUserValidUseCase
 ) : BaseViewModel<ProfileDetailsState, ProfileDetailsEvent>(), UseProfileDetails {
 
-    override val initialState = ProfileDetailsState()
+    override fun createInitialState() = ProfileDetailsState()
 
     fun refresh() {
         onBackground {
-            emitState { ProfileDetailsState() }
+            this.emitState { ProfileDetailsState() }
             fetchUserUseCase().onSuccess { editUser ->
-                emitState {
+                this.emitState {
                     it.copy(
                         editUser = editUser.copy(
                             name = editUser.name.copy(enabled = false),
@@ -34,7 +34,7 @@ class ProfileDetailsViewModel(
                         ), screen = ScreenState.SUCCESS
                     )
                 }
-            }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
+            }.onFailure { this.emitState { it.copy(screen = ScreenState.ERROR) } }
         }
     }
 
@@ -49,27 +49,27 @@ class ProfileDetailsViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "save" -> saveUseCase(state.value.editUser).onSuccess {
-                    emitState {
+                "save" -> saveUseCase(currentState.editUser).onSuccess {
+                    this.emitState {
                         it.copy(
                             editUser = it.editUser.copy(
                                 name = it.editUser.name.copy(enabled = false),
                                 email = it.editUser.email.copy(enabled = false),
                                 birthday = it.editUser.birthday.copy(enabled = false),
                             ),
-                            editButton = it.editButton.copy(editing = !state.value.editButton.editing)
+                            editButton = it.editButton.copy(editing = !currentState.editButton.editing)
                         )
                     }
                 }
 
-                "edit" -> emitState {
+                "edit" -> this.emitState {
                     it.copy(
                         editUser = it.editUser.copy(
                             name = it.editUser.name.copy(enabled = true),
                             email = it.editUser.email.copy(enabled = true),
                             birthday = it.editUser.birthday.copy(enabled = true),
                         ),
-                        editButton = it.editButton.copy(editing = !state.value.editButton.editing)
+                        editButton = it.editButton.copy(editing = !currentState.editButton.editing)
                     )
                 }
 
@@ -93,15 +93,15 @@ class ProfileDetailsViewModel(
         when (event) {
             is TextFieldEvent.TextChanged -> {
                 when (event.id) {
-                    "name" -> fastEmitState {
+                    "name" -> emitState {
                         it.copy(editUser = it.editUser.copy(name = it.editUser.name.copy(text = event.text)))
                     }
 
-                    "email" -> fastEmitState {
+                    "email" -> emitState {
                         it.copy(editUser = it.editUser.copy(email = it.editUser.email.copy(text = event.text)))
                     }
 
-                    "birthday" -> fastEmitState {
+                    "birthday" -> emitState {
                         it.copy(
                             editUser = it.editUser.copy(
                                 birthday = it.editUser.birthday.copy(
@@ -115,7 +115,7 @@ class ProfileDetailsViewModel(
 
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> fastEmitState {
+                "name" -> emitState {
                     it.copy(
                         editUser = it.editUser.copy(
                             name = it.editUser.name.copy(
@@ -125,7 +125,7 @@ class ProfileDetailsViewModel(
                     )
                 }
 
-                "email" -> fastEmitState {
+                "email" -> emitState {
                     it.copy(
                         editUser = it.editUser.copy(
                             email = it.editUser.email.copy(
@@ -143,8 +143,8 @@ class ProfileDetailsViewModel(
 
     private fun valid() {
         onBackground {
-            val valid = editUserValidUseCase(state.value.editUser).isSuccess
-            emitState {
+            val valid = editUserValidUseCase(currentState.editUser).isSuccess
+            this.emitState {
                 it.copy(
                     editButton = it.editButton.copy(
                         save = it.editButton.save.copy(

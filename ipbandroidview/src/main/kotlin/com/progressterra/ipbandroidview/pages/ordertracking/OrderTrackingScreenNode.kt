@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.ordertracking
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -29,7 +30,7 @@ class OrderTrackingScreenNode(
             alreadyLaunched = true
             viewModel.setup(tracking)
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         OrderTrackingScreen(
             modifier = modifier,
             state = state,

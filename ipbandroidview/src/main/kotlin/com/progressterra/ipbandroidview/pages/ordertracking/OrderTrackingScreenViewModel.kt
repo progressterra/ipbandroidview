@@ -7,10 +7,10 @@ import com.progressterra.ipbandroidview.shared.BaseViewModel
 class OrderTrackingScreenViewModel :
     BaseViewModel<OrderTrackingScreenState, OrderTrackingScreenEvent>(), UseOrderTrackingScreen {
 
-    override val initialState = OrderTrackingScreenState()
+    override fun createInitialState() = OrderTrackingScreenState()
 
     fun setup(newState: OrderTrackingState) {
-        fastEmitState { it.copy(tracking = newState) }
+        emitState { it.copy(tracking = newState) }
     }
 
     override fun handle(event: TopBarEvent) {

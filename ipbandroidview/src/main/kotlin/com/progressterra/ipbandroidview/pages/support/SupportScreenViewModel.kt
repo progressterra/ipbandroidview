@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 class SupportScreenViewModel : BaseViewModel<SupportScreenState, SupportScreenEvent>(),
     UseSupportScreen {
 
-    override val initialState = SupportScreenState()
+    override fun createInitialState() = SupportScreenState()
 
     override fun handle(event: TopBarEvent) {
         TODO("Not yet implemented")

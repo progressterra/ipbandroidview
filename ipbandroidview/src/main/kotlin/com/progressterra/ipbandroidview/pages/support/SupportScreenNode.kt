@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.support
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -16,7 +17,7 @@ class SupportScreenNode(
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<SupportScreenViewModel>()
         viewModel.collectEffects { onBack() }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         SupportScreen(
             modifier = modifier,
             state = state,

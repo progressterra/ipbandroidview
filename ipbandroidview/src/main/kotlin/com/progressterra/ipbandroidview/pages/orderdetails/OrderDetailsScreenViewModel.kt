@@ -11,27 +11,27 @@ class OrderDetailsScreenViewModel(
     private val orderDetailsUseCase: OrderDetailsUseCase
 ) : BaseViewModel<OrderDetailsScreenState, OrderDetailsScreenEvent>(), UseOrderDetailsScreen {
 
-    override val initialState = OrderDetailsScreenState()
+    override fun createInitialState() = OrderDetailsScreenState()
 
 
     fun setupId(newId: String) {
-        fastEmitState {
+        emitState {
             it.copy(id = newId)
         }
     }
 
     fun refresh() {
         onBackground {
-            emitState {
+            this.emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
 
-            orderDetailsUseCase(state.value.id).onSuccess { details ->
-                emitState {
+            orderDetailsUseCase(currentState.id).onSuccess { details ->
+                this.emitState {
                     it.copy(details = details, screenState = ScreenState.SUCCESS)
                 }
             }.onFailure {
-                emitState {
+                this.emitState {
                     it.copy(screenState = ScreenState.ERROR)
                 }
             }
@@ -47,7 +47,7 @@ class OrderDetailsScreenViewModel(
     }
 
     override fun handle(event: OrderDetailsEvent) {
-        postEffect(OrderDetailsScreenEvent.Tracking(state.value.details.toOrderTrackingState()))
+        postEffect(OrderDetailsScreenEvent.Tracking(currentState.details.toOrderTrackingState()))
     }
 
     override fun handle(event: TopBarEvent) {

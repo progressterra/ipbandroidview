@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 
 class WelcomeViewModel : BaseViewModel<WelcomeState, WelcomeEvent>(), UseWelcome {
 
-    override val initialState = WelcomeState()
+    override fun createInitialState() = WelcomeState()
 
     fun refresh() {
         if (UserData.clientExist) postEffect(WelcomeEvent.OnAlreadyAuth)

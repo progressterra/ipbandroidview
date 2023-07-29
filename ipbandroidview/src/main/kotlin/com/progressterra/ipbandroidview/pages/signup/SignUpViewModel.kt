@@ -16,19 +16,19 @@ class SignUpViewModel(
     private val fetchUserUseCase: FetchUserUseCase
 ) : BaseViewModel<SignUpState, SignUpEvent>(), UseSignUp {
 
-    override val initialState = SignUpState()
+    override fun createInitialState() = SignUpState()
 
     fun refresh() = onBackground {
-        emitState { it.copy(screenState = ScreenState.LOADING) }
+        this.emitState { it.copy(screenState = ScreenState.LOADING) }
         fetchUserUseCase().onSuccess { user ->
-            emitState {
+            this.emitState {
                 it.copy(
                     editUser = user.copy(phone = user.phone.copy(enabled = false)),
                     screenState = ScreenState.SUCCESS
                 )
             }
         }.onFailure {
-            emitState { it.copy(screenState = ScreenState.ERROR) }
+            this.emitState { it.copy(screenState = ScreenState.ERROR) }
         }
     }
 
@@ -38,7 +38,7 @@ class SignUpViewModel(
 
     override fun handle(event: ButtonEvent) = onBackground {
         when (event.id) {
-            "auth" -> saveDataUseCase(state.value.editUser).onSuccess {
+            "auth" -> saveDataUseCase(currentState.editUser).onSuccess {
                 postEffect(SignUpEvent.OnNext)
             }
 
@@ -59,19 +59,19 @@ class SignUpViewModel(
         when (event) {
             is TextFieldEvent.TextChanged -> {
                 when (event.id) {
-                    "name" -> fastEmitState {
+                    "name" -> emitState {
                         it.copy(
                             editUser = it.editUser.copy(name = it.editUser.name.copy(text = event.text))
                         )
                     }
 
-                    "email" -> fastEmitState {
+                    "email" -> emitState {
                         it.copy(
                             editUser = it.editUser.copy(email = it.editUser.email.copy(text = event.text))
                         )
                     }
 
-                    "birthday" -> fastEmitState {
+                    "birthday" -> emitState {
                         it.copy(
                             editUser = it.editUser.copy(birthday = it.editUser.birthday.copy(text = event.text))
                         )
@@ -81,13 +81,13 @@ class SignUpViewModel(
 
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> fastEmitState {
+                "name" -> emitState {
                     it.copy(
                         editUser = it.editUser.copy(name = it.editUser.name.copy(text = ""))
                     )
                 }
 
-                "email" -> fastEmitState {
+                "email" -> emitState {
                     it.copy(
                         editUser = it.editUser.copy(email = it.editUser.email.copy(text = ""))
                     )
@@ -101,7 +101,7 @@ class SignUpViewModel(
 
 
     private fun valid() = onBackground {
-        val valid = editUserValidUseCase(state.value.editUser).isSuccess
-        emitState { it.copy(next = it.next.copy(enabled = valid)) }
+        val valid = editUserValidUseCase(currentState.editUser).isSuccess
+        this.emitState { it.copy(next = it.next.copy(enabled = valid)) }
     }
 }

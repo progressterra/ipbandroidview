@@ -20,36 +20,36 @@ class PaymentViewModel(
     private val fetchBonusSwitchUseCase: FetchBonusSwitchUseCase
 ) : BaseViewModel<PaymentState, PaymentEvent>(), UsePayment {
 
-    override val initialState = PaymentState()
+    override fun createInitialState() = PaymentState()
 
     fun refresh() {
         onBackground {
-            emitState {
+            this.emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
             var isSuccess = true
             fetchPaymentMethods().onSuccess { paymentMethods ->
-                emitState {
+                this.emitState {
                     it.copy(paymentMethod = paymentMethods)
                 }
             }.onFailure {
                 isSuccess = false
             }
             fetchBonusSwitchUseCase().onSuccess { bonusSwitch ->
-                emitState {
+                this.emitState {
                     it.copy(bonusSwitch = bonusSwitch)
                 }
             }.onFailure {
                 isSuccess = false
             }
             fetchReceiptUseCase().onSuccess { receipt ->
-                emitState {
+                this.emitState {
                     it.copy(receipt = receipt)
                 }
             }.onFailure {
                 isSuccess = false
             }
-            emitState {
+            this.emitState {
                 it.copy(screenState = isSuccess.toScreenState())
             }
         }
@@ -73,7 +73,7 @@ class PaymentViewModel(
 
     override fun handle(event: BrushedSwitchEvent) {
         when (event.id) {
-            "useBonuses" -> fastEmitState {
+            "useBonuses" -> emitState {
                 it.copy(
                     bonusSwitch = it.bonusSwitch.copy(
                         useBonuses = it.bonusSwitch.useBonuses.copy(
@@ -96,7 +96,7 @@ class PaymentViewModel(
     }
 
     override fun handle(event: PaymentMethodEvent) {
-        fastEmitState {
+        emitState {
             it.copy(paymentMethod = it.paymentMethod.copy(selectedPaymentMethod = event.type))
         }
     }

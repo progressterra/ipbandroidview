@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.wantthisrequests
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -26,7 +27,7 @@ class WantThisRequestsNode(
         LaunchedEffect(Unit) {
             viewModel.refresh()
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         WantThisRequests(
             modifier = modifier,
             state = state,

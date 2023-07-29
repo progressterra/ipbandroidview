@@ -14,29 +14,29 @@ class BonusesDetailsViewModel(
     private val fetchBonusesTransactionsUseCase: FetchBonusesTransactionsUseCase
 ) : BaseViewModel<BonusesDetailsState, BonusesDetailsEvent>(), UseBonusesDetails {
 
-    override val initialState = BonusesDetailsState()
+    override fun createInitialState() = BonusesDetailsState()
 
     fun refresh() {
         onBackground {
-            emitState {
+            this.emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
             var isSuccess = true
             bonusesUseCase().onSuccess { bonusesInfo ->
-                emitState {
+                this.emitState {
                     it.copy(bonusesInfo = bonusesInfo)
                 }
             }.onFailure {
                 isSuccess = false
             }
             fetchBonusesTransactionsUseCase().onSuccess { transactions ->
-                emitState {
+                this.emitState {
                     it.copy(transactions = transactions)
                 }
             }.onFailure {
                 isSuccess = false
             }
-            emitState {
+            this.emitState {
                 it.copy(screenState = isSuccess.toScreenState())
             }
         }

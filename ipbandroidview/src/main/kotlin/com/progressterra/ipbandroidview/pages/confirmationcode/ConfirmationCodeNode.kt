@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.confirmationcode
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -41,7 +42,7 @@ class ConfirmationCodeNode(
             alreadyLaunched = true
             viewModel.refresh(phoneNumber)
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         ConfirmationCodeScreen(
             state = state, useComponent = viewModel
         )

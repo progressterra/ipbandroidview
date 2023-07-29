@@ -6,10 +6,10 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 
 class OrderStatusViewModel : BaseViewModel<OrderStatusState, OrderStatusEvent>(), UseOrderStatus {
 
-    override val initialState = OrderStatusState()
+    override fun createInitialState() = OrderStatusState()
 
     fun setup(orderStatusState: OrderStatusState) {
-        fastEmitState { orderStatusState }
+        emitState { orderStatusState }
     }
 
     override fun handle(event: TopBarEvent) {

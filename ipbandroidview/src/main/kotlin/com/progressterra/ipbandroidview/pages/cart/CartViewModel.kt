@@ -17,12 +17,12 @@ class CartViewModel(
     private val cartUseCase: CartUseCase
 ) : BaseViewModel<CartState, CartEvent>(), UseCartScreen {
 
-    override val initialState = CartState()
+    override fun createInitialState() = CartState()
 
     fun refresh() {
         onBackground {
-            val call = cartUseCase().onSuccess { emitState { it } }
-            emitState { it.copy(screenState = call.isSuccess.toScreenState()) }
+            val call = cartUseCase().onSuccess { this.emitState { it } }
+            this.emitState { it.copy(screenState = call.isSuccess.toScreenState()) }
         }
     }
 
@@ -31,9 +31,9 @@ class CartViewModel(
             when (event) {
                 is CartCardEvent.Open -> postEffect(CartEvent.OnItem(event.id))
                 is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
-                    emitState { it.copy(screenState = ScreenState.SUCCESS) }
+                    this.emitState { it.copy(screenState = ScreenState.SUCCESS) }
                 }.onFailure {
-                    emitState { it.copy(screenState = ScreenState.ERROR) }
+                    this.emitState { it.copy(screenState = ScreenState.ERROR) }
                 }
             }
         }
@@ -49,15 +49,15 @@ class CartViewModel(
         onBackground {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess { newState ->
-                    emitState { newState.copy(screenState = ScreenState.SUCCESS) }
+                    this.emitState { newState.copy(screenState = ScreenState.SUCCESS) }
                 }.onFailure {
-                    emitState { it.copy(screenState = ScreenState.ERROR) }
+                    this.emitState { it.copy(screenState = ScreenState.ERROR) }
                 }
 
                 is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess { newState ->
-                    emitState { newState.copy(screenState = ScreenState.SUCCESS) }
+                    this.emitState { newState.copy(screenState = ScreenState.SUCCESS) }
                 }.onFailure {
-                    emitState { it.copy(screenState = ScreenState.ERROR) }
+                    this.emitState { it.copy(screenState = ScreenState.ERROR) }
                 }
             }
         }

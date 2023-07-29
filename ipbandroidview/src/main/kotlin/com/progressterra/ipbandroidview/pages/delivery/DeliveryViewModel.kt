@@ -19,15 +19,15 @@ class DeliveryViewModel(
     private val commentUseCase: CommentUseCase
 ) : BaseViewModel<DeliveryState, DeliveryEvent>(), UseDelivery {
 
-    override val initialState = DeliveryState()
+    override fun createInitialState() = DeliveryState()
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screenState = ScreenState.LOADING) }
+            this.emitState { it.copy(screenState = ScreenState.LOADING) }
             fetchShippingAddressUseCase().onSuccess {
-                emitState { it.copy(screenState = ScreenState.SUCCESS) }
+                this.emitState { it.copy(screenState = ScreenState.SUCCESS) }
                 if (!UserData.shippingAddress.isEmpty()) {
-                    emitState {
+                    this.emitState {
                         it.copy(
                             address = UserData.shippingAddress,
                             deliveryPicker = it.deliveryPicker.copy(
@@ -38,7 +38,7 @@ class DeliveryViewModel(
                 }
                 checkValid()
             }.onFailure {
-                emitState { it.copy(screenState = ScreenState.ERROR) }
+                this.emitState { it.copy(screenState = ScreenState.ERROR) }
             }
         }
     }
@@ -56,10 +56,10 @@ class DeliveryViewModel(
             when (event.id) {
                 "confirm" -> {
                     var isSuccess = true
-                    addDeliveryToCartUseCase(state.value.suggestion).onFailure {
+                    addDeliveryToCartUseCase(currentState.suggestion).onFailure {
                         isSuccess = false
                     }
-                    commentUseCase(state.value.commentary.text).onFailure {
+                    commentUseCase(currentState.commentary.text).onFailure {
                         isSuccess = false
                     }
                     if (isSuccess) {
@@ -71,7 +71,7 @@ class DeliveryViewModel(
     }
 
     override fun handle(event: AddressSuggestionsEvent) {
-        fastEmitState {
+        emitState {
             it.copy(
                 suggestion = event.suggestion,
                 address = AddressUI(),
@@ -87,7 +87,7 @@ class DeliveryViewModel(
     override fun handle(event: TextFieldEvent) {
         when (event) {
             is TextFieldEvent.TextChanged -> when (event.id) {
-                "address" -> fastEmitState {
+                "address" -> emitState {
                     it.copy(
                         deliveryPicker = it.deliveryPicker.copy(
                             address = it.deliveryPicker.address.copy(
@@ -97,14 +97,14 @@ class DeliveryViewModel(
                     )
                 }
 
-                "commentary" -> fastEmitState {
+                "commentary" -> emitState {
                     it.copy(commentary = it.commentary.copy(text = event.text))
                 }
             }
 
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "address" -> fastEmitState {
+                "address" -> emitState {
                     it.copy(
                         deliveryPicker = it.deliveryPicker.copy(
                             address = it.deliveryPicker.address.copy(
@@ -115,15 +115,15 @@ class DeliveryViewModel(
                 }
             }
         }
-        fastEmitState { it.copy(address = AddressUI(), suggestion = SuggestionUI()) }
+        emitState { it.copy(address = AddressUI(), suggestion = SuggestionUI()) }
         checkValid()
         updateSuggestions()
     }
 
     private fun updateSuggestions() {
         onBackground {
-            suggestionsUse(state.value.deliveryPicker.address.text).onSuccess { suggestions ->
-                emitState {
+            suggestionsUse(currentState.deliveryPicker.address.text).onSuccess { suggestions ->
+                this.emitState {
                     it.copy(
                         deliveryPicker = it.deliveryPicker.copy(
                             suggestions = it.deliveryPicker.suggestions.copy(
@@ -138,8 +138,8 @@ class DeliveryViewModel(
     }
 
     private fun checkValid() {
-        fastEmitState {
-            it.copy(confirm = it.confirm.copy(enabled = !state.value.address.isEmpty() || !state.value.suggestion.isEmpty()))
+        emitState {
+            it.copy(confirm = it.confirm.copy(enabled = !currentState.address.isEmpty() || !currentState.suggestion.isEmpty()))
         }
     }
 }

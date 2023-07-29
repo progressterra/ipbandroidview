@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.orderdetails
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
@@ -31,7 +32,7 @@ class OrderDetailsScreenNode(
             viewModel.setupId(orderId)
             viewModel.refresh()
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         OrderDetailsScreen(
             modifier = modifier, state = state, useComponent = viewModel
         )

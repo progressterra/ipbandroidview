@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.orderstatus
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -34,7 +35,7 @@ class OrderStatusNode(
             alreadyLaunched = true
             viewModel.setup(orderStatusState)
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         OrderStatusScreen(
             state = state,
             useComponent = viewModel

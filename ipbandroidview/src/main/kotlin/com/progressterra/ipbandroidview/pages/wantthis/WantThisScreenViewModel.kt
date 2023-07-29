@@ -23,14 +23,14 @@ class WantThisScreenViewModel(
     private val createWantThisRequestUseCase: CreateWantThisRequestUseCase
 ) : BaseViewModel<WantThisScreenState, WantThisScreenEvent>(), UseWantThisScreen {
 
-    override val initialState = WantThisScreenState()
+    override fun createInitialState() = WantThisScreenState()
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screen = ScreenState.LOADING) }
+            this.emitState { it.copy(screen = ScreenState.LOADING) }
             fetchWantThisUseCase().onSuccess { newState ->
-                emitState { newState.copy(screen = ScreenState.SUCCESS) }
-            }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
+                this.emitState { newState.copy(screen = ScreenState.SUCCESS) }
+            }.onFailure { this.emitState { it.copy(screen = ScreenState.ERROR) } }
         }
     }
 
@@ -47,7 +47,7 @@ class WantThisScreenViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "send" -> createWantThisRequestUseCase(state.value.toDocument()).onSuccess {
+                "send" -> createWantThisRequestUseCase(currentState.toDocument()).onSuccess {
                     postEffect(WantThisScreenEvent.Toast(R.string.success))
                     postEffect(WantThisScreenEvent.Back)
                 }.onFailure {
@@ -64,7 +64,7 @@ class WantThisScreenViewModel(
             when (event) {
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
                     makePhotoUseCase().onSuccess { photo ->
-                        emitState { it.copy(photo = it.photo.copy(items = it.photo.items + photo)) }
+                        this.emitState { it.copy(photo = it.photo.copy(items = it.photo.items + photo)) }
                     }
                 }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
 
@@ -81,7 +81,7 @@ class WantThisScreenViewModel(
         when (event) {
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> Unit
-            is TextFieldEvent.TextChanged -> fastEmitState {
+            is TextFieldEvent.TextChanged -> emitState {
                 it.copy(entries = it.entries.updateById(event) { field ->
                     field.copy(text = event.text)
                 })

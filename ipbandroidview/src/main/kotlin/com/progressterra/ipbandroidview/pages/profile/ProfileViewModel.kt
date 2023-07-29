@@ -17,34 +17,34 @@ class ProfileViewModel(
     private val documentsNotification: DocumentsNotificationUseCase
 ) : BaseViewModel<ProfileState, ProfileEvent>(), UseProfile {
 
-    override val initialState = ProfileState()
+    override fun createInitialState() = ProfileState()
 
     fun refresh() {
         onBackground {
-            emitState {
+            this.emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
             var isSuccess = true
             fetchUserProfileUseCase().onSuccess { profile ->
-                emitState {
+                this.emitState {
                     it.copy(isAuthorized = true, authProfileState = profile)
                 }
             }.onFailure {
                 isSuccess = false
             }
             documentsNotification().onSuccess { notification ->
-                emitState {
+                this.emitState {
                     it.copy(
                         docNotification = notification,
                         documents = it.documents.copy(enabled = true)
                     )
                 }
             }.onFailure {
-                emitState {
+                this.emitState {
                     it.copy(documents = it.documents.copy(enabled = false))
                 }
             }
-            emitState {
+            this.emitState {
                 it.copy(screenState = isSuccess.toScreenState())
             }
         }

@@ -18,13 +18,13 @@ class MainViewModel(
     private val fetchGalleriesUseCase: FetchGalleriesUseCase
 ) : UseMain, BaseViewModel<MainState, MainEvent>() {
 
-    override val initialState = MainState()
+    override fun createInitialState() = MainState()
 
     fun refresh() {
         onBackground {
             var isSuccess = true
             fetchBonusesUseCase().onSuccess { bonuses ->
-                emitState { it.copy(bonuses = bonuses) }
+                this.emitState { it.copy(bonuses = bonuses) }
             }.onFailure {
                 isSuccess = false
             }
@@ -32,11 +32,11 @@ class MainViewModel(
                 val cachedGalleries = galleries.map { gallery ->
                     gallery.copy(items = cachePaging(gallery.items))
                 }
-                emitState { it.copy(recommended = cachedGalleries) }
+                this.emitState { it.copy(recommended = cachedGalleries) }
             }.onFailure {
                 isSuccess = false
             }
-            emitState { it.copy(stateBox = isSuccess.toScreenState()) }
+            this.emitState { it.copy(stateBox = isSuccess.toScreenState()) }
         }
     }
 

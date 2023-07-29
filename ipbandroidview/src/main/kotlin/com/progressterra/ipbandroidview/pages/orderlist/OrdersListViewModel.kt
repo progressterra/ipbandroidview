@@ -10,20 +10,20 @@ class OrdersListViewModel(
     private val ordersUseCase: OrdersUseCase
 ) : BaseViewModel<OrdersListState, OrdersListEvent>(), UseOrdersList {
 
-    override val initialState = OrdersListState()
+    override fun createInitialState() = OrdersListState()
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screenState = ScreenState.LOADING) }
+            this.emitState { it.copy(screenState = ScreenState.LOADING) }
             ordersUseCase().onSuccess { nonCached ->
-                emitState {
+                this.emitState {
                     it.copy(
                         screenState = ScreenState.SUCCESS,
                         orders = cachePaging(nonCached)
                     )
                 }
             }.onFailure {
-                emitState { it.copy(screenState = ScreenState.ERROR) }
+                this.emitState { it.copy(screenState = ScreenState.ERROR) }
             }
         }
     }

@@ -19,10 +19,10 @@ class DocumentDetailsViewModel(
     private val validationUseCase: ValidationUseCase
 ) : BaseViewModel<DocumentDetailsState, DocumentDetailsEvent>(), UseDocumentDetails {
 
-    override val initialState = DocumentDetailsState()
+    override fun createInitialState() = DocumentDetailsState()
 
     fun setup(state: DocumentDetailsState) {
-        fastEmitState { state }
+        emitState { state }
     }
 
     override fun handle(event: TopBarEvent) {
@@ -32,7 +32,7 @@ class DocumentDetailsViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "apply" -> saveDocumentsUseCase(state.value.toDocument()).onSuccess {
+                "apply" -> saveDocumentsUseCase(currentState.toDocument()).onSuccess {
                     postEffect(DocumentDetailsEvent.Back)
                 }
             }
@@ -44,7 +44,7 @@ class DocumentDetailsViewModel(
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> Unit
             is TextFieldEvent.TextChanged -> {
-                fastEmitState {
+                emitState {
                     it.copy(
                         entries = it.entries.updateById(event) { field ->
                             field.copy(text = event.text)
@@ -58,8 +58,8 @@ class DocumentDetailsViewModel(
 
     private fun validation() {
         onBackground {
-            val valid = validationUseCase(state.value)
-            emitState {
+            val valid = validationUseCase(currentState)
+            this.emitState {
                 it.copy(apply = it.apply.copy(enabled = valid.isSuccess))
             }
         }
@@ -70,7 +70,7 @@ class DocumentDetailsViewModel(
             when (event) {
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
                     makePhotoUseCase().onSuccess { photo ->
-                        emitState {
+                        this.emitState {
                             it.copy(photo = it.photo.copy(items = it.photo.items + photo))
                         }
                     }

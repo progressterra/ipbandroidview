@@ -2,9 +2,6 @@ package com.progressterra.ipbandroidview.shared
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -17,17 +14,22 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel() {
 
-    protected abstract val initialState: STATE
+    private val initialState: STATE by lazy { createInitialState() }
 
-    private val _state: MutableState<STATE> by lazy { mutableStateOf(initialState) }
-    val state: State<STATE> by lazy { _state }
+    abstract fun createInitialState(): STATE
 
+    private val _state: MutableStateFlow<STATE> = MutableStateFlow(initialState)
+    val state = _state.asStateFlow()
+
+    val currentState: STATE
+        get() = state.value
 
     private val _effects: Channel<EFFECT> = Channel()
 
@@ -49,19 +51,12 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel() {
     protected fun onBackground(
         block: suspend () -> Unit
     ) {
-        viewModelScope.launch { block() }
+        viewModelScope.launch(Dispatchers.IO) { block() }
     }
 
-    protected fun fastEmitState(reducer: (STATE) -> STATE) {
-        val newState = reducer(state.value)
+    protected fun emitState(reducer: (STATE) -> STATE) {
+        val newState = reducer(currentState)
         _state.value = newState
-    }
-
-    protected suspend fun emitState(reducer: (STATE) -> STATE) {
-        withContext(Dispatchers.Main) {
-            val newState = reducer(state.value)
-            _state.value = newState
-        }
     }
 
     protected fun postEffect(effect: EFFECT) {

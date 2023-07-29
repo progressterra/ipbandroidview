@@ -16,15 +16,15 @@ class WantThisRequestsViewModel(
 ) : BaseViewModel<WantThisRequestsState, WantThisRequestsEvent>(),
     UseWantThisRequests {
 
-    override val initialState = WantThisRequestsState()
+    override fun createInitialState() = WantThisRequestsState()
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screen = ScreenState.LOADING) }
+            this.emitState { it.copy(screen = ScreenState.LOADING) }
             wantThisRequestsUseCase().onSuccess { nonCached ->
-                emitState { it.copy(screen = ScreenState.SUCCESS, items = cachePaging(nonCached)) }
+                this.emitState { it.copy(screen = ScreenState.SUCCESS, items = cachePaging(nonCached)) }
             }.onFailure {
-                emitState { it.copy(screen = ScreenState.ERROR) }
+                this.emitState { it.copy(screen = ScreenState.ERROR) }
             }
         }
     }

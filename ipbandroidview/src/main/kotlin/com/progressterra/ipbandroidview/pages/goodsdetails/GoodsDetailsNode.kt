@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -43,7 +44,7 @@ class GoodsDetailsNode(
             viewModel.setupId(goodsId)
             viewModel.refresh()
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         GoodsDetailsScreen(state = state, useComponent = viewModel)
     }
 }

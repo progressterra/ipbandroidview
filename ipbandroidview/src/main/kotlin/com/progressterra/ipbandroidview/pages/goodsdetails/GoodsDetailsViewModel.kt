@@ -23,27 +23,27 @@ class GoodsDetailsViewModel(
 ) : BaseViewModel<GoodsDetailsState, GoodsDetailsEvent>(),
     UseGoodsDetails {
 
-    override val initialState = GoodsDetailsState()
+    override fun createInitialState() = GoodsDetailsState()
 
     fun setupId(newId: String) {
-        fastEmitState {
+        emitState {
             it.copy(id = newId)
         }
     }
 
     fun refresh() {
         onBackground {
-            emitState {
+            this.emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
-            goodsDetailsUseCase(state.value.id)
+            goodsDetailsUseCase(currentState.id)
                 .onSuccess { details ->
-                    emitState {
+                    this.emitState {
                         it.copy(id = details.id, screenState = ScreenState.SUCCESS)
                     }
                 }
                 .onFailure {
-                    emitState {
+                    this.emitState {
                         it.copy(screenState = ScreenState.ERROR)
                     }
                 }
@@ -62,14 +62,14 @@ class GoodsDetailsViewModel(
         onBackground {
             modifyFavoriteUseCase(
                 event.id,
-                state.value.description.favoriteButton.favorite
+                currentState.description.favoriteButton.favorite
             ).onSuccess {
                 postEffect(GoodsDetailsEvent.Toast(R.string.added_to_favorites))
-                emitState {
+                this.emitState {
                     it.copy(
                         description = it.description.copy(
                             favoriteButton = it.description.favoriteButton.copy(
-                                favorite = !state.value.description.favoriteButton.favorite
+                                favorite = !currentState.description.favoriteButton.favorite
                             )
                         )
                     )
@@ -95,13 +95,13 @@ class GoodsDetailsViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "buy" -> addToCartUseCase(state.value.id).onSuccess {
+                "buy" -> addToCartUseCase(currentState.id).onSuccess {
                     postEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
                 }
 
                 "buyInstallment" -> addToCartInstallmentUseCase(
-                    state.value.id,
-                    state.value.buyGoods.installment
+                    currentState.id,
+                    currentState.buyGoods.installment
                 ).onSuccess {
                     postEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
                 }

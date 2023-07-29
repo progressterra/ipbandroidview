@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.photo
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -30,7 +31,7 @@ class PhotoNode(
             alreadyLaunched = true
             viewModel.setup(image)
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         PhotoScreen(
             state = state, useComponent = viewModel
         )

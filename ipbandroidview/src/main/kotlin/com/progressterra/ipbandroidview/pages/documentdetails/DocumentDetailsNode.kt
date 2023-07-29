@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.documentdetails
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -36,7 +37,7 @@ class DocumentDetailsNode(
             alreadyLaunched = true
             viewModel.setup(documentDetailsState)
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         DocumentDetails(
             modifier = modifier,
             state = state,

@@ -19,36 +19,36 @@ class DocumentsViewModel(
     private val citizenshipsUseCase: FetchCitizenshipsUseCase
 ) : BaseViewModel<DocumentsScreenState, DocumentsScreenEvent>(), UseDocumentsScreen {
 
-    override val initialState = DocumentsScreenState()
+    override fun createInitialState() = DocumentsScreenState()
 
     fun refresh() {
         onBackground {
-            emitState {
+            this.emitState {
                 it.copy(screen = ScreenState.LOADING)
             }
             var isSuccess = true
             documentsUseCase().onSuccess { docs ->
-                emitState {
+                this.emitState {
                     it.copy(documents = docs)
                 }
             }.onFailure {
                 isSuccess = false
             }
             citizenshipsUseCase().onSuccess { citizenship ->
-                emitState {
+                this.emitState {
                     it.copy(citizenship = citizenship)
                 }
             }.onFailure {
                 isSuccess = false
             }
-            emitState {
+            this.emitState {
                 it.copy(screen = isSuccess.toScreenState())
             }
         }
     }
 
     override fun handle(event: CurrentCitizenshipEvent) {
-        fastEmitState {
+        emitState {
             it.copy(citizenship = it.citizenship.copy(dialog = it.citizenship.dialog.copy(open = true)))
         }
     }
@@ -63,11 +63,11 @@ class DocumentsViewModel(
 
     override fun handle(event: DialogPickerEvent) {
         when (event) {
-            is DialogPickerEvent.Close -> fastEmitState {
+            is DialogPickerEvent.Close -> emitState {
                 it.copy(citizenship = it.citizenship.copy(dialog = it.citizenship.dialog.copy(open = false)))
             }
 
-            is DialogPickerEvent.Select -> fastEmitState {
+            is DialogPickerEvent.Select -> emitState {
                 it.copy(
                     citizenship = it.citizenship.copy(
                         dialog = it.citizenship.dialog.copy(
@@ -82,9 +82,9 @@ class DocumentsViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "apply" -> state.value.citizenship.dialog.selected?.let { newCitizenship ->
+                "apply" -> currentState.citizenship.dialog.selected?.let { newCitizenship ->
                     saveCitizenshipUseCase(newCitizenship).onSuccess {
-                        emitState {
+                        this.emitState {
                             it.copy(
                                 citizenship = it.citizenship.copy(
                                     dialog = it.citizenship.dialog.copy(

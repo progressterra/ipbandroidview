@@ -15,20 +15,20 @@ class FavoritesViewModel(
     private val removeFromCartUseCase: RemoveFromCartUseCase
 ) : BaseViewModel<FavoritesState, FavoritesEvent>(), UseFavorites {
 
-    override val initialState = FavoritesState()
+    override fun createInitialState() = FavoritesState()
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(stateBox = ScreenState.LOADING) }
+            this.emitState { it.copy(stateBox = ScreenState.LOADING) }
             favoriteGoodsUseCase().onSuccess { nonCached ->
-                emitState {
+                this.emitState {
                     it.copy(
                         stateBox = ScreenState.SUCCESS,
                         items = it.items.copy(items = cachePaging(nonCached))
                     )
                 }
             }.onFailure {
-                emitState { it.copy(stateBox = ScreenState.ERROR) }
+                this.emitState { it.copy(stateBox = ScreenState.ERROR) }
             }
         }
     }

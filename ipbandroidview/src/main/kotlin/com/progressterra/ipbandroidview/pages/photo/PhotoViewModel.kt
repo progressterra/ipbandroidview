@@ -5,12 +5,12 @@ import com.progressterra.ipbandroidview.shared.BaseViewModel
 
 class PhotoViewModel : BaseViewModel<PhotoState, PhotoEvent>(), UsePhoto {
 
-    override val initialState = PhotoState()
+    override fun createInitialState() = PhotoState()
 
     fun setup(
         picture: String
     ) {
-        fastEmitState { PhotoState(picture) }
+        emitState { PhotoState(picture) }
     }
 
     override fun handle(event: PhotoTopBarEvent) {

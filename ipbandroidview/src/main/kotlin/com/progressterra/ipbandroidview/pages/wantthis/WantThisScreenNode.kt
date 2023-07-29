@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.wantthis
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
@@ -34,7 +35,7 @@ class WantThisScreenNode(
         LaunchedEffect(Unit) {
             viewModel.refresh()
         }
-        val state = viewModel.state.value
+        val state = viewModel.state.collectAsState().value
         WantThisScreen(
             modifier = modifier, state = state, useComponent = viewModel
         )
