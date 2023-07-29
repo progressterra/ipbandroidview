@@ -26,7 +26,7 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel() {
     protected abstract val initialState: STATE
 
     private val _state: MutableState<STATE> by lazy { mutableStateOf(initialState) }
-    val state: State<STATE> = _state
+    val state: State<STATE> by lazy { _state }
 
 
     private val _effects: Channel<EFFECT> = Channel()
