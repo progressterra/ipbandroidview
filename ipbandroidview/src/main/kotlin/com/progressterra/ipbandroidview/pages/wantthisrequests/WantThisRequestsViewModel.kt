@@ -1,54 +1,44 @@
 package com.progressterra.ipbandroidview.pages.wantthisrequests
 
-import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 
 class WantThisRequestsViewModel(
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val wantThisRequestsUseCase: WantThisRequestsUseCase
-) : ContainerHost<WantThisRequestsState, WantThisRequestsEvent>,
-    ViewModel(), UseWantThisRequests {
+) : BaseViewModel<WantThisRequestsState, WantThisRequestsEvent>(),
+    UseWantThisRequests {
 
-    override val container =
-        container<WantThisRequestsState, WantThisRequestsEvent>(WantThisRequestsState())
+    override val initialState = WantThisRequestsState()
 
     fun refresh() {
-        intent {
-            reduce { state.uScreenState(ScreenState.LOADING) }
-            wantThisRequestsUseCase().onSuccess {
-                reduce { state.uItems(it).uScreenState(ScreenState.SUCCESS) }
+        onBackground {
+            emitState { it.copy(screen = ScreenState.LOADING) }
+            wantThisRequestsUseCase().onSuccess { nonCached ->
+                emitState { it.copy(screen = ScreenState.SUCCESS, items = cachePaging(nonCached)) }
             }.onFailure {
-                reduce { state.uScreenState(ScreenState.ERROR) }
+                emitState { it.copy(screen = ScreenState.ERROR) }
             }
         }
     }
 
     override fun handle(event: TopBarEvent) {
-        intent {
-            postSideEffect(WantThisRequestsEvent.Back)
-        }
+        postEffect(WantThisRequestsEvent.Back)
     }
 
     override fun handle(event: WantThisCardEvent) {
-        intent {
-            postSideEffect(WantThisRequestsEvent.GoodsDetails(event.id))
-        }
+        postEffect(WantThisRequestsEvent.GoodsDetails(event.id))
     }
 
     override fun handle(event: CounterEvent) {
-        intent {
+        onBackground {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
                     refresh()

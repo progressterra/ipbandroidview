@@ -19,7 +19,9 @@ class CatalogViewModel(
     private val goodsUseCase: GoodsUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
-) : UseCatalog, BaseViewModel<CatalogState, CatalogEvent>(CatalogState()) {
+) : UseCatalog, BaseViewModel<CatalogState, CatalogEvent>() {
+
+    override val initialState = CatalogState()
 
     fun refresh() {
         onBackground {

@@ -14,7 +14,9 @@ class SignUpViewModel(
     private val editUserValidUseCase: EditUserValidUseCase,
     private val saveDataUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase
-) : BaseViewModel<SignUpState, SignUpEvent>(SignUpState()), UseSignUp {
+) : BaseViewModel<SignUpState, SignUpEvent>(), UseSignUp {
+
+    override val initialState = SignUpState()
 
     fun refresh() = onBackground {
         emitState { it.copy(screenState = ScreenState.LOADING) }
@@ -53,7 +55,7 @@ class SignUpViewModel(
     }
 
 
-    override fun handle(event: TextFieldEvent)  {
+    override fun handle(event: TextFieldEvent) {
         when (event) {
             is TextFieldEvent.TextChanged -> {
                 when (event.id) {

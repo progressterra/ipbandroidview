@@ -8,7 +8,9 @@ import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class OrdersListViewModel(
     private val ordersUseCase: OrdersUseCase
-) : BaseViewModel<OrdersListState, OrdersListEvent>(OrdersListState()), UseOrdersList {
+) : BaseViewModel<OrdersListState, OrdersListEvent>(), UseOrdersList {
+
+    override val initialState = OrdersListState()
 
     fun refresh() {
         onBackground {

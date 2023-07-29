@@ -7,6 +7,6 @@ import com.progressterra.ipbandroidview.widgets.storeitems.StoreItemsState
 
 @Immutable
 @optics data class FavoritesState(
-    val items: StoreItemsState.Listed = StoreItemsState.Listed(),
+    val items: StoreItemsState = StoreItemsState(),
     val stateBox: ScreenState = ScreenState.LOADING
 ) { companion object }

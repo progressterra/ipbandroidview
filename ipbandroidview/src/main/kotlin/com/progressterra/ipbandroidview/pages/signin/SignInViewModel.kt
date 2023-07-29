@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.signin
 
-import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
@@ -9,12 +8,13 @@ import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import kotlinx.coroutines.launch
 
 class SignInViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val openUrlUseCase: OpenUrlUseCase
-) : BaseViewModel<SignInState, SignInEffect>(SignInState()), UseSignIn {
+) : BaseViewModel<SignInState, SignInEffect>(), UseSignIn {
+
+    override val initialState = SignInState()
 
     fun refresh() {
         fastEmitState {

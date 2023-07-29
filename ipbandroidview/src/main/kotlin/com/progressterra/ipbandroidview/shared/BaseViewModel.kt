@@ -21,9 +21,11 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-abstract class BaseViewModel<STATE : Any, EFFECT : Any>(initialState: STATE) : ViewModel() {
+abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel() {
 
-    private val _state: MutableState<STATE> = mutableStateOf(initialState)
+    protected abstract val initialState: STATE
+
+    private val _state: MutableState<STATE> by lazy { mutableStateOf(initialState) }
     val state: State<STATE> = _state
 
 
