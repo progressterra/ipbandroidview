@@ -1,98 +1,83 @@
 package com.progressterra.ipbandroidview.pages.documentdetails
 
 import android.Manifest
-import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
-import com.progressterra.ipbandroidview.features.documentphoto.items
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.button.enabled
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
-import com.progressterra.ipbandroidview.shared.ui.textfield.text
 import com.progressterra.ipbandroidview.shared.updateById
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.annotation.OrbitExperimental
-import org.orbitmvi.orbit.syntax.simple.blockingIntent
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 
-@OptIn(OrbitExperimental::class)
 class DocumentDetailsViewModel(
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
     private val validationUseCase: ValidationUseCase
-) : ContainerHost<DocumentDetailsState, DocumentDetailsEvent>, ViewModel(), UseDocumentDetails {
+) : BaseViewModel<DocumentDetailsState, DocumentDetailsEvent>(), UseDocumentDetails {
 
-    override val container =
-        container<DocumentDetailsState, DocumentDetailsEvent>(DocumentDetailsState())
+    override val initialState = DocumentDetailsState()
 
     fun setup(state: DocumentDetailsState) {
-        intent {
-            reduce { state }
-        }
+        fastEmitState { state }
     }
 
     override fun handle(event: TopBarEvent) {
-        intent {
-            postSideEffect(DocumentDetailsEvent.Back)
-        }
+        postEffect(DocumentDetailsEvent.Back)
     }
 
     override fun handle(event: ButtonEvent) {
-        intent {
+        onBackground {
             when (event.id) {
-                "apply" -> saveDocumentsUseCase(state.toDocument()).onSuccess {
-                    postSideEffect(DocumentDetailsEvent.Back)
+                "apply" -> saveDocumentsUseCase(state.value.toDocument()).onSuccess {
+                    postEffect(DocumentDetailsEvent.Back)
                 }
             }
         }
     }
 
     override fun handle(event: TextFieldEvent) {
-        blockingIntent {
-            when (event) {
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-                is TextFieldEvent.TextChanged -> {
-                    reduce {
-                        DocumentDetailsState.entries.modify(state) {
-                            it.updateById(event) { field ->
-                                TextFieldState.text.set(field, event.text)
-                            }
+        when (event) {
+            is TextFieldEvent.Action -> Unit
+            is TextFieldEvent.AdditionalAction -> Unit
+            is TextFieldEvent.TextChanged -> {
+                fastEmitState {
+                    it.copy(
+                        entries = it.entries.updateById(event) { field ->
+                            field.copy(text = event.text)
                         }
-                    }
-                    validation()
+                    )
                 }
+                validation()
             }
         }
     }
 
     private fun validation() {
-        intent {
-            val valid = validationUseCase(state)
-            reduce { DocumentDetailsState.apply.enabled.set(state, valid.isSuccess) }
+        onBackground {
+            val valid = validationUseCase(state.value)
+            emitState {
+                it.copy(apply = it.apply.copy(enabled = valid.isSuccess))
+            }
         }
     }
 
     override fun handle(event: DocumentPhotoEvent) {
-        intent {
+        onBackground {
             when (event) {
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
                     makePhotoUseCase().onSuccess { photo ->
-                        reduce { DocumentDetailsState.photo.items.modify(state) { it + photo } }
+                        emitState {
+                            it.copy(photo = it.photo.copy(items = it.photo.items + photo))
+                        }
                     }
                     validation()
                 }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
 
-                is DocumentPhotoEvent.Select -> postSideEffect(DocumentDetailsEvent.OpenPhoto(event.image.url))
+                is DocumentPhotoEvent.Select -> postEffect(DocumentDetailsEvent.OpenPhoto(event.image.url))
             }
         }
     }

@@ -1,59 +1,45 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
-import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
-import com.progressterra.ipbandroidview.features.addresssuggestions.isVisible
-import com.progressterra.ipbandroidview.features.addresssuggestions.suggestions
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.button.enabled
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.text
-import com.progressterra.ipbandroidview.widgets.deliverypicker.address
-import com.progressterra.ipbandroidview.widgets.deliverypicker.suggestions
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.annotation.OrbitExperimental
-import org.orbitmvi.orbit.syntax.simple.blockingIntent
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 
-@OptIn(OrbitExperimental::class)
 class DeliveryViewModel(
     private val addDeliveryToCartUseCase: AddDeliveryToCartUseCase,
     private val fetchShippingAddressUseCase: FetchShippingAddressUseCase,
     private val suggestionsUse: SuggestionsUseCase,
     private val commentUseCase: CommentUseCase
-) : ViewModel(), ContainerHost<DeliveryState, DeliveryEvent>, UseDelivery {
+) : BaseViewModel<DeliveryState, DeliveryEvent>(), UseDelivery {
 
-    override val container = container<DeliveryState, DeliveryEvent>(DeliveryState())
+    override val initialState = DeliveryState()
 
     fun refresh() {
-        intent {
-            reduce { DeliveryState.screenState.set(state, ScreenState.LOADING) }
+        onBackground {
+            emitState { it.copy(screenState = ScreenState.LOADING) }
             fetchShippingAddressUseCase().onSuccess {
-                reduce { DeliveryState.screenState.set(state, ScreenState.SUCCESS) }
+                emitState { it.copy(screenState = ScreenState.SUCCESS) }
                 if (!UserData.shippingAddress.isEmpty()) {
-                    reduce { DeliveryState.address.set(state, UserData.shippingAddress) }
-                    reduce {
-                        DeliveryState.deliveryPicker.address.text.set(
-                            state,
-                            UserData.shippingAddress.printAddress()
+                    emitState {
+                        it.copy(
+                            address = UserData.shippingAddress,
+                            deliveryPicker = it.deliveryPicker.copy(
+                                address = it.deliveryPicker.address.copy(text = UserData.shippingAddress.printAddress())
+                            )
                         )
                     }
                 }
                 checkValid()
             }.onFailure {
-                reduce { DeliveryState.screenState.set(state, ScreenState.ERROR) }
+                emitState { it.copy(screenState = ScreenState.ERROR) }
             }
-
         }
     }
 
@@ -62,24 +48,22 @@ class DeliveryViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        intent {
-            postSideEffect(DeliveryEvent.Back)
-        }
+        postEffect(DeliveryEvent.Back)
     }
 
     override fun handle(event: ButtonEvent) {
-        intent {
+        onBackground {
             when (event.id) {
                 "confirm" -> {
                     var isSuccess = true
-                    addDeliveryToCartUseCase(state.suggestion).onFailure {
+                    addDeliveryToCartUseCase(state.value.suggestion).onFailure {
                         isSuccess = false
                     }
-                    commentUseCase(state.commentary.text).onFailure {
+                    commentUseCase(state.value.commentary.text).onFailure {
                         isSuccess = false
                     }
                     if (isSuccess) {
-                        postSideEffect(DeliveryEvent.Next)
+                        postEffect(DeliveryEvent.Next)
                     }
                 }
             }
@@ -87,62 +71,75 @@ class DeliveryViewModel(
     }
 
     override fun handle(event: AddressSuggestionsEvent) {
-        intent {
-            reduce { DeliveryState.suggestion.set(state, event.suggestion) }
-            reduce { DeliveryState.address.set(state, AddressUI()) }
-            reduce {
-                DeliveryState.deliveryPicker.address.text.set(
-                    state,
-                    event.suggestion.previewOfSuggestion
+        fastEmitState {
+            it.copy(
+                suggestion = event.suggestion,
+                address = AddressUI(),
+                deliveryPicker = it.deliveryPicker.copy(
+                    address = it.deliveryPicker.address.copy(text = event.suggestion.previewOfSuggestion),
+                    suggestions = it.deliveryPicker.suggestions.copy(isVisible = false)
                 )
-            }
-            reduce { DeliveryState.deliveryPicker.suggestions.isVisible.set(state, false) }
-            checkValid()
+            )
         }
+        checkValid()
     }
 
     override fun handle(event: TextFieldEvent) {
-        blockingIntent {
-            when (event) {
-                is TextFieldEvent.TextChanged -> when (event.id) {
-                    "address" -> reduce {
-                        DeliveryState.deliveryPicker.address.text.set(state, event.text)
-                    }
-
-                    "commentary" -> reduce { DeliveryState.commentary.text.set(state, event.text) }
+        when (event) {
+            is TextFieldEvent.TextChanged -> when (event.id) {
+                "address" -> fastEmitState {
+                    it.copy(
+                        deliveryPicker = it.deliveryPicker.copy(
+                            address = it.deliveryPicker.address.copy(
+                                text = event.text
+                            )
+                        )
+                    )
                 }
 
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> when (event.id) {
-                    "address" -> reduce {
-                        DeliveryState.deliveryPicker.address.text.set(state, "")
-                    }
+                "commentary" -> fastEmitState {
+                    it.copy(commentary = it.commentary.copy(text = event.text))
                 }
             }
-            reduce { DeliveryState.address.set(state, AddressUI()) }
-            reduce { DeliveryState.suggestion.set(state, SuggestionUI()) }
-            checkValid()
-            updateSuggestions()
+
+            is TextFieldEvent.Action -> Unit
+            is TextFieldEvent.AdditionalAction -> when (event.id) {
+                "address" -> fastEmitState {
+                    it.copy(
+                        deliveryPicker = it.deliveryPicker.copy(
+                            address = it.deliveryPicker.address.copy(
+                                text = ""
+                            )
+                        )
+                    )
+                }
+            }
         }
+        fastEmitState { it.copy(address = AddressUI(), suggestion = SuggestionUI()) }
+        checkValid()
+        updateSuggestions()
     }
 
     private fun updateSuggestions() {
-        intent {
-            suggestionsUse(state.deliveryPicker.address.text).onSuccess {
-                reduce { DeliveryState.deliveryPicker.suggestions.isVisible.set(state, true) }
-                reduce { DeliveryState.deliveryPicker.suggestions.suggestions.set(state, it) }
+        onBackground {
+            suggestionsUse(state.value.deliveryPicker.address.text).onSuccess { suggestions ->
+                emitState {
+                    it.copy(
+                        deliveryPicker = it.deliveryPicker.copy(
+                            suggestions = it.deliveryPicker.suggestions.copy(
+                                isVisible = true,
+                                suggestions = suggestions
+                            )
+                        )
+                    )
+                }
             }
         }
     }
 
     private fun checkValid() {
-        intent {
-            reduce {
-                DeliveryState.confirm.enabled.set(
-                    state,
-                    !state.address.isEmpty() || !state.suggestion.isEmpty()
-                )
-            }
+        fastEmitState {
+            it.copy(confirm = it.confirm.copy(enabled = !state.value.address.isEmpty() || !state.value.suggestion.isEmpty()))
         }
     }
 }

@@ -1,78 +1,63 @@
 package com.progressterra.ipbandroidview.pages.main
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
-import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
-import com.progressterra.ipbandroidview.widgets.galleries.items
-import org.orbitmvi.orbit.Container
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 
 class MainViewModel(
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val fetchBonusesUseCase: BonusesUseCase,
     private val fetchGalleriesUseCase: FetchGalleriesUseCase
-) : UseMain, ContainerHost<MainState, MainEvent>, ViewModel() {
+) : UseMain, BaseViewModel<MainState, MainEvent>() {
 
-    override val container: Container<MainState, MainEvent> =
-        container(MainState())
+    override val initialState = MainState()
 
     fun refresh() {
-        intent {
+        onBackground {
             var isSuccess = true
-            fetchBonusesUseCase().onSuccess {
-                reduce { MainState.bonuses.set(state, it) }
+            fetchBonusesUseCase().onSuccess { bonuses ->
+                emitState { it.copy(bonuses = bonuses) }
             }.onFailure {
                 isSuccess = false
             }
-            if (isSuccess) fetchGalleriesUseCase().onSuccess {
-                val cachedGalleries = it.map { gallery ->
-                    val cached = gallery.items.cachedIn(viewModelScope)
-                    GalleriesState.items.set(gallery, cached)
+            if (isSuccess) fetchGalleriesUseCase().onSuccess { galleries ->
+                val cachedGalleries = galleries.map { gallery ->
+                    gallery.copy(items = cachePaging(gallery.items))
                 }
-                reduce { MainState.recommended.set(state, cachedGalleries) }
+                emitState { it.copy(recommended = cachedGalleries) }
             }.onFailure {
                 isSuccess = false
             }
-
-            reduce { MainState.stateBox.set(state, isSuccess.toScreenState()) }
+            emitState { it.copy(stateBox = isSuccess.toScreenState()) }
         }
     }
 
     override fun handle(event: BonusesEvent) {
-        intent {
-            postSideEffect(MainEvent.OnBonuses)
-        }
+        postEffect(MainEvent.OnBonuses)
     }
 
     override fun handle(event: StoreCardEvent) {
-        intent {
+        onBackground {
             when (event) {
                 is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
                     refresh()
                 }
 
-                is StoreCardEvent.Open -> postSideEffect(MainEvent.OnItem(event.id))
+                is StoreCardEvent.Open -> postEffect(MainEvent.OnItem(event.id))
             }
         }
     }
 
     override fun handle(event: CounterEvent) {
-        intent {
+        onBackground {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
                     refresh()

@@ -1,68 +1,60 @@
 package com.progressterra.ipbandroidview.pages.documents
 
-import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipEvent
 import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizenshipsUseCase
-import com.progressterra.ipbandroidview.features.currentcitizenship.dialog
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
-import com.progressterra.ipbandroidview.features.dialogpicker.open
-import com.progressterra.ipbandroidview.features.dialogpicker.selected
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 
 class DocumentsViewModel(
     private val documentsUseCase: DocumentsUseCase,
     private val saveCitizenshipUseCase: SaveCitizenshipUseCase,
     private val citizenshipsUseCase: FetchCitizenshipsUseCase
-) : ContainerHost<DocumentsScreenState, DocumentsScreenEvent>, ViewModel(), UseDocumentsScreen {
+) : BaseViewModel<DocumentsScreenState, DocumentsScreenEvent>(), UseDocumentsScreen {
 
-    override val container =
-        container<DocumentsScreenState, DocumentsScreenEvent>(DocumentsScreenState())
+    override val initialState = DocumentsScreenState()
 
     fun refresh() {
-        intent {
-            reduce { DocumentsScreenState.screen.set(state, ScreenState.LOADING) }
+        onBackground {
+            emitState {
+                it.copy(screen = ScreenState.LOADING)
+            }
             var isSuccess = true
-            documentsUseCase().onSuccess {
-                reduce { DocumentsScreenState.documents.set(state, it) }
+            documentsUseCase().onSuccess { docs ->
+                emitState {
+                    it.copy(documents = docs)
+                }
             }.onFailure {
                 isSuccess = false
             }
-            citizenshipsUseCase().onSuccess {
-                reduce { DocumentsScreenState.citizenship.set(state, it) }
+            citizenshipsUseCase().onSuccess { citizenship ->
+                emitState {
+                    it.copy(citizenship = citizenship)
+                }
             }.onFailure {
                 isSuccess = false
             }
-            reduce { DocumentsScreenState.screen.set(state, isSuccess.toScreenState()) }
+            emitState {
+                it.copy(screen = isSuccess.toScreenState())
+            }
         }
     }
 
     override fun handle(event: CurrentCitizenshipEvent) {
-        intent {
-            reduce {
-                DocumentsScreenState.citizenship.dialog.open.set(
-                    state,
-                    true
-                )
-            }
+        fastEmitState {
+            it.copy(citizenship = it.citizenship.copy(dialog = it.citizenship.dialog.copy(open = true)))
         }
     }
 
     override fun handle(event: TopBarEvent) {
-        intent {
-            postSideEffect(DocumentsScreenEvent.Back)
-        }
+        postEffect(DocumentsScreenEvent.Back)
     }
 
     override fun handle(event: StateBoxEvent) {
@@ -70,34 +62,37 @@ class DocumentsViewModel(
     }
 
     override fun handle(event: DialogPickerEvent) {
-        intent {
-            when (event) {
-                is DialogPickerEvent.Close -> reduce {
-                    DocumentsScreenState.citizenship.dialog.open.set(
-                        state,
-                        false
-                    )
-                }
+        when (event) {
+            is DialogPickerEvent.Close -> fastEmitState {
+                it.copy(citizenship = it.citizenship.copy(dialog = it.citizenship.dialog.copy(open = false)))
+            }
 
-                is DialogPickerEvent.Select -> reduce {
-                    DocumentsScreenState.citizenship.dialog.selected.set(
-                        state,
-                        event.item
+            is DialogPickerEvent.Select -> fastEmitState {
+                it.copy(
+                    citizenship = it.citizenship.copy(
+                        dialog = it.citizenship.dialog.copy(
+                            selected = event.item
+                        )
                     )
-                }
+                )
             }
         }
     }
 
     override fun handle(event: ButtonEvent) {
-        intent {
+        onBackground {
             when (event.id) {
-                "apply" -> state.citizenship.dialog.selected?.let { newCitizenship ->
+                "apply" -> state.value.citizenship.dialog.selected?.let { newCitizenship ->
                     saveCitizenshipUseCase(newCitizenship).onSuccess {
-                        DocumentsScreenState.citizenship.dialog.open.set(
-                            state,
-                            false
-                        )
+                        emitState {
+                            it.copy(
+                                citizenship = it.citizenship.copy(
+                                    dialog = it.citizenship.dialog.copy(
+                                        open = false
+                                    )
+                                )
+                            )
+                        }
                         refresh()
                     }
                 }
@@ -106,8 +101,6 @@ class DocumentsViewModel(
     }
 
     override fun handle(event: DocumentsEvent) {
-        intent {
-            postSideEffect(DocumentsScreenEvent.OpenDocument(event.item.toDocumentDetailsState()))
-        }
+        postEffect(DocumentsScreenEvent.OpenDocument(event.item.toDocumentDetailsState()))
     }
 }
