@@ -1,39 +1,21 @@
 package com.progressterra.ipbandroidview.pages.welcome
 
-import androidx.lifecycle.ViewModel
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.viewmodel.container
 
-class WelcomeViewModel : ViewModel(),
-    ContainerHost<WelcomeState, WelcomeEvent>, UseWelcome {
+class WelcomeViewModel : BaseViewModel<WelcomeState, WelcomeEvent>(), UseWelcome {
 
-    override val container =
-        container<WelcomeState, WelcomeEvent>(
-            WelcomeState(
-                auth = ButtonState(
-                    id = "next"
-                )
-            )
-        )
+    override val initialState = WelcomeState()
 
     fun refresh() {
-        intent {
-            if (UserData.clientExist) postSideEffect(WelcomeEvent.OnAlreadyAuth)
-        }
+        if (UserData.clientExist) postEffect(WelcomeEvent.OnAlreadyAuth)
     }
 
     override fun handle(event: ButtonEvent) {
-        intent {
-            when (event.id) {
-                "next" -> postSideEffect(WelcomeEvent.OnAuth)
-
-                "skip" -> postSideEffect(WelcomeEvent.OnSkip)
-            }
+        when (event.id) {
+            "next" -> postEffect(WelcomeEvent.OnAuth)
+            "skip" -> postEffect(WelcomeEvent.OnSkip)
         }
     }
 }
