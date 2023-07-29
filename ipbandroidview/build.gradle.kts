@@ -39,7 +39,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.6"
+        kotlinCompilerExtensionVersion = "1.5.1"
     }
 
     namespace = "com.progressterra.ipbandroidview"
@@ -92,18 +92,9 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
 
-    // Orbit, MVI library
-    api("org.orbit-mvi:orbit-core:6.0.0")
-    api("org.orbit-mvi:orbit-viewmodel:6.0.0")
-    api("org.orbit-mvi:orbit-compose:6.0.0")
-
     // Activity
     api("androidx.activity:activity-ktx:1.7.2")
     api("androidx.activity:activity-compose:1.7.2")
-
-    //Optics
-    implementation("io.arrow-kt:arrow-optics:1.2.0")
-    ksp("io.arrow-kt:arrow-optics-ksp-plugin:1.2.0")
 
     // Compose
     api("androidx.compose.ui:ui:1.4.3")
@@ -150,8 +141,8 @@ dependencies {
     api("com.github.skydoves:landscapist-fresco:2.2.3")
     api("com.github.skydoves:landscapist-placeholder:2.2.3")
 
-    api("androidx.paging:paging-runtime-ktx:3.1.1")
-    api("androidx.paging:paging-compose:3.2.0-rc01")
+    api("androidx.paging:paging-runtime-ktx:3.2.0")
+    api("androidx.paging:paging-compose:3.2.0")
 
     // QR
     api("com.google.zxing:core:3.5.1")
@@ -160,8 +151,5 @@ dependencies {
     api("de.charlex.compose:html-text:1.4.1")
 
     // Reflection
-    api("org.jetbrains.kotlin:kotlin-reflect:1.8.20")
-
-    ksp(files("libs/processors.jar"))
-    implementation(files("libs/processors.jar"))
+    api("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
 }
