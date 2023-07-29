@@ -1,47 +1,52 @@
 package com.progressterra.ipbandroidview.pages.profile
 
-import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
-import com.progressterra.ipbandroidview.features.profilebutton.enabled
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 
 class ProfileViewModel(
     private val fetchUserProfileUseCase: FetchUserProfileUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val documentsNotification: DocumentsNotificationUseCase
-) : ViewModel(), ContainerHost<ProfileState, ProfileEvent>, UseProfile {
+) : BaseViewModel<ProfileState, ProfileEvent>(), UseProfile {
 
-    override val container = container<ProfileState, ProfileEvent>(ProfileState())
+    override val initialState = ProfileState()
 
     fun refresh() {
-        intent {
-            reduce { ProfileState.screenState.set(state, ScreenState.LOADING) }
+        onBackground {
+            emitState {
+                it.copy(screenState = ScreenState.LOADING)
+            }
             var isSuccess = true
-            fetchUserProfileUseCase().onSuccess {
-                reduce { ProfileState.isAuthorized.set(state, true) }
-                reduce { ProfileState.authProfileState.set(state, it) }
+            fetchUserProfileUseCase().onSuccess { profile ->
+                emitState {
+                    it.copy(isAuthorized = true, authProfileState = profile)
+                }
             }.onFailure {
                 isSuccess = false
             }
-            documentsNotification().onSuccess {
-                reduce { ProfileState.docNotification.set(state, it) }
-                reduce { ProfileState.documents.enabled.set(state, true) }
+            documentsNotification().onSuccess { notification ->
+                emitState {
+                    it.copy(
+                        docNotification = notification,
+                        documents = it.documents.copy(enabled = true)
+                    )
+                }
             }.onFailure {
-                reduce { ProfileState.documents.enabled.set(state, false) }
+                emitState {
+                    it.copy(documents = it.documents.copy(enabled = false))
+                }
             }
-            reduce { ProfileState.screenState.set(state, isSuccess.toScreenState()) }
+            emitState {
+                it.copy(screenState = isSuccess.toScreenState())
+            }
         }
     }
 
@@ -50,25 +55,23 @@ class ProfileViewModel(
     }
 
     override fun handle(event: AuthProfileEvent) {
-        intent {
-            postSideEffect(ProfileEvent.Details)
-        }
+        postEffect(ProfileEvent.Details)
     }
 
     override fun handle(event: ProfileButtonEvent) {
-        intent {
+        onBackground {
             when (event.id) {
                 "logout" -> {
                     logoutUseCase().onSuccess {
-                        postSideEffect(ProfileEvent.Logout)
+                        postEffect(ProfileEvent.Logout)
                     }
                 }
 
                 "delete" -> Unit
-                "orders" -> postSideEffect(ProfileEvent.Orders)
-                "favorites" -> postSideEffect(ProfileEvent.Favorites)
-                "support" -> postSideEffect(ProfileEvent.Support)
-                "documents" -> postSideEffect(ProfileEvent.Documents)
+                "orders" -> postEffect(ProfileEvent.Orders)
+                "favorites" -> postEffect(ProfileEvent.Favorites)
+                "support" -> postEffect(ProfileEvent.Support)
+                "documents" -> postEffect(ProfileEvent.Documents)
             }
         }
     }
@@ -76,10 +79,8 @@ class ProfileViewModel(
     override fun handle(event: TopBarEvent) = Unit
 
     override fun handle(event: ButtonEvent) {
-        intent {
-            when (event.id) {
-                "auth" -> postSideEffect(ProfileEvent.Auth)
-            }
+        when (event.id) {
+            "auth" -> postEffect(ProfileEvent.Auth)
         }
     }
 }

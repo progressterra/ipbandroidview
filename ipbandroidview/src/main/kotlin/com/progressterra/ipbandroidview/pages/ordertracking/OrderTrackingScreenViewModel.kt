@@ -1,33 +1,19 @@
 package com.progressterra.ipbandroidview.pages.ordertracking
 
-import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.annotation.OrbitExperimental
-import org.orbitmvi.orbit.syntax.simple.blockingIntent
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 
-@OptIn(OrbitExperimental::class)
 class OrderTrackingScreenViewModel :
-    ContainerHost<OrderTrackingScreenState, OrderTrackingScreenEvent>,
-    ViewModel(), UseOrderTrackingScreen {
+    BaseViewModel<OrderTrackingScreenState, OrderTrackingScreenEvent>(), UseOrderTrackingScreen {
 
-    override val container =
-        container<OrderTrackingScreenState, OrderTrackingScreenEvent>(OrderTrackingScreenState())
+    override val initialState = OrderTrackingScreenState()
 
     fun setup(newState: OrderTrackingState) {
-        blockingIntent {
-            reduce { OrderTrackingScreenState.tracking.set(state, newState) }
-        }
+        fastEmitState { it.copy(tracking = newState) }
     }
 
     override fun handle(event: TopBarEvent) {
-        intent {
-            postSideEffect(OrderTrackingScreenEvent)
-        }
+        postEffect(OrderTrackingScreenEvent)
     }
 }

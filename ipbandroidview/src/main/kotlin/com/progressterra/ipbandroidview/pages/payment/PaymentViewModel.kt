@@ -1,24 +1,16 @@
 package com.progressterra.ipbandroidview.pages.payment
 
-import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.entities.toScreenState
-import com.progressterra.ipbandroidview.features.bonusswitch.useBonuses
 import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
-import com.progressterra.ipbandroidview.features.paymentmethod.selectedPaymentMethod
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
+import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
-import com.progressterra.ipbandroidview.shared.ui.brushedswitch.enabled
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.postSideEffect
-import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 
 class PaymentViewModel(
     private val fetchPaymentMethods: FetchPaymentMethods,
@@ -26,45 +18,53 @@ class PaymentViewModel(
     private val openUrlUseCase: OpenUrlUseCase,
     private val fetchReceiptUseCase: FetchReceiptUseCase,
     private val fetchBonusSwitchUseCase: FetchBonusSwitchUseCase
-) : ViewModel(), ContainerHost<PaymentState, PaymentEvent>, UsePayment {
+) : BaseViewModel<PaymentState, PaymentEvent>(), UsePayment {
 
-    override val container = container<PaymentState, PaymentEvent>(PaymentState())
+    override val initialState = PaymentState()
 
     fun refresh() {
-        intent {
-            reduce { PaymentState.screenState.set(state, ScreenState.LOADING) }
+        onBackground {
+            emitState {
+                it.copy(screenState = ScreenState.LOADING)
+            }
             var isSuccess = true
-            fetchPaymentMethods().onSuccess {
-                reduce { PaymentState.paymentMethod.set(state, it) }
+            fetchPaymentMethods().onSuccess { paymentMethods ->
+                emitState {
+                    it.copy(paymentMethod = paymentMethods)
+                }
             }.onFailure {
                 isSuccess = false
             }
-            fetchBonusSwitchUseCase().onSuccess {
-                reduce { PaymentState.bonusSwitch.set(state, it) }
+            fetchBonusSwitchUseCase().onSuccess { bonusSwitch ->
+                emitState {
+                    it.copy(bonusSwitch = bonusSwitch)
+                }
             }.onFailure {
                 isSuccess = false
             }
-            fetchReceiptUseCase().onSuccess {
-                reduce { PaymentState.receipt.set(state, it) }
+            fetchReceiptUseCase().onSuccess { receipt ->
+                emitState {
+                    it.copy(receipt = receipt)
+                }
             }.onFailure {
                 isSuccess = false
             }
-            reduce { PaymentState.screenState.set(state, isSuccess.toScreenState()) }
+            emitState {
+                it.copy(screenState = isSuccess.toScreenState())
+            }
         }
     }
 
     override fun handle(event: TopBarEvent) {
-        intent {
-            postSideEffect(PaymentEvent.Back)
-        }
+        postEffect(PaymentEvent.Back)
     }
 
     override fun handle(event: ButtonEvent) {
-        intent {
+        onBackground {
             when (event.id) {
                 "pay" -> {
-                    confirmOrderUseCase().onSuccess {
-                        postSideEffect(PaymentEvent.Next(it))
+                    confirmOrderUseCase().onSuccess { orderId ->
+                        postEffect(PaymentEvent.Next(orderId))
                     }
                 }
             }
@@ -72,14 +72,15 @@ class PaymentViewModel(
     }
 
     override fun handle(event: BrushedSwitchEvent) {
-        intent {
-            when (event.id) {
-                "useBonuses" -> reduce {
-                    PaymentState.bonusSwitch.useBonuses.enabled.set(
-                        state,
-                        !state.bonusSwitch.useBonuses.enabled
+        when (event.id) {
+            "useBonuses" -> fastEmitState {
+                it.copy(
+                    bonusSwitch = it.bonusSwitch.copy(
+                        useBonuses = it.bonusSwitch.useBonuses.copy(
+                            enabled = !it.bonusSwitch.useBonuses.enabled
+                        )
                     )
-                }
+                )
             }
         }
     }
@@ -89,14 +90,14 @@ class PaymentViewModel(
     }
 
     override fun handle(event: LinkTextEvent) {
-        intent {
+        onBackground {
             openUrlUseCase(event.url)
         }
     }
 
     override fun handle(event: PaymentMethodEvent) {
-        intent {
-            reduce { PaymentState.paymentMethod.selectedPaymentMethod.set(state, event.type) }
+        fastEmitState {
+            it.copy(paymentMethod = it.paymentMethod.copy(selectedPaymentMethod = event.type))
         }
     }
 }
