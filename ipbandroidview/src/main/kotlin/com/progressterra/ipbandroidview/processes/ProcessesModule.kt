@@ -40,6 +40,8 @@ val processesModule = module {
 
     single { GoodsSource(get(), get()) }
 
+    single<ObtainAccessToken> { ObtainAccessToken.Base(get(), get()) }
+
     single<FetchVersionUseCase> { FetchVersionUseCase.Base(get()) }
 
     single<ShareTextUseCase> { ShareTextUseCase.Base(get()) }
