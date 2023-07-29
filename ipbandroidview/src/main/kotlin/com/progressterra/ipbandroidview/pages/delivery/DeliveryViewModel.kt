@@ -23,11 +23,11 @@ class DeliveryViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState { it.copy(screenState = ScreenState.LOADING) }
+            emitState { it.copy(screenState = ScreenState.LOADING) }
             fetchShippingAddressUseCase().onSuccess {
-                this.emitState { it.copy(screenState = ScreenState.SUCCESS) }
+                emitState { it.copy(screenState = ScreenState.SUCCESS) }
                 if (!UserData.shippingAddress.isEmpty()) {
-                    this.emitState {
+                    emitState {
                         it.copy(
                             address = UserData.shippingAddress,
                             deliveryPicker = it.deliveryPicker.copy(
@@ -38,7 +38,7 @@ class DeliveryViewModel(
                 }
                 checkValid()
             }.onFailure {
-                this.emitState { it.copy(screenState = ScreenState.ERROR) }
+                emitState { it.copy(screenState = ScreenState.ERROR) }
             }
         }
     }
@@ -123,7 +123,7 @@ class DeliveryViewModel(
     private fun updateSuggestions() {
         onBackground {
             suggestionsUse(currentState.deliveryPicker.address.text).onSuccess { suggestions ->
-                this.emitState {
+                emitState {
                     it.copy(
                         deliveryPicker = it.deliveryPicker.copy(
                             suggestions = it.deliveryPicker.suggestions.copy(

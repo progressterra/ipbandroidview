@@ -59,25 +59,4 @@ interface GoodsDetailsUseCase {
             )
         }
     }
-
-    class Test : GoodsDetailsUseCase {
-
-        override suspend fun invoke(id: String): Result<GoodsDetailsState> = Result.success(
-            GoodsDetailsState(
-                description = GoodsDescriptionState(
-                    description = "Описание товара",
-                    name = "Товар",
-                ), gallery = ItemGalleryState(
-                    images = listOf(
-                        "https://www.ikea.com/ru/ru/images/products/leifarne-krug-iz-serebra__0712009_PE729202_S5.JPG?f=xxs",
-                        "https://www.ikea.com/ru/ru/images/products/leifarne-krug-iz-serebra__0712009_PE729202_S5.JPG?f=xxs",
-                        "https://www.ikea.com/ru/ru/images/products/leifarne-krug-iz-serebra__0712009_PE729202_S5.JPG?f=xxs",
-                        "https://www.ikea.com/ru/ru/images/products/leifarne-krug-iz-serebra__0712009_PE729202_S5.JPG?f=xxs",
-                        "https://www.ikea.com/ru/ru/images/products/leifarne-krug-iz-serebra__0712009_PE729202_S5.JPG?f=xxs",
-                        "https://www.ikea.com/ru/ru/images/products/leifarne-krug-iz-serebra__0712009_PE729202_S5.JPG?f=xxs"
-                    )
-                )
-            )
-        )
-    }
 }

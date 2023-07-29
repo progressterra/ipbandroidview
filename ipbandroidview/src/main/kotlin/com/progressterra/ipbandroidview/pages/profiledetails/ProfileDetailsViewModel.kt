@@ -22,9 +22,9 @@ class ProfileDetailsViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState { ProfileDetailsState() }
+            emitState { ProfileDetailsState() }
             fetchUserUseCase().onSuccess { editUser ->
-                this.emitState {
+                emitState {
                     it.copy(
                         editUser = editUser.copy(
                             name = editUser.name.copy(enabled = false),
@@ -34,7 +34,7 @@ class ProfileDetailsViewModel(
                         ), screen = ScreenState.SUCCESS
                     )
                 }
-            }.onFailure { this.emitState { it.copy(screen = ScreenState.ERROR) } }
+            }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
         }
     }
 
@@ -50,7 +50,7 @@ class ProfileDetailsViewModel(
         onBackground {
             when (event.id) {
                 "save" -> saveUseCase(currentState.editUser).onSuccess {
-                    this.emitState {
+                    emitState {
                         it.copy(
                             editUser = it.editUser.copy(
                                 name = it.editUser.name.copy(enabled = false),
@@ -62,7 +62,7 @@ class ProfileDetailsViewModel(
                     }
                 }
 
-                "edit" -> this.emitState {
+                "edit" -> emitState {
                     it.copy(
                         editUser = it.editUser.copy(
                             name = it.editUser.name.copy(enabled = true),
@@ -144,7 +144,7 @@ class ProfileDetailsViewModel(
     private fun valid() {
         onBackground {
             val valid = editUserValidUseCase(currentState.editUser).isSuccess
-            this.emitState {
+            emitState {
                 it.copy(
                     editButton = it.editButton.copy(
                         save = it.editButton.save.copy(

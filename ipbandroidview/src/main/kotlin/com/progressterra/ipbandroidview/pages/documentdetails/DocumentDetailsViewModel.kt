@@ -59,7 +59,7 @@ class DocumentDetailsViewModel(
     private fun validation() {
         onBackground {
             val valid = validationUseCase(currentState)
-            this.emitState {
+            emitState {
                 it.copy(apply = it.apply.copy(enabled = valid.isSuccess))
             }
         }
@@ -70,7 +70,7 @@ class DocumentDetailsViewModel(
             when (event) {
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
                     makePhotoUseCase().onSuccess { photo ->
-                        this.emitState {
+                        emitState {
                             it.copy(photo = it.photo.copy(items = it.photo.items + photo))
                         }
                     }

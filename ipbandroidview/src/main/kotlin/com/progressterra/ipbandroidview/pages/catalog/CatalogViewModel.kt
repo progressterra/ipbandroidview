@@ -25,16 +25,16 @@ class CatalogViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState { it.copy(stateBox = ScreenState.LOADING) }
+            emitState { it.copy(stateBox = ScreenState.LOADING) }
             catalogUseCase().onSuccess { catalog ->
-                this.emitState {
+                emitState {
                     it.copy(
                         stateBox = ScreenState.SUCCESS,
                         items = cachePaging(catalog)
                     )
                 }
             }.onFailure {
-                this.emitState { it.copy(stateBox = ScreenState.ERROR) }
+                emitState { it.copy(stateBox = ScreenState.ERROR) }
             }
         }
     }
@@ -61,12 +61,12 @@ class CatalogViewModel(
         onBackground {
             if (currentState.current.children.isEmpty()) {
                 goodsUseCase(GoodsFilter(categoryId = currentState.current.id)).onSuccess { nonCached ->
-                    this.emitState {
+                    emitState {
                         it.copy(goods = it.goods.copy(items = cachePaging(nonCached)))
                     }
                 }
             } else {
-                this.emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
+                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
             }
         }
     }
@@ -108,10 +108,10 @@ class CatalogViewModel(
             }
             if (currentState.search.text.isNotEmpty()) {
                 goodsUseCase(filter).onSuccess { nonCached ->
-                    this.emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
+                    emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
                 }
             } else {
-                this.emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
+                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
             }
         }
     }

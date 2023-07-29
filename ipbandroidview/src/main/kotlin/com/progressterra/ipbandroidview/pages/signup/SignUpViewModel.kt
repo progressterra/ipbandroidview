@@ -19,16 +19,16 @@ class SignUpViewModel(
     override fun createInitialState() = SignUpState()
 
     fun refresh() = onBackground {
-        this.emitState { it.copy(screenState = ScreenState.LOADING) }
+        emitState { it.copy(screenState = ScreenState.LOADING) }
         fetchUserUseCase().onSuccess { user ->
-            this.emitState {
+            emitState {
                 it.copy(
                     editUser = user.copy(phone = user.phone.copy(enabled = false)),
                     screenState = ScreenState.SUCCESS
                 )
             }
         }.onFailure {
-            this.emitState { it.copy(screenState = ScreenState.ERROR) }
+            emitState { it.copy(screenState = ScreenState.ERROR) }
         }
     }
 
@@ -102,6 +102,6 @@ class SignUpViewModel(
 
     private fun valid() = onBackground {
         val valid = editUserValidUseCase(currentState.editUser).isSuccess
-        this.emitState { it.copy(next = it.next.copy(enabled = valid)) }
+        emitState { it.copy(next = it.next.copy(enabled = valid)) }
     }
 }

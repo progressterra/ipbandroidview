@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.pages.main
 
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
@@ -24,7 +26,7 @@ class MainViewModel(
         onBackground {
             var isSuccess = true
             fetchBonusesUseCase().onSuccess { bonuses ->
-                this.emitState { it.copy(bonuses = bonuses) }
+                emitState { it.copy(bonuses = bonuses) }
             }.onFailure {
                 isSuccess = false
             }
@@ -32,11 +34,14 @@ class MainViewModel(
                 val cachedGalleries = galleries.map { gallery ->
                     gallery.copy(items = cachePaging(gallery.items))
                 }
-                this.emitState { it.copy(recommended = cachedGalleries) }
+                val cachedGalleries2 = galleries.map { gallery ->
+                    gallery.copy(items = gallery.items.cachedIn(viewModelScope))
+                }
+                emitState { it.copy(recommended = cachedGalleries2) }
             }.onFailure {
                 isSuccess = false
             }
-            this.emitState { it.copy(stateBox = isSuccess.toScreenState()) }
+            emitState { it.copy(stateBox = isSuccess.toScreenState()) }
         }
     }
 

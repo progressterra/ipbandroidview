@@ -33,17 +33,17 @@ class GoodsDetailsViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState {
+            emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
             goodsDetailsUseCase(currentState.id)
                 .onSuccess { details ->
-                    this.emitState {
+                    emitState {
                         it.copy(id = details.id, screenState = ScreenState.SUCCESS)
                     }
                 }
                 .onFailure {
-                    this.emitState {
+                    emitState {
                         it.copy(screenState = ScreenState.ERROR)
                     }
                 }
@@ -65,7 +65,7 @@ class GoodsDetailsViewModel(
                 currentState.description.favoriteButton.favorite
             ).onSuccess {
                 postEffect(GoodsDetailsEvent.Toast(R.string.added_to_favorites))
-                this.emitState {
+                emitState {
                     it.copy(
                         description = it.description.copy(
                             favoriteButton = it.description.favoriteButton.copy(

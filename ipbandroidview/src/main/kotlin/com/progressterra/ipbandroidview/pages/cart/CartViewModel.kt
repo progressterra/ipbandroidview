@@ -21,8 +21,8 @@ class CartViewModel(
 
     fun refresh() {
         onBackground {
-            val call = cartUseCase().onSuccess { this.emitState { it } }
-            this.emitState { it.copy(screenState = call.isSuccess.toScreenState()) }
+            val call = cartUseCase().onSuccess { emitState { it } }
+            emitState { it.copy(screenState = call.isSuccess.toScreenState()) }
         }
     }
 
@@ -31,9 +31,9 @@ class CartViewModel(
             when (event) {
                 is CartCardEvent.Open -> postEffect(CartEvent.OnItem(event.id))
                 is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
-                    this.emitState { it.copy(screenState = ScreenState.SUCCESS) }
+                    emitState { it.copy(screenState = ScreenState.SUCCESS) }
                 }.onFailure {
-                    this.emitState { it.copy(screenState = ScreenState.ERROR) }
+                    emitState { it.copy(screenState = ScreenState.ERROR) }
                 }
             }
         }
@@ -49,15 +49,15 @@ class CartViewModel(
         onBackground {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess { newState ->
-                    this.emitState { newState.copy(screenState = ScreenState.SUCCESS) }
+                    emitState { newState.copy(screenState = ScreenState.SUCCESS) }
                 }.onFailure {
-                    this.emitState { it.copy(screenState = ScreenState.ERROR) }
+                    emitState { it.copy(screenState = ScreenState.ERROR) }
                 }
 
                 is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess { newState ->
-                    this.emitState { newState.copy(screenState = ScreenState.SUCCESS) }
+                    emitState { newState.copy(screenState = ScreenState.SUCCESS) }
                 }.onFailure {
-                    this.emitState { it.copy(screenState = ScreenState.ERROR) }
+                    emitState { it.copy(screenState = ScreenState.ERROR) }
                 }
             }
         }

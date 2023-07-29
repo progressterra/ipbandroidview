@@ -19,16 +19,16 @@ class FavoritesViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState { it.copy(stateBox = ScreenState.LOADING) }
+            emitState { it.copy(stateBox = ScreenState.LOADING) }
             favoriteGoodsUseCase().onSuccess { nonCached ->
-                this.emitState {
+                emitState {
                     it.copy(
                         stateBox = ScreenState.SUCCESS,
                         items = it.items.copy(items = cachePaging(nonCached))
                     )
                 }
             }.onFailure {
-                this.emitState { it.copy(stateBox = ScreenState.ERROR) }
+                emitState { it.copy(stateBox = ScreenState.ERROR) }
             }
         }
     }

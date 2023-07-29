@@ -23,25 +23,25 @@ class DocumentsViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState {
+            emitState {
                 it.copy(screen = ScreenState.LOADING)
             }
             var isSuccess = true
             documentsUseCase().onSuccess { docs ->
-                this.emitState {
+                emitState {
                     it.copy(documents = docs)
                 }
             }.onFailure {
                 isSuccess = false
             }
             citizenshipsUseCase().onSuccess { citizenship ->
-                this.emitState {
+                emitState {
                     it.copy(citizenship = citizenship)
                 }
             }.onFailure {
                 isSuccess = false
             }
-            this.emitState {
+            emitState {
                 it.copy(screen = isSuccess.toScreenState())
             }
         }
@@ -84,7 +84,7 @@ class DocumentsViewModel(
             when (event.id) {
                 "apply" -> currentState.citizenship.dialog.selected?.let { newCitizenship ->
                     saveCitizenshipUseCase(newCitizenship).onSuccess {
-                        this.emitState {
+                        emitState {
                             it.copy(
                                 citizenship = it.citizenship.copy(
                                     dialog = it.citizenship.dialog.copy(

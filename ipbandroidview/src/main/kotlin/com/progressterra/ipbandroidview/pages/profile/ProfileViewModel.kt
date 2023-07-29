@@ -21,30 +21,30 @@ class ProfileViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState {
+            emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
             var isSuccess = true
             fetchUserProfileUseCase().onSuccess { profile ->
-                this.emitState {
+                emitState {
                     it.copy(isAuthorized = true, authProfileState = profile)
                 }
             }.onFailure {
                 isSuccess = false
             }
             documentsNotification().onSuccess { notification ->
-                this.emitState {
+                emitState {
                     it.copy(
                         docNotification = notification,
                         documents = it.documents.copy(enabled = true)
                     )
                 }
             }.onFailure {
-                this.emitState {
+                emitState {
                     it.copy(documents = it.documents.copy(enabled = false))
                 }
             }
-            this.emitState {
+            emitState {
                 it.copy(screenState = isSuccess.toScreenState())
             }
         }

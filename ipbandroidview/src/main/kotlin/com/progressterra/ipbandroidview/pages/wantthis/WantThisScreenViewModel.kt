@@ -27,10 +27,10 @@ class WantThisScreenViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState { it.copy(screen = ScreenState.LOADING) }
+            emitState { it.copy(screen = ScreenState.LOADING) }
             fetchWantThisUseCase().onSuccess { newState ->
-                this.emitState { newState.copy(screen = ScreenState.SUCCESS) }
-            }.onFailure { this.emitState { it.copy(screen = ScreenState.ERROR) } }
+                emitState { newState.copy(screen = ScreenState.SUCCESS) }
+            }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
         }
     }
 
@@ -64,7 +64,7 @@ class WantThisScreenViewModel(
             when (event) {
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
                     makePhotoUseCase().onSuccess { photo ->
-                        this.emitState { it.copy(photo = it.photo.copy(items = it.photo.items + photo)) }
+                        emitState { it.copy(photo = it.photo.copy(items = it.photo.items + photo)) }
                     }
                 }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
 

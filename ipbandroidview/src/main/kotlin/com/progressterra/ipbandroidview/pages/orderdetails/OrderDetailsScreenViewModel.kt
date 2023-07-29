@@ -22,16 +22,16 @@ class OrderDetailsScreenViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState {
+            emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
 
             orderDetailsUseCase(currentState.id).onSuccess { details ->
-                this.emitState {
+                emitState {
                     it.copy(details = details, screenState = ScreenState.SUCCESS)
                 }
             }.onFailure {
-                this.emitState {
+                emitState {
                     it.copy(screenState = ScreenState.ERROR)
                 }
             }

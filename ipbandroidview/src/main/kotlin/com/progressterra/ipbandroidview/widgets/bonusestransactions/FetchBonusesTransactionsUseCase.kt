@@ -24,7 +24,6 @@ interface FetchBonusesTransactionsUseCase {
 
         private val noData = manageResources.string(R.string.no_data)
 
-        //TODO transaction type when + when -
         override suspend fun invoke(): Result<BonusesTransactionsState> = withToken { token ->
             val transactions = buildList {
                 bonusesRepository.getTransactionsList(token).getOrThrow()?.map {
@@ -38,36 +37,6 @@ interface FetchBonusesTransactionsUseCase {
                 } ?: emptyList()
             }
             BonusesTransactionsState(transactions)
-        }
-    }
-
-    class Test : FetchBonusesTransactionsUseCase {
-
-        override suspend fun invoke(): Result<BonusesTransactionsState> = runCatching {
-            BonusesTransactionsState(
-                transactions = listOf(
-                    BonusTransactionState(
-                        date = "2021-01-01",
-                        amount = "-100",
-                        type = BonusTransactionType.BURNING
-                    ),
-                    BonusTransactionState(
-                        date = "2021-01-02",
-                        amount = "-200",
-                        type = BonusTransactionType.BUYING
-                    ),
-                    BonusTransactionState(
-                        date = "2021-01-03",
-                        amount = "-300",
-                        type = BonusTransactionType.BURNING
-                    ),
-                    BonusTransactionState(
-                        date = "2021-01-04",
-                        amount = "+400",
-                        type = BonusTransactionType.RECEIVING
-                    )
-                )
-            )
         }
     }
 }

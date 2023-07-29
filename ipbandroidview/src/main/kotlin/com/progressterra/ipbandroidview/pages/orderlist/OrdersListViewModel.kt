@@ -14,16 +14,16 @@ class OrdersListViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState { it.copy(screenState = ScreenState.LOADING) }
+            emitState { it.copy(screenState = ScreenState.LOADING) }
             ordersUseCase().onSuccess { nonCached ->
-                this.emitState {
+                emitState {
                     it.copy(
                         screenState = ScreenState.SUCCESS,
                         orders = cachePaging(nonCached)
                     )
                 }
             }.onFailure {
-                this.emitState { it.copy(screenState = ScreenState.ERROR) }
+                emitState { it.copy(screenState = ScreenState.ERROR) }
             }
         }
     }

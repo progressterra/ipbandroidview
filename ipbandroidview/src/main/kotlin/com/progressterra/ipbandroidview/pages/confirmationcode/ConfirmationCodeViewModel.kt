@@ -22,7 +22,7 @@ class ConfirmationCodeViewModel(
 
     private fun onNext() {
         onBackground {
-            this.emitState { it.copy(code = it.code.copy(enabled = false)) }
+            emitState { it.copy(code = it.code.copy(enabled = false)) }
             val call = endVerificationChannelUseCase(
                 currentState.code.phone,
                 currentState.code.code
@@ -31,18 +31,18 @@ class ConfirmationCodeViewModel(
             }.onFailure {
                 postEffect(ConfirmationCodeEvent.Toast(R.string.wrong_code))
             }
-            this.emitState { it.copy(code = it.code.copy(enabled = call.isSuccess)) }
+            emitState { it.copy(code = it.code.copy(enabled = call.isSuccess)) }
         }
     }
 
     private fun startTimer() {
         onBackground {
-            this.emitState { it.copy(repeat = it.repeat.copy(enabled = false)) }
+            emitState { it.copy(repeat = it.repeat.copy(enabled = false)) }
             for (i in 45.downTo(1)) {
                 delay(1000)
-                this.emitState { it.copy(repeat = it.repeat.copy(count = if (i >= 10) "00:$i" else "00:0$i")) }
+                emitState { it.copy(repeat = it.repeat.copy(count = if (i >= 10) "00:$i" else "00:0$i")) }
             }
-            this.emitState { it.copy(repeat = it.repeat.copy(enabled = true)) }
+            emitState { it.copy(repeat = it.repeat.copy(enabled = true)) }
         }
     }
 

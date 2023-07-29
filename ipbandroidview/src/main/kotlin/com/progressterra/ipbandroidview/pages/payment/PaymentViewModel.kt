@@ -24,32 +24,32 @@ class PaymentViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState {
+            emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
             var isSuccess = true
             fetchPaymentMethods().onSuccess { paymentMethods ->
-                this.emitState {
+                emitState {
                     it.copy(paymentMethod = paymentMethods)
                 }
             }.onFailure {
                 isSuccess = false
             }
             fetchBonusSwitchUseCase().onSuccess { bonusSwitch ->
-                this.emitState {
+                emitState {
                     it.copy(bonusSwitch = bonusSwitch)
                 }
             }.onFailure {
                 isSuccess = false
             }
             fetchReceiptUseCase().onSuccess { receipt ->
-                this.emitState {
+                emitState {
                     it.copy(receipt = receipt)
                 }
             }.onFailure {
                 isSuccess = false
             }
-            this.emitState {
+            emitState {
                 it.copy(screenState = isSuccess.toScreenState())
             }
         }

@@ -18,25 +18,25 @@ class BonusesDetailsViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState {
+            emitState {
                 it.copy(screenState = ScreenState.LOADING)
             }
             var isSuccess = true
             bonusesUseCase().onSuccess { bonusesInfo ->
-                this.emitState {
+                emitState {
                     it.copy(bonusesInfo = bonusesInfo)
                 }
             }.onFailure {
                 isSuccess = false
             }
             fetchBonusesTransactionsUseCase().onSuccess { transactions ->
-                this.emitState {
+                emitState {
                     it.copy(transactions = transactions)
                 }
             }.onFailure {
                 isSuccess = false
             }
-            this.emitState {
+            emitState {
                 it.copy(screenState = isSuccess.toScreenState())
             }
         }

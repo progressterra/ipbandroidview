@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.widgets
 
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.pages.wantthis.CreateWantThisRequestUseCase
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
@@ -11,14 +10,10 @@ import org.koin.dsl.module
 
 val widgetsModule = module {
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            FetchBonusesTransactionsUseCase.Test()
-        } else {
-            FetchBonusesTransactionsUseCase.Base(
-                get(), get(), get(), get()
-            )
-        }
+    single<FetchBonusesTransactionsUseCase> {
+        FetchBonusesTransactionsUseCase.Base(
+            get(), get(), get(), get()
+        )
     }
 
     single<OfferMapper> {
@@ -29,12 +24,8 @@ val widgetsModule = module {
         FetchGalleriesUseCase.Base(get(), get(), get(), get())
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            FetchOffersUseCase.Test()
-        } else {
-            FetchOffersUseCase.Base(get(), get(), get(), get())
-        }
+    single<FetchOffersUseCase> {
+        FetchOffersUseCase.Base(get(), get(), get(), get())
     }
 
     single<CreateWantThisRequestUseCase> {

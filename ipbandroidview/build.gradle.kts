@@ -3,7 +3,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-parcelize")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
     id("maven-publish")
 }
 

@@ -20,11 +20,11 @@ class WantThisRequestsViewModel(
 
     fun refresh() {
         onBackground {
-            this.emitState { it.copy(screen = ScreenState.LOADING) }
+            emitState { it.copy(screen = ScreenState.LOADING) }
             wantThisRequestsUseCase().onSuccess { nonCached ->
-                this.emitState { it.copy(screen = ScreenState.SUCCESS, items = cachePaging(nonCached)) }
+                emitState { it.copy(screen = ScreenState.SUCCESS, items = cachePaging(nonCached)) }
             }.onFailure {
-                this.emitState { it.copy(screen = ScreenState.ERROR) }
+                emitState { it.copy(screen = ScreenState.ERROR) }
             }
         }
     }
