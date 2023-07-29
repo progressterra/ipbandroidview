@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidapi.api.address.models.RGAddress
 import com.progressterra.ipbandroidapi.api.cart.models.DHSaleHeadAsOrderViewModel
 import com.progressterra.ipbandroidapi.api.cart.models.DRSaleForCartAndOrder
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
+import com.progressterra.ipbandroidapi.api.catalog.models.CatalogItem
 import com.progressterra.ipbandroidapi.api.documents.models.CharacteristicData
 import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicTypeViewModel
@@ -18,6 +19,7 @@ import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedIn
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
+import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.shared.CreateId
@@ -269,3 +271,13 @@ fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(
     quantity = quantity ?: 0,
     price = SimplePrice(amountEndPrice?.toInt() ?: 0)
 )
+
+fun CatalogItem.toCatalogCardState(manageResources: ManageResources): CatalogCardState {
+    val noData = manageResources.string(R.string.no_data)
+    return CatalogCardState(
+        id = itemCategory?.idUnique!!,
+        name = itemCategory?.name ?: noData,
+        image = itemCategory?.imageData?.urlData ?: "",
+        children = listChildItems?.map { it.toCatalogCardState(manageResources) } ?: emptyList()
+    )
+}

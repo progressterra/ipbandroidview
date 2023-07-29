@@ -50,24 +50,4 @@ interface EndVerificationChannelUseCase {
             }.throwOnFailure()
         }
     }
-
-    class Test : EndVerificationChannelUseCase {
-
-        override suspend fun invoke(phoneNumber: String, code: String): Result<Unit> = runCatching {
-            var formattedPhoneNumber = phoneNumber.trim()
-            if (formattedPhoneNumber.startsWith('8')) formattedPhoneNumber =
-                formattedPhoneNumber.replaceFirst('8', '7')
-            UserData.deviceId = "test device id"
-            UserData.phone = formattedPhoneNumber
-            UserData.clientExist = true
-            UserData.idUnique = "test id"
-            UserData.userName = UserName(
-                name = "",
-                surname = "",
-                patronymic = ""
-            )
-            UserData.dateOfBirthday = 0L
-            UserData.email = ""
-        }
-    }
 }

@@ -30,8 +30,7 @@ class CatalogViewModel(
                 emitState {
                     it.copy(
                         stateBox = ScreenState.SUCCESS,
-                        current = catalog,
-                        trace = it.trace.copy(trace = it.trace.trace + catalog)
+                        items = cachePaging(catalog)
                     )
                 }
             }.onFailure {

@@ -1,13 +1,23 @@
 package com.progressterra.ipbandroidview.pages.catalog
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.features.catalogcard.CatalogCard
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.search.Search
 import com.progressterra.ipbandroidview.features.search.SearchState
@@ -18,7 +28,6 @@ import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
-import com.progressterra.ipbandroidview.widgets.catalogitems.CatalogItems
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItemsState
 import kotlinx.coroutines.flow.flowOf
@@ -46,11 +55,46 @@ fun CatalogScreen(
         ) {
             Box {
                 StoreItems(
+                    modifier = Modifier.zIndex(1f),
                     state = state.goods, useComponent = useComponent
                 )
-                CatalogItems(
-                    state = state.current, useComponent = useComponent
-                )
+                if (state.current.isEmpty()) {
+                    val lazyItems = state.items.collectAsLazyPagingItems()
+                    LazyVerticalGrid(
+                        horizontalArrangement = Arrangement.spacedBy(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        columns = GridCells.Fixed(3),
+                        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
+                    ) {
+                        items(
+                            count = lazyItems.itemCount,
+                            key = lazyItems.itemKey { it.id }
+                        ) { index ->
+                            lazyItems[index]?.let {
+                                Box(contentAlignment = Alignment.Center) {
+                                    CatalogCard(
+                                        state = it, useComponent = useComponent
+                                    )
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    LazyVerticalGrid(
+                        horizontalArrangement = Arrangement.spacedBy(20.dp),
+                        verticalArrangement = Arrangement.spacedBy(20.dp),
+                        columns = GridCells.Fixed(3),
+                        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
+                    ) {
+                        items(state.current.children) {
+                            Box(contentAlignment = Alignment.Center) {
+                                CatalogCard(
+                                    state = it, useComponent = useComponent
+                                )
+                            }
+                        }
+                    }
+                }
             }
         }
     }

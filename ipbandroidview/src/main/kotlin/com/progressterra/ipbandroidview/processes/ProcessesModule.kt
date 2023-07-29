@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.processes
 
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
@@ -12,9 +11,6 @@ import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.OpenMapUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.processes.mapper.CatalogMapper
-import com.progressterra.ipbandroidview.processes.mapper.GoodsFilterMapper
-import com.progressterra.ipbandroidview.processes.mapper.PriceMapper
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
@@ -74,12 +70,6 @@ val processesModule = module {
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
 
-    single<PriceMapper> { PriceMapper.Russia() }
-
-    single<GoodsFilterMapper> { GoodsFilterMapper.Base() }
-
-    single<CatalogMapper> { CatalogMapper.Base(get()) }
-
     single<ProvideLocation> { ProvideLocation.Base(get()) }
 
     single<OpenMapUseCase> { OpenMapUseCase.Base(get()) }
@@ -102,13 +92,8 @@ val processesModule = module {
         RemoveFromCartUseCase.Base(get(), get(), get(), get())
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            StartVerificationChannelUseCase.Test()
-
-        } else {
-            StartVerificationChannelUseCase.Base(get())
-        }
+    single<StartVerificationChannelUseCase> {
+        StartVerificationChannelUseCase.Base(get())
     }
 
     single<SaveDataUseCase> {

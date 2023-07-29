@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.pages
 
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartViewModel
+import com.progressterra.ipbandroidview.pages.catalog.CatalogSource
 import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeViewModel
@@ -28,6 +28,7 @@ import com.progressterra.ipbandroidview.pages.main.MainViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsUseCase
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
+import com.progressterra.ipbandroidview.pages.orderlist.OrdersSource
 import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusViewModel
 import com.progressterra.ipbandroidview.pages.ordertracking.OrderTrackingScreenViewModel
@@ -97,20 +98,12 @@ val pagesModule = module {
         OrderDetailsUseCase.Base(get(), get(), get(), get())
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            EndVerificationChannelUseCase.Test()
-        } else {
-            EndVerificationChannelUseCase.Base(get(), get())
-        }
+    single<EndVerificationChannelUseCase> {
+        EndVerificationChannelUseCase.Base(get(), get())
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            CatalogUseCase.Test()
-        } else {
-            CatalogUseCase.Base(get(), get(), get(), get())
-        }
+    single<CatalogUseCase> {
+        CatalogUseCase.Base(get())
     }
 
     single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get()) }
@@ -121,12 +114,8 @@ val pagesModule = module {
         CartUseCase.Base(get(), get(), get(), get())
     }
 
-    single {
-        if (IpbAndroidViewSettings.TEST_MODE) {
-            GoodsDetailsUseCase.Test()
-        } else {
-            GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
-        }
+    single<GoodsDetailsUseCase> {
+        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
     single<FavoriteGoodsUseCase> {
@@ -192,4 +181,10 @@ val pagesModule = module {
     single<AddDeliveryToCartUseCase> {
         AddDeliveryToCartUseCase.Base(get(), get(), get(), get())
     }
+
+    single { OrdersSource(get(), get()) }
+
+    single { CatalogSource(get(), get(), get()) }
+
+    single { CatalogSource(get(), get(), get()) }
 }
