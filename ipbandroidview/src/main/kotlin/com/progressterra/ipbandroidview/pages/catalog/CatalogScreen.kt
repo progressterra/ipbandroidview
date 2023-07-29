@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCard
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
@@ -66,7 +67,8 @@ fun CatalogScreen(
                         contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
                     ) {
                         items(
-                            count = lazyItems.itemCount
+                            count = lazyItems.itemCount,
+                            key = lazyItems.itemKey { it.id }
                         ) { index ->
                             lazyItems[index]?.let {
                                 Box(contentAlignment = Alignment.Center) {
