@@ -29,7 +29,10 @@ class MainViewModel(
                 isSuccess = false
             }
             if (isSuccess) fetchGalleriesUseCase().onSuccess { galleries ->
-                emitState { it.copy(recommended = galleries) }
+                val cachedGalleries = galleries.map { gallery ->
+                    gallery.copy(items = cachePaging(gallery.items))
+                }
+                emitState { it.copy(recommended = cachedGalleries) }
             }.onFailure {
                 isSuccess = false
             }
