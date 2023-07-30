@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.entities.toGoodsItem
@@ -9,8 +8,8 @@ import com.progressterra.ipbandroidview.features.buygoods.BuyGoodsState
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
@@ -22,13 +21,12 @@ interface GoodsDetailsUseCase {
     suspend operator fun invoke(id: String): Result<GoodsDetailsState>
 
     class Base(
-        scrmRepository: SCRMRepository,
-        provideLocation: ProvideLocation,
+        obtainAccessToken: ObtainAccessToken,
         private val productRepository: ProductRepository,
         private val fetchFavoriteIds: FetchFavoriteIds,
         private val goodsUseCase: GoodsUseCase,
         private val manageResources: ManageResources
-    ) : GoodsDetailsUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
+    ) : GoodsDetailsUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.widgets.offers
 
 import com.progressterra.ipbandroidapi.api.collaboration.CollaborationRepository
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
@@ -13,8 +13,8 @@ interface FetchOffersUseCase {
         private val repository: CollaborationRepository,
         private val offerMapper: OfferMapper,
         private val provideLocation: ProvideLocation,
-        scrmRepository: SCRMRepository
-    ) : FetchOffersUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
+        obtainAccessToken: ObtainAccessToken
+    ) : FetchOffersUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(): Result<OffersState> = withToken { token ->
             val location = provideLocation.location().getOrNull()

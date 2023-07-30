@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
-import com.progressterra.ipbandroidview.processes.goods.GoodsSource
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.OpenMapUseCase
@@ -20,7 +19,6 @@ import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
-import com.progressterra.ipbandroidview.processes.store.SizeTableUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
@@ -38,8 +36,6 @@ val processesModule = module {
 
     single<CopyTextUseCase> { CopyTextUseCase.Base(get()) }
 
-    single { GoodsSource(get(), get()) }
-
     single<ObtainAccessToken> { ObtainAccessToken.Base(get(), get()) }
 
     single<FetchVersionUseCase> { FetchVersionUseCase.Base(get()) }
@@ -50,11 +46,9 @@ val processesModule = module {
 
     single<OpenUrlUseCase> { OpenUrlUseCase.Base(get()) }
 
-    single<SaveAddressUseCase> { SaveAddressUseCase.Base(get(), get(), get()) }
+    single<SaveAddressUseCase> { SaveAddressUseCase.Base(get(), get()) }
 
-    single<SizeTableUseCase> { SizeTableUseCase.Base(get(), get(), get()) }
-
-    single<FetchFavoriteIds> { FetchFavoriteIds.Base(get(), get(), get()) }
+    single<FetchFavoriteIds> { FetchFavoriteIds.Base(get(), get()) }
 
     single<CheckPermissionUseCase> { CheckPermissionUseCase.Base(get()) }
 
@@ -79,19 +73,19 @@ val processesModule = module {
     single<GuessLocationUseCase> { GuessLocationUseCase.Base(get()) }
 
     single<GoodsUseCase> {
-        GoodsUseCase.Base(get())
+        GoodsUseCase.Base(get(), get())
     }
 
     single<FetchGoodsPage> {
-        FetchGoodsPage.Base(get(), get(), get())
+        FetchGoodsPage.Base(get(), get())
     }
 
     single<AddToCartUseCase> {
-        AddToCartUseCase.Base(get(), get(), get(), get())
+        AddToCartUseCase.Base(get(), get(), get())
     }
 
     single<RemoveFromCartUseCase> {
-        RemoveFromCartUseCase.Base(get(), get(), get(), get())
+        RemoveFromCartUseCase.Base(get(), get(), get())
     }
 
     single<StartVerificationChannelUseCase> {
@@ -123,6 +117,6 @@ val processesModule = module {
     }
 
     single<AddToCartInstallmentUseCase> {
-        AddToCartInstallmentUseCase.Base(get(), get(), get(), get())
+        AddToCartInstallmentUseCase.Base(get(), get(), get())
     }
 }

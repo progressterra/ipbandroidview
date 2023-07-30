@@ -1,11 +1,10 @@
 package com.progressterra.ipbandroidview.pages.payment
 
 import com.progressterra.ipbandroidapi.api.cart.CartRepository
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.toReceiptItems
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface FetchReceiptUseCase {
@@ -13,10 +12,9 @@ interface FetchReceiptUseCase {
     suspend operator fun invoke(): Result<ReceiptState>
 
     class Base(
-        scrmRepository: SCRMRepository,
-        provideLocation: ProvideLocation,
+        obtainAccessToken: ObtainAccessToken,
         private val cartRepository: CartRepository
-    ) : FetchReceiptUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
+    ) : FetchReceiptUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(): Result<ReceiptState> = withToken { token ->
             var total = SimplePrice()

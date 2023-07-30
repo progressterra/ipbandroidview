@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.ClientDataIncome
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
 import com.progressterra.ipbandroidapi.ext.format
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
@@ -18,8 +18,8 @@ interface SaveDataUseCase {
     suspend operator fun invoke(income: EditUserState): Result<Unit>
 
     class Base(
-        private val scrmRepository: SCRMRepository, provideLocation: ProvideLocation
-    ) : SaveDataUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
+        private val scrmRepository: SCRMRepository, obtainAccessToken: ObtainAccessToken
+    ) : SaveDataUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
             val nameList = income.name.formatByType().splitName(false)

@@ -2,9 +2,8 @@ package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.IPBFavPromoRecRepository
 import com.progressterra.ipbandroidapi.api.ipbfavpromorec.model.TypeEntities
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface ModifyFavoriteUseCase {
@@ -12,10 +11,9 @@ interface ModifyFavoriteUseCase {
     suspend operator fun invoke(id: String, favorite: Boolean): Result<Unit>
 
     class Base(
-        scrmRepository: SCRMRepository,
-        provideLocation: ProvideLocation,
+        obtainAccessToken: ObtainAccessToken,
         private val favoriteRepository: IPBFavPromoRecRepository
-    ) : AbstractTokenUseCase(scrmRepository, provideLocation), ModifyFavoriteUseCase {
+    ) : AbstractTokenUseCase(obtainAccessToken), ModifyFavoriteUseCase {
 
         override suspend fun invoke(
             id: String, favorite: Boolean

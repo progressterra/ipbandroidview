@@ -3,14 +3,13 @@ package com.progressterra.ipbandroidview.processes.cart
 import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.cart.models.IncomeDataAddProductAsInstallmentPlan
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.sum
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.pages.cart.CartState
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
@@ -24,11 +23,10 @@ interface AddToCartInstallmentUseCase {
     ): Result<CartState>
 
     class Base(
-        provideLocation: ProvideLocation,
-        scrmRepository: SCRMRepository,
+        obtainAccessToken: ObtainAccessToken,
         private val cartRepo: CartRepository,
         private val productRepository: ProductRepository
-    ) : AddToCartInstallmentUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
+    ) : AddToCartInstallmentUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(
             goodsId: String,

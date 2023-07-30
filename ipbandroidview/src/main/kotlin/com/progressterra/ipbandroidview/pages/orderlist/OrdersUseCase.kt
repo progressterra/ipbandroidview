@@ -1,11 +1,17 @@
 package com.progressterra.ipbandroidview.pages.orderlist
 
+import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.PagingUseCase
 
 interface OrdersUseCase : PagingUseCase<Nothing, OrderCompactState> {
 
     class Base(
-        ordersSource: OrdersSource
-    ) : OrdersUseCase, PagingUseCase.Abstract<Nothing, OrderCompactState>(ordersSource)
+        private val obtainAccessToken: ObtainAccessToken,
+        private val cartRepository: CartRepository
+    ) : OrdersUseCase, PagingUseCase.Abstract<Nothing, OrderCompactState>() {
+
+        override fun createSource() = OrdersSource(cartRepository, obtainAccessToken)
+    }
 }

@@ -1,13 +1,12 @@
 package com.progressterra.ipbandroidview.widgets.bonusestransactions
 
 import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
@@ -16,11 +15,10 @@ interface FetchBonusesTransactionsUseCase {
     suspend operator fun invoke(): Result<BonusesTransactionsState>
 
     class Base(
-        sCRMRepository: SCRMRepository,
-        provideLocation: ProvideLocation,
+        obtainAccessToken: ObtainAccessToken,
         manageResources: ManageResources,
         private val bonusesRepository: IBonusRepository
-    ) : FetchBonusesTransactionsUseCase, AbstractTokenUseCase(sCRMRepository, provideLocation) {
+    ) : FetchBonusesTransactionsUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         private val noData = manageResources.string(R.string.no_data)
 

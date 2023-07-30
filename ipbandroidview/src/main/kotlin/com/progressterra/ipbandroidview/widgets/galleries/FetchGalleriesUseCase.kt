@@ -1,11 +1,10 @@
 package com.progressterra.ipbandroidview.widgets.galleries
 
 import com.progressterra.ipbandroidapi.api.catalog.CatalogRepository
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.GoodsFilter
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface FetchGalleriesUseCase {
@@ -13,11 +12,10 @@ interface FetchGalleriesUseCase {
     suspend operator fun invoke(): Result<List<GalleriesState>>
 
     class Base(
-        scrmRepository: SCRMRepository,
-        provideLocation: ProvideLocation,
+        obtainAccessToken: ObtainAccessToken,
         private val goodsUseCase: GoodsUseCase,
         private val productRepository: CatalogRepository
-    ) : FetchGalleriesUseCase, AbstractTokenUseCase(scrmRepository, provideLocation) {
+    ) : FetchGalleriesUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(): Result<List<GalleriesState>> = withToken { token ->
             IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES.map {

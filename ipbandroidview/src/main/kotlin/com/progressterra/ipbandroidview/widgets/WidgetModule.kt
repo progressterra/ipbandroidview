@@ -12,7 +12,7 @@ val widgetsModule = module {
 
     single<FetchBonusesTransactionsUseCase> {
         FetchBonusesTransactionsUseCase.Base(
-            get(), get(), get(), get()
+            get(), get(), get()
         )
     }
 
@@ -21,7 +21,7 @@ val widgetsModule = module {
     }
 
     single<FetchGalleriesUseCase> {
-        FetchGalleriesUseCase.Base(get(), get(), get(), get())
+        FetchGalleriesUseCase.Base(get(), get(), get())
     }
 
     single<FetchOffersUseCase> {
@@ -29,8 +29,8 @@ val widgetsModule = module {
     }
 
     single<CreateWantThisRequestUseCase> {
-        CreateWantThisRequestUseCase.Base(get(), get(), get(), get(), get(), get())
+        CreateWantThisRequestUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get(), get()) }
+    single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get()) }
 }

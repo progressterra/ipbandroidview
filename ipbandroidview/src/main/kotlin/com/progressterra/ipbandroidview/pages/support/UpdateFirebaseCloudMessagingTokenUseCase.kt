@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.support
 
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDeviceParameters
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 
@@ -12,8 +12,8 @@ interface UpdateFirebaseCloudMessagingTokenUseCase {
 
     class Base(
         private val repo: SCRMRepository,
-        provideLocation: ProvideLocation
-    ) : UpdateFirebaseCloudMessagingTokenUseCase, AbstractTokenUseCase(repo, provideLocation) {
+        obtainAccessToken: ObtainAccessToken
+    ) : UpdateFirebaseCloudMessagingTokenUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(
             firebaseCloudMessagingToken: String
