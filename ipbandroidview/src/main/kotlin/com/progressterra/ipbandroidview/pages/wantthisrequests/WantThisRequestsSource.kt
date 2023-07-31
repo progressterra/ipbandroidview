@@ -25,6 +25,8 @@ class WantThisRequestsSource(
     private val obtainAccessToken: ObtainAccessToken
 ) : AbstractSource<Nothing, WantThisCardState>() {
 
+    override val pageSize = 10
+
     override suspend fun loadPage(skip: Int, take: Int): Result<List<WantThisCardState>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()

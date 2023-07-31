@@ -12,6 +12,8 @@ class GoodsSource(
     private val productRepo: ProductRepository
 ) : AbstractSource<GoodsFilter, StoreCardState>() {
 
+    override val pageSize = 10
+
     override suspend fun loadPage(skip: Int, take: Int): Result<List<StoreCardState>> =
         runCatching {
             productRepo.productList(

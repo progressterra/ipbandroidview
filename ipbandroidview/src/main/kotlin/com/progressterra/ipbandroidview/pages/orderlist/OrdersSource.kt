@@ -14,6 +14,8 @@ class OrdersSource(
     private val obtainAccessToken: ObtainAccessToken
 ) : AbstractSource<Nothing, OrderCompactState>() {
 
+    override val pageSize = 10
+
     override suspend fun loadPage(skip: Int, take: Int): Result<List<OrderCompactState>> =
         runCatching {
             cartRepository.orders(

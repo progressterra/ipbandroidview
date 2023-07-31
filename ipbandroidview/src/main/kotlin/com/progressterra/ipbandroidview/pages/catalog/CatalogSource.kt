@@ -14,6 +14,8 @@ class CatalogSource(
     private val repo: CatalogRepository
 ) : AbstractSource<Nothing, CatalogCardState>() {
 
+    override val pageSize = 20
+
     override suspend fun loadPage(skip: Int, take: Int): Result<List<CatalogCardState>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()
