@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.shared
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidview.shared.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 
 interface PagingUseCase<I, O : Any> {
@@ -19,14 +18,15 @@ interface PagingUseCase<I, O : Any> {
         override suspend operator fun invoke(filter: I): Result<Flow<PagingData<O>>> = runCatching {
             val source = createSource()
             source.filter = filter
-            Pager(PagingConfig(PAGE_SIZE)) {
+            Pager(PagingConfig(source.pageSize)) {
                 source
             }.flow
         }
 
         override suspend fun invoke(): Result<Flow<PagingData<O>>> = runCatching {
-            Pager(PagingConfig(PAGE_SIZE)) {
-                createSource()
+            val source = createSource()
+            Pager(PagingConfig(source.pageSize)) {
+                source
             }.flow
         }
     }

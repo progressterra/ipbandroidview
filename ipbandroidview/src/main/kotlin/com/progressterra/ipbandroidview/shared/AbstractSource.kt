@@ -7,13 +7,15 @@ abstract class AbstractSource<I, O : Any> : PagingSource<Int, O>() {
 
     var filter: I? = null
 
+    abstract val pageSize: Int
+
     protected abstract suspend fun loadPage(skip: Int, take: Int): Result<List<O>>
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, O> {
         val nextPage = params.key ?: 1
         val response = loadPage(
-            skip = (nextPage - 1) * Constants.PAGE_SIZE,
-            take = Constants.PAGE_SIZE
+            skip = (nextPage - 1) * pageSize,
+            take = pageSize
         ).onSuccess {
             return LoadResult.Page(
                 data = it,
