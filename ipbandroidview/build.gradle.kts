@@ -76,8 +76,8 @@ dependencies {
     api("com.google.android.material:material:1.9.0")
 
     // Coroutines
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.2")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     // Activity
     api("androidx.activity:activity-ktx:1.7.2")
@@ -93,8 +93,8 @@ dependencies {
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Koin, DI library
-    api("io.insert-koin:koin-android:3.4.2")
-    api("io.insert-koin:koin-androidx-compose:3.4.5")
+    api("io.insert-koin:koin-android:3.4.3")
+    api("io.insert-koin:koin-androidx-compose:3.4.6")
 
     // Accompanist, useful composables
     api("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
@@ -114,7 +114,7 @@ dependencies {
 
     // Google services
     api("com.google.android.gms:play-services-location:21.0.1")
-    api("com.google.maps.android:maps-compose:2.11.4")
+    api("com.google.maps.android:maps-compose:2.12.0")
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
