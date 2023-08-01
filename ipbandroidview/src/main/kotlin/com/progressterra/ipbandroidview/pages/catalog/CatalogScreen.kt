@@ -37,15 +37,15 @@ fun CatalogScreen(
     state: CatalogState, useComponent: UseCatalog
 ) {
     ThemedLayout(topBar = {
-        if (state.trace.trace.size <= 1) {
-            Search(
-                modifier = Modifier.padding(horizontal = 20.dp),
-                state = state.search,
+        if (state.trace.trace.isNotEmpty()) {
+            Trace(
+                state = state.trace,
                 useComponent = useComponent
             )
         } else {
-            Trace(
-                state = state.trace,
+            Search(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                state = state.search,
                 useComponent = useComponent
             )
         }

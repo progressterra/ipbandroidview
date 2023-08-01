@@ -106,12 +106,8 @@ class CatalogViewModel(
             if (currentState.current.id.isNotEmpty()) {
                 filter = filter.copy(categoryId = currentState.current.id)
             }
-            if (currentState.search.text.isNotEmpty()) {
-                goodsUseCase(filter).onSuccess { nonCached ->
-                    emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
-                }
-            } else {
-                emitState { it.copy(goods = it.goods.copy(items = emptyFlow())) }
+            goodsUseCase(filter).onSuccess { nonCached ->
+                emitState { it.copy(goods = it.goods.copy(items = cachePaging(nonCached))) }
             }
         }
     }
