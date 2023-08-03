@@ -30,7 +30,7 @@ class CatalogViewModel(
                 emitState {
                     it.copy(
                         stateBox = ScreenState.SUCCESS,
-                        items = cachePaging(catalog)
+                        current = catalog
                     )
                 }
             }.onFailure {

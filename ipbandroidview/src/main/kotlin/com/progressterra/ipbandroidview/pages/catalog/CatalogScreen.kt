@@ -14,8 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.paging.PagingData
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCard
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
@@ -58,40 +56,17 @@ fun CatalogScreen(
                     modifier = Modifier.zIndex(1f),
                     state = state.goods, useComponent = useComponent
                 )
-                if (state.current.isEmpty()) {
-                    val lazyItems = state.items.collectAsLazyPagingItems()
-                    LazyVerticalGrid(
-                        horizontalArrangement = Arrangement.spacedBy(20.dp),
-                        verticalArrangement = Arrangement.spacedBy(20.dp),
-                        columns = GridCells.Fixed(3),
-                        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
-                    ) {
-                        items(
-                            count = lazyItems.itemCount,
-                            key = lazyItems.itemKey { it.id }
-                        ) { index ->
-                            lazyItems[index]?.let {
-                                Box(contentAlignment = Alignment.Center) {
-                                    CatalogCard(
-                                        state = it, useComponent = useComponent
-                                    )
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    LazyVerticalGrid(
-                        horizontalArrangement = Arrangement.spacedBy(20.dp),
-                        verticalArrangement = Arrangement.spacedBy(20.dp),
-                        columns = GridCells.Fixed(3),
-                        contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
-                    ) {
-                        items(state.current.children) {
-                            Box(contentAlignment = Alignment.Center) {
-                                CatalogCard(
-                                    state = it, useComponent = useComponent
-                                )
-                            }
+                LazyVerticalGrid(
+                    horizontalArrangement = Arrangement.spacedBy(20.dp),
+                    verticalArrangement = Arrangement.spacedBy(20.dp),
+                    columns = GridCells.Fixed(3),
+                    contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
+                ) {
+                    items(state.current.children) {
+                        Box(contentAlignment = Alignment.Center) {
+                            CatalogCard(
+                                state = it, useComponent = useComponent
+                            )
                         }
                     }
                 }
