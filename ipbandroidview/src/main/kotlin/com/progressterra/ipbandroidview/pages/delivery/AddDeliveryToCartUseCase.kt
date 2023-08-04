@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.delivery
 
 import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.cart.models.IncomdeDataAddress
-import com.progressterra.ipbandroidapi.ext.format
+import com.progressterra.ipbandroidview.entities.format
 import com.progressterra.ipbandroidview.entities.convertSuggestionToAddressUIModel
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken

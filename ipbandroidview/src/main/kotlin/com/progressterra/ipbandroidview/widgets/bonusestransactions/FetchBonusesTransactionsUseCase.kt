@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.widgets.bonusestransactions
 
 import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
-import com.progressterra.ipbandroidapi.ext.format
-import com.progressterra.ipbandroidapi.ext.parseToDate
+import com.progressterra.ipbandroidview.entities.format
+import com.progressterra.ipbandroidview.entities.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType

@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.processes.user
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.ClientDataIncome
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
-import com.progressterra.ipbandroidapi.ext.format
+import com.progressterra.ipbandroidview.entities.format
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData

@@ -66,8 +66,7 @@ fun Messages(
     val lazyItems = state.items.collectAsLazyPagingItems()
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        reverseLayout = true
+        verticalArrangement = Arrangement.spacedBy(space = 8.dp, alignment = Alignment.Bottom)
     ) {
         items(
             count = lazyItems.itemCount,

@@ -43,17 +43,15 @@ class CatalogViewModel(
         emitState {
             it.copy(
                 current = event.category,
-                trace = it.trace.copy(trace = it.trace.trace + event.category)
+                trace = it.trace.copy(trace = it.trace.trace + it.current)
             )
         }
         uCategory()
     }
 
     override fun handle(event: TraceEvent) {
-        emitState {
-            it.copy(trace = it.trace.copy(trace = it.trace.trace.dropLast(1)))
-        }
         emitState { it.copy(current = it.trace.trace.last()) }
+        emitState { it.copy(trace = it.trace.copy(trace = it.trace.trace.dropLast(1))) }
         uCategory()
     }
 

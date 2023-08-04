@@ -17,9 +17,7 @@ import com.progressterra.ipbandroidapi.api.messenger.models.RGMessages
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
-import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.orIfNull
-import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidapi.ext.tryOrNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
@@ -31,7 +29,6 @@ import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.print
-import com.progressterra.ipbandroidview.shared.toDate
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import java.text.SimpleDateFormat
@@ -299,24 +296,14 @@ fun RGMessages.toMessage() = Message(
     date = dateAdded?.parseToDate()?.format("dd.MM HH:mm") ?: ""
 )
 
-private const val serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-
-    .
-private val serverTimeZone = TimeZone.getTimeZone("Europe/Moscow")
+private const val SERVER_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
 
 fun String.parseToDate(): Date? {
-    val timeFormat = if (indexOf("+", 8) != -1 || indexOf("-", 8) != -1) {
-        serverDateFormatTimeZone
-    } else {
-        serverDateFormat
-    }
-    val sdf = SimpleDateFormat(timeFormat, Locale.getDefault())
+    val sdf = SimpleDateFormat(SERVER_DATE_FORMAT, Locale.getDefault())
     return tryOrNull { sdf.parse(this) }
 }
 
-fun Date?.orNow() = orIfNull { Date() }
-
-fun Date.format(pattern: String = serverDateFormat): String {
+fun Date.format(pattern: String = SERVER_DATE_FORMAT): String {
     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
     sdf.timeZone = TimeZone.getDefault()
     return sdf.format(this)

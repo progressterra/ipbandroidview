@@ -28,8 +28,8 @@ class SupportScreenViewModel(
 
     override fun handle(event: TopBarEvent) {
         if (currentState.trace.isNotEmpty()) {
-            emitState { it.copy(trace = it.trace.dropLast(1)) }
             emitState { it.copy(current = it.trace.last()) }
+            emitState { it.copy(trace = it.trace.dropLast(1)) }
         } else {
             postEffect(SupportScreenEvent)
         }
@@ -59,7 +59,9 @@ class SupportScreenViewModel(
                     currentState.input.text
                 ).onSuccess {
                     emitState { it.copy(input = it.input.copy(text = "")) }
-                    refresh()
+                    fetchMessagesUseCase(currentState.current.id).onSuccess { newMessages ->
+                        emitState { it.copy(messages = it.messages.copy(items = newMessages)) }
+                    }
                 }
             }
         }
