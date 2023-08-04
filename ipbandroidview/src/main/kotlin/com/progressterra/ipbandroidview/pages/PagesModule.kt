@@ -45,6 +45,7 @@ import com.progressterra.ipbandroidview.pages.support.MessageSource
 import com.progressterra.ipbandroidview.pages.support.OrdersChatsSource
 import com.progressterra.ipbandroidview.pages.support.OrdersChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
+import com.progressterra.ipbandroidview.pages.support.SupportScreenViewModel
 import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
@@ -195,4 +196,6 @@ val pagesModule = module {
     single<SendMessageUseCase> {
         SendMessageUseCase.Base(get(), get())
     }
+
+    viewModel { SupportScreenViewModel(get(), get(), get()) }
 }
