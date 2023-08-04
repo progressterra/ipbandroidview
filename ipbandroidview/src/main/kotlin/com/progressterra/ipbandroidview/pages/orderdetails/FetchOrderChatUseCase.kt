@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface FetchOrderChatUseCase {
 
-    suspend operator fun invoke(orderId: String): Result<String>
+    suspend operator fun invoke(orderId: String, orderNumber: String): Result<String>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -19,7 +19,7 @@ interface FetchOrderChatUseCase {
         private val messengerRepository: MessengerRepository
     ) : AbstractTokenUseCase(obtainAccessToken), FetchOrderChatUseCase {
 
-        override suspend fun invoke(orderId: String): Result<String> = withToken { token ->
+        override suspend fun invoke(orderId: String, orderNumber: String): Result<String> = withToken { token ->
             messengerRepository.clientAreaDialog(
                 accessToken = token,
                 body = IncomeDataForCreateDialog(
@@ -28,7 +28,7 @@ interface FetchOrderChatUseCase {
                         orderId,
                         DEFAULT_ID
                     ),
-                    description = manageResources.string(R.string.order_chat),
+                    description = "${manageResources.string(R.string.order_chat)} $orderNumber",
                     additionalDataJSON = ""
                 )
             ).getOrThrow()?.idUnique!!

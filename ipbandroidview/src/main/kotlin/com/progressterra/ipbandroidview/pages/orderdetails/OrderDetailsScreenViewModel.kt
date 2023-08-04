@@ -62,7 +62,10 @@ class OrderDetailsScreenViewModel(
             )
 
             is OrderDetailsEvent.Chat -> onBackground {
-                fetchOrderChatUseCase(currentState.id).onSuccess { dialogId ->
+                fetchOrderChatUseCase(
+                    currentState.id,
+                    currentState.details.number
+                ).onSuccess { dialogId ->
                     fetchMessagesUseCase(dialogId).onSuccess { messages ->
                         emitState {
                             it.copy(
