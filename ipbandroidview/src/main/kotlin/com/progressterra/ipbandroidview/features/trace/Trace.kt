@@ -40,20 +40,24 @@ fun Trace(
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            state.trace.forEachIndexed { index, trace ->
+            state.trace.forEach { trace ->
                 BrushedText(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     text = trace.name,
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
-                if (index != state.trace.lastIndex) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_forw,
-                        tint = IpbTheme.colors.iconPrimary.asBrush()
-                    )
-                }
+                BrushedIcon(
+                    resId = R.drawable.ic_forw,
+                    tint = IpbTheme.colors.iconPrimary.asBrush()
+                )
             }
+            BrushedText(
+                modifier = Modifier.padding(horizontal = 4.dp),
+                text = state.current.name,
+                style = IpbTheme.typography.title,
+                tint = IpbTheme.colors.textPrimary.asBrush()
+            )
         }
     }
 }

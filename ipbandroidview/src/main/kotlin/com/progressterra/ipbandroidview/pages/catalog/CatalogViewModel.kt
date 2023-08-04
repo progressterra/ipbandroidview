@@ -30,7 +30,8 @@ class CatalogViewModel(
                 emitState {
                     it.copy(
                         stateBox = ScreenState.SUCCESS,
-                        current = catalog
+                        current = catalog,
+                        trace = it.trace.copy(current = catalog)
                     )
                 }
             }.onFailure {
@@ -43,14 +44,20 @@ class CatalogViewModel(
         emitState {
             it.copy(
                 current = event.category,
-                trace = it.trace.copy(trace = it.trace.trace + it.current)
+                trace = it.trace.copy(trace = it.trace.trace + it.current, current = event.category)
             )
         }
         uCategory()
     }
 
     override fun handle(event: TraceEvent) {
-        emitState { it.copy(current = it.trace.trace.last()) }
+        emitState {
+            val last = it.trace.trace.last()
+            it.copy(
+                current = last,
+                trace = it.trace.copy(current = last)
+            )
+        }
         emitState { it.copy(trace = it.trace.copy(trace = it.trace.trace.dropLast(1))) }
         uCategory()
     }
