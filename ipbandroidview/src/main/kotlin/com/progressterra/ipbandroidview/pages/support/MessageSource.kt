@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractSource
 
 class MessageSource(
-    private val repo: MessengerRepository,
+    private val messengerRepository: MessengerRepository,
     private val obtainAccessToken: ObtainAccessToken
 ) : AbstractSource<String, Message>() {
 
@@ -20,7 +20,7 @@ class MessageSource(
 
     override suspend fun loadPage(skip: Int, take: Int): Result<List<Message>> = runCatching {
         val token = obtainAccessToken().getOrThrow()
-        repo.messageList(
+        messengerRepository.messageList(
             accessToken = token,
             body = FilterAndSort(
                 listFields = listOf(

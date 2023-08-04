@@ -41,6 +41,7 @@ import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsViewM
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.pages.support.FetchChatsUseCase
+import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.pages.support.MessageSource
 import com.progressterra.ipbandroidview.pages.support.OrdersChatsSource
 import com.progressterra.ipbandroidview.pages.support.OrdersChatsUseCase
@@ -88,8 +89,6 @@ val pagesModule = module {
     viewModel { OrderTrackingScreenViewModel() }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
-
-    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get()) }
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(
@@ -193,9 +192,11 @@ val pagesModule = module {
 
     single { OrdersChatsSource(get(), get()) }
 
-    single<SendMessageUseCase> {
-        SendMessageUseCase.Base(get(), get())
-    }
+    single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get()) }
+
+    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get()) }
+
+    single<FetchMessagesUseCase> { FetchMessagesUseCase.Base(get(), get()) }
 
     viewModel { SupportScreenViewModel(get(), get(), get()) }
 }

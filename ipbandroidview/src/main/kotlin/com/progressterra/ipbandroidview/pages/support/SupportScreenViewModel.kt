@@ -37,7 +37,6 @@ class SupportScreenViewModel(
 
     override fun handle(event: SupportChatEvent) {
         onBackground {
-
             emitState { it.copy(trace = it.trace + it.current, current = event.state) }
             if (currentState.current.finite) {
                 fetchMessagesUseCase(currentState.current.id).onSuccess { newMessages ->
