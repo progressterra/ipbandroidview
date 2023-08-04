@@ -41,19 +41,17 @@ fun Trace(
             verticalAlignment = Alignment.CenterVertically
         ) {
             state.trace.forEachIndexed { index, trace ->
-                if (index != 0) {
-                    BrushedText(
-                        modifier = Modifier.padding(horizontal = 4.dp),
-                        text = trace.name,
-                        style = IpbTheme.typography.title,
-                        tint = IpbTheme.colors.textPrimary.asBrush()
+                BrushedText(
+                    modifier = Modifier.padding(horizontal = 4.dp),
+                    text = trace.name,
+                    style = IpbTheme.typography.title,
+                    tint = IpbTheme.colors.textPrimary.asBrush()
+                )
+                if (index != state.trace.lastIndex) {
+                    BrushedIcon(
+                        resId = R.drawable.ic_forw,
+                        tint = IpbTheme.colors.iconPrimary.asBrush()
                     )
-                    if (index != state.trace.lastIndex) {
-                        BrushedIcon(
-                            resId = R.drawable.ic_forw,
-                            tint = IpbTheme.colors.iconPrimary.asBrush()
-                        )
-                    }
                 }
             }
         }
