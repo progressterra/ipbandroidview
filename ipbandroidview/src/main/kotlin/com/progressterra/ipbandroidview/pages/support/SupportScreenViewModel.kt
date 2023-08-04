@@ -19,7 +19,13 @@ class SupportScreenViewModel(
         onBackground {
             emitState { it.copy(screenState = ScreenState.LOADING) }
             fetchChatsUseCase().onSuccess { newState ->
-                emitState { it.copy(screenState = ScreenState.SUCCESS, current = newState) }
+                val cached = newState.copy(subCategories = cachePaging(newState.subCategories))
+                emitState {
+                    it.copy(
+                        screenState = ScreenState.SUCCESS,
+                        current = cached
+                    )
+                }
             }.onFailure {
                 emitState { it.copy(screenState = ScreenState.ERROR) }
             }
@@ -40,7 +46,7 @@ class SupportScreenViewModel(
             emitState { it.copy(trace = it.trace + it.current, current = event.state) }
             if (currentState.current.finite) {
                 fetchMessagesUseCase(currentState.current.id).onSuccess { newMessages ->
-                    emitState { it.copy(messages = it.messages.copy(items = newMessages)) }
+                    emitState { it.copy(messages = it.messages.copy(items = cachePaging(newMessages))) }
                 }
             }
         }
@@ -60,7 +66,15 @@ class SupportScreenViewModel(
                 ).onSuccess {
                     emitState { it.copy(input = it.input.copy(text = "")) }
                     fetchMessagesUseCase(currentState.current.id).onSuccess { newMessages ->
-                        emitState { it.copy(messages = it.messages.copy(items = newMessages)) }
+                        emitState {
+                            it.copy(
+                                messages = it.messages.copy(
+                                    items = cachePaging(
+                                        newMessages
+                                    )
+                                )
+                            )
+                        }
                     }
                 }
             }
