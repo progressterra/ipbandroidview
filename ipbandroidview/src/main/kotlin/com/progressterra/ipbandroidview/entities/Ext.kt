@@ -18,7 +18,9 @@ import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidapi.ext.format
+import com.progressterra.ipbandroidapi.ext.orIfNull
 import com.progressterra.ipbandroidapi.ext.parseToDate
+import com.progressterra.ipbandroidapi.ext.tryOrNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
@@ -32,6 +34,10 @@ import com.progressterra.ipbandroidview.shared.print
 import com.progressterra.ipbandroidview.shared.toDate
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 fun List<SimplePrice>.sum(): SimplePrice {
     var sum = SimplePrice()
@@ -292,3 +298,26 @@ fun RGMessages.toMessage() = Message(
     content = contentText ?: "",
     date = dateAdded?.parseToDate()?.format("dd.MM HH:mm") ?: ""
 )
+
+private const val serverDateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+
+    .
+private val serverTimeZone = TimeZone.getTimeZone("Europe/Moscow")
+
+fun String.parseToDate(): Date? {
+    val timeFormat = if (indexOf("+", 8) != -1 || indexOf("-", 8) != -1) {
+        serverDateFormatTimeZone
+    } else {
+        serverDateFormat
+    }
+    val sdf = SimpleDateFormat(timeFormat, Locale.getDefault())
+    return tryOrNull { sdf.parse(this) }
+}
+
+fun Date?.orNow() = orIfNull { Date() }
+
+fun Date.format(pattern: String = serverDateFormat): String {
+    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
+    sdf.timeZone = TimeZone.getDefault()
+    return sdf.format(this)
+}
