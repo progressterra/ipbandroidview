@@ -64,12 +64,12 @@ fun ProfileScreen(
                 title = stringResource(R.string.documents),
                 notification = state.docNotification
             )
-//                Spacer(Modifier.height(8.dp))
-//                ProfileButton(
-//                    state = state.support,
-//                    useComponent = useComponent,
-//                    title = stringResource(R.string.support)
-//                )
+            Spacer(Modifier.height(8.dp))
+            ProfileButton(
+                state = state.support,
+                useComponent = useComponent,
+                title = stringResource(R.string.support)
+            )
             Spacer(Modifier.weight(1f))
             ProfileButton(
                 modifier = Modifier.padding(horizontal = 20.dp),
