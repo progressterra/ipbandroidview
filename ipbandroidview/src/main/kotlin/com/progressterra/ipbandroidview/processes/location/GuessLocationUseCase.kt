@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.suggestion.SuggestionRepository
 import com.progressterra.ipbandroidapi.api.suggestion.model.DadataSuggestionsFromLocationRequest
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.entities.convertSuggestionToAddressUIModel
-import com.progressterra.ipbandroidview.entities.formatZDT
+import com.progressterra.ipbandroidview.entities.formatZdtIso
 import java.time.ZonedDateTime
 
 interface GuessLocationUseCase {
@@ -25,7 +25,7 @@ interface GuessLocationUseCase {
                 )
             ).getOrThrow()
             suggestionsResult?.firstOrNull()?.suggestionExtendedInfo?.convertSuggestionToAddressUIModel(
-                ZonedDateTime.now().formatZDT()
+                ZonedDateTime.now().formatZdtIso()
             ) ?: AddressUI()
         }
     }

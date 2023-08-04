@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.features.bonuses
 import com.progressterra.ipbandroidapi.api.balance.BalanceRepository
 import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.formatZDT
+import com.progressterra.ipbandroidview.entities.formatZdt
 import com.progressterra.ipbandroidview.entities.parseToZDT
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -27,7 +27,8 @@ interface BonusesUseCase {
             BonusesState(
                 bonuses = response?.currentQuantity?.toInt()?.toString() ?: noData,
                 burningQuantity = response?.forBurningQuantity?.toInt()?.toString() ?: noData,
-                burningDate = response?.dateBurning?.parseToZDT()?.formatZDT("dd.MM") ?: noData,
+                burningDate = response?.dateBurning?.parseToZDT()?.formatZdt("dd.MM")
+                    ?: noData,
                 roubles = balanceRepository.client(token).getOrThrow()?.amount?.toInt()?.toString()
                     ?: ""
             )

@@ -3,14 +3,16 @@ package com.progressterra.ipbandroidview.processes.user
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.ClientDataIncome
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
-import com.progressterra.ipbandroidview.entities.formatZDT
-import com.progressterra.ipbandroidview.entities.parseToZDT
+import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.shared.splitName
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
+import java.time.ZoneId
+import java.time.ZonedDateTime
+
 
 interface SaveDataUseCase {
 
@@ -25,8 +27,18 @@ interface SaveDataUseCase {
             UserData.userName = UserName(
                 name = nameList[0], surname = nameList[1]
             )
-            UserData.dateOfBirthday =
-                income.birthday.formatByType().parseToZDT("dd.MM.yyyy").formatZDT()
+            val birthday = income.birthday.formatByType()
+            val zonedDateTimeBirthday = ZonedDateTime.of(
+                birthday.subSequence(6, 10).toString().toInt(),
+                birthday.subSequence(3, 5).toString().toInt(),
+                birthday.subSequence(0, 2).toString().toInt(),
+                0,
+                0,
+                0,
+                0,
+                ZoneId.systemDefault()
+            )
+            UserData.dateOfBirthday = zonedDateTimeBirthday.formatZdtIso()
             UserData.phone = income.phone.formatByType()
             UserData.email = income.email.formatByType()
             scrmRepository.setPersonalInfo(

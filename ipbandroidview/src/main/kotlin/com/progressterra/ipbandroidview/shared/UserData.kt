@@ -16,6 +16,9 @@ object UserData : KotprefModel() {
     var shippingAddress by gsonPref(AddressUI())
     var userName by gsonPref(UserName())
     var citizenship by gsonPref(Citizenship())
+    /**
+     * ZDT ISO
+     */
     var dateOfBirthday by stringPref()
 
     fun clearUser() {

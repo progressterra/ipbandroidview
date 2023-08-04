@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.pages.delivery
 import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.cart.models.IncomdeDataAddress
 import com.progressterra.ipbandroidview.entities.convertSuggestionToAddressUIModel
-import com.progressterra.ipbandroidview.entities.formatZDT
+import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
@@ -27,7 +27,7 @@ interface AddDeliveryToCartUseCase {
                 suggestionUI?.let {
                     saveAddressUseCase(
                         it.suggestionExtendedInfo.convertSuggestionToAddressUIModel(
-                            ZonedDateTime.now().formatZDT()
+                            ZonedDateTime.now().formatZdtIso()
                         )
                     ).throwOnFailure()
                     cartRepository.addAddressToCart(

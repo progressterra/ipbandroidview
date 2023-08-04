@@ -49,7 +49,7 @@ fun DHSaleHeadAsOrderViewModel.toOrder() =
         id = idUnique!!,
         number = number ?: "",
         status = statusOrder ?: TypeStatusOrder.CANCELED,
-        date = dateAdded?.parseToZDT()?.formatZDT("dd.MM.yyyy") ?: "")
+        date = dateAdded?.parseToZDT()?.formatZdt("dd.MM.yyyy") ?: "")
 
 fun ProductView.toGoodsItem() = GoodsItem(
     id = nomenclature?.idUnique!!,
@@ -290,12 +290,11 @@ fun RGMessages.toMessage() = Message(
     id = idUnique!!,
     user = idClient!! == UserData.idUnique,
     content = contentText ?: "",
-    date = dateAdded?.parseToZDT()?.formatZDT("dd.MM HH:mm") ?: ""
+    date = dateAdded?.parseToZDT()?.formatZdt("dd.MM HH:mm") ?: ""
 )
 
-fun String.parseToZDT(pattern: String? = null): ZonedDateTime {
-    val formatter =
-        pattern?.let { DateTimeFormatter.ofPattern(pattern) } ?: DateTimeFormatter.ISO_DATE_TIME
+fun String.parseToZDT(): ZonedDateTime {
+    val formatter = DateTimeFormatter.ISO_DATE_TIME
     return try {
         ZonedDateTime.parse(this, formatter)
     } catch (e: DateTimeParseException) {
@@ -303,8 +302,12 @@ fun String.parseToZDT(pattern: String? = null): ZonedDateTime {
     }
 }
 
-fun ZonedDateTime.formatZDT(pattern: String? = null): String {
-    val formatter =
-        pattern?.let { DateTimeFormatter.ofPattern(pattern) } ?: DateTimeFormatter.ISO_DATE_TIME
+fun ZonedDateTime.formatZdt(pattern: String): String {
+    val formatter = DateTimeFormatter.ofPattern(pattern)
+    return withZoneSameInstant(ZoneId.systemDefault()).format(formatter)
+}
+
+fun ZonedDateTime.formatZdtIso(): String {
+    val formatter = DateTimeFormatter.ISO_DATE_TIME
     return format(formatter)
 }
