@@ -84,6 +84,7 @@ interface FetchChatsUseCase {
                 iconRes = R.drawable.ic_chat_orders
             )
             SupportChatState(
+                title = manageResources.string(R.string.support),
                 subCategories = flowOf(
                     PagingData.from(
                         listOf(

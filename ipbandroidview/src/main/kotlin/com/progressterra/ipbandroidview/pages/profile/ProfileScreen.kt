@@ -66,6 +66,7 @@ fun ProfileScreen(
             )
             Spacer(Modifier.height(8.dp))
             ProfileButton(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.support,
                 useComponent = useComponent,
                 title = stringResource(R.string.support)

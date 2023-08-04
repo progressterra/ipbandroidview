@@ -52,22 +52,15 @@ class SupportScreenViewModel(
 
     override fun handle(event: TextFieldEvent) {
         when (event) {
-            is TextFieldEvent.Action -> when (event.id) {
-                "input" -> {
-                    onBackground {
-                        sendMessageUseCase(
-                            currentState.current.id,
-                            currentState.input.text
-                        ).onSuccess {
-                            emitState { it.copy(input = it.input.copy(text = "")) }
-                        }
-                    }
+            is TextFieldEvent.TextChanged -> emitState { it.copy(input = it.input.copy(text = event.text)) }
+            else -> onBackground {
+                sendMessageUseCase(
+                    currentState.current.id,
+                    currentState.input.text
+                ).onSuccess {
+                    emitState { it.copy(input = it.input.copy(text = "")) }
+                    refresh()
                 }
-            }
-
-            is TextFieldEvent.AdditionalAction -> Unit
-            is TextFieldEvent.TextChanged -> when (event.id) {
-                "input" -> emitState { it.copy(input = it.input.copy(text = event.text)) }
             }
         }
     }

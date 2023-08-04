@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.support
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -48,10 +49,11 @@ fun SupportScreen(
                     modifier = modifier.padding(horizontal = 20.dp, vertical = 8.dp)
                 ) {
                     TextField(
-                        modifier.fillMaxWidth(),
+                        modifier = modifier.fillMaxWidth(),
                         state = state.input,
                         useComponent = useComponent,
-                        hint = stringResource(R.string.request)
+                        hint = stringResource(R.string.request),
+                        actionIcon = R.drawable.ic_send
                     )
                 }
         }
@@ -67,6 +69,7 @@ fun SupportScreen(
             } else {
                 val lazyItems = state.current.subCategories.collectAsLazyPagingItems()
                 LazyColumn(
+                    contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 20.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(

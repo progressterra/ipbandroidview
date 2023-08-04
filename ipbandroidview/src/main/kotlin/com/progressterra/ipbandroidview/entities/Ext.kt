@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidapi.api.messenger.models.RGMessages
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
+import com.progressterra.ipbandroidapi.ext.format
 import com.progressterra.ipbandroidapi.ext.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
@@ -28,6 +29,7 @@ import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.print
+import com.progressterra.ipbandroidview.shared.toDate
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 
@@ -288,5 +290,5 @@ fun RGMessages.toMessage() = Message(
     id = idUnique!!,
     user = idClient!! == UserData.idUnique,
     content = contentText ?: "",
-    date = dateAdded ?: ""
+    date = dateAdded?.parseToDate()?.format("dd.MM HH:mm") ?: ""
 )
