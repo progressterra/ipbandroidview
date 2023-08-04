@@ -9,6 +9,8 @@ fun String.isEmail() = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
 
 fun String.isNameAndSurname() = matches(Regex("^[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+\$"))
 
+fun String.isRussianPhoneNumberWithoutHeading() = matches(Regex("^\\d{10}$"))
+
 fun String.isRussianPhoneNumber() = matches(Regex("^7\\d{10}$"))
 
 fun String.toDate(): String {
