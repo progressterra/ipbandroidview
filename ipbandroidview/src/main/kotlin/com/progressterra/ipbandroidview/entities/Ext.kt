@@ -28,6 +28,8 @@ import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
@@ -294,7 +296,8 @@ fun RGMessages.toMessage() = Message(
 fun String.parseToZDT(pattern: String? = null): ZonedDateTime {
     val formatter =
         pattern?.let { DateTimeFormatter.ofPattern(pattern) } ?: DateTimeFormatter.ISO_DATE_TIME
-    return ZonedDateTime.parse(this, formatter)
+    val ldt = LocalDateTime.parse(this, formatter)
+    return ldt.atZone(ZoneOffset.UTC)
 }
 
 fun ZonedDateTime.formatZDT(pattern: String? = null): String {
