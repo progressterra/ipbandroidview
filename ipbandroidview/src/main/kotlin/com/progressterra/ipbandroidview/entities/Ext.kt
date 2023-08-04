@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicType
 import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValueViewModel
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
+import com.progressterra.ipbandroidapi.api.messenger.models.RGMessages
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
@@ -25,6 +26,7 @@ import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.print
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
@@ -281,3 +283,10 @@ fun CatalogItem.toCatalogCardState(manageResources: ManageResources): CatalogCar
         children = listChildItems?.map { it.toCatalogCardState(manageResources) } ?: emptyList()
     )
 }
+
+fun RGMessages.toMessage() = Message(
+    id = idUnique!!,
+    user = idClient!! == UserData.idUnique,
+    content = contentText ?: "",
+    date = dateAdded ?: ""
+)

@@ -1,35 +1,31 @@
 package com.progressterra.ipbandroidview.pages.support
 
-import com.progressterra.ipbandroidapi.api.message.IMessengerRepository
-import com.progressterra.ipbandroidapi.api.message.models.IncomeMessagesTextData
+import com.progressterra.ipbandroidapi.api.messenger.MessengerRepository
+import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesEntityCreate
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.shared.UserData
-import com.progressterra.ipbandroidview.widgets.messages.MessagesState
+import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface SendMessageUseCase {
 
-    suspend operator fun invoke(dialogId: String, message: String): Result<MessagesState>
+    suspend operator fun invoke(dialogId: String, message: String): Result<Unit>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val iMessengerRepository: IMessengerRepository,
-        private val messageMapper: MessageMapper
+        private val messengerRepository: MessengerRepository
     ) : SendMessageUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(
             dialogId: String, message: String
-        ): Result<MessagesState> = withToken { token ->
-            if (UserData.supportChatId.isEmpty()) throw Exception("Set correct chat id!")
-            MessagesState(
-                items = iMessengerRepository.sendMessage(
-                    IncomeMessagesTextData(
-                        idrgDialog = UserData.supportChatId,
-                        accessToken = token,
-                        contentText = message
-                    )
-                ).getOrThrow().orEmpty().map { messageMapper.map(it, UserData.idUnique) }.reversed()
-            )
+        ): Result<Unit> = withToken { token ->
+            messengerRepository.clientAreaMessage(
+                accessToken = token,
+                body = RGMessagesEntityCreate(
+                    idDialog = dialogId,
+                    contentText = message,
+                    idQuotedMessage = null
+                )
+            ).throwOnFailure()
         }
     }
 }

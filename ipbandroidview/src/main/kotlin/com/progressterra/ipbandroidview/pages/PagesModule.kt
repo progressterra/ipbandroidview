@@ -40,7 +40,11 @@ import com.progressterra.ipbandroidview.pages.profile.ProfileViewModel
 import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
-import com.progressterra.ipbandroidview.pages.support.FetchChatUseCase
+import com.progressterra.ipbandroidview.pages.support.FetchChatsUseCase
+import com.progressterra.ipbandroidview.pages.support.MessageSource
+import com.progressterra.ipbandroidview.pages.support.OrdersChatsSource
+import com.progressterra.ipbandroidview.pages.support.OrdersChatsUseCase
+import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
 import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
@@ -84,7 +88,7 @@ val pagesModule = module {
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 
-    single<FetchChatUseCase> { FetchChatUseCase.Base(get(), get()) }
+    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get()) }
 
     single<UpdateFirebaseCloudMessagingTokenUseCase> {
         UpdateFirebaseCloudMessagingTokenUseCase.Base(
@@ -178,5 +182,17 @@ val pagesModule = module {
 
     single<AddDeliveryToCartUseCase> {
         AddDeliveryToCartUseCase.Base(get(), get(), get())
+    }
+
+    single<OrdersChatsUseCase> {
+        OrdersChatsUseCase.Base(get(), get())
+    }
+
+    single { MessageSource(get(), get()) }
+
+    single { OrdersChatsSource(get(), get()) }
+
+    single<SendMessageUseCase> {
+        SendMessageUseCase.Base(get(), get())
     }
 }

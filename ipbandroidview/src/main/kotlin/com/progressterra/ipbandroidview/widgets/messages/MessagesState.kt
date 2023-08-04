@@ -1,16 +1,12 @@
 package com.progressterra.ipbandroidview.widgets.messages
 
 import androidx.compose.runtime.Immutable
+import androidx.paging.PagingData
+import com.progressterra.ipbandroidview.entities.Message
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 @Immutable
 data class MessagesState(
-    val items: List<Item> = emptyList()
-) {
-
-    @Immutable
-    data class Item(
-        val user: Boolean,
-        val content: String,
-        val date: String
-    )
-}
+    val items: Flow<PagingData<Message>> = emptyFlow()
+)
