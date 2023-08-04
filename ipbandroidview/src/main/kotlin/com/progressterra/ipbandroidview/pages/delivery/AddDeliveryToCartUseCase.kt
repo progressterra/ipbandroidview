@@ -2,15 +2,15 @@ package com.progressterra.ipbandroidview.pages.delivery
 
 import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.cart.models.IncomdeDataAddress
-import com.progressterra.ipbandroidview.entities.format
 import com.progressterra.ipbandroidview.entities.convertSuggestionToAddressUIModel
+import com.progressterra.ipbandroidview.entities.formatZDT
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.throwOnFailure
-import java.util.Date
+import java.time.ZonedDateTime
 
 interface AddDeliveryToCartUseCase {
 
@@ -27,7 +27,7 @@ interface AddDeliveryToCartUseCase {
                 suggestionUI?.let {
                     saveAddressUseCase(
                         it.suggestionExtendedInfo.convertSuggestionToAddressUIModel(
-                            Date().format()
+                            ZonedDateTime.now().formatZDT()
                         )
                     ).throwOnFailure()
                     cartRepository.addAddressToCart(

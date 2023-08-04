@@ -3,7 +3,8 @@ package com.progressterra.ipbandroidview.pages.confirmationcode
 import android.os.Build
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataForEndLogin
-import com.progressterra.ipbandroidview.entities.parseToDate
+import com.progressterra.ipbandroidview.entities.formatZDT
+import com.progressterra.ipbandroidview.entities.parseToZDT
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
@@ -42,7 +43,7 @@ interface EndVerificationChannelUseCase {
                         surname = it.soname ?: "",
                         patronymic = it.patronymic ?: ""
                     )
-                    UserData.dateOfBirthday = it.dateOfBirth?.parseToDate()?.time ?: 0L
+                    UserData.dateOfBirthday = it.dateOfBirth?.parseToZDT()?.formatZDT() ?: ""
                 }
                 info?.clientAdditionalInfo?.let {
                     UserData.email = it.eMailGeneral ?: ""

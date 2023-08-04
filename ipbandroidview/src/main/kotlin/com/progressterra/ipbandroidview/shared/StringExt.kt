@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.shared
 
 import androidx.core.util.PatternsCompat
 import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Locale
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 fun String.isEmail() = PatternsCompat.EMAIL_ADDRESS.matcher(this).matches()
 
@@ -22,19 +22,13 @@ fun String.toDate(): String {
 }
 
 fun String.isDate(): Boolean {
-    val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
+    val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
     return try {
-        format.parse(this)
+        ZonedDateTime.parse(this, formatter)
         true
     } catch (e: ParseException) {
         false
     }
-}
-
-fun String.toEpochMillis(): Long {
-    val format = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
-    val date = format.parse(this)
-    return date?.time ?: 0L
 }
 
 fun String.splitName(full: Boolean): List<String> {

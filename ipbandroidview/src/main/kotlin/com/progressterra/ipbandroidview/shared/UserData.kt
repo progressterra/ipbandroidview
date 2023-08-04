@@ -16,7 +16,7 @@ object UserData : KotprefModel() {
     var shippingAddress by gsonPref(AddressUI())
     var userName by gsonPref(UserName())
     var citizenship by gsonPref(Citizenship())
-    var dateOfBirthday by longPref()
+    var dateOfBirthday by stringPref()
 
     fun clearUser() {
         idUnique = DEFAULT_ID
@@ -26,7 +26,7 @@ object UserData : KotprefModel() {
         phone = ""
         email = ""
         userName = UserName()
-        dateOfBirthday = 0L
+        dateOfBirthday = ""
         shippingAddress = AddressUI()
     }
 }

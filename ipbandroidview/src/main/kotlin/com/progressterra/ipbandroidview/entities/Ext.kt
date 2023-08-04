@@ -17,8 +17,6 @@ import com.progressterra.ipbandroidapi.api.messenger.models.RGMessages
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
-import com.progressterra.ipbandroidapi.ext.orIfNull
-import com.progressterra.ipbandroidapi.ext.tryOrNull
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
@@ -28,13 +26,10 @@ import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
-import com.progressterra.ipbandroidview.shared.print
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 fun List<SimplePrice>.sum(): SimplePrice {
     var sum = SimplePrice()
@@ -52,7 +47,7 @@ fun DHSaleHeadAsOrderViewModel.toOrder() =
         id = idUnique!!,
         number = number ?: "",
         status = statusOrder ?: TypeStatusOrder.CANCELED,
-        date = dateAdded?.parseToDate()?.print() ?: "")
+        date = dateAdded?.parseToZDT()?.formatZDT("dd.MM.yyyy") ?: "")
 
 fun ProductView.toGoodsItem() = GoodsItem(
     id = nomenclature?.idUnique!!,
@@ -293,18 +288,17 @@ fun RGMessages.toMessage() = Message(
     id = idUnique!!,
     user = idClient!! == UserData.idUnique,
     content = contentText ?: "",
-    date = dateAdded?.parseToDate()?.format("dd.MM HH:mm") ?: ""
+    date = dateAdded?.parseToZDT()?.formatZDT("dd.MM HH:mm") ?: ""
 )
 
-private const val SERVER_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
-
-fun String.parseToDate(): Date? {
-    val sdf = SimpleDateFormat(SERVER_DATE_FORMAT, Locale.getDefault())
-    return tryOrNull { sdf.parse(this) }
+fun String.parseToZDT(pattern: String? = null): ZonedDateTime {
+    val formatter =
+        pattern?.let { DateTimeFormatter.ofPattern(pattern) } ?: DateTimeFormatter.ISO_DATE_TIME
+    return ZonedDateTime.parse(this, formatter)
 }
 
-fun Date.format(pattern: String = SERVER_DATE_FORMAT): String {
-    val sdf = SimpleDateFormat(pattern, Locale.getDefault())
-    sdf.timeZone = TimeZone.getDefault()
-    return sdf.format(this)
+fun ZonedDateTime.formatZDT(pattern: String? = null): String {
+    val formatter =
+        pattern?.let { DateTimeFormatter.ofPattern(pattern) } ?: DateTimeFormatter.ISO_DATE_TIME
+    return format(formatter)
 }

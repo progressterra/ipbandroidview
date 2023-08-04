@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.widgets.bonusestransactions
 
 import com.progressterra.ipbandroidapi.api.ibonus.IBonusRepository
-import com.progressterra.ipbandroidview.entities.format
-import com.progressterra.ipbandroidview.entities.parseToDate
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.formatZDT
+import com.progressterra.ipbandroidview.entities.parseToZDT
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
@@ -27,7 +27,7 @@ interface FetchBonusesTransactionsUseCase {
                 bonusesRepository.getTransactionsList(token).getOrThrow()?.map {
                     add(
                         BonusTransactionState(
-                            date = it.dateEvent?.parseToDate()?.format("dd.MM.yyyy") ?: noData,
+                            date = it.dateEvent?.parseToZDT()?.formatZDT("dd.MM.yyyy") ?: noData,
                             amount = it.quantity?.toInt()?.toString() ?: noData,
                             type = BonusTransactionType.BURNING
                         )

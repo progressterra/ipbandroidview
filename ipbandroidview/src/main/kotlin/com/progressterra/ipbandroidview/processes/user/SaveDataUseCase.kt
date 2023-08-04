@@ -3,15 +3,14 @@ package com.progressterra.ipbandroidview.processes.user
 import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
 import com.progressterra.ipbandroidapi.api.scrm.model.ClientDataIncome
 import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
-import com.progressterra.ipbandroidview.entities.format
+import com.progressterra.ipbandroidview.entities.formatZDT
+import com.progressterra.ipbandroidview.entities.parseToZDT
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.shared.splitName
-import com.progressterra.ipbandroidview.shared.toEpochMillis
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
-import java.util.Date
 
 interface SaveDataUseCase {
 
@@ -26,14 +25,15 @@ interface SaveDataUseCase {
             UserData.userName = UserName(
                 name = nameList[0], surname = nameList[1]
             )
-            UserData.dateOfBirthday = income.birthday.formatByType().toEpochMillis()
+            UserData.dateOfBirthday =
+                income.birthday.formatByType().parseToZDT("dd.MM.yyyy").formatZDT()
             UserData.phone = income.phone.formatByType()
             UserData.email = income.email.formatByType()
             scrmRepository.setPersonalInfo(
                 accessToken = token, request = ClientDataIncome(
                     name = nameList[0],
                     soname = nameList[1],
-                    dateOfBirth = Date(income.birthday.formatByType().toEpochMillis()).format()
+                    dateOfBirth = UserData.dateOfBirthday
                 )
             )
             scrmRepository.setEmail(
