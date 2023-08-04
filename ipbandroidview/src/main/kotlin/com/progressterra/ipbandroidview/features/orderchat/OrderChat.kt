@@ -59,10 +59,10 @@ fun OrderChat(
                         )
                     }
                 }
-                Messages(modifier = Modifier.height(200.dp), state = state.messagesState)
+                Messages(modifier = Modifier.height(200.dp), state = state.messagesState, messagesBackground = IpbTheme.colors.background.asBrush())
             }
             TextField(
-                modifier = modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 state = state.input,
                 useComponent = useComponent,
                 hint = stringResource(R.string.message),

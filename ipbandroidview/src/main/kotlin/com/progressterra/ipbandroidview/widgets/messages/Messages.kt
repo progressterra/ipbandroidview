@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
@@ -24,7 +25,8 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 @Composable
 fun Messages(
     modifier: Modifier = Modifier,
-    state: MessagesState
+    state: MessagesState,
+    messagesBackground: Brush
 ) {
 
     @Composable
@@ -45,7 +47,7 @@ fun Messages(
             Column(
                 modifier = modifier
                     .clip(RoundedCornerShape(12.dp))
-                    .background(IpbTheme.colors.surface.asBrush())
+                    .background(messagesBackground)
                     .padding(12.dp),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
                 horizontalAlignment = if (itemState.user) Alignment.End else Alignment.Start

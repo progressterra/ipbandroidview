@@ -65,6 +65,7 @@ fun SupportScreen(
             if (state.current.finite) {
                 Messages(
                     state = state.messages,
+                    messagesBackground = IpbTheme.colors.surface.asBrush()
                 )
             } else {
                 val lazyItems = state.current.subCategories.collectAsLazyPagingItems()
