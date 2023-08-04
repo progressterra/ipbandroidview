@@ -1,0 +1,3 @@
+package com.progressterra.ipbandroidview.features.orderchat
+
+object OrderChatEvent

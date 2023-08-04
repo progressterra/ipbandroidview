@@ -14,7 +14,7 @@ class WelcomeViewModel : BaseViewModel<WelcomeState, WelcomeEvent>(), UseWelcome
 
     override fun handle(event: ButtonEvent) {
         when (event.id) {
-            "next" -> postEffect(WelcomeEvent.OnAuth)
+            "auth" -> postEffect(WelcomeEvent.OnAuth)
             "skip" -> postEffect(WelcomeEvent.OnSkip)
         }
     }

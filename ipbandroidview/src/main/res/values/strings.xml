@@ -153,4 +153,8 @@
     <string name="added_to_cart">Добавлено в корзину</string>
     <string name="removed_from_cart">Удалено из корзины</string>
     <string name="added_to_favorites">Добавлено в избранное</string>
+    <string name="order_chat">Чат по заказу</string>
+    <string name="message">Сообщение</string>
+    <string name="close">Закрыть</string>
+    <string name="close_chat">Закрыть чат</string>
 </resources>

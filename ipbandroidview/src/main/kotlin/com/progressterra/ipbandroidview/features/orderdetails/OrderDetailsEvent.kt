@@ -1,3 +1,8 @@
 package com.progressterra.ipbandroidview.features.orderdetails
 
-object OrderDetailsEvent
+sealed class OrderDetailsEvent {
+
+    data object Tracking : OrderDetailsEvent()
+
+    data object Chat : OrderDetailsEvent()
+}

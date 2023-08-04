@@ -52,7 +52,7 @@ fun SupportScreen(
                         modifier = modifier.fillMaxWidth(),
                         state = state.input,
                         useComponent = useComponent,
-                        hint = stringResource(R.string.request),
+                        hint = stringResource(R.string.message),
                         actionIcon = R.drawable.ic_send
                     )
                 }

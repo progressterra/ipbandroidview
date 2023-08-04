@@ -54,22 +54,44 @@ fun OrderDetails(
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.title
                 )
-                if (state.status.canBeTracker()) {
+                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+
+                    if (state.status.canBeTracker()) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.spacedBy(2.dp)
+                        ) {
+                            IconButton(
+                                modifier = Modifier.size(24.dp),
+                                onClick = { useComponent.handle(OrderDetailsEvent.Tracking) }
+                            ) {
+                                BrushedIcon(
+                                    resId = R.drawable.ic_map,
+                                    tint = IpbTheme.colors.iconTertiary.asBrush()
+                                )
+                            }
+                            BrushedText(
+                                text = stringResource(R.string.track),
+                                tint = IpbTheme.colors.textTertiary.asBrush(),
+                                style = IpbTheme.typography.footnoteRegular
+                            )
+                        }
+                    }
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(2.dp)
                     ) {
                         IconButton(
                             modifier = Modifier.size(24.dp),
-                            onClick = { useComponent.handle(OrderDetailsEvent) }
+                            onClick = { useComponent.handle(OrderDetailsEvent.Chat) }
                         ) {
                             BrushedIcon(
-                                resId = R.drawable.ic_map,
+                                resId = R.drawable.ic_chat,
                                 tint = IpbTheme.colors.iconTertiary.asBrush()
                             )
                         }
                         BrushedText(
-                            text = stringResource(R.string.track),
+                            text = stringResource(R.string.order_chat),
                             tint = IpbTheme.colors.textTertiary.asBrush(),
                             style = IpbTheme.typography.footnoteRegular
                         )
