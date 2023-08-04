@@ -32,7 +32,7 @@ fun SupportChat(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
                 .background(IpbTheme.colors.surface.asBrush())
-                .niceClickable(state.finite) { useComponent.handle(SupportChatEvent(state)) }
+                .niceClickable { useComponent.handle(SupportChatEvent(state)) }
                 .padding(horizontal = 8.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -64,7 +64,7 @@ fun SupportChat(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
                 .background(IpbTheme.colors.surface.asBrush())
-                .niceClickable(state.finite) { useComponent.handle(SupportChatEvent(state)) }
+                .niceClickable { useComponent.handle(SupportChatEvent(state)) }
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween

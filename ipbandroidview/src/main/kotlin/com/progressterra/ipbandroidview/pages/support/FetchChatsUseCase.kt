@@ -2,12 +2,18 @@ package com.progressterra.ipbandroidview.pages.support
 
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidapi.api.messenger.MessengerRepository
+import com.progressterra.ipbandroidapi.api.messenger.models.FieldForFilter
+import com.progressterra.ipbandroidapi.api.messenger.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateDialog
+import com.progressterra.ipbandroidapi.api.messenger.models.SortData
+import com.progressterra.ipbandroidapi.api.messenger.models.TypeComparison
+import com.progressterra.ipbandroidapi.api.messenger.models.TypeVariantSort
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings.DEFAULT_ID
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings.DOCS_CHAT_ID
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings.MAIN_CHAT_ID
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings.WANT_THIS_CHAT_ID
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.toMessage
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -59,23 +65,86 @@ interface FetchChatsUseCase {
                     additionalDataJSON = ""
                 )
             ).getOrThrow()
+            val docsLastMessage = messengerRepository.messageList(
+                accessToken = token,
+                body = FilterAndSort(
+                    listFields = listOf(
+                        FieldForFilter(
+                            fieldName = "idDialog",
+                            listValue = listOf(docsDialog?.idUnique!!),
+                            comparison = TypeComparison.EQUALS_STRONG
+                        )
+                    ),
+                    sort = SortData(
+                        fieldName = "dateAdded",
+                        variantSort = TypeVariantSort.DESC
+                    ),
+                    searchData = "",
+                    skip = 0,
+                    take = 1
+                )
+            ).getOrThrow()?.lastOrNull()?.toMessage()
+            val wantThisLastMessage = messengerRepository.messageList(
+                accessToken = token,
+                body = FilterAndSort(
+                    listFields = listOf(
+                        FieldForFilter(
+                            fieldName = "idDialog",
+                            listValue = listOf(wantThisDialog?.idUnique!!),
+                            comparison = TypeComparison.EQUALS_STRONG
+                        )
+                    ),
+                    sort = SortData(
+                        fieldName = "dateAdded",
+                        variantSort = TypeVariantSort.DESC
+                    ),
+                    searchData = "",
+                    skip = 0,
+                    take = 1
+                )
+            ).getOrThrow()?.lastOrNull()?.toMessage()
+            val mainLastMessage = messengerRepository.messageList(
+                accessToken = token,
+                body = FilterAndSort(
+                    listFields = listOf(
+                        FieldForFilter(
+                            fieldName = "idDialog",
+                            listValue = listOf(mainDialog?.idUnique!!),
+                            comparison = TypeComparison.EQUALS_STRONG
+                        )
+                    ),
+                    sort = SortData(
+                        fieldName = "dateAdded",
+                        variantSort = TypeVariantSort.DESC
+                    ),
+                    searchData = "",
+                    skip = 0,
+                    take = 1
+                )
+            ).getOrThrow()?.lastOrNull()?.toMessage()
             val docs = SupportChatState(
-                id = docsDialog?.idUnique!!,
+                id = docsDialog.idUnique!!,
                 title = docsDialog.description ?: "",
                 iconRes = R.drawable.ic_chat_docs,
-                finite = true
+                finite = true,
+                lastMessage = docsLastMessage?.content ?: "",
+                lastTime = docsLastMessage?.date ?: ""
             )
             val main = SupportChatState(
-                id = mainDialog?.idUnique!!,
+                id = mainDialog.idUnique!!,
                 title = mainDialog.description ?: "",
                 iconRes = R.drawable.ic_chat_common,
-                finite = true
+                finite = true,
+                lastMessage = mainLastMessage?.content ?: "",
+                lastTime = mainLastMessage?.date ?: ""
             )
             val wantThis = SupportChatState(
-                id = wantThisDialog?.idUnique!!,
+                id = wantThisDialog.idUnique!!,
                 title = wantThisDialog.description ?: "",
                 iconRes = R.drawable.ic_chat_want_this,
-                finite = true
+                finite = true,
+                lastMessage = wantThisLastMessage?.content ?: "",
+                lastTime = wantThisLastMessage?.date ?: ""
             )
             val orders = SupportChatState(
                 id = "",
