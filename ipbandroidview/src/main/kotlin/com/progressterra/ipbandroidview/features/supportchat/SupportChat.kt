@@ -57,6 +57,12 @@ fun SupportChat(
                     )
                 }
             }
+            Spacer(modifier = Modifier.weight(1f))
+            BrushedText(
+                text = state.lastTime,
+                style = IpbTheme.typography.subHeadlineBold,
+                tint = IpbTheme.colors.textPrimary.asBrush()
+            )
         }
     } else {
         Row(
