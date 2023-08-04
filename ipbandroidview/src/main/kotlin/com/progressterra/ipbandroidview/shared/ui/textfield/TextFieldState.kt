@@ -34,7 +34,7 @@ data class TextFieldState(
     fun unFormatByType(data: String) = when (type) {
         TextInputType.PHONE_NUMBER -> copy(text = data.removePrefix("7"))
         TextInputType.DATE -> copy(text = data.replace(".", ""))
-        else -> this
+        else -> copy(text = data)
     }
 
     fun formatByType() = when (type) {

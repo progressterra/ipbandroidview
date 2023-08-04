@@ -37,11 +37,12 @@ fun OrderChat(
             Column(
                 modifier = Modifier
                     .clip(RoundedCornerShape(12.dp))
-                    .background(IpbTheme.colors.background.asBrush())
+                    .background(IpbTheme.colors.surface.asBrush())
                     .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Row(
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -58,19 +59,15 @@ fun OrderChat(
                         )
                     }
                 }
-                Messages(modifier = Modifier.height(300.dp), state = state.messagesState)
+                Messages(modifier = Modifier.height(200.dp), state = state.messagesState)
             }
-            Row(
-                modifier = modifier.padding(horizontal = 20.dp, vertical = 8.dp)
-            ) {
-                TextField(
-                    modifier = modifier.fillMaxWidth(),
-                    state = state.input,
-                    useComponent = useComponent,
-                    hint = stringResource(R.string.message),
-                    actionIcon = R.drawable.ic_send
-                )
-            }
+            TextField(
+                modifier = modifier.fillMaxWidth(),
+                state = state.input,
+                useComponent = useComponent,
+                hint = stringResource(R.string.message),
+                actionIcon = R.drawable.ic_send
+            )
         }
     }
 }

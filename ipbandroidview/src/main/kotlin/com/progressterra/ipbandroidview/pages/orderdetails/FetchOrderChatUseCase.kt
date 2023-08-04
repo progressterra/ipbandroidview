@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.orderdetails
 import com.progressterra.ipbandroidapi.api.messenger.MessengerRepository
 import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateDialog
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings.DEFAULT_ID
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -23,8 +24,9 @@ interface FetchOrderChatUseCase {
                 accessToken = token,
                 body = IncomeDataForCreateDialog(
                     listIDClients = listOf(
-                        IpbAndroidViewSettings.DOCS_CHAT_ID,
-                        orderId
+                        IpbAndroidViewSettings.ORDERS_CHAT_ID,
+                        orderId,
+                        DEFAULT_ID
                     ),
                     description = manageResources.string(R.string.order_chat),
                     additionalDataJSON = ""
