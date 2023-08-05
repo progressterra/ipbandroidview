@@ -20,7 +20,7 @@ abstract class AbstractSource<I, O : Any> : PagingSource<Int, O>() {
             return LoadResult.Page(
                 data = it,
                 prevKey = if (nextPage == 1) null else nextPage - 1,
-                nextKey = if (it.isEmpty()) null else nextPage + 1
+                nextKey = if (it.size < pageSize) null else nextPage + 1
             )
         }
         return LoadResult.Error(response.exceptionOrNull()!!)
