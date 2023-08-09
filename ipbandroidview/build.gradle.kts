@@ -108,13 +108,13 @@ dependencies {
     api("com.bumble.appyx:core:1.3.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.2.0"))
+    api(platform("com.google.firebase:firebase-bom:32.2.2"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
 
     // Google services
     api("com.google.android.gms:play-services-location:21.0.1")
-    api("com.google.maps.android:maps-compose:2.12.0")
+    api("com.google.maps.android:maps-compose:2.13.0")
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
@@ -125,14 +125,14 @@ dependencies {
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.3")
-    api("com.github.skydoves:landscapist-placeholder:2.2.3")
+    api("com.github.skydoves:landscapist-fresco:2.2.5")
+    api("com.github.skydoves:landscapist-placeholder:2.2.5")
 
     api("androidx.paging:paging-runtime-ktx:3.2.0")
     api("androidx.paging:paging-compose:3.2.0")
 
     // QR
-    api("com.google.zxing:core:3.5.1")
+    api("com.google.zxing:core:3.5.2")
 
     // HTML
     api("de.charlex.compose:html-text:1.4.1")
