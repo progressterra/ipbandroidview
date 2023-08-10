@@ -67,7 +67,7 @@ val pagesModule = module {
 
     viewModel { SignInViewModel(get(), get()) }
 
-    viewModel { SignUpViewModel(get(), get(), get()) }
+    viewModel { SignUpViewModel(get(), get()) }
 
     viewModel { MainViewModel(get(), get(), get(), get()) }
 
@@ -83,7 +83,7 @@ val pagesModule = module {
 
     viewModel { ProfileViewModel(get(), get(), get()) }
 
-    viewModel { ProfileDetailsViewModel(get(), get(), get()) }
+    viewModel { ProfileDetailsViewModel(get(), get()) }
 
     viewModel { OrderDetailsScreenViewModel(get(), get(), get(), get()) }
 

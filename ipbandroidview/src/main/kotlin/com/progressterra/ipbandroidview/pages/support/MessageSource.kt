@@ -20,7 +20,7 @@ class MessageSource(
 
     override suspend fun loadPage(skip: Int, take: Int): Result<List<Message>> = runCatching {
         val token = obtainAccessToken().getOrThrow()
-        messengerRepository.messageList(
+        messengerRepository.clientAreaMessageList(
             accessToken = token,
             body = FilterAndSort(
                 listFields = listOf(

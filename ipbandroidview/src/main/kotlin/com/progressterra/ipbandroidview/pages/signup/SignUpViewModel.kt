@@ -8,10 +8,8 @@ import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.widgets.edituser.EditUserValidUseCase
 
 class SignUpViewModel(
-    private val editUserValidUseCase: EditUserValidUseCase,
     private val saveDataUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase
 ) : BaseViewModel<SignUpState, SignUpEvent>(), UseSignUp {
@@ -38,7 +36,7 @@ class SignUpViewModel(
 
     override fun handle(event: ButtonEvent) = onBackground {
         when (event.id) {
-            "auth" -> saveDataUseCase(currentState.editUser).onSuccess {
+            "next" -> saveDataUseCase(currentState.editUser).onSuccess {
                 postEffect(SignUpEvent.OnNext)
             }
 
@@ -101,7 +99,8 @@ class SignUpViewModel(
 
 
     private fun valid() = onBackground {
-        val valid = editUserValidUseCase(currentState.editUser).isSuccess
+        val valid =
+            currentState.editUser.name.valid() && currentState.editUser.email.valid() && currentState.editUser.birthday.valid()
         emitState { it.copy(next = it.next.copy(enabled = valid)) }
     }
 }

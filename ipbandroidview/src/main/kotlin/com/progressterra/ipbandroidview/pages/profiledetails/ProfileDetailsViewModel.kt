@@ -10,12 +10,10 @@ import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.widgets.edituser.EditUserValidUseCase
 
 class ProfileDetailsViewModel(
     private val saveUseCase: SaveDataUseCase,
-    private val fetchUserUseCase: FetchUserUseCase,
-    private val editUserValidUseCase: EditUserValidUseCase
+    private val fetchUserUseCase: FetchUserUseCase
 ) : BaseViewModel<ProfileDetailsState, ProfileDetailsEvent>(), UseProfileDetails {
 
     override fun createInitialState() = ProfileDetailsState()
@@ -143,7 +141,8 @@ class ProfileDetailsViewModel(
 
     private fun valid() {
         onBackground {
-            val valid = editUserValidUseCase(currentState.editUser).isSuccess
+            val valid =
+                currentState.editUser.name.valid() && currentState.editUser.email.valid() && currentState.editUser.birthday.valid()
             emitState {
                 it.copy(
                     editButton = it.editButton.copy(
