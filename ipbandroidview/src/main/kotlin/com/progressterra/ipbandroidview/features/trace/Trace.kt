@@ -38,7 +38,7 @@ fun Trace(
             )
         }
         val scrollState = rememberScrollState()
-        LaunchedEffect(Unit) {
+        LaunchedEffect(state) {
             scrollState.scrollTo(scrollState.maxValue)
         }
         Row(
