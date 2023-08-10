@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.signin
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,6 +28,9 @@ class SignInNode(
                 is SignInEffect.Toast -> Toast.makeText(context, it.message, Toast.LENGTH_SHORT)
                     .show()
             }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.state.collectAsState().value
         SignInScreen(state = state, useComponent = viewModel)
