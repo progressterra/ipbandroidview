@@ -45,7 +45,8 @@ fun Trace(
                     modifier = Modifier.padding(horizontal = 4.dp),
                     text = trace.name,
                     style = IpbTheme.typography.title,
-                    tint = IpbTheme.colors.textPrimary.asBrush()
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
+                    maxLines = 1
                 )
                 BrushedIcon(
                     resId = R.drawable.ic_forw,
@@ -56,7 +57,8 @@ fun Trace(
                 modifier = Modifier.padding(horizontal = 4.dp),
                 text = state.current.name,
                 style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textPrimary.asBrush()
+                tint = IpbTheme.colors.textPrimary.asBrush(),
+                maxLines = 1
             )
         }
     }

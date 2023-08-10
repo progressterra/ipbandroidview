@@ -35,6 +35,7 @@ interface GoodsDetailsUseCase {
             val recommended =
                 if (goods.categoryId.isNotEmpty()) goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow() else emptyFlow()
             GoodsDetailsState(
+                id = goods.id,
                 description = GoodsDescriptionState(
                     name = goods.name,
                     description = goods.description,

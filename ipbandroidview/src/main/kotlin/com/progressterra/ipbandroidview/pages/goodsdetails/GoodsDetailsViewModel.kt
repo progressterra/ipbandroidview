@@ -39,7 +39,7 @@ class GoodsDetailsViewModel(
             goodsDetailsUseCase(currentState.id)
                 .onSuccess { details ->
                     emitState {
-                        details.copy(id = details.id, screenState = ScreenState.SUCCESS)
+                        details.copy(screenState = ScreenState.SUCCESS)
                     }
                 }
                 .onFailure {

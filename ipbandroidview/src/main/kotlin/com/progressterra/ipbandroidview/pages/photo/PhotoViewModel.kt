@@ -10,7 +10,7 @@ class PhotoViewModel : BaseViewModel<PhotoState, PhotoEvent>(), UsePhoto {
     fun setup(
         picture: String
     ) {
-        emitState { PhotoState(picture) }
+        emitState { it.copy(picture = picture) }
     }
 
     override fun handle(event: PhotoTopBarEvent) {
