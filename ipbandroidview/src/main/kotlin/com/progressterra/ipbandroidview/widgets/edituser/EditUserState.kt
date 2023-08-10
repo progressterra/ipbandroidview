@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 @Immutable
 data class EditUserState(
     val name: TextFieldState = TextFieldState(id = "name"),
-    val email: TextFieldState = TextFieldState(id = "email"),
+    val email: TextFieldState = TextFieldState(id = "email", type = TextInputType.EMAIL),
     val phone: TextFieldState = TextFieldState(
         id = "phone",
         type = TextInputType.PHONE_NUMBER
