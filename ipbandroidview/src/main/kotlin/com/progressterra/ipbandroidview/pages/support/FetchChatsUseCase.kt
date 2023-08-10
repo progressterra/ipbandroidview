@@ -65,7 +65,7 @@ interface FetchChatsUseCase {
                     additionalDataJSON = ""
                 )
             ).getOrThrow()
-            val docsLastMessage = messengerRepository.messageList(
+            val docsLastMessage = messengerRepository.clientAreaMessageList(
                 accessToken = token,
                 body = FilterAndSort(
                     listFields = listOf(
@@ -84,7 +84,7 @@ interface FetchChatsUseCase {
                     take = 1
                 )
             ).getOrThrow()?.lastOrNull()?.toMessage()
-            val wantThisLastMessage = messengerRepository.messageList(
+            val wantThisLastMessage = messengerRepository.clientAreaMessageList(
                 accessToken = token,
                 body = FilterAndSort(
                     listFields = listOf(
@@ -103,7 +103,7 @@ interface FetchChatsUseCase {
                     take = 1
                 )
             ).getOrThrow()?.lastOrNull()?.toMessage()
-            val mainLastMessage = messengerRepository.messageList(
+            val mainLastMessage = messengerRepository.clientAreaMessageList(
                 accessToken = token,
                 body = FilterAndSort(
                     listFields = listOf(
