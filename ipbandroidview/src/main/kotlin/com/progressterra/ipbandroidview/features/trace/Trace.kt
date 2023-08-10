@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.features.trace
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,14 +25,13 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 fun Trace(
     modifier: Modifier = Modifier, state: TraceState, useComponent: UseTrace
 ) {
-    Row(
+    Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(IpbTheme.colors.surface.asColor()),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(6.dp)
+            .background(IpbTheme.colors.surface.asColor())
     ) {
         IconButton(
+            modifier = Modifier.align(Alignment.CenterStart),
             onClick = { useComponent.handle(TraceEvent) }) {
             BrushedIcon(
                 resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
@@ -39,12 +39,13 @@ fun Trace(
         }
         val scrollState = rememberScrollState()
         LaunchedEffect(Unit) {
-            scrollState.animateScrollTo(scrollState.maxValue)
+            scrollState.scrollTo(scrollState.maxValue)
         }
         Row(
             modifier = Modifier
-                .horizontalScroll(scrollState)
-                .padding(vertical = 6.dp, horizontal = 40.dp),
+                .align(Alignment.Center)
+                .padding(vertical = 6.dp, horizontal = 40.dp)
+                .horizontalScroll(scrollState),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -85,13 +86,18 @@ private fun TracePreview() {
                         image = "https://www.google.com/#q=montes"
                     ), CatalogCardState(
                         id = "nunc 1",
-                        name = "Cory ",
+                        name = "Cory fdggdgdfg",
                         image = "https://www.google.com/#q=montes"
                     ), CatalogCardState(
                         id = "nunc 2",
-                        name = "Chang",
+                        name = "Changs wefwrefgerg",
                         image = "https://www.google.com/#q=montes"
                     )
+                ),
+                current = CatalogCardState(
+                    id = "nunc 1",
+                    name = "Cory fdggdgdfg",
+                    image = "https://www.google.com/#q=montes"
                 )
             ), useComponent = UseTrace.Empty()
         )
