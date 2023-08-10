@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.features.trace
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -25,12 +24,14 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 fun Trace(
     modifier: Modifier = Modifier, state: TraceState, useComponent: UseTrace
 ) {
-    Box(
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .background(IpbTheme.colors.surface.asColor())
+            .background(IpbTheme.colors.surface.asColor()),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        IconButton(modifier = Modifier.align(Alignment.CenterStart),
+        IconButton(
             onClick = { useComponent.handle(TraceEvent) }) {
             BrushedIcon(
                 resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
@@ -43,8 +44,7 @@ fun Trace(
         Row(
             modifier = Modifier
                 .horizontalScroll(scrollState)
-                .padding(vertical = 6.dp, horizontal = 40.dp)
-                .align(Alignment.Center),
+                .padding(vertical = 6.dp, horizontal = 40.dp),
             horizontalArrangement = Arrangement.spacedBy(6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
