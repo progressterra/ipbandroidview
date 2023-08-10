@@ -6,6 +6,7 @@ import androidx.core.text.isDigitsOnly
 import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidview.entities.Id
+import com.progressterra.ipbandroidview.shared.isEmail
 import com.progressterra.ipbandroidview.shared.isRussianPhoneNumberWithoutHeading
 import com.progressterra.ipbandroidview.shared.toDate
 import kotlinx.parcelize.Parcelize
@@ -44,11 +45,11 @@ data class TextFieldState(
     }
 
     fun valid() = when (type) {
-        TextInputType.DEFAULT -> true
         TextInputType.NUMBER -> text.isDigitsOnly()
         TextInputType.PHONE_NUMBER -> text.isRussianPhoneNumberWithoutHeading()
-        TextInputType.DATE -> text.isDigitsOnly()
-        TextInputType.CHAT -> true
+        TextInputType.DATE -> text.isDigitsOnly() && text.length == 8
+        TextInputType.EMAIL -> text.isEmail()
+        else -> true
     }
 
     companion object

@@ -14,6 +14,7 @@ enum class TextInputType {
     NUMBER,
     PHONE_NUMBER,
     DATE,
+    EMAIL,
     CHAT;
 
     fun toVisualTransformation() = when (this) {
@@ -30,11 +31,9 @@ enum class TextInputType {
     }
 
     fun toTypeValueCharacteristic() = when (this) {
-        DEFAULT -> TypeValueCharacteristic.AS_STRING
         NUMBER -> TypeValueCharacteristic.AS_NUMBER
-        PHONE_NUMBER -> TypeValueCharacteristic.AS_STRING
-        CHAT -> TypeValueCharacteristic.AS_STRING
         DATE -> TypeValueCharacteristic.AS_DATE_TIME
+        else -> TypeValueCharacteristic.AS_STRING
     }
 
     fun toAllowedChars() = when (this) {
