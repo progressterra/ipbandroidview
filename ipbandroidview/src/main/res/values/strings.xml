@@ -41,7 +41,6 @@
     <string name="merchant_info">Информация о товаре и продавце</string>
     <string name="pay">Оплатить</string>
     <string name="payment">Оплата</string>
-    <string name="receive_check">Получить чек на почту</string>
     <string name="will_burn">сгорит</string>
     <string name="bonuses">бонусов</string>
     <string name="bonuses_title">Бонусы</string>
@@ -70,10 +69,6 @@
     <string name="bonus_transaction_burning">Сгорание</string>
     <string name="bonus_transaction_receiving">Начисление</string>
     <string name="transaction_history">История транзакций</string>
-    <string name="city">Город</string>
-    <string name="home">Улица, дом</string>
-    <string name="entrance">Подъезд</string>
-    <string name="apartment">Квартира</string>
     <string name="processing">Оформление заказа</string>
     <string name="details">Детали</string>
     <string name="order_id">Номер заказа:</string>
@@ -85,13 +80,11 @@
     <string name="citizenship">Гражданство</string>
     <string name="change_data">Изменить данные</string>
     <string name="my_orders">Мои заказы</string>
-    <string name="delete_account">Удалить аккаунт</string>
     <string name="cancel">Отменить</string>
     <string name="passport_photo">Фото паспорта</string>
     <string name="similar_goods">Похожие товары</string>
     <string name="add_to_cart">Добавить в корзину</string>
     <string name="buy_with_installment">Купить в рассрочку</string>
-    <string name="request">Запрос</string>
     <string name="interests">Интересы</string>
     <string name="incoming_connections">входящих запросов на коннект</string>
     <string name="accepted_connections">Принятые запросы</string>
@@ -131,7 +124,6 @@
     <string name="want_this">Хочу это</string>
     <string name="past_requests">Предыдущие запросы</string>
     <string name="send_request">Отправить запрос</string>
-    <string name="recommended_goods">Рекомендованные товары</string>
     <string name="main_screen">Главная</string>
     <string name="catalog_screen">Каталог</string>
     <string name="cart_screen">Корзина</string>
@@ -149,12 +141,15 @@
     <string name="success">Успешно</string>
     <string name="failure">Ошибка!</string>
     <string name="price_for_you">Цена для вас:</string>
-    <string name="pull_for_update">Потяните вниз, чтобы обновить</string>
     <string name="added_to_cart">Добавлено в корзину</string>
     <string name="removed_from_cart">Удалено из корзины</string>
     <string name="added_to_favorites">Добавлено в избранное</string>
     <string name="order_chat">Чат по заказу</string>
     <string name="message">Сообщение</string>
-    <string name="close">Закрыть</string>
     <string name="close_chat">Закрыть чат</string>
+    <string name="main_card">Основная карта</string>
+    <string name="bank_cards">Банковские карты</string>
+    <string name="add_card">Добавить карту</string>
+    <string name="card_viewing">Просмотр карты</string>
+    <string name="card_adding">Добавление карты</string>
 </resources>
