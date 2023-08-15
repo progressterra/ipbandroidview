@@ -23,7 +23,9 @@ interface CatalogUseCase {
                 accessToken = it, filterAndSort = FilterAndSort(
                     listFields = emptyList(), sort = null, searchData = "", skip = 0, take = 1
                 )
-            ).getOrThrow()?.toCatalogCardState(manageResources) ?: CatalogCardState()
+            ).getOrThrow()?.toCatalogCardState { resId ->
+                manageResources.string(resId)
+            } ?: CatalogCardState()
         }
     }
 }

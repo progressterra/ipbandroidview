@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.pages.welcome
 
 sealed class WelcomeEvent {
 
-    object OnAuth : WelcomeEvent()
+    data object OnAuth : WelcomeEvent()
 
-    object OnSkip : WelcomeEvent()
+    data object OnSkip : WelcomeEvent()
 
-    object OnAlreadyAuth : WelcomeEvent()
+    data object OnAlreadyAuth : WelcomeEvent()
 }

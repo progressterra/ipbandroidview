@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.entities
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
+import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsState
@@ -33,13 +34,7 @@ data class Document(
     )
 
     fun toDocumentDetailsState(): DocumentDetailsState {
-        val canBeEdit = when (status) {
-            TypeStatusDoc.NOT_FILL -> true
-            TypeStatusDoc.WAIT_IMAGE -> true
-            TypeStatusDoc.WAIT_REVIEW -> false
-            TypeStatusDoc.REJECTED -> true
-            TypeStatusDoc.CONFIRMED -> false
-        }
+        val canBeEdit = status.toCanBeEdit()
         return DocumentDetailsState(
             id = id,
             docName = docName,
@@ -53,6 +48,13 @@ data class Document(
     }
 
     fun fromTemplateToReal(real: Document) = real.copy(
+        entries = entries,
+        photo = photo
+    )
+
+    fun toBankCardState() = BankCardState(
+        id = id,
+        number = docName,
         entries = entries,
         photo = photo
     )

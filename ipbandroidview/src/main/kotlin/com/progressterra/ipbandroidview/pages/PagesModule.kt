@@ -1,6 +1,11 @@
 package com.progressterra.ipbandroidview.pages
 
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
+import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenViewModel
+import com.progressterra.ipbandroidview.pages.bankcarddetails.FetchCardTemplateUseCase
+import com.progressterra.ipbandroidview.pages.bankcards.BankCardsScreenViewModel
+import com.progressterra.ipbandroidview.pages.bankcards.FetchBankCardsUseCase
+import com.progressterra.ipbandroidview.pages.bankcards.FetchMainCardIdUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
@@ -43,8 +48,6 @@ import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
 import com.progressterra.ipbandroidview.pages.support.FetchChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.pages.support.MessageSource
-import com.progressterra.ipbandroidview.pages.support.OrdersChatsSource
 import com.progressterra.ipbandroidview.pages.support.OrdersChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
 import com.progressterra.ipbandroidview.pages.support.SupportScreenViewModel
@@ -149,7 +152,7 @@ val pagesModule = module {
         CommentUseCase.Base(get(), get())
     }
 
-    single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get(), get()) }
+    single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get()) }
 
     viewModel { OrdersListViewModel(get()) }
 
@@ -189,10 +192,6 @@ val pagesModule = module {
         OrdersChatsUseCase.Base(get(), get())
     }
 
-    single { MessageSource(get(), get()) }
-
-    single { OrdersChatsSource(get(), get()) }
-
     single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get()) }
 
     single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get()) }
@@ -202,4 +201,14 @@ val pagesModule = module {
     single<FetchOrderChatUseCase> { FetchOrderChatUseCase.Base(get(), get(), get()) }
 
     viewModel { SupportScreenViewModel(get(), get(), get()) }
+
+    viewModel { BankCardDetailsScreenViewModel(get()) }
+
+    viewModel { BankCardsScreenViewModel(get()) }
+
+    single<FetchBankCardsUseCase> { FetchBankCardsUseCase.Base(get(), get(), get(), get(), get()) }
+
+    single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get()) }
+
+    single<FetchMainCardIdUseCase> { FetchMainCardIdUseCase.Base(get(), get()) }
 }

@@ -15,12 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toString
-import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -64,7 +63,7 @@ fun OrderTracking(
                 Spacer(modifier = Modifier.width(20.dp))
             }
             BrushedText(
-                text = itemState.toString(ManageResources.Base(LocalContext.current)),
+                text = itemState.toString { stringResource(id = it) },
                 tint = brush,
                 style = style
             )
@@ -84,7 +83,7 @@ fun OrderTracking(
                 verticalArrangement = Arrangement.spacedBy(2.dp)
             ) {
                 BrushedText(
-                    text = state.status.toString(ManageResources.Base(LocalContext.current)),
+                    text = state.status.toString { stringResource(id = it) },
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                     style = IpbTheme.typography.title
                 )

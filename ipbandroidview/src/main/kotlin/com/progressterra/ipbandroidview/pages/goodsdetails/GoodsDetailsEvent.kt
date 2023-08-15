@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 
 sealed class GoodsDetailsEvent {
 
-    object Back : GoodsDetailsEvent()
+    data object Back : GoodsDetailsEvent()
 
     class OpenImage(val image: String) : GoodsDetailsEvent()
 

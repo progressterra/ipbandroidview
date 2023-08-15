@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsSta
 
 sealed class DocumentsScreenEvent {
 
-    object Back : DocumentsScreenEvent()
+    data object Back : DocumentsScreenEvent()
 
     class OpenDocument(val item: DocumentDetailsState) : DocumentsScreenEvent()
 }

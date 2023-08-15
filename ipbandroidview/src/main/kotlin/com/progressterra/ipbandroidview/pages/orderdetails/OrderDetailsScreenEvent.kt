@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingStat
 
 sealed class OrderDetailsScreenEvent {
 
-    object Back : OrderDetailsScreenEvent()
+    data object Back : OrderDetailsScreenEvent()
 
     class OpenGoods(val goodsId: String) : OrderDetailsScreenEvent()
 

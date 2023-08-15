@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusState
 
 sealed class PaymentEvent {
 
-    object Back : PaymentEvent()
+    data object Back : PaymentEvent()
 
     class Next(val orderStatusState: OrderStatusState) : PaymentEvent()
 }

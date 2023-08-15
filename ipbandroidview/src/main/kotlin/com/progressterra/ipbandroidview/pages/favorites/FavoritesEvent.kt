@@ -4,5 +4,5 @@ sealed class FavoritesEvent {
 
     class GoodsDetails(val goodsId: String) : FavoritesEvent()
 
-    object Back : FavoritesEvent()
+    data object Back : FavoritesEvent()
 }

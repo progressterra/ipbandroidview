@@ -6,5 +6,5 @@ sealed class DocumentPhotoEvent {
 
     class Select(val image: MultisizedImage) : DocumentPhotoEvent()
 
-    object MakePhoto : DocumentPhotoEvent()
+    data object MakePhoto : DocumentPhotoEvent()
 }

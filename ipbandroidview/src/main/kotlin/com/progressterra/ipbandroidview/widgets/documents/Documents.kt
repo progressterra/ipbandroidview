@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Document
+import com.progressterra.ipbandroidview.entities.toColor
+import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -52,21 +54,9 @@ fun Documents(
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
                 BrushedText(
-                    text = when (itemState.status) {
-                        TypeStatusDoc.NOT_FILL -> stringResource(R.string.document_not_fill)
-                        TypeStatusDoc.WAIT_IMAGE -> stringResource(R.string.document_wait_image)
-                        TypeStatusDoc.WAIT_REVIEW -> stringResource(R.string.document_wait_review)
-                        TypeStatusDoc.REJECTED -> stringResource(R.string.document_rejected)
-                        TypeStatusDoc.CONFIRMED -> stringResource(R.string.document_confirmed)
-                    },
+                    text = itemState.status.toString { stringResource(id = it) },
                     style = IpbTheme.typography.footnoteRegular,
-                    tint = when (itemState.status) {
-                        TypeStatusDoc.NOT_FILL -> IpbTheme.colors.textTertiary.asBrush()
-                        TypeStatusDoc.WAIT_IMAGE -> IpbTheme.colors.textTertiary.asBrush()
-                        TypeStatusDoc.WAIT_REVIEW -> IpbTheme.colors.textTertiary.asBrush()
-                        TypeStatusDoc.REJECTED -> IpbTheme.colors.textPrimary2.asBrush()
-                        TypeStatusDoc.CONFIRMED -> IpbTheme.colors.onBackground.asBrush()
-                    }
+                    tint = itemState.status.toColor()
                 )
             }
             BrushedIcon(

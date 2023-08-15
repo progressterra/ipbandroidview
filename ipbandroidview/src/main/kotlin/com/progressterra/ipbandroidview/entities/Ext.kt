@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.entities
 
+import androidx.compose.runtime.Composable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.progressterra.ipbandroidapi.api.address.models.RGAddress
@@ -23,8 +24,8 @@ import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.shared.CreateId
-import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import java.time.ZoneId
@@ -69,17 +70,18 @@ fun ProductView.toGoodsItem() = GoodsItem(
     count = countInCart ?: 0
 )
 
-fun TypeStatusOrder.toString(manageResources: ManageResources) = when (this) {
-    TypeStatusOrder.ORDER -> manageResources.string(R.string.order_confirmed)
-    TypeStatusOrder.CONFIRM_FROM_STORE -> manageResources.string(R.string.order_confirm_from_store)
-    TypeStatusOrder.CONFIRM_FROM_CALL_CENTER -> manageResources.string(R.string.order_confirm_from_call_center)
-    TypeStatusOrder.SENT_TO_WAREHOUSE -> manageResources.string(R.string.order_sent_to_warehouse)
-    TypeStatusOrder.SENT_DELIVERY_SERVICE -> manageResources.string(R.string.order_sent_delivery_service)
-    TypeStatusOrder.ON_PICK_UP_POINT -> manageResources.string(R.string.order_on_pick_point)
-    TypeStatusOrder.DELIVERED -> manageResources.string(R.string.order_delivered)
-    TypeStatusOrder.CANCELED -> manageResources.string(R.string.order_canceled)
-    TypeStatusOrder.ONE_CLICK -> manageResources.string(R.string.one_click)
-    TypeStatusOrder.CART -> manageResources.string(R.string.cart)
+@Composable
+fun TypeStatusOrder.toString(stringResource: @Composable (Int) -> String) = when (this) {
+    TypeStatusOrder.ORDER -> stringResource(R.string.order_confirmed)
+    TypeStatusOrder.CONFIRM_FROM_STORE -> stringResource(R.string.order_confirm_from_store)
+    TypeStatusOrder.CONFIRM_FROM_CALL_CENTER -> stringResource(R.string.order_confirm_from_call_center)
+    TypeStatusOrder.SENT_TO_WAREHOUSE -> stringResource(R.string.order_sent_to_warehouse)
+    TypeStatusOrder.SENT_DELIVERY_SERVICE -> stringResource(R.string.order_sent_delivery_service)
+    TypeStatusOrder.ON_PICK_UP_POINT -> stringResource(R.string.order_on_pick_point)
+    TypeStatusOrder.DELIVERED -> stringResource(R.string.order_delivered)
+    TypeStatusOrder.CANCELED -> stringResource(R.string.order_canceled)
+    TypeStatusOrder.ONE_CLICK -> stringResource(R.string.one_click)
+    TypeStatusOrder.CART -> stringResource(R.string.cart)
 }
 
 fun SuggestionExtendedInfo.convertSuggestionToAddressUIModel(time: String) = AddressUI(
@@ -275,13 +277,13 @@ fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(
     price = SimplePrice(amountEndPrice?.toInt() ?: 0)
 )
 
-fun CatalogItem.toCatalogCardState(manageResources: ManageResources): CatalogCardState {
-    val noData = manageResources.string(R.string.no_data)
+fun CatalogItem.toCatalogCardState(stringResource: (Int) -> String): CatalogCardState {
+    val noData = stringResource(R.string.no_data)
     return CatalogCardState(
         id = itemCategory?.idUnique!!,
         name = itemCategory?.name ?: noData,
         image = itemCategory?.imageData?.urlData ?: "",
-        children = listChildItems?.map { it.toCatalogCardState(manageResources) } ?: emptyList()
+        children = listChildItems?.map { it.toCatalogCardState(stringResource) } ?: emptyList()
     )
 }
 
@@ -309,4 +311,31 @@ fun ZonedDateTime.formatZdt(pattern: String): String {
 fun ZonedDateTime.formatZdtIso(): String {
     val formatter = DateTimeFormatter.ISO_DATE_TIME
     return format(formatter)
+}
+
+@Composable
+fun TypeStatusDoc.toString(stringResource: @Composable (Int) -> String) = when (this) {
+    TypeStatusDoc.NOT_FILL -> stringResource(R.string.document_not_fill)
+    TypeStatusDoc.WAIT_IMAGE -> stringResource(R.string.document_wait_image)
+    TypeStatusDoc.WAIT_REVIEW -> stringResource(R.string.document_wait_review)
+    TypeStatusDoc.REJECTED -> stringResource(R.string.document_rejected)
+    TypeStatusDoc.CONFIRMED -> stringResource(R.string.document_confirmed)
+}
+
+@Composable
+fun TypeStatusDoc.toColor() = when (this) {
+    TypeStatusDoc.NOT_FILL -> IpbTheme.colors.textTertiary.asBrush()
+    TypeStatusDoc.WAIT_IMAGE -> IpbTheme.colors.textTertiary.asBrush()
+    TypeStatusDoc.WAIT_REVIEW -> IpbTheme.colors.textTertiary.asBrush()
+    TypeStatusDoc.REJECTED -> IpbTheme.colors.textPrimary2.asBrush()
+    TypeStatusDoc.CONFIRMED -> IpbTheme.colors.onBackground.asBrush()
+}
+
+
+fun TypeStatusDoc.toCanBeEdit() = when (this) {
+    TypeStatusDoc.NOT_FILL -> true
+    TypeStatusDoc.WAIT_IMAGE -> true
+    TypeStatusDoc.WAIT_REVIEW -> false
+    TypeStatusDoc.REJECTED -> true
+    TypeStatusDoc.CONFIRMED -> false
 }

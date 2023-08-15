@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.features.favoritebutton
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun FavoriteButton(
     modifier: Modifier = Modifier, state: FavoriteButtonState, useComponent: UseFavoriteButton

@@ -2,17 +2,17 @@ package com.progressterra.ipbandroidview.pages.profile
 
 sealed class ProfileEvent {
 
-    object Logout : ProfileEvent()
+    data object Logout : ProfileEvent()
 
-    object Orders : ProfileEvent()
+    data object Orders : ProfileEvent()
 
-    object Favorites : ProfileEvent()
+    data object Favorites : ProfileEvent()
 
-    object Support : ProfileEvent()
+    data object Support : ProfileEvent()
 
-    object Auth : ProfileEvent()
+    data object Auth : ProfileEvent()
 
-    object Details : ProfileEvent()
+    data object Details : ProfileEvent()
 
-    object Documents : ProfileEvent()
+    data object Documents : ProfileEvent()
 }

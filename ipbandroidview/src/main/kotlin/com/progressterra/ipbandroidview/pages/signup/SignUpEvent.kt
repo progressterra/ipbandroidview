@@ -2,11 +2,11 @@ package com.progressterra.ipbandroidview.pages.signup
 
 sealed class SignUpEvent {
 
-    object OnNext : SignUpEvent()
+    data object OnNext : SignUpEvent()
 
-    object OnSkip : SignUpEvent()
+    data object OnSkip : SignUpEvent()
 
-    object OnBack : SignUpEvent()
+    data object OnBack : SignUpEvent()
 
     class OpenPhoto(val photo: String) : SignUpEvent()
 }

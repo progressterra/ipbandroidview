@@ -2,9 +2,9 @@ package com.progressterra.ipbandroidview.pages.pfppicker
 
 sealed class PfpPickerScreenEvent {
 
-    object Next : PfpPickerScreenEvent()
+    data object Next : PfpPickerScreenEvent()
 
-    object Back : PfpPickerScreenEvent()
+    data object Back : PfpPickerScreenEvent()
 
-    object Skip : PfpPickerScreenEvent()
+    data object Skip : PfpPickerScreenEvent()
 }

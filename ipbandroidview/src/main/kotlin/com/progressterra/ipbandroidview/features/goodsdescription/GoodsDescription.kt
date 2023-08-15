@@ -39,7 +39,7 @@ import kotlinx.coroutines.launch
 fun GoodsDescription(
     modifier: Modifier = Modifier, state: GoodsDescriptionState, useComponent: UseGoodsDescription
 ) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState { 3 }
     val tabs = listOf(
         stringResource(id = R.string.description),
         stringResource(id = R.string.parameters),
@@ -83,7 +83,7 @@ fun GoodsDescription(
             }
         }
         HorizontalPager(
-            state = pagerState, pageCount = tabs.size,
+            state = pagerState,
             contentPadding = PaddingValues(horizontal = 20.dp),
             pageSpacing = 20.dp,
             verticalAlignment = Alignment.Top

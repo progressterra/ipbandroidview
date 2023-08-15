@@ -40,6 +40,7 @@ fun Bonuses(
 ) {
     var rotated by remember { mutableStateOf(false) }
     val animateColor by animateColorAsState(
+        label = "bonuses color",
         targetValue = if (rotated) IpbTheme.colors.surface.asColor() else IpbTheme.colors.secondaryPressed.asColor(),
         animationSpec = tween(500)
     )

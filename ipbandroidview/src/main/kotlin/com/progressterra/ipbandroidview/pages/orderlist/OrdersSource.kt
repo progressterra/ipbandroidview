@@ -21,7 +21,7 @@ class OrdersSource(
             cartRepository.orders(
                 accessToken = obtainAccessToken().getOrThrow(), income = FilterAndSort(
                     listFields = emptyList(), sort = SortData(
-                        fieldName = "dateUpdated", variantSort = TypeVariantSort.DESC
+                        fieldName = "dateAdded", variantSort = TypeVariantSort.DESC
                     ), searchData = "", skip = skip, take = take
                 )
             ).getOrThrow()?.map {

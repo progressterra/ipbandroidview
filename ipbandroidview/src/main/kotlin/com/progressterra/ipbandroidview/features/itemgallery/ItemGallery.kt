@@ -28,13 +28,12 @@ fun ItemGallery(
     state: ItemGalleryState,
     useComponent: UseItemGallery
 ) {
-    val pagerState = rememberPagerState()
+    val pagerState = rememberPagerState { state.images.size }
     Box(modifier = modifier) {
         HorizontalPager(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(1f),
-            pageCount = state.images.size,
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 20.dp),
             pageSpacing = 20.dp

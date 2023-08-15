@@ -6,7 +6,7 @@ sealed class SignInEffect {
 
     class Next(val phoneNumber: String) : SignInEffect()
 
-    object Skip : SignInEffect()
+    data object Skip : SignInEffect()
 
     class Toast(@StringRes val message: Int) : SignInEffect()
 }
