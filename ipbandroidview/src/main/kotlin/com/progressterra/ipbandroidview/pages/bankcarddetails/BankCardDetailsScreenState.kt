@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.pages.bankcarddetails
 
 import androidx.compose.runtime.Immutable
+import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.shared.IsEmpty
@@ -15,10 +17,20 @@ data class BankCardDetailsScreenState(
     val photo: DocumentPhotoState = DocumentPhotoState(),
     val apply: ButtonState = ButtonState(id = "apply"),
     val canBeEdited: Boolean = true,
+    val number: String = "",
     val isMainCard: Boolean = false,
+    val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,
     val isNew: Boolean = false,
     val screen: ScreenState = ScreenState.LOADING
 ) : Id, IsEmpty {
 
     override fun isEmpty(): Boolean = this == BankCardDetailsScreenState()
+
+    fun toDocument() = Document(
+        id = id,
+        status = status,
+        name = number,
+        entries = entries,
+        photo = photo
+    )
 }

@@ -13,7 +13,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DocumentDetailsState(
     override val id: String = "",
-    val docName: String = "",
+    val name: String = "",
     val entries: List<TextFieldState> = emptyList(),
     val photo: DocumentPhotoState = DocumentPhotoState(),
     val apply: ButtonState = ButtonState(id = "apply"),
@@ -22,7 +22,7 @@ data class DocumentDetailsState(
 
     fun toDocument() = Document(
         id = id,
-        docName = docName,
+        name = name,
         entries = entries,
         photo = photo
     )

@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 data class BankCardState(
     override val id: String = "",
     val isMainCard: Boolean = false,
-    val number: String = "",
+    val name: String = "",
     val entries: List<TextFieldState> = emptyList(),
     val photo: DocumentPhotoState = DocumentPhotoState(),
     val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL

@@ -47,7 +47,7 @@ fun Card(
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
                 BrushedText(
-                    text = state.number,
+                    text = state.name,
                     style = IpbTheme.typography.subHeadlineRegular,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )

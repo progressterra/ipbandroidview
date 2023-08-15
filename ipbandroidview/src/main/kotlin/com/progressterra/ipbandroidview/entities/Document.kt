@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 data class Document(
     override val id: String = "",
     val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,
-    val docName: String = "",
+    val name: String = "",
     val entries: List<TextFieldState> = emptyList(),
     val photo: DocumentPhotoState = DocumentPhotoState(),
     val additionalValue: String = ""
@@ -37,7 +37,7 @@ data class Document(
         val canBeEdit = status.toCanBeEdit()
         return DocumentDetailsState(
             id = id,
-            docName = docName,
+            name = name,
             canBeEdit = canBeEdit,
             entries = entries.map { it.copy(enabled = canBeEdit) },
             photo = photo.copy(enabled = canBeEdit),
@@ -54,7 +54,7 @@ data class Document(
 
     fun toBankCardState() = BankCardState(
         id = id,
-        number = docName,
+        name = name,
         entries = entries,
         photo = photo
     )

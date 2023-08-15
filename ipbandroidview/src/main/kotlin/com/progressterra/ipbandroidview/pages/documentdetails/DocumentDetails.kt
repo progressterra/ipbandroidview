@@ -29,7 +29,7 @@ fun DocumentDetails(
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
-            title = state.docName,
+            title = state.name,
             showBackButton = true,
             useComponent = useComponent
         )

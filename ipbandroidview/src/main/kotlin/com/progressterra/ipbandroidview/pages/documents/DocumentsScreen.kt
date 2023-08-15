@@ -60,13 +60,13 @@ private fun DocumentsScreenPreview() {
         documents = DocumentsState(
             listOf(
                 Document(
-                    docName = "Passport",
+                    name = "Passport",
                     status = TypeStatusDoc.CONFIRMED,
                     id = "",
                     entries = emptyList(),
                     photo = DocumentPhotoState()
                 ), Document(
-                    docName = "Passport",
+                    name = "Passport",
                     status = TypeStatusDoc.NOT_FILL,
                     id = "",
                     entries = emptyList(),

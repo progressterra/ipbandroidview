@@ -181,7 +181,7 @@ fun RGAddress.toAddressUiModel() = AddressUI(
 
 fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
     Document(status = characteristicValue?.statusDoc ?: TypeStatusDoc.NOT_FILL,
-        docName = characteristicType?.name ?: "",
+        name = characteristicType?.name ?: "",
         id = characteristicValue?.idUnique!!,
         entries = (characteristicValue?.valueAsJSON?.let {
             gson.fromJson<List<FieldData>?>(
@@ -214,7 +214,7 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
 
 fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
     Document(status = statusDoc ?: TypeStatusDoc.NOT_FILL,
-        docName = characteristicType?.name ?: "",
+        name = characteristicType?.name ?: "",
         id = idUnique!!,
         entries = (valueAsJSON?.let {
             gson.fromJson<List<FieldData>?>(
@@ -247,7 +247,7 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
 
 fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
     Document(
-        docName = name ?: "",
+        name = name ?: "",
         entries = (dataInJSON?.let {
             gson.fromJson<List<FieldData>?>(
                 it, object : TypeToken<List<FieldData>>() {}.type

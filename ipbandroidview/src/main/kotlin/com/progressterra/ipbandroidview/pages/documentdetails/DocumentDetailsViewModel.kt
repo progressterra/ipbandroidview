@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.documentdetails
 import android.Manifest
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.docs.ValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
@@ -58,7 +59,7 @@ class DocumentDetailsViewModel(
 
     private fun validation() {
         onBackground {
-            val valid = validationUseCase(currentState)
+            val valid = validationUseCase(currentState.toDocument())
             emitState {
                 it.copy(apply = it.apply.copy(enabled = valid.isSuccess))
             }

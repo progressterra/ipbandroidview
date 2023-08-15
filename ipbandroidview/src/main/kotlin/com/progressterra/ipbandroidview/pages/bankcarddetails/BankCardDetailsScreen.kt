@@ -3,10 +3,9 @@ package com.progressterra.ipbandroidview.pages.bankcarddetails
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -56,24 +55,40 @@ fun BankCardDetailsScreen(
                 }
             }
         }) { _, _ ->
-        LazyColumn(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            items(state.entries) {
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = it,
-                    useComponent = useComponent
-                )
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .padding(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                state.entries.take(2).forEach {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = it,
+                        useComponent = useComponent,
+                        backgroundColor = IpbTheme.colors.background.asColor()
+                    )
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    state.entries.takeLast(2).forEach {
+                        TextField(
+                            modifier = Modifier.weight(1f),
+                            state = it,
+                            useComponent = useComponent,
+                            backgroundColor = IpbTheme.colors.background.asColor()
+                        )
+                    }
+                }
             }
-            item {
-                DocumentPhoto(
-                    state = state.photo,
-                    useComponent = useComponent
-                )
-            }
+            DocumentPhoto(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                state = state.photo,
+                useComponent = useComponent
+            )
         }
     }
 }

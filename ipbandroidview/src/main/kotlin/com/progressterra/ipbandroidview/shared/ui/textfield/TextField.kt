@@ -30,6 +30,7 @@ fun TextField(
     useComponent: UseTextField,
     hint: String = "",
     singleLine: Boolean = true,
+    backgroundColor: Color = IpbTheme.colors.surface.asColor(),
     actionIcon: Int? = null
 ) {
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
@@ -105,7 +106,7 @@ fun TextField(
         },
         colors = TextFieldDefaults.textFieldColors(
             //Background
-            backgroundColor = IpbTheme.colors.surface.asColor(),
+            backgroundColor = backgroundColor,
             //Placeholder
             placeholderColor = IpbTheme.colors.textSecondary.asColor(),
             disabledPlaceholderColor = IpbTheme.colors.textDisabled.asColor(),

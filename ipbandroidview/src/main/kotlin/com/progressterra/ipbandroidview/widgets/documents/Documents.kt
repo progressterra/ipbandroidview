@@ -49,7 +49,7 @@ fun Documents(
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 BrushedText(
-                    text = itemState.docName,
+                    text = itemState.name,
                     style = IpbTheme.typography.body,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
@@ -85,27 +85,27 @@ private fun DocumentsPreview() {
                 items = listOf(
                     Document(
                         id = "",
-                        docName = "Passport 1",
+                        name = "Passport 1",
                         status = TypeStatusDoc.REJECTED
                     ),
                     Document(
                         id = "",
-                        docName = "Passport 2",
+                        name = "Passport 2",
                         status = TypeStatusDoc.NOT_FILL
                     ),
                     Document(
                         id = "",
-                        docName = "Passport 3",
+                        name = "Passport 3",
                         status = TypeStatusDoc.WAIT_REVIEW
                     ),
                     Document(
                         id = "",
-                        docName = "Passport 4",
+                        name = "Passport 4",
                         status = TypeStatusDoc.WAIT_IMAGE
                     ),
                     Document(
                         id = "",
-                        docName = "Passport 5",
+                        name = "Passport 5",
                         status = TypeStatusDoc.CONFIRMED
                     )
                 )

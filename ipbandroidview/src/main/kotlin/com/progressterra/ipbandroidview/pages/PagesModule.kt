@@ -21,7 +21,6 @@ import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import com.progressterra.ipbandroidview.pages.delivery.FetchShippingAddressUseCase
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
-import com.progressterra.ipbandroidview.pages.documentdetails.ValidationUseCase
 import com.progressterra.ipbandroidview.pages.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
@@ -144,8 +143,6 @@ val pagesModule = module {
 
     viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get()) }
 
-    single<ValidationUseCase> { ValidationUseCase.Base() }
-
     single<DocumentsNotificationUseCase> { DocumentsNotificationUseCase.Base(get(), get()) }
 
     single<CommentUseCase> {
@@ -202,7 +199,7 @@ val pagesModule = module {
 
     viewModel { SupportScreenViewModel(get(), get(), get()) }
 
-    viewModel { BankCardDetailsScreenViewModel(get()) }
+    viewModel { BankCardDetailsScreenViewModel(get(), get(), get(), get(), get(), get()) }
 
     viewModel { BankCardsScreenViewModel(get()) }
 
