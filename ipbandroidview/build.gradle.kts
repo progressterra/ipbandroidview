@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         minSdk = 26
-        compileSdk = 33
+        compileSdk = 34
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -84,12 +84,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.7.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.4.3")
-    api("androidx.compose.ui:ui-util:1.4.3")
-    api("androidx.compose.ui:ui-tooling:1.4.3")
-    api("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    api("androidx.compose.foundation:foundation:1.4.3")
-    api("androidx.compose.material:material:1.4.3")
+    api("androidx.compose.ui:ui:1.5.0")
+    api("androidx.compose.ui:ui-util:1.5.0")
+    api("androidx.compose.ui:ui-tooling:1.5.0")
+    api("androidx.compose.ui:ui-tooling-preview:1.5.0")
+    api("androidx.compose.foundation:foundation:1.5.0")
+    api("androidx.compose.material:material:1.5.0")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Koin, DI library
@@ -125,8 +125,8 @@ dependencies {
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.5")
-    api("com.github.skydoves:landscapist-placeholder:2.2.5")
+    api("com.github.skydoves:landscapist-fresco:2.2.6")
+    api("com.github.skydoves:landscapist-placeholder:2.2.6")
 
     api("androidx.paging:paging-runtime-ktx:3.2.0")
     api("androidx.paging:paging-compose:3.2.0")
