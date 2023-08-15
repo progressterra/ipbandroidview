@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCa
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
+import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.docs.FetchDocTemplateUseCase
 import com.progressterra.ipbandroidview.processes.docs.ValidationUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
@@ -125,4 +126,14 @@ val processesModule = module {
     }
 
     single<FetchDocTemplateUseCase> { FetchDocTemplateUseCase.Base(get(), get(), get(), get()) }
+
+    single<CreateAndSaveDocUseCase> {
+        CreateAndSaveDocUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 }

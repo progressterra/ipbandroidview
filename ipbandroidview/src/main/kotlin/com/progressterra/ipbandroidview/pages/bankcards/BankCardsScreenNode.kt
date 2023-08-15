@@ -9,6 +9,7 @@ import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenState
 import org.koin.androidx.compose.getViewModel
 
+@Suppress("unused")
 class BankCardsScreenNode(
     buildContext: BuildContext,
     private val onBack: () -> Unit,

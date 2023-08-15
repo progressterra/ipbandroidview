@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.widgets
 
-import com.progressterra.ipbandroidview.pages.wantthis.CreateWantThisRequestUseCase
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
@@ -26,10 +25,6 @@ val widgetsModule = module {
 
     single<FetchOffersUseCase> {
         FetchOffersUseCase.Base(get(), get(), get(), get())
-    }
-
-    single<CreateWantThisRequestUseCase> {
-        CreateWantThisRequestUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get()) }

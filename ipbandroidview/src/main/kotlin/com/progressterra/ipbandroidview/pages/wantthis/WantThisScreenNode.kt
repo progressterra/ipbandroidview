@@ -27,9 +27,12 @@ class WantThisScreenNode(
                 is WantThisScreenEvent.Back -> onBack()
                 is WantThisScreenEvent.Requests -> onRequests()
                 is WantThisScreenEvent.OpenPhoto -> onPhoto(it.url)
-                is WantThisScreenEvent.Toast -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                }
+                is WantThisScreenEvent.Toast -> Toast.makeText(
+                    context,
+                    it.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
             }
         }
         LaunchedEffect(Unit) {

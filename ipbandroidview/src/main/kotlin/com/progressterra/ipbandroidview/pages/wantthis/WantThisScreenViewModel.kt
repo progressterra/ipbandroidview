@@ -1,10 +1,12 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
 import android.Manifest
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
@@ -20,7 +22,7 @@ class WantThisScreenViewModel(
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
-    private val createWantThisRequestUseCase: CreateWantThisRequestUseCase
+    private val createAndSaveDocUseCase: CreateAndSaveDocUseCase
 ) : BaseViewModel<WantThisScreenState, WantThisScreenEvent>(), UseWantThisScreen {
 
     override fun createInitialState() = WantThisScreenState()
@@ -47,7 +49,10 @@ class WantThisScreenViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "send" -> createWantThisRequestUseCase(currentState.toDocument()).onSuccess {
+                "send" -> createAndSaveDocUseCase(
+                    currentState.toDocument(),
+                    IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID
+                ).onSuccess {
                     postEffect(WantThisScreenEvent.Toast(R.string.success))
                     postEffect(WantThisScreenEvent.Back)
                 }.onFailure {

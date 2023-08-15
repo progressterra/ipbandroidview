@@ -1,9 +1,8 @@
-package com.progressterra.ipbandroidview.pages.wantthis
+package com.progressterra.ipbandroidview.processes.docs
 
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
 import com.progressterra.ipbandroidapi.api.documents.models.IncnomeDataCreateCharValue
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
@@ -12,9 +11,9 @@ import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 
-interface CreateWantThisRequestUseCase {
+interface CreateAndSaveDocUseCase {
 
-    suspend operator fun invoke(data: Document): Result<Unit>
+    suspend operator fun invoke(data: Document, typeId: String): Result<Unit>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -22,14 +21,15 @@ interface CreateWantThisRequestUseCase {
         private val createId: CreateId,
         private val documentsRepository: DocumentsRepository,
         private val saveDocumentsUseCase: SaveDocumentsUseCase
-    ) : CreateWantThisRequestUseCase, AbstractTokenUseCase(obtainAccessToken) {
+    ) : CreateAndSaveDocUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
-        override suspend fun invoke(data: Document): Result<Unit> = withToken { token ->
-            val realDoc = documentsRepository.createDoc(
-                accessToken = token,
-                income = IncnomeDataCreateCharValue(IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID)
-            ).getOrThrow()?.toDocument(gson = gson, createId = createId)!!
-            saveDocumentsUseCase(data.fromTemplateToReal(realDoc)).throwOnFailure()
-        }
+        override suspend fun invoke(data: Document, typeId: String): Result<Unit> =
+            withToken { token ->
+                val realDoc = documentsRepository.createDoc(
+                    accessToken = token,
+                    income = IncnomeDataCreateCharValue(typeId)
+                ).getOrThrow()?.toDocument(gson = gson, createId = createId)!!
+                saveDocumentsUseCase(data.fromTemplateToReal(realDoc)).throwOnFailure()
+            }
     }
 }

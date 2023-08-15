@@ -199,7 +199,7 @@ val pagesModule = module {
 
     viewModel { SupportScreenViewModel(get(), get(), get()) }
 
-    viewModel { BankCardDetailsScreenViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { BankCardDetailsScreenViewModel(get(), get(), get(), get(), get(), get(), get()) }
 
     viewModel { BankCardsScreenViewModel(get()) }
 

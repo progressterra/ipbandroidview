@@ -1,9 +1,12 @@
 package com.progressterra.ipbandroidview.pages.bankcarddetails
 
 import android.Manifest
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.docs.ValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
@@ -19,7 +22,8 @@ class BankCardDetailsScreenViewModel(
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
-    private val validationUseCase: ValidationUseCase
+    private val validationUseCase: ValidationUseCase,
+    private val createAndSaveDocUseCase: CreateAndSaveDocUseCase
 ) : UseBankCardDetailsScreen,
     BaseViewModel<BankCardDetailsScreenState, BankCardDetailsScreenEvent>() {
 
@@ -79,8 +83,23 @@ class BankCardDetailsScreenViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "apply" -> saveDocumentsUseCase(currentState.toDocument()).onSuccess {
-                    postEffect(BankCardDetailsScreenEvent.Back)
+                "apply" -> if (currentState.isNew) {
+                    createAndSaveDocUseCase(
+                        currentState.toDocument(),
+                        IpbAndroidViewSettings.BANK_CARDS_TYPE_ID
+                    ).onSuccess {
+                        postEffect(BankCardDetailsScreenEvent.Toast(R.string.success))
+                        postEffect(BankCardDetailsScreenEvent.Back)
+                    }.onFailure {
+                        postEffect(BankCardDetailsScreenEvent.Toast(R.string.failure))
+                    }
+                } else {
+                    saveDocumentsUseCase(currentState.toDocument()).onSuccess {
+                        postEffect(BankCardDetailsScreenEvent.Back)
+                        postEffect(BankCardDetailsScreenEvent.Toast(R.string.success))
+                    }.onFailure {
+                        postEffect(BankCardDetailsScreenEvent.Toast(R.string.failure))
+                    }
                 }
             }
         }
