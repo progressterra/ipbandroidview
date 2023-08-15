@@ -71,6 +71,13 @@ fun ProfileScreen(
                 useComponent = useComponent,
                 title = stringResource(R.string.support)
             )
+            Spacer(Modifier.height(8.dp))
+            ProfileButton(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                state = state.bankCards,
+                useComponent = useComponent,
+                title = stringResource(R.string.bank_cards)
+            )
             Spacer(Modifier.weight(1f))
             ProfileButton(
                 modifier = Modifier.padding(horizontal = 20.dp),

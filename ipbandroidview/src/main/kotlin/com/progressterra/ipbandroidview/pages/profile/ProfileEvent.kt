@@ -10,6 +10,8 @@ sealed class ProfileEvent {
 
     data object Support : ProfileEvent()
 
+    data object BankCards : ProfileEvent()
+
     data object Auth : ProfileEvent()
 
     data object Details : ProfileEvent()

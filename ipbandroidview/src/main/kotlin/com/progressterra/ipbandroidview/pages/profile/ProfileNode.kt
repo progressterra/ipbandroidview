@@ -17,6 +17,7 @@ class ProfileNode(
     private val onOrders: () -> Unit,
     private val onSupport: () -> Unit,
     private val onDetails: () -> Unit,
+    private val onBankCards: () -> Unit,
     private val onDocuments: () -> Unit
 ) : Node(buildContext) {
 
@@ -31,6 +32,7 @@ class ProfileNode(
                 is ProfileEvent.Orders -> onOrders()
                 is ProfileEvent.Support -> onSupport()
                 is ProfileEvent.Details -> onDetails()
+                is ProfileEvent.BankCards -> onBankCards()
                 is ProfileEvent.Documents -> onDocuments()
             }
         }

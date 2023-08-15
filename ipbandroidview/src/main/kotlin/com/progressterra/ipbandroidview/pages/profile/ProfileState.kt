@@ -18,6 +18,7 @@ data class ProfileState(
     val support: ProfileButtonState = ProfileButtonState(id = "support"),
     val favorites: ProfileButtonState = ProfileButtonState(id = "favorites"),
     val documents: ProfileButtonState = ProfileButtonState(id = "documents"),
+    val bankCards: ProfileButtonState = ProfileButtonState(id = "bankCards"),
     val logout: ProfileButtonState = ProfileButtonState(id = "logout"),
     val docNotification: CounterNotification = CounterNotification()
 ) {

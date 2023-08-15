@@ -71,6 +71,7 @@ class ProfileViewModel(
                 "orders" -> postEffect(ProfileEvent.Orders)
                 "favorites" -> postEffect(ProfileEvent.Favorites)
                 "support" -> postEffect(ProfileEvent.Support)
+                "bankCards" -> postEffect(ProfileEvent.BankCards)
                 "documents" -> postEffect(ProfileEvent.Documents)
             }
         }
