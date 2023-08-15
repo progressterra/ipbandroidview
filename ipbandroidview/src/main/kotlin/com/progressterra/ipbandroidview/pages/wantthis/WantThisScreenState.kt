@@ -13,7 +13,6 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 data class WantThisScreenState(
     override val id: String = "",
     val send: ButtonState = ButtonState(id = "send"),
-    val cancel: ButtonState = ButtonState(id = "cancel"),
     val requests: ProfileButtonState = ProfileButtonState(id = "requests"),
     val screen: ScreenState = ScreenState.LOADING,
     val entries: List<TextFieldState> = emptyList(),

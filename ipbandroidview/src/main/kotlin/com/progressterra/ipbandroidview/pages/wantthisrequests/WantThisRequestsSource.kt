@@ -41,7 +41,7 @@ class WantThisRequestsSource(
                         )
                     ),
                     sort = SortData(
-                        fieldName = "dateUpdated",
+                        fieldName = "dateAdded",
                         variantSort = TypeVariantSort.DESC
                     ),
                     searchData = "",

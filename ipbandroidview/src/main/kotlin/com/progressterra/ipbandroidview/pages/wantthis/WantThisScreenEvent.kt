@@ -4,9 +4,9 @@ import androidx.annotation.StringRes
 
 sealed class WantThisScreenEvent {
 
-    object Requests : WantThisScreenEvent()
+    data object Requests : WantThisScreenEvent()
 
-    object Back : WantThisScreenEvent()
+    data object Back : WantThisScreenEvent()
 
     class OpenPhoto(val url: String) : WantThisScreenEvent()
 

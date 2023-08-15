@@ -53,8 +53,6 @@ class WantThisScreenViewModel(
                 }.onFailure {
                     postEffect(WantThisScreenEvent.Toast(R.string.failure))
                 }
-
-                "cancel" -> postEffect(WantThisScreenEvent.Back)
             }
         }
     }
