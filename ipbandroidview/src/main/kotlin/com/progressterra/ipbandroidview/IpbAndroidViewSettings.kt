@@ -23,4 +23,6 @@ object IpbAndroidViewSettings {
     const val ORDERS_CHAT_ID = "56600c57-b9f7-4d11-a0f9-8c0103c4ed7f"
 
     const val MAIN_CHAT_ID = "7f7e8460-5608-48d2-b2b4-1e5769e8d9e7"
+
+    const val BANK_CARDS_TYPE_ID = "08db9c4b-e7c1-4b65-836b-7512ea92b180"
 }
