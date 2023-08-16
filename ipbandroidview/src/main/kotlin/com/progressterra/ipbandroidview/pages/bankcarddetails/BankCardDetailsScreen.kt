@@ -20,6 +20,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 
@@ -56,7 +57,11 @@ fun BankCardDetailsScreen(
                 }
             }
         }) { _, _ ->
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        StateColumn(
+            state = state.screen,
+            useComponent = useComponent,
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
             Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)

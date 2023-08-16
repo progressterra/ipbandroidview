@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
 fun BankCardsScreen(
@@ -41,6 +42,7 @@ fun BankCardsScreen(
         bottomBar = {
             Column(
                 modifier = Modifier
+                    .padding(horizontal = 8.dp)
                     .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(8.dp)
@@ -54,17 +56,19 @@ fun BankCardsScreen(
             }
         }
     ) { _, _ ->
-        val lazyItems = state.cards.collectAsLazyPagingItems()
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(top = 20.dp, start = 20.dp, end = 20.dp)
-        ) {
-            items(
-                count = lazyItems.itemCount,
-                key = lazyItems.itemKey { it.id }
-            ) { index ->
-                lazyItems[index]?.let { Card(state = it, useComponent = useComponent) }
+        StateColumn(state = state.screen, useComponent = useComponent) {
+            val lazyItems = state.cards.collectAsLazyPagingItems()
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                contentPadding = PaddingValues(top = 20.dp, start = 20.dp, end = 20.dp)
+            ) {
+                items(
+                    count = lazyItems.itemCount,
+                    key = lazyItems.itemKey { it.id }
+                ) { index ->
+                    lazyItems[index]?.let { Card(state = it, useComponent = useComponent) }
+                }
             }
         }
     }
