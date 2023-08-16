@@ -14,7 +14,9 @@ import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseC
 import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.shared.updateById
 
 class BankCardDetailsScreenViewModel(
     private val fetchCardTemplateUseCase: FetchCardTemplateUseCase,
@@ -80,6 +82,10 @@ class BankCardDetailsScreenViewModel(
         postEffect(BankCardDetailsScreenEvent.Back)
     }
 
+    override fun handle(event: StateBoxEvent) {
+        refresh()
+    }
+
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
@@ -106,6 +112,19 @@ class BankCardDetailsScreenViewModel(
     }
 
     override fun handle(event: TextFieldEvent) {
-
+        when (event) {
+            is TextFieldEvent.Action -> Unit
+            is TextFieldEvent.AdditionalAction -> Unit
+            is TextFieldEvent.TextChanged -> {
+                emitState {
+                    it.copy(
+                        entries = it.entries.updateById(event) { field ->
+                            field.copy(text = event.text)
+                        }
+                    )
+                }
+                validation()
+            }
+        }
     }
 }
