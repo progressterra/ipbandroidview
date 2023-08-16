@@ -56,6 +56,7 @@ data class Document(
         id = id,
         name = name,
         entries = entries,
-        photo = photo
+        photo = photo,
+        status = status
     )
 }
