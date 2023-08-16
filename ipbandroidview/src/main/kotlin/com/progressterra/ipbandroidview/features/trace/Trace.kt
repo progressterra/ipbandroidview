@@ -1,16 +1,14 @@
 package com.progressterra.ipbandroidview.features.trace
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,45 +23,37 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 fun Trace(
     modifier: Modifier = Modifier, state: TraceState, useComponent: UseTrace
 ) {
-    Box(
+    Column(
         modifier = modifier
             .fillMaxWidth()
             .background(IpbTheme.colors.surface.asColor())
     ) {
-        IconButton(
-            modifier = Modifier.align(Alignment.CenterStart),
-            onClick = { useComponent.handle(TraceEvent) }) {
-            BrushedIcon(
-                resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
-            )
-        }
-        val scrollState = rememberScrollState()
-        LaunchedEffect(state) {
-            scrollState.scrollTo(scrollState.maxValue)
-        }
         Row(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(vertical = 6.dp, horizontal = 40.dp)
-                .horizontalScroll(scrollState),
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
+            modifier = Modifier.padding(vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            state.trace.forEach { trace ->
-                BrushedText(
-                    modifier = Modifier.padding(horizontal = 4.dp),
-                    text = trace.name,
-                    style = IpbTheme.typography.title,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                    maxLines = 1
-                )
+            IconButton(
+                modifier = Modifier.size(40.dp),
+                onClick = { useComponent.handle(TraceEvent) }) {
                 BrushedIcon(
-                    resId = R.drawable.ic_forw,
-                    tint = IpbTheme.colors.iconPrimary.asBrush()
+                    resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
             BrushedText(
-                modifier = Modifier.padding(horizontal = 4.dp),
+                text = state.trace.last().name,
+                style = IpbTheme.typography.title,
+                tint = IpbTheme.colors.textPrimary.asBrush(),
+                maxLines = 1
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            BrushedText(
                 text = state.current.name,
                 style = IpbTheme.typography.title,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
