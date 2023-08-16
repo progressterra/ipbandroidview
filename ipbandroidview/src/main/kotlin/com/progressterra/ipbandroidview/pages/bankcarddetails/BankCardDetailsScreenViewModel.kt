@@ -37,6 +37,7 @@ class BankCardDetailsScreenViewModel(
         } else {
             emitState { newState.copy(screen = ScreenState.SUCCESS) }
         }
+        validation()
     }
 
     fun refresh() {

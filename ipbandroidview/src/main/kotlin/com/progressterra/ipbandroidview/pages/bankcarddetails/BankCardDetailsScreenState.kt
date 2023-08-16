@@ -23,7 +23,7 @@ data class BankCardDetailsScreenState(
     val number: String = "",
     val isMainCard: Boolean = false,
     val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,
-    val isNew: Boolean = false,
+    val isNew: Boolean = true,
     val screen: ScreenState = ScreenState.LOADING
 ) : Id, IsEmpty, Parcelable {
 

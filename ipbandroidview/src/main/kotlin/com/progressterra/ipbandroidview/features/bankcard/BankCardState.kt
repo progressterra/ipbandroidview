@@ -25,6 +25,7 @@ data class BankCardState(
             entries = entries.map { it.copy(enabled = canBeEdit) },
             photo = photo.copy(enabled = canBeEdit),
             canBeEdited = canBeEdit,
+            status = status,
             isMainCard = isMainCard,
             isNew = false
         )
