@@ -36,8 +36,8 @@ class BankCardDetailsScreenViewModel(
             refresh()
         } else {
             emitState { newState.copy(screen = ScreenState.SUCCESS) }
+            validation()
         }
-        validation()
     }
 
     fun refresh() {
@@ -45,6 +45,7 @@ class BankCardDetailsScreenViewModel(
             emitState { it.copy(screen = ScreenState.LOADING) }
             fetchCardTemplateUseCase().onSuccess { newState ->
                 emitState { newState.copy(screen = ScreenState.SUCCESS) }
+                validation()
             }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
         }
     }

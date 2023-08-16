@@ -14,7 +14,7 @@ interface FetchCardTemplateUseCase {
 
         override suspend fun invoke(): Result<BankCardDetailsScreenState> = handle {
             fetchDocTemplateUseCase(IpbAndroidViewSettings.BANK_CARDS_TYPE_ID).getOrThrow()
-                .toBankCardState().toBankCardDetailsScreenState()
+                .toBankCardState().toBankCardDetailsScreenState().copy(isNew = true)
         }
     }
 }
