@@ -55,7 +55,7 @@ fun DocumentPhoto(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             BrushedText(
-                text = "${stringResource(R.string.photo)} ${state.docName}",
+                text = stringResource(R.string.photo),
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
@@ -91,7 +91,6 @@ private fun AttachedPhotosPreviewEnabled() {
     IpbTheme {
         DocumentPhoto(
             state = DocumentPhotoState(
-                docName = "Passport",
                 enabled = true,
                 items = listOf(
                     MultisizedImage(

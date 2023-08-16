@@ -29,7 +29,11 @@ class BankCardsScreenViewModel(
     }
 
     override fun handleEvent(event: BankCardEvent) {
-        postEffect(BankCardsScreenEvent.OpenDetails(event.state.toBankCardDetailsScreenState()))
+        when (event) {
+            is BankCardEvent.Click -> postEffect(BankCardsScreenEvent.OpenDetails(event.state.toBankCardDetailsScreenState()))
+
+            is BankCardEvent.Delete -> Unit
+        }
     }
 
     override fun handle(event: TopBarEvent) {

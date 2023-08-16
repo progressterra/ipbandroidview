@@ -208,7 +208,6 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
         } ?: emptyList(),
-            docName = characteristicType?.name ?: "",
             required = imageRequired ?: false),
         additionalValue = characteristicValue?.valueAsReference ?: "")
 
@@ -241,7 +240,6 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
         } ?: emptyList(),
-            docName = characteristicType?.name ?: "",
             required = !listImages.isNullOrEmpty()),
         additionalValue = valueAsReference ?: "")
 

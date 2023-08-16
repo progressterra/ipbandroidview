@@ -15,9 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.toColor
+import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
@@ -60,8 +64,19 @@ fun BankCardDetailsScreen(
         StateColumn(
             state = state.screen,
             useComponent = useComponent,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.Start
         ) {
+            if (!state.isNew) {
+                BrushedText(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    text = state.status.toString {
+                        stringResource(id = it)
+                    },
+                    style = IpbTheme.typography.subHeadlineBold,
+                    tint = state.status.toColor()
+                )
+            }
             Column(
                 modifier = Modifier
                     .padding(horizontal = 20.dp)
@@ -110,7 +125,7 @@ private fun BankCardDetailsScreenPreview() {
                     TextFieldState(placeholder = "Имя"),
                     TextFieldState(placeholder = "Срок действия"),
                     TextFieldState(placeholder = "CVV/CVC")
-                )
+                ), isNew = false, screen = ScreenState.SUCCESS
             ),
             useComponent = UseBankCardDetailsScreen.Empty()
         )
