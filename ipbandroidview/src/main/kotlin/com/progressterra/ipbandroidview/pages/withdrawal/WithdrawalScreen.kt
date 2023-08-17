@@ -52,6 +52,7 @@ fun WithdrawalScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(6.dp)

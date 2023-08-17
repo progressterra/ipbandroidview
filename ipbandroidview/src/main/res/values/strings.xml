@@ -166,4 +166,5 @@
     <string name="withdrawal_history">История выводов</string>
     <string name="withdraw">Вывести</string>
     <string name="withdraw_all">Вывести всё</string>
+    <string name="input_amount">Введите сумму</string>
 </resources>

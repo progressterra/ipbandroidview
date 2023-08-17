@@ -69,6 +69,7 @@ fun NewWithdrawalScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(6.dp)
@@ -104,13 +105,17 @@ fun NewWithdrawalScreen(
                 }
             }
             TextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.input, useComponent = useComponent
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp),
+                state = state.input, useComponent = useComponent,
+                hint = stringResource(id = R.string.input_amount)
             )
             TextButton(
                 state = state.all,
                 title = stringResource(id = R.string.withdraw_all),
-                useComponent = useComponent
+                useComponent = useComponent,
+                isTiny = true
             )
         }
     }

@@ -30,6 +30,7 @@ fun WithdrawalTransaction(
             .padding(16.dp)
     ) {
         Row(
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -48,11 +49,6 @@ fun WithdrawalTransaction(
             text = state.destination,
             style = IpbTheme.typography.subHeadlineRegular,
             tint = IpbTheme.colors.textPrimary.asBrush()
-        )
-        BrushedText(
-            text = state.date,
-            style = IpbTheme.typography.footnoteRegular,
-            tint = IpbTheme.colors.textTertiary.asBrush()
         )
         BrushedText(
             text = state.status.toString { stringResource(id = it) },

@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.replaceById
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import kotlinx.coroutines.flow.map
@@ -21,7 +22,12 @@ class NewWithdrawalScreenViewModel(
 ) : BaseViewModel<NewWithdrawalScreenState, NewWithdrawalScreenEvent>(),
     UseNewWithdrawalScreen {
 
-    override fun createInitialState(): NewWithdrawalScreenState = NewWithdrawalScreenState()
+    override fun createInitialState(): NewWithdrawalScreenState = NewWithdrawalScreenState(
+        add = ButtonState(
+            id = "add",
+            enabled = false
+        )
+    )
 
     fun refresh() {
         onBackground {
@@ -54,7 +60,7 @@ class NewWithdrawalScreenViewModel(
             val newCard = event.state.copy(isSelected = true)
             it.copy(cards = it.cards.map { pd ->
                 pd.replaceById(newCard)
-            }, selectedCard = newCard)
+            }, selectedCard = newCard, add = it.add.copy(enabled = true))
         }
     }
 
