@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.R
@@ -25,7 +26,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
-fun Card(
+fun BankCard(
     modifier: Modifier = Modifier,
     state: BankCardState,
     useComponent: UseBankCard
@@ -43,17 +44,19 @@ fun Card(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f)) {
+            BrushedText(
+                text = state.name,
+                style = IpbTheme.typography.subHeadlineRegular,
+                tint = IpbTheme.colors.textPrimary.asBrush()
+            )
             if (state.isMainCard) {
                 BrushedText(
                     text = stringResource(id = R.string.main_card),
-                    style = IpbTheme.typography.subHeadlineBold,
-                    tint = IpbTheme.colors.textPrimary.asBrush()
+                    style = IpbTheme.typography.footnoteRegular,
+                    tint = IpbTheme.colors.textTertiary.asBrush()
                 )
-                BrushedText(
-                    text = state.name,
-                    style = IpbTheme.typography.subHeadlineRegular,
-                    tint = IpbTheme.colors.textPrimary.asBrush()
-                )
+            }
+            if (state.status != TypeStatusDoc.CONFIRMED) {
                 BrushedText(
                     text = state.status.toString { stringResource(id = it) },
                     style = IpbTheme.typography.footnoteRegular,
@@ -61,12 +64,37 @@ fun Card(
                 )
             }
         }
-        IconButton(
-            modifier = Modifier.size(24.dp),
-            onClick = { useComponent.handleEvent(BankCardEvent.Delete(state)) }) {
-            BrushedIcon(
-                resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush()
-            )
-        }
+    IconButton(
+        modifier = Modifier.size(24.dp),
+        onClick = { useComponent.handleEvent(BankCardEvent.Delete(state)) }) {
+        BrushedIcon(
+            resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush()
+        )
     }
+    }
+}
+
+@Preview
+@Composable
+private fun BankCardPreview0() {
+    BankCard(
+        state = BankCardState(
+            isMainCard = true,
+            name = "VISA **** **** **** 1234",
+            status = TypeStatusDoc.CONFIRMED
+        ),
+        useComponent = UseBankCard.Empty()
+    )
+}
+
+@Preview
+@Composable
+private fun BankCardPreview1() {
+    BankCard(
+        state = BankCardState(
+            name = "VISA **** **** **** 1234",
+            status = TypeStatusDoc.WAIT_IMAGE
+        ),
+        useComponent = UseBankCard.Empty()
+    )
 }

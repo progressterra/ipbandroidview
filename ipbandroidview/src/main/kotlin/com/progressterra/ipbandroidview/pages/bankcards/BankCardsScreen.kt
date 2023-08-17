@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.bankcard.Card
+import com.progressterra.ipbandroidview.features.bankcard.BankCard
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -67,7 +67,7 @@ fun BankCardsScreen(
                     count = lazyItems.itemCount,
                     key = lazyItems.itemKey { it.id }
                 ) { index ->
-                    lazyItems[index]?.let { Card(state = it, useComponent = useComponent) }
+                    lazyItems[index]?.let { BankCard(state = it, useComponent = useComponent) }
                 }
             }
         }
