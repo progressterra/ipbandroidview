@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.emptyFlow
 
 data class BankCardsScreenState(
     val add: ButtonState = ButtonState(id = "add"),
-    val cards: Flow<PagingData<BankCardState>> = emptyFlow(),
+    val addedCards: Flow<PagingData<BankCardState>> = emptyFlow(),
+    val otherCards: Flow<PagingData<BankCardState>> = emptyFlow(),
     val screen: ScreenState = ScreenState.LOADING
 )

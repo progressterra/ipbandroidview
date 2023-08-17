@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.features.goodsdescription
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -22,16 +21,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButton
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
+import com.progressterra.ipbandroidview.shared.Tabs
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -39,49 +37,21 @@ import kotlinx.coroutines.launch
 fun GoodsDescription(
     modifier: Modifier = Modifier, state: GoodsDescriptionState, useComponent: UseGoodsDescription
 ) {
-    val pagerState = rememberPagerState { 3 }
-    val tabs = listOf(
-        stringResource(id = R.string.description),
-        stringResource(id = R.string.parameters),
-        stringResource(id = R.string.delivery)
-    )
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-                .clip(RoundedCornerShape(12.dp))
-                .background(IpbTheme.colors.surface.asBrush())
-                .padding(6.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            val scope = rememberCoroutineScope()
-            tabs.forEachIndexed { index, text ->
-                val selected = pagerState.currentPage == index
-                val backgroundColor =
-                    if (selected) IpbTheme.colors.background else IpbTheme.colors.surface
-                Box(modifier = Modifier
-                    .weight(1f)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(backgroundColor.asBrush())
-                    .niceClickable { scope.launch { pagerState.animateScrollToPage(page = index) } }
-                    .padding(vertical = 12.dp), contentAlignment = Alignment.Center) {
-                    val textColor =
-                        if (selected) IpbTheme.colors.textPressed else IpbTheme.colors.textSecondary
-                    val style =
-                        if (selected) IpbTheme.typography.subHeadlineBold else IpbTheme.typography.subHeadlineRegular
-                    BrushedText(
-                        text = text,
-                        tint = textColor.asBrush(),
-                        style = style,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-        }
+        val pagerState = rememberPagerState { 3 }
+        val scope = rememberCoroutineScope()
+        Tabs(
+            modifier = Modifier.padding(horizontal = 20.dp),
+            tabs = listOf(
+                stringResource(id = R.string.description),
+                stringResource(id = R.string.parameters),
+                stringResource(id = R.string.delivery)
+            ),
+            currentIndex = pagerState.currentPage,
+            onTabClicked = { scope.launch { pagerState.animateScrollToPage(it) } })
         HorizontalPager(
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 20.dp),

@@ -342,6 +342,6 @@ fun TypeStatusDoc.toCanBeEdit() = when (this) {
 
 fun RFPaymentDataForClientViewModel.toBankCardState() = BankCardState(
     id = idUnique!!,
-    name = preiview ?: "",
+    name = "${paymentSystemName ?: ""} ${preiview ?: ""}",
     status = TypeStatusDoc.CONFIRMED
 )

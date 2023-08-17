@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.bankcards
 
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenState
@@ -9,7 +10,8 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class BankCardsScreenViewModel(
-    private val fetchUnconfirmedBankCardsUseCase: FetchUnconfirmedBankCardsUseCase
+    private val fetchUnconfirmedBankCardsUseCase: FetchUnconfirmedBankCardsUseCase,
+    private val fetchConfirmedBankCardsUseCase: FetchConfirmedBankCardsUseCase
 ) : BaseViewModel<BankCardsScreenState, BankCardsScreenEvent>(),
     UseBankCardsScreen {
 
@@ -18,13 +20,22 @@ class BankCardsScreenViewModel(
     fun refresh() {
         onBackground {
             emitState { it.copy(screen = ScreenState.LOADING) }
+            var isSuccess = true
             fetchUnconfirmedBankCardsUseCase().onSuccess { cards ->
                 emitState {
-                    it.copy(screen = ScreenState.SUCCESS, cards = cachePaging(cards))
+                    it.copy(otherCards = cachePaging(cards))
                 }
             }.onFailure {
-                emitState { it.copy(screen = ScreenState.ERROR) }
+                isSuccess = false
             }
+            fetchConfirmedBankCardsUseCase().onSuccess { cards ->
+                emitState {
+                    it.copy(addedCards = cachePaging(cards))
+                }
+            }.onFailure {
+                isSuccess = false
+            }
+            emitState { it.copy(screen = isSuccess.toScreenState()) }
         }
     }
 

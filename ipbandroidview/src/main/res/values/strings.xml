@@ -152,4 +152,6 @@
     <string name="add_card">Добавить карту</string>
     <string name="card_viewing">Просмотр карты</string>
     <string name="card_adding">Добавление карты</string>
+    <string name="added_cards">Подтверждённые</string>
+    <string name="other">Остальные</string>
 </resources>
