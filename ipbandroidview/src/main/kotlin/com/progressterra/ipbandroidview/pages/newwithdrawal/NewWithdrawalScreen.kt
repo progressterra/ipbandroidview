@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.withdrawal
+package com.progressterra.ipbandroidview.pages.newwithdrawal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,19 +19,21 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.features.bankcard.BankCard
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.features.withdrawaltransaction.WithdrawalTransaction
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
-fun WithdrawalScreen(
+fun NewWithdrawalScreen(
     modifier: Modifier = Modifier,
-    state: WithdrawalScreenState,
-    useComponent: UseWithdrawalScreen
+    state: NewWithdrawalScreenState,
+    useComponent: UseNewWithdrawalScreen
 ) {
     ThemedLayout(
         modifier = modifier,
@@ -41,12 +43,27 @@ fun WithdrawalScreen(
                 useComponent = useComponent,
                 showBackButton = true
             )
+        }, bottomBar = {
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .padding(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.add,
+                    title = stringResource(id = R.string.withdraw),
+                    useComponent = useComponent
+                )
+            }
         }
     ) { _, _ ->
         StateColumn(
             state = state.screen,
             useComponent = useComponent,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.End
         ) {
             Spacer(modifier = Modifier.height(20.dp))
             Column(
@@ -68,31 +85,33 @@ fun WithdrawalScreen(
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                state = state.add,
-                title = stringResource(id = R.string.new_withdrawal),
-                useComponent = useComponent
-            )
-            Spacer(modifier = Modifier.height(40.dp))
-            BrushedText(
-                text = stringResource(id = R.string.withdrawal_history),
-                style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textPrimary.asBrush()
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            val lazyItems = state.transactions.collectAsLazyPagingItems()
+            val lazyItems = state.cards.collectAsLazyPagingItems()
             LazyColumn(
+                modifier = Modifier.height(200.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(horizontal = 20.dp)
             ) {
                 items(
                     count = lazyItems.itemCount,
                     key = lazyItems.itemKey { it.id }
-                ) { index -> lazyItems[index]?.let { WithdrawalTransaction(state = it) } }
+                ) { index ->
+                    lazyItems[index]?.let {
+                        BankCard(
+                            state = it,
+                            useComponent = useComponent
+                        )
+                    }
+                }
             }
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                state = state.input, useComponent = useComponent
+            )
+            TextButton(
+                state = state.all,
+                title = stringResource(id = R.string.withdraw_all),
+                useComponent = useComponent
+            )
         }
     }
 }

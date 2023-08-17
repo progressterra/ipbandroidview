@@ -96,7 +96,8 @@ fun BankCardsScreen(
                             lazyItems[index]?.let {
                                 BankCard(
                                     state = it,
-                                    useComponent = useComponent
+                                    useComponent = useComponent,
+                                    canBePicked = false
                                 )
                             }
                         }
@@ -115,7 +116,8 @@ fun BankCardsScreen(
                             lazyItems[index]?.let {
                                 BankCard(
                                     state = it,
-                                    useComponent = useComponent
+                                    useComponent = useComponent,
+                                    canBePicked = false
                                 )
                             }
                         }

@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.bankcards
+package com.progressterra.ipbandroidview.processes.payments
 
 import com.progressterra.ipbandroidapi.api.paymentdata.PaymentDataRepository
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState

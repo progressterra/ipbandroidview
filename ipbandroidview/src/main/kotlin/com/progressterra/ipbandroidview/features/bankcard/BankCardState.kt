@@ -15,7 +15,8 @@ data class BankCardState(
     val name: String = "",
     val entries: List<TextFieldState> = emptyList(),
     val photo: DocumentPhotoState = DocumentPhotoState(),
-    val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL
+    val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,
+    val isSelected: Boolean = false
 ) : Id {
 
     fun toBankCardDetailsScreenState(): BankCardDetailsScreenState {

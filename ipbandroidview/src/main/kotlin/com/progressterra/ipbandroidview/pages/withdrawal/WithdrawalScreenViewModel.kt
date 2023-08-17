@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.withdrawal
 
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
 import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -19,9 +20,9 @@ class WithdrawalScreenViewModel(
         onBackground {
             emitState { it.copy(screen = ScreenState.LOADING) }
             var isSuccess = true
-            fetchWithdrawalTransactionsUseCase().onSuccess { cards ->
+            fetchWithdrawalTransactionsUseCase().onSuccess { transactions ->
                 emitState {
-                    it.copy(transactions = cachePaging(cards))
+                    it.copy(transactions = cachePaging(transactions))
                 }
             }.onFailure { isSuccess = false }
             fetchWithdrawalUseCase().onSuccess { canBeWithdrawal ->

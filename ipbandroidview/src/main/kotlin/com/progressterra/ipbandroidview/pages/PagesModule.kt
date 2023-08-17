@@ -4,9 +4,7 @@ import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsU
 import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.bankcarddetails.FetchCardTemplateUseCase
 import com.progressterra.ipbandroidview.pages.bankcards.BankCardsScreenViewModel
-import com.progressterra.ipbandroidview.pages.bankcards.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.pages.bankcards.FetchUnconfirmedBankCardsUseCase
-import com.progressterra.ipbandroidview.pages.bankcards.FetchMainCardIdUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
@@ -29,6 +27,7 @@ import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.main.MainViewModel
+import com.progressterra.ipbandroidview.pages.newwithdrawal.NewWithdrawalScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.FetchOrderChatUseCase
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsUseCase
@@ -57,6 +56,11 @@ import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsViewModel
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeViewModel
+import com.progressterra.ipbandroidview.pages.newwithdrawal.CreateNewWithdrawalUseCase
+import com.progressterra.ipbandroidview.pages.withdrawal.FetchWithdrawalTransactionsUseCase
+import com.progressterra.ipbandroidview.pages.withdrawal.WithdrawalScreenViewModel
+import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
+import com.progressterra.ipbandroidview.processes.payments.FetchMainCardIdUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -204,12 +208,33 @@ val pagesModule = module {
 
     viewModel { BankCardsScreenViewModel(get(), get()) }
 
-    single<FetchUnconfirmedBankCardsUseCase> { FetchUnconfirmedBankCardsUseCase.Base(get(), get(), get(), get(), get()) }
+    single<FetchUnconfirmedBankCardsUseCase> {
+        FetchUnconfirmedBankCardsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
-    single<FetchConfirmedBankCardsUseCase> { FetchConfirmedBankCardsUseCase.Base(get(), get(), get()) }
+    single<FetchConfirmedBankCardsUseCase> {
+        FetchConfirmedBankCardsUseCase.Base(
+            get(),
+            get(),
+            get()
+        )
+    }
 
+    single<CreateNewWithdrawalUseCase> { CreateNewWithdrawalUseCase.Base(get(), get()) }
+
+    single<FetchWithdrawalTransactionsUseCase> { FetchWithdrawalTransactionsUseCase.Base(get(), get()) }
 
     single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get()) }
 
     single<FetchMainCardIdUseCase> { FetchMainCardIdUseCase.Base(get(), get()) }
+
+    viewModel { WithdrawalScreenViewModel(get(), get()) }
+
+    viewModel { NewWithdrawalScreenViewModel(get(), get(), get()) }
 }

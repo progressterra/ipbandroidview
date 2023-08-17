@@ -21,12 +21,19 @@ import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun TextButton(
-    modifier: Modifier = Modifier, state: ButtonState, title: String, useComponent: UseButton
+    modifier: Modifier = Modifier,
+    state: ButtonState,
+    title: String,
+    useComponent: UseButton,
+    isTiny: Boolean = false
 ) {
     Row(modifier = modifier
         .clip(RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp))
         .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
-        .padding(horizontal = 32.dp, vertical = 15.dp),
+        .padding(
+            horizontal = if (isTiny) 0.dp else 32.dp,
+            vertical = if (isTiny) 0.dp else 15.dp
+        ),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically) {
         BrushedText(

@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.payments.FetchMainCardIdUseCase
 import com.progressterra.ipbandroidview.shared.AbstractSource
 import com.progressterra.ipbandroidview.shared.CreateId
 

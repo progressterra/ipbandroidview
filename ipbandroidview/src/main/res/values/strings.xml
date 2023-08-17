@@ -164,4 +164,6 @@
     <string name="withdrawal">Вывод средств</string>
     <string name="new_withdrawal">Создать новый вывод</string>
     <string name="withdrawal_history">История выводов</string>
+    <string name="withdraw">Вывести</string>
+    <string name="withdraw_all">Вывести всё</string>
 </resources>

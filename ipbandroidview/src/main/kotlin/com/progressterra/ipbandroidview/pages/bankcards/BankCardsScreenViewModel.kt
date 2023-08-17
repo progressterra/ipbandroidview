@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenState
+import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
