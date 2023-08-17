@@ -158,4 +158,10 @@
     <string name="bonuses_rate">1 бонус = 1 рубль</string>
     <string name="available_installment">Доступная рассрочка -&#160;</string>
     <string name="available_installment_2">до 60 000₽</string>
+    <string name="transaction_success">Транзакция прошла успешно</string>
+    <string name="transaction_in_progress">Транзакция в обработке</string>
+    <string name="transaction_error">Ошибка, средства остались на вашем счету</string>
+    <string name="withdrawal">Вывод средств</string>
+    <string name="new_withdrawal">Создать новый вывод</string>
+    <string name="withdrawal_history">История выводов</string>
 </resources>

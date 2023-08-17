@@ -15,6 +15,8 @@ import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValu
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
+import com.progressterra.ipbandroidapi.api.payment.models.DHPaymentClientViewModel
+import com.progressterra.ipbandroidapi.api.payment.models.TypeResultOperationBisinessArea
 import com.progressterra.ipbandroidapi.api.paymentdata.models.RFPaymentDataForClientViewModel
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
@@ -25,6 +27,7 @@ import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
+import com.progressterra.ipbandroidview.features.withdrawaltransaction.WithdrawalTransactionState
 import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -345,3 +348,25 @@ fun RFPaymentDataForClientViewModel.toBankCardState() = BankCardState(
     name = "${paymentSystemName ?: ""} ${preiview ?: ""}",
     status = TypeStatusDoc.CONFIRMED
 )
+
+fun DHPaymentClientViewModel.toWithdrawalTransactionState() = WithdrawalTransactionState(
+    id = idUnique!!,
+    sum = amount?.toSimplePrice() ?: SimplePrice(),
+    date = dateAdded?.parseToZDT()?.formatZdt("dd.MM.yyyy") ?: "",
+    destination = previewPaymentMethod ?: "",
+    status = status ?: TypeResultOperationBisinessArea.IN_PROGRESS
+)
+
+@Composable
+fun TypeResultOperationBisinessArea.toColor() = when (this) {
+    TypeResultOperationBisinessArea.IN_PROGRESS -> IpbTheme.colors.textTertiary.asBrush()
+    TypeResultOperationBisinessArea.SUCCESS -> IpbTheme.colors.onBackground.asBrush()
+    TypeResultOperationBisinessArea.WITH_ERROR -> IpbTheme.colors.textPrimary2.asBrush()
+}
+
+@Composable
+fun TypeResultOperationBisinessArea.toString(stringResource: @Composable (Int) -> String) = when (this) {
+    TypeResultOperationBisinessArea.IN_PROGRESS -> stringResource(R.string.transaction_in_progress)
+    TypeResultOperationBisinessArea.SUCCESS -> stringResource(R.string.transaction_success)
+    TypeResultOperationBisinessArea.WITH_ERROR -> stringResource(R.string.transaction_error)
+}

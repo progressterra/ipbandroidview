@@ -29,14 +29,16 @@ import com.progressterra.ipbandroidview.shared.ui.niceClickable
 fun BankCard(
     modifier: Modifier = Modifier,
     state: BankCardState,
-    useComponent: UseBankCard
+    useComponent: UseBankCard,
+    canBeRemoved: Boolean = false,
+    canBePicked: Boolean = true
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .background(IpbTheme.colors.surface.asBrush())
-            .niceClickable(enabled = state.status != TypeStatusDoc.CONFIRMED) {
+            .niceClickable(enabled = canBePicked && state.status != TypeStatusDoc.CONFIRMED) {
                 useComponent.handleEvent(BankCardEvent.Click(state))
             }
             .padding(vertical = 8.dp, horizontal = 16.dp),
@@ -64,13 +66,15 @@ fun BankCard(
                 )
             }
         }
-    IconButton(
-        modifier = Modifier.size(24.dp),
-        onClick = { useComponent.handleEvent(BankCardEvent.Delete(state)) }) {
-        BrushedIcon(
-            resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush()
-        )
-    }
+        if (canBeRemoved) {
+            IconButton(
+                modifier = Modifier.size(24.dp),
+                onClick = { useComponent.handleEvent(BankCardEvent.Delete(state)) }) {
+                BrushedIcon(
+                    resId = R.drawable.ic_trash, tint = IpbTheme.colors.iconTertiary.asBrush()
+                )
+            }
+        }
     }
 }
 
@@ -81,9 +85,10 @@ private fun BankCardPreview0() {
         state = BankCardState(
             isMainCard = true,
             name = "VISA **** **** **** 1234",
-            status = TypeStatusDoc.CONFIRMED
+            status = TypeStatusDoc.CONFIRMED,
         ),
-        useComponent = UseBankCard.Empty()
+        useComponent = UseBankCard.Empty(),
+        canBeRemoved = true
     )
 }
 
