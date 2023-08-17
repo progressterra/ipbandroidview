@@ -15,7 +15,8 @@ import org.koin.androidx.compose.getViewModel
 class MainNode(
     buildContext: BuildContext,
     private val onBonuses: () -> Unit,
-    private val onItem: (String) -> Unit
+    private val onItem: (String) -> Unit,
+    private val onWithdrawal: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -25,6 +26,7 @@ class MainNode(
             when (it) {
                 is MainEvent.OnBonuses -> onBonuses()
                 is MainEvent.OnItem -> onItem(it.id)
+                is MainEvent.OnWithdrawal -> onWithdrawal()
             }
         }
         var alreadyLaunched by rememberSaveable {
