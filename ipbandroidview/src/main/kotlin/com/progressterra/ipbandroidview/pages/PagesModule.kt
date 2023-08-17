@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsU
 import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.bankcarddetails.FetchCardTemplateUseCase
 import com.progressterra.ipbandroidview.pages.bankcards.BankCardsScreenViewModel
+import com.progressterra.ipbandroidview.pages.bankcards.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.pages.bankcards.FetchUnconfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.pages.bankcards.FetchMainCardIdUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
@@ -201,9 +202,12 @@ val pagesModule = module {
 
     viewModel { BankCardDetailsScreenViewModel(get(), get(), get(), get(), get(), get(), get()) }
 
-    viewModel { BankCardsScreenViewModel(get()) }
+    viewModel { BankCardsScreenViewModel(get(), get()) }
 
     single<FetchUnconfirmedBankCardsUseCase> { FetchUnconfirmedBankCardsUseCase.Base(get(), get(), get(), get(), get()) }
+
+    single<FetchConfirmedBankCardsUseCase> { FetchConfirmedBankCardsUseCase.Base(get(), get(), get()) }
+
 
     single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get()) }
 

@@ -43,7 +43,10 @@ class MainViewModel(
     }
 
     override fun handle(event: BonusesEvent) {
-        postEffect(MainEvent.OnBonuses)
+        when (event) {
+            is BonusesEvent.Transactions -> postEffect(MainEvent.OnBonuses)
+            is BonusesEvent.Withdrawal -> postEffect(MainEvent.OnWithdrawal)
+        }
     }
 
     override fun handle(event: StoreCardEvent) {

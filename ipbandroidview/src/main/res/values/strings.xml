@@ -154,4 +154,8 @@
     <string name="card_adding">Добавление карты</string>
     <string name="added_cards">Подтверждённые</string>
     <string name="other">Остальные</string>
+    <string name="can_be_out">Можно вывести</string>
+    <string name="bonuses_rate">1 бонус = 1 рубль</string>
+    <string name="available_installment">Доступная рассрочка -&#160;</string>
+    <string name="available_installment_2">до 60 000₽</string>
 </resources>

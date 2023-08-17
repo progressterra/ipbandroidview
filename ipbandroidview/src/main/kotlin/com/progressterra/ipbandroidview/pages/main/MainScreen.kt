@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.main
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,6 +22,7 @@ fun MainScreen(
             state = state.stateBox, useComponent = useComponent
         ) {
             LazyColumn(
+                contentPadding = PaddingValues(top = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 item {

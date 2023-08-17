@@ -51,5 +51,4 @@ class BonusesDetailsViewModel(
     override fun handle(event: StateBoxEvent) {
         refresh()
     }
-
 }
