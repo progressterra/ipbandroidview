@@ -127,57 +127,6 @@ fun Bonuses(
                 }
             }
         }
-
-//        ProjectType.WHITELABEL -> {
-//            Row(
-//                modifier = modifier
-//                    .fillMaxWidth()
-//                    .padding(20.dp)
-//                    .clip(RoundedCornerShape(12.dp))
-//                    .background(IpbTheme.colors.primary.asBrush())
-//                    .padding(12.dp),
-//                horizontalArrangement = Arrangement.SpaceBetween,
-//                verticalAlignment = Alignment.CenterVertically
-//            ) {
-//                Column(
-//                    verticalArrangement = Arrangement.spacedBy(10.dp)
-//                ) {
-//                    BrushedText(
-//                        text = "${stringResource(R.string.you_have)} ${state.roubles} ${
-//                            stringResource(
-//                                R.string.bonuses
-//                            )
-//                        }",
-//                        style = IpbTheme.typography.title,
-//                        tint = IpbTheme.colors.textPrimary.asBrush()
-//                    )
-//                    Row(
-//                        verticalAlignment = Alignment.CenterVertically
-//                    ) {
-//                        BrushedIcon(
-//                            resId = R.drawable.ic_fire,
-//                            tint = IpbTheme.colors.iconTertiary4.asBrush(),
-//                        )
-//                        BrushedText(
-//                            text = "${state.burningDate} ${stringResource(R.string.will_burn)} ${state.burningQuantity} ${
-//                                stringResource(R.string.bonuses)
-//                            }",
-//                            style = IpbTheme.typography.subHeadlineBold,
-//                            tint = IpbTheme.colors.textPrimary2.asBrush()
-//                        )
-//                    }
-//                }
-//                IconButton(
-//                    modifier = Modifier.zIndex(1f),
-//                    onClick = { useComponent.handle(BonusesEvent) },
-//                ) {
-//                    BrushedIcon(
-//                        resId = R.drawable.ic_arrow,
-//                        tint = IpbTheme.colors.iconPrimary.asBrush(),
-//                    )
-//                }
-//            }
-//        }
     }
 }
 

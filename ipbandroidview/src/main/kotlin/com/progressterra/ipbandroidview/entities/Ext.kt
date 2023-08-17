@@ -15,11 +15,13 @@ import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValu
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
+import com.progressterra.ipbandroidapi.api.paymentdata.models.RFPaymentDataForClientViewModel
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
+import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
@@ -337,3 +339,9 @@ fun TypeStatusDoc.toCanBeEdit() = when (this) {
     TypeStatusDoc.REJECTED -> true
     TypeStatusDoc.CONFIRMED -> false
 }
+
+fun RFPaymentDataForClientViewModel.toBankCardState() = BankCardState(
+    id = idUnique!!,
+    name = preiview ?: "",
+    status = TypeStatusDoc.CONFIRMED
+)

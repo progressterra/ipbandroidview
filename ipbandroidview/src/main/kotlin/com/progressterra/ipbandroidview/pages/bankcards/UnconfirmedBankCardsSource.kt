@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractSource
 import com.progressterra.ipbandroidview.shared.CreateId
 
-class BankCardsSource(
+class UnconfirmedBankCardsSource(
     private val documentsRepository: DocumentsRepository,
     private val obtainAccessToken: ObtainAccessToken,
     private val gson: Gson,

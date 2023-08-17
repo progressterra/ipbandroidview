@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class BankCardsScreenViewModel(
-    private val fetchBankCardsUseCase: FetchBankCardsUseCase
+    private val fetchUnconfirmedBankCardsUseCase: FetchUnconfirmedBankCardsUseCase
 ) : BaseViewModel<BankCardsScreenState, BankCardsScreenEvent>(),
     UseBankCardsScreen {
 
@@ -18,7 +18,7 @@ class BankCardsScreenViewModel(
     fun refresh() {
         onBackground {
             emitState { it.copy(screen = ScreenState.LOADING) }
-            fetchBankCardsUseCase().onSuccess { cards ->
+            fetchUnconfirmedBankCardsUseCase().onSuccess { cards ->
                 emitState {
                     it.copy(screen = ScreenState.SUCCESS, cards = cachePaging(cards))
                 }
