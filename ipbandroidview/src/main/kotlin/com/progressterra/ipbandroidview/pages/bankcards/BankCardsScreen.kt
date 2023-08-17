@@ -78,7 +78,6 @@ fun BankCardsScreen(
             )
             HorizontalPager(
                 state = pagerState,
-                contentPadding = PaddingValues(horizontal = 20.dp),
                 pageSpacing = 20.dp,
                 verticalAlignment = Alignment.Top
             ) { page ->
