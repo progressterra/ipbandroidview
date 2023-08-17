@@ -19,6 +19,7 @@ import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
+import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
@@ -136,4 +137,6 @@ val processesModule = module {
             get()
         )
     }
+
+    single<FetchWithdrawalUseCase> { FetchWithdrawalUseCase.Base(get(), get()) }
 }
