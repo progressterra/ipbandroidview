@@ -65,6 +65,7 @@ fun SignUpScreen(
                 .verticalScroll(rememberScrollState())
         ) {
             EditUser(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.editUser,
                 useComponent = useComponent
             )

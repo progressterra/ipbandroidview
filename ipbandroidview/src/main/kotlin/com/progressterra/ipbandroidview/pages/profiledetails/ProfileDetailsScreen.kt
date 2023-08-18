@@ -37,7 +37,7 @@ fun ProfileDetailsScreen(
             useComponent = useComponent
         ) {
             EditUser(
-                modifier = Modifier.padding(vertical = 8.dp),
+                modifier = Modifier.padding(vertical = 8.dp, horizontal = 20.dp),
                 state = state.editUser,
                 useComponent = useComponent
             )

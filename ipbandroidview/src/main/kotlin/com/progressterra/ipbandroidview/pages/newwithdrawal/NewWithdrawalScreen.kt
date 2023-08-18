@@ -112,6 +112,7 @@ fun NewWithdrawalScreen(
                 hint = stringResource(id = R.string.input_amount)
             )
             TextButton(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.all,
                 title = stringResource(id = R.string.withdraw_all),
                 useComponent = useComponent,

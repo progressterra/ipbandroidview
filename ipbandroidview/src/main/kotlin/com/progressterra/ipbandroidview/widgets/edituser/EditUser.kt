@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.widgets.edituser
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,8 +23,6 @@ fun EditUser(
 ) {
     Column(
         modifier = modifier
-            .padding(horizontal = 8.dp)
-            .animateContentSize()
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
             .padding(12.dp),
@@ -36,6 +33,7 @@ fun EditUser(
             state = state.name,
             hint = stringResource(R.string.name_surname),
             useComponent = useComponent,
+            backgroundColor = IpbTheme.colors.background.asColor(),
             actionIcon = R.drawable.ic_cancel
         )
         TextField(
@@ -43,6 +41,7 @@ fun EditUser(
             state = state.birthday,
             hint = stringResource(R.string.birthday),
             actionIcon = R.drawable.ic_cal,
+            backgroundColor = IpbTheme.colors.background.asColor(),
             useComponent = useComponent
         )
         TextField(
@@ -50,6 +49,7 @@ fun EditUser(
             state = state.phone,
             hint = stringResource(R.string.phone_number),
             useComponent = useComponent,
+            backgroundColor = IpbTheme.colors.background.asColor(),
             actionIcon = R.drawable.ic_cancel
         )
         TextField(
@@ -57,6 +57,7 @@ fun EditUser(
             state = state.email,
             hint = stringResource(R.string.email),
             useComponent = useComponent,
+            backgroundColor = IpbTheme.colors.background.asColor(),
             actionIcon = R.drawable.ic_cancel
         )
     }
