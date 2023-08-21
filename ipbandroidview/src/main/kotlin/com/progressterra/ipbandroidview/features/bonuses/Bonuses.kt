@@ -5,7 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -35,7 +37,9 @@ fun Bonuses(
             .padding(16.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(45.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -45,7 +49,9 @@ fun Bonuses(
                 tint = IpbTheme.colors.textButton.asBrush()
             )
             if (style == BonusesStyle.MAIN) {
-                IconButton(onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
+                IconButton(
+                    modifier = Modifier.size(45.dp),
+                    onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
                     BrushedIcon(
                         resId = R.drawable.ic_arrow,
                         tint = IpbTheme.colors.primary.asBrush(),
@@ -59,7 +65,9 @@ fun Bonuses(
             tint = IpbTheme.colors.textSecondary.asBrush()
         )
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(45.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -69,8 +77,9 @@ fun Bonuses(
                 tint = IpbTheme.colors.textTertiary.asBrush()
             )
             if (style == BonusesStyle.MAIN) {
-
-                IconButton(onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
+                IconButton(
+                    modifier = Modifier.size(45.dp),
+                    onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
                     BrushedIcon(
                         resId = R.drawable.ic_withdrawal,
                         tint = IpbTheme.colors.primary.asBrush(),
@@ -97,13 +106,27 @@ fun Bonuses(
 
 @Composable
 @Preview
-private fun BonusesPreview() {
+private fun BonusesPreview0() {
     IpbTheme {
         Bonuses(
             state = BonusesState(
                 roubles = "100",
                 bonuses = "500"
             ), useComponent = UseBonuses.Empty()
+        )
+    }
+}
+
+@Composable
+@Preview
+private fun BonusesPreview1() {
+    IpbTheme {
+        Bonuses(
+            state = BonusesState(
+                roubles = "100",
+                bonuses = "500"
+            ), useComponent = UseBonuses.Empty(),
+            style = BonusesStyle.TRANSACTIONS
         )
     }
 }

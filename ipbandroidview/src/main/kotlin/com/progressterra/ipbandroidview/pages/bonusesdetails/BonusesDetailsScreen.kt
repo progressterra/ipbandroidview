@@ -41,7 +41,7 @@ fun BonusesScreen(
                 modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp),
                 state = state.bonusesInfo,
                 useComponent = useComponent,
-                style = BonusesStyle.TRAN
+                style = BonusesStyle.TRANSACTIONS
             )
             BonusesTransactions(state = state.transactions)
         }
