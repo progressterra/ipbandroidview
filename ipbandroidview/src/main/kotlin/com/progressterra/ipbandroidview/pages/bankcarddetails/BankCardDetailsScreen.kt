@@ -15,6 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Document
+import com.progressterra.ipbandroidview.entities.toCanBeEditted
 import com.progressterra.ipbandroidview.entities.toColor
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
@@ -24,6 +26,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
@@ -36,7 +39,7 @@ fun BankCardDetailsScreen(
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
-            title = if (state.isNew) stringResource(id = R.string.card_adding) else stringResource(
+            title = if (state.document.isTemplate()) stringResource(id = R.string.card_adding) else stringResource(
                 id = R.string.card_viewing
             ),
             showBackButton = true,
@@ -44,7 +47,7 @@ fun BankCardDetailsScreen(
         )
     },
         bottomBar = {
-            if (state.canBeEdited || state.isNew) {
+            if (state.document.status.toCanBeEditted()) {
                 Column(
                     modifier = modifier
                         .padding(horizontal = 8.dp)
@@ -67,14 +70,14 @@ fun BankCardDetailsScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.Start
         ) {
-            if (!state.isNew) {
+            if (!state.document.isTemplate()) {
                 BrushedText(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    text = state.status.toString {
+                    text = state.document.status.toString {
                         stringResource(id = it)
                     },
                     style = IpbTheme.typography.subHeadlineBold,
-                    tint = state.status.toColor()
+                    tint = state.document.status.toColor()
                 )
             }
             Column(
@@ -86,7 +89,7 @@ fun BankCardDetailsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                state.entries.take(2).forEach {
+                state.document.entries.take(2).forEach {
                     TextField(
                         modifier = Modifier.fillMaxWidth(),
                         state = it,
@@ -95,7 +98,7 @@ fun BankCardDetailsScreen(
                     )
                 }
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    state.entries.takeLast(2).forEach {
+                    state.document.entries.takeLast(2).forEach {
                         TextField(
                             modifier = Modifier.weight(1f),
                             state = it,
@@ -107,7 +110,7 @@ fun BankCardDetailsScreen(
             }
             DocumentPhoto(
                 modifier = Modifier.padding(horizontal = 20.dp),
-                state = state.photo,
+                state = state.document.photo,
                 useComponent = useComponent
             )
         }
@@ -120,12 +123,15 @@ private fun BankCardDetailsScreenPreview() {
     IpbTheme {
         BankCardDetailsScreen(
             state = BankCardDetailsScreenState(
-                entries = listOf(
-                    TextFieldState(placeholder = "Номер карты"),
-                    TextFieldState(placeholder = "Имя"),
-                    TextFieldState(placeholder = "Срок действия"),
-                    TextFieldState(placeholder = "CVV/CVC")
-                ), isNew = false, screen = ScreenState.SUCCESS
+                document = Document(
+                    entries = listOf(
+                        TextFieldState(placeholder = "Номер карты"),
+                        TextFieldState(placeholder = "Имя"),
+                        TextFieldState(placeholder = "Срок действия"),
+                        TextFieldState(placeholder = "CVV/CVC")
+                    )
+                ), screen = ScreenState.SUCCESS,
+                apply = ButtonState()
             ),
             useComponent = UseBankCardDetailsScreen.Empty()
         )

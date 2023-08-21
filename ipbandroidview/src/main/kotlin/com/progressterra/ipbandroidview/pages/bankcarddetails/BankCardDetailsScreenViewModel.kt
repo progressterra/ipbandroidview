@@ -3,17 +3,19 @@ package com.progressterra.ipbandroidview.pages.bankcarddetails
 import android.Manifest
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
-import com.progressterra.ipbandroidview.processes.docs.ValidationUseCase
+import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.shared.updateById
@@ -24,18 +26,22 @@ class BankCardDetailsScreenViewModel(
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
-    private val validationUseCase: ValidationUseCase,
+    private val documentValidationUseCase: DocumentValidationUseCase,
     private val createAndSaveDocUseCase: CreateAndSaveDocUseCase
 ) : UseBankCardDetailsScreen,
     BaseViewModel<BankCardDetailsScreenState, BankCardDetailsScreenEvent>() {
 
-    override fun createInitialState() = BankCardDetailsScreenState()
+    override fun createInitialState() = BankCardDetailsScreenState(
+        apply = ButtonState(id = "apply"),
+        screen = ScreenState.LOADING,
+        document = Document()
+    )
 
-    fun setup(newState: BankCardDetailsScreenState) {
-        if (newState.isEmpty()) {
+    fun setup(newDocument: Document) {
+        if (newDocument.isEmpty()) {
             refresh()
         } else {
-            emitState { newState.copy(screen = ScreenState.SUCCESS) }
+            emitState { it.copy(document = newDocument, screen = ScreenState.SUCCESS) }
             validation()
         }
     }
@@ -43,8 +49,8 @@ class BankCardDetailsScreenViewModel(
     fun refresh() {
         onBackground {
             emitState { it.copy(screen = ScreenState.LOADING) }
-            fetchCardTemplateUseCase().onSuccess { newState ->
-                emitState { newState.copy(screen = ScreenState.SUCCESS) }
+            fetchCardTemplateUseCase().onSuccess { newDocument ->
+                emitState { it.copy(document = newDocument, screen = ScreenState.SUCCESS) }
                 validation()
             }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
         }
@@ -56,7 +62,7 @@ class BankCardDetailsScreenViewModel(
                 is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
                     makePhotoUseCase().onSuccess { photo ->
                         emitState {
-                            it.copy(photo = it.photo.copy(items = it.photo.items + photo))
+                            it.copy(document = it.document.copy(photo = it.document.photo.copy(items = it.document.photo.items + photo)))
                         }
                     }
                     validation()
@@ -73,7 +79,7 @@ class BankCardDetailsScreenViewModel(
 
     private fun validation() {
         onBackground {
-            val valid = validationUseCase(currentState.toDocument())
+            val valid = documentValidationUseCase(currentState.document)
             emitState {
                 it.copy(apply = it.apply.copy(enabled = valid.isSuccess))
             }
@@ -91,9 +97,9 @@ class BankCardDetailsScreenViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "apply" -> if (currentState.isNew) {
+                "apply" -> if (currentState.document.isTemplate()) {
                     createAndSaveDocUseCase(
-                        currentState.toDocument(),
+                        currentState.document,
                         IpbAndroidViewSettings.BANK_CARDS_TYPE_ID
                     ).onSuccess {
                         postEffect(BankCardDetailsScreenEvent.Toast(R.string.success))
@@ -102,7 +108,7 @@ class BankCardDetailsScreenViewModel(
                         postEffect(BankCardDetailsScreenEvent.Toast(R.string.failure))
                     }
                 } else {
-                    saveDocumentsUseCase(currentState.toDocument()).onSuccess {
+                    saveDocumentsUseCase(currentState.document).onSuccess {
                         postEffect(BankCardDetailsScreenEvent.Back)
                         postEffect(BankCardDetailsScreenEvent.Toast(R.string.success))
                     }.onFailure {
@@ -120,9 +126,11 @@ class BankCardDetailsScreenViewModel(
             is TextFieldEvent.TextChanged -> {
                 emitState {
                     it.copy(
-                        entries = it.entries.updateById(event) { field ->
-                            field.copy(text = event.text)
-                        }
+                        document = it.document.copy(
+                            entries = it.document.entries.updateById(event) { field ->
+                                field.copy(text = event.text)
+                            }
+                        )
                     )
                 }
                 validation()
