@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.features.orderchat.OrderChat
+import com.progressterra.ipbandroidview.features.attachablechat.AttachableChat
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetails
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -34,10 +34,11 @@ fun OrderDetailsScreen(
                 useComponent = useComponent
             )
             Spacer(modifier = Modifier.height(20.dp))
-            OrderChat(
+            AttachableChat(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.chat,
-                useComponent = useComponent
+                useComponent = useComponent,
+                canBeClosed = true
             )
         }
     }

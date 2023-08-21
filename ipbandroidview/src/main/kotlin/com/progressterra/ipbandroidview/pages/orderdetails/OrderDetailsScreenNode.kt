@@ -30,7 +30,6 @@ class OrderDetailsScreenNode(
         }
         LaunchedEffect(orderId) {
             viewModel.setupId(orderId)
-            viewModel.refresh()
         }
         val state = viewModel.state.collectAsState().value
         OrderDetailsScreen(
