@@ -31,15 +31,20 @@ fun TopBar(
             .background(IpbTheme.colors.background.asBrush())
     ) {
         if (showBackButton) {
-            IconButton(modifier = Modifier.size(40.dp).align(Alignment.CenterStart),
+            IconButton(modifier = Modifier
+                .size(30.dp)
+                .align(Alignment.CenterStart),
                 onClick = { useComponent.handle(TopBarEvent) }) {
                 BrushedIcon(
+                    modifier = Modifier.size(30.dp),
                     resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
         }
         BrushedText(
-            modifier = Modifier.align(Alignment.Center).padding(horizontal = 40.dp),
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(horizontal = 40.dp),
             text = title,
             maxLines = 1,
             style = IpbTheme.typography.title,

@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,9 +25,12 @@ fun PhotoTopBar(
             .height(44.dp)
             .background(IpbTheme.colors.background.asBrush())
     ) {
-        IconButton(modifier = Modifier.align(Alignment.CenterStart),
+        IconButton(modifier = Modifier
+            .size(30.dp)
+            .align(Alignment.CenterStart),
             onClick = { useComponent.handle(PhotoTopBarEvent) }) {
             BrushedIcon(
+                modifier = Modifier.size(30.dp),
                 resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
             )
         }

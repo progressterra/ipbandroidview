@@ -33,9 +33,10 @@ fun Trace(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(30.dp),
                 onClick = { useComponent.handle(TraceEvent) }) {
                 BrushedIcon(
+                    modifier = Modifier.size(30.dp),
                     resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
                 )
             }
