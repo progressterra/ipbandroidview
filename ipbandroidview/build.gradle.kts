@@ -2,7 +2,6 @@ plugins {
     id("com.android.library")
     id("kotlin-android")
     id("kotlin-parcelize")
-//    id("org.jetbrains.kotlin.android")
     id("maven-publish")
 }
 
@@ -114,19 +113,19 @@ dependencies {
 
     // Google services
     api("com.google.android.gms:play-services-location:21.0.1")
-    api("com.google.maps.android:maps-compose:2.13.0")
+    api("com.google.maps.android:maps-compose:2.14.0")
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.42")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.43")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.6")
-    api("com.github.skydoves:landscapist-placeholder:2.2.6")
+    api("com.github.skydoves:landscapist-fresco:2.2.7")
+    api("com.github.skydoves:landscapist-placeholder:2.2.7")
 
     api("androidx.paging:paging-runtime-ktx:3.2.0")
     api("androidx.paging:paging-compose:3.2.0")
