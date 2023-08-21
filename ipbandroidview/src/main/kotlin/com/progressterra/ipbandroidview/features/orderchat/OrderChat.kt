@@ -4,8 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,7 +31,9 @@ fun OrderChat(
 ) {
     if (state.isVisible) {
         Column(
-            modifier = modifier,
+            modifier = modifier
+                .fillMaxWidth()
+                .aspectRatio(1f),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Column(
@@ -59,7 +61,10 @@ fun OrderChat(
                         )
                     }
                 }
-                Messages(modifier = Modifier.height(200.dp), state = state.messagesState, messagesBackground = IpbTheme.colors.background.asBrush())
+                Messages(
+                    state = state.messagesState,
+                    messagesBackground = IpbTheme.colors.background.asBrush()
+                )
             }
             TextField(
                 modifier = Modifier.fillMaxWidth(),
