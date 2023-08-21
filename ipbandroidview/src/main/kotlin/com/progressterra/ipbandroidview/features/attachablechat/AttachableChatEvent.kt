@@ -1,0 +1,3 @@
+package com.progressterra.ipbandroidview.features.attachablechat
+
+object AttachableChatEvent

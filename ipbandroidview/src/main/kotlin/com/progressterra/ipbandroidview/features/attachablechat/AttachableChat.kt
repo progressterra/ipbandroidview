@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.features.orderchat
+package com.progressterra.ipbandroidview.features.attachablechat
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,10 +24,12 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.widgets.messages.Messages
 
 @Composable
-fun OrderChat(
+fun AttachableChat(
     modifier: Modifier = Modifier,
-    state: OrderChatState,
-    useComponent: UseOrderChat
+    state: AttachableChatState,
+    canBeClosed: Boolean,
+    title: String = "",
+    useComponent: UseAttachableChat
 ) {
     if (state.isVisible) {
         Column(
@@ -45,20 +47,32 @@ fun OrderChat(
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp, Alignment.End),
+                    horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     BrushedText(
-                        text = stringResource(id = R.string.close_chat),
-                        style = IpbTheme.typography.subHeadlineRegular,
-                        tint = IpbTheme.colors.textPrimary2.asBrush()
+                        text = title,
+                        style = IpbTheme.typography.subHeadlineBold,
+                        tint = IpbTheme.colors.textPrimary.asBrush()
                     )
-                    IconButton(modifier = Modifier.size(24.dp),
-                        onClick = { useComponent.handle(OrderChatEvent) }) {
-                        BrushedIcon(
-                            resId = R.drawable.ic_close,
-                            tint = IpbTheme.colors.iconPrimary2.asBrush()
-                        )
+                    if (canBeClosed) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            BrushedText(
+                                text = stringResource(id = R.string.close_chat),
+                                style = IpbTheme.typography.subHeadlineRegular,
+                                tint = IpbTheme.colors.textPrimary2.asBrush()
+                            )
+                            IconButton(modifier = Modifier.size(24.dp),
+                                onClick = { useComponent.handle(AttachableChatEvent) }) {
+                                BrushedIcon(
+                                    resId = R.drawable.ic_close,
+                                    tint = IpbTheme.colors.iconPrimary2.asBrush()
+                                )
+                            }
+                        }
                     }
                 }
                 Messages(
