@@ -53,6 +53,7 @@ fun Bonuses(
                     modifier = Modifier.size(45.dp),
                     onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
                     BrushedIcon(
+                        modifier = Modifier.size(45.dp),
                         resId = R.drawable.ic_arrow,
                         tint = IpbTheme.colors.primary.asBrush(),
                     )
@@ -81,6 +82,7 @@ fun Bonuses(
                     modifier = Modifier.size(45.dp),
                     onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
                     BrushedIcon(
+                        modifier = Modifier.size(45.dp),
                         resId = R.drawable.ic_withdrawal,
                         tint = IpbTheme.colors.primary.asBrush(),
                     )

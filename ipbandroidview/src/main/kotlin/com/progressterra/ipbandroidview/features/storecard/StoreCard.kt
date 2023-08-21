@@ -57,7 +57,8 @@ fun StoreCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column(
-                modifier = Modifier.width(if (state.counter.isEmpty()) 130.dp else 80.dp), verticalArrangement = Arrangement.spacedBy(4.dp)
+                modifier = Modifier.width(if (state.counter.isEmpty()) 130.dp else 80.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -90,11 +91,12 @@ fun StoreCard(
             }
             if (state.counter.isEmpty()) {
                 IconButton(
-                    modifier = Modifier.size(26.dp),
+                    modifier = Modifier.size(32.dp),
                     onClick = {
                         useComponent.handle(StoreCardEvent.AddToCart(state.id))
                     }) {
                     BrushedIcon(
+                        modifier = Modifier.size(32.dp),
                         resId = R.drawable.ic_cart, tint = IpbTheme.colors.iconPrimary.asBrush()
                     )
                 }
