@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.shared.ui.statebox
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.IconButton
@@ -11,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.ThemedLoadingIndicator
@@ -19,7 +17,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLoadingIndicator
 @Composable
 fun StateColumn(
     modifier: Modifier = Modifier,
-    state: ScreenState,
+    state: StateBoxState,
     scrollable: Boolean = false,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
@@ -28,7 +26,6 @@ fun StateColumn(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
             .then(
                 if (scrollable) {
                     Modifier.verticalScroll(rememberScrollState())
@@ -36,13 +33,13 @@ fun StateColumn(
                     Modifier
                 }
             ),
-        verticalArrangement = if (state.isSuccess()) verticalArrangement else Arrangement.Center,
-        horizontalAlignment = if (state.isSuccess()) horizontalAlignment else Alignment.CenterHorizontally
+        verticalArrangement = if (state.state == ScreenState.SUCCESS) verticalArrangement else Arrangement.Center,
+        horizontalAlignment = if (state.state == ScreenState.SUCCESS) horizontalAlignment else Alignment.CenterHorizontally
     ) {
-        when (state) {
+        when (state.state) {
             ScreenState.ERROR -> IconButton(
                 onClick = {
-                    useComponent.handle(StateBoxEvent)
+                    useComponent.handle(StateBoxEvent(state))
                 }
             ) {
                 BrushedIcon(
