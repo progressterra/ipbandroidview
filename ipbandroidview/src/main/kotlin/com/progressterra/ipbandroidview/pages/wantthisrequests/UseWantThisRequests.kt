@@ -5,10 +5,10 @@ import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 import com.progressterra.ipbandroidview.features.wantthiscard.UseWantThisCard
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
-interface UseWantThisRequests : UseStateBox, UseTopBar, UseWantThisCard {
+interface UseWantThisRequests : UseStateColumn, UseTopBar, UseWantThisCard {
 
     class Empty : UseWantThisRequests {
 
@@ -18,6 +18,6 @@ interface UseWantThisRequests : UseStateBox, UseTopBar, UseWantThisCard {
 
         override fun handle(event: TopBarEvent) = Unit
 
-        override fun handle(event: StateBoxEvent) = Unit
+        override fun handle(event: StateColumnEvent) = Unit
     }
 }

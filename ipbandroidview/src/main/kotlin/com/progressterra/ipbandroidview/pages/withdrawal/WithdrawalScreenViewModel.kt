@@ -5,8 +5,8 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class WithdrawalScreenViewModel(
     private val fetchWithdrawalTransactionsUseCase: FetchWithdrawalTransactionsUseCase,
@@ -40,7 +40,7 @@ class WithdrawalScreenViewModel(
         postEffect(WithdrawalScreenEvent.New)
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         refresh()
     }
 }

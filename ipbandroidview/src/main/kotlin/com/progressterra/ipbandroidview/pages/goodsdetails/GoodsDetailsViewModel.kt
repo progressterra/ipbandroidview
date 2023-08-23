@@ -11,8 +11,8 @@ import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class GoodsDetailsViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
@@ -125,7 +125,7 @@ class GoodsDetailsViewModel(
         }
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         refresh()
     }
 }

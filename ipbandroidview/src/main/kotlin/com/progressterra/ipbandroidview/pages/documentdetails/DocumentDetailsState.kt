@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.pages.documentdetails
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 data class DocumentDetailsState(
     val document: Document = Document(),

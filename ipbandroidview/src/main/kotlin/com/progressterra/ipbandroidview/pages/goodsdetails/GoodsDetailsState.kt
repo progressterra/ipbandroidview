@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.features.buygoods.BuyGoodsState
 import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionState
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
 @Immutable

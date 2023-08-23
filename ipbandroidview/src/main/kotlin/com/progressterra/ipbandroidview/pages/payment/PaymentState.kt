@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.bonusswitch.BonusSwitchState
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodState
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Immutable
 data class PaymentState(

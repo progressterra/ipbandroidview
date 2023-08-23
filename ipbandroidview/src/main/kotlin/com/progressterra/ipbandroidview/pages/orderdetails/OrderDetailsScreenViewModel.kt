@@ -11,8 +11,8 @@ import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class OrderDetailsScreenViewModel(
@@ -69,7 +69,7 @@ class OrderDetailsScreenViewModel(
         }
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         refresh()
     }
 

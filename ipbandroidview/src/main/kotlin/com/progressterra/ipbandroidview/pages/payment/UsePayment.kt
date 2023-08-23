@@ -10,10 +10,10 @@ import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEve
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
-interface UsePayment : UseTopBar, UsePaymentMethod, UseStateBox, UseButton, UseBonusSwitch,
+interface UsePayment : UseTopBar, UsePaymentMethod, UseStateColumn, UseButton, UseBonusSwitch,
     UseReceipt {
 
     class Empty : UsePayment {
@@ -28,6 +28,6 @@ interface UsePayment : UseTopBar, UsePaymentMethod, UseStateBox, UseButton, UseB
 
         override fun handle(event: LinkTextEvent) = Unit
 
-        override fun handle(event: StateBoxEvent) = Unit
+        override fun handle(event: StateColumnEvent) = Unit
     }
 }

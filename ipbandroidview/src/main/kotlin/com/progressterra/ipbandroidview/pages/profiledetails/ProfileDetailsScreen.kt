@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.editbutton.EditButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.edituser.EditUser
 
 @Composable

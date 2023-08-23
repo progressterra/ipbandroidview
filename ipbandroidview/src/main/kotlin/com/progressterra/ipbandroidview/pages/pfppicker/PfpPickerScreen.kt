@@ -17,9 +17,9 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun PfpPickerScreen(

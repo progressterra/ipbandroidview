@@ -6,8 +6,8 @@ import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class FavoritesViewModel(
     private val favoriteGoodsUseCase: FavoriteGoodsUseCase,
@@ -63,7 +63,7 @@ class FavoritesViewModel(
         postEffect(FavoritesEvent.Back)
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         refresh()
     }
 }

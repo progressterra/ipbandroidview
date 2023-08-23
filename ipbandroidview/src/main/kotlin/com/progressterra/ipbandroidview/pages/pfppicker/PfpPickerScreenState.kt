@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.pfppicker
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.pfppicker.PfpPickerState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
 @Immutable

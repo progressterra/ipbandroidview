@@ -28,7 +28,7 @@ import com.progressterra.ipbandroidview.shared.Tabs
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)

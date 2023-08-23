@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.features.attachablechat
 
 import com.progressterra.ipbandroidview.entities.Id
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import com.progressterra.ipbandroidview.widgets.messages.MessagesState

@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.entities.IsFull
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
 import com.progressterra.ipbandroidview.shared.IsEmpty
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
 @Immutable

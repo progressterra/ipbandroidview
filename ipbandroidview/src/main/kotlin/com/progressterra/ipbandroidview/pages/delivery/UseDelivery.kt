@@ -4,16 +4,16 @@ import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSugge
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.widgets.deliverypicker.UseDeliveryPicker
 
-interface UseDelivery : UseTopBar, UseDeliveryPicker, UseStateBox {
+interface UseDelivery : UseTopBar, UseDeliveryPicker, UseStateColumn {
 
     class Empty : UseDelivery {
 
-        override fun handle(event: StateBoxEvent) = Unit
+        override fun handle(event: StateColumnEvent) = Unit
 
         override fun handle(event: AddressSuggestionsEvent) = Unit
 

@@ -11,11 +11,11 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.search.Search
 import com.progressterra.ipbandroidview.features.search.SearchState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.chats.Chats
 import com.progressterra.ipbandroidview.widgets.chats.ChatsState
 

@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.pages.orderlist
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class OrdersListViewModel(
     private val ordersUseCase: OrdersUseCase
@@ -36,7 +36,7 @@ class OrdersListViewModel(
         postEffect(OrdersListEvent.Back)
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         refresh()
     }
 }

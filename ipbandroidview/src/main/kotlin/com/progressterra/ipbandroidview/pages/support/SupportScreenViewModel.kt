@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.pages.support
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class SupportScreenViewModel(
@@ -52,7 +52,7 @@ class SupportScreenViewModel(
         }
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         refresh()
     }
 

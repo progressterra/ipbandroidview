@@ -4,6 +4,6 @@ import com.progressterra.ipbandroidview.features.authprofile.UseAuthProfile
 import com.progressterra.ipbandroidview.features.profilebutton.UseProfileButton
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
-import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
-interface UseProfile : UseStateBox, UseProfileButton, UseAuthProfile, UseButton, UseTopBar
+interface UseProfile : UseStateColumn, UseProfileButton, UseAuthProfile, UseButton, UseTopBar

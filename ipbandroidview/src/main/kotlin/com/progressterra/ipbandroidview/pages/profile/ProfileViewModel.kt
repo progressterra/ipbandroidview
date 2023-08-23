@@ -8,8 +8,8 @@ import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class ProfileViewModel(
     private val fetchUserProfileUseCase: FetchUserProfileUseCase,
@@ -50,7 +50,7 @@ class ProfileViewModel(
         }
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         refresh()
     }
 

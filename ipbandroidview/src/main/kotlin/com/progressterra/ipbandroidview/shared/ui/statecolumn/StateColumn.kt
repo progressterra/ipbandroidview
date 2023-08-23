@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui.statebox
+package com.progressterra.ipbandroidview.shared.ui.statecolumn
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ fun StateColumn(
     scrollable: Boolean = false,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-    useComponent: UseStateBox,
+    useComponent: UseStateColumn,
     content: @Composable (ColumnScope.() -> Unit)
 ) {
     Column(
@@ -39,7 +39,7 @@ fun StateColumn(
         when (state.state) {
             ScreenState.ERROR -> IconButton(
                 onClick = {
-                    useComponent.handle(StateBoxEvent(state))
+                    useComponent.handle(StateColumnEvent(state))
                 }
             ) {
                 BrushedIcon(

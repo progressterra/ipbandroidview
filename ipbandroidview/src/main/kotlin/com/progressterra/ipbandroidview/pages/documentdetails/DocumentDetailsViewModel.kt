@@ -17,8 +17,8 @@ import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseC
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class DocumentDetailsViewModel(
@@ -79,7 +79,7 @@ class DocumentDetailsViewModel(
 
     override fun createInitialState() = DocumentDetailsState()
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         attachableChatModule.handle(event)
     }
 

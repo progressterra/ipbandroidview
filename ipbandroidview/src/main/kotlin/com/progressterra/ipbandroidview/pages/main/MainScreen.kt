@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.bonuses.Bonuses
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.galleries.Galleries
 
 @Composable

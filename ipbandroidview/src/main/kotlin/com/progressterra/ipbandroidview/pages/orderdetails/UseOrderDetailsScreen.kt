@@ -7,11 +7,11 @@ import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.orderdetails.UseOrderDetails
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
-interface UseOrderDetailsScreen : UseTopBar, UseOrderDetails, UseStateBox, UseAttachableChat {
+interface UseOrderDetailsScreen : UseTopBar, UseOrderDetails, UseStateColumn, UseAttachableChat {
 
     class Empty : UseOrderDetailsScreen {
 
@@ -19,7 +19,7 @@ interface UseOrderDetailsScreen : UseTopBar, UseOrderDetails, UseStateBox, UseAt
 
         override fun handle(event: TextFieldEvent) = Unit
 
-        override fun handle(event: StateBoxEvent) = Unit
+        override fun handle(event: StateColumnEvent) = Unit
 
         override fun handle(event: OrderDetailsEvent) = Unit
 

@@ -15,8 +15,8 @@ import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCas
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class WantThisScreenViewModel(
@@ -96,7 +96,7 @@ class WantThisScreenViewModel(
         docsModule.handle(event)
     }
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         refresh()
     }
 

@@ -30,7 +30,7 @@ import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.withdrawaltransaction.WithdrawalTransactionState
 import com.progressterra.ipbandroidview.shared.CreateId
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import java.time.ZoneId

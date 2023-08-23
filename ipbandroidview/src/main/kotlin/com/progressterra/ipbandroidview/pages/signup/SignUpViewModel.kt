@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class SignUpViewModel(

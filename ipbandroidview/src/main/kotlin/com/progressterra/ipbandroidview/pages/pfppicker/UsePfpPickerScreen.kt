@@ -6,10 +6,10 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.UseButton
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
-interface UsePfpPickerScreen : UsePfpPicker, UseButton, UseTopBar, UseStateBox {
+interface UsePfpPickerScreen : UsePfpPicker, UseButton, UseTopBar, UseStateColumn {
 
     fun handle(event: PfpPickerScreenEvent)
 
@@ -19,7 +19,7 @@ interface UsePfpPickerScreen : UsePfpPicker, UseButton, UseTopBar, UseStateBox {
 
         override fun handle(event: ButtonEvent) = Unit
 
-        override fun handle(event: StateBoxEvent) = Unit
+        override fun handle(event: StateColumnEvent) = Unit
 
         override fun handle(event: PfpPickerEvent) = Unit
 

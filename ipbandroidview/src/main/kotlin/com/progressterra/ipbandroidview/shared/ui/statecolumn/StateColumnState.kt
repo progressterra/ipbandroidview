@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared.ui.statebox
+package com.progressterra.ipbandroidview.shared.ui.statecolumn
 
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable

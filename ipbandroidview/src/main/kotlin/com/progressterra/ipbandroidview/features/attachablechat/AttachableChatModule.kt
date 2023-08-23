@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.mvi.Operations
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class AttachableChatModule(
@@ -15,7 +15,7 @@ class AttachableChatModule(
     user: ModuleUser<AttachableChatState>
 ) : UseAttachableChat, Operations by operations, ModuleUser<AttachableChatState> by user {
 
-    override fun handle(event: StateBoxEvent) {
+    override fun handle(event: StateColumnEvent) {
         if (event.state.id == "chat") {
             refresh()
         }

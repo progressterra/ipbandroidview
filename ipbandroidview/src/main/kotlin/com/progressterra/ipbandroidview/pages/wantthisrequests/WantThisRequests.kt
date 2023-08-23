@@ -16,7 +16,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCard
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun WantThisRequests(

@@ -11,9 +11,9 @@ import com.progressterra.ipbandroidview.features.avatar.AvatarState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.connections.Connections
 import com.progressterra.ipbandroidview.widgets.connections.ConnectionsState
 

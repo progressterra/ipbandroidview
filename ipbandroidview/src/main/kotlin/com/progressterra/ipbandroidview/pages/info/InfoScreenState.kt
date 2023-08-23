@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.info
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.info.InfoState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
 @Immutable

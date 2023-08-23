@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.documents
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsState
 
 @Immutable

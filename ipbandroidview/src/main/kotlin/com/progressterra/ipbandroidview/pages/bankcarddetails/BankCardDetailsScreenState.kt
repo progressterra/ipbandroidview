@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import kotlinx.parcelize.Parcelize
 
 @Immutable

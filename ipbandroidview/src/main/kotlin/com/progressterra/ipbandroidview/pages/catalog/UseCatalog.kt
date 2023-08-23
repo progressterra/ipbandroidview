@@ -8,11 +8,11 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.trace.TraceEvent
 import com.progressterra.ipbandroidview.features.trace.UseTrace
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
-import com.progressterra.ipbandroidview.shared.ui.statebox.UseStateBox
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 import com.progressterra.ipbandroidview.widgets.storeitems.UseStoreItems
 
-interface UseCatalog : UseSearch, UseCatalogCard, UseStateBox, UseStoreItems, UseTrace {
+interface UseCatalog : UseSearch, UseCatalogCard, UseStateColumn, UseStoreItems, UseTrace {
 
     class Empty : UseCatalog {
 
@@ -26,6 +26,6 @@ interface UseCatalog : UseSearch, UseCatalogCard, UseStateBox, UseStoreItems, Us
 
         override fun handle(event: CounterEvent) = Unit
 
-        override fun handle(event: StateBoxEvent) = Unit
+        override fun handle(event: StateColumnEvent) = Unit
     }
 }
