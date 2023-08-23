@@ -65,6 +65,7 @@ fun SupportScreen(
         ) {
             if (state.current.finite) {
                 Messages(
+                    modifier = Modifier.padding(horizontal = 20.dp),
                     state = state.messages,
                     messagesBackground = IpbTheme.colors.surface.asBrush()
                 )

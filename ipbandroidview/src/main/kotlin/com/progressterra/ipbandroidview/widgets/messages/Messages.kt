@@ -35,8 +35,8 @@ fun Messages(
         itemState: Message
     ) {
         val paddingValues = PaddingValues(
-            start = if (itemState.user) 40.dp else 20.dp,
-            end = if (itemState.user) 20.dp else 40.dp
+            start = if (itemState.user) 40.dp else 0.dp,
+            end = if (itemState.user) 0.dp else 40.dp
         )
         Row(
             modifier = modifier
