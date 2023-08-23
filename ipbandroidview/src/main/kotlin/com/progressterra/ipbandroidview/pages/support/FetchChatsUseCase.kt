@@ -68,7 +68,6 @@ interface FetchChatsUseCase {
                     take = 1
                 )
             ).getOrThrow()?.lastOrNull()?.toMessage()
-
             val main = SupportChatState(
                 id = mainDialog.idUnique!!,
                 title = mainDialog.description ?: "",
@@ -78,19 +77,19 @@ interface FetchChatsUseCase {
                 lastTime = mainLastMessage?.date ?: ""
             )
             val docs = SupportChatState(
-                id = "",
+                id = "0",
                 title = manageResources.string(R.string.docs_chat),
                 iconRes = R.drawable.ic_chat_docs,
                 subCategories = chatsUseCase(DOCS_CHAT_ID).getOrThrow()
             )
             val wantThis = SupportChatState(
-                id = "",
+                id = "1",
                 title = manageResources.string(R.string.want_this_requests),
                 subCategories = chatsUseCase(WANT_THIS_CHAT_ID).getOrThrow(),
                 iconRes = R.drawable.ic_chat_want_this
             )
             val orders = SupportChatState(
-                id = "",
+                id = "2",
                 title = manageResources.string(R.string.your_orders),
                 subCategories = chatsUseCase(ORDERS_CHAT_ID).getOrThrow(),
                 iconRes = R.drawable.ic_chat_orders
