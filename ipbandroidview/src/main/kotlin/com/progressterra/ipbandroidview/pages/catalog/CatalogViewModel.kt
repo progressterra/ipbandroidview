@@ -8,9 +8,9 @@ import com.progressterra.ipbandroidview.features.trace.TraceEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import kotlinx.coroutines.flow.emptyFlow
 
@@ -25,17 +25,17 @@ class CatalogViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(stateBox = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             catalogUseCase().onSuccess { catalog ->
                 emitState {
                     it.copy(
-                        stateBox = ScreenState.SUCCESS,
+                        screen = it.screen.copy(state = ScreenState.SUCCESS),
                         current = catalog,
                         trace = it.trace.copy(current = catalog)
                     )
                 }
             }.onFailure {
-                emitState { it.copy(stateBox = ScreenState.ERROR) }
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
         }
     }
