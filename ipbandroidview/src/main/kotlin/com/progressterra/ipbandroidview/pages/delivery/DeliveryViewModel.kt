@@ -5,10 +5,10 @@ import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSugge
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.UserData
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
@@ -23,9 +23,9 @@ class DeliveryViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screenState = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchShippingAddressUseCase().onSuccess {
-                emitState { it.copy(screenState = ScreenState.SUCCESS) }
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
                 if (!UserData.shippingAddress.isEmpty()) {
                     emitState {
                         it.copy(
@@ -38,7 +38,7 @@ class DeliveryViewModel(
                 }
                 checkValid()
             }.onFailure {
-                emitState { it.copy(screenState = ScreenState.ERROR) }
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
         }
     }

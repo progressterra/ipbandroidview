@@ -42,7 +42,7 @@ fun DeliveryScreen(
         }
     }) { _, _ ->
         StateColumn(
-            state = state.screenState,
+            state = state.screen,
             scrollable = true,
             useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(20.dp)
