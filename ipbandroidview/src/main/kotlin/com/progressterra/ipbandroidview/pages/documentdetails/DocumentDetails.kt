@@ -56,11 +56,12 @@ fun DocumentDetails(
             }
         }) { _, _ ->
         Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(40.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
             LazyColumn(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -79,8 +80,15 @@ fun DocumentDetails(
                         )
                     }
                 }
+                item {
+                    AttachableChat(
+                        modifier = Modifier.padding(top = 32.dp),
+                        state = state.chat,
+                        canBeClosed = false,
+                        useComponent = useComponent
+                    )
+                }
             }
-            AttachableChat(state = state.chat, canBeClosed = false, useComponent = useComponent)
         }
     }
 }
