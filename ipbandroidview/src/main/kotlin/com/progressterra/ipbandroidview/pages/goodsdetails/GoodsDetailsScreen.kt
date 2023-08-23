@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescripti
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGallery
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
@@ -45,7 +45,7 @@ fun GoodsDetailsScreen(
 @Composable
 private fun GoodsDetailsScreenPreview() {
     val state = GoodsDetailsState(
-        screen = StateBoxState(state = ScreenState.SUCCESS),
+        screen = StateColumnState(state = ScreenState.SUCCESS),
         name = "Красивый товар",
         gallery = ItemGalleryState(
             listOf(

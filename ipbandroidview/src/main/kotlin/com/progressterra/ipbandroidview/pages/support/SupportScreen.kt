@@ -22,7 +22,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
@@ -133,7 +133,7 @@ private fun SupportScreenPreview() {
                             )
                         )
                     )
-                ), screen = StateBoxState(state = ScreenState.SUCCESS)
+                ), screen = StateColumnState(state = ScreenState.SUCCESS)
             ),
             useComponent = UseSupportScreen.Empty()
         )

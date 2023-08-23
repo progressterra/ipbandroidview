@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.pages.newwithdrawal
 import androidx.paging.PagingData
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
@@ -17,5 +17,5 @@ data class NewWithdrawalScreenState(
     val cards: Flow<PagingData<BankCardState>> = emptyFlow(),
     val selectedCard: BankCardState = BankCardState(),
     val input: TextFieldState = TextFieldState(id = "input", type = TextInputType.NUMBER),
-    val screen: StateBoxState = StateBoxState()
+    val screen: StateColumnState = StateColumnState()
 )

@@ -22,7 +22,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
@@ -91,7 +91,7 @@ private fun AvatarPickerScreenPreview() {
     val avatarPickerState = AvatarPickerState(avatars)
 
     val avatarPickerScreenState = AvatarPickerScreenState(
-        screen = StateBoxState(state = ScreenState.SUCCESS), avatars = avatarPickerState
+        screen = StateColumnState(state = ScreenState.SUCCESS), avatars = avatarPickerState
     )
 
     IpbTheme {

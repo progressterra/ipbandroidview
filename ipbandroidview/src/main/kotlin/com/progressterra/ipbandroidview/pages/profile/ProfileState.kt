@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.entities.IsFull
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileState
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonState
 import com.progressterra.ipbandroidview.shared.IsEmpty
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
 @Immutable
@@ -13,7 +13,7 @@ data class ProfileState(
     val isAuthorized: Boolean = false,
     val unAuth: ButtonState = ButtonState(),
     val authProfileState: AuthProfileState = AuthProfileState(),
-    val screen: StateBoxState = StateBoxState(),
+    val screen: StateColumnState = StateColumnState(),
     val orders: ProfileButtonState = ProfileButtonState(id = "orders"),
     val support: ProfileButtonState = ProfileButtonState(id = "support"),
     val favorites: ProfileButtonState = ProfileButtonState(id = "favorites"),

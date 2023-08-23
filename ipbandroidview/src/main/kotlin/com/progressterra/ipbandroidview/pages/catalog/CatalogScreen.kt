@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.features.trace.TraceState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItemsState
@@ -83,7 +83,7 @@ private fun CatalogScreenPreview() {
         CatalogScreen(
             state = CatalogState(
                 trace = TraceState(trace = listOf()),
-                screen = StateBoxState(state = ScreenState.SUCCESS),
+                screen = StateColumnState(state = ScreenState.SUCCESS),
                 search = SearchState(
                     text = "aliquam"
                 ),

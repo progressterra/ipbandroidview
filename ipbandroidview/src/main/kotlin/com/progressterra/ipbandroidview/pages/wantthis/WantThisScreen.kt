@@ -19,7 +19,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
@@ -82,7 +82,7 @@ fun WantThisScreen(
 private fun WantThisScreenPreview() {
     IpbTheme {
         WantThisScreen(
-            state = WantThisScreenState(screen = StateBoxState(state = ScreenState.SUCCESS)),
+            state = WantThisScreenState(screen = StateColumnState(state = ScreenState.SUCCESS)),
             useComponent = UseWantThisScreen.Empty()
         )
     }

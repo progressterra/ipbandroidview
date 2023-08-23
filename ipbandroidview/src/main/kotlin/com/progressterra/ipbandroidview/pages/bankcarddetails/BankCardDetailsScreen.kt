@@ -27,7 +27,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
@@ -131,7 +131,7 @@ private fun BankCardDetailsScreenPreview() {
                         TextFieldState(placeholder = "Срок действия"),
                         TextFieldState(placeholder = "CVV/CVC")
                     )
-                ), screen = StateBoxState(state = ScreenState.SUCCESS),
+                ), screen = StateColumnState(state = ScreenState.SUCCESS),
                 apply = ButtonState()
             ),
             useComponent = UseBankCardDetailsScreen.Empty()

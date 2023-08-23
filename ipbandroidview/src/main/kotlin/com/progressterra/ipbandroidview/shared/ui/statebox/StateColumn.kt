@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLoadingIndicator
 @Composable
 fun StateColumn(
     modifier: Modifier = Modifier,
-    state: StateBoxState,
+    state: StateColumnState,
     scrollable: Boolean = false,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,

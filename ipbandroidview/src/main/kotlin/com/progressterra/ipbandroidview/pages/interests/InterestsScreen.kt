@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.interestspicker.InterestsPicker
 import com.progressterra.ipbandroidview.features.interestspicker.InterestsPickerState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -77,7 +77,7 @@ private fun InterestsScreenPreview() {
     IpbTheme {
         InterestsScreen(
             state = InterestsScreenState(
-                screen = StateBoxState(state = ScreenState.SUCCESS),
+                screen = StateColumnState(state = ScreenState.SUCCESS),
                 interests = InterestsPickerState(
                     items = listOf(
                         InterestsPickerState.Item(

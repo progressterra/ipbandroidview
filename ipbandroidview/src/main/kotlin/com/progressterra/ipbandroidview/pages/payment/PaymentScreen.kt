@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodStat
 import com.progressterra.ipbandroidview.features.receipt.Receipt
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
@@ -61,7 +61,7 @@ fun PaymentScreen(
 private fun PaymentScreenPreview() {
     PaymentScreen(
         state = PaymentState(
-            screen = StateBoxState(state = ScreenState.SUCCESS), receipt = ReceiptState(
+            screen = StateColumnState(state = ScreenState.SUCCESS), receipt = ReceiptState(
                 total = SimplePrice(12500), items = listOf(
                     ReceiptState.Item(
                         name = "Кофе", price = SimplePrice(10000), quantity = 1

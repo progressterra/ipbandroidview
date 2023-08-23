@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.search.Search
 import com.progressterra.ipbandroidview.features.search.SearchState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
@@ -89,7 +89,7 @@ private fun ChatsScreenPreview() {
         )
 
         val chatsScreenState = ChatsScreenState(
-            screen = StateBoxState(state = ScreenState.SUCCESS),
+            screen = StateColumnState(state = ScreenState.SUCCESS),
             search = SearchState(),
             chats = ChatsState(chats)
         )

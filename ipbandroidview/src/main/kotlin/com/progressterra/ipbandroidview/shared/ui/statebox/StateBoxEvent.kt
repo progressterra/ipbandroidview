@@ -1,3 +1,3 @@
 package com.progressterra.ipbandroidview.shared.ui.statebox
 
-class StateBoxEvent(val state: StateBoxState)
+class StateBoxEvent(val state: StateColumnState)

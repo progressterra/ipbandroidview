@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
@@ -70,7 +70,7 @@ fun InfoScreen(
 private fun InfoScreenPreview() {
     IpbTheme {
         InfoScreen(
-            state = InfoScreenState(screen = StateBoxState(state = ScreenState.SUCCESS)),
+            state = InfoScreenState(screen = StateColumnState(state = ScreenState.SUCCESS)),
             useComponent = UseInfoScreen.Empty()
         )
     }

@@ -5,10 +5,9 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.Id
 import kotlinx.parcelize.Parcelize
 
-//TODO rename to StateColumnState
 @Immutable
 @Parcelize
-data class StateBoxState(
+data class StateColumnState(
     override val id: String = "",
     val state: ScreenState = ScreenState.LOADING
 ) : Id, Parcelable

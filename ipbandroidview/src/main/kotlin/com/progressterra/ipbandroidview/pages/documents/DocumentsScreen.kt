@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitiz
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumnState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
@@ -76,7 +76,7 @@ private fun DocumentsScreenPreview() {
             )
         ),
         citizenship = citizenshipState,
-        screen = StateBoxState(state = ScreenState.SUCCESS)
+        screen = StateColumnState(state = ScreenState.SUCCESS)
         )
 
     IpbTheme {
