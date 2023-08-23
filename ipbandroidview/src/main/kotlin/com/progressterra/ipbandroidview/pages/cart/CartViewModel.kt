@@ -5,10 +5,10 @@ import com.progressterra.ipbandroidview.features.cartcard.CartCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class CartViewModel(
@@ -22,7 +22,7 @@ class CartViewModel(
     fun refresh() {
         onBackground {
             val call = cartUseCase().onSuccess { newState -> emitState { newState } }
-            emitState { it.copy(screenState = call.isSuccess.toScreenState()) }
+            emitState { it.copy(screen = it.screen.copy(state = call.isSuccess.toScreenState())) }
         }
     }
 
@@ -30,11 +30,10 @@ class CartViewModel(
         onBackground {
             when (event) {
                 is CartCardEvent.Open -> postEffect(CartEvent.OnItem(event.id))
-                is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess {
-                    newState ->
-                    emitState { newState.copy(screenState = ScreenState.SUCCESS) }
+                is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess { newState ->
+                    emitState { newState.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
                 }.onFailure {
-                    emitState { it.copy(screenState = ScreenState.ERROR) }
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
                 }
             }
         }
@@ -50,15 +49,15 @@ class CartViewModel(
         onBackground {
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess { newState ->
-                    emitState { newState.copy(screenState = ScreenState.SUCCESS) }
+                    emitState { newState.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
                 }.onFailure {
-                    emitState { it.copy(screenState = ScreenState.ERROR) }
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
                 }
 
                 is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess { newState ->
-                    emitState { newState.copy(screenState = ScreenState.SUCCESS) }
+                    emitState { newState.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
                 }.onFailure {
-                    emitState { it.copy(screenState = ScreenState.ERROR) }
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
                 }
             }
         }
