@@ -1,10 +1,15 @@
 package com.progressterra.ipbandroidview.features.attachablechat
 
+import com.progressterra.ipbandroidview.entities.Id
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import com.progressterra.ipbandroidview.widgets.messages.MessagesState
 
 data class AttachableChatState(
-    val messagesState: MessagesState,
-    val input: TextFieldState,
-    val isVisible: Boolean
-)
+    override val id: String = "",
+    val messagesState: MessagesState = MessagesState(),
+    val input: TextFieldState = TextFieldState(id = "input", type = TextInputType.CHAT),
+    val isVisible: Boolean = false,
+    val screen: StateBoxState = StateBoxState()
+) : Id

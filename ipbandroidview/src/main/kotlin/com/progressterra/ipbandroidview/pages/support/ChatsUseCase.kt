@@ -5,13 +5,13 @@ import com.progressterra.ipbandroidview.features.supportchat.SupportChatState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.PagingUseCase
 
-interface OrdersChatsUseCase : PagingUseCase<Nothing, SupportChatState> {
+interface ChatsUseCase : PagingUseCase<String, SupportChatState> {
 
     class Base(
         private val messengerRepository: MessengerRepository,
         private val obtainAccessToken: ObtainAccessToken
-    ) : PagingUseCase.Abstract<Nothing, SupportChatState>(), OrdersChatsUseCase {
+    ) : PagingUseCase.Abstract<String, SupportChatState>(), ChatsUseCase {
 
-        override fun createSource() = OrdersChatsSource(messengerRepository, obtainAccessToken)
+        override fun createSource() = ChatsSource(messengerRepository, obtainAccessToken)
     }
 }

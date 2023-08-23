@@ -6,15 +6,14 @@ import com.progressterra.ipbandroidapi.api.messenger.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.messenger.models.SortData
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeComparison
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeVariantSort
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractSource
 
-class OrdersChatsSource(
+class ChatsSource(
     private val messengerRepository: MessengerRepository,
     private val obtainAccessToken: ObtainAccessToken
-) : AbstractSource<Nothing, SupportChatState>() {
+) : AbstractSource<String, SupportChatState>() {
 
     override val pageSize = 10
 
@@ -27,7 +26,7 @@ class OrdersChatsSource(
                     listFields = listOf(
                         FieldForFilter(
                             fieldName = "idClient",
-                            listValue = listOf(IpbAndroidViewSettings.ORDERS_CHAT_ID),
+                            listValue = listOf(filter!!),
                             comparison = TypeComparison.EQUALS_STRONG
                         )
                     ),
