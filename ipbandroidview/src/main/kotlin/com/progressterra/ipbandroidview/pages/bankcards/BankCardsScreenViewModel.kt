@@ -1,13 +1,13 @@
 package com.progressterra.ipbandroidview.pages.bankcards
 
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenState
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class BankCardsScreenViewModel(
@@ -20,7 +20,7 @@ class BankCardsScreenViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screen = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
             fetchUnconfirmedBankCardsUseCase().onSuccess { cards ->
                 emitState {
@@ -36,13 +36,13 @@ class BankCardsScreenViewModel(
             }.onFailure {
                 isSuccess = false
             }
-            emitState { it.copy(screen = isSuccess.toScreenState()) }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 
     override fun handleEvent(event: BankCardEvent) {
         when (event) {
-            is BankCardEvent.Click -> postEffect(BankCardsScreenEvent.OpenDetails(event.state.toBankCardDetailsScreenState()))
+            is BankCardEvent.Click -> postEffect(BankCardsScreenEvent.OpenDetails(event.state.document))
 
             is BankCardEvent.Delete -> Unit
         }
@@ -53,7 +53,7 @@ class BankCardsScreenViewModel(
     }
 
     override fun handle(event: ButtonEvent) {
-        postEffect(BankCardsScreenEvent.OpenDetails(BankCardDetailsScreenState()))
+        postEffect(BankCardsScreenEvent.OpenDetails(Document()))
     }
 
     override fun handle(event: StateBoxEvent) {

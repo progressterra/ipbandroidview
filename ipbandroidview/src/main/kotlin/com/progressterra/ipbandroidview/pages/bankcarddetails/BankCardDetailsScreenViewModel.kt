@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.bankcarddetails
 
-import android.Manifest
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Document
@@ -8,83 +7,83 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEven
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
+import com.progressterra.ipbandroidview.processes.docs.DocsModule
+import com.progressterra.ipbandroidview.processes.docs.DocsModuleUser
 import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.updateById
 
 class BankCardDetailsScreenViewModel(
+    checkPermissionUseCase: CheckPermissionUseCase,
+    makePhotoUseCase: MakePhotoUseCase,
+    askPermissionUseCase: AskPermissionUseCase,
+    documentValidationUseCase: DocumentValidationUseCase,
     private val fetchCardTemplateUseCase: FetchCardTemplateUseCase,
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
-    private val checkPermissionUseCase: CheckPermissionUseCase,
-    private val makePhotoUseCase: MakePhotoUseCase,
-    private val askPermissionUseCase: AskPermissionUseCase,
-    private val documentValidationUseCase: DocumentValidationUseCase,
     private val createAndSaveDocUseCase: CreateAndSaveDocUseCase
 ) : UseBankCardDetailsScreen,
     BaseViewModel<BankCardDetailsScreenState, BankCardDetailsScreenEvent>() {
 
-    override fun createInitialState() = BankCardDetailsScreenState(
-        apply = ButtonState(id = "apply"),
-        screen = ScreenState.LOADING,
-        document = Document()
+    override fun createInitialState() = BankCardDetailsScreenState()
+
+    private val docsModule = DocsModule(
+        documentValidationUseCase,
+        checkPermissionUseCase,
+        askPermissionUseCase,
+        makePhotoUseCase,
+        this,
+        object : DocsModuleUser {
+
+            override fun isValid(isValid: Boolean) {
+                emitState { it.copy(apply = it.apply.copy(enabled = isValid)) }
+            }
+
+            override fun openPhoto(url: String) {
+                postEffect(BankCardDetailsScreenEvent.OpenPhoto(url))
+            }
+
+            override fun emitModuleState(reducer: (Document) -> Document) {
+                emitState { it.copy(document = reducer(currentState.document)) }
+            }
+
+            override val moduleState: Document
+                get() = currentState.document
+        }
     )
 
     fun setup(newDocument: Document) {
         if (newDocument.isEmpty()) {
             refresh()
         } else {
-            emitState { it.copy(document = newDocument, screen = ScreenState.SUCCESS) }
-            validation()
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
+            docsModule.setup(newDocument)
         }
     }
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screen = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchCardTemplateUseCase().onSuccess { newDocument ->
-                emitState { it.copy(document = newDocument, screen = ScreenState.SUCCESS) }
-                validation()
-            }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
+                emitState {
+                    it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS))
+                }
+                docsModule.setup(newDocument)
+            }.onFailure {
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+            }
         }
     }
 
     override fun handle(event: DocumentPhotoEvent) {
-        onBackground {
-            when (event) {
-                is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                    makePhotoUseCase().onSuccess { photo ->
-                        emitState {
-                            it.copy(document = it.document.copy(photo = it.document.photo.copy(items = it.document.photo.items + photo)))
-                        }
-                    }
-                    validation()
-                }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
-
-                is DocumentPhotoEvent.Select -> postEffect(
-                    BankCardDetailsScreenEvent.OpenPhoto(
-                        event.image.url
-                    )
-                )
-            }
-        }
+        docsModule.handle(event)
     }
 
-    private fun validation() {
-        onBackground {
-            val valid = documentValidationUseCase(currentState.document)
-            emitState {
-                it.copy(apply = it.apply.copy(enabled = valid.isSuccess))
-            }
-        }
-    }
 
     override fun handle(event: TopBarEvent) {
         postEffect(BankCardDetailsScreenEvent.Back)
@@ -120,21 +119,6 @@ class BankCardDetailsScreenViewModel(
     }
 
     override fun handle(event: TextFieldEvent) {
-        when (event) {
-            is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> Unit
-            is TextFieldEvent.TextChanged -> {
-                emitState {
-                    it.copy(
-                        document = it.document.copy(
-                            entries = it.document.entries.updateById(event) { field ->
-                                field.copy(text = event.text)
-                            }
-                        )
-                    )
-                }
-                validation()
-            }
-        }
+        docsModule.handle(event)
     }
 }
