@@ -8,13 +8,13 @@ import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
 @Immutable
 data class OrderDetailsState(
-    val id: String,
-    val number: String,
-    val status: TypeStatusOrder,
-    val date: String,
-    val count: Int,
-    val totalPrice: SimplePrice,
-    val goods: OrderItemsState
+    val id: String = "",
+    val number: String = "",
+    val status: TypeStatusOrder = TypeStatusOrder.CANCELED,
+    val date: String = "",
+    val count: Int = 0,
+    val totalPrice: SimplePrice = SimplePrice(),
+    val goods: OrderItemsState = OrderItemsState()
 ) {
 
     fun toOrderTrackingState() = OrderTrackingState(
