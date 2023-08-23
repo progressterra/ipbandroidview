@@ -19,6 +19,7 @@ import com.progressterra.ipbandroidview.pages.delivery.CommentUseCase
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryViewModel
 import com.progressterra.ipbandroidview.pages.delivery.FetchShippingAddressUseCase
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
+import com.progressterra.ipbandroidview.pages.documentdetails.FetchDocumentChatUseCase
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.pages.documents.DocumentsViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
@@ -201,6 +202,8 @@ val pagesModule = module {
     single<FetchMessagesUseCase> { FetchMessagesUseCase.Base(get(), get()) }
 
     single<FetchOrderChatUseCase> { FetchOrderChatUseCase.Base(get(), get(), get()) }
+
+    single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get()) }
 
     viewModel { SupportScreenViewModel(get(), get(), get()) }
 
