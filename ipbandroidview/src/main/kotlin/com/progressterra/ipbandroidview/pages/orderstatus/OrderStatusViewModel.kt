@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.orderstatus
 
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 
 class OrderStatusViewModel : BaseViewModel<OrderStatusState, OrderStatusEvent>(), UseOrderStatus {

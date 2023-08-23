@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.pages.support
 
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
@@ -17,17 +17,17 @@ class SupportScreenViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screenState = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchChatsUseCase().onSuccess { newState ->
                 val cached = newState.copy(subCategories = cachePaging(newState.subCategories))
                 emitState {
                     it.copy(
-                        screenState = ScreenState.SUCCESS,
+                        screen = it.screen.copy(state = ScreenState.SUCCESS),
                         current = cached
                     )
                 }
             }.onFailure {
-                emitState { it.copy(screenState = ScreenState.ERROR) }
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
         }
     }

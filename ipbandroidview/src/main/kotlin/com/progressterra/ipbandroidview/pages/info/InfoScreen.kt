@@ -12,11 +12,12 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.info.Info
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
@@ -69,7 +70,7 @@ fun InfoScreen(
 private fun InfoScreenPreview() {
     IpbTheme {
         InfoScreen(
-            state = InfoScreenState(screen = ScreenState.SUCCESS),
+            state = InfoScreenState(screen = StateBoxState(state = ScreenState.SUCCESS)),
             useComponent = UseInfoScreen.Empty()
         )
     }

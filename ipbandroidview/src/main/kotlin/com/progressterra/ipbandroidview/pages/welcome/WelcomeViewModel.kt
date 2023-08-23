@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.welcome
 
-import com.progressterra.ipbandroidview.shared.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 

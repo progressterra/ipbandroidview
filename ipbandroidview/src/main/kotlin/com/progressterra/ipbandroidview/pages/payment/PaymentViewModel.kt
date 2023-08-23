@@ -5,11 +5,11 @@ import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMetho
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class PaymentViewModel(
@@ -25,7 +25,7 @@ class PaymentViewModel(
     fun refresh() {
         onBackground {
             emitState {
-                it.copy(screenState = ScreenState.LOADING)
+                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
             }
             var isSuccess = true
             fetchPaymentMethods().onSuccess { paymentMethods ->
@@ -50,7 +50,7 @@ class PaymentViewModel(
                 isSuccess = false
             }
             emitState {
-                it.copy(screenState = isSuccess.toScreenState())
+                it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
             }
         }
     }

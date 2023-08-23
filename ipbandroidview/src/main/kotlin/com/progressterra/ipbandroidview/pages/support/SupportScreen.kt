@@ -19,9 +19,10 @@ import com.progressterra.ipbandroidview.entities.Message
 import com.progressterra.ipbandroidview.features.supportchat.SupportChat
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
@@ -59,7 +60,7 @@ fun SupportScreen(
         }
     ) { _, _ ->
         StateColumn(
-            state = state.screenState,
+            state = state.screen,
             useComponent = useComponent
         ) {
             if (state.current.finite) {
@@ -132,7 +133,7 @@ private fun SupportScreenPreview() {
                             )
                         )
                     )
-                ), screenState = ScreenState.SUCCESS
+                ), screen = StateBoxState(state = ScreenState.SUCCESS)
             ),
             useComponent = UseSupportScreen.Empty()
         )

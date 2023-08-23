@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.photo
 
 import com.progressterra.ipbandroidview.features.phototopbar.PhotoTopBarEvent
-import com.progressterra.ipbandroidview.shared.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 
 class PhotoViewModel : BaseViewModel<PhotoState, PhotoEvent>(), UsePhoto {
 

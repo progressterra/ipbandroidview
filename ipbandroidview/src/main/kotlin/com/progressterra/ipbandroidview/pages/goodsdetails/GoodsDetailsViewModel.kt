@@ -8,10 +8,10 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class GoodsDetailsViewModel(
@@ -34,17 +34,17 @@ class GoodsDetailsViewModel(
     fun refresh() {
         onBackground {
             emitState {
-                it.copy(screenState = ScreenState.LOADING)
+                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
             }
             goodsDetailsUseCase(currentState.id)
                 .onSuccess { details ->
                     emitState {
-                        details.copy(screenState = ScreenState.SUCCESS)
+                        details.copy(screen = it.screen.copy(state = ScreenState.SUCCESS))
                     }
                 }
                 .onFailure {
                     emitState {
-                        it.copy(screenState = ScreenState.ERROR)
+                        it.copy(screen = it.screen.copy(state = ScreenState.ERROR))
                     }
                 }
         }

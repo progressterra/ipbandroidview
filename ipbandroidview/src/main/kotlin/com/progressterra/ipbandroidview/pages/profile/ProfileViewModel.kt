@@ -6,9 +6,9 @@ import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEven
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class ProfileViewModel(
@@ -22,7 +22,7 @@ class ProfileViewModel(
     fun refresh() {
         onBackground {
             emitState {
-                it.copy(screenState = ScreenState.LOADING)
+                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
             }
             var isSuccess = true
             fetchUserProfileUseCase().onSuccess { profile ->
@@ -45,7 +45,7 @@ class ProfileViewModel(
                 }
             }
             emitState {
-                it.copy(screenState = isSuccess.toScreenState())
+                it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
             }
         }
     }

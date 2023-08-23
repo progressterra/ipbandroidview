@@ -5,9 +5,9 @@ import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
@@ -29,10 +29,11 @@ class ProfileDetailsViewModel(
                             email = editUser.email.copy(enabled = false),
                             birthday = editUser.birthday.copy(enabled = false),
                             phone = editUser.phone.copy(enabled = false)
-                        ), screen = ScreenState.SUCCESS
+                        ), screen = it.screen.copy(state = ScreenState.SUCCESS)
                     )
                 }
-            }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
+            }
+                .onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
         }
     }
 

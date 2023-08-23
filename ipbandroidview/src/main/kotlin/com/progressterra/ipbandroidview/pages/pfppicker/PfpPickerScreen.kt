@@ -13,11 +13,12 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.pfppicker.PfpPicker
 import com.progressterra.ipbandroidview.features.pfppicker.PfpPickerState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 
 @Composable
@@ -70,7 +71,7 @@ fun PfpPickerScreen(
 private fun PfpPickerScreenPreviewEmpty() {
     IpbTheme {
         PfpPickerScreen(
-            state = PfpPickerScreenState(screen = ScreenState.SUCCESS),
+            state = PfpPickerScreenState(screen = StateBoxState(state = ScreenState.SUCCESS)),
             useComponent = UsePfpPickerScreen.Empty()
         )
     }
@@ -82,7 +83,7 @@ private fun PfpPickerScreenPreview() {
     IpbTheme {
         PfpPickerScreen(
             state = PfpPickerScreenState(
-                screen = ScreenState.SUCCESS,
+                screen = StateBoxState(state = ScreenState.SUCCESS),
                 pfpPicker = PfpPickerState(url = "")
             ),
             useComponent = UsePfpPickerScreen.Empty()
