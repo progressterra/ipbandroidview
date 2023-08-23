@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.features.code.CodeEvent
 import com.progressterra.ipbandroidview.features.countdown.CountdownEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import kotlinx.coroutines.delay
 
 class ConfirmationCodeViewModel(
