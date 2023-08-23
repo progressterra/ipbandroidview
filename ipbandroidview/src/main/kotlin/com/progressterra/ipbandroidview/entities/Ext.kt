@@ -195,7 +195,6 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
         } ?: emptyList()).map {
             TextFieldState(
                 id = createId(),
-                text = it.valueData ?: "",
                 placeholder = it.comment,
                 label = it.name,
                 type = when (it.typeValue) {
@@ -206,7 +205,7 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
                     TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
                     null -> TextInputType.DEFAULT
                 }
-            )
+            ).unFormatByType(it.valueData ?: "")
         },
         photo = DocumentPhotoState(items = characteristicValue?.listImages?.map { img ->
             MultisizedImage(
@@ -227,7 +226,6 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
         } ?: emptyList()).map {
             TextFieldState(
                 id = createId(),
-                text = it.valueData ?: "",
                 placeholder = it.comment,
                 label = it.name,
                 type = when (it.typeValue) {
@@ -238,7 +236,7 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
                     TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
                     null -> TextInputType.DEFAULT
                 }
-            )
+            ).unFormatByType(it.valueData ?: "")
         },
         photo = DocumentPhotoState(items = listImages?.map { img ->
             MultisizedImage(
@@ -258,7 +256,6 @@ fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
         } ?: emptyList()).map {
             TextFieldState(
                 id = createId(),
-                text = it.valueData ?: "",
                 placeholder = it.comment,
                 label = it.name,
                 type = when (it.typeValue) {
@@ -269,7 +266,7 @@ fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
                     TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
                     null -> TextInputType.DEFAULT
                 }
-            )
+            ).unFormatByType(it.valueData ?: "")
         },
         photo = DocumentPhotoState(required = false)
     )
