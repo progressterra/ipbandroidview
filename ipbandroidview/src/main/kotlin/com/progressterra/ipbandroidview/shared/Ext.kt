@@ -8,7 +8,12 @@ import java.util.Date
 import java.util.Locale
 
 fun <T : Id> List<T>.replaceById(item: T): List<T> =
-    toMutableList().apply { set(indexOfFirst { item.id == it.id }, item) }
+    toMutableList().apply {
+        val index = indexOfFirst { item.id == it.id }
+        if (index != -1) {
+            set(index, item)
+        }
+    }
 
 fun <T : Id> PagingData<T>.replaceById(item: T): PagingData<T> = map {
     if (item.id == it.id) {
@@ -20,7 +25,9 @@ fun <T : Id> PagingData<T>.replaceById(item: T): PagingData<T> = map {
 
 fun <T : Id> List<T>.updateById(entity: Id, reduced: (T) -> T): List<T> = toMutableList().apply {
     val index = indexOfFirst { entity.id == it.id }
-    set(index, reduced(get(index)))
+    if (index != -1) {
+        set(index, reduced(get(index)))
+    }
 }
 
 fun Date.print(): String {
