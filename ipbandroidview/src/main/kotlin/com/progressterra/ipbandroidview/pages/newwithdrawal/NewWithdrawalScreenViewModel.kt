@@ -6,11 +6,11 @@ import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import kotlinx.coroutines.flow.map
@@ -31,7 +31,7 @@ class NewWithdrawalScreenViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screen = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
             fetchConfirmedBankCardsUseCase().onSuccess { cards ->
                 emitState {
@@ -41,7 +41,7 @@ class NewWithdrawalScreenViewModel(
             fetchWithdrawalUseCase().onSuccess { canBeWithdrawal ->
                 emitState { it.copy(canBeWithdrawal = canBeWithdrawal) }
             }.onFailure { isSuccess = false }
-            emitState { it.copy(screen = isSuccess.toScreenState()) }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 
