@@ -57,10 +57,12 @@ class WantThisScreenViewModel(
     fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-            fetchWantThisUseCase().onSuccess { newState ->
-                emitState { newState.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
+            fetchWantThisUseCase().onSuccess { newDocument ->
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
+                docsModule.setup(newDocument)
+            }.onFailure {
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
-                .onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
         }
     }
 
