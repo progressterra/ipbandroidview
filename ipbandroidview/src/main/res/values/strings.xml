@@ -168,4 +168,5 @@
     <string name="withdraw_all">Вывести всё</string>
     <string name="input_amount">Введите сумму</string>
     <string name="welcome_message">Легко накопить\n—\nлегко потратить</string>
+    <string name="docs_chat">Чат по документу</string>
 </resources>

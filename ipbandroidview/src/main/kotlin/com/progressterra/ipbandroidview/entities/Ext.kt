@@ -29,8 +29,8 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoStat
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.withdrawaltransaction.WithdrawalTransactionState
 import com.progressterra.ipbandroidview.shared.CreateId
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import java.time.ZoneId
@@ -271,7 +271,7 @@ fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
                 }
             )
         },
-        photo = DocumentPhotoState(required = true)
+        photo = DocumentPhotoState(required = false)
     )
 
 fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(
@@ -335,7 +335,7 @@ fun TypeStatusDoc.toColor() = when (this) {
 }
 
 
-fun TypeStatusDoc.toCanBeEdit() = when (this) {
+fun TypeStatusDoc.toCanBeEditted() = when (this) {
     TypeStatusDoc.NOT_FILL -> true
     TypeStatusDoc.WAIT_IMAGE -> true
     TypeStatusDoc.WAIT_REVIEW -> false
@@ -345,8 +345,12 @@ fun TypeStatusDoc.toCanBeEdit() = when (this) {
 
 fun RFPaymentDataForClientViewModel.toBankCardState() = BankCardState(
     id = idUnique!!,
-    name = "${paymentSystemName ?: ""} ${preiview ?: ""}",
-    status = TypeStatusDoc.CONFIRMED
+    document = Document(
+        name = "${paymentSystemName ?: ""} ${preiview ?: ""}",
+        status = TypeStatusDoc.CONFIRMED
+    ),
+    isMainCard = false,
+    isSelected = false
 )
 
 fun DHPaymentClientViewModel.toWithdrawalTransactionState() = WithdrawalTransactionState(
@@ -365,8 +369,9 @@ fun TypeResultOperationBisinessArea.toColor() = when (this) {
 }
 
 @Composable
-fun TypeResultOperationBisinessArea.toString(stringResource: @Composable (Int) -> String) = when (this) {
-    TypeResultOperationBisinessArea.IN_PROGRESS -> stringResource(R.string.transaction_in_progress)
-    TypeResultOperationBisinessArea.SUCCESS -> stringResource(R.string.transaction_success)
-    TypeResultOperationBisinessArea.WITH_ERROR -> stringResource(R.string.transaction_error)
-}
+fun TypeResultOperationBisinessArea.toString(stringResource: @Composable (Int) -> String) =
+    when (this) {
+        TypeResultOperationBisinessArea.IN_PROGRESS -> stringResource(R.string.transaction_in_progress)
+        TypeResultOperationBisinessArea.SUCCESS -> stringResource(R.string.transaction_success)
+        TypeResultOperationBisinessArea.WITH_ERROR -> stringResource(R.string.transaction_error)
+    }

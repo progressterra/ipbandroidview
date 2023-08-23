@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.shared
+package com.progressterra.ipbandroidview.shared.mvi
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel() {
+abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel(), Operations {
 
     private val initialState: STATE by lazy { createInitialState() }
 
@@ -48,7 +48,7 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel() {
         }
     }
 
-    protected fun onBackground(
+    override fun onBackground(
         block: suspend () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) { block() }
@@ -63,6 +63,6 @@ abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel() {
         viewModelScope.launch { _effects.send(effect) }
     }
 
-    protected fun <T : Any> cachePaging(toBeCached: Flow<PagingData<T>>): Flow<PagingData<T>> =
+    override fun <T : Any> cachePaging(toBeCached: Flow<PagingData<T>>): Flow<PagingData<T>> =
         toBeCached.cachedIn(viewModelScope)
 }
