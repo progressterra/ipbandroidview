@@ -19,7 +19,7 @@ fun MainScreen(
 ) {
     ThemedLayout { _, _ ->
         StateColumn(
-            state = state.stateBox, useComponent = useComponent
+            state = state.screen, useComponent = useComponent
         ) {
             LazyColumn(
                 contentPadding = PaddingValues(top = 20.dp),
