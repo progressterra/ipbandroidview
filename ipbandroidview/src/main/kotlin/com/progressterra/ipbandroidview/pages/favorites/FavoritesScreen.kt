@@ -22,7 +22,7 @@ fun FavoritesScreen(
         )
     }) { _, _ ->
         StateColumn(
-            state = state.stateBox,
+            state = state.screen,
             useComponent = useComponent
         ) {
             StoreItems(

@@ -4,9 +4,9 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class FavoritesViewModel(
@@ -19,16 +19,16 @@ class FavoritesViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(stateBox = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             favoriteGoodsUseCase().onSuccess { nonCached ->
                 emitState {
                     it.copy(
-                        stateBox = ScreenState.SUCCESS,
+                        screen = it.screen.copy(state = ScreenState.SUCCESS),
                         items = it.items.copy(items = cachePaging(nonCached))
                     )
                 }
             }.onFailure {
-                emitState { it.copy(stateBox = ScreenState.ERROR) }
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
         }
     }
