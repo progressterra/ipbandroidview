@@ -4,9 +4,9 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class WantThisRequestsViewModel(
@@ -20,11 +20,16 @@ class WantThisRequestsViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screen = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             wantThisRequestsUseCase().onSuccess { nonCached ->
-                emitState { it.copy(screen = ScreenState.SUCCESS, items = cachePaging(nonCached)) }
+                emitState {
+                    it.copy(
+                        screen = it.screen.copy(state = ScreenState.SUCCESS),
+                        items = cachePaging(nonCached)
+                    )
+                }
             }.onFailure {
-                emitState { it.copy(screen = ScreenState.ERROR) }
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
         }
     }

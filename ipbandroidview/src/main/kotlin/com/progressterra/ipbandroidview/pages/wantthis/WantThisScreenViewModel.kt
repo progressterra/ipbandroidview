@@ -1,38 +1,66 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
-import android.Manifest
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
+import com.progressterra.ipbandroidview.processes.docs.DocsModule
+import com.progressterra.ipbandroidview.processes.docs.DocsModuleUser
+import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.shared.updateById
 
 class WantThisScreenViewModel(
     private val fetchWantThisUseCase: FetchWantThisUseCase,
-    private val checkPermissionUseCase: CheckPermissionUseCase,
-    private val askPermissionUseCase: AskPermissionUseCase,
-    private val makePhotoUseCase: MakePhotoUseCase,
-    private val createAndSaveDocUseCase: CreateAndSaveDocUseCase
+    private val createAndSaveDocUseCase: CreateAndSaveDocUseCase,
+    docsValidationUseCase: DocumentValidationUseCase,
+    checkPermissionUseCase: CheckPermissionUseCase,
+    askPermissionUseCase: AskPermissionUseCase,
+    makePhotoUseCase: MakePhotoUseCase,
 ) : BaseViewModel<WantThisScreenState, WantThisScreenEvent>(), UseWantThisScreen {
 
     override fun createInitialState() = WantThisScreenState()
 
+    private val docsModule = DocsModule(
+        docsValidationUseCase,
+        checkPermissionUseCase,
+        askPermissionUseCase,
+        makePhotoUseCase,
+        this,
+        object : DocsModuleUser {
+            override fun isValid(isValid: Boolean) {
+                emitState { it.copy(send = it.send.copy(enabled = isValid)) }
+            }
+
+            override fun openPhoto(url: String) {
+                postEffect(WantThisScreenEvent.OpenPhoto(url))
+            }
+
+            override fun emitModuleState(reducer: (Document) -> Document) {
+                emitState { it.copy(document = reducer(currentState.document)) }
+            }
+
+            override val moduleState: Document
+                get() = currentState.document
+        }
+    )
+
     fun refresh() {
         onBackground {
-            emitState { it.copy(screen = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchWantThisUseCase().onSuccess { newState ->
-                emitState { newState.copy(screen = ScreenState.SUCCESS) }
-            }.onFailure { emitState { it.copy(screen = ScreenState.ERROR) } }
+                emitState { newState.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
+            }
+                .onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
         }
     }
 
@@ -50,7 +78,7 @@ class WantThisScreenViewModel(
         onBackground {
             when (event.id) {
                 "send" -> createAndSaveDocUseCase(
-                    currentState.toDocument(),
+                    currentState.document,
                     IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID
                 ).onSuccess {
                     postEffect(WantThisScreenEvent.Toast(R.string.success))
@@ -63,17 +91,7 @@ class WantThisScreenViewModel(
     }
 
     override fun handle(event: DocumentPhotoEvent) {
-        onBackground {
-            when (event) {
-                is DocumentPhotoEvent.MakePhoto -> checkPermissionUseCase(Manifest.permission.CAMERA).onSuccess {
-                    makePhotoUseCase().onSuccess { photo ->
-                        emitState { it.copy(photo = it.photo.copy(items = it.photo.items + photo)) }
-                    }
-                }.onFailure { askPermissionUseCase(Manifest.permission.CAMERA) }
-
-                is DocumentPhotoEvent.Select -> postEffect(WantThisScreenEvent.OpenPhoto(event.image.url))
-            }
-        }
+        docsModule.handle(event)
     }
 
     override fun handle(event: StateBoxEvent) {
@@ -81,14 +99,6 @@ class WantThisScreenViewModel(
     }
 
     override fun handle(event: TextFieldEvent) {
-        when (event) {
-            is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> Unit
-            is TextFieldEvent.TextChanged -> emitState {
-                it.copy(entries = it.entries.updateById(event) { field ->
-                    field.copy(text = event.text)
-                })
-            }
-        }
+        docsModule.handle(event)
     }
 }

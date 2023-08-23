@@ -15,10 +15,11 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButton
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
@@ -46,7 +47,7 @@ fun WantThisScreen(
                 )
                 DocumentPhoto(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    state = state.photo,
+                    state = state.document.photo,
                     useComponent = useComponent
                 )
             }
@@ -57,7 +58,7 @@ fun WantThisScreen(
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
-                    items(state.entries) {
+                    items(state.document.entries) {
                         TextField(
                             modifier = Modifier.fillMaxWidth(),
                             state = it,
@@ -81,7 +82,7 @@ fun WantThisScreen(
 private fun WantThisScreenPreview() {
     IpbTheme {
         WantThisScreen(
-            state = WantThisScreenState(screen = ScreenState.SUCCESS),
+            state = WantThisScreenState(screen = StateBoxState(state = ScreenState.SUCCESS)),
             useComponent = UseWantThisScreen.Empty()
         )
     }
