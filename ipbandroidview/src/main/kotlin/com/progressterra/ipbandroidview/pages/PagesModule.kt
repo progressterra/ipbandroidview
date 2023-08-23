@@ -27,6 +27,7 @@ import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.main.MainViewModel
+import com.progressterra.ipbandroidview.pages.newwithdrawal.CreateNewWithdrawalUseCase
 import com.progressterra.ipbandroidview.pages.newwithdrawal.NewWithdrawalScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.FetchOrderChatUseCase
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenViewModel
@@ -45,9 +46,9 @@ import com.progressterra.ipbandroidview.pages.profile.ProfileViewModel
 import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
+import com.progressterra.ipbandroidview.pages.support.ChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.FetchChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.pages.support.OrdersChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
 import com.progressterra.ipbandroidview.pages.support.SupportScreenViewModel
 import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
@@ -56,7 +57,6 @@ import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsViewModel
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeViewModel
-import com.progressterra.ipbandroidview.pages.newwithdrawal.CreateNewWithdrawalUseCase
 import com.progressterra.ipbandroidview.pages.withdrawal.FetchWithdrawalTransactionsUseCase
 import com.progressterra.ipbandroidview.pages.withdrawal.WithdrawalScreenViewModel
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
@@ -146,7 +146,7 @@ val pagesModule = module {
 
     viewModel { DocumentsViewModel(get(), get(), get()) }
 
-    viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get()) }
+    viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
     single<DocumentsNotificationUseCase> { DocumentsNotificationUseCase.Base(get(), get()) }
 
@@ -170,7 +170,7 @@ val pagesModule = module {
 
     viewModel { WantThisRequestsViewModel(get(), get(), get()) }
 
-    viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get()) }
+    viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get(), get()) }
 
     single<WantThisRequestsUseCase> {
         WantThisRequestsUseCase.Base(
@@ -190,8 +190,8 @@ val pagesModule = module {
         AddDeliveryToCartUseCase.Base(get(), get(), get())
     }
 
-    single<OrdersChatsUseCase> {
-        OrdersChatsUseCase.Base(get(), get())
+    single<ChatsUseCase> {
+        ChatsUseCase.Base(get(), get())
     }
 
     single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get()) }
@@ -228,7 +228,12 @@ val pagesModule = module {
 
     single<CreateNewWithdrawalUseCase> { CreateNewWithdrawalUseCase.Base(get(), get()) }
 
-    single<FetchWithdrawalTransactionsUseCase> { FetchWithdrawalTransactionsUseCase.Base(get(), get()) }
+    single<FetchWithdrawalTransactionsUseCase> {
+        FetchWithdrawalTransactionsUseCase.Base(
+            get(),
+            get()
+        )
+    }
 
     single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get()) }
 

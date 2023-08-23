@@ -7,7 +7,7 @@ import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.docs.FetchDocTemplateUseCase
-import com.progressterra.ipbandroidview.processes.docs.ValidationUseCase
+import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
@@ -116,7 +116,7 @@ val processesModule = module {
         LogoutUseCase.Base()
     }
 
-    single<ValidationUseCase> { ValidationUseCase.Base() }
+    single<DocumentValidationUseCase> { DocumentValidationUseCase.Base() }
 
     single<SaveCitizenshipUseCase> {
         SaveCitizenshipUseCase.Base()
