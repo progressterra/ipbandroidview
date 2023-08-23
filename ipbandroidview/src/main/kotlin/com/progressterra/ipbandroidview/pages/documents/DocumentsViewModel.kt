@@ -6,9 +6,9 @@ import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizen
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
@@ -24,7 +24,7 @@ class DocumentsViewModel(
     fun refresh() {
         onBackground {
             emitState {
-                it.copy(screen = ScreenState.LOADING)
+                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
             }
             var isSuccess = true
             documentsUseCase().onSuccess { docs ->
@@ -42,7 +42,7 @@ class DocumentsViewModel(
                 isSuccess = false
             }
             emitState {
-                it.copy(screen = isSuccess.toScreenState())
+                it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
             }
         }
     }
@@ -101,6 +101,6 @@ class DocumentsViewModel(
     }
 
     override fun handle(event: DocumentsEvent) {
-        postEffect(DocumentsScreenEvent.OpenDocument(event.item.toDocumentDetailsState()))
+        postEffect(DocumentsScreenEvent.OpenDocument(event.item))
     }
 }

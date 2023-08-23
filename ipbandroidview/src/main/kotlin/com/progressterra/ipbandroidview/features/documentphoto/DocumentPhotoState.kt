@@ -13,5 +13,6 @@ data class DocumentPhotoState(
     val required: Boolean = false,
     val enabled: Boolean = true
 ) : Parcelable, IsEmpty {
+
     override fun isEmpty(): Boolean = this == DocumentPhotoState()
 }

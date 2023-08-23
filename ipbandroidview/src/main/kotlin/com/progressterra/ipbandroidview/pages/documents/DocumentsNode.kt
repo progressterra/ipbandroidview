@@ -6,14 +6,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsState
+import com.progressterra.ipbandroidview.entities.Document
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class DocumentsNode(
     buildContext: BuildContext,
     private val onBack: () -> Unit,
-    private val onDocument: (DocumentDetailsState) -> Unit
+    private val onDocument: (Document) -> Unit
 ) : Node(
     buildContext = buildContext
 ) {

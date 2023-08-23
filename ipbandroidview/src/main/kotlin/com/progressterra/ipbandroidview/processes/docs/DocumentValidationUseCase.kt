@@ -3,11 +3,11 @@ package com.progressterra.ipbandroidview.processes.docs
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
 
-interface ValidationUseCase {
+interface DocumentValidationUseCase {
 
     suspend operator fun invoke(state: Document): Result<Unit>
 
-    class Base : ValidationUseCase, AbstractLoggingUseCase() {
+    class Base : DocumentValidationUseCase, AbstractLoggingUseCase() {
 
         override suspend fun invoke(state: Document): Result<Unit> = handle {
             state.entries.forEach {
@@ -15,7 +15,7 @@ interface ValidationUseCase {
                     throw Exception("Invalid!")
                 }
             }
-            if (state.photo.items.isEmpty() && state.photo.required) {
+            if (state.photo.isEmpty() && state.photo.required) {
                 throw Exception("Invalid!")
             }
         }
