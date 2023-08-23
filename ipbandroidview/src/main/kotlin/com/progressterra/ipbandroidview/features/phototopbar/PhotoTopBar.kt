@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ fun PhotoTopBar(
             .fillMaxWidth()
             .height(44.dp)
             .background(IpbTheme.colors.background.asBrush())
+            .padding(horizontal = 16.dp)
     ) {
         IconButton(modifier = Modifier
             .size(30.dp)

@@ -78,7 +78,7 @@ interface FetchChatsUseCase {
             )
             val docs = SupportChatState(
                 id = "0",
-                title = manageResources.string(R.string.docs_chat),
+                title = manageResources.string(R.string.docs_chats),
                 iconRes = R.drawable.ic_chat_docs,
                 subCategories = chatsUseCase(DOCS_CHAT_ID).getOrThrow()
             )

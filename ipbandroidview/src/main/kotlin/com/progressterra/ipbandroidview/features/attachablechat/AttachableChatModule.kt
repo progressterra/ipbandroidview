@@ -60,6 +60,7 @@ class AttachableChatModule(
                         screen = it.screen.copy(state = ScreenState.SUCCESS)
                     )
                 }
+                refresh()
             }.onFailure {
                 emitModuleState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }

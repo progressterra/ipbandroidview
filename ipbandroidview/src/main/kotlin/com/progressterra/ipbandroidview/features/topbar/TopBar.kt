@@ -29,6 +29,7 @@ fun TopBar(
             .fillMaxWidth()
             .height(44.dp)
             .background(IpbTheme.colors.background.asBrush())
+            .padding(horizontal = 16.dp)
     ) {
         if (showBackButton) {
             IconButton(modifier = Modifier

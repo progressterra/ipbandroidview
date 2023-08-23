@@ -82,7 +82,7 @@ fun DocumentDetails(
                 }
                 item {
                     AttachableChat(
-                        modifier = Modifier.padding(top = 32.dp),
+                        modifier = Modifier.padding(top = 32.dp, bottom = 8.dp),
                         state = state.chat,
                         canBeClosed = false,
                         useComponent = useComponent

@@ -34,7 +34,7 @@ fun OrdersListScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(top = 40.dp, start = 20.dp, end = 20.dp)
+                contentPadding = PaddingValues(top = 20.dp, start = 20.dp, end = 20.dp)
             ) {
                 items(
                     count = lazyItems.itemCount,
