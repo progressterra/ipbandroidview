@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.documentdetails
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.toCanBeEditted
+import com.progressterra.ipbandroidview.features.attachablechat.AttachableChat
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -29,13 +32,13 @@ fun DocumentDetails(
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
-            title = state.name,
+            title = state.document.name,
             showBackButton = true,
             useComponent = useComponent
         )
     },
         bottomBar = {
-            if (state.canBeEdit) {
+            if (state.document.status.toCanBeEditted()) {
                 Column(
                     modifier = modifier
                         .padding(horizontal = 8.dp)
@@ -52,26 +55,32 @@ fun DocumentDetails(
                 }
             }
         }) { _, _ ->
-        LazyColumn(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
-            items(state.entries) {
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = it,
-                    useComponent = useComponent
-                )
-            }
-            if (!state.photo.isEmpty()) {
-                item {
-                    DocumentPhoto(
-                        state = state.photo,
+            LazyColumn(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(state.document.entries) {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = it,
                         useComponent = useComponent
                     )
                 }
+                if (!state.document.photo.isEmpty()) {
+                    item {
+                        DocumentPhoto(
+                            state = state.document.photo,
+                            useComponent = useComponent
+                        )
+                    }
+                }
             }
+            AttachableChat(state = state.chat, canBeClosed = false, useComponent = useComponent)
         }
     }
 }

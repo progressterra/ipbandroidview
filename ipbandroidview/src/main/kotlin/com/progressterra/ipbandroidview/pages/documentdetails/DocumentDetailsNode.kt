@@ -9,13 +9,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.entities.Document
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class DocumentDetailsNode(
     buildContext: BuildContext,
     private val onBack: () -> Unit,
-    private val documentDetailsState: DocumentDetailsState,
+    private val documentDetailsState: Document,
     private val openPhoto: (String) -> Unit
 ) : Node(
     buildContext = buildContext
