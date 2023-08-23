@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -33,13 +34,13 @@ fun AttachableChat(
 ) {
     if (state.isVisible) {
         Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .aspectRatio(1f),
+            modifier = modifier,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
                     .clip(RoundedCornerShape(12.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(8.dp),
@@ -88,5 +89,18 @@ fun AttachableChat(
                 actionIcon = R.drawable.ic_send
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun AttachableChatPreview() {
+    IpbTheme {
+        AttachableChat(
+            state = AttachableChatState(isVisible = true),
+            title = "Hello",
+            canBeClosed = true,
+            useComponent = UseAttachableChat.Empty()
+        )
     }
 }
