@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.pages.orderlist
 
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 
 class OrdersListViewModel(
@@ -14,16 +14,16 @@ class OrdersListViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { it.copy(screenState = ScreenState.LOADING) }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             ordersUseCase().onSuccess { nonCached ->
                 emitState {
                     it.copy(
-                        screenState = ScreenState.SUCCESS,
+                        screen = it.screen.copy(state = ScreenState.SUCCESS),
                         orders = cachePaging(nonCached)
                     )
                 }
             }.onFailure {
-                emitState { it.copy(screenState = ScreenState.ERROR) }
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
         }
     }

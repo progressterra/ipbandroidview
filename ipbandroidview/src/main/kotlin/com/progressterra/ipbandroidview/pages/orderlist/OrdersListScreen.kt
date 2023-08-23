@@ -28,7 +28,7 @@ fun OrdersListScreen(
         )
     }) { _, _ ->
         StateColumn(
-            state = state.screenState, useComponent = useComponent
+            state = state.screen, useComponent = useComponent
         ) {
             val lazyItems = state.orders.collectAsLazyPagingItems()
             LazyColumn(
