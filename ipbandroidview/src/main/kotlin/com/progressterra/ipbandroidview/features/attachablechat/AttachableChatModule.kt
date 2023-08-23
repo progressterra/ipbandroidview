@@ -16,7 +16,9 @@ class AttachableChatModule(
 ) : UseAttachableChat, Operations by operations, ModuleUser<AttachableChatState> by user {
 
     override fun handle(event: StateBoxEvent) {
-        refresh()
+        if (event.state.id == "chat") {
+            refresh()
+        }
     }
 
     fun setup(newId: String) {

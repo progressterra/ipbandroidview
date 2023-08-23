@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 data class DocumentDetailsState(
     val document: Document = Document(),
     val apply: ButtonState = ButtonState(id = "apply"),
-    val chat: AttachableChatState = AttachableChatState(),
+    val chat: AttachableChatState = AttachableChatState(isVisible = true),
     val screen: StateBoxState = StateBoxState(),
     val dialogId: String = ""
 )

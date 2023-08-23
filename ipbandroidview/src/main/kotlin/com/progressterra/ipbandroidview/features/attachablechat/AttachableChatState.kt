@@ -11,5 +11,5 @@ data class AttachableChatState(
     val messagesState: MessagesState = MessagesState(),
     val input: TextFieldState = TextFieldState(id = "input", type = TextInputType.CHAT),
     val isVisible: Boolean = false,
-    val screen: StateBoxState = StateBoxState()
+    val screen: StateBoxState = StateBoxState(id = "chat")
 ) : Id
