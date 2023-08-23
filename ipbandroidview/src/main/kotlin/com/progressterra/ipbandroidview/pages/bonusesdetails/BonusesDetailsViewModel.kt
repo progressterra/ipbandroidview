@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.BaseViewModel
-import com.progressterra.ipbandroidview.shared.ScreenState
+import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxEvent
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 
@@ -19,7 +19,7 @@ class BonusesDetailsViewModel(
     fun refresh() {
         onBackground {
             emitState {
-                it.copy(screenState = ScreenState.LOADING)
+                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
             }
             var isSuccess = true
             bonusesUseCase().onSuccess { bonusesInfo ->
@@ -37,7 +37,7 @@ class BonusesDetailsViewModel(
                 isSuccess = false
             }
             emitState {
-                it.copy(screenState = isSuccess.toScreenState())
+                it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
             }
         }
     }

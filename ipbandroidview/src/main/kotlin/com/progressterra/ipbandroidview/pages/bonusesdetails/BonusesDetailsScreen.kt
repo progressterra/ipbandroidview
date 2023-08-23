@@ -13,8 +13,9 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesStyle
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionState
 import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransactionType
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.statebox.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statebox.StateBoxState
 import com.progressterra.ipbandroidview.shared.ui.statebox.StateColumn
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.BonusesTransactions
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.BonusesTransactionsState
@@ -34,7 +35,7 @@ fun BonusesScreen(
         }
     ) { _, _ ->
         StateColumn(
-            state = state.screenState, useComponent = useComponent,
+            state = state.screen, useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
             Bonuses(
@@ -53,7 +54,7 @@ fun BonusesScreen(
 private fun BonusesScreenPreview() {
     BonusesScreen(
         state = BonusesDetailsState(
-            screenState = ScreenState.SUCCESS,
+            screen = StateBoxState(state = ScreenState.SUCCESS),
             transactions = BonusesTransactionsState(
                 transactions = listOf(
                     BonusTransactionState(
@@ -88,7 +89,7 @@ private fun BonusesScreenPreview() {
 private fun BonusesScreenPreviewEmpty() {
     BonusesScreen(
         state = BonusesDetailsState(
-            screenState = ScreenState.SUCCESS,
+            screen = StateBoxState(state = ScreenState.SUCCESS),
             transactions = BonusesTransactionsState(
                 transactions = emptyList()
             )
