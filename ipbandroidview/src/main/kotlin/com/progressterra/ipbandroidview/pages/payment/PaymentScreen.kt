@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -17,10 +18,10 @@ import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodStat
 import com.progressterra.ipbandroidview.features.receipt.Receipt
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun PaymentScreen(
@@ -30,7 +31,13 @@ fun PaymentScreen(
         TopBar(
             title = stringResource(R.string.processing), useComponent = useComponent
         )
-    }) { _, _ ->
+    },
+        bottomBar = {
+            Receipt(
+                modifier = Modifier.padding(top = 40.dp),
+                state = state.receipt, useComponent = useComponent
+            )
+        }) { _, _ ->
         StateColumn(
             scrollable = true,
             state = state.screen,
@@ -47,10 +54,6 @@ fun PaymentScreen(
             Spacer(Modifier.height(8.dp))
             BonusSwitch(
                 state = state.bonusSwitch, useComponent = useComponent
-            )
-            Spacer(Modifier.height(40.dp))
-            Receipt(
-                state = state.receipt, useComponent = useComponent
             )
         }
     }

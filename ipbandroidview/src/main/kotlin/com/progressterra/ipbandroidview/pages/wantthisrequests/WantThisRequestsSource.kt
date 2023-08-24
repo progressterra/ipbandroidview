@@ -49,16 +49,13 @@ class WantThisRequestsSource(
                     take = take
                 )
             ).getOrThrow()?.mapNotNull {
-                val doc = it.toDocument(
-                    gson = gson,
-                    createId = createId
-                )
+                val doc = it.toDocument(gson, createId)
                 if (it.statusDoc != TypeStatusDoc.CONFIRMED || doc.additionalValue.isBlank()) {
                     doc.toWantThisCardState()
                 } else {
                     productRepository.productByNomenclatureId(token, doc.additionalValue)
                         .getOrThrow()?.toGoodsItem()
-                        ?.toWantThisCardState()
+                        ?.toWantThisCardState()?.copy(document = it.toDocument(gson, createId))
                 }
             } ?: emptyList()
         }
