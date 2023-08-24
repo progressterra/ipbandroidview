@@ -16,7 +16,7 @@ interface FetchSingleGoodsUseCase {
     ) : FetchSingleGoodsUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(id: String): Result<StoreCardState> = withToken { token ->
-            productRepository.productByNomenclatureId(token, id).getOrThrow()?.toGoodsItem()
+            productRepository.productByNomenclatureId(token, id).getOrNull()?.toGoodsItem()
                 ?.toStoreCardState() ?: StoreCardState()
         }
     }
