@@ -16,7 +16,7 @@ class AttachableChatModule(
 ) : UseAttachableChat, Operations by operations, ModuleUser<AttachableChatState> by user {
 
     override fun handle(event: StateColumnEvent) {
-        if (event.state.id == "chat") {
+        if (event.id == "chat") {
             refresh()
         }
     }
