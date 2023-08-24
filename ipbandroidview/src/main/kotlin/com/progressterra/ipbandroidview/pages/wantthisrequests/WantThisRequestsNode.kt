@@ -6,13 +6,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.entities.Document
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class WantThisRequestsNode(
     buildContext: BuildContext,
     private val onBack: () -> Unit,
-    private val onGoodsDetails: (String) -> Unit
+    private val onRequestDetails: (Document) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -21,7 +22,7 @@ class WantThisRequestsNode(
         viewModel.collectEffects {
             when (it) {
                 is WantThisRequestsEvent.Back -> onBack()
-                is WantThisRequestsEvent.GoodsDetails -> onGoodsDetails(it.id)
+                is WantThisRequestsEvent.RequestDetails -> onRequestDetails(it.document)
             }
         }
         LaunchedEffect(Unit) {

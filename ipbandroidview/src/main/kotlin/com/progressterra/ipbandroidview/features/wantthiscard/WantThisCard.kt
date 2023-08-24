@@ -33,8 +33,8 @@ fun WantThisCard(
         modifier = modifier
             .width(157.dp)
             .clip(RoundedCornerShape(8.dp))
-            .niceClickable(enabled = state.status == TypeStatusDoc.CONFIRMED) {
-                useComponent.handle(WantThisCardEvent(state.id))
+            .niceClickable {
+                useComponent.handle(WantThisCardEvent.Open(state.document))
             },
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
@@ -110,7 +110,7 @@ fun WantThisCard(
                     IconButton(
                         modifier = Modifier.size(26.dp),
                         onClick = {
-                            useComponent.handle(WantThisCardEvent(state.id))
+                            useComponent.handle(WantThisCardEvent.Buy(state.id))
                         }) {
                         BrushedIcon(
                             resId = R.drawable.ic_cart, tint = IpbTheme.colors.iconPrimary.asBrush()

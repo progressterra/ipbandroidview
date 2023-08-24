@@ -29,7 +29,8 @@ data class Document(
         id = id,
         image = photo.items.firstOrNull()?.url ?: "",
         status = status,
-        name = entries.firstOrNull { it.label == "Наименование" }?.text ?: ""
+        name = entries.firstOrNull { it.label == "Наименование" }?.text ?: "",
+        document = this
     )
 
 

@@ -39,7 +39,15 @@ class WantThisRequestsViewModel(
     }
 
     override fun handle(event: WantThisCardEvent) {
-        postEffect(WantThisRequestsEvent.GoodsDetails(event.id))
+        onBackground {
+            when (event) {
+                is WantThisCardEvent.Buy -> addToCartUseCase(event.id).onSuccess {
+                    refresh()
+                }
+
+                is WantThisCardEvent.Open -> postEffect(WantThisRequestsEvent.RequestDetails(event.document))
+            }
+        }
     }
 
     override fun handle(event: CounterEvent) {

@@ -1,3 +1,10 @@
 package com.progressterra.ipbandroidview.features.wantthiscard
 
-class WantThisCardEvent(val id: String)
+import com.progressterra.ipbandroidview.entities.Document
+
+sealed class WantThisCardEvent {
+
+    data class Buy(val id: String) : WantThisCardEvent()
+
+    data class Open(val document: Document) : WantThisCardEvent()
+}

@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.features.wantthiscard
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
+import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
@@ -16,5 +17,6 @@ data class WantThisCardState(
     val counter: CounterState = CounterState(),
     val status: TypeStatusDoc = TypeStatusDoc.NOT_FILL,
     val name: String = "",
-    val installment: Installment = Installment()
+    val installment: Installment = Installment(),
+    val document: Document = Document()
 ) : Id
