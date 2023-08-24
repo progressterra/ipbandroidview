@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.wantthisdetails
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,22 +10,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.toCanBeEditted
 import com.progressterra.ipbandroidview.entities.toColor
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChat
+import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.storecard.StoreCard
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
@@ -40,7 +46,25 @@ fun WantThisDetailsScreen(
             showBackButton = true,
             useComponent = useComponent
         )
-    }) { _, _ ->
+    },
+        bottomBar = {
+            if (state.document.status.toCanBeEditted()) {
+                Column(
+                    modifier = modifier
+                        .padding(horizontal = 8.dp)
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(8.dp)
+                ) {
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.apply,
+                        useComponent = useComponent,
+                        title = stringResource(R.string.ready)
+                    )
+                }
+            }
+        }) { _, _ ->
         StateColumn(
             state = state.screen,
             useComponent = useComponent
@@ -97,6 +121,14 @@ fun WantThisDetailsScreen(
                         state = it,
                         useComponent = useComponent
                     )
+                }
+                if (!state.document.photo.isEmpty()) {
+                    item {
+                        DocumentPhoto(
+                            state = state.document.photo,
+                            useComponent = useComponent
+                        )
+                    }
                 }
             }
             if (!state.storeCard.isEmpty()) {

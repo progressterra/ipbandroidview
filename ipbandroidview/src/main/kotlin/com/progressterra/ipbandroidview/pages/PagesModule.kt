@@ -267,6 +267,7 @@ val pagesModule = module {
             get(),
             get(),
             get(),
+            get(),
             get()
         )
     }

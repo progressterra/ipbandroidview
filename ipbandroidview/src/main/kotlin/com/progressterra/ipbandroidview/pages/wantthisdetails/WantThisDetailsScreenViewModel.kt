@@ -5,8 +5,10 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatEvent
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatModule
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatState
+import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
@@ -20,6 +22,7 @@ import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCas
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -35,7 +38,8 @@ class WantThisDetailsScreenViewModel(
     private val fetchWantThisDetailsChatUseCase: FetchWantThisDetailsChatUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
-    private val fetchSingleGoodsUseCase: FetchSingleGoodsUseCase
+    private val fetchSingleGoodsUseCase: FetchSingleGoodsUseCase,
+    private val saveDocumentsUseCase: SaveDocumentsUseCase
 ) : BaseViewModel<WantThisDetailsScreenState, WantThisDetailsScreenSideEffect>(),
     UseWantThisDetailsScreen {
 
@@ -73,7 +77,11 @@ class WantThisDetailsScreenViewModel(
             override val moduleState: Document
                 get() = currentState.document
 
-            override fun isValid(isValid: Boolean) = Unit
+            override fun isValid(isValid: Boolean) {
+                emitState {
+                    it.copy(apply = it.apply.copy(enabled = isValid))
+                }
+            }
 
             override fun openPhoto(url: String) {
                 postEffect(WantThisDetailsScreenSideEffect.OpenPhoto(url))
@@ -126,6 +134,10 @@ class WantThisDetailsScreenViewModel(
         }
     }
 
+    override fun handle(event: DocumentPhotoEvent) {
+        docsModule.handle(event)
+    }
+
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
@@ -144,6 +156,15 @@ class WantThisDetailsScreenViewModel(
         attachableChatModule.open()
     }
 
+    override fun handle(event: ButtonEvent) {
+        onBackground {
+            when (event.id) {
+                "apply" -> saveDocumentsUseCase(currentState.document).onSuccess {
+                    postEffect(WantThisDetailsScreenSideEffect.Back)
+                }
+            }
+        }
+    }
 
     override fun handle(event: AttachableChatEvent) {
         attachableChatModule.handle(event)
