@@ -122,13 +122,11 @@ fun WantThisDetailsScreen(
                         useComponent = useComponent
                     )
                 }
-                if (!state.document.photo.isEmpty()) {
-                    item {
-                        DocumentPhoto(
-                            state = state.document.photo,
-                            useComponent = useComponent
-                        )
-                    }
+                item {
+                    DocumentPhoto(
+                        state = state.document.photo,
+                        useComponent = useComponent
+                    )
                 }
             }
             if (!state.storeCard.isEmpty()) {
