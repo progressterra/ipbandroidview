@@ -4,12 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
@@ -17,21 +14,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Installment
+import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.toCanBeEditted
 import com.progressterra.ipbandroidview.entities.toColor
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChat
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhoto
 import com.progressterra.ipbandroidview.features.storecard.StoreCard
+import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -67,7 +71,9 @@ fun WantThisDetailsScreen(
         }) { _, _ ->
         StateColumn(
             state = state.screen,
-            useComponent = useComponent
+            scrollable = true,
+            useComponent = useComponent,
+            horizontalAlignment = Alignment.Start
         ) {
             Row(
                 modifier = Modifier
@@ -103,31 +109,28 @@ fun WantThisDetailsScreen(
                     }
                     BrushedText(
                         text = stringResource(R.string.want_this_chat),
+                        maxLines = 1,
                         tint = IpbTheme.colors.textTertiary.asBrush(),
                         style = IpbTheme.typography.footnoteRegular
                     )
                 }
             }
-            LazyColumn(
-                modifier = Modifier
-                    .padding(start = 20.dp, top = 8.dp, end = 20.dp)
-                    .fillMaxSize(),
+            Column(
+                modifier = Modifier.padding(start = 20.dp, top = 8.dp, end = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.document.entries) {
+                state.document.entries.forEach {
                     TextField(
                         modifier = Modifier.fillMaxWidth(),
                         state = it,
                         useComponent = useComponent
                     )
                 }
-                item {
-                    DocumentPhoto(
-                        state = state.document.photo,
-                        useComponent = useComponent
-                    )
-                }
+                DocumentPhoto(
+                    state = state.document.photo,
+                    useComponent = useComponent
+                )
             }
             if (!state.storeCard.isEmpty()) {
                 StoreCard(
@@ -143,5 +146,26 @@ fun WantThisDetailsScreen(
                 useComponent = useComponent
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun WantThisDetailsScreenPreview() {
+    IpbTheme {
+        WantThisDetailsScreen(
+            state = WantThisDetailsScreenState(
+                screen = StateColumnState(state = ScreenState.SUCCESS),
+                storeCard = StoreCardState(
+                    name = "Ноутбук Lenovo IdeaPad 3 15ADA05",
+                    price = SimplePrice(1000),
+                    counter = CounterState("1", 5),
+                    installment = Installment(
+                        months = 4,
+                        perMonth = SimplePrice(500)
+                    )
+                )
+            ), useComponent = UseWantThisDetailsScreen.Empty()
+        )
     }
 }
