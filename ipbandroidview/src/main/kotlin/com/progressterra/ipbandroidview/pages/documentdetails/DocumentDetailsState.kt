@@ -9,6 +9,6 @@ data class DocumentDetailsState(
     val document: Document = Document(),
     val apply: ButtonState = ButtonState(id = "apply"),
     val chat: AttachableChatState = AttachableChatState(isVisible = true),
-    val screen: StateColumnState = StateColumnState(),
+    val screen: StateColumnState = StateColumnState(id = "main"),
     val dialogId: String = ""
 )

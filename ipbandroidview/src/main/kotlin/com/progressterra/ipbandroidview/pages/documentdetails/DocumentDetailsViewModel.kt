@@ -29,9 +29,8 @@ class DocumentDetailsViewModel(
     makePhotoUseCase: MakePhotoUseCase,
     documentValidationUseCase: DocumentValidationUseCase,
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
-    private val fetchDocumentChatUseCase: FetchDocumentChatUseCase,
-
-    ) : BaseViewModel<DocumentDetailsState, DocumentDetailsEvent>(), UseDocumentDetails {
+    private val fetchDocumentChatUseCase: FetchDocumentChatUseCase
+) : BaseViewModel<DocumentDetailsState, DocumentDetailsEvent>(), UseDocumentDetails {
 
     private val attachableChatModule =
         AttachableChatModule(
@@ -81,6 +80,7 @@ class DocumentDetailsViewModel(
 
     override fun handle(event: StateColumnEvent) {
         attachableChatModule.handle(event)
+        if (event.id == "main") refresh()
     }
 
     fun setup(newDocument: Document) {

@@ -24,6 +24,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -55,8 +56,9 @@ fun DocumentDetails(
                 }
             }
         }) { _, _ ->
-        Column(
-            modifier = Modifier.fillMaxSize()
+        StateColumn(
+            state = state.screen,
+            useComponent = useComponent
         ) {
             LazyColumn(
                 modifier = Modifier

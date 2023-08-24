@@ -17,6 +17,7 @@ interface UseDocumentDetails : UseTopBar, UseTextField, UseDocumentPhoto, UseBut
 
     class Empty : UseDocumentDetails {
 
+
         override fun handle(event: StateColumnEvent) = Unit
 
         override fun handle(event: AttachableChatEvent) = Unit
