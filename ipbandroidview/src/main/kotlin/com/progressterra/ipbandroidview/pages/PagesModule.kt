@@ -55,6 +55,8 @@ import com.progressterra.ipbandroidview.pages.support.SupportScreenViewModel
 import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
+import com.progressterra.ipbandroidview.pages.wantthisdetails.FetchWantThisDetailsChatUseCase
+import com.progressterra.ipbandroidview.pages.wantthisdetails.WantThisDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsViewModel
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeViewModel
@@ -203,7 +205,13 @@ val pagesModule = module {
 
     single<FetchOrderChatUseCase> { FetchOrderChatUseCase.Base(get(), get(), get()) }
 
-    single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get()) }
+    single<FetchWantThisDetailsChatUseCase> {
+        FetchWantThisDetailsChatUseCase.Base(
+            get(),
+            get(),
+            get()
+        )
+    }
 
     viewModel { SupportScreenViewModel(get(), get(), get()) }
 
@@ -242,7 +250,24 @@ val pagesModule = module {
 
     single<FetchMainCardIdUseCase> { FetchMainCardIdUseCase.Base(get(), get()) }
 
+    single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get()) }
+
     viewModel { WithdrawalScreenViewModel(get(), get()) }
 
     viewModel { NewWithdrawalScreenViewModel(get(), get(), get()) }
+
+    viewModel {
+        WantThisDetailsScreenViewModel(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 }

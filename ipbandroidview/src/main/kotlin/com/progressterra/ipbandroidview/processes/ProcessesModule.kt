@@ -6,9 +6,10 @@ import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
-import com.progressterra.ipbandroidview.processes.docs.FetchDocTemplateUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
+import com.progressterra.ipbandroidview.processes.docs.FetchDocTemplateUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
+import com.progressterra.ipbandroidview.processes.goods.FetchSingleGoodsUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.OpenMapUseCase
@@ -139,4 +140,6 @@ val processesModule = module {
     }
 
     single<FetchWithdrawalUseCase> { FetchWithdrawalUseCase.Base(get(), get()) }
+
+    single<FetchSingleGoodsUseCase> { FetchSingleGoodsUseCase.Base(get(), get()) }
 }
