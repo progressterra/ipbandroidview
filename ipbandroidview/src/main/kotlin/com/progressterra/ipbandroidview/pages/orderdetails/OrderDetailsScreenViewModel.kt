@@ -70,7 +70,7 @@ class OrderDetailsScreenViewModel(
     }
 
     override fun handle(event: StateColumnEvent) {
-        refresh()
+        if (event.id == "main") refresh()
     }
 
     override fun handle(event: OrderCardEvent) {

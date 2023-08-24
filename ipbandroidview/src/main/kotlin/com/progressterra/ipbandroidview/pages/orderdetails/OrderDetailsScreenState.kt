@@ -10,5 +10,5 @@ data class OrderDetailsScreenState(
     val details: OrderDetailsState = OrderDetailsState(),
     val dialogId: String = "",
     val chat: AttachableChatState = AttachableChatState(),
-    val screen: StateColumnState = StateColumnState()
+    val screen: StateColumnState = StateColumnState(id = "main")
 )
