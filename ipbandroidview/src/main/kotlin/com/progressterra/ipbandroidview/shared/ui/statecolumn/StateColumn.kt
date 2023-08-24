@@ -41,7 +41,7 @@ fun StateColumn(
         when (state.state) {
             ScreenState.ERROR -> IconButton(
                 onClick = {
-                    useComponent.handle(StateColumnEvent(state))
+                    useComponent.handle(StateColumnEvent(state.id))
                 }
             ) {
                 BrushedIcon(

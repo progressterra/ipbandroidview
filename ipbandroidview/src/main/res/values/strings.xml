@@ -130,6 +130,7 @@
     <string name="profile_screen">Профиль</string>
     <string name="payment_inner">Внутренний баланс</string>
     <string name="want_this_requests">Запросы Хочу это</string>
+    <string name="want_this_chat">Чат по запросу</string>
     <string name="roubles">рублей</string>
     <string name="request_confirmed">Запрос подтверждён менеджером</string>
     <string name="request_rejected">Запрос отклонён менеджером</string>

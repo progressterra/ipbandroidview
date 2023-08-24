@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.features.storecard
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
+import com.progressterra.ipbandroidview.shared.IsEmpty
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
 @Immutable
@@ -14,4 +15,7 @@ data class StoreCardState(
     val image: String = "",
     val installment: Installment = Installment(),
     val counter: CounterState = CounterState()
-)
+) : IsEmpty {
+
+    override fun isEmpty(): Boolean = this == StoreCardState()
+}
