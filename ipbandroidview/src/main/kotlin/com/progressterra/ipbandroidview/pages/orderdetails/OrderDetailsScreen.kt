@@ -1,7 +1,9 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -25,7 +27,16 @@ fun OrderDetailsScreen(
             useComponent = useComponent
         )
     }) { _, _ ->
-        StateColumn(state = state.screen, useComponent = useComponent, scrollable = true) {
+        val scrollState = rememberScrollState()
+        StateColumn(
+            state = state.screen,
+            useComponent = useComponent,
+            scrollable = true,
+            scrollState = scrollState
+        ) {
+            LaunchedEffect(state.chat.isVisible) {
+                scrollState.animateScrollTo(scrollState.maxValue)
+            }
             OrderDetails(
                 modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 state = state.details,

@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +21,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.widgets.messages.Messages
 
@@ -34,8 +35,7 @@ fun AttachableChat(
 ) {
     if (state.isVisible) {
         Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Column(
                 modifier = Modifier
@@ -58,6 +58,9 @@ fun AttachableChat(
                     )
                     if (canBeClosed) {
                         Row(
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .niceClickable { useComponent.handle(AttachableChatEvent) },
                             horizontalArrangement = Arrangement.spacedBy(4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -66,13 +69,11 @@ fun AttachableChat(
                                 style = IpbTheme.typography.subHeadlineRegular,
                                 tint = IpbTheme.colors.textPrimary2.asBrush()
                             )
-                            IconButton(modifier = Modifier.size(24.dp),
-                                onClick = { useComponent.handle(AttachableChatEvent) }) {
-                                BrushedIcon(
-                                    resId = R.drawable.ic_close,
-                                    tint = IpbTheme.colors.iconPrimary2.asBrush()
-                                )
-                            }
+                            BrushedIcon(
+                                modifier = Modifier.size(24.dp),
+                                resId = R.drawable.ic_close,
+                                tint = IpbTheme.colors.iconPrimary2.asBrush()
+                            )
                         }
                     }
                 }

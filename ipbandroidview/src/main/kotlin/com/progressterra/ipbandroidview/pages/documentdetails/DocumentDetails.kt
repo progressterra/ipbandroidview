@@ -84,6 +84,7 @@ fun DocumentDetails(
                 }
                 item {
                     AttachableChat(
+                        title = stringResource(R.string.docs_chat),
                         modifier = Modifier.padding(top = 32.dp, bottom = 8.dp),
                         state = state.chat,
                         canBeClosed = false,

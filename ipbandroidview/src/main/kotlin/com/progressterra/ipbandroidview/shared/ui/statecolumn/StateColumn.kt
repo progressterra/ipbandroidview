@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.shared.ui.statecolumn
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -20,6 +21,7 @@ fun StateColumn(
     modifier: Modifier = Modifier,
     state: StateColumnState,
     scrollable: Boolean = false,
+    scrollState: ScrollState? = null,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     useComponent: UseStateColumn,
@@ -30,7 +32,7 @@ fun StateColumn(
             .fillMaxSize()
             .then(
                 if (scrollable) {
-                    Modifier.verticalScroll(rememberScrollState())
+                    Modifier.verticalScroll(scrollState ?: rememberScrollState())
                 } else {
                     Modifier
                 }
