@@ -19,7 +19,8 @@ class GoodsDetailsNode(
     private val goodsId: String,
     private val onBack: () -> Unit,
     private val openPhoto: (String) -> Unit,
-    private val onGoodsDetails: (String) -> Unit
+    private val onGoodsDetails: (String) -> Unit,
+    private val onDelivery: () -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -34,6 +35,8 @@ class GoodsDetailsNode(
                 is GoodsDetailsEvent.Toast -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
+
+                is GoodsDetailsEvent.Delivery -> onDelivery()
             }
         }
         var alreadyLaunched by rememberSaveable {

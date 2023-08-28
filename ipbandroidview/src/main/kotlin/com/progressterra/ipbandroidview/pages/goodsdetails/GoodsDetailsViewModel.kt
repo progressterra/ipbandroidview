@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonEvent
+import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescriptionEvent
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
@@ -48,6 +49,10 @@ class GoodsDetailsViewModel(
                     }
                 }
         }
+    }
+
+    override fun handle(event: GoodsDescriptionEvent) {
+        postEffect(GoodsDetailsEvent.Delivery)
     }
 
     override fun handle(event: ItemGalleryEvent) {

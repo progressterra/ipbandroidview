@@ -6,6 +6,8 @@ sealed class GoodsDetailsEvent {
 
     data object Back : GoodsDetailsEvent()
 
+    data object Delivery : GoodsDetailsEvent()
+
     class OpenImage(val image: String) : GoodsDetailsEvent()
 
     class GoodsDetails(val id: String) : GoodsDetailsEvent()

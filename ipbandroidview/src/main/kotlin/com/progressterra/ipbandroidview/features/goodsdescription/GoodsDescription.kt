@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -38,13 +39,11 @@ fun GoodsDescription(
     modifier: Modifier = Modifier, state: GoodsDescriptionState, useComponent: UseGoodsDescription
 ) {
     Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         val pagerState = rememberPagerState { 3 }
         val scope = rememberCoroutineScope()
-        Tabs(
-            modifier = Modifier.padding(horizontal = 20.dp),
+        Tabs(modifier = Modifier.padding(horizontal = 20.dp),
             tabs = listOf(
                 stringResource(id = R.string.description),
                 stringResource(id = R.string.parameters),
@@ -120,11 +119,14 @@ fun GoodsDescription(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            BrushedIcon(
-                                modifier = Modifier.size(45.dp),
-                                resId = R.drawable.ic_courier,
-                                tint = IpbTheme.colors.iconPrimary.asBrush()
-                            )
+                            IconButton(modifier = Modifier.size(45.dp),
+                                onClick = { useComponent.handle(GoodsDescriptionEvent) }) {
+                                BrushedIcon(
+                                    modifier = Modifier.size(45.dp),
+                                    resId = R.drawable.ic_courier,
+                                    tint = IpbTheme.colors.iconPrimary.asBrush()
+                                )
+                            }
                             BrushedText(
                                 text = stringResource(R.string.courier_delivery),
                                 tint = IpbTheme.colors.textPrimary.asBrush(),
