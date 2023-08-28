@@ -45,10 +45,10 @@ fun DeliveryScreen(
             state = state.screen,
             scrollable = true,
             useComponent = useComponent,
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
             OrderSteps(
-                modifier = Modifier.padding(top = 20.dp),
+                modifier = Modifier.padding(top = 40.dp),
                 state = OrderStepsState.DELIVERY
             )
             DeliveryPicker(
