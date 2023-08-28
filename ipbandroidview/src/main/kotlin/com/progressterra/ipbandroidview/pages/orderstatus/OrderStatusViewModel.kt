@@ -17,8 +17,10 @@ class OrderStatusViewModel : BaseViewModel<OrderStatusState, OrderStatusEvent>()
     }
 
     override fun handle(event: ButtonEvent) {
-        when (event.id) {
-            "main" -> postEffect(OrderStatusEvent.OnMain)
+        if (event.id == "main") {
+            postEffect(OrderStatusEvent.OnMain)
+        } else if (event.id == "order") {
+            postEffect(OrderStatusEvent.OnOrder(currentState.id))
         }
     }
 }

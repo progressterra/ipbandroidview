@@ -171,4 +171,6 @@
     <string name="welcome_message">Легко накопить\n—\nвыгодно потратить</string>
     <string name="docs_chat">Чат по документу</string>
     <string name="docs_chats">Чаты по документам</string>
+    <string name="goods_quantity">Товаров:</string>
+    <string name="to_order">Перейти к заказу</string>
 </resources>

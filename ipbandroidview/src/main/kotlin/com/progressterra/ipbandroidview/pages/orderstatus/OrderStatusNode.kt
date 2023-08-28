@@ -16,7 +16,8 @@ class OrderStatusNode(
     buildContext: BuildContext,
     private val orderStatusState: OrderStatusState,
     private val onMain: () -> Unit,
-    private val onBack: () -> Unit
+    private val onBack: () -> Unit,
+    private val onOrder: (String) -> Unit
 ) : Node(buildContext) {
 
     @Composable
@@ -26,6 +27,7 @@ class OrderStatusNode(
             when (it) {
                 is OrderStatusEvent.OnBack -> onBack()
                 is OrderStatusEvent.OnMain -> onMain()
+                is OrderStatusEvent.OnOrder -> onOrder(it.id)
             }
         }
         var alreadyLaunched by rememberSaveable(orderStatusState) {

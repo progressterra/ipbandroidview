@@ -3,8 +3,7 @@ package com.progressterra.ipbandroidview.pages.payment
 import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.toGoodsItem
-import com.progressterra.ipbandroidview.features.orderid.OrderIdState
-import com.progressterra.ipbandroidview.features.orderoverview.OrderOverviewState
+import com.progressterra.ipbandroidview.features.ordernumber.OrderNumberState
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -29,13 +28,12 @@ interface ConfirmOrderUseCase {
             } ?: emptyList()
             val payment = cartRepository.paymentInternal(token).isSuccess
             OrderStatusState(
-                orderId = OrderIdState(
-                    id = result?.number ?: "",
-                    success = payment
-                ), orderOverview = OrderOverviewState(
+                id = result?.idUnique!!,
+                number = OrderNumberState(
+                    number = result.number ?: "",
+                    success = payment,
                     quantity = images.size,
-                    goodsImages = images,
-                    address = result?.adressString ?: ""
+                    address = result.adressString ?: ""
                 )
             )
         }
