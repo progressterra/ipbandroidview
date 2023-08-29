@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -21,7 +21,7 @@ class GoodsDetailsViewModel(
     private val addToCartUseCase: AddToCartUseCase,
     private val addToCartInstallmentUseCase: AddToCartInstallmentUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase
-) : BaseViewModel<GoodsDetailsState, GoodsDetailsEvent>(),
+) : AbstractViewModel<GoodsDetailsState, GoodsDetailsEvent>(),
     UseGoodsDetails {
 
     override fun createInitialState() = GoodsDetailsState()

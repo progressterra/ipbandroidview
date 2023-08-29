@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.pages.withdrawal
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class WithdrawalScreenViewModel(
     private val fetchWithdrawalTransactionsUseCase: FetchWithdrawalTransactionsUseCase,
     private val fetchWithdrawalUseCase: FetchWithdrawalUseCase
-) : BaseViewModel<WithdrawalScreenState, WithdrawalScreenEvent>(),
+) : AbstractViewModel<WithdrawalScreenState, WithdrawalScreenEvent>(),
     UseWithdrawalScreen {
 
     override fun createInitialState(): WithdrawalScreenState = WithdrawalScreenState()

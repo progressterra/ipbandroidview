@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
@@ -19,7 +19,7 @@ class NewWithdrawalScreenViewModel(
     private val fetchWithdrawalUseCase: FetchWithdrawalUseCase,
     private val fetchConfirmedBankCardsUseCase: FetchConfirmedBankCardsUseCase,
     private val newWithdrawalUseCase: CreateNewWithdrawalUseCase
-) : BaseViewModel<NewWithdrawalScreenState, NewWithdrawalScreenEvent>(),
+) : AbstractViewModel<NewWithdrawalScreenState, NewWithdrawalScreenEvent>(),
     UseNewWithdrawalScreen {
 
     override fun createInitialState(): NewWithdrawalScreenState = NewWithdrawalScreenState(

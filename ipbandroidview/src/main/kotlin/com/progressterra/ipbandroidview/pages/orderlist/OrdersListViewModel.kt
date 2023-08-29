@@ -2,13 +2,13 @@ package com.progressterra.ipbandroidview.pages.orderlist
 
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class OrdersListViewModel(
     private val ordersUseCase: OrdersUseCase
-) : BaseViewModel<OrdersListState, OrdersListEvent>(), UseOrdersList {
+) : AbstractViewModel<OrdersListState, OrdersListEvent>(), UseOrdersList {
 
     override fun createInitialState() = OrdersListState()
 

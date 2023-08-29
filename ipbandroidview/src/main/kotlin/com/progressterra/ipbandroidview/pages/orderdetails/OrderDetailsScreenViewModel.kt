@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -20,7 +20,7 @@ class OrderDetailsScreenViewModel(
     private val fetchOrderChatUseCase: FetchOrderChatUseCase,
     fetchMessagesUseCase: FetchMessagesUseCase,
     sendMessageUseCase: SendMessageUseCase
-) : BaseViewModel<OrderDetailsScreenState, OrderDetailsScreenEvent>(), UseOrderDetailsScreen {
+) : AbstractViewModel<OrderDetailsScreenState, OrderDetailsScreenEvent>(), UseOrderDetailsScreen {
 
     override fun createInitialState() = OrderDetailsScreenState()
 

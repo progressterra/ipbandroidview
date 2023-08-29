@@ -2,10 +2,10 @@ package com.progressterra.ipbandroidview.pages.ordertracking
 
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 
 class OrderTrackingScreenViewModel :
-    BaseViewModel<OrderTrackingScreenState, OrderTrackingScreenEvent>(), UseOrderTrackingScreen {
+    AbstractViewModel<OrderTrackingScreenState, OrderTrackingScreenEvent>(), UseOrderTrackingScreen {
 
     override fun createInitialState() = OrderTrackingScreenState()
 

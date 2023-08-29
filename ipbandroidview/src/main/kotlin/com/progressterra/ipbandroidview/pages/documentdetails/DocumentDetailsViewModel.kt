@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -30,7 +30,7 @@ class DocumentDetailsViewModel(
     documentValidationUseCase: DocumentValidationUseCase,
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
     private val fetchDocumentChatUseCase: FetchDocumentChatUseCase
-) : BaseViewModel<DocumentDetailsState, DocumentDetailsEvent>(), UseDocumentDetails {
+) : AbstractViewModel<DocumentDetailsState, DocumentDetailsEvent>(), UseDocumentDetails {
 
     private val attachableChatModule =
         AttachableChatModule(

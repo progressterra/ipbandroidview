@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class BankCardsScreenViewModel(
     private val fetchUnconfirmedBankCardsUseCase: FetchUnconfirmedBankCardsUseCase,
     private val fetchConfirmedBankCardsUseCase: FetchConfirmedBankCardsUseCase
-) : BaseViewModel<BankCardsScreenState, BankCardsScreenEvent>(),
+) : AbstractViewModel<BankCardsScreenState, BankCardsScreenEvent>(),
     UseBankCardsScreen {
 
     override fun createInitialState(): BankCardsScreenState = BankCardsScreenState()

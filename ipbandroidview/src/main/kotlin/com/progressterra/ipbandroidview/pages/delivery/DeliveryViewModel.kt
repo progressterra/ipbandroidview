@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.UserData
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -17,7 +17,7 @@ class DeliveryViewModel(
     private val fetchShippingAddressUseCase: FetchShippingAddressUseCase,
     private val suggestionsUse: SuggestionsUseCase,
     private val commentUseCase: CommentUseCase
-) : BaseViewModel<DeliveryState, DeliveryEvent>(), UseDelivery {
+) : AbstractViewModel<DeliveryState, DeliveryEvent>(), UseDelivery {
 
     override fun createInitialState() = DeliveryState()
 

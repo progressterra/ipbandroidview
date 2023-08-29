@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.features.cartcard.CartCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -15,7 +15,7 @@ class CartViewModel(
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val cartUseCase: CartUseCase
-) : BaseViewModel<CartState, CartEvent>(), UseCartScreen {
+) : AbstractViewModel<CartState, CartEvent>(), UseCartScreen {
 
     override fun createInitialState() = CartState()
 

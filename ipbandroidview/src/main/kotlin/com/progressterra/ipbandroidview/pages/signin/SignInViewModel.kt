@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 class SignInViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val openUrlUseCase: OpenUrlUseCase
-) : BaseViewModel<SignInState, SignInEffect>(), UseSignIn {
+) : AbstractViewModel<SignInState, SignInEffect>(), UseSignIn {
 
     override fun createInitialState() = SignInState()
 

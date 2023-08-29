@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.support
 
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
@@ -11,7 +11,7 @@ class SupportScreenViewModel(
     private val fetchChatsUseCase: FetchChatsUseCase,
     private val fetchMessagesUseCase: FetchMessagesUseCase,
     private val sendMessageUseCase: SendMessageUseCase
-) : BaseViewModel<SupportScreenState, SupportScreenEvent>(), UseSupportScreen {
+) : AbstractViewModel<SupportScreenState, SupportScreenEvent>(), UseSupportScreen {
 
     override fun createInitialState() = SupportScreenState()
 

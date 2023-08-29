@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.pages.welcome
 
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 
-class WelcomeViewModel : BaseViewModel<WelcomeState, WelcomeEvent>(), UseWelcome {
+class WelcomeViewModel : AbstractViewModel<WelcomeState, WelcomeEvent>(), UseWelcome {
 
     override fun createInitialState() = WelcomeState()
 

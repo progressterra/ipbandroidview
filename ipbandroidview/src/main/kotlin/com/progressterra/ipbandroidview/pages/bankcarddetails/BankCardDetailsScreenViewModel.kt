@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -28,7 +28,7 @@ class BankCardDetailsScreenViewModel(
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
     private val createAndSaveDocUseCase: CreateAndSaveDocUseCase
 ) : UseBankCardDetailsScreen,
-    BaseViewModel<BankCardDetailsScreenState, BankCardDetailsScreenEvent>() {
+    AbstractViewModel<BankCardDetailsScreenState, BankCardDetailsScreenEvent>() {
 
     override fun createInitialState() = BankCardDetailsScreenState()
 

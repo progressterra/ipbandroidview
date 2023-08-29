@@ -5,13 +5,13 @@ import com.progressterra.ipbandroidview.features.code.CodeEvent
 import com.progressterra.ipbandroidview.features.countdown.CountdownEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import kotlinx.coroutines.delay
 
 class ConfirmationCodeViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase
-) : BaseViewModel<ConfirmationCodeState, ConfirmationCodeEvent>(), UseConfirmationCode {
+) : AbstractViewModel<ConfirmationCodeState, ConfirmationCodeEvent>(), UseConfirmationCode {
 
     override fun createInitialState() = ConfirmationCodeState()
 

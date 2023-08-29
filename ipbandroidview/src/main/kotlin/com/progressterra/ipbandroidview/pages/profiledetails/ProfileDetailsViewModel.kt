@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 class ProfileDetailsViewModel(
     private val saveUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase
-) : BaseViewModel<ProfileDetailsState, ProfileDetailsEvent>(), UseProfileDetails {
+) : AbstractViewModel<ProfileDetailsState, ProfileDetailsEvent>(), UseProfileDetails {
 
     override fun createInitialState() = ProfileDetailsState()
 

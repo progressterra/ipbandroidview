@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.pages.photo
 
 import com.progressterra.ipbandroidview.features.phototopbar.PhotoTopBarEvent
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 
-class PhotoViewModel : BaseViewModel<PhotoState, PhotoEvent>(), UsePhoto {
+class PhotoViewModel : AbstractViewModel<PhotoState, PhotoEvent>(), UsePhoto {
 
     override fun createInitialState() = PhotoState()
 

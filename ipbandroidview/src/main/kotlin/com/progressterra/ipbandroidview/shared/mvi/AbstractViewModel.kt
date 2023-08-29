@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel<STATE : Any, EFFECT : Any> : ViewModel(), Operations {
+abstract class AbstractViewModel<STATE : Any, EFFECT : Any> : ViewModel(), Operations {
 
     private val initialState: STATE by lazy { createInitialState() }
 

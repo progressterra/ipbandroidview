@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.features.trace.TraceEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -19,7 +19,7 @@ class CatalogViewModel(
     private val goodsUseCase: GoodsUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
-) : UseCatalog, BaseViewModel<CatalogState, CatalogEvent>() {
+) : UseCatalog, AbstractViewModel<CatalogState, CatalogEvent>() {
 
     override fun createInitialState() = CatalogState()
 

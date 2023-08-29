@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -13,7 +13,7 @@ class FavoritesViewModel(
     private val favoriteGoodsUseCase: FavoriteGoodsUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase
-) : BaseViewModel<FavoritesState, FavoritesEvent>(), UseFavorites {
+) : AbstractViewModel<FavoritesState, FavoritesEvent>(), UseFavorites {
 
     override fun createInitialState() = FavoritesState()
 

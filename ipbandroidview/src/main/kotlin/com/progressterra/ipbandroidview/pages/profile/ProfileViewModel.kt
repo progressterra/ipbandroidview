@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEven
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -15,7 +15,7 @@ class ProfileViewModel(
     private val fetchUserProfileUseCase: FetchUserProfileUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val documentsNotification: DocumentsNotificationUseCase
-) : BaseViewModel<ProfileState, ProfileEvent>(), UseProfile {
+) : AbstractViewModel<ProfileState, ProfileEvent>(), UseProfile {
 
     override fun createInitialState() = ProfileState()
 

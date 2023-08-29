@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -17,7 +17,7 @@ class MainViewModel(
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val fetchBonusesUseCase: BonusesUseCase,
     private val fetchGalleriesUseCase: FetchGalleriesUseCase
-) : UseMain, BaseViewModel<MainState, MainEvent>() {
+) : UseMain, AbstractViewModel<MainState, MainEvent>() {
 
     override fun createInitialState() = MainState()
 

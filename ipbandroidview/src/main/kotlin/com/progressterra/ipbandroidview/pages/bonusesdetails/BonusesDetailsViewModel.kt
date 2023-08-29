@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonuses
 class BonusesDetailsViewModel(
     private val bonusesUseCase: BonusesUseCase,
     private val fetchBonusesTransactionsUseCase: FetchBonusesTransactionsUseCase
-) : BaseViewModel<BonusesDetailsState, BonusesDetailsEvent>(), UseBonusesDetails {
+) : AbstractViewModel<BonusesDetailsState, BonusesDetailsEvent>(), UseBonusesDetails {
 
     override fun createInitialState() = BonusesDetailsState()
 

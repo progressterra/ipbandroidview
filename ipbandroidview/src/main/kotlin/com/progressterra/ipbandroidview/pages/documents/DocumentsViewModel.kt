@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizen
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -17,7 +17,7 @@ class DocumentsViewModel(
     private val documentsUseCase: DocumentsUseCase,
     private val saveCitizenshipUseCase: SaveCitizenshipUseCase,
     private val citizenshipsUseCase: FetchCitizenshipsUseCase
-) : BaseViewModel<DocumentsScreenState, DocumentsScreenEvent>(), UseDocumentsScreen {
+) : AbstractViewModel<DocumentsScreenState, DocumentsScreenEvent>(), UseDocumentsScreen {
 
     override fun createInitialState() = DocumentsScreenState()
 

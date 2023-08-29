@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
-import com.progressterra.ipbandroidview.shared.mvi.BaseViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 class SignUpViewModel(
     private val saveDataUseCase: SaveDataUseCase,
     private val fetchUserUseCase: FetchUserUseCase
-) : BaseViewModel<SignUpState, SignUpEvent>(), UseSignUp {
+) : AbstractViewModel<SignUpState, SignUpEvent>(), UseSignUp {
 
     override fun createInitialState() = SignUpState()
 
