@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.pages.delivery.FetchShippingAddressUseCa
 import com.progressterra.ipbandroidview.pages.documentdetails.DocumentDetailsViewModel
 import com.progressterra.ipbandroidview.pages.documentdetails.FetchDocumentChatUseCase
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
-import com.progressterra.ipbandroidview.pages.documents.DocumentsViewModel
+import com.progressterra.ipbandroidview.pages.documents.DocumentsScreenViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
 import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
@@ -147,7 +147,7 @@ val pagesModule = module {
 
     viewModel { CartScreenViewModel(get(), get(), get()) }
 
-    viewModel { DocumentsViewModel(get(), get(), get()) }
+    viewModel { DocumentsScreenViewModel(get(), get(), get()) }
 
     viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 

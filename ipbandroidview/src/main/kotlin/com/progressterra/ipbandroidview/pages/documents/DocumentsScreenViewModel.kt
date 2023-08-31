@@ -6,22 +6,22 @@ import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizen
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
 
-class DocumentsViewModel(
+class DocumentsScreenViewModel(
     private val documentsUseCase: DocumentsUseCase,
     private val saveCitizenshipUseCase: SaveCitizenshipUseCase,
     private val citizenshipsUseCase: FetchCitizenshipsUseCase
-) : AbstractViewModel<DocumentsScreenState, DocumentsScreenEvent>(), UseDocumentsScreen {
+) : AbstractNonInputViewModel<DocumentsScreenState, DocumentsScreenEffect>(), UseDocumentsScreen {
 
     override fun createInitialState() = DocumentsScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState {
                 it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
@@ -54,7 +54,7 @@ class DocumentsViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(DocumentsScreenEvent.Back)
+        postEffect(DocumentsScreenEffect.Back)
     }
 
     override fun handle(event: StateColumnEvent) {
@@ -101,6 +101,6 @@ class DocumentsViewModel(
     }
 
     override fun handle(event: DocumentsEvent) {
-        postEffect(DocumentsScreenEvent.OpenDocument(event.item))
+        postEffect(DocumentsScreenEffect.OpenDocument(event.item))
     }
 }
