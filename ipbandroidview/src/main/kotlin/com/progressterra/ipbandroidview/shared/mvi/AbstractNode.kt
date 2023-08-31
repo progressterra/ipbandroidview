@@ -10,33 +10,34 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 
 
-abstract class AbstractNode<INPUT : Any, NAVIGATION : Any, STATE : Any, EFFECT : Any>(
-    buildContext: BuildContext,
-    private val input: INPUT,
-    private val navigation: NAVIGATION
+abstract class AbstractNode<
+        INPUT : Any,
+        NAVIGATION : Any,
+        STATE : Any,
+        EFFECT : Any,
+        VIEW_MODEL : AbstractViewModel<STATE, EFFECT>
+        >(
+    buildContext: BuildContext, protected val input: INPUT, protected val navigation: NAVIGATION
 ) : Node(buildContext) {
 
-    protected fun onEachOpen() = Unit
-
-    protected fun mapEffect(effect: EFFECT) = Unit
+    protected open fun mapEffect(effect: EFFECT) = Unit
 
     @Composable
-    abstract fun obtainViewModel(): AbstractViewModel<STATE, EFFECT>
+    abstract fun obtainViewModel(): VIEW_MODEL
 
     @Composable
     abstract fun Screen(
-        modifier: Modifier, state: STATE, viewModel: AbstractViewModel<STATE, EFFECT>
+        modifier: Modifier, state: STATE, viewModel: VIEW_MODEL
     )
 
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = obtainViewModel()
         viewModel.collectEffects(
-            lifecycleOwner = LocalLifecycleOwner.current,
-            minActiveState = Lifecycle.State.STARTED
+            lifecycleOwner = LocalLifecycleOwner.current, minActiveState = Lifecycle.State.STARTED
         ) { mapEffect(it) }
         LaunchedEffect(Unit) {
-            onEachOpen()
+            viewModel.refresh()
         }
         val state = viewModel.state.collectAsState().value
         Screen(modifier = modifier, state = state, viewModel = viewModel)
