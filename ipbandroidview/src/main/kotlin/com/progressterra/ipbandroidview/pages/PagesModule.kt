@@ -40,7 +40,7 @@ import com.progressterra.ipbandroidview.pages.ordertracking.OrderTrackingScreenV
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchBonusSwitchUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchReceiptUseCase
-import com.progressterra.ipbandroidview.pages.payment.PaymentViewModel
+import com.progressterra.ipbandroidview.pages.payment.PaymentScreenViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoViewModel
 import com.progressterra.ipbandroidview.pages.profile.DocumentsNotificationUseCase
 import com.progressterra.ipbandroidview.pages.profile.ProfileViewModel
@@ -81,7 +81,7 @@ val pagesModule = module {
 
     viewModel { MainViewModel(get(), get(), get(), get()) }
 
-    viewModel { PaymentViewModel(get(), get(), get(), get(), get()) }
+    viewModel { PaymentScreenViewModel(get(), get(), get(), get(), get()) }
 
     viewModel { DeliveryViewModel(get(), get(), get(), get()) }
 

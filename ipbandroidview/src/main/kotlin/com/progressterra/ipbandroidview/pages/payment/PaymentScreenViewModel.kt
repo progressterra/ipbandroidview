@@ -12,17 +12,17 @@ import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
-class PaymentViewModel(
+class PaymentScreenViewModel(
     private val fetchPaymentMethods: FetchPaymentMethods,
     private val confirmOrderUseCase: ConfirmOrderUseCase,
     private val openUrlUseCase: OpenUrlUseCase,
     private val fetchReceiptUseCase: FetchReceiptUseCase,
     private val fetchBonusSwitchUseCase: FetchBonusSwitchUseCase
-) : AbstractViewModel<PaymentState, PaymentEvent>(), UsePayment {
+) : AbstractViewModel<PaymentScreenState, PaymentScreenEffect>(), UsePaymentScreen {
 
-    override fun createInitialState() = PaymentState()
+    override fun createInitialState() = PaymentScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState {
                 it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
@@ -56,7 +56,7 @@ class PaymentViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(PaymentEvent.Back)
+        postEffect(PaymentScreenEffect.Back)
     }
 
     override fun handle(event: ButtonEvent) {
@@ -64,7 +64,7 @@ class PaymentViewModel(
             when (event.id) {
                 "pay" -> {
                     confirmOrderUseCase().onSuccess { orderId ->
-                        postEffect(PaymentEvent.Next(orderId))
+                        postEffect(PaymentScreenEffect.Next(orderId))
                     }
                 }
             }

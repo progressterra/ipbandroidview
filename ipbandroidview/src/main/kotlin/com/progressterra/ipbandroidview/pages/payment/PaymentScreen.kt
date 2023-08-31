@@ -25,7 +25,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun PaymentScreen(
-    state: PaymentState, useComponent: UsePayment
+    state: PaymentScreenState, useComponent: UsePaymentScreen
 ) {
     ThemedLayout(topBar = {
         TopBar(
@@ -63,7 +63,7 @@ fun PaymentScreen(
 @Composable
 private fun PaymentScreenPreview() {
     PaymentScreen(
-        state = PaymentState(
+        state = PaymentScreenState(
             screen = StateColumnState(state = ScreenState.SUCCESS), receipt = ReceiptState(
                 total = SimplePrice(12500), items = listOf(
                     ReceiptState.Item(
@@ -73,6 +73,6 @@ private fun PaymentScreenPreview() {
                     )
                 )
             ), paymentMethod = PaymentMethodState()
-        ), useComponent = UsePayment.Empty()
+        ), useComponent = UsePaymentScreen.Empty()
     )
 }

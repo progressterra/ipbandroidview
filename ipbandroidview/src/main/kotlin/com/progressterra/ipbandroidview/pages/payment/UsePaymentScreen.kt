@@ -13,10 +13,10 @@ import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
-interface UsePayment : UseTopBar, UsePaymentMethod, UseStateColumn, UseButton, UseBonusSwitch,
+interface UsePaymentScreen : UseTopBar, UsePaymentMethod, UseStateColumn, UseButton, UseBonusSwitch,
     UseReceipt {
 
-    class Empty : UsePayment {
+    class Empty : UsePaymentScreen {
 
         override fun handle(event: PaymentMethodEvent) = Unit
 
