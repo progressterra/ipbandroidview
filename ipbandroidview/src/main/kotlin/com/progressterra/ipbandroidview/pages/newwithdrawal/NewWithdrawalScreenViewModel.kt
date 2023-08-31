@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
@@ -19,7 +19,7 @@ class NewWithdrawalScreenViewModel(
     private val fetchWithdrawalUseCase: FetchWithdrawalUseCase,
     private val fetchConfirmedBankCardsUseCase: FetchConfirmedBankCardsUseCase,
     private val newWithdrawalUseCase: CreateNewWithdrawalUseCase
-) : AbstractViewModel<NewWithdrawalScreenState, NewWithdrawalScreenEvent>(),
+) : AbstractNonInputViewModel<NewWithdrawalScreenState, NewWithdrawalScreenEffect>(),
     UseNewWithdrawalScreen {
 
     override fun createInitialState(): NewWithdrawalScreenState = NewWithdrawalScreenState(
@@ -29,7 +29,7 @@ class NewWithdrawalScreenViewModel(
         )
     )
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
@@ -65,15 +65,15 @@ class NewWithdrawalScreenViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(NewWithdrawalScreenEvent.Back)
+        postEffect(NewWithdrawalScreenEffect.Back)
     }
 
     override fun handle(event: ButtonEvent) {
         when (event.id) {
             "add" -> onBackground {
                 newWithdrawalUseCase(currentState.selectedCard, currentState.input.text).onSuccess {
-                    postEffect(NewWithdrawalScreenEvent.Back)
-                    postEffect(NewWithdrawalScreenEvent.Toast(R.string.success))
+                    postEffect(NewWithdrawalScreenEffect.Back)
+                    postEffect(NewWithdrawalScreenEffect.Toast(R.string.success))
                 }
             }
 

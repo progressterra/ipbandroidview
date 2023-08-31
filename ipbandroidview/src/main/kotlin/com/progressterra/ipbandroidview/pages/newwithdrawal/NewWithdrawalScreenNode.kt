@@ -7,33 +7,34 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
-import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class NewWithdrawalScreenNode(
     buildContext: BuildContext,
-    private val onBack: () -> Unit
-) : Node(buildContext) {
+    navigation: NewWithdrawalScreenNavigation
+) : AbstractNonInputNode<NewWithdrawalScreenNavigation, NewWithdrawalScreenState, NewWithdrawalScreenEffect, NewWithdrawalScreenViewModel>(
+    buildContext,
+    navigation
+) {
+
+    override fun mapEffect(effect: NewWithdrawalScreenEffect) {
+        when (effect) {
+            is NewWithdrawalScreenEffect.Back -> navigation.onBack()
+            is NewWithdrawalScreenEffect.Toast -> Toast.makeText(
+                context,
+                effect.data,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     @Composable
-    override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<NewWithdrawalScreenViewModel>()
-        val context = LocalContext.current
-        viewModel.collectEffects {
-            when (it) {
-                is NewWithdrawalScreenEvent.Back -> onBack()
-                is NewWithdrawalScreenEvent.Toast -> Toast.makeText(
-                    context,
-                    it.message,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        val state = viewModel.state.collectAsState().value
+    override fun obtainViewModel() = getViewModel<NewWithdrawalScreenViewModel>()
+
+    @Composable
+    override fun Screen(modifier: Modifier, state: NewWithdrawalScreenState) {
         NewWithdrawalScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }
