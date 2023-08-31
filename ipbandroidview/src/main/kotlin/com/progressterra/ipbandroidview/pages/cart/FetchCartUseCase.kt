@@ -12,17 +12,17 @@ import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
 
-interface CartUseCase {
+interface FetchCartUseCase {
 
-    suspend operator fun invoke(): Result<CartState>
+    suspend operator fun invoke(): Result<CartScreenState>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepo: CartRepository,
         private val productRepository: ProductRepository
-    ) : CartUseCase, AbstractTokenUseCase(obtainAccessToken) {
+    ) : FetchCartUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
-        override suspend fun invoke(): Result<CartState> = withToken { token ->
+        override suspend fun invoke(): Result<CartScreenState> = withToken { token ->
             val goods = cartRepo.cart(token).getOrThrow()!!.listDRSale?.mapNotNull {
                 val oneGoods =
                     productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
@@ -32,7 +32,7 @@ interface CartUseCase {
                     counter = oneGoods.counter.copy(count = it.quantity ?: 0)
                 )
             } ?: emptyList()
-            CartState(
+            CartScreenState(
                 items = CartItemsState(goods),
                 summary = CartSummaryState(
                     total = goods.map { it.price }.sum()

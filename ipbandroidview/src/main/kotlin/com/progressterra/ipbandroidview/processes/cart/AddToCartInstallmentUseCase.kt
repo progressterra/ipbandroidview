@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.sum
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toSimplePrice
-import com.progressterra.ipbandroidview.pages.cart.CartState
+import com.progressterra.ipbandroidview.pages.cart.CartScreenState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
@@ -20,7 +20,7 @@ interface AddToCartInstallmentUseCase {
         goodsId: String,
         installment: Installment,
         count: Int = 1
-    ): Result<CartState>
+    ): Result<CartScreenState>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -32,7 +32,7 @@ interface AddToCartInstallmentUseCase {
             goodsId: String,
             installment: Installment,
             count: Int
-        ): Result<CartState> =
+        ): Result<CartScreenState> =
             withToken { token ->
                 val goods = cartRepo.addToCartInstallment(
                     token,
@@ -51,7 +51,7 @@ interface AddToCartInstallmentUseCase {
                         counter = oneGoods.counter.copy(count = it.quantity ?: 0)
                     )
                 } ?: emptyList()
-                CartState(
+                CartScreenState(
                     items = CartItemsState(goods),
                     summary = CartSummaryState(
                         total = goods.map { it.price }.sum()

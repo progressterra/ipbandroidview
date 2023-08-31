@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
 @Immutable
-data class CartState(
+data class CartScreenState(
     val screen: StateColumnState = StateColumnState(),
     val summary: CartSummaryState = CartSummaryState(),
     val items: CartItemsState = CartItemsState()

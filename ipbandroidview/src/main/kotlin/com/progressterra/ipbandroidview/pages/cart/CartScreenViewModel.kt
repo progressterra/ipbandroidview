@@ -5,23 +5,23 @@ import com.progressterra.ipbandroidview.features.cartcard.CartCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
-class CartViewModel(
+class CartScreenViewModel(
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
-    private val cartUseCase: CartUseCase
-) : AbstractViewModel<CartState, CartEvent>(), UseCartScreen {
+    private val fetchCartUseCase: FetchCartUseCase
+) : AbstractNonInputViewModel<CartScreenState, CartScreenEffect>(), UseCartScreen {
 
-    override fun createInitialState() = CartState()
+    override fun createInitialState() = CartScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
-            val call = cartUseCase().onSuccess { newState -> emitState { newState } }
+            val call = fetchCartUseCase().onSuccess { newState -> emitState { newState } }
             emitState { it.copy(screen = it.screen.copy(state = call.isSuccess.toScreenState())) }
         }
     }
@@ -29,7 +29,7 @@ class CartViewModel(
     override fun handle(event: CartCardEvent) {
         onBackground {
             when (event) {
-                is CartCardEvent.Open -> postEffect(CartEvent.OnItem(event.id))
+                is CartCardEvent.Open -> postEffect(CartScreenEffect.OnItem(event.id))
                 is CartCardEvent.RemoveFromCart -> removeFromCartUseCase(event.id).onSuccess { newState ->
                     emitState { newState.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
                 }.onFailure {
@@ -42,7 +42,7 @@ class CartViewModel(
     override fun handle(event: TopBarEvent) = Unit
 
     override fun handle(event: ButtonEvent) {
-        postEffect(CartEvent.Payment)
+        postEffect(CartScreenEffect.Payment)
     }
 
     override fun handle(event: CounterEvent) {

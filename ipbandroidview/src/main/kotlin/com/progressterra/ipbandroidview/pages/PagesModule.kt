@@ -8,8 +8,8 @@ import com.progressterra.ipbandroidview.pages.bankcards.FetchUnconfirmedBankCard
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
-import com.progressterra.ipbandroidview.pages.cart.CartUseCase
-import com.progressterra.ipbandroidview.pages.cart.CartViewModel
+import com.progressterra.ipbandroidview.pages.cart.FetchCartUseCase
+import com.progressterra.ipbandroidview.pages.cart.CartScreenViewModel
 import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeViewModel
@@ -123,8 +123,8 @@ val pagesModule = module {
 
     single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get()) }
 
-    single<CartUseCase> {
-        CartUseCase.Base(get(), get(), get())
+    single<FetchCartUseCase> {
+        FetchCartUseCase.Base(get(), get(), get())
     }
 
     single<GoodsDetailsUseCase> {
@@ -145,7 +145,7 @@ val pagesModule = module {
 
     viewModel { CatalogViewModel(get(), get(), get(), get()) }
 
-    viewModel { CartViewModel(get(), get(), get()) }
+    viewModel { CartScreenViewModel(get(), get(), get()) }
 
     viewModel { DocumentsViewModel(get(), get(), get()) }
 

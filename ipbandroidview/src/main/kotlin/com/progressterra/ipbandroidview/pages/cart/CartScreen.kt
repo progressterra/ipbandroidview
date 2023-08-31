@@ -13,8 +13,8 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItems
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummary
@@ -22,17 +22,19 @@ import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
 @Composable
 fun CartScreen(
-    state: CartState, useComponent: UseCartScreen
+    modifier: Modifier = Modifier, state: CartScreenState, useComponent: UseCartScreen
 ) {
-    ThemedLayout(topBar = {
-        TopBar(
-            title = stringResource(R.string.cart), useComponent = useComponent
-        )
-    }, bottomBar = {
-        CartSummary(
-            state = state.summary, useComponent = useComponent
-        )
-    }) { _, _ ->
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.cart), useComponent = useComponent
+            )
+        }, bottomBar = {
+            CartSummary(
+                state = state.summary, useComponent = useComponent
+            )
+        }) { _, _ ->
         StateColumn(
             state = state.screen, useComponent = useComponent
         ) {
@@ -48,7 +50,7 @@ fun CartScreen(
 @Composable
 fun CartScreenPreview() {
     CartScreen(
-        state = CartState(
+        state = CartScreenState(
             screen = StateColumnState(state = ScreenState.SUCCESS),
             items = CartItemsState(
                 items = listOf(
