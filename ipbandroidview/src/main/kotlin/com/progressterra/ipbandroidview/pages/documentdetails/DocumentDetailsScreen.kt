@@ -28,8 +28,8 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
-fun DocumentDetails(
-    modifier: Modifier = Modifier, state: DocumentDetailsState, useComponent: UseDocumentDetails
+fun DocumentDetailsScreen(
+    modifier: Modifier = Modifier, state: DocumentDetailsScreenState, useComponent: UseDocumentDetailsScreen
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
@@ -98,11 +98,11 @@ fun DocumentDetails(
 
 @Preview
 @Composable
-private fun DocumentDetails() {
+private fun DocumentDetailsScreen() {
     IpbTheme {
-        DocumentDetails(
-            state = DocumentDetailsState(),
-            useComponent = UseDocumentDetails.Empty()
+        DocumentDetailsScreen(
+            state = DocumentDetailsScreenState(),
+            useComponent = UseDocumentDetailsScreen.Empty()
         )
     }
 }

@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatSt
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-data class DocumentDetailsState(
+data class DocumentDetailsScreenState(
     val document: Document = Document(),
     val apply: ButtonState = ButtonState(id = "apply"),
     val chat: AttachableChatState = AttachableChatState(isVisible = true),

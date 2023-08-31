@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -30,7 +30,8 @@ class DocumentDetailsViewModel(
     documentValidationUseCase: DocumentValidationUseCase,
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
     private val fetchDocumentChatUseCase: FetchDocumentChatUseCase
-) : AbstractViewModel<DocumentDetailsState, DocumentDetailsEvent>(), UseDocumentDetails {
+) : AbstractInputViewModel<Document, DocumentDetailsScreenState, DocumentDetailsScreenEffect>(),
+    UseDocumentDetailsScreen {
 
     private val attachableChatModule =
         AttachableChatModule(
@@ -71,20 +72,20 @@ class DocumentDetailsViewModel(
             }
 
             override fun openPhoto(url: String) {
-                postEffect(DocumentDetailsEvent.OpenPhoto(url))
+                postEffect(DocumentDetailsScreenEffect.OpenPhoto(url))
             }
         }
     )
 
-    override fun createInitialState() = DocumentDetailsState()
+    override fun createInitialState() = DocumentDetailsScreenState()
 
     override fun handle(event: StateColumnEvent) {
         attachableChatModule.handle(event)
         if (event.id == "main") refresh()
     }
 
-    fun setup(newDocument: Document) {
-        emitState { it.copy(document = newDocument) }
+    override fun setup(data: Document) {
+        emitState { it.copy(document = data) }
         refresh()
     }
 
@@ -109,14 +110,14 @@ class DocumentDetailsViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(DocumentDetailsEvent.Back)
+        postEffect(DocumentDetailsScreenEffect.Back)
     }
 
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
                 "apply" -> saveDocumentsUseCase(currentState.document).onSuccess {
-                    postEffect(DocumentDetailsEvent.Back)
+                    postEffect(DocumentDetailsScreenEffect.Back)
                 }
             }
         }
