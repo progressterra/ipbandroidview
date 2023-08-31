@@ -48,6 +48,8 @@ abstract class AbstractViewModel<STATE : Any, EFFECT : Any> : ViewModel(), Opera
         }
     }
 
+    open fun refresh() = Unit
+
     override fun onBackground(
         block: suspend () -> Unit
     ) {
