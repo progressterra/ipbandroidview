@@ -6,22 +6,22 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
 
-class MainViewModel(
+class MainScreenViewModel(
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val fetchBonusesUseCase: BonusesUseCase,
     private val fetchGalleriesUseCase: FetchGalleriesUseCase
-) : UseMain, AbstractViewModel<MainState, MainEvent>() {
+) : UseMainScreen, AbstractNonInputViewModel<MainScreenState, MainScreenEffect>() {
 
-    override fun createInitialState() = MainState()
+    override fun createInitialState() = MainScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
@@ -44,8 +44,8 @@ class MainViewModel(
 
     override fun handle(event: BonusesEvent) {
         when (event) {
-            is BonusesEvent.Transactions -> postEffect(MainEvent.OnBonuses)
-            is BonusesEvent.Withdrawal -> postEffect(MainEvent.OnWithdrawal)
+            is BonusesEvent.Transactions -> postEffect(MainScreenEffect.OnBonuses)
+            is BonusesEvent.Withdrawal -> postEffect(MainScreenEffect.OnWithdrawal)
         }
     }
 
@@ -56,7 +56,7 @@ class MainViewModel(
                     refresh()
                 }
 
-                is StoreCardEvent.Open -> postEffect(MainEvent.OnItem(event.id))
+                is StoreCardEvent.Open -> postEffect(MainScreenEffect.OnItem(event.id))
             }
         }
     }

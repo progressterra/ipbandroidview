@@ -15,9 +15,11 @@ import com.progressterra.ipbandroidview.widgets.galleries.Galleries
 
 @Composable
 fun MainScreen(
-    state: MainState, useComponent: UseMain
+    modifier: Modifier = Modifier, state: MainScreenState, useComponent: UseMainScreen
 ) {
-    ThemedLayout { _, _ ->
+    ThemedLayout(
+        modifier = modifier,
+    ) { _, _ ->
         StateColumn(
             state = state.screen, useComponent = useComponent
         ) {
