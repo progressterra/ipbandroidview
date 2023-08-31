@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.processes.goods.FetchSingleGoodsUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
@@ -40,7 +40,7 @@ class WantThisDetailsScreenViewModel(
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val fetchSingleGoodsUseCase: FetchSingleGoodsUseCase,
     private val saveDocumentsUseCase: SaveDocumentsUseCase
-) : AbstractViewModel<WantThisDetailsScreenState, WantThisDetailsScreenSideEffect>(),
+) : AbstractNonInputViewModel<WantThisDetailsScreenState, WantThisDetailsScreenSideEffect>(),
     UseWantThisDetailsScreen {
 
     override fun createInitialState() = WantThisDetailsScreenState()
@@ -94,7 +94,7 @@ class WantThisDetailsScreenViewModel(
         refresh()
     }
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             var isSuccess = true
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }

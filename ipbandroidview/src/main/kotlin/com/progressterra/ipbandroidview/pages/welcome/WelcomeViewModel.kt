@@ -1,14 +1,14 @@
 package com.progressterra.ipbandroidview.pages.welcome
 
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 
-class WelcomeViewModel : AbstractViewModel<WelcomeState, WelcomeEvent>(), UseWelcome {
+class WelcomeViewModel : AbstractNonInputViewModel<WelcomeState, WelcomeEvent>(), UseWelcome {
 
     override fun createInitialState() = WelcomeState()
 
-    fun refresh() {
+    override fun refresh() {
         if (UserData.clientExist) postEffect(WelcomeEvent.OnAlreadyAuth)
     }
 

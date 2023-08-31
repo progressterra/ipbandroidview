@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -13,12 +13,12 @@ class WantThisRequestsViewModel(
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val wantThisRequestsUseCase: WantThisRequestsUseCase
-) : AbstractViewModel<WantThisRequestsState, WantThisRequestsEvent>(),
+) : AbstractNonInputViewModel<WantThisRequestsState, WantThisRequestsEvent>(),
     UseWantThisRequests {
 
     override fun createInitialState() = WantThisRequestsState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             wantThisRequestsUseCase().onSuccess { nonCached ->

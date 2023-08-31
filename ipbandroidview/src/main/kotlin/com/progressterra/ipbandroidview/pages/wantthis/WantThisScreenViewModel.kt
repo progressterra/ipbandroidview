@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -26,7 +26,7 @@ class WantThisScreenViewModel(
     checkPermissionUseCase: CheckPermissionUseCase,
     askPermissionUseCase: AskPermissionUseCase,
     makePhotoUseCase: MakePhotoUseCase,
-) : AbstractViewModel<WantThisScreenState, WantThisScreenEvent>(), UseWantThisScreen {
+) : AbstractNonInputViewModel<WantThisScreenState, WantThisScreenEvent>(), UseWantThisScreen {
 
     override fun createInitialState() = WantThisScreenState()
 
@@ -54,7 +54,7 @@ class WantThisScreenViewModel(
         }
     )
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchWantThisUseCase().onSuccess { newDocument ->
