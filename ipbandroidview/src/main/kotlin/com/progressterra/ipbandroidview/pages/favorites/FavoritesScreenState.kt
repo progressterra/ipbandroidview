@@ -1,11 +1,9 @@
 package com.progressterra.ipbandroidview.pages.favorites
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItemsState
 
-@Immutable
-data class FavoritesState(
+data class FavoritesScreenState(
     val items: StoreItemsState = StoreItemsState(),
     val screen: StateColumnState = StateColumnState()
 )

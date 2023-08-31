@@ -4,20 +4,20 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
-class FavoritesViewModel(
+class FavoritesScreenViewModel(
     private val favoriteGoodsUseCase: FavoriteGoodsUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase
-) : AbstractViewModel<FavoritesState, FavoritesEvent>(), UseFavorites {
+) : AbstractNonInputViewModel<FavoritesScreenState, FavoritesScreenEffect>(), UseFavorites {
 
-    override fun createInitialState() = FavoritesState()
+    override fun createInitialState() = FavoritesScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             favoriteGoodsUseCase().onSuccess { nonCached ->
@@ -51,7 +51,7 @@ class FavoritesViewModel(
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
-                is StoreCardEvent.Open -> postEffect(FavoritesEvent.GoodsDetails(event.id))
+                is StoreCardEvent.Open -> postEffect(FavoritesScreenEffect.GoodsDetails(event.id))
                 is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
                     refresh()
                 }
@@ -60,7 +60,7 @@ class FavoritesViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(FavoritesEvent.Back)
+        postEffect(FavoritesScreenEffect.Back)
     }
 
     override fun handle(event: StateColumnEvent) {
