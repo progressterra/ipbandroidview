@@ -1,34 +1,39 @@
 package com.progressterra.ipbandroidview.pages.bankcards
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.Document
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.progressterra.ipbandroidview.shared.mvi.OnBack
 import org.koin.androidx.compose.getViewModel
+
+interface BankCardsScreenNavigation : OnBack {
+
+    fun onNext(data: Document)
+}
 
 @Suppress("unused")
 class BankCardsScreenNode(
     buildContext: BuildContext,
-    private val onBack: () -> Unit,
-    private val onDetails: (Document) -> Unit
-) : Node(buildContext) {
+    navigation: BankCardsScreenNavigation
+) : AbstractNonInputNode<BankCardsScreenNavigation, BankCardsScreenState, BankCardsScreenEffect, BankCardsScreenViewModel>(
+    buildContext,
+    navigation
+) {
+
+    override fun mapEffect(effect: BankCardsScreenEffect) {
+        when (effect) {
+            is BankCardsScreenEffect.Back -> navigation.onBack()
+            is BankCardsScreenEffect.OpenDetails -> navigation.onNext(effect.data)
+        }
+    }
 
     @Composable
-    override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<BankCardsScreenViewModel>()
-        viewModel.collectEffects {
-            when (it) {
-                is BankCardsScreenEvent.Back -> onBack()
-                is BankCardsScreenEvent.OpenDetails -> onDetails(it.state)
-            }
-        }
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        val state = viewModel.state.collectAsState().value
+    override fun obtainViewModel() = getViewModel<BankCardsScreenViewModel>()
+
+    @Composable
+    override fun Screen(modifier: Modifier, state: BankCardsScreenState) {
         BankCardsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

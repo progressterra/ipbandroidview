@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -13,12 +13,12 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class BankCardsScreenViewModel(
     private val fetchUnconfirmedBankCardsUseCase: FetchUnconfirmedBankCardsUseCase,
     private val fetchConfirmedBankCardsUseCase: FetchConfirmedBankCardsUseCase
-) : AbstractViewModel<BankCardsScreenState, BankCardsScreenEvent>(),
+) : AbstractNonInputViewModel<BankCardsScreenState, BankCardsScreenEffect>(),
     UseBankCardsScreen {
 
     override fun createInitialState(): BankCardsScreenState = BankCardsScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
@@ -42,18 +42,18 @@ class BankCardsScreenViewModel(
 
     override fun handleEvent(event: BankCardEvent) {
         when (event) {
-            is BankCardEvent.Click -> postEffect(BankCardsScreenEvent.OpenDetails(event.state.document))
+            is BankCardEvent.Click -> postEffect(BankCardsScreenEffect.OpenDetails(event.state.document))
 
             is BankCardEvent.Delete -> Unit
         }
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(BankCardsScreenEvent.Back)
+        postEffect(BankCardsScreenEffect.Back)
     }
 
     override fun handle(event: ButtonEvent) {
-        postEffect(BankCardsScreenEvent.OpenDetails(Document()))
+        postEffect(BankCardsScreenEffect.OpenDetails(Document()))
     }
 
     override fun handle(event: StateColumnEvent) {
