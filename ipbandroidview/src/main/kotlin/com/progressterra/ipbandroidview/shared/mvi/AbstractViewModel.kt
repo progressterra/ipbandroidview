@@ -19,26 +19,26 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-abstract class AbstractViewModel<STATE : Any, EFFECT : Any> : ViewModel(), Operations {
+abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
 
-    private val initialState: STATE by lazy { createInitialState() }
+    private val initialState: S by lazy { createInitialState() }
 
-    abstract fun createInitialState(): STATE
+    abstract fun createInitialState(): S
 
-    private val _state: MutableStateFlow<STATE> = MutableStateFlow(initialState)
+    private val _state: MutableStateFlow<S> = MutableStateFlow(initialState)
     val state = _state.asStateFlow()
 
-    val currentState: STATE
+    val currentState: S
         get() = state.value
 
-    private val _effects: Channel<EFFECT> = Channel()
+    private val _effects: Channel<E> = Channel()
 
     @Suppress("ComposableNaming")
     @Composable
     fun collectEffects(
         lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
         minActiveState: Lifecycle.State = Lifecycle.State.STARTED,
-        action: suspend (EFFECT) -> Unit
+        action: suspend (E) -> Unit
     ) {
         LaunchedEffect(Unit) {
             lifecycleOwner.lifecycleScope.launch {
@@ -48,20 +48,18 @@ abstract class AbstractViewModel<STATE : Any, EFFECT : Any> : ViewModel(), Opera
         }
     }
 
-    open fun refresh() = Unit
-
     override fun onBackground(
         block: suspend () -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) { block() }
     }
 
-    protected fun emitState(reducer: (STATE) -> STATE) {
+    protected fun emitState(reducer: (S) -> S) {
         val newState = reducer(currentState)
         _state.value = newState
     }
 
-    protected fun postEffect(effect: EFFECT) {
+    protected fun postEffect(effect: E) {
         viewModelScope.launch { _effects.send(effect) }
     }
 
