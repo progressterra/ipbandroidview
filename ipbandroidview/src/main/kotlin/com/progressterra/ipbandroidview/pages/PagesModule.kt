@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.pages.cart.FetchCartUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartScreenViewModel
 import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
-import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeViewModel
+import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeScreenViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.pages.delivery.AddDeliveryToCartUseCase
 import com.progressterra.ipbandroidview.pages.delivery.CommentUseCase
@@ -73,7 +73,7 @@ val pagesModule = module {
 
     viewModel { WelcomeViewModel() }
 
-    viewModel { ConfirmationCodeViewModel(get(), get()) }
+    viewModel { ConfirmationCodeScreenViewModel(get(), get()) }
 
     viewModel { SignInViewModel(get(), get()) }
 

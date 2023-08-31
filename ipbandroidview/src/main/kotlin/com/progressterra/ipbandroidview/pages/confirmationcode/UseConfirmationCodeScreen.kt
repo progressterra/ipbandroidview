@@ -7,9 +7,9 @@ import com.progressterra.ipbandroidview.features.countdown.UseCountDown
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 
-interface UseConfirmationCode : UseCode, UseCountDown, UseTopBar {
+interface UseConfirmationCodeScreen : UseCode, UseCountDown, UseTopBar {
 
-    class Empty : UseConfirmationCode {
+    class Empty : UseConfirmationCodeScreen {
 
         override fun handle(event: CodeEvent) = Unit
 

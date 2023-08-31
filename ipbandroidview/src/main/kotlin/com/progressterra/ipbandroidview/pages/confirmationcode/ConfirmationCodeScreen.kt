@@ -23,10 +23,12 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 
 @Composable
 fun ConfirmationCodeScreen(
-    state: ConfirmationCodeState,
-    useComponent: UseConfirmationCode
+    modifier: Modifier = Modifier,
+    state: ConfirmationCodeScreenState,
+    useComponent: UseConfirmationCodeScreen
 ) {
     ThemedLayout(
+        modifier = modifier,
         topBar = {
             TopBar(
                 title = stringResource(R.string.verification_code),
@@ -65,8 +67,10 @@ fun ConfirmationCodeScreen(
 @Composable
 private fun ConfirmationCodeScreenPreview() {
     IpbTheme {
-        ConfirmationCodeScreen(state = ConfirmationCodeState(
-            code = CodeState(code = "123", phone = "123456789")
-        ), useComponent = UseConfirmationCode.Empty())
+        ConfirmationCodeScreen(
+            state = ConfirmationCodeScreenState(
+                code = CodeState(code = "123", phone = "123456789")
+            ), useComponent = UseConfirmationCodeScreen.Empty()
+        )
     }
 }

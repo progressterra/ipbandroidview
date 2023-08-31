@@ -5,18 +5,19 @@ import com.progressterra.ipbandroidview.features.code.CodeEvent
 import com.progressterra.ipbandroidview.features.countdown.CountdownEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import kotlinx.coroutines.delay
 
-class ConfirmationCodeViewModel(
+class ConfirmationCodeScreenViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase
-) : AbstractViewModel<ConfirmationCodeState, ConfirmationCodeEvent>(), UseConfirmationCode {
+) : AbstractInputViewModel<String, ConfirmationCodeScreenState, ConfirmationCodeScreenEffect>(),
+    UseConfirmationCodeScreen {
 
-    override fun createInitialState() = ConfirmationCodeState()
+    override fun createInitialState() = ConfirmationCodeScreenState()
 
-    fun refresh(phoneNumber: String) {
-        emitState { it.copy(code = it.code.copy(code = "", phone = phoneNumber)) }
+    override fun setup(data: String) {
+        emitState { it.copy(code = it.code.copy(code = "", phone = data)) }
         startTimer()
     }
 
@@ -27,9 +28,9 @@ class ConfirmationCodeViewModel(
                 currentState.code.phone,
                 currentState.code.code
             ).onSuccess {
-                postEffect(ConfirmationCodeEvent.Next)
+                postEffect(ConfirmationCodeScreenEffect.Next)
             }.onFailure {
-                postEffect(ConfirmationCodeEvent.Toast(R.string.wrong_code))
+                postEffect(ConfirmationCodeScreenEffect.Toast(R.string.wrong_code))
             }
             emitState { it.copy(code = it.code.copy(enabled = call.isSuccess)) }
         }
@@ -61,6 +62,6 @@ class ConfirmationCodeViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(ConfirmationCodeEvent.Back)
+        postEffect(ConfirmationCodeScreenEffect.Back)
     }
 }
