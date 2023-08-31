@@ -3,16 +3,15 @@ package com.progressterra.ipbandroidview.pages.payment
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNode
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class PaymentScreenNode(
     buildContext: BuildContext,
     navigation: PaymentScreenNavigation
-) : AbstractNode<Unit, PaymentScreenNavigation, PaymentScreenState, PaymentScreenEffect, PaymentScreenViewModel>(
+) : AbstractNonInputNode<PaymentScreenNavigation, PaymentScreenState, PaymentScreenEffect, PaymentScreenViewModel>(
     buildContext,
-    Unit,
     navigation
 ) {
 
@@ -20,7 +19,7 @@ class PaymentScreenNode(
     override fun obtainViewModel() = getViewModel<PaymentScreenViewModel>()
 
     @Composable
-    override fun Screen(modifier: Modifier, state: PaymentScreenState, viewModel: PaymentScreenViewModel) {
+    override fun Screen(modifier: Modifier, state: PaymentScreenState) {
         PaymentScreen(state = state, useComponent = viewModel)
     }
 

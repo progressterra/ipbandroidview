@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMetho
 import com.progressterra.ipbandroidview.features.paymentmethod.PaymentMethodEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
@@ -18,7 +18,7 @@ class PaymentScreenViewModel(
     private val openUrlUseCase: OpenUrlUseCase,
     private val fetchReceiptUseCase: FetchReceiptUseCase,
     private val fetchBonusSwitchUseCase: FetchBonusSwitchUseCase
-) : AbstractViewModel<PaymentScreenState, PaymentScreenEffect>(), UsePaymentScreen {
+) : AbstractNonInputViewModel<PaymentScreenState, PaymentScreenEffect>(), UsePaymentScreen {
 
     override fun createInitialState() = PaymentScreenState()
 
