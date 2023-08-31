@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
-class DeliveryViewModel(
+class DeliveryScreenViewModel(
     private val addDeliveryToCartUseCase: AddDeliveryToCartUseCase,
     private val fetchShippingAddressUseCase: FetchShippingAddressUseCase,
     private val suggestionsUse: SuggestionsUseCase,

@@ -10,7 +10,7 @@ import org.koin.androidx.compose.getViewModel
 class DeliveryScreenNode(
     buildContext: BuildContext,
     navigation: DeliveryScreenNavigation
-) : AbstractNonInputNode<DeliveryScreenNavigation, DeliveryScreenState, DeliveryScreenEffect, DeliveryViewModel>(
+) : AbstractNonInputNode<DeliveryScreenNavigation, DeliveryScreenState, DeliveryScreenEffect, DeliveryScreenViewModel>(
     buildContext,
     navigation
 ) {
@@ -23,7 +23,7 @@ class DeliveryScreenNode(
     }
 
     @Composable
-    override fun obtainViewModel() = getViewModel<DeliveryViewModel>()
+    override fun obtainViewModel() = getViewModel<DeliveryScreenViewModel>()
 
     @Composable
     override fun Screen(modifier: Modifier, state: DeliveryScreenState) {
