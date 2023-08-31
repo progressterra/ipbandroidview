@@ -9,30 +9,31 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
-class GoodsDetailsViewModel(
+class GoodsDetailsScreenViewModel(
     private val modifyFavoriteUseCase: ModifyFavoriteUseCase,
     private val goodsDetailsUseCase: GoodsDetailsUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     private val addToCartInstallmentUseCase: AddToCartInstallmentUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase
-) : AbstractViewModel<GoodsDetailsState, GoodsDetailsEvent>(),
-    UseGoodsDetails {
+) : AbstractInputViewModel<String, GoodsDetailsScreenState, GoodsDetailsScreenEffect>(),
+    UseGoodsDetailsScreen {
 
-    override fun createInitialState() = GoodsDetailsState()
+    override fun createInitialState() = GoodsDetailsScreenState()
 
-    fun setupId(newId: String) {
+    override fun setup(data: String) {
         emitState {
-            it.copy(id = newId)
+            it.copy(id = data)
         }
+        refresh()
     }
 
-    fun refresh() {
+    private fun refresh() {
         onBackground {
             emitState {
                 it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
@@ -52,15 +53,15 @@ class GoodsDetailsViewModel(
     }
 
     override fun handle(event: GoodsDescriptionEvent) {
-        postEffect(GoodsDetailsEvent.Delivery)
+        postEffect(GoodsDetailsScreenEffect.Delivery)
     }
 
     override fun handle(event: ItemGalleryEvent) {
-        postEffect(GoodsDetailsEvent.OpenImage(event.image))
+        postEffect(GoodsDetailsScreenEffect.OpenImage(event.image))
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(GoodsDetailsEvent.Back)
+        postEffect(GoodsDetailsScreenEffect.Back)
     }
 
     override fun handle(event: FavoriteButtonEvent) {
@@ -69,7 +70,7 @@ class GoodsDetailsViewModel(
                 event.id,
                 currentState.description.favoriteButton.favorite
             ).onSuccess {
-                postEffect(GoodsDetailsEvent.Toast(R.string.added_to_favorites))
+                postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_favorites))
                 emitState {
                     it.copy(
                         description = it.description.copy(
@@ -80,7 +81,7 @@ class GoodsDetailsViewModel(
                     )
                 }
             }.onFailure {
-                postEffect(GoodsDetailsEvent.Toast(R.string.failure))
+                postEffect(GoodsDetailsScreenEffect.Toast(R.string.failure))
             }
         }
     }
@@ -89,10 +90,10 @@ class GoodsDetailsViewModel(
         onBackground {
             when (event) {
                 is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
-                    postEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
+                    postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_cart))
                 }
 
-                is StoreCardEvent.Open -> postEffect(GoodsDetailsEvent.GoodsDetails(event.id))
+                is StoreCardEvent.Open -> postEffect(GoodsDetailsScreenEffect.GoodsDetails(event.id))
             }
         }
     }
@@ -101,14 +102,14 @@ class GoodsDetailsViewModel(
         onBackground {
             when (event.id) {
                 "buy" -> addToCartUseCase(currentState.id).onSuccess {
-                    postEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
+                    postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_cart))
                 }
 
                 "buyInstallment" -> addToCartInstallmentUseCase(
                     currentState.id,
                     currentState.buyGoods.installment
                 ).onSuccess {
-                    postEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
+                    postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_cart))
                 }
             }
         }
@@ -119,12 +120,12 @@ class GoodsDetailsViewModel(
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
                     refresh()
-                    postEffect(GoodsDetailsEvent.Toast(R.string.added_to_cart))
+                    postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_cart))
                 }
 
                 is CounterEvent.Remove -> removeFromCartUseCase(event.id).onSuccess {
                     refresh()
-                    postEffect(GoodsDetailsEvent.Toast(R.string.removed_from_cart))
+                    postEffect(GoodsDetailsScreenEffect.Toast(R.string.removed_from_cart))
                 }
             }
         }

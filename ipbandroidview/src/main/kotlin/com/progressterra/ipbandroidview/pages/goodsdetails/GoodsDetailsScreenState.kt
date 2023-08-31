@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
 @Immutable
-data class GoodsDetailsState(
+data class GoodsDetailsScreenState(
     override val id: String = "",
     val description: GoodsDescriptionState = GoodsDescriptionState(),
     val gallery: ItemGalleryState = ItemGalleryState(),

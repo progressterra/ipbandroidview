@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.buygoods.BuyGoods
@@ -10,21 +11,25 @@ import com.progressterra.ipbandroidview.features.goodsdescription.GoodsDescripti
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGallery
 import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.galleries.Galleries
 
 @Composable
 fun GoodsDetailsScreen(
-    state: GoodsDetailsState, useComponent: UseGoodsDetails
+    modifier: Modifier = Modifier,
+    state: GoodsDetailsScreenState,
+    useComponent: UseGoodsDetailsScreen
 ) {
-    ThemedLayout(topBar = {
-        TopBar(
-            title = state.name, showBackButton = true, useComponent = useComponent
-        )
-    }) { _, _ ->
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = state.name, showBackButton = true, useComponent = useComponent
+            )
+        }) { _, _ ->
         StateColumn(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             scrollable = true,
@@ -44,7 +49,7 @@ fun GoodsDetailsScreen(
 @Preview
 @Composable
 private fun GoodsDetailsScreenPreview() {
-    val state = GoodsDetailsState(
+    val state = GoodsDetailsScreenState(
         screen = StateColumnState(state = ScreenState.SUCCESS),
         name = "Красивый товар",
         gallery = ItemGalleryState(
@@ -61,5 +66,5 @@ private fun GoodsDetailsScreenPreview() {
             description = "Описание товара"
         )
     )
-    GoodsDetailsScreen(state = state, useComponent = UseGoodsDetails.Empty())
+    GoodsDetailsScreen(state = state, useComponent = UseGoodsDetailsScreen.Empty())
 }

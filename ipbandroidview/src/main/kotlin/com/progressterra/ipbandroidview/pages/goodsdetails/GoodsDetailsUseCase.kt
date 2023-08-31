@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.emptyFlow
 
 interface GoodsDetailsUseCase {
 
-    suspend operator fun invoke(id: String): Result<GoodsDetailsState>
+    suspend operator fun invoke(id: String): Result<GoodsDetailsScreenState>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -28,13 +28,13 @@ interface GoodsDetailsUseCase {
         private val manageResources: ManageResources
     ) : GoodsDetailsUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
-        override suspend fun invoke(id: String): Result<GoodsDetailsState> = withToken { token ->
+        override suspend fun invoke(id: String): Result<GoodsDetailsScreenState> = withToken { token ->
             val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
             val goods =
                 productRepository.productByNomenclatureId(token, id).getOrThrow()!!.toGoodsItem()
             val recommended =
                 if (goods.categoryId.isNotEmpty()) goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow() else emptyFlow()
-            GoodsDetailsState(
+            GoodsDetailsScreenState(
                 id = goods.id,
                 description = GoodsDescriptionState(
                     name = goods.name,
