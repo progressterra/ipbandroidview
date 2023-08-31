@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.UserData
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -17,11 +17,11 @@ class DeliveryViewModel(
     private val fetchShippingAddressUseCase: FetchShippingAddressUseCase,
     private val suggestionsUse: SuggestionsUseCase,
     private val commentUseCase: CommentUseCase
-) : AbstractViewModel<DeliveryState, DeliveryEvent>(), UseDelivery {
+) : AbstractNonInputViewModel<DeliveryScreenState, DeliveryScreenEffect>(), UseDelivery {
 
-    override fun createInitialState() = DeliveryState()
+    override fun createInitialState() = DeliveryScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchShippingAddressUseCase().onSuccess {
@@ -48,7 +48,7 @@ class DeliveryViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(DeliveryEvent.Back)
+        postEffect(DeliveryScreenEffect.Back)
     }
 
     override fun handle(event: ButtonEvent) {
@@ -63,7 +63,7 @@ class DeliveryViewModel(
                         isSuccess = false
                     }
                     if (isSuccess) {
-                        postEffect(DeliveryEvent.Next)
+                        postEffect(DeliveryScreenEffect.Next)
                     }
                 }
             }

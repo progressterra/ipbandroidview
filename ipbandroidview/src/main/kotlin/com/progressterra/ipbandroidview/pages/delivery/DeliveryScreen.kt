@@ -21,26 +21,29 @@ import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPicker
 
 @Composable
 fun DeliveryScreen(
-    state: DeliveryState, useComponent: UseDelivery
+    modifier: Modifier = Modifier,
+    state: DeliveryScreenState, useComponent: UseDelivery
 ) {
-    ThemedLayout(topBar = {
-        TopBar(
-            title = stringResource(R.string.processing),
-            useComponent = useComponent,
-            showBackButton = true
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier.padding(vertical = 20.dp, horizontal = 20.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.confirm,
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.processing),
                 useComponent = useComponent,
-                title = stringResource(R.string.next)
+                showBackButton = true
             )
-        }
-    }) { _, _ ->
+        }, bottomBar = {
+            Column(
+                modifier = Modifier.padding(vertical = 20.dp, horizontal = 20.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.confirm,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.next)
+                )
+            }
+        }) { _, _ ->
         StateColumn(
             state = state.screen,
             scrollable = true,
@@ -70,7 +73,7 @@ fun DeliveryScreen(
 @Composable
 private fun DeliveryScreenPreview() {
     DeliveryScreen(
-        state = DeliveryState(),
+        state = DeliveryScreenState(),
         useComponent = UseDelivery.Empty()
     )
 }

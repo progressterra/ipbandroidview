@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
 
 @Immutable
-data class DeliveryState(
+data class DeliveryScreenState(
     val deliveryPicker: DeliveryPickerState = DeliveryPickerState(),
     val commentary: TextFieldState = TextFieldState(id = "commentary"),
     val confirm: ButtonState = ButtonState(id = "confirm"),
