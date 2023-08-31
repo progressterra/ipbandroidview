@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -20,7 +20,8 @@ class OrderDetailsScreenViewModel(
     private val fetchOrderChatUseCase: FetchOrderChatUseCase,
     fetchMessagesUseCase: FetchMessagesUseCase,
     sendMessageUseCase: SendMessageUseCase
-) : AbstractViewModel<OrderDetailsScreenState, OrderDetailsScreenEvent>(), UseOrderDetailsScreen {
+) : AbstractInputViewModel<String, OrderDetailsScreenState, OrderDetailsScreenEffect>(),
+    UseOrderDetailsScreen {
 
     override fun createInitialState() = OrderDetailsScreenState()
 
@@ -40,14 +41,14 @@ class OrderDetailsScreenViewModel(
                 get() = currentState.chat
         })
 
-    fun setupId(newId: String) {
+    override fun setup(data: String) {
         emitState {
-            it.copy(details = it.details.copy(id = newId))
+            it.copy(details = it.details.copy(id = data))
         }
         refresh()
     }
 
-    fun refresh() {
+    private fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
@@ -74,13 +75,13 @@ class OrderDetailsScreenViewModel(
     }
 
     override fun handle(event: OrderCardEvent) {
-        postEffect(OrderDetailsScreenEvent.OpenGoods(event.id))
+        postEffect(OrderDetailsScreenEffect.OpenGoods(event.id))
     }
 
     override fun handle(event: OrderDetailsEvent) {
         when (event) {
             is OrderDetailsEvent.Tracking -> postEffect(
-                OrderDetailsScreenEvent.Tracking(currentState.details.toOrderTrackingState())
+                OrderDetailsScreenEffect.Tracking(currentState.details.toOrderTrackingState())
             )
 
             is OrderDetailsEvent.Chat -> attachableChatModule.open()
@@ -96,6 +97,6 @@ class OrderDetailsScreenViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(OrderDetailsScreenEvent.Back)
+        postEffect(OrderDetailsScreenEffect.Back)
     }
 }

@@ -1,37 +1,35 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class OrderDetailsScreenNode(
     buildContext: BuildContext,
-    private val orderId: String,
-    private val onBack: () -> Unit,
-    private val onGoods: (String) -> Unit,
-    private val onTracking: (OrderTrackingState) -> Unit
-) : Node(buildContext) {
+    navigation: OrderDetailsScreenNavigation,
+    input: String
+) : AbstractInputNode<String, OrderDetailsScreenNavigation, OrderDetailsScreenState, OrderDetailsScreenEffect, OrderDetailsScreenViewModel>(
+    buildContext,
+    navigation,
+    input
+) {
+
+    override fun mapEffect(effect: OrderDetailsScreenEffect) {
+        when (effect) {
+            is OrderDetailsScreenEffect.Back -> navigation.onBack()
+            is OrderDetailsScreenEffect.OpenGoods -> navigation.openGoodsDetails(effect.data)
+            is OrderDetailsScreenEffect.Tracking -> navigation.onTracking(effect.data)
+        }
+    }
 
     @Composable
-    override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<OrderDetailsScreenViewModel>()
-        viewModel.collectEffects {
-            when (it) {
-                is OrderDetailsScreenEvent.Back -> onBack()
-                is OrderDetailsScreenEvent.OpenGoods -> onGoods(it.goodsId)
-                is OrderDetailsScreenEvent.Tracking -> onTracking(it.tracking)
-            }
-        }
-        LaunchedEffect(orderId) {
-            viewModel.setupId(orderId)
-        }
-        val state = viewModel.state.collectAsState().value
+    override fun obtainViewModel() = getViewModel<OrderDetailsScreenViewModel>()
+
+    @Composable
+    override fun Screen(modifier: Modifier, state: OrderDetailsScreenState) {
         OrderDetailsScreen(
             modifier = modifier, state = state, useComponent = viewModel
         )
