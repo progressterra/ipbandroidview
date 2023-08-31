@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -28,7 +28,7 @@ class BankCardDetailsScreenViewModel(
     private val saveDocumentsUseCase: SaveDocumentsUseCase,
     private val createAndSaveDocUseCase: CreateAndSaveDocUseCase
 ) : UseBankCardDetailsScreen,
-    AbstractViewModel<BankCardDetailsScreenState, BankCardDetailsScreenEvent>() {
+    AbstractInputViewModel<Document, BankCardDetailsScreenState, BankCardDetailsScreenEffect>() {
 
     override fun createInitialState() = BankCardDetailsScreenState()
 
@@ -45,7 +45,7 @@ class BankCardDetailsScreenViewModel(
             }
 
             override fun openPhoto(url: String) {
-                postEffect(BankCardDetailsScreenEvent.OpenPhoto(url))
+                postEffect(BankCardDetailsScreenEffect.OpenPhoto(url))
             }
 
             override fun emitModuleState(reducer: (Document) -> Document) {
@@ -57,12 +57,12 @@ class BankCardDetailsScreenViewModel(
         }
     )
 
-    fun setup(newDocument: Document) {
-        if (newDocument.isEmpty()) {
+    override fun setup(data: Document) {
+        if (data.isEmpty()) {
             refresh()
         } else {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
-            docsModule.setup(newDocument)
+            docsModule.setup(data)
         }
     }
 
@@ -86,7 +86,7 @@ class BankCardDetailsScreenViewModel(
 
 
     override fun handle(event: TopBarEvent) {
-        postEffect(BankCardDetailsScreenEvent.Back)
+        postEffect(BankCardDetailsScreenEffect.Back)
     }
 
     override fun handle(event: StateColumnEvent) {
@@ -101,17 +101,17 @@ class BankCardDetailsScreenViewModel(
                         currentState.document,
                         IpbAndroidViewSettings.BANK_CARDS_TYPE_ID
                     ).onSuccess {
-                        postEffect(BankCardDetailsScreenEvent.Toast(R.string.success))
-                        postEffect(BankCardDetailsScreenEvent.Back)
+                        postEffect(BankCardDetailsScreenEffect.Toast(R.string.success))
+                        postEffect(BankCardDetailsScreenEffect.Back)
                     }.onFailure {
-                        postEffect(BankCardDetailsScreenEvent.Toast(R.string.failure))
+                        postEffect(BankCardDetailsScreenEffect.Toast(R.string.failure))
                     }
                 } else {
                     saveDocumentsUseCase(currentState.document).onSuccess {
-                        postEffect(BankCardDetailsScreenEvent.Back)
-                        postEffect(BankCardDetailsScreenEvent.Toast(R.string.success))
+                        postEffect(BankCardDetailsScreenEffect.Back)
+                        postEffect(BankCardDetailsScreenEffect.Toast(R.string.success))
                     }.onFailure {
-                        postEffect(BankCardDetailsScreenEvent.Toast(R.string.failure))
+                        postEffect(BankCardDetailsScreenEffect.Toast(R.string.failure))
                     }
                 }
             }

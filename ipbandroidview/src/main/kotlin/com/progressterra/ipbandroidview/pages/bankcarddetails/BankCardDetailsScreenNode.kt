@@ -2,42 +2,43 @@ package com.progressterra.ipbandroidview.pages.bankcarddetails
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
-import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.Document
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class BankCardDetailsScreenNode(
     buildContext: BuildContext,
-    private val onBack: () -> Unit,
-    private val onPhoto: (String) -> Unit,
-    private val details: Document
-) : Node(buildContext) {
+    document: Document,
+    navigation: BankCardDetailsScreenNavigation
+) : AbstractInputNode<Document, BankCardDetailsScreenNavigation, BankCardDetailsScreenState, BankCardDetailsScreenEffect, BankCardDetailsScreenViewModel>(
+    buildContext,
+    navigation,
+    document
+) {
+
+    override fun mapEffect(effect: BankCardDetailsScreenEffect) {
+        when (effect) {
+            is BankCardDetailsScreenEffect.Back -> navigation.onBack()
+            is BankCardDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+            is BankCardDetailsScreenEffect.Toast -> Toast.makeText(
+                context,
+                effect.data,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     @Composable
-    override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<BankCardDetailsScreenViewModel>()
-        val context = LocalContext.current
-        viewModel.collectEffects {
-            when (it) {
-                is BankCardDetailsScreenEvent.Back -> onBack()
-                is BankCardDetailsScreenEvent.OpenPhoto -> onPhoto(it.image)
-                is BankCardDetailsScreenEvent.Toast -> Toast.makeText(
-                    context,
-                    it.message,
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-        }
-        LaunchedEffect(details) {
-            viewModel.setup(details)
-        }
-        val state = viewModel.state.collectAsState().value
+    override fun obtainViewModel() = getViewModel<BankCardDetailsScreenViewModel>()
+
+    @Composable
+    override fun Screen(
+        modifier: Modifier,
+        state: BankCardDetailsScreenState
+    ) {
         BankCardDetailsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }
