@@ -25,37 +25,37 @@ import com.progressterra.ipbandroidview.features.trace.TraceState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItems
 import com.progressterra.ipbandroidview.widgets.storeitems.StoreItemsState
 import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun CatalogScreen(
-    state: CatalogState, useComponent: UseCatalog
+    modifier: Modifier = Modifier, state: CatalogScreenState, useComponent: UseCatalog
 ) {
-    ThemedLayout(topBar = {
-        if (state.trace.trace.isNotEmpty()) {
-            Trace(
-                state = state.trace,
-                useComponent = useComponent
-            )
-        } else {
-            Search(
-                modifier = Modifier.padding(horizontal = 20.dp),
-                state = state.search,
-                useComponent = useComponent
-            )
-        }
-    }) { _, _ ->
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            if (state.trace.trace.isNotEmpty()) {
+                Trace(
+                    state = state.trace, useComponent = useComponent
+                )
+            } else {
+                Search(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    state = state.search,
+                    useComponent = useComponent
+                )
+            }
+        }) { _, _ ->
         StateColumn(
             state = state.screen, useComponent = useComponent
         ) {
             Box {
                 StoreItems(
-                    modifier = Modifier.zIndex(1f),
-                    state = state.goods, useComponent = useComponent
+                    modifier = Modifier.zIndex(1f), state = state.goods, useComponent = useComponent
                 )
                 LazyVerticalGrid(
                     horizontalArrangement = Arrangement.spacedBy(20.dp),
@@ -81,7 +81,7 @@ fun CatalogScreen(
 private fun CatalogScreenPreview() {
     IpbTheme {
         CatalogScreen(
-            state = CatalogState(
+            state = CatalogScreenState(
                 trace = TraceState(trace = listOf()),
                 screen = StateColumnState(state = ScreenState.SUCCESS),
                 search = SearchState(
@@ -94,8 +94,7 @@ private fun CatalogScreenPreview() {
                     children = listOf()
                 ),
                 goods = StoreItemsState(
-                    items =
-                    flowOf(
+                    items = flowOf(
                         PagingData.from(
                             listOf(
                                 StoreCardState(
@@ -103,14 +102,12 @@ private fun CatalogScreenPreview() {
                                     name = "Weston",
                                     price = SimplePrice(1000),
                                     image = "https://placekitten.com/200/300",
-                                ),
-                                StoreCardState(
+                                ), StoreCardState(
                                     id = "Kotek 2",
                                     name = "Weston",
                                     price = SimplePrice(2000),
                                     image = "https://placekitten.com/200/300",
-                                ),
-                                StoreCardState(
+                                ), StoreCardState(
                                     id = "Kotek 3",
                                     name = "Nombre",
                                     price = SimplePrice(5000),
@@ -121,8 +118,7 @@ private fun CatalogScreenPreview() {
                     )
                 )
 
-            ),
-            useComponent = UseCatalog.Empty()
+            ), useComponent = UseCatalog.Empty()
         )
     }
 }

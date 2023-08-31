@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.features.trace.TraceEvent
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -19,11 +19,11 @@ class CatalogViewModel(
     private val goodsUseCase: GoodsUseCase,
     private val addToCartUseCase: AddToCartUseCase,
     private val removeFromCartUseCase: RemoveFromCartUseCase,
-) : UseCatalog, AbstractViewModel<CatalogState, CatalogEvent>() {
+) : UseCatalog, AbstractNonInputViewModel<CatalogScreenState, CatalogScreenEffect>() {
 
-    override fun createInitialState() = CatalogState()
+    override fun createInitialState() = CatalogScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             catalogUseCase().onSuccess { catalog ->
@@ -83,7 +83,7 @@ class CatalogViewModel(
                     refresh()
                 }
 
-                is StoreCardEvent.Open -> postEffect(CatalogEvent.OnItem(event.id))
+                is StoreCardEvent.Open -> postEffect(CatalogScreenEffect.OnItem(event.id))
             }
         }
     }
