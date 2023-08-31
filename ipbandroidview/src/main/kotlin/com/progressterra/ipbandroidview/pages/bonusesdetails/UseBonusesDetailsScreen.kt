@@ -7,10 +7,10 @@ import com.progressterra.ipbandroidview.features.topbar.UseTopBar
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 
-interface UseBonusesDetails : UseTopBar,
+interface UseBonusesDetailsScreen : UseTopBar,
     UseBonuses, UseStateColumn {
 
-    class Empty : UseBonusesDetails {
+    class Empty : UseBonusesDetailsScreen {
         override fun handle(event: BonusesEvent) = Unit
 
         override fun handle(event: TopBarEvent) = Unit

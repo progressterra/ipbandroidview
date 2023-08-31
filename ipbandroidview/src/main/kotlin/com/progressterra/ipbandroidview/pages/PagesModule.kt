@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScr
 import com.progressterra.ipbandroidview.pages.bankcarddetails.FetchCardTemplateUseCase
 import com.progressterra.ipbandroidview.pages.bankcards.BankCardsScreenViewModel
 import com.progressterra.ipbandroidview.pages.bankcards.FetchUnconfirmedBankCardsUseCase
-import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsViewModel
+import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartUseCase
@@ -85,7 +85,7 @@ val pagesModule = module {
 
     viewModel { DeliveryViewModel(get(), get(), get(), get()) }
 
-    viewModel { BonusesDetailsViewModel(get(), get()) }
+    viewModel { BonusesDetailsScreenViewModel(get(), get()) }
 
     viewModel { FavoritesViewModel(get(), get(), get()) }
 

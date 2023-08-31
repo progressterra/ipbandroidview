@@ -4,19 +4,19 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 
-class BonusesDetailsViewModel(
+class BonusesDetailsScreenViewModel(
     private val bonusesUseCase: BonusesUseCase,
     private val fetchBonusesTransactionsUseCase: FetchBonusesTransactionsUseCase
-) : AbstractViewModel<BonusesDetailsState, BonusesDetailsEvent>(), UseBonusesDetails {
+) : AbstractNonInputViewModel<BonusesDetailsScreenState, BonusesDetailsScreenEffect>(), UseBonusesDetailsScreen {
 
-    override fun createInitialState() = BonusesDetailsState()
+    override fun createInitialState() = BonusesDetailsScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState {
                 it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
@@ -45,7 +45,7 @@ class BonusesDetailsViewModel(
     override fun handle(event: BonusesEvent) = Unit
 
     override fun handle(event: TopBarEvent) {
-        postEffect(BonusesDetailsEvent.Back)
+        postEffect(BonusesDetailsScreenEffect.Back)
     }
 
     override fun handle(event: StateColumnEvent) {

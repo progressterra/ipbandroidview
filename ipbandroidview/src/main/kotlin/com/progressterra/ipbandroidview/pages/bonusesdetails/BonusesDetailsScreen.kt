@@ -15,17 +15,19 @@ import com.progressterra.ipbandroidview.features.bonustransaction.BonusTransacti
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.BonusesTransactions
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.BonusesTransactionsState
 
 @Composable
 fun BonusesScreen(
-    state: BonusesDetailsState,
-    useComponent: UseBonusesDetails
+    modifier: Modifier = Modifier,
+    state: BonusesDetailsScreenState,
+    useComponent: UseBonusesDetailsScreen
 ) {
     ThemedLayout(
+        modifier = modifier,
         topBar = {
             TopBar(
                 title = stringResource(R.string.bonuses_title),
@@ -53,7 +55,7 @@ fun BonusesScreen(
 @Preview
 private fun BonusesScreenPreview() {
     BonusesScreen(
-        state = BonusesDetailsState(
+        state = BonusesDetailsScreenState(
             screen = StateColumnState(state = ScreenState.SUCCESS),
             transactions = BonusesTransactionsState(
                 transactions = listOf(
@@ -80,7 +82,7 @@ private fun BonusesScreenPreview() {
                 )
             )
         ),
-        useComponent = UseBonusesDetails.Empty()
+        useComponent = UseBonusesDetailsScreen.Empty()
     )
 }
 
@@ -88,12 +90,12 @@ private fun BonusesScreenPreview() {
 @Preview
 private fun BonusesScreenPreviewEmpty() {
     BonusesScreen(
-        state = BonusesDetailsState(
+        state = BonusesDetailsScreenState(
             screen = StateColumnState(state = ScreenState.SUCCESS),
             transactions = BonusesTransactionsState(
                 transactions = emptyList()
             )
         ),
-        useComponent = UseBonusesDetails.Empty()
+        useComponent = UseBonusesDetailsScreen.Empty()
     )
 }
