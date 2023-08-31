@@ -124,8 +124,8 @@ dependencies {
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.7")
-    api("com.github.skydoves:landscapist-placeholder:2.2.7")
+    api("com.github.skydoves:landscapist-fresco:2.2.8")
+    api("com.github.skydoves:landscapist-placeholder:2.2.8")
 
     api("androidx.paging:paging-runtime-ktx:3.2.0")
     api("androidx.paging:paging-compose:3.2.0")
