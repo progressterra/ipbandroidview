@@ -41,12 +41,14 @@ class MainHaccpViewModel(
                     archived = event.documents
                 )
             )
+
             is OrganizationsOverviewEvent.Complete -> postSideEffect(
                 MainHaccpEffect.Archive(
                     title = manageResources.string(R.string.completed),
                     archived = event.documents
                 )
             )
+
             is OrganizationsOverviewEvent.Ongoing -> postSideEffect(
                 MainHaccpEffect.Archive(
                     title = manageResources.string(R.string.ongoing),
@@ -65,12 +67,14 @@ class MainHaccpViewModel(
     override fun refresh() = intent {
         var isSuccess = true
         fetchPartnerUseCase().onSuccess {
+            Log.d("HACCP", it.toString())
             reduce { state.copy(partner = it) }
         }.onFailure {
             Log.e("HACCP", it.message ?: "", it)
             isSuccess = false
         }
         fetchOrganizationsOverviewUseCase().onSuccess {
+            Log.d("HACCP", it.toString())
             reduce { state.copy(overviews = it) }
         }.onFailure {
             Log.e("HACCP", it.message ?: "", it)

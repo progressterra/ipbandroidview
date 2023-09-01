@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.core.ScreenState
 import com.progressterra.ipbandroidview.model.Check
 import com.progressterra.ipbandroidview.model.ChecklistStats
 import com.progressterra.ipbandroidview.model.Id
-import java.time.LocalDate
 
 fun <T : Id> List<T>.replaceById(item: T): List<T> =
     this.toMutableList().apply { this[indexOfFirst { item.id == it.id }] = item }
@@ -38,8 +37,6 @@ fun List<Check>.createStats(): ChecklistStats {
         total = total, successful = successful, failed = failed, remaining = remaining
     )
 }
-
-fun LocalDate.print(): String = "${this.dayOfMonth}.${this.monthValue}.${this.year}"
 
 fun <T> Result<T>.throwOnFailure() {
     this.onFailure { throw it }
