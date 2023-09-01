@@ -65,6 +65,7 @@ class MainHaccpViewModel(
     }
 
     override fun refresh() = intent {
+        Log.d("HACCP", "refresh start")
         var isSuccess = true
         fetchPartnerUseCase().onSuccess {
             Log.d("HACCP", it.toString())
