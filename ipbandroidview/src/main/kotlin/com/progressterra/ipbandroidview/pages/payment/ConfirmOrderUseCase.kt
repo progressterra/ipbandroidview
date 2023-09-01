@@ -4,13 +4,13 @@ import com.progressterra.ipbandroidapi.api.cart.CartRepository
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.ordernumber.OrderNumberState
-import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusState
+import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusScreenState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
 interface ConfirmOrderUseCase {
 
-    suspend operator fun invoke(): Result<OrderStatusState>
+    suspend operator fun invoke(): Result<OrderStatusScreenState>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -18,7 +18,7 @@ interface ConfirmOrderUseCase {
         private val productRepository: ProductRepository
     ) : ConfirmOrderUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
-        override suspend fun invoke(): Result<OrderStatusState> = withToken { token ->
+        override suspend fun invoke(): Result<OrderStatusScreenState> = withToken { token ->
             val result = cartRepository.confirmOrder(token).getOrThrow()
             val images = result?.listDRSale?.mapNotNull {
                 productRepository.productByNomenclatureId(
@@ -27,7 +27,7 @@ interface ConfirmOrderUseCase {
                 ).getOrThrow()?.toGoodsItem()?.image
             } ?: emptyList()
             val payment = cartRepository.paymentInternal(token).isSuccess
-            OrderStatusState(
+            OrderStatusScreenState(
                 id = result?.idUnique!!,
                 number = OrderNumberState(
                     number = result.number ?: "",

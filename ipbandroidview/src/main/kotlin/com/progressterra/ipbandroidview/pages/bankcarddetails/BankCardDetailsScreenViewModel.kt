@@ -66,7 +66,7 @@ class BankCardDetailsScreenViewModel(
         }
     }
 
-    fun refresh() {
+    private fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchCardTemplateUseCase().onSuccess { newDocument ->

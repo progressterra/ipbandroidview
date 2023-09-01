@@ -26,28 +26,30 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
 fun SignInScreen(
-    state: SignInState, useComponent: UseSignIn
+    modifier: Modifier = Modifier, state: SignInScreenState, useComponent: UseSignInScreen
 ) {
-    ThemedLayout(topBar = {
-        TopBar(
-            title = stringResource(R.string.authorization), useComponent = useComponent
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier
-                .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                .background(IpbTheme.colors.surface.asBrush())
-                .padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.auth,
-                title = stringResource(R.string.auth_button),
-                useComponent = useComponent
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.authorization), useComponent = useComponent
             )
-        }
-    }) { _, _ ->
+        }, bottomBar = {
+            Column(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .padding(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.auth,
+                    title = stringResource(R.string.auth_button),
+                    useComponent = useComponent
+                )
+            }
+        }) { _, _ ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -68,7 +70,8 @@ fun SignInScreen(
                     LinkTextData(
                         stringResource(R.string.privacy_policy), IpbAndroidViewSettings.PRIVACY_URL
                     )
-                ), useComponent = useComponent,
+                ),
+                useComponent = useComponent,
                 style = IpbTheme.typography.footnoteRegular,
                 brush = IpbTheme.colors.textDisabled.asBrush()
             )

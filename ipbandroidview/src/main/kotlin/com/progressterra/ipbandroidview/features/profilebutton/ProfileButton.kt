@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.pages.profile.ProfileState
+import com.progressterra.ipbandroidview.pages.profile.ProfileScreenState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -25,7 +25,7 @@ fun ProfileButton(
     state: ProfileButtonState,
     title: String,
     isDanger: Boolean = false,
-    notification: ProfileState.CounterNotification? = null,
+    notification: ProfileScreenState.CounterNotification? = null,
     useComponent: UseProfileButton
 ) {
     Row(

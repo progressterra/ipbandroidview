@@ -1,11 +1,10 @@
 package com.progressterra.ipbandroidview.pages.interests
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.interestspicker.InterestsPickerState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-@Immutable
+
 data class InterestsScreenState(
     val screen: StateColumnState = StateColumnState(),
     val interests: InterestsPickerState,

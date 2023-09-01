@@ -8,21 +8,21 @@ import com.progressterra.ipbandroidview.shared.UserData
 
 interface DocumentsNotificationUseCase {
 
-    suspend operator fun invoke(): Result<ProfileState.CounterNotification>
+    suspend operator fun invoke(): Result<ProfileScreenState.CounterNotification>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val repo: DocumentsRepository
     ) : AbstractTokenUseCase(obtainAccessToken), DocumentsNotificationUseCase {
 
-        override suspend fun invoke(): Result<ProfileState.CounterNotification> =
+        override suspend fun invoke(): Result<ProfileScreenState.CounterNotification> =
             withToken { token ->
                 if (UserData.citizenship.isEmpty()) {
-                    ProfileState.CounterNotification()
+                    ProfileScreenState.CounterNotification()
                 } else {
                     val result =
                         repo.docsBySpecification(token, UserData.citizenship.id).getOrThrow()
-                    ProfileState.CounterNotification(
+                    ProfileScreenState.CounterNotification(
                         count = result?.listProductCharacteristic?.count { it.characteristicValue?.statusDoc == TypeStatusDoc.CONFIRMED }
                             ?: 0,
                         max = result?.listProductCharacteristic?.size ?: 0

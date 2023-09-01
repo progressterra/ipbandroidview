@@ -1,14 +1,13 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.deliverypicker.DeliveryPickerState
 
-@Immutable
+
 data class DeliveryScreenState(
     val deliveryPicker: DeliveryPickerState = DeliveryPickerState(),
     val commentary: TextFieldState = TextFieldState(id = "commentary"),

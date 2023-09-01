@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.processes.goods.FetchSingleGoodsUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
@@ -40,7 +40,7 @@ class WantThisDetailsScreenViewModel(
     private val removeFromCartUseCase: RemoveFromCartUseCase,
     private val fetchSingleGoodsUseCase: FetchSingleGoodsUseCase,
     private val saveDocumentsUseCase: SaveDocumentsUseCase
-) : AbstractNonInputViewModel<WantThisDetailsScreenState, WantThisDetailsScreenSideEffect>(),
+) : AbstractInputViewModel<Document, WantThisDetailsScreenState, WantThisDetailsScreenEffect>(),
     UseWantThisDetailsScreen {
 
     override fun createInitialState() = WantThisDetailsScreenState()
@@ -84,17 +84,17 @@ class WantThisDetailsScreenViewModel(
             }
 
             override fun openPhoto(url: String) {
-                postEffect(WantThisDetailsScreenSideEffect.OpenPhoto(url))
+                postEffect(WantThisDetailsScreenEffect.OpenPhoto(url))
             }
         }
     )
 
-    fun setup(newDocument: Document) {
-        emitState { it.copy(document = newDocument) }
+    override fun setup(data: Document) {
+        emitState { it.copy(document = data) }
         refresh()
     }
 
-    override fun refresh() {
+    private fun refresh() {
         onBackground {
             var isSuccess = true
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
@@ -126,7 +126,7 @@ class WantThisDetailsScreenViewModel(
                 }
 
                 is StoreCardEvent.Open -> postEffect(
-                    WantThisDetailsScreenSideEffect.GoodsDetails(
+                    WantThisDetailsScreenEffect.GoodsDetails(
                         event.id
                     )
                 )
@@ -160,7 +160,7 @@ class WantThisDetailsScreenViewModel(
         onBackground {
             when (event.id) {
                 "apply" -> saveDocumentsUseCase(currentState.document).onSuccess {
-                    postEffect(WantThisDetailsScreenSideEffect.Back)
+                    postEffect(WantThisDetailsScreenEffect.Back)
                 }
             }
         }
@@ -171,7 +171,7 @@ class WantThisDetailsScreenViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(WantThisDetailsScreenSideEffect.Back)
+        postEffect(WantThisDetailsScreenEffect.Back)
     }
 
     override fun handle(event: StateColumnEvent) {

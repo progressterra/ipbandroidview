@@ -1,12 +1,11 @@
 package com.progressterra.ipbandroidview.features.storecard
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.IsEmpty
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
-@Immutable
+
 data class StoreCardState(
     val id: String = "",
     val name: String = "",

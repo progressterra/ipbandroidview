@@ -15,22 +15,20 @@ import com.skydoves.landscapist.ImageOptions
 
 @Composable
 fun PhotoScreen(
-    state: PhotoState, useComponent: UsePhoto
+    modifier: Modifier = Modifier, state: PhotoScreenState, useComponent: UsePhotoScreen
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(IpbTheme.colors.background.asBrush()),
         contentAlignment = Alignment.Center
     ) {
         PhotoTopBar(modifier = Modifier.align(Alignment.TopCenter), useComponent = useComponent)
-        state.picture?.let {
-            SimpleImage(
-                modifier = Modifier.fillMaxWidth(),
-                image = it,
-                options = ImageOptions(contentScale = ContentScale.FillWidth),
-                backgroundColor = IpbTheme.colors.background.asColor()
-            )
-        }
+        SimpleImage(
+            modifier = Modifier.fillMaxWidth(),
+            image = state.picture,
+            options = ImageOptions(contentScale = ContentScale.FillWidth),
+            backgroundColor = IpbTheme.colors.background.asColor()
+        )
     }
 }

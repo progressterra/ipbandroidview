@@ -1,27 +1,29 @@
 package com.progressterra.ipbandroidview.pages.support
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class SupportScreenNode(
     buildContext: BuildContext,
-    private val onBack: () -> Unit
-) : Node(buildContext) {
+    navigation: SupportScreenNavigation
+) : AbstractNonInputNode<SupportScreenNavigation, SupportScreenState, SupportScreenEffect, SupportScreenViewModel>(
+    buildContext,
+    navigation
+) {
+
+    override fun mapEffect(effect: SupportScreenEffect) {
+        navigation.onBack()
+    }
 
     @Composable
-    override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<SupportScreenViewModel>()
-        viewModel.collectEffects { onBack() }
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        val state = viewModel.state.collectAsState().value
+    override fun obtainViewModel() = getViewModel<SupportScreenViewModel>()
+
+    @Composable
+    override fun Screen(modifier: Modifier, state: SupportScreenState) {
         SupportScreen(
             modifier = modifier,
             state = state,

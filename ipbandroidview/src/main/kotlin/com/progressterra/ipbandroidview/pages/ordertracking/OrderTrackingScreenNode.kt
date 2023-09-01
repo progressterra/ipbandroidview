@@ -1,36 +1,32 @@
 package com.progressterra.ipbandroidview.pages.ordertracking
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
+import com.progressterra.ipbandroidview.shared.mvi.AbstractInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class OrderTrackingScreenNode(
     buildContext: BuildContext,
-    private val onBack: () -> Unit,
-    private val tracking: OrderTrackingState
-) : Node(buildContext) {
+    navigation: OrderTrackingScreenNavigation,
+    input: OrderTrackingState
+) : AbstractInputNode<OrderTrackingState, OrderTrackingScreenNavigation, OrderTrackingScreenState, OrderTrackingScreenEffect, OrderTrackingScreenViewModel>(
+    buildContext,
+    navigation,
+    input
+) {
+
+    override fun mapEffect(effect: OrderTrackingScreenEffect) {
+        navigation.onBack()
+    }
 
     @Composable
-    override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<OrderTrackingScreenViewModel>()
-        viewModel.collectEffects { onBack() }
-        var alreadyLaunched by rememberSaveable(tracking) {
-            mutableStateOf(false)
-        }
-        if (!alreadyLaunched) {
-            alreadyLaunched = true
-            viewModel.setup(tracking)
-        }
-        val state = viewModel.state.collectAsState().value
+    override fun obtainViewModel() = getViewModel<OrderTrackingScreenViewModel>()
+
+    @Composable
+    override fun Screen(modifier: Modifier, state: OrderTrackingScreenState) {
         OrderTrackingScreen(
             modifier = modifier,
             state = state,

@@ -8,8 +8,8 @@ import com.progressterra.ipbandroidview.pages.bankcards.FetchUnconfirmedBankCard
 import com.progressterra.ipbandroidview.pages.bonusesdetails.BonusesDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.bonusesdetails.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
-import com.progressterra.ipbandroidview.pages.cart.FetchCartUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartScreenViewModel
+import com.progressterra.ipbandroidview.pages.cart.FetchCartUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeScreenViewModel
@@ -23,30 +23,30 @@ import com.progressterra.ipbandroidview.pages.documentdetails.FetchDocumentChatU
 import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.pages.documents.DocumentsScreenViewModel
 import com.progressterra.ipbandroidview.pages.favorites.FavoriteGoodsUseCase
-import com.progressterra.ipbandroidview.pages.favorites.FavoritesViewModel
+import com.progressterra.ipbandroidview.pages.favorites.FavoritesScreenViewModel
+import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
-import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.pages.main.MainViewModel
+import com.progressterra.ipbandroidview.pages.main.MainScreenViewModel
 import com.progressterra.ipbandroidview.pages.newwithdrawal.CreateNewWithdrawalUseCase
 import com.progressterra.ipbandroidview.pages.newwithdrawal.NewWithdrawalScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.FetchOrderChatUseCase
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsUseCase
-import com.progressterra.ipbandroidview.pages.orderlist.OrdersListViewModel
-import com.progressterra.ipbandroidview.pages.orderlist.OrdersUseCase
-import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusViewModel
+import com.progressterra.ipbandroidview.pages.orders.OrdersScreenViewModel
+import com.progressterra.ipbandroidview.pages.orders.OrdersUseCase
+import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusScreenViewModel
 import com.progressterra.ipbandroidview.pages.ordertracking.OrderTrackingScreenViewModel
 import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchBonusSwitchUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchReceiptUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentScreenViewModel
-import com.progressterra.ipbandroidview.pages.photo.PhotoViewModel
+import com.progressterra.ipbandroidview.pages.photo.PhotoScreenViewModel
 import com.progressterra.ipbandroidview.pages.profile.DocumentsNotificationUseCase
-import com.progressterra.ipbandroidview.pages.profile.ProfileViewModel
-import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsViewModel
-import com.progressterra.ipbandroidview.pages.signin.SignInViewModel
-import com.progressterra.ipbandroidview.pages.signup.SignUpViewModel
+import com.progressterra.ipbandroidview.pages.profile.ProfileScreenViewModel
+import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsScreenViewModel
+import com.progressterra.ipbandroidview.pages.signin.SignInScreenViewModel
+import com.progressterra.ipbandroidview.pages.signup.SignUpScreenViewModel
 import com.progressterra.ipbandroidview.pages.support.ChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.FetchChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
@@ -57,9 +57,9 @@ import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisdetails.FetchWantThisDetailsChatUseCase
 import com.progressterra.ipbandroidview.pages.wantthisdetails.WantThisDetailsScreenViewModel
+import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsUseCase
-import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsViewModel
-import com.progressterra.ipbandroidview.pages.welcome.WelcomeViewModel
+import com.progressterra.ipbandroidview.pages.welcome.WelcomeScreenViewModel
 import com.progressterra.ipbandroidview.pages.withdrawal.FetchWithdrawalTransactionsUseCase
 import com.progressterra.ipbandroidview.pages.withdrawal.WithdrawalScreenViewModel
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
@@ -69,17 +69,17 @@ import org.koin.dsl.module
 
 val pagesModule = module {
 
-    viewModel { GoodsDetailsViewModel(get(), get(), get(), get(), get()) }
+    viewModel { GoodsDetailsScreenViewModel(get(), get(), get(), get(), get()) }
 
-    viewModel { WelcomeViewModel() }
+    viewModel { WelcomeScreenViewModel() }
 
     viewModel { ConfirmationCodeScreenViewModel(get(), get()) }
 
-    viewModel { SignInViewModel(get(), get()) }
+    viewModel { SignInScreenViewModel(get(), get()) }
 
-    viewModel { SignUpViewModel(get(), get()) }
+    viewModel { SignUpScreenViewModel(get(), get()) }
 
-    viewModel { MainViewModel(get(), get(), get(), get()) }
+    viewModel { MainScreenViewModel(get(), get(), get(), get()) }
 
     viewModel { PaymentScreenViewModel(get(), get(), get(), get(), get()) }
 
@@ -87,13 +87,13 @@ val pagesModule = module {
 
     viewModel { BonusesDetailsScreenViewModel(get(), get()) }
 
-    viewModel { FavoritesViewModel(get(), get(), get()) }
+    viewModel { FavoritesScreenViewModel(get(), get(), get()) }
 
-    viewModel { PhotoViewModel() }
+    viewModel { PhotoScreenViewModel() }
 
-    viewModel { ProfileViewModel(get(), get(), get()) }
+    viewModel { ProfileScreenViewModel(get(), get(), get()) }
 
-    viewModel { ProfileDetailsViewModel(get(), get()) }
+    viewModel { ProfileDetailsScreenViewModel(get(), get()) }
 
     viewModel { OrderDetailsScreenViewModel(get(), get(), get(), get()) }
 
@@ -159,7 +159,7 @@ val pagesModule = module {
 
     single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get()) }
 
-    viewModel { OrdersListViewModel(get()) }
+    viewModel { OrdersScreenViewModel(get()) }
 
     single<FetchBonusSwitchUseCase> {
         FetchBonusSwitchUseCase.Base(get(), get())
@@ -169,9 +169,9 @@ val pagesModule = module {
         FetchReceiptUseCase.Base(get(), get())
     }
 
-    viewModel { OrderStatusViewModel() }
+    viewModel { OrderStatusScreenViewModel() }
 
-    viewModel { WantThisRequestsViewModel(get(), get(), get()) }
+    viewModel { WantThisRequestsScreenViewModel(get(), get(), get()) }
 
     viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get(), get()) }
 

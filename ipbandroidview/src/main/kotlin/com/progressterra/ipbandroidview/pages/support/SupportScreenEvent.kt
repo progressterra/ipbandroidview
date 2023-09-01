@@ -1,3 +1,0 @@
-package com.progressterra.ipbandroidview.pages.support
-
-object SupportScreenEvent

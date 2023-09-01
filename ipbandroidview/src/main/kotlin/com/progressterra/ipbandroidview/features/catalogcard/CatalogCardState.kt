@@ -1,9 +1,8 @@
 package com.progressterra.ipbandroidview.features.catalogcard
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.shared.IsEmpty
 
-@Immutable
+
 data class CatalogCardState(
     val id: String = "",
     val name: String = "",

@@ -89,7 +89,7 @@ class DocumentDetailsViewModel(
         refresh()
     }
 
-    fun refresh() {
+    private fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchDocumentChatUseCase(

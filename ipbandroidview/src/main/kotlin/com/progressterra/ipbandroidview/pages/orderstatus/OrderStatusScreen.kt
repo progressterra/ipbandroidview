@@ -27,8 +27,8 @@ import com.progressterra.ipbandroidview.shared.ui.button.Button
 @Composable
 fun OrderStatusScreen(
     modifier: Modifier = Modifier,
-    state: OrderStatusState,
-    useComponent: UseOrderStatus
+    state: OrderStatusScreenState,
+    useComponent: UseOrderStatusScreen
 ) {
     ThemedLayout(
         modifier = modifier,
@@ -74,13 +74,13 @@ fun OrderStatusScreen(
 @Composable
 private fun OrderStatusScreenPreview() {
     OrderStatusScreen(
-        state = OrderStatusState(
+        state = OrderStatusScreenState(
             number = OrderNumberState(
                 quantity = 1,
                 address = "lalalala",
                 number = "1234"
             )
         ),
-        useComponent = UseOrderStatus.Empty()
+        useComponent = UseOrderStatusScreen.Empty()
     )
 }

@@ -16,10 +16,12 @@ import com.progressterra.ipbandroidview.widgets.edituser.EditUser
 
 @Composable
 fun ProfileDetailsScreen(
+    modifier: Modifier = Modifier,
     state: ProfileDetailsState,
-    useComponent: UseProfileDetails
+    useComponent: UseProfileDetailsScreen
 ) {
     ThemedLayout(
+        modifier = modifier,
         topBar = {
             TopBar(
                 title = stringResource(R.string.profile),

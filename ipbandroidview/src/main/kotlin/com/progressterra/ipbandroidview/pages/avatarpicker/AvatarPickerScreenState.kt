@@ -1,11 +1,10 @@
 package com.progressterra.ipbandroidview.pages.avatarpicker
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.features.avatarpicker.AvatarPickerState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-@Immutable
+
 data class AvatarPickerScreenState(
     val avatars: AvatarPickerState = AvatarPickerState(),
     val screen: StateColumnState = StateColumnState(),

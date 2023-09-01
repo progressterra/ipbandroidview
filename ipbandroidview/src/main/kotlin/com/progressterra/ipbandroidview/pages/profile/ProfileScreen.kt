@@ -17,10 +17,12 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun ProfileScreen(
-    state: ProfileState,
-    useComponent: UseProfile
+    modifier: Modifier = Modifier,
+    state: ProfileScreenState,
+    useComponent: UseProfileScreen
 ) {
     ThemedLayout(
+        modifier = modifier,
         topBar = {
             TopBar(
                 title = stringResource(R.string.profile),

@@ -1,11 +1,10 @@
 package com.progressterra.ipbandroidview.shared.theme
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.shared.reflection.Copyable
 import kotlin.reflect.full.instanceParameter
 import kotlin.reflect.full.memberFunctions
 
-@Immutable
+
 data class IpbColors(
     // Main
     val primary: ColorUnit = ColorUnit(listOf("#35C290", "#2E9399")),

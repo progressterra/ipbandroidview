@@ -26,7 +26,7 @@ class WantThisScreenViewModel(
     checkPermissionUseCase: CheckPermissionUseCase,
     askPermissionUseCase: AskPermissionUseCase,
     makePhotoUseCase: MakePhotoUseCase,
-) : AbstractNonInputViewModel<WantThisScreenState, WantThisScreenEvent>(), UseWantThisScreen {
+) : AbstractNonInputViewModel<WantThisScreenState, WantThisScreenEffect>(), UseWantThisScreen {
 
     override fun createInitialState() = WantThisScreenState()
 
@@ -42,7 +42,7 @@ class WantThisScreenViewModel(
             }
 
             override fun openPhoto(url: String) {
-                postEffect(WantThisScreenEvent.OpenPhoto(url))
+                postEffect(WantThisScreenEffect.OpenPhoto(url))
             }
 
             override fun emitModuleState(reducer: (Document) -> Document) {
@@ -68,12 +68,12 @@ class WantThisScreenViewModel(
 
     override fun handle(event: ProfileButtonEvent) {
         when (event.id) {
-            "requests" -> postEffect(WantThisScreenEvent.Requests)
+            "requests" -> postEffect(WantThisScreenEffect.Requests)
         }
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(WantThisScreenEvent.Back)
+        postEffect(WantThisScreenEffect.Back)
     }
 
     override fun handle(event: ButtonEvent) {
@@ -83,10 +83,10 @@ class WantThisScreenViewModel(
                     currentState.document,
                     IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID
                 ).onSuccess {
-                    postEffect(WantThisScreenEvent.Toast(R.string.success))
-                    postEffect(WantThisScreenEvent.Back)
+                    postEffect(WantThisScreenEffect.Toast(R.string.success))
+                    postEffect(WantThisScreenEffect.Back)
                 }.onFailure {
-                    postEffect(WantThisScreenEvent.Toast(R.string.failure))
+                    postEffect(WantThisScreenEffect.Toast(R.string.failure))
                 }
             }
         }

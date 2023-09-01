@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.features.receipt
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 
-@Immutable
+
 data class ReceiptState(
     val total: SimplePrice = SimplePrice(),
     val items: List<Item> = emptyList(),

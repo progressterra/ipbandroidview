@@ -26,21 +26,24 @@ import com.progressterra.ipbandroidview.shared.ui.button.Button
 
 @Composable
 fun WelcomeScreen(
-    state: WelcomeState, useComponent: UseWelcome
+    modifier: Modifier = Modifier,
+    state: WelcomeScreenState, useComponent: UseWelcomeScreen
 ) {
-    ThemedLayout(bottomBar = {
-        Column(
-            modifier = Modifier.padding(horizontal = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.auth,
-                title = stringResource(R.string.auth_button),
-                useComponent = useComponent
-            )
-        }
-    }) { _, _ ->
+    ThemedLayout(
+        modifier = modifier,
+        bottomBar = {
+            Column(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.auth,
+                    title = stringResource(R.string.auth_button),
+                    useComponent = useComponent
+                )
+            }
+        }) { _, _ ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -77,6 +80,6 @@ fun WelcomeScreen(
 @Composable
 private fun WelcomeScreenPreview() {
     IpbTheme {
-        WelcomeScreen(state = WelcomeState(), useComponent = UseWelcome.Empty())
+        WelcomeScreen(state = WelcomeScreenState(), useComponent = UseWelcomeScreen.Empty())
     }
 }

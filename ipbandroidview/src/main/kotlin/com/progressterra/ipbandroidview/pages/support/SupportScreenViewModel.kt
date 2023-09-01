@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.support
 
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.mvi.AbstractViewModel
+import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
@@ -11,11 +11,11 @@ class SupportScreenViewModel(
     private val fetchChatsUseCase: FetchChatsUseCase,
     private val fetchMessagesUseCase: FetchMessagesUseCase,
     private val sendMessageUseCase: SendMessageUseCase
-) : AbstractViewModel<SupportScreenState, SupportScreenEvent>(), UseSupportScreen {
+) : AbstractNonInputViewModel<SupportScreenState, SupportScreenEffect>(), UseSupportScreen {
 
     override fun createInitialState() = SupportScreenState()
 
-    fun refresh() {
+    override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             fetchChatsUseCase().onSuccess { newState ->
@@ -37,7 +37,7 @@ class SupportScreenViewModel(
             emitState { it.copy(current = it.trace.last()) }
             emitState { it.copy(trace = it.trace.dropLast(1)) }
         } else {
-            postEffect(SupportScreenEvent)
+            postEffect(SupportScreenEffect)
         }
     }
 

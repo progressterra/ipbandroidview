@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class WithdrawalScreenViewModel(
     private val fetchWithdrawalTransactionsUseCase: FetchWithdrawalTransactionsUseCase,
     private val fetchWithdrawalUseCase: FetchWithdrawalUseCase
-) : AbstractNonInputViewModel<WithdrawalScreenState, WithdrawalScreenEvent>(),
+) : AbstractNonInputViewModel<WithdrawalScreenState, WithdrawalScreenEffect>(),
     UseWithdrawalScreen {
 
     override fun createInitialState(): WithdrawalScreenState = WithdrawalScreenState()
@@ -33,11 +33,11 @@ class WithdrawalScreenViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(WithdrawalScreenEvent.Back)
+        postEffect(WithdrawalScreenEffect.Back)
     }
 
     override fun handle(event: ButtonEvent) {
-        postEffect(WithdrawalScreenEvent.New)
+        postEffect(WithdrawalScreenEffect.New)
     }
 
     override fun handle(event: StateColumnEvent) {

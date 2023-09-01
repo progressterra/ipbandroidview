@@ -29,36 +29,39 @@ import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 
 @Composable
 fun SignUpScreen(
-    state: SignUpState, useComponent: UseSignUp
+    modifier: Modifier = Modifier, state: SignUpScreenState, useComponent: UseSignUpScreen
 ) {
-    ThemedLayout(topBar = {
-        TopBar(
-            title = stringResource(R.string.sign_up),
-            useComponent = useComponent,
-            showBackButton = true
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier
-                .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                .background(IpbTheme.colors.surface.asBrush())
-                .padding(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.next,
-                title = stringResource(R.string.next),
-                useComponent = useComponent
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.sign_up),
+                useComponent = useComponent,
+                showBackButton = true
             )
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.skip,
-                title = stringResource(R.string.auth_skip_button),
-                useComponent = useComponent
-            )
-        }
-    }, bottomOverlap = true) { _, bottom ->
+        }, bottomBar = {
+            Column(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .padding(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.next,
+                    title = stringResource(R.string.next),
+                    useComponent = useComponent
+                )
+                TextButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.skip,
+                    title = stringResource(R.string.auth_skip_button),
+                    useComponent = useComponent
+                )
+            }
+        }, bottomOverlap = true
+    ) { _, bottom ->
         Column(
             modifier = Modifier
                 .padding(vertical = 8.dp)
@@ -78,7 +81,7 @@ fun SignUpScreen(
 @Composable
 private fun SignUpScreenPreview() {
     SignUpScreen(
-        state = SignUpState(
+        state = SignUpScreenState(
             editUser = EditUserState(
                 name = TextFieldState(
                     id = "mattis", text = "integer"
@@ -92,6 +95,6 @@ private fun SignUpScreenPreview() {
             ),
             next = ButtonState(id = "orci"),
             skip = ButtonState(id = "laudem")
-        ), useComponent = UseSignUp.Empty()
+        ), useComponent = UseSignUpScreen.Empty()
     )
 }

@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.entities
 
-import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
@@ -8,7 +7,7 @@ import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 
-@Immutable
+
 data class GoodsItem(
     override val id: String = "",
     val categoryId: String = "",
