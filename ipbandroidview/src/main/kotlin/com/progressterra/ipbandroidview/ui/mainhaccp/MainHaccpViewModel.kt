@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.mainhaccp
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.composable.OrganizationsOverviewEvent
@@ -66,11 +67,13 @@ class MainHaccpViewModel(
         fetchPartnerUseCase().onSuccess {
             reduce { state.copy(partner = it) }
         }.onFailure {
+            Log.e("HACCP", it.message ?: "", it)
             isSuccess = false
         }
         fetchOrganizationsOverviewUseCase().onSuccess {
             reduce { state.copy(overviews = it) }
         }.onFailure {
+            Log.e("HACCP", it.message ?: "", it)
             isSuccess = false
         }
         reduce { state.copy(screenState = isSuccess.toScreenState()) }
