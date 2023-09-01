@@ -25,9 +25,6 @@ class MainHaccpViewModel(
 
     override val container: Container<MainHaccpState, MainHaccpEffect> = container(MainHaccpState())
 
-    init {
-        refresh()
-    }
 
     override fun onPartnerClick(partner: Partner) = intent {
         postSideEffect(MainHaccpEffect.OpenPartner(partner))

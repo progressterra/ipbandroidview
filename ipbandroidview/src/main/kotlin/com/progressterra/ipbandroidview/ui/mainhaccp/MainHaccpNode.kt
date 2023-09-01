@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.ui.mainhaccp
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -31,6 +32,7 @@ class MainHaccpNode(
         }
         val state = viewModel.collectAsState()
         LaunchedEffect(Unit) {
+            Log.d("HACCP", "Node launched effect")
             viewModel.refresh()
         }
         MainHaccpScreen(
