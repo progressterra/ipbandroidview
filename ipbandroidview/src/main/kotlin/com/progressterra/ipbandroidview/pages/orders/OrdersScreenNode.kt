@@ -1,8 +1,6 @@
 package com.progressterra.ipbandroidview.pages.orders
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
@@ -34,18 +32,5 @@ class OrdersScreenNode(
             state = state,
             useComponent = viewModel
         )
-    }
-
-    @Composable
-    override fun View(modifier: Modifier) {
-        val viewModel: OrdersScreenViewModel = getViewModel()
-        viewModel.collectEffects {
-
-        }
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
-        val state = viewModel.state.collectAsState().value
-
     }
 }
