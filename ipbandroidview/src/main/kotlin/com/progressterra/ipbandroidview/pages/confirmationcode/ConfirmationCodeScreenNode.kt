@@ -4,15 +4,16 @@ import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
+import com.progressterra.ipbandroidview.entities.SignInData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class ConfirmationCodeScreenNode(
     buildContext: BuildContext,
-    input: String,
+    input: SignInData,
     navigation: ConfirmationCodeScreenNavigation
-) : AbstractInputNode<String, ConfirmationCodeScreenNavigation, ConfirmationCodeScreenState, ConfirmationCodeScreenEffect, ConfirmationCodeScreenViewModel>(
+) : AbstractInputNode<SignInData, ConfirmationCodeScreenNavigation, ConfirmationCodeScreenState, ConfirmationCodeScreenEffect, ConfirmationCodeScreenViewModel>(
     buildContext,
     navigation,
     input

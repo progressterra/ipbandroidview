@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.confirmationcode
 
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.SignInData
 import com.progressterra.ipbandroidview.features.code.CodeEvent
 import com.progressterra.ipbandroidview.features.countdown.CountdownEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
@@ -11,13 +12,13 @@ import kotlinx.coroutines.delay
 class ConfirmationCodeScreenViewModel(
     private val startVerificationChannelUseCase: StartVerificationChannelUseCase,
     private val endVerificationChannelUseCase: EndVerificationChannelUseCase
-) : AbstractInputViewModel<String, ConfirmationCodeScreenState, ConfirmationCodeScreenEffect>(),
+) : AbstractInputViewModel<SignInData, ConfirmationCodeScreenState, ConfirmationCodeScreenEffect>(),
     UseConfirmationCodeScreen {
 
     override fun createInitialState() = ConfirmationCodeScreenState()
 
-    override fun setup(data: String) {
-        emitState { it.copy(code = it.code.copy(code = "", phone = data)) }
+    override fun setup(data: SignInData) {
+        emitState { it.copy(code = it.code.copy(code = "", phone = data.phone), signInData = data) }
         startTimer()
     }
 
@@ -25,7 +26,8 @@ class ConfirmationCodeScreenViewModel(
         onBackground {
             emitState { it.copy(code = it.code.copy(enabled = false)) }
             val call = endVerificationChannelUseCase(
-                currentState.code.phone,
+                currentState.signInData.token,
+                currentState.signInData.phone,
                 currentState.code.code
             ).onSuccess {
                 postEffect(ConfirmationCodeScreenEffect.Next)
@@ -39,11 +41,13 @@ class ConfirmationCodeScreenViewModel(
     private fun startTimer() {
         onBackground {
             emitState { it.copy(repeat = it.repeat.copy(enabled = false)) }
-            for (i in 45.downTo(1)) {
-                delay(1000)
-                emitState { it.copy(repeat = it.repeat.copy(count = if (i >= 10) "00:$i" else "00:0$i")) }
+            if (currentState.signInData.allowedAttempts >= 0) {
+                for (i in currentState.signInData.secondsToResend.downTo(1)) {
+                    delay(1000)
+                    emitState { it.copy(repeat = it.repeat.copy(count = if (i >= 10) "00:$i" else "00:0$i")) }
+                }
+                emitState { it.copy(repeat = it.repeat.copy(enabled = true)) }
             }
-            emitState { it.copy(repeat = it.repeat.copy(enabled = true)) }
         }
     }
 
@@ -56,8 +60,10 @@ class ConfirmationCodeScreenViewModel(
 
     override fun handle(event: CountdownEvent) {
         onBackground {
-            startVerificationChannelUseCase(currentState.code.phone)
-            startTimer()
+            startVerificationChannelUseCase(currentState.code.phone).onSuccess { data ->
+                emitState { it.copy(signInData = data) }
+                startTimer()
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.widgets.messages
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import com.progressterra.ipbandroidview.entities.Message
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Messages(
     modifier: Modifier = Modifier,
@@ -77,7 +79,7 @@ fun Messages(
             key = lazyItems.itemKey { it.id }
         ) { index ->
             lazyItems[index]?.let {
-                Item(itemState = it)
+                Item(modifier = Modifier.animateItemPlacement(), itemState = it)
             }
         }
     }

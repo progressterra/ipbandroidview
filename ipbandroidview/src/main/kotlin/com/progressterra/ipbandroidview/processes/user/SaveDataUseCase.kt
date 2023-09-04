@@ -1,8 +1,7 @@
 package com.progressterra.ipbandroidview.processes.user
 
-import com.progressterra.ipbandroidapi.api.scrm.SCRMRepository
-import com.progressterra.ipbandroidapi.api.scrm.model.ClientDataIncome
-import com.progressterra.ipbandroidapi.api.scrm.model.IncomeDataEmail
+import com.progressterra.ipbandroidapi.api.scrm.ScrmService
+import com.progressterra.ipbandroidapi.api.scrm.models.ClientsEntity
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -19,7 +18,7 @@ interface SaveDataUseCase {
     suspend operator fun invoke(income: EditUserState): Result<Unit>
 
     class Base(
-        private val scrmRepository: SCRMRepository, obtainAccessToken: ObtainAccessToken
+        private val scrmService: ScrmService, obtainAccessToken: ObtainAccessToken
     ) : SaveDataUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
@@ -41,18 +40,15 @@ interface SaveDataUseCase {
             UserData.dateOfBirthday = zonedDateTimeBirthday.formatZdtIso()
             UserData.phone = income.phone.formatByType()
             UserData.email = income.email.formatByType()
-            scrmRepository.setPersonalInfo(
-                accessToken = token, request = ClientDataIncome(
+            scrmService.postClient(
+                token = token,
+                body = ClientsEntity(
                     name = nameList[0],
                     soname = nameList[1],
                     dateOfBirth = UserData.dateOfBirthday
                 )
             )
-            scrmRepository.setEmail(
-                accessToken = token, request = IncomeDataEmail(
-                    email = income.email.formatByType()
-                )
-            )
+            //TODO email not saving
         }
     }
 }

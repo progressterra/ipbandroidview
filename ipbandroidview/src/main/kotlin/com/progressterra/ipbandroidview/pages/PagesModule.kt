@@ -52,7 +52,6 @@ import com.progressterra.ipbandroidview.pages.support.FetchChatsUseCase
 import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
 import com.progressterra.ipbandroidview.pages.support.SupportScreenViewModel
-import com.progressterra.ipbandroidview.pages.support.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.FetchWantThisUseCase
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisdetails.FetchWantThisDetailsChatUseCase
@@ -101,18 +100,12 @@ val pagesModule = module {
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 
-    single<UpdateFirebaseCloudMessagingTokenUseCase> {
-        UpdateFirebaseCloudMessagingTokenUseCase.Base(
-            get(), get()
-        )
-    }
-
     single<OrderDetailsUseCase> {
         OrderDetailsUseCase.Base(get(), get(), get())
     }
 
     single<EndVerificationChannelUseCase> {
-        EndVerificationChannelUseCase.Base(get(), get())
+        EndVerificationChannelUseCase.Base(get(), get(). get())
     }
 
     single<CatalogUseCase> {
