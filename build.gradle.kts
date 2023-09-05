@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath("com.google.gms:google-services:4.3.15")
         classpath("com.android.tools.build:gradle:8.1.1")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10")
     }
 }
 
@@ -18,7 +18,7 @@ plugins {
 }
 
 allprojects {
-    version = "0.18.99"
+    version = "0.19.0"
     group = "com.progressterra.ipbandroidview"
     repositories {
         google()
