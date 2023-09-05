@@ -25,7 +25,7 @@ interface EndVerificationChannelUseCase {
             tempToken: String,
             phoneNumber: String,
             code: String
-        ): Result<Unit> = runCatching {
+        ): Result<Unit> = handle {
             var formattedPhoneNumber = phoneNumber.trim()
             if (formattedPhoneNumber.startsWith('8')) formattedPhoneNumber =
                 formattedPhoneNumber.replaceFirst('8', '7')

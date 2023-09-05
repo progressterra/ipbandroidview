@@ -42,6 +42,7 @@ fun SignUpScreen(
         }, bottomBar = {
             Column(
                 modifier = Modifier
+                    .padding(horizontal = 8.dp)
                     .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(8.dp),

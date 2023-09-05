@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidapi.IpbAndroidApiSettings
 import com.progressterra.ipbandroidapi.api.auth.AuthService
 import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataStartChannelVerification
 import com.progressterra.ipbandroidview.entities.SignInData
+import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
 
 interface StartVerificationChannelUseCase {
 
@@ -11,9 +12,9 @@ interface StartVerificationChannelUseCase {
 
     class Base(
         private val authService: AuthService
-    ) : StartVerificationChannelUseCase {
+    ) : StartVerificationChannelUseCase, AbstractLoggingUseCase() {
 
-        override suspend fun invoke(phoneNumber: String): Result<SignInData> = runCatching {
+        override suspend fun invoke(phoneNumber: String): Result<SignInData> = handle {
             val formattedPhoneNumber = phoneNumber.trim()
             val result = authService.loginStart(
                 IncomeDataStartChannelVerification(
