@@ -59,7 +59,7 @@ abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
     }
 
     protected fun postEffect(effect: E) {
-        _effects.tryEmit(effect)
+        viewModelScope.launch { _effects.emit(effect) }
     }
 
     override fun <T : Any> cachePaging(toBeCached: Flow<PagingData<T>>): Flow<PagingData<T>> =
