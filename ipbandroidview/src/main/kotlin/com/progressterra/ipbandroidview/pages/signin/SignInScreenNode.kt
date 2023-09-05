@@ -5,12 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
-import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class SignInScreenNode(
     buildContext: BuildContext,
-    navigation: SignInScreenNavigation
+    navigation: SignInScreenNavigation,
+    private val provideViewModel: (Class<SignInScreenViewModel>) -> SignInScreenViewModel
 ) : AbstractNonInputNode<SignInScreenNavigation, SignInScreenState, SignInScreenEffect, SignInScreenViewModel>(
     buildContext,
     navigation
@@ -26,7 +26,7 @@ class SignInScreenNode(
     }
 
     @Composable
-    override fun obtainViewModel() = getViewModel<SignInScreenViewModel>()
+    override fun obtainViewModel() = provideViewModel(SignInScreenViewModel::class.java)
 
     @Composable
     override fun Screen(modifier: Modifier, state: SignInScreenState) {
