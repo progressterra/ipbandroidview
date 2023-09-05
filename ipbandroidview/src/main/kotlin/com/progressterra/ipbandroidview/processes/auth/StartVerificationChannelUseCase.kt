@@ -26,6 +26,7 @@ interface StartVerificationChannelUseCase {
             )
             if (result.result?.status != StatusResult.SUCCESS) throw BadRequestException()
             SignInData(
+                token = result.data?.tempToken ?: "",
                 phone = formattedPhoneNumber,
                 allowedAttempts = result.data?.numberAttemptsLeft ?: 0,
                 secondsToResend = result.data?.secondForResendSMS ?: 0
