@@ -2,10 +2,11 @@ package com.progressterra.ipbandroidview.features.bottombar
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -34,12 +35,12 @@ fun RediBottomBar(
         titleRes: Int,
         index: Int
     ) {
-        Column(modifier = Modifier
-            .clip(CircleShape)
-            .niceClickable { useComponent.handle(RediBottomBarEvent(index)) }
-            .padding(8.dp),
+        Column(
+            modifier = Modifier
+                .niceClickable { useComponent.handle(RediBottomBarEvent(index)) },
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
             BrushedIcon(
                 modifier = Modifier.size(24.dp),
                 resId = iconRes,
@@ -53,38 +54,71 @@ fun RediBottomBar(
         }
     }
 
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .background(IpbTheme.colors.surface.asBrush()),
-        verticalAlignment = Alignment.Bottom,
-        horizontalArrangement = Arrangement.SpaceEvenly
-    ) {
-        Item(
-            iconRes = R.drawable.ic_main,
-            titleRes = R.string.main_screen,
-            index = 0
+    Box(modifier = modifier, contentAlignment = Alignment.BottomCenter) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .background(IpbTheme.colors.surface.asBrush())
         )
-        Item(
-            iconRes = R.drawable.ic_catalog,
-            titleRes = R.string.catalog_screen,
-            index = 1
-        )
-        Item(
-            iconRes = R.drawable.ic_want_this,
-            titleRes = R.string.want_this,
-            index = 2
-        )
-        Item(
-            iconRes = R.drawable.ic_cart,
-            titleRes = R.string.cart_screen,
-            index = 3
-        )
-        Item(
-            iconRes = R.drawable.ic_profile,
-            titleRes = R.string.profile_screen,
-            index = 4
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Item(
+                iconRes = R.drawable.ic_main,
+                titleRes = R.string.main_screen,
+                index = 0
+            )
+            Item(
+                iconRes = R.drawable.ic_catalog,
+                titleRes = R.string.catalog_screen,
+                index = 1
+            )
+            Column(
+                verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .niceClickable { useComponent.handle(RediBottomBarEvent(2)) },
+                    contentAlignment = Alignment.Center
+                ) {
+                    BrushedIcon(
+                        modifier = Modifier.size(48.dp),
+                        resId = R.drawable.ic_want_this_outer,
+                        tint = if (2 == state.activeIndex) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.surface.asBrush()
+                    )
+                    BrushedIcon(
+                        modifier = Modifier.size(36.dp),
+                        resId = R.drawable.ic_want_this_inner,
+                        tint = IpbTheme.colors.surface.asBrush()
+                    )
+                    BrushedIcon(
+                        modifier = Modifier.size(24.dp),
+                        resId = R.drawable.ic_want_this,
+                        tint = if (2 == state.activeIndex) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary.asBrush()
+                    )
+                }
+                BrushedText(
+                    text = stringResource(id = R.string.want_this),
+                    style = IpbTheme.typography.footnoteBold,
+                    tint = if (2 == state.activeIndex) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary.asBrush()
+                )
+            }
+            Item(
+                iconRes = R.drawable.ic_cart,
+                titleRes = R.string.cart_screen,
+                index = 3
+            )
+            Item(
+                iconRes = R.drawable.ic_profile,
+                titleRes = R.string.profile_screen,
+                index = 4
+            )
+        }
     }
 }
 
