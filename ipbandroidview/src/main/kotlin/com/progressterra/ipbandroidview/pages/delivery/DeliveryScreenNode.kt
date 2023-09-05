@@ -18,7 +18,7 @@ class DeliveryScreenNode(
     override fun mapEffect(effect: DeliveryScreenEffect) {
         when (effect) {
             is DeliveryScreenEffect.Back -> navigation.onBack()
-            is DeliveryScreenEffect.Next -> navigation.onNext()
+            is DeliveryScreenEffect.Next -> navigation.onPayment()
         }
     }
 

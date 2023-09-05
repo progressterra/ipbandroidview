@@ -4,5 +4,5 @@ import com.progressterra.ipbandroidview.shared.mvi.OnBack
 
 interface DeliveryScreenNavigation : OnBack {
 
-    fun onNext()
+    fun onPayment()
 }

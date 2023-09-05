@@ -18,7 +18,7 @@ class WithdrawalScreenNode(
     override fun mapEffect(effect: WithdrawalScreenEffect) {
         when (effect) {
             is WithdrawalScreenEffect.Back -> navigation.onBack()
-            is WithdrawalScreenEffect.New -> navigation.onCreate()
+            is WithdrawalScreenEffect.New -> navigation.onCreateWithdrawal()
         }
     }
 

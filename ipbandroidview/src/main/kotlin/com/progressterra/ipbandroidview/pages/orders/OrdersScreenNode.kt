@@ -18,7 +18,7 @@ class OrdersScreenNode(
     override fun mapEffect(effect: OrdersScreenEffect) {
         when (effect) {
             is OrdersScreenEffect.Back -> navigation.onBack()
-            is OrdersScreenEffect.OpenDetails -> navigation.onNext(effect.id)
+            is OrdersScreenEffect.OpenDetails -> navigation.onOrder(effect.id)
         }
     }
 

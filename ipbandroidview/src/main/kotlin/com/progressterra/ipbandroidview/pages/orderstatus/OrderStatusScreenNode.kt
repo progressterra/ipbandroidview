@@ -21,7 +21,7 @@ class OrderStatusScreenNode(
         when (effect) {
             is OrderStatusScreenEffect.OnBack -> navigation.onBack()
             is OrderStatusScreenEffect.OnMain -> navigation.onMain()
-            is OrderStatusScreenEffect.OnOrder -> navigation.openOrderDetails(effect.data)
+            is OrderStatusScreenEffect.OnOrder -> navigation.onOrderDetails(effect.data)
         }
     }
 

@@ -4,10 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputNode
-import com.progressterra.ipbandroidview.shared.mvi.OnBack
 import org.koin.androidx.compose.getViewModel
-
-interface PhotoScreenNavigation : OnBack
 
 @Suppress("unused")
 class PhotoScreenNode(

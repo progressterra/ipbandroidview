@@ -1,10 +1,6 @@
 package com.progressterra.ipbandroidview.pages.welcome
 
-interface WelcomeScreenNavigation {
+import com.progressterra.ipbandroidview.shared.mvi.OnAuth
+import com.progressterra.ipbandroidview.shared.mvi.OnMain
 
-    fun onAuth()
-
-    fun onSkip()
-
-    fun onAlreadyAuth()
-}
+interface WelcomeScreenNavigation : OnAuth, OnMain

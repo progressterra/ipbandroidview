@@ -18,8 +18,8 @@ class WelcomeScreenNode(
     override fun mapEffect(effect: WelcomeScreenEffect) {
         when (effect) {
             is WelcomeScreenEffect.OnAuth -> navigation.onAuth()
-            is WelcomeScreenEffect.OnSkip -> navigation.onSkip()
-            is WelcomeScreenEffect.OnAlreadyAuth -> navigation.onAlreadyAuth()
+            is WelcomeScreenEffect.OnSkip -> navigation.onMain()
+            is WelcomeScreenEffect.OnAlreadyAuth -> navigation.onMain()
         }
     }
 

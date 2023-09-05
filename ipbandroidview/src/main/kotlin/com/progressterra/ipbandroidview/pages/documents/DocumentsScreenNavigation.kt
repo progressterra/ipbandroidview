@@ -5,5 +5,5 @@ import com.progressterra.ipbandroidview.shared.mvi.OnBack
 
 interface DocumentsScreenNavigation : OnBack {
 
-    fun onNext(data: Document)
+    fun onDocument(data: Document)
 }

@@ -22,7 +22,7 @@ class ProfileScreenNode(
             is ProfileScreenEffect.Logout -> navigation.onLogout()
             is ProfileScreenEffect.Orders -> navigation.onOrders()
             is ProfileScreenEffect.Support -> navigation.onSupport()
-            is ProfileScreenEffect.Details -> navigation.onDetails()
+            is ProfileScreenEffect.Details -> navigation.onProfileDetails()
             is ProfileScreenEffect.BankCards -> navigation.onBankCards()
             is ProfileScreenEffect.Documents -> navigation.onDocuments()
         }

@@ -5,5 +5,5 @@ import com.progressterra.ipbandroidview.shared.mvi.OpenPhoto
 
 interface WantThisScreenNavigation : OnBack, OpenPhoto {
 
-    fun onRequests()
+    fun onWantThisRequests()
 }

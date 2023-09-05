@@ -18,7 +18,7 @@ class DocumentsScreenNode(
     override fun mapEffect(effect: DocumentsScreenEffect) {
         when (effect) {
             is DocumentsScreenEffect.Back -> navigation.onBack()
-            is DocumentsScreenEffect.OpenDocument -> navigation.onNext(effect.data)
+            is DocumentsScreenEffect.OpenDocument -> navigation.onDocument(effect.data)
         }
     }
 

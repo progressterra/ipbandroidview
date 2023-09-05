@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.pages.signin
 
 import com.progressterra.ipbandroidview.entities.SignInData
+import com.progressterra.ipbandroidview.shared.mvi.OnMain
 
-interface SignInScreenNavigation {
+interface SignInScreenNavigation : OnMain {
 
-    fun onNext(data: SignInData)
-
-    fun onSkip()
+    fun onCodeConfirmation(data: SignInData)
 }

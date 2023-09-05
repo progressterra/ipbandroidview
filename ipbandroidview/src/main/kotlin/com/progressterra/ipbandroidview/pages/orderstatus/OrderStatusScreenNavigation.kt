@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.shared.mvi.OnBack
 
 interface OrderStatusScreenNavigation : OnBack {
 
-    fun openOrderDetails(data: String)
+    fun onOrderDetails(data: String)
 
     fun onMain()
 }

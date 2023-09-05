@@ -19,7 +19,7 @@ class WantThisScreenNode(
     override fun mapEffect(effect: WantThisScreenEffect) {
         when (effect) {
             is WantThisScreenEffect.Back -> navigation.onBack()
-            is WantThisScreenEffect.Requests -> navigation.onRequests()
+            is WantThisScreenEffect.Requests -> navigation.onWantThisRequests()
             is WantThisScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
             is WantThisScreenEffect.Toast -> Toast.makeText(
                 context,

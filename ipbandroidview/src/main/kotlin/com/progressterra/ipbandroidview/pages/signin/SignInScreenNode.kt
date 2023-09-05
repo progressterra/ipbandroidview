@@ -18,8 +18,8 @@ class SignInScreenNode(
 
     override fun mapEffect(effect: SignInScreenEffect) {
         when (effect) {
-            is SignInScreenEffect.Next -> navigation.onNext(effect.data)
-            is SignInScreenEffect.Skip -> navigation.onSkip()
+            is SignInScreenEffect.Next -> navigation.onCodeConfirmation(effect.data)
+            is SignInScreenEffect.Skip -> navigation.onMain()
             is SignInScreenEffect.Toast -> Toast.makeText(context, effect.data, Toast.LENGTH_SHORT)
                 .show()
         }

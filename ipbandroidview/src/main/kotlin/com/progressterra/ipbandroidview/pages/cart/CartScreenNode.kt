@@ -18,7 +18,7 @@ class CartScreenNode(
     override fun mapEffect(effect: CartScreenEffect) {
         when (effect) {
             is CartScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
-            is CartScreenEffect.Payment -> navigation.onNext()
+            is CartScreenEffect.Payment -> navigation.onDelivery()
         }
     }
 

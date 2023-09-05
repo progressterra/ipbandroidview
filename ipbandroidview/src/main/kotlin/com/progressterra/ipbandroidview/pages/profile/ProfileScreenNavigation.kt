@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages.profile
 
-interface ProfileScreenNavigation {
+import com.progressterra.ipbandroidview.shared.mvi.OnAuth
 
-    fun onAuth()
+interface ProfileScreenNavigation : OnAuth {
 
     fun onFavorites()
 
@@ -12,7 +12,7 @@ interface ProfileScreenNavigation {
 
     fun onSupport()
 
-    fun onDetails()
+    fun onProfileDetails()
 
     fun onBankCards()
 

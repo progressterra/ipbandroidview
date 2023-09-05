@@ -26,7 +26,7 @@ class PaymentScreenNode(
     override fun mapEffect(effect: PaymentScreenEffect) {
         when (effect) {
             is PaymentScreenEffect.Back -> navigation.onBack()
-            is PaymentScreenEffect.Next -> navigation.onNext(effect.data)
+            is PaymentScreenEffect.Next -> navigation.onPaymentStatus(effect.data)
         }
     }
 }

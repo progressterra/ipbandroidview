@@ -3,15 +3,8 @@ package com.progressterra.ipbandroidview.pages.wantthisrequests
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
-import com.progressterra.ipbandroidview.shared.mvi.OnBack
 import org.koin.androidx.compose.getViewModel
-
-interface WantThisRequestsScreenNavigation : OnBack {
-
-    fun onRequestDetails(data: Document)
-}
 
 @Suppress("unused")
 class WantThisRequestsScreenNode(
