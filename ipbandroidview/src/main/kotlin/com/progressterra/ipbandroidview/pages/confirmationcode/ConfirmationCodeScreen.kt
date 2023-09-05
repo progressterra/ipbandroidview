@@ -32,12 +32,14 @@ fun ConfirmationCodeScreen(
         topBar = {
             TopBar(
                 title = stringResource(R.string.verification_code),
+                showBackButton = true,
                 useComponent = useComponent
             )
         },
         bottomBar = {
             Column(
                 modifier = Modifier
+                    .padding(horizontal = 8.dp)
                     .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(8.dp),
@@ -55,7 +57,7 @@ fun ConfirmationCodeScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             Code(
-                modifier = Modifier.padding(horizontal = 8.dp),
+                modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.code,
                 useComponent = useComponent
             )

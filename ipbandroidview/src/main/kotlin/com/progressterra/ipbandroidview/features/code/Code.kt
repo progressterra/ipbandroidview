@@ -69,7 +69,7 @@ fun Code(
     modifier: Modifier = Modifier, state: CodeState, useComponent: UseCode
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.surface.asBrush())
@@ -88,7 +88,7 @@ fun Code(
         val focused = mutableInteractionSource.collectIsFocusedAsState().value
         val focusManager = LocalFocusManager.current
         BasicTextField(
-            modifier = modifier.clearFocusOnKeyboardDismiss(),
+            modifier = Modifier.clearFocusOnKeyboardDismiss(),
             value = state.code,
             singleLine = true,
             maxLines = 1,
