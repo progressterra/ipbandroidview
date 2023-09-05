@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import org.koin.androidx.compose.getViewModel
 
 abstract class AbstractNode<N : Any, S : Any, E : Any, VM : AbstractViewModel<S, E>>(
     buildContext: BuildContext, protected val navigation: N
