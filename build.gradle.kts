@@ -13,12 +13,12 @@ buildscript {
 
 plugins {
     id("com.android.library") version "8.1.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.0" apply false
-    id("org.jetbrains.kotlin.jvm") version "1.9.0" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.10" apply false
+    id("org.jetbrains.kotlin.jvm") version "1.9.10" apply false
 }
 
 allprojects {
-    version = "0.18.98"
+    version = "0.18.99"
     group = "com.progressterra.ipbandroidview"
     repositories {
         google()

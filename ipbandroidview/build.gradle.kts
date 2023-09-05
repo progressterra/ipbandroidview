@@ -37,7 +37,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 
     namespace = "com.progressterra.ipbandroidview"
@@ -137,5 +137,5 @@ dependencies {
     api("de.charlex.compose:html-text:1.4.1")
 
     // Reflection
-    api("org.jetbrains.kotlin:kotlin-reflect:1.9.0")
+    api("org.jetbrains.kotlin:kotlin-reflect:1.9.10")
 }
