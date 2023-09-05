@@ -18,8 +18,8 @@ class SignUpScreenNode(
     override fun mapEffect(effect: SignUpScreenEffect) {
         when (effect) {
             is SignUpScreenEffect.OnBack -> navigation.onBack()
-            is SignUpScreenEffect.OnNext -> navigation.onNext()
-            is SignUpScreenEffect.OnSkip -> navigation.onSkip()
+            is SignUpScreenEffect.OnNext -> navigation.onMain()
+            is SignUpScreenEffect.OnSkip -> navigation.onMain()
             is SignUpScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
         }
     }
