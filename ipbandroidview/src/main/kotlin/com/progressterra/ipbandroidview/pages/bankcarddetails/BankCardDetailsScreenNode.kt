@@ -11,12 +11,12 @@ import org.koin.androidx.compose.getViewModel
 @Suppress("unused")
 class BankCardDetailsScreenNode(
     buildContext: BuildContext,
-    document: Document,
+    input: Document,
     navigation: BankCardDetailsScreenNavigation
 ) : AbstractInputNode<Document, BankCardDetailsScreenNavigation, BankCardDetailsScreenState, BankCardDetailsScreenEffect, BankCardDetailsScreenViewModel>(
     buildContext,
     navigation,
-    document
+    input
 ) {
 
     override fun mapEffect(effect: BankCardDetailsScreenEffect) {
