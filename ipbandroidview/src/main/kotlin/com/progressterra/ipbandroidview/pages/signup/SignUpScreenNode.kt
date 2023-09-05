@@ -1,34 +1,36 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class SignUpScreenNode(
     buildContext: BuildContext,
-    navigation: SignUpScreenNavigation
-) : AbstractNonInputNode<SignUpScreenNavigation, SignUpScreenState, SignUpScreenEffect, SignUpScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: SignUpScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: SignUpScreenEffect) {
-        when (effect) {
-            is SignUpScreenEffect.OnBack -> navigation.onBack()
-            is SignUpScreenEffect.OnNext -> navigation.onMain()
-            is SignUpScreenEffect.OnSkip -> navigation.onMain()
-            is SignUpScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<SignUpScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is SignUpScreenEffect.OnBack -> navigation.onBack()
+                is SignUpScreenEffect.OnNext -> navigation.onMain()
+                is SignUpScreenEffect.OnSkip -> navigation.onMain()
+                is SignUpScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<SignUpScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: SignUpScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         SignUpScreen(
             modifier = modifier,
             state = state,

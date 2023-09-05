@@ -7,34 +7,35 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class NewWithdrawalScreenNode(
     buildContext: BuildContext,
-    navigation: NewWithdrawalScreenNavigation
-) : AbstractNonInputNode<NewWithdrawalScreenNavigation, NewWithdrawalScreenState, NewWithdrawalScreenEffect, NewWithdrawalScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: NewWithdrawalScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: NewWithdrawalScreenEffect) {
-        when (effect) {
-            is NewWithdrawalScreenEffect.Back -> navigation.onBack()
-            is NewWithdrawalScreenEffect.Toast -> Toast.makeText(
-                context,
-                effect.data,
-                Toast.LENGTH_SHORT
-            ).show()
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<NewWithdrawalScreenViewModel>()
+        val context = LocalContext.current
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is NewWithdrawalScreenEffect.Back -> navigation.onBack()
+                is NewWithdrawalScreenEffect.Toast -> Toast.makeText(
+                    context,
+                    effect.data,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<NewWithdrawalScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: NewWithdrawalScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         NewWithdrawalScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

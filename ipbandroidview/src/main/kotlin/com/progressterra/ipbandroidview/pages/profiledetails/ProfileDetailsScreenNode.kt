@@ -1,32 +1,34 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class ProfileDetailsScreenNode(
     buildContext: BuildContext,
-    navigation: ProfileDetailsScreenNavigation
-) : AbstractNonInputNode<ProfileDetailsScreenNavigation, ProfileDetailsState, ProfileDetailsScreenEffect, ProfileDetailsScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: ProfileDetailsScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: ProfileDetailsScreenEffect) {
-        when (effect) {
-            is ProfileDetailsScreenEffect.Back -> navigation.onBack()
-            is ProfileDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<ProfileDetailsScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is ProfileDetailsScreenEffect.Back -> navigation.onBack()
+                is ProfileDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<ProfileDetailsScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: ProfileDetailsState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         ProfileDetailsScreen(
             modifier = modifier,
             state = state,

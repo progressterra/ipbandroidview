@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import kotlinx.coroutines.flow.emptyFlow
 
-class CatalogViewModel(
+class CatalogScreenViewModel(
     private val catalogUseCase: CatalogUseCase,
     private val goodsUseCase: GoodsUseCase,
     private val addToCartUseCase: AddToCartUseCase,

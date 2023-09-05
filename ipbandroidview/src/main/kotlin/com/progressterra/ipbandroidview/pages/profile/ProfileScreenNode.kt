@@ -1,38 +1,40 @@
 package com.progressterra.ipbandroidview.pages.profile
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class ProfileScreenNode(
     buildContext: BuildContext,
-    navigation: ProfileScreenNavigation
-) : AbstractNonInputNode<ProfileScreenNavigation, ProfileScreenState, ProfileScreenEffect, ProfileScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: ProfileScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: ProfileScreenEffect) {
-        when (effect) {
-            is ProfileScreenEffect.Auth -> navigation.onAuth()
-            is ProfileScreenEffect.Favorites -> navigation.onFavorites()
-            is ProfileScreenEffect.Logout -> navigation.onLogout()
-            is ProfileScreenEffect.Orders -> navigation.onOrders()
-            is ProfileScreenEffect.Support -> navigation.onSupport()
-            is ProfileScreenEffect.Details -> navigation.onProfileDetails()
-            is ProfileScreenEffect.BankCards -> navigation.onBankCards()
-            is ProfileScreenEffect.Documents -> navigation.onDocuments()
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<ProfileScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is ProfileScreenEffect.Auth -> navigation.onAuth()
+                is ProfileScreenEffect.Favorites -> navigation.onFavorites()
+                is ProfileScreenEffect.Logout -> navigation.onLogout()
+                is ProfileScreenEffect.Orders -> navigation.onOrders()
+                is ProfileScreenEffect.Support -> navigation.onSupport()
+                is ProfileScreenEffect.Details -> navigation.onProfileDetails()
+                is ProfileScreenEffect.BankCards -> navigation.onBankCards()
+                is ProfileScreenEffect.Documents -> navigation.onDocuments()
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<ProfileScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: ProfileScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         ProfileScreen(
             modifier = modifier,
             state = state,

@@ -20,9 +20,6 @@ class SignInScreenNode(
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<SignInScreenViewModel>()
         val context = LocalContext.current
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
         viewModel.collectEffects {
             when (it) {
                 is SignInScreenEffect.Next -> navigation.onCodeConfirmation(it.data)
@@ -35,6 +32,9 @@ class SignInScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         SignInScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

@@ -1,32 +1,34 @@
 package com.progressterra.ipbandroidview.pages.cart
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class CartScreenNode(
     buildContext: BuildContext,
-    navigation: CartScreenNavigation
-) : AbstractNonInputNode<CartScreenNavigation, CartScreenState, CartScreenEffect, CartScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: CartScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: CartScreenEffect) {
-        when (effect) {
-            is CartScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
-            is CartScreenEffect.Payment -> navigation.onDelivery()
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<CartScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is CartScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
+                is CartScreenEffect.Payment -> navigation.onDelivery()
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<CartScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: CartScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         CartScreen(
             modifier = modifier,
             state = state,

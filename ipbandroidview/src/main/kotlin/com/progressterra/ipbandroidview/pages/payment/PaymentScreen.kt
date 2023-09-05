@@ -25,13 +25,15 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun PaymentScreen(
-    state: PaymentScreenState, useComponent: UsePaymentScreen
+    modifier: Modifier = Modifier, state: PaymentScreenState, useComponent: UsePaymentScreen
 ) {
-    ThemedLayout(topBar = {
-        TopBar(
-            title = stringResource(R.string.processing), useComponent = useComponent
-        )
-    },
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.processing), useComponent = useComponent
+            )
+        },
         bottomBar = {
             Receipt(
                 modifier = Modifier.padding(top = 40.dp),

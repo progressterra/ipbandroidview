@@ -1,32 +1,34 @@
 package com.progressterra.ipbandroidview.pages.documents
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class DocumentsScreenNode(
     buildContext: BuildContext,
-    navigation: DocumentsScreenNavigation
-) : AbstractNonInputNode<DocumentsScreenNavigation, DocumentsScreenState, DocumentsScreenEffect, DocumentsScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: DocumentsScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: DocumentsScreenEffect) {
-        when (effect) {
-            is DocumentsScreenEffect.Back -> navigation.onBack()
-            is DocumentsScreenEffect.OpenDocument -> navigation.onDocument(effect.data)
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<DocumentsScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is DocumentsScreenEffect.Back -> navigation.onBack()
+                is DocumentsScreenEffect.OpenDocument -> navigation.onDocument(effect.data)
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<DocumentsScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: DocumentsScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         DocumentsScreen(
             modifier = modifier,
             state = state,

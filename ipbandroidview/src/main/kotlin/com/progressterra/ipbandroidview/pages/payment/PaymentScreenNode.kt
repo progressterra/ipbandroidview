@@ -1,32 +1,34 @@
 package com.progressterra.ipbandroidview.pages.payment
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class PaymentScreenNode(
     buildContext: BuildContext,
-    navigation: PaymentScreenNavigation
-) : AbstractNonInputNode<PaymentScreenNavigation, PaymentScreenState, PaymentScreenEffect, PaymentScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: PaymentScreenNavigation
+) : Node(
+    buildContext
 ) {
 
     @Composable
-    override fun obtainViewModel() = getViewModel<PaymentScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: PaymentScreenState) {
-        PaymentScreen(state = state, useComponent = viewModel)
-    }
-
-    override fun mapEffect(effect: PaymentScreenEffect) {
-        when (effect) {
-            is PaymentScreenEffect.Back -> navigation.onBack()
-            is PaymentScreenEffect.Next -> navigation.onPaymentStatus(effect.data)
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<PaymentScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is PaymentScreenEffect.Back -> navigation.onBack()
+                is PaymentScreenEffect.Next -> navigation.onPaymentStatus(effect.data)
+            }
         }
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
+        PaymentScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

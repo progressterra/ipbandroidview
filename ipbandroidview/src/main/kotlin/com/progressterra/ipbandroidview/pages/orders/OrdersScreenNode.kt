@@ -1,32 +1,34 @@
 package com.progressterra.ipbandroidview.pages.orders
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class OrdersScreenNode(
     buildContext: BuildContext,
-    navigation: OrdersScreenNavigation
-) : AbstractNonInputNode<OrdersScreenNavigation, OrdersScreenState, OrdersScreenEffect, OrdersScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: OrdersScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: OrdersScreenEffect) {
-        when (effect) {
-            is OrdersScreenEffect.Back -> navigation.onBack()
-            is OrdersScreenEffect.OpenDetails -> navigation.onOrder(effect.id)
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<OrdersScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is OrdersScreenEffect.Back -> navigation.onBack()
+                is OrdersScreenEffect.OpenDetails -> navigation.onOrder(effect.id)
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<OrdersScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: OrdersScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         OrdersScreen(
             modifier = modifier,
             state = state,

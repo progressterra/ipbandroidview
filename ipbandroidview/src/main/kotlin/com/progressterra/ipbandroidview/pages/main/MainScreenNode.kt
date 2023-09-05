@@ -1,38 +1,35 @@
 package com.progressterra.ipbandroidview.pages.main
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class MainScreenNode(
     buildContext: BuildContext,
-    navigation: MainScreenNavigation
-) : AbstractNonInputNode<MainScreenNavigation, MainScreenState, MainScreenEffect, MainScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: MainScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: MainScreenEffect) {
-        when (effect) {
-            is MainScreenEffect.OnBonuses -> navigation.onBonuses()
-            is MainScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
-            is MainScreenEffect.OnWithdrawal -> navigation.onWithdrawal()
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<MainScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is MainScreenEffect.OnBonuses -> navigation.onBonuses()
+                is MainScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
+                is MainScreenEffect.OnWithdrawal -> navigation.onWithdrawal()
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<MainScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: MainScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         MainScreen(
             modifier = modifier, state = state, useComponent = viewModel
         )

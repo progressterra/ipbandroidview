@@ -1,32 +1,35 @@
 package com.progressterra.ipbandroidview.pages.withdrawal
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class WithdrawalScreenNode(
     buildContext: BuildContext,
-    navigation: WithdrawalScreenNavigation
-) : AbstractNonInputNode<WithdrawalScreenNavigation, WithdrawalScreenState, WithdrawalScreenEffect, WithdrawalScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: WithdrawalScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: WithdrawalScreenEffect) {
-        when (effect) {
-            is WithdrawalScreenEffect.Back -> navigation.onBack()
-            is WithdrawalScreenEffect.New -> navigation.onCreateWithdrawal()
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<WithdrawalScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is WithdrawalScreenEffect.Back -> navigation.onBack()
+                is WithdrawalScreenEffect.New -> navigation.onCreateWithdrawal()
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<WithdrawalScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: WithdrawalScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         WithdrawalScreen(modifier = modifier, state = state, useComponent = viewModel)
+
     }
 }

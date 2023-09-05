@@ -1,35 +1,36 @@
 package com.progressterra.ipbandroidview.pages.documentdetails
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
+import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.Document
-import com.progressterra.ipbandroidview.shared.mvi.AbstractInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class DocumentDetailsScreenNode(
     buildContext: BuildContext,
-    navigation: DocumentDetailsScreenNavigation,
-    input: Document
-) : AbstractInputNode<Document, DocumentDetailsScreenNavigation, DocumentDetailsScreenState, DocumentDetailsScreenEffect, DocumentDetailsViewModel>(
-    buildContext,
-    navigation,
-    input
+    private val navigation: DocumentDetailsScreenNavigation,
+    private val input: Document
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: DocumentDetailsScreenEffect) {
-        when (effect) {
-            is DocumentDetailsScreenEffect.Back -> navigation.onBack()
-            is DocumentDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<DocumentDetailsViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is DocumentDetailsScreenEffect.Back -> navigation.onBack()
+                is DocumentDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<DocumentDetailsViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: DocumentDetailsScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(input) {
+            viewModel.setup(input)
+        }
         DocumentDetailsScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

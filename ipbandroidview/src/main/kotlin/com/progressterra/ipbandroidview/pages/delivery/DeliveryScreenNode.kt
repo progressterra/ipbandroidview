@@ -1,32 +1,34 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
-import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputNode
+import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class DeliveryScreenNode(
     buildContext: BuildContext,
-    navigation: DeliveryScreenNavigation
-) : AbstractNonInputNode<DeliveryScreenNavigation, DeliveryScreenState, DeliveryScreenEffect, DeliveryScreenViewModel>(
-    buildContext,
-    navigation
+    private val navigation: DeliveryScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: DeliveryScreenEffect) {
-        when (effect) {
-            is DeliveryScreenEffect.Back -> navigation.onBack()
-            is DeliveryScreenEffect.Next -> navigation.onPayment()
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<DeliveryScreenViewModel>()
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is DeliveryScreenEffect.Back -> navigation.onBack()
+                is DeliveryScreenEffect.Next -> navigation.onPayment()
+            }
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<DeliveryScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: DeliveryScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
+        }
         DeliveryScreen(
             modifier = modifier,
             state = state,

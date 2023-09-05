@@ -2,39 +2,43 @@ package com.progressterra.ipbandroidview.pages.confirmationcode
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
+import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.SignInData
-import com.progressterra.ipbandroidview.shared.mvi.AbstractInputNode
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
 class ConfirmationCodeScreenNode(
     buildContext: BuildContext,
-    input: SignInData,
-    navigation: ConfirmationCodeScreenNavigation
-) : AbstractInputNode<SignInData, ConfirmationCodeScreenNavigation, ConfirmationCodeScreenState, ConfirmationCodeScreenEffect, ConfirmationCodeScreenViewModel>(
-    buildContext,
-    navigation,
-    input
+    private val input: SignInData,
+    private val navigation: ConfirmationCodeScreenNavigation
+) : Node(
+    buildContext
 ) {
 
-    override fun mapEffect(effect: ConfirmationCodeScreenEffect) {
-        when (effect) {
-            is ConfirmationCodeScreenEffect.Toast -> {
-                Toast.makeText(context, effect.data, Toast.LENGTH_SHORT).show()
+    @Composable
+    override fun View(modifier: Modifier) {
+        val viewModel = getViewModel<ConfirmationCodeScreenViewModel>()
+        val context = LocalContext.current
+        viewModel.collectEffects { effect ->
+            when (effect) {
+                is ConfirmationCodeScreenEffect.Toast -> {
+                    Toast.makeText(context, effect.data, Toast.LENGTH_SHORT).show()
+                }
+
+                is ConfirmationCodeScreenEffect.Back -> navigation.onBack()
+                is ConfirmationCodeScreenEffect.Next -> navigation.onSignUp()
             }
-
-            is ConfirmationCodeScreenEffect.Back -> navigation.onBack()
-            is ConfirmationCodeScreenEffect.Next -> navigation.onSignUp()
         }
-    }
-
-    @Composable
-    override fun obtainViewModel() = getViewModel<ConfirmationCodeScreenViewModel>()
-
-    @Composable
-    override fun Screen(modifier: Modifier, state: ConfirmationCodeScreenState) {
+        val state = viewModel.state.collectAsState().value
+        LaunchedEffect(input) {
+            viewModel.setup(input)
+        }
         ConfirmationCodeScreen(modifier = modifier, state = state, useComponent = viewModel)
+
     }
 }

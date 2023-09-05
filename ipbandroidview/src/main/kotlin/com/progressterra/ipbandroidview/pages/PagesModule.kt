@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.pages.bonusesdetails.UseBonusesUseCase
 import com.progressterra.ipbandroidview.pages.cart.CartScreenViewModel
 import com.progressterra.ipbandroidview.pages.cart.FetchCartUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
-import com.progressterra.ipbandroidview.pages.catalog.CatalogViewModel
+import com.progressterra.ipbandroidview.pages.catalog.CatalogScreenViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeScreenViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.pages.delivery.AddDeliveryToCartUseCase
@@ -136,7 +136,7 @@ val pagesModule = module {
 
     single<SaveDocumentsUseCase> { SaveDocumentsUseCase.Base(get(), get(), get(), get()) }
 
-    viewModel { CatalogViewModel(get(), get(), get(), get()) }
+    viewModel { CatalogScreenViewModel(get(), get(), get(), get()) }
 
     viewModel { CartScreenViewModel(get(), get(), get()) }
 
