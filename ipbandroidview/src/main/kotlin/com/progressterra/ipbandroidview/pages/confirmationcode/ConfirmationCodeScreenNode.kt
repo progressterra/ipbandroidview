@@ -26,7 +26,7 @@ class ConfirmationCodeScreenNode(
             }
 
             is ConfirmationCodeScreenEffect.Back -> navigation.onBack()
-            is ConfirmationCodeScreenEffect.Next -> navigation.onNext()
+            is ConfirmationCodeScreenEffect.Next -> navigation.onSignUp()
         }
     }
 
