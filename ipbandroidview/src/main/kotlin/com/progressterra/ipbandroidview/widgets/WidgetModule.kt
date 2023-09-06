@@ -9,7 +9,7 @@ val widgetsModule = module {
 
     single<FetchBonusesTransactionsUseCase> {
         FetchBonusesTransactionsUseCase.Base(
-            get(), get(), get()
+            get()
         )
     }
 
