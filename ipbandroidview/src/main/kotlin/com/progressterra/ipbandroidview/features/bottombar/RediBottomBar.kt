@@ -54,7 +54,7 @@ fun RediBottomBar(
         }
     }
 
-    Box(modifier = modifier, contentAlignment = Alignment.BottomCenter) {
+    Box(modifier = modifier.height(63.dp), contentAlignment = Alignment.BottomCenter) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -77,7 +77,6 @@ fun RediBottomBar(
                 index = 1
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Box(
