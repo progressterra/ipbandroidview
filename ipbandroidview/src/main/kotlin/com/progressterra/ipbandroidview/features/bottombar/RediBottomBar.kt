@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.stealthClickable
 
 @Composable
 fun RediBottomBar(
@@ -37,7 +37,7 @@ fun RediBottomBar(
     ) {
         Column(
             modifier = Modifier
-                .niceClickable { useComponent.handle(RediBottomBarEvent(index)) },
+                .stealthClickable { useComponent.handle(RediBottomBarEvent(index)) },
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
@@ -83,7 +83,7 @@ fun RediBottomBar(
                 Box(
                     modifier = Modifier
                         .clip(CircleShape)
-                        .niceClickable { useComponent.handle(RediBottomBarEvent(2)) },
+                        .stealthClickable { useComponent.handle(RediBottomBarEvent(2)) },
                     contentAlignment = Alignment.Center
                 ) {
                     BrushedIcon(
