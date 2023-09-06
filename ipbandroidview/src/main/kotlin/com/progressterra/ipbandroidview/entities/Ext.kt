@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.entities
 import androidx.compose.runtime.Composable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.progressterra.ipbandroidapi.api.address.models.RGAddress
 import com.progressterra.ipbandroidapi.api.cart.models.DHSaleHeadAsOrderViewModel
 import com.progressterra.ipbandroidapi.api.cart.models.DRSaleForCartAndOrder
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
@@ -19,6 +18,7 @@ import com.progressterra.ipbandroidapi.api.payment.models.DHPaymentClientViewMod
 import com.progressterra.ipbandroidapi.api.payment.models.TypeResultOperationBisinessArea
 import com.progressterra.ipbandroidapi.api.paymentdata.models.RFPaymentDataForClientViewModel
 import com.progressterra.ipbandroidapi.api.product.models.ProductView
+import com.progressterra.ipbandroidapi.api.scrm.models.RGAddress
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
 import com.progressterra.ipbandroidview.R

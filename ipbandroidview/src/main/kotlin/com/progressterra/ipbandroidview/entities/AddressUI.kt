@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.entities
 
 import com.google.gson.annotations.SerializedName
-import com.progressterra.ipbandroidapi.api.address.models.RGAddress
+import com.progressterra.ipbandroidapi.api.scrm.models.RGAddressEntity
 import com.progressterra.ipbandroidview.shared.IsEmpty
 
 data class AddressUI(
@@ -79,8 +79,7 @@ data class AddressUI(
     val longitude: Double = 0.0
 ) : IsEmpty {
 
-    fun convertAddressUiModelToDto() = RGAddress(
-        idUnique = idUnique,
+    fun convertAddressUiModelToDto() = RGAddressEntity(
         nameCity = nameCity,
         postalCode = postalCode,
         building = building,
@@ -89,7 +88,6 @@ data class AddressUI(
         nameStreet = nameStreet,
         entrance = entrance.toIntOrNull() ?: 0,
         idClient = idClient,
-        dateAdded = dateAdded,
         dateVerification = dateVerification,
         idManagerVerification = idManagerVerification,
         dateDeactivation = dateDeactivation,
