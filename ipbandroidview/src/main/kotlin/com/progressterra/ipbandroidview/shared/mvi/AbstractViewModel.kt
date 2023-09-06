@@ -12,10 +12,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
@@ -30,7 +31,7 @@ abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
     val currentState: S
         get() = state.value
 
-    private val _effects: MutableSharedFlow<E> = MutableSharedFlow()
+    private val _effects: Channel<E> = Channel()
 
     @Suppress("ComposableNaming")
     @Composable
@@ -41,7 +42,7 @@ abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
     ) {
         LaunchedEffect(Unit) {
             lifecycleOwner.lifecycleScope.launch {
-                _effects.flowWithLifecycle(lifecycleOwner.lifecycle, minActiveState)
+                _effects.receiveAsFlow().flowWithLifecycle(lifecycleOwner.lifecycle, minActiveState)
                     .collect(action)
             }
         }
@@ -59,7 +60,7 @@ abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
     }
 
     protected fun postEffect(effect: E) {
-        viewModelScope.launch { _effects.emit(effect) }
+        viewModelScope.launch { _effects.send(effect) }
     }
 
     override fun <T : Any> cachePaging(toBeCached: Flow<PagingData<T>>): Flow<PagingData<T>> =
