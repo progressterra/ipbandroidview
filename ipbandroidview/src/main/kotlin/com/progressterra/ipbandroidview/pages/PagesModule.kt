@@ -125,10 +125,10 @@ val pagesModule = module {
     }
 
     single<FavoriteGoodsUseCase> {
-        FavoriteGoodsUseCase.Base(get(), get(), get())
+        FavoriteGoodsUseCase.Base()
     }
 
-    single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base(get(), get()) }
+    single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base() }
 
     single<ConfirmOrderUseCase> {
         ConfirmOrderUseCase.Base(get(), get(), get())
@@ -155,7 +155,7 @@ val pagesModule = module {
     viewModel { OrdersScreenViewModel(get()) }
 
     single<FetchBonusSwitchUseCase> {
-        FetchBonusSwitchUseCase.Base(get(), get())
+        FetchBonusSwitchUseCase.Base()
     }
 
     single<FetchReceiptUseCase> {
