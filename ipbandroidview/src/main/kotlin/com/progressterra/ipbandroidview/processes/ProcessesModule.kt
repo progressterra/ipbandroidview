@@ -53,7 +53,7 @@ val processesModule = module {
 
     single<SaveAddressUseCase> { SaveAddressUseCase.Base(get(), get()) }
 
-    single<FetchFavoriteIds> { FetchFavoriteIds.Base(get(), get()) }
+    single<FetchFavoriteIds> { FetchFavoriteIds.Base(get()) }
 
     single<CheckPermissionUseCase> { CheckPermissionUseCase.Base(get()) }
 
