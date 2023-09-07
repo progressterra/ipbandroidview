@@ -33,13 +33,13 @@ fun ProfileScreen(
         StateColumn(state = state.screen, useComponent = useComponent) {
             if (state.isAuthorized) {
                 AuthProfile(
-                    modifier = Modifier.padding(top = 8.dp, start = 20.dp, end = 20.dp),
+                    modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp),
                     state = state.authProfileState,
                     useComponent = useComponent
                 )
             } else {
                 UnAuthPlaceholder(
-                    modifier = Modifier.padding(top = 8.dp, start = 20.dp, end = 20.dp),
+                    modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp),
                     state = state.unAuth,
                     useComponent = useComponent
                 )

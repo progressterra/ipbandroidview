@@ -48,11 +48,10 @@ fun WithdrawalScreen(
             useComponent = useComponent,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(20.dp))
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
+                    .padding(start = 20.dp, top = 20.dp, end = 20.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(6.dp)

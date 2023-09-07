@@ -68,7 +68,7 @@ fun BankCardsScreen(
             val pagerState = rememberPagerState { 2 }
             val scope = rememberCoroutineScope()
             Tabs(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                 tabs = listOf(
                     stringResource(id = R.string.added_cards),
                     stringResource(id = R.string.other)

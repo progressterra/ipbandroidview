@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,14 +37,15 @@ fun ProfileDetailsScreen(
         StateColumn(
             scrollable = true,
             state = state.screen,
-            useComponent = useComponent
+            useComponent = useComponent,
+            horizontalAlignment = Alignment.Start
         ) {
             EditUser(
-                modifier = Modifier.padding(vertical = 8.dp, horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                 state = state.editUser,
                 useComponent = useComponent
             )
-            Spacer(Modifier.height(bottom))
+            Spacer(Modifier.height(bottom + 8.dp))
         }
     }
 }

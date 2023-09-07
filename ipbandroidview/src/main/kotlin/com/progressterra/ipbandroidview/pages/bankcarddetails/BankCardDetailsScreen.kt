@@ -27,8 +27,8 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 
@@ -73,7 +73,7 @@ fun BankCardDetailsScreen(
         ) {
             if (!state.document.isTemplate()) {
                 BrushedText(
-                    modifier = Modifier.padding(horizontal = 20.dp),
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                     text = state.document.status.toString {
                         stringResource(id = it)
                     },
@@ -83,7 +83,11 @@ fun BankCardDetailsScreen(
             }
             Column(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
+                    .padding(
+                        start = 20.dp,
+                        end = 20.dp,
+                        top = if (!state.document.isTemplate()) 0.dp else 20.dp
+                    )
                     .clip(RoundedCornerShape(12.dp))
                     .background(IpbTheme.colors.surface.asBrush())
                     .padding(12.dp),
