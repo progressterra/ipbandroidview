@@ -14,11 +14,15 @@ class AgreementViewModel(
 
     override val container = container<AgreementState, AgreementEvent>(AgreementState())
 
-    override fun onBack() = intent {
-        postSideEffect(AgreementEvent.Back)
+    override fun onBack() {
+        intent {
+            postSideEffect(AgreementEvent.Back)
+        }
     }
 
-    override fun mailTo(email: String) = intent {
-        openMailToUseCase(email)
+    override fun mailTo(email: String) {
+        intent {
+            openMailToUseCase(email)
+        }
     }
 }
