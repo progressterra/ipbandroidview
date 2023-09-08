@@ -1,8 +1,13 @@
 package com.progressterra.ipbandroidview.pages.cart
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -10,7 +15,9 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.features.cartcard.CartCardState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -31,9 +38,18 @@ fun CartScreen(
                 title = stringResource(R.string.cart), useComponent = useComponent
             )
         }, bottomBar = {
-            CartSummary(
-                state = state.summary, useComponent = useComponent
-            )
+            Column(
+                modifier = Modifier
+                    .padding(horizontal = 8.dp)
+                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                    .background(IpbTheme.colors.surface.asBrush())
+                    .padding(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                CartSummary(
+                    state = state.summary, useComponent = useComponent
+                )
+            }
         }) { _, _ ->
         StateColumn(
             state = state.screen, useComponent = useComponent
@@ -85,6 +101,22 @@ fun CartScreenPreview() {
                 )
             ), summary = CartSummaryState(
                 total = SimplePrice(12000)
+            )
+        ), useComponent = UseCartScreen.Empty()
+    )
+}
+
+@Preview
+@Composable
+fun CartScreenPreviewEmpty() {
+    CartScreen(
+        state = CartScreenState(
+            screen = StateColumnState(state = ScreenState.SUCCESS),
+            items = CartItemsState(
+                items = emptyList(),
+            ), summary = CartSummaryState(
+                total = SimplePrice(0),
+                proceed = ButtonState(enabled = false)
             )
         ), useComponent = UseCartScreen.Empty()
     )

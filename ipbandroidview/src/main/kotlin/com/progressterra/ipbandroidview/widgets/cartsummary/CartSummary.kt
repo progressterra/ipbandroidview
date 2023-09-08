@@ -1,11 +1,9 @@
 package com.progressterra.ipbandroidview.widgets.cartsummary
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,9 +22,7 @@ fun CartSummary(
     useComponent: UseCartSummary
 ) {
     Column(
-        modifier = modifier
-            .background(IpbTheme.colors.background.asBrush())
-            .padding(start = 20.dp, end = 20.dp, top = 14.dp, bottom = 28.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         Row(

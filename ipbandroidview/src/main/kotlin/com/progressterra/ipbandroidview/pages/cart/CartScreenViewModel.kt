@@ -22,7 +22,7 @@ class CartScreenViewModel(
     override fun refresh() {
         onBackground {
             val call = fetchCartUseCase().onSuccess { newState -> emitState { newState } }
-            emitState { it.copy(screen = it.screen.copy(state = call.isSuccess.toScreenState())) }
+            emitState { it.copy(screen = it.screen.copy(state = call.isSuccess.toScreenState()), summary = it.summary.copy(proceed = it.summary.proceed.copy(enabled = it.items.items.isNotEmpty()))) }
         }
     }
 
