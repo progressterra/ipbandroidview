@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.processes.user
 
 import com.progressterra.ipbandroidapi.api.scrm.ScrmService
 import com.progressterra.ipbandroidapi.api.scrm.models.ClientsEntity
+import com.progressterra.ipbandroidapi.api.scrm.models.TypeSex
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -45,7 +46,9 @@ interface SaveDataUseCase {
                 body = ClientsEntity(
                     name = nameList[0],
                     soname = nameList[1],
-                    dateOfBirth = UserData.dateOfBirthday
+                    dateOfBirth = UserData.dateOfBirthday,
+                    patronymic = "",
+                    sex = TypeSex.MALE
                 )
             )
             //TODO email not saving

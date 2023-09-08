@@ -29,6 +29,7 @@ class SignUpScreenViewModel(
             }.onFailure {
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
+            valid()
         }
     }
 
