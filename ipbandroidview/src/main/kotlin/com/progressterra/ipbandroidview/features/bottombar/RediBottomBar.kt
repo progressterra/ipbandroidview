@@ -12,7 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -81,8 +81,8 @@ fun RediBottomBar(
             ) {
                 Box(
                     modifier = Modifier
-                        .clip(CircleShape)
-                        .stealthClickable { useComponent.handle(RediBottomBarEvent(2)) },
+                        .stealthClickable { useComponent.handle(RediBottomBarEvent(2)) }
+                        .shadow(elevation = 4.dp, shape = CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     BrushedIcon(
