@@ -36,7 +36,6 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
 
 fun List<SimplePrice>.sum(): SimplePrice {
     var sum = SimplePrice()
@@ -296,13 +295,14 @@ fun RGMessagesViewModel.toMessage() = Message(
 
 fun String.parseToZDT(): ZonedDateTime? {
     val formatter = DateTimeFormatter.ISO_DATE_TIME
-    return try {
-        ZonedDateTime.parse(this, formatter)
-    } catch (e: DateTimeParseException) {
-        ZonedDateTime.parse(this, formatter.withZone(ZoneId.of("UTC")))
-    } catch (e: DateTimeParseException) {
-        null
+    var result: ZonedDateTime? = null
+    runCatching {
+        result = ZonedDateTime.parse(this, formatter)
     }
+    if (result == null) {
+        runCatching { result = ZonedDateTime.parse(this, formatter.withZone(ZoneId.of("UTC"))) }
+    }
+    return result
 }
 
 fun ZonedDateTime.formatZdt(pattern: String): String {
