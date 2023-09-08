@@ -294,7 +294,7 @@ fun RGMessagesViewModel.toMessage() = Message(
 )
 
 fun String.parseToZDT(): ZonedDateTime? {
-    val formatter = DateTimeFormatter.ISO_DATE_TIME
+    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     var result: ZonedDateTime? = null
     runCatching {
         result = ZonedDateTime.parse(this, formatter)
@@ -311,7 +311,7 @@ fun ZonedDateTime.formatZdt(pattern: String): String {
 }
 
 fun ZonedDateTime.formatZdtIso(): String {
-    val formatter = DateTimeFormatter.ISO_DATE_TIME
+    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     return format(formatter)
 }
 
