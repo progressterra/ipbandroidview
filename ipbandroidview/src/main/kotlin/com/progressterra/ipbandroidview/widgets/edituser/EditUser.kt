@@ -40,17 +40,16 @@ fun EditUser(
             modifier = Modifier.fillMaxWidth(),
             state = state.birthday,
             hint = stringResource(R.string.birthday),
-            actionIcon = R.drawable.ic_cal,
+            useComponent = useComponent,
             backgroundColor = IpbTheme.colors.background.asColor(),
-            useComponent = useComponent
+            actionIcon = R.drawable.ic_cancel
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.phone,
             hint = stringResource(R.string.phone_number),
             useComponent = useComponent,
-            backgroundColor = IpbTheme.colors.background.asColor(),
-            actionIcon = R.drawable.ic_cancel
+            backgroundColor = IpbTheme.colors.background.asColor()
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),

@@ -135,7 +135,11 @@ class ProfileDetailsScreenViewModel(
                     )
                 }
 
-                "birthday" -> Unit
+                "birthday" -> emitState {
+                    it.copy(
+                        editUser = it.editUser.copy(birthday = it.editUser.birthday.copy(text = ""))
+                    )
+                }
             }
         }
         valid()

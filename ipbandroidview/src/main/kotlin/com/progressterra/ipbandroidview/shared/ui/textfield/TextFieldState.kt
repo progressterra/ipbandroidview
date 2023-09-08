@@ -48,6 +48,7 @@ data class TextFieldState(
         TextInputType.PHONE_NUMBER -> text.isRussianPhoneNumberWithoutHeading()
         TextInputType.DATE -> text.isDigitsOnly() && text.length == 8
         TextInputType.EMAIL -> text.isEmail()
+        TextInputType.NAME_SURNAME -> text.split(" ").size ==2
         else -> true
     }
 
