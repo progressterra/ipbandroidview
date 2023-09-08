@@ -294,12 +294,14 @@ fun RGMessagesViewModel.toMessage() = Message(
     date = dateAdded?.parseToZDT()?.formatZdt("dd.MM HH:mm") ?: ""
 )
 
-fun String.parseToZDT(): ZonedDateTime {
+fun String.parseToZDT(): ZonedDateTime? {
     val formatter = DateTimeFormatter.ISO_DATE_TIME
     return try {
         ZonedDateTime.parse(this, formatter)
     } catch (e: DateTimeParseException) {
         ZonedDateTime.parse(this, formatter.withZone(ZoneId.of("UTC")))
+    } catch (e: DateTimeParseException) {
+        null
     }
 }
 

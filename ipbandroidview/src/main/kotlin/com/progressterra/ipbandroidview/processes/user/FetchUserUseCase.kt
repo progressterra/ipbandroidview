@@ -22,7 +22,7 @@ interface FetchUserUseCase {
                 email = editUser.email.unFormatByType(UserData.email),
                 phone = editUser.phone.unFormatByType(UserData.phone),
                 birthday = editUser.birthday.unFormatByType(
-                    UserData.dateOfBirthday.parseToZDT().formatZdt("dd.MM.yyyy")
+                    UserData.dateOfBirthday.parseToZDT()?.formatZdt("dd.MM.yyyy") ?: ""
                 )
             )
         }
