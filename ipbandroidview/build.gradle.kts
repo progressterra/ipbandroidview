@@ -100,7 +100,7 @@ dependencies {
     api("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
     // Testing
-    api("org.orbit-mvi:orbit-test:6.0.0")
+    testApi("org.orbit-mvi:orbit-test:6.0.0")
     testApi("junit:junit:4.13.2")
 
     // Appyx, navigation library
@@ -129,12 +129,6 @@ dependencies {
 
     api("androidx.paging:paging-runtime-ktx:3.2.0")
     api("androidx.paging:paging-compose:3.2.0")
-
-    // QR
-    api("com.google.zxing:core:3.5.2")
-
-    // HTML
-    api("de.charlex.compose:html-text:1.4.1")
 
     // Reflection
     api("org.jetbrains.kotlin:kotlin-reflect:1.9.10")
