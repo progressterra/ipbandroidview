@@ -28,15 +28,15 @@ fun OrderDetailsScreen(
         )
     }) { _, _ ->
         val scrollState = rememberScrollState()
+        LaunchedEffect(state.chat.isVisible) {
+            scrollState.animateScrollTo(scrollState.maxValue)
+        }
         StateColumn(
             state = state.screen,
             useComponent = useComponent,
             scrollable = true,
             scrollState = scrollState
         ) {
-            LaunchedEffect(state.chat.isVisible) {
-                scrollState.animateScrollTo(scrollState.maxValue)
-            }
             OrderDetails(
                 modifier = Modifier.padding(start = 20.dp, top = 20.dp, end = 20.dp),
                 state = state.details,

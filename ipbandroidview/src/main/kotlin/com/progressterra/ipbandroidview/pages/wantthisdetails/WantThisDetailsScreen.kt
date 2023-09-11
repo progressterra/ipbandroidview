@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -69,9 +71,14 @@ fun WantThisDetailsScreen(
                 }
             }
         }) { _, _ ->
+        val scrollState = rememberScrollState()
+        LaunchedEffect(state.chat.isVisible) {
+            scrollState.animateScrollTo(scrollState.maxValue)
+        }
         StateColumn(
             state = state.screen,
             scrollable = true,
+            scrollState = scrollState,
             useComponent = useComponent,
             horizontalAlignment = Alignment.Start
         ) {
