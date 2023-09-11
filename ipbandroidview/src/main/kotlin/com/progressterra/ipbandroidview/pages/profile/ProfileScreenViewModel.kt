@@ -33,7 +33,7 @@ class ProfileScreenViewModel(
                 emitState {
                     it.copy(
                         docNotification = notification,
-                        documents = it.documents.copy(enabled = true)
+                        documents = it.documents.copy(enabled = !notification.isFull() || notification.isEmpty())
                     )
                 }
             }.onFailure {
