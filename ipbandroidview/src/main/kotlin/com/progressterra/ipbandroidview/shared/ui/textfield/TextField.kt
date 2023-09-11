@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.shared.ui.textfield
 
-import android.app.DatePickerDialog
-import android.widget.DatePicker
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
@@ -19,14 +17,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
+import com.maxkeppeler.sheets.calendar.CalendarDialog
+import com.maxkeppeler.sheets.calendar.models.CalendarConfig
+import com.maxkeppeler.sheets.calendar.models.CalendarSelection
+import com.maxkeppeler.sheets.calendar.models.CalendarStyle
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.shared.UserData.context
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.clearFocusOnKeyboardDismiss
-import java.util.Calendar
 
 @Composable
 fun TextField(
@@ -58,21 +59,22 @@ fun TextField(
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     val focusManager = LocalFocusManager.current
-    val calendar = remember { Calendar.getInstance() }
-    val year = calendar[Calendar.YEAR]
-    val month = calendar[Calendar.MONTH]
-    val dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
-
-    val datePicker = DatePickerDialog(
-        context,
-        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
+    val calendarState = rememberUseCaseState(visible = false)
+    CalendarDialog(
+        state = calendarState,
+        config = CalendarConfig(
+            yearSelection = true,
+            monthSelection = true,
+            style = CalendarStyle.MONTH
+        ),
+        selection = CalendarSelection.Date {
             useComponent.handle(
                 TextFieldEvent.TextChanged(
                     state.id,
-                    "$selectedDayOfMonth$selectedMonth$selectedYear"
+                    "${it.dayOfMonth}${it.month}${it.year}"
                 )
             )
-        }, year, month, dayOfMonth
+        }
     )
     TextField(
         modifier = modifier
@@ -115,7 +117,7 @@ fun TextField(
                 if (focused) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
             IconButton(onClick = {
                 when (state.type) {
-                    TextInputType.DATE -> datePicker.show()
+                    TextInputType.DATE -> calendarState.show()
                     TextInputType.CHAT -> useComponent.handle(TextFieldEvent.AdditionalAction(state.id))
                     else -> useComponent.handle(TextFieldEvent.TextChanged(state.id, ""))
                 }
