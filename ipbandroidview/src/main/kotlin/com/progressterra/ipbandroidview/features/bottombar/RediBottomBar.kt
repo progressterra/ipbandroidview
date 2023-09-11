@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
@@ -57,7 +58,7 @@ fun RediBottomBar(
                             .align(Alignment.TopEnd)
                             .clip(CircleShape)
                             .background(IpbTheme.colors.primary.asBrush())
-                            .aspectRatio(1f),
+                            .padding(horizontal = 2.dp)
                     ) {
                         BrushedText(
                             text = counter.toString(),
@@ -151,7 +152,7 @@ private fun RediBottomBarPreview() {
         RediBottomBar(
             state = RediBottomBarState(
                 activeIndex = 1,
-                cartCounter = 10
+                cartCounter = 1
             ), useComponent = UseRediBottomBar.Empty()
         )
     }
