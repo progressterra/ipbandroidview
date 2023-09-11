@@ -53,7 +53,7 @@ fun CartScreen(
             state = state.screen, useComponent = useComponent
         ) {
             CartItems(
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 40.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                 state = state.items, useComponent = useComponent
             )
         }
