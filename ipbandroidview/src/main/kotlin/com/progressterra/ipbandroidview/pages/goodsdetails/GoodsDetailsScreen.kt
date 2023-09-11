@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.pages.goodsdetails
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,6 +38,7 @@ fun GoodsDetailsScreen(
             state = state.screen,
             useComponent = useComponent
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
             ItemGallery(state = state.gallery, useComponent = useComponent)
             GoodsDescription(state = state.description, useComponent = useComponent)
             BuyGoods(state = state.buyGoods, useComponent = useComponent)

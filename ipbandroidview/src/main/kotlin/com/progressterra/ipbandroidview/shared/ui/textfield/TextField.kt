@@ -71,7 +71,7 @@ fun TextField(
             useComponent.handle(
                 TextFieldEvent.TextChanged(
                     state.id,
-                    "${it.dayOfMonth}${it.month}${it.year}"
+                    "${it.dayOfMonth}${it.monthValue}${it.year}"
                 )
             )
         }
@@ -115,7 +115,7 @@ fun TextField(
         trailingIcon = {
             val iconColor =
                 if (focused) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
-            IconButton(onClick = {
+            IconButton(enabled = state.enabled, onClick = {
                 when (state.type) {
                     TextInputType.DATE -> calendarState.show()
                     TextInputType.CHAT -> useComponent.handle(TextFieldEvent.AdditionalAction(state.id))
