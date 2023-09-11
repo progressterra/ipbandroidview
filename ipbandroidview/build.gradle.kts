@@ -91,6 +91,10 @@ dependencies {
     api("androidx.compose.material:material:1.5.1")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
+    // Dialogs
+    api("com.maxkeppeler.sheets-compose-dialogs:core:1.2.0")
+    api("com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.0")
+
     // Koin, DI library
     api("io.insert-koin:koin-android:3.4.3")
     api("io.insert-koin:koin-androidx-compose:3.4.6")
