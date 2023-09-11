@@ -48,7 +48,8 @@ fun WantThisScreen(
                 DocumentPhoto(
                     modifier = Modifier.padding(horizontal = 20.dp),
                     state = state.document.photo,
-                    useComponent = useComponent
+                    useComponent = useComponent,
+                    name = stringResource(id = R.string.want_this_photo),
                 )
             }
             Column(

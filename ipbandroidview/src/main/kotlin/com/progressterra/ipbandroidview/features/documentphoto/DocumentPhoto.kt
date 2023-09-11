@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
@@ -30,6 +29,7 @@ import com.progressterra.ipbandroidview.shared.ui.niceClickable
 fun DocumentPhoto(
     modifier: Modifier = Modifier,
     state: DocumentPhotoState,
+    name: String,
     useComponent: UseDocumentPhoto
 ) {
 
@@ -55,7 +55,7 @@ fun DocumentPhoto(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             BrushedText(
-                text = stringResource(R.string.photo),
+                text = name,
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush()
             )
@@ -101,7 +101,8 @@ private fun AttachedPhotosPreviewEnabled() {
                         id = "", local = false, toRemove = false, url = ""
                     )
                 )
-            ), useComponent = UseDocumentPhoto.Empty()
+            ), useComponent = UseDocumentPhoto.Empty(),
+            name = "Foto foto"
         )
     }
 }

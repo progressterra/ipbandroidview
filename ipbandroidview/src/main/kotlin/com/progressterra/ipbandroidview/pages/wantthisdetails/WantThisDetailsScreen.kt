@@ -136,7 +136,8 @@ fun WantThisDetailsScreen(
                 }
                 DocumentPhoto(
                     state = state.document.photo,
-                    useComponent = useComponent
+                    useComponent = useComponent,
+                    name = stringResource(id = R.string.want_this_photo)
                 )
             }
             if (!state.storeCard.isEmpty()) {

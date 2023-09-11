@@ -173,4 +173,7 @@
     <string name="docs_chats">Чаты по документам</string>
     <string name="goods_quantity">Товаров:</string>
     <string name="to_order">Перейти к заказу</string>
+    <string name="bank_card_photo">Фото банковской карты</string>
+    <string name="want_this_photo">Фото товара</string>
+    <string name="document_photo">Фото документа</string>
 </resources>

@@ -116,6 +116,7 @@ fun BankCardDetailsScreen(
             DocumentPhoto(
                 modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.document.photo,
+                name = stringResource(id = R.string.bank_card_photo),
                 useComponent = useComponent
             )
         }

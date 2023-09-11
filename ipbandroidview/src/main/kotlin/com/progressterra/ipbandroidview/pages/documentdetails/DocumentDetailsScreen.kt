@@ -78,7 +78,8 @@ fun DocumentDetailsScreen(
                     item {
                         DocumentPhoto(
                             state = state.document.photo,
-                            useComponent = useComponent
+                            useComponent = useComponent,
+                            name = "${stringResource(id = R.string.document_photo)} ${state.document.name}"
                         )
                     }
                 }
