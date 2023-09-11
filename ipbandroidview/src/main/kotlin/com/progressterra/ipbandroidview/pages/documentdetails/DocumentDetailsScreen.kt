@@ -29,7 +29,9 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
 fun DocumentDetailsScreen(
-    modifier: Modifier = Modifier, state: DocumentDetailsScreenState, useComponent: UseDocumentDetailsScreen
+    modifier: Modifier = Modifier,
+    state: DocumentDetailsScreenState,
+    useComponent: UseDocumentDetailsScreen
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
@@ -79,7 +81,7 @@ fun DocumentDetailsScreen(
                         DocumentPhoto(
                             state = state.document.photo,
                             useComponent = useComponent,
-                            name = "${stringResource(id = R.string.document_photo)} ${state.document.name}"
+                            name = "${stringResource(id = R.string.document_photo)} ${state.document.name.lowercase()}"
                         )
                     }
                 }
