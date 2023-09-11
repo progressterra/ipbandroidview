@@ -31,7 +31,11 @@ fun ProfileDetailsScreen(
             )
         },
         bottomBar = {
-            EditButton(state = state.editButton, useComponent = useComponent)
+            EditButton(
+                modifier = Modifier.padding(horizontal = 8.dp),
+                state = state.editButton,
+                useComponent = useComponent
+            )
         }, bottomOverlap = true
     ) { _, bottom ->
         StateColumn(

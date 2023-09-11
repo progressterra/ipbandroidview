@@ -36,7 +36,7 @@ fun PaymentScreen(
         },
         bottomBar = {
             Receipt(
-                modifier = Modifier.padding(top = 40.dp),
+                modifier = Modifier.padding(top = 40.dp, start = 8.dp, end = 8.dp),
                 state = state.receipt, useComponent = useComponent
             )
         }) { _, _ ->

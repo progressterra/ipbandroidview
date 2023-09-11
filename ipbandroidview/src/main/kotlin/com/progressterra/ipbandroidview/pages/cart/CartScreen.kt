@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.cart
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -43,8 +42,7 @@ fun CartScreen(
                     .padding(horizontal = 8.dp)
                     .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
                     .background(IpbTheme.colors.surface.asBrush())
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                    .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 36.dp)
             ) {
                 CartSummary(
                     state = state.summary, useComponent = useComponent

@@ -4,9 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -30,9 +28,9 @@ fun Receipt(
 
     Column(
         modifier = modifier
-            .padding(horizontal = 8.dp)
             .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp))
-            .background(IpbTheme.colors.surface.asBrush()),
+            .background(IpbTheme.colors.surface.asBrush())
+            .padding(bottom = 36.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
@@ -109,6 +107,5 @@ fun Receipt(
             style = IpbTheme.typography.footnoteRegular,
             brush = IpbTheme.colors.textSecondary.asBrush()
         )
-        Spacer(Modifier.height(0.dp))
     }
 }

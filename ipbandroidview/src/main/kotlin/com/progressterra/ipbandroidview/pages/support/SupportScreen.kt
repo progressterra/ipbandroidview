@@ -22,8 +22,8 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.widgets.messages.Messages
@@ -47,7 +47,12 @@ fun SupportScreen(
         }, bottomBar = {
             if (state.current.finite)
                 Row(
-                    modifier = modifier.padding(horizontal = 20.dp, vertical = 8.dp)
+                    modifier = modifier.padding(
+                        start = 20.dp,
+                        top = 8.dp,
+                        end = 20.dp,
+                        bottom = 36.dp
+                    )
                 ) {
                     TextField(
                         modifier = modifier.fillMaxWidth(),
