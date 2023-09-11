@@ -67,11 +67,11 @@ fun TextField(
             monthSelection = true,
             style = CalendarStyle.MONTH
         ),
-        selection = CalendarSelection.Date {
+        selection = CalendarSelection.Date { date ->
             useComponent.handle(
                 TextFieldEvent.TextChanged(
                     state.id,
-                    "${it.dayOfMonth}${it.monthValue}${it.year}"
+                    "${date.dayOfMonth}${date.monthValue.let { if (it < 10) "0$it" else it.toString() }}${date.year}"
                 )
             )
         }

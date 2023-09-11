@@ -41,7 +41,7 @@ interface AddToCartUseCase {
                         counter = oneGoods.counter.copy(count = it.quantity ?: 0)
                     )
                 } ?: emptyList()
-                UserData.cartCounter += 1
+                UserData.cartCounter = UserData.cartCounter + 1
                 CartScreenState(
                     items = CartItemsState(goods),
                     summary = CartSummaryState(
