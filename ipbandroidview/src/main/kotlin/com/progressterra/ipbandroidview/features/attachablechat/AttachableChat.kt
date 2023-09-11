@@ -86,8 +86,7 @@ fun AttachableChat(
                 modifier = Modifier.fillMaxWidth(),
                 state = state.input,
                 useComponent = useComponent,
-                hint = stringResource(R.string.message),
-                actionIcon = R.drawable.ic_send
+                hint = stringResource(R.string.message)
             )
         }
     }

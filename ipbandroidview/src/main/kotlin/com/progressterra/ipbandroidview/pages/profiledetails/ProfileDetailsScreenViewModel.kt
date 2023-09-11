@@ -40,7 +40,6 @@ class ProfileDetailsScreenViewModel(
 
     override fun handle(event: StateColumnEvent) {
         refresh()
-
     }
 
     override fun handle(event: AuthProfileEvent) = Unit
@@ -114,33 +113,7 @@ class ProfileDetailsScreenViewModel(
             }
 
             is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> emitState {
-                    it.copy(
-                        editUser = it.editUser.copy(
-                            name = it.editUser.name.copy(
-                                text = ""
-                            )
-                        )
-                    )
-                }
-
-                "email" -> emitState {
-                    it.copy(
-                        editUser = it.editUser.copy(
-                            email = it.editUser.email.copy(
-                                text = ""
-                            )
-                        )
-                    )
-                }
-
-                "birthday" -> emitState {
-                    it.copy(
-                        editUser = it.editUser.copy(birthday = it.editUser.birthday.copy(text = ""))
-                    )
-                }
-            }
+            is TextFieldEvent.AdditionalAction -> Unit
         }
         valid()
     }
@@ -148,7 +121,7 @@ class ProfileDetailsScreenViewModel(
     private fun valid() {
         onBackground {
             val valid =
-                currentState.editUser.name.valid() && currentState.editUser.email.valid() && currentState.editUser.birthday.valid()
+                currentState.editUser.name.valid() && currentState.editUser.birthday.valid()
             emitState {
                 it.copy(
                     editButton = it.editButton.copy(

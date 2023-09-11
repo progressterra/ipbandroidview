@@ -103,17 +103,7 @@ class DeliveryScreenViewModel(
             }
 
             is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "address" -> emitState {
-                    it.copy(
-                        deliveryPicker = it.deliveryPicker.copy(
-                            address = it.deliveryPicker.address.copy(
-                                text = ""
-                            )
-                        )
-                    )
-                }
-            }
+            is TextFieldEvent.AdditionalAction -> Unit
         }
         emitState { it.copy(address = AddressUI(), suggestion = SuggestionUI()) }
         checkValid()

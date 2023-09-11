@@ -1,5 +1,7 @@
 package com.progressterra.ipbandroidview.shared.ui.textfield
 
+import android.app.DatePickerDialog
+import android.widget.DatePicker
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
@@ -17,11 +19,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.shared.UserData.context
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.theme.toBrush
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.clearFocusOnKeyboardDismiss
+import java.util.Calendar
 
 @Composable
 fun TextField(
@@ -31,7 +36,6 @@ fun TextField(
     hint: String = "",
     singleLine: Boolean = true,
     backgroundColor: Color = IpbTheme.colors.surface.asColor(),
-    actionIcon: Int? = null
 ) {
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
@@ -54,6 +58,22 @@ fun TextField(
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     val focusManager = LocalFocusManager.current
+    val calendar = remember { Calendar.getInstance() }
+    val year = calendar[Calendar.YEAR]
+    val month = calendar[Calendar.MONTH]
+    val dayOfMonth = calendar[Calendar.DAY_OF_MONTH]
+
+    val datePicker = DatePickerDialog(
+        context,
+        { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDayOfMonth: Int ->
+            useComponent.handle(
+                TextFieldEvent.TextChanged(
+                    state.id,
+                    "$selectedDayOfMonth$selectedMonth$selectedYear"
+                )
+            )
+        }, year, month, dayOfMonth
+    )
     TextField(
         modifier = modifier
             .border(
@@ -90,18 +110,24 @@ fun TextField(
         enabled = state.enabled,
         textStyle = IpbTheme.typography.body,
         singleLine = singleLine,
-        trailingIcon = actionIcon?.let {
-            {
-                IconButton(onClick = {
-                    useComponent.handle(
-                        TextFieldEvent.AdditionalAction(state.id)
-                    )
-                }) {
-                    BrushedIcon(
-                        resId = it,
-                        tint = if (focused) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
-                    )
+        trailingIcon = {
+            val iconColor =
+                if (focused) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
+            IconButton(onClick = {
+                when (state.type) {
+                    TextInputType.DATE -> datePicker.show()
+                    TextInputType.CHAT -> useComponent.handle(TextFieldEvent.AdditionalAction(state.id))
+                    else -> useComponent.handle(TextFieldEvent.TextChanged(state.id, ""))
                 }
+            }) {
+                BrushedIcon(
+                    resId =
+                    when (state.type) {
+                        TextInputType.DATE -> R.drawable.ic_cal
+                        TextInputType.CHAT -> R.drawable.ic_send
+                        else -> R.drawable.ic_close
+                    }, tint = iconColor
+                )
             }
         },
         colors = TextFieldDefaults.textFieldColors(

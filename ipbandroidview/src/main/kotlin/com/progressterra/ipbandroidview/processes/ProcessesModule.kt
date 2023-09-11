@@ -32,6 +32,7 @@ import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenPhoneUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.processes.utils.ShareTextUseCase
@@ -142,4 +143,6 @@ val processesModule = module {
     single<FetchWithdrawalUseCase> { FetchWithdrawalUseCase.Base(get(), get()) }
 
     single<FetchSingleGoodsUseCase> { FetchSingleGoodsUseCase.Base(get(), get()) }
+
+    single<MakeToastUseCase> { MakeToastUseCase.Base(get()) }
 }

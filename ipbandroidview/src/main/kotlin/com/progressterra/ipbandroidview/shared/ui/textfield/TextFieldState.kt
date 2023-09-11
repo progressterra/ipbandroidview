@@ -44,11 +44,11 @@ data class TextFieldState(
     }
 
     fun valid() = when (type) {
-        TextInputType.NUMBER -> text.isDigitsOnly()
-        TextInputType.PHONE_NUMBER -> text.isRussianPhoneNumberWithoutHeading()
-        TextInputType.DATE -> text.isDigitsOnly() && text.length == 8
-        TextInputType.EMAIL -> text.isEmail()
-        TextInputType.NAME_SURNAME -> text.split(" ").size ==2
+        TextInputType.NUMBER -> text.trim().isDigitsOnly()
+        TextInputType.PHONE_NUMBER -> text.trim().isRussianPhoneNumberWithoutHeading()
+        TextInputType.DATE -> text.trim().isDigitsOnly() && text.length == 8
+        TextInputType.EMAIL -> text.trim().isEmail()
+        TextInputType.NAME_SURNAME -> text.trim().split(" ").size ==2
         else -> true
     }
 

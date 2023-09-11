@@ -33,16 +33,14 @@ fun EditUser(
             state = state.name,
             hint = stringResource(R.string.name_surname),
             useComponent = useComponent,
-            backgroundColor = IpbTheme.colors.background.asColor(),
-            actionIcon = R.drawable.ic_cancel
+            backgroundColor = IpbTheme.colors.background.asColor()
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.birthday,
             hint = stringResource(R.string.birthday),
             useComponent = useComponent,
-            backgroundColor = IpbTheme.colors.background.asColor(),
-            actionIcon = R.drawable.ic_cancel
+            backgroundColor = IpbTheme.colors.background.asColor()
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
@@ -56,8 +54,7 @@ fun EditUser(
             state = state.email,
             hint = stringResource(R.string.email),
             useComponent = useComponent,
-            backgroundColor = IpbTheme.colors.background.asColor(),
-            actionIcon = R.drawable.ic_cancel
+            backgroundColor = IpbTheme.colors.background.asColor()
         )
     }
 }

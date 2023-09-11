@@ -81,25 +81,7 @@ class SignUpScreenViewModel(
             }
 
             is TextFieldEvent.Action -> Unit
-            is TextFieldEvent.AdditionalAction -> when (event.id) {
-                "name" -> emitState {
-                    it.copy(
-                        editUser = it.editUser.copy(name = it.editUser.name.copy(text = ""))
-                    )
-                }
-
-                "email" -> emitState {
-                    it.copy(
-                        editUser = it.editUser.copy(email = it.editUser.email.copy(text = ""))
-                    )
-                }
-
-                "birthday" -> emitState {
-                    it.copy(
-                        editUser = it.editUser.copy(birthday = it.editUser.birthday.copy(text = ""))
-                    )
-                }
-            }
+            is TextFieldEvent.AdditionalAction -> Unit
         }
         valid()
     }

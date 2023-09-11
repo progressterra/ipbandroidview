@@ -49,8 +49,7 @@ fun DeliveryPicker(
                 modifier = Modifier.fillMaxWidth(),
                 state = state.address,
                 useComponent = useComponent,
-                hint = stringResource(R.string.address),
-                actionIcon = R.drawable.ic_cancel
+                hint = stringResource(R.string.address)
             )
             AddressSuggestions(
                 state = state.suggestions,

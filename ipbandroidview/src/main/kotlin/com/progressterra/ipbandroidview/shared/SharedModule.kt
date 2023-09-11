@@ -8,6 +8,7 @@ import android.os.Build
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
+import com.progressterra.ipbandroidview.shared.activity.MakeToastContract
 import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
 import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
 import org.koin.android.ext.koin.androidContext
@@ -33,6 +34,10 @@ val sharedModule = module {
     single {
         MakePhotoContract.Base()
     }.binds(arrayOf(MakePhotoContract.Activity::class, MakePhotoContract.Client::class))
+
+    single {
+        MakeToastContract.Base()
+    }.binds(arrayOf(MakeToastContract.Activity::class, MakeToastContract.Client::class))
 
     single { androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
 
