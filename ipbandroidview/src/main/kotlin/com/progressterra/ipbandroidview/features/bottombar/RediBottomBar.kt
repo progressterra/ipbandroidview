@@ -77,21 +77,25 @@ fun RediBottomBar(
                 index = 1
             )
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
                     modifier = Modifier
-                        .stealthClickable { useComponent.handle(RediBottomBarEvent(2)) }
+                        .stealthClickable {
+                            useComponent.handle(RediBottomBarEvent(2))
+                        }
                         .shadow(elevation = 4.dp, shape = CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     BrushedIcon(
-                        modifier = Modifier.size(48.dp),
+                        modifier = Modifier
+                            .size(48.dp),
                         resId = R.drawable.ic_want_this_outer,
                         tint = if (2 == state.activeIndex) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.surface.asBrush()
                     )
                     BrushedIcon(
-                        modifier = Modifier.size(36.dp),
+                        modifier = Modifier
+                            .size(36.dp),
                         resId = R.drawable.ic_want_this_inner,
                         tint = IpbTheme.colors.surface.asBrush()
                     )
