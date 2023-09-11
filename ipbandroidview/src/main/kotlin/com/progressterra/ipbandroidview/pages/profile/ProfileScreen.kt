@@ -54,6 +54,13 @@ fun ProfileScreen(
             Spacer(Modifier.height(8.dp))
             ProfileButton(
                 modifier = Modifier.padding(horizontal = 20.dp),
+                state = state.wantThis,
+                useComponent = useComponent,
+                title = stringResource(R.string.want_this)
+            )
+            Spacer(Modifier.height(8.dp))
+            ProfileButton(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.favorites,
                 useComponent = useComponent,
                 title = stringResource(R.string.favorites)
@@ -69,17 +76,18 @@ fun ProfileScreen(
             Spacer(Modifier.height(8.dp))
             ProfileButton(
                 modifier = Modifier.padding(horizontal = 20.dp),
-                state = state.support,
-                useComponent = useComponent,
-                title = stringResource(R.string.support)
-            )
-            Spacer(Modifier.height(8.dp))
-            ProfileButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.bankCards,
                 useComponent = useComponent,
                 title = stringResource(R.string.bank_cards)
             )
+            Spacer(Modifier.height(8.dp))
+            ProfileButton(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                state = state.support,
+                useComponent = useComponent,
+                title = stringResource(R.string.support)
+            )
+
             Spacer(Modifier.weight(1f))
             ProfileButton(
                 modifier = Modifier.padding(horizontal = 20.dp),

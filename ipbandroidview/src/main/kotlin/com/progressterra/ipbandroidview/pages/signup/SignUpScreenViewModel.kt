@@ -18,7 +18,7 @@ class SignUpScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             fetchUserUseCase().onSuccess { user ->
                 emitState {
                     it.copy(

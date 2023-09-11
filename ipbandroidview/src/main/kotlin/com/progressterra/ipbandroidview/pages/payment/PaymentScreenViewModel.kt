@@ -9,7 +9,6 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class PaymentScreenViewModel(
@@ -24,9 +23,7 @@ class PaymentScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState {
-                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
-            }
+            emitState { createInitialState() }
             var isSuccess = true
             fetchPaymentMethods().onSuccess { paymentMethods ->
                 emitState {

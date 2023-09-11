@@ -17,7 +17,7 @@ class SupportScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             fetchChatsUseCase().onSuccess { newState ->
                 val cached = newState.copy(subCategories = cachePaging(newState.subCategories))
                 emitState {

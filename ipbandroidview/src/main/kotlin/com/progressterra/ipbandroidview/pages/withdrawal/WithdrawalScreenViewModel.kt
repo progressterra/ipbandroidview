@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class WithdrawalScreenViewModel(
@@ -18,7 +17,7 @@ class WithdrawalScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             var isSuccess = true
             fetchWithdrawalTransactionsUseCase().onSuccess { transactions ->
                 emitState {

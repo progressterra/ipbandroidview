@@ -52,13 +52,6 @@ fun CartCard(
                 style = IpbTheme.typography.footnoteRegular,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
             )
-            state.properties.forEach {
-                BrushedText(
-                    text = "${it.first}: ${it.second}",
-                    style = IpbTheme.typography.footnoteRegular,
-                    tint = IpbTheme.colors.textSecondary.asBrush()
-                )
-            }
             if (state.installment.isEmpty()) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(4.dp)

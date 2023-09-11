@@ -56,7 +56,7 @@ class WantThisScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             fetchWantThisUseCase().onSuccess { newDocument ->
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
                 docsModule.setup(newDocument)

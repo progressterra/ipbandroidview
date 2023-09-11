@@ -17,9 +17,7 @@ class SignInScreenViewModel(
     override fun createInitialState() = SignInScreenState()
 
     override fun refresh() {
-        emitState {
-            it.copy(auth = it.auth.copy(enabled = false))
-        }
+        emitState { createInitialState() }
     }
 
     override fun handle(event: ButtonEvent) {

@@ -21,8 +21,14 @@ class CartScreenViewModel(
 
     override fun refresh() {
         onBackground {
+            emitState { createInitialState() }
             val call = fetchCartUseCase().onSuccess { newState -> emitState { newState } }
-            emitState { it.copy(screen = it.screen.copy(state = call.isSuccess.toScreenState()), summary = it.summary.copy(proceed = it.summary.proceed.copy(enabled = it.items.items.isNotEmpty()))) }
+            emitState {
+                it.copy(
+                    screen = it.screen.copy(state = call.isSuccess.toScreenState()),
+                    summary = it.summary.copy(proceed = it.summary.proceed.copy(enabled = it.items.items.isNotEmpty()))
+                )
+            }
         }
     }
 
@@ -47,6 +53,7 @@ class CartScreenViewModel(
 
     override fun handle(event: CounterEvent) {
         onBackground {
+            emitState { createInitialState() }
             when (event) {
                 is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess { newState ->
                     emitState { newState.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }

@@ -14,7 +14,7 @@ class OrdersScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             ordersUseCase().onSuccess { nonCached ->
                 emitState {
                     it.copy(

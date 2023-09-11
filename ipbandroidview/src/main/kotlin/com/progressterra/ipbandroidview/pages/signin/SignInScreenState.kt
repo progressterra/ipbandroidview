@@ -11,6 +11,7 @@ data class SignInScreenState(
         id = "phone"
     ),
     val auth: ButtonState = ButtonState(
-        id = "auth"
+        id = "auth",
+        enabled = false
     )
 )

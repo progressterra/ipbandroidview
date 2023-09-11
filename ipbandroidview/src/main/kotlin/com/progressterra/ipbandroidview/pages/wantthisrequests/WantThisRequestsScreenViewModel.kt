@@ -20,7 +20,7 @@ class WantThisRequestsScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             wantThisRequestsUseCase().onSuccess { nonCached ->
                 emitState {
                     it.copy(

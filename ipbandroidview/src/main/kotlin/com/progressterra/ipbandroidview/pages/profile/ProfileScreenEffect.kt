@@ -4,6 +4,8 @@ sealed class ProfileScreenEffect {
 
     data object Logout : ProfileScreenEffect()
 
+    data object WantThis : ProfileScreenEffect()
+
     data object Orders : ProfileScreenEffect()
 
     data object Favorites : ProfileScreenEffect()

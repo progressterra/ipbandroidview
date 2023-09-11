@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
 
@@ -23,7 +22,7 @@ class MainScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             var isSuccess = true
             fetchBonusesUseCase().onSuccess { bonuses ->
                 emitState { it.copy(bonuses = bonuses) }

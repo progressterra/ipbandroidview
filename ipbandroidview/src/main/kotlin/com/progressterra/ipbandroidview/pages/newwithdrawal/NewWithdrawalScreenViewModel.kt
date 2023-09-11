@@ -9,8 +9,6 @@ import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCas
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import kotlinx.coroutines.flow.map
@@ -22,16 +20,11 @@ class NewWithdrawalScreenViewModel(
 ) : AbstractNonInputViewModel<NewWithdrawalScreenState, NewWithdrawalScreenEffect>(),
     UseNewWithdrawalScreen {
 
-    override fun createInitialState(): NewWithdrawalScreenState = NewWithdrawalScreenState(
-        add = ButtonState(
-            id = "add",
-            enabled = false
-        )
-    )
+    override fun createInitialState(): NewWithdrawalScreenState = NewWithdrawalScreenState()
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             var isSuccess = true
             fetchConfirmedBankCardsUseCase().onSuccess { cards ->
                 emitState {

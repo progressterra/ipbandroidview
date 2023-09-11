@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
@@ -23,9 +22,7 @@ class DocumentsScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState {
-                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
-            }
+            emitState { createInitialState() }
             var isSuccess = true
             documentsUseCase().onSuccess { docs ->
                 emitState {

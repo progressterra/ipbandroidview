@@ -4,6 +4,8 @@ import com.progressterra.ipbandroidview.shared.mvi.OnAuth
 
 interface ProfileScreenNavigation : OnAuth {
 
+    fun onWantThis()
+
     fun onFavorites()
 
     fun onLogout()

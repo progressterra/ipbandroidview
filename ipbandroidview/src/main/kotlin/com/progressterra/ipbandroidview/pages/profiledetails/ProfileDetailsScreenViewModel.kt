@@ -21,7 +21,7 @@ class ProfileDetailsScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { ProfileDetailsState() }
+            emitState { createInitialState() }
             fetchUserUseCase().onSuccess { editUser ->
                 emitState {
                     it.copy(

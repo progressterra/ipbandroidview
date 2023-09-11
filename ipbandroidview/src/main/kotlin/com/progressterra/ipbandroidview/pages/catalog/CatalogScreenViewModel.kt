@@ -25,7 +25,7 @@ class CatalogScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             catalogUseCase().onSuccess { catalog ->
                 emitState {
                     it.copy(

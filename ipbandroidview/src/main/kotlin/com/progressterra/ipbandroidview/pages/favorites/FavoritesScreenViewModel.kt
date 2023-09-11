@@ -19,7 +19,7 @@ class FavoritesScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState { createInitialState() }
             favoriteGoodsUseCase().onSuccess { nonCached ->
                 emitState {
                     it.copy(

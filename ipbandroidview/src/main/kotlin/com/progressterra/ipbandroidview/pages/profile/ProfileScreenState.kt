@@ -14,6 +14,7 @@ data class ProfileScreenState(
     val authProfileState: AuthProfileState = AuthProfileState(),
     val screen: StateColumnState = StateColumnState(),
     val orders: ProfileButtonState = ProfileButtonState(id = "orders"),
+    val wantThis: ProfileButtonState = ProfileButtonState(id = "wantThis"),
     val support: ProfileButtonState = ProfileButtonState(id = "support"),
     val favorites: ProfileButtonState = ProfileButtonState(id = "favorites"),
     val documents: ProfileButtonState = ProfileButtonState(id = "documents"),

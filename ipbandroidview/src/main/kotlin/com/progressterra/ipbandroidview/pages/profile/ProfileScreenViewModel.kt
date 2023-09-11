@@ -8,7 +8,6 @@ import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class ProfileScreenViewModel(
@@ -21,9 +20,7 @@ class ProfileScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState {
-                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
-            }
+            emitState { createInitialState() }
             var isSuccess = true
             fetchUserProfileUseCase().onSuccess { profile ->
                 emitState {
@@ -69,6 +66,7 @@ class ProfileScreenViewModel(
 
                 "delete" -> Unit
                 "orders" -> postEffect(ProfileScreenEffect.Orders)
+                "wantThis" -> postEffect(ProfileScreenEffect.WantThis)
                 "favorites" -> postEffect(ProfileScreenEffect.Favorites)
                 "support" -> postEffect(ProfileScreenEffect.Support)
                 "bankCards" -> postEffect(ProfileScreenEffect.BankCards)

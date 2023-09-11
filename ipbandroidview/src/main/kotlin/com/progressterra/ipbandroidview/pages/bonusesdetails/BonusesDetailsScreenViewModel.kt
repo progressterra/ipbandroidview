@@ -5,22 +5,20 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 
 class BonusesDetailsScreenViewModel(
     private val bonusesUseCase: BonusesUseCase,
     private val fetchBonusesTransactionsUseCase: FetchBonusesTransactionsUseCase
-) : AbstractNonInputViewModel<BonusesDetailsScreenState, BonusesDetailsScreenEffect>(), UseBonusesDetailsScreen {
+) : AbstractNonInputViewModel<BonusesDetailsScreenState, BonusesDetailsScreenEffect>(),
+    UseBonusesDetailsScreen {
 
     override fun createInitialState() = BonusesDetailsScreenState()
 
     override fun refresh() {
         onBackground {
-            emitState {
-                it.copy(screen = it.screen.copy(state = ScreenState.LOADING))
-            }
+            emitState { createInitialState() }
             var isSuccess = true
             bonusesUseCase().onSuccess { bonusesInfo ->
                 emitState {
