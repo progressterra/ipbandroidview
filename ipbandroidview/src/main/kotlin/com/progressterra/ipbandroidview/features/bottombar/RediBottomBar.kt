@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +34,7 @@ fun RediBottomBar(
     fun Item(
         iconRes: Int,
         titleRes: Int,
+        counter: Int = 0,
         index: Int
     ) {
         Column(
@@ -41,11 +43,29 @@ fun RediBottomBar(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            BrushedIcon(
-                modifier = Modifier.size(24.dp),
-                resId = iconRes,
-                tint = if (index == state.activeIndex) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary.asBrush()
-            )
+            Box(
+                modifier = Modifier.size(24.dp)
+            ) {
+                BrushedIcon(
+                    modifier = Modifier.size(24.dp),
+                    resId = iconRes,
+                    tint = if (index == state.activeIndex) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary.asBrush()
+                )
+                if (counter > 0) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .clip(CircleShape)
+                            .background(IpbTheme.colors.primary.asBrush()),
+                    ) {
+                        BrushedText(
+                            text = counter.toString(),
+                            style = IpbTheme.typography.caption,
+                            tint = IpbTheme.colors.surface.asBrush()
+                        )
+                    }
+                }
+            }
             BrushedText(
                 text = stringResource(id = titleRes),
                 style = IpbTheme.typography.footnoteBold,
@@ -114,6 +134,7 @@ fun RediBottomBar(
             Item(
                 iconRes = R.drawable.ic_cart,
                 titleRes = R.string.cart_screen,
+                counter = state.cartCounter,
                 index = 3
             )
             Item(
@@ -131,7 +152,8 @@ private fun RediBottomBarPreview() {
     IpbTheme {
         RediBottomBar(
             state = RediBottomBarState(
-                activeIndex = 1
+                activeIndex = 1,
+                cartCounter = 10
             ), useComponent = UseRediBottomBar.Empty()
         )
     }

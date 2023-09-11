@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.pages.cart.CartScreenState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
@@ -40,6 +41,7 @@ interface AddToCartUseCase {
                         counter = oneGoods.counter.copy(count = it.quantity ?: 0)
                     )
                 } ?: emptyList()
+                UserData.cartCounter += 1
                 CartScreenState(
                     items = CartItemsState(goods),
                     summary = CartSummaryState(
