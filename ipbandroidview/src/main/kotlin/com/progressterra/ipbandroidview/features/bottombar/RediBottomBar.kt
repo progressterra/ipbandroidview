@@ -102,9 +102,7 @@ fun RediBottomBar(
             ) {
                 Box(
                     modifier = Modifier
-                        .stealthClickable {
-                            useComponent.handle(RediBottomBarEvent(2))
-                        },
+                        .stealthClickable { useComponent.handle(RediBottomBarEvent(2)) },
                     contentAlignment = Alignment.Center
                 ) {
                     BrushedIcon(

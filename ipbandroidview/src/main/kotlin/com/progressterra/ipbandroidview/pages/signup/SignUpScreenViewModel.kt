@@ -89,7 +89,7 @@ class SignUpScreenViewModel(
 
     private fun valid() = onBackground {
         val valid =
-            currentState.editUser.name.valid() && currentState.editUser.email.valid() && currentState.editUser.birthday.valid()
+            currentState.editUser.name.valid() && currentState.editUser.birthday.valid()
         emitState { it.copy(next = it.next.copy(enabled = valid)) }
     }
 }
