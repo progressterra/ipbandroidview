@@ -70,7 +70,7 @@ afterEvaluate {
 
 dependencies {
     // Core
-    api("androidx.core:core-ktx:1.10.1")
+    api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
     api("com.google.android.material:material:1.9.0")
 
@@ -83,12 +83,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.7.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.5.0")
-    api("androidx.compose.ui:ui-util:1.5.0")
-    api("androidx.compose.ui:ui-tooling:1.5.0")
-    api("androidx.compose.ui:ui-tooling-preview:1.5.0")
-    api("androidx.compose.foundation:foundation:1.5.0")
-    api("androidx.compose.material:material:1.5.0")
+    api("androidx.compose.ui:ui:1.5.1")
+    api("androidx.compose.ui:ui-util:1.5.1")
+    api("androidx.compose.ui:ui-tooling:1.5.1")
+    api("androidx.compose.ui:ui-tooling-preview:1.5.1")
+    api("androidx.compose.foundation:foundation:1.5.1")
+    api("androidx.compose.material:material:1.5.1")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Koin, DI library
@@ -127,8 +127,8 @@ dependencies {
     api("com.github.skydoves:landscapist-fresco:2.2.8")
     api("com.github.skydoves:landscapist-placeholder:2.2.8")
 
-    api("androidx.paging:paging-runtime-ktx:3.2.0")
-    api("androidx.paging:paging-compose:3.2.0")
+    api("androidx.paging:paging-runtime-ktx:3.2.1")
+    api("androidx.paging:paging-compose:3.2.1")
 
     // Reflection
     api("org.jetbrains.kotlin:kotlin-reflect:1.9.10")
