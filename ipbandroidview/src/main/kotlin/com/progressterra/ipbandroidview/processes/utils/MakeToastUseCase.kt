@@ -1,19 +1,20 @@
 package com.progressterra.ipbandroidview.processes.utils
 
+import android.content.Context
+import android.widget.Toast
 import androidx.annotation.StringRes
 import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
-import com.progressterra.ipbandroidview.shared.activity.MakeToastContract
 
 interface MakeToastUseCase {
 
     suspend operator fun invoke(@StringRes resId: Int): Result<Unit>
 
     class Base(
-        private val contract: MakeToastContract.Client
+        private val context: Context
     ) : MakeToastUseCase, AbstractLoggingUseCase() {
 
         override suspend fun invoke(resId: Int) = handle {
-            contract.makeToast(resId)
+            Toast.makeText(context, resId, Toast.LENGTH_LONG).show()
         }
     }
 }

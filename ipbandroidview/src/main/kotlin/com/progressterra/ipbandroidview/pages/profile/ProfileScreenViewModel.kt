@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
@@ -13,7 +14,8 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class ProfileScreenViewModel(
     private val fetchUserProfileUseCase: FetchUserProfileUseCase,
     private val logoutUseCase: LogoutUseCase,
-    private val documentsNotification: DocumentsNotificationUseCase
+    private val documentsNotification: DocumentsNotificationUseCase,
+    private val fetchAvatarUseCase: FetchAvatarUseCase
 ) : AbstractNonInputViewModel<ProfileScreenState, ProfileScreenEffect>(), UseProfileScreen {
 
     override fun createInitialState() = ProfileScreenState()
@@ -41,6 +43,9 @@ class ProfileScreenViewModel(
                     it.copy(documents = it.documents.copy(enabled = false))
                 }
             }
+            fetchAvatarUseCase().onSuccess { url ->
+                emitState { it.copy(authProfileState = it.authProfileState.copy(profileImage = url)) }
+            }.onFailure { isSuccess = false }
             emitState {
                 it.copy(screen = it.screen.copy(state = isSuccess.toScreenState()))
             }

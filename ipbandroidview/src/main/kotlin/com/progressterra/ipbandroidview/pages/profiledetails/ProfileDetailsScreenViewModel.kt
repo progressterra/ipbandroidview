@@ -1,10 +1,16 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
-import com.progressterra.ipbandroidview.features.authprofile.AuthProfileEvent
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.toScreenState
+import com.progressterra.ipbandroidview.features.editprofile.EditProfileEvent
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
+import com.progressterra.ipbandroidview.processes.user.PickPhotoUseCase
+import com.progressterra.ipbandroidview.processes.user.SaveAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -13,15 +19,32 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class ProfileDetailsScreenViewModel(
     private val saveUseCase: SaveDataUseCase,
-    private val fetchUserUseCase: FetchUserUseCase
+    private val fetchUserUseCase: FetchUserUseCase,
+    private val fetchAvatarUseCase: FetchAvatarUseCase,
+    private val pickPhotoUseCase: PickPhotoUseCase,
+    private val saveAvatarUseCase: SaveAvatarUseCase,
+    private val makeToastUseCase: MakeToastUseCase
 ) : AbstractNonInputViewModel<ProfileDetailsState, ProfileDetailsScreenEffect>(),
     UseProfileDetailsScreen {
 
     override fun createInitialState() = ProfileDetailsState()
 
+    override fun handle(event: EditProfileEvent) {
+        onBackground {
+            pickPhotoUseCase().onSuccess { path ->
+                saveAvatarUseCase(path).onSuccess {
+                    makeToastUseCase(R.string.success)
+                }.onFailure {
+                    makeToastUseCase(R.string.failure)
+                }
+            }
+        }
+    }
+
     override fun refresh() {
         onBackground {
             emitState { createInitialState() }
+            var isSuccess = true
             fetchUserUseCase().onSuccess { editUser ->
                 emitState {
                     it.copy(
@@ -33,17 +56,19 @@ class ProfileDetailsScreenViewModel(
                         ), screen = it.screen.copy(state = ScreenState.SUCCESS)
                     )
                 }
-            }
-                .onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
+            }.onFailure { isSuccess = false }
+            fetchAvatarUseCase().onSuccess { url ->
+                emitState {
+                    it.copy(editProfile = it.editProfile.copy(profileImage = url))
+                }
+            }.onFailure { isSuccess = false }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 
     override fun handle(event: StateColumnEvent) {
         refresh()
     }
-
-    override fun handle(event: AuthProfileEvent) = Unit
-
 
     override fun handle(event: ButtonEvent) {
         onBackground {

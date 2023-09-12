@@ -24,10 +24,13 @@ import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCas
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
+import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.LogoutUseCase
+import com.progressterra.ipbandroidview.processes.user.PickPhotoUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
+import com.progressterra.ipbandroidview.processes.user.SaveAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
@@ -145,4 +148,10 @@ val processesModule = module {
     single<FetchSingleGoodsUseCase> { FetchSingleGoodsUseCase.Base(get(), get()) }
 
     single<MakeToastUseCase> { MakeToastUseCase.Base(get()) }
+
+    single<PickPhotoUseCase> { PickPhotoUseCase.Base(get()) }
+
+    single<SaveAvatarUseCase> { SaveAvatarUseCase.Base(get(), get()) }
+
+    single<FetchAvatarUseCase> { FetchAvatarUseCase.Base(get(), get()) }
 }

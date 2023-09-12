@@ -140,7 +140,7 @@
     <string name="payment_error">Произошла ошибка при оплате</string>
     <string name="tracking">Отслеживание</string>
     <string name="success">Успешно</string>
-    <string name="failure">Ошибка!</string>
+    <string name="failure">Ошибка</string>
     <string name="price_for_you">Цена для вас:</string>
     <string name="added_to_cart">Добавлено в корзину</string>
     <string name="removed_from_cart">Удалено из корзины</string>
@@ -176,4 +176,5 @@
     <string name="bank_card_photo">Фото банковской карты</string>
     <string name="want_this_photo">Фото товара</string>
     <string name="document_photo">Фото документа</string>
+    <string name="change_avatar">Сменить аватар</string>
 </resources>

@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.editbutton.EditButton
+import com.progressterra.ipbandroidview.features.editprofile.EditProfile
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -36,7 +37,8 @@ fun ProfileDetailsScreen(
                 state = state.editButton,
                 useComponent = useComponent
             )
-        }, bottomOverlap = true
+        },
+        bottomOverlap = true
     ) { _, bottom ->
         StateColumn(
             scrollable = true,
@@ -44,8 +46,14 @@ fun ProfileDetailsScreen(
             useComponent = useComponent,
             horizontalAlignment = Alignment.Start
         ) {
-            EditUser(
+            EditProfile(
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
+                state = state.editProfile,
+                useComponent = useComponent
+            )
+            Spacer(Modifier.height(8.dp))
+            EditUser(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 state = state.editUser,
                 useComponent = useComponent
             )
