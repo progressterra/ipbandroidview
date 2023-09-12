@@ -39,6 +39,7 @@ import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenPhoneUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.processes.utils.ShareTextUseCase
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val processesModule = module {
@@ -147,7 +148,7 @@ val processesModule = module {
 
     single<FetchSingleGoodsUseCase> { FetchSingleGoodsUseCase.Base(get(), get()) }
 
-    single<MakeToastUseCase> { MakeToastUseCase.Base(get()) }
+    single<MakeToastUseCase> { MakeToastUseCase.Base(androidContext()) }
 
     single<PickPhotoUseCase> { PickPhotoUseCase.Base(get()) }
 

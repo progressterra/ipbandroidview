@@ -1,12 +1,13 @@
 package com.progressterra.ipbandroidview.shared.activity
 
+import android.net.Uri
 import kotlinx.coroutines.CompletableDeferred
 
 interface PickPhotoContract {
 
     interface Client {
 
-        suspend fun pickPhoto(): String
+        suspend fun pickPhoto(): Uri?
     }
 
     interface Listener {
@@ -16,7 +17,7 @@ interface PickPhotoContract {
 
     interface Activity {
 
-        fun completePhoto(result: String)
+        fun completePhoto(result: Uri?)
 
         fun setListener(listener: Listener)
     }
@@ -25,19 +26,19 @@ interface PickPhotoContract {
 
         private lateinit var listener: Listener
 
-        private var completableDeferred: CompletableDeferred<String>? = null
+        private var completableDeferred: CompletableDeferred<Uri?>? = null
 
         override fun setListener(listener: Listener) {
             this.listener = listener
         }
 
-        override suspend fun pickPhoto(): String {
+        override suspend fun pickPhoto(): Uri? {
             listener.pickPhoto()
             completableDeferred = CompletableDeferred()
             return completableDeferred!!.await()
         }
 
-        override fun completePhoto(result: String) {
+        override fun completePhoto(result: Uri?) {
             completableDeferred?.complete(result)
         }
     }
