@@ -34,6 +34,7 @@ class ProfileDetailsScreenViewModel(
             pickPhotoUseCase().onSuccess { path ->
                 saveAvatarUseCase(path).onSuccess {
                     makeToastUseCase(R.string.success)
+                    refresh()
                 }.onFailure {
                     makeToastUseCase(R.string.failure)
                 }
