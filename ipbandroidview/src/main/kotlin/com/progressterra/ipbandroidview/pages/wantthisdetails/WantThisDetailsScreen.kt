@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
@@ -96,6 +97,7 @@ fun WantThisDetailsScreen(
                         tint = IpbTheme.colors.textPrimary.asBrush()
                     )
                     BrushedText(
+                        modifier = Modifier.widthIn(max = 220.dp),
                         text = state.document.status.toString { stringResource(id = it) },
                         style = IpbTheme.typography.subHeadlineBold,
                         tint = state.document.status.toColor()

@@ -1,11 +1,12 @@
 package com.progressterra.ipbandroidview.features.bottombar
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -75,12 +77,11 @@ fun RediBottomBar(
             )
         }
     }
-
-    Box(modifier = modifier.height(63.dp), contentAlignment = Alignment.BottomCenter) {
+    Box(modifier = modifier.height(71.dp), contentAlignment = Alignment.BottomCenter) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(54.dp)
                 .background(IpbTheme.colors.surface.asBrush())
         )
         Row(
@@ -99,29 +100,21 @@ fun RediBottomBar(
                 index = 1
             )
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Box(
                     modifier = Modifier
                         .stealthClickable { useComponent.handle(RediBottomBarEvent(2)) },
                     contentAlignment = Alignment.Center
                 ) {
-                    BrushedIcon(
-                        modifier = Modifier
-                            .size(48.dp),
-                        resId = R.drawable.ic_want_this_outer,
-                        tint = if (2 == state.activeIndex) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.surface.asBrush()
-                    )
-                    BrushedIcon(
-                        modifier = Modifier
-                            .size(36.dp),
-                        resId = R.drawable.ic_want_this_inner,
-                        tint = IpbTheme.colors.surface.asBrush()
-                    )
-                    BrushedIcon(
-                        modifier = Modifier.size(24.dp),
-                        resId = R.drawable.ic_want_this,
-                        tint = if (2 == state.activeIndex) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconPrimary.asBrush()
+                    val image =
+                        if (2 == state.activeIndex) R.drawable.ic_want_this_on else R.drawable.ic_want_this_off
+                    Image(
+                        modifier = Modifier.size(48.dp),
+                        painter = painterResource(id = image),
+                        contentDescription = null
                     )
                 }
                 BrushedText(
