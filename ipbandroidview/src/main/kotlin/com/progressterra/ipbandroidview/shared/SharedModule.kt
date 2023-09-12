@@ -58,7 +58,7 @@ val sharedModule = module {
     single { Gson() }
 
     single<FileExplorer> {
-        FileExplorer.Redi(androidContext(), get(qualifier = StringQualifier("authority")))
+        FileExplorer.Redi(androidContext(), get(qualifier = StringQualifier("authority")), get())
     }
 
     single<CreateId> {

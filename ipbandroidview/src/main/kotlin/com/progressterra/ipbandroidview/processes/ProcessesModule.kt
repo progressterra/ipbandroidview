@@ -152,7 +152,7 @@ val processesModule = module {
 
     single<PickPhotoUseCase> { PickPhotoUseCase.Base(get()) }
 
-    single<SaveAvatarUseCase> { SaveAvatarUseCase.Base(get(), get()) }
+    single<SaveAvatarUseCase> { SaveAvatarUseCase.Base(get(), get(), get()) }
 
     single<FetchAvatarUseCase> { FetchAvatarUseCase.Base(get(), get()) }
 }
