@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.processes.user
 
 import android.net.Uri
-import androidx.core.net.toFile
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.FileExplorer
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -16,7 +16,8 @@ interface SaveAvatarUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val mediaDataRepository: IPBMediaDataRepository
+        private val mediaDataRepository: IPBMediaDataRepository,
+        private val fileExplorer: FileExplorer
     ) : SaveAvatarUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(uri: Uri): Result<Unit> = withToken {
@@ -28,7 +29,7 @@ interface SaveAvatarUseCase {
                 file = MultipartBody.Part.createFormData(
                     name = "profilePicture",
                     filename = "profilePicture",
-                    body = uri.toFile().asRequestBody("image/*".toMediaType())
+                    body = fileExplorer.fileForUri(uri).asRequestBody("image/*".toMediaType())
                 )
             ).throwOnFailure()
         }
