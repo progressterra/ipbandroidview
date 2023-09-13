@@ -28,7 +28,7 @@ fun OutlineButton(
         .clip(RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp))
         .border(
             width = 2.dp,
-            brush = IpbTheme.colors.textPrimary.asBrush(),
+            brush = IpbTheme.colors.primary.asBrush(),
             shape = RoundedCornerShape(IpbAndroidViewSettings.BUTTON_ROUNDING.dp)
         )
         .niceClickable(state.enabled) { useComponent.handle(ButtonEvent(state.id)) }
@@ -39,7 +39,7 @@ fun OutlineButton(
             text = title,
             textAlign = TextAlign.Center,
             style = IpbTheme.typography.headline,
-            tint = IpbTheme.colors.textPrimary.asBrush()
+            tint = IpbTheme.colors.primary.asBrush()
         )
     }
 }
