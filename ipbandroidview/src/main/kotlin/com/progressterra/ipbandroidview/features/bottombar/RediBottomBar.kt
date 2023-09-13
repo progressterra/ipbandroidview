@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -77,12 +76,13 @@ fun RediBottomBar(
             )
         }
     }
-    Box(modifier = modifier.height(71.dp), contentAlignment = Alignment.BottomCenter) {
-        Box(
+    Box(modifier = modifier.height(85.dp), contentAlignment = Alignment.BottomCenter) {
+        Image(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(54.dp)
-                .background(IpbTheme.colors.surface.asBrush())
+                .height(85.dp)
+                .fillMaxWidth(),
+            painter = painterResource(id = R.drawable.ic_bottom_bar),
+            contentDescription = null
         )
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -100,9 +100,7 @@ fun RediBottomBar(
                 index = 1
             )
             Column(
-                modifier = Modifier.fillMaxHeight(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
                     modifier = Modifier
