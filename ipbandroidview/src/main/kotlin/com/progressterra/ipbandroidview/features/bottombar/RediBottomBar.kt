@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -79,10 +80,11 @@ fun RediBottomBar(
     Box(modifier = modifier.height(85.dp), contentAlignment = Alignment.BottomCenter) {
         Image(
             modifier = Modifier
-                .height(85.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .height(85.dp),
             painter = painterResource(id = R.drawable.ic_bottom_bar),
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds
         )
         Row(
             modifier = Modifier.fillMaxWidth(),

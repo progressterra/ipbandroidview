@@ -31,7 +31,13 @@ fun PaymentScreen(
         modifier = modifier,
         topBar = {
             TopBar(
-                title = stringResource(R.string.processing), useComponent = useComponent
+                title = stringResource(R.string.processing), useComponent = useComponent,
+                showBackButton = true
+            )
+        }, bottomBar = {
+            Receipt(
+                modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+                state = state.receipt, useComponent = useComponent
             )
         }) { _, _ ->
         StateColumn(
@@ -52,10 +58,6 @@ fun PaymentScreen(
                 state = state.bonusSwitch, useComponent = useComponent
             )
             Spacer(Modifier.height(40.dp))
-            Receipt(
-                modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-                state = state.receipt, useComponent = useComponent
-            )
         }
     }
 }
