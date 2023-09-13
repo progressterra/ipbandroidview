@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -32,6 +33,7 @@ fun Bonuses(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .height(162.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.secondaryPressed.asBrush())
             .padding(16.dp)
@@ -60,6 +62,7 @@ fun Bonuses(
                 }
             }
         }
+        Spacer(modifier = Modifier.weight(1f))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
