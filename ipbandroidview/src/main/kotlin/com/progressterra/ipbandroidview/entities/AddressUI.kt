@@ -6,87 +6,87 @@ import com.progressterra.ipbandroidview.shared.IsEmpty
 
 data class AddressUI(
     @SerializedName("idUnique")
-    val idUnique: String? = null,
+    val idUnique: String = "",
     @SerializedName("defaultShipping")
-    val defaultShipping: String? = null,
+    val defaultShipping: String = "",
     @SerializedName("defaultBilling")
-    val defaultBilling: String? = null,
+    val defaultBilling: String = "",
     @SerializedName("fiasIDRegion")
-    val fiasIDRegion: String? = null,
+    val fiasIDRegion: String = "",
     @SerializedName("fiasIDCity")
-    val fiasIDCity: String? = null,
+    val fiasIDCity: String = "",
     @SerializedName("fiasIDArea")
-    val fiasIDArea: String? = null,
+    val fiasIDArea: String = "",
     @SerializedName("fiasIDDistrict")
-    val fiasIDDistrict: String? = null,
+    val fiasIDDistrict: String = "",
     @SerializedName("fiasIDStreet")
-    val fiasIDStreet: String? = null,
+    val fiasIDStreet: String = "",
     @SerializedName("fiasIDHouse")
-    val fiasIDHouse: String? = null,
+    val fiasIDHouse: String = "",
     @SerializedName("kladrRegion")
-    val kladrRegion: String? = null,
+    val kladrRegion: String = "",
     @SerializedName("kladrCity")
-    val kladrCity: String? = null,
+    val kladrCity: String = "",
     @SerializedName("kladrArea")
-    val kladrArea: String? = null,
+    val kladrArea: String = "",
     @SerializedName("kladrDistrict")
-    val kladrDistrict: String? = null,
+    val kladrDistrict: String = "",
     @SerializedName("kladrStreet")
-    val kladrStreet: String? = null,
+    val kladrStreet: String = "",
     @SerializedName("kladrHouse")
-    val kladrHouse: String? = null,
+    val kladrHouse: String = "",
     @SerializedName("nameCountry")
-    val nameCountry: String? = null,
+    val nameCountry: String = "",
     @SerializedName("nameRegion")
-    val nameRegion: String? = null,
+    val nameRegion: String = "",
     @SerializedName("nameCity")
-    val nameCity: String? = null,
+    val nameCity: String = "",
     @SerializedName("nameStreet")
-    val nameStreet: String? = null,
+    val nameStreet: String = "",
     @SerializedName("nameArea")
-    val nameArea: String? = null,
+    val nameArea: String = "",
     @SerializedName("nameDistrict")
-    val nameDistrict: String? = null,
+    val nameDistrict: String = "",
     @SerializedName("postalCode")
-    val postalCode: String? = null,
+    val postalCode: String = "",
     @SerializedName("houseNUmber")
-    val houseNUmber: String? = null,
+    val houseNUmber: String = "",
     @SerializedName("building")
-    val building: String? = null,
+    val building: String = "",
     @SerializedName("apartment")
-    val apartment: String? = null,
+    val apartment: String = "",
     @SerializedName("entrance")
-    val entrance: String? = null,
+    val entrance: String = "",
     @SerializedName("floor")
-    val floor: Int? = null,
+    val floor: Int = 0,
     @SerializedName("latitude")
-    val latitude: Double? = null,
+    val latitude: Double = 0.0,
     @SerializedName("longitude")
-    val longitude: Double? = null
+    val longitude: Double = 0.0
 ) : IsEmpty {
 
     fun convertAddressUiModelToDto() = RGAddressEntity(
         nameCity = nameCity,
         postalCode = postalCode,
         building = building,
-        apartment = apartment?.toIntOrNull(),
+        apartment = apartment.toIntOrNull() ?: 0,
         floor = floor,
         nameStreet = nameStreet,
-        entrance = entrance?.toIntOrNull(),
+        entrance = entrance.toIntOrNull() ?: 0,
         idClient = null,
         dateVerification = null,
         idManagerVerification = null,
         dateDeactivation = null,
         defaultBilling = defaultBilling,
         defaultShipping = defaultShipping,
-        fiasIDCountry = null,
+        fiasIDCountry = "",
         fiasIDRegion = fiasIDRegion,
         fiasIDCity = fiasIDCity,
         fiasIDArea = fiasIDArea,
         fiasIDDistrict = fiasIDDistrict,
         fiasIDHouse = fiasIDHouse,
         fiasIDStreet = fiasIDStreet,
-        kladrCountry = null,
+        kladrCountry = "",
         kladrRegion = kladrRegion,
         kladrCity = kladrCity,
         kladrArea = kladrArea,
@@ -105,13 +105,13 @@ data class AddressUI(
     override fun isEmpty(): Boolean = this == AddressUI()
 
     fun printAddress(): String = buildString {
-        if (nameCity?.isNotBlank() == true)
+        if (nameCity.isNotBlank())
             append(nameCity)
-        if (nameStreet?.isNotBlank() == true)
+        if (nameStreet.isNotBlank())
             append(", ул. $nameStreet")
-        if (houseNUmber?.isNotBlank() == true)
+        if (houseNUmber.isNotBlank())
             append(", д. $houseNUmber")
-        if (apartment?.isNotBlank() == true)
+        if (apartment.isNotBlank())
             append(", кв. $apartment")
     }
 }
