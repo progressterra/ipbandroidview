@@ -48,7 +48,7 @@ fun EditProfile(
         Spacer(modifier = Modifier.width(20.dp))
         BrushedText(
             text = stringResource(id = R.string.change_avatar),
-            style = IpbTheme.typography.footnoteRegular,
+            style = IpbTheme.typography.subHeadlineBold,
             tint = IpbTheme.colors.textTertiary.asBrush()
         )
         BrushedIcon(
