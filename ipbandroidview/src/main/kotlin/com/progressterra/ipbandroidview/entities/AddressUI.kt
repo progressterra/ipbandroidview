@@ -7,22 +7,10 @@ import com.progressterra.ipbandroidview.shared.IsEmpty
 data class AddressUI(
     @SerializedName("idUnique")
     val idUnique: String = "",
-    @SerializedName("idClient")
-    val idClient: String = "",
-    @SerializedName("dateAdded")
-    val dateAdded: String = "",
-    @SerializedName("dateVerification")
-    val dateVerification: String = "",
-    @SerializedName("idManagerVerification")
-    val idManagerVerification: String = "",
-    @SerializedName("dateDeactivation")
-    val dateDeactivation: String = "",
     @SerializedName("defaultShipping")
     val defaultShipping: String = "",
     @SerializedName("defaultBilling")
     val defaultBilling: String = "",
-    @SerializedName("fiasIDCountry")
-    val fiasIDCountry: String = "",
     @SerializedName("fiasIDRegion")
     val fiasIDRegion: String = "",
     @SerializedName("fiasIDCity")
@@ -35,8 +23,6 @@ data class AddressUI(
     val fiasIDStreet: String = "",
     @SerializedName("fiasIDHouse")
     val fiasIDHouse: String = "",
-    @SerializedName("kladrCountry")
-    val kladrCountry: String = "",
     @SerializedName("kladrRegion")
     val kladrRegion: String = "",
     @SerializedName("kladrCity")
@@ -87,20 +73,20 @@ data class AddressUI(
         floor = floor,
         nameStreet = nameStreet,
         entrance = entrance.toIntOrNull() ?: 0,
-        idClient = idClient,
-        dateVerification = dateVerification,
-        idManagerVerification = idManagerVerification,
-        dateDeactivation = dateDeactivation,
+        idClient = null,
+        dateVerification = null,
+        idManagerVerification = null,
+        dateDeactivation = null,
         defaultBilling = defaultBilling,
         defaultShipping = defaultShipping,
-        fiasIDCountry = fiasIDCountry,
+        fiasIDCountry = null,
         fiasIDRegion = fiasIDRegion,
         fiasIDCity = fiasIDCity,
         fiasIDArea = fiasIDArea,
         fiasIDDistrict = fiasIDDistrict,
         fiasIDHouse = fiasIDHouse,
         fiasIDStreet = fiasIDStreet,
-        kladrCountry = kladrCountry,
+        kladrCountry = null,
         kladrRegion = kladrRegion,
         kladrCity = kladrCity,
         kladrArea = kladrArea,
@@ -117,41 +103,34 @@ data class AddressUI(
     )
 
     override fun isEmpty(): Boolean = idUnique == "" &&
-            idClient == "" &&
-            dateAdded == "" &&
-            dateVerification == "" &&
-            idManagerVerification == "" &&
-            dateDeactivation == "" &&
-            defaultShipping == "" &&
-            defaultBilling == "" &&
-            fiasIDCountry == "" &&
-            fiasIDRegion == "" &&
-            fiasIDCity == "" &&
-            fiasIDArea == "" &&
-            fiasIDDistrict == "" &&
-            fiasIDStreet == "" &&
-            fiasIDHouse == "" &&
-            kladrCountry == "" &&
-            kladrRegion == "" &&
-            kladrCity == "" &&
-            kladrArea == "" &&
-            kladrDistrict == "" &&
-            kladrStreet == "" &&
-            kladrHouse == "" &&
-            nameCountry == "" &&
-            nameRegion == "" &&
-            nameCity == "" &&
-            nameStreet == "" &&
-            nameArea == "" &&
-            nameDistrict == "" &&
-            postalCode == "" &&
-            houseNUmber == "" &&
-            building == "" &&
-            apartment == "" &&
-            entrance == "" &&
-            floor == 0 &&
-            latitude == 0.0 &&
-            longitude == 0.0
+        defaultShipping == "" &&
+                defaultBilling == "" &&
+                fiasIDRegion == "" &&
+                fiasIDCity == "" &&
+                fiasIDArea == "" &&
+                fiasIDDistrict == "" &&
+                fiasIDStreet == "" &&
+                fiasIDHouse == "" &&
+                kladrRegion == "" &&
+                kladrCity == "" &&
+                kladrArea == "" &&
+                kladrDistrict == "" &&
+                kladrStreet == "" &&
+                kladrHouse == "" &&
+                nameCountry == "" &&
+                nameRegion == "" &&
+                nameCity == "" &&
+                nameStreet == "" &&
+                nameArea == "" &&
+                nameDistrict == "" &&
+                postalCode == "" &&
+                houseNUmber == "" &&
+                building == "" &&
+                apartment == "" &&
+                entrance == "" &&
+                floor == 0 &&
+                latitude == 0.0 &&
+                longitude == 0.0
 
     fun printAddress(): String = buildString {
         if (nameCity.isNotBlank())
