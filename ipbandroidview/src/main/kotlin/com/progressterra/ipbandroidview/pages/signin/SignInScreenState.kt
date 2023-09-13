@@ -8,7 +8,8 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 data class SignInScreenState(
     val phone: TextFieldState = TextFieldState(
         type = TextInputType.PHONE_NUMBER,
-        id = "phone"
+        id = "phone",
+        text = "7"
     ),
     val auth: ButtonState = ButtonState(
         id = "auth",

@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -52,9 +54,11 @@ fun DeliveryScreen(
                 )
             }
         }) { _, _ ->
+        val scrollState = rememberScrollState()
         StateColumn(
             state = state.screen,
             scrollable = true,
+            scrollState = scrollState,
             useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
@@ -63,6 +67,7 @@ fun DeliveryScreen(
                 state = OrderStepsState.DELIVERY
             )
             DeliveryPicker(
+                modifier = Modifier.padding(horizontal = 20.dp),
                 useComponent = useComponent, state = state.deliveryPicker
             )
             TextField(
@@ -73,6 +78,11 @@ fun DeliveryScreen(
                 useComponent = useComponent,
                 hint = stringResource(R.string.comment)
             )
+            LaunchedEffect(state.deliveryPicker.address.text) {
+                if (scrollState.canScrollForward) {
+                    scrollState.animateScrollTo(scrollState.maxValue)
+                }
+            }
         }
     }
 }

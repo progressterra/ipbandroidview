@@ -60,11 +60,6 @@ fun Bonuses(
                 }
             }
         }
-        BrushedText(
-            text = stringResource(R.string.bonuses_rate),
-            style = IpbTheme.typography.subHeadlineRegular,
-            tint = IpbTheme.colors.textSecondary.asBrush()
-        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
