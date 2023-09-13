@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidview.entities.Id
 import com.progressterra.ipbandroidview.shared.isEmail
-import com.progressterra.ipbandroidview.shared.isRussianPhoneNumberWithoutHeading
+import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
 import com.progressterra.ipbandroidview.shared.toDate
 import kotlinx.parcelize.Parcelize
 
@@ -32,23 +32,21 @@ data class TextFieldState(
     )
 
     fun unFormatByType(data: String) = when (type) {
-        TextInputType.PHONE_NUMBER -> copy(text = data.removePrefix("7"))
         TextInputType.DATE -> copy(text = data.replace(".", ""))
         else -> copy(text = data)
     }
 
     fun formatByType() = when (type) {
         TextInputType.DATE -> text.toDate()
-        TextInputType.PHONE_NUMBER -> "7$text"
         else -> text.trim()
     }
 
     fun valid() = when (type) {
         TextInputType.NUMBER -> text.trim().isDigitsOnly()
-        TextInputType.PHONE_NUMBER -> text.trim().isRussianPhoneNumberWithoutHeading()
+        TextInputType.PHONE_NUMBER -> text.trim().isRussianPhoneNumber()
         TextInputType.DATE -> text.trim().isDigitsOnly() && text.length == 8
         TextInputType.EMAIL -> text.trim().isEmail()
-        TextInputType.NAME_SURNAME -> text.trim().split(" ").size ==2
+        TextInputType.NAME_SURNAME -> text.trim().split(" ").size == 2
         else -> true
     }
 
