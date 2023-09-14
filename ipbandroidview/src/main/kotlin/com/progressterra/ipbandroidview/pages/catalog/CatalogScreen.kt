@@ -61,7 +61,7 @@ fun CatalogScreen(
                     horizontalArrangement = Arrangement.spacedBy(20.dp),
                     verticalArrangement = Arrangement.spacedBy(20.dp),
                     columns = GridCells.Fixed(3),
-                    contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 40.dp)
+                    contentPadding = PaddingValues(start = 20.dp, end = 20.dp, top = 20.dp)
                 ) {
                     items(state.current.children) {
                         Box(contentAlignment = Alignment.Center) {
