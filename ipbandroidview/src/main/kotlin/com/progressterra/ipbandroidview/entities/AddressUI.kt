@@ -54,7 +54,7 @@ data class AddressUI(
     @SerializedName("building")
     val building: String = "",
     @SerializedName("apartment")
-    val apartment: String = "",
+    val apartment: Int = 0,
     @SerializedName("entrance")
     val entrance: String = "",
     @SerializedName("floor")
@@ -69,7 +69,7 @@ data class AddressUI(
         nameCity = nameCity,
         postalCode = postalCode,
         building = building,
-        apartment = apartment.toIntOrNull() ?: 0,
+        apartment = apartment,
         floor = floor,
         nameStreet = nameStreet,
         entrance = entrance.toIntOrNull() ?: 0,
@@ -111,7 +111,7 @@ data class AddressUI(
             append(", ул. $nameStreet")
         if (houseNUmber.isNotBlank())
             append(", д. $houseNUmber")
-        if (apartment.isNotBlank())
+        if (apartment != 0)
             append(", кв. $apartment")
     }
 }
