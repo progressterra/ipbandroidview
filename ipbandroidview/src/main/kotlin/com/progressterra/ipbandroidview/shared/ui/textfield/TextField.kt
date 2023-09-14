@@ -127,7 +127,7 @@ fun TextField(
                     when (state.type) {
                         TextInputType.DATE -> R.drawable.ic_cal
                         TextInputType.CHAT -> R.drawable.ic_send
-                        else -> R.drawable.ic_close
+                        else -> R.drawable.ic_cancel
                     }, tint = iconColor
                 )
             }

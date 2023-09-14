@@ -41,8 +41,6 @@
     <string name="merchant_info">Информация о товаре и продавце</string>
     <string name="pay">Оплатить</string>
     <string name="payment">Оплата</string>
-    <string name="will_burn">сгорит</string>
-    <string name="bonuses">бонусов</string>
     <string name="bonuses_title">Бонусы</string>
     <string name="choose">Выбрать</string>
     <string name="success_payment">Заказ успешно оплачен</string>
@@ -60,7 +58,6 @@
     <string name="size_table">Таблица размеров</string>
     <string name="resend">Повторить отправку</string>
     <string name="you_have">У вас</string>
-    <string name="offers">Акции</string>
     <string name="total_to_pay">Итого к оплате:</string>
     <string name="please_auth">Авторизуйтесь, чтобы заказывать товары и копить бонусы</string>
     <string name="bonuses_short">Б</string>
@@ -72,9 +69,7 @@
     <string name="processing">Оформление заказа</string>
     <string name="details">Детали</string>
     <string name="order_id">Номер заказа:</string>
-    <string name="items_paid">товара оплачено</string>
     <string name="delivery_address">Адрес доставки:</string>
-    <string name="see_receipt">Посмотреть чек</string>
     <string name="to_main">На главную</string>
     <string name="order_processing">Оформление заказа</string>
     <string name="citizenship">Гражданство</string>
@@ -100,7 +95,6 @@
     <string name="document_wait_review">Ожидает проверки со стороны менеджера</string>
     <string name="document_wait_image">Требуется добавить изображение документа</string>
     <string name="document_not_fill">Документ не заполнен</string>
-    <string name="photo">Фото</string>
     <string name="documents">Документы</string>
     <string name="photo_picker">Выберите фото</string>
     <string name="about_you">Расскажите немного о себе. Эта информация будет видна всем пользователям в вашем профиле.</string>
@@ -156,7 +150,6 @@
     <string name="added_cards">Подтверждённые</string>
     <string name="other">Остальные</string>
     <string name="can_be_out">Можно вывести</string>
-    <string name="bonuses_rate">1 бонус = 1 рубль</string>
     <string name="available_installment">Доступная рассрочка -&#160;</string>
     <string name="available_installment_2">до 60 000₽</string>
     <string name="transaction_success">Транзакция прошла успешно</string>
