@@ -21,7 +21,7 @@ fun Search(
     useComponent: UseSearch
 ) {
     OutlinedTextField(
-        modifier = modifier.fillMaxWidth().height(36.dp),
+        modifier = modifier.fillMaxWidth(),
         value = state.text,
         onValueChange = { useComponent.handle(SearchEvent(it)) },
         placeholder = {
