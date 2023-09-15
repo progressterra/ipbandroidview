@@ -79,12 +79,13 @@ fun Receipt(
             thickness = 1.dp
         )
         Button(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp),
             state = state.pay,
             useComponent = useComponent,
             title = stringResource(R.string.pay)
         )
         LinkText(
+            modifier = Modifier.padding(horizontal = 12.dp),
             linkTextData = listOf(
                 LinkTextData(text = stringResource(id = R.string.payment_0)), LinkTextData(
                     text = stringResource(id = R.string.user_agreement),
@@ -101,6 +102,7 @@ fun Receipt(
             brush = IpbTheme.colors.textSecondary.asBrush()
         )
         LinkText(
+            modifier = Modifier.padding(horizontal = 12.dp),
             linkTextData = listOf(
                 LinkTextData(text = stringResource(id = R.string.merchant_info))
             ), useComponent = useComponent,
