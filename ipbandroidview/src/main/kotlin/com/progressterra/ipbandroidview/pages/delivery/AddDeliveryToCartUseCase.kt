@@ -14,7 +14,7 @@ import java.time.ZonedDateTime
 
 interface AddDeliveryToCartUseCase {
 
-    suspend operator fun invoke(suggestionUI: SuggestionUI?): Result<Unit>
+    suspend operator fun invoke(suggestionUI: SuggestionUI): Result<Unit>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -22,11 +22,11 @@ interface AddDeliveryToCartUseCase {
         private val saveAddressUseCase: SaveAddressUseCase
     ) : AbstractTokenUseCase(obtainAccessToken), AddDeliveryToCartUseCase {
 
-        override suspend fun invoke(suggestionUI: SuggestionUI?): Result<Unit> =
+        override suspend fun invoke(suggestionUI: SuggestionUI): Result<Unit> =
             withToken { token ->
-                suggestionUI?.let {
+                if (suggestionUI.isEmpty()) {
                     saveAddressUseCase(
-                        it.suggestionExtendedInfo.convertSuggestionToAddressUIModel(
+                        suggestionUI.suggestionExtendedInfo.convertSuggestionToAddressUIModel(
                             ZonedDateTime.now().formatZdtIso()
                         )
                     ).throwOnFailure()
