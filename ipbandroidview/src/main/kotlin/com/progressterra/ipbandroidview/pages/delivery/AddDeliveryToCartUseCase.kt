@@ -24,7 +24,7 @@ interface AddDeliveryToCartUseCase {
 
         override suspend fun invoke(suggestionUI: SuggestionUI): Result<Unit> =
             withToken { token ->
-                if (suggestionUI.isEmpty()) {
+                if (!suggestionUI.isEmpty()) {
                     saveAddressUseCase(
                         suggestionUI.suggestionExtendedInfo.convertSuggestionToAddressUIModel(
                             ZonedDateTime.now().formatZdtIso()
