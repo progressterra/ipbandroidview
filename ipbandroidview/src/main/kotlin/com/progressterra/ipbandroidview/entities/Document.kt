@@ -39,6 +39,7 @@ data class Document(
     )
 
     fun toBankCardState() = BankCardState(
+        id = id,
         document = this
     )
 }
