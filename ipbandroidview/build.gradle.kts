@@ -96,8 +96,8 @@ dependencies {
     api("com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.0")
 
     // Koin, DI library
-    api("io.insert-koin:koin-android:3.4.3")
-    api("io.insert-koin:koin-androidx-compose:3.4.6")
+    api("io.insert-koin:koin-android:3.5.0")
+    api("io.insert-koin:koin-androidx-compose:3.5.0")
 
     // Accompanist, useful composables
     api("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
@@ -111,17 +111,17 @@ dependencies {
     api("com.bumble.appyx:core:1.3.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.2.3"))
+    api(platform("com.google.firebase:firebase-bom:32.3.1"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
 
     // Google services
     api("com.google.android.gms:play-services-location:21.0.1")
-    api("com.google.maps.android:maps-compose:2.14.0")
+    api("com.google.maps.android:maps-compose:2.14.1")
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.51")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.52")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
