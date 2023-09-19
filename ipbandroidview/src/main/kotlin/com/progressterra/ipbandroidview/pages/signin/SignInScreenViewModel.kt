@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextEvent
@@ -18,6 +19,7 @@ class SignInScreenViewModel(
 
     override fun refresh() {
         emitState { createInitialState() }
+        if (UserData.clientExist) postEffect(SignInScreenEffect.Skip)
     }
 
     override fun handle(event: ButtonEvent) {
