@@ -72,9 +72,7 @@ class WantThisScreenViewModel(
         }
     }
 
-    override fun handle(event: TopBarEvent) {
-        postEffect(WantThisScreenEffect.Back)
-    }
+    override fun handle(event: TopBarEvent) = Unit
 
     override fun handle(event: ButtonEvent) {
         onBackground {
@@ -84,7 +82,6 @@ class WantThisScreenViewModel(
                     IpbAndroidViewSettings.WANT_THIS_DOC_TYPE_ID
                 ).onSuccess {
                     postEffect(WantThisScreenEffect.Toast(R.string.success))
-                    postEffect(WantThisScreenEffect.Back)
                 }.onFailure {
                     postEffect(WantThisScreenEffect.Toast(R.string.failure))
                 }

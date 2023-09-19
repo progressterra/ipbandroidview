@@ -30,8 +30,7 @@ fun WantThisScreen(
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
             title = stringResource(R.string.want_this),
-            useComponent = useComponent,
-            showBackButton = true
+            useComponent = useComponent
         )
     }) { _, _ ->
         StateColumn(

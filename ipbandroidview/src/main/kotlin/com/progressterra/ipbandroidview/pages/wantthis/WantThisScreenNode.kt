@@ -24,7 +24,6 @@ class WantThisScreenNode(
         val context = LocalContext.current
         viewModel.collectEffects { effect ->
             when (effect) {
-                is WantThisScreenEffect.Back -> navigation.onBack()
                 is WantThisScreenEffect.Requests -> navigation.onWantThisRequests()
                 is WantThisScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
                 is WantThisScreenEffect.Toast -> Toast.makeText(
