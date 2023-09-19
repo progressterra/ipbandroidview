@@ -22,7 +22,7 @@ class OrdersScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is OrdersScreenEffect.Back -> navigation.onBack()
-                is OrdersScreenEffect.OpenDetails -> navigation.onOrder(effect.id)
+                is OrdersScreenEffect.OpenDetails -> navigation.onOrderDetails(effect.id)
             }
         }
         val state = viewModel.state.collectAsState().value
