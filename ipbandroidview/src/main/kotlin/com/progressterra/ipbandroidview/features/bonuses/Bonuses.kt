@@ -139,3 +139,16 @@ private fun BonusesPreview1() {
         )
     }
 }
+
+@Composable
+@Preview
+private fun BonusesPreview2() {
+    IpbTheme {
+        Bonuses(
+            state = BonusesState(
+                roubles = "100",
+                hasCards = true
+            ), useComponent = UseBonuses.Empty()
+        )
+    }
+}
