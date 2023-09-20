@@ -63,7 +63,7 @@ fun Bonuses(
                 }
             }
         }
-        if (style == BonusesStyle.MAIN) {
+        if (style == BonusesStyle.MAIN && !state.hasCards) {
             BrushedText(
                 modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
                 text = stringResource(R.string.add_card),
