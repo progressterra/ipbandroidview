@@ -9,7 +9,7 @@ import org.koin.dsl.module
 val featuresModule = module {
 
     single<BonusesUseCase> {
-        BonusesUseCase.Base(get(), get())
+        BonusesUseCase.Base(get(), get(), get())
     }
 
     single<FetchPaymentMethods> {

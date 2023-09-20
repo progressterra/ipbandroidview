@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
 fun Bonuses(
@@ -62,7 +63,16 @@ fun Bonuses(
                 }
             }
         }
-        Spacer(modifier = Modifier.weight(1f))
+        if (style == BonusesStyle.MAIN) {
+            BrushedText(
+                modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
+                text = stringResource(R.string.add_card),
+                style = IpbTheme.typography.subHeadlineBold,
+                tint = IpbTheme.colors.primary.asBrush()
+            )
+        } else {
+            Spacer(modifier = Modifier.weight(1f))
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -110,8 +120,7 @@ private fun BonusesPreview0() {
     IpbTheme {
         Bonuses(
             state = BonusesState(
-                roubles = "100",
-                bonuses = "500"
+                roubles = "100"
             ), useComponent = UseBonuses.Empty()
         )
     }
@@ -124,7 +133,7 @@ private fun BonusesPreview1() {
         Bonuses(
             state = BonusesState(
                 roubles = "100",
-                bonuses = "500"
+                hasCards = true
             ), useComponent = UseBonuses.Empty(),
             style = BonusesStyle.TRANSACTIONS
         )

@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.entities.Document
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
@@ -21,6 +22,7 @@ class MainScreenNode(
         val viewModel = getViewModel<MainScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
+                is MainScreenEffect.OnAddCard -> navigation.onBankCard(Document())
                 is MainScreenEffect.OnBonuses -> navigation.onBonuses()
                 is MainScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
                 is MainScreenEffect.OnWithdrawal -> navigation.onWithdrawal()

@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.emptyFlow
 
 data class WithdrawalScreenState(
     val add: ButtonState = ButtonState(id = "add"),
+    val addCard: ButtonState = ButtonState(id = "addCard"),
     val canBeWithdrawal: SimplePrice = SimplePrice(),
     val transactions: Flow<PagingData<WithdrawalTransactionState>> = emptyFlow(),
+    val hasCards: Boolean = false,
     val screen: StateColumnState = StateColumnState()
 )

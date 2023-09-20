@@ -170,4 +170,5 @@
     <string name="want_this_photo">Фото товара</string>
     <string name="document_photo">Фото документа</string>
     <string name="change_avatar">Сменить аватар</string>
+    <string name="add_card_tip">Чтобы получать оплату и делать выгодные покупки необходимо добавить карту</string>
 </resources>

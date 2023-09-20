@@ -245,7 +245,7 @@ val pagesModule = module {
 
     single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get()) }
 
-    viewModel { WithdrawalScreenViewModel(get(), get()) }
+    viewModel { WithdrawalScreenViewModel(get(), get(), get()) }
 
     viewModel { NewWithdrawalScreenViewModel(get(), get(), get()) }
 

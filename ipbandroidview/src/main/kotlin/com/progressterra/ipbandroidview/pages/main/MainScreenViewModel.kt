@@ -45,6 +45,7 @@ class MainScreenViewModel(
         when (event) {
             is BonusesEvent.Transactions -> postEffect(MainScreenEffect.OnBonuses)
             is BonusesEvent.Withdrawal -> postEffect(MainScreenEffect.OnWithdrawal)
+            is BonusesEvent.AddCard -> postEffect(MainScreenEffect.OnAddCard)
         }
     }
 

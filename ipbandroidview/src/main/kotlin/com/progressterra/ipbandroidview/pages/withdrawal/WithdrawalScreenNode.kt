@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
+import com.progressterra.ipbandroidview.entities.Document
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
@@ -23,6 +24,7 @@ class WithdrawalScreenNode(
             when (effect) {
                 is WithdrawalScreenEffect.Back -> navigation.onBack()
                 is WithdrawalScreenEffect.New -> navigation.onCreateWithdrawal()
+                is WithdrawalScreenEffect.AddCard -> navigation.onBankCard(Document())
             }
         }
         val state = viewModel.state.collectAsState().value

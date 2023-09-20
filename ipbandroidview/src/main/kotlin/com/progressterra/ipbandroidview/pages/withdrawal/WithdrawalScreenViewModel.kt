@@ -3,13 +3,15 @@ package com.progressterra.ipbandroidview.pages.withdrawal
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
+import com.progressterra.ipbandroidview.processes.payments.HasCardsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class WithdrawalScreenViewModel(
     private val fetchWithdrawalTransactionsUseCase: FetchWithdrawalTransactionsUseCase,
-    private val fetchWithdrawalUseCase: FetchWithdrawalUseCase
+    private val fetchWithdrawalUseCase: FetchWithdrawalUseCase,
+    private val hasCardsUseCase: HasCardsUseCase
 ) : AbstractNonInputViewModel<WithdrawalScreenState, WithdrawalScreenEffect>(),
     UseWithdrawalScreen {
 
@@ -27,6 +29,9 @@ class WithdrawalScreenViewModel(
             fetchWithdrawalUseCase().onSuccess { canBeWithdrawal ->
                 emitState { it.copy(canBeWithdrawal = canBeWithdrawal) }
             }.onFailure { isSuccess = false }
+            hasCardsUseCase().onSuccess { hasCards ->
+                emitState { it.copy(hasCards = hasCards) }
+            }.onFailure { isSuccess = false }
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
@@ -36,7 +41,8 @@ class WithdrawalScreenViewModel(
     }
 
     override fun handle(event: ButtonEvent) {
-        postEffect(WithdrawalScreenEffect.New)
+        if (event.id == "add") postEffect(WithdrawalScreenEffect.New)
+        if (event.id == "addCard") postEffect(WithdrawalScreenEffect.AddCard)
     }
 
     override fun handle(event: StateColumnEvent) {

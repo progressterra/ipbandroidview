@@ -21,6 +21,7 @@ import com.progressterra.ipbandroidview.processes.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
+import com.progressterra.ipbandroidview.processes.payments.HasCardsUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
@@ -155,4 +156,6 @@ val processesModule = module {
     single<SaveAvatarUseCase> { SaveAvatarUseCase.Base(get(), get(), get()) }
 
     single<FetchAvatarUseCase> { FetchAvatarUseCase.Base(get(), get()) }
+
+    single<HasCardsUseCase> { HasCardsUseCase.Base(get(), get()) }
 }
