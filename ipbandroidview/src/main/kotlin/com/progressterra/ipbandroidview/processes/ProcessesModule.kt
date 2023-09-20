@@ -157,5 +157,5 @@ val processesModule = module {
 
     single<FetchAvatarUseCase> { FetchAvatarUseCase.Base(get(), get()) }
 
-    single<HasCardsUseCase> { HasCardsUseCase.Base(get(), get()) }
+    single<HasCardsUseCase> { HasCardsUseCase.Base(get(), get(), get()) }
 }
