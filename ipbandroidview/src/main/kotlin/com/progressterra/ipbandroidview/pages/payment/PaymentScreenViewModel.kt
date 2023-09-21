@@ -60,9 +60,11 @@ class PaymentScreenViewModel(
         onBackground {
             when (event.id) {
                 "pay" -> {
+                    emitState { it.copy(receipt = it.receipt.copy(pay = it.receipt.pay.copy(enabled = false))) }
                     confirmOrderUseCase().onSuccess { orderId ->
                         postEffect(PaymentScreenEffect.Next(orderId))
                     }
+                    emitState { it.copy(receipt = it.receipt.copy(pay = it.receipt.pay.copy(enabled = true))) }
                 }
             }
         }

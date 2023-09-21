@@ -64,10 +64,12 @@ class NewWithdrawalScreenViewModel(
     override fun handle(event: ButtonEvent) {
         when (event.id) {
             "add" -> onBackground {
+                emitState { it.copy(add = it.add.copy(enabled = false)) }
                 newWithdrawalUseCase(currentState.selectedCard, currentState.input.text).onSuccess {
                     postEffect(NewWithdrawalScreenEffect.Back)
                     postEffect(NewWithdrawalScreenEffect.Toast(R.string.success))
                 }
+                emitState { it.copy(add = it.add.copy(enabled = true)) }
             }
 
             "all" -> emitState { it.copy(input = it.input.copy(text = currentState.canBeWithdrawal.toStringRaw())) }
