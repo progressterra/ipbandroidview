@@ -35,6 +35,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -289,7 +290,8 @@ fun String.parseToZDT(): ZonedDateTime? {
     }
     if (result == null) {
         runCatching {
-            result = ZonedDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            val semiResult = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            result = semiResult.atZone(ZoneId.systemDefault())
         }.onFailure {
             if (IpbAndroidViewSettings.DEBUG) Log.e("DateParse", it.message ?: "")
         }
