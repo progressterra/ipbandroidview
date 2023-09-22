@@ -281,16 +281,15 @@ fun RGMessagesViewModel.toMessage() = Message(
 )
 
 fun String.parseToZDT(): ZonedDateTime? {
-    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
     var result: ZonedDateTime? = null
     runCatching {
-        result = ZonedDateTime.parse(this, formatter)
+        result = ZonedDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
     }.onFailure {
         if (IpbAndroidViewSettings.DEBUG) Log.e("DateParse", it.message ?: "")
     }
     if (result == null) {
         runCatching {
-            result = ZonedDateTime.parse(this, formatter.withZone(ZoneId.of("UTC")))
+            result = ZonedDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         }.onFailure {
             if (IpbAndroidViewSettings.DEBUG) Log.e("DateParse", it.message ?: "")
         }
