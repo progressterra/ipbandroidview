@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.entities
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -21,6 +22,7 @@ import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.scrm.models.RGAddress
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
@@ -283,9 +285,15 @@ fun String.parseToZDT(): ZonedDateTime? {
     var result: ZonedDateTime? = null
     runCatching {
         result = ZonedDateTime.parse(this, formatter)
+    }.onFailure {
+        if (IpbAndroidViewSettings.DEBUG) Log.e("DateParse", it.message ?: "")
     }
     if (result == null) {
-        runCatching { result = ZonedDateTime.parse(this, formatter.withZone(ZoneId.of("UTC"))) }
+        runCatching {
+            result = ZonedDateTime.parse(this, formatter.withZone(ZoneId.of("UTC")))
+        }.onFailure {
+            if (IpbAndroidViewSettings.DEBUG) Log.e("DateParse", it.message ?: "")
+        }
     }
     return result
 }
