@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.support
 
-import com.progressterra.ipbandroidapi.api.messenger.MessengerRepository
+import com.progressterra.ipbandroidapi.api.messenger.MessengerService
 import com.progressterra.ipbandroidapi.api.messenger.models.FieldForFilter
 import com.progressterra.ipbandroidapi.api.messenger.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.messenger.models.SortData
@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractSource
 
 class MessageSource(
-    private val messengerRepository: MessengerRepository,
+    private val messengerRepository: MessengerService,
     private val obtainAccessToken: ObtainAccessToken
 ) : AbstractSource<String, Message>() {
 
@@ -38,6 +38,6 @@ class MessageSource(
                 skip = skip,
                 take = take
             )
-        ).getOrThrow()?.map { it.toMessage() } ?: emptyList()
+        ).dataList?.map { it.toMessage() } ?: emptyList()
     }
 }

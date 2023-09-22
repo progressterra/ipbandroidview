@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.support
 
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidapi.api.messenger.MessengerRepository
+import com.progressterra.ipbandroidapi.api.messenger.MessengerService
 import com.progressterra.ipbandroidapi.api.messenger.models.FieldForFilter
 import com.progressterra.ipbandroidapi.api.messenger.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateDialog
@@ -29,7 +29,7 @@ interface FetchChatsUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val manageResources: ManageResources,
-        private val messengerRepository: MessengerRepository,
+        private val messengerRepository: MessengerService,
         private val chatsUseCase: ChatsUseCase
     ) : FetchChatsUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
@@ -48,7 +48,7 @@ interface FetchChatsUseCase {
                     description = manageResources.string(R.string.support),
                     additionalDataJSON = ""
                 )
-            ).getOrThrow()
+            ).data
             val mainLastMessage = messengerRepository.clientAreaMessageList(
                 accessToken = token,
                 body = FilterAndSort(
@@ -67,7 +67,7 @@ interface FetchChatsUseCase {
                     skip = 0,
                     take = 1
                 )
-            ).getOrThrow()?.lastOrNull()?.toMessage()
+            ).dataList?.lastOrNull()?.toMessage()
             val main = SupportChatState(
                 id = mainDialog.idUnique!!,
                 title = mainDialog.description ?: "",

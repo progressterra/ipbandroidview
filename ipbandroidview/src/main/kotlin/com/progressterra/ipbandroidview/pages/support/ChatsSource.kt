@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.support
 
-import com.progressterra.ipbandroidapi.api.messenger.MessengerRepository
+import com.progressterra.ipbandroidapi.api.messenger.MessengerService
 import com.progressterra.ipbandroidapi.api.messenger.models.FieldForFilter
 import com.progressterra.ipbandroidapi.api.messenger.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.messenger.models.SortData
@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractSource
 
 class ChatsSource(
-    private val messengerRepository: MessengerRepository,
+    private val messengerRepository: MessengerService,
     private val obtainAccessToken: ObtainAccessToken
 ) : AbstractSource<String, SupportChatState>() {
 
@@ -38,7 +38,7 @@ class ChatsSource(
                     skip = skip,
                     take = take
                 )
-            ).getOrThrow()?.map {
+            ).dataList?.map {
                 SupportChatState(
                     id = it.idUnique!!,
                     title = it.description ?: "",

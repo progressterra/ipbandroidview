@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
-import com.progressterra.ipbandroidapi.api.messenger.MessengerRepository
+import com.progressterra.ipbandroidapi.api.messenger.MessengerService
 import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateDialog
 import com.progressterra.ipbandroidapi.api.messenger.models.MetaDataClientWithID
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeDataSource
@@ -17,7 +17,7 @@ interface FetchOrderChatUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val manageResources: ManageResources,
-        private val messengerRepository: MessengerRepository
+        private val messengerRepository: MessengerService
     ) : AbstractTokenUseCase(obtainAccessToken), FetchOrderChatUseCase {
 
         override suspend fun invoke(orderId: String, orderNumber: String): Result<String> =
@@ -42,7 +42,7 @@ interface FetchOrderChatUseCase {
                         description = "${manageResources.string(R.string.order_chat)} $orderNumber",
                         additionalDataJSON = ""
                     )
-                ).getOrThrow()?.idUnique!!
+                ).data?.idUnique!!
             }
     }
 }

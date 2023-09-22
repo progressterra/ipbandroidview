@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.documentdetails
 
-import com.progressterra.ipbandroidapi.api.messenger.MessengerRepository
+import com.progressterra.ipbandroidapi.api.messenger.MessengerService
 import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateDialog
 import com.progressterra.ipbandroidapi.api.messenger.models.MetaDataClientWithID
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeDataSource
@@ -17,7 +17,7 @@ interface FetchDocumentChatUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val manageResources: ManageResources,
-        private val messengerRepository: MessengerRepository
+        private val messengerRepository: MessengerService
     ) : AbstractTokenUseCase(obtainAccessToken), FetchDocumentChatUseCase {
 
         override suspend fun invoke(docId: String, docName: String): Result<String> =
@@ -42,7 +42,7 @@ interface FetchDocumentChatUseCase {
                         description = "${manageResources.string(R.string.docs_chat)} $docName",
                         additionalDataJSON = ""
                     )
-                ).getOrThrow()?.idUnique!!
+                ).data?.idUnique!!
             }
     }
 }
