@@ -67,6 +67,7 @@ fun SupportScreen(
             state = state.screen,
             useComponent = useComponent
         ) {
+            //TODO move to separate screen
             if (state.current.finite) {
                 Messages(
                     modifier = Modifier.padding(horizontal = 20.dp),
