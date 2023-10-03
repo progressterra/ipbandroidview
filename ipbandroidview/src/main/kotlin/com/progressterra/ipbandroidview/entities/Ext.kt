@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicType
 import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValueViewModel
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
+import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientInterest
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
 import com.progressterra.ipbandroidapi.api.payment.models.DHPaymentClientViewModel
 import com.progressterra.ipbandroidapi.api.payment.models.TypeResultOperationBisinessArea
@@ -352,6 +353,11 @@ fun DHPaymentClientViewModel.toWithdrawalTransactionState() = WithdrawalTransact
     date = dateAdded?.parseToZDT()?.formatZdt("dd.MM.yyyy") ?: "",
     destination = previewPaymentMethod ?: "",
     status = status ?: TypeResultOperationBisinessArea.IN_PROGRESS
+)
+
+fun RGClientInterest.toInterest() = Interest(
+    id = idUnique!!,
+    name = ""
 )
 
 @Composable

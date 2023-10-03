@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.processes.docs.FetchDocTemplateUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
 import com.progressterra.ipbandroidview.processes.goods.FetchSingleGoodsUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
+import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.OpenMapUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocation
@@ -158,4 +159,6 @@ val processesModule = module {
     single<FetchAvatarUseCase> { FetchAvatarUseCase.Base(get(), get()) }
 
     single<HasCardsUseCase> { HasCardsUseCase.Base(get(), get(), get()) }
+
+    single<FetchInterestsUseCase> { FetchInterestsUseCase.Base(get(), get()) }
 }
