@@ -27,6 +27,7 @@ import com.progressterra.ipbandroidview.pages.favorites.FavoritesScreenViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
+import com.progressterra.ipbandroidview.pages.locationpermission.LocationPermissionScreenViewModel
 import com.progressterra.ipbandroidview.pages.main.MainScreenViewModel
 import com.progressterra.ipbandroidview.pages.newwithdrawal.CreateNewWithdrawalUseCase
 import com.progressterra.ipbandroidview.pages.newwithdrawal.NewWithdrawalScreenViewModel
@@ -263,5 +264,9 @@ val pagesModule = module {
             get(),
             get()
         )
+    }
+
+    viewModel {
+        LocationPermissionScreenViewModel(get(), get(), get())
     }
 }

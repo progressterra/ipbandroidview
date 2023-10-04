@@ -36,7 +36,7 @@ fun LocationPermissionScreen(
         )
     }, bottomBar = {
         Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
@@ -54,10 +54,11 @@ fun LocationPermissionScreen(
         }
     }) { _, _ ->
         Column(
-            modifier = Modifier.padding(start = 34.dp, end = 34.dp, top = 36.dp),
+            modifier = Modifier.padding(top = 36.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             BrushedText(
+                modifier = Modifier.padding(start = 34.dp, end = 34.dp),
                 text = stringResource(R.string.location_welcome),
                 style = IpbTheme.typography.largeTitle,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -68,8 +69,9 @@ fun LocationPermissionScreen(
                 resId = R.drawable.ic_location,
                 tint = IpbTheme.colors.iconPrimary.asBrush()
             )
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             BrushedText(
+                modifier = Modifier.padding(start = 53.dp, end = 53.dp),
                 text = stringResource(R.string.location_reasoning),
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush(),

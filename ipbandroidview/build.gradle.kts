@@ -83,12 +83,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.7.2")
 
     // Compose
-    api("androidx.compose.ui:ui:1.5.1")
-    api("androidx.compose.ui:ui-util:1.5.1")
-    api("androidx.compose.ui:ui-tooling:1.5.1")
-    api("androidx.compose.ui:ui-tooling-preview:1.5.1")
-    api("androidx.compose.foundation:foundation:1.5.1")
-    api("androidx.compose.material:material:1.5.1")
+    api("androidx.compose.ui:ui:1.5.2")
+    api("androidx.compose.ui:ui-util:1.5.2")
+    api("androidx.compose.ui:ui-tooling:1.5.2")
+    api("androidx.compose.ui:ui-tooling-preview:1.5.2")
+    api("androidx.compose.foundation:foundation:1.5.2")
+    api("androidx.compose.material:material:1.5.2")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
@@ -104,7 +104,6 @@ dependencies {
     api("com.google.accompanist:accompanist-pager-indicators:0.30.1")
 
     // Testing
-    testApi("org.orbit-mvi:orbit-test:6.0.0")
     testApi("junit:junit:4.13.2")
 
     // Appyx, navigation library
@@ -117,19 +116,19 @@ dependencies {
 
     // Google services
     api("com.google.android.gms:play-services-location:21.0.1")
-    api("com.google.maps.android:maps-compose:2.14.1")
+    api("com.google.maps.android:maps-compose:2.15.0")
     api("com.google.android.gms:play-services-maps:18.1.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.54")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.55")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.8")
-    api("com.github.skydoves:landscapist-placeholder:2.2.8")
+    api("com.github.skydoves:landscapist-fresco:2.2.10")
+    api("com.github.skydoves:landscapist-placeholder:2.2.10")
 
     api("androidx.paging:paging-runtime-ktx:3.2.1")
     api("androidx.paging:paging-compose:3.2.1")
