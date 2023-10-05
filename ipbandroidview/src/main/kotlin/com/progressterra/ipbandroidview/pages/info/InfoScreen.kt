@@ -30,13 +30,13 @@ fun InfoScreen(
         modifier = modifier,
         topBar = {
             TopBar(
-                title = stringResource(R.string.photo_picker),
+                title = stringResource(R.string.info_about_you),
                 showBackButton = true,
                 useComponent = useComponent
             )
         }, bottomBar = {
             Column(
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 24.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Button(

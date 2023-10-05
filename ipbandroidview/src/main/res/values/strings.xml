@@ -173,4 +173,6 @@
     <string name="add_card_tip">Чтобы получать оплату и делать выгодные покупки необходимо добавить карту</string>
     <string name="success_permission">Разрешение получено</string>
     <string name="failure_permission">Разрешение не получено</string>
+    <string name="info_about_you">Информация о себе</string>
+    <string name="nickname">Имя</string>
 </resources>
