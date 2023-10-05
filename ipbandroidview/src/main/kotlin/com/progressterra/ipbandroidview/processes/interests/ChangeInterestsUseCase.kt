@@ -17,7 +17,7 @@ interface ChangeInterestsUseCase {
     ) : ChangeInterestsUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(data: List<Interest>): Result<Unit> = withToken { token ->
-            data.filter { it.changed }.forEach {
+            data.forEach {
                 if (if (it.picked) {
                         service.clientInterest(
                             token = token,

@@ -11,10 +11,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.features.interestspicker.InterestsPicker
 import com.progressterra.ipbandroidview.features.interestspicker.InterestsPickerState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun InterestsScreen(
@@ -79,24 +80,33 @@ private fun InterestsScreenPreview() {
             state = InterestsScreenState(
                 screen = StateColumnState(state = ScreenState.SUCCESS),
                 interests = InterestsPickerState(
-                    items = listOf(
-                        InterestsPickerState.Item(
-                            name = "coffee", selected = false
-                        ), InterestsPickerState.Item(
-                            name = "sport", selected = true
-                        ), InterestsPickerState.Item(
-                            name = "tea", selected = false
-                        ), InterestsPickerState.Item(
-                            name = "lalala", selected = true
-                        ), InterestsPickerState.Item(
+                    allInterests =
+                    listOf(
+                        Interest(
+                            id = "0",
+                            name = "coffee", picked = false
+                        ), Interest(
+                            id = "1",
+                            name = "sport", picked = true
+                        ), Interest(
+                            id = "2",
+                            name = "tea", picked = false
+                        ), Interest(
+                            id = "3",
+                            name = "lalala", picked = true
+                        ), Interest(
+                            id = "4",
                             name = "some very long interest like a small dog psychology",
-                            selected = false
-                        ), InterestsPickerState.Item(
-                            name = "armenian coffee", selected = false
-                        ), InterestsPickerState.Item(
-                            name = "argentinian coffee", selected = true
-                        ), InterestsPickerState.Item(
-                            name = "colombian coffee", selected = false
+                            picked = false
+                        ), Interest(
+                            id = "5",
+                            name = "armenian coffee", picked = false
+                        ), Interest(
+                            id = "6",
+                            name = "argentinian coffee", picked = true
+                        ), Interest(
+                            id = "7",
+                            name = "colombian coffee", picked = false
                         )
                     )
                 )

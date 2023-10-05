@@ -1,3 +1,5 @@
 package com.progressterra.ipbandroidview.features.interestspicker
 
-class InterestsPickerEvent(val id: String)
+import com.progressterra.ipbandroidview.entities.Interest
+
+class InterestsPickerEvent(val data: Interest)

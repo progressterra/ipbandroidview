@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
@@ -28,10 +29,10 @@ fun InterestsPicker(
 
     @Composable
     fun Item(
-        itemState: InterestsPickerState.Item
+        itemState: Interest
     ) {
         val backgroundBrush =
-            if (itemState.selected) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
+            if (itemState.picked || state.changedInterests.contains(itemState)) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
         Box(modifier = Modifier
             .padding(vertical = 4.dp)
             .clip(CircleShape)
@@ -39,7 +40,7 @@ fun InterestsPicker(
             .border(
                 width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
             )
-            .niceClickable { useComponent.handle(InterestsPickerEvent(itemState.id)) }
+            .niceClickable { useComponent.handle(InterestsPickerEvent(itemState)) }
             .padding(horizontal = 16.dp, vertical = 8.dp)) {
             BrushedText(
                 text = itemState.name,
@@ -53,7 +54,7 @@ fun InterestsPicker(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        state.items.forEach {
+        state.allInterests.forEach {
             Item(it)
         }
     }
@@ -64,23 +65,33 @@ fun InterestsPicker(
 private fun InterestsPickerPreview() {
     InterestsPicker(
         state = InterestsPickerState(
-            items = listOf(
-                InterestsPickerState.Item(
-                    name = "coffee", selected = false
-                ), InterestsPickerState.Item(
-                    name = "sport", selected = true
-                ), InterestsPickerState.Item(
-                    name = "tea", selected = false
-                ), InterestsPickerState.Item(
-                    name = "lalala", selected = true
-                ), InterestsPickerState.Item(
-                    name = "some very long interest like a small dog psychology", selected = false
-                ), InterestsPickerState.Item(
-                    name = "armenian coffee", selected = false
-                ), InterestsPickerState.Item(
-                    name = "argentinian coffee", selected = true
-                ), InterestsPickerState.Item(
-                    name = "colombian coffee", selected = false
+            allInterests =
+            listOf(
+                Interest(
+                    id = "0",
+                    name = "coffee", picked = false
+                ), Interest(
+                    id = "1",
+                    name = "sport", picked = true
+                ), Interest(
+                    id = "2",
+                    name = "tea", picked = false
+                ), Interest(
+                    id = "3",
+                    name = "lalala", picked = true
+                ), Interest(
+                    id = "4",
+                    name = "some very long interest like a small dog psychology",
+                    picked = false
+                ), Interest(
+                    id = "5",
+                    name = "armenian coffee", picked = false
+                ), Interest(
+                    id = "6",
+                    name = "argentinian coffee", picked = true
+                ), Interest(
+                    id = "7",
+                    name = "colombian coffee", picked = false
                 )
             )
         ), useComponent = UseInterestsPicker.Empty()
