@@ -53,7 +53,8 @@ interface GoodsDetailsUseCase {
                 ),
                 similarGoods = GalleriesState(
                     items = recommended,
-                    title = manageResources.string(R.string.similar_goods)
+                    title = manageResources.string(R.string.similar_goods),
+                    id = goods.categoryId
                 )
             )
         }

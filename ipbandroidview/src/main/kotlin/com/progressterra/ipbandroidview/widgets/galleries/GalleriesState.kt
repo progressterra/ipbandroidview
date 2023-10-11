@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
 data class GalleriesState(
-    override val id: String,
+    override val id: String = "",
     val items: Flow<PagingData<StoreCardState>> = emptyFlow(),
     val title: String = "",
     val state: StateColumnState = StateColumnState()
