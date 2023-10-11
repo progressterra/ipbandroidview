@@ -73,23 +73,23 @@ dependencies {
     // Core
     api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
-    api("com.google.android.material:material:1.9.0")
+    api("com.google.android.material:material:1.10.0")
 
     // Coroutines
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     // Activity
-    api("androidx.activity:activity-ktx:1.7.2")
-    api("androidx.activity:activity-compose:1.7.2")
+    api("androidx.activity:activity-ktx:1.8.0")
+    api("androidx.activity:activity-compose:1.8.0")
 
     // Compose
-    api("androidx.compose.ui:ui:1.5.2")
-    api("androidx.compose.ui:ui-util:1.5.2")
-    api("androidx.compose.ui:ui-tooling:1.5.2")
-    api("androidx.compose.ui:ui-tooling-preview:1.5.2")
-    api("androidx.compose.foundation:foundation:1.5.2")
-    api("androidx.compose.material:material:1.5.2")
+    api("androidx.compose.ui:ui:1.5.3")
+    api("androidx.compose.ui:ui-util:1.5.3")
+    api("androidx.compose.ui:ui-tooling:1.5.3")
+    api("androidx.compose.ui:ui-tooling-preview:1.5.3")
+    api("androidx.compose.foundation:foundation:1.5.3")
+    api("androidx.compose.material:material:1.5.3")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
