@@ -13,9 +13,5 @@ val widgetsModule = module {
         )
     }
 
-    single<FetchGalleriesUseCase> {
-        FetchGalleriesUseCase.Base(get(), get(), get())
-    }
-
     single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get()) }
 }

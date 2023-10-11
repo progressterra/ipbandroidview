@@ -17,8 +17,7 @@ data class IpbTypography(
     val title2: TextStyle = TextStyle(
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
-        lineHeight = 24.sp,
-        textDecoration = TextDecoration.LineThrough
+        lineHeight = 24.sp
     ),
     val headline: TextStyle = TextStyle(
         fontSize = 17.sp, fontWeight = FontWeight.Bold, lineHeight = 20.4.sp

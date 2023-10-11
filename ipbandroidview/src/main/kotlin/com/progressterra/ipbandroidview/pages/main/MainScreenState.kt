@@ -6,6 +6,5 @@ import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
 data class MainScreenState(
     val bonuses: BonusesState = BonusesState(),
-    val recommended: List<GalleriesState> = emptyList(),
-    val screen: StateColumnState = StateColumnState()
+    val recommended: List<GalleriesState> = emptyList()
 )

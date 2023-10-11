@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.widgets.galleries
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,6 +15,7 @@ import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.features.storecard.StoreCard
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun Galleries(
@@ -25,8 +25,10 @@ fun Galleries(
 ) {
     val items = state.items.collectAsLazyPagingItems()
     if (items.itemCount > 0) {
-        Column(
+        StateColumn(
             modifier = modifier.fillMaxWidth(),
+            state = state.state,
+            useComponent = useComponent,
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             BrushedText(

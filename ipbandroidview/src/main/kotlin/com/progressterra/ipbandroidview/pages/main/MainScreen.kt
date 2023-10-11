@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.features.bonuses.Bonuses
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.galleries.Galleries
 
 @Composable
@@ -20,24 +19,20 @@ fun MainScreen(
     ThemedLayout(
         modifier = modifier,
     ) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
+        LazyColumn(
+            contentPadding = PaddingValues(top = 20.dp),
+            verticalArrangement = Arrangement.spacedBy(40.dp)
         ) {
-            LazyColumn(
-                contentPadding = PaddingValues(top = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(40.dp)
-            ) {
-                item {
-                    Bonuses(
-                        modifier = Modifier.padding(horizontal = 20.dp),
-                        state = state.bonuses, useComponent = useComponent
-                    )
-                }
-                items(state.recommended) {
-                    Galleries(
-                        state = it, useComponent = useComponent
-                    )
-                }
+            item {
+                Bonuses(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    state = state.bonuses, useComponent = useComponent
+                )
+            }
+            items(state.recommended) {
+                Galleries(
+                    state = it, useComponent = useComponent
+                )
             }
         }
     }

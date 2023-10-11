@@ -3,6 +3,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-parcelize")
     id("maven-publish")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -98,6 +99,8 @@ dependencies {
     // Koin, DI library
     api("io.insert-koin:koin-android:3.5.0")
     api("io.insert-koin:koin-androidx-compose:3.5.0")
+    api("io.insert-koin:koin-annotations:1.3.0")
+    ksp ("io.insert-koin:koin-ksp-compiler:1.3.0")
 
     // Accompanist, useful composables
     api("com.google.accompanist:accompanist-systemuicontroller:0.30.1")

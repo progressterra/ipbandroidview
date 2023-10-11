@@ -1,29 +1,33 @@
 package com.progressterra.ipbandroidview.widgets.galleries
 
 import com.progressterra.ipbandroidapi.api.catalog.CatalogRepository
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
-import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.AbstractCacheTokenUseCase
+import com.progressterra.ipbandroidview.shared.CacheUseCase
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
-interface FetchGalleriesUseCase {
+interface FetchGalleriesUseCase : CacheUseCase<GalleriesState> {
 
-    suspend operator fun invoke(): Result<List<GalleriesState>>
+    suspend operator fun invoke(id: String)
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val goodsUseCase: GoodsUseCase,
         private val productRepository: CatalogRepository
-    ) : FetchGalleriesUseCase, AbstractTokenUseCase(obtainAccessToken) {
+    ) : FetchGalleriesUseCase, AbstractCacheTokenUseCase<GalleriesState>(obtainAccessToken) {
 
-        override suspend fun invoke(): Result<List<GalleriesState>> = withToken { token ->
-            IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES.map {
-                val goods = goodsUseCase(GoodsFilter(categoryId = it)).getOrThrow()
-                val category = productRepository.category(token, it).getOrThrow()
+        override suspend fun invoke(id: String) {
+            withCache { token ->
+                val goods = goodsUseCase(GoodsFilter(categoryId = id)).getOrThrow()
+                val category = productRepository.category(token, id).getOrThrow()
                 val result = GalleriesState(
                     items = goods,
-                    title = category?.name ?: ""
+                    title = category?.name ?: "",
+                    id = id,
+                    state = StateColumnState(id = id, state = ScreenState.SUCCESS)
                 )
                 log(result)
                 result

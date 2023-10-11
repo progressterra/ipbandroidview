@@ -51,7 +51,7 @@ abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
     override fun onBackground(
         block: suspend () -> Unit
     ) {
-        viewModelScope.launch(Dispatchers.IO) { block() }
+        viewModelScope.launch(Dispatchers.Default) { block() }
     }
 
     protected fun emitState(reducer: (S) -> S) {

@@ -42,7 +42,7 @@ fun BonusesScreen(
         ) {
             Bonuses(
                 modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp),
-                state = state.bonusesInfo,
+                state = state.bonuses,
                 useComponent = useComponent,
                 style = BonusesStyle.TRANSACTIONS
             )

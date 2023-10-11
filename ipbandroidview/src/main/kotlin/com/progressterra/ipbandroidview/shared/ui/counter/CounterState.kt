@@ -8,9 +8,5 @@ data class CounterState(
     val count: Int = 0
 ) : IsEmpty {
 
-    fun addOne(): CounterState = copy(count = count + 1)
-
-    fun removeOne(): CounterState = copy(count = count - 1)
-
     override fun isEmpty(): Boolean = count == 0
 }

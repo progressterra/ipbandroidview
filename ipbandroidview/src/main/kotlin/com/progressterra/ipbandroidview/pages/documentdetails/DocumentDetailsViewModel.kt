@@ -59,7 +59,7 @@ class DocumentDetailsViewModel(
         object : DocsModuleUser {
 
             override fun emitModuleState(reducer: (Document) -> Document) {
-                emitState { it.copy(document = reducer(currentState.document)) }
+                emitState { it.copy(document = reducer(moduleState)) }
             }
 
             override val moduleState: Document

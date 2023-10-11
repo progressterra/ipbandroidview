@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.features.bonuses
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +22,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun Bonuses(
@@ -31,13 +31,15 @@ fun Bonuses(
     style: BonusesStyle = BonusesStyle.MAIN,
     useComponent: UseBonuses
 ) {
-    Column(
+    StateColumn(
         modifier = modifier
             .fillMaxWidth()
             .height(162.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(IpbTheme.colors.secondaryPressed.asBrush())
-            .padding(16.dp)
+            .padding(16.dp),
+        state = state.state,
+        useComponent = useComponent
     ) {
         Row(
             modifier = Modifier

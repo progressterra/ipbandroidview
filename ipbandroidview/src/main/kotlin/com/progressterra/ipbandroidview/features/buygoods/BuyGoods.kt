@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -38,7 +39,7 @@ fun BuyGoods(
             ) {
                 BrushedText(
                     text = state.oldPrice.toString(),
-                    style = IpbTheme.typography.title2,
+                    style = IpbTheme.typography.title2.copy(textDecoration = TextDecoration.LineThrough),
                     tint = IpbTheme.colors.textTertiary.asBrush(),
                 )
                 BrushedText(

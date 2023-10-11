@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.SignInData
@@ -35,7 +36,9 @@ class ConfirmationCodeScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
+        val focusManager = LocalFocusManager.current
         LaunchedEffect(input) {
+            focusManager.clearFocus()
             viewModel.setup(input)
         }
         ConfirmationCodeScreen(modifier = modifier, state = state, useComponent = viewModel)
