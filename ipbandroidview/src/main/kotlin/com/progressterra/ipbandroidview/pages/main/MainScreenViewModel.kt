@@ -64,7 +64,6 @@ class MainScreenViewModel(
 
     override fun refresh() {
         onBackground {
-            emitState { createInitialState() }
             bonusesModule.refresh()
             galleriesModules.forEach { it.refresh() }
         }
