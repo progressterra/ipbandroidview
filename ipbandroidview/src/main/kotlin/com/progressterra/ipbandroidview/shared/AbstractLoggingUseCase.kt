@@ -7,7 +7,7 @@ abstract class AbstractLoggingUseCase {
 
     protected fun <T> log(message: T) {
         if (IpbAndroidViewSettings.DEBUG) {
-            Log.d(javaClass::getSimpleName.toString(), message.toString())
+            Log.d(this::class.java.simpleName.toString(), message.toString())
         }
     }
 
@@ -17,7 +17,7 @@ abstract class AbstractLoggingUseCase {
         block()
     }.onFailure {
         if (IpbAndroidViewSettings.DEBUG) Log.e(
-            javaClass::getSimpleName.toString(), it.message, it
+            this::class.java.simpleName.toString(), it.message, it
         )
     }
 }

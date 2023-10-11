@@ -49,6 +49,7 @@ class MainScreenViewModel(
                 override fun emitModuleState(reducer: (GalleriesState) -> GalleriesState) {
                     Log.d("MAIN", "emitModuleState $moduleState to ${reducer(moduleState)} ")
                     emitState { it.copy(recommended = it.recommended.replaceById(reducer(moduleState))) }
+                    Log.d("MAIN", "currentState $currentState")
                 }
 
                 override val moduleState: GalleriesState
