@@ -24,35 +24,33 @@ fun Galleries(
     useComponent: UseGalleries
 ) {
     val items = state.items.collectAsLazyPagingItems()
-    if (items.itemCount > 0) {
-        StateColumn(
-            modifier = modifier.fillMaxWidth(),
-            state = state.state,
-            useComponent = useComponent,
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+    StateColumn(
+        modifier = modifier.fillMaxWidth(),
+        state = state.state,
+        useComponent = useComponent,
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        BrushedText(
+            modifier = Modifier.padding(start = 20.dp),
+            text = state.title,
+            style = IpbTheme.typography.title,
+            tint = IpbTheme.colors.textPrimary.asBrush(),
+        )
+        LazyRow(
+            modifier = Modifier,
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            contentPadding = PaddingValues(horizontal = 20.dp)
         ) {
-            BrushedText(
-                modifier = Modifier.padding(start = 20.dp),
-                text = state.title,
-                style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-            )
-            LazyRow(
-                modifier = Modifier,
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                contentPadding = PaddingValues(horizontal = 20.dp)
+            items(count = items.itemCount,
+                key = items.itemKey { it.id }
             ) {
-                items(count = items.itemCount,
-                    key = items.itemKey { it.id }
-                ) {
-                    items[it]?.let { item ->
-                        Box(contentAlignment = Alignment.Center) {
-                            StoreCard(
-                                state = item,
-                                useComponent = useComponent
-                            )
-                        }
+                items[it]?.let { item ->
+                    Box(contentAlignment = Alignment.Center) {
+                        StoreCard(
+                            state = item,
+                            useComponent = useComponent
+                        )
                     }
                 }
             }

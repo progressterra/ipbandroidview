@@ -34,7 +34,7 @@ class MainScreenViewModel(
     override fun createInitialState() =
         MainScreenState(recommended = MAIN_SCREEN_CATEGORIES.map { GalleriesState(id = it) })
 
-    private val galleriesModules: List<GalleriesModule> = currentState.recommended.map { gallery ->
+    private val galleriesModules: List<GalleriesModule> = MAIN_SCREEN_CATEGORIES.map { galleryId ->
         GalleriesModule(
             addToCartUseCase = addToCartUseCase,
             removeFromCartUseCase = removeFromCartUseCase,
@@ -52,7 +52,7 @@ class MainScreenViewModel(
                 }
 
                 override val moduleState: GalleriesState
-                    get() = currentState.recommended.first { it.id == gallery.id }
+                    get() = currentState.recommended.first { it.id == galleryId }
 
 
                 override fun onGoods(data: String) {
