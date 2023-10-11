@@ -29,6 +29,7 @@ fun Galleries(
             modifier = modifier.fillMaxWidth(),
             state = state.state,
             useComponent = useComponent,
+            horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             BrushedText(

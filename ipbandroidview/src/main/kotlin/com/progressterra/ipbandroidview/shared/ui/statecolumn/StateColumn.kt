@@ -29,7 +29,6 @@ fun StateColumn(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
             .then(
                 if (scrollable) {
                     Modifier.verticalScroll(scrollState ?: rememberScrollState())

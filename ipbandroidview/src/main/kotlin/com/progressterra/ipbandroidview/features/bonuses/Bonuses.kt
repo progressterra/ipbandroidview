@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.features.bonuses
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,84 +35,94 @@ fun Bonuses(
     StateColumn(
         modifier = modifier
             .fillMaxWidth()
-            .height(162.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(IpbTheme.colors.secondaryPressed.asBrush())
-            .padding(16.dp),
+            .height(162.dp),
         state = state.state,
         useComponent = useComponent
     ) {
-        Row(
-            modifier = Modifier
+        Column(
+            modifier = modifier
                 .fillMaxWidth()
-                .height(45.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .height(162.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(IpbTheme.colors.secondaryPressed.asBrush())
+                .padding(16.dp)
         ) {
-            BrushedText(
-                text = "${stringResource(R.string.you_have)} ${state.roubles} ${stringResource(R.string.roubles)}",
-                style = IpbTheme.typography.title,
-                tint = IpbTheme.colors.textButton.asBrush()
-            )
-            if (style == BonusesStyle.MAIN) {
-                IconButton(
-                    modifier = Modifier.size(45.dp),
-                    onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
-                    BrushedIcon(
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(45.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                BrushedText(
+                    text = "${stringResource(R.string.you_have)} ${state.roubles} ${stringResource(R.string.roubles)}",
+                    style = IpbTheme.typography.title,
+                    tint = IpbTheme.colors.textButton.asBrush()
+                )
+                if (style == BonusesStyle.MAIN) {
+                    IconButton(
                         modifier = Modifier.size(45.dp),
-                        resId = R.drawable.ic_arrow,
-                        tint = IpbTheme.colors.primary.asBrush(),
-                    )
+                        onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
+                        BrushedIcon(
+                            modifier = Modifier.size(45.dp),
+                            resId = R.drawable.ic_arrow,
+                            tint = IpbTheme.colors.primary.asBrush(),
+                        )
+                    }
                 }
             }
-        }
-        if (style == BonusesStyle.MAIN && !state.hasCards) {
-            BrushedText(
-                modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
-                text = stringResource(R.string.add_card),
-                style = IpbTheme.typography.subHeadlineBold,
-                tint = IpbTheme.colors.primary.asBrush()
-            )
-        } else {
-            Spacer(modifier = Modifier.weight(1f))
-        }
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(45.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            BrushedText(
-                text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${stringResource(R.string.roubles)}",
-                style = IpbTheme.typography.subHeadlineItalic,
-                tint = IpbTheme.colors.textTertiary.asBrush()
-            )
-            if (style == BonusesStyle.MAIN) {
-                IconButton(
-                    modifier = Modifier.size(45.dp),
-                    onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
-                    BrushedIcon(
+            if (style == BonusesStyle.MAIN && !state.hasCards) {
+                BrushedText(
+                    modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
+                    text = stringResource(R.string.add_card),
+                    style = IpbTheme.typography.subHeadlineBold,
+                    tint = IpbTheme.colors.primary.asBrush()
+                )
+            } else {
+                Spacer(modifier = Modifier.weight(1f))
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(45.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                BrushedText(
+                    text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${
+                        stringResource(
+                            R.string.roubles
+                        )
+                    }",
+                    style = IpbTheme.typography.subHeadlineItalic,
+                    tint = IpbTheme.colors.textTertiary.asBrush()
+                )
+                if (style == BonusesStyle.MAIN) {
+                    IconButton(
                         modifier = Modifier.size(45.dp),
-                        resId = R.drawable.ic_withdrawal,
-                        tint = IpbTheme.colors.primary.asBrush(),
-                    )
+                        onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
+                        BrushedIcon(
+                            modifier = Modifier.size(45.dp),
+                            resId = R.drawable.ic_withdrawal,
+                            tint = IpbTheme.colors.primary.asBrush(),
+                        )
+                    }
                 }
             }
-        }
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            BrushedText(
-                text = stringResource(R.string.available_installment),
-                style = IpbTheme.typography.subHeadlineRegular,
-                tint = IpbTheme.colors.textSecondary.asBrush()
-            )
-            BrushedText(
-                text = stringResource(R.string.available_installment_2),
-                style = IpbTheme.typography.subHeadlineBold,
-                tint = IpbTheme.colors.textButton.asBrush()
-            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                BrushedText(
+                    text = stringResource(R.string.available_installment),
+                    style = IpbTheme.typography.subHeadlineRegular,
+                    tint = IpbTheme.colors.textSecondary.asBrush()
+                )
+                BrushedText(
+                    text = stringResource(R.string.available_installment_2),
+                    style = IpbTheme.typography.subHeadlineBold,
+                    tint = IpbTheme.colors.textButton.asBrush()
+                )
+            }
         }
     }
 }
