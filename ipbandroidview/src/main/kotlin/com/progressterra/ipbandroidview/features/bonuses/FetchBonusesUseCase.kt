@@ -13,7 +13,7 @@ interface FetchBonusesUseCase : CacheUseCase<BonusesState> {
 
     suspend operator fun invoke()
 
-    @Factory
+    @Factory(binds = [FetchBonusesUseCase::class])
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val balanceRepository: BalanceRepository,
