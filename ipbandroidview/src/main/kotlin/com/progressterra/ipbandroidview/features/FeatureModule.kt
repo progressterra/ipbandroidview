@@ -8,6 +8,10 @@ import org.koin.dsl.module
 
 val featuresModule = module {
 
+    factory<FetchBonusesUseCase> {
+        FetchBonusesUseCase.Base(get(), get(), get())
+    }
+
     single<FetchPaymentMethods> {
         FetchPaymentMethods.Base()
     }

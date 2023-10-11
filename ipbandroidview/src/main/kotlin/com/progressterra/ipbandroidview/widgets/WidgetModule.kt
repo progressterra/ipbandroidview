@@ -7,6 +7,10 @@ import org.koin.dsl.module
 
 val widgetsModule = module {
 
+    single<FetchGalleriesUseCase> {
+        FetchGalleriesUseCase.Base(get(), get(), get())
+    }
+
     single<FetchBonusesTransactionsUseCase> {
         FetchBonusesTransactionsUseCase.Base(
             get()

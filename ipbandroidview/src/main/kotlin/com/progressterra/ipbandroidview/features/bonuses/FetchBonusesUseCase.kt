@@ -7,13 +7,11 @@ import com.progressterra.ipbandroidview.shared.AbstractCacheTokenUseCase
 import com.progressterra.ipbandroidview.shared.CacheUseCase
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
-import org.koin.core.annotation.Factory
 
 interface FetchBonusesUseCase : CacheUseCase<BonusesState> {
 
     suspend operator fun invoke()
 
-    @Factory(binds = [FetchBonusesUseCase::class])
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val balanceRepository: BalanceRepository,
