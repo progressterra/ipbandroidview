@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.main
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.catalog.CatalogRepository
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
@@ -44,7 +45,9 @@ class MainScreenViewModel(
             ),
             operations = this,
             user = object : GalleriesModuleUser {
+
                 override fun emitModuleState(reducer: (GalleriesState) -> GalleriesState) {
+                    Log.d("MAIN", "emitModuleState $moduleState to ${reducer(moduleState)} ")
                     emitState { it.copy(recommended = it.recommended.replaceById(reducer(moduleState))) }
                 }
 

@@ -23,7 +23,9 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun Bonuses(
@@ -40,7 +42,7 @@ fun Bonuses(
         useComponent = useComponent
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(162.dp)
                 .clip(RoundedCornerShape(12.dp))
@@ -133,7 +135,8 @@ private fun BonusesPreview0() {
     IpbTheme {
         Bonuses(
             state = BonusesState(
-                roubles = "100"
+                roubles = "100",
+                state = StateColumnState(state = ScreenState.SUCCESS)
             ), useComponent = UseBonuses.Empty()
         )
     }
@@ -146,7 +149,8 @@ private fun BonusesPreview1() {
         Bonuses(
             state = BonusesState(
                 roubles = "100",
-                hasCards = true
+                hasCards = true,
+                state = StateColumnState(state = ScreenState.SUCCESS)
             ), useComponent = UseBonuses.Empty(),
             style = BonusesStyle.TRANSACTIONS
         )
@@ -160,7 +164,8 @@ private fun BonusesPreview2() {
         Bonuses(
             state = BonusesState(
                 roubles = "100",
-                hasCards = true
+                hasCards = true,
+                state = StateColumnState(state = ScreenState.SUCCESS)
             ), useComponent = UseBonuses.Empty()
         )
     }
