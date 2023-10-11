@@ -16,7 +16,6 @@ class GalleriesModule(
     user: GalleriesModuleUser
 ) : GalleriesModuleUser by user, Operations by operations, UseGalleries {
 
-
     init {
         onBackground {
             fetchGalleriesUseCase.resultFlow.collect { result ->
@@ -58,4 +57,3 @@ class GalleriesModule(
         }
     }
 }
-
