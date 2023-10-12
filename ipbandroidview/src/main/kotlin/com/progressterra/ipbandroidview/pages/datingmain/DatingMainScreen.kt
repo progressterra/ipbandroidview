@@ -3,11 +3,16 @@ package com.progressterra.ipbandroidview.pages.datingmain
 import DatingMainScreenEvent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,6 +36,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -46,6 +56,9 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitch
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
 
 @Composable
 fun DatingMainScreen(
@@ -53,6 +66,63 @@ fun DatingMainScreen(
     state: DatingMainScreenState,
     useComponent: UseDatingMainScreen
 ) {
+
+
+    fun getRotationAngle(currentPosition: Offset, center: Offset): Double {
+        val (dx, dy) = currentPosition - center
+        val theta = atan2(dy, dx).toDouble()
+
+        var angle = Math.toDegrees(theta)
+
+        if (angle < 0) {
+            angle += 360.0
+        }
+        return angle
+    }
+
+    @Composable
+    fun Orbits(modifier: Modifier) {
+        var radius by remember {
+            mutableStateOf(0f)
+        }
+        var shapeCenter by remember {
+            mutableStateOf(Offset.Zero)
+        }
+//        val avatars = listOf("A", "B", "C")
+        var pointCenter by remember {
+             mutableStateOf(Offset.Zero)
+        }
+//        val angle by remember {
+//            mutableDoubleStateOf(20.0)
+//        }
+        val animateFloat = remember { Animatable(0f) }
+        LaunchedEffect(animateFloat) {
+            animateFloat.animateTo(
+                targetValue = 360f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(
+                        durationMillis = 3000,
+                        easing = LinearEasing
+                    )
+                )
+            )
+        }
+        Canvas(
+            modifier = modifier.fillMaxWidth().aspectRatio(1f)
+        ) {
+            shapeCenter = center
+            radius = size.minDimension / 2 - 30f
+            val x = (shapeCenter.x + cos(Math.toRadians((animateFloat.value).toDouble())) * radius).toFloat()
+            val y = (shapeCenter.y + sin(Math.toRadians((animateFloat.value).toDouble())) * radius).toFloat()
+            pointCenter = Offset(x, y)
+            drawCircle(color = Color.Cyan, center = pointCenter, radius = 60f)
+            drawCircle(
+                color = Color.Black.copy(alpha = 0.10f),
+                style = Stroke(20f),
+                radius = radius
+            )
+        }
+    }
 
     @Composable
     fun Tabs(
@@ -235,6 +305,12 @@ fun DatingMainScreen(
                             contentDescription = null
                         )
                     }
+                    Orbits(modifier = Modifier.constrainAs(circle) {
+                        width = Dimension.fillToConstraints
+                        top.linkTo(picker.bottom, 28.dp)
+                        start.linkTo(parent.start, 16.dp)
+                        end.linkTo(parent.end, 16.dp)
+                    })
                 } else if (selectedIndex == 1) {
 
                 }
@@ -242,6 +318,7 @@ fun DatingMainScreen(
         }
     }
 }
+
 
 @Preview
 @Composable

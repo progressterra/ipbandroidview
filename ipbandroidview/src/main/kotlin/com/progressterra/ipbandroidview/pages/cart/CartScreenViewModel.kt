@@ -17,19 +17,24 @@ class CartScreenViewModel(
     private val fetchCartUseCase: FetchCartUseCase
 ) : AbstractNonInputViewModel<CartScreenState, CartScreenEffect>(), UseCartScreen {
 
+    init {
+        onBackground {
+            fetchCartUseCase.resultFlow.collect { result ->
+                val call = result.onSuccess { newState -> emitState { newState } }
+                emitState {
+                    it.copy(
+                        screen = it.screen.copy(state = call.isSuccess.toScreenState()),
+                        summary = it.summary.copy(proceed = it.summary.proceed.copy(enabled = it.items.items.isNotEmpty()))
+                    )
+                }
+            }
+        }
+    }
+
     override fun createInitialState() = CartScreenState()
 
     override fun refresh() {
-        onBackground {
-            emitState { createInitialState() }
-            val call = fetchCartUseCase().onSuccess { newState -> emitState { newState } }
-            emitState {
-                it.copy(
-                    screen = it.screen.copy(state = call.isSuccess.toScreenState()),
-                    summary = it.summary.copy(proceed = it.summary.proceed.copy(enabled = it.items.items.isNotEmpty()))
-                )
-            }
-        }
+        onBackground { fetchCartUseCase() }
     }
 
     override fun handle(event: CartCardEvent) {
