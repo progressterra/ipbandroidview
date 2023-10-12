@@ -21,23 +21,28 @@ class CatalogScreenViewModel(
     private val removeFromCartUseCase: RemoveFromCartUseCase,
 ) : UseCatalog, AbstractNonInputViewModel<CatalogScreenState, CatalogScreenEffect>() {
 
+    init {
+        onBackground {
+            catalogUseCase.resultFlow.collect { result ->
+                result.onSuccess { catalog ->
+                    emitState {
+                        it.copy(
+                            screen = it.screen.copy(state = ScreenState.SUCCESS),
+                            current = catalog,
+                            trace = it.trace.copy(current = catalog)
+                        )
+                    }
+                }.onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
+            }
+        }
+    }
+
     override fun createInitialState() = CatalogScreenState()
 
     override fun refresh() {
-        onBackground {
-            emitState { createInitialState() }
-            catalogUseCase().onSuccess { catalog ->
-                emitState {
-                    it.copy(
-                        screen = it.screen.copy(state = ScreenState.SUCCESS),
-                        current = catalog,
-                        trace = it.trace.copy(current = catalog)
-                    )
-                }
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
-        }
+        onBackground { catalogUseCase() }
     }
 
     override fun handle(event: CatalogCardEvent) {

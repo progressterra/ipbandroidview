@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.cart
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -50,6 +51,7 @@ fun CartScreen(
             }
         }) { _, _ ->
         StateColumn(
+            modifier = Modifier.fillMaxSize(),
             state = state.screen, useComponent = useComponent
         ) {
             CartItems(
