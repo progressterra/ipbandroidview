@@ -8,7 +8,8 @@ import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 
 @Composable
 fun BrushedIcon(
@@ -24,6 +25,6 @@ fun BrushedIcon(
                     drawContent()
                     drawRect(tint, blendMode = BlendMode.SrcAtop)
                 }
-            }, painter = painterResource(id = resId), contentDescription = null
+            }, imageVector = ImageVector.vectorResource(id = resId), contentDescription = null
     )
 }
