@@ -48,8 +48,12 @@ class MainScreenViewModel(
 
                 override fun emitModuleState(reducer: (GalleriesState) -> GalleriesState) {
                     Log.d("MAIN", "emitModuleState $moduleState to ${reducer(moduleState)} ")
-                    emitState { it.copy(recommended = it.recommended.replaceById(reducer(moduleState))) }
-                    Log.d("MAIN", "currentState $currentState")
+                    emitState {
+                        val newState = it.copy(recommended = it.recommended.replaceById(reducer(moduleState)))
+                        Log.d("MAIN", "new state $currentState")
+                        newState
+                    }
+
                 }
 
                 override val moduleState: GalleriesState
@@ -101,12 +105,12 @@ class MainScreenViewModel(
     }
 
     override fun handle(event: StoreCardEvent) {
-        galleriesModules.forEach { it.handle(event) }
+        galleriesModules.getOrNull(0)?.handle(event)
         if (event is StoreCardEvent.AddToCart) galleriesModules.forEach { it.refresh() }
     }
 
     override fun handle(event: CounterEvent) {
-        galleriesModules.forEach { it.handle(event) }
+        galleriesModules.getOrNull(0)?.handle(event)
         galleriesModules.forEach { it.refresh() }
     }
 
