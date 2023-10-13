@@ -22,6 +22,7 @@ fun StateColumn(
     state: StateColumnState,
     scrollable: Boolean = false,
     scrollState: ScrollState? = null,
+    maxSize: Boolean = true,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     useComponent: UseStateColumn,
@@ -29,6 +30,13 @@ fun StateColumn(
 ) {
     Column(
         modifier = modifier
+            .then(
+                if (maxSize) {
+                    Modifier.fillMaxSize()
+                } else {
+                    Modifier
+                }
+            )
             .then(
                 if (scrollable) {
                     Modifier.verticalScroll(scrollState ?: rememberScrollState())

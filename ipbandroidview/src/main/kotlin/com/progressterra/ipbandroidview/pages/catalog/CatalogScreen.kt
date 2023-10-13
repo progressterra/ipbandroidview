@@ -52,7 +52,6 @@ fun CatalogScreen(
             }
         }) { _, _ ->
         StateColumn(
-            modifier = Modifier.fillMaxSize(),
             state = state.screen, useComponent = useComponent
         ) {
             Box {

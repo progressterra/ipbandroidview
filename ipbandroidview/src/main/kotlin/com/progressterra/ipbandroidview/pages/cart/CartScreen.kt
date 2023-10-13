@@ -51,7 +51,6 @@ fun CartScreen(
             }
         }) { _, _ ->
         StateColumn(
-            modifier = Modifier.fillMaxSize(),
             state = state.screen, useComponent = useComponent
         ) {
             CartItems(
