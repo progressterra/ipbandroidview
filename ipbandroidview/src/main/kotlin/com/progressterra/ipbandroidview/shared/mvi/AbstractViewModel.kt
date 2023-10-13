@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
@@ -55,8 +56,7 @@ abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
     }
 
     protected fun emitState(reducer: (S) -> S) {
-        val newState = reducer(currentState)
-        _state.value = newState
+        _state.update { reducer(it) }
     }
 
     protected fun postEffect(effect: E) {

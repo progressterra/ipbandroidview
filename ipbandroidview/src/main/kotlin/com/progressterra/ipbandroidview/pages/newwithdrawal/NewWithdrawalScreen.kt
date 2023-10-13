@@ -85,12 +85,11 @@ fun NewWithdrawalScreen(
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
             }
-            Spacer(modifier = Modifier.height(20.dp))
             val lazyItems = state.cards.collectAsLazyPagingItems()
             LazyColumn(
                 modifier = Modifier.heightIn(max = 200.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(horizontal = 20.dp)
+                contentPadding = PaddingValues(20.dp)
             ) {
                 items(
                     count = lazyItems.itemCount,
