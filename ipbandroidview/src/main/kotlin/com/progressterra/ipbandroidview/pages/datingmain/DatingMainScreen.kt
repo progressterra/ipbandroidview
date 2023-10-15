@@ -50,6 +50,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
@@ -64,10 +65,13 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitch
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchState
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.yandex.mapkit.mapview.MapView
 import kotlinx.coroutines.launch
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 @Composable
 fun DatingMainScreen(
@@ -105,53 +109,34 @@ fun DatingMainScreen(
         modifier: Modifier
     ) {
         val rotationTime = 1000 * 30
-        val tier1 = if (state.chosenTier == 1) state.users.size else 5
-        val tier2 = if (state.chosenTier == 2) state.users.size else 3
-        val tier3 = if (state.chosenTier == 3) state.users.size else 2
-        val animateTier1 = rememberSaveable(tier1) {
-            val step = 360f / tier1
-            List(tier1) { index -> Animatable(index * step) }
+        val tiers = rememberSaveable(state.users, state.chosenTier) {
+            List(3) { if (it == state.chosenTier) state.users.size else Random.nextInt(1..5) }
         }
-        val animateTier2 = rememberSaveable(tier2) {
-            val step = 360f / tier2
-            List(tier2) { index -> Animatable(index * step) }
-        }
-        val animateTier3 = rememberSaveable(tier3) {
-            val step = 360f / tier3
-            List(tier3) { index -> Animatable(index * step) }
-        }
-        LaunchedEffect(animateTier1, animateTier2, animateTier3) {
-            if (state.chosenTier == 1 || state.chosenTier == 0) animateTier1.forEachIndexed { index, anim ->
-                val step = 360f / tier1
-                val initial = index * step
-                launch {
-                    anim.animateTo(
-                        targetValue = initial + 360f, animationSpec = infiniteRepeatable(
-                            animation = tween(durationMillis = rotationTime, easing = LinearEasing)
-                        )
-                    )
+        val animationValues = rememberSaveable(tiers) {
+            List(3) { tier ->
+                val step = 360f / tiers[tier]
+                List(tiers[tier]) {
+                    Animatable(it * step)
                 }
             }
-            if (state.chosenTier == 2 || state.chosenTier == 0) animateTier2.forEachIndexed { index, anim ->
-                val step = 360f / tier2
-                val initial = index * step
-                launch {
-                    anim.animateTo(
-                        targetValue = initial + 360f, animationSpec = infiniteRepeatable(
-                            animation = tween(durationMillis = rotationTime, easing = LinearEasing)
-                        )
-                    )
-                }
-            }
-            if (state.chosenTier == 3 || state.chosenTier == 0) animateTier3.forEachIndexed { index, anim ->
-                val step = 360f / tier3
-                val initial = index * step
-                launch {
-                    anim.animateTo(
-                        targetValue = initial + 360f, animationSpec = infiniteRepeatable(
-                            animation = tween(durationMillis = rotationTime, easing = LinearEasing)
-                        )
-                    )
+        }
+        LaunchedEffect(animationValues) {
+            for (i in animationValues.indices) {
+                if (state.chosenTier == i || state.chosenTier == null) {
+                    val step = 360f / animationValues[i].size
+                    animationValues[i].forEachIndexed { index, anim ->
+                        launch {
+                            anim.animateTo(
+                                targetValue = index * step + 360f,
+                                animationSpec = infiniteRepeatable(
+                                    animation = tween(
+                                        durationMillis = rotationTime,
+                                        easing = LinearEasing
+                                    )
+                                )
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -161,123 +146,64 @@ fun DatingMainScreen(
                 .aspectRatio(1f), contentAlignment = Alignment.Center
         ) {
             val density = LocalDensity.current
-            val r =
-                constraints.maxWidth / 2f - with(density) { if (state.chosenTier == 0) 9.dp.toPx() else 25.dp.toPx() }
-            val s = with(density) { r.toDp() } - 39.dp
-            val r2 = with(density) { ((s * 2 / 3) + 39.dp).toPx() }
-            val r3 = with(density) { ((s / 3) + 39.dp).toPx() }
-            if (state.chosenTier == 1 || state.chosenTier == 0) for (i in 0 until tier1) {
-                val x = (r + cos(Math.toRadians(animateTier1[i].value.toDouble())) * r).toFloat()
-                val y = (r + sin(Math.toRadians(animateTier1[i].value.toDouble())) * r).toFloat()
-                val intOffset = IntOffset(
-                    x.roundToInt(), y.roundToInt()
-                )
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .offset { intOffset }
-                    .zIndex(1f)) {
-                    if (state.chosenTier == 1) {
-                        User(user = state.users[i])
-                    } else {
-                        BrushedIcon(
-                            resId = R.drawable.ic_tier_1,
-                            tint = IpbTheme.colors.primary.asBrush()
-                        )
+            val baseR =
+                constraints.maxWidth / 2f - with(density) { if (state.chosenTier == null) 9.dp.toPx() else 25.dp.toPx() }
+            val diff = with(density) { baseR.toDp() } - 39.dp
+            for (i in animationValues.indices) {
+                val r = with(density) { ((diff * (3 - i) / 3) + 39.dp).toPx() }
+                for (j in animationValues[i].indices) {
+                    val x =
+                        (r + cos(Math.toRadians(animationValues[i][j].value.toDouble())) * r).toFloat()
+                    val y =
+                        (r + sin(Math.toRadians(animationValues[i][j].value.toDouble())) * r).toFloat()
+                    val intOffset = IntOffset(
+                        x.roundToInt(), y.roundToInt()
+                    )
+                    val correctionOffset =
+                        IntOffset((baseR - r).roundToInt(), (baseR - r).roundToInt())
+                    Box(modifier = Modifier
+                        .fillMaxSize()
+                        .offset { intOffset + correctionOffset }
+                        .zIndex(1f)) {
+                        if (state.chosenTier == i) {
+                            User(user = state.users[j])
+                        } else if (state.chosenTier == null) {
+                                BrushedIcon(
+                                    resId = when (i) {
+                                        0 -> R.drawable.ic_tier_1
+                                        1 -> R.drawable.ic_tier_2
+                                        else -> R.drawable.ic_tier_3
+                                    },
+                                    tint = IpbTheme.colors.primary.asBrush()
+                                )
+                        }
                     }
                 }
-            }
-            if (state.chosenTier == 2 || state.chosenTier == 0) for (i in 0 until tier2) {
-                val step = 360f / tier2
-                val x =
-                    (r2 + cos(Math.toRadians(step / 2 + animateTier2[i].value.toDouble())) * r2).toFloat()
-                val y =
-                    (r2 + sin(Math.toRadians(step / 2 + animateTier2[i].value.toDouble())) * r2).toFloat()
-                val intOffset = IntOffset(
-                    x.roundToInt(), y.roundToInt()
-                )
-                val correctionOffset = IntOffset((r - r2).roundToInt(), (r - r2).roundToInt())
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .offset { intOffset + correctionOffset }
-                    .zIndex(1f)) {
-
-                    if (state.chosenTier == 2) {
-                        User(user = state.users[i])
-                    } else {
-                        BrushedIcon(
-                            resId = R.drawable.ic_tier_2,
-                            tint = IpbTheme.colors.primary.asBrush()
-                        )
-                    }
+                val size = when (i) {
+                    0 -> 8
+                    1 -> 10
+                    else -> 12
                 }
-            }
-            if (state.chosenTier == 3 || state.chosenTier == 0) for (i in 0 until tier3) {
-                val x = (r3 + cos(Math.toRadians(animateTier3[i].value.toDouble())) * r3).toFloat()
-                val y = (r3 + sin(Math.toRadians(animateTier3[i].value.toDouble())) * r3).toFloat()
-                val intOffset = IntOffset(
-                    x.roundToInt(), y.roundToInt()
-                )
-                val correctionOffset = IntOffset((r - r3).roundToInt(), (r - r3).roundToInt())
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .offset { intOffset + correctionOffset }
-                    .zIndex(1f)) {
-                    if (state.chosenTier == 3) {
-                        User(user = state.users[i])
-                    } else {
-                        BrushedIcon(
-                            resId = R.drawable.ic_tier_3,
-                            tint = IpbTheme.colors.primary.asBrush()
-                        )
-                    }
+                val color = IpbTheme.colors.primary.asColor()
+                Canvas(modifier = Modifier.fillMaxSize()) {
+                    if (state.chosenTier == i || state.chosenTier == null) drawCircle(
+                        color = color,
+                        style = Stroke(
+                            width = with(density) { 2.dp.toPx() },
+                            pathEffect = PathEffect.dashPathEffect(
+                                floatArrayOf(with(density) { size.dp.toPx() },
+                                    with(density) { size.dp.toPx() }), 0f
+                            )
+                        ),
+                        radius = r,
+                        center = center
+                    )
                 }
-            }
-            Box(
-                modifier = Modifier
-                    .size(78.dp)
-                    .clip(CircleShape)
-                    .background(Color.Magenta)
-            )
-            val tierEffect1 = Stroke(
-                width = with(density) { 2.dp.toPx() },
-                pathEffect = PathEffect.dashPathEffect(
-                    floatArrayOf(with(density) { 8.dp.toPx() },
-                        with(density) { 8.dp.toPx() }), 0f
-                )
-            )
-            val tierEffect2 = Stroke(
-                width = with(density) { 2.dp.toPx() },
-                pathEffect = PathEffect.dashPathEffect(
-                    floatArrayOf(with(density) { 10.dp.toPx() },
-                        with(density) { 10.dp.toPx() }), 0f
-                )
-            )
-            val tierEffect3 = Stroke(
-                width = with(density) { 2.dp.toPx() },
-                pathEffect = PathEffect.dashPathEffect(
-                    floatArrayOf(with(density) { 12.dp.toPx() },
-                        with(density) { 12.dp.toPx() }), 0f
-                )
-            )
-            val color = IpbTheme.colors.primary.asColor()
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                if (state.chosenTier == 1 || state.chosenTier == 0) drawCircle(
-                    color = color,
-                    style = tierEffect1,
-                    radius = r,
-                    center = center
-                )
-                if (state.chosenTier == 2 || state.chosenTier == 0) drawCircle(
-                    color = color,
-                    style = tierEffect2,
-                    radius = r2,
-                    center = center
-                )
-                if (state.chosenTier == 3 || state.chosenTier == 0) drawCircle(
-                    color = color,
-                    style = tierEffect3,
-                    radius = r3,
-                    center = center
+                Box(
+                    modifier = Modifier
+                        .size(78.dp)
+                        .clip(CircleShape)
+                        .background(Color.Magenta)
                 )
             }
         }
@@ -351,7 +277,8 @@ fun DatingMainScreen(
         }
     }) { _, _ ->
         Column(
-            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var selectedIndex by remember { mutableIntStateOf(0) }
             Tabs(selected = selectedIndex, onSelect = { selectedIndex = it })
@@ -470,7 +397,11 @@ fun DatingMainScreen(
                         end.linkTo(parent.end, 16.dp)
                     })
                 } else if (selectedIndex == 1) {
+                    AndroidView(factory = {
+                        MapView(it).apply {
 
+                        }
+                    })
                 }
             }
         }
@@ -490,8 +421,11 @@ private fun DatingMainScreenPreview() {
                 AnotherUser(), AnotherUser(), AnotherUser(), AnotherUser(), AnotherUser()
             ),
             avatar = "dignissim",
-            interestsTargets = listOf(DatingTarget(name = "Sport"), DatingTarget(name = "Cars")),
-            chosenTier = 1,
+            interestsTargets = listOf(
+                DatingTarget(name = "Sport"),
+                DatingTarget(name = "Cars")
+            ),
+            chosenTier = null,
             chosenInterest = DatingTarget()
         ), useComponent = UseDatingMainScreen.Empty()
     )
