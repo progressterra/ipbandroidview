@@ -16,6 +16,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.widgets.edituser.EditUserEvent
 
 class ProfileDetailsScreenViewModel(
     private val saveUseCase: SaveDataUseCase,
@@ -69,6 +70,12 @@ class ProfileDetailsScreenViewModel(
 
     override fun handle(event: StateColumnEvent) {
         refresh()
+    }
+
+    override fun handle(event: EditUserEvent) {
+        onBackground {
+            emitState { it.copy(editUser = it.editUser.copy(sex = event.data)) }
+        }
     }
 
     override fun handle(event: ButtonEvent) {

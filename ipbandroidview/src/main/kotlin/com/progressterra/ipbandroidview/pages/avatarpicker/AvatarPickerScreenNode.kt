@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.interests
+package com.progressterra.ipbandroidview.pages.avatarpicker
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,25 +9,24 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
-class InterestsNode(
+class AvatarPickerScreenNode(
     buildContext: BuildContext,
-    private val navigation: InterestsScreenNavigation
+    private val navigation: AvatarPickerScreenNavigation
 ) : Node(buildContext = buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<InterestsScreenViewModel>()
+        val viewModel = getViewModel<AvatarPickerScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
-                is InterestsScreenEffect.OnBack -> navigation.onBack()
-                is InterestsScreenEffect.OnNext -> navigation.onNext()
-                is InterestsScreenEffect.OnSkip -> navigation.onSkip()
+                is AvatarPickerScreenEffect.OnBack -> navigation.onBack()
+                is AvatarPickerScreenEffect.OnNext -> navigation.onNext()
             }
         }
         val state = viewModel.state.collectAsState().value
         LaunchedEffect(Unit) {
             viewModel.refresh()
         }
-        InterestsScreen(modifier = modifier, state = state, useComponent = viewModel)
+        AvatarPickerScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

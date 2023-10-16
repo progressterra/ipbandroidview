@@ -22,38 +22,41 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun AvatarPickerScreen(
+    modifier: Modifier = Modifier,
     state: AvatarPickerScreenState, useComponent: UseAvatarPickerScreen
 ) {
-    ThemedLayout(topBar = {
-        TopBar(
-            title = stringResource(R.string.avatar_picker),
-            showBackButton = true,
-            useComponent = useComponent
-        )
-    }, bottomBar = {
-        Column(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.confirm,
-                useComponent = useComponent,
-                title = stringResource(R.string.choose)
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            TopBar(
+                title = stringResource(R.string.avatar_picker),
+                showBackButton = true,
+                useComponent = useComponent
             )
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.skip,
-                useComponent = useComponent,
-                title = stringResource(R.string.skip_yet)
-            )
-        }
-    }) { _, _ ->
+        }, bottomBar = {
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.confirm,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.choose)
+                )
+                TextButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.skip,
+                    useComponent = useComponent,
+                    title = stringResource(R.string.skip_yet)
+                )
+            }
+        }) { _, _ ->
         StateColumn(
             state = state.screen, useComponent = useComponent
         ) {

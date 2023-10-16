@@ -180,4 +180,6 @@
     <string name="map">карта</string>
     <string name="find_mate">Выберите удалённость и найдите собеседника по интересам прямо сейчас!</string>
     <string name="choose_dating_interest">Выбрать цель знакомства</string>
+    <string name="male">Мужской</string>
+    <string name="your_sex">Ваш пол:</string>
 </resources>

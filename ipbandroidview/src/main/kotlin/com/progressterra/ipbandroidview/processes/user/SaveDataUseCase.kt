@@ -1,8 +1,11 @@
 package com.progressterra.ipbandroidview.processes.user
 
+import com.progressterra.ipbandroidapi.api.iamhere.ImhService
+import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataPersonalEntity
 import com.progressterra.ipbandroidapi.api.scrm.ScrmService
 import com.progressterra.ipbandroidapi.api.scrm.models.ClientsEntity
 import com.progressterra.ipbandroidapi.api.scrm.models.TypeSex
+import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -19,7 +22,8 @@ interface SaveDataUseCase {
     suspend operator fun invoke(income: EditUserState): Result<Unit>
 
     class Base(
-        private val scrmService: ScrmService, obtainAccessToken: ObtainAccessToken
+        private val scrmService: ScrmService,
+        obtainAccessToken: ObtainAccessToken
     ) : SaveDataUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
@@ -48,10 +52,13 @@ interface SaveDataUseCase {
                     soname = nameList[1],
                     dateOfBirth = UserData.dateOfBirthday,
                     patronymic = "",
-                    sex = TypeSex.MALE
+                    sex = when (income.sex) {
+                        Sex.FEMALE -> TypeSex.FEMALE
+                        Sex.MALE -> TypeSex.MALE
+                        Sex.NONE -> TypeSex.MALE
+                    }
                 )
             )
-            //TODO email not saving
         }
     }
 }

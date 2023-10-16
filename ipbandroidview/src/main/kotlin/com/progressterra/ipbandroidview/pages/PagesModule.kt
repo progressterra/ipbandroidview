@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages
 
 import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionsUseCase
+import com.progressterra.ipbandroidview.pages.avatarpicker.AvatarPickerScreenViewModel
 import com.progressterra.ipbandroidview.pages.bankcarddetails.BankCardDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.bankcarddetails.FetchCardTemplateUseCase
 import com.progressterra.ipbandroidview.pages.bankcards.BankCardsScreenViewModel
@@ -44,6 +45,7 @@ import com.progressterra.ipbandroidview.pages.payment.ConfirmOrderUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchBonusSwitchUseCase
 import com.progressterra.ipbandroidview.pages.payment.FetchReceiptUseCase
 import com.progressterra.ipbandroidview.pages.payment.PaymentScreenViewModel
+import com.progressterra.ipbandroidview.pages.pfppicker.PfpPickerScreenViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoScreenViewModel
 import com.progressterra.ipbandroidview.pages.profile.DocumentsNotificationUseCase
 import com.progressterra.ipbandroidview.pages.profile.ProfileScreenViewModel
@@ -101,9 +103,13 @@ val pagesModule = module {
 
     viewModel { OrderTrackingScreenViewModel() }
 
-    viewModel { DatingMainScreenViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { DatingMainScreenViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
 
     viewModel { DatingProfileScreenViewModel() }
+
+    viewModel { AvatarPickerScreenViewModel() }
+
+    viewModel { PfpPickerScreenViewModel() }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 

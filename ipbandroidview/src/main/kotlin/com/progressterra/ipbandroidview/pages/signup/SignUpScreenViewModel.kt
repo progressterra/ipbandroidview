@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import com.progressterra.ipbandroidview.widgets.edituser.EditUserEvent
 
 class SignUpScreenViewModel(
     private val saveDataUseCase: SaveDataUseCase,
@@ -33,11 +34,17 @@ class SignUpScreenViewModel(
         }
     }
 
+    override fun handle(event: EditUserEvent) {
+        onBackground {
+            emitState { it.copy(editUser = it.editUser.copy(sex = event.data)) }
+        }
+    }
+
     override fun handle(event: TopBarEvent) {
         postEffect(SignUpScreenEffect.OnBack)
     }
 
-    override fun handle(event: ButtonEvent){
+    override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
                 "next" -> saveDataUseCase(currentState.editUser).onSuccess {

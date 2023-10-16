@@ -1,33 +1,37 @@
-package com.progressterra.ipbandroidview.pages.interests
+package com.progressterra.ipbandroidview.pages.pfppicker
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")
-class InterestsNode(
+class PfpPickerScreenNode(
     buildContext: BuildContext,
-    private val navigation: InterestsScreenNavigation
-) : Node(buildContext = buildContext) {
+    private val navigation: PfpPickerScreenNavigation
+) : Node(
+    buildContext = buildContext
+) {
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<InterestsScreenViewModel>()
+        val viewModel = getViewModel<PfpPickerScreenViewModel>()
+        val context = LocalContext.current
         viewModel.collectEffects { effect ->
             when (effect) {
-                is InterestsScreenEffect.OnBack -> navigation.onBack()
-                is InterestsScreenEffect.OnNext -> navigation.onNext()
-                is InterestsScreenEffect.OnSkip -> navigation.onSkip()
+                is PfpPickerScreenEffect.Back -> navigation.onBack()
+                is PfpPickerScreenEffect.Next -> navigation.onNext()
+                is PfpPickerScreenEffect.Skip -> navigation.onSkip()
             }
         }
         val state = viewModel.state.collectAsState().value
         LaunchedEffect(Unit) {
             viewModel.refresh()
         }
-        InterestsScreen(modifier = modifier, state = state, useComponent = viewModel)
+        PfpPickerScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }
