@@ -343,7 +343,7 @@ fun DatingMainScreen(
                             Column(
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
-                                state.interestsTargets.forEach {
+                                state.datingTargets.forEach {
                                     Row(
                                         modifier = Modifier
                                             .fillMaxWidth()
@@ -353,7 +353,7 @@ fun DatingMainScreen(
                                                 brush = IpbTheme.colors.primary.asBrush(),
                                                 shape = CircleShape
                                             )
-                                            .niceClickable { }
+                                            .niceClickable { useComponent.handle(DatingMainScreenEvent.SelectTarget(it)) }
                                             .padding(vertical = 10.dp),
                                         horizontalArrangement = Arrangement.Center
                                     ) {
@@ -418,7 +418,7 @@ private fun DatingMainScreenPreview() {
                 AnotherUser(), AnotherUser(), AnotherUser(), AnotherUser(), AnotherUser()
             ),
             avatar = "dignissim",
-            interestsTargets = listOf(
+            datingTargets = listOf(
                 DatingTarget(name = "Sport"),
                 DatingTarget(name = "Cars")
             ),

@@ -4,6 +4,8 @@ import com.progressterra.ipbandroidview.shared.theme.IpbColors
 
 internal object IpbAndroidViewSettings {
 
+    var SHOW_SEX_PICKER = false
+
     var COLORS: IpbColors = IpbColors()
 
     var DEBUG = false

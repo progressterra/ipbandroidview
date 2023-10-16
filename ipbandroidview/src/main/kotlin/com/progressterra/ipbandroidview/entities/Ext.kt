@@ -15,6 +15,7 @@ import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValu
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
 import com.progressterra.ipbandroidapi.api.iamhere.models.RFInterestViewModel
+import com.progressterra.ipbandroidapi.api.iamhere.models.RFTargetViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientInterest
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
@@ -399,4 +400,9 @@ fun RGClientDataViewModel.toAnotherUser() = AnotherUser(
     age = "",
     occupation = "",
     connection = DatingConnection.CAN_CONNECT
+)
+
+fun RFTargetViewModel.toDatingTarget() = DatingTarget(
+    id = idUnique!!,
+    name = name ?: ""
 )

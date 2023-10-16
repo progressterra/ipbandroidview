@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.datingmain
 
 import android.Manifest
+import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
@@ -22,7 +23,8 @@ class DatingMainScreenViewModel(
     private val updateDatingLocationUseCase: UpdateDatingLocationUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
-    private val provideLocationUseCase: ProvideLocationUseCase
+    private val provideLocationUseCase: ProvideLocationUseCase,
+    private val availableTargets: AvailableTargetsUseCase
 ) : UseDatingMainScreen,
     AbstractNonInputViewModel<DatingMainScreenState, DatingMainScreenEffect>() {
 
@@ -40,6 +42,14 @@ class DatingMainScreenViewModel(
 
     override fun handle(event: DatingMainScreenEvent) {
 
+    }
+
+    override fun refresh() {
+        onBackground {
+            availableTargets().onSuccess { targets ->
+                emitState { it.copy(datingTargets = targets) }
+            }
+        }
     }
 
     private fun startLocationUpdates() {

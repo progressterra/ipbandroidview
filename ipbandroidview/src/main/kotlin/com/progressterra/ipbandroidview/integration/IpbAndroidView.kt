@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidapi.IpbAndroidApiSettings
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.reflection.extractFromMap
 import com.progressterra.ipbandroidview.shared.theme.IpbColors
+import com.yandex.mapkit.MapKitFactory
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -36,6 +37,7 @@ class IpbAndroidView private constructor(
         IpbAndroidViewSettings.PRIVACY_URL = config["privacyUrl"]!!.first()
         IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES = config["mainCategories"]!!
         IpbAndroidViewSettings.COLORS = config.extractFromMap(IpbColors())
+        IpbAndroidViewSettings.SHOW_SEX_PICKER = config["showSexPicker"]!!.first().toBoolean()
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!.first()
         IpbAndroidApiSettings.BALANCE_URL = config["balanceUrl"]!!.first()
         IpbAndroidApiSettings.CART_URL = config["cartUrl"]!!.first()
@@ -48,6 +50,7 @@ class IpbAndroidView private constructor(
         IpbAndroidApiSettings.SCRM_URL = config["scrmUrl"]!!.first()
         IpbAndroidApiSettings.MEDIA_DATA_URL = config["mediaDataUrl"]!!.first()
         IpbAndroidApiSettings.IMH_URL = config["imhService"]!!.first()
+        config["yandexMapApiKey"]?.firstOrNull()?.let { MapKitFactory.setApiKey(it) }
         FirebaseApp.initializeApp(context)
         Fresco.initialize(
             context,
