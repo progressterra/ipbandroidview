@@ -37,13 +37,15 @@ class SignUpScreenViewModel(
         postEffect(SignUpScreenEffect.OnBack)
     }
 
-    override fun handle(event: ButtonEvent) = onBackground {
-        when (event.id) {
-            "next" -> saveDataUseCase(currentState.editUser).onSuccess {
-                postEffect(SignUpScreenEffect.OnNext)
-            }
+    override fun handle(event: ButtonEvent){
+        onBackground {
+            when (event.id) {
+                "next" -> saveDataUseCase(currentState.editUser).onSuccess {
+                    postEffect(SignUpScreenEffect.OnNext)
+                }
 
-            "skip" -> postEffect(SignUpScreenEffect.OnSkip)
+                "skip" -> postEffect(SignUpScreenEffect.OnSkip)
+            }
         }
     }
 
