@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.pfppicker
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -17,9 +18,6 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun PfpPickerScreen(
@@ -54,9 +52,7 @@ fun PfpPickerScreen(
                 )
             }
         }) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
-        ) {
+        Column(modifier = Modifier.fillMaxSize()) {
             PfpPicker(
                 modifier = Modifier.padding(top = 36.dp, start = 56.dp, end = 56.dp),
                 state = state.pfpPicker,
@@ -71,7 +67,7 @@ fun PfpPickerScreen(
 private fun PfpPickerScreenPreviewEmpty() {
     IpbTheme {
         PfpPickerScreen(
-            state = PfpPickerScreenState(screen = StateColumnState(state = ScreenState.SUCCESS)),
+            state = PfpPickerScreenState(),
             useComponent = UsePfpPickerScreen.Empty()
         )
     }
@@ -83,7 +79,6 @@ private fun PfpPickerScreenPreview() {
     IpbTheme {
         PfpPickerScreen(
             state = PfpPickerScreenState(
-                screen = StateColumnState(state = ScreenState.SUCCESS),
                 pfpPicker = PfpPickerState(url = "")
             ),
             useComponent = UsePfpPickerScreen.Empty()

@@ -74,7 +74,8 @@ fun EditUser(
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
                         selected = state.sex == Sex.MALE,
@@ -86,7 +87,8 @@ fun EditUser(
                     )
                 }
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
                         selected = state.sex == Sex.FEMALE,

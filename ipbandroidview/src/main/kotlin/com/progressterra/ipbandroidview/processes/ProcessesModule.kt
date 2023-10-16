@@ -41,6 +41,7 @@ import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
+import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
@@ -89,6 +90,8 @@ val processesModule = module {
     single<OpenMapUseCase> { OpenMapUseCase.Base(get()) }
 
     single<GuessLocationUseCase> { GuessLocationUseCase.Base(get()) }
+
+    single<SaveDatingInfoUseCase> { SaveDatingInfoUseCase.Base(get(), get()) }
 
     single<GoodsUseCase> {
         GoodsUseCase.Base(get(), get())
