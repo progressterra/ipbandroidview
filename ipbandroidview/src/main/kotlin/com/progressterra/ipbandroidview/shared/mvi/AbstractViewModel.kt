@@ -12,6 +12,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -51,9 +52,7 @@ abstract class AbstractViewModel<S : Any, E : Any> : ViewModel(), Operations {
 
     override fun onBackground(
         block: suspend () -> Unit
-    ) {
-        viewModelScope.launch(Dispatchers.Default) { block() }
-    }
+    ) : Job = viewModelScope.launch(Dispatchers.Default) { block() }
 
     protected fun emitState(reducer: (S) -> S) {
         _state.update { reducer(it) }

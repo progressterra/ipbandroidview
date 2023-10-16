@@ -42,6 +42,5 @@ class ConfirmationCodeScreenNode(
             viewModel.setup(input)
         }
         ConfirmationCodeScreen(modifier = modifier, state = state, useComponent = viewModel)
-
     }
 }

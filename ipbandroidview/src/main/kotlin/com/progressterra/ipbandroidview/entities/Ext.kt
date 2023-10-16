@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicType
 import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValueViewModel
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
+import com.progressterra.ipbandroidapi.api.iamhere.models.RFInterestViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientInterest
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
@@ -376,6 +377,12 @@ fun TypeResultOperationBisinessArea.toString(stringResource: @Composable (Int) -
         TypeResultOperationBisinessArea.WITH_ERROR -> stringResource(R.string.transaction_error)
     }
 
+fun RFInterestViewModel.toInterest() = Interest(
+    id = idUnique!!,
+    name = name ?: "",
+    picked = false
+)
+
 fun RGClientDataViewModel.toAnotherUser() = AnotherUser(
     id = idUnique!!,
     image = avatarMediaData?.urlData ?: "",
@@ -385,5 +392,11 @@ fun RGClientDataViewModel.toAnotherUser() = AnotherUser(
         latitude = latitudeReal ?: 0.0,
         name = nickName ?: "",
         longitude = longitudeReal ?: 0.0
-    )
+    ),
+    interests = listInterests?.map { it.toInterest() } ?: emptyList(),
+    distance = "123 метра (todo)",
+    target = target?.name ?: "",
+    age = "",
+    occupation = "",
+    connection = DatingConnection.CAN_CONNECT
 )

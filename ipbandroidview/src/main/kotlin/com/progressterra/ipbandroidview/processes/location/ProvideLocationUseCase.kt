@@ -6,14 +6,14 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
 import kotlinx.coroutines.tasks.await
 
-interface ProvideLocation {
+interface ProvideLocationUseCase {
 
-    suspend fun location(): Result<Location>
+    suspend operator fun invoke(): Result<Location>
 
-    class Base(private val fusedLocationClient: FusedLocationProviderClient) : ProvideLocation {
+    class Base(private val fusedLocationClient: FusedLocationProviderClient) : ProvideLocationUseCase {
 
         @SuppressLint("MissingPermission")
-        override suspend fun location(): Result<Location> = runCatching {
+        override suspend fun invoke(): Result<Location> = runCatching {
             fusedLocationClient.getCurrentLocation(
                 Priority.PRIORITY_HIGH_ACCURACY,
                 null

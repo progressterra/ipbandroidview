@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.processes
 import com.progressterra.ipbandroidapi.IpbAndroidApiSettings
 import com.progressterra.ipbandroidapi.api.auth.AuthService
 import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataCreateAccessToken
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
+import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 
 interface ObtainAccessToken {
@@ -12,11 +12,11 @@ interface ObtainAccessToken {
 
     class Base(
         private val authService: AuthService,
-        private val provideLocation: ProvideLocation
+        private val provideLocationUseCase: ProvideLocationUseCase
     ) : ObtainAccessToken {
 
         override suspend fun invoke(): Result<String> = runCatching {
-            val locationResult = provideLocation.location()
+            val locationResult = provideLocationUseCase()
             authService.accessToken(
                 IncomeDataCreateAccessToken(
                     idDevice = UserData.deviceId,

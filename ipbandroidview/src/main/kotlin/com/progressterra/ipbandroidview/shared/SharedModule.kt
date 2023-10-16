@@ -11,7 +11,6 @@ import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
 import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
 import com.progressterra.ipbandroidview.shared.activity.PickPhotoContract
 import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
-import com.progressterra.ipbandroidview.shared.activity.SubscribeLocationContract
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.StringQualifier
 import org.koin.dsl.binds
@@ -39,10 +38,6 @@ val sharedModule = module {
     single {
         PickPhotoContract.Base()
     }.binds(arrayOf(PickPhotoContract.Activity::class, PickPhotoContract.Client::class))
-
-    single {
-        SubscribeLocationContract.Base()
-    }.binds(arrayOf(SubscribeLocationContract.Activity::class, SubscribeLocationContract.Client::class))
 
     single { androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
 

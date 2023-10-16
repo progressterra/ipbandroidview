@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.GeoData
 import com.progressterra.ipbandroidapi.api.iamhere.models.GeoPoint
 import com.progressterra.ipbandroidapi.api.iamhere.models.IncomeDataStartMeet
 import com.progressterra.ipbandroidapi.api.iamhere.models.RFTargetViewModel
-import com.progressterra.ipbandroidview.entities.Interest
+import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.LocationPoint
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
@@ -14,14 +14,14 @@ import java.time.ZonedDateTime
 
 interface ReadyToMeetUseCase {
 
-    suspend operator fun invoke(location: LocationPoint, interest: Interest): Result<Unit>
+    suspend operator fun invoke(location: LocationPoint, target: DatingTarget): Result<Unit>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val imhService: ImhService
     ) : ReadyToMeetUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
-        override suspend fun invoke(location: LocationPoint, interest: Interest): Result<Unit> =
+        override suspend fun invoke(location: LocationPoint, target: DatingTarget): Result<Unit> =
             withToken { token ->
                 imhService.clientDataReadyMeet(
                     token = token,
@@ -36,8 +36,8 @@ interface ReadyToMeetUseCase {
                             )
                         ),
                         target = RFTargetViewModel(
-                            name = interest.name,
-                            idUnique = interest.id,
+                            name = target.name,
+                            idUnique = target.id,
                             idEnterprise = null,
                             dateAdded = ZonedDateTime.now().formatZdtIso(),
                             dateUpdated = ZonedDateTime.now().formatZdtIso(),

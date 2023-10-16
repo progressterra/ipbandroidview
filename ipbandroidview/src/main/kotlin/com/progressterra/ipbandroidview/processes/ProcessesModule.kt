@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
+import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
@@ -18,8 +19,7 @@ import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCas
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.LocationToLocationPointUseCase
 import com.progressterra.ipbandroidview.processes.location.OpenMapUseCase
-import com.progressterra.ipbandroidview.processes.location.ProvideLocation
-import com.progressterra.ipbandroidview.processes.location.SubscribeOnLocationUseCase
+import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
@@ -83,7 +83,7 @@ val processesModule = module {
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
 
-    single<ProvideLocation> { ProvideLocation.Base(get()) }
+    single<ProvideLocationUseCase> { ProvideLocationUseCase.Base(get()) }
 
     single<OpenMapUseCase> { OpenMapUseCase.Base(get()) }
 
@@ -175,5 +175,5 @@ val processesModule = module {
 
     factory<UsersAroundUseCase> { UsersAroundUseCase.Base(get(), get()) }
 
-    factory<SubscribeOnLocationUseCase> { SubscribeOnLocationUseCase.Base(get()) }
+    single<UpdateDatingLocationUseCase> { UpdateDatingLocationUseCase.Base(get(), get()) }
 }

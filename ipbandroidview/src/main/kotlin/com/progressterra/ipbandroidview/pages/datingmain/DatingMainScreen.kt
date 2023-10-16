@@ -64,6 +64,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitch
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchState
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.mapview.MapView
 import kotlinx.coroutines.launch
 import kotlin.math.cos
@@ -167,14 +168,14 @@ fun DatingMainScreen(
                         if (state.chosenTier == i) {
                             User(user = state.users[j])
                         } else if (state.chosenTier == null) {
-                                BrushedIcon(
-                                    resId = when (i) {
-                                        0 -> R.drawable.ic_tier_1
-                                        1 -> R.drawable.ic_tier_2
-                                        else -> R.drawable.ic_tier_3
-                                    },
-                                    tint = IpbTheme.colors.primary.asBrush()
-                                )
+                            BrushedIcon(
+                                resId = when (i) {
+                                    0 -> R.drawable.ic_tier_1
+                                    1 -> R.drawable.ic_tier_2
+                                    else -> R.drawable.ic_tier_3
+                                },
+                                tint = IpbTheme.colors.primary.asBrush()
+                            )
                         }
                     }
                 }
@@ -388,7 +389,14 @@ fun DatingMainScreen(
                 } else if (selectedIndex == 1) {
                     AndroidView(factory = {
                         MapView(it).apply {
-
+                            state.users.forEach {
+                                map.mapObjects.addPlacemark().apply {
+                                    geometry = Point(
+                                        it.locationPoint.latitude,
+                                        it.locationPoint.longitude
+                                    )
+                                }
+                            }
                         }
                     })
                 }
@@ -415,7 +423,7 @@ private fun DatingMainScreenPreview() {
                 DatingTarget(name = "Cars")
             ),
             chosenTier = null,
-            chosenInterest = DatingTarget()
+            chosenTarget = DatingTarget()
         ), useComponent = UseDatingMainScreen.Empty()
     )
 }

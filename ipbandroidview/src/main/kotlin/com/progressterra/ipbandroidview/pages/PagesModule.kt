@@ -14,6 +14,8 @@ import com.progressterra.ipbandroidview.pages.catalog.CatalogScreenViewModel
 import com.progressterra.ipbandroidview.pages.catalog.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeScreenViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.pages.datingmain.DatingMainScreenViewModel
+import com.progressterra.ipbandroidview.pages.datingprofile.DatingProfileScreenViewModel
 import com.progressterra.ipbandroidview.pages.delivery.AddDeliveryToCartUseCase
 import com.progressterra.ipbandroidview.pages.delivery.CommentUseCase
 import com.progressterra.ipbandroidview.pages.delivery.DeliveryScreenViewModel
@@ -98,6 +100,10 @@ val pagesModule = module {
     viewModel { OrderDetailsScreenViewModel(get(), get(), get(), get()) }
 
     viewModel { OrderTrackingScreenViewModel() }
+
+    viewModel { DatingMainScreenViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
+
+    viewModel { DatingProfileScreenViewModel() }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 
