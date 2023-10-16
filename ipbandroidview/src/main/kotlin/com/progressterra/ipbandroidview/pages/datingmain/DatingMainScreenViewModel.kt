@@ -62,11 +62,11 @@ class DatingMainScreenViewModel(
     override fun handle(event: BrushedSwitchEvent) {
         onBackground {
             val readyToMeet = !currentState.readyToMeet.turned
-            emitState { it.copy(readyToMeet = it.readyToMeet.copy(turned = readyToMeet)) }
             if (readyToMeet) {
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
                     provideLocationUseCase().getOrNull()?.let { location ->
                         locationToLocationPointUseCase(location).getOrNull()?.let { point ->
+                            emitState { it.copy(readyToMeet = it.readyToMeet.copy(turned = true)) }
                             readyToMeetUseCase(point, currentState.chosenTarget!!)
                             startLocationUpdates()
                         }
@@ -74,6 +74,7 @@ class DatingMainScreenViewModel(
                 }.onFailure { askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION) }
             } else {
                 deleteReadyToMeetUseCase().onSuccess {
+                    emitState { it.copy(readyToMeet = it.readyToMeet.copy(turned = false)) }
                     stopLocationUpdates()
                 }
             }

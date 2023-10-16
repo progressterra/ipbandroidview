@@ -1,6 +1,10 @@
 package com.progressterra.ipbandroidview
 
-object IpbAndroidViewSettings {
+import com.progressterra.ipbandroidview.shared.theme.IpbColors
+
+internal object IpbAndroidViewSettings {
+
+    var COLORS: IpbColors = IpbColors()
 
     var DEBUG = false
 

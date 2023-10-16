@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 
 object IpbTheme {
 
@@ -21,12 +22,10 @@ val LocalColors = staticCompositionLocalOf { defaultIpbLightColors }
 
 @Composable
 fun IpbTheme(
-    lightColors: IpbColors = defaultIpbLightColors,
-    darkColors: IpbColors = defaultIpbDarkColors,
     typography: IpbTypography = IpbTheme.typography,
     content: @Composable () -> Unit
 ) {
-    val colors = if (isSystemInDarkTheme()) darkColors else lightColors
+    val colors = if (isSystemInDarkTheme()) IpbAndroidViewSettings.COLORS else IpbAndroidViewSettings.COLORS
     CompositionLocalProvider(
         LocalTypography provides typography,
         LocalColors provides colors
