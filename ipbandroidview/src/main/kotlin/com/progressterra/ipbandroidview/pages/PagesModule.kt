@@ -31,6 +31,7 @@ import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsScreenVie
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.pages.goodsdetails.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.pages.info.InfoScreenViewModel
+import com.progressterra.ipbandroidview.pages.interests.InterestsScreenViewModel
 import com.progressterra.ipbandroidview.pages.locationpermission.LocationPermissionScreenViewModel
 import com.progressterra.ipbandroidview.pages.main.MainScreenViewModel
 import com.progressterra.ipbandroidview.pages.newwithdrawal.CreateNewWithdrawalUseCase
@@ -113,6 +114,8 @@ val pagesModule = module {
     viewModel { PfpPickerScreenViewModel() }
 
     viewModel { InfoScreenViewModel(get()) }
+
+    viewModel { InterestsScreenViewModel(get(), get()) }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 

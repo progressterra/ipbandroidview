@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.info
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -16,9 +17,6 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
 fun InfoScreen(
@@ -53,9 +51,7 @@ fun InfoScreen(
                 )
             }
         }) { _, _ ->
-        StateColumn(
-            state = state.screen, useComponent = useComponent
-        ) {
+        Column(modifier = Modifier.fillMaxSize()) {
             Info(
                 modifier = Modifier.padding(top = 36.dp, start = 16.dp, end = 16.dp),
                 state = state.info,
@@ -70,7 +66,7 @@ fun InfoScreen(
 private fun InfoScreenPreview() {
     IpbTheme {
         InfoScreen(
-            state = InfoScreenState(screen = StateColumnState(state = ScreenState.SUCCESS)),
+            state = InfoScreenState(),
             useComponent = UseInfoScreen.Empty()
         )
     }
