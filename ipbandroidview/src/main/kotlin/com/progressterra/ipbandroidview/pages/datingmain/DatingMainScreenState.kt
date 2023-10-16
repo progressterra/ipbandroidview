@@ -6,9 +6,9 @@ import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchSta
 
 data class DatingMainScreenState(
     val readyToMeet: BrushedSwitchState = BrushedSwitchState(id = "readyToMeet", enabled = false),
-    val users: List<AnotherUser>,
-    val avatar: String,
-    val interestsTargets: List<DatingTarget>,
-    val chosenInterest: DatingTarget,
-    val chosenTier: Int
+    val users: List<AnotherUser> = emptyList(),
+    val avatar: String = "",
+    val interestsTargets: List<DatingTarget> = emptyList(),
+    val chosenInterest: DatingTarget? = null,
+    val chosenTier: Int? = null
 )

@@ -14,6 +14,7 @@ import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicType
 import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValueViewModel
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
+import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientInterest
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
 import com.progressterra.ipbandroidapi.api.payment.models.DHPaymentClientViewModel
@@ -374,3 +375,15 @@ fun TypeResultOperationBisinessArea.toString(stringResource: @Composable (Int) -
         TypeResultOperationBisinessArea.SUCCESS -> stringResource(R.string.transaction_success)
         TypeResultOperationBisinessArea.WITH_ERROR -> stringResource(R.string.transaction_error)
     }
+
+fun RGClientDataViewModel.toAnotherUser() = AnotherUser(
+    id = idUnique!!,
+    image = avatarMediaData?.urlData ?: "",
+    hideAvatar = false,
+    locationPoint = LocationPoint(
+        id = idrfPlace ?: "",
+        latitude = latitudeReal ?: 0.0,
+        name = nickName ?: "",
+        longitude = longitudeReal ?: 0.0
+    )
+)

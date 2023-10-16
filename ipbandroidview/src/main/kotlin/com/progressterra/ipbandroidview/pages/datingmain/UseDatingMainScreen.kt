@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.datingmain
 
-import DatingMainScreenEvent
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.UseBrushedSwitch
 

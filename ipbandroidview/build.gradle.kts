@@ -95,6 +95,9 @@ dependencies {
     api("com.maxkeppeler.sheets-compose-dialogs:core:1.2.0")
     api("com.maxkeppeler.sheets-compose-dialogs:calendar:1.2.0")
 
+    // Yandex
+    api("com.yandex.android:maps.mobile:4.4.0-lite")
+
     // Koin, DI library
     api("io.insert-koin:koin-android:3.5.0")
     api("io.insert-koin:koin-androidx-compose:3.5.0")
