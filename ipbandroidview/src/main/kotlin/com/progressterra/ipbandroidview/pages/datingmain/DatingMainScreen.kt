@@ -249,16 +249,6 @@ fun DatingMainScreen(
                 .background(IpbTheme.colors.background.asBrush())
                 .padding(horizontal = 16.dp)
         ) {
-            IconButton(modifier = Modifier
-                .size(30.dp)
-                .align(Alignment.CenterStart),
-                onClick = { useComponent.handle(DatingMainScreenEvent.OnBack) }) {
-                BrushedIcon(
-                    modifier = Modifier.size(30.dp),
-                    resId = R.drawable.ic_back,
-                    tint = IpbTheme.colors.iconPrimary.asBrush()
-                )
-            }
             BrushedText(
                 modifier = Modifier
                     .align(Alignment.Center)
