@@ -16,6 +16,7 @@ import com.progressterra.ipbandroidview.processes.docs.FetchDocTemplateUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
 import com.progressterra.ipbandroidview.processes.goods.FetchSingleGoodsUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
+import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCase
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.LocationToLocationPointUseCase
@@ -92,6 +93,8 @@ val processesModule = module {
     single<GuessLocationUseCase> { GuessLocationUseCase.Base(get()) }
 
     single<SaveDatingInfoUseCase> { SaveDatingInfoUseCase.Base(get(), get()) }
+
+    single<ChangeInterestsUseCase> { ChangeInterestsUseCase.Base(get(), get()) }
 
     single<GoodsUseCase> {
         GoodsUseCase.Base(get(), get())
