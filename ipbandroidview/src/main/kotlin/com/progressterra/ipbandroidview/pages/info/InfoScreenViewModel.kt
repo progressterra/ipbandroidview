@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class InfoScreenViewModel(
@@ -18,23 +17,35 @@ class InfoScreenViewModel(
     }
 
     override fun handle(event: ButtonEvent) {
-        if (event.id == "save") {
-            postEffect(InfoScreenEffect.OnNext)
-        } else if (event.id == "skip") {
-            postEffect(InfoScreenEffect.OnSkip)
+        onBackground {
+            if (event.id == "save") {
+                saveDatingInfoUseCase(
+                    currentState.info.nickName.text,
+                    currentState.info.about.text
+                ).onSuccess {
+                    postEffect(InfoScreenEffect.OnNext)
+                }
+            } else if (event.id == "skip") {
+                postEffect(InfoScreenEffect.OnSkip)
+            }
         }
     }
 
-    private fun saveAndProceed() {
-
-    }
-
-    override fun handle(event: StateColumnEvent) {
-
-    }
-
     override fun handle(event: TextFieldEvent) {
-
+        if (event is TextFieldEvent.TextChanged) {
+            if (event.id == "nickName") {
+                emitState { it.copy(info = it.info.copy(nickName = it.info.nickName.copy(text = event.text))) }
+            } else if (event.id == "about") {
+                emitState { it.copy(info = it.info.copy(about = it.info.about.copy(text = event.text))) }
+            }
+        }
+        if (event is TextFieldEvent.AdditionalAction) {
+            if (event.id == "nickName") {
+                emitState { it.copy(info = it.info.copy(nickName = it.info.nickName.copy(text = ""))) }
+            } else if (event.id == "about") {
+                emitState { it.copy(info = it.info.copy(about = it.info.about.copy(text = ""))) }
+            }
+        }
     }
 }
 

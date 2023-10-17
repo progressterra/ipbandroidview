@@ -39,7 +39,7 @@ class InterestsScreenViewModel(
         emitState {
             it.copy(
                 interests = it.interests.copy(
-                    changedInterests = it.interests.changedInterests + event.data
+                    changedInterests = if (it.interests.changedInterests.contains(event.data)) it.interests.changedInterests - event.data else it.interests.changedInterests + event.data
                 )
             )
         }

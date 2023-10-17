@@ -20,7 +20,7 @@ interface FetchInterestsUseCase {
     ) : FetchInterestsUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
         override suspend fun invoke(): Result<List<Interest>> = withToken { token ->
-            service.clientInterestList(
+            service.interestList(
                 token = token,
                 body = FilterAndSort(
                     listFields = emptyList(),

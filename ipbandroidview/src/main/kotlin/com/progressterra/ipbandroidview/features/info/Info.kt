@@ -43,11 +43,5 @@ fun Info(
             hint = stringResource(R.string.about_you_hint),
             singleLine = false
         )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.profession,
-            useComponent = useComponent,
-            hint = stringResource(R.string.profession_hint)
-        )
     }
 }
