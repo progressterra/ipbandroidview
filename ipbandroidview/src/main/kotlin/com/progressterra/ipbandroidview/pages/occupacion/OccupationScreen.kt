@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.interests
+package com.progressterra.ipbandroidview.pages.occupacion
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,15 +32,15 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun InterestsScreen(
-    modifier: Modifier = Modifier, state: InterestsScreenState, useComponent: UseInterestsScreen
+fun OccupationScreen(
+    modifier: Modifier = Modifier, state: OccupationScreenState, useComponent: UseOccupationScreen
 ) {
     @Composable
     fun Item(
         itemState: Interest
     ) {
         val backgroundBrush =
-            if (itemState.picked || state.changedInterests.contains(itemState)) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
+            if (itemState == state.currentOccupation) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
         Box(modifier = Modifier
             .padding(vertical = 4.dp)
             .clip(CircleShape)
@@ -48,7 +48,7 @@ fun InterestsScreen(
             .border(
                 width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
             )
-            .niceClickable { useComponent.handle(InterestsScreenEvent(itemState)) }
+            .niceClickable { useComponent.handle(OccupationScreenEvent(itemState)) }
             .padding(horizontal = 16.dp, vertical = 8.dp)) {
             BrushedText(
                 text = itemState.name,
@@ -100,7 +100,7 @@ fun InterestsScreen(
                     .padding(start = 16.dp, end = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                state.allInterests.forEach {
+                state.allOccupations.forEach {
                     Item(it)
                 }
             }
@@ -112,10 +112,10 @@ fun InterestsScreen(
 @Preview
 private fun InterestsScreenPreview() {
     IpbTheme {
-        InterestsScreen(
-            state = InterestsScreenState(
+        OccupationScreen(
+            state = OccupationScreenState(
                 screen = StateColumnState(state = ScreenState.SUCCESS),
-                allInterests =
+                allOccupations =
                 listOf(
                     Interest(
                         id = "0",
@@ -144,7 +144,7 @@ private fun InterestsScreenPreview() {
                         name = "colombian coffee", picked = false
                     )
                 )
-            ), useComponent = UseInterestsScreen.Empty()
+            ), useComponent = UseOccupationScreen.Empty()
         )
     }
 }

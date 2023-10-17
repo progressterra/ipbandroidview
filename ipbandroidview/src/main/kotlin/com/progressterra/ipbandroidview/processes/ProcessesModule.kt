@@ -28,6 +28,9 @@ import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
+import com.progressterra.ipbandroidview.processes.occupacion.FetchOccupationsUseCase
+import com.progressterra.ipbandroidview.processes.occupacion.FetchUserOccupationUseCase
+import com.progressterra.ipbandroidview.processes.occupacion.SaveOccupationUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
 import com.progressterra.ipbandroidview.processes.payments.HasCardsUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
@@ -185,4 +188,10 @@ val processesModule = module {
     single<UpdateDatingLocationUseCase> { UpdateDatingLocationUseCase.Base(get(), get()) }
 
     single<AvailableTargetsUseCase> { AvailableTargetsUseCase.Base(get(), get()) }
+
+    single<FetchUserOccupationUseCase> { FetchUserOccupationUseCase.Base(get(), get()) }
+
+    single<FetchOccupationsUseCase> { FetchOccupationsUseCase.Base(get(), get()) }
+
+    single<SaveOccupationUseCase> { SaveOccupationUseCase.Base(get(), get()) }
 }

@@ -36,6 +36,7 @@ import com.progressterra.ipbandroidview.pages.locationpermission.LocationPermiss
 import com.progressterra.ipbandroidview.pages.main.MainScreenViewModel
 import com.progressterra.ipbandroidview.pages.newwithdrawal.CreateNewWithdrawalUseCase
 import com.progressterra.ipbandroidview.pages.newwithdrawal.NewWithdrawalScreenViewModel
+import com.progressterra.ipbandroidview.pages.occupacion.OccupationScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.FetchOrderChatUseCase
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsUseCase
@@ -116,6 +117,8 @@ val pagesModule = module {
     viewModel { InfoScreenViewModel(get()) }
 
     viewModel { InterestsScreenViewModel(get(), get()) }
+
+    viewModel { OccupationScreenViewModel(get(), get(), get()) }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 

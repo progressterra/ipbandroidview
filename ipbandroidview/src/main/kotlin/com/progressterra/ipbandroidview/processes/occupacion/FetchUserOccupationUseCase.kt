@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.processes.interests
+package com.progressterra.ipbandroidview.processes.occupacion
 
 import com.progressterra.ipbandroidapi.api.iamhere.ImhService
 import com.progressterra.ipbandroidapi.api.iamhere.models.FieldForFilter
@@ -11,23 +11,23 @@ import com.progressterra.ipbandroidview.entities.toInterest
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 
-interface FetchInterestsUseCase {
+interface FetchUserOccupationUseCase {
 
-    suspend operator fun invoke(): Result<List<Interest>>
+    suspend operator fun invoke(): Result<Interest?>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val service: ImhService
-    ) : FetchInterestsUseCase, AbstractTokenUseCase(obtainAccessToken) {
+    ) : FetchUserOccupationUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
-        override suspend fun invoke(): Result<List<Interest>> = withToken { token ->
-            service.interestList(
+        override suspend fun invoke(): Result<Interest?> = withToken { token ->
+            service.clientInterestList(
                 token = token,
                 body = FilterAndSort(
                     listFields = listOf(
                         FieldForFilter(
                             fieldName = "interestType",
-                            listValue = listOf("interest"),
+                            listValue = listOf("profession"),
                             comparison = TypeComparison.EQUALS_STRONG
                         )
                     ),
@@ -37,9 +37,9 @@ interface FetchInterestsUseCase {
                     ),
                     searchData = "",
                     skip = 0,
-                    take = 100
+                    take = 1
                 )
-            ).dataList?.map { it.toInterest() } ?: emptyList()
+            ).dataList?.firstOrNull()?.toInterest()
         }
     }
 }
