@@ -348,6 +348,7 @@ fun DatingMainScreen(
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .clip(CircleShape)
+                                            .background(IpbTheme.colors.background.asBrush())
                                             .border(
                                                 width = 1.dp,
                                                 brush = IpbTheme.colors.primary.asBrush(),
