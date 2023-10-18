@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.interests
 
-import com.progressterra.ipbandroidview.features.interestspicker.InterestsPickerEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCase
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
@@ -22,9 +21,7 @@ class InterestsScreenViewModel(
                 emitState {
                     it.copy(
                         screen = it.screen.copy(state = ScreenState.SUCCESS),
-                        interests = it.interests.copy(
-                            allInterests = newInterests
-                        )
+                        allInterests = newInterests
                     )
                 }
             }.onFailure {
@@ -35,12 +32,10 @@ class InterestsScreenViewModel(
 
     override fun createInitialState() = InterestsScreenState()
 
-    override fun handle(event: InterestsPickerEvent) {
+    override fun handle(event: InterestsScreenEvent) {
         emitState {
             it.copy(
-                interests = it.interests.copy(
-                    changedInterests = if (it.interests.changedInterests.contains(event.data)) it.interests.changedInterests - event.data else it.interests.changedInterests + event.data
-                )
+                changedInterests = if (it.changedInterests.contains(event.data)) it.changedInterests - event.data else it.changedInterests + event.data
             )
         }
     }
@@ -53,7 +48,7 @@ class InterestsScreenViewModel(
         if (event.id == "save") {
             onBackground {
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-                changeInterestsUseCase(currentState.interests.changedInterests).onSuccess {
+                changeInterestsUseCase(currentState.changedInterests).onSuccess {
                     postEffect(InterestsScreenEffect.OnNext)
                 }.onFailure {
                     emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
