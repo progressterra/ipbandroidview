@@ -1,5 +1,9 @@
 package com.progressterra.ipbandroidview.entities
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class DatingUser(
     override val id: String = "",
     val image: String = "",
@@ -13,4 +17,4 @@ data class DatingUser(
     val age: String = "",
     val occupation: String = "",
     val connection: DatingConnection = DatingConnection.CAN_CONNECT
-) : Id
+) : Id, Parcelable
