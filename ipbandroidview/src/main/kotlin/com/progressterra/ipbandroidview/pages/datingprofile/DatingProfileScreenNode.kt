@@ -8,12 +8,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.entities.AnotherUser
+import com.progressterra.ipbandroidview.entities.DatingUser
 import org.koin.androidx.compose.getViewModel
 
 class DatingProfileScreenNode(
     buildContext: BuildContext,
-    private val input: AnotherUser,
+    private val input: DatingUser,
     private val navigation: DatingProfileScreenNavigation
 ) : Node(
     buildContext = buildContext
@@ -35,6 +35,6 @@ class DatingProfileScreenNode(
             focusManager.clearFocus()
             viewModel.setup(input)
         }
-        DatingProfileScreen(modifier = modifier, state = state, useComponent = viewModel)
+        DatingProfileScreen(modifier = modifier, state = state)
     }
 }

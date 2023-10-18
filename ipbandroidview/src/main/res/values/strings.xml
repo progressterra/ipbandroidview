@@ -182,4 +182,6 @@
     <string name="choose_dating_interest">Выбрать цель знакомства</string>
     <string name="male">Мужской</string>
     <string name="your_sex">Ваш пол:</string>
+    <string name="own_profile">Мой профиль</string>
+    <string name="about_me">Обо мне</string>
 </resources>

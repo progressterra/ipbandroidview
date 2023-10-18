@@ -1,8 +1,10 @@
 package com.progressterra.ipbandroidview.entities
 
-data class AnotherUser(
+data class DatingUser(
     override val id: String = "",
     val image: String = "",
+    val name: String = "",
+    val description: String = "",
     val hideAvatar: Boolean = false,
     val locationPoint: LocationPoint = LocationPoint(),
     val interests: List<Interest> = emptyList(),

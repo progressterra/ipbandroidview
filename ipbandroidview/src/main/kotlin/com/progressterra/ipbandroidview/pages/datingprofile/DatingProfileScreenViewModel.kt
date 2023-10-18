@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.pages.datingprofile
 
-import com.progressterra.ipbandroidview.entities.AnotherUser
+import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 
 class DatingProfileScreenViewModel : UseDatingProfileScreen,
-    AbstractInputViewModel<AnotherUser, DatingProfileScreenState, DatingProfileScreenEffect>() {
+    AbstractInputViewModel<DatingUser, DatingProfileScreenState, DatingProfileScreenEffect>() {
 
     override fun createInitialState() = DatingProfileScreenState()
 
@@ -17,9 +17,7 @@ class DatingProfileScreenViewModel : UseDatingProfileScreen,
         }
     }
 
-    override fun setup(data: AnotherUser) {
+    override fun setup(data: DatingUser) {
         emitState { it.copy(user = data) }
     }
-
-
 }

@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
+import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
@@ -194,4 +195,6 @@ val processesModule = module {
     single<FetchOccupationsUseCase> { FetchOccupationsUseCase.Base(get(), get()) }
 
     single<SaveOccupationUseCase> { SaveOccupationUseCase.Base(get(), get()) }
+
+    single<FetchDatingUserUseCase> { FetchDatingUserUseCase.Base(get(), get()) }
 }

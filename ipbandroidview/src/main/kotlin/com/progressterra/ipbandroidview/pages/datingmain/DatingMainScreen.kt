@@ -54,7 +54,7 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.AnotherUser
+import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
@@ -80,7 +80,7 @@ fun DatingMainScreen(
 
     @Composable
     fun User(
-        user: AnotherUser
+        user: DatingUser
     ) {
         Box(
             modifier = Modifier
@@ -244,7 +244,7 @@ fun DatingMainScreen(
 
     ThemedLayout(modifier = modifier, topBar = {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(44.dp)
                 .background(IpbTheme.colors.background.asBrush())
@@ -416,9 +416,8 @@ private fun DatingMainScreenPreview() {
                 id = "magnis", enabled = false, turned = false
             ),
             users = listOf(
-                AnotherUser(), AnotherUser(), AnotherUser(), AnotherUser(), AnotherUser()
+                DatingUser(), DatingUser(), DatingUser(), DatingUser(), DatingUser()
             ),
-            avatar = "dignissim",
             datingTargets = listOf(
                 DatingTarget(name = "Sport"),
                 DatingTarget(name = "Cars")

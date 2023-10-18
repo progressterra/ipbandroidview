@@ -384,7 +384,7 @@ fun RFInterestViewModel.toInterest() = Interest(
     picked = false
 )
 
-fun RGClientDataViewModel.toAnotherUser() = AnotherUser(
+fun RGClientDataViewModel.toAnotherUser() = DatingUser(
     id = idUnique!!,
     image = avatarMediaData?.urlData ?: "",
     hideAvatar = false,

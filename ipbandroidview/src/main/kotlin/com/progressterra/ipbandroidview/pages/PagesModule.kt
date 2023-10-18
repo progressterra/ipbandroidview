@@ -106,7 +106,7 @@ val pagesModule = module {
 
     viewModel { OrderTrackingScreenViewModel() }
 
-    viewModel { DatingMainScreenViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get()) }
+    viewModel { DatingMainScreenViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
 
     viewModel { DatingProfileScreenViewModel() }
 

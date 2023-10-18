@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.datingmain
 import android.Manifest
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
+import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
@@ -24,7 +25,8 @@ class DatingMainScreenViewModel(
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
     private val provideLocationUseCase: ProvideLocationUseCase,
-    private val availableTargets: AvailableTargetsUseCase
+    private val availableTargets: AvailableTargetsUseCase,
+    private val fetchDatingUserUseCase: FetchDatingUserUseCase
 ) : UseDatingMainScreen,
     AbstractNonInputViewModel<DatingMainScreenState, DatingMainScreenEffect>() {
 
@@ -41,13 +43,25 @@ class DatingMainScreenViewModel(
     override fun createInitialState() = DatingMainScreenState()
 
     override fun handle(event: DatingMainScreenEvent) {
+        when (event) {
+            is DatingMainScreenEvent.OnOwnProfile -> postEffect(
+                DatingMainScreenEffect.OnProfile(
+                    currentState.currentUser
+                )
+            )
 
+            is DatingMainScreenEvent.PreChooseTier -> TODO()
+            is DatingMainScreenEvent.SelectTarget -> TODO()
+        }
     }
 
     override fun refresh() {
         onBackground {
             availableTargets().onSuccess { targets ->
                 emitState { it.copy(datingTargets = targets) }
+            }
+            fetchDatingUserUseCase().onSuccess { user ->
+                emitState { it.copy(currentUser = user) }
             }
         }
     }
