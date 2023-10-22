@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.wantthisrequests
 
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardEvent
+import com.progressterra.ipbandroidview.processes.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel

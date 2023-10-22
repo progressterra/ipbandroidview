@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModule
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModuleUser
 import com.progressterra.ipbandroidview.features.bonuses.BonusesState
-import com.progressterra.ipbandroidview.features.bonuses.FetchBonusesUseCase
+import com.progressterra.ipbandroidview.processes.FetchBonusesUseCase
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase

@@ -2,15 +2,13 @@ package com.progressterra.ipbandroidview.pages.support
 
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.FetchChatsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
-import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class SupportScreenViewModel(
-    private val fetchChatsUseCase: FetchChatsUseCase,
-    private val fetchMessagesUseCase: FetchMessagesUseCase,
-    private val sendMessageUseCase: SendMessageUseCase
+    private val fetchChatsUseCase: FetchChatsUseCase
 ) : AbstractNonInputViewModel<SupportScreenState, SupportScreenEffect>(), UseSupportScreen {
 
     override fun createInitialState() = SupportScreenState()
@@ -37,7 +35,7 @@ class SupportScreenViewModel(
             emitState { it.copy(current = it.trace.last()) }
             emitState { it.copy(trace = it.trace.dropLast(1)) }
         } else {
-            postEffect(SupportScreenEffect)
+            postEffect(SupportScreenEffect.OnBack)
         }
     }
 
@@ -45,39 +43,12 @@ class SupportScreenViewModel(
         onBackground {
             emitState { it.copy(trace = it.trace + it.current, current = event.state) }
             if (currentState.current.finite) {
-                fetchMessagesUseCase(currentState.current.id).onSuccess { newMessages ->
-                    emitState { it.copy(messages = it.messages.copy(items = cachePaging(newMessages))) }
-                }
+                postEffect(SupportScreenEffect.OnNext(currentState.current.id))
             }
         }
     }
 
     override fun handle(event: StateColumnEvent) {
         refresh()
-    }
-
-    override fun handle(event: TextFieldEvent) {
-        when (event) {
-            is TextFieldEvent.TextChanged -> emitState { it.copy(input = it.input.copy(text = event.text)) }
-            else -> onBackground {
-                sendMessageUseCase(
-                    currentState.current.id,
-                    currentState.input.text
-                ).onSuccess {
-                    emitState { it.copy(input = it.input.copy(text = "")) }
-                    fetchMessagesUseCase(currentState.current.id).onSuccess { newMessages ->
-                        emitState {
-                            it.copy(
-                                messages = it.messages.copy(
-                                    items = cachePaging(
-                                        newMessages
-                                    )
-                                )
-                            )
-                        }
-                    }
-                }
-            }
-        }
     }
 }

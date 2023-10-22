@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.withdrawal
 
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.FetchWithdrawalTransactionsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
 import com.progressterra.ipbandroidview.processes.payments.HasCardsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel

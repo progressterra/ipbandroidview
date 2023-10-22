@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
 import com.progressterra.ipbandroidview.entities.AddressUI
-import com.progressterra.ipbandroidview.features.addresssuggestions.SuggestionUI
+import com.progressterra.ipbandroidview.entities.SuggestionUI
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState

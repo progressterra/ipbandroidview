@@ -6,8 +6,10 @@ import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatMo
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.FetchDocumentChatUseCase
+import com.progressterra.ipbandroidview.processes.FetchMessagesUseCase
+import com.progressterra.ipbandroidview.processes.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.processes.SendMessageUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocsModule
 import com.progressterra.ipbandroidview.processes.docs.DocsModuleUser
 import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase

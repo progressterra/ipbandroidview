@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.features.bonuses
 
+import com.progressterra.ipbandroidview.processes.FetchBonusesUseCase
 import com.progressterra.ipbandroidview.shared.mvi.Operations
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent

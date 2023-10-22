@@ -1,3 +1,8 @@
 package com.progressterra.ipbandroidview.pages.support
 
-object SupportScreenEffect
+sealed class SupportScreenEffect {
+
+    data class OnNext(val id: String) : SupportScreenEffect()
+
+    data object OnBack : SupportScreenEffect()
+}

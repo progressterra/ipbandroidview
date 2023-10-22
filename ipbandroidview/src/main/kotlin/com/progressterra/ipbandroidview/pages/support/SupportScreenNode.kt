@@ -13,14 +13,17 @@ class SupportScreenNode(
     buildContext: BuildContext,
     private val navigation: SupportScreenNavigation
 ) : Node(
-    buildContext
+    buildContext = buildContext
 ) {
 
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<SupportScreenViewModel>()
         viewModel.collectEffects {
-            navigation.onBack()
+            when (it) {
+                is SupportScreenEffect.OnBack -> navigation.onBack()
+                is SupportScreenEffect.OnNext -> navigation.onChat(it.id)
+            }
         }
         val state = viewModel.state.collectAsState().value
         LaunchedEffect(Unit) {

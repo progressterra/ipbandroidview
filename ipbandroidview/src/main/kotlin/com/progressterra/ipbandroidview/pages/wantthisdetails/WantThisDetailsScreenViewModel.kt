@@ -8,9 +8,10 @@ import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatSt
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
-import com.progressterra.ipbandroidview.pages.support.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.pages.support.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.processes.FetchMessagesUseCase
+import com.progressterra.ipbandroidview.processes.FetchWantThisDetailsChatUseCase
+import com.progressterra.ipbandroidview.processes.SendMessageUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocsModule

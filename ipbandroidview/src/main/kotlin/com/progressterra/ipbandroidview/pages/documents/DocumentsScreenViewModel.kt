@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.documents
 
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipEvent
-import com.progressterra.ipbandroidview.features.currentcitizenship.FetchCitizenshipsUseCase
+import com.progressterra.ipbandroidview.processes.FetchCitizenshipsUseCase
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase

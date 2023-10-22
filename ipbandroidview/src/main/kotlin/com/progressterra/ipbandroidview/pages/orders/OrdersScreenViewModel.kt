@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.orders
 
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.OrdersUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent

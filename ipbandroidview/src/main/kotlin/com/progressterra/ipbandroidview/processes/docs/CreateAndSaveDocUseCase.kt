@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
 import com.progressterra.ipbandroidapi.api.documents.models.IncnomeDataCreateCharValue
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.toDocument
-import com.progressterra.ipbandroidview.pages.documentdetails.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.processes.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.CreateId

@@ -67,7 +67,6 @@ fun Messages(
             }
         }
     }
-
     val lazyItems = state.items.collectAsLazyPagingItems()
     LazyColumn(
         modifier = modifier.fillMaxSize(),

@@ -5,14 +5,14 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModule
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModuleUser
 import com.progressterra.ipbandroidview.features.bonuses.BonusesState
-import com.progressterra.ipbandroidview.features.bonuses.FetchBonusesUseCase
+import com.progressterra.ipbandroidview.processes.FetchBonusesUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.bonusestransactions.FetchBonusesTransactionsUseCase
 
 class BonusesDetailsScreenViewModel(
-    private val fetchBonusesUseCase: FetchBonusesUseCase,
+    fetchBonusesUseCase: FetchBonusesUseCase,
     private val fetchBonusesTransactionsUseCase: FetchBonusesTransactionsUseCase
 ) : AbstractNonInputViewModel<BonusesDetailsScreenState, BonusesDetailsScreenEffect>(),
     UseBonusesDetailsScreen {

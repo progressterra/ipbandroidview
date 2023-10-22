@@ -83,12 +83,12 @@ dependencies {
     api("androidx.activity:activity-compose:1.8.0")
 
     // Compose
-    api("androidx.compose.ui:ui:1.5.3")
-    api("androidx.compose.ui:ui-util:1.5.3")
-    api("androidx.compose.ui:ui-tooling:1.5.3")
-    api("androidx.compose.ui:ui-tooling-preview:1.5.3")
-    api("androidx.compose.foundation:foundation:1.5.3")
-    api("androidx.compose.material:material:1.5.3")
+    api("androidx.compose.ui:ui:1.5.4")
+    api("androidx.compose.ui:ui-util:1.5.4")
+    api("androidx.compose.ui:ui-tooling:1.5.4")
+    api("androidx.compose.ui:ui-tooling-preview:1.5.4")
+    api("androidx.compose.foundation:foundation:1.5.4")
+    api("androidx.compose.material:material:1.5.4")
     api("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Dialogs
@@ -120,10 +120,10 @@ dependencies {
     // Google services
     api("com.google.android.gms:play-services-location:21.0.1")
     api("com.google.maps.android:maps-compose:2.15.0")
-    api("com.google.android.gms:play-services-maps:18.1.0")
+    api("com.google.android.gms:play-services-maps:18.2.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.57")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.58")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
