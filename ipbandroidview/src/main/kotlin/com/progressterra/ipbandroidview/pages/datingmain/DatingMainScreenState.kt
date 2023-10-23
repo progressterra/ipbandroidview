@@ -9,7 +9,5 @@ data class DatingMainScreenState(
     val users: List<DatingUser> = emptyList(),
     val currentUser: DatingUser = DatingUser(),
     val datingTargets: List<DatingTarget> = emptyList(),
-    val chosenTarget: DatingTarget? = null,
-    val chosenTier: Int? = null,
-    val preChosenTier: Int? = null
+    val chosenTarget: DatingTarget? = null
 )

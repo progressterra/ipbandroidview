@@ -43,15 +43,29 @@ class DatingMainScreenViewModel(
     override fun createInitialState() = DatingMainScreenState()
 
     override fun handle(event: DatingMainScreenEvent) {
-        when (event) {
-            is DatingMainScreenEvent.OnOwnProfile -> postEffect(
-                DatingMainScreenEffect.OnProfile(
-                    currentState.currentUser
+        onBackground {
+            when (event) {
+                is DatingMainScreenEvent.OnOwnProfile -> postEffect(
+                    DatingMainScreenEffect.OnProfile(
+                        currentState.currentUser
+                    )
                 )
-            )
 
-            is DatingMainScreenEvent.PreChooseTier -> TODO()
-            is DatingMainScreenEvent.SelectTarget -> TODO()
+                is DatingMainScreenEvent.OnProfile -> postEffect(
+                    DatingMainScreenEffect.OnProfile(
+                        event.user
+                    )
+                )
+
+                is DatingMainScreenEvent.SelectTarget -> {
+                    emitState {
+                        it.copy(
+                            readyToMeet = it.readyToMeet.copy(enabled = true),
+                            chosenTarget = event.data
+                        )
+                    }
+                }
+            }
         }
     }
 

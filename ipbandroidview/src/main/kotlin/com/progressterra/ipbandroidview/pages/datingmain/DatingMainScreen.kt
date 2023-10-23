@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.datingmain
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.AnimationVector1D
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
@@ -33,7 +34,6 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,8 +54,8 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.DatingTarget
+import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -67,11 +67,16 @@ import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.mapview.MapView
 import kotlinx.coroutines.launch
+import java.lang.Integer.min
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
-import kotlin.random.Random
-import kotlin.random.nextInt
+
+data class Position(
+    val tier: Int,
+    val animatable: Animatable<Float, AnimationVector1D>,
+    val initial: Float
+)
 
 @Composable
 fun DatingMainScreen(
@@ -97,7 +102,8 @@ fun DatingMainScreen(
             SimpleImage(
                 modifier = Modifier
                     .size(40.dp)
-                    .clip(CircleShape),
+                    .clip(CircleShape)
+                    .niceClickable { useComponent.handle(DatingMainScreenEvent.OnProfile(user)) },
                 image = user.image,
                 backgroundColor = IpbTheme.colors.background.asColor()
             )
@@ -109,34 +115,34 @@ fun DatingMainScreen(
         modifier: Modifier
     ) {
         val rotationTime = 1000 * 30
-        val tiers = rememberSaveable(state.users, state.chosenTier) {
-            List(3) { if (it == state.chosenTier) state.users.size else Random.nextInt(1..5) }
+        val scheme = remember {
+            listOf(
+                Position(0, Animatable(0f), 0f),
+                Position(0, Animatable(120f), 120f),
+                Position(0, Animatable(240f), 240f),
+                Position(1, Animatable(60f), 60f),
+                Position(1, Animatable(150f), 150f),
+                Position(1, Animatable(240f), 240f),
+                Position(1, Animatable(330f), 330f),
+                Position(2, Animatable(0f), 0f),
+                Position(2, Animatable(72f), 72f),
+                Position(2, Animatable(144f), 144f),
+                Position(2, Animatable(216f), 216f),
+                Position(2, Animatable(288f), 288f)
+            )
         }
-        val animationValues = rememberSaveable(tiers) {
-            List(3) { tier ->
-                val step = 360f / tiers[tier]
-                List(tiers[tier]) {
-                    Animatable(it * step)
-                }
-            }
-        }
-        LaunchedEffect(animationValues) {
-            for (i in animationValues.indices) {
-                if (state.chosenTier == i || state.chosenTier == null) {
-                    val step = 360f / animationValues[i].size
-                    animationValues[i].forEachIndexed { index, anim ->
-                        launch {
-                            anim.animateTo(
-                                targetValue = index * step + 360f,
-                                animationSpec = infiniteRepeatable(
-                                    animation = tween(
-                                        durationMillis = rotationTime,
-                                        easing = LinearEasing
-                                    )
-                                )
+        LaunchedEffect(scheme) {
+            scheme.forEach {
+                launch {
+                    it.animatable.animateTo(
+                        targetValue = it.initial + 360f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(
+                                durationMillis = rotationTime,
+                                easing = LinearEasing
                             )
-                        }
-                    }
+                        )
+                    )
                 }
             }
         }
@@ -146,67 +152,61 @@ fun DatingMainScreen(
                 .aspectRatio(1f), contentAlignment = Alignment.Center
         ) {
             val density = LocalDensity.current
-            val baseR =
-                constraints.maxWidth / 2f - with(density) { if (state.chosenTier == null) 9.dp.toPx() else 25.dp.toPx() }
-            val diff = with(density) { baseR.toDp() } - 39.dp
-            for (i in animationValues.indices) {
-                val r = with(density) { ((diff * (3 - i) / 3) + 39.dp).toPx() }
-                for (j in animationValues[i].indices) {
-                    val x =
-                        (r + cos(Math.toRadians(animationValues[i][j].value.toDouble())) * r).toFloat()
-                    val y =
-                        (r + sin(Math.toRadians(animationValues[i][j].value.toDouble())) * r).toFloat()
-                    val intOffset = IntOffset(
-                        x.roundToInt(), y.roundToInt()
-                    )
-                    val correctionOffset =
-                        IntOffset((baseR - r).roundToInt(), (baseR - r).roundToInt())
-                    Box(modifier = Modifier
-                        .fillMaxSize()
-                        .offset { intOffset + correctionOffset }
-                        .zIndex(1f)) {
-                        if (state.chosenTier == i) {
-                            User(user = state.users[j])
-                        } else if (state.chosenTier == null) {
-                            BrushedIcon(
-                                resId = when (i) {
-                                    0 -> R.drawable.ic_tier_1
-                                    1 -> R.drawable.ic_tier_2
-                                    else -> R.drawable.ic_tier_3
-                                },
-                                tint = IpbTheme.colors.primary.asBrush()
-                            )
-                        }
-                    }
+            val r3 = constraints.maxWidth / 2f - with(density) { 25.dp.toPx() }
+            val diff = with(density) { r3.toDp() } - 39.dp
+            val r2 = with(density) { ((diff * 2 / 3) + 39.dp).toPx() }
+            val r1 = with(density) { ((diff / 3) + 39.dp).toPx() }
+            for (i in 0 until min(state.users.size, scheme.size)) {
+                val currentR = when (scheme[i].tier) {
+                    0 -> r1
+                    1 -> r2
+                    else -> r3
                 }
-                val size = when (i) {
-                    0 -> 8
-                    1 -> 10
-                    else -> 12
+                val x =
+                    (currentR + cos(Math.toRadians(scheme[i].animatable.value.toDouble())) * currentR).toFloat()
+                val y =
+                    (currentR + sin(Math.toRadians(scheme[i].animatable.value.toDouble())) * currentR).toFloat()
+                val intOffset = IntOffset(
+                    x.roundToInt(), y.roundToInt()
+                )
+                val correctionOffset =
+                    IntOffset((r3 - currentR).roundToInt(), (r3 - currentR).roundToInt())
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .offset { intOffset + correctionOffset }
+                    .zIndex(1f)) {
+                    User(user = state.users[i])
                 }
-                val color = IpbTheme.colors.primary.asColor()
+            }
+            val color = IpbTheme.colors.primary.asColor()
+            listOf(8, 10, 12).forEach {
                 Canvas(modifier = Modifier.fillMaxSize()) {
-                    if (state.chosenTier == i || state.chosenTier == null) drawCircle(
+                    drawCircle(
                         color = color,
                         style = Stroke(
                             width = with(density) { 2.dp.toPx() },
                             pathEffect = PathEffect.dashPathEffect(
-                                floatArrayOf(with(density) { size.dp.toPx() },
-                                    with(density) { size.dp.toPx() }), 0f
+                                floatArrayOf(with(density) { it.dp.toPx() },
+                                    with(density) { it.dp.toPx() }), 0f
                             )
                         ),
-                        radius = r,
+                        radius = when (it) {
+                            8 -> r1
+                            10 -> r2
+                            else -> r3
+                        },
                         center = center
                     )
                 }
-                Box(
-                    modifier = Modifier
-                        .size(78.dp)
-                        .clip(CircleShape)
-                        .background(Color.Magenta)
-                )
             }
+            Box(
+                modifier = Modifier
+                    .size(78.dp)
+                    .clip(CircleShape)
+                    .background(Color.Magenta)
+            )
         }
+
     }
 
     @Composable
@@ -321,7 +321,8 @@ fun DatingMainScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
                         BrushedText(
-                            text = stringResource(id = R.string.choose_dating_interest),
+                            text = state.chosenTarget?.name
+                                ?: stringResource(id = R.string.choose_dating_interest),
                             tint = IpbTheme.colors.textButton.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular
                         )
@@ -354,7 +355,11 @@ fun DatingMainScreen(
                                                 brush = IpbTheme.colors.primary.asBrush(),
                                                 shape = CircleShape
                                             )
-                                            .niceClickable { useComponent.handle(DatingMainScreenEvent.SelectTarget(it)) }
+                                            .niceClickable {
+                                                useComponent.handle(
+                                                    DatingMainScreenEvent.SelectTarget(it)
+                                                )
+                                            }
                                             .padding(vertical = 10.dp),
                                         horizontalArrangement = Arrangement.Center
                                     ) {
@@ -422,7 +427,6 @@ private fun DatingMainScreenPreview() {
                 DatingTarget(name = "Sport"),
                 DatingTarget(name = "Cars")
             ),
-            chosenTier = null,
             chosenTarget = DatingTarget()
         ), useComponent = UseDatingMainScreen.Empty()
     )
