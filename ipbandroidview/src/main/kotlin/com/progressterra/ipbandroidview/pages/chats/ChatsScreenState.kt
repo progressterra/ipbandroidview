@@ -1,12 +1,11 @@
 package com.progressterra.ipbandroidview.pages.chats
 
-import com.progressterra.ipbandroidview.features.search.SearchState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
-import com.progressterra.ipbandroidview.widgets.chats.ChatsState
+import androidx.paging.PagingData
+import com.progressterra.ipbandroidview.entities.DatingChat
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 
 
 data class ChatsScreenState(
-    val chats: ChatsState = ChatsState(),
-    val screen: StateColumnState = StateColumnState(),
-    val search: SearchState = SearchState()
+    val items: Flow<PagingData<DatingChat>> = emptyFlow()
 )

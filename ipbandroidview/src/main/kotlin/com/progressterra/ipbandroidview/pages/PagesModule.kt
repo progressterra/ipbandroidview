@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.pages.cart.CartScreenViewModel
 import com.progressterra.ipbandroidview.processes.FetchCartUseCase
 import com.progressterra.ipbandroidview.pages.catalog.CatalogScreenViewModel
 import com.progressterra.ipbandroidview.pages.chat.ChatScreenViewModel
+import com.progressterra.ipbandroidview.pages.chats.ChatsScreenViewModel
 import com.progressterra.ipbandroidview.processes.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeScreenViewModel
 import com.progressterra.ipbandroidview.pages.connections.ConnectionsScreenViewModel
@@ -121,6 +122,8 @@ val pagesModule = module {
     viewModel { InterestsScreenViewModel(get(), get()) }
 
     viewModel { OccupationScreenViewModel(get(), get(), get()) }
+
+    viewModel { ChatsScreenViewModel(get()) }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 

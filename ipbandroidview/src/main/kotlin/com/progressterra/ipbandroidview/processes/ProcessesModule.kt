@@ -209,4 +209,8 @@ val processesModule = module {
     single<PendingConnectionsUseCase> { PendingConnectionsUseCase.Base(get(), get()) }
 
     single<SuccessConnectionsUseCase> { SuccessConnectionsUseCase.Base(get(), get()) }
+
+    single<DatingChatsPagingUseCase> { DatingChatsPagingUseCase.Base(get(), get()) }
+
+    single<FetchDatingChatsUseCase> { FetchDatingChatsUseCase.Base(get(), get()) }
 }

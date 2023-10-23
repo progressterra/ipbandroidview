@@ -20,6 +20,7 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.RFTargetViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientInterest
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGConnectViewModel
+import com.progressterra.ipbandroidapi.api.messenger.models.RGDialogsViewModel
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
 import com.progressterra.ipbandroidapi.api.payment.models.DHPaymentClientViewModel
 import com.progressterra.ipbandroidapi.api.payment.models.TypeResultOperationBisinessArea
@@ -63,8 +64,7 @@ fun DHSaleHeadAsOrderViewModel.toOrder() =
         status = statusOrder ?: TypeStatusOrder.CANCELED,
         date = dateAdded?.parseToZDT()?.formatZdt("dd.MM.yyyy") ?: "")
 
-fun ProductView.toGoodsItem() = GoodsItem(
-    id = nomenclature?.idUnique!!,
+fun ProductView.toGoodsItem() = GoodsItem(id = nomenclature?.idUnique!!,
     categoryId = nomenclature?.listCatalogCategory?.firstOrNull() ?: "",
     name = nomenclature?.name ?: "",
     description = nomenclature?.commerseDescription ?: "",
@@ -79,8 +79,7 @@ fun ProductView.toGoodsItem() = GoodsItem(
     properties = listProductCharacteristic?.map {
         (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
     } ?: emptyList(),
-    count = countInCart ?: 0
-)
+    count = countInCart ?: 0)
 
 @Composable
 fun TypeStatusOrder.toString(stringResource: @Composable (Int) -> String) = when (this) {
@@ -203,8 +202,7 @@ fun CharacteristicData.toDocument(gson: Gson, createId: CreateId) =
             MultisizedImage(
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
-        } ?: emptyList(),
-            required = imageRequired ?: false),
+        } ?: emptyList(), required = imageRequired ?: false),
         additionalValue = characteristicValue?.valueAsReference ?: "")
 
 fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
@@ -234,33 +232,26 @@ fun RFCharacteristicValueViewModel.toDocument(gson: Gson, createId: CreateId) =
             MultisizedImage(
                 id = img.idUnique!!, local = false, toRemove = false, url = img.urlData!!
             )
-        } ?: emptyList(),
-            required = !listImages.isNullOrEmpty()),
+        } ?: emptyList(), required = !listImages.isNullOrEmpty()),
         additionalValue = valueAsReference ?: "")
 
 fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
-    Document(
-        name = name ?: "",
-        entries = (dataInJSON?.let {
-            gson.fromJson<List<FieldData>?>(
-                it, object : TypeToken<List<FieldData>>() {}.type
-            )
-        } ?: emptyList()).map {
-            TextFieldState(
-                id = createId(),
-                placeholder = it.comment,
-                label = it.name,
-                type = when (it.typeValue) {
-                    TypeValueCharacteristic.AS_STRING -> TextInputType.DEFAULT
-                    TypeValueCharacteristic.AS_NUMBER -> TextInputType.NUMBER
-                    TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DATE
-                    TypeValueCharacteristic.AS_REFERENCE -> TextInputType.DEFAULT
-                    TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
-                    null -> TextInputType.DEFAULT
-                }
-            ).unFormatByType(it.valueData ?: "")
-        },
-        photo = DocumentPhotoState(required = false)
+    Document(name = name ?: "", entries = (dataInJSON?.let {
+        gson.fromJson<List<FieldData>?>(
+            it, object : TypeToken<List<FieldData>>() {}.type
+        )
+    } ?: emptyList()).map {
+        TextFieldState(
+            id = createId(), placeholder = it.comment, label = it.name, type = when (it.typeValue) {
+                TypeValueCharacteristic.AS_STRING -> TextInputType.DEFAULT
+                TypeValueCharacteristic.AS_NUMBER -> TextInputType.NUMBER
+                TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DATE
+                TypeValueCharacteristic.AS_REFERENCE -> TextInputType.DEFAULT
+                TypeValueCharacteristic.AS_CUSTOM_AS_JSON -> TextInputType.DEFAULT
+                null -> TextInputType.DEFAULT
+            }
+        ).unFormatByType(it.valueData ?: "")
+    }, photo = DocumentPhotoState(required = false)
     )
 
 fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(
@@ -271,12 +262,10 @@ fun DRSaleForCartAndOrder.toReceiptItems() = ReceiptState.Item(
 
 fun CatalogItem.toCatalogCardState(stringResource: (Int) -> String): CatalogCardState {
     val noData = stringResource(R.string.no_data)
-    return CatalogCardState(
-        id = itemCategory?.idUnique!!,
+    return CatalogCardState(id = itemCategory?.idUnique!!,
         name = itemCategory?.name ?: noData,
         image = itemCategory?.imageData?.urlData ?: "",
-        children = listChildItems?.map { it.toCatalogCardState(stringResource) } ?: emptyList()
-    )
+        children = listChildItems?.map { it.toCatalogCardState(stringResource) } ?: emptyList())
 }
 
 fun RGMessagesViewModel.toMessage() = Message(
@@ -284,6 +273,10 @@ fun RGMessagesViewModel.toMessage() = Message(
     user = isOwnMessage ?: false,
     content = contentText ?: "",
     date = dateAdded?.parseToZDT()?.formatZdt("dd.MM HH:mm") ?: ""
+)
+
+fun RGDialogsViewModel.toDatingChat() = DatingChat(
+    id = idUnique!!, user = DatingUser(), previewMessage = "", lastTime = ""
 )
 
 fun String.parseToZDT(): ZonedDateTime? {
@@ -342,13 +335,9 @@ fun TypeStatusDoc.toCanBeEditted() = when (this) {
 }
 
 fun RFPaymentDataForClientViewModel.toBankCardState() = BankCardState(
-    id = idUnique!!,
-    document = Document(
-        name = "${paymentSystemName ?: ""} ${preiview ?: ""}",
-        status = TypeStatusDoc.CONFIRMED
-    ),
-    isMainCard = false,
-    isSelected = false
+    id = idUnique!!, document = Document(
+        name = "${paymentSystemName ?: ""} ${preiview ?: ""}", status = TypeStatusDoc.CONFIRMED
+    ), isMainCard = false, isSelected = false
 )
 
 fun DHPaymentClientViewModel.toWithdrawalTransactionState() = WithdrawalTransactionState(
@@ -360,8 +349,7 @@ fun DHPaymentClientViewModel.toWithdrawalTransactionState() = WithdrawalTransact
 )
 
 fun RGClientInterest.toInterest() = Interest(
-    id = idUnique!!,
-    name = ""
+    id = idUnique!!, name = ""
 )
 
 @Composable
@@ -380,13 +368,10 @@ fun TypeResultOperationBisinessArea.toString(stringResource: @Composable (Int) -
     }
 
 fun RFInterestViewModel.toInterest() = Interest(
-    id = idUnique!!,
-    name = name ?: "",
-    picked = false
+    id = idUnique!!, name = name ?: "", picked = false
 )
 
-fun RGClientDataViewModel.toDatingUser() = DatingUser(
-    id = idUnique!!,
+fun RGClientDataViewModel.toDatingUser() = DatingUser(id = idUnique!!,
     image = avatarMediaData?.urlData ?: "",
     hideAvatar = false,
     locationPoint = LocationPoint(
@@ -396,16 +381,15 @@ fun RGClientDataViewModel.toDatingUser() = DatingUser(
         longitude = longitudeReal ?: 0.0
     ),
     interests = listInterests?.map { it.toInterest() } ?: emptyList(),
-    distance = "123 метра (todo)",
+    distance = 0,
     target = target?.name ?: "",
     age = "",
     occupation = "",
-    connection = DatingConnection.CAN_CONNECT
-)
+    connection = DatingConnection.CAN_CONNECT)
+
 
 fun RFTargetViewModel.toDatingTarget() = DatingTarget(
-    id = idUnique!!,
-    name = name ?: ""
+    id = idUnique!!, name = name ?: ""
 )
 
 fun RGConnectViewModel.toConnection(target: Boolean): Connection {
