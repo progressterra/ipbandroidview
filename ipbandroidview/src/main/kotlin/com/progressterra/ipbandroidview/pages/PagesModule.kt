@@ -15,6 +15,7 @@ import com.progressterra.ipbandroidview.pages.catalog.CatalogScreenViewModel
 import com.progressterra.ipbandroidview.pages.chat.ChatScreenViewModel
 import com.progressterra.ipbandroidview.processes.CatalogUseCase
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeScreenViewModel
+import com.progressterra.ipbandroidview.pages.connections.ConnectionsScreenViewModel
 import com.progressterra.ipbandroidview.processes.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.pages.datingmain.DatingMainScreenViewModel
 import com.progressterra.ipbandroidview.pages.datingprofile.DatingProfileScreenViewModel
@@ -246,6 +247,8 @@ val pagesModule = module {
             get()
         )
     }
+
+    viewModel { ConnectionsScreenViewModel(get()) }
 
     single<FetchConfirmedBankCardsUseCase> {
         FetchConfirmedBankCardsUseCase.Base(

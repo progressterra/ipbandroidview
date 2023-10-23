@@ -6,9 +6,13 @@ import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
+import com.progressterra.ipbandroidview.processes.dating.ConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
+import com.progressterra.ipbandroidview.processes.dating.IncomingConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.dating.PendingConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
+import com.progressterra.ipbandroidview.processes.dating.SuccessConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
@@ -197,4 +201,12 @@ val processesModule = module {
     single<SaveOccupationUseCase> { SaveOccupationUseCase.Base(get(), get()) }
 
     single<FetchDatingUserUseCase> { FetchDatingUserUseCase.Base(get(), get()) }
+
+    factory<ConnectionsUseCase> { ConnectionsUseCase.Base(get(), get(), get(), get()) }
+
+    single<IncomingConnectionsUseCase> { IncomingConnectionsUseCase.Base(get(), get()) }
+
+    single<PendingConnectionsUseCase> { PendingConnectionsUseCase.Base(get(), get()) }
+
+    single<SuccessConnectionsUseCase> { SuccessConnectionsUseCase.Base(get(), get()) }
 }

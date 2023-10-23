@@ -14,10 +14,12 @@ import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicType
 import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicValueViewModel
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
+import com.progressterra.ipbandroidapi.api.iamhere.models.EnumTypeStatusConnect
 import com.progressterra.ipbandroidapi.api.iamhere.models.RFInterestViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RFTargetViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientInterest
+import com.progressterra.ipbandroidapi.api.iamhere.models.RGConnectViewModel
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
 import com.progressterra.ipbandroidapi.api.payment.models.DHPaymentClientViewModel
 import com.progressterra.ipbandroidapi.api.payment.models.TypeResultOperationBisinessArea
@@ -383,7 +385,7 @@ fun RFInterestViewModel.toInterest() = Interest(
     picked = false
 )
 
-fun RGClientDataViewModel.toAnotherUser() = DatingUser(
+fun RGClientDataViewModel.toDatingUser() = DatingUser(
     id = idUnique!!,
     image = avatarMediaData?.urlData ?: "",
     hideAvatar = false,
@@ -405,3 +407,12 @@ fun RFTargetViewModel.toDatingTarget() = DatingTarget(
     id = idUnique!!,
     name = name ?: ""
 )
+
+fun RGConnectViewModel.toConnection(target: Boolean): Connection {
+    val user = if (target) targetClientData!! else initiatorClientData!!
+    return Connection(
+        id = idUnique!!,
+        user = user.toDatingUser(),
+        type = statusConnect ?: EnumTypeStatusConnect.WAIT
+    )
+}

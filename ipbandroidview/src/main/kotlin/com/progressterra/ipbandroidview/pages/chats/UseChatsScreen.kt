@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.chats
 
-import com.progressterra.ipbandroidview.features.avatar.AvatarEvent
 import com.progressterra.ipbandroidview.features.search.SearchEvent
 import com.progressterra.ipbandroidview.features.search.UseSearch
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
@@ -13,8 +12,6 @@ import com.progressterra.ipbandroidview.widgets.chats.UseChats
 interface UseChatsScreen : UseStateColumn, UseSearch, UseChats, UseTopBar {
 
     class Empty : UseChatsScreen {
-
-        override fun handle(event: AvatarEvent) = Unit
 
         override fun handle(event: SearchEvent) = Unit
 

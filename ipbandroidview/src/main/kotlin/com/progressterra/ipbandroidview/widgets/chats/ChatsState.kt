@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.widgets.chats
 
-import com.progressterra.ipbandroidview.features.avatar.AvatarState
+import com.progressterra.ipbandroidview.entities.DatingUser
 
 
 data class ChatsState(
@@ -10,8 +10,7 @@ data class ChatsState(
 
     data class Item(
         val id: String = "",
-        val avatar: AvatarState = AvatarState(),
-        val name: String = "",
+        val user: DatingUser = DatingUser(),
         val previewMessage: String = "",
         val lastTime: String = ""
     )

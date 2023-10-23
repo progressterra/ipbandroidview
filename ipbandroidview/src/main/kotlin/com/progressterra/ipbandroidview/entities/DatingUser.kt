@@ -12,7 +12,7 @@ data class DatingUser(
     val hideAvatar: Boolean = false,
     val locationPoint: LocationPoint = LocationPoint(),
     val interests: List<Interest> = emptyList(),
-    val distance: String = "",
+    val distance: Int = 0,
     val target: String = "",
     val age: String = "",
     val occupation: String = "",

@@ -1,9 +1,6 @@
 package com.progressterra.ipbandroidview.widgets.chats
 
-import com.progressterra.ipbandroidview.features.avatar.AvatarEvent
-import com.progressterra.ipbandroidview.features.avatar.UseAvatar
-
-interface UseChats : UseAvatar {
+interface UseChats {
 
     fun handle(event: ChatsEvent)
 
@@ -11,6 +8,5 @@ interface UseChats : UseAvatar {
 
         override fun handle(event: ChatsEvent) = Unit
 
-        override fun handle(event: AvatarEvent) = Unit
     }
 }
