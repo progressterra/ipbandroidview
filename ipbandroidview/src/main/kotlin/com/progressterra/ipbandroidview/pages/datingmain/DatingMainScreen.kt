@@ -403,6 +403,12 @@ fun DatingMainScreen(
                                     )
                                 }
                             }
+                            map.mapObjects.addPlacemark().apply {
+                                geometry = Point(
+                                    state.currentUser.locationPoint.latitude,
+                                    state.currentUser.locationPoint.longitude
+                                )
+                            }
                         }
                     })
                 }
