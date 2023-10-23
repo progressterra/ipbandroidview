@@ -11,8 +11,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class InterestsScreenViewModel(
     private val changeInterestsUseCase: ChangeInterestsUseCase,
     private val fetchInterestsUseCase: FetchInterestsUseCase
-) :
-    AbstractNonInputViewModel<InterestsScreenState, InterestsScreenEffect>(), UseInterestsScreen {
+) : AbstractNonInputViewModel<InterestsScreenState, InterestsScreenEffect>(), UseInterestsScreen {
 
     override fun refresh() {
         onBackground {

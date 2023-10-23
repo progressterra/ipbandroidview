@@ -186,4 +186,10 @@
     <string name="about_me">Обо мне</string>
     <string name="of_interests_match">интересов совпадают</string>
     <string name="chat">Чат</string>
+    <string name="save_changes">Сохранить изменения</string>
+    <string name="start_chat">Написать</string>
+    <string name="can_connect">Отправить запрос на коннект</string>
+    <string name="request_sent">Запрос на коннект отправлен</string>
+    <string name="accept_connect">Принять запрос на коннект</string>
+    <string name="connect_accepted">Запрос на коннект принят</string>
 </resources>

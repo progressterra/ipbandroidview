@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -31,6 +32,9 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -39,6 +43,29 @@ fun DatingProfileScreen(
     state: DatingProfileScreenState,
     useComponent: UseDatingProfileScreen
 ) {
+
+    @Composable
+    fun ItemEditMode(
+        itemState: Interest
+    ) {
+        val backgroundBrush =
+            if (itemState.picked || state.changedInterests.contains(itemState)) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
+        Box(modifier = Modifier
+            .padding(vertical = 4.dp)
+            .clip(CircleShape)
+            .background(backgroundBrush)
+            .border(
+                width = 2.dp, brush = IpbTheme.colors.secondary.asBrush(), shape = CircleShape
+            )
+            .niceClickable { useComponent.handle(DatingProfileScreenEvent.PickInterest(itemState)) }
+            .padding(horizontal = 16.dp, vertical = 8.dp)) {
+            BrushedText(
+                text = itemState.name,
+                style = IpbTheme.typography.body,
+                tint = IpbTheme.colors.textPrimary.asBrush()
+            )
+        }
+    }
 
     @Composable
     fun Item(
@@ -74,7 +101,9 @@ fun DatingProfileScreen(
             ) {
                 if (state.ownProfile && !state.editMode) {
                     IconButton(
-                        modifier = Modifier.size(32.dp).align(Alignment.CenterStart),
+                        modifier = Modifier
+                            .size(32.dp)
+                            .align(Alignment.CenterStart),
                         onClick = { useComponent.handle(DatingProfileScreenEvent.Edit) }) {
                         BrushedIcon(
                             modifier = Modifier.size(32.dp),
@@ -94,7 +123,9 @@ fun DatingProfileScreen(
                 )
                 if (state.ownProfile && !state.editMode) {
                     IconButton(
-                        modifier = Modifier.size(32.dp).align(Alignment.CenterEnd),
+                        modifier = Modifier
+                            .size(32.dp)
+                            .align(Alignment.CenterEnd),
                         onClick = { useComponent.handle(DatingProfileScreenEvent.OnSettings) }) {
                         BrushedIcon(
                             modifier = Modifier.size(32.dp),
@@ -102,6 +133,38 @@ fun DatingProfileScreen(
                             tint = IpbTheme.colors.iconPrimary.asBrush()
                         )
                     }
+                }
+            }
+        }, bottomBar = {
+            Column(
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 38.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                if (state.editMode) {
+                    Button(
+                        state = state.save,
+                        title = stringResource(id = R.string.save_changes),
+                        useComponent = useComponent
+                    )
+                }
+                if (!state.ownProfile) {
+                    Button(
+                        state = state.connect,
+                        useComponent = useComponent,
+                        title = when (state.user.connection) {
+                            DatingConnection.CAN_CONNECT -> stringResource(id = R.string.can_connect)
+                            DatingConnection.REQUEST_SENT -> stringResource(id = R.string.request_sent)
+                            DatingConnection.REQUEST_RECEIVED -> stringResource(id = R.string.accept_connect)
+                            DatingConnection.CONNECTED -> stringResource(id = R.string.connect_accepted)
+                        }
+                    )
+                }
+                if (!state.ownProfile) {
+                    Button(
+                        state = state.chat,
+                        title = stringResource(id = R.string.start_chat),
+                        useComponent = useComponent
+                    )
                 }
             }
         }
@@ -114,93 +177,148 @@ fun DatingProfileScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            SimpleImage(
-                modifier = Modifier
-                    .size(137.dp)
-                    .clip(CircleShape),
-                image = state.user.image, backgroundColor = IpbTheme.colors.background.asColor()
-            )
-            BrushedText(
-                modifier = Modifier,
-                text = state.user.name,
-                style = IpbTheme.typography.headline,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-            )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BrushedIcon(
-                    resId = R.drawable.ic_address,
-                    tint = IpbTheme.colors.iconPrimary.asBrush()
+            if (state.editMode) {
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.name,
+                    hint = stringResource(R.string.name_surname),
+                    useComponent = useComponent,
+                    backgroundColor = IpbTheme.colors.background.asColor()
+                )
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.birthday,
+                    hint = stringResource(R.string.birthday),
+                    useComponent = useComponent,
+                    backgroundColor = IpbTheme.colors.background.asColor()
+                )
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.phone,
+                    hint = stringResource(R.string.phone_number),
+                    useComponent = useComponent,
+                    backgroundColor = IpbTheme.colors.background.asColor()
+                )
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.email,
+                    hint = stringResource(R.string.email),
+                    useComponent = useComponent,
+                    backgroundColor = IpbTheme.colors.background.asColor()
+                )
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.nickName,
+                    useComponent = useComponent,
+                    hint = stringResource(R.string.nickname),
+                    singleLine = false
+                )
+                TextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.about,
+                    useComponent = useComponent,
+                    hint = stringResource(R.string.about_you_hint),
+                    singleLine = false
+                )
+                FlowRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    state.allInterests.forEach {
+                        ItemEditMode(it)
+                    }
+                }
+            } else {
+                SimpleImage(
+                    modifier = Modifier
+                        .size(137.dp)
+                        .clip(CircleShape),
+                    image = state.user.image, backgroundColor = IpbTheme.colors.background.asColor()
                 )
                 BrushedText(
                     modifier = Modifier,
-                    text = state.user.locationPoint.address,
-                    style = IpbTheme.typography.subHeadlineRegular,
+                    text = state.user.name,
+                    style = IpbTheme.typography.headline,
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
-            }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BrushedIcon(
-                    resId = R.drawable.ic_target,
-                    tint = IpbTheme.colors.iconPrimary.asBrush()
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BrushedIcon(
+                        resId = R.drawable.ic_address,
+                        tint = IpbTheme.colors.iconPrimary.asBrush()
+                    )
+                    BrushedText(
+                        modifier = Modifier,
+                        text = state.user.locationPoint.address,
+                        style = IpbTheme.typography.subHeadlineRegular,
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
+                    )
+                }
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BrushedIcon(
+                        resId = R.drawable.ic_target,
+                        tint = IpbTheme.colors.iconPrimary.asBrush()
+                    )
+                    BrushedText(
+                        modifier = Modifier,
+                        text = state.user.target,
+                        style = IpbTheme.typography.subHeadlineRegular,
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
+                    )
+                }
+                BrushedText(
+                    modifier = Modifier,
+                    text = stringResource(id = R.string.about_me),
+                    style = IpbTheme.typography.title2,
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
                 BrushedText(
                     modifier = Modifier,
-                    text = state.user.target,
+                    text = state.user.age,
                     style = IpbTheme.typography.subHeadlineRegular,
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
-            }
-            BrushedText(
-                modifier = Modifier,
-                text = stringResource(id = R.string.about_me),
-                style = IpbTheme.typography.title2,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-            )
-            BrushedText(
-                modifier = Modifier,
-                text = state.user.age,
-                style = IpbTheme.typography.subHeadlineRegular,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-            )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BrushedIcon(
-                    resId = R.drawable.ic_occupation,
-                    tint = IpbTheme.colors.iconPrimary.asBrush()
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BrushedIcon(
+                        resId = R.drawable.ic_occupation,
+                        tint = IpbTheme.colors.iconPrimary.asBrush()
+                    )
+                    BrushedText(
+                        modifier = Modifier,
+                        text = state.user.occupation,
+                        style = IpbTheme.typography.subHeadlineRegular,
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
+                    )
+                }
+                BrushedText(
+                    modifier = Modifier,
+                    text = state.user.description,
+                    style = IpbTheme.typography.body,
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
                 BrushedText(
                     modifier = Modifier,
-                    text = state.user.occupation,
-                    style = IpbTheme.typography.subHeadlineRegular,
+                    text = stringResource(id = R.string.interests),
+                    style = IpbTheme.typography.title2,
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
-            }
-            BrushedText(
-                modifier = Modifier,
-                text = state.user.description,
-                style = IpbTheme.typography.body,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-            )
-            BrushedText(
-                modifier = Modifier,
-                text = stringResource(id = R.string.interests),
-                style = IpbTheme.typography.title2,
-                tint = IpbTheme.colors.textPrimary.asBrush(),
-            )
-            FlowRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                state.user.interests.forEach {
-                    Item(it)
+                FlowRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    state.user.interests.forEach {
+                        Item(it)
+                    }
                 }
             }
         }
