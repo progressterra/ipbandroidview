@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.entities
 
 import android.os.Parcelable
+import com.progressterra.ipbandroidview.shared.IsEmpty
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -18,4 +19,7 @@ data class DatingUser(
     val occupation: String = "",
     val connection: DatingConnection = DatingConnection.CAN_CONNECT,
     val connectionId: String = ""
-) : Id, Parcelable
+) : Id, Parcelable, IsEmpty {
+
+    override fun isEmpty() = this == DatingUser()
+}

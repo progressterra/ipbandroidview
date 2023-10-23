@@ -74,6 +74,7 @@ import com.progressterra.ipbandroidview.processes.FetchWithdrawalTransactionsUse
 import com.progressterra.ipbandroidview.pages.withdrawal.WithdrawalScreenViewModel
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchMainCardIdUseCase
+import com.progressterra.ipbandroidview.widgets.peoplenearby.PeopleNearbyScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -124,6 +125,8 @@ val pagesModule = module {
     viewModel { OccupationScreenViewModel(get(), get(), get()) }
 
     viewModel { ChatsScreenViewModel(get()) }
+
+    viewModel { PeopleNearbyScreenViewModel(get()) }
 
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 

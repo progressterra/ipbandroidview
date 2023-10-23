@@ -130,7 +130,8 @@ class DatingProfileScreenViewModel(
             it.copy(
                 user = data,
                 chat = it.chat.copy(enabled = data.connection == DatingConnection.CONNECTED),
-                connect = it.connect.copy(enabled = data.connection == DatingConnection.CAN_CONNECT || data.connection == DatingConnection.REQUEST_RECEIVED)
+                connect = it.connect.copy(enabled = data.connection == DatingConnection.CAN_CONNECT || data.connection == DatingConnection.REQUEST_RECEIVED),
+                ownProfile = data.isEmpty()
             )
         }
     }

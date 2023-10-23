@@ -23,11 +23,10 @@ class DatingProfileScreenNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<DatingProfileScreenViewModel>()
-        val context = LocalContext.current
         viewModel.collectEffects { effect ->
             when (effect) {
                 is DatingProfileScreenEffect.OnBack -> navigation.onBack()
-                is DatingProfileScreenEffect.OnChat -> Unit
+                is DatingProfileScreenEffect.OnChat -> navigation.onChat(effect.id)
                 is DatingProfileScreenEffect.OnSettings -> navigation.onSettings()
             }
         }
