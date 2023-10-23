@@ -45,7 +45,9 @@ interface ReadyToMeetUseCase {
                             listImages = emptyList()
                         )
                     )
-                )
+                ).also {
+                    log(it.data)
+                }
             }
     }
 }

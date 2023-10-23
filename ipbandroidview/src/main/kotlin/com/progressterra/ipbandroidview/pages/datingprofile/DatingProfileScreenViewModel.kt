@@ -1,6 +1,10 @@
 package com.progressterra.ipbandroidview.pages.datingprofile
 
+import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingUser
+import com.progressterra.ipbandroidview.processes.dating.AcceptConnectUseCase
+import com.progressterra.ipbandroidview.processes.dating.ConnectUseCase
+import com.progressterra.ipbandroidview.processes.dating.CreateChatWithUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCase
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
@@ -16,7 +20,10 @@ class DatingProfileScreenViewModel(
     private val fetchDatingUserUseCase: FetchDatingUserUseCase,
     private val saveDataUseCase: SaveDataUseCase,
     private val saveDatingInfoUseCase: SaveDatingInfoUseCase,
-    private val fetchInterestsUseCase: FetchInterestsUseCase
+    private val fetchInterestsUseCase: FetchInterestsUseCase,
+    private val connectUseCase: ConnectUseCase,
+    private val acceptConnectUseCase: AcceptConnectUseCase,
+    private val createChatWithUserUseCase: CreateChatWithUserUseCase
 ) : UseDatingProfileScreen,
     AbstractInputViewModel<DatingUser, DatingProfileScreenState, DatingProfileScreenEffect>() {
 
@@ -64,8 +71,9 @@ class DatingProfileScreenViewModel(
     }
 
     override fun handle(event: ButtonEvent) {
-        if (event.id == "save") {
-            onBackground {
+        onBackground {
+
+            if (event.id == "save") {
                 changeInterestsUseCase(currentState.changedInterests)
                 saveDataUseCase(
                     EditUserState(
@@ -76,9 +84,22 @@ class DatingProfileScreenViewModel(
                     )
                 )
                 saveDatingInfoUseCase(
-                    nickName = currentState.nickName.text,
-                    description = currentState.about.text
+                    nickName = currentState.nickName.text, description = currentState.about.text
                 )
+
+            }
+            if (event.id == "connect") {
+                if (currentState.user.connection == DatingConnection.CAN_CONNECT) {
+                    connectUseCase(currentState.user)
+                }
+                if (currentState.user.connection == DatingConnection.REQUEST_RECEIVED) {
+                    acceptConnectUseCase(currentState.user)
+                }
+            }
+            if (event.id == "chat") {
+                createChatWithUserUseCase(currentState.user).onSuccess {
+                    postEffect(DatingProfileScreenEffect.OnChat(it))
+                }
             }
         }
     }
@@ -105,12 +126,17 @@ class DatingProfileScreenViewModel(
     }
 
     override fun setup(data: DatingUser) {
-        emitState { it.copy(user = data) }
+        emitState {
+            it.copy(
+                user = data,
+                chat = it.chat.copy(enabled = data.connection == DatingConnection.CONNECTED),
+                connect = it.connect.copy(enabled = data.connection == DatingConnection.CAN_CONNECT || data.connection == DatingConnection.REQUEST_RECEIVED)
+            )
+        }
     }
 
     private fun valid() = onBackground {
-        val valid =
-            currentState.name.valid() && currentState.birthday.valid()
+        val valid = currentState.name.valid() && currentState.birthday.valid()
         emitState { it.copy(save = it.save.copy(enabled = valid)) }
     }
 }

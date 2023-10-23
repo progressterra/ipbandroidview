@@ -16,5 +16,6 @@ data class DatingUser(
     val target: String = "",
     val age: String = "",
     val occupation: String = "",
-    val connection: DatingConnection = DatingConnection.CAN_CONNECT
+    val connection: DatingConnection = DatingConnection.CAN_CONNECT,
+    val connectionId: String = ""
 ) : Id, Parcelable

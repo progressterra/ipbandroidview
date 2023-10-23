@@ -5,8 +5,11 @@ import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCa
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
+import com.progressterra.ipbandroidview.processes.dating.AcceptConnectUseCase
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
+import com.progressterra.ipbandroidview.processes.dating.ConnectUseCase
 import com.progressterra.ipbandroidview.processes.dating.ConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.dating.CreateChatWithUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.IncomingConnectionsUseCase
@@ -213,4 +216,10 @@ val processesModule = module {
     single<DatingChatsPagingUseCase> { DatingChatsPagingUseCase.Base(get(), get()) }
 
     single<FetchDatingChatsUseCase> { FetchDatingChatsUseCase.Base(get(), get()) }
+
+    single<AcceptConnectUseCase> { AcceptConnectUseCase.Base(get(), get()) }
+
+    single<ConnectUseCase> { ConnectUseCase.Base(get(), get()) }
+
+    single<CreateChatWithUserUseCase> { CreateChatWithUserUseCase.Base(get(), get(), get()) }
 }
