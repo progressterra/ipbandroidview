@@ -29,7 +29,9 @@ fun ChatScreen(
 ) {
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
-            title = state.name, showBackButton = true, useComponent = useComponent
+            title = stringResource(id = R.string.chat),
+            showBackButton = true,
+            useComponent = useComponent
         )
     }, bottomBar = {
         Row(
@@ -61,7 +63,6 @@ private fun ChatScreenPreview() {
     IpbTheme {
         ChatScreen(
             state = ChatScreenState(
-                name = "Some important chat",
                 input = TextFieldState(text = "Some input"), messages = MessagesState(
                     items = flowOf(
                         PagingData.from(

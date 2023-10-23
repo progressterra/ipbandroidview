@@ -185,4 +185,5 @@
     <string name="own_profile">Мой профиль</string>
     <string name="about_me">Обо мне</string>
     <string name="of_interests_match">интересов совпадают</string>
+    <string name="chat">Чат</string>
 </resources>

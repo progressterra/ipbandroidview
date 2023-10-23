@@ -11,7 +11,8 @@ import org.koin.androidx.compose.getViewModel
 @Suppress("unused")
 class ChatScreenNode(
     buildContext: BuildContext,
-    private val navigation: ChatScreenNavigation
+    private val navigation: ChatScreenNavigation,
+    private val input: String
 ) : Node(
     buildContext
 ) {
@@ -23,8 +24,8 @@ class ChatScreenNode(
             navigation.onBack()
         }
         val state = viewModel.state.collectAsState().value
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
+        LaunchedEffect(input) {
+            viewModel.setup(input)
         }
         ChatScreen(
             modifier = modifier,
