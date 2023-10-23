@@ -116,6 +116,7 @@ dependencies {
     api(platform("com.google.firebase:firebase-bom:32.3.1"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
+    api("com.google.firebase:firebase-crashlytics-ktx")
 
     // Google services
     api("com.google.android.gms:play-services-location:21.0.1")

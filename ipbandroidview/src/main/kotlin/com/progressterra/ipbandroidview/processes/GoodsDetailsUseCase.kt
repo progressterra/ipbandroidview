@@ -13,6 +13,8 @@ import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 import kotlinx.coroutines.flow.emptyFlow
 
@@ -28,35 +30,38 @@ interface GoodsDetailsUseCase {
         private val manageResources: ManageResources
     ) : GoodsDetailsUseCase, AbstractTokenUseCase(obtainAccessToken) {
 
-        override suspend fun invoke(id: String): Result<GoodsDetailsScreenState> = withToken { token ->
-            val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
-            val goods =
-                productRepository.productByNomenclatureId(token, id).getOrThrow()!!.toGoodsItem()
-            val recommended =
-                if (goods.categoryId.isNotEmpty()) goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow() else emptyFlow()
-            GoodsDetailsScreenState(
-                id = goods.id,
-                description = GoodsDescriptionState(
-                    name = goods.name,
-                    description = goods.description,
-                    favoriteButton = FavoriteButtonState(
-                        id = goods.id, favorite = isFavorite
+        override suspend fun invoke(id: String): Result<GoodsDetailsScreenState> =
+            withToken { token ->
+                val isFavorite = fetchFavoriteIds().getOrThrow().contains(id)
+                val goods =
+                    productRepository.productByNomenclatureId(token, id).getOrThrow()!!
+                        .toGoodsItem()
+                val recommended =
+                    if (goods.categoryId.isNotEmpty()) goodsUseCase(GoodsFilter(categoryId = goods.categoryId)).getOrThrow() else emptyFlow()
+                GoodsDetailsScreenState(
+                    id = goods.id,
+                    description = GoodsDescriptionState(
+                        name = goods.name,
+                        description = goods.description,
+                        favoriteButton = FavoriteButtonState(
+                            id = goods.id, favorite = isFavorite
+                        ),
+                        properties = goods.properties
                     ),
-                    properties = goods.properties
-                ),
-                gallery = ItemGalleryState(images = goods.images),
-                name = goods.name,
-                buyGoods = BuyGoodsState(
-                    oldPrice = goods.oldPrice,
-                    price = goods.price,
-                    installment = goods.installment
-                ),
-                similarGoods = GalleriesState(
-                    items = recommended,
-                    title = manageResources.string(R.string.similar_goods),
-                    id = goods.categoryId
+                    gallery = ItemGalleryState(images = goods.images),
+                    name = goods.name,
+                    buyGoods = BuyGoodsState(
+                        oldPrice = goods.oldPrice,
+                        price = goods.price,
+                        installment = goods.installment
+                    ),
+                    similarGoods = GalleriesState(
+                        items = recommended,
+                        title = manageResources.string(R.string.similar_goods),
+                        id = goods.categoryId,
+                        state = StateColumnState(state = ScreenState.SUCCESS)
+                    )
                 )
-            )
-        }
+            }
     }
 }
