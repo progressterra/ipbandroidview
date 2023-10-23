@@ -11,6 +11,7 @@ import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.DatingUser
 import org.koin.androidx.compose.getViewModel
 
+@Suppress("unused")
 class DatingProfileScreenNode(
     buildContext: BuildContext,
     private val input: DatingUser,
@@ -26,7 +27,8 @@ class DatingProfileScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is DatingProfileScreenEffect.OnBack -> navigation.onBack()
-                is DatingProfileScreenEffect.OnToChat -> Unit
+                is DatingProfileScreenEffect.OnChat -> Unit
+                is DatingProfileScreenEffect.OnSettings -> navigation.onSettings()
             }
         }
         val state = viewModel.state.collectAsState().value
@@ -35,6 +37,6 @@ class DatingProfileScreenNode(
             focusManager.clearFocus()
             viewModel.setup(input)
         }
-        DatingProfileScreen(modifier = modifier, state = state)
+        DatingProfileScreen(modifier = modifier, state = state, useComponent = viewModel)
     }
 }

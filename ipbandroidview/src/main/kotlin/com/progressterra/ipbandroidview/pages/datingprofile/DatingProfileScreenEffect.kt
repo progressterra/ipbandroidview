@@ -4,5 +4,7 @@ sealed class DatingProfileScreenEffect {
 
     data object OnBack : DatingProfileScreenEffect()
 
-    data object OnToChat : DatingProfileScreenEffect()
+    data class OnChat(val id: String) : DatingProfileScreenEffect()
+
+    data object OnSettings : DatingProfileScreenEffect()
 }

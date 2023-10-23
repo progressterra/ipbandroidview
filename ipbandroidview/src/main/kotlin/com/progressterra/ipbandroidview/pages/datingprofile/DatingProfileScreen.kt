@@ -15,13 +15,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
@@ -33,7 +36,8 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 @Composable
 fun DatingProfileScreen(
     modifier: Modifier = Modifier,
-    state: DatingProfileScreenState
+    state: DatingProfileScreenState,
+    useComponent: UseDatingProfileScreen
 ) {
 
     @Composable
@@ -68,6 +72,17 @@ fun DatingProfileScreen(
                     .background(IpbTheme.colors.background.asBrush())
                     .padding(horizontal = 16.dp)
             ) {
+                if (state.ownProfile && !state.editMode) {
+                    IconButton(
+                        modifier = Modifier.size(32.dp).align(Alignment.CenterStart),
+                        onClick = { useComponent.handle(DatingProfileScreenEvent.Edit) }) {
+                        BrushedIcon(
+                            modifier = Modifier.size(32.dp),
+                            resId = R.drawable.ic_profile_edit,
+                            tint = IpbTheme.colors.iconPrimary.asBrush()
+                        )
+                    }
+                }
                 BrushedText(
                     modifier = Modifier
                         .align(Alignment.Center)
@@ -77,6 +92,17 @@ fun DatingProfileScreen(
                     style = IpbTheme.typography.title2,
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
+                if (state.ownProfile && !state.editMode) {
+                    IconButton(
+                        modifier = Modifier.size(32.dp).align(Alignment.CenterEnd),
+                        onClick = { useComponent.handle(DatingProfileScreenEvent.OnSettings) }) {
+                        BrushedIcon(
+                            modifier = Modifier.size(32.dp),
+                            resId = R.drawable.ic_settings,
+                            tint = IpbTheme.colors.iconPrimary.asBrush()
+                        )
+                    }
+                }
             }
         }
     ) { _, _ ->
@@ -180,4 +206,92 @@ fun DatingProfileScreen(
         }
     }
 }
+
+@Preview
+@Composable
+private fun DatingProfileScreenPreviewOwn() {
+    IpbTheme {
+        val currentUser = DatingUser(
+            name = "Daniil Pechorin",
+            description = "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
+            interests = listOf(
+                Interest(name = "Zen Buddhism"),
+                Interest(name = "Cooking"),
+                Interest(name = "Programming")
+            ),
+            target = "Cookout",
+            distance = 112,
+            age = "90 y.0.",
+            occupation = "Android Super-Senior Staff Lead"
+        )
+        DatingProfileScreen(
+            state = DatingProfileScreenState(
+                user = currentUser,
+                ownProfile = true
+            ),
+            useComponent = UseDatingProfileScreen.Empty()
+        )
+
+    }
+}
+
+@Preview
+@Composable
+private fun DatingProfileScreenPreviewOther() {
+    IpbTheme {
+        val currentUser = DatingUser(
+            name = "Daniil Pechorin",
+            description = "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
+            interests = listOf(
+                Interest(name = "Zen Buddhism"),
+                Interest(name = "Cooking"),
+                Interest(name = "Programming")
+            ),
+            target = "Cookout",
+            distance = 112,
+            age = "90 y.0.",
+            occupation = "Android Super-Senior Staff Lead"
+        )
+        DatingProfileScreen(
+            state = DatingProfileScreenState(
+                user = currentUser,
+                ownProfile = false
+            ),
+            useComponent = UseDatingProfileScreen.Empty()
+
+        )
+
+    }
+}
+
+@Preview
+@Composable
+private fun DatingProfileScreenPreviewEdit() {
+    IpbTheme {
+        val currentUser = DatingUser(
+            name = "Daniil Pechorin",
+            description = "Android dev. from Komi Republic. Currently live in Yaroslavl. Inspired by zen buddhism",
+            interests = listOf(
+                Interest(name = "Zen Buddhism"),
+                Interest(name = "Cooking"),
+                Interest(name = "Programming")
+            ),
+            target = "Cookout",
+            distance = 112,
+            age = "90 y.0.",
+            occupation = "Android Super-Senior Staff Lead"
+        )
+        DatingProfileScreen(
+            state = DatingProfileScreenState(
+                user = currentUser,
+                ownProfile = true,
+                editMode = true
+            ),
+            useComponent = UseDatingProfileScreen.Empty()
+        )
+
+    }
+}
+
+
 

@@ -1,20 +1,34 @@
 package com.progressterra.ipbandroidview.pages.datingprofile
 
 import com.progressterra.ipbandroidview.entities.DatingUser
+import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
-class DatingProfileScreenViewModel : UseDatingProfileScreen,
+class DatingProfileScreenViewModel(
+    private val fetchDatingUserUseCase: FetchDatingUserUseCase
+) : UseDatingProfileScreen,
     AbstractInputViewModel<DatingUser, DatingProfileScreenState, DatingProfileScreenEffect>() {
 
     override fun createInitialState() = DatingProfileScreenState()
 
     override fun handle(event: DatingProfileScreenEvent) {
-        when (event) {
-            is DatingProfileScreenEvent.AcceptRequest -> Unit
-            is DatingProfileScreenEvent.OnBack -> postEffect(DatingProfileScreenEffect.OnBack)
-            is DatingProfileScreenEvent.OnToChat -> postEffect(DatingProfileScreenEffect.OnToChat)
-            is DatingProfileScreenEvent.SendRequest -> Unit
+        onBackground {
+            when (event) {
+                is DatingProfileScreenEvent.Edit -> emitState { it.copy(editMode = true) }
+                is DatingProfileScreenEvent.OnSettings -> postEffect(DatingProfileScreenEffect.OnSettings)
+                is DatingProfileScreenEvent.OnBack -> postEffect(DatingProfileScreenEffect.OnBack)
+            }
         }
+    }
+
+    override fun handle(event: ButtonEvent) {
+        TODO("Not yet implemented")
+    }
+
+    override fun handle(event: TextFieldEvent) {
+        TODO("Not yet implemented")
     }
 
     override fun setup(data: DatingUser) {

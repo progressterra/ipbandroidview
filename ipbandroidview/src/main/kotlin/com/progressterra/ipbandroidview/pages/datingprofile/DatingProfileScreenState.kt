@@ -6,5 +6,6 @@ import com.progressterra.ipbandroidview.entities.DatingUser
 @Immutable
 data class DatingProfileScreenState(
     val user: DatingUser = DatingUser(),
-    val ownProfile: Boolean = false
+    val ownProfile: Boolean = false,
+    val editMode: Boolean = false
 )

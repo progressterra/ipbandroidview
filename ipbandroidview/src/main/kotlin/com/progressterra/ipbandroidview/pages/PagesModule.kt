@@ -111,7 +111,7 @@ val pagesModule = module {
 
     viewModel { DatingMainScreenViewModel(get(), get(), get(), get(), get(), get(), get(), get(), get(), get()) }
 
-    viewModel { DatingProfileScreenViewModel() }
+    viewModel { DatingProfileScreenViewModel(get()) }
 
     viewModel { AvatarPickerScreenViewModel() }
 
