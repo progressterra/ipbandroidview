@@ -222,4 +222,11 @@ val processesModule = module {
     single<ConnectUseCase> { ConnectUseCase.Base(get(), get()) }
 
     single<CreateChatWithUserUseCase> { CreateChatWithUserUseCase.Base(get(), get(), get()) }
+
+    single<UpdateFirebaseCloudMessagingTokenUseCase> {
+        UpdateFirebaseCloudMessagingTokenUseCase.Base(
+            get(),
+            get()
+        )
+    }
 }

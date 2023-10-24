@@ -44,7 +44,7 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startService(Intent(this, messagingService  ))
+        startService(Intent(this, messagingService))
         actionBar?.hide()
         setContent { Content() }
         managePermission.setListener(this)
