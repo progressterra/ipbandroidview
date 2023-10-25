@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.datingprofile
 
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.processes.dating.AcceptConnectUseCase
@@ -8,8 +9,11 @@ import com.progressterra.ipbandroidview.processes.dating.CreateChatWithUserUseCa
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCase
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
+import com.progressterra.ipbandroidview.processes.user.PickPhotoUseCase
+import com.progressterra.ipbandroidview.processes.user.SaveAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
@@ -23,7 +27,10 @@ class DatingProfileScreenViewModel(
     private val fetchInterestsUseCase: FetchInterestsUseCase,
     private val connectUseCase: ConnectUseCase,
     private val acceptConnectUseCase: AcceptConnectUseCase,
-    private val createChatWithUserUseCase: CreateChatWithUserUseCase
+    private val createChatWithUserUseCase: CreateChatWithUserUseCase,
+    private val pickPhotoUseCase: PickPhotoUseCase,
+    private val makeToastUseCase: MakeToastUseCase,
+    private val saveAvatarUseCase: SaveAvatarUseCase
 ) : UseDatingProfileScreen,
     AbstractInputViewModel<DatingUser, DatingProfileScreenState, DatingProfileScreenEffect>() {
 
@@ -72,7 +79,18 @@ class DatingProfileScreenViewModel(
 
     override fun handle(event: ButtonEvent) {
         onBackground {
-
+            if (event.id == "choosePhoto") {
+                onBackground {
+                    pickPhotoUseCase().onSuccess { path ->
+                        saveAvatarUseCase(path).onSuccess {
+                            makeToastUseCase(R.string.success)
+                            refresh()
+                        }.onFailure {
+                            makeToastUseCase(R.string.failure)
+                        }
+                    }
+                }
+            }
             if (event.id == "save") {
                 changeInterestsUseCase(currentState.changedInterests)
                 saveDataUseCase(
@@ -106,20 +124,19 @@ class DatingProfileScreenViewModel(
 
     override fun handle(event: TextFieldEvent) {
         if (event is TextFieldEvent.TextChanged) {
-            if (event.id == "name") {
-                emitState { it.copy(name = it.name.copy(text = event.text)) }
-            }
-            if (event.id == "birthday") {
-                emitState { it.copy(birthday = it.birthday.copy(text = event.text)) }
-            }
             if (event.id == "nickName") {
                 emitState { it.copy(nickName = it.nickName.copy(text = event.text)) }
             }
             if (event.id == "about") {
                 emitState { it.copy(about = it.about.copy(text = event.text)) }
             }
-            if (event.id == "email") {
-                emitState { it.copy(email = it.email.copy(text = event.text)) }
+        }
+        if (event is TextFieldEvent.AdditionalAction) {
+            if (event.id == "nickName") {
+                emitState { it.copy(nickName = it.nickName.copy(text = "")) }
+            }
+            if (event.id == "about") {
+                emitState { it.copy(about = it.about.copy(text = "")) }
             }
         }
         valid()
@@ -137,7 +154,7 @@ class DatingProfileScreenViewModel(
     }
 
     private fun valid() = onBackground {
-        val valid = currentState.name.valid() && currentState.birthday.valid()
+        val valid = currentState.nickName.text.isNotEmpty()
         emitState { it.copy(save = it.save.copy(enabled = valid)) }
     }
 }

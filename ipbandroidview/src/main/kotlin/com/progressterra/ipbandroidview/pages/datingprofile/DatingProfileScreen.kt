@@ -33,6 +33,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
@@ -178,6 +179,13 @@ fun DatingProfileScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             if (state.editMode) {
+                SimpleImage(
+                    modifier = Modifier
+                        .size(137.dp)
+                        .clip(CircleShape),
+                    image = state.user.image, backgroundColor = IpbTheme.colors.background.asColor()
+                )
+                TextButton(state = state.choosePhoto, title = stringResource(id = R.string.choose_another_photo), useComponent = useComponent)
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
                     state = state.name,
@@ -213,12 +221,24 @@ fun DatingProfileScreen(
                     hint = stringResource(R.string.nickname),
                     singleLine = false
                 )
+                BrushedText(
+                    modifier = Modifier,
+                    text = stringResource(id = R.string.about_me),
+                    style = IpbTheme.typography.title2,
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
+                )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
                     state = state.about,
                     useComponent = useComponent,
                     hint = stringResource(R.string.about_you_hint),
                     singleLine = false
+                )
+                BrushedText(
+                    modifier = Modifier,
+                    text = stringResource(id = R.string.interests),
+                    style = IpbTheme.typography.title2,
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
                 FlowRow(
                     modifier = Modifier

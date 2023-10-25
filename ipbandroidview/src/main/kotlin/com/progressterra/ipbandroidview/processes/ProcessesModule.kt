@@ -203,7 +203,7 @@ val processesModule = module {
 
     single<SaveOccupationUseCase> { SaveOccupationUseCase.Base(get(), get()) }
 
-    single<FetchDatingUserUseCase> { FetchDatingUserUseCase.Base(get(), get()) }
+    single<FetchDatingUserUseCase> { FetchDatingUserUseCase.Base(get(), get(), get()) }
 
     factory<ConnectionsUseCase> { ConnectionsUseCase.Base(get(), get(), get(), get()) }
 
