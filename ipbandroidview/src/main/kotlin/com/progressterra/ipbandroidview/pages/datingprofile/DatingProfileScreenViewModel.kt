@@ -151,6 +151,7 @@ class DatingProfileScreenViewModel(
                 ownProfile = data.isEmpty()
             )
         }
+        refresh()
     }
 
     private fun valid() = onBackground {
