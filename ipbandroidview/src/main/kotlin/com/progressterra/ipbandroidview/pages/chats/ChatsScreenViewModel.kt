@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.chats
 
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.FetchDatingChatsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 
@@ -16,6 +17,8 @@ class ChatsScreenViewModel(
             }
         }
     }
+
+    override fun handle(event: TopBarEvent) = Unit
 
     override fun createInitialState() = ChatsScreenState()
 

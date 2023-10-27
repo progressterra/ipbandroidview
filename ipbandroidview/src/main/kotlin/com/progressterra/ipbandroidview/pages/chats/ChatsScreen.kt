@@ -13,15 +13,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingChat
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 
 @Composable
@@ -84,17 +87,24 @@ fun ChatsScreen(
     }
 
     val items = state.items.collectAsLazyPagingItems()
-    LazyColumn(
+    ThemedLayout(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp)
-    ) {
-        items(
-            count = items.itemCount,
-            key = items.itemKey { it.id }
-        ) { index ->
-            items[index]?.let {
-                Item(it)
+        topBar = {
+            TopBar(title = stringResource(id = R.string.chats), useComponent = useComponent)
+        }
+    ) { _, _ ->
+        LazyColumn(
+            modifier = Modifier,
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp)
+        ) {
+            items(
+                count = items.itemCount,
+                key = items.itemKey { it.id }
+            ) { index ->
+                items[index]?.let {
+                    Item(it)
+                }
             }
         }
     }

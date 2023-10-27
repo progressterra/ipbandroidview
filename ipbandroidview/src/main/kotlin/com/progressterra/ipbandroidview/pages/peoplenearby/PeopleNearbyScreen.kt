@@ -26,10 +26,12 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
+import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
+import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.progressterra.ipbandroidview.widgets.peoplenearby.PeopleNearbyScreenEvent
 import com.progressterra.ipbandroidview.widgets.peoplenearby.PeopleNearbyScreenState
@@ -75,7 +77,7 @@ fun PeopleNearbyScreen(
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Box(
-                    modifier = modifier,
+                    modifier = Modifier,
                     contentAlignment = Alignment.Center
                 ) {
                     BrushedIcon(
@@ -144,13 +146,20 @@ fun PeopleNearbyScreen(
         }
     }
 
-    LazyColumn(
-        modifier = Modifier,
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(28.dp)
-    ) {
-        items(state.items) {
-            Item(it)
+    ThemedLayout(
+        modifier = modifier,
+        topBar = {
+            TopBar(title = stringResource(id = R.string.interests), useComponent = useComponent)
+        }
+    ) { _, _ ->
+        LazyColumn(
+            modifier = Modifier,
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(28.dp)
+        ) {
+            items(state.items) {
+                Item(it)
+            }
         }
     }
 }

@@ -60,7 +60,7 @@ fun OccupationScreen(
 
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
-            title = stringResource(R.string.photo_picker),
+            title = stringResource(R.string.occupation),
             showBackButton = true,
             useComponent = useComponent
         )
@@ -89,7 +89,7 @@ fun OccupationScreen(
         ) {
             BrushedText(
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 36.dp),
-                text = stringResource(R.string.choose_interests),
+                text = stringResource(R.string.choose_occupation),
                 style = IpbTheme.typography.body,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
                 textAlign = TextAlign.Center
