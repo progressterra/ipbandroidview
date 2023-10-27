@@ -60,7 +60,7 @@ fun InterestsScreen(
 
     ThemedLayout(modifier = modifier, topBar = {
         TopBar(
-            title = stringResource(R.string.photo_picker),
+            title = stringResource(R.string.interests),
             showBackButton = true,
             useComponent = useComponent
         )
