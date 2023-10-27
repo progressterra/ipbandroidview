@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.datingmain
 
 import android.Manifest
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
@@ -11,6 +12,7 @@ import com.progressterra.ipbandroidview.processes.location.LocationToLocationPoi
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import kotlinx.coroutines.Job
@@ -26,7 +28,8 @@ class DatingMainScreenViewModel(
     private val askPermissionUseCase: AskPermissionUseCase,
     private val provideLocationUseCase: ProvideLocationUseCase,
     private val availableTargets: AvailableTargetsUseCase,
-    private val fetchDatingUserUseCase: FetchDatingUserUseCase
+    private val fetchDatingUserUseCase: FetchDatingUserUseCase,
+    private val makeToastUseCase: MakeToastUseCase
 ) : UseDatingMainScreen,
     AbstractNonInputViewModel<DatingMainScreenState, DatingMainScreenEffect>() {
 
@@ -85,6 +88,7 @@ class DatingMainScreenViewModel(
             while (true) {
                 provideLocationUseCase().getOrNull()?.let { location ->
                     locationToLocationPointUseCase(location).getOrNull()?.let { point ->
+                        makeToastUseCase(R.string.location_updated)
                         updateDatingLocationUseCase(point)
                     }
                 }

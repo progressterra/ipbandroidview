@@ -51,6 +51,7 @@ class IpbAndroidView private constructor(
         IpbAndroidApiSettings.MEDIA_DATA_URL = config["mediaDataUrl"]!!.first()
         IpbAndroidApiSettings.IMH_URL = config["imhService"]!!.first()
         MapKitFactory.setApiKey(config["yandexMapApiKey"]!!.first())
+        MapKitFactory.initialize(context)
         FirebaseApp.initializeApp(context)
         Fresco.initialize(
             context,

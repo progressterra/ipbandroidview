@@ -53,17 +53,20 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.lifecycle.Lifecycle
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.ComposableLifecycle
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitch
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchState
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.mapview.MapView
 import kotlinx.coroutines.launch
@@ -379,7 +382,7 @@ fun DatingMainScreen(
                         end.linkTo(parent.end, 16.dp)
                         top.linkTo(picker.top)
                         bottom.linkTo(picker.bottom)
-                    }, onClick = { /*TODO*/ }) {
+                    }, onClick = { }) {
                         BrushedIcon(
                             modifier = Modifier.size(24.dp),
                             resId = R.drawable.ic_filter_empty,
@@ -393,22 +396,39 @@ fun DatingMainScreen(
                         end.linkTo(parent.end, 16.dp)
                     })
                 } else if (selectedIndex == 1) {
-                    AndroidView(factory = {
-                        MapView(it).apply {
-                            state.users.forEach {
-                                map.mapObjects.addPlacemark().apply {
-                                    geometry = Point(
-                                        it.locationPoint.latitude,
-                                        it.locationPoint.longitude
-                                    )
-                                }
+                    var view: MapView? = null
+                    ComposableLifecycle(onEvent = { _, event ->
+                        when (event) {
+                            Lifecycle.Event.ON_START -> {
+                                MapKitFactory.getInstance().onStart()
+                                view?.onStart()
                             }
-                            map.mapObjects.addPlacemark().apply {
+
+                            Lifecycle.Event.ON_STOP -> {
+                                MapKitFactory.getInstance().onStop()
+                                view?.onStop()
+                            }
+
+                            else -> Unit
+                        }
+                    })
+                    AndroidView(factory = {
+                        view = MapView(it)
+                        view!!
+                    }, update = { mapView ->
+                        state.users.forEach {
+                            mapView.map.mapObjects.addPlacemark().apply {
                                 geometry = Point(
-                                    state.currentUser.locationPoint.latitude,
-                                    state.currentUser.locationPoint.longitude
+                                    it.locationPoint.latitude,
+                                    it.locationPoint.longitude
                                 )
                             }
+                        }
+                        mapView.map.mapObjects.addPlacemark().apply {
+                            geometry = Point(
+                                state.currentUser.locationPoint.latitude,
+                                state.currentUser.locationPoint.longitude
+                            )
                         }
                     })
                 }
