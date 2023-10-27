@@ -194,4 +194,7 @@
     <string name="connect_accepted">Запрос на коннект принят</string>
     <string name="choose_another_photo">Выберите другое фото</string>
     <string name="location_updated">Локация обновлена</string>
+    <string name="occupation">Профессия</string>
+    <string name="choose_occupation">Выберете профессию, которая наиболее точно вас характеризует</string>
+    <string name="chats">Чаты</string>
 </resources>
