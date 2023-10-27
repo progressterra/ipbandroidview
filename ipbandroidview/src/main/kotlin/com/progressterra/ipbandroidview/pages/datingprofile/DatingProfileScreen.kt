@@ -241,9 +241,7 @@ fun DatingProfileScreen(
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
                 FlowRow(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp),
+                    modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     state.allInterests.forEach {
