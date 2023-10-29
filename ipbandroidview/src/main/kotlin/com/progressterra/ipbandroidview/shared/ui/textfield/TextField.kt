@@ -11,10 +11,18 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxkeppeker.sheets.core.models.base.rememberUseCaseState
@@ -37,6 +45,7 @@ fun TextField(
     hint: String = "",
     singleLine: Boolean = true,
     backgroundColor: Color = IpbTheme.colors.surface.asColor(),
+    focusOnAppear: Boolean = false
 ) {
     val label: (@Composable () -> Unit)? = if (state.text.isNotEmpty()) {
         {
@@ -56,10 +65,22 @@ fun TextField(
             )
         }
     } else null
+    val focusRequester = remember { FocusRequester() }
+    if (focusOnAppear) {
+        LaunchedEffect(Unit) {
+            focusRequester.requestFocus()
+        }
+    }
     val mutableInteractionSource = remember { MutableInteractionSource() }
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     val focusManager = LocalFocusManager.current
     val calendarState = rememberUseCaseState(visible = false)
+    var innerValue by remember(state.text) { mutableStateOf(TextFieldValue(text = state.text)) }
+    LaunchedEffect(focused) {
+        if (focused) {
+            innerValue = innerValue.copy(selection = TextRange(innerValue.text.length))
+        }
+    }
     CalendarDialog(
         state = calendarState,
         config = CalendarConfig(
@@ -91,13 +112,15 @@ fun TextField(
                 },
                 shape = RoundedCornerShape(8.dp)
             )
+            .focusRequester(focusRequester)
             .clearFocusOnKeyboardDismiss(),
-        value = state.text,
+        value = innerValue,
         visualTransformation = state.type.toVisualTransformation(),
         interactionSource = mutableInteractionSource,
-        onValueChange = { text ->
-            if (text.length <= state.type.toAllowedChars()) {
-                useComponent.handle(TextFieldEvent.TextChanged(state.id, text))
+        onValueChange = { value ->
+            if (value.text.length <= state.type.toAllowedChars()) {
+                useComponent.handle(TextFieldEvent.TextChanged(state.id, value.text))
+                innerValue = value
             }
         },
         keyboardActions = KeyboardActions {
