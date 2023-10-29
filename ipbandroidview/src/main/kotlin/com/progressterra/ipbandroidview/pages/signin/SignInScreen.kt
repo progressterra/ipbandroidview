@@ -61,6 +61,7 @@ fun SignInScreen(
                 state = state.phone,
                 useComponent = useComponent,
                 hint = stringResource(R.string.phone_number),
+                focusOnAppear = true
             )
             Spacer(Modifier.height(20.dp))
             LinkText(
