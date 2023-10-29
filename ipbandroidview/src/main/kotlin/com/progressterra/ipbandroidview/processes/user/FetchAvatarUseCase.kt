@@ -5,7 +5,9 @@ import com.progressterra.ipbandroidapi.api.ipbmediadata.model.FieldForFilter
 import com.progressterra.ipbandroidapi.api.ipbmediadata.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.ipbmediadata.model.SortData
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface FetchAvatarUseCase {
 
@@ -13,8 +15,12 @@ interface FetchAvatarUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val ipbMediaDataRepository: IPBMediaDataRepository
-    ) : FetchAvatarUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val ipbMediaDataRepository: IPBMediaDataRepository,
+        makeToastUseCase: MakeToastUseCase, manageResources: ManageResources
+    ) : FetchAvatarUseCase, AbstractTokenUseCase(
+        obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(): Result<String> = withToken {
             ipbMediaDataRepository.attachedToClient(

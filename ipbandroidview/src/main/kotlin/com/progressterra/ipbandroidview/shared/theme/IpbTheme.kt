@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.shared.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.text.selection.LocalTextSelectionColors
+import androidx.compose.foundation.text.selection.TextSelectionColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
@@ -25,10 +27,16 @@ fun IpbTheme(
     typography: IpbTypography = IpbTheme.typography,
     content: @Composable () -> Unit
 ) {
-    val colors = if (isSystemInDarkTheme()) IpbAndroidViewSettings.COLORS else IpbAndroidViewSettings.COLORS
+    val colors =
+        if (isSystemInDarkTheme()) IpbAndroidViewSettings.COLORS else IpbAndroidViewSettings.COLORS
+    val selectionColors = TextSelectionColors(
+        handleColor = IpbTheme.colors.primary.asColor(),
+        backgroundColor = IpbTheme.colors.primary.asColor()
+    )
     CompositionLocalProvider(
         LocalTypography provides typography,
-        LocalColors provides colors
+        LocalColors provides colors,
+        LocalTextSelectionColors provides selectionColors
     ) {
         SystemUiSetup()
         content()

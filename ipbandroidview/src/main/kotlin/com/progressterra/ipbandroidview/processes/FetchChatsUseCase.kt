@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidview.IpbAndroidViewSettings.WANT_THIS_CHAT_ID
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toMessage
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatState
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 import kotlinx.coroutines.flow.flowOf
@@ -29,8 +30,8 @@ interface FetchChatsUseCase {
         obtainAccessToken: ObtainAccessToken,
         private val manageResources: ManageResources,
         private val messengerRepository: MessengerService,
-        private val chatsUseCase: ChatsUseCase
-    ) : FetchChatsUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val chatsUseCase: ChatsUseCase, makeToastUseCase: MakeToastUseCase
+    ) : FetchChatsUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(): Result<SupportChatState> = withToken { token ->
             val mainDialog = messengerRepository.clientAreaDialog(

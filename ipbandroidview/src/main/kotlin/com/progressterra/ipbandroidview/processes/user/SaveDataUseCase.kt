@@ -6,7 +6,9 @@ import com.progressterra.ipbandroidapi.api.scrm.models.TypeSex
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 import com.progressterra.ipbandroidview.shared.splitName
@@ -20,8 +22,9 @@ interface SaveDataUseCase {
 
     class Base(
         private val scrmService: ScrmService,
-        obtainAccessToken: ObtainAccessToken
-    ) : SaveDataUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        obtainAccessToken: ObtainAccessToken, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : SaveDataUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(income: EditUserState): Result<Unit> = withToken { token ->
             val nameList = income.name.formatByType().splitName(false)

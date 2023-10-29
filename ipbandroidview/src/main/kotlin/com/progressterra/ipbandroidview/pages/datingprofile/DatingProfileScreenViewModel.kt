@@ -36,8 +36,10 @@ class DatingProfileScreenViewModel(
 
     override fun createInitialState() = DatingProfileScreenState()
 
-    private fun refresh() {
+    fun refresh() {
         onBackground {
+            emitState { createInitialState() }
+            var isSuccess = true
             if (currentState.ownProfile) {
                 fetchDatingUserUseCase().onSuccess { newUser ->
                     emitState { it.copy(user = newUser) }

@@ -9,7 +9,9 @@ import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.LocationPoint
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import java.time.ZonedDateTime
 
 interface ReadyToMeetUseCase {
@@ -18,8 +20,11 @@ interface ReadyToMeetUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val imhService: ImhService
-    ) : ReadyToMeetUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val imhService: ImhService, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : ReadyToMeetUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(location: LocationPoint, target: DatingTarget): Result<Unit> =
             withToken { token ->
@@ -45,9 +50,7 @@ interface ReadyToMeetUseCase {
                             listImages = emptyList()
                         )
                     )
-                ).also {
-                    log(it.data)
-                }
+                )
             }
     }
 }

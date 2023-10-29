@@ -6,7 +6,9 @@ import com.progressterra.ipbandroidview.entities.convertSuggestionToAddressUIMod
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.entities.SuggestionUI
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 import java.time.ZonedDateTime
@@ -18,8 +20,9 @@ interface AddDeliveryToCartUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepository: CartRepository,
-        private val saveAddressUseCase: SaveAddressUseCase
-    ) : AbstractTokenUseCase(obtainAccessToken), AddDeliveryToCartUseCase {
+        private val saveAddressUseCase: SaveAddressUseCase, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources), AddDeliveryToCartUseCase {
 
         override suspend fun invoke(suggestionUI: SuggestionUI): Result<Unit> =
             withToken { token ->

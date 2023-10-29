@@ -6,8 +6,10 @@ import com.progressterra.ipbandroidapi.api.documents.DocumentsRepository
 import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.IncomeDataClientArea
 import com.progressterra.ipbandroidview.entities.Document
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.FileExplorer
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -21,8 +23,9 @@ interface SaveDocumentsUseCase {
         obtainAccessToken: ObtainAccessToken,
         private val repo: DocumentsRepository,
         private val fileExplorer: FileExplorer,
-        private val gson: Gson,
-    ) : AbstractTokenUseCase(obtainAccessToken), SaveDocumentsUseCase {
+        private val gson: Gson, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources,
+    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources), SaveDocumentsUseCase {
 
         override suspend fun invoke(data: Document): Result<Unit> = withToken { token ->
             val entries = data.entries.map { it.toFieldData(data.id) }

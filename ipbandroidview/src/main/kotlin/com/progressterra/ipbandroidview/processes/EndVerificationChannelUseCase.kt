@@ -6,7 +6,9 @@ import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataEndChannelVerif
 import com.progressterra.ipbandroidapi.api.scrm.ScrmService
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.entities.parseToZDT
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.UserName
 
@@ -17,8 +19,12 @@ interface EndVerificationChannelUseCase {
     class Base(
         private val authService: AuthService,
         private val scrmService: ScrmService,
-        obtainAccessToken: ObtainAccessToken
-    ) : EndVerificationChannelUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        obtainAccessToken: ObtainAccessToken, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : EndVerificationChannelUseCase, AbstractTokenUseCase(
+        obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(
             tempToken: String,

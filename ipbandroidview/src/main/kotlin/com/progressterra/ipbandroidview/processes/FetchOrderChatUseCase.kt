@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidapi.api.messenger.models.MetaDataClientWithID
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeDataSource
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings.ORDERS_CHAT_ID
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
@@ -16,8 +17,9 @@ interface FetchOrderChatUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val manageResources: ManageResources,
-        private val messengerRepository: MessengerService
-    ) : AbstractTokenUseCase(obtainAccessToken), FetchOrderChatUseCase {
+        private val messengerRepository: MessengerService, makeToastUseCase: MakeToastUseCase
+    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+        FetchOrderChatUseCase {
 
         override suspend fun invoke(orderId: String, orderNumber: String): Result<String> =
             withToken { token ->

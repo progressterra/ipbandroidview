@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.processes.dating
 
 import com.progressterra.ipbandroidapi.api.iamhere.ImhService
-import com.progressterra.ipbandroidview.entities.Interest
-import com.progressterra.ipbandroidview.entities.LocationPoint
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface DeleteReadyToMeetUseCase {
 
@@ -12,8 +12,11 @@ interface DeleteReadyToMeetUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val imhService: ImhService
-    ) : DeleteReadyToMeetUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val imhService: ImhService, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : DeleteReadyToMeetUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(): Result<Unit> =
             withToken { token ->

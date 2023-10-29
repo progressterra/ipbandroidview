@@ -2,15 +2,15 @@ package com.progressterra.ipbandroidview.pages.documents
 
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipEvent
-import com.progressterra.ipbandroidview.processes.FetchCitizenshipsUseCase
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.DocumentsUseCase
+import com.progressterra.ipbandroidview.processes.FetchCitizenshipsUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.documents.DocumentsEvent
-import com.progressterra.ipbandroidview.widgets.documents.DocumentsUseCase
 
 class DocumentsScreenViewModel(
     private val documentsUseCase: DocumentsUseCase,
@@ -80,18 +80,17 @@ class DocumentsScreenViewModel(
         onBackground {
             when (event.id) {
                 "apply" -> currentState.citizenship.dialog.selected?.let { newCitizenship ->
-                    saveCitizenshipUseCase(newCitizenship).onSuccess {
-                        emitState {
-                            it.copy(
-                                citizenship = it.citizenship.copy(
-                                    dialog = it.citizenship.dialog.copy(
-                                        open = false
-                                    )
+                    saveCitizenshipUseCase(newCitizenship)
+                    emitState {
+                        it.copy(
+                            citizenship = it.citizenship.copy(
+                                dialog = it.citizenship.dialog.copy(
+                                    open = false
                                 )
                             )
-                        }
-                        refresh()
+                        )
                     }
+                    refresh()
                 }
             }
         }

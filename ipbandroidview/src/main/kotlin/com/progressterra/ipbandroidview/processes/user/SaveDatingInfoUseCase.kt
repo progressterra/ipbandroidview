@@ -3,7 +3,9 @@ package com.progressterra.ipbandroidview.processes.user
 import com.progressterra.ipbandroidapi.api.iamhere.ImhService
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataPersonalEntity
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface SaveDatingInfoUseCase {
 
@@ -11,8 +13,11 @@ interface SaveDatingInfoUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val service: ImhService
-    ) : SaveDatingInfoUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val service: ImhService, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : SaveDatingInfoUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(
             nickName: String,

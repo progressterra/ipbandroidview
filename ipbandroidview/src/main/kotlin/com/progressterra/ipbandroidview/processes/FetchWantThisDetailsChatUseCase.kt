@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidapi.api.messenger.models.MetaDataClientWithID
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeDataSource
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings.WANT_THIS_CHAT_ID
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
@@ -16,8 +17,8 @@ interface FetchWantThisDetailsChatUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val manageResources: ManageResources,
-        private val messengerRepository: MessengerService
-    ) : AbstractTokenUseCase(obtainAccessToken), FetchWantThisDetailsChatUseCase {
+        private val messengerRepository: MessengerService, makeToastUseCase: MakeToastUseCase
+    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources), FetchWantThisDetailsChatUseCase {
 
         override suspend fun invoke(docId: String, docName: String): Result<String> =
             withToken { token ->

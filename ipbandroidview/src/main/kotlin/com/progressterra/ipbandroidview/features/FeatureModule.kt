@@ -9,7 +9,7 @@ import org.koin.dsl.module
 val featuresModule = module {
 
     factory<FetchBonusesUseCase> {
-        FetchBonusesUseCase.Base(get(), get(), get())
+        FetchBonusesUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<FetchPaymentMethods> {
@@ -20,5 +20,5 @@ val featuresModule = module {
         CurrentLocationSuggestionsUseCase.Base(get(), get())
     }
 
-    single<FetchCitizenshipsUseCase> { FetchCitizenshipsUseCase.Base(get()) }
+    single<FetchCitizenshipsUseCase> { FetchCitizenshipsUseCase.Base(get(), get(), get()) }
 }

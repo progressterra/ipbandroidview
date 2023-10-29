@@ -7,7 +7,9 @@ import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toOrder
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface OrderDetailsUseCase {
 
@@ -16,8 +18,11 @@ interface OrderDetailsUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepository: CartRepository,
-        private val productRepository: ProductRepository
-    ) : OrderDetailsUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : OrderDetailsUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(orderId: String): Result<OrderDetailsState> = withToken {
             val result =

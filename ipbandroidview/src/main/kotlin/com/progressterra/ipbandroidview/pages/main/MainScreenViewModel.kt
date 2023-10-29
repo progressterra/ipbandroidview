@@ -6,17 +6,19 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModule
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModuleUser
 import com.progressterra.ipbandroidview.features.bonuses.BonusesState
-import com.progressterra.ipbandroidview.processes.FetchBonusesUseCase
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
+import com.progressterra.ipbandroidview.processes.FetchBonusesUseCase
+import com.progressterra.ipbandroidview.processes.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
-import com.progressterra.ipbandroidview.widgets.galleries.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesModule
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesModuleUser
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
@@ -27,7 +29,9 @@ class MainScreenViewModel(
     private val goodsUseCase: GoodsUseCase,
     private val catalogRepository: CatalogRepository,
     private val addToCartUseCase: AddToCartUseCase,
-    private val removeFromCartUseCase: RemoveFromCartUseCase
+    private val removeFromCartUseCase: RemoveFromCartUseCase,
+    private val makeToastUseCase: MakeToastUseCase,
+    private val manageResources: ManageResources
 ) : UseMainScreen, AbstractNonInputViewModel<MainScreenState, MainScreenEffect>() {
 
     override fun createInitialState() =
@@ -40,7 +44,9 @@ class MainScreenViewModel(
             fetchGalleriesUseCase = FetchGalleriesUseCase.Base(
                 obtainAccessToken = obtainAccessToken,
                 goodsUseCase = goodsUseCase,
-                productRepository = catalogRepository
+                productRepository = catalogRepository,
+                makeToastUseCase = makeToastUseCase,
+                manageResources = manageResources
             ),
             operations = this,
             user = object : GalleriesModuleUser {

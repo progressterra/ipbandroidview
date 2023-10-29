@@ -6,7 +6,9 @@ import com.progressterra.ipbandroidapi.api.scrm.models.SortData
 import com.progressterra.ipbandroidapi.api.scrm.models.TypeVariantSort
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.entities.toAddressUiModel
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.UserData
 
 interface FetchShippingAddressUseCase {
@@ -15,8 +17,11 @@ interface FetchShippingAddressUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val scrmService: ScrmService
-    ) : FetchShippingAddressUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val scrmService: ScrmService, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : FetchShippingAddressUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(): Result<Unit> = withToken { token ->
             val address =

@@ -3,7 +3,10 @@ package com.progressterra.ipbandroidview.processes
 import com.progressterra.ipbandroidapi.api.messenger.MessengerService
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesEntityCreate
 import com.progressterra.ipbandroidapi.api.messenger.models.StatusResult
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface SendMessageUseCase {
 
@@ -11,8 +14,14 @@ interface SendMessageUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val messengerRepository: MessengerService
-    ) : SendMessageUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val messengerRepository: MessengerService,
+        makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : SendMessageUseCase, AbstractTokenUseCase(
+        obtainAccessToken,
+        makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(
             dialogId: String, message: String
@@ -26,7 +35,7 @@ interface SendMessageUseCase {
                     )
                 ).result?.status != StatusResult.SUCCESS
             ) {
-                throw Exception("Message was not sent")
+                throw ToastedException(R.string.failure)
             }
         }
     }

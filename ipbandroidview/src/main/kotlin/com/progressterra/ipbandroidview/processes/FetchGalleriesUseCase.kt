@@ -1,13 +1,15 @@
-package com.progressterra.ipbandroidview.widgets.galleries
+package com.progressterra.ipbandroidview.processes
 
 import com.progressterra.ipbandroidapi.api.catalog.CatalogRepository
 import com.progressterra.ipbandroidview.entities.GoodsFilter
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractCacheTokenUseCase
 import com.progressterra.ipbandroidview.shared.CacheUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
+import com.progressterra.ipbandroidview.widgets.galleries.GalleriesState
 
 interface FetchGalleriesUseCase : CacheUseCase<GalleriesState> {
 
@@ -16,8 +18,11 @@ interface FetchGalleriesUseCase : CacheUseCase<GalleriesState> {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val goodsUseCase: GoodsUseCase,
-        private val productRepository: CatalogRepository
-    ) : FetchGalleriesUseCase, AbstractCacheTokenUseCase<GalleriesState>(obtainAccessToken) {
+        private val productRepository: CatalogRepository, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : FetchGalleriesUseCase, AbstractCacheTokenUseCase<GalleriesState>(obtainAccessToken,
+        makeToastUseCase, manageResources
+    ) {
 
         override suspend fun invoke(id: String) {
             withCache { token ->
@@ -29,7 +34,6 @@ interface FetchGalleriesUseCase : CacheUseCase<GalleriesState> {
                     id = id,
                     state = StateColumnState(id = id, state = ScreenState.SUCCESS)
                 )
-                log(result)
                 result
             }
         }

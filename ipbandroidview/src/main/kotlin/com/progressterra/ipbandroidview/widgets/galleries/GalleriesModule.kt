@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.widgets.galleries
 
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
+import com.progressterra.ipbandroidview.processes.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.mvi.Operations

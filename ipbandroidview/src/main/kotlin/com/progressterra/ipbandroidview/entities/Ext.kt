@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.entities
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -29,7 +28,6 @@ import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.scrm.models.RGAddress
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
@@ -242,7 +240,10 @@ fun RFCharacteristicTypeViewModel.toDocument(gson: Gson, createId: CreateId) =
         )
     } ?: emptyList()).map {
         TextFieldState(
-            id = createId(), placeholder = it.comment, label = it.name, type = when (it.typeValue) {
+            id = createId(),
+            placeholder = it.comment,
+            label = it.name,
+            type = when (it.typeValue) {
                 TypeValueCharacteristic.AS_STRING -> TextInputType.DEFAULT
                 TypeValueCharacteristic.AS_NUMBER -> TextInputType.NUMBER
                 TypeValueCharacteristic.AS_DATE_TIME -> TextInputType.DATE
@@ -283,15 +284,11 @@ fun String.parseToZDT(): ZonedDateTime? {
     var result: ZonedDateTime? = null
     runCatching {
         result = ZonedDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
-    }.onFailure {
-        if (IpbAndroidViewSettings.DEBUG) Log.e("DateParse", it.message ?: "")
     }
     if (result == null) {
         runCatching {
             val semiResult = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
             result = semiResult.atZone(ZoneId.systemDefault())
-        }.onFailure {
-            if (IpbAndroidViewSettings.DEBUG) Log.e("DateParse", it.message ?: "")
         }
     }
     return result

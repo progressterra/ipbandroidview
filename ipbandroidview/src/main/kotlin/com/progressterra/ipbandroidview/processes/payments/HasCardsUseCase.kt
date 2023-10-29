@@ -9,7 +9,9 @@ import com.progressterra.ipbandroidapi.api.paymentdata.models.SortData
 import com.progressterra.ipbandroidapi.api.paymentdata.models.TypeVariantSort
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface HasCardsUseCase {
 
@@ -18,8 +20,9 @@ interface HasCardsUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val paymentDataRepository: PaymentDataRepository,
-        private val documentsRepository: DocumentsRepository
-    ) : HasCardsUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val documentsRepository: DocumentsRepository, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : HasCardsUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(): Result<Boolean> = withToken { token ->
             val hasConfirmed = paymentDataRepository.clientAreaList(

@@ -1,23 +1,25 @@
 package com.progressterra.ipbandroidview.shared
 
-import android.util.Log
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.processes.ToastedException
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
-abstract class AbstractLoggingUseCase {
-
-    protected fun <T> log(message: T) {
-        if (IpbAndroidViewSettings.DEBUG) {
-            Log.d(this::class.java.simpleName.toString(), message.toString())
-        }
-    }
+abstract class AbstractLoggingUseCase(
+    private val makeToastUseCase: MakeToastUseCase,
+    private val manageResources: ManageResources
+) {
 
     protected suspend fun <T> handle(
         block: suspend () -> T
     ): Result<T> = runCatching {
         block()
     }.onFailure {
-        if (IpbAndroidViewSettings.DEBUG) Log.e(
-            this::class.java.simpleName.toString(), it.message, it
-        )
+        when (it) {
+            is UnknownHostException, is SocketTimeoutException -> makeToastUseCase(R.string.no_internet_connection)
+            is ToastedException -> makeToastUseCase(it.stringId)
+            else -> makeToastUseCase(R.string.unknown_error)
+        }
     }
 }

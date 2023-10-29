@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.features.itemgallery.ItemGalleryState
 import com.progressterra.ipbandroidview.pages.goodsdetails.GoodsDetailsScreenState
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -27,8 +28,10 @@ interface GoodsDetailsUseCase {
         private val productRepository: ProductRepository,
         private val fetchFavoriteIds: FetchFavoriteIds,
         private val goodsUseCase: GoodsUseCase,
-        private val manageResources: ManageResources
-    ) : GoodsDetailsUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val manageResources: ManageResources,
+        makeToastUseCase: MakeToastUseCase
+    ) : GoodsDetailsUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(id: String): Result<GoodsDetailsScreenState> =
             withToken { token ->

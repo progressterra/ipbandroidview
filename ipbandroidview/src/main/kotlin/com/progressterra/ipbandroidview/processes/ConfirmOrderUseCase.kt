@@ -5,7 +5,9 @@ import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.ordernumber.OrderNumberState
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusScreenState
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface ConfirmOrderUseCase {
 
@@ -14,8 +16,12 @@ interface ConfirmOrderUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepository: CartRepository,
-        private val productRepository: ProductRepository
-    ) : ConfirmOrderUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : ConfirmOrderUseCase, AbstractTokenUseCase(
+        obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(): Result<OrderStatusScreenState> = withToken { token ->
             val result = cartRepository.confirmOrder(token).getOrThrow()

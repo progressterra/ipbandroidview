@@ -1,12 +1,14 @@
 package com.progressterra.ipbandroidview.shared
 
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 
 abstract class AbstractCacheTokenUseCase<T>(
-    obtainAccessToken: ObtainAccessToken
-) : AbstractTokenUseCase(obtainAccessToken), CacheUseCase<T> {
+    obtainAccessToken: ObtainAccessToken, makeToastUseCase: MakeToastUseCase,
+    manageResources: ManageResources
+) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources), CacheUseCase<T> {
 
     private val storage: MutableList<T> = mutableListOf()
 

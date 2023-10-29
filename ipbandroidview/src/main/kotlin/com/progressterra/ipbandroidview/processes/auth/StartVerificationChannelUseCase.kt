@@ -6,15 +6,18 @@ import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataStartChannelVer
 import com.progressterra.ipbandroidapi.api.auth.models.StatusResult
 import com.progressterra.ipbandroidapi.core.BadRequestException
 import com.progressterra.ipbandroidview.entities.SignInData
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface StartVerificationChannelUseCase {
 
     suspend operator fun invoke(phoneNumber: String): Result<SignInData>
 
     class Base(
-        private val authService: AuthService
-    ) : StartVerificationChannelUseCase, AbstractLoggingUseCase() {
+        private val authService: AuthService, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : StartVerificationChannelUseCase, AbstractLoggingUseCase(makeToastUseCase, manageResources) {
 
         override suspend fun invoke(phoneNumber: String): Result<SignInData> = handle {
             val formattedPhoneNumber = phoneNumber.trim()

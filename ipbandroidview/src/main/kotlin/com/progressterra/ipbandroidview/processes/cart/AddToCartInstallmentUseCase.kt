@@ -10,7 +10,9 @@ import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.pages.cart.CartScreenState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
@@ -25,8 +27,11 @@ interface AddToCartInstallmentUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepo: CartRepository,
-        private val productRepository: ProductRepository
-    ) : AddToCartInstallmentUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : AddToCartInstallmentUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(
             goodsId: String,

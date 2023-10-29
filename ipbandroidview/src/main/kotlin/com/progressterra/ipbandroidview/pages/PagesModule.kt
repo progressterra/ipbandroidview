@@ -90,7 +90,7 @@ val pagesModule = module {
 
     viewModel { SignUpScreenViewModel(get(), get()) }
 
-    viewModel { MainScreenViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { MainScreenViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
     viewModel { PaymentScreenViewModel(get(), get(), get(), get(), get()) }
 
@@ -159,27 +159,27 @@ val pagesModule = module {
     single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
 
     single<OrderDetailsUseCase> {
-        OrderDetailsUseCase.Base(get(), get(), get())
+        OrderDetailsUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<EndVerificationChannelUseCase> {
-        EndVerificationChannelUseCase.Base(get(), get(), get())
+        EndVerificationChannelUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<CatalogUseCase> {
-        CatalogUseCase.Base(get(), get(), get())
+        CatalogUseCase.Base(get(), get(), get(), get())
     }
 
-    single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get()) }
+    single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get(), get()) }
 
-    single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get()) }
+    single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchCartUseCase> {
-        FetchCartUseCase.Base(get(), get(), get())
+        FetchCartUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<GoodsDetailsUseCase> {
-        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get())
+        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
     single<FavoriteGoodsUseCase> {
@@ -189,10 +189,10 @@ val pagesModule = module {
     single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base() }
 
     single<ConfirmOrderUseCase> {
-        ConfirmOrderUseCase.Base(get(), get(), get())
+        ConfirmOrderUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<SaveDocumentsUseCase> { SaveDocumentsUseCase.Base(get(), get(), get(), get()) }
+    single<SaveDocumentsUseCase> { SaveDocumentsUseCase.Base(get(), get(), get(), get(), get(), get()) }
 
     viewModel { CatalogScreenViewModel(get(), get(), get(), get()) }
 
@@ -202,22 +202,22 @@ val pagesModule = module {
 
     viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
-    single<DocumentsNotificationUseCase> { DocumentsNotificationUseCase.Base(get(), get()) }
+    single<DocumentsNotificationUseCase> { DocumentsNotificationUseCase.Base(get(), get(), get(), get()) }
 
     single<CommentUseCase> {
-        CommentUseCase.Base(get(), get())
+        CommentUseCase.Base(get(), get(), get(), get())
     }
 
-    single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get()) }
+    single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get()) }
 
     viewModel { OrdersScreenViewModel(get()) }
 
     single<FetchBonusSwitchUseCase> {
-        FetchBonusSwitchUseCase.Base()
+        FetchBonusSwitchUseCase.Base(get(), get())
     }
 
     single<FetchReceiptUseCase> {
-        FetchReceiptUseCase.Base(get(), get())
+        FetchReceiptUseCase.Base(get(), get(), get(), get())
     }
 
     viewModel { OrderStatusScreenViewModel() }
@@ -237,30 +237,30 @@ val pagesModule = module {
     }
 
     single<FetchShippingAddressUseCase> {
-        FetchShippingAddressUseCase.Base(get(), get())
+        FetchShippingAddressUseCase.Base(get(), get(), get(), get())
     }
 
     single<AddDeliveryToCartUseCase> {
-        AddDeliveryToCartUseCase.Base(get(), get(), get())
+        AddDeliveryToCartUseCase.Base(get(), get(), get(), get(), get())
     }
 
     single<ChatsUseCase> {
         ChatsUseCase.Base(get(), get())
     }
 
-    single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get()) }
+    single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get()) }
+    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<FetchMessagesUseCase> { FetchMessagesUseCase.Base(get(), get()) }
 
-    single<FetchOrderChatUseCase> { FetchOrderChatUseCase.Base(get(), get(), get()) }
+    single<FetchOrderChatUseCase> { FetchOrderChatUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchWantThisDetailsChatUseCase> {
         FetchWantThisDetailsChatUseCase.Base(
             get(),
             get(),
-            get()
+            get(), get()
         )
     }
 
@@ -292,7 +292,7 @@ val pagesModule = module {
         )
     }
 
-    single<CreateNewWithdrawalUseCase> { CreateNewWithdrawalUseCase.Base(get(), get()) }
+    single<CreateNewWithdrawalUseCase> { CreateNewWithdrawalUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchWithdrawalTransactionsUseCase> {
         FetchWithdrawalTransactionsUseCase.Base(
@@ -301,11 +301,11 @@ val pagesModule = module {
         )
     }
 
-    single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get()) }
+    single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get(), get(), get()) }
 
-    single<FetchMainCardIdUseCase> { FetchMainCardIdUseCase.Base(get(), get()) }
+    single<FetchMainCardIdUseCase> { FetchMainCardIdUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get()) }
+    single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get(), get()) }
 
     viewModel { WithdrawalScreenViewModel(get(), get(), get()) }
 

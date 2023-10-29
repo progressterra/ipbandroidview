@@ -7,8 +7,10 @@ import com.progressterra.ipbandroidview.entities.sum
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.pages.cart.CartScreenState
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractCacheTokenUseCase
 import com.progressterra.ipbandroidview.shared.CacheUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
@@ -21,8 +23,11 @@ interface FetchCartUseCase : CacheUseCase<CartScreenState> {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepo: CartRepository,
-        private val productRepository: ProductRepository
-    ) : FetchCartUseCase, AbstractCacheTokenUseCase<CartScreenState>(obtainAccessToken) {
+        private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : FetchCartUseCase, AbstractCacheTokenUseCase<CartScreenState>(obtainAccessToken,
+        makeToastUseCase, manageResources
+    ) {
 
         override suspend fun invoke() {
             withCache { token ->

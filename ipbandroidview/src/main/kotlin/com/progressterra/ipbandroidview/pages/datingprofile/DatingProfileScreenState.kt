@@ -4,6 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 
@@ -33,6 +34,7 @@ data class DatingProfileScreenState(
         id = "birthday",
         type = TextInputType.DATE, enabled = false
     ),
+    val screen: StateColumnState = StateColumnState(),
     val allInterests: List<Interest> = emptyList(),
     val changedInterests: List<Interest> = emptyList(),
     val nickName: TextFieldState = TextFieldState(id = "nickName"),

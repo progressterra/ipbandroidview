@@ -9,7 +9,9 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.TypeVariantSort
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.entities.toInterest
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface FetchInterestsUseCase {
 
@@ -17,8 +19,11 @@ interface FetchInterestsUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val service: ImhService
-    ) : FetchInterestsUseCase, AbstractTokenUseCase(obtainAccessToken) {
+        private val service: ImhService, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources
+    ) : FetchInterestsUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+        manageResources
+    ) {
 
         override suspend fun invoke(): Result<List<Interest>> = withToken { token ->
             service.interestList(

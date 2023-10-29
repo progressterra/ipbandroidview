@@ -5,7 +5,9 @@ import com.progressterra.ipbandroidapi.api.product.models.FilterAndSort
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface FetchGoodsPage {
 
@@ -15,8 +17,9 @@ interface FetchGoodsPage {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val productRepo: ProductRepository,
-    ) : FetchGoodsPage, AbstractTokenUseCase(obtainAccessToken) {
+        private val productRepo: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        manageResources: ManageResources,
+    ) : FetchGoodsPage, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
         override suspend fun invoke(
             filterAndSort: FilterAndSort
