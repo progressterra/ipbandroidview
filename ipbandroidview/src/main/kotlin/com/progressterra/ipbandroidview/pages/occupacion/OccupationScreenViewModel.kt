@@ -29,7 +29,7 @@ class OccupationScreenViewModel(
             }.onFailure { isSuccess = false }
             fetchUserOccupationUseCase().onSuccess { newOccupation ->
                 emitState {
-                    it.copy(currentOccupation = newOccupation)
+                    it.copy(currentOccupation = newOccupation, save = it.save.copy(enabled = newOccupation != null))
                 }
             }.onFailure { isSuccess = false }
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
