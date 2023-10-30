@@ -40,7 +40,7 @@ class DatingProfileScreenViewModel(
         onBackground {
             emitState { createInitialState() }
             var isSuccess = true
-            if (currentState.ownProfile) {
+            if (currentState.user.own) {
                 fetchDatingUserUseCase().onSuccess { newUser ->
                     emitState { it.copy(user = newUser) }
                 }
@@ -150,8 +150,7 @@ class DatingProfileScreenViewModel(
             it.copy(
                 user = data,
                 chat = it.chat.copy(enabled = data.connection == DatingConnection.CONNECTED),
-                connect = it.connect.copy(enabled = data.connection == DatingConnection.CAN_CONNECT || data.connection == DatingConnection.REQUEST_RECEIVED),
-                ownProfile = data.isEmpty()
+                connect = it.connect.copy(enabled = data.connection == DatingConnection.CAN_CONNECT || data.connection == DatingConnection.REQUEST_RECEIVED)
             )
         }
         refresh()

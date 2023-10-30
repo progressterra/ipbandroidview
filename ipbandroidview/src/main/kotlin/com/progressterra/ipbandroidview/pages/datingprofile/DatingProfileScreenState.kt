@@ -39,6 +39,5 @@ data class DatingProfileScreenState(
     val changedInterests: List<Interest> = emptyList(),
     val nickName: TextFieldState = TextFieldState(id = "nickName"),
     val about: TextFieldState = TextFieldState(id = "about"),
-    val ownProfile: Boolean = false,
     val editMode: Boolean = false
 )

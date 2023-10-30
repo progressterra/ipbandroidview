@@ -1,6 +1,10 @@
 package com.progressterra.ipbandroidview.pages.datingmain
 
+import android.content.Context
+import android.net.Uri
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.RelativeLayout
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -45,8 +49,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -58,8 +60,8 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.core.view.drawToBitmap
 import androidx.lifecycle.Lifecycle
+import com.facebook.drawee.view.SimpleDraweeView
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
@@ -76,8 +78,9 @@ import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchSta
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
+import com.yandex.mapkit.map.CameraPosition
 import com.yandex.mapkit.mapview.MapView
-import com.yandex.runtime.image.ImageProvider
+import com.yandex.runtime.ui_view.ViewProvider
 import kotlinx.coroutines.launch
 import java.lang.Integer.min
 import kotlin.math.cos
@@ -406,6 +409,19 @@ fun DatingMainScreen(
                     })
                 } else if (selectedIndex == 1) {
                     var view: MapView? = null
+                    LaunchedEffect(state.currentUser) {
+                        view?.map?.move(
+                            CameraPosition(
+                                Point(
+                                    state.currentUser.locationPoint.latitude,
+                                    state.currentUser.locationPoint.longitude
+                                ),
+                                15f,
+                                150f,
+                                30f
+                            )
+                        )
+                    }
                     ComposableLifecycle(onEvent = { _, event ->
                         when (event) {
                             Lifecycle.Event.ON_START -> {
@@ -421,49 +437,48 @@ fun DatingMainScreen(
                             else -> Unit
                         }
                     })
-                    val context = LocalContext.current
-                    val currentUserBitmap = remember(state.currentUser) {
-                        ComposeView(context).apply {
-                            setContent {
-                                User(state.currentUser)
-                            }
-                        }.drawToBitmap()
-                    }
-                    val anotherBitmaps = remember(state.users) {
-                        state.users.map {
-                            ComposeView(context).apply {
-                                setContent {
-                                    User(it)
-                                }
-                            }.drawToBitmap()
-                        }
-                    }
                     AndroidView(factory = {
+                        Log.d("MAP", "created or recreated ${state.currentUser}")
                         view = MapView(it)
-                        view!!
-                    }, update = { mapView ->
-                        Log.d("MAP", "update")
-                        state.users.forEachIndexed { index, user ->
-                            Log.d("MAP", "users: $user")
-                            mapView.map.mapObjects.addPlacemark().apply {
-                                setIcon(ImageProvider.fromBitmap(anotherBitmaps[index]))
-                                geometry = Point(
-                                    user.locationPoint.latitude, user.locationPoint.longitude
-                                )
+                        view!!.map.mapObjects.addPlacemark().apply {
+                            setView(ViewProvider(MapImageView(it).apply {
+                                setImageUrl(state.currentUser.image)
+                            }))
+                            addTapListener { _, _ ->
+                                useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
+                                true
                             }
-                        }
-                        Log.d("MAP", "currentUser: ${state.currentUser}")
-                        mapView.map.mapObjects.addPlacemark().apply {
-                            setIcon(ImageProvider.fromBitmap(currentUserBitmap))
                             geometry = Point(
                                 state.currentUser.locationPoint.latitude,
                                 state.currentUser.locationPoint.longitude
                             )
                         }
+                        view!!
+                    }, update = { mapView ->
+                        state.users.forEachIndexed { index, user ->
+                            Log.d("MAP", "users: $user")
+                            mapView.map.mapObjects.addPlacemark().apply {
+                                geometry = Point(
+                                    user.locationPoint.latitude, user.locationPoint.longitude
+                                )
+                            }
+                        }
                     })
                 }
             }
         }
+    }
+}
+
+class MapImageView(context: Context) : RelativeLayout(context) {
+    init {
+        LayoutInflater.from(context).inflate(R.layout.layout_map_user, this, true)
+    }
+
+    fun setImageUrl(url: String) {
+        val uri = Uri.parse(url)
+        val draweeView = findViewById<SimpleDraweeView>(R.id.fresco_image)
+        draweeView.setImageURI(uri)
     }
 }
 

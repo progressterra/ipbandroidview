@@ -100,7 +100,7 @@ fun DatingProfileScreen(
                     .background(IpbTheme.colors.background.asBrush())
                     .padding(horizontal = 16.dp)
             ) {
-                if (state.ownProfile && !state.editMode) {
+                if (state.user.own && !state.editMode) {
                     IconButton(
                         modifier = Modifier
                             .size(32.dp)
@@ -117,12 +117,12 @@ fun DatingProfileScreen(
                     modifier = Modifier
                         .align(Alignment.Center)
                         .padding(horizontal = 40.dp),
-                    text = if (state.ownProfile) stringResource(id = R.string.own_profile) else state.user.name,
+                    text = if (state.user.own) stringResource(id = R.string.own_profile) else state.user.name,
                     maxLines = 1,
                     style = IpbTheme.typography.title2,
                     tint = IpbTheme.colors.textPrimary.asBrush(),
                 )
-                if (state.ownProfile && !state.editMode) {
+                if (state.user.own && !state.editMode) {
                     IconButton(
                         modifier = Modifier
                             .size(32.dp)
@@ -148,7 +148,7 @@ fun DatingProfileScreen(
                         useComponent = useComponent
                     )
                 }
-                if (!state.ownProfile) {
+                if (!state.user.own) {
                     Button(
                         state = state.connect,
                         useComponent = useComponent,
@@ -160,7 +160,7 @@ fun DatingProfileScreen(
                         }
                     )
                 }
-                if (!state.ownProfile) {
+                if (!state.user.own) {
                     Button(
                         state = state.chat,
                         title = stringResource(id = R.string.start_chat),
@@ -363,7 +363,6 @@ private fun DatingProfileScreenPreviewOwn() {
         DatingProfileScreen(
             state = DatingProfileScreenState(
                 user = currentUser,
-                ownProfile = true
             ),
             useComponent = UseDatingProfileScreen.Empty()
         )
@@ -390,8 +389,7 @@ private fun DatingProfileScreenPreviewOther() {
         )
         DatingProfileScreen(
             state = DatingProfileScreenState(
-                user = currentUser,
-                ownProfile = false
+                user = currentUser
             ),
             useComponent = UseDatingProfileScreen.Empty()
 
@@ -420,7 +418,6 @@ private fun DatingProfileScreenPreviewEdit() {
         DatingProfileScreen(
             state = DatingProfileScreenState(
                 user = currentUser,
-                ownProfile = true,
                 editMode = true
             ),
             useComponent = UseDatingProfileScreen.Empty()
