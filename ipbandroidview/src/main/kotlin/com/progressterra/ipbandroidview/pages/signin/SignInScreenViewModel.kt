@@ -50,8 +50,6 @@ class SignInScreenViewModel(
         onBackground {
             startVerificationChannelUseCase(currentState.phone.formatByType()).onSuccess {
                 postEffect(SignInScreenEffect.Next(it))
-            }.onFailure {
-                postEffect(SignInScreenEffect.Toast(R.string.wrong_phone))
             }
         }
     }

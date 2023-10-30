@@ -9,5 +9,4 @@ sealed class SignInScreenEffect {
 
     data object Skip : SignInScreenEffect()
 
-    class Toast(@StringRes val data: Int) : SignInScreenEffect()
 }

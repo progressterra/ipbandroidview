@@ -82,7 +82,7 @@ fun TextField(
         }
     }
     LaunchedEffect(state.text) {
-        innerValue = innerValue.copy(state.text)
+        innerValue = innerValue.copy(text = state.text)
     }
     CalendarDialog(
         state = calendarState,
