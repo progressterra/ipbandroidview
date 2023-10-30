@@ -57,7 +57,7 @@ fun ConfirmationCodeScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             Code(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 20.dp),
                 state = state.code,
                 useComponent = useComponent
             )

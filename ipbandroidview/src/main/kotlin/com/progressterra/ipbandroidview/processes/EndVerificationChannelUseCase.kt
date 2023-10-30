@@ -3,7 +3,9 @@ package com.progressterra.ipbandroidview.processes
 import android.os.Build
 import com.progressterra.ipbandroidapi.api.auth.AuthService
 import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataEndChannelVerificationForAT
+import com.progressterra.ipbandroidapi.api.auth.models.StatusResult
 import com.progressterra.ipbandroidapi.api.scrm.ScrmService
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.entities.parseToZDT
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
@@ -41,6 +43,7 @@ interface EndVerificationChannelUseCase {
                     infoDevice = "SDK: ${Build.VERSION.SDK_INT} Model: ${Build.MODEL}"
                 )
             )
+            if (result.result?.status != StatusResult.SUCCESS) throw ToastedException(R.string.wrong_code)
             UserData.deviceId = result.data?.idDevice!!
             UserData.phone = formattedPhoneNumber
             UserData.clientExist = true
