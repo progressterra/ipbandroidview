@@ -75,11 +75,14 @@ fun TextField(
     val focused = mutableInteractionSource.collectIsFocusedAsState().value
     val focusManager = LocalFocusManager.current
     val calendarState = rememberUseCaseState(visible = false)
-    var innerValue by remember(state.text) { mutableStateOf(TextFieldValue(text = state.text)) }
+    var innerValue by remember { mutableStateOf(TextFieldValue()) }
     LaunchedEffect(focused) {
         if (focused) {
             innerValue = innerValue.copy(selection = TextRange(innerValue.text.length))
         }
+    }
+    LaunchedEffect(state.text) {
+        innerValue = innerValue.copy(state.text)
     }
     CalendarDialog(
         state = calendarState,
