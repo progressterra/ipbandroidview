@@ -34,6 +34,7 @@ class DatingProfileScreenNode(
         LaunchedEffect(input) {
             focusManager.clearFocus()
             viewModel.setup(input)
+            viewModel.refresh()
         }
         DatingProfileScreen(modifier = modifier, state = state, useComponent = viewModel)
     }

@@ -442,7 +442,7 @@ fun DatingMainScreen(
                         view = MapView(it)
                         view!!.map.mapObjects.addPlacemark().apply {
                             setView(ViewProvider(MapImageView(it).apply {
-                                setImageUrl(state.currentUser.image)
+                                setImageUrl("https://raw.githubusercontent.com/facebook/fresco/main/docs/static/logo.png")
                             }))
                             addTapListener { _, _ ->
                                 useComponent.handle(DatingMainScreenEvent.OnOwnProfile)

@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.datingprofile
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingUser
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.processes.dating.AcceptConnectUseCase
 import com.progressterra.ipbandroidview.processes.dating.ConnectUseCase
 import com.progressterra.ipbandroidview.processes.dating.CreateChatWithUserUseCase
@@ -16,6 +17,8 @@ import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 
@@ -38,16 +41,19 @@ class DatingProfileScreenViewModel(
 
     fun refresh() {
         onBackground {
-            emitState { createInitialState() }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
             if (currentState.user.own) {
                 fetchDatingUserUseCase().onSuccess { newUser ->
                     emitState { it.copy(user = newUser) }
+                }.onFailure {
+                    isSuccess = false
                 }
             }
             fetchInterestsUseCase().onSuccess { allInterests ->
                 emitState { it.copy(allInterests = allInterests) }
-            }
+            }.onFailure { isSuccess = false }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 
@@ -145,6 +151,10 @@ class DatingProfileScreenViewModel(
         valid()
     }
 
+    override fun handle(event: StateColumnEvent) {
+        refresh()
+    }
+
     override fun setup(data: DatingUser) {
         emitState {
             it.copy(
@@ -153,7 +163,6 @@ class DatingProfileScreenViewModel(
                 connect = it.connect.copy(enabled = data.connection == DatingConnection.CAN_CONNECT || data.connection == DatingConnection.REQUEST_RECEIVED)
             )
         }
-        refresh()
     }
 
     private fun valid() = onBackground {

@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,6 +33,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -170,13 +169,13 @@ fun DatingProfileScreen(
             }
         }
     ) { _, _ ->
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp),
+        StateColumn(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            scrollable = true,
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            state = state.screen,
+            useComponent = useComponent
         ) {
             if (state.editMode) {
                 SimpleImage(
@@ -185,7 +184,11 @@ fun DatingProfileScreen(
                         .clip(CircleShape),
                     image = state.user.image, backgroundColor = IpbTheme.colors.background.asColor()
                 )
-                TextButton(state = state.choosePhoto, title = stringResource(id = R.string.choose_another_photo), useComponent = useComponent)
+                TextButton(
+                    state = state.choosePhoto,
+                    title = stringResource(id = R.string.choose_another_photo),
+                    useComponent = useComponent
+                )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
                     state = state.name,
