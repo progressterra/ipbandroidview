@@ -37,6 +37,10 @@ interface UpdateDatingLocationUseCase {
                         geoPointPlace = GeoPoint(
                             latitude = locationPoint.latitude,
                             longitude = locationPoint.longitude
+                        ),
+                        geoPointReal = GeoPoint(
+                            latitude = locationPoint.latitude,
+                            longitude = locationPoint.longitude
                         )
                     )
                 )

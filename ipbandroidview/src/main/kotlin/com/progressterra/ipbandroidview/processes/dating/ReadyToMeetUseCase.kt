@@ -38,6 +38,10 @@ interface ReadyToMeetUseCase {
                             geoPointPlace = GeoPoint(
                                 latitude = location.latitude,
                                 longitude = location.longitude
+                            ),
+                            geoPointReal = GeoPoint(
+                                latitude = location.latitude,
+                                longitude = location.longitude
                             )
                         ),
                         target = RFTargetViewModel(
