@@ -5,7 +5,9 @@ import com.progressterra.ipbandroidapi.api.auth.AuthService
 import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataStartChannelVerification
 import com.progressterra.ipbandroidapi.api.auth.models.StatusResult
 import com.progressterra.ipbandroidapi.core.BadRequestException
+import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SignInData
+import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
@@ -27,7 +29,7 @@ interface StartVerificationChannelUseCase {
                     accessKeyEnterprise = IpbAndroidApiSettings.ACCESS_KEY
                 )
             )
-            if (result.result?.status != StatusResult.SUCCESS) throw BadRequestException()
+            if (result.result?.status != StatusResult.SUCCESS) throw ToastedException(R.string.wrong_phone)
             SignInData(
                 token = result.data?.tempToken ?: "",
                 phone = formattedPhoneNumber,
