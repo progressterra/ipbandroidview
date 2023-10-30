@@ -81,24 +81,22 @@ class DatingMainScreenViewModel(
                 emitState { it.copy(currentUser = user) }
             }
         }
+
     }
 
     private fun startLocationUpdates() {
+        updateJob?.cancel()
         updateJob = onBackground {
             while (true) {
-                provideLocationUseCase().getOrNull()?.let { location ->
-                    locationToLocationPointUseCase(location).getOrNull()?.let { point ->
+                delay(1 * 60 * 1000)
+                provideLocationUseCase().onSuccess { location ->
+                    locationToLocationPointUseCase(location).onSuccess { point ->
                         makeToastUseCase(R.string.location_updated)
                         updateDatingLocationUseCase(point)
                     }
                 }
-                delay(1 * 60 * 1000)
             }
         }
-    }
-
-    private fun stopLocationUpdates() {
-        updateJob?.cancel()
     }
 
     override fun handle(event: BrushedSwitchEvent) {
@@ -106,18 +104,21 @@ class DatingMainScreenViewModel(
             val readyToMeet = !currentState.readyToMeet.turned
             if (readyToMeet) {
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
-                    provideLocationUseCase().getOrNull()?.let { location ->
-                        locationToLocationPointUseCase(location).getOrNull()?.let { point ->
+                    provideLocationUseCase().onSuccess { location ->
+                        locationToLocationPointUseCase(location).onSuccess { point ->
                             emitState { it.copy(readyToMeet = it.readyToMeet.copy(turned = true)) }
                             readyToMeetUseCase(point, currentState.chosenTarget!!)
                             startLocationUpdates()
                         }
                     }
-                }.onFailure { askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION) }
+                }.onFailure {
+                    makeToastUseCase(R.string.failure_permission)
+                    askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
+                }
             } else {
                 deleteReadyToMeetUseCase().onSuccess {
                     emitState { it.copy(readyToMeet = it.readyToMeet.copy(turned = false)) }
-                    stopLocationUpdates()
+                    updateJob?.cancel()
                 }
             }
         }

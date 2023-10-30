@@ -18,11 +18,14 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Tab
@@ -39,7 +42,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
@@ -57,6 +59,8 @@ import androidx.lifecycle.Lifecycle
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
+import com.progressterra.ipbandroidview.entities.Sex
+import com.progressterra.ipbandroidview.shared.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -76,9 +80,7 @@ import kotlin.math.roundToInt
 import kotlin.math.sin
 
 data class Position(
-    val tier: Int,
-    val animatable: Animatable<Float, AnimationVector1D>,
-    val initial: Float
+    val tier: Int, val animatable: Animatable<Float, AnimationVector1D>, val initial: Float
 )
 
 @Composable
@@ -93,8 +95,7 @@ fun DatingMainScreen(
         Box(
             modifier = Modifier
                 .size(50.dp)
-                .clip(CircleShape),
-            contentAlignment = Alignment.Center
+                .clip(CircleShape), contentAlignment = Alignment.Center
         ) {
             Icon(
                 modifier = Modifier.size(50.dp),
@@ -138,11 +139,9 @@ fun DatingMainScreen(
             scheme.forEach {
                 launch {
                     it.animatable.animateTo(
-                        targetValue = it.initial + 360f,
-                        animationSpec = infiniteRepeatable(
+                        targetValue = it.initial + 360f, animationSpec = infiniteRepeatable(
                             animation = tween(
-                                durationMillis = rotationTime,
-                                easing = LinearEasing
+                                durationMillis = rotationTime, easing = LinearEasing
                             )
                         )
                     )
@@ -185,31 +184,34 @@ fun DatingMainScreen(
             listOf(8, 10, 12).forEach {
                 Canvas(modifier = Modifier.fillMaxSize()) {
                     drawCircle(
-                        color = color,
-                        style = Stroke(
+                        color = color, style = Stroke(
                             width = with(density) { 2.dp.toPx() },
-                            pathEffect = PathEffect.dashPathEffect(
-                                floatArrayOf(with(density) { it.dp.toPx() },
-                                    with(density) { it.dp.toPx() }), 0f
+                            pathEffect = PathEffect.dashPathEffect(floatArrayOf(with(density) { it.dp.toPx() },
+                                with(density) { it.dp.toPx() }), 0f
                             )
-                        ),
-                        radius = when (it) {
+                        ), radius = when (it) {
                             8 -> r1
                             10 -> r2
                             else -> r3
-                        },
-                        center = center
+                        }, center = center
                     )
                 }
             }
-            Box(
+            SimpleImage(
                 modifier = Modifier
                     .size(78.dp)
-                    .clip(CircleShape)
-                    .background(Color.Magenta)
+                    .clip(CircleShape),
+                image = state.currentUser.image.ifEmpty {
+                    rememberResourceUri(
+                        resourceId = when (state.currentUser.sex) {
+                            Sex.MALE -> R.drawable.avatar_male
+                            Sex.FEMALE -> R.drawable.avatar_female
+                        }
+                    ).toString()
+                },
+                backgroundColor = IpbTheme.colors.background.asColor()
             )
         }
-
     }
 
     @Composable
@@ -270,8 +272,7 @@ fun DatingMainScreen(
         }
     }) { _, _ ->
         Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var selectedIndex by remember { mutableIntStateOf(0) }
             Tabs(selected = selectedIndex, onSelect = { selectedIndex = it })
@@ -332,7 +333,7 @@ fun DatingMainScreen(
                         BrushedIcon(
                             modifier = Modifier.rotate(rotation.value),
                             resId = R.drawable.ic_imh_exposable,
-                            tint = IpbTheme.colors.iconSecondary.asBrush()
+                            tint = IpbTheme.colors.onSurface.asBrush()
                         )
                     }
                     Column(modifier = Modifier
@@ -345,27 +346,28 @@ fun DatingMainScreen(
                         .zIndex(1f)) {
                         AnimatedVisibility(visible = exposed) {
                             Column(
+                                modifier = Modifier
+                                    .heightIn(max = 200.dp)
+                                    .verticalScroll(rememberScrollState()),
                                 verticalArrangement = Arrangement.spacedBy(8.dp)
                             ) {
                                 state.datingTargets.forEach {
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .clip(CircleShape)
-                                            .background(IpbTheme.colors.background.asBrush())
-                                            .border(
-                                                width = 1.dp,
-                                                brush = IpbTheme.colors.primary.asBrush(),
-                                                shape = CircleShape
+                                    Row(modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clip(CircleShape)
+                                        .background(IpbTheme.colors.background.asBrush())
+                                        .border(
+                                            width = 1.dp,
+                                            brush = IpbTheme.colors.primary.asBrush(),
+                                            shape = CircleShape
+                                        )
+                                        .niceClickable {
+                                            useComponent.handle(
+                                                DatingMainScreenEvent.SelectTarget(it)
                                             )
-                                            .niceClickable {
-                                                useComponent.handle(
-                                                    DatingMainScreenEvent.SelectTarget(it)
-                                                )
-                                            }
-                                            .padding(vertical = 10.dp),
-                                        horizontalArrangement = Arrangement.Center
-                                    ) {
+                                        }
+                                        .padding(vertical = 10.dp),
+                                        horizontalArrangement = Arrangement.Center) {
                                         BrushedText(
                                             text = it.name,
                                             tint = IpbTheme.colors.primary.asBrush(),
@@ -419,8 +421,7 @@ fun DatingMainScreen(
                         state.users.forEach {
                             mapView.map.mapObjects.addPlacemark().apply {
                                 geometry = Point(
-                                    it.locationPoint.latitude,
-                                    it.locationPoint.longitude
+                                    it.locationPoint.latitude, it.locationPoint.longitude
                                 )
                             }
                         }
@@ -445,15 +446,11 @@ private fun DatingMainScreenPreview() {
         state = DatingMainScreenState(
             readyToMeet = BrushedSwitchState(
                 id = "magnis", enabled = false, turned = false
-            ),
-            users = listOf(
+            ), users = listOf(
                 DatingUser(), DatingUser(), DatingUser(), DatingUser(), DatingUser()
-            ),
-            datingTargets = listOf(
-                DatingTarget(name = "Sport"),
-                DatingTarget(name = "Cars")
-            ),
-            chosenTarget = DatingTarget()
+            ), datingTargets = listOf(
+                DatingTarget(name = "Sport"), DatingTarget(name = "Cars")
+            ), chosenTarget = DatingTarget()
         ), useComponent = UseDatingMainScreen.Empty()
     )
 }

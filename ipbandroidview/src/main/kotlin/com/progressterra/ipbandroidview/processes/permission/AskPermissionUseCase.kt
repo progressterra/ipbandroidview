@@ -4,13 +4,13 @@ import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
 
 interface AskPermissionUseCase {
 
-    suspend operator fun invoke(permission: String): Result<Unit>
+    suspend operator fun invoke(permission: String)
 
     class Base(
         private val managePermissionContract: ManagePermissionContract.Client
     ) : AskPermissionUseCase {
 
-        override suspend fun invoke(permission: String): Result<Unit> = runCatching {
+        override suspend fun invoke(permission: String) {
             managePermissionContract.requestPermission(permission)
         }
     }

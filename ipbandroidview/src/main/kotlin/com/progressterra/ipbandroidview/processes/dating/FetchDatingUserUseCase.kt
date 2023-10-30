@@ -25,7 +25,7 @@ interface FetchDatingUserUseCase {
 
         override suspend fun invoke(): Result<DatingUser> = withToken { token ->
             val avatar = fetchAvatarUseCase().getOrThrow()
-            service.clientDataData(token).data?.toDatingUser()?.copy(image = avatar)!!
+            service.clientDataData(token).data?.toDatingUser(own = true)?.copy(image = avatar)!!
         }
     }
 }

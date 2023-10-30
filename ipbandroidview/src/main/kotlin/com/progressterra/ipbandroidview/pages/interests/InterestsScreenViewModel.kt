@@ -1,6 +1,8 @@
 package com.progressterra.ipbandroidview.pages.interests
 
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCase
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
@@ -9,6 +11,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class InterestsScreenViewModel(
+    private val fetchDatingUserUseCase: FetchDatingUserUseCase,
     private val changeInterestsUseCase: ChangeInterestsUseCase,
     private val fetchInterestsUseCase: FetchInterestsUseCase
 ) : AbstractNonInputViewModel<InterestsScreenState, InterestsScreenEffect>(), UseInterestsScreen {
@@ -16,16 +19,19 @@ class InterestsScreenViewModel(
     override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            var isSuccess = true
+
             fetchInterestsUseCase().onSuccess { newInterests ->
+                emitState { it.copy(allInterests = newInterests) }
+            }.onFailure { isSuccess = false }
+            fetchDatingUserUseCase().onSuccess { user ->
                 emitState {
-                    it.copy(
-                        screen = it.screen.copy(state = ScreenState.SUCCESS),
-                        allInterests = newInterests
-                    )
+                    it.copy(allInterests = it.allInterests.map { int ->
+                        if (user.interests.contains(int)) int.copy(picked = true) else int
+                    })
                 }
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+            }.onFailure { isSuccess = false }
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
 

@@ -19,6 +19,7 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.RFTargetViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientInterest
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGConnectViewModel
+import com.progressterra.ipbandroidapi.api.iamhere.models.TypeSex
 import com.progressterra.ipbandroidapi.api.messenger.models.RGDialogsViewModel
 import com.progressterra.ipbandroidapi.api.messenger.models.RGMessagesViewModel
 import com.progressterra.ipbandroidapi.api.payment.models.DHPaymentClientViewModel
@@ -368,7 +369,7 @@ fun RFInterestViewModel.toInterest() = Interest(
     id = idUnique!!, name = name ?: "", picked = false
 )
 
-fun RGClientDataViewModel.toDatingUser() = DatingUser(id = idUnique!!,
+fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(id = idUnique!!,
     image = avatarMediaData?.urlData ?: "",
     hideAvatar = false,
     locationPoint = LocationPoint(
@@ -382,7 +383,19 @@ fun RGClientDataViewModel.toDatingUser() = DatingUser(id = idUnique!!,
     target = target?.name ?: "",
     age = "",
     occupation = "",
-    connection = DatingConnection.CAN_CONNECT)
+    connection = DatingConnection.CAN_CONNECT,
+    sex = sex?.toSex() ?: Sex.MALE,
+    own = own)
+
+fun TypeSex.toSex() = when (this) {
+    TypeSex.MALE -> Sex.MALE
+    TypeSex.FEMALE -> Sex.FEMALE
+}
+
+fun com.progressterra.ipbandroidapi.api.scrm.models.TypeSex.toSex() = when (this) {
+    com.progressterra.ipbandroidapi.api.scrm.models.TypeSex.MALE -> Sex.MALE
+    com.progressterra.ipbandroidapi.api.scrm.models.TypeSex.FEMALE -> Sex.FEMALE
+}
 
 
 fun RFTargetViewModel.toDatingTarget() = DatingTarget(

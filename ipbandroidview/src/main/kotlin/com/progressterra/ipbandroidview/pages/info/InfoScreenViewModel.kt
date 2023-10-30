@@ -1,19 +1,39 @@
 package com.progressterra.ipbandroidview.pages.info
 
+import com.progressterra.ipbandroidview.features.info.InfoState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class InfoScreenViewModel(
-    private val saveDatingInfoUseCase: SaveDatingInfoUseCase
+    private val saveDatingInfoUseCase: SaveDatingInfoUseCase,
+    private val fetchDatingUserUseCase: FetchDatingUserUseCase
 ) : AbstractNonInputViewModel<InfoScreenState, InfoScreenEffect>(),
     UseInfoScreen {
 
     override fun createInitialState() = InfoScreenState()
     override fun handle(event: TopBarEvent) {
         postEffect(InfoScreenEffect.OnBack)
+    }
+
+    override fun refresh() {
+        onBackground {
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            fetchDatingUserUseCase().onSuccess { user ->
+                emitState {
+                    it.copy(
+                        screen = it.screen.copy(state = ScreenState.SUCCESS), info = InfoState(
+                            nickName = it.info.nickName.copy(text = user.name),
+                            about = it.info.about.copy(text = user.description),
+                        )
+                    )
+                }
+            }
+        }
     }
 
     override fun handle(event: ButtonEvent) {

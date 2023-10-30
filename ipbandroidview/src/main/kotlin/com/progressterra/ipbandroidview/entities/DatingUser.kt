@@ -18,7 +18,9 @@ data class DatingUser(
     val age: String = "",
     val occupation: String = "",
     val connection: DatingConnection = DatingConnection.CAN_CONNECT,
-    val connectionId: String = ""
+    val connectionId: String = "",
+    val sex: Sex = Sex.MALE,
+    val own: Boolean = false
 ) : Id, Parcelable, IsEmpty {
 
     override fun isEmpty() = this == DatingUser()

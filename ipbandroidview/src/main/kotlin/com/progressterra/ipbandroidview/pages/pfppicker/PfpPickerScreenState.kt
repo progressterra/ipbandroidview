@@ -8,5 +8,6 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 data class PfpPickerScreenState(
     val pfpPicker: PfpPickerState = PfpPickerState(),
     val choose: ButtonState = ButtonState(id = "choose", enabled = false),
-    val skip: ButtonState = ButtonState(id = "skip")
+    val skip: ButtonState = ButtonState(id = "skip"),
+    val screen: StateColumnState = StateColumnState()
 )
