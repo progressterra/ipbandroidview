@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.progressterra.ipbandroidview.processes.UpdateFirebaseCloudMessagingTokenUseCase
+import com.progressterra.ipbandroidview.shared.UserData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -33,6 +34,17 @@ abstract class CloudMessagingService : FirebaseMessagingService() {
     abstract val notificationNameId: Int
 
     abstract val notificationIconId: Int
+
+    override fun onCreate() {
+        super.onCreate()
+        if (!UserData.fcmTokenSent && UserData.clientExist) {
+            scope.launch {
+                updateFcmTokenUseCase(UserData.fcmToken).onSuccess {
+                    UserData.fcmTokenSent = true
+                }
+            }
+        }
+    }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -104,9 +116,8 @@ abstract class CloudMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        scope.launch {
-            updateFcmTokenUseCase(token)
-        }
+        UserData.fcmToken = token
+        UserData.fcmTokenSent = false
     }
 
     override fun onDestroy() {
