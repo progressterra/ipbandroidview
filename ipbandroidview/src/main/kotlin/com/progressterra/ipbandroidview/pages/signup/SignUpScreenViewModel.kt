@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.signup
 
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
@@ -37,6 +38,7 @@ class SignUpScreenViewModel(
     override fun handle(event: EditUserEvent) {
         onBackground {
             emitState { it.copy(editUser = it.editUser.copy(sex = event.data)) }
+            valid()
         }
     }
 
@@ -96,9 +98,11 @@ class SignUpScreenViewModel(
     }
 
 
-    private fun valid() = onBackground {
-        val valid =
-            currentState.editUser.name.valid() && currentState.editUser.birthday.valid()
-        emitState { it.copy(next = it.next.copy(enabled = valid)) }
+    private fun valid() {
+        onBackground {
+            val valid =
+                currentState.editUser.name.valid() && currentState.editUser.birthday.valid() && !(currentState.editUser.sex == null && IpbAndroidViewSettings.SHOW_SEX_PICKER)
+            emitState { it.copy(next = it.next.copy(enabled = valid)) }
+        }
     }
 }

@@ -20,8 +20,8 @@ class InfoScreenViewModel(
         onBackground {
             if (event.id == "save") {
                 saveDatingInfoUseCase(
-                    currentState.info.nickName.text,
-                    currentState.info.about.text
+                    currentState.info.nickName.formatByType(),
+                    currentState.info.about.formatByType()
                 ).onSuccess {
                     postEffect(InfoScreenEffect.OnNext)
                 }

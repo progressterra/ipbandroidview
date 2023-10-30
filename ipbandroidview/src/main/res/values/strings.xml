@@ -197,7 +197,9 @@
     <string name="occupation">Профессия</string>
     <string name="choose_occupation">Выберете профессию, которая наиболее точно вас характеризует</string>
     <string name="chats">Чаты</string>
-    <string name="no_internet_connection">Нет соединения с Интернетом</string>
+    <string name="no_internet_connection">Не удалось соединиться с сервером</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="location_update_error">Не удалось обновить локацию</string>
+    <string name="female">Женский</string>
+    <string name="choose_photo">Выберите фото</string>
 </resources>

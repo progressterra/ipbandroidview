@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.getViewModel
@@ -28,7 +29,9 @@ class SignUpScreenNode(
             }
         }
         val state = viewModel.state.collectAsState().value
+        val focusManager = LocalFocusManager.current
         LaunchedEffect(Unit) {
+            focusManager.clearFocus()
             viewModel.refresh()
         }
         SignUpScreen(

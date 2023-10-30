@@ -104,7 +104,8 @@ class DatingProfileScreenViewModel(
                     )
                 )
                 saveDatingInfoUseCase(
-                    nickName = currentState.nickName.text, description = currentState.about.text
+                    nickName = currentState.nickName.formatByType(),
+                    description = currentState.about.formatByType()
                 )
 
             }

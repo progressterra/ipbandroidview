@@ -17,12 +17,16 @@ object UserData : KotprefModel() {
     var userName by gsonPref(UserName())
     var citizenship by gsonPref(Citizenship())
     var cartCounter by intPref()
+    var fcmToken by stringPref()
+    var fcmTokenSent by booleanPref()
+    var sex by intPref()
     /**
      * ZDT ISO
      */
     var dateOfBirthday by stringPref()
 
     fun clearUser() {
+        sex = 0
         cartCounter = 0
         idUnique = DEFAULT_ID
         deviceId = DEFAULT_ID

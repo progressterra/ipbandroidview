@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.shared
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -17,8 +18,11 @@ abstract class AbstractLoggingUseCase(
         block()
     }.onFailure {
         when (it) {
-            is UnknownHostException, is SocketTimeoutException -> makeToastUseCase(R.string.no_internet_connection)
+            is UnknownHostException, is SocketTimeoutException, is ConnectException ->
+                makeToastUseCase(R.string.no_internet_connection)
+
             is ToastedException -> makeToastUseCase(it.stringId)
+
             else -> makeToastUseCase(R.string.unknown_error)
         }
     }

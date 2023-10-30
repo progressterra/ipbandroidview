@@ -17,5 +17,5 @@ data class EditUserState(
         id = "birthday",
         type = TextInputType.DATE
     ),
-    val sex: Sex = Sex.NONE
+    val sex: Sex? = null
 )

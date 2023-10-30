@@ -45,6 +45,11 @@ interface SaveDataUseCase {
             UserData.dateOfBirthday = zonedDateTimeBirthday.formatZdtIso()
             UserData.phone = income.phone.formatByType()
             UserData.email = income.email.formatByType()
+            UserData.sex = when (income.sex) {
+                Sex.MALE -> 1
+                Sex.FEMALE -> 2
+                null -> 0
+            }
             scrmService.postClient(
                 token = token,
                 body = ClientsEntity(
@@ -55,7 +60,7 @@ interface SaveDataUseCase {
                     sex = when (income.sex) {
                         Sex.FEMALE -> TypeSex.FEMALE
                         Sex.MALE -> TypeSex.MALE
-                        Sex.NONE -> TypeSex.MALE
+                        else -> null
                     }
                 )
             )

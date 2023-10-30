@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.RadioButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +18,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.ThemedRadioButton
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -74,11 +74,10 @@ fun EditUser(
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    RadioButton(
-                        selected = state.sex == Sex.MALE,
+                    ThemedRadioButton(
+                        checked = state.sex == Sex.MALE,
                         onClick = { useComponent.handle(EditUserEvent(Sex.MALE)) })
                     BrushedText(
                         text = stringResource(id = R.string.male),
@@ -87,14 +86,13 @@ fun EditUser(
                     )
                 }
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    RadioButton(
-                        selected = state.sex == Sex.FEMALE,
+                    ThemedRadioButton(
+                        checked = state.sex == Sex.FEMALE,
                         onClick = { useComponent.handle(EditUserEvent(Sex.FEMALE)) })
                     BrushedText(
-                        text = stringResource(id = R.string.male),
+                        text = stringResource(id = R.string.female),
                         style = IpbTheme.typography.body,
                         tint = IpbTheme.colors.textPrimary.asBrush()
                     )

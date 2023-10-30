@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.processes.user
 
+import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.formatZdt
 import com.progressterra.ipbandroidview.entities.parseToZDT
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
@@ -28,7 +29,12 @@ interface FetchUserUseCase {
                 phone = editUser.phone.unFormatByType(UserData.phone),
                 birthday = editUser.birthday.unFormatByType(
                     UserData.dateOfBirthday.parseToZDT()?.formatZdt("dd.MM.yyyy") ?: ""
-                )
+                ),
+                sex = when (UserData.sex) {
+                    1 -> Sex.MALE
+                    2 -> Sex.FEMALE
+                    else -> null
+                }
             )
         }
     }
