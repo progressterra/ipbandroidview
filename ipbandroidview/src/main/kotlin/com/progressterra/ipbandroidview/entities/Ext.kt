@@ -347,7 +347,7 @@ fun DHPaymentClientViewModel.toWithdrawalTransactionState() = WithdrawalTransact
 )
 
 fun RGClientInterest.toInterest() = Interest(
-    id = idUnique!!, name = ""
+    id = idrfInterest!!, name = ""
 )
 
 @Composable

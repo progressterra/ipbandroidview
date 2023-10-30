@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.datingmain
 
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -44,6 +45,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -55,6 +58,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.core.view.drawToBitmap
 import androidx.lifecycle.Lifecycle
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingTarget
@@ -73,6 +77,7 @@ import com.progressterra.ipbandroidview.shared.ui.niceClickable
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.mapview.MapView
+import com.yandex.runtime.image.ImageProvider
 import kotlinx.coroutines.launch
 import java.lang.Integer.min
 import kotlin.math.cos
@@ -186,8 +191,9 @@ fun DatingMainScreen(
                     drawCircle(
                         color = color, style = Stroke(
                             width = with(density) { 2.dp.toPx() },
-                            pathEffect = PathEffect.dashPathEffect(floatArrayOf(with(density) { it.dp.toPx() },
-                                with(density) { it.dp.toPx() }), 0f
+                            pathEffect = PathEffect.dashPathEffect(
+                                floatArrayOf(with(density) { it.dp.toPx() },
+                                    with(density) { it.dp.toPx() }), 0f
                             )
                         ), radius = when (it) {
                             8 -> r1
@@ -415,18 +421,40 @@ fun DatingMainScreen(
                             else -> Unit
                         }
                     })
+                    val context = LocalContext.current
+                    val currentUserBitmap = remember(state.currentUser) {
+                        ComposeView(context).apply {
+                            setContent {
+                                User(state.currentUser)
+                            }
+                        }.drawToBitmap()
+                    }
+                    val anotherBitmaps = remember(state.users) {
+                        state.users.map {
+                            ComposeView(context).apply {
+                                setContent {
+                                    User(it)
+                                }
+                            }.drawToBitmap()
+                        }
+                    }
                     AndroidView(factory = {
                         view = MapView(it)
                         view!!
                     }, update = { mapView ->
-                        state.users.forEach {
+                        Log.d("MAP", "update")
+                        state.users.forEachIndexed { index, user ->
+                            Log.d("MAP", "users: $user")
                             mapView.map.mapObjects.addPlacemark().apply {
+                                setIcon(ImageProvider.fromBitmap(anotherBitmaps[index]))
                                 geometry = Point(
-                                    it.locationPoint.latitude, it.locationPoint.longitude
+                                    user.locationPoint.latitude, user.locationPoint.longitude
                                 )
                             }
                         }
+                        Log.d("MAP", "currentUser: ${state.currentUser}")
                         mapView.map.mapObjects.addPlacemark().apply {
+                            setIcon(ImageProvider.fromBitmap(currentUserBitmap))
                             geometry = Point(
                                 state.currentUser.locationPoint.latitude,
                                 state.currentUser.locationPoint.longitude
