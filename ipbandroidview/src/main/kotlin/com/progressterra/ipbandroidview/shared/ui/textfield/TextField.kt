@@ -95,7 +95,7 @@ fun TextField(
             useComponent.handle(
                 TextFieldEvent.TextChanged(
                     state.id,
-                    "${date.dayOfMonth}${date.monthValue.let { if (it < 10) "0$it" else it.toString() }}${date.year}"
+                    "${date.dayOfMonth.let { if (it < 10) "0$it" else it.toString() }}${date.monthValue.let { if (it < 10) "0$it" else it.toString() }}${date.year}"
                 )
             )
         }
