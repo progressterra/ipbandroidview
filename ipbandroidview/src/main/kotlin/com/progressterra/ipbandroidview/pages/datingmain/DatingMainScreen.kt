@@ -365,6 +365,7 @@ fun DatingMainScreen(
                                             useComponent.handle(
                                                 DatingMainScreenEvent.SelectTarget(it)
                                             )
+                                            exposed = false
                                         }
                                         .padding(vertical = 10.dp),
                                         horizontalArrangement = Arrangement.Center) {

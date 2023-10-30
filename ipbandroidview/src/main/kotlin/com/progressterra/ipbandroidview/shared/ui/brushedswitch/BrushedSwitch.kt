@@ -19,13 +19,13 @@ fun BrushedSwitch(
         onCheckedChange = { useComponent.handle(BrushedSwitchEvent(state.id)) },
         colors = SwitchDefaults.colors(
             checkedThumbColor = IpbTheme.colors.primary.asColor(),
-            checkedTrackColor = IpbTheme.colors.background.asColor(),
+            checkedTrackColor = IpbTheme.colors.secondary.asColor(),
             uncheckedThumbColor = IpbTheme.colors.textDisabled.asColor(),
-            uncheckedTrackColor = IpbTheme.colors.background.asColor(),
+            uncheckedTrackColor = IpbTheme.colors.secondary.asColor(),
             disabledCheckedThumbColor = IpbTheme.colors.primary.asColor(),
-            disabledCheckedTrackColor = IpbTheme.colors.background.asColor(),
+            disabledCheckedTrackColor = IpbTheme.colors.secondary.asColor(),
             disabledUncheckedThumbColor = IpbTheme.colors.textDisabled.asColor(),
-            disabledUncheckedTrackColor = IpbTheme.colors.background.asColor()
+            disabledUncheckedTrackColor = IpbTheme.colors.secondary.asColor()
         )
     )
 }

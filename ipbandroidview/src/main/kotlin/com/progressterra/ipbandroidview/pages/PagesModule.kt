@@ -144,11 +144,11 @@ val pagesModule = module {
 
     viewModel { AvatarPickerScreenViewModel() }
 
-    viewModel { PfpPickerScreenViewModel(get(), get(), get()) }
+    viewModel { PfpPickerScreenViewModel(get(), get(), get(), get()) }
 
-    viewModel { InfoScreenViewModel(get()) }
+    viewModel { InfoScreenViewModel(get(), get()) }
 
-    viewModel { InterestsScreenViewModel(get(), get()) }
+    viewModel { InterestsScreenViewModel(get(), get(), get()) }
 
     viewModel { OccupationScreenViewModel(get(), get(), get()) }
 

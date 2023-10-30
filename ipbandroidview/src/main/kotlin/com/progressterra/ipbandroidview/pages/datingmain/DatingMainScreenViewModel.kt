@@ -91,8 +91,10 @@ class DatingMainScreenViewModel(
                 delay(1 * 60 * 1000)
                 provideLocationUseCase().onSuccess { location ->
                     locationToLocationPointUseCase(location).onSuccess { point ->
-                        makeToastUseCase(R.string.location_updated)
-                        updateDatingLocationUseCase(point)
+                        updateDatingLocationUseCase(point).onSuccess {
+                            makeToastUseCase(R.string.location_updated)
+                            emitState { it.copy(currentUser = it.currentUser.copy(locationPoint = point)) }
+                        }
                     }
                 }
             }
@@ -106,9 +108,15 @@ class DatingMainScreenViewModel(
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
                     provideLocationUseCase().onSuccess { location ->
                         locationToLocationPointUseCase(location).onSuccess { point ->
-                            emitState { it.copy(readyToMeet = it.readyToMeet.copy(turned = true)) }
-                            readyToMeetUseCase(point, currentState.chosenTarget!!)
-                            startLocationUpdates()
+                            readyToMeetUseCase(point, currentState.chosenTarget!!).onSuccess {
+                                emitState {
+                                    it.copy(
+                                        readyToMeet = it.readyToMeet.copy(turned = true),
+                                        currentUser = it.currentUser.copy(locationPoint = point)
+                                    )
+                                }
+                                startLocationUpdates()
+                            }
                         }
                     }
                 }.onFailure {
