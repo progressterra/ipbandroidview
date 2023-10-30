@@ -6,8 +6,10 @@ import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataEndChannelVerif
 import com.progressterra.ipbandroidapi.api.auth.models.StatusResult
 import com.progressterra.ipbandroidapi.api.scrm.ScrmService
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.formatZdtIso
 import com.progressterra.ipbandroidview.entities.parseToZDT
+import com.progressterra.ipbandroidview.entities.toSex
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
@@ -48,6 +50,11 @@ interface EndVerificationChannelUseCase {
             UserData.phone = formattedPhoneNumber
             UserData.clientExist = true
             val info = withToken { token -> scrmService.getClient(token) }.getOrThrow().data!!
+            UserData.sex = when (info.sex?.toSex()) {
+                Sex.MALE -> 1
+                Sex.FEMALE -> 2
+                null -> 0
+            }
             UserData.idUnique = info.idUnique!!
             UserData.userName = UserName(
                 name = info.name ?: "",

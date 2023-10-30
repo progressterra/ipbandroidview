@@ -32,6 +32,9 @@ class InfoScreenViewModel(
                         )
                     )
                 }
+                valid()
+            }.onFailure {
+                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
             }
         }
     }
@@ -65,6 +68,16 @@ class InfoScreenViewModel(
             } else if (event.id == "about") {
                 emitState { it.copy(info = it.info.copy(about = it.info.about.copy(text = ""))) }
             }
+        }
+        valid()
+    }
+
+
+    private fun valid() {
+        onBackground {
+            val valid =
+                currentState.info.about.text.isNotEmpty() && currentState.info.nickName.text.isNotEmpty()
+            emitState { it.copy(save = it.save.copy(enabled = valid)) }
         }
     }
 }

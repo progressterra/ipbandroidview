@@ -370,12 +370,13 @@ fun RFInterestViewModel.toInterest() = Interest(
 )
 
 fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(id = idUnique!!,
+    name = this.nickName ?: "",
+    description = descriptionAboutMe ?: "",
     image = avatarMediaData?.urlData ?: "",
     hideAvatar = false,
     locationPoint = LocationPoint(
         id = idrfPlace ?: "",
         latitude = latitudeReal ?: 0.0,
-        name = nickName ?: "",
         longitude = longitudeReal ?: 0.0
     ),
     interests = listInterests?.map { it.toInterest() } ?: emptyList(),

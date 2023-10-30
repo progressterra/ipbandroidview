@@ -40,7 +40,7 @@ fun OccupationScreen(
         itemState: Interest
     ) {
         val backgroundBrush =
-            if (itemState == state.currentOccupation) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
+            if (itemState.id == state.currentOccupation?.id) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
         Box(modifier = Modifier
             .padding(vertical = 4.dp)
             .clip(CircleShape)

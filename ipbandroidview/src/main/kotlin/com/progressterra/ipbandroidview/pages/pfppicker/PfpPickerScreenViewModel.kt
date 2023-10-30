@@ -29,7 +29,8 @@ class PfpPickerScreenViewModel(
                 emitState {
                     it.copy(
                         screen = it.screen.copy(state = ScreenState.SUCCESS),
-                        pfpPicker = it.pfpPicker.copy(url = url)
+                        pfpPicker = it.pfpPicker.copy(url = url),
+                        choose = it.choose.copy(enabled = url.isNotEmpty())
                     )
                 }
             }.onFailure {
