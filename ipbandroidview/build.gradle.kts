@@ -20,6 +20,10 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt")
             )
+            buildConfigField("String", "VERSION", "\"${project.version}\"")
+        }
+        debug {
+            buildConfigField("String", "VERSION", "\"${project.version}\"")
         }
     }
 
@@ -33,7 +37,9 @@ android {
     }
 
     buildFeatures {
+        viewBinding = true
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -110,28 +116,29 @@ dependencies {
     testApi("junit:junit:4.13.2")
 
     // Appyx, navigation library
-    api("com.bumble.appyx:core:1.3.0")
+    api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.3.1"))
+    api(platform("com.google.firebase:firebase-bom:32.4.0"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
 
     // Google services
     api("com.google.android.gms:play-services-location:21.0.1")
-    api("com.google.maps.android:maps-compose:2.15.0")
     api("com.google.android.gms:play-services-maps:18.2.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.61")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.62")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
     api("com.chibatching.kotpref:gson-support:2.13.2")
 
+    api("de.hdodenhof:circleimageview:3.1.0")
+
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-fresco:2.2.10")
+    api("com.github.skydoves:landscapist-glide:2.2.10")
     api("com.github.skydoves:landscapist-placeholder:2.2.10")
 
     api("androidx.paging:paging-runtime-ktx:3.2.1")
