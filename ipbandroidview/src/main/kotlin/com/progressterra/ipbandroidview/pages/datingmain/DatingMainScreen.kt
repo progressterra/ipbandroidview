@@ -1,10 +1,9 @@
 package com.progressterra.ipbandroidview.pages.datingmain
 
 import android.content.Context
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -158,8 +157,19 @@ fun DatingMainScreen(
         private val binding = LayoutMapUserBinding.inflate(LayoutInflater.from(context), this, true)
 
         fun loadImage(user: DatingUser) {
-            val uri = Uri.parse(user.avatar)
-            binding.frescoImage.setImageURI(uri)
+            if (user.avatarBitmap != null) {
+                binding.image.setImageBitmap(user.avatarBitmap)
+            } else {
+                binding.image.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        context, when (user.sex) {
+                            Sex.MALE -> R.drawable.avatar_male
+                            Sex.FEMALE -> R.drawable.avatar_female
+                        }
+                    )
+                )
+            }
+
         }
     }
 
@@ -169,8 +179,18 @@ fun DatingMainScreen(
             LayoutMapCurrentUserBinding.inflate(LayoutInflater.from(context), this, true)
 
         fun loadImage() {
-            val uri = Uri.parse(state.currentUser.avatar)
-            binding.frescoImage.setImageURI(uri)
+            if (state.currentUser.avatarBitmap != null) {
+                binding.image.setImageBitmap(state.currentUser.avatarBitmap)
+            } else {
+                binding.image.setImageDrawable(
+                    AppCompatResources.getDrawable(
+                        context, when (state.currentUser.sex) {
+                            Sex.MALE -> R.drawable.avatar_male
+                            Sex.FEMALE -> R.drawable.avatar_female
+                        }
+                    )
+                )
+            }
         }
     }
 
@@ -454,10 +474,7 @@ fun DatingMainScreen(
                                 Point(
                                     state.currentUser.locationPoint.latitude,
                                     state.currentUser.locationPoint.longitude
-                                ),
-                                15f,
-                                150f,
-                                30f
+                                ), 15f, 150f, 30f
                             )
                         )
                     }
@@ -479,11 +496,7 @@ fun DatingMainScreen(
                     AndroidView(factory = { context ->
                         view = MapView(context)
                         view!!.map.mapObjects.addPlacemark().apply {
-                            setView(
-                                ViewProvider(
-                                    MapCurrentUserView(context).apply { loadImage() }
-                                )
-                            )
+                            setView(ViewProvider(MapCurrentUserView(context).apply { loadImage() }))
                             addTapListener { _, _ ->
                                 useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
                                 true
@@ -495,11 +508,7 @@ fun DatingMainScreen(
                         }
                         state.users.forEach {
                             view!!.map.mapObjects.addPlacemark().apply {
-                                setView(
-                                    ViewProvider(
-                                        MapUserView(context).apply { loadImage(it) }
-                                    )
-                                )
+                                setView(ViewProvider(MapUserView(context).apply { loadImage(it) }))
                                 addTapListener { _, _ ->
                                     useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
                                     true

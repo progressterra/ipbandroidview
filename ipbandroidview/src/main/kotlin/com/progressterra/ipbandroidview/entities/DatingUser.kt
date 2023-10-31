@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.entities
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import com.progressterra.ipbandroidview.shared.IsEmpty
 import kotlinx.parcelize.Parcelize
@@ -8,6 +9,7 @@ import kotlinx.parcelize.Parcelize
 data class DatingUser(
     override val id: String = "",
     val avatar: String = "",
+    val avatarBitmap: Bitmap? = null,
     val name: String = "",
     val description: String = "",
     val hideAvatar: Boolean = false,

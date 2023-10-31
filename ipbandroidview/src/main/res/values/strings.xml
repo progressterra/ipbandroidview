@@ -204,4 +204,6 @@
     <string name="choose_photo">Выберите фото</string>
     <string name="image">Изображение</string>
     <string name="image_not_fetched">Не удалось загрузить изображение</string>
+    <string name="avatar_background">Avatar background</string>
+    <string name="user_avatar">User avatar</string>
 </resources>

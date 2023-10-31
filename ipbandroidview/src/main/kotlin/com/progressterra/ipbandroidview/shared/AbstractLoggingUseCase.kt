@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.shared
 
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
@@ -23,7 +24,10 @@ abstract class AbstractLoggingUseCase(
 
             is ToastedException -> makeToastUseCase(it.stringId)
 
-            else -> makeToastUseCase(R.string.unknown_error)
+            else -> {
+                makeToastUseCase(R.string.unknown_error)
+                if (IpbAndroidViewSettings.DEBUG) it.printStackTrace()
+            }
         }
     }
 }

@@ -3,13 +3,12 @@ package com.progressterra.ipbandroidview.processes.dating
 import com.progressterra.ipbandroidapi.api.iamhere.ImhService
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.toDatingUser
-import com.progressterra.ipbandroidview.processes.CacheImageUseCase
+import com.progressterra.ipbandroidview.processes.BitmapImageUseCase
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
-import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface FetchDatingUserUseCase {
 
@@ -19,7 +18,7 @@ interface FetchDatingUserUseCase {
         obtainAccessToken: ObtainAccessToken,
         private val service: ImhService,
         private val fetchAvatarUseCase: FetchAvatarUseCase, makeToastUseCase: MakeToastUseCase,
-        private val cacheImageUseCase: CacheImageUseCase,
+        private val bitmapImageUseCase: BitmapImageUseCase,
         manageResources: ManageResources
     ) : FetchDatingUserUseCase, AbstractTokenUseCase(
         obtainAccessToken, makeToastUseCase,
@@ -28,10 +27,9 @@ interface FetchDatingUserUseCase {
 
         override suspend fun invoke(): Result<DatingUser> = withToken { token ->
             val avatar = fetchAvatarUseCase().getOrThrow()
-            service.clientDataData(token).data?.toDatingUser(own = true)?.copy(avatar = avatar)!!
-                .also {
-                    cacheImageUseCase(it.avatar).throwOnFailure()
-                }
+            val avatarBitmap = bitmapImageUseCase(avatar).getOrThrow()
+            service.clientDataData(token).data?.toDatingUser(own = true)
+                ?.copy(avatar = avatar, avatarBitmap = avatarBitmap)!!
         }
     }
 }

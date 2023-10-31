@@ -8,11 +8,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.lifecycleScope
 import com.bumble.appyx.core.integrationpoint.NodeComponentActivity
+import com.progressterra.ipbandroidview.BuildConfig
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
 import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
 import com.progressterra.ipbandroidview.shared.activity.PickPhotoContract
 import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.Listener,
@@ -27,6 +32,7 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
     private val startActivity: StartActivityContract.Activity by inject()
     private val makePhoto: MakePhotoContract.Activity by inject()
     private val pickPhoto: PickPhotoContract.Activity by inject()
+    private val makeToastUseCase: MakeToastUseCase by inject()
 
     private val pictureResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -51,6 +57,9 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
         startActivity.setListener(this)
         makePhoto.setListener(this)
         pickPhoto.setListener(this)
+        if (IpbAndroidViewSettings.DEBUG) {
+            lifecycleScope.launch { makeToastUseCase("built upon ${BuildConfig.VERSION}") }
+        }
     }
 
     override fun startPhoto(photoIntent: Intent) {

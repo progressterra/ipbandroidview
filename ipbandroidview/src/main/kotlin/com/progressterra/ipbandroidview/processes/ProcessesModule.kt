@@ -200,7 +200,7 @@ val processesModule = module {
 
     single<DeleteReadyToMeetUseCase> { DeleteReadyToMeetUseCase.Base(get(), get(), get(), get()) }
 
-    factory<UsersAroundUseCase> { UsersAroundUseCase.Base(get(), get(), get(), get()) }
+    factory<UsersAroundUseCase> { UsersAroundUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<UpdateDatingLocationUseCase> {
         UpdateDatingLocationUseCase.Base(
@@ -232,9 +232,12 @@ val processesModule = module {
             get(),
             get(),
             get(),
+            get(),
             get()
         )
     }
+
+    single<BitmapImageUseCase> { BitmapImageUseCase.Base(androidContext()) }
 
     factory<ConnectionsUseCase> { ConnectionsUseCase.Base(get(), get(), get(), get(), get(), get()) }
 

@@ -3,8 +3,6 @@ package com.progressterra.ipbandroidview.integration
 import android.content.Context
 import com.chibatching.kotpref.Kotpref
 import com.chibatching.kotpref.gsonpref.gson
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory
 import com.google.firebase.FirebaseApp
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.IpbAndroidApiSettings
@@ -12,7 +10,6 @@ import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.reflection.extractFromMap
 import com.progressterra.ipbandroidview.shared.theme.IpbColors
 import com.yandex.mapkit.MapKitFactory
-import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -53,10 +50,6 @@ class IpbAndroidView private constructor(
         MapKitFactory.setApiKey(config["yandexMapApiKey"]!!.first())
         MapKitFactory.initialize(context)
         FirebaseApp.initializeApp(context)
-        Fresco.initialize(
-            context,
-            OkHttpImagePipelineConfigFactory.newBuilder(context, OkHttpClient.Builder().build()).build()
-        )
         startKoin {
             if (debug) androidLogger()
             androidContext(context)

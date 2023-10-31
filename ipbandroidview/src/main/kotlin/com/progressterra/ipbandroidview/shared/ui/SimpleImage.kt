@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.components.rememberImageComponent
-import com.skydoves.landscapist.fresco.FrescoImage
+import com.skydoves.landscapist.glide.GlideImage
 import com.skydoves.landscapist.placeholder.shimmer.ShimmerPlugin
 
 @Composable
@@ -22,9 +22,9 @@ fun SimpleImage(
     options: ImageOptions = ImageOptions(),
     backgroundColor: Color
 ) {
-    FrescoImage(
+    GlideImage(
         modifier = modifier,
-        imageUrl = image,
+        imageModel = { image },
         imageOptions = options,
         component = rememberImageComponent {
             +ShimmerPlugin(
