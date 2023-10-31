@@ -118,18 +118,22 @@ class ConfirmationCodeViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: ButtonEvent) = intent {
-        when (id) {
-            "next" -> onNext()
+    override fun handleEvent(id: String, event: ButtonEvent) {
+        intent {
+            when (id) {
+                "next" -> onNext()
+            }
         }
     }
 
-    override fun handleEvent(id: String, event: TextButtonEvent) = intent {
-        when (id) {
-            "resend" -> {
-                startVerificationChannelUseCase(state.phoneNumber)
-                reduce { state.copy(code = "") }
-                startTimer()
+    override fun handleEvent(id: String, event: TextButtonEvent) {
+        intent {
+            when (id) {
+                "resend" -> {
+                    startVerificationChannelUseCase(state.phoneNumber)
+                    reduce { state.copy(code = "") }
+                    startTimer()
+                }
             }
         }
     }

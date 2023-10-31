@@ -26,25 +26,31 @@ class OrganizationsViewModel(
         refresh()
     }
 
-    override fun handleEvent(event: PartnerBlockEvent) = intent {
-        postSideEffect(OrganizationsEffect.OpenPartner(state.partner))
-    }
-
-    override fun refresh() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
-        allOrganizationsUseCase().onSuccess {
-            reduce { state.copy(organizations = it) }
-            fetchPartnerUseCase().onSuccess { partner ->
-                reduce { state.copy(partner = partner, screenState = ScreenState.SUCCESS) }
-            }.onFailure {
-                reduce { state.copy(screenState = ScreenState.ERROR) }
-            }
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
+    override fun handleEvent(event: PartnerBlockEvent) {
+        intent {
+            postSideEffect(OrganizationsEffect.OpenPartner(state.partner))
         }
     }
 
-    override fun onOrganizationDetails(organization: Organization) = intent {
-        postSideEffect(OrganizationsEffect.OpenOrganization(organization))
+    override fun refresh() {
+        intent {
+            reduce { state.copy(screenState = ScreenState.LOADING) }
+            allOrganizationsUseCase().onSuccess {
+                reduce { state.copy(organizations = it) }
+                fetchPartnerUseCase().onSuccess { partner ->
+                    reduce { state.copy(partner = partner, screenState = ScreenState.SUCCESS) }
+                }.onFailure {
+                    reduce { state.copy(screenState = ScreenState.ERROR) }
+                }
+            }.onFailure {
+                reduce { state.copy(screenState = ScreenState.ERROR) }
+            }
+        }
+    }
+
+    override fun onOrganizationDetails(organization: Organization) {
+        intent {
+            postSideEffect(OrganizationsEffect.OpenOrganization(organization))
+        }
     }
 }

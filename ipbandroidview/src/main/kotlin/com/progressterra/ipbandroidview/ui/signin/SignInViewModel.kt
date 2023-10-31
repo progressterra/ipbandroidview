@@ -54,27 +54,33 @@ class SignInViewModel(
         }
     }
 
-    override fun handleEvent(id: String, event: AuthEvent) = intent {
-        when (id) {
-            "main" -> when (event) {
-                is AuthEvent.UrlClick -> openUrlUseCase(event.url)
-                is AuthEvent.Agreement -> postSideEffect(SignInEffect.Agreement)
+    override fun handleEvent(id: String, event: AuthEvent) {
+        intent {
+            when (id) {
+                "main" -> when (event) {
+                    is AuthEvent.UrlClick -> openUrlUseCase(event.url)
+                    is AuthEvent.Agreement -> postSideEffect(SignInEffect.Agreement)
+                }
             }
         }
     }
 
-    override fun handleEvent(id: String, event: ButtonEvent) = intent {
-        when (id) {
-            "next" -> when (event) {
-                is ButtonEvent.Click -> onNext()
+    override fun handleEvent(id: String, event: ButtonEvent) {
+        intent {
+            when (id) {
+                "next" -> when (event) {
+                    is ButtonEvent.Click -> onNext()
+                }
             }
         }
     }
 
-    override fun handleEvent(id: String, event: TextButtonEvent) = intent {
-        when (id) {
-            "skip" -> when (event) {
-                is TextButtonEvent.Click -> postSideEffect(SignInEffect.Skip)
+    override fun handleEvent(id: String, event: TextButtonEvent) {
+        intent {
+            when (id) {
+                "skip" -> when (event) {
+                    is TextButtonEvent.Click -> postSideEffect(SignInEffect.Skip)
+                }
             }
         }
     }

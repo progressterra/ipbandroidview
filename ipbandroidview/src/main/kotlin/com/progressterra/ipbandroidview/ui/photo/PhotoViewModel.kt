@@ -25,12 +25,16 @@ class PhotoViewModel : ViewModel(),
         }
     }
 
-    override fun onBack() = intent {
-        postSideEffect(PhotoEffect.Back)
+    override fun onBack() {
+        intent {
+            postSideEffect(PhotoEffect.Back)
+        }
     }
 
-    override fun remove() = intent {
-        postSideEffect(PhotoEffect.Remove)
-        postSideEffect(PhotoEffect.Back)
+    override fun remove() {
+        intent {
+            postSideEffect(PhotoEffect.Remove)
+            postSideEffect(PhotoEffect.Back)
+        }
     }
 }

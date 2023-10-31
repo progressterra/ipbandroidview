@@ -26,58 +26,66 @@ class MainHaccpViewModel(
     override val container: Container<MainHaccpState, MainHaccpEffect> = container(MainHaccpState())
 
 
-    override fun onPartnerClick(partner: Partner) = intent {
-        postSideEffect(MainHaccpEffect.OpenPartner(partner))
-    }
-
-    override fun handleEvent(event: OrganizationsOverviewEvent) = intent {
-        when (event) {
-            is OrganizationsOverviewEvent.Archived -> postSideEffect(
-                MainHaccpEffect.Archive(
-                    title = manageResources.string(R.string.archived),
-                    archived = event.documents
-                )
-            )
-
-            is OrganizationsOverviewEvent.Complete -> postSideEffect(
-                MainHaccpEffect.Archive(
-                    title = manageResources.string(R.string.completed),
-                    archived = event.documents
-                )
-            )
-
-            is OrganizationsOverviewEvent.Ongoing -> postSideEffect(
-                MainHaccpEffect.Archive(
-                    title = manageResources.string(R.string.ongoing),
-                    archived = event.documents
-                )
-            )
+    override fun onPartnerClick(partner: Partner) {
+        intent {
+            postSideEffect(MainHaccpEffect.OpenPartner(partner))
         }
     }
 
-    override fun handleEvent(event: PartnerBlockEvent) = intent {
-        when (event) {
-            is PartnerBlockEvent.PartnerClicked -> postSideEffect(MainHaccpEffect.OpenPartner(state.partner))
+    override fun handleEvent(event: OrganizationsOverviewEvent) {
+        intent {
+            when (event) {
+                is OrganizationsOverviewEvent.Archived -> postSideEffect(
+                    MainHaccpEffect.Archive(
+                        title = manageResources.string(R.string.archived),
+                        archived = event.documents
+                    )
+                )
+
+                is OrganizationsOverviewEvent.Complete -> postSideEffect(
+                    MainHaccpEffect.Archive(
+                        title = manageResources.string(R.string.completed),
+                        archived = event.documents
+                    )
+                )
+
+                is OrganizationsOverviewEvent.Ongoing -> postSideEffect(
+                    MainHaccpEffect.Archive(
+                        title = manageResources.string(R.string.ongoing),
+                        archived = event.documents
+                    )
+                )
+            }
         }
     }
 
-    override fun refresh() = intent {
-        Log.d("HACCP", "refresh start")
-        var isSuccess = true
-        fetchPartnerUseCase().onSuccess {
-            Log.d("HACCP", it.toString())
-            reduce { state.copy(partner = it) }
-        }.onFailure {
-            Log.e("HACCP", it.message ?: "", it)
-            isSuccess = false
+    override fun handleEvent(event: PartnerBlockEvent) {
+        intent {
+            when (event) {
+                is PartnerBlockEvent.PartnerClicked -> postSideEffect(MainHaccpEffect.OpenPartner(state.partner))
+            }
         }
-        fetchOrganizationsOverviewUseCase().onSuccess {
-            Log.d("HACCP", it.toString())
-            reduce { state.copy(overviews = it) }
-        }.onFailure {
-            Log.e("HACCP", it.message ?: "", it)
-            isSuccess = false
+    }
+
+    override fun refresh() {
+        intent {
+            Log.d("HACCP", "refresh start")
+            var isSuccess = true
+            fetchPartnerUseCase().onSuccess {
+                Log.d("HACCP", it.toString())
+                reduce { state.copy(partner = it) }
+            }.onFailure {
+                Log.e("HACCP", it.message ?: "", it)
+                isSuccess = false
+            }
+            fetchOrganizationsOverviewUseCase().onSuccess {
+                Log.d("HACCP", it.toString())
+                reduce { state.copy(overviews = it) }
+            }.onFailure {
+                Log.e("HACCP", it.message ?: "", it)
+                isSuccess = false
+            }
+            reduce { state.copy(screenState = isSuccess.toScreenState()) }
         }
-        reduce { state.copy(screenState = isSuccess.toScreenState()) }
     }
 }

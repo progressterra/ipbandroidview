@@ -89,19 +89,23 @@ class ProfileDetailsViewModel(
         reduce { state.updateTextFieldsEnabled(true) }
     }
 
-    override fun handleEvent(id: String, event: ButtonEvent) = intent {
-        when (id) {
-            "confirm" -> when (event) {
-                is ButtonEvent.Click -> confirmChange()
-            }
-            "logout" -> when (event) {
-                is ButtonEvent.Click -> logout()
+    override fun handleEvent(id: String, event: ButtonEvent) {
+        intent {
+            when (id) {
+                "confirm" -> when (event) {
+                    is ButtonEvent.Click -> confirmChange()
+                }
+                "logout" -> when (event) {
+                    is ButtonEvent.Click -> logout()
+                }
             }
         }
     }
 
-    override fun mailToInfo(address: String) = intent {
-        openMailToUseCase(address)
+    override fun mailToInfo(address: String) {
+        intent {
+            openMailToUseCase(address)
+        }
     }
 
     override fun handleEvent(id: String, event: TextFieldEvent) = blockingIntent {
@@ -139,5 +143,7 @@ class ProfileDetailsViewModel(
         }
     }
 
-    override fun onBack() = intent { postSideEffect(ProfileDetailsEffect.Back) }
+    override fun onBack() {
+        intent { postSideEffect(ProfileDetailsEffect.Back) }
+    }
 }

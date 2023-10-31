@@ -24,9 +24,15 @@ class PartnerViewModel(
         reduce { state.copy(partner = partner) }
     }
 
-    override fun onBack() = intent { postSideEffect(PartnerEffect.Back) }
+    override fun onBack() {
+        intent { postSideEffect(PartnerEffect.Back) }
+    }
 
-    override fun openWebsite(url: String) = intent { openUrlUseCase(url) }
+    override fun openWebsite(url: String) {
+        intent { openUrlUseCase(url) }
+    }
 
-    override fun openPhone(phone: String) = intent { openPhoneUseCase(phone) }
+    override fun openPhone(phone: String) {
+        intent { openPhoneUseCase(phone) }
+    }
 }

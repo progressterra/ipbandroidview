@@ -17,7 +17,9 @@ class OrganizationEditViewModel : ViewModel(), OrganizationEditInteractor,
     override val container: Container<OrganizationEditState, OrganizationEditEffect> =
         container(OrganizationEditState())
 
-    override fun onBack() = intent { postSideEffect(OrganizationEditEffect.Back) }
+    override fun onBack() {
+        intent { postSideEffect(OrganizationEditEffect.Back) }
+    }
 
     override fun editEmployeeName(name: String) =
         blockingIntent { reduce { state.editEmployeeName(name) } }
@@ -28,8 +30,10 @@ class OrganizationEditViewModel : ViewModel(), OrganizationEditInteractor,
     override fun editEmployeeEmail(email: String) =
         blockingIntent { reduce { state.editEmployeeEmail(email) } }
 
-    override fun editEmployeeCanAudit(canAudit: Boolean) =
+    override fun editEmployeeCanAudit(canAudit: Boolean) {
+
         intent { reduce { state.editEmployeeCanAudit(canAudit) } }
+    }
 
     override fun saveEmployeeChanges() = Unit
 
@@ -43,19 +47,13 @@ class OrganizationEditViewModel : ViewModel(), OrganizationEditInteractor,
 
     }
 
-    override fun addOrganizationPhoto() = intent {
-
-    }
+    override fun addOrganizationPhoto() = Unit
 
     override fun saveOrganizationChanges() = Unit
 
     override fun deleteOrganization() = Unit
 
-    override fun onEmployeeDetails() = intent {
+    override fun onEmployeeDetails() = Unit
 
-    }
-
-    override fun onOrganizationDetails() = intent {
-
-    }
+    override fun onOrganizationDetails() = Unit
 }

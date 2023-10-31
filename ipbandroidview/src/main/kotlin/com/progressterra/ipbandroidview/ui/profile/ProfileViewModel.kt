@@ -28,13 +28,23 @@ class ProfileViewModel(
         reduce { state.copy(phone = phone, name = name) }
     }
 
-    override fun openDetails() = intent { postSideEffect(ProfileEffect.OpenDetails) }
+    override fun openDetails() {
+        intent { postSideEffect(ProfileEffect.OpenDetails) }
+    }
 
-    override fun onFavorites() = intent { postSideEffect(ProfileEffect.Favorites) }
+    override fun onFavorites() {
+        intent { postSideEffect(ProfileEffect.Favorites) }
+    }
 
-    override fun onOrders() = intent { postSideEffect(ProfileEffect.Orders) }
+    override fun onOrders() {
+        intent { postSideEffect(ProfileEffect.Orders) }
+    }
 
-    override fun onSupport() = intent { postSideEffect(ProfileEffect.Support) }
+    override fun onSupport() {
+        intent { postSideEffect(ProfileEffect.Support) }
+    }
 
-    override fun onReferral() = intent { postSideEffect(ProfileEffect.Referral) }
+    override fun onReferral() {
+        intent { postSideEffect(ProfileEffect.Referral) }
+    }
 }

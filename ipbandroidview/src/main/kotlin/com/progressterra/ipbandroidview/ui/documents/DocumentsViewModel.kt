@@ -25,35 +25,39 @@ class DocumentsViewModel(
         refresh()
     }
 
-    override fun refresh() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
-        allDocumentsUseCase().onSuccess {
-            val finished =
-                it.filter { doc -> doc.isFinished() && !doc.isRecentlyFinished }.reversed()
-            val unfinished =
-                it.filter { doc -> !doc.isFinished() || doc.isRecentlyFinished }.reversed()
-            reduce {
-                state.copy(
-                    documents = unfinished,
-                    archivedDocuments = finished,
-                    screenState = ScreenState.SUCCESS
-                )
-            }
-            postSideEffect(DocumentsEffect.UpdateCounter(unfinished.size))
-        }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
+    override fun refresh() {
+        intent {
+            reduce { state.copy(screenState = ScreenState.LOADING) }
+            allDocumentsUseCase().onSuccess {
+                val finished =
+                    it.filter { doc -> doc.isFinished() && !doc.isRecentlyFinished }.reversed()
+                val unfinished =
+                    it.filter { doc -> !doc.isFinished() || doc.isRecentlyFinished }.reversed()
+                reduce {
+                    state.copy(
+                        documents = unfinished,
+                        archivedDocuments = finished,
+                        screenState = ScreenState.SUCCESS
+                    )
+                }
+                postSideEffect(DocumentsEffect.UpdateCounter(unfinished.size))
+            }.onFailure { reduce { state.copy(screenState = ScreenState.ERROR) } }
+        }
     }
 
 
-    override fun openDocument(document: Document) = intent {
-        postSideEffect(
-            DocumentsEffect.OpenChecklist(
-                AuditDocument(
-                    checklistId = document.checklistId,
-                    placeId = document.placeId,
-                    documentId = document.documentId,
-                    name = document.name
-                ), if (document.isFinished()) ChecklistStatus.READ_ONLY else ChecklistStatus.ONGOING
+    override fun openDocument(document: Document) {
+        intent {
+            postSideEffect(
+                DocumentsEffect.OpenChecklist(
+                    AuditDocument(
+                        checklistId = document.checklistId,
+                        placeId = document.placeId,
+                        documentId = document.documentId,
+                        name = document.name
+                    ), if (document.isFinished()) ChecklistStatus.READ_ONLY else ChecklistStatus.ONGOING
+                )
             )
-        )
+        }
     }
 }

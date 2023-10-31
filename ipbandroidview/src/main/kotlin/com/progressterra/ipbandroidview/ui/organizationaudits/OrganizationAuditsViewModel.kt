@@ -45,32 +45,40 @@ class OrganizationAuditsViewModel(
         }
     }
 
-    override fun refresh() = intent {
-        reduce { state.copy(screenState = ScreenState.LOADING) }
-        organizationAuditsUseCase(state.id).onSuccess {
-            reduce { state.copy(audits = it, screenState = ScreenState.SUCCESS) }
-        }.onFailure {
-            reduce { state.copy(screenState = ScreenState.ERROR) }
+    override fun refresh() {
+        intent {
+            reduce { state.copy(screenState = ScreenState.LOADING) }
+            organizationAuditsUseCase(state.id).onSuccess {
+                reduce { state.copy(audits = it, screenState = ScreenState.SUCCESS) }
+            }.onFailure {
+                reduce { state.copy(screenState = ScreenState.ERROR) }
+            }
         }
     }
 
-    override fun mapClick() = intent { openMapUseCase(state.latitude, state.longitude) }
-
-    override fun onBack() = intent {
-        postSideEffect(OrganizationAuditsEffect.Back)
+    override fun mapClick() {
+        intent { openMapUseCase(state.latitude, state.longitude) }
     }
 
-    override fun onAuditDetails(audit: OrganizationAudit) = intent {
-        postSideEffect(
-            OrganizationAuditsEffect.OpenChecklist(
-                AuditDocument(
-                    placeId = state.id,
-                    checklistId = audit.id,
-                    name = audit.name,
-                    documentId = null
-                ),
-                ChecklistStatus.CAN_BE_STARTED
+    override fun onBack() {
+        intent {
+            postSideEffect(OrganizationAuditsEffect.Back)
+        }
+    }
+
+    override fun onAuditDetails(audit: OrganizationAudit) {
+        intent {
+            postSideEffect(
+                OrganizationAuditsEffect.OpenChecklist(
+                    AuditDocument(
+                        placeId = state.id,
+                        checklistId = audit.id,
+                        name = audit.name,
+                        documentId = null
+                    ),
+                    ChecklistStatus.CAN_BE_STARTED
+                )
             )
-        )
+        }
     }
 }
