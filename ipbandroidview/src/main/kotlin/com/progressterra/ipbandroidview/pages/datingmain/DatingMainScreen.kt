@@ -61,8 +61,9 @@ import androidx.compose.ui.zIndex
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.lifecycle.Lifecycle
-import com.facebook.drawee.view.SimpleDraweeView
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.databinding.LayoutMapCurrentUserBinding
+import com.progressterra.ipbandroidview.databinding.LayoutMapUserBinding
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Sex
@@ -116,9 +117,60 @@ fun DatingMainScreen(
                     .size(40.dp)
                     .clip(CircleShape)
                     .niceClickable { useComponent.handle(DatingMainScreenEvent.OnProfile(user)) },
-                image = user.image,
+                image = user.avatar,
                 backgroundColor = IpbTheme.colors.background.asColor()
             )
+        }
+    }
+
+    @Composable
+    fun CurrentUser() {
+        Box(
+            modifier = Modifier
+                .size(78.dp)
+                .clip(CircleShape), contentAlignment = Alignment.Center
+        ) {
+            BrushedIcon(
+                modifier = Modifier.size(78.dp),
+                resId = R.drawable.circle,
+                tint = IpbTheme.colors.primary.asBrush()
+            )
+            SimpleImage(
+                modifier = Modifier
+                    .size(66.dp)
+                    .clip(CircleShape)
+                    .niceClickable { useComponent.handle(DatingMainScreenEvent.OnOwnProfile) },
+                image = state.currentUser.avatar.ifEmpty {
+                    rememberResourceUri(
+                        resourceId = when (state.currentUser.sex) {
+                            Sex.MALE -> R.drawable.avatar_male
+                            Sex.FEMALE -> R.drawable.avatar_female
+                        }
+                    ).toString()
+                },
+                backgroundColor = IpbTheme.colors.background.asColor()
+            )
+        }
+    }
+
+    class MapUserView(context: Context) : RelativeLayout(context) {
+
+        private val binding = LayoutMapUserBinding.inflate(LayoutInflater.from(context), this, true)
+
+        fun loadImage(user: DatingUser) {
+            val uri = Uri.parse(user.avatar)
+            binding.frescoImage.setImageURI(uri)
+        }
+    }
+
+    class MapCurrentUserView(context: Context) : RelativeLayout(context) {
+
+        private val binding =
+            LayoutMapCurrentUserBinding.inflate(LayoutInflater.from(context), this, true)
+
+        fun loadImage() {
+            val uri = Uri.parse(state.currentUser.avatar)
+            binding.frescoImage.setImageURI(uri)
         }
     }
 
@@ -206,20 +258,7 @@ fun DatingMainScreen(
                     )
                 }
             }
-            SimpleImage(
-                modifier = Modifier
-                    .size(78.dp)
-                    .clip(CircleShape),
-                image = state.currentUser.image.ifEmpty {
-                    rememberResourceUri(
-                        resourceId = when (state.currentUser.sex) {
-                            Sex.MALE -> R.drawable.avatar_male
-                            Sex.FEMALE -> R.drawable.avatar_female
-                        }
-                    ).toString()
-                },
-                backgroundColor = IpbTheme.colors.background.asColor()
-            )
+            CurrentUser()
         }
     }
 
@@ -437,13 +476,14 @@ fun DatingMainScreen(
                             else -> Unit
                         }
                     })
-                    AndroidView(factory = {
-                        Log.d("MAP", "created or recreated ${state.currentUser}")
-                        view = MapView(it)
+                    AndroidView(factory = { context ->
+                        view = MapView(context)
                         view!!.map.mapObjects.addPlacemark().apply {
-                            setView(ViewProvider(MapImageView(it).apply {
-                                setImageUrl("https://raw.githubusercontent.com/facebook/fresco/main/docs/static/logo.png")
-                            }))
+                            setView(
+                                ViewProvider(
+                                    MapCurrentUserView(context).apply { loadImage() }
+                                )
+                            )
                             addTapListener { _, _ ->
                                 useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
                                 true
@@ -453,32 +493,28 @@ fun DatingMainScreen(
                                 state.currentUser.locationPoint.longitude
                             )
                         }
-                        view!!
-                    }, update = { mapView ->
-                        state.users.forEachIndexed { index, user ->
-                            Log.d("MAP", "users: $user")
-                            mapView.map.mapObjects.addPlacemark().apply {
+                        state.users.forEach {
+                            view!!.map.mapObjects.addPlacemark().apply {
+                                setView(
+                                    ViewProvider(
+                                        MapUserView(context).apply { loadImage(it) }
+                                    )
+                                )
+                                addTapListener { _, _ ->
+                                    useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
+                                    true
+                                }
                                 geometry = Point(
-                                    user.locationPoint.latitude, user.locationPoint.longitude
+                                    state.currentUser.locationPoint.latitude,
+                                    state.currentUser.locationPoint.longitude
                                 )
                             }
                         }
+                        view!!
                     })
                 }
             }
         }
-    }
-}
-
-class MapImageView(context: Context) : RelativeLayout(context) {
-    init {
-        LayoutInflater.from(context).inflate(R.layout.layout_map_user, this, true)
-    }
-
-    fun setImageUrl(url: String) {
-        val uri = Uri.parse(url)
-        val draweeView = findViewById<SimpleDraweeView>(R.id.fresco_image)
-        draweeView.setImageURI(uri)
     }
 }
 

@@ -182,7 +182,7 @@ fun DatingProfileScreen(
                     modifier = Modifier
                         .size(137.dp)
                         .clip(CircleShape),
-                    image = state.user.image, backgroundColor = IpbTheme.colors.background.asColor()
+                    image = state.user.avatar, backgroundColor = IpbTheme.colors.background.asColor()
                 )
                 TextButton(
                     state = state.choosePhoto,
@@ -256,7 +256,7 @@ fun DatingProfileScreen(
                     modifier = Modifier
                         .size(137.dp)
                         .clip(CircleShape),
-                    image = state.user.image, backgroundColor = IpbTheme.colors.background.asColor()
+                    image = state.user.avatar, backgroundColor = IpbTheme.colors.background.asColor()
                 )
                 BrushedText(
                     modifier = Modifier,

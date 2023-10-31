@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DatingUser(
     override val id: String = "",
-    val image: String = "",
+    val avatar: String = "",
     val name: String = "",
     val description: String = "",
     val hideAvatar: Boolean = false,

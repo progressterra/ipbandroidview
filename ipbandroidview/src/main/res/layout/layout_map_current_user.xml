@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_width="50dp"
-    android:layout_height="50dp">
+    android:layout_width="78dp"
+    android:layout_height="78dp">
 
     <ImageView
-        android:id="@+id/background_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/avatar_background" />
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        android:src="@drawable/circle" />
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/fresco_image"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
         android:layout_centerInParent="true"
         fresco:actualImageScaleType="fitXY"
         fresco:placeholderImage="@drawable/avatar_male"

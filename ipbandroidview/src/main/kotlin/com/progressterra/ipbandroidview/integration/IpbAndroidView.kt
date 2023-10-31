@@ -55,9 +55,7 @@ class IpbAndroidView private constructor(
         FirebaseApp.initializeApp(context)
         Fresco.initialize(
             context,
-            OkHttpImagePipelineConfigFactory.newBuilder(context, OkHttpClient.Builder().build())
-                .setDiskCacheEnabled(true).setDownsampleEnabled(true)
-                .setResizeAndRotateEnabledForNetwork(true).build()
+            OkHttpImagePipelineConfigFactory.newBuilder(context, OkHttpClient.Builder().build()).build()
         )
         startKoin {
             if (debug) androidLogger()
@@ -74,22 +72,22 @@ class IpbAndroidView private constructor(
         private var debug: Boolean = false
         private val koinModules = mutableListOf<Module>()
 
-        fun setupConfig(config: Map<String, List<String>>) : Builder {
+        fun setupConfig(config: Map<String, List<String>>): Builder {
             this.config = config
             return this
         }
 
-        fun setupContext(context: Context) : Builder {
+        fun setupContext(context: Context): Builder {
             this.context = context
             return this
         }
 
-        fun setupDebug(debug: Boolean) : Builder {
+        fun setupDebug(debug: Boolean): Builder {
             this.debug = debug
             return this
         }
 
-        fun addModule(module: Module) : Builder {
+        fun addModule(module: Module): Builder {
             koinModules.add(module)
             return this
         }

@@ -57,7 +57,7 @@ fun ConnectionsScreen(
                         .size(64.dp)
                         .clip(CircleShape)
                         .niceClickable { useComponent.handle(ConnectionsScreenEvent(itemState.user)) },
-                    image = itemState.user.image,
+                    image = itemState.user.avatar,
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
             }

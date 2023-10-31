@@ -202,4 +202,6 @@
     <string name="location_update_error">Не удалось обновить локацию</string>
     <string name="female">Женский</string>
     <string name="choose_photo">Выберите фото</string>
+    <string name="image">Изображение</string>
+    <string name="image_not_fetched">Не удалось загрузить изображение</string>
 </resources>

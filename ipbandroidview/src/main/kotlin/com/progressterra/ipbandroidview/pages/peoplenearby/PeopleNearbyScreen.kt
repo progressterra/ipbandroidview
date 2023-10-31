@@ -92,7 +92,7 @@ fun PeopleNearbyScreen(
                             .size(64.dp)
                             .clip(CircleShape)
                             .niceClickable { useComponent.handle(PeopleNearbyScreenEvent(itemState)) },
-                        image = itemState.image,
+                        image = itemState.avatar,
                         backgroundColor = IpbTheme.colors.background.asColor()
                     )
                 }

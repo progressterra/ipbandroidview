@@ -59,7 +59,7 @@ fun ChatsScreen(
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape),
-                    image = itemState.user.image,
+                    image = itemState.user.avatar,
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
             }
