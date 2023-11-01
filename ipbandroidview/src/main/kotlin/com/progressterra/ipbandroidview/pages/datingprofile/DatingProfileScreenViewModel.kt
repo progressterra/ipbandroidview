@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.toScreenState
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.dating.AcceptConnectUseCase
 import com.progressterra.ipbandroidview.processes.dating.ConnectUseCase
 import com.progressterra.ipbandroidview.processes.dating.CreateChatWithUserUseCase
@@ -12,7 +13,6 @@ import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCa
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
 import com.progressterra.ipbandroidview.processes.user.PickPhotoUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveAvatarUseCase
-import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
@@ -20,12 +20,10 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
-import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 
 class DatingProfileScreenViewModel(
     private val changeInterestsUseCase: ChangeInterestsUseCase,
     private val fetchDatingUserUseCase: FetchDatingUserUseCase,
-    private val saveDataUseCase: SaveDataUseCase,
     private val saveDatingInfoUseCase: SaveDatingInfoUseCase,
     private val fetchInterestsUseCase: FetchInterestsUseCase,
     private val connectUseCase: ConnectUseCase,
@@ -60,9 +58,18 @@ class DatingProfileScreenViewModel(
         }
     }
 
+    override fun handle(event: TopBarEvent) {
+        refresh()
+    }
+
     fun refresh() {
         onBackground {
-            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            emitState {
+                it.copy(
+                    screen = it.screen.copy(state = ScreenState.LOADING),
+                    editMode = false
+                )
+            }
             var isSuccess = true
             fetchInterestsUseCase().onSuccess { allInterests ->
                 emitState { it.copy(allInterests = allInterests) }
@@ -118,14 +125,6 @@ class DatingProfileScreenViewModel(
             }
             if (event.id == "save") {
                 changeInterestsUseCase(currentState.changedInterests)
-                saveDataUseCase(
-                    EditUserState(
-                        name = currentState.name,
-                        email = currentState.email,
-                        phone = currentState.phone,
-                        birthday = currentState.birthday
-                    )
-                )
                 saveDatingInfoUseCase(
                     nickName = currentState.nickName.formatByType(),
                     description = currentState.about.formatByType()

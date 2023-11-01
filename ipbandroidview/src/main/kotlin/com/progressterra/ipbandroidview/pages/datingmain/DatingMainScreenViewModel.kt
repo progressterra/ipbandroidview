@@ -42,7 +42,12 @@ class DatingMainScreenViewModel(
         onBackground {
             fetchDatingUserUseCase.resultFlow.collect { result ->
                 result.onSuccess { newCurrent ->
-                    emitState { it.copy(currentUser = newCurrent, readyToMeet = it.readyToMeet.copy(turned = !newCurrent.target.isEmpty())) }
+                    emitState {
+                        it.copy(
+                            currentUser = newCurrent,
+                            readyToMeet = it.readyToMeet.copy(turned = !newCurrent.target.isEmpty())
+                        )
+                    }
                     if (newCurrent.target.isEmpty()) {
                         updateJob?.cancel()
                     } else {
@@ -76,11 +81,14 @@ class DatingMainScreenViewModel(
                     checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
                         provideLocationUseCase().onSuccess { location ->
                             locationToLocationPointUseCase(location).onSuccess { point ->
-                                readyToMeetUseCase(point, currentState.currentUser.target).onSuccess {
+                                readyToMeetUseCase(point, event.data).onSuccess {
                                     emitState {
                                         it.copy(
                                             readyToMeet = it.readyToMeet.copy(turned = true),
-                                            currentUser = it.currentUser.copy(locationPoint = point)
+                                            currentUser = it.currentUser.copy(
+                                                locationPoint = point,
+                                                target = event.data
+                                            )
                                         )
                                     }
                                     startLocationUpdates()

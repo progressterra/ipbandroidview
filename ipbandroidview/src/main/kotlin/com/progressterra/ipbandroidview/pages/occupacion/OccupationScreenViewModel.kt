@@ -2,8 +2,8 @@ package com.progressterra.ipbandroidview.pages.occupacion
 
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.occupacion.FetchOccupationsUseCase
-import com.progressterra.ipbandroidview.processes.occupacion.FetchUserOccupationUseCase
 import com.progressterra.ipbandroidview.processes.occupacion.SaveOccupationUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -13,10 +13,28 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 class OccupationScreenViewModel(
     private val saveOccupationUseCase: SaveOccupationUseCase,
     private val fetchOccupationsUseCase: FetchOccupationsUseCase,
-    private val fetchUserOccupationUseCase: FetchUserOccupationUseCase
+    private val fetchDatingUserUseCase: FetchDatingUserUseCase
 ) :
     AbstractNonInputViewModel<OccupationScreenState, OccupationScreenEffect>(),
     UseOccupationScreen {
+
+    init {
+        onBackground {
+            fetchDatingUserUseCase.resultFlow.collect { result ->
+                result.onSuccess { user ->
+                    emitState {
+                        it.copy(
+                            currentOccupation = user.occupation,
+                            prevOccupation = user.occupation,
+                            save = it.save.copy(enabled = !user.occupation.isEmpty())
+                        )
+                    }
+                }.onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
+            }
+        }
+    }
 
     override fun refresh() {
         onBackground {
@@ -27,11 +45,7 @@ class OccupationScreenViewModel(
                     it.copy(allOccupations = newOccupations)
                 }
             }.onFailure { isSuccess = false }
-            fetchUserOccupationUseCase().onSuccess { newOccupation ->
-                emitState {
-                    it.copy(currentOccupation = newOccupation, save = it.save.copy(enabled = newOccupation != null))
-                }
-            }.onFailure { isSuccess = false }
+            fetchDatingUserUseCase()
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
@@ -42,7 +56,6 @@ class OccupationScreenViewModel(
         emitState {
             it.copy(
                 currentOccupation = event.data,
-                prevOccupation = it.prevOccupation,
                 save = it.save.copy(enabled = true)
             )
         }
@@ -56,7 +69,10 @@ class OccupationScreenViewModel(
         if (event.id == "save") {
             onBackground {
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-                saveOccupationUseCase(currentState.currentOccupation!!, currentState.prevOccupation).onSuccess {
+                saveOccupationUseCase(
+                    currentState.currentOccupation,
+                    currentState.prevOccupation
+                ).onSuccess {
                     postEffect(OccupationScreenEffect.OnNext)
                 }.onFailure {
                     emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }

@@ -346,10 +346,6 @@ fun DHPaymentClientViewModel.toWithdrawalTransactionState() = WithdrawalTransact
     status = status ?: TypeResultOperationBisinessArea.IN_PROGRESS
 )
 
-fun RGClientInterest.toInterest() = Interest(
-    id = idrfInterest!!, name = ""
-)
-
 @Composable
 fun TypeResultOperationBisinessArea.toColor() = when (this) {
     TypeResultOperationBisinessArea.IN_PROGRESS -> IpbTheme.colors.textTertiary.asBrush()
@@ -382,8 +378,8 @@ fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(id = i
     interests = listInterests?.map { it.toInterest() } ?: emptyList(),
     distance = 0,
     target = target?.toDatingTarget() ?: DatingTarget(),
-    age = "",
-    occupation = Interest(),
+    age = age?.toString() ?: "",
+    occupation = listProfessions?.firstOrNull()?.toInterest() ?: Interest(),
     connection = DatingConnection.CAN_CONNECT,
     sex = sex?.toSex() ?: Sex.MALE,
     own = own)

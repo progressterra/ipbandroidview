@@ -37,7 +37,6 @@ import com.progressterra.ipbandroidview.processes.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.occupacion.FetchOccupationsUseCase
-import com.progressterra.ipbandroidview.processes.occupacion.FetchUserOccupationUseCase
 import com.progressterra.ipbandroidview.processes.occupacion.SaveOccupationUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
 import com.progressterra.ipbandroidview.processes.payments.HasCardsUseCase
@@ -213,15 +212,6 @@ val processesModule = module {
 
     single<AvailableTargetsUseCase> { AvailableTargetsUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchUserOccupationUseCase> {
-        FetchUserOccupationUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
-
     single<FetchOccupationsUseCase> { FetchOccupationsUseCase.Base(get(), get(), get(), get()) }
 
     single<SaveOccupationUseCase> { SaveOccupationUseCase.Base(get(), get(), get(), get()) }
@@ -233,14 +223,22 @@ val processesModule = module {
             get(),
             get(),
             get(),
-            get(),
             get()
         )
     }
 
     single<BitmapImageUseCase> { BitmapImageUseCase.Base(androidContext()) }
 
-    factory<ConnectionsUseCase> { ConnectionsUseCase.Base(get(), get(), get(), get(), get(), get()) }
+    factory<ConnectionsUseCase> {
+        ConnectionsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
     single<IncomingConnectionsUseCase> { IncomingConnectionsUseCase.Base(get(), get()) }
 

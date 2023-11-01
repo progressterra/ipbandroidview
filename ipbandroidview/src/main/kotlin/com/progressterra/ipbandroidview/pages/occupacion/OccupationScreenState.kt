@@ -8,8 +8,8 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 data class OccupationScreenState(
     val screen: StateColumnState = StateColumnState(),
     val allOccupations: List<Interest> = emptyList(),
-    val currentOccupation: Interest? = null,
-    val prevOccupation: Interest? = null,
+    val currentOccupation: Interest = Interest(),
+    val prevOccupation: Interest = Interest(),
     val skip: ButtonState = ButtonState(id = "skip"),
     val save: ButtonState = ButtonState(id = "save", enabled = false)
 )

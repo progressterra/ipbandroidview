@@ -27,6 +27,7 @@ import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.entities.Sex
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
@@ -115,6 +116,17 @@ fun DatingProfileScreen(
                         )
                     }
                 }
+                if (state.user.own && state.editMode) {
+                    IconButton(modifier = Modifier
+                        .size(30.dp)
+                        .align(Alignment.CenterStart),
+                        onClick = { useComponent.handle(TopBarEvent) }) {
+                        BrushedIcon(
+                            modifier = Modifier.size(30.dp),
+                            resId = R.drawable.ic_back, tint = IpbTheme.colors.iconPrimary.asBrush()
+                        )
+                    }
+                }
                 BrushedText(
                     modifier = Modifier
                         .align(Alignment.Center)
@@ -145,6 +157,7 @@ fun DatingProfileScreen(
             ) {
                 if (state.editMode) {
                     Button(
+                        modifier = Modifier.fillMaxWidth(),
                         state = state.save,
                         title = stringResource(id = R.string.save_changes),
                         useComponent = useComponent
