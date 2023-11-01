@@ -39,16 +39,24 @@ class DatingProfileScreenViewModel(
 
     override fun createInitialState() = DatingProfileScreenState()
 
+    init {
+        onBackground {
+            fetchDatingUserUseCase.resultFlow.collect { result ->
+                result.onSuccess { newUser ->
+                    emitState { it.copy(user = newUser) }
+                }.onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
+            }
+        }
+    }
+
     fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
             if (currentState.user.own) {
-                fetchDatingUserUseCase().onSuccess { newUser ->
-                    emitState { it.copy(user = newUser) }
-                }.onFailure {
-                    isSuccess = false
-                }
+                fetchDatingUserUseCase()
             }
             fetchInterestsUseCase().onSuccess { allInterests ->
                 emitState { it.copy(allInterests = allInterests) }

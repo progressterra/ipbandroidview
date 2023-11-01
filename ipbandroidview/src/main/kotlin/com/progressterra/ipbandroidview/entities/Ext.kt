@@ -381,7 +381,7 @@ fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(id = i
     ),
     interests = listInterests?.map { it.toInterest() } ?: emptyList(),
     distance = 0,
-    target = target?.name ?: "",
+    target = target?.toDatingTarget() ?: DatingTarget(),
     age = "",
     occupation = "",
     connection = DatingConnection.CAN_CONNECT,

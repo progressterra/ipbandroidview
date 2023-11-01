@@ -8,6 +8,5 @@ data class DatingMainScreenState(
     val readyToMeet: BrushedSwitchState = BrushedSwitchState(id = "readyToMeet", enabled = false),
     val users: List<DatingUser> = emptyList(),
     val currentUser: DatingUser = DatingUser(),
-    val datingTargets: List<DatingTarget> = emptyList(),
-    val chosenTarget: DatingTarget? = null
+    val datingTargets: List<DatingTarget> = emptyList()
 )

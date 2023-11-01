@@ -16,21 +16,29 @@ class InterestsScreenViewModel(
     private val fetchInterestsUseCase: FetchInterestsUseCase
 ) : AbstractNonInputViewModel<InterestsScreenState, InterestsScreenEffect>(), UseInterestsScreen {
 
+    init {
+        onBackground {
+            fetchDatingUserUseCase.resultFlow.collect { result ->
+                result.onSuccess { user ->
+                    emitState {
+                        it.copy(allInterests = it.allInterests.map { int ->
+                            if (user.interests.contains(int)) int.copy(picked = true) else int
+                        })
+                    }
+                }
+                    .onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
+            }
+        }
+    }
+
     override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
-
             fetchInterestsUseCase().onSuccess { newInterests ->
                 emitState { it.copy(allInterests = newInterests) }
             }.onFailure { isSuccess = false }
-            fetchDatingUserUseCase().onSuccess { user ->
-                emitState {
-                    it.copy(allInterests = it.allInterests.map { int ->
-                        if (user.interests.contains(int)) int.copy(picked = true) else int
-                    })
-                }
-            }.onFailure { isSuccess = false }
+            fetchDatingUserUseCase()
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }

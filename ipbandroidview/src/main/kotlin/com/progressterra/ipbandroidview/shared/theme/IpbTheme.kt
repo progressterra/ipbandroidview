@@ -20,7 +20,7 @@ object IpbTheme {
 
 val LocalTypography = staticCompositionLocalOf { IpbTypography() }
 
-val LocalColors = staticCompositionLocalOf { defaultIpbLightColors }
+val LocalColors = staticCompositionLocalOf { IpbColors() }
 
 @Composable
 fun IpbTheme(

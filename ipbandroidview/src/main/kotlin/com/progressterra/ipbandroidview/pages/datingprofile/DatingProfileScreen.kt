@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingConnection
+import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -289,7 +290,7 @@ fun DatingProfileScreen(
                     )
                     BrushedText(
                         modifier = Modifier,
-                        text = state.user.target,
+                        text = state.user.target.name,
                         style = IpbTheme.typography.subHeadlineRegular,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
@@ -358,7 +359,7 @@ private fun DatingProfileScreenPreviewOwn() {
                 Interest(name = "Cooking"),
                 Interest(name = "Programming")
             ),
-            target = "Cookout",
+            target = DatingTarget(name = "LALALA"),
             distance = 112,
             age = "90 y.0.",
             occupation = "Android Super-Senior Staff Lead"
@@ -385,7 +386,7 @@ private fun DatingProfileScreenPreviewOther() {
                 Interest(name = "Cooking"),
                 Interest(name = "Programming")
             ),
-            target = "Cookout",
+            target = DatingTarget(name = "LALALA"),
             distance = 112,
             age = "90 y.0.",
             occupation = "Android Super-Senior Staff Lead"
@@ -413,7 +414,7 @@ private fun DatingProfileScreenPreviewEdit() {
                 Interest(name = "Cooking"),
                 Interest(name = "Programming")
             ),
-            target = "Cookout",
+            target = DatingTarget(name = "LALALA"),
             distance = 112,
             age = "90 y.0.",
             occupation = "Android Super-Senior Staff Lead"

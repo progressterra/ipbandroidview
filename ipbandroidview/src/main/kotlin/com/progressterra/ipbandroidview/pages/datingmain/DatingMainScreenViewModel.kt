@@ -39,6 +39,18 @@ class DatingMainScreenViewModel(
                 result.onSuccess { anotherUsers -> emitState { it.copy(users = anotherUsers) } }
             }
         }
+        onBackground {
+            fetchDatingUserUseCase.resultFlow.collect { result ->
+                result.onSuccess { newCurrent ->
+                    emitState { it.copy(currentUser = newCurrent, readyToMeet = it.readyToMeet.copy(turned = !newCurrent.target.isEmpty())) }
+                    if (newCurrent.target.isEmpty()) {
+                        updateJob?.cancel()
+                    } else {
+                        startLocationUpdates()
+                    }
+                }
+            }
+        }
     }
 
     private var updateJob: Job? = null
@@ -61,11 +73,23 @@ class DatingMainScreenViewModel(
                 )
 
                 is DatingMainScreenEvent.SelectTarget -> {
-                    emitState {
-                        it.copy(
-                            readyToMeet = it.readyToMeet.copy(enabled = true),
-                            chosenTarget = event.data
-                        )
+                    checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
+                        provideLocationUseCase().onSuccess { location ->
+                            locationToLocationPointUseCase(location).onSuccess { point ->
+                                readyToMeetUseCase(point, currentState.currentUser.target).onSuccess {
+                                    emitState {
+                                        it.copy(
+                                            readyToMeet = it.readyToMeet.copy(turned = true),
+                                            currentUser = it.currentUser.copy(locationPoint = point)
+                                        )
+                                    }
+                                    startLocationUpdates()
+                                }
+                            }
+                        }
+                    }.onFailure {
+                        makeToastUseCase(R.string.failure_location_permission)
+                        askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
                     }
                 }
             }
@@ -77,9 +101,7 @@ class DatingMainScreenViewModel(
             availableTargets().onSuccess { targets ->
                 emitState { it.copy(datingTargets = targets) }
             }
-            fetchDatingUserUseCase().onSuccess { user ->
-                emitState { it.copy(currentUser = user) }
-            }
+            fetchDatingUserUseCase()
         }
 
     }
@@ -101,6 +123,7 @@ class DatingMainScreenViewModel(
         }
     }
 
+
     override fun handle(event: BrushedSwitchEvent) {
         onBackground {
             val readyToMeet = !currentState.readyToMeet.turned
@@ -108,7 +131,7 @@ class DatingMainScreenViewModel(
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
                     provideLocationUseCase().onSuccess { location ->
                         locationToLocationPointUseCase(location).onSuccess { point ->
-                            readyToMeetUseCase(point, currentState.chosenTarget!!).onSuccess {
+                            readyToMeetUseCase(point, currentState.currentUser.target).onSuccess {
                                 emitState {
                                     it.copy(
                                         readyToMeet = it.readyToMeet.copy(turned = true),
@@ -120,7 +143,7 @@ class DatingMainScreenViewModel(
                         }
                     }
                 }.onFailure {
-                    makeToastUseCase(R.string.failure_permission)
+                    makeToastUseCase(R.string.failure_location_permission)
                     askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
                 }
             } else {

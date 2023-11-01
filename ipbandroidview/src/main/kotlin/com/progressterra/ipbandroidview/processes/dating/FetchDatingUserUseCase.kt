@@ -7,12 +7,13 @@ import com.progressterra.ipbandroidview.processes.BitmapImageUseCase
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.shared.AbstractCacheTokenUseCase
+import com.progressterra.ipbandroidview.shared.CacheUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
-interface FetchDatingUserUseCase {
+interface FetchDatingUserUseCase : CacheUseCase<DatingUser> {
 
-    suspend operator fun invoke(): Result<DatingUser>
+    suspend operator fun invoke()
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -20,16 +21,19 @@ interface FetchDatingUserUseCase {
         private val fetchAvatarUseCase: FetchAvatarUseCase, makeToastUseCase: MakeToastUseCase,
         private val bitmapImageUseCase: BitmapImageUseCase,
         manageResources: ManageResources
-    ) : FetchDatingUserUseCase, AbstractTokenUseCase(
-        obtainAccessToken, makeToastUseCase,
+    ) : FetchDatingUserUseCase, AbstractCacheTokenUseCase<DatingUser>(
+        obtainAccessToken,
+        makeToastUseCase,
         manageResources
     ) {
 
-        override suspend fun invoke(): Result<DatingUser> = withToken { token ->
-            val avatar = fetchAvatarUseCase().getOrThrow()
-            val avatarBitmap = bitmapImageUseCase(avatar).getOrThrow()
-            service.clientDataData(token).data?.toDatingUser(own = true)
-                ?.copy(avatar = avatar, avatarBitmap = avatarBitmap)!!
+        override suspend fun invoke() {
+            withCache { token ->
+                val avatar = fetchAvatarUseCase().getOrThrow()
+                val avatarBitmap = bitmapImageUseCase(avatar).getOrThrow()
+                service.clientDataData(token).data?.toDatingUser(own = true)
+                    ?.copy(avatar = avatar, avatarBitmap = avatarBitmap)!!
+            }
         }
     }
 }

@@ -304,6 +304,7 @@ fun DatingMainScreen(
                     .background(if (selected == index) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.surface.asBrush()),
                     selected = selected == index,
                     onClick = { onSelect(index) },
+                    enabled = if (index == 1) true else !state.currentUser.target.isEmpty(),
                     text = {
                         BrushedText(
                             text = text,
@@ -393,15 +394,15 @@ fun DatingMainScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically) {
                         BrushedText(
-                            text = state.chosenTarget?.name
-                                ?: stringResource(id = R.string.choose_dating_interest),
+                            text = if (state.currentUser.target.isEmpty())
+                                stringResource(id = R.string.choose_dating_interest) else state.currentUser.target.name,
                             tint = IpbTheme.colors.textButton.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular
                         )
                         BrushedIcon(
                             modifier = Modifier.rotate(rotation.value),
                             resId = R.drawable.ic_imh_exposable,
-                            tint = IpbTheme.colors.onSurface.asBrush()
+                            tint = IpbTheme.colors.iconSecondary2.asBrush()
                         )
                     }
                     Column(modifier = Modifier
@@ -539,7 +540,7 @@ private fun DatingMainScreenPreview() {
                 DatingUser(), DatingUser(), DatingUser(), DatingUser(), DatingUser()
             ), datingTargets = listOf(
                 DatingTarget(name = "Sport"), DatingTarget(name = "Cars")
-            ), chosenTarget = DatingTarget()
+            )
         ), useComponent = UseDatingMainScreen.Empty()
     )
 }

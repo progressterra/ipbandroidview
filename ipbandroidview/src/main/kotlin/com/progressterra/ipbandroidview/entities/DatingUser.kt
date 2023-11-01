@@ -16,7 +16,7 @@ data class DatingUser(
     val locationPoint: LocationPoint = LocationPoint(),
     val interests: List<Interest> = emptyList(),
     val distance: Int = 0,
-    val target: String = "",
+    val target: DatingTarget = DatingTarget(),
     val age: String = "",
     val occupation: String = "",
     val connection: DatingConnection = DatingConnection.CAN_CONNECT,

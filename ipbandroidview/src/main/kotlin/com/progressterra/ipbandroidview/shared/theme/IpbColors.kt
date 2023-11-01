@@ -40,6 +40,7 @@ data class IpbColors(
     val iconPrimary: ColorUnit = ColorUnit(listOf("#111111")),
     val iconPrimary2: ColorUnit = ColorUnit(listOf("#E82741")),
     val iconSecondary: ColorUnit = ColorUnit(listOf("#FFFFFF")),
+    val iconSecondary2: ColorUnit = ColorUnit(listOf("#FFFFFF")),
     val iconTertiary: ColorUnit = ColorUnit(listOf("#B5B5BC")),
     val iconTertiary2: ColorUnit = ColorUnit(listOf("#4578DC", "#453896")),
     val iconTertiary3: ColorUnit = ColorUnit(listOf("#B2FF75", "#28AB13")),
@@ -61,7 +62,3 @@ data class IpbColors(
         ) as IpbColors
     }
 }
-
-val defaultIpbLightColors = IpbColors()
-
-val defaultIpbDarkColors = IpbColors()

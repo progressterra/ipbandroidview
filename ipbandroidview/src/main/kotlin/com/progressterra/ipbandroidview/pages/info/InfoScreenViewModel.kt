@@ -16,6 +16,28 @@ class InfoScreenViewModel(
     UseInfoScreen {
 
     override fun createInitialState() = InfoScreenState()
+
+    init {
+        onBackground {
+            fetchDatingUserUseCase.resultFlow.collect { result ->
+                result.onSuccess { user ->
+                    emitState {
+                        it.copy(
+                            screen = it.screen.copy(state = ScreenState.SUCCESS), info = InfoState(
+                                nickName = it.info.nickName.copy(text = user.name),
+                                about = it.info.about.copy(text = user.description),
+                            )
+                        )
+                    }
+                    valid()
+                }.onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
+
+            }
+        }
+    }
+
     override fun handle(event: TopBarEvent) {
         postEffect(InfoScreenEffect.OnBack)
     }
@@ -23,19 +45,7 @@ class InfoScreenViewModel(
     override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-            fetchDatingUserUseCase().onSuccess { user ->
-                emitState {
-                    it.copy(
-                        screen = it.screen.copy(state = ScreenState.SUCCESS), info = InfoState(
-                            nickName = it.info.nickName.copy(text = user.name),
-                            about = it.info.about.copy(text = user.description),
-                        )
-                    )
-                }
-                valid()
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+            fetchDatingUserUseCase()
         }
     }
 

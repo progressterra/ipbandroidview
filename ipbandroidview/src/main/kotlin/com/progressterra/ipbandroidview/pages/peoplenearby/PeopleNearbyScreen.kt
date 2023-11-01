@@ -24,10 +24,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.DatingConnection
+import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
+import com.progressterra.ipbandroidview.entities.LocationPoint
+import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
@@ -127,7 +132,11 @@ fun PeopleNearbyScreen(
                             tint = IpbTheme.colors.primary.asBrush()
                         )
                         val matchPercent = remember(state.currentUser, itemState) {
-                            state.currentUser.interests.count { itemState.interests.contains(it) } / state.currentUser.interests.size * 100
+                            if (state.currentUser.interests.isNotEmpty()) state.currentUser.interests.count {
+                                itemState.interests.contains(
+                                    it
+                                )
+                            } / state.currentUser.interests.size * 100 else 0
                         }
                         BrushedText(
                             text = "${matchPercent}% ${stringResource(id = R.string.of_interests_match)}",
@@ -163,5 +172,94 @@ fun PeopleNearbyScreen(
                 Item(it)
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun PeopleNearbyScreenPreview() {
+    IpbTheme {
+        PeopleNearbyScreen(
+            state = PeopleNearbyScreenState(
+                items = listOf(
+                    DatingUser(
+                        id = "intellegebat",
+                        avatar = "splendide",
+                        avatarBitmap = null,
+                        name = "Roxanne Bradford",
+                        description = "dicit",
+                        hideAvatar = false,
+                        locationPoint = LocationPoint(
+                            id = "sollicitudin",
+                            name = "Ed Robbins",
+                            address = "iusto",
+                            latitude = 4.5,
+                            longitude = 6.7
+                        ),
+                        interests = listOf(
+                            Interest(name = "Lyzhi 0"),
+                            Interest(name = "Lyzhi 1"),
+                            Interest(name = "Lyzhi 2"),
+                            Interest(name = "Lyzhi 3"),
+                            Interest(name = "Lyzhi 4"),
+                            Interest(name = "Lyzhi 5"),
+                            Interest(name = "Lyzhi 6"),
+                            Interest(name = "Lyzhi 7")
+                        ),
+                        distance = 8410,
+                        target = DatingTarget(
+                            id = "hinc",
+                            name = "Bernadette Maddox"
+                        ),
+                        age = "interesset",
+                        occupation = "ceteros",
+                        connection = DatingConnection.REQUEST_RECEIVED,
+                        connectionId = "libero",
+                        sex = Sex.MALE,
+                        own = false
+                    ),
+                    DatingUser(
+                        id = "quaerendum",
+                        avatar = "ubique",
+                        avatarBitmap = null,
+                        name = "Rickey Hughes",
+                        description = "molestiae",
+                        hideAvatar = false,
+                        locationPoint = LocationPoint(
+                            id = "gubergren",
+                            name = "Blanche Maxwell",
+                            address = "mutat",
+                            latitude = 12.13,
+                            longitude = 14.15
+                        ),
+                        interests = listOf(
+                            Interest(name = "Lyzhi 0"),
+                            Interest(name = "Lyzhi 1"),
+                            Interest(name = "Lyzhi 2"),
+                            Interest(name = "Lyzhi 3")
+                        ),
+                        distance = 6800,
+                        target = DatingTarget(
+                            id = "sit",
+                            name = "Dewayne Kelley"
+                        ),
+                        age = "at",
+                        occupation = "option",
+                        connection = DatingConnection.REQUEST_RECEIVED,
+                        connectionId = "molestie",
+                        sex = Sex.MALE,
+                        own = false
+                    )
+                ),
+                currentUser = DatingUser(
+                    interests = listOf(
+                        Interest(name = "Lyzhi 0"),
+                        Interest(name = "Lyzhi 1"),
+                        Interest(name = "Lyzhi 7"),
+                        Interest(name = "Lyzhi 8")
+                    )
+                )
+            ), useComponent = UsePeopleNearbyScreen.Empty()
+        )
     }
 }
