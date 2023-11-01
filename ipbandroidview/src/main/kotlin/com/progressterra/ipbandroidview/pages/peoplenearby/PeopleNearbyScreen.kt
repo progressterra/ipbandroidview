@@ -212,7 +212,7 @@ private fun PeopleNearbyScreenPreview() {
                             name = "Bernadette Maddox"
                         ),
                         age = "interesset",
-                        occupation = "ceteros",
+                        occupation = Interest(name = "ceteros"),
                         connection = DatingConnection.REQUEST_RECEIVED,
                         connectionId = "libero",
                         sex = Sex.MALE,
@@ -244,7 +244,7 @@ private fun PeopleNearbyScreenPreview() {
                             name = "Dewayne Kelley"
                         ),
                         age = "at",
-                        occupation = "option",
+                        occupation = Interest(name = "option"),
                         connection = DatingConnection.REQUEST_RECEIVED,
                         connectionId = "molestie",
                         sex = Sex.MALE,

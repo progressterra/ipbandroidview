@@ -383,7 +383,7 @@ fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(id = i
     distance = 0,
     target = target?.toDatingTarget() ?: DatingTarget(),
     age = "",
-    occupation = "",
+    occupation = Interest(),
     connection = DatingConnection.CAN_CONNECT,
     sex = sex?.toSex() ?: Sex.MALE,
     own = own)

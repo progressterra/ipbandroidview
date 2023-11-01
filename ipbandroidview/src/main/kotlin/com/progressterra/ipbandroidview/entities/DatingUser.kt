@@ -18,7 +18,7 @@ data class DatingUser(
     val distance: Int = 0,
     val target: DatingTarget = DatingTarget(),
     val age: String = "",
-    val occupation: String = "",
+    val occupation: Interest = Interest(),
     val connection: DatingConnection = DatingConnection.CAN_CONNECT,
     val connectionId: String = "",
     val sex: Sex = Sex.MALE,

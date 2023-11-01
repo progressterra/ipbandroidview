@@ -26,6 +26,8 @@ import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
+import com.progressterra.ipbandroidview.entities.Sex
+import com.progressterra.ipbandroidview.shared.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -150,6 +152,7 @@ fun DatingProfileScreen(
                 }
                 if (!state.user.own) {
                     Button(
+                        modifier = Modifier.fillMaxWidth(),
                         state = state.connect,
                         useComponent = useComponent,
                         title = when (state.user.connection) {
@@ -162,6 +165,7 @@ fun DatingProfileScreen(
                 }
                 if (!state.user.own) {
                     Button(
+                        modifier = Modifier.fillMaxWidth(),
                         state = state.chat,
                         title = stringResource(id = R.string.start_chat),
                         useComponent = useComponent
@@ -183,7 +187,8 @@ fun DatingProfileScreen(
                     modifier = Modifier
                         .size(137.dp)
                         .clip(CircleShape),
-                    image = state.user.avatar, backgroundColor = IpbTheme.colors.background.asColor()
+                    image = state.user.avatar,
+                    backgroundColor = IpbTheme.colors.background.asColor()
                 )
                 TextButton(
                     state = state.choosePhoto,
@@ -257,89 +262,112 @@ fun DatingProfileScreen(
                     modifier = Modifier
                         .size(137.dp)
                         .clip(CircleShape),
-                    image = state.user.avatar, backgroundColor = IpbTheme.colors.background.asColor()
+                    image = state.user.avatar.ifEmpty {
+                        rememberResourceUri(
+                            resourceId = when (state.user.sex) {
+                                Sex.MALE -> R.drawable.avatar_male
+                                Sex.FEMALE -> R.drawable.avatar_female
+                            }
+                        ).toString()
+                    }, backgroundColor = IpbTheme.colors.background.asColor()
                 )
-                BrushedText(
-                    modifier = Modifier,
-                    text = state.user.name,
-                    style = IpbTheme.typography.headline,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                )
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_address,
-                        tint = IpbTheme.colors.iconPrimary.asBrush()
-                    )
+                if (state.user.name.isNotEmpty()) {
                     BrushedText(
                         modifier = Modifier,
-                        text = state.user.locationPoint.address,
-                        style = IpbTheme.typography.subHeadlineRegular,
+                        text = state.user.name,
+                        style = IpbTheme.typography.headline,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
                 }
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_target,
-                        tint = IpbTheme.colors.iconPrimary.asBrush()
-                    )
+                if (state.user.locationPoint.address.isNotEmpty()) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        BrushedIcon(
+                            resId = R.drawable.ic_address,
+                            tint = IpbTheme.colors.iconPrimary.asBrush()
+                        )
+                        BrushedText(
+                            modifier = Modifier,
+                            text = state.user.locationPoint.address,
+                            style = IpbTheme.typography.subHeadlineRegular,
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
+                        )
+                    }
+                }
+                if (!state.user.target.isEmpty()) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        BrushedIcon(
+                            resId = R.drawable.ic_target,
+                            tint = IpbTheme.colors.iconPrimary.asBrush()
+                        )
+                        BrushedText(
+                            modifier = Modifier,
+                            text = state.user.target.name,
+                            style = IpbTheme.typography.subHeadlineRegular,
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
+                        )
+                    }
+                }
+                if (state.user.age.isNotEmpty() || !state.user.occupation.isEmpty() || state.user.description.isNotEmpty()) {
                     BrushedText(
                         modifier = Modifier,
-                        text = state.user.target.name,
-                        style = IpbTheme.typography.subHeadlineRegular,
+                        text = stringResource(id = R.string.about_me),
+                        style = IpbTheme.typography.title2,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
+                    if (state.user.age.isNotEmpty()) {
+                        BrushedText(
+                            modifier = Modifier,
+                            text = state.user.age,
+                            style = IpbTheme.typography.subHeadlineRegular,
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
+                        )
+                    }
+                    if (!state.user.occupation.isEmpty()) {
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            BrushedIcon(
+                                resId = R.drawable.ic_occupation,
+                                tint = IpbTheme.colors.iconPrimary.asBrush()
+                            )
+                            BrushedText(
+                                modifier = Modifier,
+                                text = state.user.occupation.name,
+                                style = IpbTheme.typography.subHeadlineRegular,
+                                tint = IpbTheme.colors.textPrimary.asBrush(),
+                            )
+                        }
+                    }
+                    if (state.user.description.isNotEmpty()) {
+                        BrushedText(
+                            modifier = Modifier,
+                            text = state.user.description,
+                            style = IpbTheme.typography.body,
+                            tint = IpbTheme.colors.textPrimary.asBrush(),
+                        )
+                    }
                 }
-                BrushedText(
-                    modifier = Modifier,
-                    text = stringResource(id = R.string.about_me),
-                    style = IpbTheme.typography.title2,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                )
-                BrushedText(
-                    modifier = Modifier,
-                    text = state.user.age,
-                    style = IpbTheme.typography.subHeadlineRegular,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                )
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    BrushedIcon(
-                        resId = R.drawable.ic_occupation,
-                        tint = IpbTheme.colors.iconPrimary.asBrush()
-                    )
+                if (state.user.interests.isNotEmpty()) {
                     BrushedText(
                         modifier = Modifier,
-                        text = state.user.occupation,
-                        style = IpbTheme.typography.subHeadlineRegular,
+                        text = stringResource(id = R.string.interests),
+                        style = IpbTheme.typography.title2,
                         tint = IpbTheme.colors.textPrimary.asBrush(),
                     )
-                }
-                BrushedText(
-                    modifier = Modifier,
-                    text = state.user.description,
-                    style = IpbTheme.typography.body,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                )
-                BrushedText(
-                    modifier = Modifier,
-                    text = stringResource(id = R.string.interests),
-                    style = IpbTheme.typography.title2,
-                    tint = IpbTheme.colors.textPrimary.asBrush(),
-                )
-                FlowRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    state.user.interests.forEach {
-                        Item(it)
+                    FlowRow(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        state.user.interests.forEach {
+                            Item(it)
+                        }
                     }
                 }
             }
@@ -362,7 +390,7 @@ private fun DatingProfileScreenPreviewOwn() {
             target = DatingTarget(name = "LALALA"),
             distance = 112,
             age = "90 y.0.",
-            occupation = "Android Super-Senior Staff Lead"
+            occupation = Interest(name = "Android Super-Senior Staff Lead")
         )
         DatingProfileScreen(
             state = DatingProfileScreenState(
@@ -389,7 +417,7 @@ private fun DatingProfileScreenPreviewOther() {
             target = DatingTarget(name = "LALALA"),
             distance = 112,
             age = "90 y.0.",
-            occupation = "Android Super-Senior Staff Lead"
+            occupation = Interest(name = "Android Super-Senior Staff Lead")
         )
         DatingProfileScreen(
             state = DatingProfileScreenState(
@@ -417,7 +445,7 @@ private fun DatingProfileScreenPreviewEdit() {
             target = DatingTarget(name = "LALALA"),
             distance = 112,
             age = "90 y.0.",
-            occupation = "Android Super-Senior Staff Lead"
+            occupation = Interest(name = "Android Super-Senior Staff Lead")
         )
         DatingProfileScreen(
             state = DatingProfileScreenState(

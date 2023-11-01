@@ -21,8 +21,8 @@ class InterestsScreenViewModel(
             fetchDatingUserUseCase.resultFlow.collect { result ->
                 result.onSuccess { user ->
                     emitState {
-                        it.copy(allInterests = it.allInterests.map { int ->
-                            if (user.interests.contains(int)) int.copy(picked = true) else int
+                        it.copy(allInterests = it.allInterests.map { interest ->
+                            if (user.interests.contains(interest)) interest.copy(picked = true) else interest
                         })
                     }
                 }

@@ -43,7 +43,16 @@ class DatingProfileScreenViewModel(
         onBackground {
             fetchDatingUserUseCase.resultFlow.collect { result ->
                 result.onSuccess { newUser ->
-                    emitState { it.copy(user = newUser) }
+                    emitState {
+                        it.copy(
+                            user = newUser,
+                            allInterests = it.allInterests.map { interest ->
+                                if (newUser.interests.contains(interest)) interest.copy(picked = true) else interest
+                            },
+                            nickName = it.nickName.copy(text = newUser.name),
+                            about = it.about.copy(text = newUser.description)
+                        )
+                    }
                 }.onFailure {
                     emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
                 }
@@ -55,12 +64,12 @@ class DatingProfileScreenViewModel(
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var isSuccess = true
-            if (currentState.user.own) {
-                fetchDatingUserUseCase()
-            }
             fetchInterestsUseCase().onSuccess { allInterests ->
                 emitState { it.copy(allInterests = allInterests) }
             }.onFailure { isSuccess = false }
+            if (currentState.user.own) {
+                fetchDatingUserUseCase()
+            }
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
     }
