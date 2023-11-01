@@ -59,7 +59,7 @@ private fun Digit(
     ) {
         if (!active && digit.isEmpty()) {
             BrushedText(
-                text = ".",
+                text = "·",
                 style = IpbTheme.typography.largeTitle,
                 tint = IpbTheme.colors.textDisabled.asBrush()
             )
