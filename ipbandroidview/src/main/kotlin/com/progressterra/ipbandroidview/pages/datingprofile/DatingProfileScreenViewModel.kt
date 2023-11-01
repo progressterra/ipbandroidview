@@ -86,7 +86,6 @@ class DatingProfileScreenViewModel(
             when (event) {
                 is DatingProfileScreenEvent.Edit -> {
                     emitState { it.copy(editMode = true) }
-                    refresh()
                 }
 
                 is DatingProfileScreenEvent.OnSettings -> postEffect(DatingProfileScreenEffect.OnSettings)
@@ -113,10 +112,10 @@ class DatingProfileScreenViewModel(
         onBackground {
             if (event.id == "choosePhoto") {
                 onBackground {
-                    pickPhotoUseCase().onSuccess { path ->
-                        saveAvatarUseCase(path).onSuccess {
+                    pickPhotoUseCase().onSuccess { uri ->
+                        saveAvatarUseCase(uri).onSuccess {
+                            emitState { it.copy(user = it.user.copy(avatar = uri.toString())) }
                             makeToastUseCase(R.string.success)
-                            refresh()
                         }.onFailure {
                             makeToastUseCase(R.string.failure)
                         }
