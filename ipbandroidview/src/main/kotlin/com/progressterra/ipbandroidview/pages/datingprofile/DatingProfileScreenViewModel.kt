@@ -1,8 +1,10 @@
 package com.progressterra.ipbandroidview.pages.datingprofile
 
+import com.progressterra.ipbandroidapi.api.iamhere.models.EnumTypeStatusConnect
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingUser
+import com.progressterra.ipbandroidview.entities.canDoAnything
+import com.progressterra.ipbandroidview.entities.canWrite
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.dating.AcceptConnectUseCase
@@ -131,10 +133,10 @@ class DatingProfileScreenViewModel(
 
             }
             if (event.id == "connect") {
-                if (currentState.user.connection == DatingConnection.CAN_CONNECT) {
+                if (currentState.user.connection.isEmpty()) {
                     connectUseCase(currentState.user)
                 }
-                if (currentState.user.connection == DatingConnection.REQUEST_RECEIVED) {
+                if (currentState.user.connection.type == EnumTypeStatusConnect.WAIT && !currentState.user.connection.own) {
                     acceptConnectUseCase(currentState.user)
                 }
             }
@@ -174,8 +176,8 @@ class DatingProfileScreenViewModel(
         emitState {
             it.copy(
                 user = data,
-                chat = it.chat.copy(enabled = data.connection == DatingConnection.CONNECTED),
-                connect = it.connect.copy(enabled = data.connection == DatingConnection.CAN_CONNECT || data.connection == DatingConnection.REQUEST_RECEIVED)
+                chat = it.chat.copy(enabled = data.connection.canWrite()),
+                connect = it.connect.copy(enabled = data.connection.canDoAnything())
             )
         }
     }

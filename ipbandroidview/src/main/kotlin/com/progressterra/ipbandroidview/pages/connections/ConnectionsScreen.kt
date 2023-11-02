@@ -122,11 +122,34 @@ fun ConnectionsScreen(
                     }",
                     items = incomingItems
                 )
-                val successItems = state.success.collectAsLazyPagingItems()
-                Category(
-                    name = stringResource(R.string.accepted_connections),
-                    items = successItems
+                val successInItems = state.successIn.collectAsLazyPagingItems()
+                val successOutItems = state.successOut.collectAsLazyPagingItems()
+                BrushedText(
+                    text = stringResource(R.string.accepted_connections),
+                    style = IpbTheme.typography.title,
+                    tint = IpbTheme.colors.textPrimary.asBrush()
                 )
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(26.dp)
+                ) {
+                    items(
+                        count = successInItems.itemCount,
+                        key = successInItems.itemKey { it.id }
+                    ) { index ->
+                        successInItems[index]?.let {
+                            Item(it)
+                        }
+                    }
+                    items(
+                        count = successOutItems.itemCount,
+                        key = successOutItems.itemKey { it.id }
+                    ) { index ->
+                        successOutItems[index]?.let {
+                            Item(it)
+                        }
+                    }
+                }
                 val pendingItems = state.pending.collectAsLazyPagingItems()
                 Category(
                     name = stringResource(R.string.pending_connections),

@@ -9,7 +9,8 @@ import kotlinx.coroutines.flow.emptyFlow
 
 data class ConnectionsScreenState(
     val incoming: Flow<PagingData<Connection>> = emptyFlow(),
-    val success: Flow<PagingData<Connection>> = emptyFlow(),
+    val successIn: Flow<PagingData<Connection>> = emptyFlow(),
+    val successOut: Flow<PagingData<Connection>> = emptyFlow(),
     val pending: Flow<PagingData<Connection>> = emptyFlow(),
     val screen: StateColumnState = StateColumnState(),
 )

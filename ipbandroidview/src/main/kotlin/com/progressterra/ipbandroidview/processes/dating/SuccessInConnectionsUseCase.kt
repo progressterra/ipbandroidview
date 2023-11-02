@@ -5,13 +5,13 @@ import com.progressterra.ipbandroidview.entities.Connection
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.PagingUseCase
 
-interface SuccessConnectionsUseCase : PagingUseCase<Nothing, Connection> {
+interface SuccessInConnectionsUseCase : PagingUseCase<Nothing, Connection> {
 
     class Base(
         private val obtainAccessToken: ObtainAccessToken,
         private val service: ImhService
-    ) : SuccessConnectionsUseCase, PagingUseCase.Abstract<Nothing, Connection>() {
+    ) : SuccessInConnectionsUseCase, PagingUseCase.Abstract<Nothing, Connection>() {
 
-        override fun createSource() = SuccessConnectionsSource(obtainAccessToken, service)
+        override fun createSource() = SuccessInConnectionsSource(obtainAccessToken, service)
     }
 }

@@ -27,13 +27,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.entities.LocationPoint
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -97,7 +97,14 @@ fun PeopleNearbyScreen(
                             .size(64.dp)
                             .clip(CircleShape)
                             .niceClickable { useComponent.handle(PeopleNearbyScreenEvent(itemState)) },
-                        image = itemState.avatar,
+                        image = itemState.avatar.ifEmpty {
+                            rememberResourceUri(
+                                resourceId = when (itemState.sex) {
+                                    Sex.MALE -> R.drawable.avatar_male
+                                    Sex.FEMALE -> R.drawable.avatar_female
+                                }
+                            ).toString()
+                        },
                         backgroundColor = IpbTheme.colors.background.asColor()
                     )
                 }
@@ -213,8 +220,6 @@ private fun PeopleNearbyScreenPreview() {
                         ),
                         age = "interesset",
                         occupation = Interest(name = "ceteros"),
-                        connection = DatingConnection.REQUEST_RECEIVED,
-                        connectionId = "libero",
                         sex = Sex.MALE,
                         own = false
                     ),
@@ -245,8 +250,6 @@ private fun PeopleNearbyScreenPreview() {
                         ),
                         age = "at",
                         occupation = Interest(name = "option"),
-                        connection = DatingConnection.REQUEST_RECEIVED,
-                        connectionId = "molestie",
                         sex = Sex.MALE,
                         own = false
                     )

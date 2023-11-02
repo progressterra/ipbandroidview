@@ -23,7 +23,7 @@ interface AcceptConnectUseCase {
         override suspend fun invoke(user: DatingUser): Result<Unit> = withToken {
             imhService.connectApprove(
                 token = it,
-                body = IncomeDataIDConnect(idConnect = user.connectionId)
+                body = IncomeDataIDConnect(idConnect = user.id)
             )
         }
     }

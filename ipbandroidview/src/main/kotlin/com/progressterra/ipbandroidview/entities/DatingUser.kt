@@ -13,14 +13,14 @@ data class DatingUser(
     val name: String = "",
     val description: String = "",
     val hideAvatar: Boolean = false,
+    val readyToMeet: Boolean = false,
     val locationPoint: LocationPoint = LocationPoint(),
     val interests: List<Interest> = emptyList(),
     val distance: Int = 0,
     val target: DatingTarget = DatingTarget(),
     val age: String = "",
     val occupation: Interest = Interest(),
-    val connection: DatingConnection = DatingConnection.CAN_CONNECT,
-    val connectionId: String = "",
+    val connection: Connection = Connection(),
     val sex: Sex = Sex.MALE,
     val own: Boolean = false
 ) : Id, Parcelable, IsEmpty {

@@ -22,11 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.DatingConnection
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Interest
 import com.progressterra.ipbandroidview.entities.Sex
+import com.progressterra.ipbandroidview.entities.shouldShow
+import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -163,20 +164,13 @@ fun DatingProfileScreen(
                         useComponent = useComponent
                     )
                 }
-                if (!state.user.own) {
+                if (state.user.connection.shouldShow()) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         state = state.connect,
                         useComponent = useComponent,
-                        title = when (state.user.connection) {
-                            DatingConnection.CAN_CONNECT -> stringResource(id = R.string.can_connect)
-                            DatingConnection.REQUEST_SENT -> stringResource(id = R.string.request_sent)
-                            DatingConnection.REQUEST_RECEIVED -> stringResource(id = R.string.accept_connect)
-                            DatingConnection.CONNECTED -> stringResource(id = R.string.connect_accepted)
-                        }
+                        title = state.user.connection.toString { stringResource(id = it) }
                     )
-                }
-                if (!state.user.own) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         state = state.chat,

@@ -5,19 +5,22 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.GeoData
 import com.progressterra.ipbandroidapi.api.iamhere.models.GeoPoint
 import com.progressterra.ipbandroidapi.api.iamhere.models.StatusResult
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.LocationPoint
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.ToastedException
+import com.progressterra.ipbandroidview.processes.location.LocationToLocationPointUseCase
+import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface UpdateDatingLocationUseCase {
 
-    suspend operator fun invoke(locationPoint: LocationPoint): Result<Unit>
+    suspend operator fun invoke(): Result<Unit>
 
     class Base(
         private val imhService: ImhService,
+        private val locationToLocationPointUseCase: LocationToLocationPointUseCase,
+        private val provideLocation: ProvideLocationUseCase,
         makeToastUseCase: MakeToastUseCase,
         obtainAccessToken: ObtainAccessToken,
         manageResources: ManageResources
@@ -26,8 +29,10 @@ interface UpdateDatingLocationUseCase {
         manageResources
     ) {
 
-        override suspend fun invoke(locationPoint: LocationPoint): Result<Unit> =
+        override suspend fun invoke(): Result<Unit> =
             withToken { token ->
+                val location = provideLocation().getOrThrow()
+                val locationPoint = locationToLocationPointUseCase(location).getOrThrow()
                 val response = imhService.clientDataGeoData(
                     token = token,
                     body = GeoData(

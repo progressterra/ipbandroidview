@@ -15,7 +15,7 @@ import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.IncomingConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.PendingConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
-import com.progressterra.ipbandroidview.processes.dating.SuccessConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.dating.SuccessInConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
@@ -195,14 +195,25 @@ val processesModule = module {
 
     single<LocationToLocationPointUseCase> { LocationToLocationPointUseCase.Base(get(), get()) }
 
-    single<ReadyToMeetUseCase> { ReadyToMeetUseCase.Base(get(), get(), get(), get()) }
+    single<ReadyToMeetUseCase> { ReadyToMeetUseCase.Base(get(), get(), get(), get(), get(), get()) }
 
     single<DeleteReadyToMeetUseCase> { DeleteReadyToMeetUseCase.Base(get(), get(), get(), get()) }
 
-    factory<UsersAroundUseCase> { UsersAroundUseCase.Base(get(), get(), get(), get(), get()) }
+    factory<UsersAroundUseCase> {
+        UsersAroundUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
     single<UpdateDatingLocationUseCase> {
         UpdateDatingLocationUseCase.Base(
+            get(),
+            get(),
             get(),
             get(),
             get(),
@@ -236,6 +247,7 @@ val processesModule = module {
             get(),
             get(),
             get(),
+            get(),
             get()
         )
     }
@@ -244,7 +256,7 @@ val processesModule = module {
 
     single<PendingConnectionsUseCase> { PendingConnectionsUseCase.Base(get(), get()) }
 
-    single<SuccessConnectionsUseCase> { SuccessConnectionsUseCase.Base(get(), get()) }
+    single<SuccessInConnectionsUseCase> { SuccessInConnectionsUseCase.Base(get(), get()) }
 
     single<DatingChatsPagingUseCase> { DatingChatsPagingUseCase.Base(get(), get()) }
 

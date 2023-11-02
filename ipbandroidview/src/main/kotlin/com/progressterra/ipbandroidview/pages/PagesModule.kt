@@ -120,8 +120,6 @@ val pagesModule = module {
             get(),
             get(),
             get(),
-            get(),
-            get(),
             get()
         )
     }
@@ -191,7 +189,16 @@ val pagesModule = module {
         ConfirmOrderUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<SaveDocumentsUseCase> { SaveDocumentsUseCase.Base(get(), get(), get(), get(), get(), get()) }
+    single<SaveDocumentsUseCase> {
+        SaveDocumentsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
     viewModel { CatalogScreenViewModel(get(), get(), get(), get()) }
 
@@ -201,7 +208,14 @@ val pagesModule = module {
 
     viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
-    single<DocumentsNotificationUseCase> { DocumentsNotificationUseCase.Base(get(), get(), get(), get()) }
+    single<DocumentsNotificationUseCase> {
+        DocumentsNotificationUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
     single<CommentUseCase> {
         CommentUseCase.Base(get(), get(), get(), get())
@@ -291,7 +305,14 @@ val pagesModule = module {
         )
     }
 
-    single<CreateNewWithdrawalUseCase> { CreateNewWithdrawalUseCase.Base(get(), get(), get(), get()) }
+    single<CreateNewWithdrawalUseCase> {
+        CreateNewWithdrawalUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
     single<FetchWithdrawalTransactionsUseCase> {
         FetchWithdrawalTransactionsUseCase.Base(

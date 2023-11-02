@@ -17,7 +17,7 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.EnumTypeStatusConnect
 import com.progressterra.ipbandroidapi.api.iamhere.models.RFInterestViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RFTargetViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataViewModel
-import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientInterest
+import com.progressterra.ipbandroidapi.api.iamhere.models.RGClientDataViewModelWithDistance
 import com.progressterra.ipbandroidapi.api.iamhere.models.RGConnectViewModel
 import com.progressterra.ipbandroidapi.api.iamhere.models.TypeSex
 import com.progressterra.ipbandroidapi.api.messenger.models.RGDialogsViewModel
@@ -361,6 +361,30 @@ fun TypeResultOperationBisinessArea.toString(stringResource: @Composable (Int) -
         TypeResultOperationBisinessArea.WITH_ERROR -> stringResource(R.string.transaction_error)
     }
 
+fun Connection.shouldShow() = when (type) {
+    EnumTypeStatusConnect.WAIT -> true
+    EnumTypeStatusConnect.SUCCESS -> true
+    EnumTypeStatusConnect.REJECT -> false
+}
+
+fun Connection.canWrite() = type == EnumTypeStatusConnect.SUCCESS
+
+fun Connection.canDoAnything() = when (type) {
+    EnumTypeStatusConnect.WAIT -> !own
+    EnumTypeStatusConnect.SUCCESS -> false
+    EnumTypeStatusConnect.REJECT -> false
+}
+
+@Composable
+fun Connection.toString(stringResource: @Composable (Int) -> String) = when (type) {
+    EnumTypeStatusConnect.WAIT -> if (own) stringResource(R.string.request_sent) else stringResource(
+        R.string.accept_connect
+    )
+
+    EnumTypeStatusConnect.SUCCESS -> stringResource(R.string.connect_accepted)
+    EnumTypeStatusConnect.REJECT -> ""
+}
+
 fun RFInterestViewModel.toInterest() = Interest(
     id = idUnique!!, name = name ?: "", picked = false
 )
@@ -375,14 +399,34 @@ fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(id = i
         latitude = latitudeReal ?: 0.0,
         longitude = longitudeReal ?: 0.0
     ),
+    readyToMeet = startDateWantMeet != null,
     interests = listInterests?.map { it.toInterest() } ?: emptyList(),
     distance = 0,
     target = target?.toDatingTarget() ?: DatingTarget(),
     age = age?.toString() ?: "",
     occupation = listProfessions?.firstOrNull()?.toInterest() ?: Interest(),
-    connection = DatingConnection.CAN_CONNECT,
     sex = sex?.toSex() ?: Sex.MALE,
     own = own)
+
+fun RGClientDataViewModelWithDistance.toDatingUser() = DatingUser(id = idUnique!!,
+    name = this.nickName ?: "",
+    description = descriptionAboutMe ?: "",
+    avatar = avatarMediaData?.urlData ?: "",
+    hideAvatar = false,
+    locationPoint = LocationPoint(
+        id = idrfPlace ?: "",
+        latitude = latitudeReal ?: 0.0,
+        longitude = longitudeReal ?: 0.0
+    ),
+    readyToMeet = startDateWantMeet != null,
+    interests = listInterests?.map { it.toInterest() } ?: emptyList(),
+    distance = distance?.toInt() ?: 0,
+    target = target?.toDatingTarget() ?: DatingTarget(),
+    age = age?.toString() ?: "",
+    occupation = listProfessions?.firstOrNull()?.toInterest() ?: Interest(),
+    sex = sex?.toSex() ?: Sex.MALE,
+    own = false
+)
 
 fun TypeSex.toSex() = when (this) {
     TypeSex.MALE -> Sex.MALE
@@ -399,11 +443,9 @@ fun RFTargetViewModel.toDatingTarget() = DatingTarget(
     id = idUnique!!, name = name ?: ""
 )
 
-fun RGConnectViewModel.toConnection(target: Boolean): Connection {
-    val user = if (target) targetClientData!! else initiatorClientData!!
-    return Connection(
-        id = idUnique!!,
-        user = user.toDatingUser(),
-        type = statusConnect ?: EnumTypeStatusConnect.WAIT
-    )
-}
+fun RGConnectViewModel.toConnection(own: Boolean) = Connection(
+    id = idUnique!!,
+    user = if (own) targetClientData!!.toDatingUser() else initiatorClientData!!.toDatingUser(),
+    own = own,
+    type = statusConnect ?: EnumTypeStatusConnect.WAIT
+)

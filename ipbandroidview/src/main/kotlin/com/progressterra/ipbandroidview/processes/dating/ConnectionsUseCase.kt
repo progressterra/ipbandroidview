@@ -17,10 +17,12 @@ interface ConnectionsUseCase : CacheUseCase<ConnectionsScreenState> {
         obtainAccessToken: ObtainAccessToken,
         private val incomingConnectionsUseCase: IncomingConnectionsUseCase,
         private val pendingConnectionsUseCase: PendingConnectionsUseCase,
-        private val successConnectionsUseCase: SuccessConnectionsUseCase,
+        private val successInConnectionsUseCase: SuccessInConnectionsUseCase,
+        private val successOutConnectionsUseCase: SuccessOutConnectionsUseCase,
         makeToastUseCase: MakeToastUseCase, manageResources: ManageResources
     ) : ConnectionsUseCase,
-        AbstractCacheTokenUseCase<ConnectionsScreenState>(obtainAccessToken, makeToastUseCase,
+        AbstractCacheTokenUseCase<ConnectionsScreenState>(
+            obtainAccessToken, makeToastUseCase,
             manageResources
         ) {
 
@@ -28,10 +30,12 @@ interface ConnectionsUseCase : CacheUseCase<ConnectionsScreenState> {
             withCache {
                 val incoming = incomingConnectionsUseCase().getOrThrow()
                 val pending = pendingConnectionsUseCase().getOrThrow()
-                val success = successConnectionsUseCase().getOrThrow()
+                val successIn = successInConnectionsUseCase().getOrThrow()
+                val successOut = successOutConnectionsUseCase().getOrThrow()
                 ConnectionsScreenState(
                     incoming = incoming,
-                    success = success,
+                    successIn = successIn,
+                    successOut = successOut,
                     pending = pending,
                     screen = StateColumnState(
                         id = "",

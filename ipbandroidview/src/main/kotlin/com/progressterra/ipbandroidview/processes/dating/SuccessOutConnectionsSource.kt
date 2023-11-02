@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.entities.toConnection
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.AbstractSource
 
-class SuccessConnectionsSource(
+class SuccessOutConnectionsSource(
     private val obtainAccessToken: ObtainAccessToken,
     private val service: ImhService
 ) : AbstractSource<Nothing, Connection>() {

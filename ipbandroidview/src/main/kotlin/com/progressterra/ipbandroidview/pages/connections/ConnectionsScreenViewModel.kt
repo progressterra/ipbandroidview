@@ -15,7 +15,14 @@ class ConnectionsScreenViewModel(
         onBackground {
             connectionsUseCase.resultFlow.collect { result ->
                 result.onSuccess { newState ->
-                    emitState { newState }
+                    emitState {
+                        newState.copy(
+                            incoming = cachePaging(newState.incoming),
+                            successIn = cachePaging(newState.successIn),
+                            successOut = cachePaging(newState.successOut),
+                            pending = cachePaging(newState.pending)
+                        )
+                    }
                 }.onFailure {
                     emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
                 }

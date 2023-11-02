@@ -2,36 +2,35 @@ package com.progressterra.ipbandroidview.pages.datingmain
 
 import android.Manifest
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
-import com.progressterra.ipbandroidview.processes.location.LocationToLocationPointUseCase
-import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 
 class DatingMainScreenViewModel(
     private val deleteReadyToMeetUseCase: DeleteReadyToMeetUseCase,
     private val readyToMeetUseCase: ReadyToMeetUseCase,
     private val usersAroundUseCase: UsersAroundUseCase,
-    private val locationToLocationPointUseCase: LocationToLocationPointUseCase,
     private val updateDatingLocationUseCase: UpdateDatingLocationUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
-    private val provideLocationUseCase: ProvideLocationUseCase,
     private val availableTargets: AvailableTargetsUseCase,
     private val fetchDatingUserUseCase: FetchDatingUserUseCase,
     private val makeToastUseCase: MakeToastUseCase
 ) : UseDatingMainScreen,
     AbstractNonInputViewModel<DatingMainScreenState, DatingMainScreenEffect>() {
+
+    private var lastTimeUpdated: Long = 0
+
+    private val updateInterval = 3 * 60 * 1000
 
     init {
         onBackground {
@@ -45,20 +44,23 @@ class DatingMainScreenViewModel(
                     emitState {
                         it.copy(
                             currentUser = newCurrent,
-                            readyToMeet = it.readyToMeet.copy(turned = !newCurrent.target.isEmpty())
+                            readyToMeet = it.readyToMeet.copy(turned = newCurrent.readyToMeet)
                         )
                     }
-                    if (newCurrent.target.isEmpty()) {
-                        updateJob?.cancel()
-                    } else {
-                        startLocationUpdates()
+                    val currentTime = System.currentTimeMillis()
+                    if (newCurrent.readyToMeet && currentTime - lastTimeUpdated >= updateInterval) {
+                        lastTimeUpdated = currentTime
+                        updateDatingLocationUseCase().onSuccess {
+                            makeToastUseCase(R.string.location_updated)
+                            usersAroundUseCase()
+                            fetchDatingUserUseCase()
+                        }
                     }
                 }
             }
         }
     }
 
-    private var updateJob: Job? = null
 
     override fun createInitialState() = DatingMainScreenState()
 
@@ -66,34 +68,18 @@ class DatingMainScreenViewModel(
         onBackground {
             when (event) {
                 is DatingMainScreenEvent.OnOwnProfile -> postEffect(
-                    DatingMainScreenEffect.OnProfile(
-                        currentState.currentUser
-                    )
+                    DatingMainScreenEffect.OnProfile(DatingUser())
                 )
 
                 is DatingMainScreenEvent.OnProfile -> postEffect(
-                    DatingMainScreenEffect.OnProfile(
-                        event.user
-                    )
+                    DatingMainScreenEffect.OnProfile(event.user)
                 )
 
                 is DatingMainScreenEvent.SelectTarget -> {
                     checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
-                        provideLocationUseCase().onSuccess { location ->
-                            locationToLocationPointUseCase(location).onSuccess { point ->
-                                readyToMeetUseCase(point, event.data).onSuccess {
-                                    emitState {
-                                        it.copy(
-                                            readyToMeet = it.readyToMeet.copy(turned = true),
-                                            currentUser = it.currentUser.copy(
-                                                locationPoint = point,
-                                                target = event.data
-                                            )
-                                        )
-                                    }
-                                    startLocationUpdates()
-                                }
-                            }
+                        readyToMeetUseCase(event.data).onSuccess {
+                            fetchDatingUserUseCase()
+                            usersAroundUseCase()
                         }
                     }.onFailure {
                         makeToastUseCase(R.string.failure_location_permission)
@@ -114,41 +100,14 @@ class DatingMainScreenViewModel(
 
     }
 
-    private fun startLocationUpdates() {
-        updateJob?.cancel()
-        updateJob = onBackground {
-            while (true) {
-                delay(1 * 60 * 1000)
-                provideLocationUseCase().onSuccess { location ->
-                    locationToLocationPointUseCase(location).onSuccess { point ->
-                        updateDatingLocationUseCase(point).onSuccess {
-                            makeToastUseCase(R.string.location_updated)
-                            emitState { it.copy(currentUser = it.currentUser.copy(locationPoint = point)) }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
 
     override fun handle(event: BrushedSwitchEvent) {
         onBackground {
-            val readyToMeet = !currentState.readyToMeet.turned
-            if (readyToMeet) {
+            if (!currentState.readyToMeet.turned) {
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
-                    provideLocationUseCase().onSuccess { location ->
-                        locationToLocationPointUseCase(location).onSuccess { point ->
-                            readyToMeetUseCase(point, currentState.currentUser.target).onSuccess {
-                                emitState {
-                                    it.copy(
-                                        readyToMeet = it.readyToMeet.copy(turned = true),
-                                        currentUser = it.currentUser.copy(locationPoint = point)
-                                    )
-                                }
-                                startLocationUpdates()
-                            }
-                        }
+                    readyToMeetUseCase(currentState.currentUser.target).onSuccess {
+                        fetchDatingUserUseCase()
+                        usersAroundUseCase()
                     }
                 }.onFailure {
                     makeToastUseCase(R.string.failure_location_permission)
@@ -156,8 +115,7 @@ class DatingMainScreenViewModel(
                 }
             } else {
                 deleteReadyToMeetUseCase().onSuccess {
-                    emitState { it.copy(readyToMeet = it.readyToMeet.copy(turned = false)) }
-                    updateJob?.cancel()
+                    fetchDatingUserUseCase()
                 }
             }
         }
