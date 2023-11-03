@@ -16,6 +16,7 @@ import com.progressterra.ipbandroidview.processes.dating.IncomingConnectionsUseC
 import com.progressterra.ipbandroidview.processes.dating.PendingConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.SuccessInConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.dating.SuccessOutConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
@@ -198,6 +199,8 @@ val processesModule = module {
     single<ReadyToMeetUseCase> { ReadyToMeetUseCase.Base(get(), get(), get(), get(), get(), get()) }
 
     single<DeleteReadyToMeetUseCase> { DeleteReadyToMeetUseCase.Base(get(), get(), get(), get()) }
+
+    single<SuccessOutConnectionsUseCase> { SuccessOutConnectionsUseCase.Base(get(), get()) }
 
     factory<UsersAroundUseCase> {
         UsersAroundUseCase.Base(
