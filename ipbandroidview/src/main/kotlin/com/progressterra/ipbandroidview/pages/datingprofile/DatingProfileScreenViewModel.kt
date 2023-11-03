@@ -73,10 +73,10 @@ class DatingProfileScreenViewModel(
                 )
             }
             var isSuccess = true
-            fetchInterestsUseCase().onSuccess { allInterests ->
-                emitState { it.copy(allInterests = allInterests) }
-            }.onFailure { isSuccess = false }
             if (currentState.user.own) {
+                fetchInterestsUseCase().onSuccess { allInterests ->
+                    emitState { it.copy(allInterests = allInterests) }
+                }.onFailure { isSuccess = false }
                 fetchDatingUserUseCase()
             }
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
@@ -135,8 +135,7 @@ class DatingProfileScreenViewModel(
             if (event.id == "connect") {
                 if (currentState.user.connection.isEmpty()) {
                     connectUseCase(currentState.user)
-                }
-                if (currentState.user.connection.type == EnumTypeStatusConnect.WAIT && !currentState.user.connection.own) {
+                } else if (currentState.user.connection.type == EnumTypeStatusConnect.WAIT && !currentState.user.connection.own) {
                     acceptConnectUseCase(currentState.user)
                 }
             }

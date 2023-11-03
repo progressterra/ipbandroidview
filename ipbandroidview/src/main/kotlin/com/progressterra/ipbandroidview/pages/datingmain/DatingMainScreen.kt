@@ -116,7 +116,14 @@ fun DatingMainScreen(
                     .size(40.dp)
                     .clip(CircleShape)
                     .niceClickable { useComponent.handle(DatingMainScreenEvent.OnProfile(user)) },
-                image = user.avatar,
+                image = user.avatar.ifEmpty {
+                    rememberResourceUri(
+                        resourceId = when (user.sex) {
+                            Sex.MALE -> R.drawable.avatar_male
+                            Sex.FEMALE -> R.drawable.avatar_female
+                        }
+                    ).toString()
+                },
                 backgroundColor = IpbTheme.colors.background.asColor()
             )
         }

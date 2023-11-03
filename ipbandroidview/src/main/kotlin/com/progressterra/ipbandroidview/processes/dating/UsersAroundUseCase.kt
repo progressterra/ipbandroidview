@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.processes.dating
 
+import android.util.Log
 import com.progressterra.ipbandroidapi.api.iamhere.ImhService
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.toDatingUser
@@ -32,6 +33,7 @@ interface UsersAroundUseCase : CacheUseCase<List<DatingUser>> {
                 ).dataList?.map {
                     val user =
                         userConnectionStatusUseCase(it.idUnique!!).getOrThrow() ?: it.toDatingUser()
+                    Log.d("AROUND", "$user")
                     val bitmapAvatar = bitmapImageUseCase(user.avatar).getOrThrow()
                     user.copy(avatarBitmap = bitmapAvatar)
                 }?.sortedBy { it.distance } ?: emptyList()
