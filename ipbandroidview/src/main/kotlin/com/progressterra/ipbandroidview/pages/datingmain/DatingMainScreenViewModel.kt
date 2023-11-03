@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 
@@ -40,6 +41,7 @@ class DatingMainScreenViewModel(
         onBackground {
             fetchDatingUserUseCase.resultFlow.collect { result ->
                 result.onSuccess { newCurrent ->
+                    UserData.readyToMeet = newCurrent.readyToMeet
                     emitState {
                         it.copy(
                             currentUser = newCurrent,

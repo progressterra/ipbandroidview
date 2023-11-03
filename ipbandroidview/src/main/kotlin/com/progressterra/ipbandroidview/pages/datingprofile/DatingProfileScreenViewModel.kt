@@ -61,7 +61,7 @@ class DatingProfileScreenViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        refresh()
+        if (currentState.editMode) refresh() else postEffect(DatingProfileScreenEffect.OnBack)
     }
 
     fun refresh() {

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.processes.dating
 
 import com.progressterra.ipbandroidapi.api.iamhere.ImhService
-import com.progressterra.ipbandroidview.entities.Connection
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.toDatingUser
 import com.progressterra.ipbandroidview.processes.BitmapImageUseCase
@@ -31,10 +30,10 @@ interface UsersAroundUseCase : CacheUseCase<List<DatingUser>> {
                 imhService.clientDataAround(
                     token = token, minMeter = 0, maxMeter = 300
                 ).dataList?.map {
-                    val user = it.toDatingUser()
+                    val user =
+                        userConnectionStatusUseCase(it.idUnique!!).getOrThrow() ?: it.toDatingUser()
                     val bitmapAvatar = bitmapImageUseCase(user.avatar).getOrThrow()
-                    val connection = userConnectionStatusUseCase(user.id).getOrThrow()
-                    user.copy(avatarBitmap = bitmapAvatar, connection = connection ?: Connection())
+                    user.copy(avatarBitmap = bitmapAvatar)
                 }?.sortedBy { it.distance } ?: emptyList()
             }
         }

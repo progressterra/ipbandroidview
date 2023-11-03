@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidapi.api.iamhere.ImhService
 import com.progressterra.ipbandroidapi.api.iamhere.models.FieldForFilter
 import com.progressterra.ipbandroidapi.api.iamhere.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.iamhere.models.TypeComparison
-import com.progressterra.ipbandroidview.entities.Connection
-import com.progressterra.ipbandroidview.entities.toConnection
+import com.progressterra.ipbandroidview.entities.DatingUser
+import com.progressterra.ipbandroidview.entities.toDatingUser
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface UserConnectionStatusUseCase {
 
-    suspend operator fun invoke(clientId: String): Result<Connection?>
+    suspend operator fun invoke(clientId: String): Result<DatingUser?>
 
     class Base(
         private val service: ImhService,
@@ -23,7 +23,7 @@ interface UserConnectionStatusUseCase {
     ) : UserConnectionStatusUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(clientId: String): Result<Connection?> = withToken { token ->
+        override suspend fun invoke(clientId: String): Result<DatingUser?> = withToken { token ->
             service.connectsOutcoming(
                 token = token,
                 body = FilterAndSort(
@@ -38,7 +38,7 @@ interface UserConnectionStatusUseCase {
                     skip = 0,
                     take = 1
                 )
-            ).dataList?.firstOrNull()?.toConnection(true) ?: service.connectsIncoming(
+            ).dataList?.firstOrNull()?.toDatingUser(true) ?: service.connectsIncoming(
                 token = token,
                 body = FilterAndSort(
                     listFields = listOf(
@@ -52,7 +52,7 @@ interface UserConnectionStatusUseCase {
                     skip = 0,
                     take = 1
                 )
-            ).dataList?.firstOrNull()?.toConnection(false)
+            ).dataList?.firstOrNull()?.toDatingUser(false)
         }
     }
 }

@@ -376,14 +376,15 @@ fun Connection.canDoAnything() = when (type) {
 }
 
 @Composable
-fun Connection.toString(stringResource: @Composable (Int) -> String) = when (type) {
-    EnumTypeStatusConnect.WAIT -> if (own) stringResource(R.string.request_sent) else stringResource(
-        R.string.accept_connect
-    )
+fun Connection.toString(stringResource: @Composable (Int) -> String) =
+    if (isEmpty()) stringResource(R.string.send_request) else when (type) {
+        EnumTypeStatusConnect.WAIT -> if (own) stringResource(R.string.request_sent) else stringResource(
+            R.string.accept_connect
+        )
 
-    EnumTypeStatusConnect.SUCCESS -> stringResource(R.string.connect_accepted)
-    EnumTypeStatusConnect.REJECT -> ""
-}
+        EnumTypeStatusConnect.SUCCESS -> stringResource(R.string.connect_accepted)
+        EnumTypeStatusConnect.REJECT -> ""
+    }
 
 fun RFInterestViewModel.toInterest() = Interest(
     id = idUnique!!, name = name ?: "", picked = false
