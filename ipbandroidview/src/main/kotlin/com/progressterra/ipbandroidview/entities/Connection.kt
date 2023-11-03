@@ -11,7 +11,6 @@ import kotlinx.parcelize.Parcelize
 data class Connection(
     override val id: String = "",
     val own: Boolean = false,
-    val user: DatingUser = DatingUser(),
     val type: EnumTypeStatusConnect = EnumTypeStatusConnect.WAIT
 ) : Id, Parcelable, IsEmpty {
 

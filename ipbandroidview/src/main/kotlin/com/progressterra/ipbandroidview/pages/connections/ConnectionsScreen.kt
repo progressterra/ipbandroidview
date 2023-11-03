@@ -18,7 +18,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.Connection
+import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
@@ -37,7 +37,7 @@ fun ConnectionsScreen(
 
     @Composable
     fun Item(
-        itemState: Connection
+        itemState: DatingUser
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -56,13 +56,13 @@ fun ConnectionsScreen(
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape)
-                        .niceClickable { useComponent.handle(ConnectionsScreenEvent(itemState.user)) },
-                    image = itemState.user.avatar,
+                        .niceClickable { useComponent.handle(ConnectionsScreenEvent(itemState)) },
+                    image = itemState.avatar,
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
             }
             BrushedText(
-                text = itemState.user.name,
+                text = itemState.name,
                 style = IpbTheme.typography.caption,
                 tint = IpbTheme.colors.textSecondary.asBrush()
             )
@@ -72,7 +72,7 @@ fun ConnectionsScreen(
     @Composable
     fun Category(
         name: String,
-        items: LazyPagingItems<Connection>
+        items: LazyPagingItems<DatingUser>
     ) {
         BrushedText(
             text = name,

@@ -6,5 +6,7 @@ sealed class DatingMainScreenEffect {
 
     data class OnProfile(val data: DatingUser) : DatingMainScreenEffect()
 
+    data object OnOwnProfile : DatingMainScreenEffect()
+
     data object OnFilter : DatingMainScreenEffect()
 }

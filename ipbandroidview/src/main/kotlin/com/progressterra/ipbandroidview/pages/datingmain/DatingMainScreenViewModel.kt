@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.pages.datingmain
 
 import android.Manifest
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
@@ -68,7 +67,7 @@ class DatingMainScreenViewModel(
         onBackground {
             when (event) {
                 is DatingMainScreenEvent.OnOwnProfile -> postEffect(
-                    DatingMainScreenEffect.OnProfile(DatingUser())
+                    DatingMainScreenEffect.OnOwnProfile
                 )
 
                 is DatingMainScreenEvent.OnProfile -> postEffect(

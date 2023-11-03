@@ -443,9 +443,12 @@ fun RFTargetViewModel.toDatingTarget() = DatingTarget(
     id = idUnique!!, name = name ?: ""
 )
 
-fun RGConnectViewModel.toConnection(own: Boolean) = Connection(
-    id = idUnique!!,
-    user = if (own) targetClientData!!.toDatingUser() else initiatorClientData!!.toDatingUser(),
-    own = own,
-    type = statusConnect ?: EnumTypeStatusConnect.WAIT
-)
+fun RGConnectViewModel.toDatingUser(own: Boolean) =
+    (if (own) targetClientData!! else initiatorClientData!!).toDatingUser().copy(
+        connection =
+        Connection(
+            id = idUnique!!,
+            type = statusConnect ?: EnumTypeStatusConnect.WAIT,
+            own = own
+        )
+    )
