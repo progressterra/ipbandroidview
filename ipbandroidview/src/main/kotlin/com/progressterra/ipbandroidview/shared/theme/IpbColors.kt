@@ -1,9 +1,5 @@
 package com.progressterra.ipbandroidview.shared.theme
 
-import com.progressterra.ipbandroidview.shared.reflection.Copyable
-import kotlin.reflect.full.instanceParameter
-import kotlin.reflect.full.memberFunctions
-
 
 data class IpbColors(
     // Main
@@ -47,18 +43,4 @@ data class IpbColors(
     val iconTertiary4: ColorUnit = ColorUnit(listOf("#F6E651", "#B80707")),
     val iconPressed: ColorUnit = ColorUnit(listOf("#0F1215")),
     val iconDisabled: ColorUnit = ColorUnit(listOf("#B5B5B5"))
-) : Copyable<IpbColors> {
-
-    override fun copy(key: String, values: List<String>): IpbColors {
-        val copy = this::class.memberFunctions.first { it.name == "copy" }
-        val instanceParameter = copy.instanceParameter!!
-        val parameterToBeUpdated = copy.parameters.first { it.name == key }
-        val valueToUpdate = ColorUnit(values)
-        return copy.callBy(
-            mapOf(
-                instanceParameter to this,
-                parameterToBeUpdated to valueToUpdate
-            )
-        ) as IpbColors
-    }
-}
+)

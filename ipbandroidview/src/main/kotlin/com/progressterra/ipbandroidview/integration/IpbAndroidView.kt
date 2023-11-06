@@ -7,7 +7,7 @@ import com.google.firebase.FirebaseApp
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.IpbAndroidApiSettings
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
-import com.progressterra.ipbandroidview.shared.reflection.extractFromMap
+import com.progressterra.ipbandroidview.shared.theme.ColorUnit
 import com.progressterra.ipbandroidview.shared.theme.IpbColors
 import com.yandex.mapkit.MapKitFactory
 import org.koin.android.ext.koin.androidContext
@@ -33,7 +33,49 @@ class IpbAndroidView private constructor(
         IpbAndroidViewSettings.OFFER_URL = config["offerUrl"]!!.first()
         IpbAndroidViewSettings.PRIVACY_URL = config["privacyUrl"]!!.first()
         IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES = config["mainCategories"]!!
-        IpbAndroidViewSettings.COLORS = config.extractFromMap(IpbColors())
+        IpbAndroidViewSettings.COLORS = IpbColors(
+            //Main
+            primary = ColorUnit(config["primary"]!!),
+            secondary = ColorUnit(config["secondary"]!!),
+            secondary2 = ColorUnit(config["secondary2"]!!),
+            tertiary = ColorUnit(config["tertiary"]!!),
+            background = ColorUnit(config["background"]!!),
+            onBackground = ColorUnit(config["onBackground"]!!),
+            surface = ColorUnit(config["surface"]!!),
+            surface2 = ColorUnit(config["surface2"]!!),
+            onSurface = ColorUnit(config["onSurface"]!!),
+            onSurface2 = ColorUnit(config["onSurface2"]!!),
+            primaryPressed = ColorUnit(config["primaryPressed"]!!),
+            primaryDisabled = ColorUnit(config["primaryDisabled"]!!),
+            secondaryPressed = ColorUnit(config["secondaryPressed"]!!),
+            //Status
+            error = ColorUnit(config["error"]!!),
+            success = ColorUnit(config["success"]!!),
+            info = ColorUnit(config["info"]!!),
+            warning = ColorUnit(config["warning"]!!),
+            //Text
+            textPrimary = ColorUnit(config["textPrimary"]!!),
+            textPrimary2 = ColorUnit(config["textPrimary2"]!!),
+            textSecondary = ColorUnit(config["textSecondary"]!!),
+            textTertiary = ColorUnit(config["textTertiary"]!!),
+            textTertiary2 = ColorUnit(config["textTertiary2"]!!),
+            textTertiary3 = ColorUnit(config["textTertiary3"]!!),
+            textTertiary4 = ColorUnit(config["textTertiary4"]!!),
+            textButton = ColorUnit(config["textButton"]!!),
+            textDisabled = ColorUnit(config["textDisabled"]!!),
+            textPressed = ColorUnit(config["textPressed"]!!),
+            //Icon
+            iconPrimary = ColorUnit(config["iconPrimary"]!!),
+            iconPrimary2 = ColorUnit(config["iconPrimary2"]!!),
+            iconSecondary = ColorUnit(config["iconSecondary"]!!),
+            iconSecondary2 = ColorUnit(config["iconSecondary2"]!!),
+            iconTertiary = ColorUnit(config["iconTertiary"]!!),
+            iconTertiary2 = ColorUnit(config["iconTertiary2"]!!),
+            iconTertiary3 = ColorUnit(config["iconTertiary3"]!!),
+            iconTertiary4 = ColorUnit(config["iconTertiary4"]!!),
+            iconPressed = ColorUnit(config["iconPressed"]!!),
+            iconDisabled = ColorUnit(config["iconDisabled"]!!)
+        )
         IpbAndroidViewSettings.SHOW_SEX_PICKER = config["showSexPicker"]!!.first().toBoolean()
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!.first()
         IpbAndroidApiSettings.BALANCE_URL = config["balanceUrl"]!!.first()
