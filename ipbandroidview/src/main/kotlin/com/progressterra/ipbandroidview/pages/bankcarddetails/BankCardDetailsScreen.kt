@@ -68,6 +68,7 @@ fun BankCardDetailsScreen(
         StateColumn(
             state = state.screen,
             useComponent = useComponent,
+            scrollable = true,
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.Start
         ) {
