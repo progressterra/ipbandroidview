@@ -34,7 +34,8 @@ class ConfirmedBankCardsSource(
             )
         ).getOrThrow()?.map {
             it.toBankCardState().copy(
-                isMainCard = mainCardId == it.idUnique
+                isMainCard = mainCardId == it.idUnique,
+                isSelected = mainCardId == it.idUnique
             )
         } ?: emptyList()
     }

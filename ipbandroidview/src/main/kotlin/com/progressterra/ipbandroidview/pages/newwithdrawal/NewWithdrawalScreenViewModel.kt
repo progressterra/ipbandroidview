@@ -29,7 +29,7 @@ class NewWithdrawalScreenViewModel(
             var isSuccess = true
             fetchConfirmedBankCardsUseCase().onSuccess { cards ->
                 emitState {
-                    it.copy(cards = cachePaging(cards))
+                    it.copy(cardsFlow = cachePaging(cards))
                 }
             }.onFailure { isSuccess = false }
             fetchWithdrawalUseCase().onSuccess { canBeWithdrawal ->
@@ -39,23 +39,29 @@ class NewWithdrawalScreenViewModel(
         }
     }
 
-    override fun handle(event: TextFieldEvent) {
-        if (event.id == "input") {
-            when (event) {
-                is TextFieldEvent.Action -> Unit
-                is TextFieldEvent.AdditionalAction -> Unit
-                is TextFieldEvent.TextChanged -> emitState { it.copy(input = it.input.copy(text = event.text)) }
-            }
+    override fun handle(event: NewWithdrawalScreenEvent) {
+        emitState {
+            it.copy(cards = event.items)
         }
+    }
+
+    override fun handle(event: TextFieldEvent) {
+        when (event) {
+            is TextFieldEvent.Action -> Unit
+            is TextFieldEvent.AdditionalAction -> Unit
+            is TextFieldEvent.TextChanged -> emitState { it.copy(input = it.input.copy(text = event.text)) }
+        }
+        validate()
     }
 
     override fun handleEvent(event: BankCardEvent) {
         emitState {
             val newCard = event.state.copy(isSelected = true)
-            it.copy(cards = it.cards.map { pd ->
+            it.copy(cardsFlow = it.cardsFlow.map { pd ->
                 pd.replaceById(newCard)
-            }, selectedCard = newCard, add = it.add.copy(enabled = true))
+            }, cards = it.cards.replaceById(newCard))
         }
+        validate()
     }
 
     override fun handle(event: TopBarEvent) {
@@ -66,7 +72,10 @@ class NewWithdrawalScreenViewModel(
         when (event.id) {
             "add" -> onBackground {
                 emitState { it.copy(add = it.add.copy(enabled = false)) }
-                newWithdrawalUseCase(currentState.selectedCard, currentState.input.text).onSuccess {
+                newWithdrawalUseCase(
+                    currentState.cards.first { it.isSelected },
+                    currentState.input.formatByType()
+                ).onSuccess {
                     postEffect(NewWithdrawalScreenEffect.Back)
                     postEffect(NewWithdrawalScreenEffect.Toast(R.string.success))
                 }
@@ -74,6 +83,16 @@ class NewWithdrawalScreenViewModel(
             }
 
             "all" -> emitState { it.copy(input = it.input.copy(text = currentState.canBeWithdrawal.toStringRaw())) }
+        }
+    }
+
+    private fun validate() {
+        emitState {
+            it.copy(
+                add = it.add.copy(
+                    enabled = currentState.input.formatByType()
+                        .isNotEmpty() && currentState.input.formatByType() != "0" && currentState.cards.any { card -> card.isSelected })
+            )
         }
     }
 

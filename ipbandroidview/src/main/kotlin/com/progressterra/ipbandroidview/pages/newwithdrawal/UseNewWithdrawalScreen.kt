@@ -6,4 +6,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.UseStateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
-interface UseNewWithdrawalScreen : UseTopBar, UseStateColumn, UseButton, UseTextField, UseBankCard
+interface UseNewWithdrawalScreen : UseTopBar, UseStateColumn, UseButton, UseTextField, UseBankCard {
+
+    fun handle(event: NewWithdrawalScreenEvent)
+}
