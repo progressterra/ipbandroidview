@@ -63,6 +63,7 @@ fun NewWithdrawalScreen(
         StateColumn(
             state = state.screen,
             useComponent = useComponent,
+            scrollable = true,
             horizontalAlignment = Alignment.End
         ) {
             Column(

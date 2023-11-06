@@ -55,13 +55,15 @@ class NewWithdrawalScreenViewModel(
     }
 
     override fun handleEvent(event: BankCardEvent) {
-        emitState {
-            val newCard = event.state.copy(isSelected = true)
-            it.copy(cardsFlow = it.cardsFlow.map { pd ->
-                pd.replaceById(newCard)
-            }, cards = it.cards.replaceById(newCard))
+        if (event.state != currentState.cards.firstOrNull { it.isSelected }) {
+            emitState {
+                val newCard = event.state.copy(isSelected = true)
+                it.copy(cardsFlow = it.cardsFlow.map { pd ->
+                    pd.replaceById(newCard)
+                }, cards = it.cards.replaceById(newCard))
+            }
+            validate()
         }
-        validate()
     }
 
     override fun handle(event: TopBarEvent) {

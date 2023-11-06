@@ -16,7 +16,6 @@ data class NewWithdrawalScreenState(
     val canBeWithdrawal: SimplePrice = SimplePrice(),
     val cardsFlow: Flow<PagingData<BankCardState>> = emptyFlow(),
     val cards: List<BankCardState> = emptyList(),
-    val selectedCard: BankCardState = BankCardState(),
     val input: TextFieldState = TextFieldState(id = "input", type = TextInputType.NUMBER),
     val screen: StateColumnState = StateColumnState()
 )
