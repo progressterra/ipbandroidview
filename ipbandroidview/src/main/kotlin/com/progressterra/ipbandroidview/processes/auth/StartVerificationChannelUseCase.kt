@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidapi.IpbAndroidApiSettings
 import com.progressterra.ipbandroidapi.api.auth.AuthService
 import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataStartChannelVerification
 import com.progressterra.ipbandroidapi.api.auth.models.StatusResult
-import com.progressterra.ipbandroidapi.core.BadRequestException
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SignInData
 import com.progressterra.ipbandroidview.processes.ToastedException

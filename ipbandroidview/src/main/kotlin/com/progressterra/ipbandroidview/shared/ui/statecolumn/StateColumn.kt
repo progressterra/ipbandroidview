@@ -47,17 +47,19 @@ fun StateColumn(
         verticalArrangement = if (state.state == ScreenState.SUCCESS) verticalArrangement else Arrangement.Center,
         horizontalAlignment = if (state.state == ScreenState.SUCCESS) horizontalAlignment else Alignment.CenterHorizontally
     ) {
-        if (state.state == ScreenState.ERROR) IconButton(
-            onClick = {
-                useComponent.handle(StateColumnEvent(state.id))
+        when (state.state) {
+            ScreenState.ERROR -> IconButton(
+                onClick = {
+                    useComponent.handle(StateColumnEvent(state.id))
+                }
+            ) {
+                BrushedIcon(
+                    resId = R.drawable.ic_refresh,
+                    tint = IpbTheme.colors.iconPrimary.asBrush()
+                )
             }
-        ) {
-            BrushedIcon(
-                resId = R.drawable.ic_refresh,
-                tint = IpbTheme.colors.iconPrimary.asBrush()
-            )
+            ScreenState.LOADING -> ThemedLoadingIndicator()
+            ScreenState.SUCCESS -> content()
         }
-        else if (state.state == ScreenState.LOADING) ThemedLoadingIndicator()
-        else if (state.state == ScreenState.SUCCESS) content()
     }
 }

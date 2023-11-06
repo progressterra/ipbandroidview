@@ -1,6 +1,5 @@
 package com.progressterra.ipbandroidview.pages.signin
 
-import androidx.annotation.StringRes
 import com.progressterra.ipbandroidview.entities.SignInData
 
 sealed class SignInScreenEffect {

@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.connections
 
 import androidx.paging.PagingData
-import com.progressterra.ipbandroidview.entities.Connection
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import kotlinx.coroutines.flow.Flow

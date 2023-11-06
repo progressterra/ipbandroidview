@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.widgets.peoplenearby
+package com.progressterra.ipbandroidview.pages.peoplenearby
 
 import com.progressterra.ipbandroidview.entities.DatingUser
 

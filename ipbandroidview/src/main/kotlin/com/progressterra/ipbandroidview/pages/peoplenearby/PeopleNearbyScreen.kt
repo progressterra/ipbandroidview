@@ -40,9 +40,6 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
-import com.progressterra.ipbandroidview.widgets.peoplenearby.PeopleNearbyScreenEvent
-import com.progressterra.ipbandroidview.widgets.peoplenearby.PeopleNearbyScreenState
-import com.progressterra.ipbandroidview.widgets.peoplenearby.UsePeopleNearbyScreen
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

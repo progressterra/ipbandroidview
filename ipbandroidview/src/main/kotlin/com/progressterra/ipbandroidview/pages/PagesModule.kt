@@ -74,7 +74,7 @@ import com.progressterra.ipbandroidview.processes.UseBonusesUseCase
 import com.progressterra.ipbandroidview.processes.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchMainCardIdUseCase
-import com.progressterra.ipbandroidview.widgets.peoplenearby.PeopleNearbyScreenViewModel
+import com.progressterra.ipbandroidview.pages.peoplenearby.PeopleNearbyScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

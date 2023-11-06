@@ -21,6 +21,7 @@ data class Shadow(
     @Stable val color: Color,
 )
 
+@Suppress("unused")
 fun Modifier.withShadow(
     shadow: Shadow,
     shape: Shape,

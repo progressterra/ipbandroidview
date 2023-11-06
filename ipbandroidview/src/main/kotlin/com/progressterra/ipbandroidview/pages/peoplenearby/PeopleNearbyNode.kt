@@ -6,8 +6,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.widgets.peoplenearby.PeopleNearbyScreenEffect
-import com.progressterra.ipbandroidview.widgets.peoplenearby.PeopleNearbyScreenViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Suppress("unused")

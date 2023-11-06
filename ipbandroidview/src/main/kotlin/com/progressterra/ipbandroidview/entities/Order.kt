@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardState
 import com.progressterra.ipbandroidview.features.ordercompact.OrderCompactState
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsState
-import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
 import com.progressterra.ipbandroidview.widgets.orderitems.OrderItemsState
 
 data class Order(
@@ -36,9 +35,4 @@ data class Order(
             totalPrice = price,
             date = date
         )
-
-    fun toOrderTrackingState() = OrderTrackingState(
-        status = status,
-        number = number
-    )
 }

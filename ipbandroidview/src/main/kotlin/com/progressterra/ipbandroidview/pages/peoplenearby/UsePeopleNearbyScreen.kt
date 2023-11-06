@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.widgets.peoplenearby
+package com.progressterra.ipbandroidview.pages.peoplenearby
 
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.features.topbar.UseTopBar
