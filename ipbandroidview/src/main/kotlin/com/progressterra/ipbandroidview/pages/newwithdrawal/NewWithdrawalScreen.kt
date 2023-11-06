@@ -85,8 +85,8 @@ fun NewWithdrawalScreen(
                 )
             }
             val lazyItems = state.cardsFlow.collectAsLazyPagingItems()
-            LaunchedEffect(lazyItems.itemSnapshotList) {
-
+            LaunchedEffect(lazyItems.itemSnapshotList.items) {
+                useComponent.handle(NewWithdrawalScreenEvent(lazyItems.itemSnapshotList.items))
             }
             LazyColumn(
                 modifier = Modifier.heightIn(max = 200.dp),
