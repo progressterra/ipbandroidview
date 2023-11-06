@@ -20,7 +20,6 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
 @Composable
 fun LocationPermissionScreen(
@@ -44,12 +43,6 @@ fun LocationPermissionScreen(
                 state = state.give,
                 useComponent = useComponent,
                 title = stringResource(R.string.give_access)
-            )
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.skip,
-                useComponent = useComponent,
-                title = stringResource(R.string.skip_yet)
             )
         }
     }) { _, _ ->

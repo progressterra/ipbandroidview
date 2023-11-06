@@ -20,7 +20,6 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
@@ -48,12 +47,6 @@ fun AvatarPickerScreen(
                     state = state.confirm,
                     useComponent = useComponent,
                     title = stringResource(R.string.choose)
-                )
-                TextButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state.skip,
-                    useComponent = useComponent,
-                    title = stringResource(R.string.skip_yet)
                 )
             }
         }) { _, _ ->

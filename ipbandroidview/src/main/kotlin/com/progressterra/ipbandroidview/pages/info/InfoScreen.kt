@@ -16,7 +16,6 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
 @Composable
 fun InfoScreen(
@@ -42,12 +41,6 @@ fun InfoScreen(
                     state = state.save,
                     useComponent = useComponent,
                     title = stringResource(R.string.save)
-                )
-                TextButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state.skip,
-                    useComponent = useComponent,
-                    title = stringResource(R.string.skip_yet)
                 )
             }
         }) { _, _ ->

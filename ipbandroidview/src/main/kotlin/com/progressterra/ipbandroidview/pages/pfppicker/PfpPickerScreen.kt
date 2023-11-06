@@ -16,7 +16,6 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
-import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable
@@ -43,12 +42,6 @@ fun PfpPickerScreen(
                     state = state.choose,
                     useComponent = useComponent,
                     title = stringResource(R.string.choose)
-                )
-                TextButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state.skip,
-                    useComponent = useComponent,
-                    title = stringResource(R.string.skip_yet)
                 )
             }
         }) { _, _ ->
