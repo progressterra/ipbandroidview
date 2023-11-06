@@ -32,6 +32,7 @@ class SignInScreenViewModel(
             is TextFieldEvent.TextChanged -> {
                 emitState { it.copy(phone = it.phone.copy(text = event.text)) }
                 emitState { it.copy(auth = it.auth.copy(enabled = it.phone.valid())) }
+                if (currentState.phone.valid()) onNext()
             }
 
             is TextFieldEvent.Action -> onNext()

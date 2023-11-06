@@ -209,6 +209,14 @@ private fun TextFieldPreview() {
                 useComponent = UseTextField.Empty(),
                 hint = "Passport"
             )
+            TextField(
+                state = TextFieldState(
+                    type = TextInputType.PHONE_NUMBER,
+                    text = "71231234500"
+                ),
+                useComponent = UseTextField.Empty(),
+                hint = "Phone"
+            )
         }
     }
 }
