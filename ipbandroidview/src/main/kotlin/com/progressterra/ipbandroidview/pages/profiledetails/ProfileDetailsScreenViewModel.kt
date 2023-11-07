@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.pages.profiledetails
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.editprofile.EditProfileEvent
-import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
@@ -112,13 +111,6 @@ class ProfileDetailsScreenViewModel(
 
     override fun handle(event: TopBarEvent) {
         postEffect(ProfileDetailsScreenEffect.Back)
-    }
-
-    override fun handle(event: MakePhotoEvent) {
-        when (event) {
-            is MakePhotoEvent.Remove -> Unit
-            is MakePhotoEvent.Select -> postEffect(ProfileDetailsScreenEffect.OpenPhoto(event.photo.url))
-        }
     }
 
     override fun handle(event: TextFieldEvent) {

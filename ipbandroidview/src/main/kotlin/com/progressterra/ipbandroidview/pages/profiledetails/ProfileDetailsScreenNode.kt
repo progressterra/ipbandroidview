@@ -22,7 +22,6 @@ class ProfileDetailsScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is ProfileDetailsScreenEffect.Back -> navigation.onBack()
-                is ProfileDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
             }
         }
         val state = viewModel.state.collectAsState().value

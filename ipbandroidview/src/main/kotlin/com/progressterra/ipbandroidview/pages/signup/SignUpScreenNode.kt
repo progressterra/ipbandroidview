@@ -23,7 +23,6 @@ class SignUpScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is SignUpScreenEffect.OnNext -> navigation.onNext()
-                is SignUpScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
                 is SignUpScreenEffect.OnSkip -> navigation.onSkip()
             }
         }

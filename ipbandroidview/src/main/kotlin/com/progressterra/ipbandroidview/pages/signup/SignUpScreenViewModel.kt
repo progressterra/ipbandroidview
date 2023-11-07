@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.signup
 
 import com.progressterra.ipbandroidview.IpbAndroidViewSettings
-import com.progressterra.ipbandroidview.features.makephoto.MakePhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
@@ -54,15 +53,6 @@ class SignUpScreenViewModel(
             }
         }
     }
-
-    override fun handle(event: MakePhotoEvent) {
-        when (event) {
-            is MakePhotoEvent.Remove -> Unit
-
-            is MakePhotoEvent.Select -> postEffect(SignUpScreenEffect.OpenPhoto(event.photo.url))
-        }
-    }
-
 
     override fun handle(event: TextFieldEvent) {
         when (event) {
