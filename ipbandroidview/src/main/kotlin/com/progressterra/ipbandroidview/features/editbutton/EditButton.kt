@@ -49,7 +49,6 @@ fun EditButton(
                 title = stringResource(R.string.change_data),
                 useComponent = useComponent
             )
-            Spacer(Modifier.height(28.dp))
         }
     }
 }

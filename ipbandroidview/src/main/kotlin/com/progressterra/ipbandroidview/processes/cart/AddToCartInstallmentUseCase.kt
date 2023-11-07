@@ -1,7 +1,8 @@
 package com.progressterra.ipbandroidview.processes.cart
 
-import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.CartService
 import com.progressterra.ipbandroidapi.api.cart.models.IncomeDataAddProductAsInstallmentPlan
+import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.Installment
 import com.progressterra.ipbandroidview.entities.SimplePrice
@@ -10,6 +11,7 @@ import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.pages.cart.CartScreenState
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
@@ -26,10 +28,11 @@ interface AddToCartInstallmentUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val cartRepo: CartRepository,
+        private val cartRepo: CartService,
         private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : AddToCartInstallmentUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+    ) : AddToCartInstallmentUseCase, AbstractTokenUseCase(
+        obtainAccessToken, makeToastUseCase,
         manageResources
     ) {
 
@@ -47,7 +50,11 @@ interface AddToCartInstallmentUseCase {
                         amountPaymentInMonth = installment.perMonth.toDouble(),
                         count = 1
                     )
-                ).getOrThrow()!!.listDRSale?.mapNotNull {
+                ).also {
+                    if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
+                        it.result?.message ?: ""
+                    )
+                }.data?.listDRSale?.mapNotNull {
                     val oneGoods =
                         productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
                             .getOrThrow()?.toGoodsItem()?.toCartCardState()

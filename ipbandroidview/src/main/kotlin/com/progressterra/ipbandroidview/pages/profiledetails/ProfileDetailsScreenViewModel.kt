@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
+import androidx.lifecycle.viewModelScope
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.editprofile.EditProfileEvent
@@ -16,6 +17,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserEvent
+import kotlinx.coroutines.launch
 
 class ProfileDetailsScreenViewModel(
     private val saveUseCase: SaveDataUseCase,
@@ -39,6 +41,7 @@ class ProfileDetailsScreenViewModel(
                     makeToastUseCase(R.string.failure)
                 }
             }
+            viewModelScope.launch {  }
         }
     }
 

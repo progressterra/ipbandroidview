@@ -19,8 +19,8 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
-import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 
 @Composable
@@ -34,7 +34,7 @@ fun WantThisScreen(
         )
     }) { _, _ ->
         StateColumn(
-            state = state.screen, useComponent = useComponent,
+            state = state.screen, scrollable = true, useComponent = useComponent,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {

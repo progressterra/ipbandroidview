@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.processes
 
-import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.CartService
 import com.progressterra.ipbandroidapi.api.cart.models.IncomeDataComment
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -12,7 +12,7 @@ interface CommentUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val cartRepository: CartRepository, makeToastUseCase: MakeToastUseCase,
+        private val cartRepository: CartService, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
     ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources), CommentUseCase {
 

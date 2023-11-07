@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.processes
 
-import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.CartService
+import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.toGoodsItem
@@ -17,16 +18,21 @@ interface OrderDetailsUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val cartRepository: CartRepository,
+        private val cartRepository: CartService,
         private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : OrderDetailsUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+    ) : OrderDetailsUseCase, AbstractTokenUseCase(
+        obtainAccessToken, makeToastUseCase,
         manageResources
     ) {
 
         override suspend fun invoke(orderId: String): Result<OrderDetailsState> = withToken {
             val result =
-                cartRepository.orderById(accessToken = it, idOrder = orderId).getOrThrow()!!
+                cartRepository.orderById(accessToken = it, idOrder = orderId).also {
+                    if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
+                        it.result?.message ?: ""
+                    )
+                }.data!!
             val order = result.toOrder()
             val goods = result.listDRSale?.mapNotNull { dr ->
                 productRepository.productByNomenclatureId(it, dr.idrfNomenclature!!)

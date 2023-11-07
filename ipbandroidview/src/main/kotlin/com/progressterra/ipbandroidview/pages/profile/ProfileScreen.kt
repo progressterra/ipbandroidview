@@ -30,7 +30,11 @@ fun ProfileScreen(
             )
         }
     ) { _, _ ->
-        StateColumn(state = state.screen, useComponent = useComponent) {
+        StateColumn(
+            state = state.screen,
+            useComponent = useComponent,
+            scrollable = true
+        ) {
             if (state.isAuthorized) {
                 AuthProfile(
                     modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp),

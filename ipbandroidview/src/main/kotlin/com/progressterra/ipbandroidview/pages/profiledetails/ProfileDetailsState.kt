@@ -12,7 +12,4 @@ data class ProfileDetailsState(
     val editUser: EditUserState = EditUserState(),
     val editButton: EditButtonState = EditButtonState(),
     val screen: StateColumnState = StateColumnState()
-) {
-
-    companion object
-}
+)

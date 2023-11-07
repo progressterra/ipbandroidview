@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.processes
 
-import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.CartService
+import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.toReceiptItems
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
@@ -14,15 +15,20 @@ interface FetchReceiptUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val cartRepository: CartRepository, makeToastUseCase: MakeToastUseCase,
+        private val cartRepository: CartService, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : FetchReceiptUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+    ) : FetchReceiptUseCase, AbstractTokenUseCase(
+        obtainAccessToken, makeToastUseCase,
         manageResources
     ) {
 
         override suspend fun invoke(): Result<ReceiptState> = withToken { token ->
             var total = SimplePrice()
-            val items = cartRepository.cart(token).getOrThrow()!!.listDRSale?.map {
+            val items = cartRepository.cart(token).also {
+                if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
+                    it.result?.message ?: ""
+                )
+            }.data?.listDRSale?.map {
                 it.toReceiptItems()
             } ?: emptyList()
             items.forEach { total += it.price }

@@ -13,20 +13,28 @@ class SupportScreenViewModel(
 
     override fun createInitialState() = SupportScreenState()
 
+    init {
+        onBackground {
+            fetchChatsUseCase.resultFlow.collect { result ->
+                result.onSuccess { newState ->
+                    val cached = newState.copy(subCategories = cachePaging(newState.subCategories))
+                    emitState {
+                        it.copy(
+                            screen = it.screen.copy(state = ScreenState.SUCCESS),
+                            current = cached
+                        )
+                    }
+                }.onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                }
+            }
+        }
+    }
+
     override fun refresh() {
         onBackground {
-            emitState { createInitialState() }
-            fetchChatsUseCase().onSuccess { newState ->
-                val cached = newState.copy(subCategories = cachePaging(newState.subCategories))
-                emitState {
-                    it.copy(
-                        screen = it.screen.copy(state = ScreenState.SUCCESS),
-                        current = cached
-                    )
-                }
-            }.onFailure {
-                emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
-            }
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            fetchChatsUseCase()
         }
     }
 

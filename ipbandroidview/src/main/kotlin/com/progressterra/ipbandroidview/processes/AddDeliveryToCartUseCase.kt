@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.processes
 
-import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.CartService
 import com.progressterra.ipbandroidapi.api.cart.models.IncomdeDataAddress
+import com.progressterra.ipbandroidview.entities.SuggestionUI
 import com.progressterra.ipbandroidview.entities.convertSuggestionToAddressUIModel
 import com.progressterra.ipbandroidview.entities.formatZdtIso
-import com.progressterra.ipbandroidview.entities.SuggestionUI
 import com.progressterra.ipbandroidview.processes.user.SaveAddressUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
@@ -19,10 +19,11 @@ interface AddDeliveryToCartUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val cartRepository: CartRepository,
+        private val cartRepository: CartService,
         private val saveAddressUseCase: SaveAddressUseCase, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources), AddDeliveryToCartUseCase {
+    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+        AddDeliveryToCartUseCase {
 
         override suspend fun invoke(suggestionUI: SuggestionUI): Result<Unit> =
             withToken { token ->

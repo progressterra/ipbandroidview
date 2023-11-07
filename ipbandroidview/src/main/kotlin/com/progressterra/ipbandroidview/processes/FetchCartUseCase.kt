@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.processes
 
-import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.CartService
+import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.sum
@@ -22,7 +23,7 @@ interface FetchCartUseCase : CacheUseCase<CartScreenState> {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val cartRepo: CartRepository,
+        private val cartRepo: CartService,
         private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
     ) : FetchCartUseCase, AbstractCacheTokenUseCase<CartScreenState>(obtainAccessToken,
@@ -31,7 +32,11 @@ interface FetchCartUseCase : CacheUseCase<CartScreenState> {
 
         override suspend fun invoke() {
             withCache { token ->
-                val goods = cartRepo.cart(token).getOrThrow()!!.listDRSale?.mapNotNull {
+                val goods = cartRepo.cart(token).also {
+                    if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
+                        it.result?.message ?: ""
+                    )
+                }.data?.listDRSale?.mapNotNull {
                     val oneGoods =
                         productRepository.productByNomenclatureId(token, it.idrfNomenclature!!)
                             .getOrThrow()?.toGoodsItem()?.toCartCardState()

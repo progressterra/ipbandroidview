@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.processes
 
-import com.progressterra.ipbandroidapi.api.cart.CartRepository
+import com.progressterra.ipbandroidapi.api.cart.CartService
+import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.ordernumber.OrderNumberState
@@ -15,7 +16,7 @@ interface ConfirmOrderUseCase {
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
-        private val cartRepository: CartRepository,
+        private val cartRepository: CartService,
         private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
     ) : ConfirmOrderUseCase, AbstractTokenUseCase(
@@ -24,19 +25,27 @@ interface ConfirmOrderUseCase {
     ) {
 
         override suspend fun invoke(): Result<OrderStatusScreenState> = withToken { token ->
-            val result = cartRepository.confirmOrder(token).getOrThrow()
+            val result = cartRepository.confirmOrder(token).also {
+                if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
+                    it.result?.message ?: ""
+                )
+            }.data
             val images = result?.listDRSale?.mapNotNull {
                 productRepository.productByNomenclatureId(
                     token,
                     it.idrfNomenclature!!
                 ).getOrThrow()?.toGoodsItem()?.image
             } ?: emptyList()
-            val payment = cartRepository.paymentInternal(token).isSuccess
+            cartRepository.paymentInternal(token).also {
+                if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
+                    it.result?.message ?: ""
+                )
+            }
             OrderStatusScreenState(
                 id = result?.idUnique!!,
                 number = OrderNumberState(
                     number = result.number ?: "",
-                    success = payment,
+                    success = true,
                     quantity = images.size,
                     address = result.adressString ?: ""
                 )
