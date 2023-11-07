@@ -22,7 +22,7 @@ class AttachableChatModule(
     }
 
     fun setup(newId: String) {
-        emitModuleState { it.copy(id = newId) }
+        emitModuleState { it.copy(id = newId, isVisible = false) }
     }
 
     fun open() {
