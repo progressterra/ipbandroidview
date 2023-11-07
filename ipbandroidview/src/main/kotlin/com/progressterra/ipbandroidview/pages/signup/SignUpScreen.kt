@@ -35,8 +35,7 @@ fun SignUpScreen(
         topBar = {
             TopBar(
                 title = stringResource(R.string.sign_up),
-                useComponent = useComponent,
-                showBackButton = true
+                useComponent = useComponent
             )
         }, bottomBar = {
             Column(

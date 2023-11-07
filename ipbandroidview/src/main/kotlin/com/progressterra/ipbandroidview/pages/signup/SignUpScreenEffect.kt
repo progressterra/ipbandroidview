@@ -6,7 +6,5 @@ sealed class SignUpScreenEffect {
 
     data object OnSkip : SignUpScreenEffect()
 
-    data object OnBack : SignUpScreenEffect()
-
     class OpenPhoto(val data: String) : SignUpScreenEffect()
 }

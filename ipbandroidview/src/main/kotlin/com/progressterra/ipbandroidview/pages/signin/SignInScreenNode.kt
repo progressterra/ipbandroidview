@@ -19,8 +19,8 @@ class SignInScreenNode(
         val viewModel = getViewModel<SignInScreenViewModel>()
         viewModel.collectEffects {
             when (it) {
-                is SignInScreenEffect.Next -> navigation.onCodeConfirmation(it.data)
-                is SignInScreenEffect.Skip -> navigation.onMain()
+                is SignInScreenEffect.Next -> navigation.onConfirmationCode(it.data)
+                is SignInScreenEffect.Skip -> navigation.onSkip()
             }
         }
         val state = viewModel.state.collectAsState().value

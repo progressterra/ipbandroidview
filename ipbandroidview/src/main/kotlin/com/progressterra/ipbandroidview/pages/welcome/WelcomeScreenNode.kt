@@ -22,8 +22,6 @@ class WelcomeScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is WelcomeScreenEffect.OnAuth -> navigation.onAuth()
-                is WelcomeScreenEffect.OnSkip -> navigation.onMain()
-                is WelcomeScreenEffect.OnAlreadyAuth -> navigation.onMain()
             }        }
         val state = viewModel.state.collectAsState().value
         LaunchedEffect(Unit) {

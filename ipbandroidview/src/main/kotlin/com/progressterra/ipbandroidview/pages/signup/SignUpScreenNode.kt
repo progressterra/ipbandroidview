@@ -22,10 +22,9 @@ class SignUpScreenNode(
         val viewModel = getViewModel<SignUpScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
-                is SignUpScreenEffect.OnBack -> navigation.onBack()
-                is SignUpScreenEffect.OnNext -> navigation.onMain()
-                is SignUpScreenEffect.OnSkip -> navigation.onMain()
+                is SignUpScreenEffect.OnNext -> navigation.onNext()
                 is SignUpScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+                is SignUpScreenEffect.OnSkip -> navigation.onSkip()
             }
         }
         val state = viewModel.state.collectAsState().value

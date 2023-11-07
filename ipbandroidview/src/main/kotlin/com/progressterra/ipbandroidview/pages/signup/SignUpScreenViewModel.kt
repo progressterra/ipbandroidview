@@ -42,10 +42,7 @@ class SignUpScreenViewModel(
         }
     }
 
-    override fun handle(event: TopBarEvent) {
-        postEffect(SignUpScreenEffect.OnBack)
-    }
-
+    override fun handle(event: TopBarEvent) = Unit
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
