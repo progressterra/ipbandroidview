@@ -4,7 +4,6 @@ import com.progressterra.ipbandroidapi.api.messenger.MessengerService
 import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateDialog
 import com.progressterra.ipbandroidapi.api.messenger.models.MetaDataClientWithID
 import com.progressterra.ipbandroidapi.api.messenger.models.TypeDataSource
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
@@ -18,7 +17,8 @@ interface CreateChatWithUserUseCase {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val messengerService: MessengerService,
-        private val manageResources: ManageResources, makeToastUseCase: MakeToastUseCase
+        manageResources: ManageResources,
+        makeToastUseCase: MakeToastUseCase
     ) : CreateChatWithUserUseCase,
         AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
@@ -29,13 +29,13 @@ interface CreateChatWithUserUseCase {
                     body = IncomeDataForCreateDialog(
                         listClients = listOf(
                             MetaDataClientWithID(
-                                dataSourceType = TypeDataSource.CUSTOM,
+                                dataSourceType = TypeDataSource.CLIENT,
                                 dataSourceName = "",
                                 idClient = user.id,
                                 description = ""
                             )
                         ),
-                        description = manageResources.string(R.string.chat),
+                        description = "",
                         additionalDataJSON = ""
                     )
                 ).data?.idUnique!!

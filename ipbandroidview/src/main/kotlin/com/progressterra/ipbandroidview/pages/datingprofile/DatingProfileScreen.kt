@@ -206,7 +206,7 @@ fun DatingProfileScreen(
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
                     state = state.name,
-                    hint = stringResource(R.string.name_surname),
+                    hint = stringResource(R.string.name),
                     useComponent = useComponent,
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
@@ -223,20 +223,6 @@ fun DatingProfileScreen(
                     hint = stringResource(R.string.phone_number),
                     useComponent = useComponent,
                     backgroundColor = IpbTheme.colors.background.asColor()
-                )
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state.email,
-                    hint = stringResource(R.string.email),
-                    useComponent = useComponent,
-                    backgroundColor = IpbTheme.colors.background.asColor()
-                )
-                TextField(
-                    modifier = Modifier.fillMaxWidth(),
-                    state = state.nickName,
-                    useComponent = useComponent,
-                    hint = stringResource(R.string.nickname),
-                    singleLine = false
                 )
                 BrushedText(
                     modifier = Modifier,
