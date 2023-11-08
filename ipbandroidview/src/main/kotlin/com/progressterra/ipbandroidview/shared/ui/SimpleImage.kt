@@ -43,8 +43,6 @@ fun SimpleImage(
                     textAlign = TextAlign.Center
                 )
             }
-        }, loading = {
-            ThemedLoadingIndicator(modifier = Modifier.align(Alignment.Center))
         },
         previewPlaceholder = R.drawable.dummy_200x400
     )
