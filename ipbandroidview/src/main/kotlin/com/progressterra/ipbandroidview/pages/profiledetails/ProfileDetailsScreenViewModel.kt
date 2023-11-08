@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.lifecycle.viewModelScope
+import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.editprofile.EditProfileEvent
@@ -41,7 +42,7 @@ class ProfileDetailsScreenViewModel(
                     makeToastUseCase(R.string.failure)
                 }
             }
-            viewModelScope.launch {  }
+            viewModelScope.launch { }
         }
     }
 
@@ -56,7 +57,9 @@ class ProfileDetailsScreenViewModel(
                             name = editUser.name.copy(enabled = false),
                             email = editUser.email.copy(enabled = false),
                             birthday = editUser.birthday.copy(enabled = false),
-                            phone = editUser.phone.copy(enabled = false)
+                            soname = editUser.soname.copy(enabled = false),
+                            patronymic = editUser.patronymic.copy(enabled = false),
+                            sexEnabled = false
                         ), screen = it.screen.copy(state = ScreenState.SUCCESS)
                     )
                 }
@@ -90,8 +93,11 @@ class ProfileDetailsScreenViewModel(
                                 name = it.editUser.name.copy(enabled = false),
                                 email = it.editUser.email.copy(enabled = false),
                                 birthday = it.editUser.birthday.copy(enabled = false),
+                                soname = it.editUser.soname.copy(enabled = false),
+                                patronymic = it.editUser.patronymic.copy(enabled = false),
+                                sexEnabled = false
                             ),
-                            editButton = it.editButton.copy(editing = !currentState.editButton.editing)
+                            editButton = it.editButton.copy(editing = false)
                         )
                     }
                 }
@@ -102,8 +108,11 @@ class ProfileDetailsScreenViewModel(
                             name = it.editUser.name.copy(enabled = true),
                             email = it.editUser.email.copy(enabled = true),
                             birthday = it.editUser.birthday.copy(enabled = true),
+                            soname = it.editUser.soname.copy(enabled = true),
+                            patronymic = it.editUser.patronymic.copy(enabled = true),
+                            sexEnabled = true
                         ),
-                        editButton = it.editButton.copy(editing = !currentState.editButton.editing)
+                        editButton = it.editButton.copy(editing = true)
                     )
                 }
 
@@ -122,6 +131,20 @@ class ProfileDetailsScreenViewModel(
                 when (event.id) {
                     "name" -> emitState {
                         it.copy(editUser = it.editUser.copy(name = it.editUser.name.copy(text = event.text)))
+                    }
+
+                    "soname" -> emitState {
+                        it.copy(editUser = it.editUser.copy(soname = it.editUser.soname.copy(text = event.text)))
+                    }
+
+                    "patronymic" -> emitState {
+                        it.copy(
+                            editUser = it.editUser.copy(
+                                patronymic = it.editUser.patronymic.copy(
+                                    text = event.text
+                                )
+                            )
+                        )
                     }
 
                     "email" -> emitState {
@@ -148,8 +171,36 @@ class ProfileDetailsScreenViewModel(
 
     private fun valid() {
         onBackground {
+            val sonameValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("soname") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("soname")
+                        && currentState.editUser.soname.text.isNotEmpty())
+            ) currentState.editUser.soname.valid() else true
+            val patronymicValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("patronymic") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("patronymic")
+                        && currentState.editUser.patronymic.text.isNotEmpty())
+            ) currentState.editUser.patronymic.valid() else true
+            val dateOfBirthValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("dateOfBirth") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("dateOfBirth")
+                        && currentState.editUser.birthday.formatByType().isNotEmpty())
+            ) currentState.editUser.birthday.valid() else true
+            val nameValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("name") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("name")
+                        && currentState.editUser.name.text.isNotEmpty())
+            ) currentState.editUser.name.valid() else true
+            val emailValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("eMailGeneral") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("eMailGeneral")
+                        && currentState.editUser.email.text.isNotEmpty())
+            ) currentState.editUser.email.valid() else true
+            val sexValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("sex")
+            ) currentState.editUser.sex != null else true
             val valid =
-                currentState.editUser.name.valid() && currentState.editUser.birthday.valid()
+                dateOfBirthValid && nameValid && emailValid && sexValid && sonameValid && patronymicValid
             emitState {
                 it.copy(
                     editButton = it.editButton.copy(

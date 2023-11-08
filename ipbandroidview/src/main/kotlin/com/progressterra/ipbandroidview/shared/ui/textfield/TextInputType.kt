@@ -15,7 +15,6 @@ enum class TextInputType {
     PHONE_NUMBER,
     DATE,
     EMAIL,
-    NAME_SURNAME,
     CHAT;
 
     fun toVisualTransformation() = when (this) {

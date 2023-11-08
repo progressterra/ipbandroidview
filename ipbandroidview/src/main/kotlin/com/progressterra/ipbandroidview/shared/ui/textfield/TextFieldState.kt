@@ -46,8 +46,7 @@ data class TextFieldState(
         TextInputType.PHONE_NUMBER -> text.trim().isRussianPhoneNumber()
         TextInputType.DATE -> text.trim().isDigitsOnly() && text.length == 8
         TextInputType.EMAIL -> text.trim().isEmail()
-        TextInputType.NAME_SURNAME -> text.trim().split(" ").size == 2
-        else -> true
+        else -> text.trim().isNotEmpty()
     }
 
     companion object

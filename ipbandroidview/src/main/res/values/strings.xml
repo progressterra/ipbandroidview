@@ -207,4 +207,7 @@
     <string name="avatar_background">Avatar background</string>
     <string name="user_avatar">User avatar</string>
     <string name="failure_location_permission">Нет доступа к местоположению</string>
+    <string name="name">Имя</string>
+    <string name="soname">Фамилия</string>
+    <string name="patronymic">Отчество</string>
 </resources>

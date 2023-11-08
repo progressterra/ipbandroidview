@@ -23,7 +23,7 @@ class SignUpScreenViewModel(
             fetchUserUseCase().onSuccess { user ->
                 emitState {
                     it.copy(
-                        editUser = user.copy(phone = user.phone.copy(enabled = false)),
+                        editUser = user,
                         screen = it.screen.copy(state = ScreenState.SUCCESS)
                     )
                 }
@@ -64,6 +64,18 @@ class SignUpScreenViewModel(
                         )
                     }
 
+                    "soname" -> emitState {
+                        it.copy(
+                            editUser = it.editUser.copy(soname = it.editUser.soname.copy(text = event.text))
+                        )
+                    }
+
+                    "patronymic" -> emitState {
+                        it.copy(
+                            editUser = it.editUser.copy(patronymic = it.editUser.patronymic.copy(text = event.text))
+                        )
+                    }
+
                     "email" -> emitState {
                         it.copy(
                             editUser = it.editUser.copy(email = it.editUser.email.copy(text = event.text))
@@ -87,9 +99,19 @@ class SignUpScreenViewModel(
 
     private fun valid() {
         onBackground {
-            val bdayValid = if (
-                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("bday") ||
-                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("bday")
+            val sonameValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("soname") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("soname")
+                        && currentState.editUser.soname.text.isNotEmpty())
+            ) currentState.editUser.soname.valid() else true
+            val patronymicValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("patronymic") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("patronymic")
+                        && currentState.editUser.patronymic.text.isNotEmpty())
+            ) currentState.editUser.patronymic.valid() else true
+            val dateOfBirthValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("dateOfBirth") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("dateOfBirth")
                         && currentState.editUser.birthday.formatByType().isNotEmpty())
             ) currentState.editUser.birthday.valid() else true
             val nameValid = if (
@@ -98,14 +120,15 @@ class SignUpScreenViewModel(
                         && currentState.editUser.name.text.isNotEmpty())
             ) currentState.editUser.name.valid() else true
             val emailValid = if (
-                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("email") ||
-                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("email")
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("eMailGeneral") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("eMailGeneral")
                         && currentState.editUser.email.text.isNotEmpty())
             ) currentState.editUser.email.valid() else true
             val sexValid = if (
                 IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("sex")
             ) currentState.editUser.sex != null else true
-            val valid = bdayValid && nameValid && emailValid && sexValid
+            val valid =
+                dateOfBirthValid && nameValid && emailValid && sexValid && sonameValid && patronymicValid
             emitState { it.copy(next = it.next.copy(enabled = valid)) }
         }
     }

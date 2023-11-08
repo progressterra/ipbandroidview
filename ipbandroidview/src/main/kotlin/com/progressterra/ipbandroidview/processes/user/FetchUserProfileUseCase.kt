@@ -14,7 +14,7 @@ interface FetchUserProfileUseCase {
                 profileImage = "https://placekitten.com/200/200",
                 name = buildString {
                     if (UserData.userName.name.isNotBlank()) append(UserData.userName.name)
-                    if (UserData.userName.surname.isNotBlank()) append(" ${UserData.userName.surname}")
+                    if (UserData.userName.soname.isNotBlank()) append(" ${UserData.userName.soname}")
                 },
                 email = UserData.email
             )

@@ -58,7 +58,7 @@ interface EndVerificationChannelUseCase {
             UserData.idUnique = info.idUnique!!
             UserData.userName = UserName(
                 name = info.name ?: "",
-                surname = info.soname ?: "",
+                soname = info.soname ?: "",
                 patronymic = info.patronymic ?: ""
             )
             UserData.dateOfBirthday = info.dateOfBirth?.parseToZDT()?.formatZdtIso() ?: ""

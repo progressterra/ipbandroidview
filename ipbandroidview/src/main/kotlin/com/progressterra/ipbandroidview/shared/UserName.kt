@@ -7,12 +7,12 @@ data class UserName(
     @SerializedName("name")
     val name: String = "",
 
-    @SerializedName("surname")
-    val surname: String = "",
+    @SerializedName("soname")
+    val soname: String = "",
 
     @SerializedName("patronymic")
     val patronymic: String = ""
 ) : IsEmpty {
 
-    override fun isEmpty(): Boolean = name == "" && surname == "" && patronymic == ""
+    override fun isEmpty(): Boolean = name == "" && soname == "" && patronymic == ""
 }

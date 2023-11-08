@@ -17,7 +17,6 @@ data class DatingProfileScreenState(
     val choosePhoto: ButtonState = ButtonState(id = "choosePhoto"),
     val name: TextFieldState = TextFieldState(
         id = "name",
-        type = TextInputType.NAME_SURNAME,
         enabled = false
     ),
     val email: TextFieldState = TextFieldState(

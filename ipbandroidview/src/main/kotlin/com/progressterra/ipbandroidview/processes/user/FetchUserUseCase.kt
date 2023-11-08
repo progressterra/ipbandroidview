@@ -21,12 +21,10 @@ interface FetchUserUseCase {
         override suspend fun invoke(): Result<EditUserState> = handle {
             val editUser = EditUserState()
             editUser.copy(
-                name = editUser.name.unFormatByType(buildString {
-                    if (UserData.userName.name.isNotBlank()) append(UserData.userName.name)
-                    if (UserData.userName.surname.isNotBlank()) append(" ${UserData.userName.surname}")
-                }),
+                name = editUser.name.unFormatByType(UserData.userName.name),
+                soname = editUser.soname.unFormatByType(UserData.userName.soname),
+                patronymic = editUser.patronymic.unFormatByType(UserData.userName.patronymic),
                 email = editUser.email.unFormatByType(UserData.email),
-                phone = editUser.phone.unFormatByType(UserData.phone),
                 birthday = editUser.birthday.unFormatByType(
                     UserData.dateOfBirthday.parseToZDT()?.formatZdt("dd.MM.yyyy") ?: ""
                 ),

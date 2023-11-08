@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -21,7 +23,6 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingChat
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -50,10 +51,11 @@ fun ChatsScreen(
                 modifier = modifier,
                 contentAlignment = Alignment.Center
             ) {
-                BrushedIcon(
+                Icon(
                     modifier = Modifier.size(79.dp),
-                    resId = R.drawable.avatar_background,
-                    tint = IpbTheme.colors.primary.asBrush()
+                    painter = painterResource(id = R.drawable.avatar_background),
+                    tint = IpbTheme.colors.primary.asColor(),
+                    contentDescription = null
                 )
                 SimpleImage(
                     modifier = Modifier

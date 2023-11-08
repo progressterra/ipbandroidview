@@ -35,82 +35,89 @@ fun EditUser(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("name") || IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains(
-                "name"
-            )
-        ) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.name,
-                hint = stringResource(R.string.name_surname),
-                useComponent = useComponent,
-                backgroundColor = IpbTheme.colors.background.asColor()
-            )
-        }
-        if (IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("bday") || IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains(
-                "bday"
-            )
-        ) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.birthday,
-                hint = stringResource(R.string.birthday),
-                useComponent = useComponent,
-                backgroundColor = IpbTheme.colors.background.asColor()
-            )
-        }
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.phone,
-            hint = stringResource(R.string.phone_number),
-            useComponent = useComponent,
-            backgroundColor = IpbTheme.colors.background.asColor()
-        )
-        if (IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("email") ||
-            IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("email")
-        ) {
-            TextField(
-                modifier = Modifier.fillMaxWidth(),
-                state = state.email,
-                hint = stringResource(R.string.email),
-                useComponent = useComponent,
-                backgroundColor = IpbTheme.colors.background.asColor()
-            )
-        }
-        if (IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("sex") ||
-            IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("sex")
-        ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                BrushedText(
-                    text = stringResource(id = R.string.your_sex),
-                    style = IpbTheme.typography.headline,
-                    tint = IpbTheme.colors.textPrimary.asBrush()
-                )
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    ThemedRadioButton(
-                        checked = state.sex == Sex.MALE,
-                        onClick = { useComponent.handle(EditUserEvent(Sex.MALE)) })
-                    BrushedText(
-                        text = stringResource(id = R.string.male),
-                        style = IpbTheme.typography.body,
-                        tint = IpbTheme.colors.textPrimary.asBrush()
+        IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.forEach {
+            when (it) {
+                "name" -> {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.name,
+                        hint = stringResource(R.string.name),
+                        useComponent = useComponent,
+                        backgroundColor = IpbTheme.colors.background.asColor()
                     )
                 }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    ThemedRadioButton(
-                        checked = state.sex == Sex.FEMALE,
-                        onClick = { useComponent.handle(EditUserEvent(Sex.FEMALE)) })
-                    BrushedText(
-                        text = stringResource(id = R.string.female),
-                        style = IpbTheme.typography.body,
-                        tint = IpbTheme.colors.textPrimary.asBrush()
+                "soname" -> {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.soname,
+                        hint = stringResource(R.string.soname),
+                        useComponent = useComponent,
+                        backgroundColor = IpbTheme.colors.background.asColor()
+                    )
+                }
+                "patronymic" -> {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.patronymic,
+                        hint = stringResource(R.string.patronymic),
+                        useComponent = useComponent,
+                        backgroundColor = IpbTheme.colors.background.asColor()
+                    )
+                }
+                "eMailGeneral" -> {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.email,
+                        hint = stringResource(R.string.email),
+                        useComponent = useComponent,
+                        backgroundColor = IpbTheme.colors.background.asColor()
+                    )
+                }
+                "sex" -> {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        BrushedText(
+                            text = stringResource(id = R.string.your_sex),
+                            style = IpbTheme.typography.headline,
+                            tint = IpbTheme.colors.textPrimary.asBrush()
+                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            ThemedRadioButton(
+                                checked = state.sex == Sex.MALE,
+                                onClick = { useComponent.handle(EditUserEvent(Sex.MALE)) },
+                                enabled = state.sexEnabled)
+                            BrushedText(
+                                text = stringResource(id = R.string.male),
+                                style = IpbTheme.typography.body,
+                                tint = IpbTheme.colors.textPrimary.asBrush()
+                            )
+                        }
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            ThemedRadioButton(
+                                checked = state.sex == Sex.FEMALE,
+                                onClick = { useComponent.handle(EditUserEvent(Sex.FEMALE)) },
+                                enabled = state.sexEnabled)
+                            BrushedText(
+                                text = stringResource(id = R.string.female),
+                                style = IpbTheme.typography.body,
+                                tint = IpbTheme.colors.textPrimary.asBrush()
+                            )
+                        }
+                    }
+                }
+                "dateOfBirth" -> {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.birthday,
+                        hint = stringResource(R.string.birthday),
+                        useComponent = useComponent,
+                        backgroundColor = IpbTheme.colors.background.asColor()
                     )
                 }
             }

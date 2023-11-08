@@ -7,15 +7,11 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 
 @Immutable
 data class EditUserState(
-    val name: TextFieldState = TextFieldState(id = "name", type = TextInputType.NAME_SURNAME),
+    val name: TextFieldState = TextFieldState(id = "name"),
+    val soname: TextFieldState = TextFieldState(id = "soname"),
+    val patronymic: TextFieldState = TextFieldState(id = "patronymic"),
     val email: TextFieldState = TextFieldState(id = "email", type = TextInputType.EMAIL),
-    val phone: TextFieldState = TextFieldState(
-        id = "phone",
-        type = TextInputType.PHONE_NUMBER
-    ),
-    val birthday: TextFieldState = TextFieldState(
-        id = "birthday",
-        type = TextInputType.DATE
-    ),
-    val sex: Sex? = null
+    val birthday: TextFieldState = TextFieldState(id = "birthday", type = TextInputType.DATE),
+    val sex: Sex? = null,
+    val sexEnabled: Boolean = true,
 )
