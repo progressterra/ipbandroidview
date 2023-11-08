@@ -1,7 +1,6 @@
 package com.progressterra.ipbandroidview.pages.profile
 
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -48,58 +47,50 @@ fun ProfileScreen(
                     useComponent = useComponent
                 )
             }
-            Spacer(Modifier.height(8.dp))
             ProfileButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
                 state = state.orders,
                 useComponent = useComponent,
                 title = stringResource(R.string.my_orders)
             )
-            Spacer(Modifier.height(8.dp))
             ProfileButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
                 state = state.wantThis,
                 useComponent = useComponent,
                 title = stringResource(R.string.want_this)
             )
-            Spacer(Modifier.height(8.dp))
             ProfileButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
                 state = state.favorites,
                 useComponent = useComponent,
                 title = stringResource(R.string.favorites)
             )
-            Spacer(Modifier.height(8.dp))
             ProfileButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
                 state = state.documents,
                 useComponent = useComponent,
                 title = stringResource(R.string.documents),
                 notification = state.docNotification
             )
-            Spacer(Modifier.height(8.dp))
             ProfileButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
                 state = state.bankCards,
                 useComponent = useComponent,
                 title = stringResource(R.string.bank_cards)
             )
-            Spacer(Modifier.height(8.dp))
             ProfileButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp),
                 state = state.support,
                 useComponent = useComponent,
                 title = stringResource(R.string.support)
             )
-
             Spacer(Modifier.weight(1f))
             ProfileButton(
-                modifier = Modifier.padding(horizontal = 20.dp),
+                modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 8.dp, bottom = 36.dp),
                 state = state.logout,
                 useComponent = useComponent,
                 title = stringResource(R.string.logout)
             )
-            Spacer(Modifier.height(36.dp))
         }
     }
 }
