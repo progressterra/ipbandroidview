@@ -125,7 +125,9 @@ class DatingProfileScreenViewModel(
             }
             if (event.id == "save") {
                 changeInterestsUseCase(currentState.changedInterests)
-                saveDatingInfoUseCase(description = currentState.about.formatByType())
+                saveDatingInfoUseCase(description = currentState.about.formatByType()).onSuccess {
+                    emitState { it.copy(editMode = false) }
+                }
             }
             if (event.id == "connect") {
                 if (currentState.user.connection.isEmpty()) {
