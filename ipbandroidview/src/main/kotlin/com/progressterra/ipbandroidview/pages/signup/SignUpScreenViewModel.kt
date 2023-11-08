@@ -87,8 +87,25 @@ class SignUpScreenViewModel(
 
     private fun valid() {
         onBackground {
-            val valid =
-                currentState.editUser.name.valid() && currentState.editUser.birthday.valid() && !(currentState.editUser.sex == null && IpbAndroidViewSettings.SHOW_SEX_PICKER)
+            val bdayValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("bday") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("bday")
+                        && currentState.editUser.birthday.formatByType().isNotEmpty())
+            ) currentState.editUser.birthday.valid() else true
+            val nameValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("name") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("name")
+                        && currentState.editUser.name.text.isNotEmpty())
+            ) currentState.editUser.name.valid() else true
+            val emailValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("email") ||
+                (IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("email")
+                        && currentState.editUser.email.text.isNotEmpty())
+            ) currentState.editUser.email.valid() else true
+            val sexValid = if (
+                IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("sex")
+            ) currentState.editUser.sex != null else true
+            val valid = bdayValid && nameValid && emailValid && sexValid
             emitState { it.copy(next = it.next.copy(enabled = valid)) }
         }
     }

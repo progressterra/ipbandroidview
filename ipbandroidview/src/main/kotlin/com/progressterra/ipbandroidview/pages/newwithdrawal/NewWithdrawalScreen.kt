@@ -15,11 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bankcard.BankCard
+import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -28,6 +31,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun NewWithdrawalScreen(
@@ -122,4 +126,32 @@ fun NewWithdrawalScreen(
             )
         }
     }
+}
+
+@Composable
+@Preview
+private fun NewWithdrawalScreenPreview() {
+    NewWithdrawalScreen(
+        state = NewWithdrawalScreenState(
+            cardsFlow = flowOf(
+                PagingData.from(
+                    listOf(
+                        BankCardState(
+                            id = "0",
+                            isMainCard = true
+                        ),
+                        BankCardState(
+                            id = "1",
+                            isMainCard = false
+                        ),
+                        BankCardState(
+                            id = "2",
+                            isMainCard = false
+                        )
+                    )
+                )
+            )
+        ),
+        useComponent = UseNewWithdrawalScreen.Empty()
+    )
 }

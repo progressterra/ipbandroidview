@@ -76,7 +76,8 @@ class IpbAndroidView private constructor(
             iconPressed = ColorUnit(config["iconPressed"]!!),
             iconDisabled = ColorUnit(config["iconDisabled"]!!)
         )
-        IpbAndroidViewSettings.SHOW_SEX_PICKER = config["showSexPicker"]!!.first().toBoolean()
+        IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS = config["availableProfileFields"]!!
+        IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS = config["mandatoryProfileFields"]!!
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!.first()
         IpbAndroidApiSettings.BALANCE_URL = config["balanceUrl"]!!.first()
         IpbAndroidApiSettings.CART_URL = config["cartUrl"]!!.first()

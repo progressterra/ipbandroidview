@@ -35,20 +35,30 @@ fun EditUser(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.name,
-            hint = stringResource(R.string.name_surname),
-            useComponent = useComponent,
-            backgroundColor = IpbTheme.colors.background.asColor()
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.birthday,
-            hint = stringResource(R.string.birthday),
-            useComponent = useComponent,
-            backgroundColor = IpbTheme.colors.background.asColor()
-        )
+        if (IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("name") || IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains(
+                "name"
+            )
+        ) {
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                state = state.name,
+                hint = stringResource(R.string.name_surname),
+                useComponent = useComponent,
+                backgroundColor = IpbTheme.colors.background.asColor()
+            )
+        }
+        if (IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("bday") || IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains(
+                "bday"
+            )
+        ) {
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                state = state.birthday,
+                hint = stringResource(R.string.birthday),
+                useComponent = useComponent,
+                backgroundColor = IpbTheme.colors.background.asColor()
+            )
+        }
         TextField(
             modifier = Modifier.fillMaxWidth(),
             state = state.phone,
@@ -56,14 +66,20 @@ fun EditUser(
             useComponent = useComponent,
             backgroundColor = IpbTheme.colors.background.asColor()
         )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            state = state.email,
-            hint = stringResource(R.string.email),
-            useComponent = useComponent,
-            backgroundColor = IpbTheme.colors.background.asColor()
-        )
-        if (IpbAndroidViewSettings.SHOW_SEX_PICKER) {
+        if (IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("email") ||
+            IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("email")
+        ) {
+            TextField(
+                modifier = Modifier.fillMaxWidth(),
+                state = state.email,
+                hint = stringResource(R.string.email),
+                useComponent = useComponent,
+                backgroundColor = IpbTheme.colors.background.asColor()
+            )
+        }
+        if (IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS.contains("sex") ||
+            IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS.contains("sex")
+        ) {
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
