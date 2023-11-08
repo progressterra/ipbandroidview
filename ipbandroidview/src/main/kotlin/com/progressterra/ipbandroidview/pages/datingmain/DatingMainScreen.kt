@@ -311,7 +311,6 @@ fun DatingMainScreen(
                     .background(if (selected == index) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.surface.asBrush()),
                     selected = selected == index,
                     onClick = { onSelect(index) },
-                    enabled = if (index == 1) true else !state.currentUser.target.isEmpty(),
                     text = {
                         BrushedText(
                             text = text,
@@ -348,7 +347,8 @@ fun DatingMainScreen(
         }
     }) { _, _ ->
         Column(
-            modifier = Modifier.verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var selectedIndex by remember { mutableIntStateOf(0) }
             Tabs(selected = selectedIndex, onSelect = { selectedIndex = it })
