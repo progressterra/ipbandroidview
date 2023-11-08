@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.newwithdrawal
 
+import androidx.paging.map
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
@@ -59,8 +60,8 @@ class NewWithdrawalScreenViewModel(
             emitState {
                 val newCard = event.state.copy(isSelected = true)
                 it.copy(cardsFlow = it.cardsFlow.map { pd ->
-                    pd.replaceById(newCard)
-                }, cards = it.cards.replaceById(newCard))
+                    pd.map { c -> c.copy(isSelected = false) }.replaceById(newCard)
+                }, cards = it.cards.map { c -> c.copy(isSelected = false) }.replaceById(newCard))
             }
             validate()
         }
