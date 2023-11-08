@@ -347,7 +347,7 @@ fun DatingMainScreen(
         }
     }) { _, _ ->
         Column(
-            modifier = Modifier.verticalScroll(rememberScrollState()),
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var selectedIndex by remember { mutableIntStateOf(0) }
@@ -500,22 +500,11 @@ fun DatingMainScreen(
                             else -> Unit
                         }
                     })
-                    AndroidView(factory = { context ->
-                        view = MapView(context)
-                        view!!.map.mapObjects.addPlacemark().apply {
-                            setView(ViewProvider(MapCurrentUserView(context).apply { loadImage() }))
-                            addTapListener { _, _ ->
-                                useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
-                                true
-                            }
-                            geometry = Point(
-                                state.currentUser.locationPoint.latitude,
-                                state.currentUser.locationPoint.longitude
-                            )
-                        }
-                        state.users.forEach {
+                    AndroidView(
+                        factory = { context ->
+                            view = MapView(context)
                             view!!.map.mapObjects.addPlacemark().apply {
-                                setView(ViewProvider(MapUserView(context).apply { loadImage(it) }))
+                                setView(ViewProvider(MapCurrentUserView(context).apply { loadImage() }))
                                 addTapListener { _, _ ->
                                     useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
                                     true
@@ -525,9 +514,21 @@ fun DatingMainScreen(
                                     state.currentUser.locationPoint.longitude
                                 )
                             }
-                        }
-                        view!!
-                    })
+                            state.users.forEach {
+                                view!!.map.mapObjects.addPlacemark().apply {
+                                    setView(ViewProvider(MapUserView(context).apply { loadImage(it) }))
+                                    addTapListener { _, _ ->
+                                        useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
+                                        true
+                                    }
+                                    geometry = Point(
+                                        state.currentUser.locationPoint.latitude,
+                                        state.currentUser.locationPoint.longitude
+                                    )
+                                }
+                            }
+                            view!!
+                        })
                 }
             }
         }
