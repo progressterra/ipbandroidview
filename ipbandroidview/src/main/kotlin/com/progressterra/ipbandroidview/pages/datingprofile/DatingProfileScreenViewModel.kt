@@ -49,7 +49,6 @@ class DatingProfileScreenViewModel(
                             allInterests = it.allInterests.map { interest ->
                                 if (newUser.interests.contains(interest)) interest.copy(picked = true) else interest
                             },
-                            nickName = it.nickName.copy(text = newUser.name),
                             about = it.about.copy(text = newUser.description)
                         )
                     }
@@ -126,11 +125,7 @@ class DatingProfileScreenViewModel(
             }
             if (event.id == "save") {
                 changeInterestsUseCase(currentState.changedInterests)
-                saveDatingInfoUseCase(
-                    nickName = currentState.nickName.formatByType(),
-                    description = currentState.about.formatByType()
-                )
-
+                saveDatingInfoUseCase(description = currentState.about.formatByType())
             }
             if (event.id == "connect") {
                 if (currentState.user.connection.isEmpty()) {
@@ -149,17 +144,11 @@ class DatingProfileScreenViewModel(
 
     override fun handle(event: TextFieldEvent) {
         if (event is TextFieldEvent.TextChanged) {
-            if (event.id == "nickName") {
-                emitState { it.copy(nickName = it.nickName.copy(text = event.text)) }
-            }
             if (event.id == "about") {
                 emitState { it.copy(about = it.about.copy(text = event.text)) }
             }
         }
         if (event is TextFieldEvent.AdditionalAction) {
-            if (event.id == "nickName") {
-                emitState { it.copy(nickName = it.nickName.copy(text = "")) }
-            }
             if (event.id == "about") {
                 emitState { it.copy(about = it.about.copy(text = "")) }
             }
@@ -182,7 +171,7 @@ class DatingProfileScreenViewModel(
     }
 
     private fun valid() = onBackground {
-        val valid = currentState.nickName.text.isNotEmpty()
+        val valid = currentState.about.valid()
         emitState { it.copy(save = it.save.copy(enabled = valid)) }
     }
 }

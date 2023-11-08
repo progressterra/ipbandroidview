@@ -77,8 +77,6 @@ private fun SignUpScreenPreview() {
                     id = "mattis", text = "integer"
                 ), email = TextFieldState(
                     id = "consetetur", text = "saepe"
-                ), phone = TextFieldState(
-                    id = "ad", text = "tellus"
                 ), birthday = TextFieldState(
                     id = "voluptatibus", text = "mutat"
                 )

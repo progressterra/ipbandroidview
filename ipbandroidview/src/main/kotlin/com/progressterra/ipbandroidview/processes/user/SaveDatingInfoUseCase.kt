@@ -9,24 +9,22 @@ import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface SaveDatingInfoUseCase {
 
-    suspend operator fun invoke(nickName: String, description: String): Result<Unit>
+    suspend operator fun invoke(description: String): Result<Unit>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val service: ImhService, makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
-    ) : SaveDatingInfoUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase,
+    ) : SaveDatingInfoUseCase, AbstractTokenUseCase(
+        obtainAccessToken, makeToastUseCase,
         manageResources
     ) {
 
-        override suspend fun invoke(
-            nickName: String,
-            description: String
-        ): Result<Unit> = withToken {
+        override suspend fun invoke(description: String): Result<Unit> = withToken {
             service.clientDataPersonal(
                 token = it,
                 body = RGClientDataPersonalEntity(
-                    nickName = nickName,
+                    nickName = "",
                     descriptionAboutMe = description
                 )
             )

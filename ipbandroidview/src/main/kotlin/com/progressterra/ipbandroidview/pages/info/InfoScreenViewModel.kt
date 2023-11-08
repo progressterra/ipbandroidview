@@ -24,7 +24,6 @@ class InfoScreenViewModel(
                     emitState {
                         it.copy(
                             screen = it.screen.copy(state = ScreenState.SUCCESS), info = InfoState(
-                                nickName = it.info.nickName.copy(text = user.name),
                                 about = it.info.about.copy(text = user.description),
                             )
                         )
@@ -53,7 +52,6 @@ class InfoScreenViewModel(
         onBackground {
             if (event.id == "save") {
                 saveDatingInfoUseCase(
-                    currentState.info.nickName.formatByType(),
                     currentState.info.about.formatByType()
                 ).onSuccess {
                     postEffect(InfoScreenEffect.OnNext)
@@ -66,16 +64,12 @@ class InfoScreenViewModel(
 
     override fun handle(event: TextFieldEvent) {
         if (event is TextFieldEvent.TextChanged) {
-            if (event.id == "nickName") {
-                emitState { it.copy(info = it.info.copy(nickName = it.info.nickName.copy(text = event.text))) }
-            } else if (event.id == "about") {
+            if (event.id == "about") {
                 emitState { it.copy(info = it.info.copy(about = it.info.about.copy(text = event.text))) }
             }
         }
         if (event is TextFieldEvent.AdditionalAction) {
-            if (event.id == "nickName") {
-                emitState { it.copy(info = it.info.copy(nickName = it.info.nickName.copy(text = ""))) }
-            } else if (event.id == "about") {
+            if (event.id == "about") {
                 emitState { it.copy(info = it.info.copy(about = it.info.about.copy(text = ""))) }
             }
         }
@@ -85,8 +79,7 @@ class InfoScreenViewModel(
 
     private fun valid() {
         onBackground {
-            val valid =
-                currentState.info.about.text.isNotEmpty() && currentState.info.nickName.text.isNotEmpty()
+            val valid = currentState.info.about.valid()
             emitState { it.copy(save = it.save.copy(enabled = valid)) }
         }
     }

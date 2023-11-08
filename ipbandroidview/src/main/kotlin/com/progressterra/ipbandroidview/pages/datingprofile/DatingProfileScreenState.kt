@@ -19,11 +19,6 @@ data class DatingProfileScreenState(
         id = "name",
         enabled = false
     ),
-    val email: TextFieldState = TextFieldState(
-        id = "email",
-        type = TextInputType.EMAIL,
-        enabled = false
-    ),
     val phone: TextFieldState = TextFieldState(
         id = "phone",
         type = TextInputType.PHONE_NUMBER,
@@ -36,7 +31,6 @@ data class DatingProfileScreenState(
     val screen: StateColumnState = StateColumnState(),
     val allInterests: List<Interest> = emptyList(),
     val changedInterests: List<Interest> = emptyList(),
-    val nickName: TextFieldState = TextFieldState(id = "nickName"),
     val about: TextFieldState = TextFieldState(id = "about"),
     val editMode: Boolean = false
 )

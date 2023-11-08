@@ -31,13 +31,6 @@ fun Info(
         )
         TextField(
             modifier = Modifier.fillMaxWidth(),
-            state = state.nickName,
-            useComponent = useComponent,
-            hint = stringResource(R.string.nickname),
-            singleLine = false
-        )
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
             state = state.about,
             useComponent = useComponent,
             hint = stringResource(R.string.about_you_hint),

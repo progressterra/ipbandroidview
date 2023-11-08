@@ -335,7 +335,7 @@ fun DatingMainScreen(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .padding(horizontal = 40.dp),
-                text = stringResource(id = R.string.ready_to_meet),
+                text = stringResource(id = if (state.currentUser.sex == Sex.MALE) R.string.ready_to_meet_male else R.string.ready_to_meet_female),
                 maxLines = 1,
                 style = IpbTheme.typography.title,
                 tint = IpbTheme.colors.textPrimary.asBrush(),
@@ -348,7 +348,7 @@ fun DatingMainScreen(
         }
     }) { _, _ ->
         Column(
-            modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var selectedIndex by remember { mutableIntStateOf(0) }
             Tabs(selected = selectedIndex, onSelect = { selectedIndex = it })
@@ -356,7 +356,6 @@ fun DatingMainScreen(
                 modifier = Modifier
                     .padding(top = 20.dp)
                     .fillMaxWidth()
-                    .weight(1f)
             ) {
                 if (selectedIndex == 0) {
                     val (call, picker, exposedPicker, filter, circle) = createRefs()

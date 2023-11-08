@@ -175,7 +175,6 @@
     <string name="failure_permission">Разрешение не получено</string>
     <string name="info_about_you">Информация о себе</string>
     <string name="nickname">Имя</string>
-    <string name="ready_to_meet">Готов(а) общаться</string>
     <string name="remoteness">удалённость</string>
     <string name="map">карта</string>
     <string name="find_mate">Выберите удалённость и найдите собеседника по интересам прямо сейчас!</string>
@@ -210,4 +209,6 @@
     <string name="name">Имя</string>
     <string name="soname">Фамилия</string>
     <string name="patronymic">Отчество</string>
+    <string name="ready_to_meet_male">Готов общаться</string>
+    <string name="ready_to_meet_female">Готова общаться</string>
 </resources>
