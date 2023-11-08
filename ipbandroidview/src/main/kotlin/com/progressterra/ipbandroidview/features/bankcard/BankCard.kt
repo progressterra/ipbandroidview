@@ -44,7 +44,7 @@ fun BankCard(
             .background(IpbTheme.colors.surface.asBrush())
             .border(
                 width = 1.dp,
-                brush = if (state.isSelected) {
+                brush = if (state.isSelected && canBePicked) {
                     IpbTheme.colors.primary.asBrush()
                 } else {
                     Color.Transparent.toBrush()
