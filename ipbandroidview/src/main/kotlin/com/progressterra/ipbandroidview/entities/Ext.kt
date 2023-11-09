@@ -36,6 +36,7 @@ import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoStat
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.withdrawaltransaction.WithdrawalTransactionState
 import com.progressterra.ipbandroidview.shared.CreateId
+import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
@@ -278,7 +279,8 @@ fun RGMessagesViewModel.toMessage() = Message(
 )
 
 fun RGDialogsViewModel.toDatingChat() = DatingChat(
-    id = idUnique!!, user = DatingUser(), previewMessage = "", lastTime = ""
+    id = idUnique!!,
+    name = description ?: ""
 )
 
 fun String.parseToZDT(): ZonedDateTime? {
@@ -288,8 +290,8 @@ fun String.parseToZDT(): ZonedDateTime? {
     }
     if (result == null) {
         runCatching {
-            val semiResult = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            result = semiResult.atZone(ZoneId.systemDefault())
+            val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            result = localDateTime.atZone(ZoneId.systemDefault())
         }
     }
     return result
@@ -297,7 +299,9 @@ fun String.parseToZDT(): ZonedDateTime? {
 
 fun ZonedDateTime.formatZdt(pattern: String): String {
     val formatter = DateTimeFormatter.ofPattern(pattern)
-    return withZoneSameInstant(ZoneId.systemDefault()).format(formatter)
+    val defaultZone = ZoneId.systemDefault()
+    log("ZONE", "Default zone: ${defaultZone}")
+    return withZoneSameInstant(defaultZone).format(formatter)
 }
 
 fun ZonedDateTime.formatZdtIso(): String {

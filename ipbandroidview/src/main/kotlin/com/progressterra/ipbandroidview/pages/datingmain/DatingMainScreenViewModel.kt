@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.datingmain
 
 import android.Manifest
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
@@ -11,9 +12,10 @@ import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class DatingMainScreenViewModel(
     private val deleteReadyToMeetUseCase: DeleteReadyToMeetUseCase,
@@ -36,6 +38,9 @@ class DatingMainScreenViewModel(
         onBackground {
             usersAroundUseCase.resultFlow.collect { result ->
                 result.onSuccess { anotherUsers -> emitState { it.copy(users = anotherUsers) } }
+                    .onFailure {
+                        emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
+                    }
             }
         }
         onBackground {
@@ -56,11 +61,16 @@ class DatingMainScreenViewModel(
                             fetchDatingUserUseCase()
                         }
                     }
+                }.onFailure {
+                    emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }
                 }
             }
         }
     }
 
+    override fun handle(event: StateColumnEvent) {
+        refresh()
+    }
 
     override fun createInitialState() = DatingMainScreenState()
 
@@ -92,10 +102,13 @@ class DatingMainScreenViewModel(
 
     override fun refresh() {
         onBackground {
+            emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            var isSuccess = true
             availableTargets().onSuccess { targets ->
                 emitState { it.copy(datingTargets = targets) }
-            }
+            }.onFailure { isSuccess = false }
             fetchDatingUserUseCase()
+            emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
 
     }

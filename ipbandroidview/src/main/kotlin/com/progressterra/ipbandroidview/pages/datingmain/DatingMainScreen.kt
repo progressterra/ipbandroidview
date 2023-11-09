@@ -76,6 +76,7 @@ import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitch
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchState
 import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.CameraPosition
@@ -345,8 +346,10 @@ fun DatingMainScreen(
             )
         }
     }) { _, _ ->
-        Column(
-            modifier = Modifier.fillMaxSize(),
+        StateColumn(
+            modifier = Modifier,
+            state = state.screen,
+            useComponent = useComponent,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             var selectedIndex by remember { mutableIntStateOf(0) }

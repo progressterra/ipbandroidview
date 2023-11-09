@@ -21,7 +21,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingChat
+import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
@@ -60,7 +62,14 @@ fun ChatsScreen(
                     modifier = Modifier
                         .size(64.dp)
                         .clip(CircleShape),
-                    image = itemState.user.avatar,
+                    image = itemState.avatar.ifEmpty {
+                        rememberResourceUri(
+                            resourceId = when (itemState.sex) {
+                                Sex.MALE -> R.drawable.avatar_male
+                                Sex.FEMALE -> R.drawable.avatar_female
+                            }
+                        ).toString()
+                    },
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
             }
@@ -69,7 +78,7 @@ fun ChatsScreen(
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
                 BrushedText(
-                    text = itemState.user.name,
+                    text = itemState.name,
                     style = IpbTheme.typography.headline,
                     tint = IpbTheme.colors.textPrimary.asBrush()
                 )
