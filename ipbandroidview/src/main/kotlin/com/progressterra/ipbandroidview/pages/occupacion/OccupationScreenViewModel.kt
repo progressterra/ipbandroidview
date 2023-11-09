@@ -69,7 +69,7 @@ class OccupationScreenViewModel(
             onBackground {
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
                 saveOccupationUseCase(
-                    currentState.pickedOccupation!!,
+                    currentState.pickedOccupation,
                     currentState.userOccupation
                 ).onSuccess {
                     postEffect(OccupationScreenEffect.OnNext)
