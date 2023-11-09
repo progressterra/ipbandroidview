@@ -29,9 +29,13 @@ interface FetchDatingUserUseCase : CacheUseCase<DatingUser> {
     ) {
 
         override suspend fun invoke() {
+            log("CurrentUser", "Fetch invoked")
             withCache { token ->
+                log("CurrentUser", "Fetching")
                 val avatar = fetchAvatarUseCase().getOrThrow()
+                log("CurrentUser", "Avatar fetched")
                 val avatarBitmap = bitmapImageUseCase(avatar).getOrThrow()
+                log("CurrentUser", "Avatar bitmap converted")
                 service.clientDataData(token).data?.toDatingUser(own = true)
                     ?.copy(avatar = avatar, avatarBitmap = avatarBitmap)!!
                     .also { log("CurrentUser", it.toString()) }

@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 val widgetsModule = module {
 
-    factory<FetchGalleriesUseCase> {
+    single<FetchGalleriesUseCase> {
         FetchGalleriesUseCase.Base(get(), get(), get(), get(), get())
     }
 

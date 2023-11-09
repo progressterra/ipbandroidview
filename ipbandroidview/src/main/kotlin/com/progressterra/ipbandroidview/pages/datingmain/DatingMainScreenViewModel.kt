@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.brushedswitch.BrushedSwitchEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -103,11 +104,13 @@ class DatingMainScreenViewModel(
     override fun refresh() {
         onBackground {
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
+            log("MAIN", "Loading")
             var isSuccess = true
             availableTargets().onSuccess { targets ->
                 emitState { it.copy(datingTargets = targets) }
             }.onFailure { isSuccess = false }
             fetchDatingUserUseCase()
+            log("MAIN", "Loaded with: $isSuccess")
             emitState { it.copy(screen = it.screen.copy(state = isSuccess.toScreenState())) }
         }
 

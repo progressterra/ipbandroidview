@@ -28,6 +28,7 @@ import com.progressterra.ipbandroidview.pages.orders.OrdersScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusScreenViewModel
 import com.progressterra.ipbandroidview.pages.ordertracking.OrderTrackingScreenViewModel
 import com.progressterra.ipbandroidview.pages.payment.PaymentScreenViewModel
+import com.progressterra.ipbandroidview.pages.peoplenearby.PeopleNearbyScreenViewModel
 import com.progressterra.ipbandroidview.pages.pfppicker.PfpPickerScreenViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoScreenViewModel
 import com.progressterra.ipbandroidview.pages.profile.ProfileScreenViewModel
@@ -74,7 +75,6 @@ import com.progressterra.ipbandroidview.processes.UseBonusesUseCase
 import com.progressterra.ipbandroidview.processes.WantThisRequestsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.processes.payments.FetchMainCardIdUseCase
-import com.progressterra.ipbandroidview.pages.peoplenearby.PeopleNearbyScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -163,7 +163,7 @@ val pagesModule = module {
         EndVerificationChannelUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    factory<CatalogUseCase> {
+    single<CatalogUseCase> {
         CatalogUseCase.Base(get(), get(), get(), get())
     }
 
@@ -171,7 +171,7 @@ val pagesModule = module {
 
     single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get(), get()) }
 
-    factory<FetchCartUseCase> {
+    single<FetchCartUseCase> {
         FetchCartUseCase.Base(get(), get(), get(), get(), get())
     }
 
@@ -263,7 +263,7 @@ val pagesModule = module {
 
     single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get()) }
 
-    factory<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get(), get()) }
+    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<FetchMessagesUseCase> { FetchMessagesUseCase.Base(get(), get()) }
 
