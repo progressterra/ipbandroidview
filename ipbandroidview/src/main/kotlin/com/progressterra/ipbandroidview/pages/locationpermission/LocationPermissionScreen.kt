@@ -35,7 +35,7 @@ fun LocationPermissionScreen(
         )
     }, bottomBar = {
         Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 24.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(

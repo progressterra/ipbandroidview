@@ -9,8 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Immutable
 data class Interest(
     override val id: String = "",
-    val name: String = "",
-    val picked: Boolean = false
+    val name: String = ""
 ) : Id, Parcelable, IsEmpty {
 
     override fun isEmpty() = this == Interest()

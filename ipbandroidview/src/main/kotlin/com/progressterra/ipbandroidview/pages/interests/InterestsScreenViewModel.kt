@@ -21,12 +21,9 @@ class InterestsScreenViewModel(
             fetchDatingUserUseCase.resultFlow.collect { result ->
                 result.onSuccess { user ->
                     emitState {
-                        it.copy(allInterests = it.allInterests.map { interest ->
-                            if (user.interests.contains(interest)) interest.copy(picked = true) else interest
-                        })
+                        it.copy(userInterests = user.interests)
                     }
-                }
-                    .onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
+                }.onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
             }
         }
     }

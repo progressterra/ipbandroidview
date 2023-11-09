@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.shared.ui.textfield
 
 import android.os.Parcelable
+import androidx.compose.runtime.Immutable
 import androidx.core.text.isDigitsOnly
 import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
@@ -10,7 +11,7 @@ import com.progressterra.ipbandroidview.shared.isRussianPhoneNumber
 import com.progressterra.ipbandroidview.shared.toDate
 import kotlinx.parcelize.Parcelize
 
-
+@Immutable
 @Parcelize
 data class TextFieldState(
     override val id: String = "",

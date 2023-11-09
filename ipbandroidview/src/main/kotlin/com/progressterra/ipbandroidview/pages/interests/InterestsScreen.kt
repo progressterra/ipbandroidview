@@ -39,7 +39,7 @@ fun InterestsScreen(
         itemState: Interest
     ) {
         val backgroundBrush =
-            if (itemState.picked || state.changedInterests.contains(itemState)) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
+            if (state.allInterests.contains(itemState) || state.changedInterests.contains(itemState)) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
         Box(modifier = Modifier
             .padding(vertical = 4.dp)
             .clip(CircleShape)
@@ -65,7 +65,7 @@ fun InterestsScreen(
         )
     }, bottomBar = {
         Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 24.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
@@ -108,33 +108,56 @@ private fun InterestsScreenPreview() {
         InterestsScreen(
             state = InterestsScreenState(
                 screen = StateColumnState(state = ScreenState.SUCCESS),
+                userInterests = listOf(
+                    Interest(
+                        id = "0",
+                        name = "coffee"
+                    ), Interest(
+                        id = "1",
+                        name = "sport"
+                    ), Interest(
+                        id = "2",
+                        name = "tea"
+                    )
+                ),
+                changedInterests = listOf(
+                    Interest(
+                        id = "0",
+                        name = "coffee"
+                    ), Interest(
+                        id = "1",
+                        name = "sport"
+                    ), Interest(
+                        id = "2",
+                        name = "tea"
+                    )
+                ),
                 allInterests =
                 listOf(
                     Interest(
                         id = "0",
-                        name = "coffee", picked = false
+                        name = "coffee"
                     ), Interest(
                         id = "1",
-                        name = "sport", picked = true
+                        name = "sport"
                     ), Interest(
                         id = "2",
-                        name = "tea", picked = false
+                        name = "tea"
                     ), Interest(
                         id = "3",
-                        name = "lalala", picked = true
+                        name = "lalala"
                     ), Interest(
                         id = "4",
-                        name = "some very long interest like a small dog psychology",
-                        picked = false
+                        name = "some very long interest like a small dog psychology"
                     ), Interest(
                         id = "5",
-                        name = "armenian coffee", picked = false
+                        name = "armenian coffee"
                     ), Interest(
                         id = "6",
-                        name = "argentinian coffee", picked = true
+                        name = "argentinian coffee"
                     ), Interest(
                         id = "7",
-                        name = "colombian coffee", picked = false
+                        name = "colombian coffee"
                     )
                 )
             ), useComponent = UseInterestsScreen.Empty()

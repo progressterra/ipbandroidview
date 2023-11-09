@@ -24,8 +24,7 @@ class OccupationScreenViewModel(
                 result.onSuccess { user ->
                     emitState {
                         it.copy(
-                            currentOccupation = user.occupation,
-                            prevOccupation = user.occupation,
+                            userOccupation = user.occupation,
                             save = it.save.copy(enabled = !user.occupation.isEmpty())
                         )
                     }
@@ -55,7 +54,7 @@ class OccupationScreenViewModel(
     override fun handle(event: OccupationScreenEvent) {
         emitState {
             it.copy(
-                currentOccupation = event.data,
+                pickedOccupation = event.data,
                 save = it.save.copy(enabled = true)
             )
         }
@@ -70,8 +69,8 @@ class OccupationScreenViewModel(
             onBackground {
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
                 saveOccupationUseCase(
-                    currentState.currentOccupation,
-                    currentState.prevOccupation
+                    currentState.pickedOccupation!!,
+                    currentState.userOccupation
                 ).onSuccess {
                     postEffect(OccupationScreenEffect.OnNext)
                 }.onFailure {

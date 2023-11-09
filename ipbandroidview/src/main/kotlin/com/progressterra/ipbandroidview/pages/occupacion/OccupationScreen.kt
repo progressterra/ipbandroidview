@@ -38,8 +38,10 @@ fun OccupationScreen(
     fun Item(
         itemState: Interest
     ) {
+        val picked =
+            itemState.id == state.pickedOccupation?.id || (itemState.id == state.userOccupation?.id && state.pickedOccupation == null)
         val backgroundBrush =
-            if (itemState.id == state.currentOccupation.id) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
+            if (picked) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
         Box(modifier = Modifier
             .padding(vertical = 4.dp)
             .clip(CircleShape)
@@ -65,7 +67,7 @@ fun OccupationScreen(
         )
     }, bottomBar = {
         Column(
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 24.dp),
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Button(
@@ -112,29 +114,28 @@ private fun InterestsScreenPreview() {
                 listOf(
                     Interest(
                         id = "0",
-                        name = "coffee", picked = false
+                        name = "coffee"
                     ), Interest(
                         id = "1",
-                        name = "sport", picked = true
+                        name = "sport"
                     ), Interest(
                         id = "2",
-                        name = "tea", picked = false
+                        name = "tea"
                     ), Interest(
                         id = "3",
-                        name = "lalala", picked = true
+                        name = "lalala"
                     ), Interest(
                         id = "4",
-                        name = "some very long interest like a small dog psychology",
-                        picked = false
+                        name = "some very long interest like a small dog psychology"
                     ), Interest(
                         id = "5",
-                        name = "armenian coffee", picked = false
+                        name = "armenian coffee"
                     ), Interest(
                         id = "6",
-                        name = "argentinian coffee", picked = true
+                        name = "argentinian coffee"
                     ), Interest(
                         id = "7",
-                        name = "colombian coffee", picked = false
+                        name = "colombian coffee"
                     )
                 )
             ), useComponent = UseOccupationScreen.Empty()
