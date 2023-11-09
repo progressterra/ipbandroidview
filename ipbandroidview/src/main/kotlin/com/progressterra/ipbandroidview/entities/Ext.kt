@@ -390,15 +390,14 @@ fun RFInterestViewModel.toInterest() = Interest(
     id = idUnique!!, name = name ?: "", picked = false
 )
 
-fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(id = idUnique!!,
+fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(
+    id = idClient!!,
     name = this.nickName ?: "",
     description = descriptionAboutMe ?: "",
     avatar = avatarMediaData?.urlData ?: "",
     hideAvatar = false,
     locationPoint = LocationPoint(
-        id = idrfPlace ?: "",
-        latitude = latitudeReal ?: 0.0,
-        longitude = longitudeReal ?: 0.0
+        id = idrfPlace ?: "", latitude = latitudeReal ?: 0.0, longitude = longitudeReal ?: 0.0
     ),
     readyToMeet = startDateWantMeet != null,
     interests = listInterests?.map { it.toInterest() } ?: emptyList(),
@@ -409,15 +408,14 @@ fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(id = i
     sex = sex?.toSex() ?: Sex.MALE,
     own = own)
 
-fun RGClientDataViewModelWithDistance.toDatingUser() = DatingUser(id = idUnique!!,
+fun RGClientDataViewModelWithDistance.toDatingUser() = DatingUser(
+    id = idClient!!,
     name = this.nickName ?: "",
     description = descriptionAboutMe ?: "",
     avatar = avatarMediaData?.urlData ?: "",
     hideAvatar = false,
     locationPoint = LocationPoint(
-        id = idrfPlace ?: "",
-        latitude = latitudeReal ?: 0.0,
-        longitude = longitudeReal ?: 0.0
+        id = idrfPlace ?: "", latitude = latitudeReal ?: 0.0, longitude = longitudeReal ?: 0.0
     ),
     readyToMeet = startDateWantMeet != null,
     interests = listInterests?.map { it.toInterest() } ?: emptyList(),
@@ -426,8 +424,7 @@ fun RGClientDataViewModelWithDistance.toDatingUser() = DatingUser(id = idUnique!
     age = age?.toString() ?: "",
     occupation = listProfessions?.firstOrNull()?.toInterest() ?: Interest(),
     sex = sex?.toSex() ?: Sex.MALE,
-    own = false
-)
+    own = false)
 
 fun TypeSex.toSex() = when (this) {
     TypeSex.MALE -> Sex.MALE
@@ -446,10 +443,7 @@ fun RFTargetViewModel.toDatingTarget() = DatingTarget(
 
 fun RGConnectViewModel.toDatingUser(own: Boolean) =
     (if (own) targetClientData!! else initiatorClientData!!).toDatingUser().copy(
-        connection =
-        Connection(
-            id = idUnique!!,
-            type = statusConnect ?: EnumTypeStatusConnect.WAIT,
-            own = own
+        connection = Connection(
+            id = idUnique!!, type = statusConnect ?: EnumTypeStatusConnect.WAIT, own = own
         )
     )
