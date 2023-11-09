@@ -20,9 +20,7 @@ class InterestsScreenViewModel(
         onBackground {
             fetchDatingUserUseCase.resultFlow.collect { result ->
                 result.onSuccess { user ->
-                    emitState {
-                        it.copy(userInterests = user.interests)
-                    }
+                    emitState { it.copy(userInterests = user.interests) }
                 }.onFailure { emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) } }
             }
         }

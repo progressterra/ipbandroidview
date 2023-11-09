@@ -163,7 +163,7 @@ val pagesModule = module {
         EndVerificationChannelUseCase.Base(get(), get(), get(), get(), get())
     }
 
-    single<CatalogUseCase> {
+    factory<CatalogUseCase> {
         CatalogUseCase.Base(get(), get(), get(), get())
     }
 
@@ -171,7 +171,7 @@ val pagesModule = module {
 
     single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchCartUseCase> {
+    factory<FetchCartUseCase> {
         FetchCartUseCase.Base(get(), get(), get(), get(), get())
     }
 
@@ -263,7 +263,7 @@ val pagesModule = module {
 
     single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get(), get()) }
+    factory<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<FetchMessagesUseCase> { FetchMessagesUseCase.Base(get(), get()) }
 

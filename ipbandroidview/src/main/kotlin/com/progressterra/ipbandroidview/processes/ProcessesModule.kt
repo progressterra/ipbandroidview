@@ -233,7 +233,7 @@ val processesModule = module {
 
     single<SaveOccupationUseCase> { SaveOccupationUseCase.Base(get(), get(), get(), get()) }
 
-    single<FetchDatingUserUseCase> {
+    factory<FetchDatingUserUseCase> {
         FetchDatingUserUseCase.Base(
             get(),
             get(),
@@ -266,7 +266,7 @@ val processesModule = module {
 
     single<DatingChatsPagingUseCase> { DatingChatsPagingUseCase.Base(get(), get()) }
 
-    single<FetchDatingChatsUseCase> { FetchDatingChatsUseCase.Base(get(), get(), get(), get()) }
+    factory<FetchDatingChatsUseCase> { FetchDatingChatsUseCase.Base(get(), get(), get(), get()) }
 
     single<AcceptConnectUseCase> { AcceptConnectUseCase.Base(get(), get(), get(), get()) }
 
