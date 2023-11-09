@@ -41,7 +41,9 @@ interface ConnectionsUseCase : CacheUseCase<ConnectionsScreenState> {
                         id = "",
                         state = ScreenState.SUCCESS
                     )
-                )
+                ).also {
+                    log("Connections", it.toString())
+                }
             }
         }
     }

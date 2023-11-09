@@ -19,7 +19,6 @@ object UserData : KotprefModel() {
     var cartCounter by intPref()
     var fcmToken by stringPref()
     var fcmTokenSent by booleanPref()
-    var readyToMeet by booleanPref()
     var sex by intPref()
     /**
      * ZDT ISO
@@ -32,7 +31,6 @@ object UserData : KotprefModel() {
         idUnique = DEFAULT_ID
         deviceId = DEFAULT_ID
         clientExist = false
-        readyToMeet = false
         citizenship = Citizenship()
         phone = ""
         email = ""

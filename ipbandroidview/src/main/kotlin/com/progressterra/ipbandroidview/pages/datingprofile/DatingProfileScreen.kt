@@ -165,7 +165,7 @@ fun DatingProfileScreen(
                         useComponent = useComponent
                     )
                 }
-                if (state.user.connection.shouldShow() && UserData.readyToMeet && !state.user.own) {
+                if (state.user.connection.shouldShow() && !state.user.own) {
                     Button(
                         modifier = Modifier.fillMaxWidth(),
                         state = state.connect,

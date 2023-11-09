@@ -21,7 +21,9 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingUser
+import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -59,7 +61,14 @@ fun ConnectionsScreen(
                         .size(64.dp)
                         .clip(CircleShape)
                         .niceClickable { useComponent.handle(ConnectionsScreenEvent(itemState)) },
-                    image = itemState.avatar,
+                    image = itemState.avatar.ifEmpty {
+                        rememberResourceUri(
+                            resourceId = when (itemState.sex) {
+                                Sex.MALE -> R.drawable.avatar_male
+                                Sex.FEMALE -> R.drawable.avatar_female
+                            }
+                        ).toString()
+                    },
                     backgroundColor = IpbTheme.colors.background.asColor()
                 )
             }

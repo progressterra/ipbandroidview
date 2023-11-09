@@ -41,7 +41,6 @@ class DatingMainScreenViewModel(
         onBackground {
             fetchDatingUserUseCase.resultFlow.collect { result ->
                 result.onSuccess { newCurrent ->
-                    UserData.readyToMeet = newCurrent.readyToMeet
                     emitState {
                         it.copy(
                             currentUser = newCurrent,
