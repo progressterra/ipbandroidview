@@ -58,7 +58,7 @@ class InterestsScreenViewModel(
         if (event.id == "save") {
             onBackground {
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
-                changeInterestsUseCase(currentState.changedInterests).onSuccess {
+                changeInterestsUseCase(currentState.userInterests, currentState.changedInterests).onSuccess {
                     postEffect(InterestsScreenEffect.OnNext)
                 }.onFailure {
                     emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }

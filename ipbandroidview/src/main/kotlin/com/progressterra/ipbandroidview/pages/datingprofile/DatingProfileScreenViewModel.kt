@@ -46,9 +46,6 @@ class DatingProfileScreenViewModel(
                     emitState {
                         it.copy(
                             user = newUser,
-                            allInterests = it.allInterests.map { interest ->
-                                if (newUser.interests.contains(interest)) interest.copy(picked = true) else interest
-                            },
                             about = it.about.copy(text = newUser.description)
                         )
                     }
@@ -124,7 +121,7 @@ class DatingProfileScreenViewModel(
                 }
             }
             if (event.id == "save") {
-                changeInterestsUseCase(currentState.changedInterests)
+                changeInterestsUseCase(currentState.user.interests, currentState.changedInterests)
                 saveDatingInfoUseCase(description = currentState.about.formatByType()).onSuccess {
                     emitState { it.copy(editMode = false) }
                 }
