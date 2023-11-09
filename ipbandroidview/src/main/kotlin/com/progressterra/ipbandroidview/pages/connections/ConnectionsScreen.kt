@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.connections
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
@@ -47,10 +49,10 @@ fun ConnectionsScreen(
                 modifier = modifier,
                 contentAlignment = Alignment.Center
             ) {
-                BrushedIcon(
+                Image(
                     modifier = Modifier.size(79.dp),
-                    resId = R.drawable.avatar_background,
-                    tint = IpbTheme.colors.primary.asBrush()
+                    painter = painterResource(id = R.drawable.avatar_background),
+                    contentDescription = null
                 )
                 SimpleImage(
                     modifier = Modifier

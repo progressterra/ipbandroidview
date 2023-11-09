@@ -108,7 +108,6 @@ fun DatingMainScreen(
             Icon(
                 modifier = Modifier.size(50.dp),
                 painter = painterResource(id = R.drawable.avatar_background),
-                tint = IpbTheme.colors.primary.asColor(),
                 contentDescription = null
             )
             SimpleImage(

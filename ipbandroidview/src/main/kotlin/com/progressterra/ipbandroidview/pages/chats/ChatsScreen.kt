@@ -54,7 +54,6 @@ fun ChatsScreen(
                 Icon(
                     modifier = Modifier.size(79.dp),
                     painter = painterResource(id = R.drawable.avatar_background),
-                    tint = IpbTheme.colors.primary.asColor(),
                     contentDescription = null
                 )
                 SimpleImage(
