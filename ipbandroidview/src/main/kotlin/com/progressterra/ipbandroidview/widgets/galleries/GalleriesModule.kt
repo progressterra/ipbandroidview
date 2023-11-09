@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.shared.mvi.Operations
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import kotlinx.coroutines.flow.collectLatest
 
 class GalleriesModule(
     private val addToCartUseCase: AddToCartUseCase,
@@ -19,7 +20,7 @@ class GalleriesModule(
 
     init {
         onBackground {
-            fetchGalleriesUseCase.resultFlow.collect { result ->
+            fetchGalleriesUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { gallery ->
                     val cachedGallery = gallery.copy(items = cachePaging(gallery.items))
                     emitModuleState { cachedGallery }

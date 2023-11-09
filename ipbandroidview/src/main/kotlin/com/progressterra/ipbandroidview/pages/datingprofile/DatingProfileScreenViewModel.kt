@@ -22,6 +22,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import kotlinx.coroutines.flow.collectLatest
 
 class DatingProfileScreenViewModel(
     private val changeInterestsUseCase: ChangeInterestsUseCase,
@@ -41,7 +42,7 @@ class DatingProfileScreenViewModel(
 
     init {
         onBackground {
-            fetchDatingUserUseCase.resultFlow.collect { result ->
+            fetchDatingUserUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { newUser ->
                     emitState {
                         it.copy(

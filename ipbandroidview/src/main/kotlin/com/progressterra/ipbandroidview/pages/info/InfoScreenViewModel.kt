@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
+import kotlinx.coroutines.flow.collectLatest
 
 class InfoScreenViewModel(
     private val saveDatingInfoUseCase: SaveDatingInfoUseCase,
@@ -19,7 +20,7 @@ class InfoScreenViewModel(
 
     init {
         onBackground {
-            fetchDatingUserUseCase.resultFlow.collect { result ->
+            fetchDatingUserUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { user ->
                     emitState {
                         it.copy(

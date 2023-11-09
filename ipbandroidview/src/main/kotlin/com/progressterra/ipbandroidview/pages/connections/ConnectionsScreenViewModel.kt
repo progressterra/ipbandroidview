@@ -5,6 +5,7 @@ import com.progressterra.ipbandroidview.processes.dating.ConnectionsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import kotlinx.coroutines.flow.collectLatest
 
 class ConnectionsScreenViewModel(
     private val connectionsUseCase: ConnectionsUseCase
@@ -13,7 +14,7 @@ class ConnectionsScreenViewModel(
 
     init {
         onBackground {
-            connectionsUseCase.resultFlow.collect { result ->
+            connectionsUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { newState ->
                     emitState {
                         newState.copy(

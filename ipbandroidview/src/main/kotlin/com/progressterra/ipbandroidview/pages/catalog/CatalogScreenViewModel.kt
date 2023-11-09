@@ -13,6 +13,7 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
 
 class CatalogScreenViewModel(
@@ -24,7 +25,7 @@ class CatalogScreenViewModel(
 
     init {
         onBackground {
-            catalogUseCase.resultFlow.collect { result ->
+            catalogUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { catalog ->
                     emitState {
                         it.copy(

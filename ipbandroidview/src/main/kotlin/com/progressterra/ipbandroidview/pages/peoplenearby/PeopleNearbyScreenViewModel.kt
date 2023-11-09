@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.peoplenearby
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 class PeopleNearbyScreenViewModel(
     private val usersAroundUseCase: UsersAroundUseCase,
@@ -12,7 +13,7 @@ class PeopleNearbyScreenViewModel(
 
     init {
         onBackground {
-            usersAroundUseCase.resultFlow.collect { result ->
+            usersAroundUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { newUsers ->
                     emitState { it.copy(items = newUsers) }
                 }

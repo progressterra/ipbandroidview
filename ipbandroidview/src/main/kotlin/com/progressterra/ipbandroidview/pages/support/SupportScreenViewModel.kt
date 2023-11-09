@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidview.processes.FetchChatsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import kotlinx.coroutines.flow.collectLatest
 
 class SupportScreenViewModel(
     private val fetchChatsUseCase: FetchChatsUseCase
@@ -15,7 +16,7 @@ class SupportScreenViewModel(
 
     init {
         onBackground {
-            fetchChatsUseCase.resultFlow.collect { result ->
+            fetchChatsUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { newState ->
                     val cached = newState.copy(subCategories = cachePaging(newState.subCategories))
                     emitState {

@@ -9,6 +9,7 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import kotlinx.coroutines.flow.collectLatest
 
 class OccupationScreenViewModel(
     private val saveOccupationUseCase: SaveOccupationUseCase,
@@ -20,7 +21,7 @@ class OccupationScreenViewModel(
 
     init {
         onBackground {
-            fetchDatingUserUseCase.resultFlow.collect { result ->
+            fetchDatingUserUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { user ->
                     emitState {
                         it.copy(

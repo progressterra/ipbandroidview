@@ -4,6 +4,7 @@ import com.progressterra.ipbandroidview.processes.FetchBonusesUseCase
 import com.progressterra.ipbandroidview.shared.mvi.Operations
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import kotlinx.coroutines.flow.collectLatest
 
 class BonusesModule(
     private val fetchBonusesUseCase: FetchBonusesUseCase,
@@ -13,7 +14,7 @@ class BonusesModule(
 
     init {
         onBackground {
-            fetchBonusesUseCase.resultFlow.collect { result ->
+            fetchBonusesUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { bonuses ->
                     emitModuleState { bonuses }
                 }.onFailure {

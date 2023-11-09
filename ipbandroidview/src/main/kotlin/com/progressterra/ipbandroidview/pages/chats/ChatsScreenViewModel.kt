@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.chats
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.FetchDatingChatsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 class ChatsScreenViewModel(
     private val datingChatsUseCase: FetchDatingChatsUseCase
@@ -10,7 +11,7 @@ class ChatsScreenViewModel(
 
     init {
         onBackground {
-            datingChatsUseCase.resultFlow.collect { result ->
+            datingChatsUseCase.resultFlow.collectLatest { result ->
                 result.onSuccess { newFlow ->
                     emitState { it.copy(items = newFlow) }
                 }

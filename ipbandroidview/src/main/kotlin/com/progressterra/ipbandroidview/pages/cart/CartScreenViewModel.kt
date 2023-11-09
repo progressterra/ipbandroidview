@@ -11,6 +11,7 @@ import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
+import kotlinx.coroutines.flow.collectLatest
 
 class CartScreenViewModel(
     private val addToCartUseCase: AddToCartUseCase,
@@ -20,7 +21,7 @@ class CartScreenViewModel(
 
     init {
         onBackground {
-            fetchCartUseCase.resultFlow.collect { result ->
+            fetchCartUseCase.resultFlow.collectLatest { result ->
                 val call = result.onSuccess { newState -> emitState { newState } }
                 emitState {
                     it.copy(
