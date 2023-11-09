@@ -22,7 +22,7 @@ abstract class AbstractLoggingUseCase(
             is UnknownHostException, is SocketTimeoutException, is ConnectException ->
                 makeToastUseCase(R.string.no_internet_connection)
 
-            is ToastedException -> makeToastUseCase(it.stringId)
+            is ToastedException -> if (it.stringId == 0) makeToastUseCase(it.customMsg!!) else makeToastUseCase(it.stringId)
 
             else -> {
                 makeToastUseCase(R.string.unknown_error)

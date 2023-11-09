@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -55,16 +53,12 @@ fun WantThisScreen(
                 modifier = Modifier.padding(bottom = 20.dp, start = 20.dp, end = 20.dp),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    items(state.document.entries) {
-                        TextField(
-                            modifier = Modifier.fillMaxWidth(),
-                            state = it,
-                            useComponent = useComponent
-                        )
-                    }
+                state.document.entries.forEach {
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = it,
+                        useComponent = useComponent
+                    )
                 }
                 Button(
                     modifier = Modifier.fillMaxWidth(),
