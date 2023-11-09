@@ -29,7 +29,6 @@ import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.shouldShow
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
@@ -54,8 +53,11 @@ fun DatingProfileScreen(
     fun ItemEditMode(
         itemState: Interest
     ) {
+        val picked =
+            (!state.user.interests.contains(itemState) && state.changedInterests.contains(itemState)) ||
+                    (state.user.interests.contains(itemState) && !state.changedInterests.contains(itemState))
         val backgroundBrush =
-            if (itemState.picked || state.changedInterests.contains(itemState)) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
+            if (picked) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
         Box(modifier = Modifier
             .padding(vertical = 4.dp)
             .clip(CircleShape)

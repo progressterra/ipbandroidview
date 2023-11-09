@@ -38,8 +38,9 @@ fun InterestsScreen(
     fun Item(
         itemState: Interest
     ) {
+        val picked = (state.userInterests.contains(itemState) && !state.changedInterests.contains(itemState)) || (!state.userInterests.contains(itemState) && state.changedInterests.contains(itemState))
         val backgroundBrush =
-            if (state.allInterests.contains(itemState) || state.changedInterests.contains(itemState)) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
+            if (picked) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
         Box(modifier = Modifier
             .padding(vertical = 4.dp)
             .clip(CircleShape)

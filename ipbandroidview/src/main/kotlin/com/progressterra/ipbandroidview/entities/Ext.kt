@@ -387,7 +387,7 @@ fun Connection.toString(stringResource: @Composable (Int) -> String) =
     }
 
 fun RFInterestViewModel.toInterest() = Interest(
-    id = idUnique!!, name = name ?: "", picked = false
+    id = idUnique!!, name = name ?: ""
 )
 
 fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(

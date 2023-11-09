@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface ChangeInterestsUseCase {
 
-    suspend operator fun invoke(data: List<Interest>): Result<Unit>
+    suspend operator fun invoke(user: List<Interest>, changed: List<Interest>): Result<Unit>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -24,20 +24,21 @@ interface ChangeInterestsUseCase {
         manageResources
     ) {
 
-        override suspend fun invoke(data: List<Interest>): Result<Unit> = withToken { token ->
-            data.forEach {
-                if (if (it.picked) {
-                        service.clientInterestDelete(
+        override suspend fun invoke(user: List<Interest>, changed: List<Interest>): Result<Unit> = withToken { token ->
+            changed.forEach {
+                if (user.contains(it)) {
+                    if (service.clientInterestDelete(
                             token = token,
                             body = IncomeDataIDRFInterest(it.id)
-                        )
-                    } else {
-                        service.clientInterest(
+                        ).result?.status != StatusResult.SUCCESS
+                    ) throw ToastedException(R.string.failure)
+                } else {
+                    if (service.clientInterest(
                             token = token,
                             body = IncomeDataIDRFInterest(it.id)
-                        )
-                    }.result?.status != StatusResult.SUCCESS
-                ) throw ToastedException(R.string.failure)
+                        ).result?.status != StatusResult.SUCCESS
+                    ) throw ToastedException(R.string.failure)
+                }
             }
         }
     }
