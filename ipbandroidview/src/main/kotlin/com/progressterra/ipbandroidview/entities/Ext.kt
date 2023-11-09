@@ -275,7 +275,9 @@ fun RGMessagesViewModel.toMessage() = Message(
     id = idUnique!!,
     user = isOwnMessage ?: false,
     content = contentText ?: "",
-    date = dateAdded?.parseToZDT()?.formatZdt("dd.MM HH:mm") ?: ""
+    date = dateAdded?.also { log("ZONE", "raw date $it") }?.parseToZDT()
+        ?.also { log("ZONE", "zdr date $it") }?.formatZdt("dd.MM HH:mm")
+        ?.also { log("ZONE", "result date $it") } ?: ""
 )
 
 fun RGDialogsViewModel.toDatingChat() = DatingChat(
