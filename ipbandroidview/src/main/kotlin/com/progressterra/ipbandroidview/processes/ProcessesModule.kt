@@ -148,7 +148,7 @@ val processesModule = module {
         LogoutUseCase.Base()
     }
 
-    single<DocumentValidationUseCase> { DocumentValidationUseCase.Base(get(), get()) }
+    single<DocumentValidationUseCase> { DocumentValidationUseCase.Base() }
 
     single<SaveCitizenshipUseCase> {
         SaveCitizenshipUseCase.Base()
