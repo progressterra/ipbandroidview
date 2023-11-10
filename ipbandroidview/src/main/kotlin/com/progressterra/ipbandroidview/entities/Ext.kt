@@ -277,9 +277,7 @@ fun RGMessagesViewModel.toMessage() = Message(
     id = idUnique!!,
     user = isOwnMessage ?: false,
     content = contentText ?: "",
-    date = dateAdded?.also { log("ZONE", "raw date $it") }?.parseToZDT()
-        ?.also { log("ZONE", "zdr date $it") }?.formatZdt("dd.MM HH:mm")
-        ?.also { log("ZONE", "result date $it") } ?: ""
+    date = dateAdded?.parseToZDT()?.formatZdt("dd.MM HH:mm") ?: ""
 )
 
 fun RGDialogsViewModel.toDatingChat() = DatingChat(
@@ -290,8 +288,9 @@ fun RGDialogsViewModel.toDatingChat() = DatingChat(
 fun String.parseToZDT(): ZonedDateTime? {
     return try {
         val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        localDateTime.atZone(ZoneOffset.UTC)
+        ZonedDateTime.of(localDateTime, ZoneOffset.UTC)
     } catch (e: DateTimeParseException) {
+        log("DATE", "Parse error $e when parse $this")
         null
     }
 }
@@ -299,12 +298,11 @@ fun String.parseToZDT(): ZonedDateTime? {
 fun ZonedDateTime.formatZdt(pattern: String): String {
     val formatter = DateTimeFormatter.ofPattern(pattern)
     val defaultZone = ZoneId.systemDefault()
-    log("ZONE", "Default zone: ${defaultZone}")
     return withZoneSameInstant(defaultZone).format(formatter)
 }
 
 fun ZonedDateTime.formatZdtIso(): String {
-    val formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
+    val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
     return format(formatter)
 }
 
