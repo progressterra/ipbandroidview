@@ -39,7 +39,7 @@ fun OccupationScreen(
         itemState: Interest
     ) {
         val picked =
-            itemState.id == state.pickedOccupation?.id || (itemState.id == state.userOccupation?.id && state.pickedOccupation == null)
+            itemState.id == state.pickedOccupation.id || (itemState.id == state.userOccupation.id && state.pickedOccupation.isEmpty())
         val backgroundBrush =
             if (picked) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.background.asBrush()
         Box(modifier = Modifier

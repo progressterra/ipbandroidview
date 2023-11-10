@@ -13,7 +13,7 @@ import com.progressterra.ipbandroidview.shared.ManageResources
 
 interface SaveOccupationUseCase {
 
-    suspend operator fun invoke(new: Interest?, prev: Interest?): Result<Unit>
+    suspend operator fun invoke(new: Interest, prev: Interest): Result<Unit>
 
     class Base(
         obtainAccessToken: ObtainAccessToken, private val service: ImhService,
@@ -23,17 +23,17 @@ interface SaveOccupationUseCase {
         manageResources
     ) {
 
-        override suspend fun invoke(new: Interest?, prev: Interest?): Result<Unit> =
+        override suspend fun invoke(new: Interest, prev: Interest): Result<Unit> =
             withToken { token ->
                 val results = mutableListOf<ResultOperation?>()
-                if (prev != null) {
+                if (!prev.isEmpty()) {
                     results.add(
                         service.clientInterestDelete(
                             token = token, body = IncomeDataIDRFInterest(prev.id)
                         ).result
                     )
                 }
-                if (new != null) {
+                if (!new.isEmpty()) {
                     results.add(
                         service.clientInterest(
                             token = token, body = IncomeDataIDRFInterest(new.id)
