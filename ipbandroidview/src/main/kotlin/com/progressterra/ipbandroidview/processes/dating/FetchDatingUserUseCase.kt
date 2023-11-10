@@ -5,7 +5,6 @@ import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.toDatingUser
 import com.progressterra.ipbandroidview.processes.BitmapImageUseCase
 import com.progressterra.ipbandroidview.processes.ObtainAccessToken
-import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractCacheTokenUseCase
 import com.progressterra.ipbandroidview.shared.CacheUseCase
@@ -19,8 +18,8 @@ interface FetchDatingUserUseCase : CacheUseCase<DatingUser> {
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val service: ImhService,
-        private val fetchAvatarUseCase: FetchAvatarUseCase, makeToastUseCase: MakeToastUseCase,
         private val bitmapImageUseCase: BitmapImageUseCase,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
     ) : FetchDatingUserUseCase, AbstractCacheTokenUseCase<DatingUser>(
         obtainAccessToken,
@@ -30,11 +29,9 @@ interface FetchDatingUserUseCase : CacheUseCase<DatingUser> {
 
         override suspend fun invoke() {
             withCache { token ->
-                val avatar = fetchAvatarUseCase().getOrThrow()
-                val avatarBitmap = bitmapImageUseCase(avatar).getOrThrow()
-                service.clientDataData(token).data?.toDatingUser(own = true)
-                    ?.copy(avatar = avatar, avatarBitmap = avatarBitmap)!!
-                    .also { log("CurrentUser", it.toString()) }
+                val result = service.clientDataData(token).data?.toDatingUser(own = true)!!
+                val avatarBitmap = bitmapImageUseCase(result.avatar).getOrThrow()
+                result.copy(avatarBitmap = avatarBitmap).also { log("CurrentUser", it.toString()) }
             }
         }
     }

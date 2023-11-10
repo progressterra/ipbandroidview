@@ -395,7 +395,7 @@ fun RGClientDataViewModel.toDatingUser(own: Boolean = false) = DatingUser(
     id = idClient!!,
     name = this.nickName ?: "",
     description = descriptionAboutMe ?: "",
-    avatar = avatarMediaData?.urlData ?: "",
+    avatar = listImages?.firstOrNull()?.urlData ?: "",
     hideAvatar = false,
     locationPoint = LocationPoint(
         id = idrfPlace ?: "", latitude = latitudeReal ?: 0.0, longitude = longitudeReal ?: 0.0
