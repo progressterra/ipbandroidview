@@ -32,7 +32,7 @@ interface UsersAroundUseCase : CacheUseCase<List<DatingUser>> {
                     token = token, minMeter = 0, maxMeter = 300
                 ).dataList?.map {
                     val user =
-                        userConnectionStatusUseCase(it.idUnique!!).getOrThrow() ?: it.toDatingUser()
+                        userConnectionStatusUseCase(it.idClient!!).getOrThrow() ?: it.toDatingUser()
                     Log.d("AROUND", "$user")
                     val bitmapAvatar = bitmapImageUseCase(user.avatar).getOrThrow()
                     user.copy(avatarBitmap = bitmapAvatar)
