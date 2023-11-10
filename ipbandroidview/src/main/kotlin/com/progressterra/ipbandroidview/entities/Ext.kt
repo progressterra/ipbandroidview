@@ -289,7 +289,7 @@ fun RGDialogsViewModel.toDatingChat() = DatingChat(
 
 fun String.parseToZDT(): ZonedDateTime? {
     return try {
-        val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_INSTANT)
+        val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         localDateTime.atZone(ZoneOffset.UTC)
     } catch (e: DateTimeParseException) {
         null
