@@ -45,6 +45,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 
 fun List<SimplePrice>.sum(): SimplePrice {
     var sum = SimplePrice()
@@ -286,17 +287,13 @@ fun RGDialogsViewModel.toDatingChat() = DatingChat(
 )
 
 fun String.parseToZDT(): ZonedDateTime? {
-    var result: ZonedDateTime? = null
-    runCatching {
-        result = ZonedDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+    return try {
+        val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+        localDateTime.atZone(ZoneId.of("GMT"))
+    } catch (e: DateTimeParseException) {
+        log("DATE", "parse error $e")
+        null
     }
-    if (result == null) {
-        runCatching {
-            val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            result = localDateTime.atZone(ZoneId.systemDefault())
-        }
-    }
-    return result
 }
 
 fun ZonedDateTime.formatZdt(pattern: String): String {
