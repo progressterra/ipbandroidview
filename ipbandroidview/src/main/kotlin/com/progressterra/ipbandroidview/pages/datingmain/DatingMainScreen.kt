@@ -520,12 +520,12 @@ fun DatingMainScreen(
                                 view!!.map.mapObjects.addPlacemark().apply {
                                     setView(ViewProvider(MapUserView(context).apply { loadImage(it) }))
                                     addTapListener { _, _ ->
-                                        useComponent.handle(DatingMainScreenEvent.OnOwnProfile)
+                                        useComponent.handle(DatingMainScreenEvent.OnProfile(it))
                                         true
                                     }
                                     geometry = Point(
-                                        state.currentUser.locationPoint.latitude,
-                                        state.currentUser.locationPoint.longitude
+                                        it.locationPoint.latitude,
+                                        it.locationPoint.longitude
                                     )
                                 }
                             }
