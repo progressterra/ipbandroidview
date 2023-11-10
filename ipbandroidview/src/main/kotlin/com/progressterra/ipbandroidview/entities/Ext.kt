@@ -43,6 +43,7 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -288,10 +289,9 @@ fun RGDialogsViewModel.toDatingChat() = DatingChat(
 
 fun String.parseToZDT(): ZonedDateTime? {
     return try {
-        val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-        localDateTime.atZone(ZoneId.of("GMT"))
+        val localDateTime = LocalDateTime.parse(this, DateTimeFormatter.ISO_INSTANT)
+        localDateTime.atZone(ZoneOffset.UTC)
     } catch (e: DateTimeParseException) {
-        log("DATE", "parse error $e")
         null
     }
 }

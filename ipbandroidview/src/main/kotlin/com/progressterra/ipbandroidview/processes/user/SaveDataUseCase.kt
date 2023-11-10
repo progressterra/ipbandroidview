@@ -12,7 +12,7 @@ import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
-import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
 interface SaveDataUseCase {
@@ -66,7 +66,7 @@ interface SaveDataUseCase {
                             0,
                             0,
                             0,
-                            ZoneId.systemDefault()
+                            ZoneOffset.UTC
                         )
                         UserData.dateOfBirthday = zonedDateTimeBirthday.formatZdtIso()
                     }
