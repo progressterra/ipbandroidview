@@ -5,6 +5,7 @@ import android.content.Context
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Build
+import androidx.work.WorkManager
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
 import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
@@ -26,6 +27,8 @@ val sharedModule = module {
             ManagePermissionContract.Activity::class
         )
     )
+
+    single { WorkManager.getInstance(androidContext()) }
 
     single {
         StartActivityContract.Base()

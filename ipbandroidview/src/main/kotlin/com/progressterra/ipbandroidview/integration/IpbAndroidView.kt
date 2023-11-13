@@ -76,6 +76,10 @@ class IpbAndroidView private constructor(
             iconPressed = ColorUnit(config["iconPressed"]!!),
             iconDisabled = ColorUnit(config["iconDisabled"]!!)
         )
+        IpbAndroidViewSettings.WORK_WATCH_ENABLED = config["workWatchEnabled"]!!.first().toBoolean()
+        IpbAndroidViewSettings.WORK_WATCH_START_HOUR = config["workWatchStartHour"]!!.first().toInt()
+        IpbAndroidViewSettings.WORK_WATCH_END_HOUR = config["workWatchEndHour"]!!.first().toInt()
+        IpbAndroidViewSettings.WORK_WATCH_PERIOD = config["workWatchPeriod"]!!.first().toInt()
         IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS = config["availableProfileFields"]!!
         IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS = config["mandatoryProfileFields"]!!
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!.first()

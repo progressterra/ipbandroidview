@@ -210,4 +210,6 @@
     <string name="patronymic">Отчество</string>
     <string name="ready_to_meet_male">Готов общаться</string>
     <string name="ready_to_meet_female">Готова общаться</string>
+    <string name="ask_permission">Запросить/проверить разрешения</string>
+    <string name="enable">Включить</string>
 </resources>

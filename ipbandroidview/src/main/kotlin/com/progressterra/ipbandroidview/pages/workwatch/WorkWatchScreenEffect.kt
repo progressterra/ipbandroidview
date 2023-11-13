@@ -1,0 +1,3 @@
+package com.progressterra.ipbandroidview.pages.workwatch
+
+sealed class WorkWatchScreenEffect

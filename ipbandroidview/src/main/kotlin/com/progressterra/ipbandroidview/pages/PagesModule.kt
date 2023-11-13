@@ -41,6 +41,7 @@ import com.progressterra.ipbandroidview.pages.wantthisdetails.WantThisDetailsScr
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsScreenViewModel
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeScreenViewModel
 import com.progressterra.ipbandroidview.pages.withdrawal.WithdrawalScreenViewModel
+import com.progressterra.ipbandroidview.pages.workwatch.WorkWatchScreenViewModel
 import com.progressterra.ipbandroidview.processes.AddDeliveryToCartUseCase
 import com.progressterra.ipbandroidview.processes.CancelUseBonusesUseCase
 import com.progressterra.ipbandroidview.processes.CatalogUseCase
@@ -276,6 +277,8 @@ val pagesModule = module {
             get(), get()
         )
     }
+
+    viewModel { WorkWatchScreenViewModel(get(), get(), get()) }
 
     viewModel { SupportScreenViewModel(get()) }
 
