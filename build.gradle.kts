@@ -18,7 +18,7 @@ plugins {
 }
 
 allprojects {
-    version = "1.1.1"
+    version = "1.1.6"
     group = "com.progressterra.ipbandroidview"
     repositories {
         google()

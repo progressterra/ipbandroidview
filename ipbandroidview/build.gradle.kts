@@ -119,7 +119,7 @@ dependencies {
     api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.4.1"))
+    api(platform("com.google.firebase:firebase-bom:32.5.0"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
@@ -138,8 +138,8 @@ dependencies {
     api("de.hdodenhof:circleimageview:3.1.0")
 
     // Landscapist, image library with coil implementation
-    api("com.github.skydoves:landscapist-glide:2.2.11")
-    api("com.github.skydoves:landscapist-placeholder:2.2.11")
+    api("com.github.skydoves:landscapist-glide:2.2.12")
+    api("com.github.skydoves:landscapist-placeholder:2.2.12")
 
     api("androidx.paging:paging-runtime-ktx:3.2.1")
     api("androidx.paging:paging-compose:3.2.1")
