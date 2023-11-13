@@ -23,28 +23,33 @@ interface SaveOccupationUseCase {
         manageResources
     ) {
 
-        override suspend fun invoke(new: Interest, prev: Interest): Result<Unit> =
-            withToken { token ->
-                val results = mutableListOf<ResultOperation?>()
-                if (!prev.isEmpty()) {
-                    results.add(
-                        service.clientInterestDelete(
-                            token = token, body = IncomeDataIDRFInterest(prev.id)
-                        ).result
-                    )
+        override suspend fun invoke(new: Interest, prev: Interest): Result<Unit> {
+            return if (new != prev && !new.isEmpty()) {
+                withToken { token ->
+                    val results = mutableListOf<ResultOperation?>()
+                    if (!prev.isEmpty()) {
+                        results.add(
+                            service.clientInterestDelete(
+                                token = token, body = IncomeDataIDRFInterest(prev.id)
+                            ).result
+                        )
+                    }
+                    if (!new.isEmpty()) {
+                        results.add(
+                            service.clientInterest(
+                                token = token, body = IncomeDataIDRFInterest(new.id)
+                            ).result
+                        )
+                    }
+                    results.forEach {
+                        if (it?.status != StatusResult.SUCCESS) throw ToastedException(
+                            it?.message ?: ""
+                        )
+                    }
                 }
-                if (!new.isEmpty()) {
-                    results.add(
-                        service.clientInterest(
-                            token = token, body = IncomeDataIDRFInterest(new.id)
-                        ).result
-                    )
-                }
-                results.forEach {
-                    if (it?.status != StatusResult.SUCCESS) throw ToastedException(
-                        it?.message ?: ""
-                    )
-                }
+            } else {
+                Result.success(Unit)
             }
+        }
     }
 }

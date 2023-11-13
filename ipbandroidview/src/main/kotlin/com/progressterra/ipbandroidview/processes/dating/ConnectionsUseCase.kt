@@ -6,7 +6,6 @@ import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.AbstractCacheTokenUseCase
 import com.progressterra.ipbandroidview.shared.CacheUseCase
 import com.progressterra.ipbandroidview.shared.ManageResources
-import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 

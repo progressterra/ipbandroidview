@@ -31,7 +31,9 @@ interface FetchDatingUserUseCase : CacheUseCase<DatingUser> {
             withCache { token ->
                 val result = service.clientDataData(token).data?.toDatingUser(own = true)!!
                 val avatarBitmap = bitmapImageUseCase(result.avatar).getOrThrow()
-                result.copy(avatarBitmap = avatarBitmap).also { log("CurrentUser", it.toString()) }
+                result.copy(avatarBitmap = avatarBitmap).also {
+                    log("CurrentUser", it.toString())
+                }
             }
         }
     }
