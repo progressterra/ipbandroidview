@@ -45,6 +45,7 @@ class WorkWatchWorker(
         return if (result.isSuccess) {
             Result.success()
         } else {
+            log("WorkWatch", "error: ${result.exceptionOrNull()}")
             Result.retry()
         }
     }
