@@ -129,7 +129,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.2.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.65")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:0.5.66")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
@@ -143,4 +143,7 @@ dependencies {
 
     api("androidx.paging:paging-runtime-ktx:3.2.1")
     api("androidx.paging:paging-compose:3.2.1")
+
+    // WorkManager
+    api("androidx.work:work-runtime-ktx:2.8.1")
 }
