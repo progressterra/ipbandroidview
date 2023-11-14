@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.integration.WorkWatchWorker
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import java.util.concurrent.TimeUnit
@@ -37,6 +38,8 @@ class WorkWatchScreenViewModel(
                 emitState { it.copy(enable = it.enable.copy(enabled = isSuccess)) }
             } else if (event.id == "enable") {
                 val interval = IpbAndroidViewSettings.WORK_WATCH_PERIOD * 1000L
+                log("Worker", "interval: $interval, minInterval: ${PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS}")
+                workManager.cancelAllWork()
                 val request = PeriodicWorkRequest.Builder(
                     WorkWatchWorker::class.java,
                     interval,
