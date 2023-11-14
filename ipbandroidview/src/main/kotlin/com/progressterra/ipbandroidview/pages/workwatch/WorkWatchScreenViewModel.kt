@@ -23,13 +23,14 @@ class WorkWatchScreenViewModel(
         onBackground {
             if (event.id == "ask") {
                 var isSuccess = true
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    checkPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION).onFailure {
-                        askPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
-                        isSuccess = false
+                checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        checkPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION).onFailure {
+                            askPermissionUseCase(Manifest.permission.ACCESS_BACKGROUND_LOCATION)
+                            isSuccess = false
+                        }
                     }
-                }
-                checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onFailure {
+                }.onFailure {
                     askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
                     isSuccess = false
                 }
