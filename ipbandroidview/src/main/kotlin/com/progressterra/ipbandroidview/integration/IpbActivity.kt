@@ -26,7 +26,7 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
     @Composable
     abstract fun Content()
 
-    abstract val messagingService: Class<*>
+    abstract val messagingService: Class<*>?
 
     private val managePermission: ManagePermissionContract.Activity by inject()
     private val startActivity: StartActivityContract.Activity by inject()
@@ -50,7 +50,7 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startService(Intent(this, messagingService))
+        messagingService?.let { startService(Intent(this, it)) }
         actionBar?.hide()
         setContent { Content() }
         managePermission.setListener(this)
