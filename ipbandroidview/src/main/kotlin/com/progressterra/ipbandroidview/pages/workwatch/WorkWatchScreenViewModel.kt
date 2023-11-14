@@ -37,8 +37,7 @@ class WorkWatchScreenViewModel(
                 }
                 emitState { it.copy(enable = it.enable.copy(enabled = isSuccess)) }
             } else if (event.id == "enable") {
-                val interval = IpbAndroidViewSettings.WORK_WATCH_PERIOD * 1000L
-                log("Worker", "interval: $interval, minInterval: ${PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS}")
+                val interval = IpbAndroidViewSettings.WORK_WATCH_PERIOD * 60 * 1000L
                 workManager.cancelAllWork()
                 val request = PeriodicWorkRequest.Builder(
                     WorkWatchWorker::class.java,
