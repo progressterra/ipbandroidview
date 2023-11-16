@@ -23,13 +23,12 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.rememberResourceUri
+import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
-import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 
 @Composable

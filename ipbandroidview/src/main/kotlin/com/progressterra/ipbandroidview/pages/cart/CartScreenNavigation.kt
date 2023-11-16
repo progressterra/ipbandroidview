@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.cart
 
-import com.progressterra.ipbandroidview.shared.mvi.OnDelivery
-import com.progressterra.ipbandroidview.shared.mvi.OpenGoodsDetails
+import com.progressterra.ipbandroidview.pages.nav.OnDelivery
+import com.progressterra.ipbandroidview.pages.nav.OnGoodsDetails
 
-interface CartScreenNavigation : OpenGoodsDetails, OnDelivery
+interface CartScreenNavigation : OnGoodsDetails, OnDelivery

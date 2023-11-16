@@ -1,50 +1,92 @@
 package com.progressterra.ipbandroidview.processes
 
+import com.progressterra.ipbandroidview.features.paymentmethod.FetchPaymentMethods
+import com.progressterra.ipbandroidview.processes.auth.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
+import com.progressterra.ipbandroidview.processes.bankcards.FetchConfirmedBankCardsUseCase
+import com.progressterra.ipbandroidview.processes.bankcards.FetchMainCardIdUseCase
+import com.progressterra.ipbandroidview.processes.bankcards.FetchUnconfirmedBankCardsUseCase
+import com.progressterra.ipbandroidview.processes.bankcards.HasCardsUseCase
+import com.progressterra.ipbandroidview.processes.bonuses.CancelUseBonusesUseCase
+import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusSwitchUseCase
+import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesTransactionsUseCase
+import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesUseCase
+import com.progressterra.ipbandroidview.processes.bonuses.UseBonusesUseCase
+import com.progressterra.ipbandroidview.processes.cart.AddDeliveryToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartInstallmentUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
+import com.progressterra.ipbandroidview.processes.cart.FetchCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
-import com.progressterra.ipbandroidview.processes.data.CitizenshipRepository
-import com.progressterra.ipbandroidview.processes.dating.AcceptConnectUseCase
+import com.progressterra.ipbandroidview.processes.chat.ChatsUseCase
+import com.progressterra.ipbandroidview.processes.chat.CreateChatWithUserUseCase
+import com.progressterra.ipbandroidview.processes.chat.DatingChatsPagingUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchChatsUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchDatingChatsUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchDocumentChatUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchOrderChatUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchWantThisDetailsChatUseCase
+import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.connection.AcceptConnectUseCase
+import com.progressterra.ipbandroidview.processes.connection.ConnectUseCase
+import com.progressterra.ipbandroidview.processes.connection.ConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.connection.IncomingConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.connection.PendingConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.connection.SuccessInConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.connection.SuccessOutConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.connection.UserConnectionStatusUseCase
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
-import com.progressterra.ipbandroidview.processes.dating.ConnectUseCase
-import com.progressterra.ipbandroidview.processes.dating.ConnectionsUseCase
-import com.progressterra.ipbandroidview.processes.dating.CreateChatWithUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.DeleteReadyToMeetUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
-import com.progressterra.ipbandroidview.processes.dating.IncomingConnectionsUseCase
-import com.progressterra.ipbandroidview.processes.dating.PendingConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.ReadyToMeetUseCase
-import com.progressterra.ipbandroidview.processes.dating.SuccessInConnectionsUseCase
-import com.progressterra.ipbandroidview.processes.dating.SuccessOutConnectionsUseCase
 import com.progressterra.ipbandroidview.processes.dating.UpdateDatingLocationUseCase
-import com.progressterra.ipbandroidview.processes.dating.UserConnectionStatusUseCase
 import com.progressterra.ipbandroidview.processes.dating.UsersAroundUseCase
+import com.progressterra.ipbandroidview.processes.docs.CitizenshipRepository
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocumentValidationUseCase
+import com.progressterra.ipbandroidview.processes.docs.DocumentsNotificationUseCase
+import com.progressterra.ipbandroidview.processes.docs.DocumentsUseCase
+import com.progressterra.ipbandroidview.processes.docs.FetchCardTemplateUseCase
+import com.progressterra.ipbandroidview.processes.docs.FetchCitizenshipsUseCase
 import com.progressterra.ipbandroidview.processes.docs.FetchDocTemplateUseCase
+import com.progressterra.ipbandroidview.processes.docs.FetchWantThisTemplateUseCase
+import com.progressterra.ipbandroidview.processes.docs.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.processes.goods.CatalogUseCase
+import com.progressterra.ipbandroidview.processes.goods.FavoriteGoodsUseCase
+import com.progressterra.ipbandroidview.processes.goods.FetchFavoriteIds
+import com.progressterra.ipbandroidview.processes.goods.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.processes.goods.FetchGoodsPage
 import com.progressterra.ipbandroidview.processes.goods.FetchSingleGoodsUseCase
+import com.progressterra.ipbandroidview.processes.goods.GoodsDetailsUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
+import com.progressterra.ipbandroidview.processes.goods.ModifyFavoriteUseCase
 import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCase
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase
+import com.progressterra.ipbandroidview.processes.location.CurrentLocationSuggestionsUseCase
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.LocationToLocationPointUseCase
-import com.progressterra.ipbandroidview.processes.location.OpenMapUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
+import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
+import com.progressterra.ipbandroidview.processes.media.BitmapImageUseCase
+import com.progressterra.ipbandroidview.processes.media.FileExplorer
+import com.progressterra.ipbandroidview.processes.media.MakePhotoContract
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
+import com.progressterra.ipbandroidview.processes.media.PickPhotoContract
 import com.progressterra.ipbandroidview.processes.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
-import com.progressterra.ipbandroidview.processes.occupacion.FetchOccupationsUseCase
-import com.progressterra.ipbandroidview.processes.occupacion.SaveOccupationUseCase
-import com.progressterra.ipbandroidview.processes.payments.FetchWithdrawalUseCase
-import com.progressterra.ipbandroidview.processes.payments.HasCardsUseCase
+import com.progressterra.ipbandroidview.processes.occupation.FetchOccupationsUseCase
+import com.progressterra.ipbandroidview.processes.occupation.SaveOccupationUseCase
+import com.progressterra.ipbandroidview.processes.order.CommentUseCase
+import com.progressterra.ipbandroidview.processes.order.ConfirmOrderUseCase
+import com.progressterra.ipbandroidview.processes.order.FetchReceiptUseCase
+import com.progressterra.ipbandroidview.processes.order.FetchShippingAddressUseCase
+import com.progressterra.ipbandroidview.processes.order.OrderDetailsUseCase
+import com.progressterra.ipbandroidview.processes.order.OrdersUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
-import com.progressterra.ipbandroidview.processes.store.FetchFavoriteIds
 import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserProfileUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
@@ -56,12 +98,25 @@ import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
+import com.progressterra.ipbandroidview.processes.utils.CreateId
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManagePermissionContract
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.OpenMapUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenPhoneUseCase
 import com.progressterra.ipbandroidview.processes.utils.OpenUrlUseCase
 import com.progressterra.ipbandroidview.processes.utils.ShareTextUseCase
+import com.progressterra.ipbandroidview.processes.utils.StartActivityContract
+import com.progressterra.ipbandroidview.processes.utils.UpdateFirebaseCloudMessagingTokenUseCase
+import com.progressterra.ipbandroidview.processes.wantthis.WantThisRequestsUseCase
+import com.progressterra.ipbandroidview.processes.withdrawal.CreateNewWithdrawalUseCase
+import com.progressterra.ipbandroidview.processes.withdrawal.FetchWithdrawalTransactionsUseCase
+import com.progressterra.ipbandroidview.processes.withdrawal.FetchWithdrawalUseCase
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.qualifier.StringQualifier
+import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val processesModule = module {
@@ -82,7 +137,7 @@ val processesModule = module {
 
     single<FetchFavoriteIds> { FetchFavoriteIds.Base(get(), get(), get()) }
 
-    single<CheckPermissionUseCase> { CheckPermissionUseCase.Base(get()) }
+    single<CheckPermissionUseCase> { CheckPermissionUseCase.Base(get(), get(), get()) }
 
     single<AskPermissionUseCase> { AskPermissionUseCase.Base(get()) }
 
@@ -94,7 +149,7 @@ val processesModule = module {
 
     single<PauseAudioUseCase> { PauseAudioUseCase.Base(get()) }
 
-    single<MakePhotoUseCase> { MakePhotoUseCase.Base(get(), get(), get()) }
+    single<MakePhotoUseCase> { MakePhotoUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<AudioProgressUseCase> { AudioProgressUseCase.Base(get()) }
 
@@ -158,6 +213,18 @@ val processesModule = module {
         AddToCartInstallmentUseCase.Base(get(), get(), get(), get(), get())
     }
 
+    single {
+        StartActivityContract.Base()
+    }.binds(arrayOf(StartActivityContract.Client::class, StartActivityContract.Activity::class))
+
+    single {
+        MakePhotoContract.Base()
+    }.binds(arrayOf(MakePhotoContract.Activity::class, MakePhotoContract.Client::class))
+
+    single {
+        PickPhotoContract.Base()
+    }.binds(arrayOf(PickPhotoContract.Activity::class, PickPhotoContract.Client::class))
+
     single<FetchDocTemplateUseCase> {
         FetchDocTemplateUseCase.Base(
             get(),
@@ -203,7 +270,14 @@ val processesModule = module {
 
     single<SuccessOutConnectionsUseCase> { SuccessOutConnectionsUseCase.Base(get(), get()) }
 
-    single<UserConnectionStatusUseCase> { UserConnectionStatusUseCase.Base(get(), get(), get(), get()) }
+    single<UserConnectionStatusUseCase> {
+        UserConnectionStatusUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 
     single<UsersAroundUseCase> {
         UsersAroundUseCase.Base(
@@ -279,4 +353,198 @@ val processesModule = module {
             get(), get(), get()
         )
     }
+
+    single<FetchGalleriesUseCase> {
+        FetchGalleriesUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<FetchBonusesTransactionsUseCase> {
+        FetchBonusesTransactionsUseCase.Base(
+            get(), get(), get()
+        )
+    }
+
+    single<DocumentsUseCase> { DocumentsUseCase.Base(get(), get(), get(), get(), get(), get()) }
+
+    single {
+        ManagePermissionContract.Base()
+    }.binds(
+        arrayOf(
+            ManagePermissionContract.Client::class,
+            ManagePermissionContract.Activity::class
+        )
+    )
+
+    single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
+
+    single<OrderDetailsUseCase> {
+        OrderDetailsUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<EndVerificationChannelUseCase> {
+        EndVerificationChannelUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<CatalogUseCase> {
+        CatalogUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get(), get()) }
+
+    single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get(), get()) }
+
+    single<FetchCartUseCase> {
+        FetchCartUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<GoodsDetailsUseCase> {
+        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
+    }
+
+    single<WantThisRequestsUseCase> {
+        WantThisRequestsUseCase.Base(
+            get(), get(), get(), get(), get()
+        )
+    }
+
+    single<SuggestionsUseCase> {
+        SuggestionsUseCase.Base(get())
+    }
+
+    single<FetchShippingAddressUseCase> {
+        FetchShippingAddressUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<AddDeliveryToCartUseCase> {
+        AddDeliveryToCartUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<FetchConfirmedBankCardsUseCase> {
+        FetchConfirmedBankCardsUseCase.Base(
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    single<FetchUnconfirmedBankCardsUseCase> {
+        FetchUnconfirmedBankCardsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    single<CreateNewWithdrawalUseCase> {
+        CreateNewWithdrawalUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    single<FetchWithdrawalTransactionsUseCase> {
+        FetchWithdrawalTransactionsUseCase.Base(
+            get(),
+            get()
+        )
+    }
+
+    single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get(), get(), get()) }
+
+    single<FetchMainCardIdUseCase> { FetchMainCardIdUseCase.Base(get(), get(), get(), get()) }
+
+    single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get(), get()) }
+
+    single<ChatsUseCase> {
+        ChatsUseCase.Base(get(), get())
+    }
+
+    single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get()) }
+
+    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get(), get()) }
+
+    single<FetchMessagesUseCase> { FetchMessagesUseCase.Base(get(), get()) }
+
+    single<FetchOrderChatUseCase> { FetchOrderChatUseCase.Base(get(), get(), get(), get()) }
+
+    single<FetchWantThisDetailsChatUseCase> {
+        FetchWantThisDetailsChatUseCase.Base(
+            get(),
+            get(),
+            get(), get()
+        )
+    }
+
+    single<FetchBonusSwitchUseCase> {
+        FetchBonusSwitchUseCase.Base(get(), get())
+    }
+
+    single<FetchReceiptUseCase> {
+        FetchReceiptUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<DocumentsNotificationUseCase> {
+        DocumentsNotificationUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    single<CommentUseCase> {
+        CommentUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<FetchWantThisTemplateUseCase> { FetchWantThisTemplateUseCase.Base(get(), get(), get()) }
+
+    single<FavoriteGoodsUseCase> {
+        FavoriteGoodsUseCase.Base()
+    }
+
+    single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base() }
+
+    single<ConfirmOrderUseCase> {
+        ConfirmOrderUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<SaveDocumentsUseCase> {
+        SaveDocumentsUseCase.Base(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
+
+    single<FileExplorer> {
+        FileExplorer.Redi(androidContext(), get(qualifier = StringQualifier("authority")), get())
+    }
+
+    single<CreateId> {
+        CreateId.Base()
+    }
+
+    single<ManageResources> { ManageResources.Base(androidContext()) }
+
+
+    single<FetchBonusesUseCase> {
+        FetchBonusesUseCase.Base(get(), get(), get(), get(), get())
+    }
+
+    single<FetchPaymentMethods> {
+        FetchPaymentMethods.Base()
+    }
+
+    single<CurrentLocationSuggestionsUseCase> {
+        CurrentLocationSuggestionsUseCase.Base(get(), get())
+    }
+
+    single<FetchCitizenshipsUseCase> { FetchCitizenshipsUseCase.Base(get(), get(), get()) }
 }

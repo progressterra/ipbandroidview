@@ -42,40 +42,6 @@ import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsS
 import com.progressterra.ipbandroidview.pages.welcome.WelcomeScreenViewModel
 import com.progressterra.ipbandroidview.pages.withdrawal.WithdrawalScreenViewModel
 import com.progressterra.ipbandroidview.pages.workwatch.WorkWatchScreenViewModel
-import com.progressterra.ipbandroidview.processes.AddDeliveryToCartUseCase
-import com.progressterra.ipbandroidview.processes.CancelUseBonusesUseCase
-import com.progressterra.ipbandroidview.processes.CatalogUseCase
-import com.progressterra.ipbandroidview.processes.ChatsUseCase
-import com.progressterra.ipbandroidview.processes.CommentUseCase
-import com.progressterra.ipbandroidview.processes.ConfirmOrderUseCase
-import com.progressterra.ipbandroidview.processes.CreateNewWithdrawalUseCase
-import com.progressterra.ipbandroidview.processes.DocumentsNotificationUseCase
-import com.progressterra.ipbandroidview.processes.EndVerificationChannelUseCase
-import com.progressterra.ipbandroidview.processes.FavoriteGoodsUseCase
-import com.progressterra.ipbandroidview.processes.FetchBonusSwitchUseCase
-import com.progressterra.ipbandroidview.processes.FetchCardTemplateUseCase
-import com.progressterra.ipbandroidview.processes.FetchCartUseCase
-import com.progressterra.ipbandroidview.processes.FetchChatsUseCase
-import com.progressterra.ipbandroidview.processes.FetchDocumentChatUseCase
-import com.progressterra.ipbandroidview.processes.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.processes.FetchOrderChatUseCase
-import com.progressterra.ipbandroidview.processes.FetchReceiptUseCase
-import com.progressterra.ipbandroidview.processes.FetchShippingAddressUseCase
-import com.progressterra.ipbandroidview.processes.FetchUnconfirmedBankCardsUseCase
-import com.progressterra.ipbandroidview.processes.FetchWantThisDetailsChatUseCase
-import com.progressterra.ipbandroidview.processes.FetchWantThisUseCase
-import com.progressterra.ipbandroidview.processes.FetchWithdrawalTransactionsUseCase
-import com.progressterra.ipbandroidview.processes.GoodsDetailsUseCase
-import com.progressterra.ipbandroidview.processes.ModifyFavoriteUseCase
-import com.progressterra.ipbandroidview.processes.OrderDetailsUseCase
-import com.progressterra.ipbandroidview.processes.OrdersUseCase
-import com.progressterra.ipbandroidview.processes.SaveDocumentsUseCase
-import com.progressterra.ipbandroidview.processes.SendMessageUseCase
-import com.progressterra.ipbandroidview.processes.SuggestionsUseCase
-import com.progressterra.ipbandroidview.processes.UseBonusesUseCase
-import com.progressterra.ipbandroidview.processes.WantThisRequestsUseCase
-import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
-import com.progressterra.ipbandroidview.processes.payments.FetchMainCardIdUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -154,53 +120,6 @@ val pagesModule = module {
 
     viewModel { PeopleNearbyScreenViewModel(get()) }
 
-    single<OrdersUseCase> { OrdersUseCase.Base(get(), get()) }
-
-    single<OrderDetailsUseCase> {
-        OrderDetailsUseCase.Base(get(), get(), get(), get(), get())
-    }
-
-    single<EndVerificationChannelUseCase> {
-        EndVerificationChannelUseCase.Base(get(), get(), get(), get(), get())
-    }
-
-    single<CatalogUseCase> {
-        CatalogUseCase.Base(get(), get(), get(), get())
-    }
-
-    single<UseBonusesUseCase> { UseBonusesUseCase.Base(get(), get(), get(), get()) }
-
-    single<CancelUseBonusesUseCase> { CancelUseBonusesUseCase.Base(get(), get(), get(), get()) }
-
-    single<FetchCartUseCase> {
-        FetchCartUseCase.Base(get(), get(), get(), get(), get())
-    }
-
-    single<GoodsDetailsUseCase> {
-        GoodsDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
-    }
-
-    single<FavoriteGoodsUseCase> {
-        FavoriteGoodsUseCase.Base()
-    }
-
-    single<ModifyFavoriteUseCase> { ModifyFavoriteUseCase.Base() }
-
-    single<ConfirmOrderUseCase> {
-        ConfirmOrderUseCase.Base(get(), get(), get(), get(), get())
-    }
-
-    single<SaveDocumentsUseCase> {
-        SaveDocumentsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
-
     viewModel { CatalogScreenViewModel(get(), get(), get(), get()) }
 
     viewModel { CartScreenViewModel(get(), get(), get()) }
@@ -209,30 +128,7 @@ val pagesModule = module {
 
     viewModel { DocumentDetailsViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
-    single<DocumentsNotificationUseCase> {
-        DocumentsNotificationUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
-
-    single<CommentUseCase> {
-        CommentUseCase.Base(get(), get(), get(), get())
-    }
-
-    single<FetchWantThisUseCase> { FetchWantThisUseCase.Base(get(), get(), get()) }
-
     viewModel { OrdersScreenViewModel(get()) }
-
-    single<FetchBonusSwitchUseCase> {
-        FetchBonusSwitchUseCase.Base(get(), get())
-    }
-
-    single<FetchReceiptUseCase> {
-        FetchReceiptUseCase.Base(get(), get(), get(), get())
-    }
 
     viewModel { OrderStatusScreenViewModel() }
 
@@ -240,43 +136,6 @@ val pagesModule = module {
 
     viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get(), get()) }
 
-    single<WantThisRequestsUseCase> {
-        WantThisRequestsUseCase.Base(
-            get(), get(), get(), get(), get()
-        )
-    }
-
-    single<SuggestionsUseCase> {
-        SuggestionsUseCase.Base(get())
-    }
-
-    single<FetchShippingAddressUseCase> {
-        FetchShippingAddressUseCase.Base(get(), get(), get(), get())
-    }
-
-    single<AddDeliveryToCartUseCase> {
-        AddDeliveryToCartUseCase.Base(get(), get(), get(), get(), get())
-    }
-
-    single<ChatsUseCase> {
-        ChatsUseCase.Base(get(), get())
-    }
-
-    single<SendMessageUseCase> { SendMessageUseCase.Base(get(), get(), get(), get()) }
-
-    single<FetchChatsUseCase> { FetchChatsUseCase.Base(get(), get(), get(), get(), get()) }
-
-    single<FetchMessagesUseCase> { FetchMessagesUseCase.Base(get(), get()) }
-
-    single<FetchOrderChatUseCase> { FetchOrderChatUseCase.Base(get(), get(), get(), get()) }
-
-    single<FetchWantThisDetailsChatUseCase> {
-        FetchWantThisDetailsChatUseCase.Base(
-            get(),
-            get(),
-            get(), get()
-        )
-    }
 
     viewModel { WorkWatchScreenViewModel(get(), get(), get()) }
 
@@ -288,47 +147,7 @@ val pagesModule = module {
 
     viewModel { ChatScreenViewModel(get(), get()) }
 
-    single<FetchUnconfirmedBankCardsUseCase> {
-        FetchUnconfirmedBankCardsUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
-
     viewModel { ConnectionsScreenViewModel(get()) }
-
-    single<FetchConfirmedBankCardsUseCase> {
-        FetchConfirmedBankCardsUseCase.Base(
-            get(),
-            get(),
-            get()
-        )
-    }
-
-    single<CreateNewWithdrawalUseCase> {
-        CreateNewWithdrawalUseCase.Base(
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
-
-    single<FetchWithdrawalTransactionsUseCase> {
-        FetchWithdrawalTransactionsUseCase.Base(
-            get(),
-            get()
-        )
-    }
-
-    single<FetchCardTemplateUseCase> { FetchCardTemplateUseCase.Base(get(), get(), get()) }
-
-    single<FetchMainCardIdUseCase> { FetchMainCardIdUseCase.Base(get(), get(), get(), get()) }
-
-    single<FetchDocumentChatUseCase> { FetchDocumentChatUseCase.Base(get(), get(), get(), get()) }
 
     viewModel { WithdrawalScreenViewModel(get(), get(), get()) }
 

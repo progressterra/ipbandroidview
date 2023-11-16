@@ -2,11 +2,11 @@ package com.progressterra.ipbandroidview.processes.user
 
 import android.net.Uri
 import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.shared.FileExplorer
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.processes.media.FileExplorer
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.throwOnFailure
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody

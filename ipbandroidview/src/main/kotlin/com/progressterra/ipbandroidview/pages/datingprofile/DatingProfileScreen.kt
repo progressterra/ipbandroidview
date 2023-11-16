@@ -29,7 +29,7 @@ import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.shouldShow
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.shared.rememberResourceUri
+import com.progressterra.ipbandroidview.shared.ui.utils.rememberResourceUri
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
@@ -37,7 +37,7 @@ import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.button.TextButton
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 

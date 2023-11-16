@@ -21,7 +21,7 @@ class CartScreenNode(
         val viewModel = getViewModel<CartScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
-                is CartScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
+                is CartScreenEffect.OnItem -> navigation.onGoodsDetails(effect.data)
                 is CartScreenEffect.Payment -> navigation.onDelivery()
             }
         }

@@ -24,7 +24,7 @@ import androidx.paging.compose.itemKey
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bankcard.BankCard
 import com.progressterra.ipbandroidview.features.topbar.TopBar
-import com.progressterra.ipbandroidview.shared.Tabs
+import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button

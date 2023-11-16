@@ -21,7 +21,7 @@ class FavoritesScreenNode(
         val viewModel = getViewModel<FavoritesScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
-                is FavoritesScreenEffect.GoodsDetails -> navigation.openGoodsDetails(effect.data)
+                is FavoritesScreenEffect.GoodsDetails -> navigation.onGoodsDetails(effect.data)
                 is FavoritesScreenEffect.Back -> navigation.onBack()
             }
         }

@@ -5,13 +5,13 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.GeoData
 import com.progressterra.ipbandroidapi.api.iamhere.models.GeoPoint
 import com.progressterra.ipbandroidapi.api.iamhere.models.StatusResult
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.location.LocationToLocationPointUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 
 interface UpdateDatingLocationUseCase {
 

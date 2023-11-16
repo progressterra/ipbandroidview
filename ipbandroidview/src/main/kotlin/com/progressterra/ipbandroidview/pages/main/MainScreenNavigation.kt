@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.pages.main
 
-import com.progressterra.ipbandroidview.shared.mvi.OnBankCard
-import com.progressterra.ipbandroidview.shared.mvi.OpenGoodsDetails
+import com.progressterra.ipbandroidview.pages.nav.OnBankCard
+import com.progressterra.ipbandroidview.pages.nav.OnGoodsDetails
 
-interface MainScreenNavigation : OpenGoodsDetails, OnBankCard {
+interface MainScreenNavigation : OnGoodsDetails, OnBankCard {
 
     fun onWithdrawal()
 

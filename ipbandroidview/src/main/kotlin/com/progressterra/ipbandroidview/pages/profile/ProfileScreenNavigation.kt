@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.profile
 
-import com.progressterra.ipbandroidview.shared.mvi.OnAuth
+import com.progressterra.ipbandroidview.pages.nav.OnAuth
 
 interface ProfileScreenNavigation : OnAuth {
 

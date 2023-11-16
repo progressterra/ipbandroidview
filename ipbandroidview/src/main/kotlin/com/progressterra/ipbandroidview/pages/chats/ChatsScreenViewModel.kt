@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.chats
 
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.FetchDatingChatsUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchDatingChatsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import kotlinx.coroutines.flow.collectLatest
 

@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardEvent
 import com.progressterra.ipbandroidview.features.search.SearchEvent
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
 import com.progressterra.ipbandroidview.features.trace.TraceEvent
-import com.progressterra.ipbandroidview.processes.CatalogUseCase
+import com.progressterra.ipbandroidview.processes.goods.CatalogUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase

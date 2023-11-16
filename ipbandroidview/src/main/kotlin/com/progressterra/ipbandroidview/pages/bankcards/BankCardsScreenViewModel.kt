@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.bankcard.BankCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.FetchUnconfirmedBankCardsUseCase
-import com.progressterra.ipbandroidview.processes.payments.FetchConfirmedBankCardsUseCase
+import com.progressterra.ipbandroidview.processes.bankcards.FetchUnconfirmedBankCardsUseCase
+import com.progressterra.ipbandroidview.processes.bankcards.FetchConfirmedBankCardsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent

@@ -1,0 +1,50 @@
+package com.progressterra.ipbandroidview.processes.chat
+
+import com.progressterra.ipbandroidapi.api.messenger.MessengerService
+import com.progressterra.ipbandroidapi.api.messenger.models.IncomeDataForCreateDialog
+import com.progressterra.ipbandroidapi.api.messenger.models.MetaDataClientWithID
+import com.progressterra.ipbandroidapi.api.messenger.models.TypeDataSource
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.ORDERS_CHAT_ID
+import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
+
+interface FetchOrderChatUseCase {
+
+    suspend operator fun invoke(orderId: String, orderNumber: String): Result<String>
+
+    class Base(
+        obtainAccessToken: ObtainAccessToken,
+        private val manageResources: ManageResources,
+        private val messengerRepository: MessengerService, makeToastUseCase: MakeToastUseCase
+    ) : AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources),
+        FetchOrderChatUseCase {
+
+        override suspend fun invoke(orderId: String, orderNumber: String): Result<String> =
+            withToken { token ->
+                messengerRepository.clientAreaDialog(
+                    accessToken = token,
+                    body = IncomeDataForCreateDialog(
+                        listClients = listOf(
+                            MetaDataClientWithID(
+                                dataSourceType = TypeDataSource.ENTERPRISE,
+                                dataSourceName = "",
+                                idClient = ORDERS_CHAT_ID,
+                                description = ""
+                            ),
+                            MetaDataClientWithID(
+                                dataSourceType = TypeDataSource.ORDER,
+                                dataSourceName = "",
+                                idClient = orderId,
+                                description = ""
+                            ),
+                        ),
+                        description = "${manageResources.string(R.string.order_chat)} $orderNumber",
+                        additionalDataJSON = ""
+                    )
+                ).data?.idUnique!!
+            }
+    }
+}

@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.pages.bankcarddetails
 
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.FetchCardTemplateUseCase
-import com.progressterra.ipbandroidview.processes.SaveDocumentsUseCase
+import com.progressterra.ipbandroidview.processes.docs.FetchCardTemplateUseCase
+import com.progressterra.ipbandroidview.processes.docs.SaveDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocsModule
 import com.progressterra.ipbandroidview.processes.docs.DocsModuleUser

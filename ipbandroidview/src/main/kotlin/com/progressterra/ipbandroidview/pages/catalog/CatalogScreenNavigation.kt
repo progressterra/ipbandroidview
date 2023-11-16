@@ -1,5 +1,5 @@
 package com.progressterra.ipbandroidview.pages.catalog
 
-import com.progressterra.ipbandroidview.shared.mvi.OpenGoodsDetails
+import com.progressterra.ipbandroidview.pages.nav.OnGoodsDetails
 
-interface CatalogScreenNavigation : OpenGoodsDetails
+interface CatalogScreenNavigation : OnGoodsDetails

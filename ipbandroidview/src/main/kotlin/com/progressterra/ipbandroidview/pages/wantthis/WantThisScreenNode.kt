@@ -25,7 +25,7 @@ class WantThisScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is WantThisScreenEffect.Requests -> navigation.onWantThisRequests()
-                is WantThisScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+                is WantThisScreenEffect.OpenPhoto -> navigation.onPhoto(effect.data)
                 is WantThisScreenEffect.Toast -> Toast.makeText(
                     context,
                     effect.data,

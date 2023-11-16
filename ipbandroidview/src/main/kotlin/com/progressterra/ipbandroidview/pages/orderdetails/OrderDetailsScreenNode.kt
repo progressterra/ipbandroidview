@@ -23,7 +23,7 @@ class OrderDetailsScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is OrderDetailsScreenEffect.Back -> navigation.onBack()
-                is OrderDetailsScreenEffect.OpenGoods -> navigation.openGoodsDetails(effect.data)
+                is OrderDetailsScreenEffect.OpenGoods -> navigation.onGoodsDetails(effect.data)
                 is OrderDetailsScreenEffect.Tracking -> navigation.onTracking(effect.data)
             }
         }

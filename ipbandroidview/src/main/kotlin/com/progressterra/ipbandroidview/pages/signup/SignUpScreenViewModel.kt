@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.signup
 
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.user.FetchUserUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveDataUseCase

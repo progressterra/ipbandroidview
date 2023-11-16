@@ -4,12 +4,13 @@ import android.util.Log
 import com.progressterra.ipbandroidapi.api.iamhere.ImhService
 import com.progressterra.ipbandroidview.entities.DatingUser
 import com.progressterra.ipbandroidview.entities.toDatingUser
-import com.progressterra.ipbandroidview.processes.BitmapImageUseCase
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.connection.UserConnectionStatusUseCase
+import com.progressterra.ipbandroidview.processes.media.BitmapImageUseCase
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractCacheTokenUseCase
-import com.progressterra.ipbandroidview.shared.CacheUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractCacheTokenUseCase
+import com.progressterra.ipbandroidview.shared.mvi.CacheUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 
 interface UsersAroundUseCase : CacheUseCase<List<DatingUser>> {
 

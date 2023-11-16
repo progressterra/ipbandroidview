@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.progressterra.ipbandroidview.processes.UpdateFirebaseCloudMessagingTokenUseCase
+import com.progressterra.ipbandroidview.processes.utils.UpdateFirebaseCloudMessagingTokenUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

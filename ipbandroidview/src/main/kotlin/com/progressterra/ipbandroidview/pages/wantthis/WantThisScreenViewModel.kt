@@ -1,12 +1,12 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.FetchWantThisUseCase
+import com.progressterra.ipbandroidview.processes.docs.FetchWantThisTemplateUseCase
 import com.progressterra.ipbandroidview.processes.docs.CreateAndSaveDocUseCase
 import com.progressterra.ipbandroidview.processes.docs.DocsModule
 import com.progressterra.ipbandroidview.processes.docs.DocsModuleUser
@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 
 class WantThisScreenViewModel(
-    private val fetchWantThisUseCase: FetchWantThisUseCase,
+    private val fetchWantThisTemplateUseCase: FetchWantThisTemplateUseCase,
     private val createAndSaveDocUseCase: CreateAndSaveDocUseCase,
     docsValidationUseCase: DocumentValidationUseCase,
     checkPermissionUseCase: CheckPermissionUseCase,
@@ -58,7 +58,7 @@ class WantThisScreenViewModel(
     override fun refresh() {
         onBackground {
             emitState { createInitialState() }
-            fetchWantThisUseCase().onSuccess { newDocument ->
+            fetchWantThisTemplateUseCase().onSuccess { newDocument ->
                 emitState { it.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
                 docsModule.setup(newDocument)
             }.onFailure {

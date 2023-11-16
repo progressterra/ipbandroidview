@@ -5,11 +5,11 @@ import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModule
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModuleUser
 import com.progressterra.ipbandroidview.features.bonuses.BonusesState
-import com.progressterra.ipbandroidview.processes.FetchBonusesUseCase
+import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
-import com.progressterra.ipbandroidview.processes.FetchBonusesTransactionsUseCase
+import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesTransactionsUseCase
 
 class BonusesDetailsScreenViewModel(
     fetchBonusesUseCase: FetchBonusesUseCase,

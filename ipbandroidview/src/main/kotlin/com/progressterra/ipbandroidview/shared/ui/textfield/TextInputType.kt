@@ -5,9 +5,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import com.progressterra.ipbandroidapi.api.documents.models.TypeValueCharacteristic
-import com.progressterra.ipbandroidview.shared.ui.MaskVisualTransformation
-import com.progressterra.ipbandroidview.shared.ui.Masks.DATE_MASK
-import com.progressterra.ipbandroidview.shared.ui.Masks.PHONE_MASK
+import com.progressterra.ipbandroidview.shared.ui.textfield.Masks.DATE_MASK
+import com.progressterra.ipbandroidview.shared.ui.textfield.Masks.PHONE_MASK
 
 enum class TextInputType {
     DEFAULT,

@@ -24,7 +24,7 @@ import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedIn
 import com.progressterra.ipbandroidview.entities.SuggestionUI
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
 fun AddressSuggestions(

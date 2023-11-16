@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.processes.media
 
-import com.progressterra.ipbandroidview.shared.voice.VoiceManager
-
 interface StopRecordingUseCase {
 
     suspend operator fun invoke(): Result<Unit>

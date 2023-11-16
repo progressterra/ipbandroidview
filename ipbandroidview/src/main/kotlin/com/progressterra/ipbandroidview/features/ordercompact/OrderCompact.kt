@@ -20,7 +20,7 @@ import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.toString
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
-import com.progressterra.ipbandroidview.shared.ui.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 @Composable
 fun OrderCompact(

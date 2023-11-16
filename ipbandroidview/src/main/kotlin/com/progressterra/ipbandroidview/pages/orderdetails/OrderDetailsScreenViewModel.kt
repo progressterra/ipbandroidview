@@ -7,10 +7,10 @@ import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatSt
 import com.progressterra.ipbandroidview.features.ordercard.OrderCardEvent
 import com.progressterra.ipbandroidview.features.orderdetails.OrderDetailsEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.processes.FetchOrderChatUseCase
-import com.progressterra.ipbandroidview.processes.OrderDetailsUseCase
-import com.progressterra.ipbandroidview.processes.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchOrderChatUseCase
+import com.progressterra.ipbandroidview.processes.order.OrderDetailsUseCase
+import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState

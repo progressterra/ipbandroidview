@@ -212,4 +212,6 @@
     <string name="ready_to_meet_female">Готова общаться</string>
     <string name="ask_permission">Запросить/проверить разрешения</string>
     <string name="enable">Включить</string>
+    <string name="photo_was_not_taken">Фото не было сделано</string>
+    <string name="no_permission">Разрешение не получено</string>
 </resources>

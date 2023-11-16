@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages.chat
 
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.processes.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
+import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent

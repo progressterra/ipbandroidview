@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
-import com.progressterra.ipbandroidview.shared.AbstractSource
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.mvi.AbstractSource
 
 class GoodsSource(
     private val obtainAccessToken: ObtainAccessToken,

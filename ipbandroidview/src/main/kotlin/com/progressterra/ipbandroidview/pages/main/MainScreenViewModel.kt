@@ -1,20 +1,20 @@
 package com.progressterra.ipbandroidview.pages.main
 
 import com.progressterra.ipbandroidapi.api.catalog.CatalogRepository
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES
 import com.progressterra.ipbandroidview.features.bonuses.BonusesEvent
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModule
 import com.progressterra.ipbandroidview.features.bonuses.BonusesModuleUser
 import com.progressterra.ipbandroidview.features.bonuses.BonusesState
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
-import com.progressterra.ipbandroidview.processes.FetchBonusesUseCase
-import com.progressterra.ipbandroidview.processes.FetchGalleriesUseCase
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesUseCase
+import com.progressterra.ipbandroidview.processes.goods.FetchGalleriesUseCase
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent

@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.processes.goods
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
 import com.progressterra.ipbandroidview.entities.GoodsFilter
 import com.progressterra.ipbandroidview.features.storecard.StoreCardState
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
-import com.progressterra.ipbandroidview.shared.PagingUseCase
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.mvi.PagingUseCase
 
 interface GoodsUseCase : PagingUseCase<GoodsFilter, StoreCardState> {
 

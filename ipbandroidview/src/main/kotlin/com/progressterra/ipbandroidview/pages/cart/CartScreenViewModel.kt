@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.pages.cart
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.cartcard.CartCardEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.FetchCartUseCase
+import com.progressterra.ipbandroidview.processes.cart.FetchCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel

@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.formatZdt
 import com.progressterra.ipbandroidview.entities.parseToZDT
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractLoggingUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 

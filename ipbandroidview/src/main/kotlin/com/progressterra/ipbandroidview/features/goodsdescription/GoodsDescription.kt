@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButton
 import com.progressterra.ipbandroidview.features.favoritebutton.FavoriteButtonState
-import com.progressterra.ipbandroidview.shared.Tabs
+import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText

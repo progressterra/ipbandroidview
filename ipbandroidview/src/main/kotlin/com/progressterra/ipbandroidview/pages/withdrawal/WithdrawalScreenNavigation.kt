@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.withdrawal
 
-import com.progressterra.ipbandroidview.shared.mvi.OnBack
-import com.progressterra.ipbandroidview.shared.mvi.OnBankCard
+import com.progressterra.ipbandroidview.pages.nav.OnBack
+import com.progressterra.ipbandroidview.pages.nav.OnBankCard
 
 interface WithdrawalScreenNavigation : OnBack, OnBankCard {
 

@@ -26,8 +26,8 @@ class GoodsDetailsScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is GoodsDetailsScreenEffect.Back -> navigation.onBack()
-                is GoodsDetailsScreenEffect.OpenImage -> navigation.openPhoto(effect.data)
-                is GoodsDetailsScreenEffect.GoodsDetails -> navigation.openGoodsDetails(effect.data)
+                is GoodsDetailsScreenEffect.OpenImage -> navigation.onPhoto(effect.data)
+                is GoodsDetailsScreenEffect.GoodsDetails -> navigation.onGoodsDetails(effect.data)
                 is GoodsDetailsScreenEffect.Toast -> Toast.makeText(
                     context,
                     effect.data,

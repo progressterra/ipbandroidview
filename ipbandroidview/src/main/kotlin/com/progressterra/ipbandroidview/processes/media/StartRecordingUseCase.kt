@@ -1,8 +1,6 @@
 package com.progressterra.ipbandroidview.processes.media
 
-import com.progressterra.ipbandroidview.shared.CreateId
-import com.progressterra.ipbandroidview.shared.FileExplorer
-import com.progressterra.ipbandroidview.shared.voice.VoiceManager
+import com.progressterra.ipbandroidview.processes.utils.CreateId
 import com.progressterra.ipbandroidview.entities.Voice
 
 interface StartRecordingUseCase {

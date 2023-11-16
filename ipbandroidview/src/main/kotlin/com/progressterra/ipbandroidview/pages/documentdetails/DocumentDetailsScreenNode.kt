@@ -24,7 +24,7 @@ class DocumentDetailsScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is DocumentDetailsScreenEffect.Back -> navigation.onBack()
-                is DocumentDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+                is DocumentDetailsScreenEffect.OpenPhoto -> navigation.onPhoto(effect.data)
             }
         }
         val state = viewModel.state.collectAsState().value

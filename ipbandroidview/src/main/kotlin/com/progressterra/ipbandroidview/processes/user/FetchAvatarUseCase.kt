@@ -4,10 +4,10 @@ import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataRepository
 import com.progressterra.ipbandroidapi.api.ipbmediadata.model.FieldForFilter
 import com.progressterra.ipbandroidapi.api.ipbmediadata.model.FilterAndSort
 import com.progressterra.ipbandroidapi.api.ipbmediadata.model.SortData
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 
 interface FetchAvatarUseCase {
 

@@ -3,13 +3,13 @@ package com.progressterra.ipbandroidview.processes.user
 import com.progressterra.ipbandroidapi.api.scrm.ScrmService
 import com.progressterra.ipbandroidapi.api.scrm.models.ClientsEntity
 import com.progressterra.ipbandroidapi.api.scrm.models.TypeSex
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.Sex
 import com.progressterra.ipbandroidview.entities.formatZdtIso
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.widgets.edituser.EditUserState
 import java.time.ZoneOffset

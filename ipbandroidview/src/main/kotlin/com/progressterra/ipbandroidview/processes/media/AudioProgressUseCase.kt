@@ -1,7 +1,5 @@
 package com.progressterra.ipbandroidview.processes.media
 
-import com.progressterra.ipbandroidview.shared.voice.AudioManager
-
 interface AudioProgressUseCase {
 
     suspend operator fun invoke(): Result<Float>

@@ -1,10 +1,10 @@
 package com.progressterra.ipbandroidview.pages.orderdetails
 
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
-import com.progressterra.ipbandroidview.shared.mvi.OnBack
-import com.progressterra.ipbandroidview.shared.mvi.OpenGoodsDetails
+import com.progressterra.ipbandroidview.pages.nav.OnBack
+import com.progressterra.ipbandroidview.pages.nav.OnGoodsDetails
 
-interface OrderDetailsScreenNavigation : OnBack, OpenGoodsDetails {
+interface OrderDetailsScreenNavigation : OnBack, OnGoodsDetails {
 
     fun onTracking(data: OrderTrackingState)
 }

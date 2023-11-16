@@ -4,9 +4,9 @@ import android.net.Uri
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
-import com.progressterra.ipbandroidview.shared.activity.PickPhotoContract
+import com.progressterra.ipbandroidview.shared.mvi.AbstractLoggingUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.media.PickPhotoContract
 
 interface PickPhotoUseCase {
 

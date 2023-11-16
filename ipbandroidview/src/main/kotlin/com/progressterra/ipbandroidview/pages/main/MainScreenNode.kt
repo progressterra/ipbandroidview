@@ -24,7 +24,7 @@ class MainScreenNode(
             when (effect) {
                 is MainScreenEffect.OnAddCard -> navigation.onBankCard(Document())
                 is MainScreenEffect.OnBonuses -> navigation.onBonuses()
-                is MainScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
+                is MainScreenEffect.OnItem -> navigation.onGoodsDetails(effect.data)
                 is MainScreenEffect.OnWithdrawal -> navigation.onWithdrawal()
             }
         }

@@ -7,9 +7,9 @@ import com.progressterra.ipbandroidview.entities.canDoAnything
 import com.progressterra.ipbandroidview.entities.canWrite
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.dating.AcceptConnectUseCase
-import com.progressterra.ipbandroidview.processes.dating.ConnectUseCase
-import com.progressterra.ipbandroidview.processes.dating.CreateChatWithUserUseCase
+import com.progressterra.ipbandroidview.processes.connection.AcceptConnectUseCase
+import com.progressterra.ipbandroidview.processes.connection.ConnectUseCase
+import com.progressterra.ipbandroidview.processes.chat.CreateChatWithUserUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
 import com.progressterra.ipbandroidview.processes.interests.ChangeInterestsUseCase
 import com.progressterra.ipbandroidview.processes.interests.FetchInterestsUseCase

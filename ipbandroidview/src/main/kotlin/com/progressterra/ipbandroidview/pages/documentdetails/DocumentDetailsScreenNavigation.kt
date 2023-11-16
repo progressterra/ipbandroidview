@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.documentdetails
 
-import com.progressterra.ipbandroidview.shared.mvi.OnBack
-import com.progressterra.ipbandroidview.shared.mvi.OpenPhoto
+import com.progressterra.ipbandroidview.pages.nav.OnBack
+import com.progressterra.ipbandroidview.pages.nav.OnPhoto
 
-interface DocumentDetailsScreenNavigation : OpenPhoto, OnBack
+interface DocumentDetailsScreenNavigation : OnPhoto, OnBack

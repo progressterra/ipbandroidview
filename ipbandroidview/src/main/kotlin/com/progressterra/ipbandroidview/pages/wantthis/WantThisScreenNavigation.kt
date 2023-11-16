@@ -1,8 +1,8 @@
 package com.progressterra.ipbandroidview.pages.wantthis
 
-import com.progressterra.ipbandroidview.shared.mvi.OpenPhoto
+import com.progressterra.ipbandroidview.pages.nav.OnPhoto
 
-interface WantThisScreenNavigation : OpenPhoto {
+interface WantThisScreenNavigation : OnPhoto {
 
     fun onWantThisRequests()
 }

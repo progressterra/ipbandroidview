@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.favorites
 
-import com.progressterra.ipbandroidview.shared.mvi.OnBack
-import com.progressterra.ipbandroidview.shared.mvi.OpenGoodsDetails
+import com.progressterra.ipbandroidview.pages.nav.OnBack
+import com.progressterra.ipbandroidview.pages.nav.OnGoodsDetails
 
-interface FavoritesScreenNavigation : OnBack, OpenGoodsDetails
+interface FavoritesScreenNavigation : OnBack, OnGoodsDetails

@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.pages.occupacion
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
-import com.progressterra.ipbandroidview.processes.occupacion.FetchOccupationsUseCase
-import com.progressterra.ipbandroidview.processes.occupacion.SaveOccupationUseCase
+import com.progressterra.ipbandroidview.processes.occupation.FetchOccupationsUseCase
+import com.progressterra.ipbandroidview.processes.occupation.SaveOccupationUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState

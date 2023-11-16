@@ -3,11 +3,11 @@ package com.progressterra.ipbandroidview.pages.delivery
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
 import com.progressterra.ipbandroidview.entities.SuggestionUI
-import com.progressterra.ipbandroidview.processes.SuggestionsUseCase
+import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.AddDeliveryToCartUseCase
-import com.progressterra.ipbandroidview.processes.CommentUseCase
-import com.progressterra.ipbandroidview.processes.FetchShippingAddressUseCase
+import com.progressterra.ipbandroidview.processes.cart.AddDeliveryToCartUseCase
+import com.progressterra.ipbandroidview.processes.order.CommentUseCase
+import com.progressterra.ipbandroidview.processes.order.FetchShippingAddressUseCase
 import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent

@@ -3,8 +3,8 @@ package com.progressterra.ipbandroidview.processes.location
 import android.location.Location
 import com.progressterra.ipbandroidview.entities.LocationPoint
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractLoggingUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractLoggingUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 
 interface LocationToLocationPointUseCase {
 

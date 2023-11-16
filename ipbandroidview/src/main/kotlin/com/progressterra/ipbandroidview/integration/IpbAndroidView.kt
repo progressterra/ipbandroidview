@@ -6,7 +6,7 @@ import com.chibatching.kotpref.gsonpref.gson
 import com.google.firebase.FirebaseApp
 import com.google.gson.Gson
 import com.progressterra.ipbandroidapi.IpbAndroidApiSettings
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.theme.ColorUnit
 import com.progressterra.ipbandroidview.shared.theme.IpbColors
 import com.yandex.mapkit.MapKitFactory

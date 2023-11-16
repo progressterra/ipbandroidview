@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidapi.api.auth.AuthService
 import com.progressterra.ipbandroidapi.api.workwatch.WorkWatchService
 import com.progressterra.ipbandroidapi.api.workwatch.models.RGTrackingEntity
 import com.progressterra.ipbandroidapi.core.NetworkService
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.shared.log
 

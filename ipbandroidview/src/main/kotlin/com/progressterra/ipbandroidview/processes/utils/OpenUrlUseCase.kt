@@ -2,7 +2,6 @@ package com.progressterra.ipbandroidview.processes.utils
 
 import android.content.Intent
 import android.net.Uri
-import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
 
 interface OpenUrlUseCase {
 

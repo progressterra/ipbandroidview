@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.pages.support
 
 import com.progressterra.ipbandroidview.features.supportchat.SupportChatEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.FetchChatsUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchChatsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent

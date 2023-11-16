@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.bankcarddetails
 
-import com.progressterra.ipbandroidview.shared.mvi.OnBack
-import com.progressterra.ipbandroidview.shared.mvi.OpenPhoto
+import com.progressterra.ipbandroidview.pages.nav.OnBack
+import com.progressterra.ipbandroidview.pages.nav.OnPhoto
 
-interface BankCardDetailsScreenNavigation : OnBack, OpenPhoto
+interface BankCardDetailsScreenNavigation : OnBack, OnPhoto

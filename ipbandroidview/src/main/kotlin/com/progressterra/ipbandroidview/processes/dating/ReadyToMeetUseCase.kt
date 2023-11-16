@@ -7,12 +7,12 @@ import com.progressterra.ipbandroidapi.api.iamhere.models.IncomeDataStartMeet
 import com.progressterra.ipbandroidapi.api.iamhere.models.RFTargetViewModel
 import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.entities.formatZdtIso
-import com.progressterra.ipbandroidview.processes.ObtainAccessToken
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.location.LocationToLocationPointUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.AbstractTokenUseCase
-import com.progressterra.ipbandroidview.shared.ManageResources
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import java.time.ZonedDateTime
 
 interface ReadyToMeetUseCase {

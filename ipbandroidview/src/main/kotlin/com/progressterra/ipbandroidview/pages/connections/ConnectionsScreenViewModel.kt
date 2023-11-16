@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.connections
 
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.dating.ConnectionsUseCase
+import com.progressterra.ipbandroidview.processes.connection.ConnectionsUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent

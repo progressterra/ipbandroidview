@@ -20,7 +20,7 @@ class CatalogScreenNode(
         val viewModel = getViewModel<CatalogScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
-                is CatalogScreenEffect.OnItem -> navigation.openGoodsDetails(effect.data)
+                is CatalogScreenEffect.OnItem -> navigation.onGoodsDetails(effect.data)
             }
         }
         val state = viewModel.state.collectAsState().value

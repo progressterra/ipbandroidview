@@ -4,8 +4,8 @@ import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.currentcitizenship.CurrentCitizenshipEvent
 import com.progressterra.ipbandroidview.features.dialogpicker.DialogPickerEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.DocumentsUseCase
-import com.progressterra.ipbandroidview.processes.FetchCitizenshipsUseCase
+import com.progressterra.ipbandroidview.processes.docs.DocumentsUseCase
+import com.progressterra.ipbandroidview.processes.docs.FetchCitizenshipsUseCase
 import com.progressterra.ipbandroidview.processes.user.SaveCitizenshipUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent

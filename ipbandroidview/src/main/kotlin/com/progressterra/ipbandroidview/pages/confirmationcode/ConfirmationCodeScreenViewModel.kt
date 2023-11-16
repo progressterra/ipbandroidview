@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidview.entities.SignInData
 import com.progressterra.ipbandroidview.features.code.CodeEvent
 import com.progressterra.ipbandroidview.features.countdown.CountdownEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
-import com.progressterra.ipbandroidview.processes.EndVerificationChannelUseCase
+import com.progressterra.ipbandroidview.processes.auth.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import kotlinx.coroutines.Job

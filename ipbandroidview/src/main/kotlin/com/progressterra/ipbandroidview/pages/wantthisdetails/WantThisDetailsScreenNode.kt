@@ -24,8 +24,8 @@ class WantThisDetailsScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is WantThisDetailsScreenEffect.Back -> navigation.onBack()
-                is WantThisDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.image)
-                is WantThisDetailsScreenEffect.GoodsDetails -> navigation.openGoodsDetails(effect.id)
+                is WantThisDetailsScreenEffect.OpenPhoto -> navigation.onPhoto(effect.image)
+                is WantThisDetailsScreenEffect.GoodsDetails -> navigation.onGoodsDetails(effect.id)
             }
         }
         val state = viewModel.state.collectAsState().value

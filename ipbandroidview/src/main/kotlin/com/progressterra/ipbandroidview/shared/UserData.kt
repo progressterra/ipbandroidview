@@ -2,7 +2,7 @@ package com.progressterra.ipbandroidview.shared
 
 import com.chibatching.kotpref.KotprefModel
 import com.chibatching.kotpref.gsonpref.gsonPref
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings.DEFAULT_ID
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.DEFAULT_ID
 import com.progressterra.ipbandroidview.entities.AddressUI
 import com.progressterra.ipbandroidview.entities.Citizenship
 

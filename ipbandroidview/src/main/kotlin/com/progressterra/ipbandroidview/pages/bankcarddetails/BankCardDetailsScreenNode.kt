@@ -27,7 +27,7 @@ class BankCardDetailsScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is BankCardDetailsScreenEffect.Back -> navigation.onBack()
-                is BankCardDetailsScreenEffect.OpenPhoto -> navigation.openPhoto(effect.data)
+                is BankCardDetailsScreenEffect.OpenPhoto -> navigation.onPhoto(effect.data)
                 is BankCardDetailsScreenEffect.Toast -> Toast.makeText(
                     context,
                     effect.data,

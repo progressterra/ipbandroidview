@@ -35,7 +35,7 @@ import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoState
 import com.progressterra.ipbandroidview.features.receipt.ReceiptState
 import com.progressterra.ipbandroidview.features.withdrawaltransaction.WithdrawalTransactionState
-import com.progressterra.ipbandroidview.shared.CreateId
+import com.progressterra.ipbandroidview.processes.utils.CreateId
 import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState

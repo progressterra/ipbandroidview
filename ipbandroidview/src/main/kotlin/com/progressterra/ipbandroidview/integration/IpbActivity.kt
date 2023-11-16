@@ -11,12 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.lifecycleScope
 import com.bumble.appyx.core.integrationpoint.NodeComponentActivity
 import com.progressterra.ipbandroidview.BuildConfig
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
-import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
-import com.progressterra.ipbandroidview.shared.activity.PickPhotoContract
-import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
+import com.progressterra.ipbandroidview.processes.media.MakePhotoContract
+import com.progressterra.ipbandroidview.processes.utils.ManagePermissionContract
+import com.progressterra.ipbandroidview.processes.media.PickPhotoContract
+import com.progressterra.ipbandroidview.processes.utils.StartActivityContract
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 

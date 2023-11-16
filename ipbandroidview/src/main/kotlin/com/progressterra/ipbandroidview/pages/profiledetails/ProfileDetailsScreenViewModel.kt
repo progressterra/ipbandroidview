@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.pages.profiledetails
 
 import androidx.lifecycle.viewModelScope
-import com.progressterra.ipbandroidview.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.editprofile.EditProfileEvent

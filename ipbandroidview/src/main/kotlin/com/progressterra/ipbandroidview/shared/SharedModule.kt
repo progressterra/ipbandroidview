@@ -8,39 +8,12 @@ import android.os.Build
 import androidx.work.WorkManager
 import com.google.android.gms.location.LocationServices
 import com.google.gson.Gson
-import com.progressterra.ipbandroidview.shared.activity.MakePhotoContract
-import com.progressterra.ipbandroidview.shared.activity.ManagePermissionContract
-import com.progressterra.ipbandroidview.shared.activity.PickPhotoContract
-import com.progressterra.ipbandroidview.shared.activity.StartActivityContract
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.qualifier.StringQualifier
-import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val sharedModule = module {
 
-    single {
-        ManagePermissionContract.Base()
-    }.binds(
-        arrayOf(
-            ManagePermissionContract.Client::class,
-            ManagePermissionContract.Activity::class
-        )
-    )
-
     single { WorkManager.getInstance(androidContext()) }
-
-    single {
-        StartActivityContract.Base()
-    }.binds(arrayOf(StartActivityContract.Client::class, StartActivityContract.Activity::class))
-
-    single {
-        MakePhotoContract.Base()
-    }.binds(arrayOf(MakePhotoContract.Activity::class, MakePhotoContract.Client::class))
-
-    single {
-        PickPhotoContract.Base()
-    }.binds(arrayOf(PickPhotoContract.Activity::class, PickPhotoContract.Client::class))
 
     single { androidContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
 
@@ -56,15 +29,5 @@ val sharedModule = module {
 
     single { LocationServices.getFusedLocationProviderClient(androidContext()) }
 
-    single<ManageResources> { ManageResources.Base(androidContext()) }
-
     single { Gson() }
-
-    single<FileExplorer> {
-        FileExplorer.Redi(androidContext(), get(qualifier = StringQualifier("authority")), get())
-    }
-
-    single<CreateId> {
-        CreateId.Base()
-    }
 }

@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.features.attachablechat
 
-import com.progressterra.ipbandroidview.processes.FetchMessagesUseCase
-import com.progressterra.ipbandroidview.processes.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
+import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
 import com.progressterra.ipbandroidview.shared.mvi.ModuleUser
 import com.progressterra.ipbandroidview.shared.mvi.Operations
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
