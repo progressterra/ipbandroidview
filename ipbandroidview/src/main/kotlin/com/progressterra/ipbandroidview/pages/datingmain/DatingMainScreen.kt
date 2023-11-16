@@ -403,7 +403,7 @@ fun DatingMainScreen(
                         verticalAlignment = Alignment.CenterVertically) {
                         BrushedText(
                             text = if (state.currentUser.target.isEmpty())
-                                stringResource(id = R.string.choose_dating_interest) else state.currentUser.target.name,
+                                stringResource(id = R.string.choose_dating_target) else state.currentUser.target.name,
                             tint = IpbTheme.colors.textButton.asBrush(),
                             style = IpbTheme.typography.subHeadlineRegular
                         )
