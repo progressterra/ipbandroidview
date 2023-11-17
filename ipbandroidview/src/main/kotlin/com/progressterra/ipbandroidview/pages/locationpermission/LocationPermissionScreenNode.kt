@@ -22,7 +22,8 @@ class LocationPermissionScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is LocationPermissionScreenEffect.OnBack -> navigation.onBack()
-                is LocationPermissionScreenEffect.OnNext -> navigation.onNext()
+                is LocationPermissionScreenEffect.OnSuccess -> navigation.onSuccess()
+                is LocationPermissionScreenEffect.OnFailure -> navigation.onFailure()
             }
         }
         val state = viewModel.state.collectAsState().value

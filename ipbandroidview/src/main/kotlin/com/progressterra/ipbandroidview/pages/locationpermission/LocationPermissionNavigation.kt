@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.locationpermission
 
-import com.progressterra.ipbandroidview.pages.nav.OnNext
 import com.progressterra.ipbandroidview.pages.nav.OnBack
+import com.progressterra.ipbandroidview.pages.nav.OnFailure
+import com.progressterra.ipbandroidview.pages.nav.OnSuccess
 
-interface LocationPermissionNavigation : OnNext, OnBack
+interface LocationPermissionNavigation : OnBack, OnSuccess, OnFailure
