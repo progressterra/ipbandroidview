@@ -32,7 +32,7 @@ class LocationPermissionScreenViewModel(
         onBackground {
             checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
                 checkJob?.cancel()
-                postEffect(LocationPermissionScreenEffect.OnNext)
+                postEffect(LocationPermissionScreenEffect.OnSuccess)
             }.onFailure {
                 askPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION)
             }
@@ -45,7 +45,7 @@ class LocationPermissionScreenViewModel(
             while (true) {
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).onSuccess {
                     makeToastUseCase(R.string.success_permission)
-                    postEffect(LocationPermissionScreenEffect.OnNext)
+                    postEffect(LocationPermissionScreenEffect.OnSuccess)
                     checkJob?.cancel()
                 }
                 delay(3000)
@@ -63,7 +63,7 @@ class LocationPermissionScreenViewModel(
             checkAndAsk()
         } else if (event.id == "skip") {
             checkJob?.cancel()
-            postEffect(LocationPermissionScreenEffect.OnNext)
+            postEffect(LocationPermissionScreenEffect.OnFailure)
         }
     }
 }

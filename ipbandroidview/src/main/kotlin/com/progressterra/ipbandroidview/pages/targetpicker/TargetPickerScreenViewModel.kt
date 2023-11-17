@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.collectLatest
 class TargetPickerScreenViewModel(
     private val fetchDatingUserUseCase: FetchDatingUserUseCase,
     private val availableTargetsUseCase: AvailableTargetsUseCase
-
 ) :
     AbstractNonInputViewModel<TargetPickerScreenState, TargetPickerScreenEffect>(),
     UseTargetPickerScreen {
