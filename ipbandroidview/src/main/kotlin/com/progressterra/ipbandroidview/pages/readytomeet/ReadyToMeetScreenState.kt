@@ -11,7 +11,7 @@ data class ReadyToMeetScreenState(
     val screen: StateColumnState = StateColumnState(),
     val target: DatingTarget = DatingTarget(),
     val user: DatingUser = DatingUser(),
-    val readyToMeet: Boolean = false,
+    val readyToMeet: Boolean? = null,
     val save: ButtonState = ButtonState(id = "save", enabled = false),
     val skip: ButtonState = ButtonState(id = "skip")
 )

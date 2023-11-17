@@ -61,7 +61,7 @@ class ReadyToMeetScreenViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             if (event.id == "save") {
-                if (currentState.readyToMeet) {
+                if (currentState.readyToMeet != null || !currentState.target.isEmpty()) {
                     readyToMeetUseCase(currentState.target).onSuccess {
                         postEffect(ReadyToMeetScreenEffect.OnNext)
                     }

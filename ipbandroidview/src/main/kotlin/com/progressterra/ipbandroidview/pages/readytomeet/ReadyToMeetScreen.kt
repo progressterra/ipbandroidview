@@ -70,7 +70,7 @@ fun ReadyToMeetScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     RadioButton(
-                        selected = state.readyToMeet || state.user.readyToMeet,
+                        selected = state.readyToMeet ?: state.user.readyToMeet,
                         onClick = { useComponent.handle(ReadyToMeetScreenEvent(true)) })
                     Column(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -95,7 +95,7 @@ fun ReadyToMeetScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     RadioButton(
-                        selected = !state.readyToMeet || !state.user.readyToMeet,
+                        selected = state.readyToMeet?.not() ?: !state.user.readyToMeet,
                         onClick = { useComponent.handle(ReadyToMeetScreenEvent(false)) })
                     Column(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
