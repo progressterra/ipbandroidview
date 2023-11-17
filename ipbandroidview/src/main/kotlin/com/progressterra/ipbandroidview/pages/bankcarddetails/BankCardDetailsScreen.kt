@@ -38,7 +38,8 @@ fun BankCardDetailsScreen(
     state: BankCardDetailsScreenState,
     useComponent: UseBankCardDetailsScreen
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
+    ThemedLayout(
+        modifier = modifier, topBar = {
         TopBar(
             title = if (state.document.isTemplate()) stringResource(id = R.string.card_adding) else stringResource(
                 id = R.string.card_viewing

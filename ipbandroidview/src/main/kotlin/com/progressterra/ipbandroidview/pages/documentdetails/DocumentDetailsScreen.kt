@@ -33,7 +33,8 @@ fun DocumentDetailsScreen(
     state: DocumentDetailsScreenState,
     useComponent: UseDocumentDetailsScreen
 ) {
-    ThemedLayout(modifier = modifier, topBar = {
+    ThemedLayout(
+        modifier = modifier, topBar = {
         TopBar(
             title = state.document.name,
             showBackButton = true,

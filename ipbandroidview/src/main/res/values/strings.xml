@@ -215,4 +215,13 @@
     <string name="photo_was_not_taken">Фото не было сделано</string>
     <string name="no_permission">Разрешение не получено</string>
     <string name="dating_target">Цель знакомства</string>
+    <string name="status">Статус</string>
+    <string name="ready_to_meet_invite">Укажите, готовы ли вы к общению в данный момент</string>
+    <string name="ready_female">Готова</string>
+    <string name="ready_male">Готов</string>
+    <string name="ready_explained">При этом статусе вы видимы другим людям и они могут запрашивать с вами коннект</string>
+    <string name="not_ready_explained">При этом статусе вы невидимы другим людям и вас никто не может потревожить</string>
+    <string name="not_ready_male">Не готов</string>
+    <string name="not_ready_female">Не готова</string>
+    <string name="ready_calm">Вы можете изменить этот статус в любой момент</string>
 </resources>
