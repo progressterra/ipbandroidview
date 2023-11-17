@@ -9,7 +9,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 data class TargetPickerScreenState(
     val screen: StateColumnState = StateColumnState(),
     val targets: List<DatingTarget> = emptyList(),
-    val save: ButtonState = ButtonState(id = "save"),
+    val save: ButtonState = ButtonState(id = "save", enabled = false),
     val selectedTarget: DatingTarget = DatingTarget(),
     val skip: ButtonState = ButtonState(id = "skip")
 )
