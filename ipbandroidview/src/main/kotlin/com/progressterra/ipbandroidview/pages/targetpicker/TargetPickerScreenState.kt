@@ -10,5 +10,6 @@ data class TargetPickerScreenState(
     val screen: StateColumnState = StateColumnState(),
     val targets: List<DatingTarget> = emptyList(),
     val save: ButtonState = ButtonState(),
-    val selectedTarget: DatingTarget = DatingTarget()
+    val selectedTarget: DatingTarget = DatingTarget(),
+    val skip: ButtonState = ButtonState()
 )

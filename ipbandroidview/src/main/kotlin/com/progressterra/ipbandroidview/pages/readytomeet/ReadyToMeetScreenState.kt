@@ -12,5 +12,6 @@ data class ReadyToMeetScreenState(
     val target: DatingTarget = DatingTarget(),
     val user: DatingUser = DatingUser(),
     val readyToMeet: Boolean = false,
-    val save: ButtonState = ButtonState()
+    val save: ButtonState = ButtonState(),
+    val skip: ButtonState = ButtonState()
 )

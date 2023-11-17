@@ -25,7 +25,7 @@ class ReadyToMeetScreenViewModel(
                     emitState {
                         it.copy(
                             user = user,
-                            save = it.save.copy(enabled = true),
+                            save = it.save.copy(enabled = !user.target.isEmpty()),
                             screen = it.screen.copy(state = ScreenState.SUCCESS)
                         )
                     }
@@ -70,6 +70,8 @@ class ReadyToMeetScreenViewModel(
                         postEffect(ReadyToMeetScreenEffect.OnNext)
                     }
                 }
+            } else if (event.id == "skip") {
+                postEffect(ReadyToMeetScreenEffect.OnNext)
             }
         }
     }

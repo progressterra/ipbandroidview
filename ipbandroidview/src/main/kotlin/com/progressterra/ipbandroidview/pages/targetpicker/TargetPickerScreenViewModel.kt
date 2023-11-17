@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.targetpicker
 
+import com.progressterra.ipbandroidview.entities.DatingTarget
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.dating.AvailableTargetsUseCase
 import com.progressterra.ipbandroidview.processes.dating.FetchDatingUserUseCase
@@ -62,6 +63,8 @@ class TargetPickerScreenViewModel(
     override fun handle(event: ButtonEvent) {
         if (event.id == "save") {
             postEffect(TargetPickerScreenEffect.OnNext(currentState.selectedTarget))
+        } else if (event.id == "skip") {
+            postEffect(TargetPickerScreenEffect.OnNext(DatingTarget()))
         }
     }
 
