@@ -86,7 +86,7 @@ fun ReadyToMeetScreen(
                         BrushedText(
                             modifier = Modifier.padding(start = 34.dp, top = 34.dp, end = 34.dp),
                             text = stringResource(id = R.string.ready_explained),
-                            style = IpbTheme.typography.headline,
+                            style = IpbTheme.typography.caption,
                             tint = IpbTheme.colors.textPrimary.asBrush()
                         )
                     }
@@ -95,8 +95,8 @@ fun ReadyToMeetScreen(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
                     RadioButton(
-                        selected = state.readyToMeet || state.user.readyToMeet,
-                        onClick = { useComponent.handle(ReadyToMeetScreenEvent(true)) })
+                        selected = !state.readyToMeet || !state.user.readyToMeet,
+                        onClick = { useComponent.handle(ReadyToMeetScreenEvent(false)) })
                     Column(
                         verticalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
@@ -105,7 +105,7 @@ fun ReadyToMeetScreen(
                             text = if (state.user.sex == Sex.MALE) stringResource(id = R.string.not_ready_male) else stringResource(
                                 id = R.string.not_ready_female
                             ),
-                            style = IpbTheme.typography.caption,
+                            style = IpbTheme.typography.headline,
                             tint = IpbTheme.colors.textPrimary.asBrush()
                         )
                         BrushedText(
