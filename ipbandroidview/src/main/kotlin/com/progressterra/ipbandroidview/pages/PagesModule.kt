@@ -33,9 +33,11 @@ import com.progressterra.ipbandroidview.pages.pfppicker.PfpPickerScreenViewModel
 import com.progressterra.ipbandroidview.pages.photo.PhotoScreenViewModel
 import com.progressterra.ipbandroidview.pages.profile.ProfileScreenViewModel
 import com.progressterra.ipbandroidview.pages.profiledetails.ProfileDetailsScreenViewModel
+import com.progressterra.ipbandroidview.pages.readytomeet.ReadyToMeetScreenViewModel
 import com.progressterra.ipbandroidview.pages.signin.SignInScreenViewModel
 import com.progressterra.ipbandroidview.pages.signup.SignUpScreenViewModel
 import com.progressterra.ipbandroidview.pages.support.SupportScreenViewModel
+import com.progressterra.ipbandroidview.pages.targetpicker.TargetPickerScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthis.WantThisScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisdetails.WantThisDetailsScreenViewModel
 import com.progressterra.ipbandroidview.pages.wantthisrequests.WantThisRequestsScreenViewModel
@@ -171,5 +173,13 @@ val pagesModule = module {
 
     viewModel {
         LocationPermissionScreenViewModel(get(), get(), get())
+    }
+
+    viewModel {
+        TargetPickerScreenViewModel(get(), get())
+    }
+
+    viewModel {
+        ReadyToMeetScreenViewModel(get(), get(), get())
     }
 }
