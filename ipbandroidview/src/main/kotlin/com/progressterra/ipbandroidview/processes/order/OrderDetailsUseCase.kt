@@ -28,16 +28,16 @@ interface OrderDetailsUseCase {
         manageResources
     ) {
 
-        override suspend fun invoke(orderId: String): Result<OrderDetailsState> = withToken {
+        override suspend fun invoke(orderId: String): Result<OrderDetailsState> = withToken { token ->
             val result =
-                cartRepository.orderById(accessToken = it, idOrder = orderId).also {
+                cartRepository.orderById(accessToken = token, idOrder = orderId).also {
                     if (it.result?.status != StatusResult.SUCCESS) throw ToastedException(
                         it.result?.message ?: ""
                     )
                 }.data!!
             val order = result.toOrder()
             val goods = result.listDRSale?.mapNotNull { dr ->
-                productRepository.productByNomenclatureId(it, dr.idrfNomenclature!!)
+                productRepository.productByNomenclatureId(token, dr.idrfNomenclature!!)
                     .getOrThrow()
                     ?.toGoodsItem()
                     ?.toOrderCardState()?.copy(

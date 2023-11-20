@@ -7,7 +7,6 @@
     <string name="and">&#160;и&#160;</string>
     <string name="privacy_policy">политикой конфиденциальности</string>
     <string name="auth_button">Авторизоваться</string>
-    <string name="auth_skip_button">Пока пропустить</string>
     <string name="verification_code">Код подтверждения</string>
     <string name="verification_code_message">Код из смс на номер:</string>
     <string name="next">Далее</string>
@@ -83,7 +82,6 @@
     <string name="incoming_connections">входящих запросов на коннект</string>
     <string name="accepted_connections">Принятые запросы</string>
     <string name="pending_connections">Вам ещё не ответили</string>
-    <string name="messages">Сообщения</string>
     <string name="connections">Запросы</string>
     <string name="avatar_picker_desc">Выберите аватар, который будет отображаться у других пользователей до подтверждения коннекта</string>
     <string name="avatar_picker">Выберите аватар</string>
@@ -98,7 +96,6 @@
     <string name="photo_picker">Выберите фото</string>
     <string name="about_you">Расскажите немного о себе. Эта информация будет видна всем пользователям в вашем профиле.</string>
     <string name="about_you_hint">Пару слов о себе…</string>
-    <string name="profession_hint">Сфера деятельности</string>
     <string name="save">Сохранить</string>
     <string name="choose_interests">Выберите интересы, которые наиболее точно характеризуют вас. Так другим пользователям будет легче вас найти.</string>
     <string name="give_access">Открыть доступ</string>
@@ -117,10 +114,6 @@
     <string name="want_this">Хочу это</string>
     <string name="past_requests">Предыдущие запросы</string>
     <string name="send_request">Отправить запрос</string>
-    <string name="main_screen">Главная</string>
-    <string name="catalog_screen">Каталог</string>
-    <string name="cart_screen">Корзина</string>
-    <string name="profile_screen">Профиль</string>
     <string name="payment_inner">Внутренний баланс</string>
     <string name="want_this_requests">Запросы Хочу это</string>
     <string name="want_this_chat">Чат по запросу</string>
@@ -171,9 +164,7 @@
     <string name="change_avatar">Сменить аватар</string>
     <string name="add_card_tip">Чтобы получать оплату и делать выгодные покупки необходимо добавить карту</string>
     <string name="success_permission">Разрешение получено</string>
-    <string name="failure_permission">Разрешение не получено</string>
     <string name="info_about_you">Информация о себе</string>
-    <string name="nickname">Имя</string>
     <string name="remoteness">удалённость</string>
     <string name="map">карта</string>
     <string name="find_mate">Выберите удалённость и найдите собеседника по интересам прямо сейчас!</string>
@@ -186,7 +177,6 @@
     <string name="chat">Чат</string>
     <string name="save_changes">Сохранить изменения</string>
     <string name="start_chat">Написать</string>
-    <string name="can_connect">Отправить запрос на коннект</string>
     <string name="request_sent">Запрос на коннект отправлен</string>
     <string name="accept_connect">Принять запрос на коннект</string>
     <string name="connect_accepted">Запрос на коннект принят</string>
@@ -200,8 +190,6 @@
     <string name="location_update_error">Не удалось обновить локацию</string>
     <string name="female">Женский</string>
     <string name="choose_photo">Выберите фото</string>
-    <string name="image">Изображение</string>
-    <string name="image_not_fetched">Не удалось загрузить изображение</string>
     <string name="avatar_background">Avatar background</string>
     <string name="user_avatar">User avatar</string>
     <string name="failure_location_permission">Нет доступа к местоположению</string>
