@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.wantthis
 
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.DocsVerificationPolicy
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.profilebutton.ProfileButtonEvent
@@ -33,6 +34,7 @@ class WantThisScreenViewModel(
 
     private val docsModule = DocsModule(
         docsValidationUseCase,
+        DocsVerificationPolicy.PHOTO_OR_TEXT,
         checkPermissionUseCase,
         askPermissionUseCase,
         makePhotoUseCase,

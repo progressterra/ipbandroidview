@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.wantthisdetails
 
+import com.progressterra.ipbandroidview.entities.DocsVerificationPolicy
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatEvent
@@ -65,6 +66,7 @@ class WantThisDetailsScreenViewModel(
 
     private val docsModule = DocsModule(
         documentValidationUseCase,
+        DocsVerificationPolicy.PHOTO_OR_TEXT,
         checkPermissionUseCase,
         askPermissionUseCase,
         makePhotoUseCase,

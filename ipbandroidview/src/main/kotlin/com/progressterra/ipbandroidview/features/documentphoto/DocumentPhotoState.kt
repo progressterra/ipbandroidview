@@ -9,7 +9,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class DocumentPhotoState(
     val items: List<MultisizedImage> = emptyList(),
-    val required: Boolean = false,
     val enabled: Boolean = true
 ) : Parcelable, IsEmpty {
 

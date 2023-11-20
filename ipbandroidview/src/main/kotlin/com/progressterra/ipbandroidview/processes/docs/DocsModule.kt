@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.processes.docs
 
 import android.Manifest
+import com.progressterra.ipbandroidview.entities.DocsVerificationPolicy
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.documentphoto.UseDocumentPhoto
@@ -14,6 +15,7 @@ import com.progressterra.ipbandroidview.shared.updateById
 
 class DocsModule(
     private val documentValidationUseCase: DocumentValidationUseCase,
+    private val docsVerificationPolicy: DocsVerificationPolicy,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val askPermissionUseCase: AskPermissionUseCase,
     private val makePhotoUseCase: MakePhotoUseCase,
@@ -44,7 +46,7 @@ class DocsModule(
 
     private fun validation() {
         onBackground {
-            val valid = documentValidationUseCase(moduleState)
+            val valid = documentValidationUseCase(moduleState, docsVerificationPolicy)
             isValid(valid.isSuccess)
         }
     }

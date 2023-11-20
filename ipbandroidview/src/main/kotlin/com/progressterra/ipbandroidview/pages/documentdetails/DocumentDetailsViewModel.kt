@@ -1,5 +1,6 @@
 package com.progressterra.ipbandroidview.pages.documentdetails
 
+import com.progressterra.ipbandroidview.entities.DocsVerificationPolicy
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatEvent
 import com.progressterra.ipbandroidview.features.attachablechat.AttachableChatModule
@@ -54,6 +55,7 @@ class DocumentDetailsViewModel(
 
     private val docsModule = DocsModule(
         documentValidationUseCase,
+        DocsVerificationPolicy.PHOTO_AND_TEXT,
         checkPermissionUseCase,
         askPermissionUseCase,
         makePhotoUseCase,

@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.pages.bankcarddetails
 
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.DocsVerificationPolicy
 import com.progressterra.ipbandroidview.entities.Document
 import com.progressterra.ipbandroidview.features.documentphoto.DocumentPhotoEvent
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
@@ -35,6 +36,7 @@ class BankCardDetailsScreenViewModel(
 
     private val docsModule = DocsModule(
         documentValidationUseCase,
+        DocsVerificationPolicy.PHOTO_AND_TEXT,
         checkPermissionUseCase,
         askPermissionUseCase,
         makePhotoUseCase,
