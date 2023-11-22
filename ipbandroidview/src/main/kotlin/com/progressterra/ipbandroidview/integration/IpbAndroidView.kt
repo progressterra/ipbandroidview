@@ -82,19 +82,19 @@ class IpbAndroidView private constructor(
         IpbAndroidViewSettings.WORK_WATCH_PERIOD = config["workWatchPeriod"]!!.first().toInt()
         IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS = config["availableProfileFields"]!!
         IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS = config["mandatoryProfileFields"]!!
-        IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!.first()
-        IpbAndroidApiSettings.BALANCE_URL = config["balanceUrl"]!!.first()
-        IpbAndroidApiSettings.CART_URL = config["cartUrl"]!!.first()
-        IpbAndroidApiSettings.CATALOG_URL = config["catalogUrl"]!!.first()
-        IpbAndroidApiSettings.DOCS_URL = config["docsUrl"]!!.first()
-        IpbAndroidApiSettings.MESSENGER_URL = config["messengerUrl"]!!.first()
-        IpbAndroidApiSettings.PAYMENT_DATA_URL = config["paymentDataUrl"]!!.first()
-        IpbAndroidApiSettings.PAYMENT_URL = config["paymentUrl"]!!.first()
-        IpbAndroidApiSettings.PRODUCT_URL = config["productUrl"]!!.first()
-        IpbAndroidApiSettings.SCRM_URL = config["scrmUrl"]!!.first()
-        IpbAndroidApiSettings.MEDIA_DATA_URL = config["mediaDataUrl"]!!.first()
-        IpbAndroidApiSettings.IMH_URL = config["imhUrl"]!!.first()
-        IpbAndroidApiSettings.WORK_WATCH_URL = config["workWatchUrl"]!!.first()
+        IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!
+        IpbAndroidApiSettings.BALANCE_URL = config["balanceUrl"]!!
+        IpbAndroidApiSettings.CART_URL = config["cartUrl"]!!
+        IpbAndroidApiSettings.CATALOG_URL = config["catalogUrl"]!!
+        IpbAndroidApiSettings.DOCS_URL = config["docsUrl"]!!
+        IpbAndroidApiSettings.MESSENGER_URL = config["messengerUrl"]!!
+        IpbAndroidApiSettings.PAYMENT_DATA_URL = config["paymentDataUrl"]!!
+        IpbAndroidApiSettings.PAYMENT_URL = config["paymentUrl"]!!
+        IpbAndroidApiSettings.PRODUCT_URL = config["productUrl"]!!
+        IpbAndroidApiSettings.SCRM_URL = config["scrmUrl"]!!
+        IpbAndroidApiSettings.MEDIA_DATA_URL = config["mediaDataUrl"]!!
+        IpbAndroidApiSettings.IMH_URL = config["imhUrl"]!!
+        IpbAndroidApiSettings.WORK_WATCH_URL = config["workWatchUrl"]!!
         MapKitFactory.setApiKey(config["yandexMapApiKey"]!!.first())
         MapKitFactory.initialize(context)
         FirebaseApp.initializeApp(context)
