@@ -21,17 +21,13 @@ class WorkWatchWorker(
     override suspend fun doWork(): Result {
         val result = runCatching {
             val networkService = NetworkService.Base()
-            var counterAuth = 0
             val authService = networkService.createService(
                 apiClass = AuthService::class.java,
-                url = { IpbAndroidApiSettings.AUTH_URL[counterAuth] },
-                invalidateUrl = { counterAuth++ }
+                urls = IpbAndroidApiSettings.AUTH_URL
             )
-            var counterWW = 0
             val workWatchService = networkService.createService(
                 apiClass = WorkWatchService::class.java,
-                url = { IpbAndroidApiSettings.WORK_WATCH_URL[counterWW] },
-                invalidateUrl = { counterWW++ }
+                urls = IpbAndroidApiSettings.WORK_WATCH_URL
             )
             val fusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(context)
