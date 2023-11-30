@@ -18,19 +18,19 @@ import com.progressterra.ipbandroidview.shared.throwOnFailure
 
 interface SetupGeofencesUseCase {
 
-    suspend operator fun invoke(fences: List<Fence>, context: Context, receiverClass: Class<*>)
+    suspend operator fun invoke(fences: List<Fence>)
 
     class Base(
         private val geofencingClient: GeofencingClient,
         private val checkPermissionUseCase: CheckPermissionUseCase,
+        private val context: Context,
+        private val receiverClass: Class<*>,
         manageResources: ManageResources,
         makeToastUseCase: MakeToastUseCase
     ) : SetupGeofencesUseCase, AbstractLoggingUseCase(makeToastUseCase, manageResources) {
 
         @SuppressLint("MissingPermission")
-        override suspend fun invoke(
-            fences: List<Fence>, context: Context, receiverClass: Class<*>
-        ) {
+        override suspend fun invoke(fences: List<Fence>) {
             handle {
                 val geofences = fences.map {
                     Geofence.Builder()
@@ -54,7 +54,7 @@ interface SetupGeofencesUseCase {
                         context,
                         0,
                         intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
                     )
                 checkPermissionUseCase(Manifest.permission.ACCESS_FINE_LOCATION).throwOnFailure()
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
@@ -65,7 +65,7 @@ interface SetupGeofencesUseCase {
                         log("Geofencing", "success")
                     }
                     addOnFailureListener {
-                        log("Geofencing", "failure")
+                        log("Geofencing", "failure with $it")
                     }
                 }
             }
