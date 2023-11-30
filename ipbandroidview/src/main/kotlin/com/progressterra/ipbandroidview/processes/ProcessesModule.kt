@@ -549,5 +549,14 @@ val processesModule = module {
 
     single<FetchCitizenshipsUseCase> { FetchCitizenshipsUseCase.Base(get(), get(), get()) }
 
-    single<SetupGeofencesUseCase> { SetupGeofencesUseCase.Base(get(), get(), get(), get()) }
+    single<SetupGeofencesUseCase> {
+        SetupGeofencesUseCase.Base(
+            get(),
+            get(),
+            androidContext(),
+            get(qualifier = StringQualifier("geofencing")),
+            get(),
+            get()
+        )
+    }
 }
