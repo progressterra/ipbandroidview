@@ -40,6 +40,7 @@ interface SetupGeofencesUseCase {
                             it.longitude,
                             it.radius
                         )
+                        .setExpirationDuration(Geofence.NEVER_EXPIRE)
                         .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER or Geofence.GEOFENCE_TRANSITION_EXIT)
                         .build()
                 }
