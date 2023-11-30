@@ -30,4 +30,6 @@ val sharedModule = module {
     single { LocationServices.getFusedLocationProviderClient(androidContext()) }
 
     single { Gson() }
+
+    single { LocationServices.getGeofencingClient(androidContext()) }
 }
