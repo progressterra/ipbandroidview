@@ -138,7 +138,6 @@ val pagesModule = module {
 
     viewModel { WantThisScreenViewModel(get(), get(), get(), get(), get(), get()) }
 
-
     viewModel { WorkWatchScreenViewModel(get(), get(), get(), get()) }
 
     viewModel { SupportScreenViewModel(get()) }
