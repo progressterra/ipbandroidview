@@ -4,8 +4,10 @@ import android.Manifest
 import android.os.Build
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import com.progressterra.ipbandroidview.entities.Fence
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.integration.WorkWatchWorker
+import com.progressterra.ipbandroidview.processes.location.SetupGeofencesUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
@@ -15,7 +17,8 @@ import java.util.concurrent.TimeUnit
 class WorkWatchScreenViewModel(
     private val workManager: WorkManager,
     private val checkPermissionUseCase: CheckPermissionUseCase,
-    private val askPermissionUseCase: AskPermissionUseCase
+    private val askPermissionUseCase: AskPermissionUseCase,
+    private val setupGeofencesUseCase: SetupGeofencesUseCase
 ) : AbstractNonInputViewModel<WorkWatchScreenState, WorkWatchScreenEffect>(), UseWorkWatchScreen {
     override fun createInitialState() = WorkWatchScreenState()
 
@@ -36,6 +39,28 @@ class WorkWatchScreenViewModel(
                 }
                 emitState { it.copy(enable = it.enable.copy(enabled = isSuccess)) }
             } else if (event.id == "enable") {
+                setupGeofencesUseCase(
+                    listOf(
+                        Fence(
+                            id = "Kazan Cathedral",
+                            latitude = 59.934379,
+                            longitude = 30.323425,
+                            radius = 50f
+                        ),
+                        Fence(
+                            id = "Spas na Krovi",
+                            latitude = 59.939965,
+                            longitude = 30.329569,
+                            radius = 50f
+                        ),
+                        Fence(
+                            id = "Murinsky Park",
+                            latitude = 60.047210,
+                            longitude = 30.453778,
+                            radius = 200f
+                        )
+                    )
+                )
                 val interval = IpbAndroidViewSettings.WORK_WATCH_PERIOD * 60 * 1000L
                 workManager.cancelAllWork()
                 val request = PeriodicWorkRequest.Builder(
