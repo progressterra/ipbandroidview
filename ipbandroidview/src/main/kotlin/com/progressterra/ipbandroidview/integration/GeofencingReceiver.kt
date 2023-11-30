@@ -21,9 +21,9 @@ abstract class GeofencingReceiver : BroadcastReceiver() {
         }
         val geofenceTransition = geofencingEvent.geofenceTransition
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            log("Geofencing", "enter")
+            log("Geofencing", "enter ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
         } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
-            log("Geofencing", "exit")
+            log("Geofencing", "exit ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
         }
     }
 }
