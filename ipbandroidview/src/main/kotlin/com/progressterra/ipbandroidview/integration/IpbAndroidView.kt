@@ -20,7 +20,7 @@ class IpbAndroidView private constructor(
     private val config: Map<String, List<String>>,
     private val context: Context,
     private val debug: Boolean,
-    private val koinModules: List<Module>
+        private val koinModules: List<Module>
 ) {
 
     init {
@@ -77,9 +77,6 @@ class IpbAndroidView private constructor(
             iconDisabled = ColorUnit(config["iconDisabled"]!!)
         )
         IpbAndroidViewSettings.WORK_WATCH_ENABLED = config["workWatchEnabled"]!!.first().toBoolean()
-        IpbAndroidViewSettings.WORK_WATCH_START_HOUR = config["workWatchStartHour"]!!.first().toInt()
-        IpbAndroidViewSettings.WORK_WATCH_END_HOUR = config["workWatchEndHour"]!!.first().toInt()
-        IpbAndroidViewSettings.WORK_WATCH_PERIOD = config["workWatchPeriod"]!!.first().toInt()
         IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS = config["availableProfileFields"]!!
         IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS = config["mandatoryProfileFields"]!!
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!

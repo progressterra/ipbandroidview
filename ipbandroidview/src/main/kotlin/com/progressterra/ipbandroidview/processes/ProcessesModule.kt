@@ -66,6 +66,7 @@ import com.progressterra.ipbandroidview.processes.location.CurrentLocationSugges
 import com.progressterra.ipbandroidview.processes.location.GuessLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.LocationToLocationPointUseCase
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
+import com.progressterra.ipbandroidview.processes.location.SetupGeofencesUseCase
 import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.processes.media.BitmapImageUseCase
@@ -547,4 +548,6 @@ val processesModule = module {
     }
 
     single<FetchCitizenshipsUseCase> { FetchCitizenshipsUseCase.Base(get(), get(), get()) }
+
+    single<SetupGeofencesUseCase> { SetupGeofencesUseCase.Base(get(), get(), get(), get()) }
 }
