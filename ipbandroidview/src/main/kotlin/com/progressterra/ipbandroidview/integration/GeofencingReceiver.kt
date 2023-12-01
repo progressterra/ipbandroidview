@@ -33,8 +33,10 @@ abstract class GeofencingReceiver : BroadcastReceiver() {
             activity = activity
         )
         if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
+            log("Geofencing", "Entering ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
             makeNotificationUseCase("Geofencing", "Entering ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
         } else if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT) {
+            log("Geofencing", "Exiting ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
             makeNotificationUseCase("Geofencing", "Exiting ${geofencingEvent.triggeringGeofences?.map { it.requestId }}")
         }
     }
