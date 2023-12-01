@@ -10,6 +10,7 @@ import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.progressterra.ipbandroidview.entities.Fence
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeNotificationUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.log
@@ -25,6 +26,7 @@ interface SetupGeofencesUseCase {
         private val checkPermissionUseCase: CheckPermissionUseCase,
         private val context: Context,
         private val receiverClass: Class<*>,
+        private val makeNotificationUseCase: MakeNotificationUseCase,
         manageResources: ManageResources,
         makeToastUseCase: MakeToastUseCase
     ) : SetupGeofencesUseCase, AbstractLoggingUseCase(makeToastUseCase, manageResources) {
@@ -62,7 +64,7 @@ interface SetupGeofencesUseCase {
                 }
                 geofencingClient.addGeofences(request, pendingIntent).run {
                     addOnSuccessListener {
-                        log("Geofencing", "success")
+                        makeNotificationUseCase("Geofencing", "Geofencing began")
                     }
                     addOnFailureListener {
                         log("Geofencing", "failure with $it")

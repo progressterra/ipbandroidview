@@ -42,22 +42,22 @@ class WorkWatchScreenViewModel(
                 setupGeofencesUseCase(
                     listOf(
                         Fence(
-                            id = "Kazan Cathedral",
+                            id = "Казанский собор",
                             latitude = 59.934379,
                             longitude = 30.323425,
-                            radius = 50f
+                            radius = 100f
                         ),
                         Fence(
-                            id = "Spas na Krovi",
+                            id = "Спас на крови",
                             latitude = 59.939965,
                             longitude = 30.329569,
-                            radius = 50f
+                            radius = 100f
                         ),
                         Fence(
-                            id = "Murinsky Park",
-                            latitude = 60.047210,
-                            longitude = 30.453778,
-                            radius = 200f
+                            id = "Дворцовая площадь",
+                            latitude = 59.93963,
+                            longitude = 30.315033,
+                            radius = 100f
                         )
                     )
                 )
