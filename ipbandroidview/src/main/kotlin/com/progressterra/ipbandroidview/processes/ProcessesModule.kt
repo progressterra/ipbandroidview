@@ -101,6 +101,7 @@ import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.CreateId
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeNotificationUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManagePermissionContract
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
@@ -556,7 +557,18 @@ val processesModule = module {
             androidContext(),
             get(qualifier = StringQualifier("geofencing")),
             get(),
+            get(),
             get()
+        )
+    }
+
+    single<MakeNotificationUseCase> {
+        MakeNotificationUseCase.Base(
+            androidContext(),
+            get(qualifier = StringQualifier("iconId")),
+            get(qualifier = StringQualifier("channelId")),
+            get(qualifier = StringQualifier("channelName")),
+            get(qualifier = StringQualifier("activity"))
         )
     }
 }
