@@ -1,6 +1,9 @@
 # ipbandroidview
 Библиотека компонентов для вашего приложения
 
+# Содержание
+Раздел дополняется
+
 ![Static Badge](https://img.shields.io/badge/License-MIT-blue)
 # Кому пригодится ipbAndroidView?
 Компаниям, создающим приложения в сфере Ecommerce
@@ -110,4 +113,24 @@ mandatoryProfileFields=name,soname,dateOfBirth
 ```
 ### FCM
 1. Подключите [Google Services Gradle Plugin](https://developers.google.com/android/guides/google-services-plugin?hl=ru)
-2. 
+2. Наследуйте базовый класс из библиотеки и укажите его в манифесте приложения
+```kotlin
+class AppCloudMessagingService : CloudMessagingService() {
+
+    override val activityClass = AppActivity::class.java
+    override val channelId = "IMH NC"
+    override val notificationIconId = R.drawable.ic_notification
+    override val notificationNameId = R.string.app_name
+}
+```
+```xml
+        <service
+            android:name=".AppCloudMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+```
+### Подключите нужные компоненты к своии экранам или же воспользуйтесь готовыми
+Раздел дополняется
