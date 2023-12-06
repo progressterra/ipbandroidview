@@ -124,13 +124,13 @@ class AppCloudMessagingService : CloudMessagingService() {
 }
 ```
 ```xml
-        <service
-            android:name=".AppCloudMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
+<service
+    android:name=".AppCloudMessagingService"
+    android:exported="false">
+    <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT" />
+    </intent-filter>
+</service>
 ```
 ### Подключите нужные компоненты к своии экранам или же воспользуйтесь готовыми
 Раздел дополняется
