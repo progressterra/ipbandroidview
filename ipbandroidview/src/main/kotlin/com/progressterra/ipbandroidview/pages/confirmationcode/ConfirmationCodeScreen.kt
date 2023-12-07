@@ -20,6 +20,7 @@ import com.progressterra.ipbandroidview.features.countdown.CountDown
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 
 @Composable
 fun ConfirmationCodeScreen(
@@ -48,6 +49,12 @@ fun ConfirmationCodeScreen(
                 CountDown(
                     modifier = Modifier.fillMaxWidth(),
                     state = state.repeat,
+                    useComponent = useComponent
+                )
+                TextButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.skip,
+                    title = stringResource(R.string.skip_yet),
                     useComponent = useComponent
                 )
             }

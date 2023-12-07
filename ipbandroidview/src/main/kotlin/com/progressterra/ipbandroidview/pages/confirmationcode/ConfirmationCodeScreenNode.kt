@@ -32,7 +32,8 @@ class ConfirmationCodeScreenNode(
                 }
 
                 is ConfirmationCodeScreenEffect.Back -> navigation.onBack()
-                is ConfirmationCodeScreenEffect.Next -> navigation.onSignUp()
+                is ConfirmationCodeScreenEffect.Next -> navigation.onNext()
+                is ConfirmationCodeScreenEffect.Skip -> navigation.onSkip()
             }
         }
         val state = viewModel.state.collectAsState().value
