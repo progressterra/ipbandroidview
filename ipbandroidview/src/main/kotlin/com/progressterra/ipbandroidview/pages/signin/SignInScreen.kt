@@ -19,6 +19,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
+import com.progressterra.ipbandroidview.shared.ui.button.TextButton
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkText
 import com.progressterra.ipbandroidview.shared.ui.linktext.LinkTextData
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
@@ -45,6 +46,12 @@ fun SignInScreen(
                     modifier = Modifier.fillMaxWidth(),
                     state = state.auth,
                     title = stringResource(R.string.auth_button),
+                    useComponent = useComponent
+                )
+                TextButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.skip,
+                    title = stringResource(R.string.skip_yet),
                     useComponent = useComponent
                 )
             }

@@ -15,5 +15,6 @@ data class SignInScreenState(
     val auth: ButtonState = ButtonState(
         id = "auth",
         enabled = false
-    )
+    ),
+    val skip : ButtonState = ButtonState(id = "skip")
 )

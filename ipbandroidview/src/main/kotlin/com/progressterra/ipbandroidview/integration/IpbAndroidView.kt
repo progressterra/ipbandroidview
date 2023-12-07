@@ -28,6 +28,7 @@ class IpbAndroidView private constructor(
         Kotpref.gson = Gson()
         IpbAndroidApiSettings.ACCESS_KEY = config["accessKey"]!!.first()
         IpbAndroidApiSettings.DEBUG = debug
+        IpbAndroidViewSettings.ACCESS_TOKEN_FOR_UNAUTHORIZED_USER = config["accessTokenForUnauthorizedUser"]!!.first()
         IpbAndroidViewSettings.DEBUG = debug
         IpbAndroidViewSettings.BUTTON_ROUNDING = config["buttonRounding"]!!.first().toInt()
         IpbAndroidViewSettings.OFFER_URL = config["offerUrl"]!!.first()

@@ -57,7 +57,7 @@
     <string name="resend">Повторить отправку</string>
     <string name="you_have">У вас</string>
     <string name="total_to_pay">Итого к оплате:</string>
-    <string name="please_auth">Авторизуйтесь, чтобы заказывать товары и копить бонусы</string>
+    <string name="please_auth">Авторизуйтесь, чтобы заказывать товары и видеть доступную рассрочку</string>
     <string name="bonuses_short">Б</string>
     <string name="order_proceed">Оформить заказ</string>
     <string name="bonus_transaction_buying">Покупки</string>

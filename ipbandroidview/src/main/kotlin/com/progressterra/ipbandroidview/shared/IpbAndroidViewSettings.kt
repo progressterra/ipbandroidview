@@ -4,6 +4,8 @@ import com.progressterra.ipbandroidview.shared.theme.IpbColors
 
 internal object IpbAndroidViewSettings {
 
+    var ACCESS_TOKEN_FOR_UNAUTHORIZED_USER: String = ""
+
     var AVAILABLE_PROFILE_FIELDS: List<String> = emptyList()
 
     var MANDATORY_PROFILE_FIELDS: List<String> = emptyList()
@@ -19,12 +21,6 @@ internal object IpbAndroidViewSettings {
     var OFFER_URL: String = ""
 
     var BUTTON_ROUNDING: Int = 14
-
-    var WORK_WATCH_PERIOD = 1
-
-    var WORK_WATCH_START_HOUR = 8
-
-    var WORK_WATCH_END_HOUR = 18
 
     var WORK_WATCH_ENABLED = true
 
