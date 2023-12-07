@@ -61,7 +61,7 @@ class WorkWatchScreenViewModel(
                         )
                     )
                 )
-                val interval = IpbAndroidViewSettings.WORK_WATCH_PERIOD * 60 * 1000L
+                val interval = 20 * 60 * 1000L
                 workManager.cancelAllWork()
                 val request = PeriodicWorkRequest.Builder(
                     WorkWatchWorker::class.java,
