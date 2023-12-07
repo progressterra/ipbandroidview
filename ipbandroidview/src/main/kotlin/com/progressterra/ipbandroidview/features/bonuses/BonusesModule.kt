@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.features.bonuses
 
 import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesUseCase
 import com.progressterra.ipbandroidview.shared.mvi.Operations
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import kotlinx.coroutines.flow.collectLatest
@@ -32,6 +33,12 @@ class BonusesModule(
 
     override fun handle(event: StateColumnEvent) {
         refresh()
+    }
+
+    override fun handle(event: ButtonEvent) {
+        if (event.id == "auth") {
+            onAuth()
+        }
     }
 
     override fun handle(event: BonusesEvent) {

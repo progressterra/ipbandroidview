@@ -9,4 +9,6 @@ interface BonusesModuleUser : ModuleUser<BonusesState> {
     fun onWithdrawal()
 
     fun onAddCard()
+
+    fun onAuth()
 }

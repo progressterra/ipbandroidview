@@ -10,6 +10,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.processes.bonuses.FetchBonusesTransactionsUseCase
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 
 class BonusesDetailsScreenViewModel(
     fetchBonusesUseCase: FetchBonusesUseCase,
@@ -48,6 +49,8 @@ class BonusesDetailsScreenViewModel(
 
             override fun onAddCard() = Unit
 
+            override fun onAuth() = Unit
+
             override fun emitModuleState(reducer: (BonusesState) -> BonusesState) {
                 emitState { it.copy(bonuses = reducer(currentState.bonuses)) }
             }
@@ -56,6 +59,10 @@ class BonusesDetailsScreenViewModel(
                 get() = currentState.bonuses
         }
     )
+
+    override fun handle(event: ButtonEvent) {
+        bonusesModule.handle(event)
+    }
 
     override fun handle(event: BonusesEvent) {
         bonusesModule.handle(event)

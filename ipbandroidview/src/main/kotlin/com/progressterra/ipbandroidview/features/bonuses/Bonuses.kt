@@ -19,9 +19,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
+import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
@@ -49,80 +51,105 @@ fun Bonuses(
                 .background(IpbTheme.colors.secondaryPressed.asBrush())
                 .padding(16.dp)
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(45.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+            if (UserData.clientExist) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BrushedText(
+                        text = "${stringResource(R.string.you_have)} ${state.roubles} ${
+                            stringResource(
+                                R.string.roubles
+                            )
+                        }",
+                        style = IpbTheme.typography.title,
+                        tint = IpbTheme.colors.textButton.asBrush()
+                    )
+                    if (style == BonusesStyle.MAIN) {
+                        IconButton(
+                            modifier = Modifier.size(45.dp),
+                            onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
+                            BrushedIcon(
+                                modifier = Modifier.size(45.dp),
+                                resId = R.drawable.ic_arrow,
+                                tint = IpbTheme.colors.primary.asBrush(),
+                            )
+                        }
+                    }
+                }
+                if (style == BonusesStyle.MAIN && !state.hasCards) {
+                    BrushedText(
+                        modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
+                        text = stringResource(R.string.add_card),
+                        style = IpbTheme.typography.subHeadlineBold,
+                        tint = IpbTheme.colors.primary.asBrush()
+                    )
+                } else {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(45.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BrushedText(
+                        text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${
+                            stringResource(
+                                R.string.roubles
+                            )
+                        }",
+                        style = IpbTheme.typography.subHeadlineItalic,
+                        tint = IpbTheme.colors.textTertiary.asBrush()
+                    )
+                    if (style == BonusesStyle.MAIN) {
+                        IconButton(
+                            modifier = Modifier.size(45.dp),
+                            onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
+                            BrushedIcon(
+                                modifier = Modifier.size(45.dp),
+                                resId = R.drawable.ic_withdrawal,
+                                tint = IpbTheme.colors.primary.asBrush(),
+                            )
+                        }
+                    }
+                }
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    BrushedText(
+                        text = stringResource(R.string.available_installment),
+                        style = IpbTheme.typography.subHeadlineRegular,
+                        tint = IpbTheme.colors.textSecondary.asBrush()
+                    )
+                    BrushedText(
+                        text = stringResource(R.string.available_installment_2),
+                        style = IpbTheme.typography.subHeadlineBold,
+                        tint = IpbTheme.colors.textButton.asBrush()
+                    )
+                }
+            } else {
                 BrushedText(
-                    text = "${stringResource(R.string.you_have)} ${state.roubles} ${stringResource(R.string.roubles)}",
+                    text = "${stringResource(R.string.you_have)} 0 ${stringResource(R.string.roubles)}",
                     style = IpbTheme.typography.title,
                     tint = IpbTheme.colors.textButton.asBrush()
                 )
-                if (style == BonusesStyle.MAIN) {
-                    IconButton(
-                        modifier = Modifier.size(45.dp),
-                        onClick = { useComponent.handle(BonusesEvent.Transactions) }) {
-                        BrushedIcon(
-                            modifier = Modifier.size(45.dp),
-                            resId = R.drawable.ic_arrow,
-                            tint = IpbTheme.colors.primary.asBrush(),
-                        )
-                    }
-                }
-            }
-            if (style == BonusesStyle.MAIN && !state.hasCards) {
+                Spacer(modifier = Modifier.height(20.dp))
                 BrushedText(
-                    modifier = Modifier.niceClickable { useComponent.handle(BonusesEvent.AddCard) },
-                    text = stringResource(R.string.add_card),
-                    style = IpbTheme.typography.subHeadlineBold,
-                    tint = IpbTheme.colors.primary.asBrush()
-                )
-            } else {
-                Spacer(modifier = Modifier.weight(1f))
-            }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(45.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BrushedText(
-                    text = "${stringResource(R.string.can_be_out)} ${state.roubles} ${
-                        stringResource(
-                            R.string.roubles
-                        )
-                    }",
-                    style = IpbTheme.typography.subHeadlineItalic,
-                    tint = IpbTheme.colors.textTertiary.asBrush()
-                )
-                if (style == BonusesStyle.MAIN) {
-                    IconButton(
-                        modifier = Modifier.size(45.dp),
-                        onClick = { useComponent.handle(BonusesEvent.Withdrawal) }) {
-                        BrushedIcon(
-                            modifier = Modifier.size(45.dp),
-                            resId = R.drawable.ic_withdrawal,
-                            tint = IpbTheme.colors.primary.asBrush(),
-                        )
-                    }
-                }
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                BrushedText(
-                    text = stringResource(R.string.available_installment),
-                    style = IpbTheme.typography.subHeadlineRegular,
-                    tint = IpbTheme.colors.textSecondary.asBrush()
-                )
-                BrushedText(
-                    text = stringResource(R.string.available_installment_2),
+                    text = stringResource(R.string.please_auth),
                     style = IpbTheme.typography.subHeadlineBold,
                     tint = IpbTheme.colors.textButton.asBrush()
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    state = state.auth,
+                    title = stringResource(id = R.string.auth_button),
+                    useComponent = useComponent
                 )
             }
         }
