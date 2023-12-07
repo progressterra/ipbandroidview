@@ -26,6 +26,7 @@ class MainScreenNode(
                 is MainScreenEffect.OnBonuses -> navigation.onBonuses()
                 is MainScreenEffect.OnItem -> navigation.onGoodsDetails(effect.data)
                 is MainScreenEffect.OnWithdrawal -> navigation.onWithdrawal()
+                is MainScreenEffect.OnAuth -> navigation.onAuth()
             }
         }
         val state = viewModel.state.collectAsState().value

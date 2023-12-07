@@ -18,11 +18,13 @@ class WelcomeScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel =  getViewModel<WelcomeScreenViewModel>()
+        val viewModel = getViewModel<WelcomeScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
                 is WelcomeScreenEffect.OnAuth -> navigation.onAuth()
-            }        }
+                is WelcomeScreenEffect.OnSkip -> navigation.onSkip()
+            }
+        }
         val state = viewModel.state.collectAsState().value
         LaunchedEffect(Unit) {
             viewModel.refresh()

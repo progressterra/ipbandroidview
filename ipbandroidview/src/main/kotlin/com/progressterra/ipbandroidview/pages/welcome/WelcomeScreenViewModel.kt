@@ -11,6 +11,7 @@ class WelcomeScreenViewModel : AbstractNonInputViewModel<WelcomeScreenState, Wel
     override fun handle(event: ButtonEvent) {
         when (event.id) {
             "auth" -> postEffect(WelcomeScreenEffect.OnAuth)
+            "skip" -> postEffect(WelcomeScreenEffect.OnSkip)
         }
     }
 }

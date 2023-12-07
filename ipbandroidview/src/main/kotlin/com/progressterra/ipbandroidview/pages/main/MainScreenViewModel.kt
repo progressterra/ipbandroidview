@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.widgets.galleries.GalleriesModule
@@ -80,6 +81,10 @@ class MainScreenViewModel(
         operations = this,
         user = object : BonusesModuleUser {
 
+            override fun onAuth() {
+                postEffect(MainScreenEffect.OnAuth)
+            }
+
             override fun onBonusesTransactions() {
                 postEffect(MainScreenEffect.OnBonuses)
             }
@@ -102,6 +107,10 @@ class MainScreenViewModel(
     )
 
     override fun handle(event: BonusesEvent) {
+        bonusesModule.handle(event)
+    }
+
+    override fun handle(event: ButtonEvent) {
         bonusesModule.handle(event)
     }
 
