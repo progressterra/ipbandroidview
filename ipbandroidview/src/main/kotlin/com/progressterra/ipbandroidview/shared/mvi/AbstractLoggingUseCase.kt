@@ -2,6 +2,7 @@ package com.progressterra.ipbandroidview.shared.mvi
 
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.processes.SilentException
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
@@ -26,6 +27,8 @@ abstract class AbstractLoggingUseCase(
             is ToastedException -> if (it.stringId == 0) makeToastUseCase(it.customMsg!!) else makeToastUseCase(
                 it.stringId
             )
+
+            is SilentException -> Unit
 
             else -> {
                 makeToastUseCase(R.string.unknown_error)
