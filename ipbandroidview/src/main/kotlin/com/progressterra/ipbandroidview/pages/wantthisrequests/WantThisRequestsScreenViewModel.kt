@@ -42,7 +42,7 @@ class WantThisRequestsScreenViewModel(
     override fun handle(event: WantThisCardEvent) {
         onBackground {
             when (event) {
-                is WantThisCardEvent.Buy -> addToCartUseCase(event.id).onSuccess {
+                is WantThisCardEvent.Buy -> addToCartUseCase(event.id, onAuth = {}).onSuccess {
                     refresh()
                 }
 
@@ -58,7 +58,7 @@ class WantThisRequestsScreenViewModel(
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                is CounterEvent.Add -> addToCartUseCase(event.id, onAuth = {}).onSuccess {
                     refresh()
                 }
 
