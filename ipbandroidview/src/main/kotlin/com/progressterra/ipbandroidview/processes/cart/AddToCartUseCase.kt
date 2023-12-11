@@ -4,26 +4,29 @@ import com.progressterra.ipbandroidapi.api.cart.CartService
 import com.progressterra.ipbandroidapi.api.cart.models.IncomeDataAddProductFullPrice
 import com.progressterra.ipbandroidapi.api.cart.models.StatusResult
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
-import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.SimplePrice
 import com.progressterra.ipbandroidview.entities.sum
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.pages.cart.CartScreenState
 import com.progressterra.ipbandroidview.processes.SilentException
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeDialogUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
-import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.UserData
+import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
 interface AddToCartUseCase {
 
-    suspend operator fun invoke(goodsId: String, count: Int = 1, onAuth: () -> Unit): Result<CartScreenState>
+    suspend operator fun invoke(
+        goodsId: String,
+        count: Int = 1,
+        onAuth: () -> Unit
+    ): Result<CartScreenState>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -31,9 +34,14 @@ interface AddToCartUseCase {
         private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
         private val makeDialogUseCase: MakeDialogUseCase,
         manageResources: ManageResources
-    ) : AddToCartUseCase, AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
+    ) : AddToCartUseCase,
+        AbstractTokenUseCase(obtainAccessToken, makeToastUseCase, manageResources) {
 
-        override suspend fun invoke(goodsId: String, count: Int, onAuth: () -> Unit): Result<CartScreenState> =
+        override suspend fun invoke(
+            goodsId: String,
+            count: Int,
+            onAuth: () -> Unit
+        ): Result<CartScreenState> =
             withToken { token ->
                 if (!UserData.clientExist) {
                     makeDialogUseCase.auth(onAuth)
