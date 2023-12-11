@@ -8,15 +8,24 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.lifecycleScope
 import com.bumble.appyx.core.integrationpoint.NodeComponentActivity
 import com.progressterra.ipbandroidview.BuildConfig
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
-import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoContract
-import com.progressterra.ipbandroidview.processes.utils.ManagePermissionContract
 import com.progressterra.ipbandroidview.processes.media.PickPhotoContract
+import com.progressterra.ipbandroidview.processes.utils.MakeDialogContract
+import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
+import com.progressterra.ipbandroidview.processes.utils.ManagePermissionContract
 import com.progressterra.ipbandroidview.processes.utils.StartActivityContract
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
+import com.progressterra.ipbandroidview.shared.log
+import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.SimpleDialog
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -32,6 +41,7 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
     private val startActivity: StartActivityContract.Activity by inject()
     private val makePhoto: MakePhotoContract.Activity by inject()
     private val pickPhoto: PickPhotoContract.Activity by inject()
+    private val makeDialog: MakeDialogContract.Activity by inject()
     private val makeToastUseCase: MakeToastUseCase by inject()
 
     private val pictureResultLauncher =
@@ -52,7 +62,34 @@ abstract class IpbActivity : NodeComponentActivity(), ManagePermissionContract.L
         super.onCreate(savedInstanceState)
         messagingService?.let { startService(Intent(this, it)) }
         actionBar?.hide()
-        setContent { Content() }
+        setContent {
+            IpbTheme {
+                Content()
+                var showDialog by remember { mutableStateOf(false) }
+                var dialogText by remember { mutableStateOf("") }
+                var dialogAction by remember { mutableStateOf("") }
+                var dialogOnAction by remember { mutableStateOf({}) }
+                LaunchedEffect(Unit) {
+                    makeDialog.setListener(object : MakeDialogContract.Listener {
+
+                        override fun start(text: String, action: String, onAction: () -> Unit) {
+                            log("DIALOG", "start")
+                            showDialog = true
+                            dialogText = text
+                            dialogAction = action
+                            dialogOnAction = onAction
+                        }
+                    })
+                }
+                SimpleDialog(
+                    text = dialogText,
+                    visible = showDialog,
+                    onDismiss = { showDialog = false },
+                    action = dialogAction,
+                    onAction = dialogOnAction
+                )
+            }
+        }
         managePermission.setListener(this)
         startActivity.setListener(this)
         makePhoto.setListener(this)

@@ -27,6 +27,7 @@ class BonusesModule(
 
     fun refresh() {
         onBackground {
+            emitModuleState { it.copy(state = it.state.copy(state = ScreenState.LOADING)) }
             fetchBonusesUseCase()
         }
     }

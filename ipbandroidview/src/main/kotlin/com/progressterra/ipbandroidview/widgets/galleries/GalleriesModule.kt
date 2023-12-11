@@ -1,9 +1,9 @@
 package com.progressterra.ipbandroidview.widgets.galleries
 
 import com.progressterra.ipbandroidview.features.storecard.StoreCardEvent
-import com.progressterra.ipbandroidview.processes.goods.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.processes.cart.AddToCartUseCase
 import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
+import com.progressterra.ipbandroidview.processes.goods.FetchGalleriesUseCase
 import com.progressterra.ipbandroidview.shared.mvi.Operations
 import com.progressterra.ipbandroidview.shared.ui.counter.CounterEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -44,7 +44,10 @@ class GalleriesModule(
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
-                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id)
+                is StoreCardEvent.AddToCart -> addToCartUseCase(
+                    goodsId = event.id,
+                    onAuth = { onAuth() })
+
                 is StoreCardEvent.Open -> onGoods(event.id)
             }
         }
@@ -53,7 +56,7 @@ class GalleriesModule(
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(event.id)
+                is CounterEvent.Add -> addToCartUseCase(goodsId = event.id, onAuth = { onAuth() })
                 is CounterEvent.Remove -> removeFromCartUseCase(event.id)
             }
         }

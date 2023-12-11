@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.auth.EndVerificationChannelUseCase
 import com.progressterra.ipbandroidview.processes.auth.StartVerificationChannelUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
+import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
@@ -71,5 +72,11 @@ class ConfirmationCodeScreenViewModel(
 
     override fun handle(event: TopBarEvent) {
         postEffect(ConfirmationCodeScreenEffect.Back)
+    }
+
+    override fun handle(event: ButtonEvent) {
+        if (event.id == "skip") {
+            postEffect(ConfirmationCodeScreenEffect.Skip)
+        }
     }
 }

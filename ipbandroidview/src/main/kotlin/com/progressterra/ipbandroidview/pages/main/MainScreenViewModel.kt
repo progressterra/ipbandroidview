@@ -15,6 +15,7 @@ import com.progressterra.ipbandroidview.processes.cart.RemoveFromCartUseCase
 import com.progressterra.ipbandroidview.processes.goods.GoodsUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.replaceById
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
@@ -65,13 +66,19 @@ class MainScreenViewModel(
                 override fun onGoods(data: String) {
                     postEffect(MainScreenEffect.OnItem(data))
                 }
+
+                override fun onAuth() {
+                    postEffect(MainScreenEffect.OnAuth)
+                }
             }
         )
     }
 
     override fun refresh() {
         onBackground {
-            bonusesModule.refresh()
+            if (UserData.clientExist) {
+                bonusesModule.refresh()
+            }
             galleriesModules.forEach { it.refresh() }
         }
     }

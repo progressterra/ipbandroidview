@@ -37,7 +37,7 @@ class FavoritesScreenViewModel(
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                is CounterEvent.Add -> addToCartUseCase(goodsId = event.id, onAuth = {}).onSuccess {
                     refresh()
                 }
 
@@ -53,7 +53,7 @@ class FavoritesScreenViewModel(
         onBackground {
             when (event) {
                 is StoreCardEvent.Open -> postEffect(FavoritesScreenEffect.GoodsDetails(event.id))
-                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+                is StoreCardEvent.AddToCart -> addToCartUseCase(goodsId = event.id, onAuth = {}).onSuccess {
                     refresh()
                 }
             }

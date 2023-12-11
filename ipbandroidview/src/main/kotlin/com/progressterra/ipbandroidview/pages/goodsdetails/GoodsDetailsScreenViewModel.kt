@@ -91,7 +91,7 @@ class GoodsDetailsScreenViewModel(
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
-                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+                is StoreCardEvent.AddToCart -> addToCartUseCase(goodsId = event.id, onAuth = { postEffect(GoodsDetailsScreenEffect.OnAuth) }).onSuccess {
                     postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_cart))
                 }
 
@@ -103,13 +103,13 @@ class GoodsDetailsScreenViewModel(
     override fun handle(event: ButtonEvent) {
         onBackground {
             when (event.id) {
-                "buy" -> addToCartUseCase(currentState.id).onSuccess {
+                "buy" -> addToCartUseCase(goodsId = currentState.id, onAuth = { postEffect(GoodsDetailsScreenEffect.OnAuth) }).onSuccess {
                     postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_cart))
                 }
 
                 "buyInstallment" -> addToCartInstallmentUseCase(
-                    currentState.id,
-                    currentState.buyGoods.installment
+                    goodsId = currentState.id,
+                    installment = currentState.buyGoods.installment, onAuth = { postEffect(GoodsDetailsScreenEffect.OnAuth) }
                 ).onSuccess {
                     postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_cart))
                 }
@@ -120,7 +120,7 @@ class GoodsDetailsScreenViewModel(
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                is CounterEvent.Add -> addToCartUseCase(goodsId = event.id, onAuth = {}).onSuccess {
                     refresh()
                     postEffect(GoodsDetailsScreenEffect.Toast(R.string.added_to_cart))
                 }

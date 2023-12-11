@@ -6,6 +6,7 @@ import com.progressterra.ipbandroidapi.api.auth.models.IncomeDataCreateAccessTok
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.UserData
+import com.progressterra.ipbandroidview.shared.log
 
 interface ObtainAccessToken {
 
@@ -18,8 +19,10 @@ interface ObtainAccessToken {
 
         override suspend fun invoke(): Result<String> = runCatching {
             if (!UserData.clientExist) {
-                IpbAndroidViewSettings.ACCESS_TOKEN_FOR_UNAUTHORIZED_USER
+                log("AUTH", "Client not exist")
+                return@runCatching IpbAndroidViewSettings.ACCESS_TOKEN_FOR_UNAUTHORIZED_USER
             }
+            log("AUTH", "Client exist")
             val locationResult = provideLocationUseCase()
             authService.accessToken(
                 IncomeDataCreateAccessToken(

@@ -39,14 +39,14 @@ fun Bonuses(
     StateColumn(
         modifier = modifier
             .fillMaxWidth()
-            .height(162.dp),
+            .height(if (UserData.clientExist) 162.dp else 198.dp),
         state = state.state,
         useComponent = useComponent
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(162.dp)
+                .height(if (UserData.clientExist) 162.dp else 198.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(IpbTheme.colors.secondaryPressed.asBrush())
                 .padding(16.dp)

@@ -17,6 +17,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.code.Code
 import com.progressterra.ipbandroidview.features.code.CodeState
 import com.progressterra.ipbandroidview.features.countdown.CountDown
+import com.progressterra.ipbandroidview.features.countdown.CountDownState
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -78,7 +79,11 @@ private fun ConfirmationCodeScreenPreview() {
     IpbTheme {
         ConfirmationCodeScreen(
             state = ConfirmationCodeScreenState(
-                code = CodeState(code = "123", phone = "123456789")
+                code = CodeState(code = "123", phone = "123456789"),
+                repeat = CountDownState(
+                    count = "00:10",
+                    enabled = false
+                )
             ), useComponent = UseConfirmationCodeScreen.Empty()
         )
     }

@@ -21,6 +21,7 @@ class CatalogScreenNode(
         viewModel.collectEffects { effect ->
             when (effect) {
                 is CatalogScreenEffect.OnItem -> navigation.onGoodsDetails(effect.data)
+                is CatalogScreenEffect.OnAuth -> navigation.onAuth()
             }
         }
         val state = viewModel.state.collectAsState().value

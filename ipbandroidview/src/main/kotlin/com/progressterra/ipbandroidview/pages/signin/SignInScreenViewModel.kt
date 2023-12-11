@@ -16,7 +16,13 @@ class SignInScreenViewModel(
     override fun createInitialState() = SignInScreenState()
 
     override fun handle(event: ButtonEvent) {
-        onNext()
+        onBackground {
+            when (event.id) {
+                "auth" -> onNext()
+
+                "skip" -> postEffect(SignInScreenEffect.Skip)
+            }
+        }
     }
 
     override fun handle(event: LinkTextEvent) {

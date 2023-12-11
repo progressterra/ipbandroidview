@@ -101,6 +101,8 @@ import com.progressterra.ipbandroidview.processes.user.SaveDatingInfoUseCase
 import com.progressterra.ipbandroidview.processes.utils.CopyTextUseCase
 import com.progressterra.ipbandroidview.processes.utils.CreateId
 import com.progressterra.ipbandroidview.processes.utils.FetchVersionUseCase
+import com.progressterra.ipbandroidview.processes.utils.MakeDialogContract
+import com.progressterra.ipbandroidview.processes.utils.MakeDialogUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeNotificationUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManagePermissionContract
@@ -174,7 +176,7 @@ val processesModule = module {
     }
 
     single<AddToCartUseCase> {
-        AddToCartUseCase.Base(get(), get(), get(), get(), get())
+        AddToCartUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
     single<RemoveFromCartUseCase> {
@@ -212,7 +214,7 @@ val processesModule = module {
     }
 
     single<AddToCartInstallmentUseCase> {
-        AddToCartInstallmentUseCase.Base(get(), get(), get(), get(), get())
+        AddToCartInstallmentUseCase.Base(get(), get(), get(), get(), get(), get())
     }
 
     single {
@@ -226,6 +228,12 @@ val processesModule = module {
     single {
         PickPhotoContract.Base()
     }.binds(arrayOf(PickPhotoContract.Activity::class, PickPhotoContract.Client::class))
+
+    single {
+        MakeDialogContract.Base()
+    }.binds(arrayOf(MakeDialogContract.Activity::class, MakeDialogContract.Client::class))
+
+    single<MakeDialogUseCase> { MakeDialogUseCase.Base(get(), get()) }
 
     single<FetchDocTemplateUseCase> {
         FetchDocTemplateUseCase.Base(

@@ -62,7 +62,7 @@ class CartScreenViewModel(
         onBackground {
             emitState { createInitialState() }
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess { newState ->
+                is CounterEvent.Add -> addToCartUseCase(event.id, onAuth = {}).onSuccess { newState ->
                     emitState { newState.copy(screen = it.screen.copy(state = ScreenState.SUCCESS)) }
                 }.onFailure {
                     emitState { it.copy(screen = it.screen.copy(state = ScreenState.ERROR)) }

@@ -10,11 +10,14 @@ import com.progressterra.ipbandroidview.entities.sum
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.entities.toSimplePrice
 import com.progressterra.ipbandroidview.pages.cart.CartScreenState
+import com.progressterra.ipbandroidview.processes.SilentException
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.ToastedException
+import com.progressterra.ipbandroidview.processes.utils.MakeDialogUseCase
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.widgets.cartitems.CartItemsState
 import com.progressterra.ipbandroidview.widgets.cartsummary.CartSummaryState
 
@@ -23,13 +26,16 @@ interface AddToCartInstallmentUseCase {
     suspend operator fun invoke(
         goodsId: String,
         installment: Installment,
-        count: Int = 1
+        count: Int = 1,
+        onAuth: () -> Unit
     ): Result<CartScreenState>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
         private val cartRepo: CartService,
-        private val productRepository: ProductRepository, makeToastUseCase: MakeToastUseCase,
+        private val productRepository: ProductRepository,
+        private val makeDialogUseCase: MakeDialogUseCase,
+        makeToastUseCase: MakeToastUseCase,
         manageResources: ManageResources
     ) : AddToCartInstallmentUseCase, AbstractTokenUseCase(
         obtainAccessToken, makeToastUseCase,
@@ -39,9 +45,14 @@ interface AddToCartInstallmentUseCase {
         override suspend fun invoke(
             goodsId: String,
             installment: Installment,
-            count: Int
+            count: Int,
+            onAuth: () -> Unit
         ): Result<CartScreenState> =
             withToken { token ->
+                if (!UserData.clientExist) {
+                    makeDialogUseCase.auth(onAuth)
+                    throw SilentException()
+                }
                 val goods = cartRepo.addToCartInstallment(
                     token,
                     IncomeDataAddProductAsInstallmentPlan(

@@ -8,6 +8,8 @@ sealed class GoodsDetailsScreenEffect {
 
     data object Delivery : GoodsDetailsScreenEffect()
 
+    data object OnAuth : GoodsDetailsScreenEffect()
+
     class OpenImage(val data: String) : GoodsDetailsScreenEffect()
 
     class GoodsDetails(val data: String) : GoodsDetailsScreenEffect()

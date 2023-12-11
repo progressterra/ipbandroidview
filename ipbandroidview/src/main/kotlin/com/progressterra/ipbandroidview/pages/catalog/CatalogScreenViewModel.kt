@@ -86,7 +86,7 @@ class CatalogScreenViewModel(
     override fun handle(event: StoreCardEvent) {
         onBackground {
             when (event) {
-                is StoreCardEvent.AddToCart -> addToCartUseCase(event.id).onSuccess {
+                is StoreCardEvent.AddToCart -> addToCartUseCase(goodsId = event.id, onAuth = { postEffect(CatalogScreenEffect.OnAuth) }).onSuccess {
                     refresh()
                 }
 
@@ -98,7 +98,7 @@ class CatalogScreenViewModel(
     override fun handle(event: CounterEvent) {
         onBackground {
             when (event) {
-                is CounterEvent.Add -> addToCartUseCase(event.id).onSuccess {
+                is CounterEvent.Add -> addToCartUseCase(goodsId = event.id, onAuth = { postEffect(CatalogScreenEffect.OnAuth) }).onSuccess {
                     refresh()
                 }
 

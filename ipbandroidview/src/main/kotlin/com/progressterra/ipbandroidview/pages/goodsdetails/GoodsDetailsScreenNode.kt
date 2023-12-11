@@ -33,6 +33,7 @@ class GoodsDetailsScreenNode(
                     effect.data,
                     Toast.LENGTH_SHORT
                 ).show()
+                is GoodsDetailsScreenEffect.OnAuth -> navigation.onAuth()
 
                 is GoodsDetailsScreenEffect.Delivery -> navigation.onDelivery()
             }

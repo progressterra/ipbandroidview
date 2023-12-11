@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -51,10 +52,12 @@ private fun TextButtonPreview() {
     IpbTheme {
         Column {
             TextButton(
+                modifier = Modifier.fillMaxWidth(),
                 state = ButtonState(), title = "Button", useComponent = UseButton.Empty()
             )
             Spacer(Modifier.height(10.dp))
             TextButton(
+                modifier = Modifier.fillMaxWidth(),
                 state = ButtonState(enabled = false),
                 title = "Button",
                 useComponent = UseButton.Empty()
