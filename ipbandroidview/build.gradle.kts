@@ -85,8 +85,8 @@ dependencies {
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     // Activity
-    api("androidx.activity:activity-ktx:1.8.0")
-    api("androidx.activity:activity-compose:1.8.0")
+    api("androidx.activity:activity-ktx:1.8.1")
+    api("androidx.activity:activity-compose:1.8.1")
 
     // Compose
     api("androidx.compose.ui:ui:1.5.4")
@@ -109,8 +109,8 @@ dependencies {
     api("io.insert-koin:koin-androidx-compose:3.5.0")
 
     // Accompanist, useful composables
-    api("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
-    api("com.google.accompanist:accompanist-pager-indicators:0.30.1")
+    api("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
+    api("com.google.accompanist:accompanist-pager-indicators:0.32.0")
 
     // Testing
     testApi("junit:junit:4.13.2")
@@ -119,7 +119,7 @@ dependencies {
     api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.5.0"))
+    api(platform("com.google.firebase:firebase-bom:32.6.0"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
@@ -145,5 +145,5 @@ dependencies {
     api("androidx.paging:paging-compose:3.2.1")
 
     // WorkManager
-    api("androidx.work:work-runtime-ktx:2.8.1")
+    api("androidx.work:work-runtime-ktx:2.9.0")
 }
