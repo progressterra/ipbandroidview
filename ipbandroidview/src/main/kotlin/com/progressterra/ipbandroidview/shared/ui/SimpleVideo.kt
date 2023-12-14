@@ -21,7 +21,7 @@ import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 
 @Composable
 fun SimpleVideo(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     url: String
 ) {
     Box(modifier = modifier.size(192.dp, 108.dp)) {
