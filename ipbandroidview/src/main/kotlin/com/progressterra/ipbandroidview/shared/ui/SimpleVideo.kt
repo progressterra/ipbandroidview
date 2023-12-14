@@ -32,7 +32,6 @@ fun SimpleVideo(
                 prepare()
             }
         }
-        val isPlaying = remember(exoPlayer.isPlaying) { exoPlayer.isPlaying }
         AndroidView(
             factory = {
                 PlayerView(it).apply {
@@ -41,25 +40,6 @@ fun SimpleVideo(
             },
             modifier = modifier.fillMaxSize()
         )
-
-        IconButton(
-            onClick = {
-                if (isPlaying) {
-                    exoPlayer.pause()
-                } else {
-                    exoPlayer.play()
-                }
-            },
-            modifier = Modifier
-                .padding(16.dp)
-                .align(Alignment.BottomCenter)
-        ) {
-            BrushedIcon(
-                resId = if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play,
-                tint = IpbTheme.colors.primary.asBrush(),
-                modifier = Modifier.size(48.dp)
-            )
-        }
     }
 }
 
