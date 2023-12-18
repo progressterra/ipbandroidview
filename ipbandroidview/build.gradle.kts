@@ -115,11 +115,11 @@ dependencies {
     // Testing
     testApi("junit:junit:4.13.2")
 
-    // Appyx, navigation library
+    // Appyx
     api("com.bumble.appyx:core:1.4.0")
 
     // Google Firebase platform
-    api(platform("com.google.firebase:firebase-bom:32.6.0"))
+    api(platform("com.google.firebase:firebase-bom:32.7.0"))
     api("com.google.firebase:firebase-analytics-ktx")
     api("com.google.firebase:firebase-messaging-ktx")
     api("com.google.firebase:firebase-crashlytics-ktx")
@@ -137,7 +137,7 @@ dependencies {
 
     api("de.hdodenhof:circleimageview:3.1.0")
 
-    // Landscapist, image library with coil implementation
+    // Landscapist
     api("com.github.skydoves:landscapist-glide:2.2.12")
     api("com.github.skydoves:landscapist-placeholder:2.2.12")
 
