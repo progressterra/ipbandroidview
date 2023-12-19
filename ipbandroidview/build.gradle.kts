@@ -78,15 +78,15 @@ dependencies {
     // Core
     api("androidx.core:core-ktx:1.12.0")
     api("androidx.appcompat:appcompat:1.6.1")
-    api("com.google.android.material:material:1.10.0")
+    api("com.google.android.material:material:1.11.0")
 
     // Coroutines
     api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     // Activity
-    api("androidx.activity:activity-ktx:1.8.1")
-    api("androidx.activity:activity-compose:1.8.1")
+    api("androidx.activity:activity-ktx:1.8.2")
+    api("androidx.activity:activity-compose:1.8.2")
 
     // Compose
     api("androidx.compose.ui:ui:1.5.4")
@@ -129,7 +129,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.2.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.12")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.14")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")

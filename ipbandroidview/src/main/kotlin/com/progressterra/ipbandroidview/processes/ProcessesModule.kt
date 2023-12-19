@@ -27,6 +27,7 @@ import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchOrderChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchWantThisDetailsChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.checklist.AllOrganizationsUseCase
 import com.progressterra.ipbandroidview.processes.connection.AcceptConnectUseCase
 import com.progressterra.ipbandroidview.processes.connection.ConnectUseCase
 import com.progressterra.ipbandroidview.processes.connection.ConnectionsUseCase
@@ -86,6 +87,7 @@ import com.progressterra.ipbandroidview.processes.order.FetchReceiptUseCase
 import com.progressterra.ipbandroidview.processes.order.FetchShippingAddressUseCase
 import com.progressterra.ipbandroidview.processes.order.OrderDetailsUseCase
 import com.progressterra.ipbandroidview.processes.order.OrdersUseCase
+import com.progressterra.ipbandroidview.processes.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
 import com.progressterra.ipbandroidview.processes.user.FetchAvatarUseCase
@@ -579,4 +581,8 @@ val processesModule = module {
             get(qualifier = StringQualifier("activity"))
         )
     }
+
+    single<AllOrganizationsUseCase> { AllOrganizationsUseCase.Base(get(), get(), get(), get()) }
+
+    single<FetchPartnerUseCase> { FetchPartnerUseCase.Base(get(), get(), get(), get(), get()) }
 }

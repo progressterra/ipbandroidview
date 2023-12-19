@@ -4,7 +4,7 @@ import com.progressterra.ipbandroidapi.api.scrm.ScrmService
 import com.progressterra.ipbandroidapi.api.scrm.models.FilterAndSort
 import com.progressterra.ipbandroidapi.api.scrm.models.SortData
 import com.progressterra.ipbandroidapi.api.scrm.models.TypeVariantSort
-import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.entities.Address
 import com.progressterra.ipbandroidview.entities.toAddressUiModel
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
@@ -36,7 +36,7 @@ interface FetchShippingAddressUseCase {
                         skip = 0,
                         take = 1
                     )
-                ).dataList?.firstOrNull()?.toAddressUiModel() ?: AddressUI()
+                ).dataList?.firstOrNull()?.toAddressUiModel() ?: Address()
             UserData.shippingAddress = address
         }
     }

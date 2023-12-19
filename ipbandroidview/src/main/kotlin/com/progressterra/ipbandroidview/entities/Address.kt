@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.progressterra.ipbandroidapi.api.scrm.models.RGAddressEntity
 import com.progressterra.ipbandroidview.shared.IsEmpty
 
-data class AddressUI(
+data class Address(
     @SerializedName("idUnique")
     val idUnique: String = "",
     @SerializedName("defaultShipping")
@@ -102,7 +102,7 @@ data class AddressUI(
         longitude = longitude
     )
 
-    override fun isEmpty(): Boolean = this == AddressUI()
+    override fun isEmpty(): Boolean = this == Address()
 
     fun printAddress(): String = buildString {
         if (nameCity.isNotBlank())

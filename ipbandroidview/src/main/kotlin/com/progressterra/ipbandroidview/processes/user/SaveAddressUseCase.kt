@@ -1,7 +1,7 @@
 package com.progressterra.ipbandroidview.processes.user
 
 import com.progressterra.ipbandroidapi.api.scrm.ScrmService
-import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.entities.Address
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
@@ -10,7 +10,7 @@ import com.progressterra.ipbandroidview.shared.UserData
 
 interface SaveAddressUseCase {
 
-    suspend operator fun invoke(address: AddressUI): Result<Unit>
+    suspend operator fun invoke(address: Address): Result<Unit>
 
     class Base(
         obtainAccessToken: ObtainAccessToken,
@@ -21,7 +21,7 @@ interface SaveAddressUseCase {
         manageResources
     ) {
 
-        override suspend fun invoke(address: AddressUI): Result<Unit> = withToken { token ->
+        override suspend fun invoke(address: Address): Result<Unit> = withToken { token ->
             if (address != UserData.shippingAddress) {
                 scrmService.postAddress(
                     token = token,

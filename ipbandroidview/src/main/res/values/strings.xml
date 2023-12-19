@@ -215,4 +215,5 @@
     <string name="auth_dialog_text"><![CDATA[Авторизуйтесь, чтобы добавить товар в корзину, оформить заказ, копить бонусы и пользоваться рассрочкой]]></string>
     <string name="need_auth">Необходимо авторизоваться!</string>
     <string name="video_gallery">Видеогаллерея</string>
+    <string name="organizations">Заведения</string>
 </resources>

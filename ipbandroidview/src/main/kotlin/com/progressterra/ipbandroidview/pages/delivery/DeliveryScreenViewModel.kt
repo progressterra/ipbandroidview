@@ -1,6 +1,6 @@
 package com.progressterra.ipbandroidview.pages.delivery
 
-import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.entities.Address
 import com.progressterra.ipbandroidview.features.addresssuggestions.AddressSuggestionsEvent
 import com.progressterra.ipbandroidview.entities.SuggestionUI
 import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
@@ -77,7 +77,7 @@ class DeliveryScreenViewModel(
         emitState {
             it.copy(
                 suggestion = event.suggestion,
-                address = AddressUI(),
+                address = Address(),
                 deliveryPicker = it.deliveryPicker.copy(
                     address = it.deliveryPicker.address.copy(text = event.suggestion.previewOfSuggestion),
                     suggestions = it.deliveryPicker.suggestions.copy(isVisible = false)
@@ -108,7 +108,7 @@ class DeliveryScreenViewModel(
             is TextFieldEvent.Action -> Unit
             is TextFieldEvent.AdditionalAction -> Unit
         }
-        emitState { it.copy(address = AddressUI(), suggestion = SuggestionUI()) }
+        emitState { it.copy(address = Address(), suggestion = SuggestionUI()) }
         checkValid()
         updateSuggestions()
     }

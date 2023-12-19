@@ -7,6 +7,9 @@ import com.progressterra.ipbandroidapi.api.cart.models.DHSaleHeadAsOrderViewMode
 import com.progressterra.ipbandroidapi.api.cart.models.DRSaleForCartAndOrder
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidapi.api.catalog.models.CatalogItem
+import com.progressterra.ipbandroidapi.api.collaboration.models.RFShop
+import com.progressterra.ipbandroidapi.api.collaboration.models.RGEnterpriseData
+import com.progressterra.ipbandroidapi.api.collaboration.models.RGOffersExt
 import com.progressterra.ipbandroidapi.api.documents.models.CharacteristicData
 import com.progressterra.ipbandroidapi.api.documents.models.FieldData
 import com.progressterra.ipbandroidapi.api.documents.models.RFCharacteristicTypeViewModel
@@ -97,7 +100,7 @@ fun TypeStatusOrder.toString(stringResource: @Composable (Int) -> String) = when
     TypeStatusOrder.CART -> stringResource(R.string.cart)
 }
 
-fun SuggestionExtendedInfo.convertSuggestionToAddressUIModel(time: String) = AddressUI(
+fun SuggestionExtendedInfo.convertSuggestionToAddressUIModel(time: String) = Address(
     defaultShipping = time,
     defaultBilling = time,
     fiasIDRegion = regionFiasId ?: "",
@@ -145,7 +148,7 @@ fun Suggestion.convertSuggestionsDtoToUIModels() = SuggestionUI(
     previewOfSuggestion = previewOfSuggestion ?: ""
 )
 
-fun RGAddress.toAddressUiModel() = AddressUI(
+fun RGAddress.toAddressUiModel() = Address(
     idUnique = idUnique ?: "",
     nameCity = nameCity ?: "",
     postalCode = postalCode ?: "",
@@ -447,4 +450,23 @@ fun RGConnectViewModel.toDatingUser(own: Boolean) =
         connection = Connection(
             id = idUnique!!, type = statusConnect ?: EnumTypeStatusConnect.WAIT, own = own
         )
+    )
+
+fun RGOffersExt.toOffer() = Offer(
+    id = idUnique!!,
+    headDescription = headDescription ?: "",
+    fullDescription = fullDescription ?: "",
+    imageUrl = imageUrl ?: ""
+)
+
+fun RGEnterpriseData.toPartner(shop: RFShop, offers: List<Offer>): Partner =
+    Partner(
+        id = idUnique!!,
+        title = title ?: "",
+        description = fullDescription ?: "",
+        offerList = offers,
+        webSite = websiteURL ?: "",
+        phone = shop.contacts ?: "",
+        headImageUrl = headImageURL ?: "",
+        logoImageUrl = logoImageURL ?: ""
     )

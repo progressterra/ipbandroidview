@@ -3,7 +3,7 @@ package com.progressterra.ipbandroidview.shared
 import com.chibatching.kotpref.KotprefModel
 import com.chibatching.kotpref.gsonpref.gsonPref
 import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings.DEFAULT_ID
-import com.progressterra.ipbandroidview.entities.AddressUI
+import com.progressterra.ipbandroidview.entities.Address
 import com.progressterra.ipbandroidview.entities.Citizenship
 
 object UserData : KotprefModel() {
@@ -13,7 +13,7 @@ object UserData : KotprefModel() {
     var clientExist by booleanPref()
     var phone by stringPref()
     var email by stringPref()
-    var shippingAddress by gsonPref(AddressUI())
+    var shippingAddress by gsonPref(Address())
     var userName by gsonPref(UserName())
     var citizenship by gsonPref(Citizenship())
     var cartCounter by intPref()
@@ -36,6 +36,6 @@ object UserData : KotprefModel() {
         email = ""
         userName = UserName()
         dateOfBirthday = ""
-        shippingAddress = AddressUI()
+        shippingAddress = Address()
     }
 }
