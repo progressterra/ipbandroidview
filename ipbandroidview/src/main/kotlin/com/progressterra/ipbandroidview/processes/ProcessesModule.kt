@@ -28,6 +28,7 @@ import com.progressterra.ipbandroidview.processes.chat.FetchOrderChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchWantThisDetailsChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
 import com.progressterra.ipbandroidview.processes.checklist.AllOrganizationsUseCase
+import com.progressterra.ipbandroidview.processes.checklist.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.processes.connection.AcceptConnectUseCase
 import com.progressterra.ipbandroidview.processes.connection.ConnectUseCase
 import com.progressterra.ipbandroidview.processes.connection.ConnectionsUseCase
@@ -585,4 +586,6 @@ val processesModule = module {
     single<AllOrganizationsUseCase> { AllOrganizationsUseCase.Base(get(), get(), get(), get()) }
 
     single<FetchPartnerUseCase> { FetchPartnerUseCase.Base(get(), get(), get(), get(), get()) }
+
+    single<OrganizationAuditsUseCase> { OrganizationAuditsUseCase.Base(get(), get(), get(), get()) }
 }

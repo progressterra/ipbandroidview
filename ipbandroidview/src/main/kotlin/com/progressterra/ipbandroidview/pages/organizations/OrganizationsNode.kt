@@ -23,14 +23,14 @@ class OrganizationsNode(
     @Composable
     override fun View(modifier: Modifier) {
         val viewModel = getViewModel<OrganizationsViewModel>()
-        LaunchedEffect(Unit) {
-            viewModel.refresh()
-        }
         viewModel.collectEffects {
             when (it) {
                 is OrganizationsEffect.OnOrganization -> navigation.onOrganization(it.organization)
                 is OrganizationsEffect.OnPartner -> navigation.onPartner(it.partner)
             }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.refresh()
         }
         val state = viewModel.state.collectAsState().value
         OrganizationsScreen(state = state, useComponent = viewModel)
