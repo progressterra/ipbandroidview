@@ -7,11 +7,7 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.Organization
-import com.progressterra.ipbandroidview.pages.nav.OnBack
-import com.progressterra.ipbandroidview.pages.nav.OnChecklist
 import org.koin.androidx.compose.getViewModel
-
-interface OrganizationAuditsNavigation : OnChecklist, OnBack
 
 @Suppress("unused")
 class OrganizationAuditsNode(
