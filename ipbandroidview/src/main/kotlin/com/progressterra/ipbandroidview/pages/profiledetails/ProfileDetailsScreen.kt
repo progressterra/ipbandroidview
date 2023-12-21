@@ -12,6 +12,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.editbutton.EditButton
 import com.progressterra.ipbandroidview.features.editprofile.EditProfile
 import com.progressterra.ipbandroidview.features.topbar.TopBar
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.widgets.edituser.EditUser
@@ -28,7 +29,7 @@ fun ProfileDetailsScreen(
             TopBar(
                 title = stringResource(R.string.profile),
                 useComponent = useComponent,
-                showBackButton = true
+                showBackButton = IpbAndroidViewSettings.SHOW_PROFILE_DETAILS_BACK_BUTTON
             )
         },
         bottomBar = {

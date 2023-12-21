@@ -20,7 +20,7 @@ class IpbAndroidView private constructor(
     private val config: Map<String, List<String>>,
     private val context: Context,
     private val debug: Boolean,
-        private val koinModules: List<Module>
+    private val koinModules: List<Module>
 ) {
 
     init {
@@ -28,12 +28,15 @@ class IpbAndroidView private constructor(
         Kotpref.gson = Gson()
         IpbAndroidApiSettings.ACCESS_KEY = config["accessKey"]!!.first()
         IpbAndroidApiSettings.DEBUG = debug
-        IpbAndroidViewSettings.ACCESS_TOKEN_FOR_UNAUTHORIZED_USER = config["accessTokenForUnauthorizedUser"]!!.first()
+        IpbAndroidViewSettings.ACCESS_TOKEN_FOR_UNAUTHORIZED_USER =
+            config["accessTokenForUnauthorizedUser"]!!.first()
         IpbAndroidViewSettings.DEBUG = debug
         IpbAndroidViewSettings.BUTTON_ROUNDING = config["buttonRounding"]!!.first().toInt()
         IpbAndroidViewSettings.OFFER_URL = config["offerUrl"]!!.first()
         IpbAndroidViewSettings.PRIVACY_URL = config["privacyUrl"]!!.first()
         IpbAndroidViewSettings.MAIN_SCREEN_CATEGORIES = config["mainCategories"]!!
+        IpbAndroidViewSettings.SHOW_PROFILE_DETAILS_BACK_BUTTON =
+            config["showProfileDetailsBackButton"]!!.first().toBoolean()
         IpbAndroidViewSettings.COLORS = IpbColors(
             //Main
             primary = ColorUnit(config["primary"]!!),
@@ -80,6 +83,8 @@ class IpbAndroidView private constructor(
         IpbAndroidViewSettings.WORK_WATCH_ENABLED = config["workWatchEnabled"]!!.first().toBoolean()
         IpbAndroidViewSettings.AVAILABLE_PROFILE_FIELDS = config["availableProfileFields"]!!
         IpbAndroidViewSettings.MANDATORY_PROFILE_FIELDS = config["mandatoryProfileFields"]!!
+        IpbAndroidApiSettings.CHECKLIST_URL = config["checklistUrl"]!!
+        IpbAndroidApiSettings.SUGGESTION_URL = config["suggestionUrl"]!!
         IpbAndroidApiSettings.AUTH_URL = config["authUrl"]!!
         IpbAndroidApiSettings.BALANCE_URL = config["balanceUrl"]!!
         IpbAndroidApiSettings.CART_URL = config["cartUrl"]!!
@@ -102,7 +107,6 @@ class IpbAndroidView private constructor(
             modules(koinModules + ipbModule)
         }
     }
-
 
     class Builder {
 

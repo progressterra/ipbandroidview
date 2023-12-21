@@ -24,6 +24,8 @@ internal object IpbAndroidViewSettings {
 
     var WORK_WATCH_ENABLED = true
 
+    var SHOW_PROFILE_DETAILS_BACK_BUTTON = true
+
     const val WANT_THIS_DOC_TYPE_ID = "08db716a-e5d2-422b-8b07-20068718307b"
 
     const val DEFAULT_ID = "00000000-0000-0000-0000-000000000000"
