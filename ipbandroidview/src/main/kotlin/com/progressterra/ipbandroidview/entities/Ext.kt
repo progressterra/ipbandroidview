@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidapi.api.cart.models.DHSaleHeadAsOrderViewMode
 import com.progressterra.ipbandroidapi.api.cart.models.DRSaleForCartAndOrder
 import com.progressterra.ipbandroidapi.api.cart.models.TypeStatusOrder
 import com.progressterra.ipbandroidapi.api.catalog.models.CatalogItem
+import com.progressterra.ipbandroidapi.api.checklist.models.DHCheckPerformedFullDataViewModel
 import com.progressterra.ipbandroidapi.api.collaboration.models.RFShop
 import com.progressterra.ipbandroidapi.api.collaboration.models.RGEnterpriseData
 import com.progressterra.ipbandroidapi.api.collaboration.models.RGOffersExt
@@ -41,6 +42,7 @@ import com.progressterra.ipbandroidview.features.withdrawaltransaction.Withdrawa
 import com.progressterra.ipbandroidview.processes.utils.CreateId
 import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.tryOrNull
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldState
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextInputType
@@ -56,6 +58,21 @@ fun List<SimplePrice>.sum(): SimplePrice {
     forEach { sum += it }
     return sum
 }
+
+fun DHCheckPerformedFullDataViewModel.toChecklistDocument() = ChecklistDocument(
+    placeId = idrfComPlace!!,
+    checklistId = idrfCheck!!,
+    documentId = idUnique!!,
+    name = nameRFCheck ?: "",
+    address = nameComPlace ?: "",
+    checkCounter = countDR ?: 0,
+    finishDate = dateEnd?.parseToZDT()?.formatZdt("dd.MM"),
+    stats = ChecklistStats(total = countDR ?: 0,
+        successful = countDRPositiveAnswer ?: 0,
+        failed = countDRNegativeAnswer ?: 0,
+        remaining = tryOrNull { countDR!! - countDRPositiveAnswer!! - countDRNegativeAnswer!! }
+            ?: 0), isRecentlyFinished = false
+)
 
 fun Double.toSimplePrice() = SimplePrice(toInt())
 
@@ -85,6 +102,20 @@ fun ProductView.toGoodsItem() = GoodsItem(id = nomenclature?.idUnique!!,
         (it.characteristicType?.name ?: "") to (it.characteristicValue?.viewData ?: "")
     } ?: emptyList(),
     count = countInCart ?: 0)
+
+fun List<Check>.createStats(): ChecklistStats {
+    var successful = 0
+    var failed = 0
+    this.forEach {
+        if (it.yesNo == true) successful++
+        else if (it.yesNo == false) failed++
+    }
+    val total = this.size
+    val remaining = total - successful - failed
+    return ChecklistStats(
+        total = total, successful = successful, failed = failed, remaining = remaining
+    )
+}
 
 @Composable
 fun TypeStatusOrder.toString(stringResource: @Composable (Int) -> String) = when (this) {

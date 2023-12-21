@@ -27,8 +27,18 @@ import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchOrderChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchWantThisDetailsChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
+import com.progressterra.ipbandroidview.processes.checklist.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.checklist.AllOrganizationsUseCase
+import com.progressterra.ipbandroidview.processes.checklist.CheckMediaDetailsUseCase
+import com.progressterra.ipbandroidview.processes.checklist.ChecklistNonPagingUseCase
+import com.progressterra.ipbandroidview.processes.checklist.ChecklistUseCase
+import com.progressterra.ipbandroidview.processes.checklist.CreateDocumentUseCase
+import com.progressterra.ipbandroidview.processes.checklist.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.processes.checklist.FetchExistingAuditUseCase
 import com.progressterra.ipbandroidview.processes.checklist.OrganizationAuditsUseCase
+import com.progressterra.ipbandroidview.processes.checklist.OrganizationsOverviewUseCase
+import com.progressterra.ipbandroidview.processes.checklist.SendResultOnEmailUseCase
+import com.progressterra.ipbandroidview.processes.checklist.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.processes.connection.AcceptConnectUseCase
 import com.progressterra.ipbandroidview.processes.connection.ConnectUseCase
 import com.progressterra.ipbandroidview.processes.connection.ConnectionsUseCase
@@ -72,7 +82,6 @@ import com.progressterra.ipbandroidview.processes.location.SetupGeofencesUseCase
 import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.processes.media.BitmapImageUseCase
-import com.progressterra.ipbandroidview.processes.media.FileExplorer
 import com.progressterra.ipbandroidview.processes.media.MakePhotoContract
 import com.progressterra.ipbandroidview.processes.media.MakePhotoUseCase
 import com.progressterra.ipbandroidview.processes.media.PauseAudioUseCase
@@ -536,10 +545,6 @@ val processesModule = module {
         )
     }
 
-    single<FileExplorer> {
-        FileExplorer.Redi(androidContext(), get(qualifier = StringQualifier("authority")), get())
-    }
-
     single<CreateId> {
         CreateId.Base()
     }
@@ -588,4 +593,36 @@ val processesModule = module {
     single<FetchPartnerUseCase> { FetchPartnerUseCase.Base(get(), get(), get(), get(), get()) }
 
     single<OrganizationAuditsUseCase> { OrganizationAuditsUseCase.Base(get(), get(), get(), get()) }
+
+    single<AllDocumentsUseCase> { AllDocumentsUseCase.Base(get(), get()) }
+
+    single<ChecklistNonPagingUseCase> { ChecklistNonPagingUseCase.Base(get(), get(), get(), get()) }
+
+    single<ChecklistUseCase> { ChecklistUseCase.Base(get(), get()) }
+
+    single<CreateDocumentUseCase> { CreateDocumentUseCase.Base(get(), get(), get(), get()) }
+
+    single<CheckMediaDetailsUseCase> {
+        CheckMediaDetailsUseCase.Base(get(), get(), get(), get(), get(), get())
+    }
+
+    single<DocumentChecklistUseCase> {
+        DocumentChecklistUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<FetchExistingAuditUseCase> {
+        FetchExistingAuditUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<OrganizationsOverviewUseCase> {
+        OrganizationsOverviewUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<SendResultOnEmailUseCase> {
+        SendResultOnEmailUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<UpdateAnswerUseCase> {
+        UpdateAnswerUseCase.Base(get(), get(), get(), get(), get(), get())
+    }
 }

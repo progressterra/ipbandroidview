@@ -8,6 +8,7 @@ import com.progressterra.ipbandroidview.pages.cart.CartScreenViewModel
 import com.progressterra.ipbandroidview.pages.catalog.CatalogScreenViewModel
 import com.progressterra.ipbandroidview.pages.chat.ChatScreenViewModel
 import com.progressterra.ipbandroidview.pages.chats.ChatsScreenViewModel
+import com.progressterra.ipbandroidview.pages.checklist.ChecklistViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeScreenViewModel
 import com.progressterra.ipbandroidview.pages.connections.ConnectionsScreenViewModel
 import com.progressterra.ipbandroidview.pages.datingmain.DatingMainScreenViewModel
@@ -27,6 +28,7 @@ import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenVie
 import com.progressterra.ipbandroidview.pages.orders.OrdersScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusScreenViewModel
 import com.progressterra.ipbandroidview.pages.ordertracking.OrderTrackingScreenViewModel
+import com.progressterra.ipbandroidview.pages.organizationaudits.OrganizationAuditsViewModel
 import com.progressterra.ipbandroidview.pages.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.pages.payment.PaymentScreenViewModel
 import com.progressterra.ipbandroidview.pages.peoplenearby.PeopleNearbyScreenViewModel
@@ -184,4 +186,27 @@ val pagesModule = module {
     }
 
     viewModel { OrganizationsViewModel(get(), get()) }
+
+    viewModel { OrganizationAuditsViewModel(get(), get()) }
+
+    viewModel {
+        ChecklistViewModel(
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get(),
+            get()
+        )
+    }
 }
