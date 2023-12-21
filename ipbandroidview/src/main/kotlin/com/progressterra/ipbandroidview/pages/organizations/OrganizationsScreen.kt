@@ -41,18 +41,6 @@ fun OrganizationsScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(8.dp)
             ) {
-                item {
-                    Row(modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
-                        .niceClickable { useComponent.handle(OrganizationsScreenEvent.OnPartner) }
-                        .background(IpbTheme.colors.surface.asBrush())) {
-                        SimpleImage(
-                            modifier = Modifier.fillMaxSize(),
-                            image = state.partner.headImageUrl,
-                            backgroundColor = IpbTheme.colors.surface.asColor()
-                        )
-                    }
-                }
                 items(state.organizations) {
                     Row(
                         modifier = Modifier

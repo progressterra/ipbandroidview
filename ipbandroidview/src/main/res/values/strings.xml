@@ -228,4 +228,8 @@
     <string name="end_audit">Завершить аудит</string>
     <string name="questions">Вопросов</string>
     <string name="add_photo">Сделать фото</string>
+    <string name="archived">Архив</string>
+    <string name="completed">Завершённые</string>
+    <string name="ongoing">Текущие</string>
+    <string name="audits">Аудиты</string>
 </resources>

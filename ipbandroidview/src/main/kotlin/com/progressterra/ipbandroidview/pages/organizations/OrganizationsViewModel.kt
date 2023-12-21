@@ -10,7 +10,6 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class OrganizationsViewModel(
     private val allOrganizationsUseCase: AllOrganizationsUseCase,
-    private val fetchPartnerUseCase: FetchPartnerUseCase
 ) : AbstractNonInputViewModel<OrganizationsState, OrganizationsEffect>(), UseOrganizationsScreen {
 
     override fun createInitialState() = OrganizationsState()
@@ -21,11 +20,6 @@ class OrganizationsViewModel(
             var isSuccess = true
             allOrganizationsUseCase().onSuccess { list ->
                 emitState { it.copy(organizations = list) }
-            }.onFailure {
-                isSuccess = false
-            }
-            fetchPartnerUseCase().onSuccess { partner ->
-                emitState { it.copy(partner = partner) }
             }.onFailure {
                 isSuccess = false
             }
