@@ -43,7 +43,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.4"
+        kotlinCompilerExtensionVersion = "1.5.7"
     }
 
     namespace = "com.progressterra.ipbandroidview"
@@ -129,7 +129,7 @@ dependencies {
     api("com.google.android.gms:play-services-maps:18.2.0")
 
     // iProBonusAndroidAPI
-    api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.14")
+    api("com.progressterra.ipbandroidapi:ipbandroidapi:1.1.16")
 
     // Kotpref
     api("com.chibatching.kotpref:kotpref:2.13.2")
