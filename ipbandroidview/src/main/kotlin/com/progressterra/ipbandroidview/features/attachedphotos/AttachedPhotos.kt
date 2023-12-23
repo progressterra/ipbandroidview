@@ -156,3 +156,11 @@ private fun AttachedPhotosPreviewDisabled() {
         )
     }
 }
+
+@Preview
+@Composable
+private fun AttachedPhotosPreviewEmpty() {
+    IpbTheme {
+        AttachedPhotos(pictures = listOf(), onPhotoSelect = {}, onCamera = {}, enabled = true)
+    }
+}

@@ -122,7 +122,7 @@ fun CurrentCheckDialog(
                     YesNoButton(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp),
+                            .padding(12.dp),
                         state = currentCheck.yesNo,
                         onClick = {
                             useComponent.handle(
@@ -134,8 +134,9 @@ fun CurrentCheckDialog(
                     TextField(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp),
+                            .padding(12.dp),
                         backgroundColor = IpbTheme.colors.onSurface.asColor(),
+                        hint = stringResource(R.string.commentary),
                         state = state.comment,
                         singleLine = false,
                         useComponent = useComponent
@@ -172,6 +173,7 @@ fun CurrentCheckDialog(
                     }
                     Box(
                         modifier = Modifier.padding(
+                            top = 12.dp,
                             start = 12.dp,
                             end = 12.dp,
                             bottom = 12.dp

@@ -1,13 +1,15 @@
 package com.progressterra.ipbandroidview.entities
 
-enum class ChecklistStatus {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class ChecklistStatus : Parcelable {
     READ_ONLY,
     CAN_BE_STARTED,
     ONGOING;
 
     fun isCanBeStarted(): Boolean = this == CAN_BE_STARTED
-
-    fun isReadOnly(): Boolean = this == READ_ONLY
 
     fun isOngoing(): Boolean = this == ONGOING
 }
