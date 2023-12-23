@@ -105,8 +105,8 @@ dependencies {
     api("com.yandex.android:maps.mobile:4.4.0-lite")
 
     // Koin, DI library
-    api("io.insert-koin:koin-android:3.5.0")
-    api("io.insert-koin:koin-androidx-compose:3.5.0")
+    api("io.insert-koin:koin-android:3.5.3")
+    api("io.insert-koin:koin-androidx-compose:3.5.3")
 
     // Accompanist, useful composables
     api("com.google.accompanist:accompanist-systemuicontroller:0.32.0")
@@ -138,8 +138,8 @@ dependencies {
     api("de.hdodenhof:circleimageview:3.1.0")
 
     // Landscapist
-    api("com.github.skydoves:landscapist-glide:2.2.12")
-    api("com.github.skydoves:landscapist-placeholder:2.2.12")
+    api("com.github.skydoves:landscapist-glide:2.2.13")
+    api("com.github.skydoves:landscapist-placeholder:2.2.13")
 
     api("androidx.paging:paging-runtime-ktx:3.2.1")
     api("androidx.paging:paging-compose:3.2.1")
