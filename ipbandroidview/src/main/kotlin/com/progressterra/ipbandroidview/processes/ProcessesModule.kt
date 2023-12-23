@@ -81,6 +81,7 @@ import com.progressterra.ipbandroidview.processes.location.LocationToLocationPoi
 import com.progressterra.ipbandroidview.processes.location.ProvideLocationUseCase
 import com.progressterra.ipbandroidview.processes.location.SetupGeofencesUseCase
 import com.progressterra.ipbandroidview.processes.location.SuggestionsUseCase
+import com.progressterra.ipbandroidview.processes.media.AudioManager
 import com.progressterra.ipbandroidview.processes.media.AudioProgressUseCase
 import com.progressterra.ipbandroidview.processes.media.BitmapImageUseCase
 import com.progressterra.ipbandroidview.processes.media.MakePhotoContract
@@ -633,4 +634,6 @@ val processesModule = module {
     }
 
     single<VoiceManager> { VoiceManager.Base(get()) }
+
+    single<AudioManager> { AudioManager.Base(get()) }
 }
