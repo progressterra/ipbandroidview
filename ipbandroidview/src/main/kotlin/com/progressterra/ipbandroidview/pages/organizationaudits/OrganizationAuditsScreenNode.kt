@@ -10,19 +10,19 @@ import com.progressterra.ipbandroidview.entities.Organization
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class OrganizationAuditsNode(
+class OrganizationAuditsScreenNode(
     buildContext: BuildContext,
     private val input: Organization,
-    private val navigation: OrganizationAuditsNavigation
+    private val navigation: OrganizationAuditsScreenNavigation
 ) : Node(buildContext) {
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = koinViewModel<OrganizationAuditsViewModel>()
+        val viewModel = koinViewModel<OrganizationAuditsScreenViewModel>()
         viewModel.collectEffects {
             when (it) {
-                is OrganizationAuditsEffect.OnBack -> navigation.onBack()
-                is OrganizationAuditsEffect.OnChecklist -> navigation.onChecklist(
+                is OrganizationAuditsScreenEffect.OnBack -> navigation.onBack()
+                is OrganizationAuditsScreenEffect.OnChecklist -> navigation.onChecklist(
                     it.auditDocument,
                     it.initialStatus
                 )

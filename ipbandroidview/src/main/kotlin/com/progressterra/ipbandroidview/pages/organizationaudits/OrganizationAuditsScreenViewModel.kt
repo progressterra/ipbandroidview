@@ -10,20 +10,20 @@ import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
-class OrganizationAuditsViewModel(
+class OrganizationAuditsScreenViewModel(
     private val organizationAuditsUseCase: OrganizationAuditsUseCase,
     private val openMapUseCase: OpenMapUseCase
-) : AbstractInputViewModel<Organization, OrganizationAuditsState, OrganizationAuditsEffect>(),
+) : AbstractInputViewModel<Organization, OrganizationAuditsScreenState, OrganizationAuditsScreenEffect>(),
     UseOrganizationAuditsScreen {
 
 
-    override fun createInitialState() = OrganizationAuditsState()
+    override fun createInitialState() = OrganizationAuditsScreenState()
 
     override fun setup(
         data: Organization,
     ) {
         emitState {
-            OrganizationAuditsState(
+            OrganizationAuditsScreenState(
                 id = data.id,
                 organizationName = data.name,
                 organizationAddress = data.address,
@@ -52,19 +52,19 @@ class OrganizationAuditsViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(OrganizationAuditsEffect.OnBack)
+        postEffect(OrganizationAuditsScreenEffect.OnBack)
     }
 
-    override fun handle(event: OrganizationAuditsEvent) {
+    override fun handle(event: OrganizationAuditsScreenEvent) {
         onBackground {
             when (event) {
-                is OrganizationAuditsEvent.OnMap -> openMapUseCase(
+                is OrganizationAuditsScreenEvent.OnMap -> openMapUseCase(
                     currentState.latitude,
                     currentState.longitude
                 )
 
-                is OrganizationAuditsEvent.OnAuditDetails -> postEffect(
-                    OrganizationAuditsEffect.OnChecklist(
+                is OrganizationAuditsScreenEvent.OnAuditDetails -> postEffect(
+                    OrganizationAuditsScreenEffect.OnChecklist(
                         AuditDocument(
                             placeId = currentState.id,
                             checklistId = event.audit.id,

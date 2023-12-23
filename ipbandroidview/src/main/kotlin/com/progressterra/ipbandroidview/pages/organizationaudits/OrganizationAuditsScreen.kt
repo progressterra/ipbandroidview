@@ -20,8 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.OrganizationAudit
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
 import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
@@ -29,11 +31,13 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.SimpleImage
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun OrganizationAuditsScreen(
-    state: OrganizationAuditsState,
+    state: OrganizationAuditsScreenState,
     useComponent: UseOrganizationAuditsScreen
 ) {
     ThemedLayout(topBar = {
@@ -51,7 +55,7 @@ fun OrganizationAuditsScreen(
                 modifier = Modifier
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(8.dp)
+                contentPadding = PaddingValues(16.dp)
             ) {
                 item {
                     Column(
@@ -87,7 +91,7 @@ fun OrganizationAuditsScreen(
                                 )
                             }
                             IconButton(
-                                onClick = { useComponent.handle(OrganizationAuditsEvent.OnMap) }
+                                onClick = { useComponent.handle(OrganizationAuditsScreenEvent.OnMap) }
                             ) {
                                 Column(
                                     horizontalAlignment = Alignment.CenterHorizontally,
@@ -112,14 +116,14 @@ fun OrganizationAuditsScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clip(RoundedCornerShape(12.dp))
+                            .background(IpbTheme.colors.surface.asBrush())
                             .niceClickable {
                                 useComponent.handle(
-                                    OrganizationAuditsEvent.OnAuditDetails(
+                                    OrganizationAuditsScreenEvent.OnAuditDetails(
                                         it
                                     )
                                 )
                             }
-                            .background(IpbTheme.colors.surface.asBrush())
                             .padding(12.dp),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
@@ -128,9 +132,9 @@ fun OrganizationAuditsScreen(
                             BrushedText(
                                 text = it.name,
                                 tint = IpbTheme.colors.textPrimary.asBrush(),
-                                style = IpbTheme.typography.title
+                                style = IpbTheme.typography.title2
                             )
-                            Spacer(modifier = Modifier.size(4.dp))
+                            Spacer(modifier = Modifier.size(6.dp))
                             BrushedText(
                                 text = it.lastTime,
                                 tint = IpbTheme.colors.textTertiary.asBrush(),
@@ -140,6 +144,7 @@ fun OrganizationAuditsScreen(
                         Spacer(modifier = Modifier.size(16.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             BrushedIcon(
+                                modifier = Modifier.size(width = 10.dp, height = 17.dp),
                                 resId = R.drawable.ic_forward,
                                 tint = IpbTheme.colors.iconPrimary.asBrush()
                             )
@@ -148,5 +153,58 @@ fun OrganizationAuditsScreen(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun OrganizationAuditsScreenPreview() {
+    IpbTheme {
+        OrganizationAuditsScreen(
+            state = OrganizationAuditsScreenState(
+                screen = StateColumnState(state = ScreenState.SUCCESS),
+                organizationName = "Organization name",
+                organizationAddress = "Organization address",
+                imageUrl = "https://picsum.photos/200/300",
+                audits = listOf(
+                    OrganizationAudit(
+                        id = "1",
+                        name = "Audit 1",
+                        lastTime = "Last time 1"
+                    ),
+                    OrganizationAudit(
+                        id = "2",
+                        name = "Audit 2",
+                        lastTime = "Last time 2"
+                    ),
+                    OrganizationAudit(
+                        id = "3",
+                        name = "Audit 3",
+                        lastTime = "Last time 3"
+                    ),
+                    OrganizationAudit(
+                        id = "4",
+                        name = "Audit 4",
+                        lastTime = "Last time 4"
+                    ),
+                    OrganizationAudit(
+                        id = "5",
+                        name = "Audit 5",
+                        lastTime = "Last time 5"
+                    ),
+                    OrganizationAudit(
+                        id = "6",
+                        name = "Audit 6",
+                        lastTime = "Last time 6"
+                    ),
+                    OrganizationAudit(
+                        id = "7",
+                        name = "Audit 7",
+                        lastTime = "Last time 7"
+                    )
+                )
+            ),
+            useComponent = UseOrganizationAuditsScreen.Empty()
+        )
     }
 }

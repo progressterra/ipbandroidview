@@ -5,7 +5,7 @@ import com.progressterra.ipbandroidview.entities.OrganizationAudit
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Immutable
-data class OrganizationAuditsState(
+data class OrganizationAuditsScreenState(
     val id: String = "",
     val organizationName: String = "",
     val organizationAddress: String = "",

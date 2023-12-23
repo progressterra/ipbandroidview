@@ -28,7 +28,7 @@ import com.progressterra.ipbandroidview.pages.orderdetails.OrderDetailsScreenVie
 import com.progressterra.ipbandroidview.pages.orders.OrdersScreenViewModel
 import com.progressterra.ipbandroidview.pages.orderstatus.OrderStatusScreenViewModel
 import com.progressterra.ipbandroidview.pages.ordertracking.OrderTrackingScreenViewModel
-import com.progressterra.ipbandroidview.pages.organizationaudits.OrganizationAuditsViewModel
+import com.progressterra.ipbandroidview.pages.organizationaudits.OrganizationAuditsScreenViewModel
 import com.progressterra.ipbandroidview.pages.organizations.OrganizationsViewModel
 import com.progressterra.ipbandroidview.pages.overview.OverviewScreenViewModel
 import com.progressterra.ipbandroidview.pages.payment.PaymentScreenViewModel
@@ -188,7 +188,7 @@ val pagesModule = module {
 
     viewModel { OrganizationsViewModel(get()) }
 
-    viewModel { OrganizationAuditsViewModel(get(), get()) }
+    viewModel { OrganizationAuditsScreenViewModel(get(), get()) }
 
     viewModel {
         ChecklistViewModel(
