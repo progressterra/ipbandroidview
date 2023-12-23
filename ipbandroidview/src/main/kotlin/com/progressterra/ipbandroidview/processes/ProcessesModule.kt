@@ -35,6 +35,7 @@ import com.progressterra.ipbandroidview.processes.checklist.ChecklistUseCase
 import com.progressterra.ipbandroidview.processes.checklist.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.processes.checklist.DocumentChecklistUseCase
 import com.progressterra.ipbandroidview.processes.checklist.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.processes.checklist.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.processes.checklist.OrganizationAuditsUseCase
 import com.progressterra.ipbandroidview.processes.checklist.OrganizationsOverviewUseCase
 import com.progressterra.ipbandroidview.processes.checklist.SendResultOnEmailUseCase
@@ -89,6 +90,7 @@ import com.progressterra.ipbandroidview.processes.media.PickPhotoContract
 import com.progressterra.ipbandroidview.processes.media.StartAudioUseCase
 import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
+import com.progressterra.ipbandroidview.processes.media.VoiceManager
 import com.progressterra.ipbandroidview.processes.occupation.FetchOccupationsUseCase
 import com.progressterra.ipbandroidview.processes.occupation.SaveOccupationUseCase
 import com.progressterra.ipbandroidview.processes.order.CommentUseCase
@@ -625,4 +627,10 @@ val processesModule = module {
     single<UpdateAnswerUseCase> {
         UpdateAnswerUseCase.Base(get(), get(), get(), get(), get(), get())
     }
+
+    single<FinishDocumentUseCase> {
+        FinishDocumentUseCase.Base(get(), get(), get(), get())
+    }
+
+    single<VoiceManager> { VoiceManager.Base(get()) }
 }
