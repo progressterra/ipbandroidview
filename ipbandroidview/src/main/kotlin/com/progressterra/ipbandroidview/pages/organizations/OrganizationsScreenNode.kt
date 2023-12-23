@@ -9,9 +9,9 @@ import com.bumble.appyx.core.node.Node
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class OrganizationsNode(
+class OrganizationsScreenNode(
     buildContext: BuildContext,
-    private val navigation: OrganizationsNavigation
+    private val navigation: OrganizationsScreenNavigation
 ) : Node(
     buildContext
 ) {
@@ -21,7 +21,7 @@ class OrganizationsNode(
         val viewModel = koinViewModel<OrganizationsViewModel>()
         viewModel.collectEffects {
             when (it) {
-                is OrganizationsEffect.OnOrganization -> navigation.onOrganization(it.organization)
+                is OrganizationsScreenEffect.OnOrganization -> navigation.onOrganization(it.organization)
             }
         }
         LaunchedEffect(Unit) {

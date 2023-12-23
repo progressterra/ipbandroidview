@@ -19,7 +19,7 @@ class ChecklistNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel: ChecklistViewModel = getViewModel()
+        val viewModel = koinViewModel<ChecklistViewModel>()
         viewModel.collectEffects {
             when (it) {
                 is ChecklistEffect.OnBack -> navigation.onBack()

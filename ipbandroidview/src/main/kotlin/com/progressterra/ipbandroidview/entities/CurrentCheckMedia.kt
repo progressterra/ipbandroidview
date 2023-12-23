@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.pages.checklist
+package com.progressterra.ipbandroidview.entities
 
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.MultisizedImage

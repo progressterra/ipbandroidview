@@ -18,7 +18,7 @@ class OverviewNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel: OverviewScreenViewModel = getViewModel()
+        val viewModel = koinViewModel<OverviewScreenViewModel>()
         viewModel.collectEffects {
             when (it) {
                 is OverviewEffect.Archive -> navigation.onArchive(it.title, it.archived)

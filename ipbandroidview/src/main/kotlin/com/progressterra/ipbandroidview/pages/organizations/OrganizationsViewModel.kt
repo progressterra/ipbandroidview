@@ -9,9 +9,9 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class OrganizationsViewModel(
     private val allOrganizationsUseCase: AllOrganizationsUseCase,
-) : AbstractNonInputViewModel<OrganizationsState, OrganizationsEffect>(), UseOrganizationsScreen {
+) : AbstractNonInputViewModel<OrganizationsScreenState, OrganizationsScreenEffect>(), UseOrganizationsScreen {
 
-    override fun createInitialState() = OrganizationsState()
+    override fun createInitialState() = OrganizationsScreenState()
 
     override fun refresh() {
         onBackground {
@@ -29,7 +29,7 @@ class OrganizationsViewModel(
     override fun handle(event: OrganizationsScreenEvent) {
         when (event) {
             is OrganizationsScreenEvent.OnOrganization -> postEffect(
-                OrganizationsEffect.OnOrganization(
+                OrganizationsScreenEffect.OnOrganization(
                     event.organization
                 )
             )

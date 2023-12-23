@@ -3,6 +3,7 @@ package com.progressterra.ipbandroidview.pages.checklist
 import androidx.compose.runtime.Immutable
 import com.progressterra.ipbandroidview.entities.Check
 import com.progressterra.ipbandroidview.entities.ChecklistStatus
+import com.progressterra.ipbandroidview.entities.CurrentCheckMedia
 import com.progressterra.ipbandroidview.entities.MultisizedImage
 import com.progressterra.ipbandroidview.entities.Voice
 import com.progressterra.ipbandroidview.features.voice.VoiceState

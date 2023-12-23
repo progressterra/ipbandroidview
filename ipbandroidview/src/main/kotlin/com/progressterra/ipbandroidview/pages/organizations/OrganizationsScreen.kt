@@ -36,7 +36,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Composable
 fun OrganizationsScreen(
-    state: OrganizationsState, useComponent: UseOrganizationsScreen
+    state: OrganizationsScreenState, useComponent: UseOrganizationsScreen
 ) {
     ThemedLayout(topBar = {
         TopBar(title = stringResource(id = R.string.organizations), useComponent = useComponent)
@@ -123,7 +123,7 @@ fun OrganizationsScreen(
 private fun OrganizationsScreenPreview() {
     IpbTheme {
         OrganizationsScreen(
-            state = OrganizationsState(
+            state = OrganizationsScreenState(
                 screen = StateColumnState(state = ScreenState.SUCCESS), organizations = listOf(
                     Organization(
                         id = "1",

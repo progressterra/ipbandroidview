@@ -6,7 +6,7 @@ import com.progressterra.ipbandroidapi.api.ipbmediadata.IPBMediaDataService
 import com.progressterra.ipbandroidapi.api.ipbmediadata.models.StatusResult
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.Check
-import com.progressterra.ipbandroidview.pages.checklist.CurrentCheckMedia
+import com.progressterra.ipbandroidview.entities.CurrentCheckMedia
 import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.media.FileExplorer
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
