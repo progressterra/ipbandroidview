@@ -233,4 +233,5 @@
     <string name="ongoing">Текущие</string>
     <string name="audits">Аудиты</string>
     <string name="send_on_email">ОТПРАВИТЬ НА МОЙ E-MAIL</string>
+    <string name="error_email_not_found">Нет прикреплённой к аккаунту почты</string>
 </resources>

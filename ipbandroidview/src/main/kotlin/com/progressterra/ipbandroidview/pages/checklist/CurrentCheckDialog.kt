@@ -88,126 +88,124 @@ fun CurrentCheckDialog(
             StateColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = 300.dp),
+                    .heightIn(min = 300.dp)
+                    .background(IpbTheme.colors.background.asBrush())
+                    .padding(
+                        horizontal = 16.dp,
+                        vertical = 8.dp
+                    ),
                 maxSize = false,
                 state = state.screen,
                 useComponent = useComponent,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 val currentCheck = state.check
                 val currentCheckMedia = state.media
                 Column(
-                    modifier = Modifier.padding(
-                        horizontal = 16.dp,
-                        vertical = 8.dp
-                    ),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                        .padding(12.dp)
+                        .fillMaxWidth()
                 ) {
-                    Column(
+                    BrushedText(
+                        text = currentCheck.description,
+                        tint = IpbTheme.colors.textPrimary.asBrush(),
+                        style = IpbTheme.typography.body
+                    )
+                }
+                Column(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(IpbTheme.colors.surface.asBrush())
+                ) {
+                    YesNoButton(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(IpbTheme.colors.surface.asBrush())
-                            .padding(12.dp)
                             .fillMaxWidth()
-                    ) {
-                        BrushedText(
-                            text = currentCheck.description,
-                            tint = IpbTheme.colors.textPrimary.asBrush(),
-                            style = IpbTheme.typography.body
-                        )
-                    }
-                    Column(
+                            .padding(8.dp),
+                        state = currentCheck.yesNo,
+                        onClick = {
+                            useComponent.handle(
+                                ChecklistScreenEvent.YesNo(it)
+                            )
+                        },
+                        enabled = state.status.isOngoing()
+                    )
+                    TextField(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
-                            .background(IpbTheme.colors.surface.asBrush())
-                    ) {
-                        YesNoButton(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            state = currentCheck.yesNo,
-                            onClick = {
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        backgroundColor = IpbTheme.colors.onSurface.asColor(),
+                        state = state.comment,
+                        singleLine = false,
+                        useComponent = useComponent
+                    )
+                    Box(modifier = Modifier.padding(4.dp)) {
+                        Voice(
+                            modifier = Modifier.fillMaxWidth(),
+                            state = state.voiceState,
+                            onStartRecording = {
                                 useComponent.handle(
-                                    ChecklistScreenEvent.YesNo(it)
+                                    ChecklistScreenEvent.StartStopRecording
                                 )
+                            },
+                            onStopRecording = {
+                                useComponent.handle(
+                                    ChecklistScreenEvent.StartStopRecording
+                                )
+                            },
+                            onStartPlay = {
+                                useComponent.handle(
+                                    ChecklistScreenEvent.StartPausePlay
+                                )
+                            },
+                            onPausePlay = {
+                                useComponent.handle(
+                                    ChecklistScreenEvent.StartPausePlay
+                                )
+                            },
+                            onRemove = {
+                                useComponent.handle(ChecklistScreenEvent.RemoveVoice)
                             },
                             enabled = state.status.isOngoing()
                         )
-                        TextField(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
-                            backgroundColor = IpbTheme.colors.onSurface.asColor(),
-                            state = state.comment,
-                            singleLine = false,
-                            useComponent = useComponent
-                        )
-                        Box(modifier = Modifier.padding(4.dp)) {
-                            Voice(
-                                modifier = Modifier.fillMaxWidth(),
-                                state = state.voiceState,
-                                onStartRecording = {
-                                    useComponent.handle(
-                                        ChecklistScreenEvent.StartStopRecording
-                                    )
-                                },
-                                onStopRecording = {
-                                    useComponent.handle(
-                                        ChecklistScreenEvent.StartStopRecording
-                                    )
-                                },
-                                onStartPlay = {
-                                    useComponent.handle(
-                                        ChecklistScreenEvent.StartPausePlay
-                                    )
-                                },
-                                onPausePlay = {
-                                    useComponent.handle(
-                                        ChecklistScreenEvent.StartPausePlay
-                                    )
-                                },
-                                onRemove = {
-                                    useComponent.handle(ChecklistScreenEvent.RemoveVoice)
-                                },
-                                enabled = state.status.isOngoing()
-                            )
-                        }
-                        Box(
-                            modifier = Modifier.padding(
-                                start = 12.dp,
-                                end = 12.dp,
-                                bottom = 12.dp
-                            )
-                        ) {
-                            AttachedPhotos(modifier = Modifier.fillMaxWidth(),
-                                enabled = state.status.isOngoing(),
-                                pictures = currentCheckMedia.pictures.filter { !it.toRemove },
-                                onPhotoSelect = {
-                                    useComponent.handle(
-                                        ChecklistScreenEvent.OnImage(it)
-                                    )
-                                },
-                                onCamera = {
-                                    useComponent.handle(
-                                        ChecklistScreenEvent.OpenCamera
-                                    )
-                                })
-                        }
                     }
-                    if (state.status.isOngoing()) {
-                        Row(Modifier.padding(horizontal = 8.dp)) {
-                            Button(
-                                modifier = Modifier.fillMaxWidth(),
-                                state = state.ready,
-                                title = stringResource(R.string.ready),
-                                useComponent = object : UseButton {
+                    Box(
+                        modifier = Modifier.padding(
+                            start = 12.dp,
+                            end = 12.dp,
+                            bottom = 12.dp
+                        )
+                    ) {
+                        AttachedPhotos(modifier = Modifier.fillMaxWidth(),
+                            enabled = state.status.isOngoing(),
+                            pictures = currentCheckMedia.pictures.filter { !it.toRemove },
+                            onPhotoSelect = {
+                                useComponent.handle(
+                                    ChecklistScreenEvent.OnImage(it)
+                                )
+                            },
+                            onCamera = {
+                                useComponent.handle(
+                                    ChecklistScreenEvent.OpenCamera
+                                )
+                            })
+                    }
+                }
+                if (state.status.isOngoing()) {
+                    Row(Modifier.padding(horizontal = 8.dp)) {
+                        Button(
+                            modifier = Modifier.fillMaxWidth(),
+                            state = state.ready,
+                            title = stringResource(R.string.ready),
+                            useComponent = object : UseButton {
 
-                                    override fun handle(event: ButtonEvent) {
-                                        scope.launch { sheetState.hide() }
-                                        useComponent.handle(event)
-                                    }
+                                override fun handle(event: ButtonEvent) {
+                                    scope.launch { sheetState.hide() }
+                                    useComponent.handle(event)
                                 }
-                            )
-                        }
+                            }
+                        )
                     }
                 }
             }
