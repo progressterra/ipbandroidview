@@ -27,7 +27,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
             icon()
             BrushedText(
                 text = title,
-                style = IpbTheme.typography.body,
+                style = IpbTheme.typography.title2,
                 tint = tint
             )
         }
@@ -80,7 +80,7 @@ fun Stats(modifier: Modifier = Modifier, stats: ChecklistStats) {
                 )
             },
             title = stats.remaining.toString(),
-            tint = IpbTheme.colors.iconTertiary.asBrush()
+            tint = IpbTheme.colors.textTertiary.asBrush()
         )
     }
 }

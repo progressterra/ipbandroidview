@@ -1,4 +1,4 @@
-package com.progressterra.ipbandroidview.composable
+package com.progressterra.ipbandroidview.features.attachedphotos
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,8 +29,6 @@ import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 
 private val picSize = 48.dp
 
-private val verticalPadding = 14.dp
-
 @Composable
 fun AttachedPhotos(
     modifier: Modifier = Modifier,
@@ -44,7 +42,7 @@ fun AttachedPhotos(
     fun Item(picture: MultisizedImage) {
         SimpleImage(
             modifier = Modifier
-                .size(picSize)
+                .size(48.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .niceClickable { onPhotoSelect(picture) },
             image = picture.url,
@@ -58,10 +56,9 @@ fun AttachedPhotos(
                 .fillMaxWidth()
                 .height(TextFieldDefaults.MinHeight)
                 .clip(RoundedCornerShape(8.dp))
-                .background(IpbTheme.colors.background.asBrush())
+                .background(IpbTheme.colors.onSurface.asBrush())
                 .niceClickable(enabled) { onCamera() }
-                .padding(horizontal = 12.dp, vertical = verticalPadding),
-
+                .padding(horizontal = 12.dp, vertical = 14.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -84,7 +81,7 @@ fun AttachedPhotos(
                         modifier = Modifier
                             .size(picSize)
                             .clip(RoundedCornerShape(8.dp))
-                            .background(IpbTheme.colors.background.asBrush())
+                            .background(IpbTheme.colors.onSurface.asBrush())
                             .niceClickable { onCamera() },
                         contentAlignment = Alignment.Center
                     ) {

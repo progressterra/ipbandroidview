@@ -25,8 +25,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
+import com.progressterra.ipbandroidview.entities.AuditDocument
+import com.progressterra.ipbandroidview.entities.Check
 import com.progressterra.ipbandroidview.entities.ChecklistStatus
 import com.progressterra.ipbandroidview.entities.createStats
 import com.progressterra.ipbandroidview.features.divider.Divider
@@ -38,15 +41,18 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
 import com.progressterra.ipbandroidview.shared.ui.button.Button
 import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
+import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ChecklistScreen(
-    state: ChecklistState, useComponent: UseChecklistScreen
+    state: ChecklistScreenState, useComponent: UseChecklistScreen
 ) {
-    val internalSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
+    val internalSheetState =
+        rememberModalBottomSheetState(ModalBottomSheetValue.Hidden, skipHalfExpanded = true)
     val scope = rememberCoroutineScope()
     CurrentCheckDialog(
         state = state.currentCheckState,
@@ -62,14 +68,14 @@ fun ChecklistScreen(
         }, bottomBar = {
             Column(
                 modifier = Modifier
-                    .clip(RoundedCornerShape(20.dp, 20.dp, 0.dp, 0.dp))
+                    .clip(RoundedCornerShape(12.dp, 12.dp, 0.dp, 0.dp))
                     .background(IpbTheme.colors.surface.asBrush())
-                    .padding(8.dp)
+                    .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
                 when (state.status) {
                     ChecklistStatus.READ_ONLY -> Button(
                         modifier = Modifier.fillMaxWidth(),
-                        title = stringResource(id = R.string.send),
+                        title = stringResource(id = R.string.send_on_email),
                         state = state.sendButton,
                         useComponent = useComponent
                     )
@@ -82,11 +88,11 @@ fun ChecklistScreen(
                     )
 
                     ChecklistStatus.ONGOING -> Row(
-                        horizontalArrangement = Arrangement.spacedBy(
-                            8.dp
-                        )
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
-                        val stats by remember(state.checks) { mutableStateOf(state.checks.createStats()) }
+                        val stats by remember(state.checks) {
+                            mutableStateOf(state.checks.createStats())
+                        }
                         Button(
                             modifier = Modifier.weight(1f),
                             title = stringResource(id = R.string.end_audit),
@@ -109,11 +115,7 @@ fun ChecklistScreen(
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(
-                        start = 8.dp,
-                        top = 8.dp,
-                        end = 8.dp
-                    )
+                    contentPadding = PaddingValues(8.dp)
                 ) {
                     item {
                         Column(
@@ -151,7 +153,7 @@ fun ChecklistScreen(
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(if (it.yesNo == true) IpbTheme.colors.success.asBrush() else if (it.yesNo == false) IpbTheme.colors.secondary.asBrush() else IpbTheme.colors.surface.asBrush())
                                     .niceClickable {
-                                        useComponent.handle(ChecklistEvent.OnCheck(it))
+                                        useComponent.handle(ChecklistScreenEvent.OnCheck(it))
                                         scope.launch { internalSheetState.show() }
                                     }
                                     .padding(12.dp),
@@ -178,5 +180,50 @@ fun ChecklistScreen(
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun ChecklistScreenPreview() {
+    IpbTheme {
+        ChecklistScreen(
+            state = ChecklistScreenState(
+                auditDocument = AuditDocument(),
+                checks = listOf(
+                    Check(
+                        name = "Check 1",
+                        categoryNumber = 1,
+                        yesNo = true
+                    ),
+                    Check(
+                        name = "Very long check named Check hahaha 2 I wanna kms",
+                        categoryNumber = 1,
+                        yesNo = false
+                    ),
+                    Check(
+                        name = "Check 3",
+                        categoryNumber = 2,
+                        yesNo = null
+                    ),
+                    Check(
+                        name = "Check 4",
+                        categoryNumber = 2,
+                        yesNo = null
+                    ),
+                    Check(
+                        name = "Check 5",
+                        categoryNumber = 4,
+                        yesNo = null
+                    ),
+                ),
+                screen = StateColumnState(state = ScreenState.SUCCESS),
+                currentCheckState = CurrentCheckState(
+                    screen = StateColumnState(state = ScreenState.SUCCESS)
+                ),
+                status = ChecklistStatus.READ_ONLY,
+            ),
+            useComponent = UseChecklistScreen.Empty()
+        )
     }
 }

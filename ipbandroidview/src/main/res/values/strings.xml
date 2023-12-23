@@ -232,4 +232,5 @@
     <string name="completed">Завершённые</string>
     <string name="ongoing">Текущие</string>
     <string name="audits">Аудиты</string>
+    <string name="send_on_email">ОТПРАВИТЬ НА МОЙ E-MAIL</string>
 </resources>

@@ -11,13 +11,13 @@ import com.progressterra.ipbandroidview.shared.ui.textfield.UseTextField
 
 interface UseChecklistScreen : UseTextField, UseButton, UseStateColumn, UseTopBar {
 
-    fun handle(event: ChecklistEvent)
+    fun handle(event: ChecklistScreenEvent)
 
     class Empty : UseChecklistScreen {
 
         override fun handle(event: TopBarEvent) = Unit
 
-        override fun handle(event: ChecklistEvent) = Unit
+        override fun handle(event: ChecklistScreenEvent) = Unit
 
         override fun handle(event: ButtonEvent) = Unit
 

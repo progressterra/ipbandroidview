@@ -31,7 +31,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextFieldEvent
 import kotlinx.coroutines.delay
 
-class ChecklistViewModel(
+class ChecklistScreenViewModel(
     private val createDocumentUseCase: CreateDocumentUseCase,
     private val finishDocumentUseCase: FinishDocumentUseCase,
     private val updateAnswerUseCase: UpdateAnswerUseCase,
@@ -48,10 +48,10 @@ class ChecklistViewModel(
     private val askPermissionUseCase: AskPermissionUseCase,
     private val checkPermissionUseCase: CheckPermissionUseCase,
     private val sendResultOnEmailUseCase: SendResultOnEmailUseCase
-) : AbstractInputViewModel<Pair<AuditDocument, ChecklistStatus>, ChecklistState, ChecklistEffect>(),
+) : AbstractInputViewModel<Pair<AuditDocument, ChecklistStatus>, ChecklistScreenState, ChecklistScreenEffect>(),
     UseChecklistScreen {
 
-    override fun createInitialState() = ChecklistState()
+    override fun createInitialState() = ChecklistScreenState()
 
     private val micPermission = Manifest.permission.RECORD_AUDIO
 
@@ -70,7 +70,7 @@ class ChecklistViewModel(
     }
 
     override fun handle(event: TopBarEvent) {
-        postEffect(ChecklistEffect.OnBack)
+        postEffect(ChecklistScreenEffect.OnBack)
     }
 
     private fun refreshCheck() {
@@ -119,31 +119,31 @@ class ChecklistViewModel(
         }
     }
 
-    override fun handle(event: ChecklistEvent) {
+    override fun handle(event: ChecklistScreenEvent) {
         onBackground {
 
             when (event) {
-                is ChecklistEvent.OnCheck -> {
+                is ChecklistScreenEvent.OnCheck -> {
                     emitState { it.updateCurrentCheck(event.check) }
                     refreshCheck()
                     onYesNoUpdate()
                 }
 
-                is ChecklistEvent.OnImage -> ChecklistEffect.OnImage(
+                is ChecklistScreenEvent.OnImage -> ChecklistScreenEffect.OnImage(
                     event.image,
                     currentState.status.isOngoing()
                 )
 
 
-                is ChecklistEvent.OpenCamera -> makePhotoUseCase().onSuccess { image ->
+                is ChecklistScreenEvent.OpenCamera -> makePhotoUseCase().onSuccess { image ->
                     emitState { it.addImage(image) }
                 }
 
-                is ChecklistEvent.RemoveVoice -> {
+                is ChecklistScreenEvent.RemoveVoice -> {
                     emitState { it.removeRecord() }
                 }
 
-                is ChecklistEvent.StartPausePlay -> if (currentState.currentCheckState.voiceState.ongoing) {
+                is ChecklistScreenEvent.StartPausePlay -> if (currentState.currentCheckState.voiceState.ongoing) {
                     pauseAudioUseCase()
                     emitState {
                         it.updateVoiceState(
@@ -174,7 +174,7 @@ class ChecklistViewModel(
                     } while (currentState.currentCheckState.voiceState.ongoing)
                 }
 
-                is ChecklistEvent.StartStopRecording -> if (currentState.currentCheckState.voiceState.ongoing) {
+                is ChecklistScreenEvent.StartStopRecording -> if (currentState.currentCheckState.voiceState.ongoing) {
                     stopRecordingUseCase()
                     emitState { it.updateVoiceState(VoiceState.Player(false, 0f)) }
                 } else {
@@ -187,7 +187,7 @@ class ChecklistViewModel(
                     }.onFailure { askPermissionUseCase(micPermission) }
                 }
 
-                is ChecklistEvent.YesNo -> {
+                is ChecklistScreenEvent.YesNo -> {
                     emitState { it.updateYesNo(event.yesNo) }
                     onYesNoUpdate()
                 }

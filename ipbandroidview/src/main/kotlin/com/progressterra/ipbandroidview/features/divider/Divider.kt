@@ -31,13 +31,13 @@ fun Divider(
                     textAlign = TextAlign.Start,
                     text = title,
                     style = IpbTheme.typography.caption2,
-                    tint = IpbTheme.colors.iconTertiary.asBrush()
+                    tint = IpbTheme.colors.textTertiary.asBrush()
                 )
             }
             Box(
                 modifier = Modifier
                     .padding(start = if (title.isNotBlank()) 8.dp else 0.dp)
-                    .background(IpbTheme.colors.iconTertiary.asBrush())
+                    .background(IpbTheme.colors.textTertiary.asBrush())
                     .height(1.dp)
                     .weight(1f)
             )

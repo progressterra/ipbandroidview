@@ -80,8 +80,7 @@ fun OverviewScreen(
                                 if (selected) IpbTheme.colors.background.asBrush() else IpbTheme.colors.surface.asBrush()
                             val textColor =
                                 if (selected) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textTertiary.asBrush()
-                            val style =
-                                if (selected) IpbTheme.typography.body else IpbTheme.typography.body2
+                            val style = IpbTheme.typography.body
                             Box(modifier = Modifier
                                 .clip(RoundedCornerShape(8.dp))
                                 .border(

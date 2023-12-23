@@ -11,7 +11,7 @@ import com.progressterra.ipbandroidview.entities.ChecklistStatus
 import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
-class ChecklistNode(
+class ChecklistScreenNode(
     buildContext: BuildContext,
     private val input: Pair<AuditDocument, ChecklistStatus>,
     private val navigation: ChecklistScreenNavigation
@@ -19,11 +19,11 @@ class ChecklistNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = koinViewModel<ChecklistViewModel>()
+        val viewModel = koinViewModel<ChecklistScreenViewModel>()
         viewModel.collectEffects {
             when (it) {
-                is ChecklistEffect.OnBack -> navigation.onBack()
-                is ChecklistEffect.OnImage -> navigation.onPhoto(it.picture.url)
+                is ChecklistScreenEffect.OnBack -> navigation.onBack()
+                is ChecklistScreenEffect.OnImage -> navigation.onPhoto(it.picture.url)
             }
         }
         LaunchedEffect(input) {

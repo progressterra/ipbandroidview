@@ -5,11 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
@@ -24,7 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.progressterra.ipbandroidview.R
-import com.progressterra.ipbandroidview.composable.AttachedPhotos
+import com.progressterra.ipbandroidview.features.attachedphotos.AttachedPhotos
 import com.progressterra.ipbandroidview.features.voice.Voice
 import com.progressterra.ipbandroidview.features.yesno.YesNoButton
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
@@ -36,8 +34,6 @@ import com.progressterra.ipbandroidview.shared.ui.button.UseButton
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import com.progressterra.ipbandroidview.shared.ui.textfield.TextField
 import kotlinx.coroutines.launch
-
-private val minDialogHeight = 300.dp
 
 /**
  * ready - button
@@ -57,59 +53,43 @@ fun CurrentCheckDialog(
         modifier = modifier,
         sheetState = sheetState,
         sheetShape = RoundedCornerShape(
-            topStart = 12.dp,
-            topEnd = 12.dp,
+            topStart = 16.dp,
+            topEnd = 16.dp,
             bottomStart = 0.dp,
             bottomEnd = 0.dp
         ),
         sheetContent = {
-            Row(
-                modifier = modifier
+            Box(
+                modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(min = 56.dp)
                     .background(IpbTheme.colors.surface.asBrush())
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center,
-                    ) {
-                        BrushedText(
-                            text = state.check.printTitle(),
-                            tint = IpbTheme.colors.textPrimary.asBrush(),
-                            style = IpbTheme.typography.title,
-                            maxLines = 1,
-                            textAlign = TextAlign.Center
-                        )
-                    }
-
-                    Row(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        IconButton(
-                            onClick = { scope.launch { sheetState.hide() } }
-                        ) {
-                            BrushedIcon(
-                                modifier = modifier,
-                                tint = IpbTheme.colors.iconTertiary.asBrush(),
-                                resId = R.drawable.ic_cancel
-                            )
-                        }
-                    }
-
-
+                BrushedText(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = state.check.printTitle(),
+                    tint = IpbTheme.colors.textPrimary.asBrush(),
+                    style = IpbTheme.typography.title,
+                    maxLines = 1,
+                    textAlign = TextAlign.Center
+                )
+                IconButton(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    onClick = { scope.launch { sheetState.hide() } }
+                ) {
+                    BrushedIcon(
+                        modifier = modifier,
+                        tint = IpbTheme.colors.iconTertiary.asBrush(),
+                        resId = R.drawable.ic_cancel
+                    )
                 }
             }
             StateColumn(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = minDialogHeight),
+                    .heightIn(min = 300.dp),
+                maxSize = false,
                 state = state.screen,
                 useComponent = useComponent,
             ) {
@@ -117,10 +97,10 @@ fun CurrentCheckDialog(
                 val currentCheckMedia = state.media
                 Column(
                     modifier = Modifier.padding(
-                        top = 8.dp,
-                        start = 8.dp,
-                        end = 8.dp
-                    )
+                        horizontal = 16.dp,
+                        vertical = 8.dp
+                    ),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Column(
                         modifier = Modifier
@@ -135,58 +115,58 @@ fun CurrentCheckDialog(
                             style = IpbTheme.typography.body
                         )
                     }
-                    Spacer(modifier = Modifier.size(8.dp))
                     Column(
                         modifier = Modifier
                             .clip(RoundedCornerShape(12.dp))
                             .background(IpbTheme.colors.surface.asBrush())
                     ) {
-                        Box(modifier = Modifier.padding(12.dp)) {
-                            YesNoButton(
-                                modifier = Modifier.fillMaxWidth(),
-                                state = currentCheck.yesNo,
-                                onClick = {
-                                    useComponent.handle(
-                                        ChecklistEvent.YesNo(it)
-                                    )
-                                },
-                                enabled = state.status.isOngoing()
-                            )
-                        }
-                        Box(modifier = Modifier.padding(horizontal = 12.dp)) {
-                            TextField(
-                                modifier = Modifier.fillMaxWidth(),
-                                state = state.comment,
-                                singleLine = false,
-                                useComponent = useComponent
-                            )
-                        }
+                        YesNoButton(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            state = currentCheck.yesNo,
+                            onClick = {
+                                useComponent.handle(
+                                    ChecklistScreenEvent.YesNo(it)
+                                )
+                            },
+                            enabled = state.status.isOngoing()
+                        )
+                        TextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
+                            backgroundColor = IpbTheme.colors.onSurface.asColor(),
+                            state = state.comment,
+                            singleLine = false,
+                            useComponent = useComponent
+                        )
                         Box(modifier = Modifier.padding(4.dp)) {
                             Voice(
                                 modifier = Modifier.fillMaxWidth(),
                                 state = state.voiceState,
                                 onStartRecording = {
                                     useComponent.handle(
-                                        ChecklistEvent.StartStopRecording
+                                        ChecklistScreenEvent.StartStopRecording
                                     )
                                 },
                                 onStopRecording = {
                                     useComponent.handle(
-                                        ChecklistEvent.StartStopRecording
+                                        ChecklistScreenEvent.StartStopRecording
                                     )
                                 },
                                 onStartPlay = {
                                     useComponent.handle(
-                                        ChecklistEvent.StartPausePlay
+                                        ChecklistScreenEvent.StartPausePlay
                                     )
                                 },
                                 onPausePlay = {
                                     useComponent.handle(
-                                        ChecklistEvent.StartPausePlay
+                                        ChecklistScreenEvent.StartPausePlay
                                     )
                                 },
                                 onRemove = {
-                                    useComponent.handle(ChecklistEvent.RemoveVoice)
+                                    useComponent.handle(ChecklistScreenEvent.RemoveVoice)
                                 },
                                 enabled = state.status.isOngoing()
                             )
@@ -203,18 +183,17 @@ fun CurrentCheckDialog(
                                 pictures = currentCheckMedia.pictures.filter { !it.toRemove },
                                 onPhotoSelect = {
                                     useComponent.handle(
-                                        ChecklistEvent.OnImage(it)
+                                        ChecklistScreenEvent.OnImage(it)
                                     )
                                 },
                                 onCamera = {
                                     useComponent.handle(
-                                        ChecklistEvent.OpenCamera
+                                        ChecklistScreenEvent.OpenCamera
                                     )
                                 })
                         }
                     }
                     if (state.status.isOngoing()) {
-                        Spacer(modifier = Modifier.size(8.dp))
                         Row(Modifier.padding(horizontal = 8.dp)) {
                             Button(
                                 modifier = Modifier.fillMaxWidth(),
@@ -230,7 +209,6 @@ fun CurrentCheckDialog(
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.size(25.dp))
                 }
             }
         },

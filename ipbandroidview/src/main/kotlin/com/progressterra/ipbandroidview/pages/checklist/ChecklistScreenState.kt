@@ -14,7 +14,7 @@ import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnState
 
 @Immutable
-data class ChecklistState(
+data class ChecklistScreenState(
     val auditDocument: AuditDocument = AuditDocument(),
     val checks: List<Check> = emptyList(),
     val screen: StateColumnState = StateColumnState(id = "main"),

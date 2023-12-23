@@ -8,7 +8,7 @@ import com.progressterra.ipbandroidview.pages.cart.CartScreenViewModel
 import com.progressterra.ipbandroidview.pages.catalog.CatalogScreenViewModel
 import com.progressterra.ipbandroidview.pages.chat.ChatScreenViewModel
 import com.progressterra.ipbandroidview.pages.chats.ChatsScreenViewModel
-import com.progressterra.ipbandroidview.pages.checklist.ChecklistViewModel
+import com.progressterra.ipbandroidview.pages.checklist.ChecklistScreenViewModel
 import com.progressterra.ipbandroidview.pages.confirmationcode.ConfirmationCodeScreenViewModel
 import com.progressterra.ipbandroidview.pages.connections.ConnectionsScreenViewModel
 import com.progressterra.ipbandroidview.pages.datingmain.DatingMainScreenViewModel
@@ -191,7 +191,7 @@ val pagesModule = module {
     viewModel { OrganizationAuditsScreenViewModel(get(), get()) }
 
     viewModel {
-        ChecklistViewModel(
+        ChecklistScreenViewModel(
             get(),
             get(),
             get(),
