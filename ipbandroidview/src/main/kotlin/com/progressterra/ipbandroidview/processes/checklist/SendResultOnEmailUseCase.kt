@@ -7,6 +7,7 @@ import com.progressterra.ipbandroidview.processes.ToastedException
 import com.progressterra.ipbandroidview.processes.utils.MakeToastUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.UserData
 import com.progressterra.ipbandroidview.shared.mvi.AbstractTokenUseCase
 
 
@@ -25,6 +26,9 @@ interface SendResultOnEmailUseCase {
         override suspend fun invoke(
             docId: String,
         ): Result<Unit> = withToken { token ->
+            if (UserData.email.isEmpty()) {
+                throw ToastedException(R.string.error_email_not_found)
+            }
             if (checklistService.sendOnEmail(token, docId).result?.status != StatusResult.SUCCESS) {
                 throw ToastedException(R.string.error_send_on_email)
             } else {
