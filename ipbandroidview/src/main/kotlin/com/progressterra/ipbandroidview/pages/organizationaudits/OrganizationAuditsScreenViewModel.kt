@@ -70,8 +70,7 @@ class OrganizationAuditsScreenViewModel(
                             checklistId = event.audit.id,
                             name = event.audit.name,
                             documentId = null
-                        ),
-                        ChecklistStatus.CAN_BE_STARTED
+                        ) to ChecklistStatus.CAN_BE_STARTED
                     )
                 )
             }
