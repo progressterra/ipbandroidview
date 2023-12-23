@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.DatingTarget
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class ReadyToMeetScreenNode(
@@ -18,7 +18,7 @@ class ReadyToMeetScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<ReadyToMeetScreenViewModel>()
+        val viewModel = koinViewModel<ReadyToMeetScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
                 is ReadyToMeetScreenEffect.OnBack -> navigation.onBack()

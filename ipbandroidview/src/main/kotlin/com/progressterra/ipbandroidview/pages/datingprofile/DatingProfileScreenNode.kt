@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.DatingUser
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class DatingProfileScreenNode(
@@ -21,7 +21,7 @@ class DatingProfileScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<DatingProfileScreenViewModel>()
+        val viewModel = koinViewModel<DatingProfileScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
                 is DatingProfileScreenEffect.OnBack -> navigation.onBack()

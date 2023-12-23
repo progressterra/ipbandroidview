@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class NewWithdrawalScreenNode(
@@ -20,7 +20,7 @@ class NewWithdrawalScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<NewWithdrawalScreenViewModel>()
+        val viewModel = koinViewModel<NewWithdrawalScreenViewModel>()
         val context = LocalContext.current
         viewModel.collectEffects { effect ->
             when (effect) {

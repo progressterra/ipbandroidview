@@ -8,7 +8,7 @@ import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.AuditDocument
 import com.progressterra.ipbandroidview.entities.ChecklistStatus
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class ChecklistNode(

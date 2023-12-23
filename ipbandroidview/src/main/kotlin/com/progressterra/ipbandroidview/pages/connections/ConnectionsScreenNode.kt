@@ -6,10 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.pages.nav.OnDatingProfile
-import org.koin.androidx.compose.getViewModel
-
-interface ConnectionsScreenNavigation : OnDatingProfile
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class ConnectionsScreenNode(
@@ -19,7 +16,7 @@ class ConnectionsScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<ConnectionsScreenViewModel>()
+        val viewModel = koinViewModel<ConnectionsScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
                 is ConnectionsScreenEffect.OnProfile -> navigation.onDatingProfile(effect.user)

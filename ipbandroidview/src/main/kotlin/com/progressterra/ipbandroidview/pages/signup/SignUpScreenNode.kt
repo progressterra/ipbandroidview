@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class SignUpScreenNode(
@@ -19,7 +19,7 @@ class SignUpScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<SignUpScreenViewModel>()
+        val viewModel = koinViewModel<SignUpScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
                 is SignUpScreenEffect.OnNext -> navigation.onNext()

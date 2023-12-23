@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class PfpPickerScreenNode(
@@ -19,7 +19,7 @@ class PfpPickerScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<PfpPickerScreenViewModel>()
+        val viewModel = koinViewModel<PfpPickerScreenViewModel>()
         val context = LocalContext.current
         viewModel.collectEffects { effect ->
             when (effect) {

@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.Document
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class WithdrawalScreenNode(
@@ -19,7 +19,7 @@ class WithdrawalScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<WithdrawalScreenViewModel>()
+        val viewModel = koinViewModel<WithdrawalScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
                 is WithdrawalScreenEffect.Back -> navigation.onBack()

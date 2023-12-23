@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.features.ordertracking.OrderTrackingState
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class OrderTrackingScreenNode(
@@ -20,7 +20,7 @@ class OrderTrackingScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<OrderTrackingScreenViewModel>()
+        val viewModel = koinViewModel<OrderTrackingScreenViewModel>()
         viewModel.collectEffects {
             navigation.onBack()
         }

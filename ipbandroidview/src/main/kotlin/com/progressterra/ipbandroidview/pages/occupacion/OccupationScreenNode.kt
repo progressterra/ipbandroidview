@@ -6,7 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class OccupationScreenNode(
@@ -16,7 +16,7 @@ class OccupationScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<OccupationScreenViewModel>()
+        val viewModel = koinViewModel<OccupationScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
                 is OccupationScreenEffect.OnBack -> navigation.onBack()

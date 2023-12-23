@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class DatingMainScreenNode(
@@ -17,7 +17,7 @@ class DatingMainScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<DatingMainScreenViewModel>()
+        val viewModel = koinViewModel<DatingMainScreenViewModel>()
         viewModel.collectEffects { effect ->
             when (effect) {
                 is DatingMainScreenEffect.OnFilter -> Unit

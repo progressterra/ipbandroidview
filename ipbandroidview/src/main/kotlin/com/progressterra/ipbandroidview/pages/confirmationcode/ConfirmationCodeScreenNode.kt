@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
 import com.progressterra.ipbandroidview.entities.SignInData
-import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Suppress("unused")
 class ConfirmationCodeScreenNode(
@@ -23,7 +23,7 @@ class ConfirmationCodeScreenNode(
 
     @Composable
     override fun View(modifier: Modifier) {
-        val viewModel = getViewModel<ConfirmationCodeScreenViewModel>()
+        val viewModel = koinViewModel<ConfirmationCodeScreenViewModel>()
         val context = LocalContext.current
         viewModel.collectEffects { effect ->
             when (effect) {
