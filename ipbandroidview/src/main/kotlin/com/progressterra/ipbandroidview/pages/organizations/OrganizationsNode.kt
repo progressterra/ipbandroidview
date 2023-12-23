@@ -6,11 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.core.modality.BuildContext
 import com.bumble.appyx.core.node.Node
-import com.progressterra.ipbandroidview.pages.nav.OnOrganization
-import com.progressterra.ipbandroidview.pages.nav.OnPartner
 import org.koin.androidx.compose.getViewModel
-
-interface OrganizationsNavigation : OnOrganization, OnPartner
 
 @Suppress("unused")
 class OrganizationsNode(
@@ -26,7 +22,6 @@ class OrganizationsNode(
         viewModel.collectEffects {
             when (it) {
                 is OrganizationsEffect.OnOrganization -> navigation.onOrganization(it.organization)
-                is OrganizationsEffect.OnPartner -> navigation.onPartner(it.partner)
             }
         }
         LaunchedEffect(Unit) {

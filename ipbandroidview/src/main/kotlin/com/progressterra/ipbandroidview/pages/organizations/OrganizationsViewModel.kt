@@ -3,7 +3,6 @@ package com.progressterra.ipbandroidview.pages.organizations
 import com.progressterra.ipbandroidview.entities.toScreenState
 import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
 import com.progressterra.ipbandroidview.processes.checklist.AllOrganizationsUseCase
-import com.progressterra.ipbandroidview.processes.partner.FetchPartnerUseCase
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
@@ -32,12 +31,6 @@ class OrganizationsViewModel(
             is OrganizationsScreenEvent.OnOrganization -> postEffect(
                 OrganizationsEffect.OnOrganization(
                     event.organization
-                )
-            )
-
-            is OrganizationsScreenEvent.OnPartner -> postEffect(
-                OrganizationsEffect.OnPartner(
-                    currentState.partner
                 )
             )
         }
