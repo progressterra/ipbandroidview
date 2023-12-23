@@ -7,8 +7,6 @@ sealed class OrganizationAuditsScreenEffect {
 
     data object OnBack : OrganizationAuditsScreenEffect()
 
-    data class OnChecklist(
-        val auditDocument: AuditDocument,
-        val initialStatus: ChecklistStatus
-    ) : OrganizationAuditsScreenEffect()
+    data class OnChecklist(val data: Pair<AuditDocument, ChecklistStatus>) :
+        OrganizationAuditsScreenEffect()
 }

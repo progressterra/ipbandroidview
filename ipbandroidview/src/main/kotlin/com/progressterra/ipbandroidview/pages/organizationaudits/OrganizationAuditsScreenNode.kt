@@ -22,10 +22,7 @@ class OrganizationAuditsScreenNode(
         viewModel.collectEffects {
             when (it) {
                 is OrganizationAuditsScreenEffect.OnBack -> navigation.onBack()
-                is OrganizationAuditsScreenEffect.OnChecklist -> navigation.onChecklist(
-                    it.auditDocument,
-                    it.initialStatus
-                )
+                is OrganizationAuditsScreenEffect.OnChecklist -> navigation.onChecklist(it.data)
             }
         }
         LaunchedEffect(input) {
