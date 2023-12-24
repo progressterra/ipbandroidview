@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -28,6 +30,7 @@ import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
+import com.progressterra.ipbandroidview.shared.ui.modifier.niceClickable
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumn
 import kotlinx.coroutines.launch
 
@@ -71,6 +74,9 @@ fun OverviewScreen(
                                     .fillMaxWidth()
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(cardBackground)
+                                    .niceClickable {
+                                        useComponent.handle(OverviewEvent.OnChecklist(it))
+                                    }
                                     .padding(12.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
@@ -86,9 +92,10 @@ fun OverviewScreen(
                                         style = IpbTheme.typography.footnoteRegular,
                                         tint = IpbTheme.colors.textTertiary.asBrush()
                                     )
-                                    Stats(stats = it.stats)
+                                    Stats(modifier = Modifier.width(200.dp), stats = it.stats)
                                 }
                                 BrushedIcon(
+                                    modifier = Modifier.size(width = 10.dp, height = 17.dp),
                                     resId = R.drawable.ic_forward,
                                     tint = IpbTheme.colors.iconTertiary.asBrush()
                                 )

@@ -1,8 +1,9 @@
 package com.progressterra.ipbandroidview.pages.overview
 
-import com.progressterra.ipbandroidview.entities.ChecklistDocument
+import com.progressterra.ipbandroidview.entities.AuditDocument
+import com.progressterra.ipbandroidview.entities.ChecklistStatus
 
 sealed class OverviewEffect {
 
-    class Archive(val title: String, val archived: List<ChecklistDocument>) : OverviewEffect()
+    data class OnChecklist(val data: Pair<AuditDocument, ChecklistStatus>) : OverviewEffect()
 }
