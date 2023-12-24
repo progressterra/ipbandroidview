@@ -59,7 +59,7 @@ fun OverviewScreen(
             Tabs(tabs = tabs, currentIndex = pagerState.currentPage, onTabClicked = {
                 scope.launch { pagerState.animateScrollToPage(it) }
             })
-            HorizontalPager(state = pagerState) { pageNumber ->
+            HorizontalPager(state = pagerState, pageSpacing = 16.dp) { pageNumber ->
                 val lazyItems =
                     (if (pageNumber == 0) state.ongoing else state.archived).collectAsLazyPagingItems()
                 val cardBackground =
@@ -92,7 +92,7 @@ fun OverviewScreen(
                                         style = IpbTheme.typography.body,
                                         tint = IpbTheme.colors.textTertiary.asBrush()
                                     )
-                                    Stats(modifier = Modifier.width(200.dp), stats = it.stats)
+                                    Stats(modifier = Modifier.width(200.dp), stats = it.stats, arrangement = Arrangement.SpaceBetween)
                                 }
                                 BrushedIcon(
                                     modifier = Modifier.size(width = 10.dp, height = 17.dp),
