@@ -24,6 +24,7 @@ import com.progressterra.ipbandroidview.processes.media.StartRecordingUseCase
 import com.progressterra.ipbandroidview.processes.media.StopRecordingUseCase
 import com.progressterra.ipbandroidview.processes.permission.AskPermissionUseCase
 import com.progressterra.ipbandroidview.processes.permission.CheckPermissionUseCase
+import com.progressterra.ipbandroidview.shared.log
 import com.progressterra.ipbandroidview.shared.mvi.AbstractInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.button.ButtonEvent
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.ScreenState
@@ -95,16 +96,19 @@ class ChecklistScreenViewModel(
 
     private fun refreshChecklist() {
         onBackground {
+            log("CHECK", "state: $currentState")
             emitState { it.copy(screen = it.screen.copy(state = ScreenState.LOADING)) }
             var newChecks: List<Check> = emptyList()
             var isSuccess = true
-            if (!currentState.status.isCanBeStarted()) documentChecklistUseCase(
-                currentState.auditDocument.documentId!!
-            ).onSuccess { newChecks = it }.onFailure { isSuccess = false }
-            else checklistUseCase(currentState.auditDocument.checklistId).onSuccess { list ->
-                newChecks = list
+            if (!currentState.status.isCanBeStarted()) {
+                documentChecklistUseCase(
+                    currentState.auditDocument.documentId!!
+                ).onSuccess { newChecks = it }.onFailure { isSuccess = false }
+            } else {
+                checklistUseCase(currentState.auditDocument.checklistId).onSuccess { list ->
+                    newChecks = list
+                }.onFailure { isSuccess = false }
             }
-                .onFailure { isSuccess = false }
             emitState { it.updateChecks(newChecks).updateScreenState(isSuccess.toScreenState()) }
         }
     }
