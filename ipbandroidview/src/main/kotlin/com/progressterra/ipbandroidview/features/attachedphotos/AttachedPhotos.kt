@@ -68,7 +68,7 @@ fun AttachedPhotos(
                 tint = if (enabled) IpbTheme.colors.textPrimary.asBrush() else IpbTheme.colors.textTertiary.asBrush()
             )
             BrushedIcon(
-                modifier = modifier,
+                modifier = Modifier,
                 resId = R.drawable.ic_camera,
                 tint = if (enabled) IpbTheme.colors.primary.asBrush() else IpbTheme.colors.iconTertiary.asBrush()
             )
@@ -86,7 +86,7 @@ fun AttachedPhotos(
                         contentAlignment = Alignment.Center
                     ) {
                         BrushedIcon(
-                            modifier = modifier,
+                            modifier = Modifier,
                             resId = R.drawable.ic_camera,
                             tint = IpbTheme.colors.primary.asBrush()
                         )
