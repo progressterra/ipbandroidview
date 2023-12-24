@@ -5,5 +5,6 @@ import com.progressterra.ipbandroidview.entities.ChecklistStatus
 
 sealed class OverviewEffect {
 
-    data class OnChecklist(val data: Pair<AuditDocument, ChecklistStatus>) : OverviewEffect()
+    data class OnChecklist(val document: AuditDocument, val status: ChecklistStatus) :
+        OverviewEffect()
 }
