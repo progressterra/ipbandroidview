@@ -211,5 +211,5 @@ val pagesModule = module {
         )
     }
 
-    viewModel { OverviewScreenViewModel(get(), get(), get()) }
+    viewModel { OverviewScreenViewModel(get(), get()) }
 }
