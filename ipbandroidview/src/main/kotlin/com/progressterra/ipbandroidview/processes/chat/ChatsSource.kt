@@ -17,10 +17,10 @@ class ChatsSource(
 
     override val pageSize = 10
 
-    override suspend fun loadPage(skip: Int, take: Int): Result<List<SupportChatState>> =
+    override suspend fun loadPage(skip: Int, take: Int): Result<Pair<Int, List<SupportChatState>>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()
-            messengerRepository.clientAreaDialogList(
+            val response = messengerRepository.clientAreaDialogList(
                 accessToken = token,
                 body = FilterAndSort(
                     listFields = listOf(
@@ -38,12 +38,13 @@ class ChatsSource(
                     skip = skip,
                     take = take
                 )
-            ).dataList?.map {
+            ).dataList ?: emptyList()
+            response.size to response.map {
                 SupportChatState(
                     id = it.idUnique!!,
                     title = it.description ?: "",
                     finite = true
                 )
-            } ?: emptyList()
+            }
         }
 }

@@ -74,12 +74,7 @@ fun DHCheckPerformedFullDataViewModel.toChecklistDocument() = ChecklistDocument(
         failed = countDRNegativeAnswer ?: 0,
         remaining = tryOrNull { countDR!! - countDRPositiveAnswer!! - countDRNegativeAnswer!! }
             ?: 0
-    ),
-    isRecentlyFinished = if (dateEnd == null) {
-        false
-    } else {
-        System.currentTimeMillis() - dateEnd!!.parseToDate()!!.time <= 24 * 60 * 60 * 1000
-    }
+    )
 )
 
 fun Double.toSimplePrice() = SimplePrice(toInt())

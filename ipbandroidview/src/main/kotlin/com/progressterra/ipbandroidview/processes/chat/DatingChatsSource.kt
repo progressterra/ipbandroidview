@@ -19,10 +19,10 @@ class DatingChatsSource(
 
     override val pageSize = 10
 
-    override suspend fun loadPage(skip: Int, take: Int): Result<List<DatingChat>> =
+    override suspend fun loadPage(skip: Int, take: Int): Result<Pair<Int, List<DatingChat>>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()
-            messengerRepository.clientAreaDialogList(
+            val response = messengerRepository.clientAreaDialogList(
                 accessToken = token,
                 body = FilterAndSort(
                     listFields = listOf(),
@@ -34,7 +34,8 @@ class DatingChatsSource(
                     skip = skip,
                     take = take
                 )
-            ).dataList?.map {
+            ).dataList ?: emptyList()
+            response.size to response.map {
                 val lastMessage = messengerRepository.clientAreaMessageList(
                     accessToken = token,
                     body = FilterAndSort(
@@ -58,6 +59,6 @@ class DatingChatsSource(
                     previewMessage = lastMessage?.content ?: "",
                     lastTime = lastMessage?.date ?: ""
                 )
-            } ?: emptyList()
+            }
         }
 }

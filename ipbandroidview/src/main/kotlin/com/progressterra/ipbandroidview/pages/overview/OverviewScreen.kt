@@ -1,6 +1,7 @@
 package com.progressterra.ipbandroidview.pages.overview
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,10 +10,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -21,6 +24,7 @@ import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.stats.Stats
 import com.progressterra.ipbandroidview.features.topbar.TopBar
 import com.progressterra.ipbandroidview.shared.theme.IpbTheme
+import com.progressterra.ipbandroidview.shared.ui.BrushedIcon
 import com.progressterra.ipbandroidview.shared.ui.BrushedText
 import com.progressterra.ipbandroidview.shared.ui.Tabs
 import com.progressterra.ipbandroidview.shared.ui.ThemedLayout
@@ -52,16 +56,22 @@ fun OverviewScreen(
             Tabs(tabs = tabs, currentIndex = pagerState.currentPage, onTabClicked = {
                 scope.launch { pagerState.animateScrollToPage(it) }
             })
-            HorizontalPager(state = pagerState) {
+            HorizontalPager(state = pagerState) { pageNumber ->
                 val lazyItems =
-                    (if (it == 0) state.ongoing else state.archived).collectAsLazyPagingItems()
+                    (if (pageNumber == 0) state.ongoing else state.archived).collectAsLazyPagingItems()
+                val cardBackground =
+                    if (pageNumber == 0) IpbTheme.colors.tertiary.asBrush() else IpbTheme.colors.surface.asBrush()
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     items(lazyItems.itemCount, key = lazyItems.itemKey { it.documentId }) { index ->
                         lazyItems[index]?.let {
                             Row(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clip(RoundedCornerShape(12.dp))
+                                    .background(cardBackground)
+                                    .padding(12.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -78,6 +88,10 @@ fun OverviewScreen(
                                     )
                                     Stats(stats = it.stats)
                                 }
+                                BrushedIcon(
+                                    resId = R.drawable.ic_forward,
+                                    tint = IpbTheme.colors.iconTertiary.asBrush()
+                                )
                             }
                         }
                     }

@@ -12,7 +12,6 @@ data class ChecklistDocument(
     val address: String,
     val checkCounter: Int,
     val finishDate: String?,
-    val isRecentlyFinished: Boolean,
     val stats: ChecklistStats
 ) : Parcelable {
 

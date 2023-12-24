@@ -14,15 +14,14 @@ class GoodsSource(
 
     override val pageSize = 10
 
-    override suspend fun loadPage(skip: Int, take: Int): Result<List<StoreCardState>> =
+    override suspend fun loadPage(skip: Int, take: Int): Result<Pair<Int, List<StoreCardState>>> =
         runCatching {
-            productRepo.productList(
+            val response = productRepo.productList(
                 obtainAccessToken().getOrThrow(), filter!!.toFilterAndSort().copy(
                     skip = skip,
                     take = take
                 )
-            ).getOrThrow()
-                ?.map { it.toGoodsItem().toStoreCardState() }
-                ?: emptyList()
+            ).getOrThrow() ?: emptyList()
+            response.size to response.map { it.toGoodsItem().toStoreCardState() }
         }
 }

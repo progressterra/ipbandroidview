@@ -33,10 +33,11 @@ import com.progressterra.ipbandroidview.processes.checklist.ChecklistNonPagingUs
 import com.progressterra.ipbandroidview.processes.checklist.ChecklistUseCase
 import com.progressterra.ipbandroidview.processes.checklist.CreateDocumentUseCase
 import com.progressterra.ipbandroidview.processes.checklist.DocumentChecklistUseCase
+import com.progressterra.ipbandroidview.processes.checklist.FetchArchivedAuditsUseCase
 import com.progressterra.ipbandroidview.processes.checklist.FetchExistingAuditUseCase
+import com.progressterra.ipbandroidview.processes.checklist.FetchOngoingAuditsUseCase
 import com.progressterra.ipbandroidview.processes.checklist.FinishDocumentUseCase
 import com.progressterra.ipbandroidview.processes.checklist.OrganizationAuditsUseCase
-import com.progressterra.ipbandroidview.processes.checklist.OrganizationsOverviewUseCase
 import com.progressterra.ipbandroidview.processes.checklist.SendResultOnEmailUseCase
 import com.progressterra.ipbandroidview.processes.checklist.UpdateAnswerUseCase
 import com.progressterra.ipbandroidview.processes.connection.AcceptConnectUseCase
@@ -596,8 +597,6 @@ val processesModule = module {
 
     single<OrganizationAuditsUseCase> { OrganizationAuditsUseCase.Base(get(), get(), get(), get()) }
 
-    single<AllDocumentsUseCase> { AllDocumentsUseCase.Base(get(), get()) }
-
     single<ChecklistNonPagingUseCase> { ChecklistNonPagingUseCase.Base(get(), get(), get(), get()) }
 
     single<ChecklistUseCase> { ChecklistUseCase.Base(get(), get()) }
@@ -616,10 +615,6 @@ val processesModule = module {
         FetchExistingAuditUseCase.Base(get(), get(), get(), get())
     }
 
-    single<OrganizationsOverviewUseCase> {
-        OrganizationsOverviewUseCase.Base(get(), get(), get(), get())
-    }
-
     single<SendResultOnEmailUseCase> {
         SendResultOnEmailUseCase.Base(get(), get(), get(), get())
     }
@@ -635,4 +630,8 @@ val processesModule = module {
     single<VoiceManager> { VoiceManager.Base(get()) }
 
     single<AudioManager> { AudioManager.Base(get()) }
+
+    single<FetchOngoingAuditsUseCase> { FetchOngoingAuditsUseCase.Base(get(), get()) }
+
+    single<FetchArchivedAuditsUseCase> { FetchArchivedAuditsUseCase.Base(get(), get()) }
 }

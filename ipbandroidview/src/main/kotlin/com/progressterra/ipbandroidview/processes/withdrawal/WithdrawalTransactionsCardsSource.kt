@@ -16,10 +16,13 @@ class WithdrawalTransactionsCardsSource(
 
     override val pageSize = 10
 
-    override suspend fun loadPage(skip: Int, take: Int): Result<List<WithdrawalTransactionState>> =
+    override suspend fun loadPage(
+        skip: Int,
+        take: Int
+    ): Result<Pair<Int, List<WithdrawalTransactionState>>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()
-            paymentRepository.clientAreaPaymentList(
+            val response = paymentRepository.clientAreaPaymentList(
                 accessToken = token,
                 body = FilterAndSort(
                     listFields = emptyList(),
@@ -31,8 +34,9 @@ class WithdrawalTransactionsCardsSource(
                     skip = skip,
                     take = take
                 )
-            ).getOrThrow()?.map {
+            ).getOrThrow() ?: emptyList()
+            response.size to response.map {
                 it.toWithdrawalTransactionState()
-            } ?: emptyList()
+            }
         }
 }

@@ -9,12 +9,12 @@ import com.progressterra.ipbandroidapi.api.documents.models.TypeComparison
 import com.progressterra.ipbandroidapi.api.documents.models.TypeStatusDoc
 import com.progressterra.ipbandroidapi.api.documents.models.TypeVariantSort
 import com.progressterra.ipbandroidapi.api.product.ProductRepository
-import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.entities.toDocument
 import com.progressterra.ipbandroidview.entities.toGoodsItem
 import com.progressterra.ipbandroidview.features.wantthiscard.WantThisCardState
-import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.processes.utils.CreateId
+import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
+import com.progressterra.ipbandroidview.shared.IpbAndroidViewSettings
 import com.progressterra.ipbandroidview.shared.mvi.AbstractSource
 
 class WantThisRequestsSource(
@@ -27,10 +27,13 @@ class WantThisRequestsSource(
 
     override val pageSize = 10
 
-    override suspend fun loadPage(skip: Int, take: Int): Result<List<WantThisCardState>> =
+    override suspend fun loadPage(
+        skip: Int,
+        take: Int
+    ): Result<Pair<Int, List<WantThisCardState>>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()
-            documentsRepository.docs(
+            val response = documentsRepository.docs(
                 accessToken = token,
                 filter = FilterAndSort(
                     listFields = listOf(
@@ -48,7 +51,8 @@ class WantThisRequestsSource(
                     skip = skip,
                     take = take
                 )
-            ).getOrThrow()?.mapNotNull {
+            ).getOrThrow() ?: emptyList()
+            response.size to response.mapNotNull {
                 val doc = it.toDocument(gson, createId)
                 if (it.statusDoc != TypeStatusDoc.CONFIRMED || doc.additionalValue.isBlank()) {
                     doc.toWantThisCardState()
@@ -57,6 +61,6 @@ class WantThisRequestsSource(
                         .getOrThrow()?.toGoodsItem()
                         ?.toWantThisCardState()?.copy(document = it.toDocument(gson, createId))
                 }
-            } ?: emptyList()
+            }
         }
 }

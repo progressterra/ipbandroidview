@@ -18,7 +18,7 @@ class ChecklistSource(
     private var categoryNumber = 0
     private var prevMaxIndex = 0
 
-    override suspend fun loadPage(skip: Int, take: Int): Result<List<Check>> =
+    override suspend fun loadPage(skip: Int, take: Int): Result<Pair<Int, List<Check>>> =
         runCatching {
             val token = obtainAccessToken().getOrThrow()
             if (filter!! != idChecklist) {
@@ -38,8 +38,8 @@ class ChecklistSource(
                     skip = skip,
                     take = take
                 )
-            ).dataList!!
-            checks.mapIndexed { index, check ->
+            ).dataList ?: emptyList()
+            checks.size to checks.mapIndexed { index, check ->
                 if (check.parameter?.internalName != currentCategory) {
                     currentCategory = check.parameter?.internalName!!
                     categoryNumber++

@@ -2,42 +2,47 @@ package com.progressterra.ipbandroidview.pages.overview
 
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.entities.toScreenState
-import com.progressterra.ipbandroidview.processes.checklist.OrganizationsOverviewUseCase
+import com.progressterra.ipbandroidview.features.topbar.TopBarEvent
+import com.progressterra.ipbandroidview.processes.checklist.FetchArchivedAuditsUseCase
+import com.progressterra.ipbandroidview.processes.checklist.FetchOngoingAuditsUseCase
 import com.progressterra.ipbandroidview.processes.utils.ManageResources
 import com.progressterra.ipbandroidview.shared.mvi.AbstractNonInputViewModel
 import com.progressterra.ipbandroidview.shared.ui.statecolumn.StateColumnEvent
 
 class OverviewScreenViewModel(
-    private val fetchOrganizationsOverviewUseCase: OrganizationsOverviewUseCase,
+    private val fetchOngoingAuditsUseCase: FetchOngoingAuditsUseCase,
+    private val fetchArchivedAuditsUseCase: FetchArchivedAuditsUseCase,
     private val manageResources: ManageResources
-) :  AbstractNonInputViewModel<OverviewState, OverviewEffect>(), UseOverviewScreen {
+) : AbstractNonInputViewModel<OverviewState, OverviewEffect>(), UseOverviewScreen {
 
     override fun createInitialState() = OverviewState()
 
 
+    override fun handle(event: TopBarEvent) = Unit
+
     override fun handle(event: OverviewEvent) {
-            when (event) {
-                is OverviewEvent.Archived -> postEffect(
-                    OverviewEffect.Archive(
-                        title = manageResources.string(R.string.archived),
-                        archived = event.documents
-                    )
+        when (event) {
+            is OverviewEvent.Archived -> postEffect(
+                OverviewEffect.Archive(
+                    title = manageResources.string(R.string.archived),
+                    archived = event.documents
                 )
+            )
 
-                is OverviewEvent.Complete -> postEffect(
-                    OverviewEffect.Archive(
-                        title = manageResources.string(R.string.completed),
-                        archived = event.documents
-                    )
+            is OverviewEvent.Complete -> postEffect(
+                OverviewEffect.Archive(
+                    title = manageResources.string(R.string.completed),
+                    archived = event.documents
                 )
+            )
 
-                is OverviewEvent.Ongoing -> postEffect(
-                    OverviewEffect.Archive(
-                        title = manageResources.string(R.string.ongoing),
-                        archived = event.documents
-                    )
+            is OverviewEvent.Ongoing -> postEffect(
+                OverviewEffect.Archive(
+                    title = manageResources.string(R.string.ongoing),
+                    archived = event.documents
                 )
-            }
+            )
+        }
     }
 
     override fun handle(event: StateColumnEvent) {
@@ -48,8 +53,13 @@ class OverviewScreenViewModel(
     override fun refresh() {
         onBackground {
             var isSuccess = true
-            fetchOrganizationsOverviewUseCase().onSuccess { overviews ->
-                emitState { it.copy(overviews = overviews) }
+            fetchArchivedAuditsUseCase().onSuccess { flow ->
+                emitState { it.copy(archived = cachePaging(flow)) }
+            }.onFailure {
+                isSuccess = false
+            }
+            fetchOngoingAuditsUseCase().onSuccess { flow ->
+                emitState { it.copy(ongoing = cachePaging(flow)) }
             }.onFailure {
                 isSuccess = false
             }

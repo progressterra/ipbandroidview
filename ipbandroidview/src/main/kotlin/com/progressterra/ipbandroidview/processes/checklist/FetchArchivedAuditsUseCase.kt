@@ -43,6 +43,6 @@ class ArchivedAuditsSource(
             )
         ).dataList!!
         response.size to response.map { it.toChecklistDocument() }
-            .filter { it.finishDate != null && !it.isRecentlyFinished }
+            .filter { it.finishDate != null }
     }
 }

@@ -18,26 +18,28 @@ class MessageSource(
 
     override val pageSize: Int = 10
 
-    override suspend fun loadPage(skip: Int, take: Int): Result<List<Message>> = runCatching {
-        val token = obtainAccessToken().getOrThrow()
-        messengerRepository.clientAreaMessageList(
-            accessToken = token,
-            body = FilterAndSort(
-                listFields = listOf(
-                    FieldForFilter(
-                        fieldName = "idDialog",
-                        listValue = listOf(filter!!),
-                        comparison = TypeComparison.EQUALS_STRONG
-                    )
-                ),
-                sort = SortData(
-                    fieldName = "dateAdded",
-                    variantSort = TypeVariantSort.DESC
-                ),
-                searchData = "",
-                skip = skip,
-                take = take
-            )
-        ).dataList?.map { it.toMessage() } ?: emptyList()
-    }
+    override suspend fun loadPage(skip: Int, take: Int): Result<Pair<Int, List<Message>>> =
+        runCatching {
+            val token = obtainAccessToken().getOrThrow()
+            val response = messengerRepository.clientAreaMessageList(
+                accessToken = token,
+                body = FilterAndSort(
+                    listFields = listOf(
+                        FieldForFilter(
+                            fieldName = "idDialog",
+                            listValue = listOf(filter!!),
+                            comparison = TypeComparison.EQUALS_STRONG
+                        )
+                    ),
+                    sort = SortData(
+                        fieldName = "dateAdded",
+                        variantSort = TypeVariantSort.DESC
+                    ),
+                    searchData = "",
+                    skip = skip,
+                    take = take
+                )
+            ).dataList ?: emptyList()
+            response.size to response.map { it.toMessage() }
+        }
 }
