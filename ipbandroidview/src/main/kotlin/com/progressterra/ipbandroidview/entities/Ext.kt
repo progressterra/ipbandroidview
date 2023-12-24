@@ -33,6 +33,7 @@ import com.progressterra.ipbandroidapi.api.product.models.ProductView
 import com.progressterra.ipbandroidapi.api.scrm.models.RGAddress
 import com.progressterra.ipbandroidapi.api.suggestion.model.Suggestion
 import com.progressterra.ipbandroidapi.api.suggestion.model.SuggestionExtendedInfo
+import com.progressterra.ipbandroidapi.parseToDate
 import com.progressterra.ipbandroidview.R
 import com.progressterra.ipbandroidview.features.bankcard.BankCardState
 import com.progressterra.ipbandroidview.features.catalogcard.CatalogCardState
@@ -67,11 +68,18 @@ fun DHCheckPerformedFullDataViewModel.toChecklistDocument() = ChecklistDocument(
     address = nameComPlace ?: "",
     checkCounter = countDR ?: 0,
     finishDate = dateEnd?.parseToZDT()?.formatZdt("dd.MM"),
-    stats = ChecklistStats(total = countDR ?: 0,
+    stats = ChecklistStats(
+        total = countDR ?: 0,
         successful = countDRPositiveAnswer ?: 0,
         failed = countDRNegativeAnswer ?: 0,
         remaining = tryOrNull { countDR!! - countDRPositiveAnswer!! - countDRNegativeAnswer!! }
-            ?: 0), isRecentlyFinished = false
+            ?: 0
+    ),
+    isRecentlyFinished = if (dateEnd == null) {
+        false
+    } else {
+        System.currentTimeMillis() - dateEnd!!.parseToDate()!!.time <= 24 * 60 * 60 * 1000
+    }
 )
 
 fun Double.toSimplePrice() = SimplePrice(toInt())

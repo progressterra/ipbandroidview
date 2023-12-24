@@ -225,7 +225,7 @@
     <string name="no">НЕТ</string>
     <string name="send">Отправить</string>
     <string name="start_audit">НАЧАТЬ АУДИТ</string>
-    <string name="end_audit">ЗАВЕРШИТЬ АУДИТ</string>
+    <string name="end_audit">ЗАВЕРШИТЬ</string>
     <string name="questions">Вопросов</string>
     <string name="add_photo">Сделать фото</string>
     <string name="archived">Архив</string>

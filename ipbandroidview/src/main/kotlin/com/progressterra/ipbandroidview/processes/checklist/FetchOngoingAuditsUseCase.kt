@@ -5,13 +5,17 @@ import com.progressterra.ipbandroidview.entities.ChecklistDocument
 import com.progressterra.ipbandroidview.processes.utils.ObtainAccessToken
 import com.progressterra.ipbandroidview.shared.mvi.PagingUseCase
 
-interface AllDocumentsUseCase : PagingUseCase<Nothing, ChecklistDocument> {
+interface FetchOngoingAuditsUseCase : PagingUseCase<Nothing, ChecklistDocument> {
 
     class Base(
         private val obtainAccessToken: ObtainAccessToken,
-        private val checklistService: ChecklistService,
-    ) : PagingUseCase.Abstract<Nothing, ChecklistDocument>(), AllDocumentsUseCase {
+        private val checklistService: ChecklistService
+    ) : FetchOngoingAuditsUseCase, PagingUseCase.Abstract<Nothing, ChecklistDocument>() {
 
-        override fun createSource() = AllDocumentsSource(checklistService, obtainAccessToken)
+        override fun createSource() = OngoingAuditsSource(
+            obtainAccessToken = obtainAccessToken,
+            checklistService = checklistService
+        )
     }
 }
+

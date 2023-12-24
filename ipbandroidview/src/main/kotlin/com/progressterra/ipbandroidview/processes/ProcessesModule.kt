@@ -27,7 +27,6 @@ import com.progressterra.ipbandroidview.processes.chat.FetchMessagesUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchOrderChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.FetchWantThisDetailsChatUseCase
 import com.progressterra.ipbandroidview.processes.chat.SendMessageUseCase
-import com.progressterra.ipbandroidview.processes.checklist.AllDocumentsUseCase
 import com.progressterra.ipbandroidview.processes.checklist.AllOrganizationsUseCase
 import com.progressterra.ipbandroidview.processes.checklist.CheckMediaDetailsUseCase
 import com.progressterra.ipbandroidview.processes.checklist.ChecklistNonPagingUseCase
