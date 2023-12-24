@@ -6,5 +6,5 @@ sealed class ChecklistScreenEffect {
 
     data object OnBack : ChecklistScreenEffect()
 
-    class OnImage(val picture: MultisizedImage, val enabled: Boolean) : ChecklistScreenEffect()
+    class OnImage(val picture: MultisizedImage) : ChecklistScreenEffect()
 }

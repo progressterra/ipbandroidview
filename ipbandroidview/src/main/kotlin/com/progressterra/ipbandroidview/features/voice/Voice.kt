@@ -40,7 +40,6 @@ fun Voice(
         is VoiceState.Recorder -> Box(modifier = modifier) {
             Row(
                 modifier = Modifier
-                    .padding(8.dp)
                     .clip(RoundedCornerShape(8.dp))
                     .height(TextFieldDefaults.MinHeight)
                     .fillMaxWidth()
@@ -77,7 +76,7 @@ fun Voice(
             if (state.ongoing) PulsingDot(modifier = Modifier.align(Alignment.CenterEnd))
         }
 
-        is VoiceState.Player -> Box(modifier = modifier.padding(8.dp)) {
+        is VoiceState.Player -> Box(modifier = modifier) {
             Row(
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))

@@ -133,10 +133,7 @@ class ChecklistScreenViewModel(
                     onYesNoUpdate()
                 }
 
-                is ChecklistScreenEvent.OnImage -> ChecklistScreenEffect.OnImage(
-                    event.image,
-                    currentState.status.isOngoing()
-                )
+                is ChecklistScreenEvent.OnImage -> ChecklistScreenEffect.OnImage(event.image)
 
 
                 is ChecklistScreenEvent.OpenCamera -> makePhotoUseCase().onSuccess { image ->

@@ -118,11 +118,11 @@ fun CurrentCheckDialog(
                     modifier = Modifier
                         .clip(RoundedCornerShape(12.dp))
                         .background(IpbTheme.colors.surface.asBrush())
+                        .padding(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     YesNoButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(12.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         state = currentCheck.yesNo,
                         onClick = {
                             useComponent.handle(
@@ -132,67 +132,54 @@ fun CurrentCheckDialog(
                         enabled = state.status.isOngoing()
                     )
                     TextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(12.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         backgroundColor = IpbTheme.colors.onSurface.asColor(),
                         hint = stringResource(R.string.commentary),
                         state = state.comment,
                         singleLine = false,
                         useComponent = useComponent
                     )
-                    Box(modifier = Modifier.padding(4.dp)) {
-                        Voice(
-                            modifier = Modifier.fillMaxWidth(),
-                            state = state.voiceState,
-                            onStartRecording = {
-                                useComponent.handle(
-                                    ChecklistScreenEvent.StartStopRecording
-                                )
-                            },
-                            onStopRecording = {
-                                useComponent.handle(
-                                    ChecklistScreenEvent.StartStopRecording
-                                )
-                            },
-                            onStartPlay = {
-                                useComponent.handle(
-                                    ChecklistScreenEvent.StartPausePlay
-                                )
-                            },
-                            onPausePlay = {
-                                useComponent.handle(
-                                    ChecklistScreenEvent.StartPausePlay
-                                )
-                            },
-                            onRemove = {
-                                useComponent.handle(ChecklistScreenEvent.RemoveVoice)
-                            },
-                            enabled = state.status.isOngoing()
-                        )
-                    }
-                    Box(
-                        modifier = Modifier.padding(
-                            top = 12.dp,
-                            start = 12.dp,
-                            end = 12.dp,
-                            bottom = 12.dp
-                        )
-                    ) {
-                        AttachedPhotos(modifier = Modifier.fillMaxWidth(),
-                            enabled = state.status.isOngoing(),
-                            pictures = currentCheckMedia.pictures.filter { !it.toRemove },
-                            onPhotoSelect = {
-                                useComponent.handle(
-                                    ChecklistScreenEvent.OnImage(it)
-                                )
-                            },
-                            onCamera = {
-                                useComponent.handle(
-                                    ChecklistScreenEvent.OpenCamera
-                                )
-                            })
-                    }
+                    Voice(
+                        modifier = Modifier.fillMaxWidth(),
+                        state = state.voiceState,
+                        onStartRecording = {
+                            useComponent.handle(
+                                ChecklistScreenEvent.StartStopRecording
+                            )
+                        },
+                        onStopRecording = {
+                            useComponent.handle(
+                                ChecklistScreenEvent.StartStopRecording
+                            )
+                        },
+                        onStartPlay = {
+                            useComponent.handle(
+                                ChecklistScreenEvent.StartPausePlay
+                            )
+                        },
+                        onPausePlay = {
+                            useComponent.handle(
+                                ChecklistScreenEvent.StartPausePlay
+                            )
+                        },
+                        onRemove = {
+                            useComponent.handle(ChecklistScreenEvent.RemoveVoice)
+                        },
+                        enabled = state.status.isOngoing()
+                    )
+                    AttachedPhotos(modifier = Modifier.fillMaxWidth(),
+                        enabled = state.status.isOngoing(),
+                        pictures = currentCheckMedia.pictures.filter { !it.toRemove },
+                        onPhotoSelect = {
+                            useComponent.handle(
+                                ChecklistScreenEvent.OnImage(it)
+                            )
+                        },
+                        onCamera = {
+                            useComponent.handle(
+                                ChecklistScreenEvent.OpenCamera
+                            )
+                        })
                 }
                 if (state.status.isOngoing()) {
                     Row(Modifier.padding(horizontal = 8.dp)) {

@@ -27,7 +27,7 @@ fun PulsingDot(modifier: Modifier = Modifier) {
         scale: Float
     ) = Spacer(
         modifier
-            .size(64.dp)
+            .size(48.dp)
             .scale(scale)
             .background(brush = IpbTheme.colors.primary.asBrush(), shape = CircleShape, alpha = 0.5f)
     )
@@ -36,7 +36,7 @@ fun PulsingDot(modifier: Modifier = Modifier) {
     fun animateScale() = infiniteTransition.animateFloat(
         label = "Pulsing dot animation",
         initialValue = 1f,
-        targetValue = 0.75f,
+        targetValue = 0.7f,
         animationSpec = infiniteRepeatable(animation = tween(), repeatMode = RepeatMode.Reverse)
     )
 
