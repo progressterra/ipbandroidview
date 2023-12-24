@@ -35,12 +35,12 @@ fun ChatScreen(
         )
     }, bottomBar = {
         Row(
-            modifier = modifier.padding(
+            modifier = Modifier.padding(
                 start = 20.dp, top = 8.dp, end = 20.dp, bottom = 20.dp
             )
         ) {
             TextField(
-                modifier = modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 state = state.input,
                 useComponent = useComponent,
                 hint = stringResource(R.string.message)

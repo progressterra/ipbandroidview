@@ -89,7 +89,7 @@ fun OverviewScreen(
                                     )
                                     BrushedText(
                                         text = it.address,
-                                        style = IpbTheme.typography.footnoteRegular,
+                                        style = IpbTheme.typography.body,
                                         tint = IpbTheme.colors.textTertiary.asBrush()
                                     )
                                     Stats(modifier = Modifier.width(200.dp), stats = it.stats)

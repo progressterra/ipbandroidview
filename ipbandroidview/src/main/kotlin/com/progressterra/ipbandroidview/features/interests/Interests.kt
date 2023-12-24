@@ -68,7 +68,7 @@ fun Interests(
             state.items.filter { it.selected || state.editMode }
         }
         FlowRow(
-            modifier = modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items.forEach {

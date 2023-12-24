@@ -38,7 +38,7 @@ fun SimpleVideo(
                     player = exoPlayer
                 }
             },
-            modifier = modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
