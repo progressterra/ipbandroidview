@@ -21,7 +21,7 @@ class OverviewNode(
         val viewModel = koinViewModel<OverviewScreenViewModel>()
         viewModel.collectEffects {
             when (it) {
-                is OverviewEffect.Archive -> navigation.onArchive(it.title, it.archived)
+                is OverviewEffect.OnChecklist -> navigation.onChecklist(it.data)
             }
         }
         val state = viewModel.state.collectAsState().value
